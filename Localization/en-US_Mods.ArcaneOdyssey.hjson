@@ -1,0 +1,28 @@
+# This file will automatically update with entries for new content after a build and reload.
+
+Items: {
+	SunkenSword: {
+		DisplayName: Sunken Sword
+		Tooltip:
+			'''
+			A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change.
+			It seems to constantly produce water.
+			[c/700013:Special Ability]: [c/327DFF:Rising Tide] - Ignores defence while dashing, right click to use your dash.
+			'''
+	}
+
+	ArcaniumScrap: {
+		DisplayName: Arcanium Scrap
+		Tooltip: 
+			'''
+			A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties.
+			'''
+	}
+}
+
+Buffs: {
+	RisenTide: {
+		Description: Rising Tide is on cooldown!
+		DisplayName: Risen Tide
+	}
+}

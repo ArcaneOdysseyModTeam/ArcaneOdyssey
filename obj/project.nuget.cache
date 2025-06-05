@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "uDv3TpxHVDkbgWrvPHGTPLtqB34qTgd7fTmdfCHr7e4Ifyj5vZl7o7b7dHWKI6lNseksSVWusDA04DdmFO1Nsw==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\Owner\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ArcaneOdyssey\\ArcaneOdyssey.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Unable to read project information for 'ArcaneOdyssey': Invalid framework identifier ''."
+    }
+  ]
+}

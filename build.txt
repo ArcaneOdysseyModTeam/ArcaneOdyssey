@@ -1,0 +1,3 @@
+displayName = Arcane Odyssey Mod
+author = Guard Boi
+version = 0.1
