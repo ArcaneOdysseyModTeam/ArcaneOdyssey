@@ -5,24 +5,48 @@ Items: {
 		DisplayName: Sunken Sword
 		Tooltip:
 			'''
-			A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change.
-			It seems to constantly produce water.
-			[c/700013:Special Ability]: [c/327DFF:Rising Tide] - Ignores defence while dashing, right click to use your dash.
+			A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+			It seems to constantly produce water
+			[c/700013:Special Ability]: [c/327DFF:Rising Tide] - Ignores defence and crits while dashing
 			'''
 	}
 
 	ArcaniumScrap: {
 		DisplayName: Arcanium Scrap
-		Tooltip: 
+		Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
+	}
+
+	SunkenStaff: {
+		DisplayName: Sunken Staff
+		Tooltip:
 			'''
-			A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties.
+			An ornate green and gold staff made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+			It seems to constantly produce water
+			[c/700013:Special Ability]: [c/327DFF:Fury of the Sea] - Shoots a projectile that pierces through enemies and walls
 			'''
+	}
+
+	Lightning: {
+		DisplayName: Lightning
+		Tooltip: ""
 	}
 }
 
 Buffs: {
 	RisenTide: {
-		Description: Rising Tide is on cooldown!
+		Description: Rising Tide is on cooldown
 		DisplayName: Risen Tide
 	}
+}
+
+Projectiles: {
+	FuryoftheSea.DisplayName: Fury of the Sea
+	SunkenStaffProjectile.DisplayName: Sunken Staff
+}
+
+ImbueStuff: {
+	ImbueChatMessage: Your melee weapons have been imbued with {0}
+	ImbueTooltip: Current Imbue: {0}
+	MultiplayerCannotDisplay: Cannot display in multiplayer
+	NoneText: None
 }

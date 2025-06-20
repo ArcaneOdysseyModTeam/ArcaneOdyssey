@@ -1,1 +1,6 @@
-This description will show up on the steam page, check out https://steamcommunity.com/comment/Guide/formattinghelp.
+Completely rewrites how debuffs work and interact with eachother, with the power of ??Magic??
+
+To use the mod, aquire a magic. You can do this with (WIP)
+(probabtly include potions or somthing)
+
+Based off the game "Arcane Odyssey" by vetexgames

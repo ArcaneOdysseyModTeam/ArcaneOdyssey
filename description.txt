@@ -1,1 +1,5 @@
-Modify this file with a description of your mod.
+Completely rewrites how debuffs work and interact with eachother, with the power of ??Magic??
+
+More info on workshop page
+
+Based off the game "Arcane Odyssey" by vetexgames
