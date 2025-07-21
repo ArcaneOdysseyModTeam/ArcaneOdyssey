@@ -16,7 +16,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override float AOImbueSpeed => .925f;
         public override float AOImbueSize => 1.15f;
         public override float AOImbueDamage => 1.05f;
-        public override AODebuff? MagicDebuff => new AODebuff(BuffID.Chilled, 60*10);
+        public override AODebuff? MagicDebuff => new(BuffID.Chilled, 60*10);
+        public override AODebuff? MagicDebuff2 => new(BuffID.Frozen, 60, 33);
         public override MagicEffects Effects => new MagicEffects(
             [ // these are debuffs cleared on hit
                 BuffID.Wet, // petrified

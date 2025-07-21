@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override float AOImbueSize => .95f;
         public override float AOImbueDamage => .95f;
         public override AODebuff? MagicDebuff => new AODebuff(BuffID.Dazed, 60, 33);
+        public override AODebuff? MagicDebuff2 => new(BuffID.Electrified, 60*5);
         public override MagicEffects Effects => new MagicEffects(
             [ // these are debuffs cleared on hit
                 BuffID.Stoned, // petrified

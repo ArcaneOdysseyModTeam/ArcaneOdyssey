@@ -67,12 +67,6 @@ namespace ArcaneOdyssey
             }
         }
 
-        public class AOComboBuff(int[] requirements, int result)
-        {
-            public int[] requirements = requirements;
-            public int result = result;
-        }
-
         /// <summary>
         /// Magic status effects
         /// </summary>
@@ -96,11 +90,18 @@ namespace ArcaneOdyssey
             }
         }
 
-        public class CombinedDebuff(int[] req1, int[] req2, int result)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="req1"></param>
+        /// <param name="req2"></param>
+        /// <param name="result"></param>
+        public class CombinedDebuff(int[] req1, int[] req2, int result, int duration = 60)
         {
             public int[] req1 = req1;
             public int[] req2 = req2;
             public int result = result;
+            public int duration = duration;
         }
 
         /// <summary>

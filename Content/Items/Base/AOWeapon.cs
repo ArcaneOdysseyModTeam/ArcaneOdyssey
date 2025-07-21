@@ -9,19 +9,26 @@ using static ArcaneOdyssey.AOConversion;
 using Terraria.ID;
 using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework.Graphics;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOWeapon : ModItem
 	{
-		public virtual float AOSpeed => 1f;
+       public static CombinedDebuff[] allCombos =
+       {
+            new([BuffID.Chilled], [ModContent.BuffType<SnowyEffect>(), BuffID.Wet], BuffID.Frozen),
+			new([BuffID.Electrified], [BuffID.Wet], BuffID.Dazed),
+       };
+
+        public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
 		public virtual int AOValue => 0;
 		public virtual int AORarity => AORarities.Common;
 		public virtual int AOWeaponTier => AOWeaponTiers.Old;
 		public virtual AOMagic? CurrentImbue => null;
-		public virtual AODebuff? WeaponDebuff => null;
+		public virtual AODebuff? WeaponDebuff => new(BuffID.Bleeding, 5 * 60);
 
 		public virtual void SetDefaultsWeapon() { }
 
@@ -45,8 +52,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;
 		public virtual int MagicTier => AOMagicTier.Normal;
-		public virtual AODebuff? MagicDebuff => new AODebuff(BuffID.Bleeding, 5*60); // defaults to bleed ofc
-		public virtual MagicEffects Effects => null;
+		public virtual AODebuff? MagicDebuff => null;
+        public virtual AODebuff? MagicDebuff2 => null; // used for having freezing and frozen on a single magic ect
+        public virtual MagicEffects Effects => null;
 		public virtual string? ColourCode => null;
 		
 		public virtual void SetDefaultsMagic() { }
