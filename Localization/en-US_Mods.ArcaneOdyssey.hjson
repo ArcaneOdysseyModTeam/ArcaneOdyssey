@@ -7,7 +7,7 @@ Items: {
 			'''
 			A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
 			It seems to constantly produce water
-			[c/700013:Special Ability]: [c/327DFF:Rising Tide] - Ignores defence and crits while dashing
+			[c/700013:Special Ability]: [c/327DFF:Tidal Drive] - Alt use launches the player upwards
 			'''
 	}
 
@@ -26,16 +26,26 @@ Items: {
 			'''
 	}
 
-	Lightning: {
-		DisplayName: Lightning
-		Tooltip: ""
+	LightningMagic: {
+		DisplayName: Lightning Magic
+		Tooltip: Allows the user to imbue swift bolts of destructive lightning
+	}
+
+	IceMagic: {
+		DisplayName: Ice Magic
+		Tooltip: Allows the user to imbue cold hard ice which can freeze and chill to the blood and bone
+	}
+
+	MagmaMagic: {
+		DisplayName: Magma
+		Tooltip: Allows the user to imbue eruptions of thick, molten rock that melts all in its path.
 	}
 }
 
 Buffs: {
 	RisenTide: {
-		Description: Rising Tide is on cooldown
-		DisplayName: Risen Tide
+		Description: Tidal Drive is on cooldown
+		DisplayName: Rising Tide
 	}
 }
 
@@ -49,4 +59,20 @@ ImbueStuff: {
 	ImbueTooltip: Current Imbue: {0}
 	MultiplayerCannotDisplay: Cannot display in multiplayer
 	NoneText: None
+	UnimbueText: Your imbue has been removed
+}
+
+Configs: {
+	ArcaneOdysseyConfig: {
+		DisplayName: Arcane Odyssey Config
+
+		AffectsOtherMods: {
+			Label: Affect other mods
+			Tooltip: 
+				'''
+				Allows imbues to affect items from other mods
+				WARNING: May result in issues!
+				'''
+		}
+	}
 }

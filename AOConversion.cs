@@ -67,6 +67,12 @@ namespace ArcaneOdyssey
             }
         }
 
+        public class AOComboBuff(int[] requirements, int result)
+        {
+            public int[] requirements = requirements;
+            public int result = result;
+        }
+
         /// <summary>
         /// Magic status effects
         /// </summary>
@@ -76,6 +82,25 @@ namespace ArcaneOdyssey
         {
             public int[] clearBuffs = buffsToClear;
             public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;
+            
+            public float MultiFromID(int id)
+            {
+                foreach (MagicBuffMultiplier multiplier in magicBuffMultipliers)
+                {
+                    if (multiplier.buffID == id)
+                    {
+                        return multiplier.multiplier;
+                    }
+                }
+                return 1f;
+            }
+        }
+
+        public class CombinedDebuff(int[] req1, int[] req2, int result)
+        {
+            public int[] req1 = req1;
+            public int[] req2 = req2;
+            public int result = result;
         }
 
         /// <summary>
@@ -117,8 +142,8 @@ namespace ArcaneOdyssey
         public static float FlipFloat(float input)
         {
             if (input >= 2)
-                return .1f;
-            return 1f - (input - 1f);
+                return .01f;
+            return 2f - input;
         }
     }
 

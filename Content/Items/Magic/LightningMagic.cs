@@ -11,25 +11,25 @@ using static ArcaneOdyssey.AOConversion;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
-    public class Lightning : AOMagic
+    public class LightningMagic : AOMagic
     {
         public override float AOImbueSpeed => 1.2f;
         public override float AOImbueSize => .95f;
         public override float AOImbueDamage => .95f;
         public override AODebuff? MagicDebuff => new AODebuff(BuffID.Dazed, 60, 33);
         public override MagicEffects Effects => new MagicEffects(
-            [
-                BuffID.Stoned, 
-                BuffID.Bleeding, 
+            [ // these are debuffs cleared on hit
+                BuffID.Stoned, // petrified
+                BuffID.Bleeding,
                 BuffID.Frozen
             ], 
             [
-                new MagicBuffMultiplier(BuffID.Frozen, 1.2f),
-                new MagicBuffMultiplier(BuffID.Bleeding, 1.2f),
-                new MagicBuffMultiplier(BuffID.Burning, 1.15f),
-                new MagicBuffMultiplier(BuffID.OnFire3, 1.075f),
-                new MagicBuffMultiplier(BuffID.Venom, 1.075f),
-                new MagicBuffMultiplier(BuffID.Wet, 1.05f)
+                new MagicBuffMultiplier(BuffID.Frozen, 1.2f), // yes, frozen
+                new MagicBuffMultiplier(BuffID.Bleeding, 1.2f), // bleeding
+                new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
+                new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
+                new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid
+                new MagicBuffMultiplier(BuffID.Wet, 1.05f) // (add stunning later!)
             ]
             );
     }

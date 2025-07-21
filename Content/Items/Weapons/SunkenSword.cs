@@ -3,8 +3,10 @@ using ArcaneOdyssey.Content.Items.Base;
 using Steamworks;
 using System.Linq.Expressions;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOConversion;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
@@ -20,6 +22,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
         public override AODebuff WeaponDebuff => new AODebuff(BuffID.Wet, 60 * 5);
 
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
+        }
+
         public override void SetDefaultsWeapon()
         {
             Item.width = Item.height = 42;
@@ -27,13 +34,20 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.UseSound = SoundID.SplashWeak;
         }
 
-        public override void ModifyHitNPC2(Player player, NPC target, ref NPC.HitModifiers modifiers)
+        public override bool AltFunctionUse(Player player)
         {
-            if (player.dashType != DashID.None && !player.HasBuff<RisenTide>())
+            return !player.HasBuff<RisenTide>();
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2 && !player.HasBuff<RisenTide>())
             {
-                modifiers.ScalingArmorPenetration = AddableFloat.Zero + 1f;
-                modifiers.SetCrit();
+                player.AddBuff(ModContent.BuffType<RisenTide>(), (int)(60 * (CurrentImbue is not null ? CurrentImbue.AOImbueSpeed : 1) * AOSpeed * 5));
+                SoundEngine.PlaySound(SoundID.Splash, player.position);
+                player.velocity.Y -= 20;
             }
+            return null;
         }
 
         public override void AddRecipes()

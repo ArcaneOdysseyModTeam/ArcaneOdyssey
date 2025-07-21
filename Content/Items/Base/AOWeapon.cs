@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual void SetDefaultsWeapon() { }
 
-        public override void SetDefaults()
+		public override void SetDefaults()
 		{
 			Item.useTime = 27;
 			Item.knockBack = 4.5f;
@@ -37,23 +37,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.DamageType = DamageClass.Melee;
 			SetDefaultsWeapon();
 		}
-
-		public virtual void ModifyHitNPC2(Player player, NPC target, ref NPC.HitModifiers modifiers) {}
-
-		public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
-		{
-			AOPlayer playah = player.GetModPlayer<AOPlayer>();
-			if (WeaponDebuff.DebuffPercent is null || modifiers.GetDamage(Item.damage, true) > (target.lifeMax/WeaponDebuff.DebuffPercent)) 
-			{
-				target.AddBuff(WeaponDebuff.debuffID, WeaponDebuff.debuffDuration);
-				if (playah.imbue is not null)
-				{
-					playah.imbue.ApplyDebuffsandStuff(target, modifiers.GetDamage(Item.damage, true), this);
-				}
-			}
-			ModifyHitNPC2(player, target, ref modifiers);
-		}
-    }
+	}
 
 	public abstract class AOMagic : ModItem
 	{
@@ -61,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;
 		public virtual int MagicTier => AOMagicTier.Normal;
-		public virtual AODebuff? MagicDebuff => null;
+		public virtual AODebuff? MagicDebuff => new AODebuff(BuffID.Bleeding, 5*60); // defaults to bleed ofc
 		public virtual MagicEffects Effects => null;
 		public virtual string? ColourCode => null;
 		
@@ -69,36 +53,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = ItemUseStyleID.DrinkOld;
+			Item.useTime = 1;
+			Item.useAnimation = 1;
+			Item.noUseGraphic = true;
 			SetDefaultsMagic();
 		}
 
+		public override bool AltFunctionUse(Player player) => true;
+
 		public override bool CanReforge() => false;
-
-		public void ClearBuffs(NPC npc)
-		{
-			if (Main.netMode == NetmodeID.SinglePlayer || Main.netMode == NetmodeID.Server) 
-			{
-				if (Effects is not null)
-				{
-					foreach (int effect in Effects.clearBuffs)
-					{
-						if (npc.HasBuff(effect))
-						{
-							npc.DelBuff(npc.FindBuffIndex(effect));
-						}
-					}
-				}
-            }
-		}
-
-		public virtual void ApplyDebuffsandStuff(NPC npc, int damagedone, AOWeapon weapon)
-		{
-			if (MagicDebuff.DebuffPercent is null || damagedone > (npc.lifeMax * MagicDebuff.DebuffPercent))
-			{
-				npc.AddBuff(MagicDebuff.debuffID, MagicDebuff.debuffDuration);
-			}
-			ClearBuffs(npc);
-		}
 	}
 }

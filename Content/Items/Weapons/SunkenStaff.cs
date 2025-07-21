@@ -29,8 +29,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         {
             Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
             Item.width = Item.height = 40;
+            Item.channel = true;
             Item.UseSound = SoundID.SplashWeak;
             Item.shootSpeed = 12f;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
         }
 
         public override void AddRecipes()

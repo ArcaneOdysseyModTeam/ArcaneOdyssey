@@ -14,7 +14,6 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using static ArcaneOdyssey.AOConversion;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -22,12 +21,43 @@ namespace ArcaneOdyssey
 	public class VanillaSynergy : GlobalItem
 	{
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			AOPlayer playah = player.GetModPlayer<AOPlayer>();
+			if (item.ModItem is AOWeapon weap)
 			{
+				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
+				{
+					target.AddBuff(weap.WeaponDebuff.debuffID, weap.WeaponDebuff.debuffDuration);
+				}
+			}
 
+			// add combining debuffs like frozen right here later
+
+			if (playah.imbue is not null)
+			{
+				if (playah.imbue.MagicDebuff is not null && (playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
+				{
+					target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
+				}
+
+				foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
+				{
+					if (target.HasBuff(multiplier.buffID))
+					{
+						modifiers.FinalDamage *= multiplier.multiplier;
+					}
+				}
+
+				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+				{
+					foreach (int buffid in playah.imbue.Effects.clearBuffs)
+					{
+						if (target.HasBuff(buffid))
+							target.DelBuff(target.FindBuffIndex(buffid));
+					}
+				}
 			}
 		}
 
@@ -37,11 +67,9 @@ namespace ArcaneOdyssey
 				playerForImbue = player.GetModPlayer<AOPlayer>();
 		}
 
-		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
-		{
-			playerForImbue = null;
-		}
-
+		/// <summary>
+		/// used in singleplayer exclusively to display current imbue
+		/// </summary>
 		public static AOPlayer? playerForImbue = null;
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -54,35 +82,51 @@ namespace ArcaneOdyssey
 				if (playerForImbue is not null)
 					if (playerForImbue.imbue is not null)
 						imbuetextthing = playerForImbue.imbue.Item.Name;
-				tooltips.Add(new TooltipLine(item.ModItem.Mod, "ImbueText", Mod.GetLocalization("ImbueStuff.ImbueTooltip").Format([imbuetextthing])));
+				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.GetLocalization("ImbueStuff.ImbueTooltip").Format([imbuetextthing])));
 			}
 		}
 
 		public override bool? UseItem(Item item, Player player)
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (item.ModItem is not null && item.ModItem is AOMagic magic)
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			if (item.ModItem is AOMagic magic && player.altFunctionUse == 2)
 			{
-				player.GetModPlayer<AOPlayer>().imbue = magic;
-				LocalizedText chatmessage = Mod.GetLocalization("ImbueStuff.ImbueChatMessage").WithFormatArgs([item.Name]);
-				if (Main.netMode == NetmodeID.SinglePlayer)
+				if (magic != player.GetModPlayer<AOPlayer>().imbue)
 				{
-					Main.NewText(chatmessage.Value, 13, 132, 168);
+					player.GetModPlayer<AOPlayer>().imbue = magic;
+					LocalizedText chatmessage = Mod.GetLocalization("ImbueStuff.ImbueChatMessage").WithFormatArgs([item.Name]);
+					if (Main.netMode == NetmodeID.SinglePlayer)
+					{
+						Main.NewText(chatmessage.Value, 13, 132, 168);
+					}
+					else if (Main.netMode == NetmodeID.Server)
+					{
+						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Array.IndexOf(Main.player, player));
+					}
 				}
-				else if (Main.netMode == NetmodeID.Server) 
+				else 
 				{
-					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Array.IndexOf(Main.player, player));
+					player.GetModPlayer<AOPlayer>().imbue = null;
+					LocalizedText chatmessage = Mod.GetLocalization("ImbueStuff.UnimbueText");
+					if (Main.netMode == NetmodeID.SinglePlayer)
+					{
+						Main.NewText(chatmessage.Value, 13, 132, 168);
+					}
+					else if (Main.netMode == NetmodeID.Server)
+					{
+						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Array.IndexOf(Main.player, player));
+					}
 				}
 			}
 			return base.UseItem(item, player);
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -91,79 +135,70 @@ namespace ArcaneOdyssey
 				else if (item.ModItem is null) // do not touch items from other mods
 				{
 					scale *= player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
-                }
+				}
 			}
 		}
 
-        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
-            {
-                if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-                {
-                    knockback *= aoWeapon.AOSize * player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
-                }
-                else if (item.ModItem is null) // do not touch items from other mods
-                {
-                    knockback *= player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
-                }
-            }
-        }
-        public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
-            {
-                if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-                {
-                    damage *= aoWeapon.AODamage * player.GetModPlayer<AOPlayer>().imbue.AOImbueDamage;
-                }
-                else if (item.ModItem is null) // do not touch items from other mods
-                {
-                    damage *= player.GetModPlayer<AOPlayer>().imbue.AOImbueDamage;
-                }
-            }
-        }
+		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+			{
+				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
+				{
+					knockback *= aoWeapon.AOSize * player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
+				}
+				else if (item.ModItem is null) // do not touch items from other mods
+				{
+					knockback *= player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
+				}
+			}
+		}
+		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+			{
+				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
+				{
+					damage *= aoWeapon.AODamage * player.GetModPlayer<AOPlayer>().imbue.AOImbueDamage;
+				}
+				else if (item.ModItem is null) // do not touch items from other mods
+				{
+					damage *= player.GetModPlayer<AOPlayer>().imbue.AOImbueDamage;
+				}
+			}
+		}
 
-        public override float UseTimeMultiplier(Item item, Player player)
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
-            {
-                if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-                {
-                    return FlipFloat(aoWeapon.AOSpeed * player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
-                }
-                else if (item.ModItem is null) // do not touch items from other mods
-                {
-                    return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
-                }
-            }
-            return 1f;
-        }
+		public override float UseTimeMultiplier(Item item, Player player)
+		{
+			return UseTimeMultiplier(item, player);
+		}
 
-        public override float UseAnimationMultiplier(Item item, Player player)
-        {
-            if (Main.netMode == NetmodeID.SinglePlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
-            {
-                if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-                {
-                    return FlipFloat(aoWeapon.AOSpeed * player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
-                }
-                else if (item.ModItem is null) // do not touch items from other mods
-                {
-                    return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
-                }
-            }
-            return 1f;
-        }
-    }
+		public override float UseAnimationMultiplier(Item item, Player player)
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+			{
+				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
+				{
+					return FlipFloat(aoWeapon.AOSpeed * player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
+				}
+				else if (item.ModItem is not null && ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				{
+					
+				}
+				else if (item.ModItem is null) // do not touch items from other mods
+				{
+					return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
+				}
+			}
+			return 1f;
+		}
+	}
 
 	public class AOPlayer : ModPlayer
 	{

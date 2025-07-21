@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class SunkenStaffProjectile : Base.BaseSpearProjectile
     {
-        public const float AOSpeed = .9f;
-        public const float AOSize = 1.25f;
-        public const float AODamage = 1f;
+        public new const float AOSpeed = .9f;
+        public new const float AOSize = 1.25f;
+        public new const float AODamage = 1f;
         public const int AOWeaponTier = AOWeaponTiers.Excellent;
-
-        public override float Speed => Speed * AOSpeed;
 
         public override void SetDefaults()
         {
@@ -26,8 +25,6 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.damage = (int)WeaponDamage(AOWeaponTier);
             Projectile.knockBack = 4.5f;
-            Projectile.scale = AOSize;
-            Projectile.timeLeft = 90;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = false;
