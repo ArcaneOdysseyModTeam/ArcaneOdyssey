@@ -46,6 +46,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                 player.AddBuff(ModContent.BuffType<RisenTide>(), (int)(60 * (CurrentImbue is not null ? CurrentImbue.AOImbueSpeed : 1) * AOSpeed * 5));
                 SoundEngine.PlaySound(SoundID.Splash, player.position);
                 player.velocity.Y -= 20;
+                // Adds dust
+                Dust.NewDust(player.position,3,3,DustID.DungeonWater,0f,-10f,255,null,1f);
             }
             return null;
         }
