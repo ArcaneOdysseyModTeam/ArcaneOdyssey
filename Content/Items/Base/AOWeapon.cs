@@ -15,12 +15,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOWeapon : ModItem
 	{
-       public static CombinedDebuff[] allCombos =
-       {
-            new([BuffID.Chilled], [ModContent.BuffType<SnowyEffect>(), BuffID.Wet], BuffID.Frozen),
-			new([BuffID.Electrified], [BuffID.Wet], BuffID.Dazed),
-       };
-
         public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
@@ -54,8 +48,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual int MagicTier => AOMagicTier.Normal;
 		public virtual AODebuff? MagicDebuff => null;
         public virtual AODebuff? MagicDebuff2 => null; // used for having freezing and frozen on a single magic ect
-        public virtual MagicEffects Effects => null;
+        public virtual MagicEffects? Effects => null;
 		public virtual string? ColourCode => null;
+		public virtual CombinedDebuff[]? combinedDebuffs => null;
 		
 		public virtual void SetDefaultsMagic() { }
 
@@ -67,8 +62,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.noUseGraphic = true;
 			SetDefaultsMagic();
 		}
-
-		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool CanReforge() => false;
 	}

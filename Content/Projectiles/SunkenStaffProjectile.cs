@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,7 +13,7 @@ using static ArcaneOdyssey.AOConversion;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public class SunkenStaffProjectile : Base.BaseSpearProjectile
+	public class SunkenStaffProjectile : BaseSpearProjectile
     {
         public new const float AOSpeed = .9f;
         public new const float AOSize = 1.25f;

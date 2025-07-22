@@ -93,13 +93,12 @@ namespace ArcaneOdyssey
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="req1"></param>
-        /// <param name="req2"></param>
+        /// <param name="requirement"></param>
         /// <param name="result"></param>
-        public class CombinedDebuff(int[] req1, int[] req2, int result, int duration = 60)
+        /// <param name="duration"></param>
+        public class CombinedDebuff(int requirement, int result, int duration = 60)
         {
-            public int[] req1 = req1;
-            public int[] req2 = req2;
+            public int requirement = requirement;
             public int result = result;
             public int duration = duration;
         }

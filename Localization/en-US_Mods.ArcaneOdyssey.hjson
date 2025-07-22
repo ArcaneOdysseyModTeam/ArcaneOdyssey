@@ -47,6 +47,16 @@ Buffs: {
 		Description: Tidal Drive is on cooldown
 		DisplayName: Rising Tide
 	}
+
+	FreezingEffect: {
+		DisplayName: Freezing Effect
+		Description: Mods.ArcaneOdyssey.Buffs.FreezingEffect.Description
+	}
+
+	SnowyEffect: {
+		DisplayName: Snowy Effect
+		Description: Mods.ArcaneOdyssey.Buffs.SnowyEffect.Description
+	}
 }
 
 Projectiles: {
@@ -68,7 +78,7 @@ Configs: {
 
 		AffectsOtherMods: {
 			Label: Affect other mods
-			Tooltip: 
+			Tooltip:
 				'''
 				Allows imbues to affect items from other mods
 				WARNING: May result in issues!

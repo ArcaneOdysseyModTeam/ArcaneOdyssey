@@ -14,6 +14,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using static ArcaneOdyssey.AOConversion;
+using System.Text.Json.Serialization;
 
 namespace ArcaneOdyssey
 {
@@ -43,12 +44,18 @@ namespace ArcaneOdyssey
 				{
 					target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
 				}
-			}
 
-            // add combining debuffs like frozen right here later
+				if (playah.imbue.combinedDebuffs is not null)
+				{
+					foreach (CombinedDebuff buffkeys in playah.imbue.combinedDebuffs)
+					{
+						if (target.HasBuff(buffkeys.requirement))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+					}
+				}
 
-            if (playah.imbue is not null)
-			{
                 foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
 				{
 					if (target.HasBuff(multiplier.buffID))
@@ -97,7 +104,7 @@ namespace ArcaneOdyssey
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-			if (item.ModItem is AOMagic magic && player.altFunctionUse == 2)
+			if (item.ModItem is AOMagic magic)
 			{
 				if (magic != player.GetModPlayer<AOPlayer>().imbue)
 				{
@@ -139,7 +146,7 @@ namespace ArcaneOdyssey
 				{
 					scale *= aoWeapon.AOSize * player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
 				}
-				else if (item.ModItem is null) // do not touch items from other mods
+				else if (item.ModItem is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					scale *= player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
 				}
@@ -181,7 +188,7 @@ namespace ArcaneOdyssey
 
 		public override float UseTimeMultiplier(Item item, Player player)
 		{
-			return UseTimeMultiplier(item, player);
+			return UseAnimationMultiplier(item, player);
 		}
 
 		public override float UseAnimationMultiplier(Item item, Player player)

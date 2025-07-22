@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
     /// <summary>
     /// Projectile created by the player, usually via weapon
     /// </summary>
-    public class AOPlayerProjectile : ModProjectile
+    public abstract class AOPlayerProjectile : ModProjectile
     {
         public Item? originalItem = null;
         public AOPlayer? aoPlayerOwner = null;
