@@ -69,7 +69,10 @@ namespace ArcaneOdyssey
 					foreach (int buffid in playah.imbue.Effects.clearBuffs)
 					{
 						if (target.HasBuff(buffid))
+						{
 							target.DelBuff(target.FindBuffIndex(buffid));
+						}
+
 					}
 				}
 			}
