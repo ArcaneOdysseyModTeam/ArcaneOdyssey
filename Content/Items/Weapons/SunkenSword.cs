@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                 SoundEngine.PlaySound(SoundID.Splash, player.position);
                 player.velocity.Y -= 20;
                 // Adds dust
-                Dust.NewDust(player.position,3,3,DustID.DungeonWater,0f,-10f,255,null,1f);
+                Dust.NewDust(player.position,3,3,DustID.DungeonWater,0f,-10f,255,new Color(null),1f);
             }
             return null;
         }
