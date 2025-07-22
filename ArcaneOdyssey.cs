@@ -42,10 +42,12 @@ namespace ArcaneOdyssey
 					target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
 				}
     				}
-				if ((playah.imbue.MagicDebuff2 is not null &&(!(playah.imbue.MagicDebuff.DebuffPercent == 0f))) && (playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent)))
-				{
+				if ((playah.imbue.MagicDebuff2 is not null)&&(!(playah.imbue.MagicDebuff2.DebuffPercent == 0f))) {
+    				if ((playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent)))
+    				{
 					target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
 				}
+    				}
 
 				if (playah.imbue.combinedDebuffs is not null)
 				{
