@@ -36,7 +36,7 @@ namespace ArcaneOdyssey
 
 			if (playah.imbue is not null)
 			{
-				if (playah.imbue.MagicDebuff is not null) {
+				if ((playah.imbue.MagicDebuff is not null)&&(!(playah.imbue.MagicDebuff.DebuffPercent == 0f))) {
     				if ((playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
     				{
 					target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
