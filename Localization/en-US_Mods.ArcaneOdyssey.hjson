@@ -37,7 +37,7 @@ Items: {
 	}
 
 	MagmaMagic: {
-		DisplayName: Magma
+		DisplayName: Magma Magic
 		Tooltip: Allows the user to imbue eruptions of thick, molten rock that melts all in its path.
 	}
 }
@@ -49,13 +49,13 @@ Buffs: {
 	}
 
 	FreezingEffect: {
-		DisplayName: Freezing Effect
-		Description: Mods.ArcaneOdyssey.Buffs.FreezingEffect.Description
+		DisplayName: Freezing
+		Description: Your fingers are turning pale
 	}
 
 	SnowyEffect: {
-		DisplayName: Snowy Effect
-		Description: Mods.ArcaneOdyssey.Buffs.SnowyEffect.Description
+		DisplayName: Snowy
+		Description: Feels chilly
 	}
 }
 

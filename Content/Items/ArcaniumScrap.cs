@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items
         {
             Item.width = 32;
             Item.height = 32;
+            Item.maxStack = 9999;
             Item.rare = AORarity;
             Item.value = GalleonToCopper(AOValue, Item.rare);
         }
