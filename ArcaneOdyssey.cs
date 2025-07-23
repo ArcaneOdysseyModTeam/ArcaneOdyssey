@@ -17,6 +17,7 @@ using static ArcaneOdyssey.AOConversion;
 using System.Text.Json.Serialization;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria.DataStructures;
+using ArcaneOdyssey.Content.Items.Magic;
 
 namespace ArcaneOdyssey
 {
@@ -168,13 +169,18 @@ namespace ArcaneOdyssey
 				playerForImbue = player.GetModPlayer<AOPlayer>();
 			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
 			{
+				float extrakbmulti = 1f;
+				if (item.ModItem is WindMagic)
+				{
+					extrakbmulti = 2f;
+				}
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
-					knockback *= aoWeapon.AOSize * player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
+					knockback *= aoWeapon.AOSize * player.GetModPlayer<AOPlayer>().imbue.AOImbueSize * extrakbmulti;
 				}
 				else if (item.ModItem is null) // do not touch items from other mods
 				{
-					knockback *= player.GetModPlayer<AOPlayer>().imbue.AOImbueSize;
+					knockback *= player.GetModPlayer<AOPlayer>().imbue.AOImbueSize * extrakbmulti;
 				}
 			}
 		}
