@@ -15,7 +15,10 @@ Items: {
 		DisplayName: Arcanium Scrap
 		Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
 	}
-
+	HecateOrb: {
+		DisplayName: Hecate Orb
+		Tooltip: An orb of ancient power, which can be focused upon to obtain magic.
+	}
 	SunkenStaff: {
 		DisplayName: Sunken Staff
 		Tooltip:
