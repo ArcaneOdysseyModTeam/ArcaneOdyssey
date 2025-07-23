@@ -16,6 +16,7 @@ using Terraria.UI.Chat;
 using static ArcaneOdyssey.AOConversion;
 using System.Text.Json.Serialization;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey
 {
@@ -274,6 +275,8 @@ namespace ArcaneOdyssey
 								}
 							}
 
+							modifiers.FinalDamage *= playah.imbue.AOImbueDamage;
+
 							if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 							{
 								foreach (int buffid in playah.imbue.Effects.clearBuffs)
@@ -290,5 +293,29 @@ namespace ArcaneOdyssey
 				}
 			}
         }
+
+        public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
+        {
+			if (projectile.ModProjectile is null && projectile.owner != 255)
+			{
+				AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+				if (imbue is not null)
+				{
+					hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
+                    hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
+					projectile.scale = imbue.AOImbueSize;
+                }
+			}
+        }
+
+		public override void OnSpawn(Projectile projectile, IEntitySource source)
+		{
+			if (projectile.ModProjectile is null && projectile.owner != 255)
+			{
+				AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+				if (imbue is not null)
+				projectile.velocity *= imbue.AOImbueSpeed;
+			}
+		}
 	}
 }

@@ -44,8 +44,8 @@ Items: {
 
 Buffs: {
 	RisenTide: {
-		Description: Tidal Drive is on cooldown
-		DisplayName: Rising Tide
+		Description: Rising Tide is on cooldown
+		DisplayName: Drained Sea
 	}
 
 	FreezingEffect: {
@@ -71,6 +71,8 @@ ImbueStuff: {
 	NoneText: None
 	UnimbueText: Your magic has been deselected
 }
+
+PopupText.RisingTide: Rising Tide!
 
 Configs: {
 	ArcaneOdysseyConfig: {
