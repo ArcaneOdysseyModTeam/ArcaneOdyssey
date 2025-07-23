@@ -48,8 +48,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                 player.velocity.Y -= 20;
                 // Adds dust
                 for(int dustCountInt = 0;dustCountInt<10;dustCountInt++){
-                    Dust.NewDust(player.position+new Vector2(-20f+(System.Mathf.sin((float)dustCountInt)),0f),3,3,DustID.DungeonWater,0f,-3f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
-                    Dust.NewDust(player.position+new Vector2(20f+(System.Mathf.sin((float)dustCountInt+3.14f)),0f),3,3,DustID.DungeonWater,0f,-3f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
+                    Dust.NewDust(player.position+new Vector2(-20f+(System.Math.Sin((float)dustCountInt)),0f),3,3,DustID.DungeonWater,0f,-3f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
+                    Dust.NewDust(player.position+new Vector2(20f+(System.Math.Sin((float)dustCountInt+3.14f)),0f),3,3,DustID.DungeonWater,0f,-3f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
                 }
             }
             return null;
