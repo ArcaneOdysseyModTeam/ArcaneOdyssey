@@ -3,12 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls
+namespace ArcaneOdyssey.Content.Items.Base
 {
-    public class DefaultScroll : ModItem
+    public abstract class DefaultScroll : ModItem
     {
         public int AOValue = 500;
         public int AORarity = AORarities.Rare;
+        public virtual void SetDefaultsScroll() { }
         public override void SetDefaults()
         {
             Item.width = 32;
@@ -16,6 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
             Item.rare = AORarity;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = GalleonToCopper(AOValue, Item.rare);
+            SetDefaultsScroll();
         }
     }
 }

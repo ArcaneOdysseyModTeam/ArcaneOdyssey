@@ -18,7 +18,6 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Items.Magic;
-using ArcaneOdyssey.Content.Items.Scrolls;
 
 namespace ArcaneOdyssey
 {
@@ -233,6 +232,7 @@ namespace ArcaneOdyssey
 	public class AOPlayer : ModPlayer
 	{
 		public AOMagic? imbue = null;
+		public bool RightClicking => Player.altFunctionUse == 2;
 	}
 
 	public class ProjectileImbuer : GlobalProjectile

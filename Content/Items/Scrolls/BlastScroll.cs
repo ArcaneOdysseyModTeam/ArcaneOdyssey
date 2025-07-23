@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,7 +8,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 {
     public class BlastScroll : DefaultScroll
     {
-        public override void SetDefaults()
+        public override void SetDefaultsScroll()
         {
             Item.useTime = 15;
             Item.useAnimation = 60;

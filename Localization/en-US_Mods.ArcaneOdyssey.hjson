@@ -82,6 +82,7 @@ Buffs: {
 Projectiles: {
 	FuryoftheSea.DisplayName: Fury of the Sea
 	SunkenStaffProjectile.DisplayName: Sunken Staff
+	BlastSpell.DisplayName: Blast Spell
 }
 
 ImbueStuff: {
