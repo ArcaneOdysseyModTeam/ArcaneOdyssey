@@ -47,9 +47,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                 SoundEngine.PlaySound(SoundID.Splash, player.position);
                 player.velocity.Y -= 20;
                 // Adds dust
-                for(int dustCountInt = 0;dustCountInt<10;dustCountInt++){
-                    Dust.NewDust(player.position+new Vector2(-20f+(10f*(float)(System.Math.Sin((double)dustCountInt/10.0))),0f),3,3,DustID.DungeonWater,0f,-3f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
-                    Dust.NewDust(player.position+new Vector2(20f+(10f*(float)(System.Math.Sin(((double)dustCountInt/10.0)+(3.14)))),0f),3,3,DustID.DungeonWater,0f,-3f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
+                for(int dustCountInt = 0;dustCountInt<50;dustCountInt++){
+                    Dust.NewDust(player.position+new Vector2(-20f+(40f*(float)(System.Math.Sin((double)dustCountInt*3.0))),0f),3,3,DustID.DungeonWater,0f,-0.4f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
+                    Dust.NewDust(player.position+new Vector2(20f+(40f*(float)(System.Math.Sin(((double)dustCountInt*3.0)+(3.14)))),0f),3,3,DustID.DungeonWater,0f,-0.4f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
                 }
             }
             return null;
