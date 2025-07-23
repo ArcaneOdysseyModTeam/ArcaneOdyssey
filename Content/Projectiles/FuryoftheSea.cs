@@ -14,6 +14,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public new const float AOSpeed = .9f;
 		public new const float AOSize = 1.25f;
 		public new const float AODamage = 1f;
+		public override AODebuff? Debuff => new(BuffID.Wet, 600);
+        public override SoundStyle? DebuffApplySound => SoundID.Splash;
 		public const int AOWeaponTier = AOWeaponTiers.Excellent;
 		
 
@@ -55,14 +57,5 @@ namespace ArcaneOdyssey.Content.Projectiles
 			hitbox.Height = (int)(hitbox.Height * Projectile.ai[0]);
 			hitbox.Width = (int)(hitbox.Width * Projectile.ai[0]);
         }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			if (!target.HasBuff(BuffID.Wet))
-			{
-				target.AddBuff(BuffID.Wet, 60 * 5);
-				SoundEngine.PlaySound(SoundID.Splash, Projectile.position);
-			}
-		}
 	}
 }

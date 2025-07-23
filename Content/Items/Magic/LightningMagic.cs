@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
                 BuffID.Frozen
             ], 
             [
-                new MagicBuffMultiplier(BuffID.Frozen, 1.2f), // yes, frozen
+                new MagicBuffMultiplier(BuffID.Chilled, 1.2f), // frozen
                 new MagicBuffMultiplier(BuffID.Bleeding, 1.2f), // bleeding
                 new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
                 new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire

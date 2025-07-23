@@ -19,6 +19,8 @@ namespace ArcaneOdyssey.Content.Projectiles
         public new const float AOSize = 1.25f;
         public new const float AODamage = 1f;
         public const int AOWeaponTier = AOWeaponTiers.Excellent;
+        public override AODebuff? Debuff => new(BuffID.Wet, 600);
+        public override SoundStyle? DebuffApplySound => SoundID.Splash;
 
         public override void SetDefaults()
         {
@@ -39,11 +41,6 @@ namespace ArcaneOdyssey.Content.Projectiles
         public override void EffectBeforeReelBack()
         {
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.TopRight, Projectile.velocity * 2f, ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner);
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(BuffID.Wet, 60 * 5);
         }
     }
 }

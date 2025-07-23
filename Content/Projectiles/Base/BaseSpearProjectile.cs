@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
+			aoPlayerOwner ??= player.GetModPlayer<AOPlayer>();
 			originalItem = player.HeldItem;
 			player.ChangeDir(Projectile.direction);
 			player.heldProj = Projectile.whoAmI;

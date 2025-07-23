@@ -84,6 +84,11 @@ Configs: {
 				WARNING: May result in issues!
 				'''
 		}
+
+		IgnoredProjectiles: {
+			Label: Ignored Projectiles
+			Tooltip: Insert projectile names here to blacklist them, might not work
+		}
 	}
 }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using Terraria;
 using Terraria.ModLoader.Config;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey
 {
@@ -10,6 +12,8 @@ namespace ArcaneOdyssey
 
         [DefaultValue(false)]
         public bool AffectsOtherMods { get; set; }
+
+        public List<string> IgnoredProjectiles { get; set; }
 
 
         public static ArcaneOdysseyConfig Instance;

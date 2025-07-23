@@ -15,6 +15,7 @@ using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using static ArcaneOdyssey.AOConversion;
 using System.Text.Json.Serialization;
+using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey
 {
@@ -28,7 +29,7 @@ namespace ArcaneOdyssey
 			AOPlayer playah = player.GetModPlayer<AOPlayer>();
 			if (item.ModItem is AOWeapon weap)
 			{
-				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
+				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null or 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
 				{
 					target.AddBuff(weap.WeaponDebuff.debuffID, weap.WeaponDebuff.debuffDuration);
 				}
@@ -224,5 +225,70 @@ namespace ArcaneOdyssey
 	public class AOPlayer : ModPlayer
 	{
 		public AOMagic? imbue = null;
+	}
+
+	public class ProjectileImbuer : GlobalProjectile
+	{
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        {
+			if (projectile.owner != 255)
+			{
+				AOPlayer playah = Main.player[projectile.owner].GetModPlayer<AOPlayer>();
+				if (!ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
+				{
+					if (projectile.ModProjectile is null or AOPlayerProjectile)
+					{
+						if (playah.imbue is not null)
+						{
+							if ((playah.imbue.MagicDebuff is not null) && (!(playah.imbue.MagicDebuff.DebuffPercent == 0f)))
+							{
+								if ((playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
+								{
+									target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
+								}
+							}
+							if ((playah.imbue.MagicDebuff2 is not null) && (!(playah.imbue.MagicDebuff2.DebuffPercent == 0f)))
+							{
+								if ((playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent)))
+								{
+									target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
+								}
+							}
+
+							if (playah.imbue.combinedDebuffs is not null)
+							{
+								foreach (CombinedDebuff buffkeys in playah.imbue.combinedDebuffs)
+								{
+									if (target.HasBuff(buffkeys.requirement))
+									{
+										target.AddBuff(buffkeys.result, buffkeys.duration);
+									}
+								}
+							}
+
+							foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
+							{
+								if (target.HasBuff(multiplier.buffID))
+								{
+									modifiers.FinalDamage *= multiplier.multiplier;
+								}
+							}
+
+							if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+							{
+								foreach (int buffid in playah.imbue.Effects.clearBuffs)
+								{
+									if (target.HasBuff(buffid))
+									{
+										target.DelBuff(target.FindBuffIndex(buffid));
+									}
+
+								}
+							}
+						}
+					}
+				}
+			}
+        }
 	}
 }
