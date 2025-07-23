@@ -21,9 +21,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.height = 64;
+			Projectile.height = Projectile.width = 64;
 			Projectile.alpha = (int)(225 * .75f);
-			Projectile.width = 64;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 			Projectile.knockBack = 4.5f;
@@ -40,7 +39,12 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].GetModPlayer<AOPlayer>();
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			if (Projectile.ai[2] == 0)
+            {
+				Projectile.ai[2] = 1;
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            }
+			Projectile.rotation += Projectile.ai[1];
             Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
             Projectile.scale += .1f * (aoPlayerOwner.imbue is not null ? aoPlayerOwner.imbue.AOImbueSize : 1f) * AOSize;
 			Projectile.ai[0] = Projectile.scale;

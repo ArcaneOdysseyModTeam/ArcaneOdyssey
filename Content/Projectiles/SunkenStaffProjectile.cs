@@ -39,9 +39,9 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.timeLeft = 99999;
         }
 
-        public override void EffectBeforeSpin()
+        public override void EffectBeforeSpin(Player player, float spintime)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * AOSpeed, ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * AOSpeed, ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner, ai1: (MathHelper.TwoPi * 2f / spintime * player.direction));
         }
     }
 }

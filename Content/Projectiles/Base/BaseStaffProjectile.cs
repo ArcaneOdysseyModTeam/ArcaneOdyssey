@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
             if (Projectile.ai[1] >= 600)
 			{
 				Projectile.ai[1] = 0f;
-				EffectBeforeSpin();
+				EffectBeforeSpin(player, spintime);
             }
 			
 			else
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
             // remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
         }
 
-		public virtual void EffectBeforeSpin() { }
+		public virtual void EffectBeforeSpin(Player player, float spintime) { }
 
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
 		{
