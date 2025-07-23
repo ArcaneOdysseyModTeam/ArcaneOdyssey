@@ -63,7 +63,7 @@ Items: {
 
 	HecateShard: {
 		DisplayName: Hecate Shard
-		Tooltip: ""
+		Tooltip: "A shard of the Goddess Hecate."
 	}
 }
 
