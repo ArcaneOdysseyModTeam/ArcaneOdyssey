@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework.Graphics;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -45,7 +46,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOImbueSpeed => .9f;
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;
-		public virtual int MagicTier => AOMagicTier.Normal;
+        public virtual float AOMagicSpeed => AOImbueSpeed;
+        public virtual float AOMagicSize => AOImbueSize;
+        public virtual float AOMagicDamage => AOImbueDamage;
+        public virtual int MagicTier => AOMagicTier.Normal;
 		public virtual AODebuff? MagicDebuff => null;
         public virtual AODebuff? MagicDebuff2 => null; // used for having freezing and frozen on a single magic ect
         public virtual MagicEffects? Effects => null;
@@ -64,5 +68,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		public override bool CanReforge() => false;
-	}
+
+		public virtual void SpawningDust(Vector2 spawnlocation, float attacksize = 1f /* Explosions are larger than tiny blasts lol */) { }
+        public virtual void LingeringDust(Vector2 spawnlocation, float attacksize = 1f /* Explosions are larger than tiny blasts lol */) { }
+    }
 }
