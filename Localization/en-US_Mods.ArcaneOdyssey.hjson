@@ -65,11 +65,11 @@ Projectiles: {
 }
 
 ImbueStuff: {
-	ImbueChatMessage: Your melee weapons have been imbued with {0}
+	ImbueChatMessage: You have selected {0}
 	ImbueTooltip: Current Imbue: {0}
 	MultiplayerCannotDisplay: Cannot display in multiplayer
 	NoneText: None
-	UnimbueText: Your imbue has been removed
+	UnimbueText: Your magic has been deselected
 }
 
 Configs: {
