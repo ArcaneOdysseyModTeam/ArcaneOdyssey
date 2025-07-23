@@ -1,13 +1,13 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOConversion;
 
-namespace ArcaneOdyssey.Content.Items
+namespace ArcaneOdyssey.Content.Items.Scrolls
 {
-    public class HecateOrb : ModItem
+    public class DefaultScroll : ModItem
     {
-        public int AOValue = 10000;
+        public int AOValue = 500;
         public int AORarity = AORarities.Rare;
         public override void SetDefaults()
         {

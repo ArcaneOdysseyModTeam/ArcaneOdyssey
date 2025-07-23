@@ -15,10 +15,17 @@ Items: {
 		DisplayName: Arcanium Scrap
 		Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
 	}
+
 	HecateOrb: {
 		DisplayName: Hecate Orb
 		Tooltip: An orb of ancient power, which can be focused upon to obtain magic.
 	}
+
+	DefaultScroll: {
+		DisplayName: Default Scroll
+		Tooltip: A default scroll.
+	}
+
 	SunkenStaff: {
 		DisplayName: Sunken Staff
 		Tooltip:
@@ -42,6 +49,11 @@ Items: {
 	MagmaMagic: {
 		DisplayName: Magma Magic
 		Tooltip: Allows the user to imbue eruptions of thick, molten rock that melts all in its path.
+	}
+
+	WindMagic: {
+		DisplayName: Wind Magic
+		Tooltip: ""
 	}
 }
 

@@ -37,5 +37,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				// finish later lol
 			]
 			);
+			public override void AddRecipes() {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient<HecateOrb>(1);
+            recipe.Register();
+        }
 	}
 }

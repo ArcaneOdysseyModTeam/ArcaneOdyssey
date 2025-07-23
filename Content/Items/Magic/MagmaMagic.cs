@@ -37,5 +37,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Wet, .95f)
 			]
 			);
+			public override void AddRecipes() {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient<HecateOrb>(1);
+            recipe.Register();
+        }
 	}
 }
