@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                 }
                 //Rising tide text
                 CombatText.NewText(player.Hitbox,new Color(0,105,255,255),"Rising Tide!",false,false);
-            }
+            }   
             return null;
         }
 
