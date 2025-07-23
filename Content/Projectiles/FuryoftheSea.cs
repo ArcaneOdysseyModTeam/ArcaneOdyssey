@@ -21,9 +21,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.height = 38;
+			Projectile.height = 64;
 			Projectile.alpha = (int)(225 * .75f);
-			Projectile.width = 22;
+			Projectile.width = 64;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 			Projectile.knockBack = 4.5f;
@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.ai[0] = Projectile.scale;
 			if (Main.netMode != NetmodeID.Server)
 			{
-				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, 22, 38, DustID.Water, 0, 0, 100, default, Projectile.ai[0])];
+				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default, Projectile.ai[0])];
 				dust.noGravity = true;
 				//dust.velocity = Projectile.velocity * -1;
 			}

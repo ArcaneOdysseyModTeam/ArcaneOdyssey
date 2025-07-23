@@ -234,7 +234,7 @@ namespace ArcaneOdyssey
 			if (projectile.owner != 255)
 			{
 				AOPlayer playah = Main.player[projectile.owner].GetModPlayer<AOPlayer>();
-				if (!ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
+				if (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
 				{
 					if (projectile.ModProjectile is null or AOPlayerProjectile)
 					{
