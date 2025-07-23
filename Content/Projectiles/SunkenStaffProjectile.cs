@@ -13,7 +13,7 @@ using static ArcaneOdyssey.AOConversion;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public class SunkenStaffProjectile : BaseSpearProjectile
+	public class SunkenStaffProjectile : BaseStaffProjectile
     {
         public new const float AOSpeed = .9f;
         public new const float AOSize = 1.25f;
@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.height = Projectile.width = 40;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.damage = (int)WeaponDamage(AOWeaponTier);
             Projectile.knockBack = 4.5f;
             Projectile.friendly = true;
@@ -36,11 +36,12 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.ownerHitCheck = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 6;
+            Projectile.timeLeft = 99999;
         }
 
-        public override void EffectBeforeReelBack()
+        public override void EffectBeforeSpin()
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.TopRight, Projectile.velocity * 2f, ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * AOSpeed, ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner);
         }
     }
 }

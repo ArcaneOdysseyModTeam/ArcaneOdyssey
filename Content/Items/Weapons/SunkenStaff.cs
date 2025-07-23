@@ -7,6 +7,7 @@ using static ArcaneOdyssey.AOConversion;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -20,21 +21,19 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override int AOWeaponTier => AOWeaponTiers.Excellent;
         public override AODebuff WeaponDebuff => new AODebuff(BuffID.Wet, 60 * 5);
 
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.Spears[Item.type] = true;
-        }
 
         public override void SetDefaultsWeapon()
         {
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
             Item.width = Item.height = 40;
             Item.channel = true;
             Item.UseSound = SoundID.SplashWeak;
-            Item.shootSpeed = 12f;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;
+            Item.autoReuse = true;
+            Item.shootSpeed = Item.useAnimation = Item.useTime = (int)(25 * AOSpeed);
         }
 
         public override void AddRecipes()
