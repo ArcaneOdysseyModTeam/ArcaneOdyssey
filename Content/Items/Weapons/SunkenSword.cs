@@ -54,6 +54,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                     Dust.NewDust(player.position+new Vector2(-20f+(40f*(float)(System.Math.Sin((double)dustCountInt*3.0))),0f),3,3,DustID.DungeonWater,player.velocity.X*(float)dustCountInt*0.02f,-0.5f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
                     Dust.NewDust(player.position+new Vector2(20f+(40f*(float)(System.Math.Sin(((double)dustCountInt*3.0)+(3.14)))),0f),3,3,DustID.DungeonWater,player.velocity.X*(float)dustCountInt*0.02f,-0.5f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
                 }
+                //Rising tide text
+                CombatText.NewText(player.Hitbox,new Color(0,105,255,255),"Rising Tide!",false,false);
             }
             return null;
         }
