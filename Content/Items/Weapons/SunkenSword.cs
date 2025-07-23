@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {

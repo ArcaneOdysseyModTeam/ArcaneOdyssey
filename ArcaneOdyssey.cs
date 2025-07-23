@@ -13,11 +13,12 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
-using static ArcaneOdyssey.AOConversion;
 using System.Text.Json.Serialization;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using static ArcaneOdyssey.AOUtils;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items.Scrolls;
 
 namespace ArcaneOdyssey
 {
@@ -98,7 +99,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed)
+			if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged || item.ModItem is DefaultScroll)
 			{
 				string imbuetextthing = Mod.GetLocalization("ImbueStuff.NoneText").Value;
 				if (Main.netMode != NetmodeID.SinglePlayer)
@@ -188,7 +189,7 @@ namespace ArcaneOdyssey
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -210,7 +211,7 @@ namespace ArcaneOdyssey
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -218,8 +219,8 @@ namespace ArcaneOdyssey
 				}
 				else if (item.ModItem is not null && ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
-					
-				}
+                    return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
+                }
 				else if (item.ModItem is null) // do not touch items from other mods
 				{
 					return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
@@ -243,7 +244,7 @@ namespace ArcaneOdyssey
 				AOPlayer playah = Main.player[projectile.owner].GetModPlayer<AOPlayer>();
 				if (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
 				{
-					if (projectile.ModProjectile is null or AOPlayerProjectile)
+					if ((projectile.ModProjectile is null && (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)) || projectile.ModProjectile is AOPlayerProjectile)
 					{
 						if (playah.imbue is not null)
 						{

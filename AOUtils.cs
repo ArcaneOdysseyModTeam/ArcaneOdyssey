@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey
 {
-	public class AOConversion
+	public class AOUtils
 	{
 		/// <summary>
 		/// Arcane Odyssey rarities, converted to RarityID

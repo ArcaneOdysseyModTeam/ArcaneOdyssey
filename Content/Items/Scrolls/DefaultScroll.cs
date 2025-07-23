@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls
 {
@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
             Item.width = 32;
             Item.height = 32;
             Item.rare = AORarity;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = GalleonToCopper(AOValue, Item.rare);
         }
     }

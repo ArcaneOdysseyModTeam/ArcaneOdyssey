@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
 using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework.Graphics;

@@ -5,16 +5,16 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Projectiles
+namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class FuryoftheSea : AOPlayerProjectile
 	{
 		public new const float AOSpeed = .9f;
 		public new const float AOSize = 1.25f;
 		public new const float AODamage = 1f;
-		public override AODebuff? Debuff => new(BuffID.Wet, 600);
+		public override AODebuff Debuff => new(BuffID.Wet, 600);
         public override SoundStyle? DebuffApplySound => SoundID.Splash;
 		public const int AOWeaponTier = AOWeaponTiers.Excellent;
 		

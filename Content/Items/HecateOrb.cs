@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items
 {

@@ -7,12 +7,13 @@ using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
+		public virtual void AI2() { }
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -60,7 +61,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 
             Projectile.rotation += MathHelper.TwoPi * 2f / spintime * player.direction;
-            // remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
+			// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
+			AI2();
         }
 
 		public virtual void EffectBeforeSpin(Player player, float spintime) { }

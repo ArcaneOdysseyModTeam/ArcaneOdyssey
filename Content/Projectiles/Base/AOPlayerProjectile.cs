@@ -10,7 +10,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 
 
 namespace ArcaneOdyssey.Content.Projectiles.Base

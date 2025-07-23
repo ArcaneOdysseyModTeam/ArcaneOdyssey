@@ -9,9 +9,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOConversion;
+using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Projectiles
+namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class SunkenStaffProjectile : BaseStaffProjectile
     {
@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles
         public new const float AOSize = 1.25f;
         public new const float AODamage = 1f;
         public const int AOWeaponTier = AOWeaponTiers.Excellent;
-        public override AODebuff? Debuff => new(BuffID.Wet, 600);
+        public override AODebuff Debuff => new(BuffID.Wet, 600);
         public override SoundStyle? DebuffApplySound => SoundID.Splash;
 
         public override void SetDefaults()
@@ -39,9 +39,14 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.timeLeft = 99999;
         }
 
+        public override void AI2()
+        {
+            // called every frame i think
+        }
+
         public override void EffectBeforeSpin(Player player, float spintime)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner, ai1: (MathHelper.TwoPi * 2f / spintime * player.direction));
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner, ai1: MathHelper.TwoPi * 2f / spintime * player.direction);
         }
     }
 }

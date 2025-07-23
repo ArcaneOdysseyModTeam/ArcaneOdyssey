@@ -3,11 +3,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOConversion;
-using ArcaneOdyssey.Content.Projectiles;
+using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.CodeAnalysis.Operations;
+using ArcaneOdyssey.Content.Projectiles.Weapons;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
