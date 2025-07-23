@@ -41,7 +41,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
         public override void AI2()
         {
-            // called every frame i think
+            
+            Dust.NewDust(Projectile.Center,3,3,DustID.Water,0f,0f,255,default,1.3f);
+                
         }
 
         public override void EffectBeforeSpin(Player player, float spintime)
