@@ -23,7 +23,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
-            float spintime = 25 * AOSpeed * 2;
+			float extramulti = 1f;
+			if (aoPlayerOwner.imbue is not null)
+			{
+				extramulti = FlipFloat(aoPlayerOwner.imbue.AOImbueSpeed);
+			}
+
+            float spintime = 25 * FlipFloat(AOSpeed)/2 * 2 * extramulti;
             Vector2 expectedDirection = SafeDirectionTo(player, Main.MouseWorld);
 			Projectile.velocity = 25 * AOSpeed * expectedDirection;
             player.direction = (expectedDirection.X > 0f).ToDirectionInt();
@@ -64,8 +70,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Player player = Main.player[Projectile.owner];
 			AOPlayer playah = player.GetModPlayer<AOPlayer>();
 			Projectile.scale = 2f * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1);
-			hitbox.Height = (int)(hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1));
-			hitbox.Width = hitbox.Height;
+            hitbox.Width = hitbox.Height = (int)(2 * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1));
 		}
 	}
 }
