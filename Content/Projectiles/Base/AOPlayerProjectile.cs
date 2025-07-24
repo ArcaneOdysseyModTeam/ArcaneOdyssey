@@ -34,17 +34,5 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		// Projectile.ai[0] is 
 		// Projectile.ai[1] is 
 		// Projectile.ai[2] is
-
-		public virtual void OnHitNPC2(NPC target, NPC.HitInfo info, int damageDone) {}
-
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			if (Debuff is not null && (Debuff.DebuffPercent is null or 0 || hit.Damage > (target.lifeMax / Debuff.DebuffPercent)))
-			{
-				target.AddBuff(Debuff.debuffID, Debuff.debuffDuration);
-				SoundEngine.PlaySound(DebuffApplySound, target.position);
-			}
-			OnHitNPC2(target, hit, damageDone);
-		}
 	}
 }

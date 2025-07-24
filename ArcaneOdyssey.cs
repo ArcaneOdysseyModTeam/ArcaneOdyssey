@@ -1,25 +1,27 @@
+using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Terraria;
-using Microsoft.Xna.Framework;
+using Terraria.Audio;
 using Terraria.Chat;
+using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
-using System.Text.Json.Serialization;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using static ArcaneOdyssey.AOUtils;
-using Terraria.DataStructures;
-using ArcaneOdyssey.Content.Items.Magic;
-using ArcaneOdyssey.Content.Items;
-using Terraria.GameContent.ItemDropRules;
 
 namespace ArcaneOdyssey
 {
@@ -272,6 +274,7 @@ namespace ArcaneOdyssey
 					{
 						if (playah.imbue is not null)
 						{
+							modifiers.FinalDamage *= playah.imbue.AOImbueDamage;
 							if ((playah.imbue.MagicDebuff is not null) && (!(playah.imbue.MagicDebuff.DebuffPercent == 0f)))
 							{
 								if ((playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
@@ -286,7 +289,25 @@ namespace ArcaneOdyssey
 									target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
 								}
 							}
+                        }
 
+                        if (projectile.ModProjectile is AOPlayerProjectile)
+                        {
+                            AOPlayerProjectile proj = projectile.ModProjectile as AOPlayerProjectile;
+                            AODebuff Debuff = proj.Debuff;
+                            SoundStyle? DebuffApplySound = proj.DebuffApplySound;
+                            if (Debuff is not null && (Debuff.DebuffPercent is null or 0 || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / Debuff.DebuffPercent)))
+                            {
+                                target.AddBuff(Debuff.debuffID, Debuff.debuffDuration);
+                                if (DebuffApplySound.HasValue)
+                                {
+                                    SoundEngine.PlaySound(DebuffApplySound.Value, target.position);
+                                }
+                            }
+                        }
+
+                        if (playah.imbue is not null)
+						{
 							if (playah.imbue.combinedDebuffs is not null)
 							{
 								foreach (CombinedDebuff buffkeys in playah.imbue.combinedDebuffs)
@@ -296,17 +317,15 @@ namespace ArcaneOdyssey
 										target.AddBuff(buffkeys.result, buffkeys.duration);
 									}
 								}
-							}
+                            }
 
-							foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
+                            foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
 							{
 								if (target.HasBuff(multiplier.buffID))
 								{
 									modifiers.FinalDamage *= multiplier.multiplier;
 								}
 							}
-
-							modifiers.FinalDamage *= playah.imbue.AOImbueDamage;
 
 							if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 							{
