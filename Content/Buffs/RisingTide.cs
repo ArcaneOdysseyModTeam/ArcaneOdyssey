@@ -6,8 +6,10 @@ namespace ArcaneOdyssey.Content.Buffs
 {
 	public class RisingTide : ModBuff
 	{
+		private int currentFrameThingy;
 		public override void SetStaticDefaults() 
 		{
+			currentFrameThingy = 0;
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = false;
 		}
@@ -15,7 +17,11 @@ namespace ArcaneOdyssey.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
 			player.statDefense += 20;
-			player.direction = (player.direction !> 0).ToDirectionInt();
+			if(currentFrameThingy > 10){
+				player.direction = System.Math.Sign(player.direction*-1);
+				currentFrameThingy = 0;
+			}
+			currentFrameThingy++;
         }
 	}
 }
