@@ -177,6 +177,11 @@ Buffs: {
 		DisplayName: A O Petrified
 		Description: Mods.ArcaneOdyssey.Buffs.AOPetrified.Description
 	}
+
+	AOParalyzed: {
+		DisplayName: A O Paralyzed
+		Description: Mods.ArcaneOdyssey.Buffs.AOParalyzed.Description
+	}
 }
 
 Projectiles: {
