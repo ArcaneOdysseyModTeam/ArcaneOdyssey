@@ -162,6 +162,11 @@ Buffs: {
 		DisplayName: Snowy
 		Description: Feels chilly
 	}
+
+	RisingTide: {
+		DisplayName: Rising Tide
+		Description: Mods.ArcaneOdyssey.Buffs.RisingTide.Description
+	}
 }
 
 Projectiles: {

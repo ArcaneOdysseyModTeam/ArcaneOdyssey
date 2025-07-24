@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.lavaImmune
+            player.lavaImmune = true;
         }
 	}
 }
