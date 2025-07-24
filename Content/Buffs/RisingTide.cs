@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
 			player.statDefense += 20;
-			if(currentFrameThingy > 10){
+			if(currentFrameThingy > 4){
 				player.direction = System.Math.Sign(player.direction*-1);
 				currentFrameThingy = 0;
 			}
