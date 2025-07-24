@@ -13,11 +13,11 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class EarthMagic : AOMagic
 	{
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
+		public override float AOImbueSpeed => 0.85f;
+		public override float AOImbueSize => 1.26f;
+		public override float AOImbueDamage => 1.075f;
+		public override float AOMagicSpeed => 0.7f;
+		public override float AOMagicSize => 1.3f;
 		public override float AOMagicDamage => 1f;
 		public override AODebuff? MagicDebuff => new AODebuff(BuffID.Bleeding, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
