@@ -60,6 +60,11 @@ Items: {
 		DisplayName: Blast Scroll
 		Tooltip: ""
 	}
+
+	HecateShard: {
+		DisplayName: Hecate Shard
+		Tooltip: A shard of the Goddess Hecate.
+	}
 }
 
 Buffs: {
