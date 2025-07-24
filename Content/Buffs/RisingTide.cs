@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs
 {
-	public class RisenTide : ModBuff
+	public class RisingTide : ModBuff
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -14,7 +14,8 @@ namespace ArcaneOdyssey.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.lavaImmune
+			player.statDefense += 20;
+			player.direction = (player.direction !> 0).ToDirectionInt();
         }
 	}
 }
