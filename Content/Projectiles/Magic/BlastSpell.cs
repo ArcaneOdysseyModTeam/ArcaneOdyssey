@@ -9,12 +9,12 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
     public class BlastSpell : BaseSpell
-    {
+    {/*
         public override void SetDefaultsSpell()
         {
             Projectile.damage = 10;
             Projectile.height = Projectile.width = 64;
             Projectile.scale = .6f;
         }
-    }
+    */}
 }

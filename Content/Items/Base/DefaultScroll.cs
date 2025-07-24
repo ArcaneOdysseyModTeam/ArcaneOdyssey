@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,6 +21,16 @@ namespace ArcaneOdyssey.Content.Items.Base
             Item.DamageType = DamageClass.Magic;
             Item.value = GalleonToCopper(AOValue, Item.rare);
             SetDefaultsScroll();
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            AOPlayer playah = player.GetModPlayer<AOPlayer>();
+            if (playah.imbue is not null)
+            {
+                Item.color = playah.imbue.MagicColour;
+            }
+            else Item.color = Color.Transparent;
         }
     }
 }
