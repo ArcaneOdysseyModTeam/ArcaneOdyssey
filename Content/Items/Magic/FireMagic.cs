@@ -14,12 +14,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class FireMagic : AOMagic
 	{
 		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
+		public override float AOImbueSize => 1.11f;
+		public override float AOImbueDamage => 0.925f;
 		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
-		public override AODebuff? MagicDebuff => new AODebuff(BuffID.OnFire, 60*10);
+		public override float AOMagicSize => 1.15f;
+		public override float AOMagicDamage => 0.85f;
+		public override AODebuff? MagicDebuff => new AODebuff(BuffID.Burning, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				

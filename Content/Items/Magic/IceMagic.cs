@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override float AOImbueSpeed => .925f;
         public override float AOImbueSize => 1.15f;
         public override float AOImbueDamage => 1.05f;
-        public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
+        public override float AOMagicSpeed => 0.85f;
+		public override float AOMagicSize => 1.2f;
+		public override float AOMagicDamage => 0.975f;
         public override AODebuff? MagicDebuff => new(ModContent.BuffType<FreezingEffect>(), 60 * 10);
         public override AODebuff? MagicDebuff2 => new(ModContent.BuffType<AOFrozen>(), 60, 33);
         public override CombinedDebuff[] combinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
