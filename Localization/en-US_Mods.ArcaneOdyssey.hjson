@@ -65,6 +65,86 @@ Items: {
 		DisplayName: Hecate Shard
 		Tooltip: A shard of the Goddess Hecate.
 	}
+
+	AcidMagic: {
+		DisplayName: Acid Magic
+		Tooltip: ""
+	}
+
+	AshMagic: {
+		DisplayName: Ash Magic
+		Tooltip: ""
+	}
+
+	CrystalMagic: {
+		DisplayName: Crystal Magic
+		Tooltip: ""
+	}
+
+	EarthMagic: {
+		DisplayName: Earth Magic
+		Tooltip: ""
+	}
+
+	ExplosionMagic: {
+		DisplayName: Explosion Magic
+		Tooltip: ""
+	}
+
+	FireMagic: {
+		DisplayName: Fire Magic
+		Tooltip: ""
+	}
+
+	GlassMagic: {
+		DisplayName: Glass Magic
+		Tooltip: ""
+	}
+
+	LightMagic: {
+		DisplayName: Light Magic
+		Tooltip: ""
+	}
+
+	MetalMagic: {
+		DisplayName: Metal Magic
+		Tooltip: ""
+	}
+
+	PlasmaMagic: {
+		DisplayName: Plasma Magic
+		Tooltip: ""
+	}
+
+	PoisonMagic: {
+		DisplayName: Poison Magic
+		Tooltip: ""
+	}
+
+	SandMagic: {
+		DisplayName: Sand Magic
+		Tooltip: ""
+	}
+
+	ShadowMagic: {
+		DisplayName: Shadow Magic
+		Tooltip: ""
+	}
+
+	SnowMagic: {
+		DisplayName: Snow Magic
+		Tooltip: ""
+	}
+
+	WaterMagic: {
+		DisplayName: Water Magic
+		Tooltip: ""
+	}
+
+	WoodMagic: {
+		DisplayName: Wood Magic
+		Tooltip: ""
+	}
 }
 
 Buffs: {
