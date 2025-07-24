@@ -13,12 +13,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class SandMagic : AOMagic
 	{
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
+		public override float AOImbueSpeed => 0.975f;
+		public override float AOImbueSize => 1.053f;
+		public override float AOImbueDamage => 1.05f;
+		public override float AOMagicSpeed => 0.95f;
+		public override float AOMagicSize => 1.1f;
+		public override float AOMagicDamage => 0.975f;
 		public override AODebuff? MagicDebuff => null;
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit

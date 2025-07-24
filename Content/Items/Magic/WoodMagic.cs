@@ -13,13 +13,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WoodMagic : AOMagic
 	{
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
-		public override AODebuff? MagicDebuff => new AODebuff(BuffID.OnFire3, 60*10);
+		public override float AOImbueSpeed => 0.9f;
+		public override float AOImbueSize => 1.162f;
+		public override float AOImbueDamage => 1.025f;
+		public override float AOMagicSpeed => 0.8f;
+		public override float AOMagicSize => 1.2f;
+		public override float AOMagicDamage => 0.95f;
+		public override AODebuff? MagicDebuff => new AODebuff(BuffID.Bleeding, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				

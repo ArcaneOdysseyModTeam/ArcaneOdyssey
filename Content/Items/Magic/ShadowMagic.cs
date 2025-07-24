@@ -13,13 +13,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class ShadowMagic : AOMagic
 	{
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
-		public override AODebuff? MagicDebuff => new AODebuff(BuffID.OnFire3, 60*10);
+		public override float AOImbueSpeed => 1.125f;
+		public override float AOImbueSize => 1.053f;
+		public override float AOImbueDamage => 1.025f;
+		public override float AOMagicSpeed => 1.25f;
+		public override float AOMagicSize => 1.1f;
+		public override float AOMagicDamage => 0.95f;
+		public override AODebuff? MagicDebuff => new AODebuff(BuffID.Obstructed, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				

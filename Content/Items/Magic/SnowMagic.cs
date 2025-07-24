@@ -13,13 +13,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class SnowMagic : AOMagic
 	{
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
+		public override float AOImbueSpeed => 1.05f;
+		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 1f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
-		public override AODebuff? MagicDebuff => new AODebuff(BuffID.OnFire3, 60*10);
+		public override float AOMagicSpeed => 1.1f;
+		public override float AOMagicSize => 1.15f;
+		public override float AOMagicDamage => 0.925f;
+		public override AODebuff? MagicDebuff => new AODebuff(ModContent.BuffType<SnowyEffect>(), 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				
