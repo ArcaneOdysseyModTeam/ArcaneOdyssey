@@ -19,6 +19,7 @@ using static ArcaneOdyssey.AOUtils;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items;
+using Terraria.GameContent.ItemDropRules;
 
 namespace ArcaneOdyssey
 {
@@ -228,6 +229,19 @@ namespace ArcaneOdyssey
 			}
 			return 1f;
 		}
+	}
+
+	public class NPCDrops : GlobalNPC
+	{
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            if (npc.type == NPCID.WallofFlesh)
+			{
+                LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.IsPreHardmode());
+                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
+                npcLoot.Add(leadingConditionRule);
+            }
+        }
 	}
 
 	public class AOPlayer : ModPlayer
