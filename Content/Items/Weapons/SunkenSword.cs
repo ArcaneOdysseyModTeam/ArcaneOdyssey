@@ -43,6 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         {
             if (player.altFunctionUse == 2 && !player.HasBuff<RisenTide>())
             {
+                player.AddBuff(ModContent.BuffType<RisingTide>(), 60);
                 player.AddBuff(ModContent.BuffType<RisenTide>(), (int)(60 * (CurrentImbue is not null ? CurrentImbue.AOImbueSpeed : 1) * AOSpeed * 5));
                 SoundEngine.PlaySound(SoundID.Splash, player.position);
                 player.velocity.Y *= 0.1f;
