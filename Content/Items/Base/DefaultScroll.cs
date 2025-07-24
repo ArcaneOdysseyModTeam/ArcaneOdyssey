@@ -5,7 +5,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-    public abstract class DefaultScroll : ModItem
+    public class DefaultScroll : ModItem
     {
         public int AOValue = 500;
         public int AORarity = AORarities.Rare;
@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Base
             Item.height = 32;
             Item.rare = AORarity;
             Item.useStyle = ItemUseStyleID.Shoot;
+            Item.DamageType = DamageClass.Magic;
             Item.value = GalleonToCopper(AOValue, Item.rare);
             SetDefaultsScroll();
         }
