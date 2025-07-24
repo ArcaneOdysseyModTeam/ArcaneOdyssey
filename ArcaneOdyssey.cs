@@ -18,6 +18,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items;
 
 namespace ArcaneOdyssey
 {
@@ -233,6 +234,15 @@ namespace ArcaneOdyssey
 	{
 		public AOMagic? imbue = null;
 		public bool RightClicking => Player.altFunctionUse == 2;
+
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+			if (!mediumCoreDeath)
+			{
+				return [new Item(ModContent.ItemType<HecateOrb>())];
+			}
+			else return [];
+        }
 	}
 
 	public class ProjectileImbuer : GlobalProjectile
