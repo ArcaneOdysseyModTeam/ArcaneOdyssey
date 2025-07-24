@@ -23,7 +23,7 @@ Items: {
 
 	DefaultScroll: {
 		DisplayName: Default Scroll
-		Tooltip: A default scroll.
+		Tooltip: An empty spell scroll
 	}
 
 	SunkenStaff: {

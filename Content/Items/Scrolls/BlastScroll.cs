@@ -1,4 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,6 +14,8 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
             Item.useTime = 15;
             Item.useAnimation = 60;
             Item.damage = 10;
+            Item.shoot = ModContent.ProjectileType<BlastSpell>();
+            Item.shootSpeed = 20;
         }
     }
 }
