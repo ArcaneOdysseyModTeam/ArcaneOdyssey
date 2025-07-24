@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 1f;
 		public override float AOMagicDamage => 1f;
         public override AODebuff? MagicDebuff => new(ModContent.BuffType<FreezingEffect>(), 60 * 10);
-        public override AODebuff? MagicDebuff2 => new(BuffID.Chilled, 60, 33);
-        public override CombinedDebuff[] combinedDebuffs => [new(BuffID.Wet, BuffID.Chilled)];
+        public override AODebuff? MagicDebuff2 => new(ModContent.BuffType<AOFrozen>(), 60, 33);
+        public override CombinedDebuff[] combinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
         public override MagicEffects Effects => new MagicEffects(
             [ // these are debuffs cleared on hit
@@ -34,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
             ],
             [ // synergies
                 new MagicBuffMultiplier(BuffID.Bleeding, 1.2f), // bleeding
-                new MagicBuffMultiplier(BuffID.Chilled, 1.1f), // frozen
+                new MagicBuffMultiplier(ModContent.BuffType<AOFrozen>(), 1.1f), // frozen
                 new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.1f), // freezing
                 new MagicBuffMultiplier(BuffID.Wet, 1.1f), // (add stunning later!)
                 new MagicBuffMultiplier(BuffID.OnFire, .9f), // burning

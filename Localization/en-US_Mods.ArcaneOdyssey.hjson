@@ -167,6 +167,16 @@ Buffs: {
 		DisplayName: Rising Tide
 		Description: Mods.ArcaneOdyssey.Buffs.RisingTide.Description
 	}
+
+	AOFrozen: {
+		DisplayName: A O Frozen
+		Description: Mods.ArcaneOdyssey.Buffs.AOFrozen.Description
+	}
+
+	AOPetrified: {
+		DisplayName: A O Petrified
+		Description: Mods.ArcaneOdyssey.Buffs.AOPetrified.Description
+	}
 }
 
 Projectiles: {
