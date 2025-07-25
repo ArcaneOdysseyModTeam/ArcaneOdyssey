@@ -38,22 +38,38 @@ Items: {
 
 	LightningMagic: {
 		DisplayName: Lightning Magic
-		Tooltip: Allows the user to imbue swift bolts of destructive lightning
+		Tooltip:
+			'''
+			Allows the user to create swift bolts of destructive lightning.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	IceMagic: {
 		DisplayName: Ice Magic
-		Tooltip: Allows the user to imbue cold hard ice which can freeze and chill to the blood and bone
+		Tooltip:
+			'''
+			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	MagmaMagic: {
 		DisplayName: Magma Magic
-		Tooltip: Allows the user to imbue eruptions of thick, molten rock that melts all in its path.
+		Tooltip:
+			'''
+			Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	WindMagic: {
 		DisplayName: Wind Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	BlastScroll: {
@@ -68,82 +84,146 @@ Items: {
 
 	AcidMagic: {
 		DisplayName: Acid Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to form a caustic, reactive liquid that corrodes through enemies.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	AshMagic: {
 		DisplayName: Ash Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	CrystalMagic: {
 		DisplayName: Crystal Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to materialize luminous crystals which embed themselves in adversaries. 
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	EarthMagic: {
 		DisplayName: Earth Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	ExplosionMagic: {
 		DisplayName: Explosion Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	FireMagic: {
 		DisplayName: Fire Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	GlassMagic: {
 		DisplayName: Glass Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	LightMagic: {
 		DisplayName: Light Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	MetalMagic: {
 		DisplayName: Metal Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	PlasmaMagic: {
 		DisplayName: Plasma Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	PoisonMagic: {
 		DisplayName: Poison Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	SandMagic: {
 		DisplayName: Sand Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	ShadowMagic: {
 		DisplayName: Shadow Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	SnowMagic: {
 		DisplayName: Snow Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	WaterMagic: {
 		DisplayName: Water Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 
 	WoodMagic: {
 		DisplayName: Wood Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to use a magic.
+			[c/0033ff:-Base Magic-]
+			'''
 	}
 }
 
