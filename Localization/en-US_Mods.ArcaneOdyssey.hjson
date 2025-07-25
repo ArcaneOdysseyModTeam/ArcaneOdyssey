@@ -7,7 +7,7 @@ Items: {
 			'''
 			A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
 			It seems to constantly produce water
-			[c/700013:Special Ability]: [c/327DFF:Rising Tide] - Use right click to send yourself upwards, surrounding yourself with water.
+			[c/700013:Special Ability]: [c/327DFF:Rising Tide] - Use right click to send yourself upwards, surrounding yourself with water
 			'''
 	}
 
@@ -18,7 +18,7 @@ Items: {
 
 	HecateOrb: {
 		DisplayName: Hecate Orb
-		Tooltip: An orb of ancient power, which can be focused upon to obtain magic.
+		Tooltip: An orb of ancient power, which can be focused upon to obtain magic
 	}
 
 	DefaultScroll: {
@@ -40,7 +40,7 @@ Items: {
 		DisplayName: Lightning Magic
 		Tooltip:
 			'''
-			Allows the user to create swift bolts of destructive lightning.
+			Allows the user to create swift bolts of destructive lightning
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -49,7 +49,7 @@ Items: {
 		DisplayName: Ice Magic
 		Tooltip:
 			'''
-			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone.
+			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -58,7 +58,7 @@ Items: {
 		DisplayName: Magma Magic
 		Tooltip:
 			'''
-			Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
+			Allows the user to unleash eruptions of thick, molten rock that melts all in its path
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -67,26 +67,26 @@ Items: {
 		DisplayName: Wind Magic
 		Tooltip:
 			'''
-			Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
+			Allows the user to send turbulent gales that whirl enemies into tumultuous peril
 			[c/0033ff:-Base Magic-]
 			'''
 	}
 
 	BlastScroll: {
 		DisplayName: Blast Scroll
-		Tooltip: A spell scroll which allows the user to create a short series of small blasts, or one large blast.
+		Tooltip: A spell scroll which allows the user to create a short series of small blasts, or one large blast
 	}
 
 	HecateShard: {
 		DisplayName: Hecate Shard
-		Tooltip: A shard of the Goddess Hecate.
+		Tooltip: A shard of the Goddess Hecate
 	}
 
 	AcidMagic: {
 		DisplayName: Acid Magic
 		Tooltip:
 			'''
-			Allows the user to form a caustic, reactive liquid that corrodes through enemies.
+			Allows the user to form a caustic, reactive liquid that corrodes through enemies
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -95,7 +95,7 @@ Items: {
 		DisplayName: Ash Magic
 		Tooltip:
 			'''
-			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
+			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -104,7 +104,7 @@ Items: {
 		DisplayName: Crystal Magic
 		Tooltip:
 			'''
-			Allows the user to materialize luminous crystals which embed themselves in adversaries. 
+			Allows the user to materialize luminous crystals which embed themselves in adversaries
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -113,7 +113,7 @@ Items: {
 		DisplayName: Earth Magic
 		Tooltip:
 			'''
-			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
+			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -122,7 +122,7 @@ Items: {
 		DisplayName: Explosion Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -131,7 +131,7 @@ Items: {
 		DisplayName: Fire Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -140,7 +140,7 @@ Items: {
 		DisplayName: Glass Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -149,7 +149,7 @@ Items: {
 		DisplayName: Light Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -158,7 +158,7 @@ Items: {
 		DisplayName: Metal Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -167,7 +167,7 @@ Items: {
 		DisplayName: Plasma Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -176,7 +176,7 @@ Items: {
 		DisplayName: Poison Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -185,7 +185,7 @@ Items: {
 		DisplayName: Sand Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -194,7 +194,7 @@ Items: {
 		DisplayName: Shadow Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -203,7 +203,7 @@ Items: {
 		DisplayName: Snow Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -212,7 +212,7 @@ Items: {
 		DisplayName: Water Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -221,7 +221,7 @@ Items: {
 		DisplayName: Wood Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic.
+			Allows the user to use a magic
 			[c/0033ff:-Base Magic-]
 			'''
 	}
@@ -249,17 +249,17 @@ Buffs: {
 	}
 
 	AOFrozen: {
-		DisplayName: A O Frozen
+		DisplayName: Magical Frozen
 		Description: Mods.ArcaneOdyssey.Buffs.AOFrozen.Description
 	}
 
 	AOPetrified: {
-		DisplayName: A O Petrified
+		DisplayName: Petrified
 		Description: Mods.ArcaneOdyssey.Buffs.AOPetrified.Description
 	}
 
 	AOParalyzed: {
-		DisplayName: A O Paralyzed
+		DisplayName: Paralyzed
 		Description: Mods.ArcaneOdyssey.Buffs.AOParalyzed.Description
 	}
 }
