@@ -230,8 +230,8 @@ Items: {
 		DisplayName: Aether Magic
 		Tooltip:
 			'''
-				Allows the user to use a magic
-				[c/0044ff:-Lost-]
+			Allows the user to use a magic
+			[c/0044ff:-Lost Magic-]
 			'''
 	}
 
@@ -239,8 +239,8 @@ Items: {
 		DisplayName: Ancient Lightning Magic
 		Tooltip:
 			'''
-				Allows the user to use a magic
-				[c/0044ff:-Lost-]
+			Allows the user to use a magic
+			[c/0044ff:-Lost Magic-]
 			'''
 	}
 
@@ -248,8 +248,8 @@ Items: {
 		DisplayName: Flare Magic
 		Tooltip:
 			'''
-				Allows the user to use a magic
-				[c/0044ff:-Lost-]
+			Allows the user to use a magic
+			[c/0044ff:-Lost Magic-]
 			'''
 	}
 
@@ -257,8 +257,8 @@ Items: {
 		DisplayName: Gravity Magic
 		Tooltip:
 			'''
-				Allows the user to use a magic
-				[c/0044ff:-Lost-]
+			Allows the user to use a magic
+			[c/0044ff:-Lost Magic-]
 			'''
 	}
 
@@ -266,8 +266,8 @@ Items: {
 		DisplayName: Heat Magic
 		Tooltip:
 			'''
-				Allows the user to use a magic
-				[c/0044ff:-Lost-]
+			Allows the user to use a magic
+			[c/0044ff:-Lost Magic-]
 			'''
 	}
 
@@ -275,8 +275,8 @@ Items: {
 		DisplayName: Poison Lightning Magic
 		Tooltip:
 			'''
-				Allows the user to use a magic
-				[c/0044ff:-Lost-]
+			Allows the user to use a magic
+			[c/0044ff:-Lost Magic-]
 			'''
 	}
 
