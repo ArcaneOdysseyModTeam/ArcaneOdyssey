@@ -225,6 +225,36 @@ Items: {
 			[c/0033ff:-Base Magic-]
 			'''
 	}
+
+	AetherMagic: {
+		DisplayName: Aether Magic
+		Tooltip: ""
+	}
+
+	AncientLightningMagic: {
+		DisplayName: Ancient Lightning Magic
+		Tooltip: ""
+	}
+
+	FlareMagic: {
+		DisplayName: Flare Magic
+		Tooltip: ""
+	}
+
+	GravityMagic: {
+		DisplayName: Gravity Magic
+		Tooltip: ""
+	}
+
+	HeatMagic: {
+		DisplayName: Heat Magic
+		Tooltip: ""
+	}
+
+	PoisonLightningMagic: {
+		DisplayName: Poison Lightning Magic
+		Tooltip: ""
+	}
 }
 
 Buffs: {
