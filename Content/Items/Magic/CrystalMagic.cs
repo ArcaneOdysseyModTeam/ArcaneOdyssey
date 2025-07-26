@@ -27,7 +27,11 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			], 
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.3f)
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.3f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.01f),
+				new MagicBuffMultiplier(BuffID.Bleeding,1.01f),
+				new MagicBuffMultiplier(BuffID.Venom,1.01f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.075f)
 			]
 			);
 			public override void AddRecipes() {
