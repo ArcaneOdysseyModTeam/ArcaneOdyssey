@@ -308,7 +308,7 @@ Buffs: {
 
 	RisingTide: {
 		DisplayName: Rising Tide
-		Description: Mods.ArcaneOdyssey.Buffs.RisingTide.Description
+		Description: "Whee!"
 	}
 
 	AOFrozen: {
