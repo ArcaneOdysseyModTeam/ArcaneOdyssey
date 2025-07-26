@@ -1,16 +1,27 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
     public class CrystalStackI : MagicMark {
          public override void Update(NPC npc, ref int buffIndex) {
-            npc.life-=1;
+            npc.life--;
+            for(int i = 0;i<NPC.maxBuffs;i++) {
+                if(npc.buffType[i] == ModContent.BuffType<CrystalStackI>()){
+                    npc.DelBuff(i);
+                    i--;
+                }
+            }
          }
     }
 }
