@@ -12,7 +12,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
-	public class ArmegeddonMagic : AOMagic
+	public class VesuviusMagic : AOMagic
 	{
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;
