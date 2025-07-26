@@ -41,7 +41,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to create swift bolts of destructive lightning
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -50,7 +50,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -59,7 +59,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to unleash eruptions of thick, molten rock that melts all in its path
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -68,7 +68,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to send turbulent gales that whirl enemies into tumultuous peril
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -87,7 +87,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to form a caustic, reactive liquid that corrodes through enemies
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -96,7 +96,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -105,7 +105,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to materialize luminous crystals which embed themselves in adversaries
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -114,7 +114,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -123,7 +123,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -132,7 +132,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -141,7 +141,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -150,7 +150,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -159,7 +159,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -168,7 +168,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -177,7 +177,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -186,7 +186,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -195,7 +195,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -204,7 +204,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -213,7 +213,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -222,38 +222,62 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0033ff:-Base Magic-]
+			[c/2277ff:-Base Magic-]
 			'''
 	}
 
 	AetherMagic: {
 		DisplayName: Aether Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+				Allows the user to use a magic
+				[c/0044ff:-Lost-]
+			'''
 	}
 
 	AncientLightningMagic: {
 		DisplayName: Ancient Lightning Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+				Allows the user to use a magic
+				[c/0044ff:-Lost-]
+			'''
 	}
 
 	FlareMagic: {
 		DisplayName: Flare Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+				Allows the user to use a magic
+				[c/0044ff:-Lost-]
+			'''
 	}
 
 	GravityMagic: {
 		DisplayName: Gravity Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+				Allows the user to use a magic
+				[c/0044ff:-Lost-]
+			'''
 	}
 
 	HeatMagic: {
 		DisplayName: Heat Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+				Allows the user to use a magic
+				[c/0044ff:-Lost-]
+			'''
 	}
 
 	PoisonLightningMagic: {
 		DisplayName: Poison Lightning Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+				Allows the user to use a magic
+				[c/0044ff:-Lost-]
+			'''
 	}
 
 	VesuviusMagic: {
