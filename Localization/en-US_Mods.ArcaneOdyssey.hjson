@@ -292,6 +292,11 @@ Buffs: {
 		DisplayName: Paralyzed
 		Description: Mods.ArcaneOdyssey.Buffs.AOParalyzed.Description
 	}
+
+	CharredEffect: {
+		DisplayName: Charred Effect
+		Description: Mods.ArcaneOdyssey.Buffs.CharredEffect.Description
+	}
 }
 
 Projectiles: {
