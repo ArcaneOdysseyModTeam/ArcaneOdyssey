@@ -359,6 +359,26 @@ Buffs: {
 		DisplayName: Crystal Stack I
 		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackI.Description
 	}
+
+	CrystalStackII: {
+		DisplayName: Crystal Stack I I
+		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackII.Description
+	}
+
+	CrystalStackIII: {
+		DisplayName: Crystal Stack I I I
+		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackIII.Description
+	}
+
+	CrystalStackIIII: {
+		DisplayName: Crystal Stack I I I I
+		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackIIII.Description
+	}
+
+	CrystalStackMid: {
+		DisplayName: Crystal Stack Mid
+		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackMid.Description
+	}
 }
 
 Projectiles: {

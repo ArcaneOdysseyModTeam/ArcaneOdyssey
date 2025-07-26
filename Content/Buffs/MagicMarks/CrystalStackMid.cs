@@ -13,15 +13,16 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
-    public class CrystalStackI : MagicMark {
+    public class CrystalStackMid : MagicMark {
          public override void Update(NPC npc, ref int buffIndex) {
-            
-            /*for(int i = 0;i<NPC.maxBuffs;i++) {
-                if(npc.buffType[i] == ModContent.BuffType<CrystalStackI>()){
+            for(int i = 0;i<NPC.maxBuffs;i++) {
+                if(npc.buffType[i] == ModContent.BuffType<CrystalStackI>() || npc.buffType[i] == ModContent.BuffType<CrystalStackII>()){
                     npc.DelBuff(i);
                     i--;
+                } else if(npc.buffType[i] == ModContent.BuffType<CrystalStackMid>()) {
+                    npc.AddBuff(ModContent.BuffType<CrystalStackIII>(),60*10);
                 }
-            }*/
+            }
          }
     }
 }
