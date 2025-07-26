@@ -88,6 +88,14 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
+		
+        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+        {
+			if (item.type == ItemID.OceanCrate || item.type == ItemID.OceanCrateHard)
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArcaniumScrap>(), 15, 0, 1));
+			}
+        }
 
 		public override void UpdateInventory(Item item, Player player)
 		{
