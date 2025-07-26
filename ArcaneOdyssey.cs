@@ -251,6 +251,12 @@ namespace ArcaneOdyssey
                 leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
                 npcLoot.Add(leadingConditionRule);
             }
+			if (npc.type == NPCID.Plantera)
+            {
+                LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
+                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
+                npcLoot.Add(leadingConditionRule);
+            }
         }
 	}
 
