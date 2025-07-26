@@ -14,12 +14,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class VesuviusMagic : AOMagic
 	{
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
+		public override float AOImbueSpeed => 0.9f;
+		public override float AOImbueSize => 6f;
+		public override float AOImbueDamage => 3f;
+		public override float AOMagicSpeed => 0.9f;
+		public override float AOMagicSize => 6f;
+		public override float AOMagicDamage => 3f;
 		public override AODebuff? MagicDebuff => new AODebuff(ModContent.BuffType<AOPetrified>(),10*60);
 		public override AODebuff? MagicDebuff2 => new AODebuff(BuffID.OnFire3,10*60);
 		public override MagicEffects Effects => new MagicEffects(
