@@ -79,7 +79,7 @@ Items: {
 
 	HecateShard: {
 		DisplayName: Hecate Shard
-		Tooltip: A shard of the Goddess Hecate
+		Tooltip: A shard of the Goddess Hecate,which can be used to mutate a base magic into a lost magic. currently unusable
 	}
 
 	AcidMagic: {

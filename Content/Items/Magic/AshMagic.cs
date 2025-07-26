@@ -25,10 +25,19 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override CombinedDebuff[] combinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()),new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()),new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()),new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
-				
+				BuffID.Wet,
+				ModContent.BuffType<SnowyEffect>(),
+				ModContent.BuffType<FreezingEffect>()
 			], 
 			[
-				
+				new MagicBuffMultiplier(BuffID.Bleeding,1.1f),
+				new MagicBuffMultiplier(BuffID.OnFire,1.02f),
+				new MagicBuffMultiplier(BuffID.Venom,1.075f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
+				new MagicBuffMultiplier(BuffID.Wet,0.995f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.01f)
 			]
 			);
 			public override void AddRecipes() {
