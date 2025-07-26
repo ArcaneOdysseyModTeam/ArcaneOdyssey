@@ -1,6 +1,7 @@
-Completely rewrites how debuffs work and interact with eachother, with the power of ??Magic??
+Completely rewrites how debuffs work and interact with eachother, with the power of Magic!
 
-To use the mod, aquire a magic. You can do this with (WIP)
+To use the mod, aquire a magic. You can do this with the Hecate Orb, an item which you will spawn with.
+Use over 10 unique magics with unique interactions and attributes!
 (probabtly include potions or somthing)
 
 Based off the game "Arcane Odyssey" by vetexgames
