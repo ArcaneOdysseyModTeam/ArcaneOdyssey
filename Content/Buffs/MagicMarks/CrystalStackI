@@ -9,7 +9,8 @@ using Terraria;
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
     public class CrystalStackI : MagicMark {
-    
-
+         public override void Update(NPC npc, ref int buffIndex) {
+            npc.life-=1;
+         }
     }
 }

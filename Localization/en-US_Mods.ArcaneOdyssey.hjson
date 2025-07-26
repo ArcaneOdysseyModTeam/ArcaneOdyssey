@@ -354,6 +354,11 @@ Buffs: {
 		DisplayName: Charred Effect
 		Description: Mods.ArcaneOdyssey.Buffs.CharredEffect.Description
 	}
+
+	CrystalStackI: {
+		DisplayName: Crystal Stack I
+		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackI.Description
+	}
 }
 
 Projectiles: {
