@@ -182,7 +182,7 @@ namespace ArcaneOdyssey
 				{
 					knockback *= aoWeapon.AOSize * player.GetModPlayer<AOPlayer>().imbue.AOImbueSize * extrakbmulti;
 				}
-				else if (item.ModItem is null) // do not touch items from other mods
+				else if (item.ModItem is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					knockback *= player.GetModPlayer<AOPlayer>().imbue.AOImbueSize * extrakbmulti;
 				}
@@ -265,12 +265,12 @@ namespace ArcaneOdyssey
 	{
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
-			if (projectile.owner != 255)
-			{
+			if (projectile.owner == Main.myPlayer && projectile.owner != 255)
+            {
 				AOPlayer playah = Main.player[projectile.owner].GetModPlayer<AOPlayer>();
 				if (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
 				{
-					if ((projectile.ModProjectile is null && (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)) || projectile.ModProjectile is AOPlayerProjectile)
+					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged))
 					{
 						if (playah.imbue is not null)
 						{
@@ -289,25 +289,6 @@ namespace ArcaneOdyssey
 									target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
 								}
 							}
-                        }
-
-                        if (projectile.ModProjectile is AOPlayerProjectile)
-                        {
-                            AOPlayerProjectile proj = projectile.ModProjectile as AOPlayerProjectile;
-                            AODebuff Debuff = proj.Debuff;
-                            SoundStyle? DebuffApplySound = proj.DebuffApplySound;
-                            if (Debuff is not null && (Debuff.DebuffPercent is null or 0 || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / Debuff.DebuffPercent)))
-                            {
-                                target.AddBuff(Debuff.debuffID, Debuff.debuffDuration);
-                                if (DebuffApplySound.HasValue)
-                                {
-                                    SoundEngine.PlaySound(DebuffApplySound.Value, target.position);
-                                }
-                            }
-                        }
-
-                        if (playah.imbue is not null)
-						{
 							if (playah.imbue.combinedDebuffs is not null)
 							{
 								foreach (CombinedDebuff buffkeys in playah.imbue.combinedDebuffs)
@@ -346,25 +327,31 @@ namespace ArcaneOdyssey
 
         public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
         {
-			if (projectile.ModProjectile is null && projectile.owner != 255)
+			if (projectile.owner == Main.myPlayer && projectile.owner != 255)
 			{
-				AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
-				if (imbue is not null)
-				{
-					hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
-                    hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
-					projectile.scale = imbue.AOImbueSize;
-                }
+				if (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
+                {
+					AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					if (imbue is not null)
+					{
+						hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
+						hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
+						projectile.scale = imbue.AOImbueSize;
+					}
+				}
 			}
         }
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
-			if (projectile.ModProjectile is null && projectile.owner != 255)
-			{
-				AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
-				if (imbue is not null)
-				projectile.velocity *= imbue.AOImbueSpeed;
+            if (projectile.owner == Main.myPlayer && projectile.owner != 255)
+            {
+				if (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged)
+				{
+					AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					if (imbue is not null)
+						projectile.velocity *= imbue.AOImbueSpeed;
+				}
 			}
 		}
 	}

@@ -22,11 +22,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
         public override AODebuff WeaponDebuff => new AODebuff(BuffID.Wet, 60 * 5);
 
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
-        }
-
         public override void SetDefaultsWeapon()
         {
             Item.width = Item.height = 42;

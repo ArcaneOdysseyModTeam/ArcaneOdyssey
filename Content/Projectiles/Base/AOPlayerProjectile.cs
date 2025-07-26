@@ -31,8 +31,23 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual SoundStyle? DebuffApplySound => null;
 
 
-		// Projectile.ai[0] is 
-		// Projectile.ai[1] is 
-		// Projectile.ai[2] is
+        // Projectile.ai[0] is 
+        // Projectile.ai[1] is 
+        // Projectile.ai[2] is
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            AOPlayerProjectile proj = Projectile.ModProjectile as AOPlayerProjectile;
+            AODebuff Debuff = proj.Debuff;
+            SoundStyle? DebuffApplySound = proj.DebuffApplySound;
+            if (Debuff is not null && (Debuff.DebuffPercent is null or 0 || modifiers.GetDamage(Projectile.damage, true) > (target.lifeMax / Debuff.DebuffPercent)))
+            {
+                target.AddBuff(Debuff.debuffID, Debuff.debuffDuration);
+                if (DebuffApplySound.HasValue)
+                {
+                    SoundEngine.PlaySound(DebuffApplySound.Value, target.position);
+                }
+            }
+        }
 	}
 }
