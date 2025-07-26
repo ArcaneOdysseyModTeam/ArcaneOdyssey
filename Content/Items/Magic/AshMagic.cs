@@ -1,4 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Buffs.Stuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 0.95f;
 		public override float AOMagicSize => 1.25f;
 		public override float AOMagicDamage => 0.875f;
-		public override AODebuff? MagicDebuff => new AODebuff(BuffID.OnFire, 60*10);
-		public override AODebuff? MagicDebuff2 => new AODebuff(BuffID.Dazed, 60*10);
+		public override AODebuff? MagicDebuff => new AODebuff(ModContent.BuffType<AOPetrified>(), 60*10,33);
+		public override CombinedDebuff[] combinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()),new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()),new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>())];
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				
