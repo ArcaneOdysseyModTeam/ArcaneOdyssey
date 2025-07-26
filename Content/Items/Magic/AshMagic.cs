@@ -27,7 +27,11 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
 				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<FreezingEffect>()
+				ModContent.BuffType<FreezingEffect>(),
+				BuffID.OnFire,
+				BuffID.OnFire3,
+				ModContent.BuffType<CharredEffect>(),
+				BuffID.ShadowFlame
 			], 
 			[
 				new MagicBuffMultiplier(BuffID.Bleeding,1.1f),
