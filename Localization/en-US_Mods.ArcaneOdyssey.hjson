@@ -308,7 +308,7 @@ Buffs: {
 
 	RisingTide: {
 		DisplayName: Rising Tide
-		Description: "Whee!"
+		Description: Whee!
 	}
 
 	AOFrozen: {
