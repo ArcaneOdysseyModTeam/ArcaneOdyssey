@@ -40,7 +40,7 @@ Items: {
 		DisplayName: Lightning Magic
 		Tooltip:
 			'''
-			Allows the user to create swift bolts of destructive lightning
+			Allows the user to create swift bolts of destructive lightning.
 			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
@@ -50,7 +50,7 @@ Items: {
 		DisplayName: Ice Magic
 		Tooltip:
 			'''
-			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone
+			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone.
 			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
@@ -60,7 +60,7 @@ Items: {
 		DisplayName: Magma Magic
 		Tooltip:
 			'''
-			Allows the user to unleash eruptions of thick, molten rock that melts all in its path
+			Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
 			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
@@ -70,7 +70,7 @@ Items: {
 		DisplayName: Wind Magic
 		Tooltip:
 			'''
-			Allows the user to send turbulent gales that whirl enemies into tumultuous peril
+			Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
 			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
@@ -90,7 +90,7 @@ Items: {
 		DisplayName: Acid Magic
 		Tooltip:
 			'''
-			Allows the user to form a caustic, reactive liquid that corrodes through enemies
+			Allows the user to form a caustic, reactive liquid that corrodes through enemies.
 			[c/2277ff:-Base Magic-]
 			'''
 	}
@@ -99,7 +99,7 @@ Items: {
 		DisplayName: Ash Magic
 		Tooltip:
 			'''
-			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues
+			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
 			[c/2277ff:-Base Magic-]
 			'''
 	}
@@ -108,7 +108,7 @@ Items: {
 		DisplayName: Crystal Magic
 		Tooltip:
 			'''
-			Allows the user to materialize luminous crystals which embed themselves in adversaries
+			Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation.
 			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
