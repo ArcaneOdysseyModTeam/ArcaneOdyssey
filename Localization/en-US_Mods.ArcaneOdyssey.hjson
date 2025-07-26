@@ -255,6 +255,11 @@ Items: {
 		DisplayName: Poison Lightning Magic
 		Tooltip: ""
 	}
+
+	VesuviusMagic: {
+		DisplayName: Vesuvius Magic
+		Tooltip: ""
+	}
 }
 
 Buffs: {
