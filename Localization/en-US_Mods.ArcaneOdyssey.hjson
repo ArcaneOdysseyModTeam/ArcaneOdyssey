@@ -258,7 +258,11 @@ Items: {
 
 	VesuviusMagic: {
 		DisplayName: Vesuvius Magic
-		Tooltip: ""
+		Tooltip:
+			'''
+			Allows the user to control an unholy form of magma magic.
+			[c/ff0000:-Custom Magic-]
+			'''
 	}
 }
 
