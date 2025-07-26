@@ -32,6 +32,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
                 BuffID.Burning, 
                 BuffID.Venom,
                 BuffID.OnFire3,
+                BuffID.ShadowFlame,
+                ModContent.BuffType<CharredEffect>()
             ],
             [ // synergies
                 new MagicBuffMultiplier(BuffID.Bleeding, 1.2f), // bleeding
@@ -39,8 +41,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
                 new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.1f), // freezing
                 new MagicBuffMultiplier(BuffID.Wet, 1.1f), // (add stunning later!)
                 new MagicBuffMultiplier(BuffID.OnFire, .9f), // burning
-                new MagicBuffMultiplier(BuffID.Burning, .9f), // charred
+                new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), .9f), // charred
                 new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
+                new MagicBuffMultiplier(BuffID.ShadowFlame, .8f)
             ]
             );
             public override void AddRecipes() {

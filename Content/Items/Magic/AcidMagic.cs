@@ -1,4 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,18 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override AODebuff? MagicDebuff => new AODebuff(BuffID.Venom, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
-				
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<SnowyEffect>()
 			], 
 			[
-				
+				new MagicBuffMultiplier(BuffID.Bleeding,1.075f),
+				new MagicBuffMultiplier(BuffID.OnFire,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.02f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
+				new MagicBuffMultiplier(BuffID.Poisoned,1.05f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
+				new MagicBuffMultiplier(BuffID.Wet,0.9f)
 			]
 			);
 			public override void AddRecipes() {
