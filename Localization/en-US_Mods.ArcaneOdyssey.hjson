@@ -311,6 +311,11 @@ Items: {
 			[c/ff0000:-Custom Magic-]
 			'''
 	}
+
+	CommodoreKaiSabre: {
+		DisplayName: Commodore Kai Sabre
+		Tooltip: ""
+	}
 }
 
 Buffs: {
