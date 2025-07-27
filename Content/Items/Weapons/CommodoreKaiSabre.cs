@@ -11,7 +11,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-    public class SunkenSword : AOWeapon
+    public class CommodoreKaiSabre : AOWeapon
     {
         public override float AOSpeed => 1.2f;
         public override float AOSize => .9f;
