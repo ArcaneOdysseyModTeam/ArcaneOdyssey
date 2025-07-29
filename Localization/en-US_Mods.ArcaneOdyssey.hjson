@@ -117,9 +117,8 @@ Items: {
 		DisplayName: Earth Magic
 		Tooltip:
 			'''
-			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars
+			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
 			[c/2277ff:-Base Magic-]
-			Incomplete
 			'''
 	}
 
@@ -127,9 +126,8 @@ Items: {
 		DisplayName: Explosion Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic
+			Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion.
 			[c/2277ff:-Base Magic-]
-			Incomplete
 			'''
 	}
 

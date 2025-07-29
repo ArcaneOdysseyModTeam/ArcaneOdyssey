@@ -23,10 +23,25 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override AODebuff? MagicDebuff => new AODebuff(ModContent.BuffType<CharredEffect>(), 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
-				
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<SnowyEffect>(),
+				BuffID.Wet
 			], 
 			[
-				
+				new MagicBuffMultiplier(BuffID.Bleeding,1.01f),
+				new MagicBuffMultiplier(BuffID.OnFire,1.125f),
+				new MagicBuffMultiplier(BuffID.Venom,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.01f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.99f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
+				new MagicBuffMultiplier(BuffID.Wet,0.99f)
+
 			]
 			);
 			public override void AddRecipes() {
