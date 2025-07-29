@@ -20,6 +20,10 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
             if(frameNum>20){
                 frameNum = 0;
                 npc.life-=3;
+                if(npc.life<1){
+                    npc.life = 1;
+                    npc.SimpleStrikeNPC(3,0,false,0f,null,false,0f,false);
+                }
                 CombatText.NewText(npc.Hitbox,CombatText.DamagedHostile,3);
                 for(int dustCountInt = 0;dustCountInt<10;dustCountInt++){
                     Dust.NewDust(npc.position+ new Vector2((float)npc.width/2f,(float)npc.height/2f),1,1,DustID.Blood,(0.5f-rnd.NextSingle())*2f,(0.5f-rnd.NextSingle())*2f,1,default,1f);
