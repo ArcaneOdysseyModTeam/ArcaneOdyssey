@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using System;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,13 +26,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Chilled, // freezing
 				BuffID.Stoned,
 				BuffID.Wet,
-				BuffID.Bleeding,
+				ModContent.BuffType<AOBleed>(),
 				BuffID.Venom,
 				BuffID.Frozen
 			], 
 			[
 				new MagicBuffMultiplier(BuffID.Stoned, 1.2f), // petrified
-				new MagicBuffMultiplier(BuffID.Bleeding, 1.15f), // bleeding
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.15f), // bleeding
 				new MagicBuffMultiplier(BuffID.OnFire, 1.10f),
 				new MagicBuffMultiplier(BuffID.Venom, 1.1f), // venom acid
 				new MagicBuffMultiplier(BuffID.Burning, 1.075f),

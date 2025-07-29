@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override MagicEffects Effects => new MagicEffects(
             [ // these are debuffs cleared on hit
                 BuffID.Stoned, // petrified
-                BuffID.Bleeding,
+                ModContent.BuffType<AOBleed>(),
                 BuffID.Frozen
             ], 
             [
                 new MagicBuffMultiplier(BuffID.Chilled, 1.2f), // frozen
-                new MagicBuffMultiplier(BuffID.Bleeding, 1.2f), // bleeding
+                new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
                 new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
                 new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
                 new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid

@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override MagicEffects Effects => new MagicEffects(
             [ // these are debuffs cleared on hit
                 BuffID.Wet,
-                BuffID.Bleeding,
+                ModContent.BuffType<AOBleed>(),
                 BuffID.Burning, 
                 BuffID.Venom,
                 BuffID.OnFire3,
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
                 ModContent.BuffType<CharredEffect>()
             ],
             [ // synergies
-                new MagicBuffMultiplier(BuffID.Bleeding, 1.2f), // bleeding
+                new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
                 new MagicBuffMultiplier(ModContent.BuffType<AOFrozen>(), 1.1f), // frozen
                 new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.1f), // freezing
                 new MagicBuffMultiplier(BuffID.Wet, 1.1f), // (add stunning later!)

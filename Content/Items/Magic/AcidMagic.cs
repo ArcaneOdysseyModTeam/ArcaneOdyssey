@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				ModContent.BuffType<SnowyEffect>()
 			], 
 			[
-				new MagicBuffMultiplier(BuffID.Bleeding,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.075f),
 				new MagicBuffMultiplier(BuffID.OnFire,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.02f),

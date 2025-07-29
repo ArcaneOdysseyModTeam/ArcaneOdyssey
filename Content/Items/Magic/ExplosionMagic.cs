@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Wet
 			], 
 			[
-				new MagicBuffMultiplier(BuffID.Bleeding,1.01f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.01f),
 				new MagicBuffMultiplier(BuffID.OnFire,1.125f),
 				new MagicBuffMultiplier(BuffID.Venom,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),

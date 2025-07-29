@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.ShadowFlame
 			], 
 			[
-				new MagicBuffMultiplier(BuffID.Bleeding,1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
 				new MagicBuffMultiplier(BuffID.OnFire,1.02f),
 				new MagicBuffMultiplier(BuffID.Venom,1.075f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),

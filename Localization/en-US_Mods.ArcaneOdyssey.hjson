@@ -381,6 +381,11 @@ Buffs: {
 		DisplayName: Crystal Stack Mid
 		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackMid.Description
 	}
+
+	AOBleed: {
+		DisplayName: A O Bleed
+		Description: Mods.ArcaneOdyssey.Buffs.AOBleed.Description
+	}
 }
 
 Projectiles: {
