@@ -135,9 +135,8 @@ Items: {
 		DisplayName: Fire Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic
+			Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze.
 			[c/2277ff:-Base Magic-]
-			Incomplete
 			'''
 	}
 
