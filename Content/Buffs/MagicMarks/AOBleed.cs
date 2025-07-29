@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArcaneOdyssey.Content.Buffs;
+using ArcaneOdyssey.Content.Items.Base;
+using Steamworks;
+using System.Linq.Expressions;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
@@ -20,7 +22,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
                 npc.life-=3;
                 CombatText.NewText(npc.Hitbox,CombatText.DamagedHostile,3);
                 for(int dustCountInt = 0;dustCountInt<10;dustCountInt++){
-                    Dust.NewDust(npc.position,1,1,DustID.Blood,(0.5f-rnd.NextSingle())*2f,(0.5f-rnd.NextSingle())*2f,1,default,1f);
+                    Dust.NewDust(npc.position+ new Vector2((float)npc.width/2f,(float)npc.height/2f),1,1,DustID.Blood,(0.5f-rnd.NextSingle())*2f,(0.5f-rnd.NextSingle())*2f,1,default,1f);
                     }
             }
         }
