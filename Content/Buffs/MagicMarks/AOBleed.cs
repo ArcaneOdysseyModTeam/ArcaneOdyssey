@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
                 frameNum = 0;
                 npc.life-=3;
                 if(npc.life<1){
+                    //makes npcs die normally
                     npc.life = 1;
                     npc.SimpleStrikeNPC(3,0,false,0f,null,false,0f,false);
                 }
