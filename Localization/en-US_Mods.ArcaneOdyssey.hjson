@@ -337,53 +337,53 @@ Buffs: {
 	}
 
 	AOFrozen: {
-		DisplayName: Magical Frozen
-		Description: Mods.ArcaneOdyssey.Buffs.AOFrozen.Description
+		DisplayName: Frozen
+		Description: You can't move.
 	}
 
 	AOPetrified: {
 		DisplayName: Petrified
-		Description: Mods.ArcaneOdyssey.Buffs.AOPetrified.Description
+		Description: You can't move.
 	}
 
 	AOParalyzed: {
 		DisplayName: Paralyzed
-		Description: Mods.ArcaneOdyssey.Buffs.AOParalyzed.Description
+		Description: You can't move.
 	}
 
 	CharredEffect: {
-		DisplayName: Charred Effect
-		Description: Mods.ArcaneOdyssey.Buffs.CharredEffect.Description
+		DisplayName: Charred
+		Description: You are covered in ash.
 	}
 
 	CrystalStackI: {
-		DisplayName: Crystal Stack I
-		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackI.Description
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
 	}
 
 	CrystalStackII: {
-		DisplayName: Crystal Stack I I
-		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackII.Description
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
 	}
 
 	CrystalStackIII: {
-		DisplayName: Crystal Stack I I I
-		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackIII.Description
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
 	}
 
 	CrystalStackIIII: {
-		DisplayName: Crystal Stack I I I I
-		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackIIII.Description
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
 	}
 
 	CrystalStackMid: {
-		DisplayName: Crystal Stack Mid
-		Description: Mods.ArcaneOdyssey.Buffs.CrystalStackMid.Description
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
 	}
 
 	AOBleed: {
-		DisplayName: A O Bleed
-		Description: Mods.ArcaneOdyssey.Buffs.AOBleed.Description
+		DisplayName: Bleeding
+		Description: You are losing blood fast.
 	}
 }
 
