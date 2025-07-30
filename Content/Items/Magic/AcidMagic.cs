@@ -24,13 +24,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<SnowyEffect>()
+				ModContent.BuffType<SnowyEffect>(),
+				ModContent.BuffType<SandyEffect>()
 			], 
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.075f),
 				new MagicBuffMultiplier(BuffID.OnFire,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.02f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.2f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
 				new MagicBuffMultiplier(BuffID.Poisoned,1.05f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
@@ -39,7 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.9f)
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.99f)
 			]
 			);
 			public override void AddRecipes() {

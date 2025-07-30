@@ -40,8 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.99f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-				new MagicBuffMultiplier(BuffID.Wet,0.99f)
-
+				new MagicBuffMultiplier(BuffID.Wet,0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.99f)
 			]
 			);
 			public override void AddRecipes() {

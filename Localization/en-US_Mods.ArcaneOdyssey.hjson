@@ -144,9 +144,8 @@ Items: {
 		DisplayName: Glass Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic
+			Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay.
 			[c/2277ff:-Base Magic-]
-			Incomplete
 			'''
 	}
 
@@ -384,6 +383,11 @@ Buffs: {
 	AOBleed: {
 		DisplayName: Bleeding
 		Description: You are losing blood fast.
+	}
+
+	SandyEffect: {
+		Description: Mods.ArcaneOdyssey.Buffs.SandyEffect.Description
+		DisplayName: Sandy Effect
 	}
 }
 
