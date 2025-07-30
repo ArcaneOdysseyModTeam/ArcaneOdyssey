@@ -28,16 +28,16 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Wet,
 				ModContent.BuffType<AOBleed>(),
 				BuffID.Venom,
-				BuffID.Frozen
+				ModContent.BuffType<FreezingEffect>()
 			], 
 			[
-				new MagicBuffMultiplier(BuffID.Stoned, 1.2f), // petrified
+				new MagicBuffMultiplier(ModContent.BuffType<AOPetrified>(), 1.2f), // petrified
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.15f), // bleeding
 				new MagicBuffMultiplier(BuffID.OnFire, 1.10f),
 				new MagicBuffMultiplier(BuffID.Venom, 1.1f), // venom acid
 				new MagicBuffMultiplier(BuffID.Burning, 1.075f),
 				new MagicBuffMultiplier(BuffID.Poisoned, 1.05f),
-				new MagicBuffMultiplier(BuffID.Chilled, .95f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), .95f),
 				new MagicBuffMultiplier(BuffID.Wet, .95f)
 			]
 			);

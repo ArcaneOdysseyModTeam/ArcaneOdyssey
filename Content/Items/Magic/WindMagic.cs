@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override MagicEffects Effects => new MagicEffects(
 			[
 				// sandy
-				BuffID.Stoned, // petrified
+				ModContent.BuffType<AOPetrified>(), // petrified
 				BuffID.Poisoned,
 				BuffID.OnFire,
 				BuffID.Wet,
