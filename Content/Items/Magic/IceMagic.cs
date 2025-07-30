@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
             [ // these are debuffs cleared on hit
                 BuffID.Wet,
                 ModContent.BuffType<AOBleed>(),
-                BuffID.Burning, 
+                BuffID.OnFire, 
                 BuffID.Venom,
                 BuffID.OnFire3,
                 BuffID.ShadowFlame,
@@ -43,7 +43,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
                 new MagicBuffMultiplier(BuffID.OnFire, .9f), // burning
                 new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), .9f), // charred
                 new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
-                new MagicBuffMultiplier(BuffID.ShadowFlame, .8f)
+                new MagicBuffMultiplier(BuffID.ShadowFlame, .8f),
+                new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.1f),
+                new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f)
             ]
             );
             public override void AddRecipes() {
