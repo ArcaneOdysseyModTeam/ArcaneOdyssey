@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
                 new MagicBuffMultiplier(BuffID.OnFire, .9f), // burning
                 new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), .9f), // charred
                 new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
-                new MagicBuffMultiplier(BuffID.ShadowFlame, .8f),
+                new MagicBuffMultiplier(BuffID.ShadowFlame, 1.15f),
                 new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.1f),
                 new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
