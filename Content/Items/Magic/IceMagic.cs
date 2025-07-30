@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
             [ // these are debuffs cleared on hit
                 BuffID.Wet,
                 ModContent.BuffType<AOBleed>(),
-                BuffID.OnFire, 
+                BuffID.Burning, 
                 BuffID.Venom,
                 BuffID.OnFire3,
                 BuffID.ShadowFlame,

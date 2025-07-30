@@ -25,9 +25,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override CombinedDebuff[] combinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
         public override MagicEffects Effects => new MagicEffects(
             [ // these are debuffs cleared on hit
-                BuffID.Stoned, // petrified
+                ModContent.BuffType<AOPetrified>(), // petrified
                 ModContent.BuffType<AOBleed>(),
-                BuffID.Frozen
+                ModContent.BuffType<AOFrozen>()
             ], 
             [
                 new MagicBuffMultiplier(BuffID.Chilled, 1.2f), // frozen
