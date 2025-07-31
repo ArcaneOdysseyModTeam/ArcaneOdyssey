@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,8 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f),
-				new MagicBuffMultiplier(BuffID.Obscured,0.98f)
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f)
 			]
 			);
 			public override void AddRecipes() {
