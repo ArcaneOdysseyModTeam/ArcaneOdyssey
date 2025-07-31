@@ -434,6 +434,12 @@ namespace ArcaneOdyssey
 			}
 		}
 
+        public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        {
+			// might use for coloured projectiles later, keep in mind
+            return base.PreDraw(projectile, ref lightColor);
+        }
+
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255)

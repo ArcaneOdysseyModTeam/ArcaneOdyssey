@@ -35,6 +35,7 @@ namespace ArcaneOdyssey
 			public const short Normal = 1;
 			public const short Lost = 2;
 			public const short Ancient = 3;
+			public const short Custom = 4;
 		}
 
 		/// <summary>
