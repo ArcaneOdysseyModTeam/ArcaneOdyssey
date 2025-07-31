@@ -62,7 +62,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
             Projectile.rotation += MathHelper.TwoPi * 2f / spintime * player.direction;
 			// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
-			AI2();
+			
+			player.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
+            AI2();
         }
 
 		public virtual void EffectBeforeSpin(Player player, float spintime) { }

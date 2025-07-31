@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Base
         {
             Item.width = 32;
             Item.height = 32;
+            Item.noMelee = true;
             Item.rare = AORarity;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.DamageType = DamageClass.Magic;

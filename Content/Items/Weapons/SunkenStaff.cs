@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override int AOValue => 1350;
         public override int AORarity => AORarities.Rare;
         public override int AOWeaponTier => AOWeaponTiers.Excellent;
-        public override AODebuff WeaponDebuff => new AODebuff(BuffID.Wet, 60 * 5);
+        public override AODebuff WeaponDebuff => new AODebuff(BuffID.Wet, 600);
 
 
         public override void SetDefaultsWeapon()
@@ -33,7 +33,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
-            Item.shootSpeed = Item.useAnimation = Item.useTime = (int)(25 * AOSpeed);
+            Item.useAnimation = Item.useTime = (int)(25 * FlipFloat(AOSpeed));
+            Item.shootSpeed = 25 * AOSpeed;
         }
 
         public override void AddRecipes()

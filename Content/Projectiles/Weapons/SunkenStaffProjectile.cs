@@ -36,7 +36,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
             Projectile.ownerHitCheck = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 6;
-            Projectile.timeLeft = 99999;
         }
 
         public override void AI2()
