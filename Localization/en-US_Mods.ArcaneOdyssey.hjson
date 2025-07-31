@@ -41,7 +41,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to create swift bolts of destructive lightning.
-			
+
 			'''
 	}
 
@@ -50,7 +50,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone.
-			
+
 			'''
 	}
 
@@ -59,7 +59,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
-			
+
 			'''
 	}
 
@@ -68,7 +68,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
-			
+
 			Incomplete
 			'''
 	}
@@ -85,66 +85,42 @@ Items: {
 
 	AcidMagic: {
 		DisplayName: Acid Magic
-		Tooltip:
-			'''
-			Allows the user to form a caustic, reactive liquid that corrodes through enemies.
-			'''
+		Tooltip: Allows the user to form a caustic, reactive liquid that corrodes through enemies.
 	}
 
 	AshMagic: {
 		DisplayName: Ash Magic
-		Tooltip:
-			'''
-			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
-			'''
+		Tooltip: Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
 	}
 
 	CrystalMagic: {
 		DisplayName: Crystal Magic
-		Tooltip:
-			'''
-			Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation.
-			'''
+		Tooltip: Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation.
 	}
 
 	EarthMagic: {
 		DisplayName: Earth Magic
-		Tooltip:
-			'''
-			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
-			'''
+		Tooltip: Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
 	}
 
 	ExplosionMagic: {
 		DisplayName: Explosion Magic
-		Tooltip:
-			'''
-			Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion.
-			'''
+		Tooltip: Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion.
 	}
 
 	FireMagic: {
 		DisplayName: Fire Magic
-		Tooltip:
-			'''
-			Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze.
-			'''
+		Tooltip: Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze.
 	}
 
 	GlassMagic: {
 		DisplayName: Glass Magic
-		Tooltip:
-			'''
-			Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay.
-			'''
+		Tooltip: Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay.
 	}
 
 	LightMagic: {
 		DisplayName: Light Magic
-		Tooltip:
-			'''
-			Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck.
-			'''
+		Tooltip: Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck.
 	}
 
 	MetalMagic: {
@@ -275,10 +251,7 @@ Items: {
 
 	VesuviusMagic: {
 		DisplayName: Vesuvius Magic
-		Tooltip:
-			'''
-			Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way.
-			'''
+		Tooltip: Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way.
 	}
 
 	CommodoreKaiSabre: {
@@ -403,8 +376,8 @@ Configs: {
 NPCs.DebuffDummy.DisplayName: Debuff Dummy
 
 MagicTierLines: {
-	Normal: [c/2277ff:-Base Magic-]
-	Lost: [c/0044ff:-Lost Magic-]
+	Normal: "[c/2277ff:-Base Magic-]"
+	Lost: "[c/0044ff:-Lost Magic-]"
 	Ancient: -Ancient Magic-
-	Custom: [c/ff0000:-Custom Magic-]
+	Custom: "[c/ff0000:-Custom Magic-]"
 }
