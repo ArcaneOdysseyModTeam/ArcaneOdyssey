@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArcaneOdyssey")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+709181e703e9b259f8e72fe0d6a950a136b45846")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de6280db8ea60e21b3b463d23237f97f460c3d60")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArcaneOdyssey")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArcaneOdyssey")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

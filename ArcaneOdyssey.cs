@@ -297,6 +297,12 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
 				npcLoot.Add(leadingConditionRule);
 			}
+			if (npc.type == NPCID.CultistBoss)
+			{
+				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new FirstCultistKill());
+                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
+                npcLoot.Add(leadingConditionRule);
+            }
 			if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
@@ -306,7 +312,15 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class AOPlayer : ModPlayer
+	public class FirstCultistKill : IItemDropRuleCondition
+	{
+        public bool CanDrop(DropAttemptInfo info) => !NPC.downedAncientCultist;
+        public bool CanShowItemDropInUI() => true;
+        public string GetConditionDescription() => Language.GetOrRegister("ArcaneOdyssey.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
+    }
+
+
+    public class AOPlayer : ModPlayer
 	{
 		public AOMagic? imbue = null;
 		public bool RightClicking => Player.altFunctionUse == 2;
@@ -414,7 +428,7 @@ namespace ArcaneOdyssey
 					{
 						hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
 						hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
-						projectile.scale = imbue.AOImbueSize;
+						projectile.scale *= imbue.AOImbueSize;
 					}
 				}
 			}
