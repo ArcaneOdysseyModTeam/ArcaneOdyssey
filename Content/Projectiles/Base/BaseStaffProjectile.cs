@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 
             float spintime = 25 * FlipFloat(AOSpeed) * 2 * extramulti;
-            Vector2 expectedDirection = SafeDirectionTo(player, Main.MouseWorld);
+            Vector2 expectedDirection = EntitySafeDirectionTo(player, Main.MouseWorld);
 			Projectile.velocity = 25 * AOSpeed * expectedDirection;
             player.direction = (expectedDirection.X > 0f).ToDirectionInt();
 

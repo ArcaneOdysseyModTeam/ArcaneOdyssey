@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using Humanizer;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -44,17 +45,17 @@ namespace ArcaneOdyssey
 			if (playah.imbue is not null)
 			{
 				if ((playah.imbue.MagicDebuff is not null)&&(!(playah.imbue.MagicDebuff.DebuffPercent == 0f))) {
-    				if ((playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
-    				{
+					if ((playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
+					{
 					target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
 				}
-    				}
+					}
 				if ((playah.imbue.MagicDebuff2 is not null)&&(!(playah.imbue.MagicDebuff2.DebuffPercent == 0f))) {
-    				if ((playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent)))
-    				{
+					if ((playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent)))
+					{
 					target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
 				}
-    				}
+					}
 
 				if (playah.imbue.combinedDebuffs is not null)
 				{
@@ -67,7 +68,7 @@ namespace ArcaneOdyssey
 					}
 				}
 
-                foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
+				foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
 				{
 					if (target.HasBuff(multiplier.buffID))
 					{
@@ -89,13 +90,13 @@ namespace ArcaneOdyssey
 			}
 		}
 		
-        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
-        {
-			if (item.type == ItemID.OceanCrate || item.type == ItemID.OceanCrateHard)
+		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+		{
+			if (item.type == ItemID.OceanCrateHard)
 			{
 				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArcaniumScrap>(), 15, 0, 1));
 			}
-        }
+		}
 
 		public override void UpdateInventory(Item item, Player player)
 		{
@@ -109,8 +110,17 @@ namespace ArcaneOdyssey
 		public static AOPlayer? playerForImbue = null;
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-		{
-			if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged || item.ModItem is DefaultScroll)
+        {
+            bool extraconfs = false;
+            if (ModLoader.HasMod("CalamityMod"))
+            {
+                List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+                if (goodclasses.Contains(item.DamageType.Name))
+                {
+                    extraconfs = true;
+                }
+            }
+            if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged || extraconfs || item.ModItem is DefaultScroll)
 			{
 				string imbuetextthing = Mod.GetLocalization("ImbueStuff.NoneText").Value;
 				if (Main.netMode != NetmodeID.SinglePlayer)
@@ -162,7 +172,16 @@ namespace ArcaneOdyssey
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+			bool extraconfs = false;
+			if (ModLoader.HasMod("CalamityMod"))
+			{
+				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+				if (goodclasses.Contains(item.DamageType.Name))
+				{
+					extraconfs = true;
+				}
+			}
+			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || extraconfs))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -179,7 +198,16 @@ namespace ArcaneOdyssey
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+            bool extraconfs = false;
+            if (ModLoader.HasMod("CalamityMod"))
+            {
+                List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+                if (goodclasses.Contains(item.DamageType.Name))
+                {
+                    extraconfs = true;
+                }
+            }
+            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || extraconfs))
 			{
 				float extrakbmulti = 1f;
 				if (item.ModItem is WindMagic)
@@ -200,7 +228,16 @@ namespace ArcaneOdyssey
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged))
+            bool extraconfs = false;
+            if (ModLoader.HasMod("CalamityMod"))
+            {
+                List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+                if (goodclasses.Contains(item.DamageType.Name))
+                {
+                    extraconfs = true;
+                }
+            }
+            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged || extraconfs))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -222,7 +259,16 @@ namespace ArcaneOdyssey
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged))
+            bool extraconfs = false;
+            if (ModLoader.HasMod("CalamityMod"))
+            {
+                List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+                if (goodclasses.Contains(item.DamageType.Name))
+                {
+                    extraconfs = true;
+                }
+            }
+            if (player.GetModPlayer<AOPlayer>().imbue is not null && (extraconfs || item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -230,8 +276,8 @@ namespace ArcaneOdyssey
 				}
 				else if (item.ModItem is not null && ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
-                    return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
-                }
+					return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
+				}
 				else if (item.ModItem is null) // do not touch items from other mods
 				{
 					return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
@@ -243,21 +289,21 @@ namespace ArcaneOdyssey
 
 	public class NPCDrops : GlobalNPC
 	{
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            if (npc.type == NPCID.WallofFlesh)
+		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+		{
+			if (npc.type == NPCID.WallofFlesh)
 			{
-                LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.IsPreHardmode());
-                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
-                npcLoot.Add(leadingConditionRule);
-            }
+				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.IsPreHardmode());
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
+				npcLoot.Add(leadingConditionRule);
+			}
 			if (npc.type == NPCID.Plantera)
-            {
-                LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
-                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
-                npcLoot.Add(leadingConditionRule);
-            }
-        }
+			{
+				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
+				npcLoot.Add(leadingConditionRule);
+			}
+		}
 	}
 
 	public class AOPlayer : ModPlayer
@@ -265,22 +311,22 @@ namespace ArcaneOdyssey
 		public AOMagic? imbue = null;
 		public bool RightClicking => Player.altFunctionUse == 2;
 
-        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
-        {
+		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+		{
 			if (!mediumCoreDeath)
 			{
 				return [new Item(ModContent.ItemType<HecateOrb>())];
 			}
 			else return [];
-        }
+		}
 	}
 
 	public class ProjectileImbuer : GlobalProjectile
 	{
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
-        {
+		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+		{
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255)
-            {
+			{
 				AOPlayer playah = Main.player[projectile.owner].GetModPlayer<AOPlayer>();
 				if (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
 				{
@@ -312,9 +358,9 @@ namespace ArcaneOdyssey
 										target.AddBuff(buffkeys.result, buffkeys.duration);
 									}
 								}
-                            }
+							}
 
-                            foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
+							foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
 							{
 								if (target.HasBuff(multiplier.buffID))
 								{
@@ -337,14 +383,14 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-        }
+		}
 
-        public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
-        {
+		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
+		{
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255)
 			{
 				if (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
-                {
+				{
 					AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
 					if (imbue is not null)
 					{
@@ -354,12 +400,12 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-        }
+		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
-            if (projectile.owner == Main.myPlayer && projectile.owner != 255)
-            {
+			if (projectile.owner == Main.myPlayer && projectile.owner != 255)
+			{
 				if (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged)
 				{
 					AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;

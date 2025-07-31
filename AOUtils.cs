@@ -159,7 +159,7 @@ namespace ArcaneOdyssey
 			}
 			else return 1;
 		}
-		public static Vector2 SafeDirectionTo(Entity entity, Vector2 destination, Vector2? fallback = null)
+		public static Vector2 EntitySafeDirectionTo(Entity entity, Vector2 destination, Vector2? fallback = null)
 		{
 			fallback ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(fallback.Value);
