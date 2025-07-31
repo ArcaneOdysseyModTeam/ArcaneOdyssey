@@ -53,6 +53,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default, Projectile.ai[0])];
 				dust.noGravity = true;
 				//dust.velocity = Projectile.velocity * -1;
+
+				//Random Fling Dust
+				for(int dustCountInt = 0,dustCountInt < 2,dustCountInt++) {
+					Dust.NewDust(Projectile.position + new Vector2(Projectile.width/2f,Projectile.height/2f,DustID.Water,0f,0f,1,default,1f));
+				}
 			}
 		}
 
