@@ -435,17 +435,35 @@ namespace ArcaneOdyssey
 					{
 						hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
 						hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
-						projectile.scale = imbue.AOImbueSize;
 					}
 				}
 			}
 		}
 
-		public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        public override void PostDraw(Projectile projectile, Color lightColor)
 		{
-			// might use for coloured projectiles later, keep in mind
-			return base.PreDraw(projectile, ref lightColor);
-		}
+
+            if (projectile.owner == Main.myPlayer && projectile.owner != 255)
+            {
+                bool extraconfs = false;
+                if (ModLoader.HasMod("CalamityMod"))
+                {
+                    List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+                    if (goodclasses.Contains(projectile.DamageType.Name))
+                    {
+                        extraconfs = true;
+                    }
+                }
+                if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
+                {
+                    AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+                    if (imbue is not null)
+                    {
+                        projectile.scale = imbue.AOImbueSize;
+                    }
+                }
+            }
+        }
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
