@@ -440,10 +440,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-        public override void PostDraw(Projectile projectile, Color lightColor)
+        public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
-
-            if (projectile.owner == Main.myPlayer && projectile.owner != 255)
+			if (projectile.owner == Main.myPlayer && projectile.owner != 255)
             {
                 bool extraconfs = false;
                 if (ModLoader.HasMod("CalamityMod"))
@@ -463,6 +462,7 @@ namespace ArcaneOdyssey
                     }
                 }
             }
+			return base.PreDraw(projectile, ref lightColor);
         }
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
