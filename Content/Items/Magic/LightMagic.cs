@@ -25,7 +25,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			], 
 			[
-				
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f),
+				new MagicBuffMultiplier(BuffID.Obscured,0.98f)
 			]
 			);
 			public override void AddRecipes() {

@@ -42,7 +42,6 @@ Items: {
 			'''
 			Allows the user to create swift bolts of destructive lightning.
 			[c/2277ff:-Base Magic-]
-			Incomplete
 			'''
 	}
 
@@ -61,7 +60,6 @@ Items: {
 			'''
 			Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
 			[c/2277ff:-Base Magic-]
-			Incomplete
 			'''
 	}
 
@@ -152,9 +150,8 @@ Items: {
 		DisplayName: Light Magic
 		Tooltip:
 			'''
-			Allows the user to use a magic
+			Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck.
 			[c/2277ff:-Base Magic-]
-			Incomplete
 			'''
 	}
 

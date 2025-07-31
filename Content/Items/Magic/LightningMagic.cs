@@ -26,6 +26,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override MagicEffects Effects => new MagicEffects(
             [ // these are debuffs cleared on hit
                 ModContent.BuffType<AOPetrified>(), // petrified
+                ModContent.BuffType<CharredEffect>(),
+                ModContent.BuffType<SandyEffect>(),
                 ModContent.BuffType<AOBleed>(),
                 ModContent.BuffType<AOFrozen>()
             ], 
@@ -35,7 +37,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
                 new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
                 new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
                 new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid
-                new MagicBuffMultiplier(BuffID.Wet, 1.05f) // (add stunning later!)
+                new MagicBuffMultiplier(BuffID.Wet, 1.05f), // (add stunning later!)
+                new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
+                new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f)
             ]
             );
             public override void AddRecipes() {

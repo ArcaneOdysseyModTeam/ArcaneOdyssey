@@ -25,21 +25,32 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				BuffID.Chilled, // freezing
-				BuffID.Stoned,
+				ModContent.BuffType<AOPetrified>(),
 				BuffID.Wet,
 				ModContent.BuffType<AOBleed>(),
 				BuffID.Venom,
-				ModContent.BuffType<FreezingEffect>()
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<SandyEffect>(),
+				ModContent.BuffType<SnowyEffect>()
 			], 
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOPetrified>(), 1.2f), // petrified
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.15f), // bleeding
-				new MagicBuffMultiplier(BuffID.OnFire, 1.10f),
+				new MagicBuffMultiplier(BuffID.OnFire, 1.075f),
 				new MagicBuffMultiplier(BuffID.Venom, 1.1f), // venom acid
 				new MagicBuffMultiplier(BuffID.Burning, 1.075f),
 				new MagicBuffMultiplier(BuffID.Poisoned, 1.05f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), .95f),
-				new MagicBuffMultiplier(BuffID.Wet, .95f)
+				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), .99f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), 1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(), 0.99f),
+				new MagicBuffMultiplier(BuffID.Wet, .95f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.95f)
 			]
 			);
 			public override void AddRecipes() {
