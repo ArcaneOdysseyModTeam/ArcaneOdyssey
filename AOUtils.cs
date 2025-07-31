@@ -30,12 +30,12 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// This will probably never be used lol
 		/// </summary>
-		public class AOMagicTier
+		public enum AOMagicTier
 		{
-			public const short Normal = 1;
-			public const short Lost = 2;
-			public const short Ancient = 3;
-			public const short Custom = 4;
+			Normal = 1,
+			Lost = 2,
+			Ancient = 3,
+			Custom = 4,
 		}
 
 		/// <summary>

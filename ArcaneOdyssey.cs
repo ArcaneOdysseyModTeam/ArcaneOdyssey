@@ -130,6 +130,11 @@ namespace ArcaneOdyssey
 						imbuetextthing = playerForImbue.imbue.Item.Name;
 				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.GetLocalization("ImbueStuff.ImbueTooltip").Format([imbuetextthing])));
 			}
+
+			if (item.ModItem is AOMagic magical)
+			{
+				tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.GetLocalization($"MagicTierLines.{magical.MagicTier.ToString()}").Value));
+            }
 		}
 
 		public override bool? UseItem(Item item, Player player)
@@ -428,7 +433,7 @@ namespace ArcaneOdyssey
 					{
 						hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
 						hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
-						projectile.scale *= imbue.AOImbueSize;
+						projectile.scale = imbue.AOImbueSize;
 					}
 				}
 			}

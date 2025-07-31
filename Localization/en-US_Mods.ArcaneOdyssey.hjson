@@ -41,7 +41,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to create swift bolts of destructive lightning.
-			[c/2277ff:-Base Magic-]
+			
 			'''
 	}
 
@@ -50,7 +50,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone.
-			[c/2277ff:-Base Magic-]
+			
 			'''
 	}
 
@@ -59,7 +59,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
-			[c/2277ff:-Base Magic-]
+			
 			'''
 	}
 
@@ -68,7 +68,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
-			[c/2277ff:-Base Magic-]
+			
 			Incomplete
 			'''
 	}
@@ -80,7 +80,7 @@ Items: {
 
 	HecateShard: {
 		DisplayName: Hecate Shard
-		Tooltip: A shard of the Goddess Hecate,which can be used to mutate a base magic into a lost magic. currently unusable
+		Tooltip: A shard of the Goddess Hecate, which can be used in the future to mutate a base magic into a lost magic
 	}
 
 	AcidMagic: {
@@ -88,7 +88,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to form a caustic, reactive liquid that corrodes through enemies.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -97,7 +96,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -106,7 +104,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -115,7 +112,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -124,7 +120,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -133,7 +128,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -142,7 +136,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -151,7 +144,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck.
-			[c/2277ff:-Base Magic-]
 			'''
 	}
 
@@ -160,7 +152,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -170,7 +161,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -180,7 +170,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -190,7 +179,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -200,7 +188,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -210,7 +197,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -220,7 +206,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -230,7 +215,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/2277ff:-Base Magic-]
 			Incomplete
 			'''
 	}
@@ -240,7 +224,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0044ff:-Lost Magic-]
 			Incomplete
 			'''
 	}
@@ -250,7 +233,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0044ff:-Lost Magic-]
 			Incomplete
 			'''
 	}
@@ -260,7 +242,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0044ff:-Lost Magic-]
 			Incomplete
 			'''
 	}
@@ -270,7 +251,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0044ff:-Lost Magic-]
 			Incomplete
 			'''
 	}
@@ -280,7 +260,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0044ff:-Lost Magic-]
 			Incomplete
 			'''
 	}
@@ -290,7 +269,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to use a magic
-			[c/0044ff:-Lost Magic-]
 			Incomplete
 			'''
 	}
@@ -300,7 +278,6 @@ Items: {
 		Tooltip:
 			'''
 			Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way.
-			[c/ff0000:-Custom Magic-]
 			'''
 	}
 
@@ -424,3 +401,10 @@ Configs: {
 }
 
 NPCs.DebuffDummy.DisplayName: Debuff Dummy
+
+MagicTierLines: {
+	Normal: [c/2277ff:-Base Magic-]
+	Lost: [c/0044ff:-Lost Magic-]
+	Ancient: -Ancient Magic-
+	Custom: [c/ff0000:-Custom Magic-]
+}

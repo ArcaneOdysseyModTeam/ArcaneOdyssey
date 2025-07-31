@@ -46,10 +46,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOImbueSpeed => .9f;
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;
-        public virtual float AOMagicSpeed => AOImbueSpeed;
-        public virtual float AOMagicSize => AOImbueSize;
-        public virtual float AOMagicDamage => AOImbueDamage;
-        public virtual int MagicTier => AOMagicTier.Normal;
+		public virtual float AOMagicSpeed => AOImbueSpeed;
+		public virtual float AOMagicSize => AOImbueSize;
+		public virtual float AOMagicDamage => AOImbueDamage;
+		public virtual AOMagicTier MagicTier => AOMagicTier.Normal;
 		public virtual AODebuff? MagicDebuff => null;
         public virtual AODebuff? MagicDebuff2 => null; // used for having freezing and frozen on a single magic ect
         public virtual MagicEffects? Effects => null;
