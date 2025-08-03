@@ -329,6 +329,7 @@ Buffs: {
 	AOBleed: {
 		DisplayName: Bleeding
 		Description: You are losing blood fast.
+		Death: bled out.
 	}
 
 	SandyEffect: {
