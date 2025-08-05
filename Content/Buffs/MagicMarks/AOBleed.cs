@@ -40,8 +40,9 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
             if(frameNum>20){
                 frameNum = 0;
                 player.statLife-=3;
-                if(player.statLife<0) {
-                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Mod.GetLocalization("Buffs.AOBleed.Death")), 1, 0, out info, false, false, -1, false,0f, 0f,0f);
+                if(player.statLife<0)
+                {
+                    player.Hurt(PlayerDeathReason.ByCustomReason(ArcaneOdyssey.CustomLocalization(Mod, "Buffs.AOBleed.Death", [player.name]).ToNetworkText()), 1, 0, out info, false, false, -1, false,0f, 0f,0f);
                 }
                 CombatText.NewText(player.Hitbox,CombatText.DamagedFriendly,3);
                 for(int dustCountInt = 0;dustCountInt<10;dustCountInt++){

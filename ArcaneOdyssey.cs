@@ -28,6 +28,32 @@ namespace ArcaneOdyssey
 {
 	public class ArcaneOdyssey : Mod 
 	{
+		public static Dictionary<string, LocalizedText> staticLocalizer = new();
+		/// <summary>
+		/// Automatically generates localization, and formats statically
+		/// </summary>
+		/// <param name="mod">literally the mod</param>
+		/// <param name="key">The localization key</param>
+		/// <param name="formatting">Formatting args, not required</param>
+		/// <returns></returns>
+		public static LocalizedText CustomLocalization(Mod mod, string key, object[] formatting = null)
+		{
+			LocalizedText text = LocalizedText.Empty;
+			if (staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
+			{
+				text = value;
+			}
+			else
+			{
+				text = mod.GetLocalization(key);
+				if (formatting is not null)
+				{
+					text = text.WithFormatArgs(formatting);
+				}
+				staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
+			}
+			return text;
+		}
 	}
 	public class VanillaSynergy : GlobalItem
 	{
@@ -109,7 +135,7 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// used in singleplayer exclusively to display current imbue
 		/// </summary>
-		public static AOPlayer? playerForImbue = null;
+		public static AOPlayer playerForImbue = null;
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
@@ -124,18 +150,18 @@ namespace ArcaneOdyssey
 			}
 			if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged || extraconfs || item.ModItem is DefaultScroll)
 			{
-				string imbuetextthing = Mod.GetLocalization("ImbueStuff.NoneText").Value;
+				string imbuetextthing = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.NoneText").Value;
 				if (Main.netMode != NetmodeID.SinglePlayer)
-					imbuetextthing = Mod.GetLocalization("ImbueStuff.MultiplayerCannotDisplay").Value;
+					imbuetextthing = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.MultiplayerCannotDisplay").Value;
 				if (playerForImbue is not null)
 					if (playerForImbue.imbue is not null)
 						imbuetextthing = playerForImbue.imbue.Item.Name;
-				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.GetLocalization("ImbueStuff.ImbueTooltip").Format([imbuetextthing])));
+				tooltips.Add(new TooltipLine(Mod, "ImbueText", ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
 			}
 
 			if (item.ModItem is AOMagic magical)
 			{
-				tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.GetLocalization($"MagicTierLines.{magical.MagicTier.ToString()}").Value));
+				tooltips.Add(new TooltipLine(Mod, "MagicTier", ArcaneOdyssey.CustomLocalization(Mod, $"MagicTierLines.{magical.MagicTier.ToString()}").Value));
 			}
 		}
 
@@ -148,7 +174,7 @@ namespace ArcaneOdyssey
 				if (magic != player.GetModPlayer<AOPlayer>().imbue)
 				{
 					player.GetModPlayer<AOPlayer>().imbue = magic;
-					LocalizedText chatmessage = Mod.GetLocalization("ImbueStuff.ImbueChatMessage").WithFormatArgs([item.Name]);
+					LocalizedText chatmessage = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.ImbueChatMessage", [item.Name]);
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
 						Main.NewText(chatmessage.Value, 13, 132, 168);
@@ -161,7 +187,7 @@ namespace ArcaneOdyssey
 				else 
 				{
 					player.GetModPlayer<AOPlayer>().imbue = null;
-					LocalizedText chatmessage = Mod.GetLocalization("ImbueStuff.UnimbueText");
+					LocalizedText chatmessage = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.UnimbueText");
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
 						Main.NewText(chatmessage.Value, 13, 132, 168);
@@ -329,7 +355,7 @@ namespace ArcaneOdyssey
 
 	public class AOPlayer : ModPlayer
 	{
-		public AOMagic? imbue = null;
+		public AOMagic imbue = null;
 		public bool RightClicking => Player.altFunctionUse == 2;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -430,7 +456,7 @@ namespace ArcaneOdyssey
 				}
 				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
 				{
-					AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					AOMagic imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
 					if (imbue is not null)
 					{
 						hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
@@ -440,30 +466,30 @@ namespace ArcaneOdyssey
 			}
 		}
 
-        public override bool PreDraw(Projectile projectile, ref Color lightColor)
+		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255)
-            {
-                bool extraconfs = false;
-                if (ModLoader.HasMod("CalamityMod"))
-                {
-                    List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-                    if (goodclasses.Contains(projectile.DamageType.Name))
-                    {
-                        extraconfs = true;
-                    }
-                }
-                if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
-                {
-                    AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
-                    if (imbue is not null)
-                    {
-                        projectile.scale = imbue.AOImbueSize;
-                    }
-                }
-            }
+			{
+				bool extraconfs = false;
+				if (ModLoader.HasMod("CalamityMod"))
+				{
+					List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+					if (goodclasses.Contains(projectile.DamageType.Name))
+					{
+						extraconfs = true;
+					}
+				}
+				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
+				{
+					AOMagic imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					if (imbue is not null)
+					{
+						projectile.scale = imbue.AOImbueSize;
+					}
+				}
+			}
 			return base.PreDraw(projectile, ref lightColor);
-        }
+		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
@@ -480,7 +506,7 @@ namespace ArcaneOdyssey
 				}
 				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged)
 				{
-					AOMagic? imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					AOMagic imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
 					if (imbue is not null)
 						projectile.velocity *= imbue.AOImbueSpeed;
 				}
