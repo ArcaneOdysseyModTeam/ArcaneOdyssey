@@ -28,7 +28,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].GetModPlayer<AOPlayer>();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 			if (Projectile.wet)
 			{
 				Projectile.Kill();

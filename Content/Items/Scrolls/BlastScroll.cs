@@ -16,13 +16,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.useTime = 15;
 			Item.useAnimation = 60;
 			Item.damage = 10;
-			Item.mana = 10;
+			Item.autoReuse = true;
+			Item.mana = 2;
+			Item.shootSpeed = 10;
+			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
-
-        public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
-        {
-            
-        }
 
 		public override bool CanUseItem(Player player)
 		{
@@ -31,15 +29,17 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
-        }
-
-		public override bool? UseItem(Player player)
-		{
-			AOPlayer playah = player.GetModPlayer<AOPlayer>();
-			AOMagic magic = playah.imbue;
-            Projectile.NewProjectile(player.GetSource_FromThis(), player.HandPosition.Value, 10, magic.Spells[typeof(BlastSpell)], Item.damage, Item.knockBack, player.whoAmI);
-			return true;
+            AOPlayer playah = player.GetModPlayer<AOPlayer>();
+            AOMagic magic = playah.imbue;
+			if (magic.Spells.TryGetValue(typeof(BlastSpell), out type))
+			{
+				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+                return false;
+            }
+			else
+			{
+				return true;
+			}
         }
 	}
 }
