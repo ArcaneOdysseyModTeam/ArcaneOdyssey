@@ -329,7 +329,7 @@ Buffs: {
 	AOBleed: {
 		DisplayName: Bleeding
 		Description: You are losing blood fast.
-		Death: {0} bled out.
+		Death: "{0} bled out."
 	}
 
 	SandyEffect: {
@@ -342,6 +342,7 @@ Projectiles: {
 	FuryoftheSea.DisplayName: Fury of the Sea
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	BlastSpell.DisplayName: Blast Spell
+	IceBlast.DisplayName: Ice Blast
 }
 
 ImbueStuff: {
