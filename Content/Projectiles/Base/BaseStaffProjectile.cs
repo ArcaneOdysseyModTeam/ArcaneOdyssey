@@ -20,18 +20,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			aoPlayerOwner ??= player.GetModPlayer<AOPlayer>();
 			originalItem = player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
-			player.itemTime = (int)(FlipFloat(AOSpeed)*60);
+			player.itemTime = (int)(AOSpeed*60).FlipFloat();
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
 			float extramulti = 1f;
 			if (aoPlayerOwner.imbue is not null)
 			{
-				extramulti = FlipFloat(aoPlayerOwner.imbue.AOImbueSpeed);
+				extramulti = (aoPlayerOwner.imbue.AOImbueSpeed).FlipFloat();
 			}
 
-            float spintime = 25 * FlipFloat(AOSpeed) * 2 * extramulti;
-            Vector2 expectedDirection = EntitySafeDirectionTo(player, Main.MouseWorld);
+            float spintime = 25 * AOSpeed.FlipFloat() * 2 * extramulti;
+            Vector2 expectedDirection = player.SafeDirectionTo(Main.MouseWorld);
 			Projectile.velocity = 25 * AOSpeed * expectedDirection;
             player.direction = (expectedDirection.X > 0f).ToDirectionInt();
 

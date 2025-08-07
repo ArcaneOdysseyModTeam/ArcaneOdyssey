@@ -29,36 +29,12 @@ namespace ArcaneOdyssey
 	public class ArcaneOdyssey : Mod 
 	{
 		public static Dictionary<string, LocalizedText> staticLocalizer = new();
-		/// <summary>
-		/// Automatically generates localization, and formats statically
-		/// </summary>
-		/// <param name="mod">literally the mod</param>
-		/// <param name="key">The localization key</param>
-		/// <param name="formatting">Formatting args, not required</param>
-		/// <returns></returns>
-		public static LocalizedText CustomLocalization(Mod mod, string key, object[] formatting = null)
-		{
-			LocalizedText text = LocalizedText.Empty;
-			if (staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
-			{
-				text = value;
-			}
-			else
-			{
-				text = mod.GetLocalization(key);
-				if (formatting is not null)
-				{
-					text = text.WithFormatArgs(formatting);
-				}
-				staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
-			}
-			return text;
-		}
 	}
 
 	public class VanillaSynergy : GlobalItem
 	{
-		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
+
+        public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (player == Main.LocalPlayer)
                 playerForImbue = player.GetModPlayer<AOPlayer>();
@@ -151,18 +127,18 @@ namespace ArcaneOdyssey
 			}
 			if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged || extraconfs || item.ModItem is DefaultScroll)
 			{
-				string imbuetextthing = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.NoneText").Value;
+				string imbuetextthing = Mod.CustomLocalization("ImbueStuff.NoneText").Value;
 				if (Main.netMode != NetmodeID.SinglePlayer)
-					imbuetextthing = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.MultiplayerCannotDisplay").Value;
+					imbuetextthing = Mod.CustomLocalization("ImbueStuff.MultiplayerCannotDisplay").Value;
 				if (playerForImbue is not null)
 					if (playerForImbue.imbue is not null)
 						imbuetextthing = playerForImbue.imbue.Item.Name;
-				tooltips.Add(new TooltipLine(Mod, "ImbueText", ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
+				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization("ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
 			}
 
 			if (item.ModItem is AOMagic magical)
 			{
-				tooltips.Add(new TooltipLine(Mod, "MagicTier", ArcaneOdyssey.CustomLocalization(Mod, $"MagicTierLines.{magical.MagicTier.ToString()}").Value));
+				tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.CustomLocalization($"MagicTierLines.{magical.MagicTier.ToString()}").Value));
 			}
 		}
 
@@ -175,7 +151,7 @@ namespace ArcaneOdyssey
 				if (magic != player.GetModPlayer<AOPlayer>().imbue)
 				{
 					player.GetModPlayer<AOPlayer>().imbue = magic;
-					LocalizedText chatmessage = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.ImbueChatMessage", [item.Name]);
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [item.Name]);
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
 						Main.NewText(chatmessage.Value, 13, 132, 168);
@@ -188,7 +164,7 @@ namespace ArcaneOdyssey
 				else 
 				{
 					player.GetModPlayer<AOPlayer>().imbue = null;
-					LocalizedText chatmessage = ArcaneOdyssey.CustomLocalization(Mod, "ImbueStuff.UnimbueText");
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
 						Main.NewText(chatmessage.Value, 13, 132, 168);
@@ -300,15 +276,15 @@ namespace ArcaneOdyssey
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
-					return FlipFloat(aoWeapon.AOSpeed * player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
+					return (aoWeapon.AOSpeed * player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed).FlipFloat();
 				}
 				else if (item.ModItem is not null && ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
-					return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
+					return player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed.FlipFloat();
 				}
 				else if (item.ModItem is null) // do not touch items from other mods
 				{
-					return FlipFloat(player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed);
+					return player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed.FlipFloat();
 				}
 			}
 			return 1f;

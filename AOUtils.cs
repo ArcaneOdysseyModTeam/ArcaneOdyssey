@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using ReLogic.Reflection;
 using System;
 using System.Collections.Generic;
@@ -8,29 +9,44 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.UI;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey
 {
-	public class AOUtils
+	public static class AOUtils
 	{
-		/// <summary>
-		/// unused
-		/// </summary>
-		/// <param name="broadSpellType"></param>
-		/// <param name="specificSpellType"></param>
-		public class SpellReference(Type broadSpellType, int specificSpellType)
-		{
-			public Type broadSpellType = broadSpellType;
-			public int specificSpellType = specificSpellType;
-		}
+        /// <summary>
+        /// Automatically generates localization, and formats statically
+        /// </summary>
+        /// <param name="mod">literally the mod</param>
+        /// <param name="key">The localization key</param>
+        /// <param name="formatting">Formatting args, not required</param>
+        /// <returns></returns>
+        public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
+        {
+            LocalizedText text = LocalizedText.Empty;
+            if (ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
+            {
+                text = value;
+            }
+            else
+            {
+                text = mod.GetLocalization(key);
+                if (formatting is not null)
+                {
+                    text = text.WithFormatArgs(formatting);
+                }
+                ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
+            }
+            return text;
+        }
 
 
-		/// <summary>
-		/// Arcane Odyssey rarities, converted to RarityID
-		/// </summary>
-		public class AORarities
+        /// <summary>
+        /// Arcane Odyssey rarities, converted to RarityID
+        /// </summary>
+        public class AORarities
 		{
 			public const short Common = -1;
 			public const short Uncommon = 0;
@@ -153,14 +169,14 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="input">Input</param>
 		/// <returns></returns>
-		public static float FlipFloat(float input)
+		public static float FlipFloat(this float input)
 		{
 			if (input >= 2)
 				return .01f;
 			return 2f - input;
 		}
 
-		public static float MultiToPercent(float multiplier)
+		public static float MultiToPercent(this float multiplier)
 		{
 			if (multiplier > 1)
 			{
@@ -172,7 +188,7 @@ namespace ArcaneOdyssey
 			}
 			else return 1;
 		}
-		public static Vector2 EntitySafeDirectionTo(Entity entity, Vector2 destination, Vector2? fallback = null)
+		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? fallback = null)
 		{
 			fallback ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(fallback.Value);

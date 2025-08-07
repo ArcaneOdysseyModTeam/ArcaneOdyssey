@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
-            Item.useAnimation = Item.useTime = (int)(25 * FlipFloat(AOSpeed));
+            Item.useAnimation = Item.useTime = (int)(25 * AOSpeed).FlipFloat();
             Item.shootSpeed = 25 * AOSpeed;
         }
 
