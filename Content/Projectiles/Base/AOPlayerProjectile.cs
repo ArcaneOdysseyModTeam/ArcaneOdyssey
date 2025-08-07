@@ -27,13 +27,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public const float AOSize = 1f;
 		public const float AODamage = 1f;
 
-		public virtual AODebuff? Debuff => null;
+		public virtual AODebuff Debuff => null;
 		public virtual SoundStyle? DebuffApplySound => null;
-
-
-        // Projectile.ai[0] is 
-        // Projectile.ai[1] is 
-        // Projectile.ai[2] is
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {

@@ -16,6 +16,18 @@ namespace ArcaneOdyssey
 	public class AOUtils
 	{
 		/// <summary>
+		/// unused
+		/// </summary>
+		/// <param name="broadSpellType"></param>
+		/// <param name="specificSpellType"></param>
+		public class SpellReference(Type broadSpellType, int specificSpellType)
+		{
+			public Type broadSpellType = broadSpellType;
+			public int specificSpellType = specificSpellType;
+		}
+
+
+		/// <summary>
 		/// Arcane Odyssey rarities, converted to RarityID
 		/// </summary>
 		public class AORarities
