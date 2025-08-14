@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,6 +13,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 {
 	public class BlastScroll : DefaultScroll
 	{
+        public override void SetStaticDefaults()
+        {
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+        }
+
 		public override void SetDefaultsScroll()
 		{
 			Item.useTime = 15;
@@ -23,6 +29,10 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
+        public override bool AltFunctionUse(Player player)
+        {
+            return CanUseItem(player);
+        }
         
         public override bool CanUseItem(Player player)
 		{
@@ -35,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
             AOMagic magic = playah.imbue;
 			if (magic.Spells.TryGetValue(typeof(BlastSpell), out type))
 			{
-				Projectile.NewProjectile(source, position, velocity * magic.AOMagicSpeed, type, damage, knockback, player.whoAmI);
+				Projectile.NewProjectile(source, position, velocity * magic.AOMagicSpeed, type, (int)Math.Round(damage * (player.altFunctionUse != 2 ? 1 : .75f)), knockback, player.whoAmI, ai2: player.altFunctionUse);
                 return false;
             }
 			else

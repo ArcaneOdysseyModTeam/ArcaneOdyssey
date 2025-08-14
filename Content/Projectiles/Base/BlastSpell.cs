@@ -12,14 +12,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BlastSpell : MagicSpell
 	{
-		public virtual void SetDefaultsSpell2()
-		{
-
-		}
+		public virtual void SetDefaultsSpell2() {}
 
         public override void SetDefaultsSpell()
         {
-            Projectile.scale = .6f;
+            Projectile.scale = (Projectile.ai[2] != 2 ? 0.6f : 1.2f);
 			Projectile.timeLeft = 5 * 60;
 			SetDefaultsSpell2();
         }
@@ -38,7 +35,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				thisMagic ??= aoPlayerOwner.imbue;
 				if (thisMagic is not null)
 				{
-					Projectile.scale = thisMagic.AOMagicSize * 0.6f;
+					Projectile.scale = thisMagic.AOMagicSize * (Projectile.ai[2] != 2 ? 0.6f : 1.2f);
 					if (Projectile.localAI[0] == 0)
 					{
 						Projectile.localAI[0] = 1;
