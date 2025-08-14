@@ -36,43 +36,6 @@ Items: {
 			'''
 	}
 
-	LightningMagic: {
-		DisplayName: Lightning Magic
-		Tooltip:
-			'''
-			Allows the user to create swift bolts of destructive lightning.
-
-			'''
-	}
-
-	IceMagic: {
-		DisplayName: Ice Magic
-		Tooltip:
-			'''
-			Allows the user to generate cold hard ice which can freeze and chill to the blood and bone.
-
-			'''
-	}
-
-	MagmaMagic: {
-		DisplayName: Magma Magic
-		Tooltip:
-			'''
-			Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
-
-			'''
-	}
-
-	WindMagic: {
-		DisplayName: Wind Magic
-		Tooltip:
-			'''
-			Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
-
-			Incomplete
-			'''
-	}
-
 	BlastScroll: {
 		DisplayName: Blast Scroll
 		Tooltip: A spell scroll which allows the user to create a short series of small blasts, or one large blast
@@ -83,175 +46,214 @@ Items: {
 		Tooltip: A shard of the Goddess Hecate, which can be used in the future to mutate a base magic into a lost magic
 	}
 
-	AcidMagic: {
-		DisplayName: Acid Magic
-		Tooltip: Allows the user to form a caustic, reactive liquid that corrodes through enemies.
-	}
+	Magics: {
+		LightningMagic: {
+			DisplayName: Lightning Magic
+			Tooltip:
+				'''
+				Allows the user to create swift bolts of destructive lightning.
 
-	AshMagic: {
-		DisplayName: Ash Magic
-		Tooltip: Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
-	}
+				'''
+		}
 
-	CrystalMagic: {
-		DisplayName: Crystal Magic
-		Tooltip: Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation.
-	}
+		IceMagic: {
+			DisplayName: Ice Magic
+			Tooltip:
+				'''
+				Allows the user to generate cold hard ice which can freeze and chill to the blood and bone.
 
-	EarthMagic: {
-		DisplayName: Earth Magic
-		Tooltip: Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
-	}
+				'''
+		}
 
-	ExplosionMagic: {
-		DisplayName: Explosion Magic
-		Tooltip: Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion.
-	}
+		MagmaMagic: {
+			DisplayName: Magma Magic
+			Tooltip:
+				'''
+				Allows the user to unleash eruptions of thick, molten rock that melts all in its path.
 
-	FireMagic: {
-		DisplayName: Fire Magic
-		Tooltip: Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze.
-	}
+				'''
+		}
 
-	GlassMagic: {
-		DisplayName: Glass Magic
-		Tooltip: Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay.
-	}
+		WindMagic: {
+			DisplayName: Wind Magic
+			Tooltip:
+				'''
+				Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
 
-	LightMagic: {
-		DisplayName: Light Magic
-		Tooltip: Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck.
-	}
+				Incomplete
+				'''
+		}
 
-	MetalMagic: {
-		DisplayName: Metal Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		AcidMagic: {
+			DisplayName: Acid Magic
+			Tooltip: Allows the user to form a caustic, reactive liquid that corrodes through enemies.
+		}
 
-	PlasmaMagic: {
-		DisplayName: Plasma Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		AshMagic: {
+			DisplayName: Ash Magic
+			Tooltip: Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues.
+		}
 
-	PoisonMagic: {
-		DisplayName: Poison Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		CrystalMagic: {
+			DisplayName: Crystal Magic
+			Tooltip: Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation.
+		}
 
-	SandMagic: {
-		DisplayName: Sand Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		EarthMagic: {
+			DisplayName: Earth Magic
+			Tooltip: Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars.
+		}
 
-	ShadowMagic: {
-		DisplayName: Shadow Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		ExplosionMagic: {
+			DisplayName: Explosion Magic
+			Tooltip: Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion.
+		}
 
-	SnowMagic: {
-		DisplayName: Snow Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		FireMagic: {
+			DisplayName: Fire Magic
+			Tooltip: Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze.
+		}
 
-	WaterMagic: {
-		DisplayName: Water Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		GlassMagic: {
+			DisplayName: Glass Magic
+			Tooltip: Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay.
+		}
 
-	WoodMagic: {
-		DisplayName: Wood Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		LightMagic: {
+			DisplayName: Light Magic
+			Tooltip: Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck.
+		}
 
-	AetherMagic: {
-		DisplayName: Aether Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		MetalMagic: {
+			DisplayName: Metal Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
 
-	AncientLightningMagic: {
-		DisplayName: Ancient Lightning Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		PlasmaMagic: {
+			DisplayName: Plasma Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
 
-	FlareMagic: {
-		DisplayName: Flare Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		PoisonMagic: {
+			DisplayName: Poison Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
 
-	GravityMagic: {
-		DisplayName: Gravity Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		SandMagic: {
+			DisplayName: Sand Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
 
-	HeatMagic: {
-		DisplayName: Heat Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		ShadowMagic: {
+			DisplayName: Shadow Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
 
-	PoisonLightningMagic: {
-		DisplayName: Poison Lightning Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
-	}
+		SnowMagic: {
+			DisplayName: Snow Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
 
-	VesuviusMagic: {
-		DisplayName: Vesuvius Magic
-		Tooltip: Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way.
+		WaterMagic: {
+			DisplayName: Water Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		WoodMagic: {
+			DisplayName: Wood Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		AetherMagic: {
+			DisplayName: Aether Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		AncientLightningMagic: {
+			DisplayName: Ancient Lightning Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		FlareMagic: {
+			DisplayName: Flare Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		GravityMagic: {
+			DisplayName: Gravity Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		HeatMagic: {
+			DisplayName: Heat Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		PoisonLightningMagic: {
+			DisplayName: Poison Lightning Magic
+			Tooltip:
+				'''
+				Allows the user to use a magic
+				Incomplete
+				'''
+		}
+
+		VesuviusMagic: {
+			DisplayName: Vesuvius Magic
+			Tooltip: Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way.
+		}
 	}
 
 	CommodoreKaiSabre: {
