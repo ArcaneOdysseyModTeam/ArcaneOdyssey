@@ -1,3 +1,5 @@
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Items.Base;
 using System;
 using System.Collections.Generic;
@@ -30,7 +32,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-			public override void AddRecipes() {
+			public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PoisonBlast>()),]);
+public override void AddRecipes() {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient<HecateOrb>(1);
             recipe.Register();

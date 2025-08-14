@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Items.Base;
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				// finish later lol
 			]
 			);
-			public override void AddRecipes() {
+			public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()),]);
+public override void AddRecipes() {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient<HecateOrb>(1);
             recipe.Register();
