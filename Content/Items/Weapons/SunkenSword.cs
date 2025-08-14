@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
+using ArcaneOdyssey.Content.Items.Materials;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {

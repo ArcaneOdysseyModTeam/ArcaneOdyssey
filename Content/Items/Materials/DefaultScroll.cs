@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Items.Base
+namespace ArcaneOdyssey.Content.Items.Materials
 {
     public class DefaultScroll : ModItem
     {
@@ -35,5 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Base
             }
             else Item.color = Color.Transparent;
         }
+
+        public new string LocalizationCategory => "Items.Materials";
     }
 }

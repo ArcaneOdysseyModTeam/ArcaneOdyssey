@@ -8,6 +8,7 @@ using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.CodeAnalysis.Operations;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
+using ArcaneOdyssey.Content.Items.Materials;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {

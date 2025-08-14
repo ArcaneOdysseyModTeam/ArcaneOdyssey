@@ -1,6 +1,6 @@
-using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Humanizer;
 using Microsoft.Xna.Framework;

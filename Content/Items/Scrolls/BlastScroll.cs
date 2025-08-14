@@ -1,4 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -22,7 +23,8 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
-		public override bool CanUseItem(Player player)
+        public new string LocalizationCategory => "Items.Scrolls";
+        public override bool CanUseItem(Player player)
 		{
 			return player.GetModPlayer<AOPlayer>().imbue is not null;
 		}
@@ -33,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
             AOMagic magic = playah.imbue;
 			if (magic.Spells.TryGetValue(typeof(BlastSpell), out type))
 			{
-				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+				Projectile.NewProjectile(source, position, velocity * magic.AOMagicSpeed, type, damage, knockback, player.whoAmI);
                 return false;
             }
 			else

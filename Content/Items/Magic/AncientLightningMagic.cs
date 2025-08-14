@@ -31,8 +31,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-			public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()),]);
-public override void AddRecipes() {
+				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()),]);
+		public new string LocalizationCategory => "Items.Magics";
+		public override void AddRecipes() {
             
         }
 	}

@@ -1,0 +1,327 @@
+# This file will automatically update with entries for new content after a build and reload.
+
+Buffs: {
+	RisenTide: {
+		Description: Rising Tide is on cooldown
+		DisplayName: Drained Sea
+	}
+
+	FreezingEffect: {
+		DisplayName: Freezing
+		Description: Your fingers are turning pale
+	}
+
+	SnowyEffect: {
+		DisplayName: Snowy
+		Description: Feels chilly
+	}
+
+	RisingTide: {
+		DisplayName: Rising Tide
+		Description: Whee!
+	}
+
+	AOFrozen: {
+		DisplayName: Frozen
+		Description: You can't move.
+	}
+
+	AOPetrified: {
+		DisplayName: Petrified
+		Description: You can't move.
+	}
+
+	AOParalyzed: {
+		DisplayName: Paralyzed
+		Description: You can't move.
+	}
+
+	CharredEffect: {
+		DisplayName: Charred
+		Description: You are covered in ash.
+	}
+
+	CrystalStackI: {
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+	}
+
+	CrystalStackII: {
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+	}
+
+	CrystalStackIII: {
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+	}
+
+	CrystalStackIIII: {
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+	}
+
+	CrystalStackMid: {
+		DisplayName: Crystalized
+		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+	}
+
+	AOBleed: {
+		DisplayName: Bleeding
+		Description: You are losing blood fast.
+		Death: "{0} bled out."
+	}
+
+	SandyEffect: {
+		Description: Mods.ArcaneOdyssey.Buffs.SandyEffect.Description
+		DisplayName: Sandy Effect
+	}
+}
+
+Projectiles: {
+	FuryoftheSea.DisplayName: Fury of the Sea
+	SunkenStaffProjectile.DisplayName: Sunken Staff
+	IceBlast.DisplayName: Ice Blast
+	AcidBlast.DisplayName: Acid Blast
+	AetherBlast.DisplayName: Aether Blast
+	AncientLightningBlast.DisplayName: Ancient Lightning Blast
+	AshBlast.DisplayName: Ash Blast
+	CrystalBlast.DisplayName: Crystal Blast
+	EarthBlast.DisplayName: Earth Blast
+	ExplosionBlast.DisplayName: Explosion Blast
+	FireBlast.DisplayName: Fire Blast
+	FlareBlast.DisplayName: Flare Blast
+	GlassBlast.DisplayName: Glass Blast
+	GravityBlast.DisplayName: Gravity Blast
+	HeatBlast.DisplayName: Heat Blast
+	LightBlast.DisplayName: Light Blast
+	LightningBlast.DisplayName: Lightning Blast
+	MagmaBlast.DisplayName: Magma Blast
+	MetalBlast.DisplayName: Metal Blast
+	PlasmaBlast.DisplayName: Plasma Blast
+	PoisonBlast.DisplayName: Poison Blast
+	PoisonLightningBlast.DisplayName: Poison Lightning Blast
+	SandBlast.DisplayName: Sand Blast
+	ShadowBlast.DisplayName: Shadow Blast
+	SnowBlast.DisplayName: Snow Blast
+	VesuviusBlast.DisplayName: Vesuvius Blast
+	WaterBlast.DisplayName: Water Blast
+	WindBlast.DisplayName: Wind Blast
+	WoodBlast.DisplayName: Wood Blast
+}
+
+ImbueStuff: {
+	ImbueChatMessage: You have selected {0}
+	ImbueTooltip: Current Imbue: {0}
+	MultiplayerCannotDisplay: Cannot display in multiplayer
+	NoneText: None
+	UnimbueText: Your magic has been deselected
+}
+
+PopupText.RisingTide: Rising Tide!
+
+Configs: {
+	ArcaneOdysseyConfig: {
+		DisplayName: Arcane Odyssey Config
+
+		AffectsOtherMods: {
+			Label: Affect other mods
+			Tooltip:
+				'''
+				Allows imbues to affect items from other mods
+				WARNING: May result in issues!
+				'''
+		}
+
+		IgnoredProjectiles: {
+			Label: Ignored Projectiles
+			Tooltip: Insert projectile names here to blacklist them, might not work
+		}
+	}
+}
+
+NPCs.DebuffDummy.DisplayName: Debuff Dummy
+
+MagicTierLines: {
+	Normal: "[c/2277ff:-Base Magic-]"
+	Lost: "[c/0044ff:-Lost Magic-]"
+	Ancient: -Ancient Magic-
+	Custom: "[c/ff0000:-Custom Magic-]"
+}
+
+Items: {
+	AcidMagic: {
+		DisplayName: Acid Magic
+		Tooltip: ""
+	}
+
+	AetherMagic: {
+		DisplayName: Aether Magic
+		Tooltip: ""
+	}
+
+	AncientLightningMagic: {
+		DisplayName: Ancient Lightning Magic
+		Tooltip: ""
+	}
+
+	AshMagic: {
+		DisplayName: Ash Magic
+		Tooltip: ""
+	}
+
+	CrystalMagic: {
+		DisplayName: Crystal Magic
+		Tooltip: ""
+	}
+
+	EarthMagic: {
+		DisplayName: Earth Magic
+		Tooltip: ""
+	}
+
+	ExplosionMagic: {
+		DisplayName: Explosion Magic
+		Tooltip: ""
+	}
+
+	FireMagic: {
+		DisplayName: Fire Magic
+		Tooltip: ""
+	}
+
+	FlareMagic: {
+		DisplayName: Flare Magic
+		Tooltip: ""
+	}
+
+	GlassMagic: {
+		DisplayName: Glass Magic
+		Tooltip: ""
+	}
+
+	GravityMagic: {
+		DisplayName: Gravity Magic
+		Tooltip: ""
+	}
+
+	HeatMagic: {
+		DisplayName: Heat Magic
+		Tooltip: ""
+	}
+
+	IceMagic: {
+		DisplayName: Ice Magic
+		Tooltip: ""
+	}
+
+	LightMagic: {
+		DisplayName: Light Magic
+		Tooltip: ""
+	}
+
+	LightningMagic: {
+		DisplayName: Lightning Magic
+		Tooltip: ""
+	}
+
+	MagmaMagic: {
+		DisplayName: Magma Magic
+		Tooltip: ""
+	}
+
+	MetalMagic: {
+		DisplayName: Metal Magic
+		Tooltip: ""
+	}
+
+	PlasmaMagic: {
+		DisplayName: Plasma Magic
+		Tooltip: ""
+	}
+
+	PoisonLightningMagic: {
+		DisplayName: Poison Lightning Magic
+		Tooltip: ""
+	}
+
+	PoisonMagic: {
+		DisplayName: Poison Magic
+		Tooltip: ""
+	}
+
+	SandMagic: {
+		DisplayName: Sand Magic
+		Tooltip: ""
+	}
+
+	ShadowMagic: {
+		DisplayName: Shadow Magic
+		Tooltip: ""
+	}
+
+	SnowMagic: {
+		DisplayName: Snow Magic
+		Tooltip: ""
+	}
+
+	VesuviusMagic: {
+		DisplayName: Vesuvius Magic
+		Tooltip: ""
+	}
+
+	WaterMagic: {
+		DisplayName: Water Magic
+		Tooltip: ""
+	}
+
+	WindMagic: {
+		DisplayName: Wind Magic
+		Tooltip: ""
+	}
+
+	WoodMagic: {
+		DisplayName: Wood Magic
+		Tooltip: ""
+	}
+
+	ArcaniumScrap: {
+		DisplayName: Arcanium Scrap
+		Tooltip: ""
+	}
+
+	DefaultScroll: {
+		DisplayName: Default Scroll
+		Tooltip: ""
+	}
+
+	HecateOrb: {
+		DisplayName: Hecate Orb
+		Tooltip: ""
+	}
+
+	HecateShard: {
+		DisplayName: Hecate Shard
+		Tooltip: ""
+	}
+
+	BlastScroll: {
+		DisplayName: Blast Scroll
+		Tooltip: ""
+	}
+
+	CommodoreKaiSabre: {
+		DisplayName: Commodore Kai Sabre
+		Tooltip: ""
+	}
+
+	SunkenStaff: {
+		DisplayName: Sunken Staff
+		Tooltip: ""
+	}
+
+	SunkenSword: {
+		DisplayName: Sunken Sword
+		Tooltip: ""
+	}
+}

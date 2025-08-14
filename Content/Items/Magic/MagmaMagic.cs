@@ -12,6 +12,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using ArcaneOdyssey.Content.Items.Materials;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -55,8 +56,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.95f)
 			]
 			);
-			public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MagmaBlast>()),]);
-public override void AddRecipes() {
+				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MagmaBlast>()),]);
+		public new string LocalizationCategory => "Items.Magics";
+		public override void AddRecipes() {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient<HecateOrb>(1);
             recipe.Register();
