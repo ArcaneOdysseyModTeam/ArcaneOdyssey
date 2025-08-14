@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
     {
         public int AOValue = 20000;
         public int AORarity = AORarities.Rare;
-        public new string LocalizationCategory => "Items.Materials";
+        
         public override void SetDefaults()
         {
             Item.width = 32;

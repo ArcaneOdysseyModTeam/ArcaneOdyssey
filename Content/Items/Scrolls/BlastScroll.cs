@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
-        public new string LocalizationCategory => "Items.Scrolls";
+        
         public override bool CanUseItem(Player player)
 		{
 			return player.GetModPlayer<AOPlayer>().imbue is not null;

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOWeapon : ModItem
 	{
-		public new string LocalizationCategory => "Items.Weapons";
+		
         public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Base
     /// </summary>
     public abstract class AOMagic : ModItem
 	{
-		public new string LocalizationCategory => "Items.Magics";
+		
         public virtual float AOImbueSpeed => .9f;
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;

@@ -10,4 +10,4 @@ for magic in magics:
 	with open(path + f"{magic}Magic.cs", "r") as w:
 		original = w.read()
 		with open(path + f"{magic}Magic.cs", "w") as w2:
-			w2.write(original.replace(basespellthing, f"	{basespellthing}"))
+			w2.write(original.replace(basespellthing, f""))

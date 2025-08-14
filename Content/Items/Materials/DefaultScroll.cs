@@ -36,6 +36,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
             else Item.color = Color.Transparent;
         }
 
-        public new string LocalizationCategory => "Items.Materials";
+        
     }
 }

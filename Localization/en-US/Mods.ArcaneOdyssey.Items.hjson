@@ -193,3 +193,53 @@ VesuviusMagic: {
 	DisplayName: Vesuvius Magic
 	Tooltip: Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way.
 }
+
+HecateShard: {
+	DisplayName: Hecate Shard
+	Tooltip: A shard of the Goddess Hecate, which can be used in the future to mutate a base magic into a lost magic
+}
+
+ArcaniumScrap: {
+	DisplayName: Arcanium Scrap
+	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
+}
+
+HecateOrb: {
+	DisplayName: Hecate Orb
+	Tooltip: An orb of ancient power, which can be focused upon to obtain magic
+}
+
+DefaultScroll: {
+	DisplayName: Empty Scroll
+	Tooltip: An empty spell scroll
+}
+
+SunkenSword: {
+	DisplayName: Sunken Sword
+	Tooltip:
+		'''
+		A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		[c/700013:Special Ability]: [c/327DFF:Rising Tide] - Use right click to send yourself upwards, surrounding yourself with water
+		'''
+}
+
+SunkenStaff: {
+	DisplayName: Sunken Staff
+	Tooltip:
+		'''
+		An ornate green and gold staff made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		[c/700013:Special Ability]: [c/327DFF:Fury of the Sea] - Shoots a projectile that pierces through enemies and walls
+		'''
+}
+
+CommodoreKaiSabre: {
+	DisplayName: Commodore Kai Sabre
+	Tooltip: ""
+}
+
+BlastScroll: {
+	DisplayName: Blast Scroll
+	Tooltip: A spell scroll which allows the user to create a short series of small blasts, or one large blast
+}

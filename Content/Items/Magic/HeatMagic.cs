@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<HeatBlast>()),]);
-		public new string LocalizationCategory => "Items.Magics";
+		
 		public override void AddRecipes() {
             
         }
