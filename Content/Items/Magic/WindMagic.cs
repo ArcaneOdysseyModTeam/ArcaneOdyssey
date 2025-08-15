@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 1.35f;
 		public override float AOMagicSize => 1.2f;
 		public override float AOMagicDamage => .825f;
-        public override CombinedDebuff[] combinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), BuffID.Chilled), new(ModContent.BuffType<FreezingEffect>(), BuffID.Chilled)];
+        public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), BuffID.Chilled), new(ModContent.BuffType<FreezingEffect>(), BuffID.Chilled)];
 		public override MagicEffects Effects => new MagicEffects(
 			[
 				// sandy

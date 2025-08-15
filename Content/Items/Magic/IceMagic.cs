@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicDamage => 0.975f;
 		public override AODebuff MagicDebuff => new(ModContent.BuffType<FreezingEffect>(), 60 * 10);
 		public override AODebuff MagicDebuff2 => new(ModContent.BuffType<AOFrozen>(), 60, 33);
-		public override CombinedDebuff[] combinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
+		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
 		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>(
 			[KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IceBlast>()),

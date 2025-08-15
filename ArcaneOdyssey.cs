@@ -62,9 +62,9 @@ namespace ArcaneOdyssey
 				}
 					}
 
-				if (playah.imbue.combinedDebuffs is not null)
+				if (playah.imbue.CombinedDebuffs is not null)
 				{
-					foreach (CombinedDebuff buffkeys in playah.imbue.combinedDebuffs)
+					foreach (CombinedDebuff buffkeys in playah.imbue.CombinedDebuffs)
 					{
 						if (target.HasBuff(buffkeys.requirement))
 						{
@@ -276,15 +276,15 @@ namespace ArcaneOdyssey
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
-					return (aoWeapon.AOSpeed * player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed).FlipFloat();
+					return aoWeapon.AOSpeed * player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed;
 				}
 				else if (item.ModItem is not null && ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
-					return player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed.FlipFloat();
+					return player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed;
 				}
 				else if (item.ModItem is null) // do not touch items from other mods
 				{
-					return player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed.FlipFloat();
+					return player.GetModPlayer<AOPlayer>().imbue.AOImbueSpeed;
 				}
 			}
 			return 1f;
@@ -376,9 +376,9 @@ namespace ArcaneOdyssey
 									target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
 								}
 							}
-							if (playah.imbue.combinedDebuffs is not null)
+							if (playah.imbue.CombinedDebuffs is not null)
 							{
-								foreach (CombinedDebuff buffkeys in playah.imbue.combinedDebuffs)
+								foreach (CombinedDebuff buffkeys in playah.imbue.CombinedDebuffs)
 								{
 									if (target.HasBuff(buffkeys.requirement))
 									{
@@ -481,7 +481,66 @@ namespace ArcaneOdyssey
 					if (imbue is not null)
 						projectile.velocity *= imbue.AOImbueSpeed;
 				}
-			}
+
+                Player player = Main.player[projectile.owner];
+                AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
+                if (projectile.ModProjectile is AOPlayerProjectile)
+                {
+                    aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
+                }
+                else
+                {
+                    if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+                    {
+                        aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
+                    }
+                }
+            }
 		}
+
+        public override void AI(Projectile projectile)
+        {
+            Player player = Main.player[projectile.owner];
+            AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
+            if (projectile.ModProjectile is AOPlayerProjectile proj)
+            {
+				Vector2 velo = proj.DustVelocity ?? projectile.velocity;
+				if (proj is MagicSpell spell)
+				{
+					spell.thisMagic?.LingeringDust(projectile.position, velo, projectile.scale);
+                }
+				else
+					aoPlayerOwner?.imbue?.LingeringDust(projectile.position, velo, projectile.scale);
+            }
+			else
+			{
+				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				{
+					aoPlayerOwner?.imbue?.LingeringDust(projectile.position, projectile.velocity, projectile.scale);
+				}
+            }
+        }
+
+        public override void OnKill(Projectile projectile, int timeLeft)
+        {
+            Player player = Main.player[projectile.owner];
+            AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
+            if (projectile.ModProjectile is AOPlayerProjectile proj)
+            {
+                if (proj is MagicSpell spell)
+                {
+                    spell.thisMagic?.KillDust(projectile.position, projectile.scale);
+                }
+                else
+                    aoPlayerOwner?.imbue?.KillDust(projectile.position, projectile.scale);
+            }
+            else
+            {
+                if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+                {
+                    aoPlayerOwner?.imbue?.KillDust(projectile.position, projectile.scale);
+                }
+            }
+        }
 	}
 }

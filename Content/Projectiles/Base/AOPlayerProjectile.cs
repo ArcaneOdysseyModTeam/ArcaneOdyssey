@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// </summary>
 	public abstract class AOPlayerProjectile : ModProjectile
 	{
-		public Item? originalItem = null;
-		public AOPlayer? aoPlayerOwner = null;
+		public Item originalItem = null;
+        public Vector2? DustVelocity;
+        public bool killDust = true;
+		public AOPlayer aoPlayerOwner = null;
 
 		public const float AOSpeed = 1f;
 		public const float AOSize = 1f;

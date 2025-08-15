@@ -66,9 +66,9 @@ namespace ArcaneOdyssey.Content.Items.Base
         public virtual AODebuff MagicDebuff2 => null; 
         public virtual MagicEffects Effects => null;
 		public virtual Color MagicColour => Color.Transparent;
-		public virtual CombinedDebuff[] combinedDebuffs => null;
+		public virtual CombinedDebuff[] CombinedDebuffs => null;
 
-		public virtual Dictionary<Type, int> Spells => new();
+		public virtual Dictionary<Type, int> Spells => [];
 		
 		public virtual void SetDefaultsMagic() { }
 
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override bool CanReforge() => false;
 
 		public virtual void SpawningDust(Vector2 spawnlocation, float attacksize = 1f /* Literally just Projectile.scale */) { }
-        public virtual void LingeringDust(Vector2 spawnlocation, float attacksize = 1f /* Literally just Projectile.scale */) { }
+        public virtual void LingeringDust(Vector2 spawnlocation, Vector2 velocity, float attacksize = 1f /* Literally just Projectile.scale */) { }
         public virtual void KillDust(Vector2 spawnlocation, float attacksize = 1f /* Literally just Projectile.scale */) { }
     }
 }
