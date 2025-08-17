@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			aoPlayerOwner ??= player.GetModPlayer<AOPlayer>();
 			originalItem = player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
-			player.itemTime = (int)(AOSpeed*60).FlipFloat();
+			player.itemTime = (int)(AOSpeed.FlipFloat() * 60);
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
