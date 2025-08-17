@@ -12,24 +12,26 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
-	{
-		public virtual void AI2() { }
+    {
+
+        public new float baseScale = 2f;
+        public virtual void AI2() { }
 		public override void AI()
 		{
 			DustVelocity = Vector2.Zero;
 			killDust = false;
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.GetModPlayer<AOPlayer>();
-			originalItem = player.HeldItem;
+			originalItem ??= player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
 			player.itemTime = (int)(AOSpeed*60).FlipFloat();
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
 			float extramulti = 1f;
-			if (aoPlayerOwner.imbue is not null)
+			if (thisMagic is not null)
 			{
-				extramulti = (aoPlayerOwner.imbue.AOImbueSpeed).FlipFloat();
+				extramulti = thisMagic.AOImbueSpeed.FlipFloat();
 			}
 
             float spintime = 25 * AOSpeed.FlipFloat() * 2 * extramulti;
@@ -44,7 +46,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
                 Projectile.ai[0] = 1f;
             }
 
-            if (player.dead || !player.channel)
+            if (player.dead || !player.channel || player.heldProj != Projectile.whoAmI)
             {
                 Projectile.Kill();
                 player.reuseDelay = 2;
@@ -75,8 +77,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			Player player = Main.player[Projectile.owner];
 			AOPlayer playah = player.GetModPlayer<AOPlayer>();
-			Projectile.scale = 2f * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1);
-            hitbox.Width = hitbox.Height = (int)(2 * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1));
+			Projectile.scale = baseScale * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1);
+            hitbox.Width = hitbox.Height = (int)(baseScale * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
 		}
 	}
 }

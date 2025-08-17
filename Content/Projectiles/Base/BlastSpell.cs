@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -16,9 +17,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
         public override void SetDefaultsSpell()
         {
-            Projectile.scale = (Projectile.ai[2] != 2 ? 0.6f : 1.2f);
 			Projectile.timeLeft = 5 * 60;
 			SetDefaultsSpell2();
+			baseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
         }
 
 		public override void AI()
@@ -30,19 +31,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.Kill();
 				return;
 			}
-			if (aoPlayerOwner is not null)
+			if (aoPlayerOwner is not null && thisMagic is not null)
 			{
-				thisMagic ??= aoPlayerOwner.imbue;
-				if (thisMagic is not null)
+				Projectile.scale = thisMagic.AOMagicSize * (Projectile.ai[2] != 2 ? 0.6f : 1.2f);
+				if (Projectile.localAI[0] == 0)
 				{
-					Projectile.scale = thisMagic.AOMagicSize * (Projectile.ai[2] != 2 ? 0.6f : 1.2f);
-					if (Projectile.localAI[0] == 0)
-					{
-						Projectile.localAI[0] = 1;
-						thisMagic.SpawningDust(Projectile.Center, Projectile.scale);
-					}
+					Projectile.localAI[0] = 1;
+					thisMagic.SpawningDust(Projectile.Center, Projectile.scale);
 				}
 			}
 		}
-	}
+    }
 }

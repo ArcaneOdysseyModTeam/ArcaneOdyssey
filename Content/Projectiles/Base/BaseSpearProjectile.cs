@@ -62,9 +62,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			Player player = Main.player[Projectile.owner];
 			AOPlayer playah = player.GetModPlayer<AOPlayer>();
-			Projectile.scale = 1f * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1);
-			hitbox.Height = (int)(hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1));
-			hitbox.Width = (int)(hitbox.Width * (originalItem.ModItem is AOWeapon weap3 ? weap3.AOSize : 1) * (playah.imbue is not null ? playah.imbue.AOImbueSize : 1));
+			Projectile.scale = baseScale * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1);
+			hitbox.Height = (int)(hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize * baseScale : baseScale) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
+			hitbox.Width = (int)(hitbox.Width * (originalItem.ModItem is AOWeapon weap3 ? weap3.AOSize * baseScale : baseScale) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
 		}
 	}
 }

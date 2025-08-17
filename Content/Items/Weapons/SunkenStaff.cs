@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
         public override void SetDefaultsWeapon()
         {
-            Item.DamageType = DamageClass.MeleeNoSpeed;
+            Item.DamageType = DamageClass.Melee;
             Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
             Item.width = Item.height = 40;
             Item.channel = true;
@@ -33,8 +33,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.autoReuse = true;
-            Item.useAnimation = Item.useTime = (int)(25 * AOSpeed).FlipFloat();
+            Item.autoReuse = false;
+            Item.useAnimation = Item.useTime = 25;
             Item.shootSpeed = 25 * AOSpeed;
         }
 

@@ -1,4 +1,5 @@
-﻿# How ao buffs convert to terraria
+﻿/*
+How ao buffs convert to terraria
 BuffID.Bleeding -> bleeding
 BuffID.Chilled -> frozen (for now)
 BuffID.ShadowFlame -> Scorched
@@ -9,3 +10,4 @@ BuffID.ShadowFlame -> Scorched
                 new MagicBuffMultiplier(BuffID.OnFire3, .8f), // melting
                 
 idk finish this later, look at the magics what i have noted down for them and compare to the wiki
+*/

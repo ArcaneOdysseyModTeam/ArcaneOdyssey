@@ -19,14 +19,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// <summary>
 	/// Projectile created by the player, usually via weapon
 	/// </summary>
-	public abstract class AOPlayerProjectile : ModProjectile
+	public abstract class AOPlayerProjectile : AOBaseProjectile
 	{
 		public Item originalItem = null;
         public Vector2? DustVelocity;
         public bool killDust = true;
+        public bool isSpell = false;
 		public AOPlayer aoPlayerOwner = null;
 
-		public const float AOSpeed = 1f;
+        /// <summary>
+        /// does not change when the player's imbue changes, make sure to assign in the ai using ??= to only apply on the first frame
+        /// </summary>
+        public AOMagic thisMagic = null;
+
+        public const float AOSpeed = 1f;
 		public const float AOSize = 1f;
 		public const float AODamage = 1f;
 

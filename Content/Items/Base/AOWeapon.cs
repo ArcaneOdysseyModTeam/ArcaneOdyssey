@@ -32,12 +32,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
-			Item.useTime = 27; // do not change, handled in GlobalItem
+			Item.useTime = Item.useAnimation = 27; // do not multiply, handled in GlobalItem
 			Item.knockBack = 4.5f; // do not change, handled in GlobalItem
             Item.rare = AORarity;
 			Item.value = GalleonToCopper(AOValue, Item.rare);
 			Item.autoReuse = true;
-			Item.useAnimation = 27; // do not change, handled in GlobalItem
             Item.damage = (int)WeaponDamage(AOWeaponTier);
 			Item.DamageType = DamageClass.Melee;
 			SetDefaultsWeapon();

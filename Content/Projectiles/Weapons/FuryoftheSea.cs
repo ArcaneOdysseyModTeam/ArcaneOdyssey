@@ -38,31 +38,29 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		private double frameNum = 0.0;
 		public override void AI()
 		{
+			// projectile.ai[0] is the scale
+			// projectile.ai[1] is the spin speed
 			aoPlayerOwner ??= Main.player[Projectile.owner].GetModPlayer<AOPlayer>();
-			if (Projectile.ai[2] == 0)
-            {
-				Projectile.ai[2] = 1;
-                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            }
-			Projectile.rotation += Projectile.ai[1];
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 + Projectile.ai[1];
             Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
-            Projectile.scale += .1f * (aoPlayerOwner.imbue is not null ? aoPlayerOwner.imbue.AOImbueSize : 1f) * AOSize;
+            Projectile.scale += .1f * (thisMagic is not null ? thisMagic.AOImbueSize : 1f) * AOSize;
 			Projectile.ai[0] = Projectile.scale;
 			if (Main.netMode != NetmodeID.Server)
 			{
-				System.Random rnd = new System.Random();
+				Random rnd = new();
 				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default, Projectile.ai[0])];
 				dust.noGravity = true;
 				//dust.velocity = Projectile.velocity * -1;
 
 				//Random Fling Dust
-				for(int dustCountInt = 0;dustCountInt < 10;dustCountInt++) {
-					Dust.NewDust(Projectile.position + new Vector2(Projectile.width/2f,Projectile.height/2f),1,1,DustID.Water,50f*(0.5f-rnd.NextSingle()),50f*(0.7f-rnd.NextSingle()),1,default,1.3f);
+				for (int dustCountInt = 0;dustCountInt < 10;dustCountInt++) 
+				{
+					Dust.NewDust(Projectile.position + new Vector2(Projectile.width / 2f,Projectile.height / 2f), 1, 1, DustID.Water, 50f *(0.5f - rnd.NextSingle()), 50f * (0.7f - rnd.NextSingle()), 1, default, 1.3f);
 				}
-				frameNum+= 150.0;
+				frameNum += 150.0;
 				//Spiral Dust
-				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f,-1f/(Projectile.velocity.Y/Projectile.velocity.X)-(-2f/(Projectile.velocity.X/Projectile.velocity.Y))))*((float)Math.Sin(frameNum)*100f) + (Projectile.position + new Vector2(Projectile.width/2f,Projectile.height/2f)),DustID.Water_Jungle,new Vector2(0f,0f),1,default,4f);
-				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f,-1f/(Projectile.velocity.Y/Projectile.velocity.X)-(-2f/(Projectile.velocity.X/Projectile.velocity.Y))))*((float)Math.Cos(frameNum)*-100f) + (Projectile.position + new Vector2(Projectile.width/2f,Projectile.height/2f)),DustID.Water_Jungle,new Vector2(0f,0f),1,default,4f);
+				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X/Projectile.velocity.Y)))) * ((float)Math.Sin(frameNum) * 100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, 4f);
+				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X/Projectile.velocity.Y)))) * ((float)Math.Cos(frameNum) * -100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, 4f);
 			}
 		}
 

@@ -34,11 +34,11 @@ namespace ArcaneOdyssey
 	public class VanillaSynergy : GlobalItem
 	{
 
-        public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if (player == Main.LocalPlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            AOPlayer playah = player.GetModPlayer<AOPlayer>();
+		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (player == Main.LocalPlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			AOPlayer playah = player.GetModPlayer<AOPlayer>();
 			if (item.ModItem is AOWeapon weap)
 			{
 				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null or 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
@@ -49,18 +49,20 @@ namespace ArcaneOdyssey
 
 			if (playah.imbue is not null)
 			{
-				if ((playah.imbue.MagicDebuff is not null)&&(!(playah.imbue.MagicDebuff.DebuffPercent == 0f))) {
-					if ((playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
+				if ((playah.imbue.MagicDebuff is not null) && (playah.imbue.MagicDebuff.DebuffPercent != 0f)) 
+				{
+					if (playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent))
 					{
-					target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
-				}
+						target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
 					}
-				if ((playah.imbue.MagicDebuff2 is not null)&&(!(playah.imbue.MagicDebuff2.DebuffPercent == 0f))) {
-					if ((playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent)))
+				}
+				if ((playah.imbue.MagicDebuff2 is not null) && (playah.imbue.MagicDebuff2.DebuffPercent != 0f)) 
+				{
+					if (playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent))
 					{
-					target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
-				}
+						target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
 					}
+				}
 
 				if (playah.imbue.CombinedDebuffs is not null)
 				{
@@ -104,10 +106,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override void UpdateInventory(Item item, Player player)
-        {
-            if (player == Main.LocalPlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-        }
+		{
+			if (player == Main.LocalPlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+		}
 
 		/// <summary>
 		/// used in singleplayer exclusively to display current imbue, might not work in multiplayer idk
@@ -143,10 +145,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override bool? UseItem(Item item, Player player)
-        {
+		{
 			if (player == Main.LocalPlayer)
 				playerForImbue = player.GetModPlayer<AOPlayer>();
-            if (item.ModItem is AOMagic magic)
+			if (item.ModItem is AOMagic magic)
 			{
 				if (magic != player.GetModPlayer<AOPlayer>().imbue)
 				{
@@ -179,10 +181,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
-        {
-            if (player == Main.LocalPlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            bool extraconfs = false;
+		{
+			if (player == Main.LocalPlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			bool extraconfs = false;
 			if (ModLoader.HasMod("CalamityMod"))
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
@@ -191,7 +193,7 @@ namespace ArcaneOdyssey
 					extraconfs = true;
 				}
 			}
-			if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || extraconfs))
+            if (player.GetModPlayer<AOPlayer>().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || extraconfs))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -205,10 +207,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-        {
-            if (player == Main.LocalPlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            bool extraconfs = false;
+		{
+			if (player == Main.LocalPlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			bool extraconfs = false;
 			if (ModLoader.HasMod("CalamityMod"))
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
@@ -235,10 +237,10 @@ namespace ArcaneOdyssey
 			}
 		}
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-        {
-            if (player == Main.LocalPlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            bool extraconfs = false;
+		{
+			if (player == Main.LocalPlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			bool extraconfs = false;
 			if (ModLoader.HasMod("CalamityMod"))
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
@@ -259,11 +261,11 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
-        public override float UseSpeedMultiplier(Item item, Player player)
-        {
-            if (player == Main.LocalPlayer)
-                playerForImbue = player.GetModPlayer<AOPlayer>();
-            bool extraconfs = false;
+		public override float UseSpeedMultiplier(Item item, Player player)
+		{
+			if (player == Main.LocalPlayer)
+				playerForImbue = player.GetModPlayer<AOPlayer>();
+			bool extraconfs = false;
 			if (ModLoader.HasMod("CalamityMod"))
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
@@ -357,28 +359,36 @@ namespace ArcaneOdyssey
 							extraconfs = true;
 						}
 					}
-					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged))
+					if ((projectile.ModProjectile is null or not AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged))
 					{
-						if (playah.imbue is not null)
+						AOMagic imbue = null;
+						bool spell = false;
+						if (projectile.ModProjectile is AOPlayerProjectile proj)
 						{
-							modifiers.FinalDamage *= playah.imbue.AOImbueDamage;
-							if ((playah.imbue.MagicDebuff is not null) && (!(playah.imbue.MagicDebuff.DebuffPercent == 0f)))
+							imbue = proj.thisMagic;
+							spell = proj.isSpell;
+						}
+						else imbue = playah.imbue;
+						if (imbue is not null)
+						{
+							modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;
+							if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
 							{
-								if ((playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent)))
+								if (imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff.DebuffPercent))
 								{
-									target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
+									target.AddBuff(imbue.MagicDebuff.debuffID, imbue.MagicDebuff.debuffDuration);
 								}
 							}
-							if ((playah.imbue.MagicDebuff2 is not null) && (!(playah.imbue.MagicDebuff2.DebuffPercent == 0f)))
+							if ((imbue.MagicDebuff2 is not null) && (imbue.MagicDebuff2.DebuffPercent != 0f))
 							{
-								if ((playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent)))
+								if (imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff2.DebuffPercent))
 								{
-									target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
+									target.AddBuff(imbue.MagicDebuff2.debuffID, imbue.MagicDebuff2.debuffDuration);
 								}
 							}
-							if (playah.imbue.CombinedDebuffs is not null)
+							if (imbue.CombinedDebuffs is not null)
 							{
-								foreach (CombinedDebuff buffkeys in playah.imbue.CombinedDebuffs)
+								foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
 								{
 									if (target.HasBuff(buffkeys.requirement))
 									{
@@ -387,7 +397,7 @@ namespace ArcaneOdyssey
 								}
 							}
 
-							foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
+							foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
 							{
 								if (target.HasBuff(multiplier.buffID))
 								{
@@ -397,7 +407,7 @@ namespace ArcaneOdyssey
 
 							if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 							{
-								foreach (int buffid in playah.imbue.Effects.clearBuffs)
+								foreach (int buffid in imbue.Effects.clearBuffs)
 								{
 									if (target.HasBuff(buffid))
 									{
@@ -427,39 +437,26 @@ namespace ArcaneOdyssey
 				}
 				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
 				{
-					AOMagic imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					AOMagic imbue = null;
+					float scale = 1f;
+					bool spell = false;
+					if (projectile.ModProjectile is AOPlayerProjectile proj)
+					{
+						imbue = proj.thisMagic;
+						scale = proj.baseScale;
+						spell = proj.isSpell;
+					}
+					else
+						imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
 					if (imbue is not null)
 					{
+						float mult = (spell ? imbue.AOMagicSize : imbue.AOImbueSize) * scale;
 						hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
 						hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
+						projectile.scale = mult;
 					}
 				}
 			}
-		}
-
-		public override bool PreDraw(Projectile projectile, ref Color lightColor)
-		{
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj)
-			{
-				bool extraconfs = false;
-				if (ModLoader.HasMod("CalamityMod"))
-				{
-					List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-					if (goodclasses.Contains(projectile.DamageType.Name))
-					{
-						extraconfs = true;
-					}
-				}
-				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
-				{
-					AOMagic imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
-					if (imbue is not null)
-					{
-						projectile.scale = imbue.AOImbueSize;
-					}
-				}
-			}
-			return base.PreDraw(projectile, ref lightColor);
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -478,69 +475,69 @@ namespace ArcaneOdyssey
 				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged)
 				{
 					AOMagic imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					bool spell = false;
+					if (projectile.ModProjectile is AOPlayerProjectile proj)
+					{
+						imbue = proj.thisMagic;
+						spell = proj.isSpell;
+					}
 					if (imbue is not null)
-						projectile.velocity *= imbue.AOImbueSpeed;
+						projectile.velocity *= spell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
 				}
 
-                Player player = Main.player[projectile.owner];
-                AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
-                if (projectile.ModProjectile is AOPlayerProjectile)
-                {
-                    aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
-                }
-                else
-                {
-                    if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-                    {
-                        aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
-                    }
-                }
-            }
+				Player player = Main.player[projectile.owner];
+				AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
+				if (projectile.ModProjectile is AOPlayerProjectile)
+				{
+					aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
+
+				}
+				else
+				{
+					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					{
+						aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
+					}
+				}
+			}
 		}
 
-        public override void AI(Projectile projectile)
-        {
-            Player player = Main.player[projectile.owner];
-            AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
-            if (projectile.ModProjectile is AOPlayerProjectile proj)
-            {
-				Vector2 velo = proj.DustVelocity ?? projectile.velocity;
-				if (proj is MagicSpell spell)
+		public override void AI(Projectile projectile)
+		{
+			Player player = Main.player[projectile.owner];
+			AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
+			if (projectile.ModProjectile is AOPlayerProjectile proj)
+			{
+				proj.thisMagic?.LingeringDust(projectile.position, proj.DustVelocity.GetValueOrDefault(projectile.velocity), projectile.scale);
+				if (aoPlayerOwner is not null)
 				{
-					spell.thisMagic?.LingeringDust(projectile.position, velo, projectile.scale);
-                }
-				else
-					aoPlayerOwner?.imbue?.LingeringDust(projectile.position, velo, projectile.scale);
-            }
+					proj.thisMagic ??= aoPlayerOwner.imbue;
+				}
+			}
 			else
 			{
 				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
 					aoPlayerOwner?.imbue?.LingeringDust(projectile.position, projectile.velocity, projectile.scale);
 				}
-            }
-        }
+			}
+		}
 
-        public override void OnKill(Projectile projectile, int timeLeft)
-        {
-            Player player = Main.player[projectile.owner];
-            AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
-            if (projectile.ModProjectile is AOPlayerProjectile proj)
-            {
-                if (proj is MagicSpell spell)
-                {
-                    spell.thisMagic?.KillDust(projectile.position, projectile.scale);
-                }
-                else
-                    aoPlayerOwner?.imbue?.KillDust(projectile.position, projectile.scale);
-            }
-            else
-            {
-                if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-                {
-                    aoPlayerOwner?.imbue?.KillDust(projectile.position, projectile.scale);
-                }
-            }
-        }
+		public override void OnKill(Projectile projectile, int timeLeft)
+		{
+			Player player = Main.player[projectile.owner];
+			AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
+			if (projectile.ModProjectile is AOPlayerProjectile proj)
+			{
+				proj.thisMagic?.KillDust(projectile.position, projectile.scale);
+			}
+			else
+			{
+				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				{
+					aoPlayerOwner?.imbue?.KillDust(projectile.position, projectile.scale);
+				}
+			}
+		}
 	}
 }
