@@ -36,7 +36,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			Projectile.ownerHitCheck = true;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 6;
-		}
+			BaseScale = 2f;
+        }
 
 		public override void AI2()
 		{   if (Main.netMode != NetmodeID.Server) {

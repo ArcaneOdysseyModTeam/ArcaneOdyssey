@@ -13,11 +13,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
     {
-        public override float BaseScale => 2f;
         public virtual void AI2() { }
 		public override void AI()
 		{
-			DustVelocity = Vector2.Zero;
+            DustVelocity = Vector2.Zero;
 			killDust = false;
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.GetModPlayer<AOPlayer>();

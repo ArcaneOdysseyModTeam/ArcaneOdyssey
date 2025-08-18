@@ -14,11 +14,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	public abstract class BlastSpell : MagicSpell
 	{
 		public virtual void SetDefaultsSpell2() {}
-        public override float BaseScale => .6f;
         public override void SetDefaultsSpell()
         {
 			Projectile.timeLeft = 5 * 60;
-			SetDefaultsSpell2();
+			SetDefaultsSpell2(); 
+			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
         }
 
 		public override void AI()
