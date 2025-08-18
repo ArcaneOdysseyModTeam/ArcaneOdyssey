@@ -9,6 +9,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
     public abstract class AOBaseProjectile : ModProjectile
     {
-        public float baseScale = 1f;
+        public virtual float BaseScale => 1f;
     }
 }

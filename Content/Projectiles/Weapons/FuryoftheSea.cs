@@ -11,12 +11,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class FuryoftheSea : AOPlayerProjectile
 	{
-		public new const float AOSpeed = .9f;
-		public new const float AOSize = 1.25f;
-		public new const float AODamage = 1f;
+		public override float AOSpeed => .9f;
+		public override float AOSize => 1.25f;
+		public override float AODamage => 1f;
 		public override AODebuff Debuff => new(BuffID.Wet, 600);
         public override SoundStyle? DebuffApplySound => SoundID.Splash;
-		public const int AOWeaponTier = AOWeaponTiers.Excellent;
+		public int AOWeaponTier = AOWeaponTiers.Excellent;
 		
 
 		public override void SetDefaults()

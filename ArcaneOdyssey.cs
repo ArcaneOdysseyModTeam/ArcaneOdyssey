@@ -366,7 +366,7 @@ namespace ArcaneOdyssey
 						if (projectile.ModProjectile is AOPlayerProjectile proj)
 						{
 							imbue = proj.thisMagic;
-							spell = proj.isSpell;
+							spell = proj.IsSpell;
 						}
 						else imbue = playah.imbue;
 						if (imbue is not null)
@@ -443,16 +443,16 @@ namespace ArcaneOdyssey
 					if (projectile.ModProjectile is AOPlayerProjectile proj)
 					{
 						imbue = proj.thisMagic;
-						scale = proj.baseScale;
-						spell = proj.isSpell;
+						scale = proj.BaseScale * proj.AOSize;
+						spell = proj.IsSpell;
 					}
 					else
 						imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
 					if (imbue is not null)
 					{
 						float mult = (spell ? imbue.AOMagicSize : imbue.AOImbueSize) * scale;
-						hitbox.Width = (int)(hitbox.Width * imbue.AOImbueSize);
-						hitbox.Height = (int)(hitbox.Height * imbue.AOImbueSize);
+						hitbox.Width = (int)(hitbox.Width * mult);
+						hitbox.Height = (int)(hitbox.Height * mult);
 						projectile.scale = mult;
 					}
 				}
@@ -479,7 +479,7 @@ namespace ArcaneOdyssey
 					if (projectile.ModProjectile is AOPlayerProjectile proj)
 					{
 						imbue = proj.thisMagic;
-						spell = proj.isSpell;
+						spell = proj.IsSpell;
 					}
 					if (imbue is not null)
 						projectile.velocity *= spell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;

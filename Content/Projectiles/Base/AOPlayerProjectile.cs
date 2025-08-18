@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public Item originalItem = null;
         public Vector2? DustVelocity;
         public bool killDust = true;
-        public bool isSpell = false;
+        public virtual bool IsSpell => false;
 		public AOPlayer aoPlayerOwner = null;
 
         /// <summary>
@@ -32,9 +32,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
         /// </summary>
         public AOMagic thisMagic = null;
 
-        public const float AOSpeed = 1f;
-		public const float AOSize = 1f;
-		public const float AODamage = 1f;
+        public virtual float AOSpeed => 1f;
+		public virtual float AOSize => 1f;
+		public virtual float AODamage => 1f;
 
 		public virtual AODebuff Debuff => null;
 		public virtual SoundStyle? DebuffApplySound => null;

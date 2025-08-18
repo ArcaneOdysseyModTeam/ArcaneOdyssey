@@ -13,8 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
     {
-
-        public new float baseScale = 2f;
+        public override float BaseScale => 2f;
         public virtual void AI2() { }
 		public override void AI()
 		{
@@ -77,8 +76,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			Player player = Main.player[Projectile.owner];
 			AOPlayer playah = player.GetModPlayer<AOPlayer>();
-			Projectile.scale = baseScale * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1);
-            hitbox.Width = hitbox.Height = (int)(baseScale * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
+			Projectile.scale = BaseScale * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1);
+            hitbox.Width = hitbox.Height = (int)(BaseScale * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
 		}
 	}
 }

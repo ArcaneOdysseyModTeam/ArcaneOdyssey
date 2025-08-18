@@ -15,10 +15,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class SunkenStaffProjectile : BaseStaffProjectile
 	{
-		public new const float AOSpeed = .9f;
-		public new const float AOSize = 1.25f;
-		public new const float AODamage = 1f;
-		public const int AOWeaponTier = AOWeaponTiers.Excellent;
+		public override float AOSpeed => .9f;
+		public override float AOSize => 1.25f;
+		public override float AODamage => 1f;
+		public int AOWeaponTier = AOWeaponTiers.Excellent;
 		public override AODebuff Debuff => new(BuffID.Wet, 600);
 		public override SoundStyle? DebuffApplySound => SoundID.Splash;
 
