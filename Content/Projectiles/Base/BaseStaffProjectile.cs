@@ -24,7 +24,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			aoPlayerOwner ??= player.GetModPlayer<AOPlayer>();
 			originalItem ??= player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
-			player.itemTime = (int)(AOSpeed.FlipFloat() * 60);
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
@@ -67,7 +66,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
             Projectile.rotation += MathHelper.TwoPi * 2f / spintime * player.direction;
 			// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
 
-			player.itemRotation = Main.MouseScreen.ToRotation();
+			player.itemRotation = Main.MouseScreen.ToRotation() * player.direction;
+            player.itemTime = player.itemAnimation = 2;
             AI2();
         }
 
