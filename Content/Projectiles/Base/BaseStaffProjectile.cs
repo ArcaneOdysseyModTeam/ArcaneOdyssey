@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
                 Projectile.ai[0] = 1f;
             }
 
-            if (player.dead || !player.channel || player.heldProj != Projectile.whoAmI)
+            if (player.dead || !player.channel)
             {
                 Projectile.Kill();
                 player.reuseDelay = 2;

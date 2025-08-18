@@ -2,3 +2,5 @@
 .git/
 /.vs
 /.vs/ArcaneOdyssey
+/bin
+/obj
