@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Base
     /// </summary>
     public abstract class AOMagic : ModItem
 	{
-		
+		public virtual bool CanBeWet => true;
         public virtual float AOImbueSpeed => .9f;
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -25,19 +26,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].GetModPlayer<AOPlayer>();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if (Projectile.wet)
+			if (Projectile.wet && !thisMagic.CanBeWet)
 			{
 				Projectile.Kill();
 				return;
-			}
-			if (aoPlayerOwner is not null && thisMagic is not null)
-			{
-				Projectile.scale = thisMagic.AOMagicSize * (Projectile.ai[2] != 2 ? 0.6f : 1.2f);
-				if (Projectile.localAI[0] == 0)
-				{
-					Projectile.localAI[0] = 1;
-					thisMagic.SpawningDust(Projectile.Center, Projectile.scale);
-				}
 			}
 		}
     }

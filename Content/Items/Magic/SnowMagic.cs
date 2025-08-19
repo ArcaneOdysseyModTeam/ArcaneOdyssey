@@ -16,8 +16,9 @@ using ArcaneOdyssey.Content.Items.Materials;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class SnowMagic : AOMagic
-	{
-		public override float AOImbueSpeed => 1.05f;
+    {
+        public override bool CanBeWet => false;
+        public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 1f;
 		public override float AOMagicSpeed => 1.1f;

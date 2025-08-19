@@ -17,8 +17,9 @@ using ArcaneOdyssey.Content.Items.Materials;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class AshMagic : AOMagic
-	{
-		public override float AOImbueSpeed => 0.975f;
+    {
+        public override bool CanBeWet => false;
+        public override float AOImbueSpeed => 0.975f;
 		public override float AOImbueSize => 1.22f;
 		public override float AOImbueDamage => 0.95f;
 		public override float AOMagicSpeed => 0.95f;

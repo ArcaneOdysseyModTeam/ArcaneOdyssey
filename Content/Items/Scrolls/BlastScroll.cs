@@ -29,6 +29,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
+        public override void ScrollRecipe()
+        {
+			CreateRecipe().AddIngredient<DefaultScroll>().AddIngredient(ItemID.WandofSparking).Register();
+        }
+
         public override bool AltFunctionUse(Player player)
         {
             return CanUseItem(player);

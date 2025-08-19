@@ -17,8 +17,9 @@ using ArcaneOdyssey.Content.Items.Materials;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class PlasmaMagic : AOMagic
-	{
-		public override float AOImbueSpeed => 0.9f;
+    {
+        public override bool CanBeWet => false;
+        public override float AOImbueSpeed => 0.9f;
 		public override float AOImbueSize => 0.948f;
 		public override float AOImbueDamage => 0.9f;
 		public override float AOMagicSpeed => 1.25f;

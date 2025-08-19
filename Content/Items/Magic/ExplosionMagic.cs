@@ -18,7 +18,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class ExplosionMagic : AOMagic
 	{
 		public override float AOImbueSpeed => 0.925f;
-		public override float AOImbueSize => 1.3f;
+        public override bool CanBeWet => false;
+        public override float AOImbueSize => 1.3f;
 		public override float AOImbueDamage => 1f;
 		public override float AOMagicSpeed => 0.85f;
 		public override float AOMagicSize => 1.3f;
