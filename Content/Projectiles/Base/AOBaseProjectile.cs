@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
     public abstract class AOBaseProjectile : ModProjectile
     {
         public float BaseScale = 1f;
+        public Vector2? OriginalDimensions = null;
     }
 }

@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Weapons;
 using Humanizer;
 using Microsoft.Xna.Framework;
 using System;
@@ -422,6 +423,8 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static Dictionary<string, Vector2> OriginalScales = [];
+
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj)
@@ -434,6 +437,15 @@ namespace ArcaneOdyssey
 					{
 						extraconfs = true;
 					}
+				}
+				Vector2 dim = new(hitbox.Width, hitbox.Height);
+				if (projectile.ModProjectile is AOBaseProjectile origin)
+				{
+					dim = origin.OriginalDimensions.GetValueOrDefault(new(hitbox.Width, hitbox.Height));
+				}
+				else
+				{ 
+					dim = OriginalScales.GetValueOrDefault(projectile.Name, new(hitbox.Width, hitbox.Height)); 
 				}
 				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
 				{
@@ -448,19 +460,28 @@ namespace ArcaneOdyssey
 					}
 					else
 						imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
+					float mult = scale;
 					if (imbue is not null)
 					{
-						float mult = (spell ? imbue.AOMagicSize : imbue.AOImbueSize) * scale;
-						hitbox.Width = (int)(hitbox.Width * mult);
-						hitbox.Height = (int)(hitbox.Height * mult);
-						projectile.scale = mult;
+						mult = (spell ? imbue.AOMagicSize : imbue.AOImbueSize) * scale;
 					}
-				}
+                    hitbox.Width = (int)(dim.X * mult);
+                    hitbox.Height = (int)(dim.Y * mult);
+                    projectile.scale = mult;
+                }
 			}
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
-		{
+        {
+            if (projectile.ModProjectile is AOBaseProjectile origin)
+            {
+                origin.OriginalDimensions ??= projectile.Size;
+            }
+			else
+			{
+				OriginalScales[projectile.Name] = projectile.Size;
+			}
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj)
 			{
 				bool extraconfs = false;
@@ -490,7 +511,6 @@ namespace ArcaneOdyssey
 				if (projectile.ModProjectile is AOPlayerProjectile)
 				{
 					aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
-
 				}
 				else
 				{

@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
             aoPlayerOwner ??= Main.player[Projectile.owner].GetModPlayer<AOPlayer>();
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 + (Projectile.ai[1] * frameNum);
             Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
-            BaseScale += .1f * (thisMagic is not null ? thisMagic.AOImbueSize : 1f) * AOSize;
+            BaseScale += .05f;
 			Projectile.ai[0] = Projectile.scale;
 			if (Main.netMode != NetmodeID.Server)
 			{
