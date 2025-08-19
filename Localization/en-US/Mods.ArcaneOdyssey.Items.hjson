@@ -15,7 +15,7 @@ MagmaMagic: {
 
 WindMagic: {
 	DisplayName: Wind Magic
-	Tooltip: Incomplete Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
+	Tooltip: Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
 }
 
 AcidMagic: {
