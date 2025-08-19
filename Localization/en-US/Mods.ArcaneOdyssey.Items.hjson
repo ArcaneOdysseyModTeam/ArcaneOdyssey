@@ -95,7 +95,7 @@ WaterMagic: {
 
 WoodMagic: {
 	DisplayName: Wood Magic
-	Tooltip: Incomplete Allows the user to slam foes with solid wood and bark, becoming even stronger when exposed to heat.
+	Tooltip: Allows the user to slam foes with solid wood and bark, becoming even stronger when exposed to heat.
 }
 
 AetherMagic: {

@@ -29,7 +29,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			], 
 			[
-				
+				new MagicBuffMultiplier(BuffID.OnFire,1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
+				new MagicBuffMultiplier(BuffID.Venom,1.05f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f)
 			]
 			);
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WoodBlast>()),]);
