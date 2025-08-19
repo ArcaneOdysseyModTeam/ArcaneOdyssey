@@ -18,13 +18,19 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
         public override void SetDefaultsSpell()
         {
 			Projectile.timeLeft = 5 * 60;
-			SetDefaultsSpell2(); 
+			SetDefaultsSpell2();
 			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
         }
 
 		public override void AI()
-		{
-			aoPlayerOwner ??= Main.player[Projectile.owner].GetModPlayer<AOPlayer>();
+        {
+            if (Projectile.ai[0] == 0f)
+            {
+                Projectile.netUpdate = true;
+                Projectile.ai[0] = 1f;
+                BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
+            }
+            aoPlayerOwner ??= Main.player[Projectile.owner].GetModPlayer<AOPlayer>();
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (Projectile.wet && !thisMagic.CanBeWet)
 			{
