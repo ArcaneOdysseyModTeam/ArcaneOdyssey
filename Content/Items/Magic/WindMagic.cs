@@ -27,18 +27,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), BuffID.Chilled), new(ModContent.BuffType<FreezingEffect>(), BuffID.Chilled)];
 		public override MagicEffects Effects => new MagicEffects(
 			[
-				// sandy
-				ModContent.BuffType<AOPetrified>(), // petrified
-				BuffID.Poisoned,
-				BuffID.OnFire,
-				BuffID.Wet,
-				BuffID.Burning,
+				
 			], 
 			[
-				new MagicBuffMultiplier(BuffID.Stoned, 1.2f),
-				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.1f),
-                new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.1f)
-				// finish later lol
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.9f),
 			]
 			);
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()),]);

@@ -27,10 +27,20 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override AODebuff? MagicDebuff => new AODebuff(ModContent.BuffType<SandyEffect>(), 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
-				
+				BuffID.Wet
 			], 
 			[
-				
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
+				new MagicBuffMultiplier(BuffID.OnFire,1.125f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.01f),
+				new MagicBuffMultiplier(BuffID.Venom,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.8f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
+				new MagicBuffMultiplier(BuffID.Wet,0.8f)
 			]
 			);
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SandBlast>()),]);

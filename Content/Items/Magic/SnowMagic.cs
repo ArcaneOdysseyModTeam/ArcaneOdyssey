@@ -30,7 +30,11 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			], 
 			[
-				
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.8f),
 			]
 			);
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SnowBlast>()),]);
