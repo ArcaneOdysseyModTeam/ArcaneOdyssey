@@ -75,56 +75,32 @@ PlasmaMagic: {
 
 PoisonMagic: {
 	DisplayName: Poison Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Allows the user to form noxious fumes which inflict chronic poisons and leave lethal clouds of gas.
 }
 
 SandMagic: {
 	DisplayName: Sand Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Incomplete Allows the user to create densely-packed sand that hits with treacherous force while hindering sight.
 }
 
 ShadowMagic: {
 	DisplayName: Shadow Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Incomplete Allows the user to evoke ominous dark shadows that drain color and grace from all that they touch.
 }
 
 SnowMagic: {
 	DisplayName: Snow Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Incomplete Allows the user to form wintry snow, snuffing out heat and sight under chilly layers.
 }
 
 WaterMagic: {
 	DisplayName: Water Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Incomplete Allows the user to utilize water's vast potential to rinse foes with tidal forces.
 }
 
 WoodMagic: {
 	DisplayName: Wood Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Incomplete Allows the user to slam foes with solid wood and bark, becoming even stronger when exposed to heat.
 }
 
 AetherMagic: {
