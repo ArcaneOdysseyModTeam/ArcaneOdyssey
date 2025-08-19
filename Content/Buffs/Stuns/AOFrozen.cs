@@ -16,8 +16,8 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
     {
         public override void Update(NPC npc, ref int buffIndex)
         {
-            // npc.SimpleFlyMovement(new Vector2(0, npc.maxFallSpeed), npc.maxFallSpeed);
-            npc.velocity /= 4;
+            if (!npc.boss)
+                npc.velocity /= 4;
         }
     }
 }
