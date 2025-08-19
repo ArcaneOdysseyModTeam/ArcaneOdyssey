@@ -360,7 +360,7 @@ namespace ArcaneOdyssey
 							extraconfs = true;
 						}
 					}
-					if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged))
+					if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell))
 					{
 						AOMagic imbue = null;
 						bool spell = false;
@@ -428,7 +428,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj)
+			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star")
 			{
 				bool extraconfs = false;
 				if (ModLoader.HasMod("CalamityMod"))
@@ -448,7 +448,7 @@ namespace ArcaneOdyssey
 				{ 
 					dim = OriginalScales.GetValueOrDefault(projectile.Name, new(hitbox.Width, hitbox.Height)); 
 				}
-				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged)
+				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell)
 				{
 					AOMagic imbue = null;
 					float scale = 1f;
@@ -456,7 +456,7 @@ namespace ArcaneOdyssey
 					if (projectile.ModProjectile is AOPlayerProjectile proj)
 					{
 						imbue = proj.thisMagic;
-						scale = proj.BaseScale * proj.AOSize;
+						scale = proj.BaseScale.GetValueOrDefault(1f) * proj.AOSize;
 						spell = proj.IsSpell;
 					}
 					else
@@ -478,12 +478,13 @@ namespace ArcaneOdyssey
             if (projectile.ModProjectile is AOBaseProjectile origin)
             {
                 origin.OriginalDimensions ??= projectile.Size;
+				origin.BaseScale ??= projectile.scale;
             }
 			else
 			{
 				OriginalScales[projectile.Name] = projectile.Size;
 			}
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj)
+			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star")
 			{
 				bool extraconfs = false;
 				if (ModLoader.HasMod("CalamityMod"))
@@ -494,7 +495,7 @@ namespace ArcaneOdyssey
 						extraconfs = true;
 					}
 				}
-				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged)
+				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell)
 				{
 					AOMagic imbue = Main.player[projectile.owner].GetModPlayer<AOPlayer>().imbue;
 					bool spell = false;
@@ -509,9 +510,9 @@ namespace ArcaneOdyssey
 
 				Player player = Main.player[projectile.owner];
 				AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
-				if (projectile.ModProjectile is AOPlayerProjectile && Main.netMode != NetmodeID.Server)
+				if (projectile.ModProjectile is AOPlayerProjectile proj1 && Main.netMode != NetmodeID.Server)
 				{
-					aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
+					aoPlayerOwner?.imbue?.SpawningDust(projectile.position, proj1.BaseScale.Value);
 				}
 				else
 				{
@@ -528,8 +529,9 @@ namespace ArcaneOdyssey
 			Player player = Main.player[projectile.owner];
 			AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
-			{
-				if (Main.netMode != NetmodeID.Server)
+            {
+                proj.BaseScale ??= projectile.scale;
+                if (Main.netMode != NetmodeID.Server)
 					proj.thisMagic?.LingeringDust(projectile.position, proj.DustVelocity.GetValueOrDefault(projectile.velocity), projectile.scale);
 				if (aoPlayerOwner is not null)
 				{

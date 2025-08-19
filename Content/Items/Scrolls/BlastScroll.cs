@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
             AOMagic magic = playah.imbue;
 			if (magic.Spells.TryGetValue(typeof(BlastSpell), out type))
 			{
-				Projectile.NewProjectile(source, position, velocity * magic.AOMagicSpeed, type, (int)Math.Round(damage * (player.altFunctionUse != 2 ? 1 : .75f)), knockback, player.whoAmI, ai2: player.altFunctionUse);
+				Projectile.NewProjectile(source, position - new Vector2(0, 20), velocity * magic.AOMagicSpeed, type, (int)Math.Round(damage * (player.altFunctionUse != 2 ? 1 : .75f)), knockback, player.whoAmI, ai2: player.altFunctionUse);
                 return false;
             }
 			else
