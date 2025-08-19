@@ -11,7 +11,7 @@ using static ArcaneOdyssey.AOUtils;
 using Terraria.Localization;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 
-namespace ArcaneOdyssey.Content.Buffs
+namespace ArcaneOdyssey.Content.Buffs.DOT
 {
     public class AOBleed : MagicMark
     {

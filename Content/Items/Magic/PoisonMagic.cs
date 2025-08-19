@@ -11,7 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs;
+using ArcaneOdyssey.Content.Buffs.DOT;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
