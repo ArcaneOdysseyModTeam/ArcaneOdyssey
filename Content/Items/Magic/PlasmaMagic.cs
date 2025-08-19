@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Items.Base;
 using System;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,30 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 1f;
 		public override float AOMagicDamage => 0.825f;
 		public override AODebuff? MagicDebuff => new AODebuff(BuffID.ShadowFlame, 60*10);
+		public override CombinedDebuff[] CombinedDebuffs => [new (ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
-				
+				ModContent.BuffType<AOBleed>(),
+				ModContent.BuffType<CharredEffect>(),
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<SnowyEffect>(),
+				BuffID.Wet
 			], 
 			[
-				
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.15f),
+				new MagicBuffMultiplier(BuffID.OnFire,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
+				new MagicBuffMultiplier(BuffID.Venom,1.05f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.97f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
+				new MagicBuffMultiplier(BuffID.Poisoned,1.05f),
+				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.99f),
+				new MagicBuffMultiplier(BuffID.Wet,0.95f)
 			]
 			);
 		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PlasmaBlast>()),]);

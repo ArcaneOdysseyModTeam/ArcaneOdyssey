@@ -65,20 +65,12 @@ LightMagic: {
 
 MetalMagic: {
 	DisplayName: Metal Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Allows the user to form dense metals that demolish obstructions with their immense weight and force.
 }
 
 PlasmaMagic: {
 	DisplayName: Plasma Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Allows the user to cast fervent plasma that swiftly scorches rivals with coruscating heat.
 }
 
 PoisonMagic: {
@@ -236,7 +228,7 @@ SunkenStaff: {
 
 CommodoreKaiSabre: {
 	DisplayName: Commodore Kai Sabre
-	Tooltip: ""
+	Tooltip: INCOMPLETE
 }
 
 BlastScroll: {
