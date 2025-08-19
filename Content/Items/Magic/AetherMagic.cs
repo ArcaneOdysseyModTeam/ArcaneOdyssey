@@ -16,7 +16,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class AetherMagic : AOMagic
 	{
 		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
+        public override bool CanBeWet => false;
+        public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;
 		public override float AOMagicSpeed => 1f;
 		public override float AOMagicSize => 1f;

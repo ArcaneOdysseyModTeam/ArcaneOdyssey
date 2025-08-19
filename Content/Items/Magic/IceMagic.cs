@@ -17,8 +17,9 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class IceMagic : AOMagic
-	{
-		public override float AOImbueSpeed => .925f;
+    {
+        public override bool CanBeWet => false;
+        public override float AOImbueSpeed => .925f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 1.05f;
 		public override float AOMagicSpeed => 0.85f;

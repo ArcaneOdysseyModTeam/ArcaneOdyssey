@@ -16,8 +16,9 @@ using ArcaneOdyssey.Content.Items.Materials;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class SandMagic : AOMagic
-	{
-		public override float AOImbueSpeed => 0.975f;
+    {
+        public override bool CanBeWet => false;
+        public override float AOImbueSpeed => 0.975f;
 		public override float AOImbueSize => 1.053f;
 		public override float AOImbueDamage => 1.05f;
 		public override float AOMagicSpeed => 0.95f;
