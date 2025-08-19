@@ -15,12 +15,7 @@ MagmaMagic: {
 
 WindMagic: {
 	DisplayName: Wind Magic
-	Tooltip:
-		'''
-		Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
-
-		Incomplete
-		'''
+	Tooltip: Incomplete Allows the user to send turbulent gales that whirl enemies into tumultuous peril.
 }
 
 AcidMagic: {
@@ -80,17 +75,17 @@ PoisonMagic: {
 
 SandMagic: {
 	DisplayName: Sand Magic
-	Tooltip: Incomplete Allows the user to create densely-packed sand that hits with treacherous force while hindering sight.
+	Tooltip: Allows the user to create densely-packed sand that hits with treacherous force while hindering sight.
 }
 
 ShadowMagic: {
 	DisplayName: Shadow Magic
-	Tooltip: Incomplete Allows the user to evoke ominous dark shadows that drain color and grace from all that they touch.
+	Tooltip: Allows the user to evoke ominous dark shadows that drain color and grace from all that they touch.
 }
 
 SnowMagic: {
 	DisplayName: Snow Magic
-	Tooltip: Incomplete Allows the user to form wintry snow, snuffing out heat and sight under chilly layers.
+	Tooltip: Allows the user to form wintry snow, snuffing out heat and sight under chilly layers.
 }
 
 WaterMagic: {
@@ -210,4 +205,9 @@ CommodoreKaiSabre: {
 BlastScroll: {
 	DisplayName: Blast Scroll
 	Tooltip: A spell scroll which allows the user to create a short series of small blasts, or one large blast
+}
+
+Paper: {
+	DisplayName: Paper
+	Tooltip: ""
 }

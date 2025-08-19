@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
