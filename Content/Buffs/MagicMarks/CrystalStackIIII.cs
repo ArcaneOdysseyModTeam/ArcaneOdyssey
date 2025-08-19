@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using Terraria.ModLoader;
 using System.Linq.Expressions;
 using static ArcaneOdyssey.AOUtils;
 using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Buffs.Base;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {

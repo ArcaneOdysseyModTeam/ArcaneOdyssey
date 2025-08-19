@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Buffs.MagicMarks
+namespace ArcaneOdyssey.Content.Buffs.Base
 {
     /// <summary>
     /// basic debuff for things like Snowy

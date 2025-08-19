@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,12 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
     /// <summary>
     /// nobody will tell its a custom debuff thats the point lol
     /// </summary>
-    public class AOFrozen : Stun
+    public abstract class Stun : MagicMark
     {
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            if (!npc.boss)
+                npc.velocity /= 2;
+        }
     }
 }

@@ -9,7 +9,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Content.Buffs.Stuns
 {
-    public class AOParalyzed : AOFrozen
+    public class AOParalyzed : Stun
     {
     }
 }
