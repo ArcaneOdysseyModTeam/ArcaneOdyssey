@@ -3,7 +3,6 @@ using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Items.Base;
 using System;
 using System.Collections.Generic;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Buffs;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {

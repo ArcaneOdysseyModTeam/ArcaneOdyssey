@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Content.Buffs;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;

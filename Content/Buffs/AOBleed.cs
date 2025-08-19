@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Buffs;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using Steamworks;
 using System.Linq.Expressions;
 using Terraria;
@@ -10,8 +9,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.Localization;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 
-namespace ArcaneOdyssey.Content.Buffs.MagicMarks
+namespace ArcaneOdyssey.Content.Buffs
 {
     public class AOBleed : MagicMark
     {
@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
                 }
                 CombatText.NewText(npc.Hitbox,CombatText.DamagedHostile,3);
                 for(int dustCountInt = 0;dustCountInt<10;dustCountInt++){
-                    Dust.NewDust(npc.position+ new Vector2((float)npc.width/2f,(float)npc.height/2f),1,1,DustID.Blood,(0.5f-rnd.NextSingle())*2f,(0.5f-rnd.NextSingle())*2f,1,default,1f);
+                    Dust.NewDust(npc.position+ new Vector2(npc.width/2f,npc.height/2f),1,1,DustID.Blood,(0.5f-rnd.NextSingle())*2f,(0.5f-rnd.NextSingle())*2f,1,default,1f);
                     }
             }
         }
@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
                 }
                 CombatText.NewText(player.Hitbox,CombatText.DamagedFriendly,3);
                 for(int dustCountInt = 0;dustCountInt<10;dustCountInt++){
-                    Dust.NewDust(player.position+ new Vector2((float)player.width/2f,(float)player.height/2f),1,1,DustID.Blood,(0.5f-rnd.NextSingle())*2f,(0.5f-rnd.NextSingle())*2f,1,default,1f);
+                    Dust.NewDust(player.position+ new Vector2(player.width/2f,player.height/2f),1,1,DustID.Blood,(0.5f-rnd.NextSingle())*2f,(0.5f-rnd.NextSingle())*2f,1,default,1f);
                     }
         }
     }
