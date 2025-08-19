@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.85f),
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.85f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.05f),
-				new MagicBuffMultiplier(BuffID.OnFire,0.8f)
+				new MagicBuffMultiplier(BuffID.OnFire,0.8f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),0.9f),
 				new MagicBuffMultiplier(BuffID.Venom,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.075f),
