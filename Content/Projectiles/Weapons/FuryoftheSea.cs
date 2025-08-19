@@ -32,8 +32,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 5;
 		}
 		private int frameNum = 0;
 		public override void AI()

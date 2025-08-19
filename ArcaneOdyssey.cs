@@ -387,6 +387,7 @@ namespace ArcaneOdyssey
 									target.AddBuff(imbue.MagicDebuff2.debuffID, imbue.MagicDebuff2.debuffDuration);
 								}
 							}
+
 							if (imbue.CombinedDebuffs is not null)
 							{
 								foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)

@@ -34,8 +34,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 6;
 			BaseScale = 2f;
         }
 
