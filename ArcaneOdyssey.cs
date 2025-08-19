@@ -360,7 +360,7 @@ namespace ArcaneOdyssey
 							extraconfs = true;
 						}
 					}
-					if ((projectile.ModProjectile is null or not AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged))
+					if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged))
 					{
 						AOMagic imbue = null;
 						bool spell = false;
