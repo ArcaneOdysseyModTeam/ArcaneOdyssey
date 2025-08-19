@@ -90,7 +90,7 @@ SnowMagic: {
 
 WaterMagic: {
 	DisplayName: Water Magic
-	Tooltip: Incomplete Allows the user to utilize water's vast potential to rinse foes with tidal forces.
+	Tooltip: Allows the user to utilize water's vast potential to rinse foes with tidal forces.
 }
 
 WoodMagic: {
