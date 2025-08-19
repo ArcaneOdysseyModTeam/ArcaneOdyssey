@@ -509,13 +509,13 @@ namespace ArcaneOdyssey
 
 				Player player = Main.player[projectile.owner];
 				AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
-				if (projectile.ModProjectile is AOPlayerProjectile)
+				if (projectile.ModProjectile is AOPlayerProjectile && Main.netMode != NetmodeID.Server)
 				{
 					aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
 				}
 				else
 				{
-					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
 					{
 						aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
 					}
@@ -529,7 +529,8 @@ namespace ArcaneOdyssey
 			AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
 			{
-				proj.thisMagic?.LingeringDust(projectile.position, proj.DustVelocity.GetValueOrDefault(projectile.velocity), projectile.scale);
+				if (Main.netMode != NetmodeID.Server)
+					proj.thisMagic?.LingeringDust(projectile.position, proj.DustVelocity.GetValueOrDefault(projectile.velocity), projectile.scale);
 				if (aoPlayerOwner is not null)
 				{
 					proj.thisMagic ??= aoPlayerOwner.imbue;
@@ -537,7 +538,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
 				{
 					aoPlayerOwner?.imbue?.LingeringDust(projectile.position, projectile.velocity, projectile.scale);
 				}
@@ -548,13 +549,13 @@ namespace ArcaneOdyssey
 		{
 			Player player = Main.player[projectile.owner];
 			AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
-			if (projectile.ModProjectile is AOPlayerProjectile proj)
+			if (projectile.ModProjectile is AOPlayerProjectile proj && Main.netMode != NetmodeID.Server)
 			{
 				proj.thisMagic?.KillDust(projectile.position, projectile.scale);
 			}
 			else
 			{
-				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
 				{
 					aoPlayerOwner?.imbue?.KillDust(projectile.position, projectile.scale);
 				}
