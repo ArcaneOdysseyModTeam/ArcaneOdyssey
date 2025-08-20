@@ -528,6 +528,10 @@ namespace ArcaneOdyssey
 		{
 			Player player = Main.player[projectile.owner];
 			AOPlayer aoPlayerOwner = player.GetModPlayer<AOPlayer>();
+			if (projectile.ModProjectile is AOBaseProjectile based)
+			{
+				based.FramesAlive += 1;
+			}
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
             {
                 proj.BaseScale ??= projectile.scale;

@@ -211,3 +211,8 @@ Paper: {
 	DisplayName: Paper
 	Tooltip: ""
 }
+
+JerminusMagic: {
+	DisplayName: Jerminus Magic
+	Tooltip: ""
+}
