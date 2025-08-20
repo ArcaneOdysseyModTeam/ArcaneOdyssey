@@ -214,5 +214,5 @@ Paper: {
 
 JerminusMagic: {
 	DisplayName: Jerminus Magic
-	Tooltip: "Grants a slow death to all those who cross it"
+	Tooltip: Grants a slow death to all those who cross it
 }
