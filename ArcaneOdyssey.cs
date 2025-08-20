@@ -370,6 +370,10 @@ namespace ArcaneOdyssey
 							spell = proj.IsSpell;
 						}
 						else imbue = playah.imbue;
+						if (spell)
+						{
+							modifiers.FinalDamage.Base += BonusBossKills();
+						}
 						if (imbue is not null)
 						{
 							modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;

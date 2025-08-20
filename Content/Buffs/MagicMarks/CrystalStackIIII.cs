@@ -16,7 +16,7 @@ using ArcaneOdyssey.Content.Buffs.Base;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
-    public class CrystalStackIIII : MagicMark {
+    public class CrystalStackIIII : Base.AODebuff {
         System.Random rnd = new System.Random();
          public override void Update(NPC npc, ref int buffIndex) {
             //dust

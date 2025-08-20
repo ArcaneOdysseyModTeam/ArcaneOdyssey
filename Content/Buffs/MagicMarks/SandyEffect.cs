@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
-    public class SandyEffect : MagicMark
+    public class SandyEffect : AODebuff
     {
     }
 }

@@ -18,63 +18,68 @@ Buffs: {
 
 	RisingTide: {
 		DisplayName: Rising Tide
-		Description: Whee!
+		Description: Rapidly ascending
 	}
 
 	AOFrozen: {
 		DisplayName: Frozen
-		Description: You can't move.
+		Description: You can't move
 	}
 
 	AOPetrified: {
 		DisplayName: Petrified
-		Description: You can't move.
+		Description: You can't move
 	}
 
 	AOParalyzed: {
 		DisplayName: Paralyzed
-		Description: You can't move.
+		Description: You can't move
 	}
 
 	CharredEffect: {
 		DisplayName: Charred
-		Description: You are covered in ash.
+		Description: You are covered in ash
 	}
 
 	CrystalStackI: {
 		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+		Description: Crystals are embeded in your body, ready to shatter and deal damage
 	}
 
 	CrystalStackII: {
 		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+		Description: Crystals are embeded in your body, ready to shatter and deal damage
 	}
 
 	CrystalStackIII: {
 		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+		Description: Crystals are embeded in your body, ready to shatter and deal damage
 	}
 
 	CrystalStackIIII: {
 		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+		Description: Crystals are embeded in your body, ready to shatter and deal damage
 	}
 
 	CrystalStackMid: {
 		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage.
+		Description: Crystals are embeded in your body, ready to shatter and deal damage
 	}
 
 	AOBleed: {
 		DisplayName: Bleeding
-		Description: You are losing blood fast.
+		Description: You are losing blood fast
 		Death: "{0} bled out."
 	}
 
 	SandyEffect: {
-		Description: Mods.ArcaneOdyssey.Buffs.SandyEffect.Description
+		Description: You are covered in sand
 		DisplayName: Sandy Effect
+	}
+
+	Trauma: {
+		DisplayName: Traumatized
+		Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
 	}
 }
 

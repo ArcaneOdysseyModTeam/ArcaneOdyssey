@@ -42,6 +42,17 @@ namespace ArcaneOdyssey
             return text;
         }
 
+        public static int BonusBossKills()
+        {
+            int count = 0;
+            bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops];
+            foreach (bool killed in conditions)
+            {
+                if (killed)
+                    count += 1;
+            }
+            return 1;
+        }
 
         /// <summary>
         /// Arcane Odyssey rarities, converted to RarityID

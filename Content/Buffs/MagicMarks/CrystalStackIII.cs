@@ -13,7 +13,7 @@ using ArcaneOdyssey.Content.Buffs.Base;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
-    public class CrystalStackIII : MagicMark {
+    public class CrystalStackIII : Base.AODebuff {
          public override void Update(NPC npc, ref int buffIndex) {
             for(int i = 0;i<NPC.maxBuffs;i++) {
                 if(npc.buffType[i] == ModContent.BuffType<CrystalStackI>() || npc.buffType[i] == ModContent.BuffType<CrystalStackII>() || npc.buffType[i] == ModContent.BuffType<CrystalStackMid>()){
