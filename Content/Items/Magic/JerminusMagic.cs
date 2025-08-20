@@ -1,0 +1,39 @@
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using ArcaneOdyssey.Content.Items.Base;
+using System;
+using System.Collections.Generic;
+using ArcaneOdyssey.Content.Buffs.Stuns;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
+
+namespace ArcaneOdyssey.Content.Items.Magic
+{
+	public class JerminusMagic : AOMagic
+	{
+		public override float AOImbueSpeed => 5f;
+		public override float AOImbueSize => 10f;
+		public override float AOImbueDamage => .00001f;
+        public override AOMagicTier MagicTier => AOMagicTier.Custom;
+        public override AODebuff MagicDebuff => new AODebuff(BuffID.Cursed, 10*60);
+		public override AODebuff MagicDebuff2 => new AODebuff(BuffID.Horrified, 10*60);
+		public override MagicEffects Effects => new MagicEffects(
+			[ // these are debuffs cleared on hit
+				
+			], 
+			[
+				
+			]
+			);
+		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<JerminusBlast>()),]);
+		
+		public override void AddRecipes() {
+            
+        }
+	}
+}

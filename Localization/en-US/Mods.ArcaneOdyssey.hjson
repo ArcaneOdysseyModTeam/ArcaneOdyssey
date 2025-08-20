@@ -108,6 +108,7 @@ Projectiles: {
 	WaterBlast.DisplayName: Water Blast
 	WindBlast.DisplayName: Wind Blast
 	WoodBlast.DisplayName: Wood Blast
+	JerminusBlast.DisplayName: Jerminus Blast
 }
 
 ImbueStuff: {
