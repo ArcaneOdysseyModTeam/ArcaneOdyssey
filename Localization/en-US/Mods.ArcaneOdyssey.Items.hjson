@@ -154,10 +154,11 @@ PoisonLightningMagic: {
 
 VesuviusMagic: {
 	DisplayName: Vesuvius Magic
-	Tooltip: '''
-	Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way
-	Redbirb1508's Magic
-	'''
+	Tooltip:
+		'''
+		Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way
+		Redbirb1508's Magic
+		'''
 }
 
 HecateShard: {
@@ -217,8 +218,9 @@ Paper: {
 
 JerminusMagic: {
 	DisplayName: Jerminus Magic
-	Tooltip: '''
-	Grants a slow death to all those who cross it
-	Guard Boi's Magic
-	'''
+	Tooltip:
+		'''
+		Grants a slow death to all those who cross it
+		Guard Boi's Magic
+		'''
 }

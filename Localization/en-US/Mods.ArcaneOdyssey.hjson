@@ -76,6 +76,11 @@ Buffs: {
 		Description: Mods.ArcaneOdyssey.Buffs.SandyEffect.Description
 		DisplayName: Sandy Effect
 	}
+
+	Trauma: {
+		DisplayName: Trauma
+		Description: Mods.ArcaneOdyssey.Buffs.Trauma.Description
+	}
 }
 
 Projectiles: {

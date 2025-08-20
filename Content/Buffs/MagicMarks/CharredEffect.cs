@@ -9,5 +9,5 @@ using Terraria;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
-    public class CharredEffect : MagicMark {}
+    public class CharredEffect : AODebuff {}
 }
