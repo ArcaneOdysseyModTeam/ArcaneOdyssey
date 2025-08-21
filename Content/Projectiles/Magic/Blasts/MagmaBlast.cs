@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 	{
 		public override void SetDefaultsSpell2()
 		{
-			Projectile.width = Projectile.height = 64; // placeholder sprite currently in effect
+			Projectile.width = Projectile.height = 50; // placeholder sprite currently in effect
 		}
 	}
 }
