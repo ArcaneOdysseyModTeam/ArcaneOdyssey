@@ -81,15 +81,19 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (AOAgility > 0)
 			{
-				tooltips.Add(new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [AOAgility/300f]).Value));
+				tooltips.Add(new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [AOAgility / 300f]).Value));
 			}
 			if (AOSize > 0)
 			{
-				tooltips.Add(new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [AOSize/5f]).Value));
+				tooltips.Add(new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [AOSize / 5f]).Value));
 			}
 			if (AOPower > 0)
 			{
 				tooltips.Add(new(Mod, "BaseDmg", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
+			}
+			if (AOAttkSpd > 0)
+			{
+				tooltips.Add(new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [AOAttkSpd / 5f]).Value));
 			}
 		}
 

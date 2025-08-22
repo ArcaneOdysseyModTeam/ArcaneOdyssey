@@ -375,7 +375,7 @@ namespace ArcaneOdyssey
 
         public float GetSizeMulti(Projectile projectile)
         {
-            float stat = AOSizeStat / 50f;
+            float stat = AOSizeStat / 5f;
             if (Player.meleeScaleGlove && projectile.DamageType.Name.Contains("Melee"))
             {
                 stat += .1f;
