@@ -1,4 +1,4 @@
-Completely rewrites how debuffs work and interact with eachother, with the power of ??Magic??
+Completely rewrites how debuffs work and interact with eachother, with the power of Magic
 
 More info on workshop page
 
