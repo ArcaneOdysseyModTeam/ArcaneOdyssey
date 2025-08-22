@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override void UpdateInventory(Player player)
 		{
-			AOPlayer playah = player.GetModPlayer<AOPlayer>();
+			AOPlayer playah = player.AOPlayer();
 			if (playah.imbue is not null)
 			{
 				Item.color = playah.imbue.MagicColour;

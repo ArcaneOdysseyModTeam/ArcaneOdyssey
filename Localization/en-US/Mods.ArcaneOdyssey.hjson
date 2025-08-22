@@ -154,3 +154,12 @@ MagicTierLines: {
 	Ancient: -Ancient Magic-
 	Custom: "[c/ff0000:-Custom Magic-]"
 }
+
+ArmourAutoTooltip: {
+	Agility: "{0}% increased movement speed"
+	Speed: "{0}% increased attack speed"
+	Power: +{0} increased base damage
+	Minions: +{0} minion slots
+	Mana: +{0} maximum mana
+	Size: "{0}% increased attack size"
+}

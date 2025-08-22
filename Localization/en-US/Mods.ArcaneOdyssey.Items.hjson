@@ -162,8 +162,8 @@ VesuviusMagic: {
 }
 
 HecateShard: {
-	DisplayName: Hecate Shard
-	Tooltip: A shard of the Goddess Hecate, which can be used in the future to mutate a base magic into a lost magic
+	DisplayName: �kHecate Shard
+	Tooltip: A shard of unknown origin... the world is not ready to unleash this
 }
 
 ArcaniumScrap: {
@@ -222,5 +222,33 @@ JerminusMagic: {
 		'''
 		Grants a slow death to all those who cross it
 		Guard Boi's Magic
+		'''
+}
+
+SunkenBoots: {
+	DisplayName: Sunken Boots
+	Tooltip:
+		'''
+		A green and gold pair of boots made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		'''
+	SetText: "[c/700013:Special Ability]: [c/327DFF:Aquatic Rebuttal] - Enemies that hit you are soaked"
+}
+
+SunkenChest: {
+	DisplayName: Sunken Chestplate
+	Tooltip:
+		'''
+		A green and gold chestplate made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		'''
+}
+
+SunkenHelm: {
+	DisplayName: Sunken Helmet
+	Tooltip:
+		'''
+		A green and gold helmet made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
 		'''
 }

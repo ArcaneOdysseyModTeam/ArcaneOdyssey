@@ -16,6 +16,12 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+
+		public static int FromAODefense(this int val)
+		{
+			return (int)Math.Round(val/18f);
+        }
+
         /// <summary>
         /// Automatically generates localization, and formats statically
         /// </summary>
@@ -195,14 +201,16 @@ namespace ArcaneOdyssey
 			}
 			else if (multiplier < 1)
 			{
-				return -(2 - (1 + multiplier));
+				return -(1- multiplier);
 			}
 			else return 1;
 		}
-		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? fallback = null)
+		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
 		{
-			fallback ??= Vector2.Zero;
-			return (destination - entity.Center).SafeNormalize(fallback.Value);
+			defaultValue ??= Vector2.Zero;
+			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
 		}
+
+		public static AOPlayer AOPlayer(this Player player) => player.GetModPlayer<AOPlayer>();
 	}
 }
