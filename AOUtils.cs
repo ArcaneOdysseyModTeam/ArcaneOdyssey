@@ -193,19 +193,20 @@ namespace ArcaneOdyssey
 			return 2f - input;
 		}
 
-		public static float MultiToPercent(this float multiplier)
-		{
-			if (multiplier > 1)
-			{
-				return 1 - multiplier;
-			}
-			else if (multiplier < 1)
-			{
-				return -(1- multiplier);
-			}
-			else return 1;
-		}
-		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
+        public static float MultiToPercent(this float multiplier)
+        {
+            if (multiplier > 1)
+            {
+                return 1 - multiplier;
+            }
+            else if (multiplier < 1)
+            {
+                return -(2 - (1 + multiplier));
+            }
+            else return 1;
+        }
+
+        public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
 		{
 			defaultValue ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
