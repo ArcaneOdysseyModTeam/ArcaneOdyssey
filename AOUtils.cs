@@ -197,7 +197,7 @@ namespace ArcaneOdyssey
         {
             if (multiplier > 1)
             {
-                return 1 - multiplier;
+                return multiplier - 1;
             }
             else if (multiplier < 1)
             {

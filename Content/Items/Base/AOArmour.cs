@@ -81,19 +81,19 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (AOAgility > 0)
 			{
-				tooltips.Add(new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [AOAgility / 300f]).Value));
+				tooltips.Add(new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(AOAgility / 10f)]).Value));
 			}
 			if (AOSize > 0)
 			{
-				tooltips.Add(new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [AOSize / 5f]).Value));
+				tooltips.Add(new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(AOSize / 3f)]).Value));
 			}
 			if (AOPower > 0)
 			{
-				tooltips.Add(new(Mod, "BaseDmg", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
+				tooltips.Add(new(Mod, "DamageCrit", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
 			}
 			if (AOAttkSpd > 0)
 			{
-				tooltips.Add(new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [AOAttkSpd / 5f]).Value));
+				tooltips.Add(new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(AOAttkSpd / 3f)]).Value));
 			}
 		}
 
@@ -101,9 +101,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateEquip(Player player)
 		{
-			player.GetAttackSpeed(DamageClass.Generic) += AOAttkSpd/500;
-			player.GetDamage(DamageClass.Generic).Base += AOPower;
-			player.moveSpeed += AOAgility / 300f;
+			player.GetAttackSpeed(DamageClass.Generic) += AOAttkSpd/300;
+			player.GetDamage(DamageClass.Generic) += AOPower / 100f;
+			player.GetCritChance(DamageClass.Generic) += AOPower;
+			player.moveSpeed += AOAgility / 100f;
 			player.AOPlayer().AOSizeStat += AOSize;
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
