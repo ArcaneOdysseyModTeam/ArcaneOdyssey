@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
         public override void SetDefaultsArmour()
         {
-            Item.width = Item.height = 80;
+            Item.width = Item.height = 48;
         }
 
         public override void UpdateArmour(Player player)
