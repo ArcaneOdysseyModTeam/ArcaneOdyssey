@@ -3,5 +3,11 @@ Use over 10 unique magics with unique interactions and attributes!
 Make scrolls to cast various spells to fight enemies!
 
 To use the mod, aquire a magic. You can do this with the Hecate Orb, an item which you will spawn with.
+Magics can enchant your weapons with their element in a synergistic system
 
 Based off the game "Arcane Odyssey" by vetexgames
+
+Planned upcoming features:
+- Magic circles
+- More spells
+- Dust VFX
