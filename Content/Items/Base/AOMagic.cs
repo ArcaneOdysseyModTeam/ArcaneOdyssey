@@ -69,8 +69,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 
         public override bool CanReforge() => false;
 
-        public virtual void SpawningDust(Vector2 spawnlocation, float attacksize = 1f /* Literally just Projectile.scale */) { }
-        public virtual void LingeringDust(Vector2 spawnlocation, Vector2 velocity, float attacksize = 1f /* Literally just Projectile.scale */) { }
-        public virtual void KillDust(Vector2 spawnlocation, float attacksize = 1f /* Literally just Projectile.scale */) { }
+        public virtual void SpawningDust(Projectile projectile) { }
+        public virtual void LingeringDust(Projectile projectile) { }
+        public virtual void KillDust(Projectile projectile) { }
     }
 }

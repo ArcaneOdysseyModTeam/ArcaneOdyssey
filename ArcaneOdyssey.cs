@@ -561,13 +561,13 @@ namespace ArcaneOdyssey
 				AOPlayer aoPlayerOwner = player.AOPlayer();
 				if (projectile.ModProjectile is AOPlayerProjectile proj1 && Main.netMode != NetmodeID.Server)
 				{
-					aoPlayerOwner?.imbue?.SpawningDust(projectile.position, proj1.BaseScale.Value);
+					aoPlayerOwner?.imbue?.SpawningDust(projectile);
 				}
 				else
 				{
 					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
 					{
-						aoPlayerOwner?.imbue?.SpawningDust(projectile.position, projectile.scale);
+						aoPlayerOwner?.imbue?.SpawningDust(projectile);
 					}
 				}
 			}
@@ -585,7 +585,7 @@ namespace ArcaneOdyssey
 			{
 				proj.BaseScale ??= projectile.scale;
 				if (Main.netMode != NetmodeID.Server)
-					proj.thisMagic?.LingeringDust(projectile.position, proj.DustVelocity.GetValueOrDefault(projectile.velocity), projectile.scale);
+					proj.thisMagic?.LingeringDust(projectile);
 				if (aoPlayerOwner is not null)
 				{
 					proj.thisMagic ??= aoPlayerOwner.imbue;
@@ -595,7 +595,7 @@ namespace ArcaneOdyssey
 			{
 				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
 				{
-					aoPlayerOwner?.imbue?.LingeringDust(projectile.position, projectile.velocity, projectile.scale);
+					aoPlayerOwner?.imbue?.LingeringDust(projectile);
 				}
 			}
 		}
@@ -606,13 +606,13 @@ namespace ArcaneOdyssey
 			AOPlayer aoPlayerOwner = player.AOPlayer();
 			if (projectile.ModProjectile is AOPlayerProjectile proj && Main.netMode != NetmodeID.Server)
 			{
-				proj.thisMagic?.KillDust(projectile.position, projectile.scale);
+				proj.thisMagic?.KillDust(projectile);
 			}
 			else
 			{
 				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
 				{
-					aoPlayerOwner?.imbue?.KillDust(projectile.position, projectile.scale);
+					aoPlayerOwner?.imbue?.KillDust(projectile);
 				}
 			}
 		}
