@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,22 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),1.1f)
 			]
 			);
+			Random rand = new System.Random();
+			public override void SpawningDust(Projectile projectile) {
+				for(int n = 0;n<3;n++){
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),0,0,DustID.Water,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
+					spawnedDust.noGravity = true;
+				}
+			}
+			public override void LingeringDust(Projectile projectile) {
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.Water,0f,0f,0,default,1.2f)];
+			}
+			public override void KillDust(Projectile projectile) {
+				for(int n = 0;n<10;n++){
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),0,0,DustID.Water,(8f*(float)(rand.NextDouble()-0.5)),(8f*(float)(rand.NextDouble()-0.5)),0,default,3f)];
+					spawnedDust.noGravity = true;
+				}
+			}
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WaterBlast>()),]);
 		
 		public override void AddRecipes() {

@@ -72,5 +72,7 @@ namespace ArcaneOdyssey.Content.Items.Base
         public virtual void SpawningDust(Projectile projectile) { }
         public virtual void LingeringDust(Projectile projectile) { }
         public virtual void KillDust(Projectile projectile) { }
+        // Dust stuff below for copy/paste
+        // Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.Water,0f,0f,0,default,1f)];
     }
 }
