@@ -40,8 +40,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
+			thisMagic ??= aoPlayerOwner.imbue;
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if (Projectile.wet && !thisMagic.CanBeWet)
+			if (!thisMagic.CanBeWet && Projectile.wet)
 			{
 				Projectile.Kill();
 				return;
