@@ -40,6 +40,9 @@ namespace ArcaneOdyssey.Title
 			{
 				lifevalue += 1;
 				position += velocity;
+				if(position.Y<=depth*10f){
+					lifevalue = 99999;
+				}
 			}
 
 			public void Draw()
@@ -50,8 +53,8 @@ namespace ArcaneOdyssey.Title
 			public Raindrop()
             {
                 depth = Main.rand.NextFloat(1, .25f);
-                maxlife = (int)Math.Round(60f * depth);
-                velocity = new Vector2(0, 20) * depth;
+                maxlife = 120;//(int)Math.Round(80f * depth);
+                velocity = new Vector2(0, 20) * (depth);
 				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0);
 			}
 		}
@@ -111,7 +114,7 @@ namespace ArcaneOdyssey.Title
 			spriteBatch.End();
 
 
-			if (Raindrops.Count <= 600)
+			if (Raindrops.Count <= 800)
 			{
 				Raindrops.Add(new());
 			}
