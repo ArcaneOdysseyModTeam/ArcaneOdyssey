@@ -15,12 +15,11 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public abstract class MagicCircle : ModProjectile
+	public class MagicCircle : ModProjectile
 	{
 		
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			Projectile.friendly = true;
             Main.projFrames[Projectile.type] = 4;
 		}
         public override void AI() {
