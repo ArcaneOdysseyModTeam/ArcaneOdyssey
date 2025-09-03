@@ -151,8 +151,9 @@ namespace ArcaneOdyssey
 				playerForImbue = player.AOPlayer();
 			if (item.ModItem is AOMagic magic)
 			{
-				if (magic != player.AOPlayer().imbue)
+				if (magic != player.AOPlayer().imbue && magic.FirstFrame)
 				{
+					magic.FirstFrame = false;
 					player.AOPlayer().imbue = magic;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [item.Name]);
 					if (Main.netMode == NetmodeID.SinglePlayer)
@@ -164,8 +165,9 @@ namespace ArcaneOdyssey
 						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Array.IndexOf(Main.player, player));
 					}
 				}
-				else 
+				else if (magic.FirstFrame)
 				{
+					magic.FirstFrame = false;
 					player.AOPlayer().imbue = null;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
 					if (Main.netMode == NetmodeID.SinglePlayer)
@@ -194,7 +196,7 @@ namespace ArcaneOdyssey
 					extraconfs = true;
 				}
 			}
-            if (player.AOPlayer().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || extraconfs))
+			if (player.AOPlayer().imbue is not null && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || extraconfs))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -338,7 +340,7 @@ namespace ArcaneOdyssey
 
 		public int AOSizeStat = 0;
 
-        public bool RightClicking => Player.altFunctionUse == 2;
+		public bool RightClicking => Player.altFunctionUse == 2;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
@@ -349,11 +351,11 @@ namespace ArcaneOdyssey
 			else return [];
 		}
 
-        public override void ResetEffects()
-        {
+		public override void ResetEffects()
+		{
 			sunkenArmour = false;
 			AOSizeStat = 0;
-        }
+		}
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
@@ -361,28 +363,28 @@ namespace ArcaneOdyssey
 			{
 				npc.AddBuff(BuffID.Wet, 60 * 10);
 			}
-        }
+		}
 
-        public float GetSizeMulti(Item item)
-        {
-            float stat = AOSizeStat / 300f;
-            if (Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
-            {
-                stat += .1f;
-            }
-            return stat+1;
-        }
+		public float GetSizeMulti(Item item)
+		{
+			float stat = AOSizeStat / 300f;
+			if (Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
+			{
+				stat += .1f;
+			}
+			return stat+1;
+		}
 
-        public float GetSizeMulti(Projectile projectile)
-        {
-            float stat = AOSizeStat / 300f;
-            if (Player.meleeScaleGlove && projectile.DamageType.Name.Contains("Melee"))
-            {
-                stat += .1f;
-            }
-            return stat + 1f;
-        }
-    }
+		public float GetSizeMulti(Projectile projectile)
+		{
+			float stat = AOSizeStat / 300f;
+			if (Player.meleeScaleGlove && projectile.DamageType.Name.Contains("Melee"))
+			{
+				stat += .1f;
+			}
+			return stat + 1f;
+		}
+	}
 
 	public class ProjectileManager : GlobalProjectile
 	{
@@ -513,20 +515,20 @@ namespace ArcaneOdyssey
 					{
 						mult = (spell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + scale + player.AOPlayer().GetSizeMulti(projectile).MultiToPercent();
 					}
-                    hitbox.Width = (int)(dim.X * mult);
-                    hitbox.Height = (int)(dim.Y * mult);
-                    projectile.scale = mult;
-                }
+					hitbox.Width = (int)(dim.X * mult);
+					hitbox.Height = (int)(dim.Y * mult);
+					projectile.scale = mult;
+				}
 			}
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
-        {
-            if (projectile.ModProjectile is AOBaseProjectile origin)
-            {
-                origin.OriginalDimensions ??= projectile.Size;
+		{
+			if (projectile.ModProjectile is AOBaseProjectile origin)
+			{
+				origin.OriginalDimensions ??= projectile.Size;
 				origin.BaseScale ??= projectile.scale;
-            }
+			}
 			else
 			{
 				OriginalScales[projectile.Name] = projectile.Size;
@@ -580,9 +582,9 @@ namespace ArcaneOdyssey
 				based.FramesAlive += 1;
 			}
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
-            {
-                proj.BaseScale ??= projectile.scale;
-                if (Main.netMode != NetmodeID.Server)
+			{
+				proj.BaseScale ??= projectile.scale;
+				if (Main.netMode != NetmodeID.Server)
 					proj.thisMagic?.LingeringDust(projectile.position, proj.DustVelocity.GetValueOrDefault(projectile.velocity), projectile.scale);
 				if (aoPlayerOwner is not null)
 				{

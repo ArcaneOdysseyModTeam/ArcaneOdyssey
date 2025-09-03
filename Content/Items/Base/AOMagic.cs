@@ -23,6 +23,9 @@ namespace ArcaneOdyssey.Content.Items.Base
     /// </summary>
     public abstract class AOMagic : ModItem
     {
+        /// <summary>
+        /// magic works underwater
+        /// </summary>
         public virtual bool CanBeWet => true;
         public virtual float AOImbueSpeed => .9f;
         public virtual float AOImbueSize => .9f;
@@ -43,16 +46,26 @@ namespace ArcaneOdyssey.Content.Items.Base
 
         public virtual Dictionary<Type, int> Spells => [];
 
+        public bool FirstFrame = true;
+
         public virtual void SetDefaultsMagic() { }
 
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.DrinkOld;
-            Item.useTime = 1;
-            Item.useAnimation = 1;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
             Item.noUseGraphic = true;
             SetDefaultsMagic();
         }
+
+        public override bool CanUseItem(Player player)
+        {
+            FirstFrame = true;
+            return base.CanUseItem(player);
+        }
+
+
 
         public override bool CanReforge() => false;
 
