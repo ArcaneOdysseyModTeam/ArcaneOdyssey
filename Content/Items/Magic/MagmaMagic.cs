@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			if (projectile.ModProjectile is not MagicCircle)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)rand.NextDouble()), projectile.position.Y + (projectile.height * (float)rand.NextDouble())), 1, 1, DustID.InfernoFork, 0f, 0f, 0, default, 1.2f)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.Pixie,0f,0f,0,default,1.2f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.SolarFlare,0f,0f,0,default,1.2f)];
 				Lighting.AddLight(projectile.position,1f,0.19f,0f);
 			}
 				
