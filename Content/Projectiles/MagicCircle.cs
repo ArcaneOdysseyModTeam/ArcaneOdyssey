@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.width = 64;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 0;
+			Projectile.frameCounter = 0;
 		}
 		private int currentFrame1 = 0;
 		private int currentLifeFrame = 0;
@@ -41,10 +42,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
 			thisMagic ??= aoPlayerOwner.imbue;
-			if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
-			{
-				Projectile.frame = 0;
-			}
+			
 			if (currentFrame1 > 5)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + ((Projectile.scale) * Projectile.width * (float)rand.NextDouble()), Projectile.position.Y + ((Projectile.scale) * Projectile.height * (float)rand.NextDouble())), 0, 0, DustID.SilverFlame, (8f * (float)(rand.NextDouble() - 0.5)), (8f * (float)(rand.NextDouble() - 0.5)), 0, thisMagic.MagicColour, 1f)];
@@ -56,8 +54,17 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Projectile.Kill();
 			}
-			Projectile.frame++;
+			if (Projectile.frameCounter > 5)
+			{
+				Projectile.frame++;
+				Projectile.frameCounter = 0;
+				if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+				{
+				Projectile.frame = 0;
+				}
+			 }
 			currentFrame1++;
+			Projectile.frameCounter++;
 			currentLifeFrame++;
 		}
 		public override bool PreDraw(ref Color lightColor)
