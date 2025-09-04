@@ -75,16 +75,18 @@ namespace ArcaneOdyssey.Content.Mounts
 
 		public override void UpdateEffects(Player player)
 		{
+			AOPlayer playah = player.AOPlayer();
 			player.fishingSkill += 15;
-			if (!player.wet)
+			if (player.wet)
 			{
-				player.velocity = new Vector2(0, player.maxFallSpeed * MountData.fallDamage);
-			}
+				player.velocity = new(0, -20f);
+            }
 			else
 			{
-				player.maxFallSpeed = 0;
-			}
-		}
+                player.velocity = new Vector2(0, player.maxFallSpeed * MountData.fallDamage);
+            }
+            player.waterWalk = true;
+        }
 
 		public override void SetMount(Player player, ref bool skipDust)
 		{
