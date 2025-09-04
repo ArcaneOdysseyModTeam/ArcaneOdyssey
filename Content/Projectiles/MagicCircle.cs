@@ -64,6 +64,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.localAI[0]++;
 			Projectile.frameCounter++;
 		}
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			Color drawColor = thisMagic.MagicColour;

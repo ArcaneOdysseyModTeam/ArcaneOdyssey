@@ -255,5 +255,5 @@ SunkenHelm: {
 
 WoodenPaddle: {
 	DisplayName: Wooden Paddle
-	Tooltip: ""
+	Tooltip: A wooden paddle for a rowboat, it seems to contain trace magic
 }

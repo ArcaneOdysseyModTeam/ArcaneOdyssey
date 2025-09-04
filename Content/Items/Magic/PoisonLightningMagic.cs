@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 1f;
 		public override float AOMagicDamage => 1f;
         public override AOMagicTier MagicTier => AOMagicTier.Lost;
-        public override AODebuff? MagicDebuff => null;
+        public override AODebuff MagicDebuff => null;
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				
