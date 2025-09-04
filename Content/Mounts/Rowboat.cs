@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Mounts
 			MountData.fatigueMax = 0;
 			MountData.buff = ModContent.BuffType<RowboatBuff>();
 
-			MountData.spawnDust = DustID.WoodFurniture;
+			MountData.spawnDust = DustID.PalmWood;
 
 			MountData.totalFrames = 4;
 			MountData.playerYOffsets = Enumerable.Repeat(MountData.heightBoost, MountData.totalFrames).ToArray();

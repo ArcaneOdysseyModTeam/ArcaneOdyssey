@@ -85,8 +85,8 @@ Buffs: {
 	}
 
 	RowboatBuff: {
-		DisplayName: Rowboat Buff
-		Description: Mods.ArcaneOdyssey.Buffs.RowboatBuff.Description
+		DisplayName: Rowboat
+		Description: A wooden rowboat that seems to increase your fishing skill
 	}
 }
 
@@ -157,7 +157,7 @@ Configs: {
 NPCs.DebuffDummy.DisplayName: Debuff Dummy
 
 MagicTierLines: {
-	Normal: "[c/2277ff:-Base Magic-]"
+	Normal: "[c/2277ff:-Basic Magic-]"
 	Lost: "[c/0044ff:-Lost Magic-]"
 	Ancient: -Ancient Magic-
 	Custom: "[c/ff0000:-Custom Magic-]"
