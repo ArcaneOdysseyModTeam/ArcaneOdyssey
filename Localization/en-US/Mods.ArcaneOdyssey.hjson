@@ -83,6 +83,11 @@ Buffs: {
 		DisplayName: Traumatized
 		Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
 	}
+
+	RowboatBuff: {
+		DisplayName: Rowboat Buff
+		Description: Mods.ArcaneOdyssey.Buffs.RowboatBuff.Description
+	}
 }
 
 Projectiles: {

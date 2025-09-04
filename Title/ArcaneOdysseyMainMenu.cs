@@ -16,13 +16,11 @@ namespace ArcaneOdyssey.Title
 {
 	public class ArcaneOdysseyMainMenu : ModMenu
 	{
-		/// <summary>
-		/// A RAINDROP WHY IS IT SO COMPLICATED TO DO
-		/// </summary>
-		/// <param name="number">the number of this raindrop, aka Raindrops.Count</param>
-		/// <param name="depth">how far back this is, 0.25 is all the way back while 1 is at the front</param>
-		/// <param name="position">starting position of this</param>
-		/// <param name="velocity">velocity of the rain</param>
+        public override void SetStaticDefaults()
+        {
+
+        }
+
 		public class Raindrop
 		{
 			public int maxlife;
@@ -33,28 +31,28 @@ namespace ArcaneOdyssey.Title
 
 			public static Asset<Texture2D> Texture => ModContent.Request<Texture2D>("ArcaneOdyssey/Title/Raindrop");
 
-			/// <summary>
-			/// somehow call every frame idk
-			/// </summary>
 			public void Update()
 			{
 				lifevalue += 1;
 				position += velocity;
-				if(position.Y<=depth*10f){
-					lifevalue = 99999;
+				if (position.Y >= Main.screenHeight * 1.1f)
+				{
+					lifevalue = maxlife;
 				}
 			}
 
 			public void Draw()
 			{
-				Main.spriteBatch.Draw(Texture.Value, position, new Color(255f, 255f, 255f, 255f/4f));
+				Main.spriteBatch.Draw(Texture.Value, position, new Color(255f, 255f, 255f, 255f/10f));
             }
 
 			public Raindrop()
             {
                 depth = Main.rand.NextFloat(1, .25f);
-                maxlife = 120;//(int)Math.Round(80f * depth);
+                maxlife = 120;//(int)Math.Round(100f * depth);
                 velocity = new Vector2(0, 20) * (depth);
+                maxlife = (int)Math.Round(100f * depth);
+                velocity = new Vector2(0, 20) * depth;
 				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0);
 			}
 		}
@@ -69,11 +67,11 @@ namespace ArcaneOdyssey.Title
 
 		// public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("ArcaneOdyssey/ExtraAssets/Blank"); add logo here later
 
-		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("ArcaneOdyssey/Title/Blank");
+		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("ArcaneOdyssey/Backgrounds/Blank");
 
-		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>("ArcaneOdyssey/Title/Blank");
+		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>("ArcaneOdyssey/Backgrounds/Blank");
 
-		public override int Music => MusicID.OtherworldlyRain;
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Sound/Music/TitleTheme");
 
 		/// <summary>
 		/// if we add a dark sea menu or something idk, unused
@@ -156,9 +154,9 @@ namespace ArcaneOdyssey.Title
 			}
 		}
 
-		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Title/Blank");
-		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Title/Blank");
-		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Title/Blank");
+		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Backgrounds/Blank");
+		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Backgrounds/Blank");
+		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Backgrounds/Blank");
 		public override bool PreDrawCloseBackground(SpriteBatch spriteBatch) => false;
 	}
 }

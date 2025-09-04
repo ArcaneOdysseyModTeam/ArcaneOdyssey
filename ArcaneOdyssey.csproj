@@ -10,6 +10,9 @@
 	<ItemGroup>
 	  <Compile Include="README.md" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Assets\" />
+	</ItemGroup>
 
 	<!-- References -->
 
