@@ -80,6 +80,7 @@ namespace ArcaneOdyssey.Content.Items.Base
                 circleprojectile.rotation = projectile.velocity.ToRotation();
                 Vector2 circleVec = Vector2.Normalize(projectile.velocity)*15f;
                 circleprojectile.position = circleprojectile.position+circleVec;
+                circleprojectile.owner = projectile.owner;
             }
         }
         // Dust stuff below for copy/paste

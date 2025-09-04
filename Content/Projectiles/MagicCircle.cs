@@ -35,11 +35,13 @@ namespace ArcaneOdyssey.Content.Projectiles
 		private int currentFrame1 = 0;
 		private int currentLifeFrame = 0;
         public override void AI() {
+			aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
+			thisMagic ??= aoPlayerOwner.imbue;
             if (Projectile.frame+1 >= Main.projFrames[Projectile.type]) {
 					Projectile.frame = 0;
             }
 			if(currentFrame1>5){
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X+((Projectile.scale)*Projectile.width*(float)rand.NextDouble()),Projectile.position.Y+((Projectile.scale)*Projectile.height*(float)rand.NextDouble())),0,0,DustID.SilverFlame,(8f*(float)(rand.NextDouble()-0.5)),(8f*(float)(rand.NextDouble()-0.5)),0,default,1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X+((Projectile.scale)*Projectile.width*(float)rand.NextDouble()),Projectile.position.Y+((Projectile.scale)*Projectile.height*(float)rand.NextDouble())),0,0,DustID.SilverFlame,(8f*(float)(rand.NextDouble()-0.5)),(8f*(float)(rand.NextDouble()-0.5)),0,thisMagic.MagicColour,1f)];
 				spawnedDust.noGravity = true;
 				currentFrame1 = 0;
 			}
