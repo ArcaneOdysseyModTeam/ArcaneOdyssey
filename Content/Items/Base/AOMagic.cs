@@ -78,7 +78,8 @@ namespace ArcaneOdyssey.Content.Items.Base
             if(projectile.ModProjectile is BlastSpell){
                 Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(null,Main.player[projectile.owner].position.X+((float)Main.player[projectile.owner].width/2f),Main.player[projectile.owner].position.Y+((float)Main.player[projectile.owner].height/2f),0f,0f,ModContent.ProjectileType<MagicCircle>(),0,0f,255,0f,0f)];
                 circleprojectile.rotation = projectile.velocity.ToRotation();
-                
+                Vector2 circleVec = Vector2.Normalize(projectile.velocity)*15f;
+                circleprojectile.position = circleprojectile.position+circleVec;
             }
         }
         // Dust stuff below for copy/paste
