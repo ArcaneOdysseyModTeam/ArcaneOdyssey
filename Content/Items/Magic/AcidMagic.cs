@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class AcidMagic : AOMagic
 	{
-        public override Color MagicColour => new Color(255,0,255,0);
+        public override Color MagicColour => new Color(245,0,240,0);
 		public override float AOImbueSpeed => 0.925f;
 		public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;
