@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.95f)
 			]
 			);
-			Random rand = new System.Random();
+			
 			public override void SpawningDust(Projectile projectile)
 		{
 			if (projectile.ModProjectile is not MagicCircle)
@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				CreateMagicCircle(projectile);
 				for (int n = 0; n < 3; n++)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)rand.NextDouble()), projectile.position.Y + (projectile.height * (float)rand.NextDouble())), 0, 0, DustID.InfernoFork, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 2.5f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.InfernoFork, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 2.5f)];
 					spawnedDust.noGravity = true;
 				}
 			}
@@ -77,8 +77,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			public override void LingeringDust(Projectile projectile) {
 			if (projectile.ModProjectile is not MagicCircle)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)rand.NextDouble()), projectile.position.Y + (projectile.height * (float)rand.NextDouble())), 1, 1, DustID.InfernoFork, 0f, 0f, 0, default, 1.2f)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.SolarFlare,0f,0f,0,default,1.2f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.InfernoFork, 0f, 0f, 0, default, 1.2f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),1,1,DustID.SolarFlare,0f,0f,0,default,1.2f)];
 				Lighting.AddLight(projectile.position,1f,0.19f,0f);
 			}
 				
@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			public override void KillDust(Projectile projectile) {
 				if(projectile.ModProjectile is not MagicCircle) {
 					for(int n = 0;n<10;n++){
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),0,0,DustID.InfernoFork,(8f*(float)(rand.NextDouble()-0.5)),(8f*(float)(rand.NextDouble()-0.5)),0,default,3f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.InfernoFork,(8f*(float)(Main.rand.NextDouble()-0.5)),(8f*(float)(Main.rand.NextDouble()-0.5)),0,default,3f)];
 					spawnedDust.noGravity = true;
 				}
 				}
