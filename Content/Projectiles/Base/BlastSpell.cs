@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.timeLeft = 5 * 60;
 			SetDefaultsSpell2();
 			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
+			
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
