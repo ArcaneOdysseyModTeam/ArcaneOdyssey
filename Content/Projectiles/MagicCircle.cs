@@ -40,7 +40,22 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
 			thisMagic ??= aoPlayerOwner.imbue;
-			Lighting.AddLight(Projectile.position,thisMagic.MagicColour.R,thisMagic.MagicColour.G,thisMagic.MagicColour.B);
+			float tempLightColorR = 0f;
+			float tempLightColorG = 0f;
+			float tempLightColorB = 0f;
+			if (!(thisMagic.MagicColour.R == 0f))
+			{
+				tempLightColorR = 3f / thisMagic.MagicColour.R;
+			}
+			if (!(thisMagic.MagicColour.G == 0f))
+			{
+				tempLightColorG = 3f / thisMagic.MagicColour.G;
+			}
+			if (!(thisMagic.MagicColour.B == 0f))
+			{
+				tempLightColorB = 3f / thisMagic.MagicColour.B;
+			}
+			Lighting.AddLight(Projectile.position,tempLightColorR,tempLightColorG,tempLightColorB);
 			if (Projectile.localAI[0] > 5)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, thisMagic.MagicColour, 1f)];
