@@ -583,6 +583,7 @@ namespace ArcaneOdyssey
 			}
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
 			{
+				proj.aoPlayerOwner ??= aoPlayerOwner;
 				proj.BaseScale ??= projectile.scale;
 				if (Main.netMode != NetmodeID.Server)
 					proj.thisMagic?.LingeringDust(projectile);

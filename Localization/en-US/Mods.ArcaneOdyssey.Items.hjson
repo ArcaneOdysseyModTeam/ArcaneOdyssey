@@ -252,3 +252,8 @@ SunkenHelm: {
 		It seems to constantly produce water
 		'''
 }
+
+WoodenPaddle: {
+	DisplayName: Wooden Paddle
+	Tooltip: ""
+}
