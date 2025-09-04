@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
             }
 			else
 			{
-				return true;
+				return true; // shoots the wooden arrow if the blast isnt found
 			}
         }
 	}

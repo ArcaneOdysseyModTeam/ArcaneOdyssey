@@ -71,7 +71,17 @@ namespace ArcaneOdyssey.Title
 
 		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>("ArcaneOdyssey/Backgrounds/Blank");
 
-		public override int Music => MusicLoader.GetMusicSlot(Mod, "Sound/Music/TitleTheme");
+		public override int Music => GetMusic();
+
+		public int GetMusic()
+		{
+			int mus = MusicID.OtherworldlyRain;
+			if (!AltMenu)
+			{
+				mus = MusicLoader.GetMusicSlot(Mod, "Music/TitleTheme");
+            }
+			return mus;
+        }
 
 		/// <summary>
 		/// if we add a dark sea menu or something idk, unused
