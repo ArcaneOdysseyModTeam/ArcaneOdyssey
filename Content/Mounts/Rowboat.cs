@@ -18,16 +18,15 @@ namespace ArcaneOdyssey.Content.Mounts
 	{
 		public override void SetStaticDefaults()
 		{
-			// Movement
 			MountData.jumpHeight = 0;
 			MountData.acceleration = 1;
 			MountData.jumpSpeed = 5;
 			MountData.blockExtraJumps = false;
 			MountData.constantJump = false;
 			MountData.heightBoost = 20;
-			MountData.fallDamage = 1f;
+			MountData.fallDamage = 1.5f;
 			MountData.runSpeed = 5f; // only works on water lol
-			MountData.dashSpeed = 5f;
+			MountData.dashSpeed = 0f;
 			MountData.flightTimeMax = 0;
 
 			MountData.fatigueMax = 0;

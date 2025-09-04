@@ -14,20 +14,17 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Terraria.ModLoader;
 
-using static System.Net.Mime.MediaTypeNames;
-
 namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle : AOPlayerProjectile
 	{
 		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>("ArcaneOdyssey/Content/Projectiles/MagicCircle").Value;
-		Random rand = new System.Random();
+
 		public override void SetStaticDefaults()
 		{
-			Projectile.friendly = false;
-			Projectile.hostile = false;
 			Main.projFrames[Projectile.type] = 4;
 		}
+
 		public override void SetDefaults()
 		{
 			Projectile.height = 62;
@@ -35,22 +32,23 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.tileCollide = false;
 			Projectile.alpha = 0;
 			Projectile.frameCounter = 0;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
 		}
-		private int currentFrame1 = 0;
-		private int currentLifeFrame = 0;
+
 		public override void AI()
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
 			thisMagic ??= aoPlayerOwner.imbue;
 			
-			if (currentFrame1 > 5)
+			if (Projectile.localAI[0] > 5)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + ((Projectile.scale) * Projectile.width * (float)rand.NextDouble()), Projectile.position.Y + ((Projectile.scale) * Projectile.height * (float)rand.NextDouble())), 0, 0, DustID.SilverFlame, (8f * (float)(rand.NextDouble() - 0.5)), (8f * (float)(rand.NextDouble() - 0.5)), 0, thisMagic.MagicColour, 1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, thisMagic.MagicColour, 1f)];
 				spawnedDust.noGravity = true;
-				currentFrame1 = 0;
+				Projectile.localAI[0] = 0;
 			}
 			Projectile.alpha += 255 / 60;
-			if (currentLifeFrame > 60)
+			if (FramesAlive > 60)
 			{
 				Projectile.Kill();
 			}
@@ -60,18 +58,17 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Projectile.frameCounter = 0;
 				if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
 				{
-				Projectile.frame = 0;
+					Projectile.frame = 0;
 				}
-			 }
-			currentFrame1++;
+			}
+			Projectile.localAI[0]++;
 			Projectile.frameCounter++;
-			currentLifeFrame++;
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
 			Color drawColor = thisMagic.MagicColour;
 			drawColor *= 1f - (Projectile.alpha / 255f);
-			Main.EntitySpriteDraw(MagicCircleSprite,Projectile.Center-Main.screenPosition,new Rectangle(0, 64*Projectile.frame,62,64),drawColor,Projectile.rotation,new Vector2(31f,32f),1f,SpriteEffects.None,0);
+			Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center-Main.screenPosition, new Rectangle(0, 64 * Projectile.frame, 62, 64), drawColor, Projectile.rotation, new Vector2(31f, 32f), 1f, SpriteEffects.None, 0);
 			return false;
 		}
 	}
