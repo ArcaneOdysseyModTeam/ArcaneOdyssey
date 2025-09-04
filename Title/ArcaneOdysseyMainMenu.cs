@@ -41,9 +41,9 @@ namespace ArcaneOdyssey.Title
 				}
 			}
 
-			public void Draw()
+			public void Draw(bool dark)
 			{
-				Main.spriteBatch.Draw(Texture.Value, position, new Color(255f, 255f, 255f, 255f/10f));
+				Main.spriteBatch.Draw(Texture.Value, position, !dark ? new Color(255f, 255f, 255f, 255f/10f) : Color.Black);
             }
 
 			public Raindrop()
@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Title
 
 		public static Texture2D BackgroundTexture => ModContent.Request<Texture2D>("ArcaneOdyssey/Title/TitleBackground").Value;
 
-		public override string DisplayName => Mod.CustomLocalization("MenuStyle").Value;
+		public override string DisplayName => !AltMenu ? Mod.CustomLocalization("MenuStyle").Value : Mod.CustomLocalization("AltMenuStyle").Value;
 
 		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<TheTitleStyle>();
 
@@ -80,23 +80,25 @@ namespace ArcaneOdyssey.Title
 			{
 				mus = MusicLoader.GetMusicSlot(Mod, "Music/TitleTheme");
             }
-			return mus;
+			else
+			{
+				mus = MusicLoader.GetMusicSlot(Mod, "Music/DarkTitle");
+			}
+			return mus != 0 ? mus : MusicID.OtherworldlyRain;
         }
 
 		/// <summary>
-		/// if we add a dark sea menu or something idk, unused
+		/// dark sea menu 
 		/// </summary>
 		public virtual bool AltMenu => false;
 
 		public override void Update(bool isOnTitleScreen)
 		{
 			Main.time = 27000.0;
-			Main.dayTime = true;
+			Main.dayTime = !AltMenu;
 		}
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
 		{
-			// you all have NO CLUE HOW LONG THIS TOOK TO DO, STUDYING HOW OTHER MODS DO THISAHHHHHHHHHHHHHHHHh
-
 			Vector2 drawOffset = Vector2.Zero;
 			float xScale = (float)Main.screenWidth / BackgroundTexture.Width;
 			float yScale = (float)Main.screenHeight / BackgroundTexture.Height;
@@ -114,10 +116,10 @@ namespace ArcaneOdyssey.Title
 			}
 
 
-			spriteBatch.Draw(BackgroundTexture, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(BackgroundTexture, drawOffset, null, AltMenu?Color.Gray:Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
 			Main.time = 27000;
-			Main.dayTime = true;
+			Main.dayTime = !AltMenu;
 
 			spriteBatch.End();
 
@@ -134,13 +136,13 @@ namespace ArcaneOdyssey.Title
             foreach (Raindrop drop in Raindrops)
 			{
 				drop.Update();
-                drop.Draw();
+                drop.Draw(AltMenu);
 			}
 
 			spriteBatch.End();
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-			spriteBatch.Draw(Logo.Value, new(Main.screenWidth / 2f, 100f), null, Color.White, 0, Logo.Value.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Logo.Value, new(Main.screenWidth / 2f, 100f), null, Color.White, 0, Logo.Value.Size() * .5f, 1f, SpriteEffects.None, 0f);
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 			return false;
@@ -168,5 +170,10 @@ namespace ArcaneOdyssey.Title
 		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Backgrounds/Blank");
 		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot("ArcaneOdyssey/Backgrounds/Blank");
 		public override bool PreDrawCloseBackground(SpriteBatch spriteBatch) => false;
+	}
+
+	public class DarkTitle : ArcaneOdysseyMainMenu
+	{
+        public override bool AltMenu => true;
 	}
 }
