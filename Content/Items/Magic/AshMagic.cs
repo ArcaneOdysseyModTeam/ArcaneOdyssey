@@ -22,6 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class AshMagic : AOMagic
     {
         public override bool CanBeWet => false;
+        public override Color MagicColour =>  new Color(235,40,0,0);
         public override float AOImbueSpeed => 0.975f;
 		public override float AOImbueSize => 1.22f;
 		public override float AOImbueDamage => 0.95f;
