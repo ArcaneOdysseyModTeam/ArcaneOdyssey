@@ -1,7 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -72,6 +74,13 @@ namespace ArcaneOdyssey.Content.Items.Base
         public virtual void SpawningDust(Projectile projectile) { }
         public virtual void LingeringDust(Projectile projectile) { }
         public virtual void KillDust(Projectile projectile) { }
+        public void CreateMagicCircle(Projectile projectile) {
+            if(projectile.ModProjectile is BlastSpell){
+                Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(null,Main.player[projectile.owner].position.X+((float)Main.player[projectile.owner].width/2f),Main.player[projectile.owner].position.Y+((float)Main.player[projectile.owner].height/2f),0f,0f,ModContent.ProjectileType<MagicCircle>(),0,0f,255,0f,0f)];
+                circleprojectile.rotation = projectile.velocity.ToRotation();
+                
+            }
+        }
         // Dust stuff below for copy/paste
         // Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.Water,0f,0f,0,default,1f)];
     }

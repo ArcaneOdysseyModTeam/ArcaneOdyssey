@@ -53,6 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			);
 			Random rand = new System.Random();
 			public override void SpawningDust(Projectile projectile) {
+				CreateMagicCircle(projectile);
 				for(int n = 0;n<3;n++){
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),0,0,DustID.Water,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
 					spawnedDust.noGravity = true;

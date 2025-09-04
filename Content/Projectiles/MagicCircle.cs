@@ -18,12 +18,17 @@ namespace ArcaneOdyssey.Content.Projectiles
 	public class MagicCircle : ModProjectile
 	{
 		
-		public override void SetStaticDefaults()
+		public override void SetDefaults()
 		{
+			Projectile.friendly = false;
+			Projectile.hostile = false;
             Main.projFrames[Projectile.type] = 4;
+			Projectile.tileCollide = false;
+			Projectile.height = 62;
+			Projectile.width = 64;
 		}
         public override void AI() {
-            if (++Projectile.frame >= Main.projFrames[Projectile.type]) {
+            if (Projectile.frame+1 >= Main.projFrames[Projectile.type]) {
 					Projectile.frame = 0;
             }
             Projectile.frame++;
