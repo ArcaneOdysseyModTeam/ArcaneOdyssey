@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			//dust
 			for(int dustCountInt = 0;dustCountInt<10;dustCountInt++)
 			{
-					Dust.NewDust(npc.position+ new Vector2((float)npc.width/2f,(float)npc.height/2f),1,1,DustID.GemRuby,(0.5f-Main.rand.NextFloat())*5f,(0.1f-Main.rand.NextFloat())*5f,1,default,1f);
+					Dust.NewDust(npc.position+ new Vector2((float)npc.width/2f,(float)npc.height/2f),1,1,DustID.GemRuby,(0.5f-Main.rand.NextFloat())*5f,(0.1f-Main.rand.NextFloat())*5f,1,default,2f);
 			}
 			for(int i = 0;i<NPC.maxBuffs;i++) {
 				if(npc.buffType[i] == ModContent.BuffType<CrystalStackI>() || npc.buffType[i] == ModContent.BuffType<CrystalStackII>() || npc.buffType[i] == ModContent.BuffType<CrystalStackIII>() || npc.buffType[i] == ModContent.BuffType<CrystalStackIIII>()){
