@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Buffs.DOT;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -76,14 +77,16 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			}
 			public override void KillDust(Projectile projectile) {
-				if(projectile.ModProjectile is not MagicCircle) {
+			if (projectile.ModProjectile is not MagicCircle)
+			{
 				for (int n = 0; n < 10; n++)
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Ash, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 3f)];
 					spawnedDust.noGravity = true;
-					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.RedTorch,(8f*(float)(Main.rand.NextDouble()-0.5)),(8f*(float)(Main.rand.NextDouble()-0.5)),0,default,2f)];
+					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.RedTorch, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 2f)];
 					spawnedDust2.noGravity = true;
 				}
+				SoundEngine.PlaySound(SoundID.Dig,projectile.position,null);
 				}
 			}
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AshBlast>()),]);

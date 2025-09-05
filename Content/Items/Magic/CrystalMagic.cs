@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Projectiles;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using Terraria.Audio;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Buffs.DOT;
 
@@ -60,11 +61,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			}
 			public override void KillDust(Projectile projectile) {
-				if(projectile.ModProjectile is not MagicCircle) {
-					for(int n = 0;n<30;n++){
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.GemRuby,(2f*(float)(Main.rand.NextDouble()-0.5)),(2f*(float)(Main.rand.NextDouble()-0.5)),0,default,1f)];
-					
+			if (projectile.ModProjectile is not MagicCircle)
+			{
+				for (int n = 0; n < 30; n++)
+				{
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.GemRuby, (2f * (float)(Main.rand.NextDouble() - 0.5)), (2f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 1f)];
+
 				}
+				SoundEngine.PlaySound(SoundID.Shatter,projectile.position,null);
 				}
 			}
 		public override void AddRecipes() {
