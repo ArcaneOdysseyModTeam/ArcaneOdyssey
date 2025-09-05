@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 1f;
 		public override float AOMagicSize => 1.25f;
 		public override float AOMagicDamage => 0.9f;
+		public override SoundStyle? MagicSound => SoundID.Splash;
 		public override AODebuff MagicDebuff => new AODebuff(BuffID.Wet, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
@@ -55,37 +56,26 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 		);
 
-		public override void SpawningDust(Projectile projectile) 
+		public override void SpawningEffects(Projectile projectile) 
 		{
-			if (projectile.ModProjectile is not MagicCircle)
+			for(int n = 0; n<3; n++)
 			{
-				CreateMagicCircle(projectile);
-				for(int n = 0; n<3; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Water,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
-					spawnedDust.noGravity = true;
-				}
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Water,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
+				spawnedDust.noGravity = true;
 			}
 		}
 
-		public override void LingeringDust(Projectile projectile) 
+		public override void LingeringEffects(Projectile projectile) 
 		{
-			if (projectile.ModProjectile is not MagicCircle) 
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),1,1,DustID.Water,0f,0f,0,default,1.2f)];
-			}
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),1,1,DustID.Water,0f,0f,0,default,1.2f)];
 		}
 
-		public override void KillDust(Projectile projectile) 
+		public override void KillEffects(Projectile projectile) 
 		{
-			if (projectile.ModProjectile is not MagicCircle)
+			for (int n = 0; n < 10; n++)
 			{
-				for (int n = 0; n < 10; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Water, (8f * (Main.rand.NextFloat() - 0.5f)), (8f * (Main.rand.NextFloat() - 0.5f)), 0, default, 3f)];
-					spawnedDust.noGravity = true;
-				}
-				SoundEngine.PlaySound(SoundID.Splash,projectile.position,null);
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Water, (8f * (Main.rand.NextFloat() - 0.5f)), (8f * (Main.rand.NextFloat() - 0.5f)), 0, default, 3f)];
+				spawnedDust.noGravity = true;
 			}
 		}
 		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WaterBlast>()),]);

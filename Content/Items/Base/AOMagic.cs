@@ -15,6 +15,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using static ArcaneOdyssey.AOUtils;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -45,6 +46,7 @@ namespace ArcaneOdyssey.Content.Items.Base
         public virtual MagicEffects Effects => null;
         public virtual Color MagicColour => Color.Transparent;
         public virtual CombinedDebuff[] CombinedDebuffs => null;
+        public virtual SoundStyle? MagicSound => null;
 
         public virtual Dictionary<Type, int> Spells => [];
 
@@ -71,13 +73,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 
         public override bool CanReforge() => false;
 
-        public virtual void SpawningDust(Projectile projectile) { }
-        public virtual void LingeringDust(Projectile projectile) { }
-        public virtual void KillDust(Projectile projectile) { }
-        public void CreateMagicCircle(Projectile projectile) {
+        public virtual void SpawningEffects(Projectile projectile) { }
+        public virtual void LingeringEffects(Projectile projectile) { }
+        public virtual void KillEffects(Projectile projectile) { }
+        public void CreateMagicCircle(Projectile projectile) 
+        {
             if (projectile.ModProjectile is BlastSpell)
             {
-                Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(null, Main.player[projectile.owner].position.X + ((float)Main.player[projectile.owner].width / 2f), Main.player[projectile.owner].position.Y + ((float)Main.player[projectile.owner].height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle>(), 0, 0f, 255, 0f, 0f)];
+                Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(null, Main.player[projectile.owner].position.X + (Main.player[projectile.owner].width / 2f), Main.player[projectile.owner].position.Y + (Main.player[projectile.owner].height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle>(), 0, 0f, 255, 0f, 0f)];
                 circleprojectile.rotation = projectile.velocity.ToRotation();
                 Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 15f;
                 circleprojectile.position = circleprojectile.position + circleVec;
@@ -85,6 +88,7 @@ namespace ArcaneOdyssey.Content.Items.Base
                 circleprojectile.scale = projectile.scale;
             }
         }
+
         // Dust stuff below for copy/paste
         // Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.Water,0f,0f,0,default,1f)];
     }

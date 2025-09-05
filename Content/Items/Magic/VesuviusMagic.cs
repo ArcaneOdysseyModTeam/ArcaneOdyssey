@@ -27,6 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 3f;
 		public override float AOMagicDamage => 2f;
         public override AOMagicTier MagicTier => AOMagicTier.Custom;
+        public override SoundStyle? MagicSound => SoundID.Item21;
         public override AODebuff MagicDebuff => new AODebuff(ModContent.BuffType<AOPetrified>(),10*60);
 		public override AODebuff MagicDebuff2 => new AODebuff(BuffID.OnFire3,10*60);
 		public override MagicEffects Effects => new MagicEffects(
@@ -38,39 +39,30 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<VesuviusBlast>()),]);
-		public override void SpawningDust(Projectile projectile)
+		public override void SpawningEffects(Projectile projectile)
 		{
-			if (projectile.ModProjectile is not MagicCircle)
+			for (int n = 0; n < 3; n++)
 			{
-				CreateMagicCircle(projectile);
-				for (int n = 0; n < 3; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.UltraBrightTorch, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, new Color(0,0,255,0), 2.5f)];
-					spawnedDust.noGravity = true;
-				}
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.UltraBrightTorch, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, new Color(0,0,255,0), 2.5f)];
+				spawnedDust.noGravity = true;
 			}
 		}
-		public override void LingeringDust(Projectile projectile)
+		
+		public override void LingeringEffects(Projectile projectile)
 		{
-			if (projectile.ModProjectile is not MagicCircle)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0,0,255,0), 1.2f)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f)];
-				Lighting.AddLight(projectile.position, 1f, 0.19f, 0f);
-			}
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0,0,255,0), 1.2f)];
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f)];
+			Lighting.AddLight(projectile.position, 1f, 0.19f, 0f);
+		}
 
-		}
-			public override void KillDust(Projectile projectile) {
-			if (projectile.ModProjectile is not MagicCircle)
+		public override void KillEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 10; n++)
 			{
-				for (int n = 0; n < 10; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.UltraBrightTorch, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, new Color(0, 0, 255, 0), 3f)];
-					spawnedDust.noGravity = true;
-				}
-				SoundEngine.PlaySound(SoundID.Item21,projectile.position,null);
-				}
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.UltraBrightTorch, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, new Color(0, 0, 255, 0), 3f)];
+				spawnedDust.noGravity = true;
 			}
+		}
 		public override void AddRecipes() {
             
         }
