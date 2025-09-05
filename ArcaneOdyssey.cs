@@ -535,16 +535,7 @@ namespace ArcaneOdyssey
 			}
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star")
 			{
-				bool extraconfs = false;
-				if (ModLoader.HasMod("CalamityMod"))
-				{
-					List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-					if (goodclasses.Contains(projectile.DamageType.Name))
-					{
-						extraconfs = true;
-					}
-				}
-				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell)
+                if (ImbueClassCheck(projectile))
 				{
 					AOMagic imbue = Main.player[projectile.owner].AOPlayer().imbue;
 					bool spell = false;
@@ -559,13 +550,13 @@ namespace ArcaneOdyssey
 
 				Player player = Main.player[projectile.owner];
 				AOPlayer aoPlayerOwner = player.AOPlayer();
-				if (projectile.ModProjectile is AOPlayerProjectile proj1 && Main.netMode != NetmodeID.Server)
+				if (projectile.ModProjectile is AOPlayerProjectile proj1 && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile))
 				{
 					aoPlayerOwner?.imbue?.SpawningDust(projectile);
 				}
 				else
 				{
-					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
+					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile))
 					{
 						aoPlayerOwner?.imbue?.SpawningDust(projectile);
 					}
@@ -585,7 +576,7 @@ namespace ArcaneOdyssey
 			{
 				proj.aoPlayerOwner ??= aoPlayerOwner;
 				proj.BaseScale ??= projectile.scale;
-				if (Main.netMode != NetmodeID.Server)
+				if (Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile))
 					proj.thisMagic?.LingeringDust(projectile);
 				if (aoPlayerOwner is not null)
 				{
@@ -594,7 +585,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
+				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile))
 				{
 					aoPlayerOwner?.imbue?.LingeringDust(projectile);
 				}
@@ -605,13 +596,13 @@ namespace ArcaneOdyssey
 		{
 			Player player = Main.player[projectile.owner];
 			AOPlayer aoPlayerOwner = player.AOPlayer();
-			if (projectile.ModProjectile is AOPlayerProjectile proj && Main.netMode != NetmodeID.Server)
+			if (projectile.ModProjectile is AOPlayerProjectile proj && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile))
 			{
 				proj.thisMagic?.KillDust(projectile);
 			}
 			else
 			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server)
+				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile))
 				{
 					aoPlayerOwner?.imbue?.KillDust(projectile);
 				}

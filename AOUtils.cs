@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using ReLogic.Reflection;
 using System;
@@ -16,54 +17,73 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		public static bool ImbueClassCheck(Projectile projectile)
+		{
+			List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+			if (goodclasses.Contains(projectile.DamageType.Name))
+			{
+				return true;
+			}
+			return projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell;
+		}
 
-		public static int FromAODefense(this int val)
+        public static bool ImbueClassCheck(Item item)
+        {
+            List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+            if (goodclasses.Contains(item.DamageType.Name))
+            {
+                return true;
+            }
+            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged;
+        }
+
+        public static int FromAODefense(this int val)
 		{
 			return (int)Math.Round(val/18f);
-        }
+		}
 
-        /// <summary>
-        /// Automatically generates localization, and formats statically
-        /// </summary>
-        /// <param name="mod">literally the mod</param>
-        /// <param name="key">The localization key</param>
-        /// <param name="formatting">Formatting args, not required</param>
-        /// <returns></returns>
-        public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
-        {
-            LocalizedText text = LocalizedText.Empty;
-            if (ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
-            {
-                text = value;
-            }
-            else
-            {
-                text = mod.GetLocalization(key);
-                if (formatting is not null)
-                {
-                    text = text.WithFormatArgs(formatting);
-                }
-                ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
-            }
-            return text;
-        }
+		/// <summary>
+		/// Automatically generates localization, and formats statically
+		/// </summary>
+		/// <param name="mod">literally the mod</param>
+		/// <param name="key">The localization key</param>
+		/// <param name="formatting">Formatting args, not required</param>
+		/// <returns></returns>
+		public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
+		{
+			LocalizedText text = LocalizedText.Empty;
+			if (ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
+			{
+				text = value;
+			}
+			else
+			{
+				text = mod.GetLocalization(key);
+				if (formatting is not null)
+				{
+					text = text.WithFormatArgs(formatting);
+				}
+				ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
+			}
+			return text;
+		}
 
-        public static int BonusBossKills()
-        {
-            int count = 0;
-            bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops];
-            foreach (bool killed in conditions)
-            {
-                if (killed)
-                    count += 1;
-            }
-            return 1;
-        }
+		public static int BonusBossKills()
+		{
+			int count = 0;
+			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops];
+			foreach (bool killed in conditions)
+			{
+				if (killed)
+					count += 1;
+			}
+			return 1;
+		}
 
-        /// <summary>
-        /// Arcane Odyssey rarities, converted to RarityID
-        /// </summary>
-        public class AORarities
+		/// <summary>
+		/// Arcane Odyssey rarities, converted to RarityID
+		/// </summary>
+		public class AORarities
 		{
 			public const short Common = -1;
 			public const short Uncommon = 0;
@@ -193,21 +213,21 @@ namespace ArcaneOdyssey
 			return 2f - input;
 		}
 
-        public static float MultiToPercent(this float multiplier)
-        {
-            /*if (multiplier > 1)
-            {
-                return multiplier - 1;
-            }
-            else if (multiplier < 1)
-            {
-                return -(2 - (1 + multiplier));
-            }
-            else return 1;*/
+		public static float MultiToPercent(this float multiplier)
+		{
+			/*if (multiplier > 1)
+			{
+				return multiplier - 1;
+			}
+			else if (multiplier < 1)
+			{
+				return -(2 - (1 + multiplier));
+			}
+			else return 1;*/
 			return multiplier-1f;
-        }
+		}
 
-        public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
+		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
 		{
 			defaultValue ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
