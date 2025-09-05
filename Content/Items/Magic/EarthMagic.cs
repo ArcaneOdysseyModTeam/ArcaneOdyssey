@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
+using ArcaneOdyssey.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
@@ -18,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class EarthMagic : AOMagic
 	{
+        public override Color MagicColour => new Color(69,42,1,0);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.26f;
 		public override float AOImbueDamage => 1.075f;
@@ -43,7 +46,29 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()),]);
-		
+		public override void SpawningDust(Projectile projectile) {
+				if(projectile.ModProjectile is not MagicCircle){
+					CreateMagicCircle(projectile);
+				for(int n = 0;n<3;n++){
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.Dirt,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
+					spawnedDust.noGravity = true;
+				}
+				}
+			}
+			public override void LingeringDust(Projectile projectile) {
+			if (projectile.ModProjectile is not MagicCircle)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.Dirt, 0f, 0f, 0, default, 1f)];
+			}
+			}
+			public override void KillDust(Projectile projectile) {
+				if(projectile.ModProjectile is not MagicCircle) {
+					for(int n = 0;n<10;n++){
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.Dirt,(8f*(float)(Main.rand.NextDouble()-0.5)),(8f*(float)(Main.rand.NextDouble()-0.5)),0,default,3f)];
+					spawnedDust.noGravity = true;
+				}
+				}
+			}
 		public override void AddRecipes() {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient<HecateOrb>(1);
