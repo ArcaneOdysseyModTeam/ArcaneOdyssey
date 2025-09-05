@@ -172,5 +172,3 @@ ArmourAutoTooltip: {
 	Mana: +{0} maximum mana
 	Size: "{0}% increased attack size"
 }
-
-TileNames.MusicBox: Music Box
