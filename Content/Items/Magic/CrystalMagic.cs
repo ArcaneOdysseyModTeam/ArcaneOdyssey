@@ -58,13 +58,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
 			spawnedDust.noGravity = true;
 		}
-			
+
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 30; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.GemRuby, (2f * (float)(Main.rand.NextDouble() - 0.5)), (2f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 1f)];
 			}
+			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
 		public override void AddRecipes()
 		{

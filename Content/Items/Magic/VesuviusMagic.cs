@@ -62,6 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.UltraBrightTorch, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, new Color(0, 0, 255, 0), 3f)];
 				spawnedDust.noGravity = true;
 			}
+			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
 		public override void AddRecipes() {
             

@@ -603,10 +603,6 @@ namespace ArcaneOdyssey
 			if (projectile.ModProjectile is AOPlayerProjectile proj && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
 			{
 				proj.thisMagic?.KillEffects(projectile);
-				if (proj.thisMagic?.MagicSound.Value is not null)
-				{
-					SoundEngine.PlaySound(proj.thisMagic.MagicSound.Value, projectile.position, null);
-				}
 			}
 			else
 			{

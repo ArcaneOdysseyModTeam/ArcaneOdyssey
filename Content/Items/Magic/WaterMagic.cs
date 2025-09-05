@@ -70,13 +70,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),1,1,DustID.Water,0f,0f,0,default,1.2f)];
 		}
 
-		public override void KillEffects(Projectile projectile) 
+		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Water, (8f * (Main.rand.NextFloat() - 0.5f)), (8f * (Main.rand.NextFloat() - 0.5f)), 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
+			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
 		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WaterBlast>()),]);
 		
