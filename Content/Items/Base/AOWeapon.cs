@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,11 +23,10 @@ namespace ArcaneOdyssey.Content.Items.Base
         public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
-		public virtual int AOValue => 0;
+		public abstract int AOValue { get; }
 		public virtual int AORarity => AORarities.Common;
 		public virtual int AOWeaponTier => AOWeaponTiers.Old;
-		public virtual AOMagic CurrentImbue => null;
-		public virtual AODebuff WeaponDebuff => new(BuffID.Bleeding, 5 * 60);
+		public virtual AODebuff WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 
 		public virtual void SetDefaultsWeapon() { }
 

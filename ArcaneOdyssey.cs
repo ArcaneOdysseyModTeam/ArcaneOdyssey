@@ -1,4 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
@@ -347,7 +348,7 @@ namespace ArcaneOdyssey
 		{
 			if (!mediumCoreDeath)
 			{
-				return [new Item(ModContent.ItemType<HecateOrb>())];
+				return [new Item(ModContent.ItemType<HecateOrb>()), new Item(ModContent.ItemType<TitleMusicBox>())];
 			}
 			else return [];
 		}
@@ -534,36 +535,34 @@ namespace ArcaneOdyssey
 			{
 				OriginalScales[projectile.Name] = projectile.Size;
 			}
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star")
+			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star" && ImbueClassCheck(projectile))
 			{
-				if (ImbueClassCheck(projectile))
+				AOMagic imbue = Main.player[projectile.owner].AOPlayer().imbue;
+				bool spell = false;
+				if (projectile.ModProjectile is AOPlayerProjectile proj)
 				{
-					AOMagic imbue = Main.player[projectile.owner].AOPlayer().imbue;
-					bool spell = false;
-					if (projectile.ModProjectile is AOPlayerProjectile proj)
-					{
-						proj.aoPlayerOwner ??= Main.player[projectile.owner].AOPlayer();
-						proj.thisMagic ??= proj.aoPlayerOwner.imbue;
-						imbue = proj.thisMagic;
-						spell = proj.IsSpell;
-					}
-					if (imbue is not null)
-						projectile.velocity *= spell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
+					proj.aoPlayerOwner ??= Main.player[projectile.owner].AOPlayer();
+					proj.thisMagic ??= proj.aoPlayerOwner.imbue;
+					imbue = proj.thisMagic;
+					spell = proj.IsSpell;
 				}
+				if (imbue is not null)
+					projectile.velocity *= spell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
+				
 
 				Player player = Main.player[projectile.owner];
 				AOPlayer aoPlayerOwner = player.AOPlayer();
-				if (projectile.ModProjectile is AOPlayerProjectile proj1 && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
+				if (projectile.ModProjectile is AOPlayerProjectile proj1 && Main.netMode != NetmodeID.Server && projectile.ModProjectile is not MagicCircle && imbue is not null)
 				{
-                    proj1.thisMagic?.CreateMagicCircle(projectile);
-                    aoPlayerOwner?.imbue?.SpawningEffects(projectile);
+                    AOMagic.CreateMagicCircle(projectile);
+                    imbue.SpawningEffects(projectile);
 				}
 				else
 				{
-					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
+					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && projectile.ModProjectile is not MagicCircle && imbue is not null)
                     {
-                        aoPlayerOwner?.imbue?.CreateMagicCircle(projectile);
-                        aoPlayerOwner?.imbue?.SpawningEffects(projectile);
+                        AOMagic.CreateMagicCircle(projectile);
+                        imbue.SpawningEffects(projectile);
 					}
 				}
 			}

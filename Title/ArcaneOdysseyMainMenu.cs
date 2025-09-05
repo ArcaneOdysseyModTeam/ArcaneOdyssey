@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Title
             }
 			else
 			{
-				mus = MusicLoader.GetMusicSlot(Mod, "Music/DarkTitle");
+				mus = MusicLoader.GetMusicSlot(Mod, "Music/DarkSea");
 			}
 			return mus != 0 ? mus : MusicID.OtherworldlyRain;
         }

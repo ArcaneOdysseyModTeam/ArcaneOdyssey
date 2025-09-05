@@ -257,3 +257,13 @@ WoodenPaddle: {
 	DisplayName: Wooden Paddle
 	Tooltip: A wooden paddle for a rowboat, it seems to contain trace magic
 }
+
+DarkSeaMusicBox: {
+	DisplayName: Music Box (Dark Sea)
+	Tooltip: Plays 'The Dark Sea' by Tobi
+}
+
+TitleMusicBox: {
+	DisplayName: Music Box (Arcane Title)
+	Tooltip: Plays 'The Call of Adventure' by Tobi
+}
