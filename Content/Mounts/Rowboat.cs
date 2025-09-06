@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Content.Mounts
 			MountData.totalFrames = 4;
 			MountData.playerYOffsets = Enumerable.Repeat(MountData.heightBoost, MountData.totalFrames).ToArray();
 			MountData.xOffset = 13;
-			MountData.yOffset = -12;
+			MountData.yOffset = -10;
 			MountData.playerHeadOffset = 22;
 			MountData.bodyFrame = 3;
 
@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Mounts
 			MountData.standingFrameStart = 0;
 
 			MountData.runningFrameCount = 4;
-			MountData.runningFrameDelay = 50;
+			MountData.runningFrameDelay = 10;
 			MountData.runningFrameStart = 0;
 
 			MountData.flyingFrameCount = 0;
@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Content.Mounts
 			MountData.idleFrameLoop = true;
 
 			MountData.swimFrameCount = 4;
-			MountData.swimFrameDelay = 50;
+			MountData.swimFrameDelay = 10;
 			MountData.swimFrameStart = 0;
 
 			if (Main.netMode != NetmodeID.Server)
@@ -80,13 +80,17 @@ namespace ArcaneOdyssey.Content.Mounts
 			if (player.wet)
 			{
 				player.velocity = new(0, -20f);
-            }
+			}
 			else
 			{
-                player.velocity = new Vector2(0, player.maxFallSpeed * MountData.fallDamage);
-            }
-            player.waterWalk = true;
-        }
+				player.velocity = new Vector2(0, player.maxFallSpeed * MountData.fallDamage);
+			}
+			if (player.controlDown) // prevents the boat from violently shaking when the player tries to move down through the water
+			{
+				player.controlDown = false;
+			}
+			player.waterWalk = true;
+		}
 
 		public override void SetMount(Player player, ref bool skipDust)
 		{
