@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Content.Mounts
 			MountData.idleFrameStart = 0;
 			MountData.idleFrameLoop = true;
 
-			MountData.swimFrameCount = 4;
+			MountData.swimFrameCount = 1;
 			MountData.swimFrameDelay = 10;
 			MountData.swimFrameStart = 0;
 
