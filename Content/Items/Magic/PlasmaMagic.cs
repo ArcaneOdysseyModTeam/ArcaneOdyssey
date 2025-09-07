@@ -14,11 +14,15 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Buffs.DOT;
+using Microsoft.Xna.Framework;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class PlasmaMagic : AOMagic
     {
+		public override SoundStyle? MagicSound => SoundID.Item91;
+        public override Color MagicColour => new Color(255,100,255,255);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 0.9f;
 		public override float AOImbueSize => 0.948f;
@@ -53,6 +57,30 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Wet,0.95f)
 			]
 			);
+		public override void SpawningEffects(Projectile projectile)
+		{ 
+			for(int n = 0;n<10;n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.PinkTorch,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f)];
+			}
+		}
+
+		public override void LingeringEffects(Projectile projectile)
+		{
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.PinkTorch, 0f, 0f, 0, default, 2f)];
+			spawnedDust.noGravity = true;
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.ShadowbeamStaff, 0f, 0f, 0, default, 2f)];
+			spawnedDust2.noGravity = true;
+		}
+
+		public override void KillEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 30; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.ShadowbeamStaff, (5f * (float)(Main.rand.NextDouble() - 0.5)), (5f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 3f)];
+			}
+			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+		}
 		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PlasmaBlast>()),]);
 		
 		public override void AddRecipes() {
