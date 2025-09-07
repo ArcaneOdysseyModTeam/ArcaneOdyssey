@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
     {
         public override void Update(NPC npc, ref int buffIndex)
         {
-            Dust.NewDust(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.SnowBlock, (0.5f - Main.rand.NextFloat()) * 0.2f, 0f, 1, default, 1f);   
+            Dust.NewDust(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.SnowBlock, 0f, 0f, 1, default, 1f);   
         }
     }
 }
