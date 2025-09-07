@@ -13,11 +13,15 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Buffs.DOT;
+using Microsoft.Xna.Framework;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WoodMagic : AOMagic
 	{
+		public override SoundStyle? MagicSound => SoundID.Dig;
+        public override Color MagicColour => new Color(61,33,0,255);
 		public override float AOImbueSpeed => 0.9f;
 		public override float AOImbueSize => 1.162f;
 		public override float AOImbueDamage => 1.025f;
@@ -38,6 +42,25 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f)
 			]
 			);
+		public override void SpawningEffects(Projectile projectile) 
+		{
+			for(int n = 0; n<3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Pearlwood,(projectile.velocity.X*0.2f),(projectile.velocity.Y*0.2f),0,default,1.5f)];
+			}
+		}
+
+		
+
+		public override void KillEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Pearlwood, (8f * (Main.rand.NextFloat() - 0.5f)), (8f * (Main.rand.NextFloat() - 0.5f)), 0, default, 1.5f)];
+				spawnedDust.noGravity = true;
+			}
+			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+		}
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WoodBlast>()),]);
 		
 		public override void AddRecipes() {

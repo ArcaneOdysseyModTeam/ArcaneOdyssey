@@ -13,11 +13,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
+using Terraria.Audio;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WindMagic : AOMagic
 	{
+		public override SoundStyle? MagicSound => SoundID.Dig;
+        public override Color MagicColour => new Color(255,255,255,255);
 		public override float AOImbueSpeed => 1.175f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => .9f;
@@ -50,6 +54,29 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Wet,0.9f)
 			]
 			);
+			public override void SpawningEffects(Projectile projectile) 
+		{
+			for (int n = 0; n<3; n++)
+			{
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.BubbleBurst_White,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
+					spawnedDust.noGravity = true;
+			}
+		}
+		public override void LingeringEffects(Projectile projectile)
+		{
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.BubbleBurst_White, 0f, 0f, 0, default, 1f)];
+			spawnedDust.noGravity = true;
+		}
+
+		public override void KillEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.BubbleBurst_White, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+			}
+			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+		}
 				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()),]);
 		
 		public override void AddRecipes() {

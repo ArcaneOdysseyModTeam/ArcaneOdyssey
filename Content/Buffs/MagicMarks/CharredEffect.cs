@@ -6,8 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
-    public class CharredEffect : AODebuff {}
+    public class CharredEffect : AODebuff
+    {
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            Dust.NewDust(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.Smoke, (0.5f - Main.rand.NextFloat()) * 1f, 0f, 1, default, 1f);   
+        }
+    }
 }
