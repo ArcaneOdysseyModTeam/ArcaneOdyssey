@@ -3,6 +3,11 @@ LightningMagic: {
 	Tooltip: Allows the user to create swift bolts of destructive lightning
 }
 
+KindraBlade: {
+	DisplayName: Kindra's Blade
+	Tooltip: A blood red blade, there is probably a story behind this
+}
+
 IceMagic: {
 	DisplayName: Ice Magic
 	Tooltip: Allows the user to generate cold hard ice which can freeze and chill to the blood and bone
