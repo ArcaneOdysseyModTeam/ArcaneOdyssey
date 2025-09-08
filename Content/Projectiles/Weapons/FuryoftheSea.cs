@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
             Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
             BaseScale += .05f;
 			Projectile.ai[0] = Projectile.scale;
-			if (Main.netMode != NetmodeID.Server)
+			if (!Main.dedServ)
 			{
 				Random rnd = new();
 				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default, Projectile.ai[0])];

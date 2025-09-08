@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Mounts
 			MountData.swimFrameDelay = 10;
 			MountData.swimFrameStart = 0;
 
-			if (Main.netMode != NetmodeID.Server)
+			if (!Main.dedServ)
 			{
 				MountData.textureWidth = MountData.backTexture.Width();
 				MountData.textureHeight = MountData.backTexture.Height();

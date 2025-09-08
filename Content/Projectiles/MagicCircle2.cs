@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
 
-				if (Projectile.localAI[0] > 5 && Main.netMode != NetmodeID.Server)
+				if (Projectile.localAI[0] > 5 && !Main.dedServ)
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, thisMagic.MagicColour, 1f)];
 					spawnedDust.noGravity = true;
@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 				Projectile.localAI[0]++;
 
-				if ((Projectile.ai[0] > 0) && Main.netMode != NetmodeID.Server)
+				if ((Projectile.ai[0] > 0) && !Main.dedServ)
 				{
 					shouldBeAlive = false;
 					if (Projectile.alpha < 255)

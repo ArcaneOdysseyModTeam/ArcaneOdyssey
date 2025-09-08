@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 				}
-				else if (Main.netMode == NetmodeID.Server)
+				else if (Main.dedServ)
 				{
 					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
 				}
@@ -101,7 +101,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 				}
-				else if (Main.netMode == NetmodeID.Server)
+				else if (Main.dedServ)
 				{
 					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
 				}

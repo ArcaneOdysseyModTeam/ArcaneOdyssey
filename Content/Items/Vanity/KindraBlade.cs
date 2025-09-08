@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Vanity
     {
         public override void Load()
         {
-            if (Main.netMode != NetmodeID.Server)
+            if (!Main.dedServ)
             {
                 EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Kindra_Head", EquipType.Head, this);
                 EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Kindra_Body", EquipType.Body, this);
@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Vanity
         public override void SetStaticDefaults()
         {
 
-            if (Main.netMode == NetmodeID.Server)
+            if (Main.dedServ)
                 return;
 
             int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);

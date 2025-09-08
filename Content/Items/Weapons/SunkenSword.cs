@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                 }
                 //Rising tide text
                 CombatText.NewText(player.Hitbox, new Color(0,105,255,255), Mod.CustomLocalization("PopupText.RisingTide").Value);
-            } else if (Main.netMode != NetmodeID.Server) {
+            } else if (!Main.dedServ) {
                 // Particles from swinging
                 System.Random rnd = new System.Random();
                 Dust.NewDust(player.position+new Vector2(player.direction*3f,0f),3,3,DustID.Water,(player.direction*30f)*(0.8f-rnd.NextSingle()),30f*(0.5f-rnd.NextSingle()),255,default,1.3f);

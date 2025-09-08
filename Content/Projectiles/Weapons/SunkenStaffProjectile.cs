@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
         }
 
 		public override void AI2()
-		{   if (Main.netMode != NetmodeID.Server) {
+		{   if (!Main.dedServ) {
 			// dust
 			Random rnd = new Random();
 			for(int dustCountInt = 0;dustCountInt<2;dustCountInt++) {

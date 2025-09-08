@@ -509,7 +509,7 @@ namespace ArcaneOdyssey
 				
 
 				Player player = Main.player[projectile.owner];
-				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && projectile.ModProjectile is not MagicCircle && imbue is not null)
+				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && projectile.ModProjectile is not MagicCircle && imbue is not null)
                 {
                     AOMagic.CreateMagicCircle(projectile);
                     imbue.SpawningEffects(projectile);
@@ -529,7 +529,7 @@ namespace ArcaneOdyssey
 			{
 				proj.aoPlayerOwner ??= aoPlayerOwner;
 				proj.BaseScale ??= projectile.scale;
-				if (Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile))
+				if (!Main.dedServ && ImbueClassCheck(projectile))
 					proj.thisMagic?.LingeringEffects(projectile);
 				if (aoPlayerOwner is not null)
 				{
@@ -538,7 +538,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
+				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
 				{
 					aoPlayerOwner?.imbue?.LingeringEffects(projectile);
 				}
@@ -549,13 +549,13 @@ namespace ArcaneOdyssey
 		{
 			Player player = Main.player[projectile.owner];
 			AOPlayer aoPlayerOwner = player.AOPlayer();
-			if (projectile.ModProjectile is AOPlayerProjectile proj && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
+			if (projectile.ModProjectile is AOPlayerProjectile proj && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
 			{
 				proj.thisMagic?.KillEffects(projectile);
 			}
 			else
 			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
+				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
 				{
 					aoPlayerOwner?.imbue?.KillEffects(projectile);
 				}
