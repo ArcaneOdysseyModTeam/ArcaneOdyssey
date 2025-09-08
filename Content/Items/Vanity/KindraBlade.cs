@@ -13,10 +13,10 @@ namespace ArcaneOdyssey.Content.Items.Vanity
         {
             if (Main.netMode != NetmodeID.Server)
             {
-                EquipLoader.AddEquipTexture(Mod, "PatreonWings/Items/Vanity/Kindra_Head", EquipType.Head, this);
-                EquipLoader.AddEquipTexture(Mod, "PatreonWings/Items/Vanity/Kindra_Body", EquipType.Body, this);
-                EquipLoader.AddEquipTexture(Mod, "PatreonWings/Items/Vanity/Kindra_Legs", EquipType.Legs, this);
-                EquipLoader.AddEquipTexture(Mod, "PatreonWings/Items/Vanity/Kindra_Back", EquipType.Back, this);
+                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Kindra_Head", EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Kindra_Body", EquipType.Body, this);
+                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Kindra_Legs", EquipType.Legs, this);
+                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Kindra_Back", EquipType.Back, this);
             }
         }
 
