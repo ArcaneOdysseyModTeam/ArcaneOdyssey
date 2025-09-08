@@ -130,7 +130,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (item.ModItem is AOMagic)
 			{
 				Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player))];
-				circleprojectile.scale = 1;
 			}
 		}
 

@@ -22,8 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void SetDefaults()
         {
-            Projectile.height = 64;
-            Projectile.width = 64;
+            Projectile.height = Projectile.width = 64;
             Projectile.tileCollide = false;
 		}
 
@@ -31,7 +30,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
+			Projectile.rotation = (float)Math.PI * (FramesAlive / 120f);
+            Player player = Main.player[Projectile.owner];
             aoPlayerOwner ??= player.AOPlayer();
 			thisMagic ??= aoPlayerOwner.imbue;
 			Projectile.ai[0] += player.channel && !player.dead && thisMagic is not null && shouldBeAlive ? 0 : 1;
@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Color drawColor = thisMagic.MagicColour;
 				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, (float)Math.PI * (FramesAlive / 120f), new Vector2(Projectile.height/2, Projectile.height / 2), thisMagic.AOMagicSize * Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, new Vector2(Projectile.height/2, Projectile.height / 2), thisMagic.AOMagicSize * Projectile.scale, SpriteEffects.None, 0);
 			}
 			return false;
 		}

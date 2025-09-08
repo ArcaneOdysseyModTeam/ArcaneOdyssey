@@ -98,9 +98,6 @@ namespace ArcaneOdyssey
 			public const short Legendary = 7;
 		}
 
-		/// <summary>
-		/// This will probably never be used lol
-		/// </summary>
 		public enum AOMagicTier
 		{
 			Normal = 1,

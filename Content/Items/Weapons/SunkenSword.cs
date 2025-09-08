@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
+using System.Net.Mail;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -45,11 +46,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
                 player.velocity.Y *= 0.1f;
                 player.velocity.Y -= 20;
                 // Adds dust
-                for(int dustCountInt = 0;dustCountInt<50;dustCountInt++){
-                    Dust.NewDust(player.position+new Vector2(-20f+(40f*(float)(System.Math.Sin((double)dustCountInt*3.0))),0f),3,3,DustID.Water,player.velocity.X*(float)dustCountInt*0.02f,-1f * (float)dustCountInt,255,new Color(255,255,255,255),1.3f);
-                    Dust.NewDust(player.position+new Vector2(20f+(40f*(float)(System.Math.Sin(((double)dustCountInt*3.0)+(3.14)))),0f),3,3,DustID.Water,player.velocity.X*(float)dustCountInt*0.02f,-1f * (float)dustCountInt,255,new Color(255,255,255,255),1.3f);
-                    Dust.NewDust(player.position+new Vector2(-20f+(40f*(float)(System.Math.Sin((double)dustCountInt*3.0))),0f),3,3,DustID.DungeonWater,player.velocity.X*(float)dustCountInt*0.02f,-0.5f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
-                    Dust.NewDust(player.position+new Vector2(20f+(40f*(float)(System.Math.Sin(((double)dustCountInt*3.0)+(3.14)))),0f),3,3,DustID.DungeonWater,player.velocity.X*(float)dustCountInt*0.02f,-0.5f * (float)dustCountInt,255,new Color(255,255,255,255),1f);
+                for(int dustCountInt = 0;dustCountInt<50;dustCountInt++)
+                {
+                    Dust.NewDust(player.position+new Vector2(-20f+(40f*((float)System.Math.Sin(dustCountInt*3.0))),0f),3,3,DustID.Water,player.velocity.X*dustCountInt*0.02f,-1f * dustCountInt,255,new Color(255,255,255,255),1.3f);
+                    Dust.NewDust(player.position+new Vector2(20f+(40f*((float)System.Math.Sin((dustCountInt*3.0)+(3.14)))),0f),3,3,DustID.Water,player.velocity.X*dustCountInt*0.02f,-1f * dustCountInt,255,new Color(255,255,255,255),1.3f);
+                    Dust.NewDust(player.position+new Vector2(-20f+(40f*((float)System.Math.Sin(dustCountInt*3.0))),0f),3,3,DustID.DungeonWater,player.velocity.X*dustCountInt*0.02f,-0.5f * dustCountInt,255,new Color(255,255,255,255),1f);
+                    Dust.NewDust(player.position+new Vector2(20f+(40f*((float)System.Math.Sin((dustCountInt*3.0)+(3.14)))),0f),3,3,DustID.DungeonWater,player.velocity.X*dustCountInt*0.02f,-0.5f * dustCountInt,255,new Color(255,255,255,255),1f);
                 }
                 //Rising tide text
                 CombatText.NewText(player.Hitbox, new Color(0,105,255,255), Mod.CustomLocalization("PopupText.RisingTide").Value);
