@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using ReLogic.Reflection;
@@ -24,7 +25,7 @@ namespace ArcaneOdyssey
 			{
 				return true;
 			}
-			return projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell;
+			return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell) && projectile.ModProjectile is not MagicCircle or MagicCircle2;
 		}
 
         public static bool ImbueClassCheck(Item item)
@@ -40,6 +41,11 @@ namespace ArcaneOdyssey
         public static int FromAODefense(this int val)
 		{
 			return (int)Math.Round(val/18f);
+		}
+
+		public static int IndexOf<T>(this Array array, T item)
+		{
+			return Array.IndexOf(array, item);
 		}
 
 		/// <summary>

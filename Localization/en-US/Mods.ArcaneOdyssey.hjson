@@ -123,6 +123,7 @@ Projectiles: {
 	WoodBlast.DisplayName: Wood Blast
 	JerminusBlast.DisplayName: Jerminus Blast
 	MagicCircle.DisplayName: Magic Circle
+	MagicCircle2.DisplayName: Magic Circle2
 }
 
 ImbueStuff: {

@@ -1,9 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,11 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using static ArcaneOdyssey.AOUtils;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -51,6 +53,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual Dictionary<Type, int> Spells => [];
 
 		public bool FirstFrame = true;
+		public override void SetStaticDefaults()
+		{
+			ItemID.Sets.CanGetPrefixes[Type] = false;
+		}
 
 		public override void SetDefaults()
 		{
@@ -63,12 +69,45 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override bool CanUseItem(Player player)
 		{
 			FirstFrame = true;
-			return base.CanUseItem(player);
+			return true;
 		}
 
-
-
-		public override bool CanReforge() => false;
+		public override bool? UseItem(Player player)
+		{
+			if (FirstFrame && player.AOPlayer().imbue != this)
+			{
+				CreateMagicCircle(Item, player);
+			}
+			if (this != player.AOPlayer().imbue && FirstFrame)
+			{
+				FirstFrame = false;
+				player.AOPlayer().imbue = this;
+				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
+				if (Main.netMode == NetmodeID.SinglePlayer)
+				{
+					Main.NewText(chatmessage.Value, 13, 132, 168);
+				}
+				else if (Main.netMode == NetmodeID.Server)
+				{
+					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
+				}
+			}
+			else if (FirstFrame)
+			{
+				FirstFrame = false;
+				player.AOPlayer().imbue = null;
+				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
+				if (Main.netMode == NetmodeID.SinglePlayer)
+				{
+					Main.NewText(chatmessage.Value, 13, 132, 168);
+				}
+				else if (Main.netMode == NetmodeID.Server)
+				{
+					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
+				}
+			}
+			return null;
+		}
 
 		public virtual void SpawningEffects(Projectile projectile) { }
 		public virtual void LingeringEffects(Projectile projectile) { }
@@ -78,12 +117,20 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (projectile.ModProjectile is BlastSpell)
 			{
-				Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(null, Main.player[projectile.owner].position.X + (Main.player[projectile.owner].width / 2f), Main.player[projectile.owner].position.Y + (Main.player[projectile.owner].height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle>(), 0, 0f, 255, 0f, 0f)];
+				Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(projectile.GetSource_FromThis(), Main.player[projectile.owner].position.X + (Main.player[projectile.owner].width / 2f), Main.player[projectile.owner].position.Y + (Main.player[projectile.owner].height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle>(), 0, 0f, projectile.owner)];
 				circleprojectile.rotation = projectile.velocity.ToRotation();
 				Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 15f;
 				circleprojectile.position += circleVec;
-				circleprojectile.owner = projectile.owner;
 				circleprojectile.scale = projectile.scale;
+			}
+		}
+
+		public static void CreateMagicCircle(Item item, Player player)
+		{ // add explosion spell spawning stuff later
+			if (item.ModItem is AOMagic)
+			{
+				Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player))];
+				circleprojectile.scale = 1;
 			}
 		}
 

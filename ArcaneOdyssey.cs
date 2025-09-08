@@ -133,8 +133,6 @@ namespace ArcaneOdyssey
 			if (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == DamageClass.Ranged || extraconfs || item.ModItem is DefaultScroll)
 			{
 				string imbuetextthing = Mod.CustomLocalization("ImbueStuff.NoneText").Value;
-				if (Main.netMode != NetmodeID.SinglePlayer)
-					imbuetextthing = Mod.CustomLocalization("ImbueStuff.MultiplayerCannotDisplay").Value;
 				if (playerForImbue is not null)
 					if (playerForImbue.imbue is not null)
 						imbuetextthing = playerForImbue.imbue.Item.Name;
@@ -151,38 +149,7 @@ namespace ArcaneOdyssey
 		{
 			if (player == Main.LocalPlayer)
 				playerForImbue = player.AOPlayer();
-			if (item.ModItem is AOMagic magic)
-			{
-				if (magic != player.AOPlayer().imbue && magic.FirstFrame)
-				{
-					magic.FirstFrame = false;
-					player.AOPlayer().imbue = magic;
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [item.Name]);
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						Main.NewText(chatmessage.Value, 13, 132, 168);
-					}
-					else if (Main.netMode == NetmodeID.Server)
-					{
-						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Array.IndexOf(Main.player, player));
-					}
-				}
-				else if (magic.FirstFrame)
-				{
-					magic.FirstFrame = false;
-					player.AOPlayer().imbue = null;
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						Main.NewText(chatmessage.Value, 13, 132, 168);
-					}
-					else if (Main.netMode == NetmodeID.Server)
-					{
-						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Array.IndexOf(Main.player, player));
-					}
-				}
-			}
-			return base.UseItem(item, player);
+			return null;
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
@@ -481,15 +448,6 @@ namespace ArcaneOdyssey
 			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star")
 			{
 				Player player = Main.player[projectile.owner];
-				bool extraconfs = false;
-				if (ModLoader.HasMod("CalamityMod"))
-				{
-					List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-					if (goodclasses.Contains(projectile.DamageType.Name))
-					{
-						extraconfs = true;
-					}
-				}
 				Vector2 dim = new(hitbox.Width, hitbox.Height);
 				if (projectile.ModProjectile is AOBaseProjectile origin)
 				{
@@ -499,7 +457,7 @@ namespace ArcaneOdyssey
 				{ 
 					dim = OriginalScales.GetValueOrDefault(projectile.Name, new(hitbox.Width, hitbox.Height)); 
 				}
-				if (extraconfs || projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell)
+				if (ImbueClassCheck(projectile))
 				{
 					AOMagic imbue = null;
 					float scale = 1f;
@@ -551,19 +509,10 @@ namespace ArcaneOdyssey
 				
 
 				Player player = Main.player[projectile.owner];
-				AOPlayer aoPlayerOwner = player.AOPlayer();
-				if (projectile.ModProjectile is AOPlayerProjectile proj1 && Main.netMode != NetmodeID.Server && projectile.ModProjectile is not MagicCircle && imbue is not null)
-				{
+				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && projectile.ModProjectile is not MagicCircle && imbue is not null)
+                {
                     AOMagic.CreateMagicCircle(projectile);
                     imbue.SpawningEffects(projectile);
-				}
-				else
-				{
-					if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && Main.netMode != NetmodeID.Server && projectile.ModProjectile is not MagicCircle && imbue is not null)
-                    {
-                        AOMagic.CreateMagicCircle(projectile);
-                        imbue.SpawningEffects(projectile);
-					}
 				}
 			}
 		}

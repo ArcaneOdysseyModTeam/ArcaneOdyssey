@@ -13,7 +13,8 @@ Magics can enchant your weapons with their element in a synergistic system
 
 Planned upcoming features:
 [olist]
-[*] Magic circles
+[*] Mod guide
+[*] Gas clouds
+[*] Ability to change magic
 [*] More spells
-[*] Dust VFX
 [/olist]
