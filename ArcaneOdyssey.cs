@@ -26,7 +26,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
-using Terraria.WorldBuilding;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -183,13 +182,14 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
+
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
 		{
 			if (player == Main.LocalPlayer)
 				playerForImbue = player.AOPlayer();
 			if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
             {
-				if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
                 {
                     damage.Base += BonusBossKills();
                 }
