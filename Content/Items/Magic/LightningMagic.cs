@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
             Dust spawnedDust = Dust.NewDustPerfect(projectile.Center * (float)(Main.time%2f), DustID.CrystalPulse, null, 255, default, 1.2f);
             spawnedDust.noGravity = true;
             Lighting.AddLight(projectile.position,2,1,2);
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.WitherLightning, 0f, 0f, 0, default, 0.3f)];
+			_ = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.WitherLightning, 0f, 0f, 0, default, 0.3f)];
 		}
 
 		public override void KillEffects(Projectile projectile)

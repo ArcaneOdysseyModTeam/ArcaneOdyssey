@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Title
 
 			public void Update()
 			{
-				lifevalue += 1;
+				lifevalue++;
 				position += velocity;
 				if (position.Y >= Main.screenHeight * 1.1f)
 				{

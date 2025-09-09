@@ -9,6 +9,7 @@ using Humanizer;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,6 +26,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
+using Terraria.WorldBuilding;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -186,8 +188,12 @@ namespace ArcaneOdyssey
 			if (player == Main.LocalPlayer)
 				playerForImbue = player.AOPlayer();
 			if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
-			{
-				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
+            {
+				if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+                {
+                    damage.Base += BonusBossKills();
+                }
+                if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
 					damage += aoWeapon.AODamage.MultiToPercent() + player.AOPlayer().imbue.AOImbueDamage.MultiToPercent();
 				}
@@ -469,7 +475,7 @@ namespace ArcaneOdyssey
 			AOPlayer aoPlayerOwner = player.AOPlayer();
 			if (projectile.ModProjectile is AOBaseProjectile based)
 			{
-				based.FramesAlive += 1;
+				based.FramesAlive++;
 			}
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
 			{

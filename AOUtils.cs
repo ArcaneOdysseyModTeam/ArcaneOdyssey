@@ -81,9 +81,9 @@ namespace ArcaneOdyssey
 			foreach (bool killed in conditions)
 			{
 				if (killed)
-					count += 1;
+					count++;
 			}
-			return 1;
+			return count;
 		}
 
 		/// <summary>
