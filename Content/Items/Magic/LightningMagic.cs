@@ -65,7 +65,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 
 		public override void LingeringEffects(Projectile projectile)
 		{
-            Dust spawnedDust = Dust.NewDustPerfect(projectile.position+(new Vector2(Vector2.Normalize(projectile.velocity).Y,(Vector2.Normalize(projectile.velocity).X*-1)*(((float)Main.time%2))*projectile.height*8f)+new Vector2(projectile.width/2f,projectile.height/2f)), DustID.CrystalPulse, null, 255, default, 1.2f);
+            float waveVal = 10f * ((MathF.Abs(((((float)Main.GameUpdateCount) % 5) % 10f) - 2.5f) - 1.25f));
+            Vector2 baseVec = new Vector2(0f,waveVal);
+            Dust spawnedDust = Dust.NewDustPerfect(projectile.position+(baseVec.RotatedBy(projectile.velocity.ToRotation()))+new Vector2(projectile.width/2f,projectile.height/2f), DustID.CrystalPulse, new Vector2(0f,0f), 255, default, 1.2f);
             //Dust spawnedDust = Dust.NewDustPerfect(projectile.Center * (float)(Main.time%2f), DustID.CrystalPulse, null, 255, default, 1.2f);
             spawnedDust.noGravity = true;
             Lighting.AddLight(projectile.position,2,1,2);
