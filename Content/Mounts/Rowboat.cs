@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Mounts
 			MountData.constantJump = false;
 			MountData.heightBoost = 20;
 			MountData.fallDamage = 1.5f;
-			MountData.runSpeed = 5f; // only works on water lol
+			MountData.runSpeed = 5f;
 			MountData.dashSpeed = 0f;
 			MountData.flightTimeMax = 0;
 
@@ -75,20 +75,20 @@ namespace ArcaneOdyssey.Content.Mounts
 
 		public override void UpdateEffects(Player player)
 		{
-			AOPlayer playah = player.AOPlayer();
 			player.fishingSkill += 15;
 			if (player.wet)
 			{
 				player.velocity = new(0, -20f);
+				if (player.position.Y == player.oldPosition.Y)
+				{
+					player.breathEffectiveness *= 0;
+				}
 			}
 			else
 			{
 				player.velocity = new Vector2(0, player.maxFallSpeed * MountData.fallDamage);
 			}
-			if (player.controlDown) // prevents the boat from violently shaking when the player tries to move down through the water
-			{
-				player.controlDown = false;
-			}
+			player.controlDown = false;
 			player.waterWalk = true;
 		}
 
