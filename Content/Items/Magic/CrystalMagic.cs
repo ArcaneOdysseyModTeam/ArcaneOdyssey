@@ -63,12 +63,5 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
-
-		public override void AddRecipes()
-		{
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<HecateOrb>(1);
-			recipe.Register();
-		}
 	}
 }

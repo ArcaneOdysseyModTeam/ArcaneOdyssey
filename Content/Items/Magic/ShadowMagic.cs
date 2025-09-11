@@ -59,12 +59,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
-				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<ShadowBlast>()),]);
-		
-		public override void AddRecipes() {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient<HecateOrb>(1);
-            recipe.Register();
-        }
+		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<ShadowBlast>()),]);
 	}
 }

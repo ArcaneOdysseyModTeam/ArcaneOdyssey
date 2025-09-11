@@ -12,8 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
         
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
+            Item.maxStack = 2;
             Item.rare = AORarity;
             Item.value = GalleonToCopper(AOValue, Item.rare);
         }

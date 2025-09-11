@@ -13,7 +13,6 @@ idk finish this later, look at the magics what i have noted down for them and co
 
 Humble Beginnings:
 - Morden guide npc, immune to most damage, but doesn't attack
-- Crystalized debuff changes (Making it simpler and more efficient)
 - Explosion spell
 - Prometheus acrimony
 - Ash and poison lingering clouds

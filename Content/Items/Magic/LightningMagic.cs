@@ -80,11 +80,5 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		}
 		
 		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightningBlast>()),]);
-		
-		public override void AddRecipes() {
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<HecateOrb>(1);
-			recipe.Register();
-		}
 	}
 }

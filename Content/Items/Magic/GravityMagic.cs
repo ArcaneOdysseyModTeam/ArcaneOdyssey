@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()),]);
+				public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()),]);
 		
 		public override void AddRecipes() {
             

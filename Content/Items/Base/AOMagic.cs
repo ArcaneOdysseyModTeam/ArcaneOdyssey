@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
@@ -56,13 +57,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
-		}
+			ItemID.Sets.ShimmerTransformToItem[Type] = Type;
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
+        }
 
 		public override void SetDefaults()
 		{
 			Item.useStyle = ItemUseStyleID.DrinkOld;
-			Item.useTime = 50;
-			Item.useAnimation = 50;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
 			Item.noUseGraphic = true;
 		}
 
@@ -71,6 +74,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 			FirstFrame = true;
 			return true;
 		}
+
+        public override void AddRecipes()
+        {
+            if (MagicTier == AOMagicTier.Normal)
+			{
+				CreateRecipe().AddIngredient<HecateOrb>().Register();
+				Recipe.Create(ModContent.ItemType<HecateOrb>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
+			}
+        }
+
+		public virtual void MagicRecipe() {}
 
 		public override bool? UseItem(Player player)
 		{

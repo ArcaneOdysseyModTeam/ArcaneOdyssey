@@ -29,8 +29,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 1.3f;
 		public override float AOMagicDamage => 1f;
         public override SoundStyle? MagicSound => SoundID.Item110;
-		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(ModContent.BuffType<AOBleed>(), 60*10);
-		public override MagicEffects Effects => new MagicEffects(
+		public override AODebuffRequirement MagicDebuff => new(ModContent.BuffType<AOBleed>(), 60*10);
+		public override MagicEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>()
 			], 
@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
-		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()),]);
+		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()),]);
 		
 		public override void SpawningEffects(Projectile projectile) 
 		{
@@ -66,11 +66,5 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
-		public override void AddRecipes() 
-		{
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient<HecateOrb>(1);
-            recipe.Register();
-        }
 	}
 }
