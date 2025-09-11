@@ -46,7 +46,7 @@ Buffs: {
 
 	Crystallized: {
 		DisplayName: Crystallized
-		Description: {0} Crystals are embeded in your body, ready to shatter and deal damage
+		Description: "{0} Crystals are embeded in your body, ready to shatter and deal damage"
 	}
 
 	AOBleed: {

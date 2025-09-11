@@ -1,17 +1,9 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles;
+﻿using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
-using ReLogic.Reflection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.GameContent.UI;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
