@@ -30,8 +30,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 0.85f;
 		public override float AOMagicSize => 1.2f;
 		public override float AOMagicDamage => 0.975f;
-		public override AODebuff MagicDebuff => new(ModContent.BuffType<FreezingEffect>(), 60 * 10);
-		public override AODebuff MagicDebuff2 => new(ModContent.BuffType<AOFrozen>(), 60, 33);
+		public override AODebuffRequirement MagicDebuff => new(ModContent.BuffType<FreezingEffect>(), 60 * 10);
+		public override AODebuffRequirement MagicDebuff2 => new(ModContent.BuffType<AOFrozen>(), 60, 33);
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
 		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>(
@@ -59,11 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
 				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.15f),
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f)
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
 			]
 			);
 			public override void SpawningEffects(Projectile projectile) 

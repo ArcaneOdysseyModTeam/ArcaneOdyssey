@@ -36,13 +36,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
 
-		public virtual AODebuff Debuff => null;
+		public virtual AODebuffRequirement Debuff => null;
 		public virtual SoundStyle? DebuffApplySound => null;
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             AOPlayerProjectile proj = Projectile.ModProjectile as AOPlayerProjectile;
-            AODebuff Debuff = proj.Debuff;
+            AODebuffRequirement Debuff = proj.Debuff;
             SoundStyle? DebuffApplySound = proj.DebuffApplySound;
             if (Debuff is not null && (Debuff.DebuffPercent is null or 0 || modifiers.GetDamage(Projectile.damage, true) > (target.lifeMax / Debuff.DebuffPercent)))
             {

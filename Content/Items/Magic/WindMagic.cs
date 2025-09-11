@@ -40,11 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				ModContent.BuffType<SnowyEffect>()
 			], 
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),
 				new MagicBuffMultiplier(BuffID.OnFire,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.125f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.1f),

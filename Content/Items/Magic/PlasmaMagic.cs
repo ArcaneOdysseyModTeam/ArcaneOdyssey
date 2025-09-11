@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 1.25f;
 		public override float AOMagicSize => 1f;
 		public override float AOMagicDamage => 0.825f;
-		public override AODebuff MagicDebuff => new AODebuff(BuffID.ShadowFlame, 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(BuffID.ShadowFlame, 60*10);
 		public override CombinedDebuff[] CombinedDebuffs => [new (ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
@@ -45,11 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
 				new MagicBuffMultiplier(BuffID.Venom,1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.99f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.97f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
 				new MagicBuffMultiplier(BuffID.Poisoned,1.05f),

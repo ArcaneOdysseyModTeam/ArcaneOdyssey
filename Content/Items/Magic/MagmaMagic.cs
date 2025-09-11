@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 1.2f;
 		public override float AOMagicDamage => 0.9f;
 		public override SoundStyle? MagicSound => SoundID.Item21;
-		public override AODebuff MagicDebuff => new AODebuff(BuffID.OnFire3, 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(BuffID.OnFire3, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				BuffID.Chilled, // freezing
@@ -56,11 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(), 0.99f),
 				new MagicBuffMultiplier(BuffID.Wet, .95f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.95f)
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.95f),
 			]
 			);
 			

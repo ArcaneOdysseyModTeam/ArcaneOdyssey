@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract int AOValue { get; }
 		public virtual int AORarity => AORarities.Common;
 		public virtual int AOWeaponTier => AOWeaponTiers.Old;
-		public virtual AODebuff WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
+		public virtual AODebuffRequirement WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 
 		public virtual void SetDefaultsWeapon() { }
 

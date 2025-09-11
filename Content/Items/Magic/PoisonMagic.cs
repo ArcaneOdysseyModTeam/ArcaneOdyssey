@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 1f;
 		public override float AOMagicSize => 1.15f;
 		public override float AOMagicDamage => 0.75f;
-		public override AODebuff MagicDebuff => new AODebuff(BuffID.Poisoned, 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(BuffID.Poisoned, 60*10);
 		//public override AODebuff MagicDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit

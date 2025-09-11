@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
@@ -17,8 +18,8 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey
 {
 	public static class AOUtils
-	{
-		public static bool ImbueClassCheck(Projectile projectile)
+    {
+        public static bool ImbueClassCheck(Projectile projectile)
 		{
 			List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
 			if (goodclasses.Contains(projectile.DamageType.Name))
@@ -122,7 +123,7 @@ namespace ArcaneOdyssey
 		/// <param name="debuffid">Terraria.ID.BuffID</param>
 		/// <param name="duration">Duration, in ticks (60/second)</param>
 		/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
-		public class AODebuff(int debuffid, int duration, int? debuffRequiement = null)
+		public class AODebuffRequirement(int debuffid, int duration, int? debuffRequiement = null)
 		{
 			public int debuffID = debuffid;
 			public int debuffDuration = duration;

@@ -20,8 +20,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOImbueSize => 10f;
 		public override float AOImbueDamage => .01f;
         public override AOMagicTier MagicTier => AOMagicTier.Custom;
-        public override AODebuff MagicDebuff => new(BuffID.Cursed, 10*60);
-		public override AODebuff MagicDebuff2 => new(ModContent.BuffType<Trauma>(), 10*60);
+        public override AODebuffRequirement MagicDebuff => new(BuffID.Cursed, 10*60);
+		public override AODebuffRequirement MagicDebuff2 => new(ModContent.BuffType<Trauma>(), 10*60);
 		public override MagicEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				

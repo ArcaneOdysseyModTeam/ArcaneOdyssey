@@ -39,12 +39,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOMagicSize => AOImbueSize;
 		public virtual float AOMagicDamage => AOImbueDamage;
 		public virtual AOMagicTier MagicTier => AOMagicTier.Normal;
-		public virtual AODebuff MagicDebuff => null;
+		public virtual AODebuffRequirement MagicDebuff => null;
 
 		/// <summary>
 		/// used for having freezing and frozen on a single magic ect
 		/// </summary>
-		public virtual AODebuff MagicDebuff2 => null;
+		public virtual AODebuffRequirement MagicDebuff2 => null;
 		public virtual MagicEffects Effects => null;
 		public virtual Color MagicColour => Color.Transparent;
 		public virtual CombinedDebuff[] CombinedDebuffs => null;

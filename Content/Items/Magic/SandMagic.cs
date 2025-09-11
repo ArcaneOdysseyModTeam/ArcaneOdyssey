@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 0.95f;
 		public override float AOMagicSize => 1.1f;
 		public override float AOMagicDamage => 0.975f;
-		public override AODebuff MagicDebuff => new AODebuff(ModContent.BuffType<SandyEffect>(), 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(ModContent.BuffType<SandyEffect>(), 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet
@@ -39,11 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire,1.125f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.01f),
 				new MagicBuffMultiplier(BuffID.Venom,1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.8f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.8f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.8f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.8f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.8f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
 				new MagicBuffMultiplier(BuffID.Wet,0.8f)
 			]

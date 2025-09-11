@@ -28,18 +28,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 0.65f;
 		public override float AOMagicSize => 1.2f;
 		public override float AOMagicDamage => 1.025f;
-		public override AODebuff MagicDebuff => new AODebuff(ModContent.BuffType<AOBleed>(), 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(ModContent.BuffType<AOBleed>(), 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>()
 			], 
 			[
 				new MagicBuffMultiplier(BuffID.Venom,1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.05f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.05f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.02f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)

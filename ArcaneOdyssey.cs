@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Magic;
@@ -27,6 +28,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -53,7 +55,12 @@ namespace ArcaneOdyssey
 
 			if (playah.imbue is not null)
 			{
-				if ((playah.imbue.MagicDebuff is not null) && (playah.imbue.MagicDebuff.DebuffPercent != 0f)) 
+                if (playah.imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+                {
+                    modifiers.FinalDamage += .3f;
+                }
+
+                if ((playah.imbue.MagicDebuff is not null) && (playah.imbue.MagicDebuff.DebuffPercent != 0f)) 
 				{
 					if (playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent))
 					{
@@ -83,7 +90,7 @@ namespace ArcaneOdyssey
 				{
 					if (target.HasBuff(multiplier.buffID))
 					{
-						modifiers.FinalDamage *= multiplier.multiplier;
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
 					}
 				}
 
@@ -188,12 +195,12 @@ namespace ArcaneOdyssey
 			if (player == Main.LocalPlayer)
 				playerForImbue = player.AOPlayer();
 			if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
-            {
+			{
 				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
-                {
-                    damage.Base += BonusBossKills();
-                }
-                if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
+				{
+					damage.Base += BonusBossKills();
+				}
+				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
 					damage += aoWeapon.AODamage.MultiToPercent() + player.AOPlayer().imbue.AOImbueDamage.MultiToPercent();
 				}
@@ -340,15 +347,21 @@ namespace ArcaneOdyssey
 							modifiers.FinalDamage.Base += BonusBossKills();
 						}
 						if (imbue is not null)
-						{
-							modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;
-							if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
+                        {
+                            modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;
+                            if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+                            {
+                                modifiers.FinalDamage += .3f;
+                            }
+
+                            if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
 							{
 								if (imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff.DebuffPercent))
 								{
 									target.AddBuff(imbue.MagicDebuff.debuffID, imbue.MagicDebuff.debuffDuration);
 								}
 							}
+
 							if ((imbue.MagicDebuff2 is not null) && (imbue.MagicDebuff2.DebuffPercent != 0f))
 							{
 								if (imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff2.DebuffPercent))
@@ -384,7 +397,6 @@ namespace ArcaneOdyssey
 									{
 										target.DelBuff(target.FindBuffIndex(buffid));
 									}
-
 								}
 							}
 						}
@@ -403,11 +415,11 @@ namespace ArcaneOdyssey
 				Vector2 dim = new(hitbox.Width, hitbox.Height);
 				if (projectile.ModProjectile is AOBaseProjectile origin)
 				{
-					dim = origin.OriginalDimensions.GetValueOrDefault(new(hitbox.Width, hitbox.Height));
+					dim = origin.OriginalDimensions.GetValueOrDefault(dim);
 				}
 				else
-				{ 
-					dim = OriginalScales.GetValueOrDefault(projectile.Name, new(hitbox.Width, hitbox.Height)); 
+				{
+					dim = OriginalScales.GetValueOrDefault(projectile.Name, dim);
 				}
 				if (ImbueClassCheck(projectile))
 				{
@@ -462,9 +474,9 @@ namespace ArcaneOdyssey
 
 				Player player = Main.player[projectile.owner];
 				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && projectile.ModProjectile is not MagicCircle && imbue is not null)
-                {
-                    AOMagic.CreateMagicCircle(projectile);
-                    imbue.SpawningEffects(projectile);
+				{
+					AOMagic.CreateMagicCircle(projectile);
+					imbue.SpawningEffects(projectile);
 				}
 			}
 		}

@@ -13,7 +13,7 @@ using ArcaneOdyssey.Content.Buffs.Base;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-    public class AOBleed : Base.AODebuff
+    public class AOBleed : AODebuff
     {
         private int frameNum = 0;
         System.Random rnd = new System.Random();
