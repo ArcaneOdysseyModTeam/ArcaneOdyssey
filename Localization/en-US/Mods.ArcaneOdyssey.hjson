@@ -106,6 +106,7 @@ Projectiles: {
 	JerminusBlast.DisplayName: Jerminus Blast
 	MagicCircle.DisplayName: Magic Circle
 	MagicCircle2.DisplayName: Magic Circle
+	ExplosionTracker.DisplayName: Explosion Tracker
 }
 
 ImbueStuff: {

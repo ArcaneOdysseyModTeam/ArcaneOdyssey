@@ -281,3 +281,8 @@ Acrimony: {
 	DisplayName: Prometheus's Acrimony
 	Tooltip: A legendary item that allows you to change your magic type
 }
+
+ExplosionScroll: {
+	DisplayName: Explosion Scroll
+	Tooltip: ""
+}

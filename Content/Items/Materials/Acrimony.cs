@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
             Item.rare = AORarity;
             Item.value = GalleonToCopper(AOValue, AORarity);
         }
+
         public override void SetStaticDefaults()
         {
             ItemID.Sets.CanGetPrefixes[Type] = false;

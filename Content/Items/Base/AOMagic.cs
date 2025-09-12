@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
@@ -127,7 +128,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual void LingeringEffects(Projectile projectile) { }
 		public virtual void KillEffects(Projectile projectile) { }
 
-		public static void CreateMagicCircle(Projectile projectile) 
+		public static Projectile CreateMagicCircle(Projectile projectile) 
 		{
 			if (projectile.ModProjectile is BlastSpell)
 			{
@@ -136,15 +137,24 @@ namespace ArcaneOdyssey.Content.Items.Base
 				Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 15f;
 				circleprojectile.position += circleVec;
 				circleprojectile.scale = projectile.scale;
+				return circleprojectile;
 			}
+			else
+				return null;
 		}
 
-		public static void CreateMagicCircle(Item item, Player player)
+		public static Projectile CreateMagicCircle(Item item, Player player)
 		{ // add explosion spell spawning stuff later
 			if (item.ModItem is AOMagic)
 			{
-				Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player))];
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: 1)];
 			}
+			else if (item.ModItem is ExplosionScroll)
+            {
+                return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player))];
+            }
+			else
+				return null;
 		}
 
 		// Dust stuff below for copy/paste

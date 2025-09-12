@@ -10,8 +10,8 @@ namespace ArcaneOdyssey.Content.Items.Materials
 {
 	public class DefaultScroll : ModItem
 	{
-		public int AOValue = 500;
-		public int AORarity = AORarities.Rare;
+		public virtual int AOValue => 500;
+		public virtual int AORarity => AORarities.Rare;
 		public virtual void SetDefaultsScroll() { }
 		public override void SetDefaults()
 		{

@@ -65,6 +65,8 @@ namespace ArcaneOdyssey
 
 		public int AOSizeStat = 0;
 
+		public Projectile myCircle;
+
 		public bool RightClicking => Player.altFunctionUse == 2;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)

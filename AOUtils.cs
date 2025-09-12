@@ -211,16 +211,7 @@ namespace ArcaneOdyssey
 
 		public static float MultiToPercent(this float multiplier)
 		{
-			/*if (multiplier > 1)
-			{
-				return multiplier - 1;
-			}
-			else if (multiplier < 1)
-			{
-				return -(2 - (1 + multiplier));
-			}
-			else return 1;*/
-			return multiplier-1f;
+			return multiplier-1f; // wow simplest function on the earth
 		}
 
 		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
