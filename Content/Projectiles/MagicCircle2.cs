@@ -38,10 +38,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.ai[0] < 1)
 			{
 				aoPlayerOwner.myCircle = Projectile;
-				if (Projectile.ai[1] == 1)
+				if (Projectile.ai[1] == 2)
 				{
 					Projectile.position = player.MountedCenter;
-					Projectile.velocity = Vector2.Zero;
+					player.velocity = Vector2.Zero;
 				}
 				else
 					Projectile.position = Main.MouseWorld;

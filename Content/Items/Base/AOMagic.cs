@@ -151,7 +151,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			else if (item.ModItem is ExplosionScroll)
             {
-                return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player))];
+                return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse)];
             }
 			else
 				return null;
