@@ -31,7 +31,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.channel = true;
             Item.UseSound = SoundID.SplashWeak;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.autoReuse = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = false;

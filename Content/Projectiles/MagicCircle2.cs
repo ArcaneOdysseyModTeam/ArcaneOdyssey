@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 					Projectile.velocity = Vector2.Zero;
 				}
 				else
-					Projectile.velocity = Projectile.SafeDirectionTo(Main.MouseWorld, player.position) * 2;
+					Projectile.position = Main.MouseWorld;
 			}
 			if (thisMagic is not null)
 			{

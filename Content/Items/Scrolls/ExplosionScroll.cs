@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 	{
 		public override void SetDefaultsScroll()
 		{
-			Item.useAnimation = Item.useTime = 60*5;
+			Item.useAnimation = Item.useTime = 60*2;
 			Item.damage = 25;
 			Item.channel = true;
 			Item.UseSound = SoundID.Item84;

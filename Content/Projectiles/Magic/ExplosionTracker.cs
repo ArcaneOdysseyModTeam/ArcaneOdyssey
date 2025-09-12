@@ -10,18 +10,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
     public class ExplosionTracker : AOPlayerProjectile
     {
-        public float charge = 0f;
+        public int charge = 0;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
             AOPlayer playah = player.AOPlayer();
-            if (charge < 2f && playah.myCircle is not null && playah.myCircle.ai[0] < 1)
+            if (charge < 3*60 && playah.myCircle is not null && playah.myCircle.ai[0] < 1)
             {
                 Projectile.position = playah.myCircle.position;
-                charge += 1f/60f;
+                charge++;
             }
             else
             {
+                player.reuseDelay = 60;
+                float dmgmult = charge / 60f;
                 // explode here
                 Kill();
             }
