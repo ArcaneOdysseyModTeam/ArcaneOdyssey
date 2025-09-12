@@ -23,7 +23,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
         public override void AddRecipes()
         {
-            Recipe rep = Recipe.Create(ModContent.ItemType<HecateOrb>());
         }
     }
 }

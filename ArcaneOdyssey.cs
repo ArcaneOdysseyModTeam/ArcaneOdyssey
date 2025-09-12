@@ -3,10 +3,14 @@ using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
+using Terraria.GameContent.Generation;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.IO;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey
 {
@@ -21,7 +25,7 @@ namespace ArcaneOdyssey
 		{
 			if (npc.type == NPCID.WallofFlesh)
 			{
-				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.IsPreHardmode());
+				LeadingConditionRule leadingConditionRule = new(new Terraria.GameContent.ItemDropRules.Conditions.IsPreHardmode());
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
 				npcLoot.Add(leadingConditionRule);
 			}
@@ -33,7 +37,7 @@ namespace ArcaneOdyssey
 			}
 			if (npc.type == NPCID.Plantera)
 			{
-				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
+				LeadingConditionRule leadingConditionRule = new(new Terraria.GameContent.ItemDropRules.Conditions.FirstTimeKillingPlantera());
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
@@ -102,6 +106,48 @@ namespace ArcaneOdyssey
 				stat += .1f;
 			}
 			return stat + 1f;
+		}
+	}
+
+	public class TuckerGrave
+	{
+		public static void KillTucker(int left, int top, int right, int bottom, int tile)
+		{
+			bool success = false;
+			while (!success)
+			{
+				int attempts = 0;
+				while (!success && attempts <= 1000)
+				{
+					attempts++;
+					int x = WorldGen.genRand.Next(left, right + 1);
+					int y = WorldGen.genRand.Next(top, bottom + 1);
+					if (Framing.GetTileSafely(x, y).TileType != tile)
+					{
+						WorldGen.PlaceObject(x, y, tile, false, 2, 0, -1, Utils.NextBool(WorldGen.genRand, 2) ? 1 : -1);
+					}
+					Tile tile1 = Framing.GetTileSafely(x, y); // maybe use later for something
+					success = tile1.TileType == tile;
+				}
+				if (attempts > 1000)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	public class WorldGenStuff : ModSystem
+	{
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
+		{
+			// Tucker died lmao
+			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
+			if (Stalac != -1)
+				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) => {
+					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
+					TuckerGrave.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones); // 1174
+				}));
 		}
 	}
 }
