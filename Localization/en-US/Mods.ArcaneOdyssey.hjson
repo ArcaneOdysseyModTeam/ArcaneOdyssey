@@ -107,6 +107,7 @@ Projectiles: {
 	MagicCircle.DisplayName: Magic Circle
 	MagicCircle2.DisplayName: Magic Circle
 	ExplosionTracker.DisplayName: Explosion Tracker
+	ExplosionSpell.DisplayName: Explosion Spell
 }
 
 ImbueStuff: {

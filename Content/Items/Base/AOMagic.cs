@@ -59,8 +59,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			ItemID.Sets.ShimmerTransformToItem[Type] = Type;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
-        }
+			ItemID.Sets.ItemNoGravity[Item.type] = true;
+		}
 
 		public override void SetDefaults()
 		{
@@ -76,14 +76,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return true;
 		}
 
-        public override void AddRecipes()
-        {
-            if (MagicTier == AOMagicTier.Normal)
+		public override void AddRecipes()
+		{
+			if (MagicTier == AOMagicTier.Normal)
 			{
 				CreateRecipe().AddIngredient<HecateOrb>().Register();
 				Recipe.Create(ModContent.ItemType<HecateOrb>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
 			}
-        }
+		}
 
 		public virtual void MagicRecipe() {}
 
@@ -150,9 +150,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: 1)];
 			}
 			else if (item.ModItem is ExplosionScroll)
-            {
-                return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse)];
-            }
+			{
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse)];
+			}
 			else
 				return null;
 		}

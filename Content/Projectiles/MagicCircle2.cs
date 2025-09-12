@@ -21,9 +21,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Content/Projectiles/MagicCircle2").Value;
 
 		public override void SetDefaults()
-        {
-            Projectile.height = Projectile.width = 64;
-            Projectile.tileCollide = false;
+		{
+			Projectile.height = Projectile.width = 64;
+			Projectile.tileCollide = false;
 		}
 
 		public bool shouldBeAlive = true;
@@ -31,21 +31,25 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.PI * (FramesAlive / 120f);
-            Player player = Main.player[Projectile.owner];
-            aoPlayerOwner ??= player.AOPlayer();
+			Player player = Main.player[Projectile.owner];
+			aoPlayerOwner ??= player.AOPlayer();
 			thisMagic ??= aoPlayerOwner.imbue;
-			Projectile.ai[0] += player.channel && !player.dead && thisMagic is not null && shouldBeAlive ? 0 : 1;
+			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && thisMagic is not null && shouldBeAlive ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
 				aoPlayerOwner.myCircle = Projectile;
 				if (Projectile.ai[1] == 2)
 				{
-					Projectile.position = player.MountedCenter;
+					Projectile.Center = player.Center;
 					player.velocity = Vector2.Zero;
+					player.maxFallSpeed = 0f;
 				}
 				else
-					Projectile.position = Main.MouseWorld;
+					Projectile.position = Main.MouseWorld - new Vector2(Projectile.width/2, Projectile.height/2);
 			}
+			else
+				aoPlayerOwner.myCircle = null;
+
 			if (thisMagic is not null)
 			{
 				float tempLightColorR = 0f;
@@ -97,10 +101,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 			return false;
 		}
 
-        public override void OnKill(int timeLeft)
-        {
+		public override void OnKill(int timeLeft)
+		{
 			Main.player[Projectile.owner].AOPlayer().myCircle = null;
 			Main.player[Projectile.owner].channel = false;
-        }
+		}
 	}
 }
