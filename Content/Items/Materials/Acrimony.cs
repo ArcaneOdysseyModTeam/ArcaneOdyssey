@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
@@ -18,7 +19,10 @@ namespace ArcaneOdyssey.Content.Items.Materials
         {
             Item.rare = AORarity;
             Item.value = GalleonToCopper(AOValue, AORarity);
-            Item.maxStack = 2;
+        }
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.CanGetPrefixes[Type] = false;
         }
 
         public override void AddRecipes()

@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
         {
             Item.rare = AORarity;
             Item.value = GalleonToCopper(AOValue, Item.rare);
-            Item.maxStack = 2;
+            Item.maxStack = 3;
         }
     }
 }

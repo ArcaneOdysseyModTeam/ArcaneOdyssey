@@ -41,6 +41,8 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
+
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 		}
 	}
 
@@ -48,7 +50,7 @@ namespace ArcaneOdyssey
 	{
 		public bool CanDrop(DropAttemptInfo info) => !NPC.downedAncientCultist;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister("Mods.ArcaneOdyssey.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
 	}
 
 
@@ -144,10 +146,33 @@ namespace ArcaneOdyssey
 			// Tucker died lmao
 			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
 			if (Stalac != -1)
-				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) => {
+				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
+				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
 					TuckerGrave.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones); // 1174
 				}));
+		}
+
+		public override void PostWorldGen()
+		{
+			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
+			{
+				Chest chest = Main.chest[chestIndex];
+				if (chest != null)
+				{
+					if (Main.rand.NextBool(6000))
+					{
+						for (int i = 0; i < Chest.maxItems; i++)
+						{
+							if (chest.item[i] != null)
+							{
+								chest.item[i].SetDefaults(ModContent.ItemType<Acrimony>());
+								break;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

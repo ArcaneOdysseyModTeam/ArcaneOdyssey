@@ -85,8 +85,9 @@ namespace ArcaneOdyssey
         {
             if (item.type == ItemID.OceanCrateHard)
             {
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArcaniumScrap>(), 15, 0, 1));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArcaniumScrap>(), 15));
             }
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
         }
 
         public override void UpdateInventory(Item item, Player player)
