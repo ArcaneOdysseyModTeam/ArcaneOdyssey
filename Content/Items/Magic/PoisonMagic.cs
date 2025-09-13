@@ -59,6 +59,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Cloud, (5f * (float)(Main.rand.NextDouble() - 0.5)), (5f * (float)(Main.rand.NextDouble() - 0.5)), 0, Color.Purple, 3f)];
 				spawnedDust.noGravity = true;
+				if (n/2 >= 10)
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnedDust.position, spawnedDust.velocity/4, Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 12, 0f);
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}

@@ -5,9 +5,12 @@ using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
@@ -217,5 +220,17 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
+
+        public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        {
+			if (Main.player[projectile.owner].AOPlayer().imbue is PoisonMagic && projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3)
+            {
+				Main.instance.LoadProjectile(projectile.type);
+				var asset = TextureAssets.Projectile[projectile.type];
+				Main.EntitySpriteDraw(asset.Value, projectile.position, projectile.Hitbox, Color.DarkViolet, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale, SpriteEffects.None);
+                return false;
+            }
+			return true;
+        }
 	}
 }

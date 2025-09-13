@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Color drawColor = thisMagic.MagicColour;
 				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, new Vector2(Projectile.height/2, Projectile.height / 2), thisMagic.AOMagicSize * Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, new Vector2(Projectile.height/2, Projectile.height / 2), thisMagic.AOMagicSize * Projectile.scale, SpriteEffects.None);
 			}
 			return false;
 		}
