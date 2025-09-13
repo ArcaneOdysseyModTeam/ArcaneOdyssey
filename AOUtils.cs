@@ -25,7 +25,7 @@ namespace ArcaneOdyssey
 			{
 				return true;
 			}
-			return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell) && projectile.ModProjectile is not MagicCircle or MagicCircle2;
+			return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle or MagicCircle2;
 		}
 
         public static bool ImbueClassCheck(Item item)
@@ -35,7 +35,7 @@ namespace ArcaneOdyssey
             {
                 return true;
             }
-            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged;
+            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed;
         }
 
         public static int FromAODefense(this int val)
