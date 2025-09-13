@@ -30,11 +30,11 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override void UpdateInventory(Player player)
 		{
 			AOPlayer playah = player.AOPlayer();
-			if (playah.imbue is not null)
+			if (playah.imbue is not null && GetType().IsSubclassOf(typeof(DefaultScroll)))
 			{
 				Item.color = playah.imbue.MagicColour;
 			}
-			else Item.color = Color.Transparent;
+			else Item.color = default;
 		}
 
 		public virtual void ScrollRecipe()

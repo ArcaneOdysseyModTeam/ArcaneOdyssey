@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles;
+﻿using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
@@ -28,7 +29,7 @@ namespace ArcaneOdyssey
             {
                 return true;
             }
-            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed;
+            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll));
         }
 
         public static int FromAODefense(this int val)
