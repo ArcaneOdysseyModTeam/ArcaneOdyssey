@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace ArcaneOdyssey
 {
@@ -52,7 +53,7 @@ namespace ArcaneOdyssey
                 {
                     foreach (CombinedDebuff buffkeys in playah.imbue.CombinedDebuffs)
                     {
-                        if (target.HasBuff(buffkeys.requirement))
+                        if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
                         {
                             target.AddBuff(buffkeys.result, buffkeys.duration);
                         }
@@ -61,7 +62,7 @@ namespace ArcaneOdyssey
 
                 foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
                 {
-                    if (target.HasBuff(multiplier.buffID))
+                    if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
                     {
                         modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
                     }
@@ -188,7 +189,7 @@ namespace ArcaneOdyssey
         {
             if (player == Main.LocalPlayer)
                 playerForImbue = player.AOPlayer();
-            if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
+            if (player.AOPlayer().imbue is not null && ImbueClassCheck(item) && item.DamageType != DamageClass.MeleeNoSpeed)
             {
                 if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
                 {

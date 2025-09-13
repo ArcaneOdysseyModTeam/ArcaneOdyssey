@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace ArcaneOdyssey
 {
@@ -65,7 +66,7 @@ namespace ArcaneOdyssey
 							{
 								foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
 								{
-									if (target.HasBuff(buffkeys.requirement))
+									if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 									{
 										target.AddBuff(buffkeys.result, buffkeys.duration);
 									}
@@ -74,7 +75,7 @@ namespace ArcaneOdyssey
 
 							foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
 							{
-								if (target.HasBuff(multiplier.buffID))
+								if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 								{
 									modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
 								}
@@ -159,7 +160,7 @@ namespace ArcaneOdyssey
 					imbue = proj.thisMagic;
 					spell = proj.IsSpell;
 				}
-				if (imbue is not null)
+				if (imbue is not null && projectile.DamageType != DamageClass.MeleeNoSpeed)
 					projectile.velocity *= spell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
 
 
