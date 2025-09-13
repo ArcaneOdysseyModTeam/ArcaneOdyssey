@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {

@@ -20,16 +20,16 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class PoisonMagic : AOMagic
 	{
 		public override SoundStyle? MagicSound => SoundID.Item17;
-        public override Color MagicColour => new Color(105,0,105,255);
+        public override Color MagicColour => new(105,0,105,255);
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 0.825f;
 		public override float AOMagicSpeed => 1f;
 		public override float AOMagicSize => 1.15f;
 		public override float AOMagicDamage => 0.75f;
-		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(BuffID.Poisoned, 60*10);
+		public override AODebuffRequirement MagicDebuff => new(BuffID.Poisoned, 60*10);
 		//public override AODebuff MagicDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
-		public override MagicEffects Effects => new MagicEffects(
+		public override MagicEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -38,7 +38,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire,0.99f)
 			]
 			);
-			public override void SpawningEffects(Projectile projectile)
+
+		public override void SpawningEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
@@ -60,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Cloud, (5f * (float)(Main.rand.NextDouble() - 0.5)), (5f * (float)(Main.rand.NextDouble() - 0.5)), 0, Color.Purple, 3f)];
 				spawnedDust.noGravity = true;
 				if (n/2 >= 10)
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnedDust.position, spawnedDust.velocity/4, Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 12, 0f);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnedDust.position, spawnedDust.velocity/4, Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BonusBossKills(), 0f);
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
