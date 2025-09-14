@@ -29,7 +29,7 @@ namespace ArcaneOdyssey
             {
                 return true;
             }
-            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll));
+            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)));
         }
 
         public static int FromAODefense(this int val)

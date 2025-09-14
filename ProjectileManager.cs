@@ -221,16 +221,16 @@ namespace ArcaneOdyssey
 			}
 		}
 
-        public override bool PreDraw(Projectile projectile, ref Color lightColor)
-        {
+		public override bool PreDraw(Projectile projectile, ref Color lightColor)
+		{
 			if (Main.player[projectile.owner].AOPlayer().imbue is PoisonMagic && projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3)
-            {
+			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
 				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, null, Color.DarkViolet, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale * 1.12f, SpriteEffects.None);
-                return false;
-            }
-			return true;
+				return false;
+			}
+            return true; 
         }
 	}
 }

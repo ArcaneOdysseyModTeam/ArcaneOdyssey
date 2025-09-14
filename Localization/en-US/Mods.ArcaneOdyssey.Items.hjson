@@ -286,3 +286,8 @@ ExplosionScroll: {
 	DisplayName: Explosion Scroll
 	Tooltip: ""
 }
+
+BronzeBar: {
+	DisplayName: Bronze Bar
+	Tooltip: An alloy that does nothing yet, you wasted your time obtaining this
+}
