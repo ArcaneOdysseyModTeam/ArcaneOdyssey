@@ -24,7 +24,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public Item originalItem = null;
         public Vector2? DustVelocity;
         public bool killDust = true;
-        public virtual bool IsSpell => false;
 		public AOPlayer aoPlayerOwner = null;
 
         /// <summary>

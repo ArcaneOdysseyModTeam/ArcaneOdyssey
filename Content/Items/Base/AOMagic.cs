@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Linq;
@@ -123,6 +124,22 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			return null;
 		}
+
+		public virtual bool PreEffects(Projectile projectile)
+        {
+			if (ImbueClassCheck(projectile))
+			{
+				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				{
+					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle or ExplosionTracker or MagicCircle2;
+				}
+				else if (projectile.ModProjectile is AOPlayerProjectile)
+				{
+					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle or ExplosionTracker or MagicCircle2;
+				}
+			}
+			return false;
+        }
 
 		public virtual void SpawningEffects(Projectile projectile) { }
 		public virtual void LingeringEffects(Projectile projectile) { }

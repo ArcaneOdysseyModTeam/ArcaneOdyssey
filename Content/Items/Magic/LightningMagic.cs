@@ -55,26 +55,28 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.WitherLightning, (projectile.velocity.X * 0.2f), (projectile.velocity.Y * 0.2f), 0, default, 1.2f)];
+				_ = Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.WitherLightning, (projectile.velocity.X * 0.2f), (projectile.velocity.Y * 0.2f), 0, default, 1.2f);
 			}
 		}
 
 		public override void LingeringEffects(Projectile projectile)
 		{// WAHT IS  THIS IM SO CONFUSED
-			float waveVal = 10f * ((MathF.Abs(((((float)Main.GameUpdateCount) % 5) % 10f) - 2.5f) - 1.25f));
-			Vector2 baseVec = new(0f,waveVal);
-			Dust spawnedDust = Dust.NewDustPerfect(projectile.position+(baseVec.RotatedBy(projectile.velocity.ToRotation()))+new Vector2(projectile.width/2f,projectile.height/2f), DustID.CrystalPulse, new Vector2(0f,0f), 255, default, 1.2f);
-			//Dust spawnedDust = Dust.NewDustPerfect(projectile.Center * (float)(Main.time%2f), DustID.CrystalPulse, null, 255, default, 1.2f);
-			spawnedDust.noGravity = true;
+			if (projectile.velocity != Vector2.Zero)
+			{
+				float waveVal = 10f * MathF.Abs((((float)Main.GameUpdateCount) % 5 % 10f) - 2.5f) - 1.25f;
+				Vector2 baseVec = new(0f, waveVal);
+				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + (baseVec.RotatedBy(projectile.velocity.ToRotation())) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.CrystalPulse, new Vector2(0f, 0f), 255, default, 1.2f);
+				spawnedDust.noGravity = true;
+			}
 			Lighting.AddLight(projectile.position,2,1,2);
-			_ = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.WitherLightning, 0f, 0f, 0, default, 0.3f)];
+			_ = Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.WitherLightning, 0f, 0f, 0, default, 0.3f);
 		}
 
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				_ = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.WitherLightning, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 1.2f)];
+				_ = Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.WitherLightning, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 1.2f);
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}

@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.PI * (FramesAlive / 120f);
+			Projectile.rotation = MathHelper.Pi * (FramesAlive / 120f);
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.AOPlayer();
 			thisMagic ??= aoPlayerOwner.imbue;

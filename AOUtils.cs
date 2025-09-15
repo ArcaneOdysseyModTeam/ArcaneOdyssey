@@ -1,10 +1,13 @@
-﻿using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -12,25 +15,34 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
     {
-        public static bool ImbueClassCheck(Projectile projectile)
+		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-			if (goodclasses.Contains(projectile.DamageType.Name))
+			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				return true;
+				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+				if (goodclasses.Contains(projectile.DamageType.Name))
+				{
+					return true;
+				}
+				return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle or MagicCircle2
+					&& projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.type != ProjectileID.FallingStar;
 			}
-			return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle or MagicCircle2;
+			return false;
 		}
 
         public static bool ImbueClassCheck(Item item)
         {
-            List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-            if (goodclasses.Contains(item.DamageType.Name))
+            if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
             {
-                return true;
-            }
-            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)));
-        }
+				string[] goodclasses = ["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"];
+				if (goodclasses.Contains(item.DamageType.Name))
+				{
+					return true;
+				}
+				return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)));
+			}
+			return false;
+		}
 
         public static int FromAODefense(this int val)
 		{
@@ -42,14 +54,38 @@ namespace ArcaneOdyssey
 			return Array.IndexOf(array, item);
 		}
 
-		/// <summary>
-		/// Automatically generates localization, and formats statically
-		/// </summary>
-		/// <param name="mod">literally the mod</param>
-		/// <param name="key">The localization key</param>
-		/// <param name="formatting">Formatting args, not required</param>
-		/// <returns></returns>
-		public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
+		public static bool TryGetImbue(this Item item, Player player, out AOMagic imbue)
+		{
+			imbue = null;
+            if ((item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(item))
+            {
+				imbue ??= player.AOPlayer().imbue;
+            }
+			return imbue is not null;
+        }
+
+		public static bool TryGetImbue(this Projectile projectile, Player player, out AOMagic imbue)
+		{
+			imbue = null;
+			if (projectile.ModProjectile is AOPlayerProjectile proj && ImbueClassCheck(projectile))
+			{
+				imbue ??= proj.thisMagic;
+			}
+			else if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(projectile))
+			{
+				imbue ??= player.AOPlayer().imbue;
+			}
+			return imbue is not null;
+        }
+
+        /// <summary>
+        /// Automatically generates localization, and formats statically
+        /// </summary>
+        /// <param name="mod">literally the mod</param>
+        /// <param name="key">The localization key</param>
+        /// <param name="formatting">Formatting args, not required</param>
+        /// <returns></returns>
+        public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
 		{
 			LocalizedText text = LocalizedText.Empty;
 			if (ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
@@ -71,7 +107,7 @@ namespace ArcaneOdyssey
 		public static int BonusBossKills()
 		{
 			int count = 0;
-			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops];
+			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates];
 			foreach (bool killed in conditions)
 			{
 				if (killed)

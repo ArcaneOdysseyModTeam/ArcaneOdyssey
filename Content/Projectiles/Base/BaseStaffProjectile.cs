@@ -33,7 +33,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
             float spintime = 25 * AOSpeed.FlipFloat() * 2 * extramulti;
             Vector2 expectedDirection = player.SafeDirectionTo(Main.MouseWorld);
-			Projectile.velocity = 25 * AOSpeed * expectedDirection;
             player.direction = (expectedDirection.X > 0f).ToDirectionInt();
 
 
@@ -64,7 +63,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
             Projectile.rotation += MathHelper.TwoPi * 2f / spintime * player.direction;
 			// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
 
-			player.itemRotation = Main.MouseScreen.ToRotation() * player.direction;
+			player.itemRotation = MathHelper.WrapAngle(Projectile.rotation); ;
             player.itemTime = player.itemAnimation = 2;
             AI2();
         }

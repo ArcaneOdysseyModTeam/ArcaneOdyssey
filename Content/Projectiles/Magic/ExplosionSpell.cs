@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
         public override void AI()
         {
-            thisMagic.KillEffects(Projectile);
+            if (Projectile.TryGetImbue(Main.player[Projectile.owner], out AOMagic imbue))
+                imbue.KillEffects(Projectile);
         }
     }
 }

@@ -45,13 +45,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{ 
 			for(int n = 0;n<10;n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.Glass,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Glass,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f)];
 			}
 		}
 
 		public override void LingeringEffects(Projectile projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
 			spawnedDust.noGravity = true;
 		}
 
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Glass, (2f * (float)(Main.rand.NextDouble() - 0.5)), (2f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Glass, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 1f)];
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}

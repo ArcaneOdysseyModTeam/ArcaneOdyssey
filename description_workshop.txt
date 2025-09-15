@@ -1,7 +1,3 @@
-[h1]Arcane Odyssey Mod[/h1]
-
-For feedback and bug reports, please refer to our [url=https://discord.gg/D9NpuGdZsY]Discord[/url]
-
 Completely rewrites how debuffs work and interact with eachother, with the power of Magic!
 Use over 10 unique magics with unique interactions and attributes!
 Make scrolls to cast various spells to fight enemies!
@@ -9,6 +5,7 @@ Make scrolls to cast various spells to fight enemies!
 To use the mod, aquire a magic. You can do this with the Hecate Orb, an item which you will spawn with.
 Magics can enchant your weapons with their element in a synergistic system
 
+For feedback and bug reports, please refer to our [url=https://discord.gg/D9NpuGdZsY]Discord[/url].
 
 [i]Based off the game "Arcane Odyssey" by vetexgames[/i]
 

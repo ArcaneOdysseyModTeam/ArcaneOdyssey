@@ -13,11 +13,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public float? BaseScale;
 		public Vector2? OriginalDimensions = null;
 		public int FramesAlive = 0;
+        public bool IsSpell => this is MagicSpell;
 
-		/// <summary>
-		/// Kills the projectile.
-		/// </summary>
-		public void Kill()
+        /// <summary>
+        /// Kills the projectile.
+        /// </summary>
+        public void Kill()
 		{
 			Projectile.Kill();
 		}

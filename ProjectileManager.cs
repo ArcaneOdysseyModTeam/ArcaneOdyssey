@@ -1,12 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
-using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -14,7 +11,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using static Terraria.ModLoader.PlayerDrawLayer;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -22,77 +19,61 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj)
+			if (projectile.owner == Main.myPlayer && (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name)))
 			{
-				AOPlayer playah = Main.player[projectile.owner].AOPlayer();
-				if (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
+				if (projectile.TryGetImbue(Main.player[projectile.owner], out AOMagic imbue))
 				{
-					if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(projectile))
+					var spell = projectile.ModProjectile is MagicSpell;
+                    if (spell)
+                        modifiers.FinalDamage.Base += BonusBossKills();
+                    modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;
+					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 					{
-						AOMagic imbue = null;
-						bool spell = false;
-						if (projectile.ModProjectile is AOPlayerProjectile proj)
+						modifiers.FinalDamage += .3f;
+					}
+
+					if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
+					{
+						if (imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff.DebuffPercent))
 						{
-							imbue = proj.thisMagic;
-							spell = proj.IsSpell;
+							target.AddBuff(imbue.MagicDebuff.debuffID, imbue.MagicDebuff.debuffDuration);
 						}
-						else imbue = playah.imbue;
-						if (spell)
+					}
+
+					if ((imbue.MagicDebuff2 is not null) && (imbue.MagicDebuff2.DebuffPercent != 0f))
+					{
+						if (imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff2.DebuffPercent))
 						{
-							modifiers.FinalDamage.Base += BonusBossKills();
+							target.AddBuff(imbue.MagicDebuff2.debuffID, imbue.MagicDebuff2.debuffDuration);
 						}
-						if (imbue is not null)
+					}
+
+					if (imbue.CombinedDebuffs is not null)
+					{
+						foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
 						{
-							modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;
-							if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+							if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 							{
-								modifiers.FinalDamage += .3f;
+								target.AddBuff(buffkeys.result, buffkeys.duration);
 							}
+						}
+					}
 
-							if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
-							{
-								if (imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff.DebuffPercent))
-								{
-									target.AddBuff(imbue.MagicDebuff.debuffID, imbue.MagicDebuff.debuffDuration);
-								}
-							}
+					foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+					{
+						if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+						{
+							modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+						}
+					}
 
-							if ((imbue.MagicDebuff2 is not null) && (imbue.MagicDebuff2.DebuffPercent != 0f))
+					if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+					{
+						foreach (int buffid in imbue.Effects.clearBuffs)
+						{
+							if (target.HasBuff(buffid))
 							{
-								if (imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff2.DebuffPercent))
-								{
-									target.AddBuff(imbue.MagicDebuff2.debuffID, imbue.MagicDebuff2.debuffDuration);
-								}
-							}
-
-							if (imbue.CombinedDebuffs is not null)
-							{
-								foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
-								{
-									if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-									{
-										target.AddBuff(buffkeys.result, buffkeys.duration);
-									}
-								}
-							}
-
-							foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
-							{
-								if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-								{
-									modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-								}
-							}
-
-							if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-							{
-								foreach (int buffid in imbue.Effects.clearBuffs)
-								{
-									if (target.HasBuff(buffid))
-									{
-										target.DelBuff(target.FindBuffIndex(buffid));
-									}
-								}
+								target.DelBuff(target.FindBuffIndex(buffid));
 							}
 						}
 					}
@@ -104,9 +85,9 @@ namespace ArcaneOdyssey
 
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star")
+			if (projectile.owner == Main.myPlayer)
 			{
-				Player player = Main.player[projectile.owner];
+				Player player = Main.LocalPlayer;
 				Vector2 dim = new(hitbox.Width, hitbox.Height);
 				if (projectile.ModProjectile is AOBaseProjectile origin)
 				{
@@ -118,21 +99,12 @@ namespace ArcaneOdyssey
 				}
 				if (ImbueClassCheck(projectile))
 				{
-					AOMagic imbue = null;
-					float scale = 1f;
-					bool spell = false;
+					float mult = 1f;
 					if (projectile.ModProjectile is AOPlayerProjectile proj)
+						mult = proj.BaseScale.GetValueOrDefault(1f) + proj.AOSize.MultiToPercent();
+					if (projectile.TryGetImbue(player, out AOMagic imbue))
 					{
-						imbue = proj.thisMagic;
-						scale = proj.BaseScale.GetValueOrDefault(1f) + proj.AOSize.MultiToPercent();
-						spell = proj.IsSpell;
-					}
-					else
-						imbue = Main.player[projectile.owner].AOPlayer().imbue;
-					float mult = scale;
-					if (imbue is not null)
-					{
-						mult = (spell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + scale + player.AOPlayer().GetSizeMulti(projectile).MultiToPercent();
+						mult = (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + mult + player.AOPlayer().GetSizeMulti(projectile).MultiToPercent();
 					}
 					hitbox.Width = (int)(dim.X * mult);
 					hitbox.Height = (int)(dim.Y * mult);
@@ -151,86 +123,67 @@ namespace ArcaneOdyssey
 			else
 			{
 				OriginalScales[projectile.Name] = projectile.Size;
-			}
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star" && ImbueClassCheck(projectile))
-			{
-				AOMagic imbue = Main.player[projectile.owner].AOPlayer().imbue;
-				bool spell = false;
-				if (projectile.ModProjectile is AOPlayerProjectile proj)
+            }
+            if (projectile.ModProjectile is AOPlayerProjectile proj)
+            {
+                proj.thisMagic ??= Main.player[projectile.owner].AOPlayer().imbue;
+            }
+            if (projectile.owner == Main.myPlayer)
+                if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
-					proj.aoPlayerOwner ??= Main.player[projectile.owner].AOPlayer();
-					proj.thisMagic ??= proj.aoPlayerOwner.imbue;
-					imbue = proj.thisMagic;
-					spell = proj.IsSpell;
-				}
-				if (imbue is not null && projectile.DamageType != DamageClass.MeleeNoSpeed)
-					projectile.velocity *= spell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
-
-
-				Player player = Main.player[projectile.owner];
-				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && projectile.ModProjectile is not MagicCircle or ExplosionTracker or MagicCircle2 && imbue is not null)
-				{
+					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
+						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
 					AOMagic.CreateMagicCircle(projectile);
 					imbue.SpawningEffects(projectile);
 				}
-			}
 		}
 
 		public override void AI(Projectile projectile)
 		{
-			Player player = Main.player[projectile.owner];
-			AOPlayer aoPlayerOwner = player.AOPlayer();
-			if (projectile.ModProjectile is AOBaseProjectile based)
+			if (projectile.owner == Main.myPlayer)
 			{
-				based.FramesAlive++;
-			}
-			if (projectile.ModProjectile is AOPlayerProjectile proj)
-			{
-				proj.aoPlayerOwner ??= aoPlayerOwner;
-				proj.BaseScale ??= projectile.scale;
-				if (!Main.dedServ && ImbueClassCheck(projectile))
-					proj.thisMagic?.LingeringEffects(projectile);
-				if (aoPlayerOwner is not null)
+				if (projectile.ModProjectile is AOBaseProjectile based)
 				{
-					proj.thisMagic ??= aoPlayerOwner.imbue;
+					based.FramesAlive++;
 				}
-			}
-			else
-			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle or ExplosionTracker)
+				if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
-					aoPlayerOwner?.imbue?.LingeringEffects(projectile);
+					imbue.LingeringEffects(projectile);
 				}
 			}
 		}
 
 		public override void OnKill(Projectile projectile, int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
-			AOPlayer aoPlayerOwner = player.AOPlayer();
-			if (projectile.ModProjectile is AOPlayerProjectile proj && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle or ExplosionTracker or MagicCircle2)
+			if (projectile.owner == Main.myPlayer)
 			{
-				proj.thisMagic?.KillEffects(projectile);
-			}
-			else
-			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle or ExplosionTracker or MagicCircle2)
+				if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
-					aoPlayerOwner?.imbue?.KillEffects(projectile);
+					imbue.KillEffects(projectile);
 				}
 			}
 		}
 
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
-			if (Main.player[projectile.owner].AOPlayer().imbue is PoisonMagic && projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3)
+			bool returntype = true;
+			if (Main.player[projectile.owner].AOPlayer().imbue is PoisonMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
 				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, null, Color.DarkViolet, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale * 1.12f, SpriteEffects.None);
-				return false;
+				returntype = false;
 			}
-            return true; 
-        }
+
+			else if (Main.player[projectile.owner].AOPlayer().imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
+			{
+				Main.instance.LoadProjectile(projectile.type);
+				var asset = TextureAssets.Projectile[projectile.type];
+				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, new(0, projectile.height * projectile.frame, projectile.width, projectile.height), Color.DarkGray, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale, SpriteEffects.None);
+				returntype = false;
+			}
+
+			return returntype; 
+		}
 	}
 }

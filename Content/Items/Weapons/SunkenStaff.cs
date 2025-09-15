@@ -35,7 +35,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.autoReuse = false;
             Item.useAnimation = Item.useTime = 25;
-            Item.shootSpeed = 25 * AOSpeed;
         }
 
         public override void AddRecipes()

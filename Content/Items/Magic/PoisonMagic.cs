@@ -43,14 +43,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Cloud, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, Color.Purple, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Cloud, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, Color.Purple, 3f)];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		public override void LingeringEffects(Projectile projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.Cloud, 0f, 0f, 0, Color.Purple, 2f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Cloud, 0f, 0f, 0, Color.Purple, 2f)];
 			spawnedDust.noGravity = true;
 		}
 
@@ -58,10 +58,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Cloud, (5f * (float)(Main.rand.NextDouble() - 0.5)), (5f * (float)(Main.rand.NextDouble() - 0.5)), 0, Color.Purple, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Cloud, (5f * Main.rand.NextFloat() - 0.5f), (5f * Main.rand.NextFloat() - 0.5f), 0, Color.Purple, 3f)];
 				spawnedDust.noGravity = true;
 				if (n/2 >= 10)
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), spawnedDust.position, spawnedDust.velocity/4, Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BonusBossKills(), 0f);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), new(1.25f * Main.rand.NextFloat() - 0.5f, 1.25f * Main.rand.NextFloat() - 0.5f), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BonusBossKills(), 0f);
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
