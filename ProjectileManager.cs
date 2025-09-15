@@ -179,7 +179,7 @@ namespace ArcaneOdyssey
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
-				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, new(0, projectile.height * projectile.frame, projectile.width, projectile.height), Color.DarkGray, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale, SpriteEffects.None);
+				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, new(0, 30 * projectile.frame, 28, 30), Color.DarkRed, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale, SpriteEffects.None);
 				returntype = false;
 			}
 
