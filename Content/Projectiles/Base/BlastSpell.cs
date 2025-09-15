@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			Projectile.timeLeft = 5 * 60;
 			SetDefaultsSpell2();
+			Projectile.height = Projectile.width = 64;
 			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 		}
 

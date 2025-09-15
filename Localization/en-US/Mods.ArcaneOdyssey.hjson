@@ -108,6 +108,7 @@ Projectiles: {
 	MagicCircle2.DisplayName: Magic Circle
 	ExplosionTracker.DisplayName: Explosion Tracker
 	ExplosionSpell.DisplayName: Explosion Spell
+	DeliriumBlast.DisplayName: Delirium Blast
 }
 
 ImbueStuff: {

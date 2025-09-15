@@ -90,11 +90,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
-			if (FirstFrame && player.AOPlayer().imbue != this)
-			{
-				CreateMagicCircle(Item, player);
-			}
-			if (this != player.AOPlayer().imbue && FirstFrame)
+            if (FirstFrame && player.Imbue() != this)
+            {
+                CreateMagicCircle(Item, player, this);
+            }
+            if (this != player.Imbue() && FirstFrame)
 			{
 				FirstFrame = false;
 				player.AOPlayer().imbue = this;
@@ -121,8 +121,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
 				}
-			}
-			return null;
+            }
+            return null;
 		}
 
 		public virtual bool PreEffects(Projectile projectile)
@@ -160,15 +160,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 				return null;
 		}
 
-		public static Projectile CreateMagicCircle(Item item, Player player)
+		public static Projectile CreateMagicCircle(Item item, Player player, AOMagic magicToUse = null)
 		{ // add explosion spell spawning stuff later
 			if (item.ModItem is AOMagic)
 			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: 1)];
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: 1, ai2: magicToUse is not null ? magicToUse.Type : 0)];
 			}
 			else if (item.ModItem is ExplosionScroll)
 			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse)];
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse, ai2: magicToUse is not null ? magicToUse.Type : 0)];
 			}
 			else
 				return null;

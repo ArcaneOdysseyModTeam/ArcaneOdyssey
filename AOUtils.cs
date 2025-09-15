@@ -30,6 +30,10 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
+		public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
+
+		public static AOMagic Imbue(this Player player) => player.AOPlayer().imbue;
+
         public static bool ImbueClassCheck(Item item)
         {
             if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
@@ -44,15 +48,9 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-        public static int FromAODefense(this int val)
-		{
-			return (int)Math.Round(val/18f);
-		}
+        public static int FromAODefense(this int val) => (int)Math.Round(val/18f);
 
-		public static int IndexOf<T>(this Array array, T item)
-		{
-			return Array.IndexOf(array, item);
-		}
+		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
 
 		public static bool TryGetImbue(this Item item, Player player, out AOMagic imbue)
 		{

@@ -284,10 +284,15 @@ Acrimony: {
 
 ExplosionScroll: {
 	DisplayName: Explosion Scroll
-	Tooltip: ""
+	Tooltip: Creates an explosion at your cursor's position, or can hold you in place and turn you into the source
 }
 
 BronzeBar: {
 	DisplayName: Bronze Bar
 	Tooltip: An alloy that does nothing yet, you wasted your time obtaining this
+}
+
+DeliriumMagic: {
+	DisplayName: Delirium Magic
+	Tooltip: Huh what
 }

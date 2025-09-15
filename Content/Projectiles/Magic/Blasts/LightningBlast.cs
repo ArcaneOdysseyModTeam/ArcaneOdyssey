@@ -13,9 +13,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class LightningBlast : BlastSpell
 	{
-		public override void SetDefaultsSpell2()
-		{
-			Projectile.width = Projectile.height = 64; // placeholder sprite currently in effect
-		}
+
 	}
 }

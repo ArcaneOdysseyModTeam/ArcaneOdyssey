@@ -33,8 +33,13 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.rotation = MathHelper.Pi * (FramesAlive / 120f);
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.AOPlayer();
-			thisMagic ??= aoPlayerOwner.imbue;
-			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && thisMagic is not null && shouldBeAlive ? 0 : 1;
+			if (Projectile.ai[2] == 0)
+			{
+				if (Projectile.TryGetImbue(player, out AOMagic imbue))
+					Projectile.ai[2] = imbue.Type;
+			}
+            thisMagic = (AOMagic)ModContent.GetModItem((int)Projectile.ai[2]);
+            Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && thisMagic is not null && shouldBeAlive ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
 				aoPlayerOwner.myCircle = Projectile;

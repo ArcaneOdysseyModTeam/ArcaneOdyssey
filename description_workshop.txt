@@ -1,5 +1,5 @@
 Completely rewrites how debuffs work and interact with eachother, with the power of Magic!
-Use over 10 unique magics with unique interactions and attributes!
+Use over 20 unique magics with unique interactions and attributes!
 Make scrolls to cast various spells to fight enemies!
 
 To use the mod, aquire a magic. You can do this with the Hecate Orb, an item which you will spawn with.
