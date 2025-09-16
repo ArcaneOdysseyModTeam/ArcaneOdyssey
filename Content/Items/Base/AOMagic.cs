@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
@@ -69,6 +70,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.useTime = 60;
 			Item.useAnimation = 60;
 			Item.noUseGraphic = true;
+			if (this is GlassMagic)
+			{
+				Item.alpha = (int)Math.Round(255 * .2f); // glass gets 20% less visible
+			}
 		}
 
 		public override bool CanUseItem(Player player)

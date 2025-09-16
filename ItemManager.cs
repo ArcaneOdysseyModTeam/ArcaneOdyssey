@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -161,7 +162,12 @@ namespace ArcaneOdyssey
 				{
 					knockback += imbue.AOImbueSize.MultiToPercent() + extrakbmulti.MultiToPercent();
 				}
-			}
+
+                if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+                {
+                    knockback += imbue.AOMagicSize.MultiToPercent() + extrakbmulti;
+                }
+            }
 		}
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
@@ -182,6 +188,11 @@ namespace ArcaneOdyssey
 				{
 					damage += imbue.AOImbueDamage.MultiToPercent();
 				}
+
+				if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+				{
+					damage += imbue.AOMagicDamage.MultiToPercent();
+				}
 			}
 		}
 		public override float UseSpeedMultiplier(Item item, Player player)
@@ -198,8 +209,13 @@ namespace ArcaneOdyssey
 				{
 					return imbue.AOImbueSpeed;
 				}
-			}
-			return 1f;
+            }
+
+            if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+            {
+                return imbue.AOMagicSpeed;
+            }
+            return 1f;
 		}
 	}
 }
