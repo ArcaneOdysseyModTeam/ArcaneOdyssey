@@ -65,8 +65,8 @@ namespace ArcaneOdyssey
 
 		public int AOSizeStat = 0;
 
-		public Projectile myCircle;
-
+		public Projectile myCircle = null;
+		public float StunCD = 0;
 		public bool RightClicking => Player.altFunctionUse == 2;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -111,6 +111,12 @@ namespace ArcaneOdyssey
 			}
 			return stat + 1f;
 		}
+
+        public override void PreUpdate()
+        {
+			if (Main.LocalPlayer == Player)
+				StunCD -= 1 / 60;
+        }
 	}
 
 	public class TuckerGrave
@@ -147,11 +153,11 @@ namespace ArcaneOdyssey
 		{
 			// Tucker died lmao
 			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
-			if (Stalac != -1)
+			if (ArcaneOdysseyConfig.Instance.GenerateTucker && Stalac != -1)
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					TuckerGrave.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones); // 1174
+					TuckerGrave.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
 				}));
 		}
 

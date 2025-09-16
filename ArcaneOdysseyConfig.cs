@@ -15,6 +15,9 @@ namespace ArcaneOdyssey
 
         public List<string> IgnoredProjectiles { get; set; }
 
+        [DefaultValue(true)]
+        public bool GenerateTucker { get; set; }
+
 
         public static ArcaneOdysseyConfig Instance;
     }
