@@ -90,11 +90,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
-            if (FirstFrame && player.Imbue() != this)
-            {
-                CreateMagicCircle(Item, player, this);
-            }
-            if (this != player.Imbue() && FirstFrame)
+			if (FirstFrame && player.Imbue() != this)
+			{
+				CreateMagicCircle(Item, player, this);
+			}
+			if (this != player.Imbue() && FirstFrame)
 			{
 				FirstFrame = false;
 				player.AOPlayer().imbue = this;
@@ -121,12 +121,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
 				}
-            }
-            return null;
+			}
+			return null;
 		}
 
 		public virtual bool PreEffects(Projectile projectile)
-        {
+		{
 			if (ImbueClassCheck(projectile))
 			{
 				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
@@ -139,7 +139,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 			}
 			return false;
-        }
+		}
 
 		public virtual void SpawningEffects(Projectile projectile) { }
 		public virtual void LingeringEffects(Projectile projectile) { }

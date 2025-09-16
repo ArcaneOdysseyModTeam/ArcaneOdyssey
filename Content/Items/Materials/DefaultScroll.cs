@@ -33,6 +33,10 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			if (playah.imbue is not null && GetType().IsSubclassOf(typeof(DefaultScroll)))
 			{
 				Item.color = playah.imbue.MagicColour;
+				if (Item.color == Color.White || Item.color == Color.Black)
+				{
+					Item.color.A *= (byte).5f;
+				}
 			}
 			else Item.color = default;
 		}

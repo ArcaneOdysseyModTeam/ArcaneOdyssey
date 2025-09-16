@@ -14,7 +14,7 @@ using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey
 {
-	public class ArcaneOdyssey : Mod 
+	public class ArcaneOdyssey : Mod // what does bro even do lmao
 	{
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
 	}

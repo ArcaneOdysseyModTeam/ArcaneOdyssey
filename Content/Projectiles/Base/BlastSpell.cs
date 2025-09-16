@@ -11,11 +11,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		// ai 2 is large size bool
 
 
-		public virtual void SetDefaultsSpell2() {}
+		public virtual void SetDefaultsBlast() {}
 		public override void SetDefaultsSpell()
 		{
 			Projectile.timeLeft = 5 * 60;
-			SetDefaultsSpell2();
+			SetDefaultsBlast();
 			Projectile.height = Projectile.width = 64;
 			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 		}
