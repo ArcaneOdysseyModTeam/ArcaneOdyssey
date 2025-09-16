@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.rare = AORarity;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.DamageType = DamageClass.Magic;
-			Item.value = GalleonToCopper(AOValue, Item.rare);
+			Item.value = GalleonToCopper(AOValue);
 			SetDefaultsScroll();
 		}
 

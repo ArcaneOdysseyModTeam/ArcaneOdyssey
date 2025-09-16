@@ -1,17 +1,18 @@
-﻿#if VSDEBUGMODE
-using ArcaneOdyssey.Content.Items.Magic;
+﻿using ArcaneOdyssey.Content.Items.Magic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
+	[AutoloadHead]
 	public class Edgelord : ModNPC
 	{
 		public override void SetDefaults()
@@ -21,13 +22,13 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.height = 40;
 			NPC.width = 18;
 			NPC.lifeMax = 1000;
-            NPC.aiStyle = NPCAIStyleID.Passive;
-            NPC.defense = 15;
+			NPC.aiStyle = NPCAIStyleID.Passive;
+			NPC.defense = 15;
 			NPC.HitSound = SoundID.NPCHit52;
 			NPC.DeathSound = SoundID.NPCDeath52;
-            NPC.knockBackResist = 0;
+			NPC.knockBackResist = 0;
 
-            AnimationType = NPCID.Guide;
+			AnimationType = NPCID.Guide;
 		}
 
 		public override void SetStaticDefaults() 
@@ -45,39 +46,47 @@ namespace ArcaneOdyssey.Content.NPCS
 				SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Dislike).
 				SetNPCAffection(NPCID.Pirate, AffectionLevel.Like).
 				SetNPCAffection(NPCID.Wizard, AffectionLevel.Love);
-            NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
+			NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
 
-        }
-
-        public override List<string> SetNPCNameList()
-		{
-			return ["Morden"];
 		}
 
-		public override bool CanBeHitByNPC(NPC attacker)
-		{
-			return !attacker.IsDamageDodgeable();
-		}
+		public override List<string> SetNPCNameList() => ["Morden"];
+		
 
-		public override bool? CanBeHitByItem(Player player, Item item)
-		{
-			return item.TryGetImbue(player, out _) ? true : null; // no need to do more than this, flymeal is melee and rotten eggs are ranged
-		}
+		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
 
+        /// <summary>
+        /// no need to do more than this, flymeal is melee and rotten eggs are ranged
+        /// </summary>
+        public override bool? CanBeHitByItem(Player player, Item item) => item.TryGetImbue(player, out _) ? true : null;
+
+
+        /// <summary>
+        /// do death magic dust here red
+        /// </summary>
         public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-			// do death magic dust here red
-        }
+		{
 
+		}
+
+        /// <summary>
+        /// do death magic dust here red
+        /// </summary>
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-            // do death magic dust here red
-        }
+		{
 
-        public override void ModifyTypeName(ref string typeName)
-        {
-			typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.IsItDay() ? "e" : "e1")}").Value;
-        }
-    }
+		}
+
+		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.IsItDay() ? "e" : "e1")}").Value;
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange([
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
+				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
+			]);
+		}
+
+		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
+	}
 }
-#endif

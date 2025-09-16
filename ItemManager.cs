@@ -168,12 +168,12 @@ namespace ArcaneOdyssey
 		{
 			if (player == Main.LocalPlayer)
 				playerForImbue = player.AOPlayer();
-			if (item.TryGetImbue(player, out AOMagic imbue))
+            if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+            {
+                damage += ((item.damage+(BonusBossKills() * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
+            }
+            if (item.TryGetImbue(player, out AOMagic imbue))
 			{
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
-				{
-					damage.Base += BonusBossKills();
-				}
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
 					damage += aoWeapon.AODamage.MultiToPercent() + imbue.AOImbueDamage.MultiToPercent();

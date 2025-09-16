@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.useTime = Item.useAnimation = 27; // do not multiply, handled in GlobalItem
 			Item.knockBack = 4.5f; // do not change, handled in GlobalItem
             Item.rare = AORarity;
-			Item.value = GalleonToCopper(AOValue, Item.rare);
+			Item.value = GalleonToCopper(AOValue);
 			Item.autoReuse = true;
             Item.damage = (int)WeaponDamage(AOWeaponTier);
 			Item.DamageType = DamageClass.Melee;

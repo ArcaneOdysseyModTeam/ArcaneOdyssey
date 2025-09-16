@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			Item.defense = AODefense.FromAODefense();
 			SetDefaultsArmour();
-			Item.value = GalleonToCopper(AOValue, AORarity);
+			Item.value = GalleonToCopper(AOValue);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

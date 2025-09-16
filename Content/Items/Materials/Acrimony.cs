@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
         public override void SetDefaults()
         {
             Item.rare = AORarity;
-            Item.value = GalleonToCopper(AOValue, AORarity);
+            Item.value = GalleonToCopper(AOValue);
         }
 
         public override void SetStaticDefaults()

@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 		{
 			Item.width = Item.height = 60;
 			Item.mountType = ModContent.MountType<Rowboat>();
-			Item.value = GalleonToCopper(10, AORarity);
+			Item.value = 1000;
 		}
         public override void AddRecipes()
         {

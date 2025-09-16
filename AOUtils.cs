@@ -15,7 +15,11 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
     {
-		public static bool ImbueClassCheck(Projectile projectile)
+        public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
+
+        public static AOMagic Imbue(this Player player) => player.AOPlayer().imbue;
+
+        public static bool ImbueClassCheck(Projectile projectile)
 		{
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
@@ -29,10 +33,6 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
-
-		public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
-
-		public static AOMagic Imbue(this Player player) => player.AOPlayer().imbue;
 
         public static bool ImbueClassCheck(Item item)
         {
@@ -216,21 +216,17 @@ namespace ArcaneOdyssey
 		/// Converts AO Galleons/Drachmae to Terraria Copper
 		/// </summary>
 		/// <param name="price">Price, in Galleons</param>
-		/// <param name="rarity">Rarity of the item, use AORarities</param>
 		/// <returns></returns>
-		public static int GalleonToCopper(int price, int rarity)
-		{
-			return price * (rarity + 2) * (1 + 1 / 9);
-		}
+		public static int GalleonToCopper(int price) => price * 100; // very simple lol, previously nothing was worth anything
 
 
-		/// <summary>
-		/// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
-		/// </summary>
-		/// <param name="AODamage">AO weapon damage multiplier</param>
-		/// <param name="AOWeaponTier">AO weapon tier, use AOWeaponTiers</param>
-		/// <returns></returns>
-		public static float WeaponDamage(int AOWeaponTier) => 25 * AOWeaponTier;
+        /// <summary>
+        /// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
+        /// </summary>
+        /// <param name="AODamage">AO weapon damage multiplier</param>
+        /// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOWeaponTiers"/></param>
+        /// <returns></returns>
+        public static float WeaponDamage(int AOWeaponTier) => 25 * AOWeaponTier;
 
 		/// <summary>
 		/// Turns 1.4 into .6
@@ -244,10 +240,7 @@ namespace ArcaneOdyssey
 			return 2f - input;
 		}
 
-		public static float MultiToPercent(this float multiplier)
-		{
-			return multiplier-1f; // wow simplest function on the earth
-		}
+		public static float MultiToPercent(this float multiplier) => multiplier-1f; // wow simplest function on the earth
 
 		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
 		{

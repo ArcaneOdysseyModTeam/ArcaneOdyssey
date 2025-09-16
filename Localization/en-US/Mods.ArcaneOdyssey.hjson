@@ -155,10 +155,10 @@ NPCs: {
 			LoveSpace: It's quite peaceful here.
 			DislikeCrowded: There are quite a lot of people here.
 			HateCrowded: This place is absolutely crammed.
-			LoveBiome: "I love {BiomeName}, it's so open and free."
+			LoveBiome: I love {BiomeName}, it's so open and free.
 			LikeBiome: "{BiomeName} reminds me of Sameria, not a bad thing at all."
 			DislikeBiome: "{BiomeName} is so cold."
-			HateBiome: "You would really put me in {BiomeName}, after everything we've been through?!"
+			HateBiome: You would really put me in {BiomeName}, after everything we've been through?!
 			LoveNPC: "{NPCName} is a kind old man, like Enzior."
 			LikeNPC: "{NPCName} and I have a few things in common, we get along."
 			DislikeNPC: "{NPCName} is such a lapdogh..."
