@@ -163,7 +163,7 @@ namespace ArcaneOdyssey
 					knockback += imbue.AOImbueSize.MultiToPercent() + extrakbmulti.MultiToPercent();
 				}
 
-                if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+                if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
                 {
                     knockback += imbue.AOMagicSize.MultiToPercent() + extrakbmulti;
                 }
@@ -189,7 +189,7 @@ namespace ArcaneOdyssey
 					damage += imbue.AOImbueDamage.MultiToPercent();
 				}
 
-				if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
 				{
 					damage += imbue.AOMagicDamage.MultiToPercent();
 				}
@@ -211,7 +211,7 @@ namespace ArcaneOdyssey
 				}
             }
 
-            if (item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+            if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
             {
                 return imbue.AOMagicSpeed;
             }

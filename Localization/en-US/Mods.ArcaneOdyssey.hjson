@@ -138,6 +138,11 @@ Configs: {
 			Label: Ignored Projectiles
 			Tooltip: Insert projectile names here to blacklist them, might not work
 		}
+
+		GenerateTucker: {
+			Label: Generate Tucker's Grave
+			Tooltip: Toggles the generation of Tucker's grave on world creation
+		}
 	}
 }
 
