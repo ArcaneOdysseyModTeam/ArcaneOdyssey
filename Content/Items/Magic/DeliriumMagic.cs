@@ -24,6 +24,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override float AOMagicSpeed => 2.3f;
         public override AOMagicTier MagicTier => AOMagicTier.Custom;
         public override AODebuffRequirement MagicDebuff => new(BuffID.Confused, 10 * 60);
+        public override MagicEffects Effects => new MagicEffects(
+			[ // these are debuffs cleared on hit
+				
+			], 
+			[
+				
+			]
+			);
         public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<DeliriumBlast>()),]);
     }
 }
