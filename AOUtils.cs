@@ -76,6 +76,12 @@ namespace ArcaneOdyssey
 			return imbue is not null;
         }
 
+		public static bool ProjectileHasImbue(this Projectile projectile)
+		{
+			var player = Main.player[projectile.owner];
+			return projectile.TryGetImbue(player, out _);
+		}
+
         /// <summary>
         /// Automatically generates localization, and formats statically
         /// </summary>
