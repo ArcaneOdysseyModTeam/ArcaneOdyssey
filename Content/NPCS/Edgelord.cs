@@ -104,7 +104,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add("Help.Early2");
 			}
 			if (options.Count == 0)
-   				return base.GetChat();
+   				return "I don\'t have anything to say at this time.";
 			return Main.rand.Next(options);
         }
 
