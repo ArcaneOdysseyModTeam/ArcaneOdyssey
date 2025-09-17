@@ -11,11 +11,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class JerminusMagic : AOMagic
 	{
+		public override Color MagicColour => new Color(255,0,0,0);
 		public override float AOImbueSpeed => 5f;
 		public override float AOImbueSize => 10f;
 		public override float AOImbueDamage => .01f;
