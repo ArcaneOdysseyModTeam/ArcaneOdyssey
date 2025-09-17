@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
     public class DeliriumMagic : AOMagic
     {
+        public override Color MagicColour => new Color(255,255,255,0);
         public override float AOImbueSpeed => 2.3f;
         public override float AOImbueSize => 5f;
         public override float AOImbueDamage => .5f;
