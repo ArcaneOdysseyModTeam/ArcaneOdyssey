@@ -59,10 +59,10 @@ namespace ArcaneOdyssey.Content.NPCS
         /// <summary>
         /// no need to do more than this, flymeal is melee and rotten eggs are ranged
         /// </summary>
-        public override bool? CanBeHitByItem(Player player, Item item) => (item.TryGetImbue(player, out _) || (item.DamageType == DamageClass.Magic || item.DamageType == DamageClass.MagicSummonHybrid) ? true : null);
+        public override bool? CanBeHitByItem(Player player, Item item) => (item.TryGetImbue(out _) || (item.DamageType == DamageClass.Magic || item.DamageType == DamageClass.MagicSummonHybrid) ? true : null);
 
 
-  		public override bool? CanBeHitByProjectile(Projectile projectile) => (projectile.ProjectileHasImbue() || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null);
+  		public override bool? CanBeHitByProjectile(Projectile projectile) => (projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null);
 
 
         /// <summary>

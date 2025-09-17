@@ -17,7 +17,8 @@ namespace ArcaneOdyssey
     {
         public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
 
-        public static AOMagic Imbue(this Player player) => player.ArcaneOdyssey().imbue;
+		public static AOMagic Imbue(this Player player) => player.ArcaneOdyssey().imbue;
+
 
         public static bool ImbueClassCheck(Projectile projectile)
 		{
@@ -52,35 +53,17 @@ namespace ArcaneOdyssey
 
 		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
 
-		public static bool TryGetImbue(this Item item, Player player, out AOMagic imbue)
+		public static bool TryGetImbue(this Item item, out AOMagic imbue)
 		{
-			imbue = null;
-            if ((item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(item))
-            {
-				imbue ??= player.ArcaneOdyssey().imbue;
-            }
+			imbue = item.ArcaneOdyssey().imbue;
 			return imbue is not null;
         }
 
-		public static bool TryGetImbue(this Projectile projectile, Player player, out AOMagic imbue)
+		public static bool TryGetImbue(this Projectile projectile, out AOMagic imbue)
 		{
-			imbue = null;
-			if (projectile.ModProjectile is AOPlayerProjectile proj && ImbueClassCheck(projectile))
-			{
-				imbue ??= proj.thisMagic;
-			}
-			else if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(projectile))
-			{
-				imbue ??= player.ArcaneOdyssey().imbue;
-			}
+			imbue = projectile.ArcaneOdyssey().imbue;
 			return imbue is not null;
         }
-
-		public static bool ProjectileHasImbue(this Projectile projectile)
-		{
-			var player = Main.player[projectile.owner];
-			return projectile.TryGetImbue(player, out _);
-		}
 
         /// <summary>
         /// Automatically generates localization, and formats statically
@@ -253,10 +236,10 @@ namespace ArcaneOdyssey
 			defaultValue ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
 		}
-
+		
 		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
-		public static NPCManager ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<NPCManager>();
-        public static ProjectileManager ArcaneOdyssey(this Projectile proj) => proj.GetGlobalProjectile<ProjectileManager>();
-        public static ItemManager ArcaneOdyssey(this Item item) => item.GetGlobalItem<ItemManager>();
-    }
+		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
+		public static AOProjectile ArcaneOdyssey(this Projectile projectile) => projectile.GetGlobalProjectile<AOProjectile>();
+		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
+	}
 }

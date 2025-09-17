@@ -8,7 +8,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -16,8 +15,6 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.ArcaneOdyssey();
 			AOPlayer playah = player.ArcaneOdyssey();
 			if (item.ModItem is AOWeapon weap)
 			{
@@ -91,24 +88,13 @@ namespace ArcaneOdyssey
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 		}
 
-		public override void UpdateInventory(Item item, Player player)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.ArcaneOdyssey();
-		}
-
-		/// <summary>
-		/// used in singleplayer exclusively to display current imbue, might not work in multiplayer idk
-		/// </summary>
-		private static AOPlayer playerForImbue = null;
-
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (playerForImbue is not null)
+			if (item.ArcaneOdyssey().owner is not null)
 				if (ImbueClassCheck(item))
 				{
 					string imbuetextthing = Mod.CustomLocalization("ImbueStuff.NoneText").Value;
-					if (item.TryGetImbue(playerForImbue.Player, out AOMagic imbue))
+					if (item.TryGetImbue(out AOMagic imbue))
 						imbuetextthing = imbue.Item.Name;
 					tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization("ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
 				}
@@ -119,18 +105,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override bool? UseItem(Item item, Player player)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.ArcaneOdyssey();
-			return null;
-		}
-
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.ArcaneOdyssey();
-			if (item.TryGetImbue(player, out AOMagic imbue))
+			if (item.TryGetImbue(out AOMagic imbue))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -145,9 +122,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
 		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.ArcaneOdyssey();
-			if (item.TryGetImbue(player, out AOMagic imbue))
+			if (item.TryGetImbue(out AOMagic imbue))
 			{
 				float extrakbmulti = 1f;
 				if (imbue is WindMagic)
@@ -172,13 +147,11 @@ namespace ArcaneOdyssey
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
 		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.ArcaneOdyssey();
             if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
             {
                 damage += ((item.damage+(GetBossKillCount() * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
             }
-            if (item.TryGetImbue(player, out AOMagic imbue))
+            if (item.TryGetImbue(out AOMagic imbue))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -197,9 +170,7 @@ namespace ArcaneOdyssey
 		}
 		public override float UseSpeedMultiplier(Item item, Player player)
 		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.ArcaneOdyssey();
-			if (item.TryGetImbue(player, out AOMagic imbue) && item.DamageType != DamageClass.MeleeNoSpeed)
+			if (item.TryGetImbue(out AOMagic imbue) && item.DamageType != DamageClass.MeleeNoSpeed)
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -217,5 +188,24 @@ namespace ArcaneOdyssey
             }
             return 1f;
 		}
+	}
+
+	public class AOItem : GlobalItem
+	{
+		public override bool InstancePerEntity => true;
+
+		public Player owner;
+		public AOMagic imbue;
+
+        public override void UpdateInventory(Item item, Player player)
+        {
+			owner = player;
+			imbue = player.ArcaneOdyssey().imbue;
+        }
+
+        public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
+        {
+			owner = null;
+        }
 	}
 }

@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
@@ -43,8 +43,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				player.itemAnimation = 0;
 				player.itemTime = 0;
 				float dmgmult = charge / 60f;
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position + ((1-thisMagic.AOMagicSize) * new Vector2(100,100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * dmgmult), Projectile.knockBack, Projectile.owner);
-				SoundEngine.PlaySound(thisMagic.MagicSound, Projectile.position, null);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position + ((1-Imbue.AOMagicSize) * new Vector2(100,100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * dmgmult), Projectile.knockBack, Projectile.owner);
+				SoundEngine.PlaySound(Imbue.MagicSound, Projectile.position, null);
 				Kill();
 			}
 		}

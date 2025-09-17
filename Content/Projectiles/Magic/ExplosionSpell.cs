@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
         public override void AI()
         {
-            if (Projectile.TryGetImbue(Main.player[Projectile.owner], out AOMagic imbue))
+            if (Projectile.TryGetImbue(out AOMagic imbue))
             {
                 imbue.ExplosionEffects(Projectile);
                 Projectile.height = Projectile.width = (int)(imbue.AOMagicSize*200);
