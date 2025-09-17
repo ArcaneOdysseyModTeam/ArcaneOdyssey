@@ -120,7 +120,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		}
         public override string GetChat()
 		{
-			return this.GetLocalizedValue("Help.Intro").Replace("{playerName}", Main.LocalPlayer.name);
+			return this.GetLocalizedValue("Help.Intro").Replace("{PlayerName}", Main.LocalPlayer.name);
 		}
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;

@@ -161,7 +161,7 @@ NPCs: {
 			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Choice. You can focus upon this to obtain magic.
 			Early2: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			Intro: Hello, {playerName}!
+			Intro: Hello, {PlayerName}!
 			NothingToSay: I don't have anything to say, right now.
 		}
 
