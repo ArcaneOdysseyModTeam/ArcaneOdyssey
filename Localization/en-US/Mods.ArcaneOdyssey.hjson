@@ -109,6 +109,7 @@ Projectiles: {
 	ExplosionTracker.DisplayName: Explosion Tracker
 	ExplosionSpell.DisplayName: Explosion Spell
 	DeliriumBlast.DisplayName: Delirium Blast
+	DeathCurse.DisplayName: Death Curse
 }
 
 ImbueStuff: {
