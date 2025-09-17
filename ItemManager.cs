@@ -17,8 +17,8 @@ namespace ArcaneOdyssey
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
 			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-			AOPlayer playah = player.AOPlayer();
+				playerForImbue = player.ArcaneOdyssey();
+			AOPlayer playah = player.ArcaneOdyssey();
 			if (item.ModItem is AOWeapon weap)
 			{
 				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null or 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
@@ -94,13 +94,13 @@ namespace ArcaneOdyssey
 		public override void UpdateInventory(Item item, Player player)
 		{
 			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
+				playerForImbue = player.ArcaneOdyssey();
 		}
 
 		/// <summary>
 		/// used in singleplayer exclusively to display current imbue, might not work in multiplayer idk
 		/// </summary>
-		public static AOPlayer playerForImbue = null;
+		private static AOPlayer playerForImbue = null;
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
@@ -122,23 +122,23 @@ namespace ArcaneOdyssey
 		public override bool? UseItem(Item item, Player player)
 		{
 			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
+				playerForImbue = player.ArcaneOdyssey();
 			return null;
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
 			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
+				playerForImbue = player.ArcaneOdyssey();
 			if (item.TryGetImbue(player, out AOMagic imbue))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
-					scale += aoWeapon.AOSize.MultiToPercent() + imbue.AOImbueSize.MultiToPercent() + player.AOPlayer().GetSizeMulti(item).MultiToPercent();
+					scale += aoWeapon.AOSize.MultiToPercent() + imbue.AOImbueSize.MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
 				}
 				else if (item.ModItem is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					scale += imbue.AOImbueSize.MultiToPercent() + player.AOPlayer().GetSizeMulti(item).MultiToPercent();
+					scale += imbue.AOImbueSize.MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
 				}
 			}
 		}
@@ -146,7 +146,7 @@ namespace ArcaneOdyssey
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
 		{
 			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
+				playerForImbue = player.ArcaneOdyssey();
 			if (item.TryGetImbue(player, out AOMagic imbue))
 			{
 				float extrakbmulti = 1f;
@@ -156,7 +156,7 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
-					knockback += aoWeapon.AOSize.MultiToPercent() + imbue.AOImbueSize.MultiToPercent() + extrakbmulti + player.AOPlayer().GetSizeMulti(item).MultiToPercent();
+					knockback += aoWeapon.AOSize.MultiToPercent() + imbue.AOImbueSize.MultiToPercent() + extrakbmulti + player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
 				}
 				else if (item.ModItem is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
@@ -173,10 +173,10 @@ namespace ArcaneOdyssey
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
 		{
 			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
+				playerForImbue = player.ArcaneOdyssey();
             if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
             {
-                damage += ((item.damage+(BonusBossKills() * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
+                damage += ((item.damage+(GetBossKillCount() * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
             }
             if (item.TryGetImbue(player, out AOMagic imbue))
 			{
@@ -198,7 +198,7 @@ namespace ArcaneOdyssey
 		public override float UseSpeedMultiplier(Item item, Player player)
 		{
 			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
+				playerForImbue = player.ArcaneOdyssey();
 			if (item.TryGetImbue(player, out AOMagic imbue) && item.DamageType != DamageClass.MeleeNoSpeed)
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)

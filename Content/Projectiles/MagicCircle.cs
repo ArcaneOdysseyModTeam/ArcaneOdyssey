@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
-			aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
+			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			thisMagic ??= aoPlayerOwner.imbue;
 			float tempLightColorR = 0f;
 			float tempLightColorG = 0f;

@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
         {
             // projectile.ai[0] is the scale
             // projectile.ai[1] is the spin speed
-            aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
+            aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 + (Projectile.ai[1] * FramesAlive);
             Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
             BaseScale += .05f;

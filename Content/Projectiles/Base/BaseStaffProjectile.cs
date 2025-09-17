@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
             DustVelocity = Vector2.Zero;
 			killDust = false;
 			Player player = Main.player[Projectile.owner];
-			aoPlayerOwner ??= player.AOPlayer();
+			aoPlayerOwner ??= player.ArcaneOdyssey();
 			originalItem ??= player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
 		{
 			Player player = Main.player[Projectile.owner];
-			AOPlayer playah = player.AOPlayer();
+			AOPlayer playah = player.ArcaneOdyssey();
 			Projectile.scale = BaseScale.GetValueOrDefault(2f) * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1);
             hitbox.Width = hitbox.Height = (int)(BaseScale * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
 		}

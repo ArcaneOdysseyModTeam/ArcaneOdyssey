@@ -181,8 +181,8 @@ ArcaniumScrap: {
 }
 
 HecateOrb: {
-	DisplayName: Hecate Orb
-	Tooltip: An orb of ancient power, which can be focused upon to obtain magic
+	DisplayName: Poseidon's Choice
+	Tooltip: An sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
 DefaultScroll: {

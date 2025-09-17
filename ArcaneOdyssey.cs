@@ -19,7 +19,7 @@ namespace ArcaneOdyssey
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
 	}
 
-	public class NPCDrops : GlobalNPC
+	public class NPCManager : GlobalNPC
 	{
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
@@ -44,6 +44,13 @@ namespace ArcaneOdyssey
 
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 		}
+
+		public Dictionary<int, float> StunCDs = [];
+
+        public override void AI(NPC npc)
+        {
+			StunCDs[npc.type] = StunCDs.GetValueOrDefault(npc.type, 0) - 1 / 60;
+        }
 	}
 
 	public class FirstCultistKill : IItemDropRuleCondition

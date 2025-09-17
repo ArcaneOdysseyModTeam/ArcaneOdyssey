@@ -9,6 +9,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -19,8 +20,8 @@ namespace ArcaneOdyssey.Content.NPCS
 		{
 			NPC.townNPC = true;
 			NPC.friendly = true;
-			NPC.height = 40;
-			NPC.width = 18;
+			NPC.height = 58;
+			NPC.width = 34;
 			NPC.lifeMax = 1000;
 			NPC.aiStyle = NPCAIStyleID.Passive;
 			NPC.defense = 15;
@@ -86,6 +87,22 @@ namespace ArcaneOdyssey.Content.NPCS
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
+
+        public override string GetChat()
+        {
+			List<string> options = [];
+			if (false) // add conditions later
+			{
+                options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
+			}
+			if (GetBossKillCount() == 0)
+			{
+				options.Add("Help.Early1");
+				options.Add("Help.Early2");
+			}
+
+			return Main.rand.Next(options);
+        }
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 	}
