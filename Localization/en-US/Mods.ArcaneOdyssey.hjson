@@ -155,7 +155,6 @@ NPCs: {
 		Census.SpawnCondition: None
 
 		Chat: {
-			
 		}
 
 		Help: {

@@ -45,7 +45,7 @@ namespace ArcaneOdyssey
 		}
 
 		public Dictionary<int, float> StunCDs = [];
-        public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true; //temp fix, change later if needed
         public override void AI(NPC npc)
         {
 			StunCDs[npc.type] = StunCDs.GetValueOrDefault(npc.type, 0) - 1 / 60;
