@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
             Projectile.penetrate = -1;
             Projectile.alpha = 255;
             Projectile.height = Projectile.width = 200;
+            Projectile.scale = 1f;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 30;
             Projectile.friendly = true;
@@ -30,6 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
             if (Projectile.TryGetImbue(Main.player[Projectile.owner], out AOMagic imbue))
             {
                 imbue.ExplosionEffects(Projectile);
+                Projectile.height = Projectile.width = (int)(imbue.AOMagicSize*200);
             }
         }
     }
