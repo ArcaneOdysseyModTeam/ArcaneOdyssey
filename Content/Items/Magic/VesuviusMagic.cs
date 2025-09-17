@@ -20,10 +20,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class VesuviusMagic : AOMagic
 	{
         public override Color MagicColour => new Color(0,0,255,0);
-		public override float AOImbueSpeed => 0.9f;
+		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 3f;
 		public override float AOImbueDamage => 2f;
-		public override float AOMagicSpeed => 0.9f;
+		public override float AOMagicSpeed => 1f;
 		public override float AOMagicSize => 3f;
 		public override float AOMagicDamage => 2f;
         public override AOMagicTier MagicTier => AOMagicTier.Custom;
@@ -53,6 +53,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0,0,255,0), 1.2f)];
 			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f)];
 			Lighting.AddLight(projectile.position, 1f, 0.19f, 0f);
+		}
+		public override void ExplosionEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, new Color(0,0,255,0), 2f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, Color.Blue, 2f)];
+			}
 		}
 
 		public override void KillEffects(Projectile projectile)
