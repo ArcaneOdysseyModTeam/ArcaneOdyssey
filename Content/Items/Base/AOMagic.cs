@@ -149,8 +149,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual void SpawningEffects(Projectile projectile) { }
 		public virtual void LingeringEffects(Projectile projectile) { }
 		public virtual void KillEffects(Projectile projectile) { }
+		public virtual void ExplosionEffects(Projectile projectile) { }
 
-		public static Projectile CreateMagicCircle(Projectile projectile) 
+		public static Projectile CreateMagicCircle(Projectile projectile)
 		{
 			if (projectile.ModProjectile is BlastSpell)
 			{

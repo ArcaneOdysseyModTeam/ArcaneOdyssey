@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
@@ -42,6 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				player.itemTime = 0;
 				float dmgmult = charge / 60f;
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * dmgmult), Projectile.knockBack, Projectile.owner);
+				SoundEngine.PlaySound(thisMagic.MagicSound, Projectile.position, null);
 				Kill();
 			}
 		}

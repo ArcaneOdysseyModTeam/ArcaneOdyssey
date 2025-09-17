@@ -28,7 +28,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
         public override void AI()
         {
             if (Projectile.TryGetImbue(Main.player[Projectile.owner], out AOMagic imbue))
-                imbue.KillEffects(Projectile);
+            {
+                imbue.ExplosionEffects(Projectile);
+            }
         }
     }
 }

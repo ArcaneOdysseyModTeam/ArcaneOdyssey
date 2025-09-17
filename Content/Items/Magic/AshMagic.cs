@@ -73,6 +73,15 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Ash, 0f, 0f, 0, default, 2f);
 			spawnedDust.noGravity = true;
 		}
+		public override void ExplosionEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.RedTorch, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 0, default, 1f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 0, default, 2f)];
+				spawnedDust2.noGravity = true;
+			}
+		}
 
 		public override void KillEffects(Projectile projectile)
 		{
@@ -88,7 +97,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), new(1.23f * Main.rand.NextFloat() - 0.5f, 1.23f * Main.rand.NextFloat() - 0.5f), ProjectileID.SporeCloud, 2 + BonusBossKills(), 0f);
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
-			
+
 		}
 
         public override bool PreEffects(Projectile projectile)
