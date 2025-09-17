@@ -115,7 +115,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.Early2"));
 			}
 			if (options.Count == 0)
-				return "I don\'t have anything to say at this time.";
+				return this.GetLocalizedValue("Help.NothingToSay");
 			return Main.rand.Next(options);
 		}
         public override string GetChat()
