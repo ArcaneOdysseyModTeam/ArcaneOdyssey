@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using ArcaneOdyssey;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +23,10 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 		public virtual bool AffectsBosses => false;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			if (npc.ArcaneOdyssey().StunCDs.GetValueOrDefault(npc.type, 0) <= 0)
+			if (NPCManager.StunCDs.GetValueOrDefault(npc.type, 0) <= 0)
 				if (!npc.boss || AffectsBosses)
 				{
-					npc.ArcaneOdyssey().StunCDs[npc.type] = .5f;
+					NPCManager.StunCDs[npc.type] = .5f;
 					npc.velocity = Vector2.Zero;
 				}
 		}
