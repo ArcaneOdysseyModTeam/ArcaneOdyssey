@@ -44,8 +44,7 @@ namespace ArcaneOdyssey
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 		}
 
-		public Dictionary<int, float> StunCDs = [];
-        public override bool InstancePerEntity => true; //temp fix, change later if needed
+		public static Dictionary<int, float> StunCDs = [];
         public override void AI(NPC npc)
         {
 			StunCDs[npc.type] = StunCDs.GetValueOrDefault(npc.type, 0) - 1 / 60;
