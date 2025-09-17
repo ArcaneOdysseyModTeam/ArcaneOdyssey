@@ -90,23 +90,38 @@ namespace ArcaneOdyssey.Content.NPCS
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
-
-        public override string GetChat()
+		public override void SetChatButtons(ref string button, ref string button2)
+		{
+			button = "Help";
+			button2 = null;
+        }
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
+			if (firstButton)
+			{
+				Main.npcChatText = this.GetChatHelpButton();
+			}
+        }
+		public string GetChatHelpButton()
+		{
 			List<string> options = [];
 			if (false) // add conditions later
 			{
-                options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
+				options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
 			}
 			if (GetBossKillCount() == 0)
 			{
-				options.Add("Help.Early1");
-				options.Add("Help.Early2");
+				options.Add(this.GetLocalizedValue("Help.Early1"));
+				options.Add(this.GetLocalizedValue("Help.Early2"));
 			}
 			if (options.Count == 0)
-   				return "I don\'t have anything to say at this time.";
+				return "I don\'t have anything to say at this time.";
 			return Main.rand.Next(options);
-        }
+		}
+        public override string GetChat()
+		{
+			return this.GetLocalizedValue("Help.Intro").Replace("{playerName}", Main.LocalPlayer.name);
+		}
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 	}
