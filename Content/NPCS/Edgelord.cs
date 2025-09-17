@@ -103,7 +103,8 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add("Help.Early1");
 				options.Add("Help.Early2");
 			}
-
+			if (options.Count == 0)
+   				return base.GetChat();
 			return Main.rand.Next(options);
         }
 
