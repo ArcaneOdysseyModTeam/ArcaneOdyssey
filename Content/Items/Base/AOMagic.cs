@@ -86,8 +86,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (MagicTier == AOMagicTier.Normal)
 			{
-				CreateRecipe().AddIngredient<HecateOrb>().Register();
-				Recipe.Create(ModContent.ItemType<HecateOrb>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
+				CreateRecipe().AddIngredient<PoseidonChoice>().Register();
+				Recipe.Create(ModContent.ItemType<PoseidonChoice>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
 			}
 		}
 
@@ -102,7 +102,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this != player.Imbue() && FirstFrame)
 			{
 				FirstFrame = false;
-				player.AOPlayer().imbue = this;
+				player.ArcaneOdyssey().imbue = this;
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
@@ -116,7 +116,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			else if (FirstFrame)
 			{
 				FirstFrame = false;
-				player.AOPlayer().imbue = null;
+				player.ArcaneOdyssey().imbue = null;
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
@@ -136,11 +136,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
-					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle or ExplosionTracker or MagicCircle2;
+					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not (MagicCircle or ExplosionTracker or MagicCircle2);
 				}
 				else if (projectile.ModProjectile is AOPlayerProjectile)
 				{
-					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle or ExplosionTracker or MagicCircle2;
+					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not (MagicCircle or ExplosionTracker or MagicCircle2);
 				}
 			}
 			return false;

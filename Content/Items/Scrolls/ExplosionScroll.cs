@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 		
 		public override bool CanUseItem(Player player)
 		{
-			return player.AOPlayer().imbue is not null;
+			return player.ArcaneOdyssey().imbue is not null;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

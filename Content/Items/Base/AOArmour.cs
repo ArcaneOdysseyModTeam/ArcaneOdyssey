@@ -105,7 +105,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			player.GetDamage(DamageClass.Generic) += AOPower / 100f;
 			player.GetCritChance(DamageClass.Generic) += AOPower;
 			player.moveSpeed += AOAgility / 100f;
-			player.AOPlayer().AOSizeStat += AOSize;
+			player.ArcaneOdyssey().AOSizeStat += AOSize;
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
 			UpdateArmour(player);

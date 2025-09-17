@@ -19,20 +19,20 @@ namespace ArcaneOdyssey
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
 	}
 
-	public class NPCDrops : GlobalNPC
+	public class NPCManager : GlobalNPC
 	{
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
 			if (npc.type == NPCID.WallofFlesh)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Terraria.GameContent.ItemDropRules.Conditions.IsPreHardmode());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.CultistBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.Plantera)
@@ -44,6 +44,13 @@ namespace ArcaneOdyssey
 
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 		}
+
+		public Dictionary<int, float> StunCDs = [];
+
+        public override void AI(NPC npc)
+        {
+			StunCDs[npc.type] = StunCDs.GetValueOrDefault(npc.type, 0) - 1 / 60;
+        }
 	}
 
 	public class FirstCultistKill : IItemDropRuleCondition
@@ -73,7 +80,7 @@ namespace ArcaneOdyssey
 		{
 			if (!mediumCoreDeath)
 			{
-				return [new Item(ModContent.ItemType<HecateOrb>()), new Item(ModContent.ItemType<TitleMusicBox>())];
+				return [new Item(ModContent.ItemType<PoseidonChoice>()), new Item(ModContent.ItemType<TitleMusicBox>())];
 			}
 			else return [];
 		}

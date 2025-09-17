@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle2 : AOPlayerProjectile
 	{
-		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Content/Projectiles/MagicCircle2").Value;
+		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Content/Projectiles/{nameof(MagicCircle2)}").Value;
 
 		public override void SetDefaults()
 		{
@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			Projectile.rotation = MathHelper.Pi * (FramesAlive / 120f);
 			Player player = Main.player[Projectile.owner];
-			aoPlayerOwner ??= player.AOPlayer();
+			aoPlayerOwner ??= player.ArcaneOdyssey();
 			if (Projectile.ai[2] == 0)
 			{
 				if (Projectile.TryGetImbue(player, out AOMagic imbue))
@@ -108,7 +108,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
-			Main.player[Projectile.owner].AOPlayer().myCircle = null;
+			Main.player[Projectile.owner].ArcaneOdyssey().myCircle = null;
 			Main.player[Projectile.owner].channel = false;
 		}
 	}

@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.AOPlayer().sunkenArmour = true;
+			player.ArcaneOdyssey().sunkenArmour = true;
 			player.setBonus = Mod.CustomLocalization($"Items.SunkenBoots.SetText").Value;
 		}
 

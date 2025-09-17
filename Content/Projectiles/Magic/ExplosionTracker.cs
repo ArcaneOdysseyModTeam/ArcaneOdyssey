@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			Player player = Main.player[Projectile.owner];
 			if (Main.mouseRight)
 				player.direction = ((Projectile.position - player.position).X > 0).ToDirectionInt();
-			AOPlayer playah = player.AOPlayer();
+			AOPlayer playah = player.ArcaneOdyssey();
 			if (charge < defaultMax && playah.myCircle is not null && playah.myCircle.ai[0] < 1)
 			{
 				Projectile.position = playah.myCircle.Center;

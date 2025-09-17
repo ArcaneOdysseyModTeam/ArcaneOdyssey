@@ -26,8 +26,8 @@ namespace ArcaneOdyssey
 				{
 					var spell = projectile.ModProjectile is MagicSpell;
                     if (spell)
-                        modifiers.FinalDamage.Base += BonusBossKills();
-                    modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;
+                        modifiers.FinalDamage += ((projectile.damage + (GetBossKillCount() * 2f)) / projectile.damage) - 1;
+                    modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOMagicDamage).MultiToPercent();
 					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 					{
 						modifiers.FinalDamage += .3f;
@@ -105,7 +105,7 @@ namespace ArcaneOdyssey
 						mult = proj.BaseScale.GetValueOrDefault(1f) + proj.AOSize.MultiToPercent();
 					if (projectile.TryGetImbue(player, out AOMagic imbue))
 					{
-						mult = (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + mult + player.AOPlayer().GetSizeMulti(projectile).MultiToPercent();
+						mult = (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + mult + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
 					}
 					hitbox.Width = (int)(dim.X * mult);
 					hitbox.Height = (int)(dim.Y * mult);
@@ -127,7 +127,7 @@ namespace ArcaneOdyssey
             }
             if (projectile.ModProjectile is AOPlayerProjectile proj)
             {
-                proj.thisMagic ??= Main.player[projectile.owner].AOPlayer().imbue;
+                proj.thisMagic ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
             }
             if (projectile.owner == Main.myPlayer)
                 if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
@@ -135,10 +135,7 @@ namespace ArcaneOdyssey
 					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
 						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
 					AOMagic.CreateMagicCircle(projectile);
-					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-					{
-						imbue.SpawningEffects(projectile);
-					}
+					imbue.SpawningEffects(projectile);
 				}
 		}
 
@@ -152,9 +149,7 @@ namespace ArcaneOdyssey
 				}
 				if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
-					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker) {
-						imbue.LingeringEffects(projectile);
-					}
+					imbue.LingeringEffects(projectile);
 				}
 			}
 		}
@@ -176,7 +171,7 @@ namespace ArcaneOdyssey
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
 			bool returntype = true;
-			if (Main.player[projectile.owner].AOPlayer().imbue is PoisonMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+			if (Main.player[projectile.owner].ArcaneOdyssey().imbue is PoisonMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
@@ -184,7 +179,7 @@ namespace ArcaneOdyssey
 				returntype = false;
 			}
 
-			else if (Main.player[projectile.owner].AOPlayer().imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
+			else if (Main.player[projectile.owner].ArcaneOdyssey().imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];

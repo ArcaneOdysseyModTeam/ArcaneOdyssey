@@ -17,7 +17,7 @@ namespace ArcaneOdyssey
     {
         public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
 
-        public static AOMagic Imbue(this Player player) => player.AOPlayer().imbue;
+        public static AOMagic Imbue(this Player player) => player.ArcaneOdyssey().imbue;
 
         public static bool ImbueClassCheck(Projectile projectile)
 		{
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey
 			imbue = null;
             if ((item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(item))
             {
-				imbue ??= player.AOPlayer().imbue;
+				imbue ??= player.ArcaneOdyssey().imbue;
             }
 			return imbue is not null;
         }
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey
 			}
 			else if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(projectile))
 			{
-				imbue ??= player.AOPlayer().imbue;
+				imbue ??= player.ArcaneOdyssey().imbue;
 			}
 			return imbue is not null;
         }
@@ -86,7 +86,7 @@ namespace ArcaneOdyssey
         public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
 		{
 			LocalizedText text = LocalizedText.Empty;
-			if (ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
+			if (global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
 			{
 				text = value;
 			}
@@ -97,12 +97,12 @@ namespace ArcaneOdyssey
 				{
 					text = text.WithFormatArgs(formatting);
 				}
-				ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
+				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
 			}
 			return text;
 		}
 
-		public static int BonusBossKills()
+		public static int GetBossKillCount()
 		{
 			int count = 0;
 			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates];
@@ -248,6 +248,9 @@ namespace ArcaneOdyssey
 			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
 		}
 
-		public static AOPlayer AOPlayer(this Player player) => player.GetModPlayer<AOPlayer>();
-	}
+		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
+		public static NPCManager ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<NPCManager>();
+        public static ProjectileManager ArcaneOdyssey(this Projectile proj) => proj.GetGlobalProjectile<ProjectileManager>();
+        public static ItemManager ArcaneOdyssey(this Item item) => item.GetGlobalItem<ItemManager>();
+    }
 }
