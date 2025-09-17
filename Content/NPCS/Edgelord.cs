@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			AnimationType = NPCID.Guide;
 		}
 
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 25;
 			NPCID.Sets.ExtraFramesCount[Type] = 9;

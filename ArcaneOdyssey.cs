@@ -41,12 +41,11 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
-
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 		}
 
 		public Dictionary<int, float> StunCDs = [];
-
+        public override bool InstancePerEntity => true;
         public override void AI(NPC npc)
         {
 			StunCDs[npc.type] = StunCDs.GetValueOrDefault(npc.type, 0) - 1 / 60;
