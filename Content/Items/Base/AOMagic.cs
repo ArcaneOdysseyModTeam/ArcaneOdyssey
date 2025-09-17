@@ -86,8 +86,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (MagicTier == AOMagicTier.Normal)
 			{
-				CreateRecipe().AddIngredient<HecateOrb>().Register();
-				Recipe.Create(ModContent.ItemType<HecateOrb>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
+				CreateRecipe().AddIngredient<PoseidonChoice>().Register();
+				Recipe.Create(ModContent.ItemType<PoseidonChoice>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
 			}
 		}
 

@@ -180,7 +180,7 @@ ArcaniumScrap: {
 	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
 }
 
-HecateOrb: {
+PoseidonChoice: {
 	DisplayName: Poseidon's Choice
 	Tooltip: An sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }

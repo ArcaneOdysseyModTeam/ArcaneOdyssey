@@ -5,7 +5,8 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-    public class HecateOrb : ModItem
+    [LegacyName("HecateOrb")]
+    public class PoseidonChoice : ModItem
     {
         public int AOValue = 10000;
         

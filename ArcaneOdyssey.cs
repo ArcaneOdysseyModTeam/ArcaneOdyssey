@@ -26,13 +26,13 @@ namespace ArcaneOdyssey
 			if (npc.type == NPCID.WallofFlesh)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Terraria.GameContent.ItemDropRules.Conditions.IsPreHardmode());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.CultistBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.Plantera)
@@ -80,7 +80,7 @@ namespace ArcaneOdyssey
 		{
 			if (!mediumCoreDeath)
 			{
-				return [new Item(ModContent.ItemType<HecateOrb>()), new Item(ModContent.ItemType<TitleMusicBox>())];
+				return [new Item(ModContent.ItemType<PoseidonChoice>()), new Item(ModContent.ItemType<TitleMusicBox>())];
 			}
 			else return [];
 		}
