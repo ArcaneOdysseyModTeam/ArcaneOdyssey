@@ -1,6 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -39,26 +39,25 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			thisMagic ??= aoPlayerOwner.imbue;
 			float tempLightColorR = 0f;
 			float tempLightColorG = 0f;
 			float tempLightColorB = 0f;
-			if (!(thisMagic.MagicColour.R == 0f))
+			if (!(Imbue.MagicColour.R == 0f))
 			{
-				tempLightColorR = 3f / thisMagic.MagicColour.R;
+				tempLightColorR = 3f / Imbue.MagicColour.R;
 			}
-			if (!(thisMagic.MagicColour.G == 0f))
+			if (!(Imbue.MagicColour.G == 0f))
 			{
-				tempLightColorG = 3f / thisMagic.MagicColour.G;
+				tempLightColorG = 3f / Imbue.MagicColour.G;
 			}
-			if (!(thisMagic.MagicColour.B == 0f))
+			if (!(Imbue.MagicColour.B == 0f))
 			{
-				tempLightColorB = 3f / thisMagic.MagicColour.B;
+				tempLightColorB = 3f / Imbue.MagicColour.B;
 			}
 			Lighting.AddLight(Projectile.position,tempLightColorR,tempLightColorG,tempLightColorB);
 			if (Projectile.localAI[0] > 5 && !Main.dedServ)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, thisMagic.MagicColour, 1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.MagicColour, 1f)];
 				spawnedDust.noGravity = true;
 				Projectile.localAI[0] = 0;
 			}
@@ -82,9 +81,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Color drawColor = thisMagic.MagicColour;
+			Color drawColor = Imbue.MagicColour;
 			drawColor *= 1f - (Projectile.alpha / 255f);
-			Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center-Main.screenPosition, new Rectangle(0, 64 * Projectile.frame, 64, 64), drawColor, Projectile.rotation, new Vector2(31f, 32f), thisMagic.AOMagicSize*Projectile.scale, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center-Main.screenPosition, new Rectangle(0, 64 * Projectile.frame, 64, 64), drawColor, Projectile.rotation, new Vector2(31f, 32f), Imbue.AOMagicSize*Projectile.scale, SpriteEffects.None, 0);
 			return false;
 		}
 	}

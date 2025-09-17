@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
@@ -12,7 +13,6 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -22,7 +22,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.owner == Main.myPlayer && (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name)))
 			{
-				if (projectile.TryGetImbue(Main.player[projectile.owner], out AOMagic imbue))
+				if (projectile.TryGetImbue(out AOMagic imbue))
 				{
 					var spell = projectile.ModProjectile is MagicSpell;
                     if (spell)
@@ -82,30 +82,20 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static Dictionary<string, Vector2> OriginalScales = [];
-
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
 			if (projectile.owner == Main.myPlayer)
 			{
 				Player player = Main.LocalPlayer;
 				Vector2 dim = new(hitbox.Width, hitbox.Height);
-				if (projectile.ModProjectile is AOBaseProjectile origin)
-				{
-					dim = origin.OriginalDimensions.GetValueOrDefault(dim);
-				}
-				else
-				{
-					dim = OriginalScales.GetValueOrDefault(projectile.Name, dim);
-				}
 				if (ImbueClassCheck(projectile))
 				{
-					float mult = 1f;
+					float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
 					if (projectile.ModProjectile is AOPlayerProjectile proj)
-						mult = proj.BaseScale.GetValueOrDefault(1f) + proj.AOSize.MultiToPercent();
-					if (projectile.TryGetImbue(player, out AOMagic imbue))
+						mult += proj.AOSize.MultiToPercent();
+					if (projectile.TryGetImbue(out AOMagic imbue))
 					{
-						mult = (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + mult + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
+						mult += (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
 					}
 					hitbox.Width = (int)(dim.X * mult);
 					hitbox.Height = (int)(dim.Y * mult);
@@ -116,21 +106,8 @@ namespace ArcaneOdyssey
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
-			if (projectile.ModProjectile is AOBaseProjectile origin)
-			{
-				origin.OriginalDimensions ??= projectile.Size;
-				origin.BaseScale ??= projectile.scale;
-			}
-			else
-			{
-				OriginalScales[projectile.Name] = projectile.Size;
-            }
-            if (projectile.ModProjectile is AOPlayerProjectile proj)
-            {
-                proj.thisMagic ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
-            }
             if (projectile.owner == Main.myPlayer)
-                if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
+                if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
 					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
 						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
@@ -143,11 +120,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.owner == Main.myPlayer)
 			{
-				if (projectile.ModProjectile is AOBaseProjectile based)
-				{
-					based.FramesAlive++;
-				}
-				if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
+				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
 					imbue.LingeringEffects(projectile);
 				}
@@ -158,12 +131,9 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.owner == Main.myPlayer)
 			{
-				if (projectile.TryGetImbue(Main.LocalPlayer, out AOMagic imbue) && imbue.PreEffects(projectile))
+				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
-					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-					{
-						imbue.KillEffects(projectile);
-					}
+					imbue.KillEffects(projectile);
 				}
 			}
 		}
@@ -189,5 +159,29 @@ namespace ArcaneOdyssey
 
 			return returntype; 
 		}
-	}
+    }
+    public class AOProjectile : GlobalProjectile
+    {
+        public override bool InstancePerEntity => true;
+        public float? BaseScale = null;
+        public Vector2 OriginalDimensions;
+        public int FramesAlive = 0;
+		public AOMagic imbue;
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            OriginalDimensions = projectile.Size;
+            BaseScale ??= projectile.scale;
+			if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
+				imbue = Main.player[projectile.owner].ArcaneOdyssey().imbue;
+        }
+
+        public override void PostAI(Projectile projectile)
+        {
+            if (Main.myPlayer == projectile.owner)
+            {
+                FramesAlive++;
+            }
+        }
+    }
 }

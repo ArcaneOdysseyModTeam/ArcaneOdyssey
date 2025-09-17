@@ -23,12 +23,11 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 		public virtual bool AffectsBosses => false;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			if (NPCManager.StunCDs.GetValueOrDefault(npc.type, 0) <= 0)
-				if (!npc.boss || AffectsBosses)
-				{
-					NPCManager.StunCDs[npc.type] = .5f;
-					npc.velocity = Vector2.Zero;
-				}
+			if (!npc.boss || AffectsBosses)
+			{
+				if (npc.ArcaneOdyssey().StunCD <= 0)
+					npc.ArcaneOdyssey().AOStunned = true;
+			}
 		}
 		public override void SetStaticDefaults()
 		{

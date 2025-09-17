@@ -26,9 +26,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.direction = 1;
 
 			float extramulti = 1f;
-			if (thisMagic is not null)
+			if (Imbue is not null)
 			{
-				extramulti = thisMagic.AOImbueSpeed.FlipFloat();
+				extramulti = Imbue.AOImbueSpeed.FlipFloat();
 			}
 
             float spintime = 25 * AOSpeed.FlipFloat() * 2 * extramulti;
@@ -72,10 +72,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
 		{
-			Player player = Main.player[Projectile.owner];
-			AOPlayer playah = player.ArcaneOdyssey();
-			Projectile.scale = BaseScale.GetValueOrDefault(2f) * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1);
-            hitbox.Width = hitbox.Height = (int)(BaseScale * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
+			Projectile.scale = BaseScale * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (Imbue is not null ? Imbue.AOImbueSize : 1);
+            hitbox.Width = hitbox.Height = (int)(BaseScale * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (Imbue is not null ? Imbue.AOImbueSize : 1));
 		}
 	}
 }

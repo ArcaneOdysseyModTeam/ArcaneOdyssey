@@ -60,11 +60,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
 		{
-			Player player = Main.player[Projectile.owner];
-			AOPlayer playah = player.ArcaneOdyssey();
-			Projectile.scale = BaseScale.GetValueOrDefault(1f) * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (thisMagic is not null ? thisMagic.AOImbueSize : 1);
-			hitbox.Height = (int)(hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize * BaseScale : BaseScale) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
-			hitbox.Width = (int)(hitbox.Width * (originalItem.ModItem is AOWeapon weap3 ? weap3.AOSize * BaseScale : BaseScale) * (thisMagic is not null ? thisMagic.AOImbueSize : 1));
+			Projectile.scale = BaseScale * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (Imbue is not null ? Imbue.AOImbueSize : 1);
+			hitbox.Height = (int)(hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize * BaseScale : BaseScale) * (Imbue is not null ? Imbue.AOImbueSize : 1));
+			hitbox.Width = (int)(hitbox.Width * (originalItem.ModItem is AOWeapon weap3 ? weap3.AOSize * BaseScale : BaseScale) * (Imbue is not null ? Imbue.AOImbueSize : 1));
 		}
 	}
 }
