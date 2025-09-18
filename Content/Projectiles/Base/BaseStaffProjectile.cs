@@ -67,11 +67,5 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
         }
 
 		public virtual void EffectBeforeSpin(Player player, float spintime) { }
-
-		public override void ModifyDamageHitbox(ref Rectangle hitbox)
-		{
-			Projectile.scale = BaseScale * (originalItem.ModItem is AOWeapon weap ? weap.AOSize : 1) * (Imbue is not null ? Imbue.AOImbueSize : 1);
-            hitbox.Width = hitbox.Height = (int)(BaseScale * hitbox.Height * (originalItem.ModItem is AOWeapon weap2 ? weap2.AOSize : 1) * (Imbue is not null ? Imbue.AOImbueSize : 1));
-		}
 	}
 }

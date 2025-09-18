@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AOSpeed => .9f;
 		public override float AOSize => 1.25f;
 		public override float AODamage => 1f;
+
 		public int AOWeaponTier = AOWeaponTiers.Excellent;
 		public override AODebuffRequirement Debuff => new(BuffID.Wet, 600);
 		public override SoundStyle? DebuffApplySound => SoundID.Splash;
@@ -52,7 +53,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override void EffectBeforeSpin(Player player, float spintime)
 		{
 			if (Projectile.owner == Main.myPlayer)
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 25 * AOSpeed * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner, ai1: MathHelper.TwoPi * 2f / spintime * player.direction);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 25 * AOSpeed * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner, MathHelper.TwoPi * 2f / spintime * player.direction);
 		}
 	}
 }

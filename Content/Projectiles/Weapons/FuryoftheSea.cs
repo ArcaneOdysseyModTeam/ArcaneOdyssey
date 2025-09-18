@@ -35,13 +35,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		}
 		public override void AI()
         {
-            // projectile.ai[0] is the scale
-            // projectile.ai[1] is the spin speed
+            // projectile.ai[0] is the spin speed
             aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 + (Projectile.ai[1] * FramesAlive);
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 + (Projectile.ai[0] * FramesAlive);
             Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
             BaseScale += .05f;
-			Projectile.ai[0] = Projectile.scale;
 			if (!Main.dedServ)
 			{
 				Random rnd = new();
@@ -59,11 +57,5 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Cos(FramesAlive * 150) * -100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, 4f);
 			}
 		}
-
-        public override void ModifyDamageHitbox(ref Rectangle hitbox)
-        {
-			hitbox.Height = (int)(hitbox.Height * Projectile.ai[0]);
-			hitbox.Width = (int)(hitbox.Width * Projectile.ai[0]);
-        }
 	}
 }

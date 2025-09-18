@@ -84,24 +84,31 @@ namespace ArcaneOdyssey
 
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
-			if (projectile.owner == Main.myPlayer)
+			Player player = Main.player[projectile.owner];
+			Vector2 dim = new(hitbox.Width, hitbox.Height);
+			if (ImbueClassCheck(projectile))
 			{
-				Player player = Main.LocalPlayer;
-				Vector2 dim = new(hitbox.Width, hitbox.Height);
-				if (ImbueClassCheck(projectile))
+				float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
+				if (projectile.ModProjectile is AOPlayerProjectile proj)
+					mult += proj.AOSize.MultiToPercent();
+				if (projectile.TryGetImbue(out AOMagic imbue))
 				{
-					float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-					if (projectile.ModProjectile is AOPlayerProjectile proj)
-						mult += proj.AOSize.MultiToPercent();
-					if (projectile.TryGetImbue(out AOMagic imbue))
-					{
-						mult += (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
-					}
-					hitbox.Width = (int)(dim.X * mult);
-					hitbox.Height = (int)(dim.Y * mult);
-					projectile.scale = mult;
+					mult += (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
 				}
+				hitbox.Width = (int)(dim.X * mult);
+				hitbox.Height = (int)(dim.Y * mult);
+				projectile.scale = mult;
 			}
+			else
+			{
+				float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
+				if (projectile.ModProjectile is AOPlayerProjectile proj)
+					mult += proj.AOSize.MultiToPercent();
+                hitbox.Width = (int)(dim.X * mult);
+                hitbox.Height = (int)(dim.Y * mult);
+                projectile.scale = mult;
+            }
+            
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
