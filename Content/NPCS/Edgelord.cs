@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		}
 		public override List<string> SetNPCNameList() => ["Morden"];
 
-		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
+		public override bool CanBeHitByNPC(NPC attacker) => (!attacker.IsDamageDodgeable())||attacker.boss;
 
 
 		public override bool? CanBeHitByProjectile(Projectile projectile)
@@ -70,33 +70,16 @@ namespace ArcaneOdyssey.Content.NPCS
 				modifiers.FinalDamage *= 0;
         }
 
-        /// <summary>
-        /// do death magic dust here red
-        /// </summary>
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-		{
-			for (int n = 0; n < 10; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*3f, 0, default, 1f)];
-				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*3f, 0, default, 1.6f)];
-				spawnedDust2.noGravity = true;
-			}
-		}
-
-		/// <summary>
-		/// do death magic dust here red
-		/// </summary>
-		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-		{
-			for (int n = 0; n < 10; n++)
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            for (int n = 0; n < 10; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1f)];
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1.6f)];
 				spawnedDust2.noGravity = true;
 			}
-		}
+        }
 
 		public override void OnKill()
 		{
@@ -108,8 +91,8 @@ namespace ArcaneOdyssey.Content.NPCS
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2.6f)];
 				spawnedDust2.noGravity = true;
 			}
-			Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (NPC.width / 2f),NPC.position.Y + (NPC.height / 2f),0f,-10f,ModContent.ProjectileType<Projectiles.DeathCurse>(),0,0f,-1,default);
-        }
+			Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<Projectiles.DeathCurse>(), 0, 0f, -1, default);
+		}
 		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.IsItDay() ? "e" : "e1")}").Value;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
