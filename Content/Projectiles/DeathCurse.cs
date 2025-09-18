@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 1;
+            Main.projFrames[Projectile.type] = 8;
         }
         public override void SetDefaults()
         {
@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.friendly = false;
             Projectile.hostile = false;
-            Projectile.width = Projectile.height = 64;
+            Projectile.width = Projectile.height = 60;
             Projectile.frameCounter = 0;
         }
         public override void AI()
@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Projectiles
                 Projectile.Kill();
             }
             Projectile.velocity *= 0.999f;
-            if (Projectile.frameCounter > 5)
+            if (Projectile.frameCounter > 2)
 			{
 				Projectile.frame++;
 				Projectile.frameCounter = 0;
