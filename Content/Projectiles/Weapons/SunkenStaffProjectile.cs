@@ -37,13 +37,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			BaseScale = 2f;
         }
 
-		public override void AI2()
-		{   if (!Main.dedServ) {
-			// dust
-			Random rnd = new Random();
-			for(int dustCountInt = 0;dustCountInt<2;dustCountInt++) {
-				Dust.NewDust(Projectile.Center,3,3,DustID.Water,50f*(0.5f-rnd.NextSingle()),50f*(0.5f-rnd.NextSingle()),255,default,1.3f);
-			}
+		public override void PostAI()
+		{
+			if (!Main.dedServ) 
+			{
+				// dust
+				for(int dustCountInt = 0;dustCountInt<2;dustCountInt++) 
+				{
+					Dust.NewDust(Projectile.Center, 3, 3, DustID.Water, 50f * (0.5f - Main.rand.NextFloat()) ,50f * (0.5f - Main.rand.NextFloat()), 255, default, 1.3f);
+				}
 			}
 		}
 

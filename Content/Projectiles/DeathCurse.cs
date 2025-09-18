@@ -25,13 +25,8 @@ namespace ArcaneOdyssey.Content.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.tileCollide = false;
-            Projectile.friendly = false;
-            Projectile.hostile = false;
             Projectile.width = Projectile.height = 100;
-            Projectile.frameCounter = 0;
-            Projectile.localAI[0] = 0;
         }
         
         public override void AI()

@@ -13,7 +13,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
     {
-        public virtual void AI2() { }
 		public override void AI()
 		{
             DustVelocity = Vector2.Zero;
@@ -22,7 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			aoPlayerOwner ??= player.ArcaneOdyssey();
 			originalItem ??= player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
-			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
+			Projectile.position = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
 			float extramulti = 1f;
@@ -65,7 +64,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			player.itemRotation = MathHelper.WrapAngle(Projectile.rotation); ;
             player.itemTime = player.itemAnimation = 2;
-            AI2();
         }
 
 		public virtual void EffectBeforeSpin(Player player, float spintime) { }

@@ -164,6 +164,8 @@ NPCs: {
 			Intro: Hello, {PlayerName}.
 			Grave: That grave. It once belonged to a good friend of ours, Tucker.
 			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
+			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he is as immortal as I.
+			Hello: Hello again.
 		}
 
 		Help: {
@@ -191,9 +193,9 @@ NPCs: {
 			LikeBiome: "{BiomeName} reminds me of Sameria, not a bad thing at all."
 			DislikeBiome: "{BiomeName} is so cold."
 			HateBiome: You would really put me in {BiomeName}, after everything we've been through?!
-			LoveNPC: "{NPCName} is a kind old man, like Enzior."
-			LikeNPC: "{NPCName} and I have a few things in common, we get along."
-			DislikeNPC: "{NPCName} is such a lapdogh..."
+			LikeNPC: "{NPCName} is a kind old man, like Enzior."
+			LoveNPC: "{NPCName} and I have quite a few things in common, we get along very well."
+			DislikeNPC: "{NPCName} is a pirate, something that I've had some negative experiences with out at sea."
 			HateNPC: "{NPCName} disgusts me with such experiments."
 			LikeNPC_Princess: "{NPCName} really shows me that not all royalty are wicked, quite respectable."
 			Princess_LovesNPC: "{NPCName} used to look at me funny, but we get along quite well now!"
