@@ -94,7 +94,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			for (int n = 0; n < 10; n++)
 			{
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), new(1.23f * Main.rand.NextFloat() - 0.5f, 1.23f * Main.rand.NextFloat() - 0.5f), ProjectileID.SporeCloud, 2 + GetBossKillCount(), 0f);
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), new(1.23f * Main.rand.NextFloat() - 0.5f, 1.23f * Main.rand.NextFloat() - 0.5f), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 

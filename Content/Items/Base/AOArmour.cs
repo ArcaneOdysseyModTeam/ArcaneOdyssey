@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <summary>
 		/// Without enchantments ect
 		/// </summary>
-		public virtual int AORarity => AORarities.Common;
+		public virtual AORarities AORarity => AORarities.Common;
 
 		public virtual int MinionSlots => 0;
 

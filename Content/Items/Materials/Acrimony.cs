@@ -14,10 +14,10 @@ namespace ArcaneOdyssey.Content.Items.Materials
     {
         public int AOValue = 10000;
 
-        public int AORarity = AORarities.Legendary;
+        public AORarities AORarity = AORarities.Legendary;
         public override void SetDefaults()
         {
-            Item.rare = AORarity;
+            Item.rare = (int)AORarity;
             Item.value = GalleonToCopper(AOValue);
         }
 

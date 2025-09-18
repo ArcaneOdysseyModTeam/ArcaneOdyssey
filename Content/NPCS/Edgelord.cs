@@ -151,7 +151,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
 			}
-			if (GetBossKillCount() == 0)
+			if (BossesKilled == 0)
 			{
 				options.Add(this.GetLocalizedValue("Help.Early1"));
 				options.Add(this.GetLocalizedValue("Help.Early2"));
@@ -188,7 +188,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override string GetChat()
 		{
 			List<string> options = [];
-			if (GetBossKillCount() == 0)
+			if (BossesKilled == 0)
 			{
 				options.Add(this.GetLocalizedValue("Chat.Intro").Replace("{PlayerName}", Main.LocalPlayer.name));
 				options.Add(this.GetLocalizedValue("Chat.Grave"));
@@ -196,7 +196,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			else
 				options.Add(this.GetLocalizedValue("Chat.Hello"));
 			options.Add(this.GetLocalizedValue("Chat.AskHelp"));
-			if (GetBossKillCount() > 0 && !NPC.downedBoss3) 
+			if (BossesKilled > 0 && !NPC.downedBoss3) 
 			{
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
 			}

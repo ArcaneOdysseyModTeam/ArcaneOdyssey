@@ -98,11 +98,6 @@ namespace ArcaneOdyssey
 						imbuetextthing = imbue.Item.Name;
 					tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization("ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
 				}
-
-			if (item.ModItem is AOMagic magical)
-			{
-				tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.CustomLocalization($"MagicTierLines.{magical.MagicTier}").Value));
-			}
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
@@ -149,7 +144,7 @@ namespace ArcaneOdyssey
 		{
             if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
             {
-                damage += ((item.damage+(GetBossKillCount() * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
+                damage += ((item.damage+(BossesKilled * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
             }
             if (item.TryGetImbue(out AOMagic imbue))
 			{

@@ -92,7 +92,7 @@ namespace ArcaneOdyssey
 		}
 
 		public static int GetBossKillCount()
-		{
+        {
 			int count = 0;
 			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates];
 			foreach (bool killed in conditions)
@@ -101,36 +101,40 @@ namespace ArcaneOdyssey
 					count++;
 			}
 			return count;
-		}
+		} 
+
+		public static int BossesKilled => GetBossKillCount();
 
 		/// <summary>
 		/// Arcane Odyssey rarities, converted to RarityID
 		/// </summary>
-		public class AORarities
+		public enum AORarities
 		{
-			public const short Common = -1;
-			public const short Uncommon = 0;
-			public const short Rare = 1;
-			public const short Exotic = 4;
-			public const short Legendary = 7;
+			Common = -1,
+			Uncommon = 0,
+			Rare = 1,
+			Exotic = 4,
+			Legendary = 7,
 		}
 
 		public enum AOMagicTier
 		{
-			Normal = 1,
-			Lost = 2,
-			Ancient = 3,
-			Custom = 4,
+			None,
+			Normal,
+			Lost,
+			Ancient,
+			Custom,
 		}
 
 		/// <summary>
-		/// Arcane Odyssey weapon tiers, used for scaling. Weapon skill index: 2 is Old; 3 is Normal; 5 is Excellent
+		/// Arcane Odyssey weapon tiers, used for scaling. Weapon skill index: 2 is Old; 3 is Normal; 4 is Excellent
 		/// </summary>
-		public class AOWeaponTiers
+		public enum AOWeaponTiers
 		{
-			public const short Old = 1;
-			public const short Normal = 2;
-			public const short Excellent = 3;
+			Trash,
+			Old,
+			Normal,
+			Excellent,
 		}
 
 		/// <summary>
@@ -215,7 +219,7 @@ namespace ArcaneOdyssey
         /// <param name="AODamage">AO weapon damage multiplier</param>
         /// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOWeaponTiers"/></param>
         /// <returns></returns>
-        public static float WeaponDamage(int AOWeaponTier) => 25 * AOWeaponTier;
+        public static float WeaponDamage(AOWeaponTiers AOWeaponTier) => 25 * ((int)AOWeaponTier+1);
 
 		/// <summary>
 		/// Turns 1.4 into .6

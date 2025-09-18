@@ -205,6 +205,7 @@ NPCs: {
 }
 
 MagicTierLines: {
+	None: Unobtainable
 	Normal: "[c/2277ff:-Basic Magic-]"
 	Lost: "[c/0044ff:-Lost Magic-]"
 	Ancient: -Ancient Magic-

@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AOSize => 1.25f;
 		public override float AODamage => 1f;
 
-		public int AOWeaponTier = AOWeaponTiers.Excellent;
+		public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Excellent;
 		public override AODebuffRequirement Debuff => new(BuffID.Wet, 600);
 		public override SoundStyle? DebuffApplySound => SoundID.Splash;
 

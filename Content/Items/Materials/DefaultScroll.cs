@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 	public class DefaultScroll : ModItem
 	{
 		public virtual int AOValue => 500;
-		public virtual int AORarity => AORarities.Rare;
+		public virtual AORarities AORarity => AORarities.Rare;
 		public virtual void SetDefaultsScroll() { }
 		public override void SetDefaults()
 		{
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.noMelee = true;
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;
-			Item.rare = AORarity;
+			Item.rare = (int)AORarity;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.DamageType = DamageClass.Magic;
 			Item.value = GalleonToCopper(AOValue);

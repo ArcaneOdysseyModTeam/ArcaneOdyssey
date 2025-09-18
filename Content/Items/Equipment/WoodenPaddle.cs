@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 {
 	public class WoodenPaddle : ModItem
 	{
-		public int AORarity = AORarities.Common;
+		public AORarities AORarity = AORarities.Common;
 		public override void SetDefaults()
 		{
 			Item.width = Item.height = 60;

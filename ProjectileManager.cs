@@ -26,7 +26,7 @@ namespace ArcaneOdyssey
 				{
 					var spell = projectile.ModProjectile is MagicSpell;
                     if (spell)
-                        modifiers.FinalDamage += ((projectile.damage + (GetBossKillCount() * 2f)) / projectile.damage) - 1;
+                        modifiers.FinalDamage += ((projectile.damage + (BossesKilled * 2f)) / projectile.damage) - 1;
                     modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOMagicDamage).MultiToPercent();
 					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 					{
