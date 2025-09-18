@@ -99,15 +99,6 @@ namespace ArcaneOdyssey
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;
 			}
-			else
-			{
-				float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-				if (projectile.ModProjectile is AOPlayerProjectile proj)
-					mult += proj.AOSize.MultiToPercent();
-                hitbox.Width = (int)(dim.X * mult);
-                hitbox.Height = (int)(dim.Y * mult);
-                projectile.scale = mult;
-            }
             
 		}
 
