@@ -157,7 +157,7 @@ NPCs: {
 
 	Edgelord: {
 		DisplayName: Curse Thief
-		DisplayName1: Death Carrier
+		DisplayName1: Edgelord
 		Census.SpawnCondition: None
 
 		Chat: {

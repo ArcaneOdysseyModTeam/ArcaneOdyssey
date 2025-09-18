@@ -37,11 +37,11 @@ namespace ArcaneOdyssey.Content.NPCS
 
         public override void PostAI()
         {
-			if (NPC.wet && !NPC.lavaWet)
+			if (NPC.wet && !NPC.lavaWet && !NPC.honeyWet)
 			{
 				NPC.life -= 5;
 				NPC.localAI[0]++;
-				if (NPC.localAI[0] % 30 == 0)
+				if (NPC.localAI[0] % 15 == 0)
 					HitEffect(NPC.CalculateHitInfo(5, 1));
 				if (NPC.life <= 0)
 				{
@@ -112,7 +112,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				}
 			Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 0, 0f, -1, default);
 		}
-		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.IsItDay() ? "e" : "e1")}").Value;
+		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.zenithWorld ? "e" : "e1")}").Value;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{

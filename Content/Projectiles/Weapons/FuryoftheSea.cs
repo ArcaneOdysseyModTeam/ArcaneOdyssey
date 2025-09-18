@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 				//dust.velocity = Projectile.velocity * -1;
 
 				//Random Fling Dust
-				for (int dustCountInt = 0;dustCountInt < 10;dustCountInt++) 
+				for (int dustCountInt = 0; dustCountInt < 10; dustCountInt++) 
 				{
 					Dust.NewDust(Projectile.position + new Vector2(Projectile.width / 2f,Projectile.height / 2f), 1, 1, DustID.Water, 50f *(0.5f - rnd.NextSingle()), 50f * (0.7f - rnd.NextSingle()), 1, default, 1.3f);
 				}
