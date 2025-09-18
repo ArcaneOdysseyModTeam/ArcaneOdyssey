@@ -136,8 +136,8 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			if (!Main.hardMode)
 			{
-				options.Add(this.GetLocalizedValue("PreHard1"));
-                options.Add(this.GetLocalizedValue("PreHard2"));
+				options.Add(this.GetLocalizedValue("Help.PreHard1"));
+                options.Add(this.GetLocalizedValue("Help.PreHard2"));
             }
 
 			if (!NPC.downedAncientCultist && NPC.downedGolemBoss)
