@@ -35,6 +35,23 @@ namespace ArcaneOdyssey.Content.NPCS
 			AnimationType = NPCID.Guide;
 		}
 
+        public override void PostAI()
+        {
+			if (NPC.wet && !NPC.lavaWet)
+			{
+				NPC.life -= 5;
+				NPC.localAI[0]++;
+				if (NPC.localAI[0] % 30 == 0)
+					HitEffect(NPC.CalculateHitInfo(5, 1));
+				if (NPC.life <= 0)
+				{
+					OnKill();
+				}
+			}
+			else
+				NPC.localAI[0] = 0;
+        }
+
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 25;
@@ -72,25 +89,27 @@ namespace ArcaneOdyssey.Content.NPCS
 
         public override void HitEffect(NPC.HitInfo hit)
         {
-            for (int n = 0; n < 10; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1f)];
-				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1.6f)];
-				spawnedDust2.noGravity = true;
-			}
+			if (!Main.dedServ)
+				for (int n = 0; n < 10; n++)
+				{
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1f)];
+					spawnedDust.noGravity = true;
+					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1.6f)];
+					spawnedDust2.noGravity = true;
+				}
         }
 
 		public override void OnKill()
 		{
 			// Have death curse shoot out
-			for (int n = 0; n < 20; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2f)];
-				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2.6f)];
-				spawnedDust2.noGravity = true;
-			}
+			if (!Main.dedServ)
+				for (int n = 0; n < 20; n++)
+				{
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2f)];
+					spawnedDust.noGravity = true;
+					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2.6f)];
+					spawnedDust2.noGravity = true;
+				}
 			Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 0, 0f, -1, default);
 		}
 		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.IsItDay() ? "e" : "e1")}").Value;
