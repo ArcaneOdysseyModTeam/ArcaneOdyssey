@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using Terraria.Localization;
 using ArcaneOdyssey.Content.Projectiles;
+using Terraria.Chat;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -35,8 +36,8 @@ namespace ArcaneOdyssey.Content.NPCS
 			AnimationType = NPCID.Guide;
 		}
 
-        public override void PostAI()
-        {
+		public override void PostAI()
+		{
 			if (NPC.wet && !NPC.lavaWet && !NPC.honeyWet)
 			{
 				NPC.life -= 5;
@@ -50,7 +51,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else
 				NPC.localAI[0] = 0;
-        }
+		}
 
 		public override void SetStaticDefaults()
 		{
@@ -81,14 +82,14 @@ namespace ArcaneOdyssey.Content.NPCS
 			return projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null;
 		}
 
-        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
-        {
+		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
+		{
 			if (!item.TryGetImbue(out _))
 				modifiers.FinalDamage *= 0;
-        }
+		}
 
-        public override void HitEffect(NPC.HitInfo hit)
-        {
+		public override void HitEffect(NPC.HitInfo hit)
+		{
 			if (!Main.dedServ)
 				for (int n = 0; n < 10; n++)
 				{
@@ -97,12 +98,13 @@ namespace ArcaneOdyssey.Content.NPCS
 					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1.6f)];
 					spawnedDust2.noGravity = true;
 				}
-        }
+		}
 
 		public override void OnKill()
 		{
 			// Have death curse shoot out
 			if (!Main.dedServ)
+			{
 				for (int n = 0; n < 20; n++)
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2f)];
@@ -110,9 +112,18 @@ namespace ArcaneOdyssey.Content.NPCS
 					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2.6f)];
 					spawnedDust2.noGravity = true;
 				}
+				Main.NewText(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").Value, Color.DarkCyan);
+			}
+			else
+			{
+				foreach (Player player in Main.ActivePlayers)
+				{
+					ChatHelper.SendChatMessageToClient(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan, Main.player.IndexOf(player)); 
+				}
+			}
 			Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 0, 0f, -1, default);
 		}
-		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.zenithWorld ? "e" : "e1")}").Value;
+		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(!Main.zenithWorld ? "e" : "e1")}").Value;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
@@ -125,14 +136,14 @@ namespace ArcaneOdyssey.Content.NPCS
 		{
 			button = "Help";
 			button2 = null;
-        }
-        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-        {
+		}
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		{
 			if (firstButton)
 			{
 				Main.npcChatText = this.GetChatHelpButton();
 			}
-        }
+		}
 		public string GetChatHelpButton()
 		{
 			List<string> options = [];
@@ -150,14 +161,14 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (Main.hardMode && !NPC.downedMechBossAny)
 			{
 				options.Add(this.GetLocalizedValue("Help.EarlyHard1"));
-                options.Add(this.GetLocalizedValue("Help.EarlyHard2"));
-            }	
+				options.Add(this.GetLocalizedValue("Help.EarlyHard2"));
+			}	
 
 			if (!Main.hardMode)
 			{
 				options.Add(this.GetLocalizedValue("Help.PreHard1"));
-                options.Add(this.GetLocalizedValue("Help.PreHard2"));
-            }
+				options.Add(this.GetLocalizedValue("Help.PreHard2"));
+			}
 
 			if (!NPC.downedAncientCultist && NPC.downedGolemBoss)
 			{
@@ -173,7 +184,8 @@ namespace ArcaneOdyssey.Content.NPCS
 				return this.GetLocalizedValue("Help.NothingToSay");
 			return Main.rand.Next(options);
 		}
-        public override string GetChat()
+
+		public override string GetChat()
 		{
 			List<string> options = [];
 			if (GetBossKillCount() == 0)
@@ -188,7 +200,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
 			}
-            return Main.rand.Next(options);
+			return Main.rand.Next(options);
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs) => true;

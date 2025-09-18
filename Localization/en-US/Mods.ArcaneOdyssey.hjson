@@ -158,7 +158,8 @@ NPCs: {
 	Edgelord: {
 		DisplayName: Curse Thief
 		DisplayName1: Edgelord
-		Census.SpawnCondition: None
+		DeathCurse: Morden's Curse has left...
+		Census.SpawnCondition: Always available, spawned on world creation
 
 		Chat: {
 			Intro: Hello, {PlayerName}.
