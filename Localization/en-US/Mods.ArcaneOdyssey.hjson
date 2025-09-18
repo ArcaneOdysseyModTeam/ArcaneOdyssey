@@ -169,7 +169,7 @@ NPCs: {
 		}
 
 		Help: {
-			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Choice. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
+			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
 			Early2: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
 			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
 			PreHard1: It's said there's some abomination deep, deep underground that contains a large amount of magic power. It might be benificial to obtain this power.
