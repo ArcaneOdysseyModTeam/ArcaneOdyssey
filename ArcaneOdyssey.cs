@@ -1,8 +1,10 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.NPCS;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Generation;
 using Terraria.GameContent.ItemDropRules;
@@ -92,7 +94,7 @@ namespace ArcaneOdyssey
         }
 	}
 
-	public class TuckerGrave
+	public class WorldGenTasks
 	{
 		public static void KillTucker(int left, int top, int right, int bottom, int tile)
 		{
@@ -118,6 +120,15 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
+
+		public static void SpawnMorden()
+		{
+			NPC edgelord = NPC.NewNPCDirect(new EntitySource_WorldGen(), Main.spawnTileX * 16, Main.spawnTileY * 16, ModContent.NPCType<Edgelord>());
+			edgelord.homeTileX = Main.spawnTileX;
+			edgelord.homeTileY = Main.spawnTileY;
+			edgelord.direction = 1;
+			edgelord.homeless = true;
+		}
 	}
 
 	public class WorldGenStuff : ModSystem
@@ -130,9 +141,19 @@ namespace ArcaneOdyssey
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					TuckerGrave.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
+					WorldGenTasks.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
 				}));
-		}
+
+            int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
+			if (guide != -1)
+			{
+                tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
+                {
+                    progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
+                    WorldGenTasks.SpawnMorden();
+                }));
+            }
+        }
 
 		public override void PostWorldGen()
 		{

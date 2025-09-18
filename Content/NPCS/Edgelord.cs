@@ -146,6 +146,8 @@ namespace ArcaneOdyssey.Content.NPCS
 			return this.GetLocalizedValue("Help.Intro").Replace("{PlayerName}", Main.LocalPlayer.name);
 		}
 
+		public override bool CanTownNPCSpawn(int numTownNPCs) => true;
+
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 	}
 }
