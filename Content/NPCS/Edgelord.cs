@@ -102,7 +102,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2.6f)];
 				spawnedDust2.noGravity = true;
 			}
-			Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (NPC.width / 2f),NPC.position.Y + (NPC.height / 2f),(Main.rand.NextFloat() - 0.5f) * 13f,-23f,ModContent.ProjectileType<Projectiles.DeathCurse>(),0,0f,-1,default);
+			Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (NPC.width / 2f),NPC.position.Y + (NPC.height / 2f),0f,-10f,ModContent.ProjectileType<Projectiles.DeathCurse>(),0,0f,-1,default);
         }
 		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(Main.IsItDay() ? "e" : "e1")}").Value;
 

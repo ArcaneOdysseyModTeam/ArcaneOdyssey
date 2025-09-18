@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Build.Evaluation;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -31,27 +32,40 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.width = Projectile.height = 60;
             Projectile.frameCounter = 0;
         }
+        private int aliveTime = 0;
         public override void AI()
         {
             Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, 0, default, 2f)];
             spawnedDust.noGravity = true;
             Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, 0, default, 2.6f)];
             spawnedDust2.noGravity = true;
-            if (Projectile.position.Y < 0 || Projectile.velocity.Y > -1)
+            if (Projectile.position.Y < 0 || aliveTime > 1000)
             {
                 Projectile.Kill();
             }
-            Projectile.velocity *= 0.999f;
             if (Projectile.frameCounter > 2)
-			{
-				Projectile.frame++;
-				Projectile.frameCounter = 0;
-				if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
-				{
-					Projectile.frame = 0;
-				}
-			}
-			Projectile.frameCounter++;
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+                {
+                    Projectile.frame = 0;
+                }
+            }
+            if (aliveTime > 50)
+            {
+                Projectile.velocity.Y = -23f;
+                if (aliveTime < 52)
+                {
+                    Projectile.velocity.X = (Main.rand.NextFloat() - 0.5f) * 13f;
+                }
+            }
+            else
+            {
+                Projectile.velocity.Y *= 0.8f;
+            }
+            Projectile.frameCounter++;
+            aliveTime++;
         }
     }
 }
