@@ -161,13 +161,22 @@ NPCs: {
 		Census.SpawnCondition: None
 
 		Chat: {
+			Intro: Hello, {PlayerName}.
+			Grave: That grave. It once belonged to a good friend of ours, Tucker.
+			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
 		}
 
 		Help: {
-			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Choice. You can focus upon this to obtain magic.
+			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Choice. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
 			Early2: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
+			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
+			PreHard1: It's said there's some abomination deep, deep underground that contains a large amount of magic power. It might be benificial to obtain this power.
+			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
+			EarlyHard1: Killing that beast should have granted you some of it's power in the form of a sigil. You should use that if you haven't already.
+			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			Intro: Hello, {PlayerName}!
+			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
+			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say, right now.
 		}
 

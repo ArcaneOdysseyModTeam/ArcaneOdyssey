@@ -12,6 +12,7 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using Terraria.Localization;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -55,14 +56,19 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
 
-        /// <summary>
-        /// no need to do more than this, flymeal is melee and rotten eggs are ranged
-        /// </summary>
-        public override bool? CanBeHitByItem(Player player, Item item) => (item.TryGetImbue(out _) || (item.DamageType == DamageClass.Magic || item.DamageType == DamageClass.MagicSummonHybrid) ? true : null);
 
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			if (projectile.type != ProjectileID.RottenEgg)
+				return false;
+			return projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null;
+		}
 
-  		public override bool? CanBeHitByProjectile(Projectile projectile) => (projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null);
-
+        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
+        {
+			if (!item.TryGetImbue(out _))
+				modifiers.FinalDamage *= 0;
+        }
 
         /// <summary>
         /// do death magic dust here red
@@ -136,14 +142,42 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Help.Early1"));
 				options.Add(this.GetLocalizedValue("Help.Early2"));
+				options.Add(this.GetLocalizedValue("Help.WorldofMagic"));
 			}
+
+			if (Main.hardMode && !NPC.downedMechBossAny)
+			{
+				options.Add(this.GetLocalizedValue("Help.EarlyHard1"));
+                options.Add(this.GetLocalizedValue("Help.EarlyHard2"));
+            }	
+
+			if (!Main.hardMode)
+			{
+				options.Add(this.GetLocalizedValue("PreHard1"));
+                options.Add(this.GetLocalizedValue("PreHard2"));
+            }
+
+			if (!NPC.downedAncientCultist && NPC.downedGolemBoss)
+			{
+				options.Add(this.GetLocalizedValue("Help.CultistTip"));
+			}
+
+			if (!NPC.downedPlantBoss && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+			{
+				options.Add(this.GetLocalizedValue("Help.PlantTip"));
+			}
+
 			if (options.Count == 0)
 				return this.GetLocalizedValue("Help.NothingToSay");
 			return Main.rand.Next(options);
 		}
         public override string GetChat()
 		{
-			return this.GetLocalizedValue("Help.Intro").Replace("{PlayerName}", Main.LocalPlayer.name);
+			List<string> options = [];
+			options.Add(this.GetLocalizedValue("Chat.Intro").Replace("{PlayerName}", Main.LocalPlayer.name));
+			options.Add(this.GetLocalizedValue("Chat.Grave"));
+            options.Add(this.GetLocalizedValue("Chat.AskHelp"));
+            return Main.rand.Next(options);
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs) => true;
