@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			aoPlayerOwner ??= player.ArcaneOdyssey();
 			originalItem ??= player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
-			Projectile.position = player.RotatedRelativePoint(player.MountedCenter, true);
+			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
 			float extramulti = 1f;
