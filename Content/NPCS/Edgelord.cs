@@ -54,12 +54,11 @@ namespace ArcaneOdyssey.Content.NPCS
 		}
 		public override List<string> SetNPCNameList() => ["Morden"];
 
-		public override bool CanBeHitByNPC(NPC attacker) => (!attacker.IsDamageDodgeable())||attacker.boss;
-
+		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
 
 		public override bool? CanBeHitByProjectile(Projectile projectile)
 		{
-			if (projectile.type != ProjectileID.RottenEgg)
+			if (!projectile.hostile && projectile.type != ProjectileID.RottenEgg)
 				return false;
 			return projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null;
 		}

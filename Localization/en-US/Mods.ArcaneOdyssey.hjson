@@ -177,7 +177,7 @@ NPCs: {
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
 			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
-			NothingToSay: I don't have anything to say, right now.
+			NothingToSay: I don't have anything to say right now.
 		}
 
 		TownNPCMood: {
