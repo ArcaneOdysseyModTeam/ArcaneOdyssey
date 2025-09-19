@@ -1,5 +1,4 @@
-﻿/*
-Humble Beginnings:
+﻿Humble Beginnings:
 - Morden guide npc, immune to most damage, but doesn't attack2
 - Add death magic (for morden) (he won't use it lol)
 - Vfx changes/tweaks to fire & magma
@@ -8,4 +7,3 @@ Humble Beginnings:
 > fire blast
 > lightning blast
 > magma blast
-*/

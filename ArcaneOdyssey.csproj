@@ -11,9 +11,6 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Include="README.md" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Folder Include="Assets\" />
 	  <Folder Include="Content\Items\Vanity\" />
 	</ItemGroup>
