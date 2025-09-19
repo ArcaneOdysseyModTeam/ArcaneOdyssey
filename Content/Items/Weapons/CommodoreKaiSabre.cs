@@ -17,10 +17,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override float AOSize => .9f;
         public override float AODamage => 1f;
         public override int AOValue => 900;
-        public override int AORarity => AORarities.Rare;
-        public override int AOWeaponTier => AOWeaponTiers.Excellent;
+        public override AORarities AORarity => AORarities.Rare;
+        public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Excellent;
 
-        public override AODebuff WeaponDebuff => new AODebuff(BuffID.Wet, 60 * 5);
+        public override AODebuffRequirement WeaponDebuff => new AODebuffRequirement(BuffID.Wet, 60 * 5);
 
         public override void SetDefaultsWeapon()
         {

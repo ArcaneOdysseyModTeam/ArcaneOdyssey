@@ -8,14 +8,18 @@ namespace ArcaneOdyssey.Content.Items.Materials
     public class HecateShard : ModItem
     {
         public int AOValue = 20000;
-        public int AORarity = AORarities.Rare;
+        public AORarities AORarity = AORarities.Legendary;
         
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
-            Item.rare = AORarity;
-            Item.value = GalleonToCopper(AOValue, Item.rare);
+            Item.rare = (int)AORarity;
+            Item.value = GalleonToCopper(AOValue);
+        }
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.CanGetPrefixes[Type] = false;
+            ItemID.Sets.ShimmerTransformToItem[Type] = Type;
+            ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 1.25f;
 		public override float AOMagicDamage => 0.9f;
 		public override SoundStyle? MagicSound => SoundID.Splash;
-		public override AODebuff MagicDebuff => new AODebuff(BuffID.Wet, 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(BuffID.Wet, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				BuffID.OnFire,
@@ -39,11 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.ShadowFlame
 			], 
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.85f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.85f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.85f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.85f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.85f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.85f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.05f),
 				new MagicBuffMultiplier(BuffID.OnFire,0.8f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),0.9f),
@@ -69,7 +65,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),1,1,DustID.Water,0f,0f,0,default,1.2f)];
 		}
-
+		public override void ExplosionEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOMagicSize), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+			}
+		}
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 10; n++)
@@ -79,13 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WaterBlast>()),]);
-		
-		public override void AddRecipes() 
-		{
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<HecateOrb>(1);
-			recipe.Register();
-		}
+
+		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WaterBlast>()),]);
 	}
 }

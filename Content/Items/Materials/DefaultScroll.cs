@@ -10,8 +10,8 @@ namespace ArcaneOdyssey.Content.Items.Materials
 {
 	public class DefaultScroll : ModItem
 	{
-		public int AOValue = 500;
-		public int AORarity = AORarities.Rare;
+		public virtual int AOValue => 500;
+		public virtual AORarities AORarity => AORarities.Rare;
 		public virtual void SetDefaultsScroll() { }
 		public override void SetDefaults()
 		{
@@ -20,21 +20,25 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.noMelee = true;
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;
-			Item.rare = AORarity;
+			Item.rare = (int)AORarity;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.DamageType = DamageClass.Magic;
-			Item.value = GalleonToCopper(AOValue, Item.rare);
+			Item.value = GalleonToCopper(AOValue);
 			SetDefaultsScroll();
 		}
 
 		public override void UpdateInventory(Player player)
 		{
-			AOPlayer playah = player.AOPlayer();
-			if (playah.imbue is not null)
+			AOPlayer playah = player.ArcaneOdyssey();
+			if (playah.imbue is not null && GetType().IsSubclassOf(typeof(DefaultScroll)))
 			{
 				Item.color = playah.imbue.MagicColour;
+				if (Item.color == Color.White || Item.color == Color.Black)
+				{
+					Item.color.A *= (byte).5f;
+				}
 			}
-			else Item.color = Color.Transparent;
+			else Item.color = default;
 		}
 
 		public virtual void ScrollRecipe()

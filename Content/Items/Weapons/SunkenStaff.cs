@@ -14,13 +14,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 {
     public class SunkenStaff : AOWeapon
     {
+        public override bool? ColdWeapon => true;
         public override float AOSpeed => .9f;
         public override float AOSize => 1.25f;
         public override float AODamage => 1f;
         public override int AOValue => 1350;
-        public override int AORarity => AORarities.Rare;
-        public override int AOWeaponTier => AOWeaponTiers.Excellent;
-        public override AODebuff WeaponDebuff => new AODebuff(BuffID.Wet, 600);
+        public override AORarities AORarity => AORarities.Rare;
+        public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Excellent;
+        public override AODebuffRequirement WeaponDebuff => new(BuffID.Wet, 600);
 
 
         public override void SetDefaultsWeapon()
@@ -31,12 +32,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.channel = true;
             Item.UseSound = SoundID.SplashWeak;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.autoReuse = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = false;
             Item.useAnimation = Item.useTime = 25;
-            Item.shootSpeed = 25 * AOSpeed;
         }
 
         public override void AddRecipes()

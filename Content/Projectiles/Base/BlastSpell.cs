@@ -1,14 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -20,11 +12,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		// ai 2 is large size bool
 
 
-		public virtual void SetDefaultsSpell2() {}
+		public virtual void SetDefaultsBlast() {}
 		public override void SetDefaultsSpell()
 		{
 			Projectile.timeLeft = 5 * 60;
-			SetDefaultsSpell2();
+			SetDefaultsBlast();
+			Projectile.height = Projectile.width = 64;
 			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 		}
 
@@ -43,14 +36,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Projectile.ai[0] = 1f;
 				BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
-                Projectile.netUpdate = true;
-            }
-			aoPlayerOwner ??= Main.player[Projectile.owner].AOPlayer();
-			thisMagic ??= aoPlayerOwner.imbue;
+				Projectile.netUpdate = true;
+			}
+			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if (!thisMagic.CanBeWet && Projectile.wet)
+			if (Projectile.TryGetImbue(out AOMagic imbue) && !imbue.CanBeWet && Projectile.wet)
 			{
-				Projectile.Kill();
+				Kill();
 				return;
 			}
 		}

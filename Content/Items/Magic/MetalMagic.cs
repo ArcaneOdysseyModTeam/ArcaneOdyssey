@@ -28,18 +28,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 0.65f;
 		public override float AOMagicSize => 1.2f;
 		public override float AOMagicDamage => 1.025f;
-		public override AODebuff MagicDebuff => new AODebuff(ModContent.BuffType<AOBleed>(), 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(ModContent.BuffType<AOBleed>(), 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>()
 			], 
 			[
 				new MagicBuffMultiplier(BuffID.Venom,1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.05f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.05f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.02f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
@@ -50,30 +46,31 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{ 
 			for(int n = 0;n<10;n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.Mercury,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Mercury,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f)];
 			}
 		}
 
 		public override void LingeringEffects(Projectile projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
 			spawnedDust.noGravity = true;
 		}
-
+		public override void ExplosionEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 2f)];
+			}
+		}
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Mercury, (2f * (float)(Main.rand.NextDouble() - 0.5)), (2f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Mercury, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 1f)];
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
-				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MetalBlast>()),]);
-		
-		public override void AddRecipes() {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient<HecateOrb>(1);
-            recipe.Register();
-        }
+
+		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MetalBlast>()),]);
 	}
 }

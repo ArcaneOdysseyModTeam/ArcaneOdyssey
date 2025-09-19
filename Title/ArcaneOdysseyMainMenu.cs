@@ -16,11 +16,6 @@ namespace ArcaneOdyssey.Title
 {
 	public class ArcaneOdysseyMainMenu : ModMenu
 	{
-        public override void SetStaticDefaults()
-        {
-
-        }
-
 		public class Raindrop
 		{
 			public int maxlife;
@@ -65,7 +60,7 @@ namespace ArcaneOdyssey.Title
 
 		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<TheTitleStyle>();
 
-		// public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("ArcaneOdyssey/ExtraAssets/Blank"); add logo here later
+		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("ArcaneOdyssey/Assets/TitleLogo");
 
 		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>("ArcaneOdyssey/Backgrounds/Blank");
 
@@ -115,8 +110,9 @@ namespace ArcaneOdyssey.Title
 					drawOffset.Y -= (BackgroundTexture.Height * scale - Main.screenHeight) * 0.5f;
 			}
 
+			var thecolour = AltMenu ? Color.Gray : Color.White;
 
-			spriteBatch.Draw(BackgroundTexture, drawOffset, null, AltMenu?Color.Gray:Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(BackgroundTexture, drawOffset, null, thecolour, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
 			Main.time = 27000;
 			Main.dayTime = !AltMenu;
@@ -142,7 +138,7 @@ namespace ArcaneOdyssey.Title
 			spriteBatch.End();
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-			spriteBatch.Draw(Logo.Value, new(Main.screenWidth / 2f, 100f), null, Color.White, 0, Logo.Value.Size() * .5f, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Logo.Value, new(Main.screenWidth/2f, 125f), null, thecolour, 0, Logo.Value.Size()/2f, 1f, SpriteEffects.None, 0f);
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 			return false;

@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Tiles.Base
             TileObjectData.newTile.StyleLineSkip = 2;
             TileObjectData.addTile(Type);
 
-            AddMapEntry(new Color(191, 142, 111), Language.GetText("ItemName.MusicBox"));
+            AddMapEntry(Color.Lavender, Language.GetText("ItemName.MusicBox"));
         }
 
         public override void MouseOver(int i, int j)
@@ -51,8 +51,8 @@ namespace ArcaneOdyssey.Content.Tiles.Base
             }
 
             int MusicNote = Main.rand.Next(570, 573);
-            Vector2 SpawnPosition = new Vector2(i * 16 + 8, j * 16 - 8);
-            Vector2 NoteMovement = new Vector2(Main.WindForVisuals * 2f, -0.5f);
+            Vector2 SpawnPosition = new(i * 16 + 8, j * 16 - 8);
+            Vector2 NoteMovement = new(Main.WindForVisuals * 2f, -0.5f);
             NoteMovement.X *= Main.rand.NextFloat(0.5f, 1.5f);
             NoteMovement.Y *= Main.rand.NextFloat(0.5f, 1.5f);
             switch (MusicNote)

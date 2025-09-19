@@ -1,5 +1,12 @@
 # This file will automatically update with entries for new content after a build and reload.
 
+FirstCultistKillDescription: First Lunatic Cultist Defeated
+
+WorldGen: {
+	Tucker: Burying Tucker
+	Morden: Placing Morden
+}
+
 MenuStyle: Odyssey Style
 AltMenuStyle: Dark Sea Style
 
@@ -44,29 +51,9 @@ Buffs: {
 		Description: You are covered in ash
 	}
 
-	CrystalStackI: {
-		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage
-	}
-
-	CrystalStackII: {
-		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage
-	}
-
-	CrystalStackIII: {
-		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage
-	}
-
-	CrystalStackIIII: {
-		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage
-	}
-
-	CrystalStackMid: {
-		DisplayName: Crystalized
-		Description: Crystals are embeded in your body, ready to shatter and deal damage
+	Crystallized: {
+		DisplayName: Crystallized
+		Description: "{0} Crystals are embeded in your body, ready to shatter and deal damage"
 	}
 
 	AOBleed: {
@@ -124,6 +111,10 @@ Projectiles: {
 	JerminusBlast.DisplayName: Jerminus Blast
 	MagicCircle.DisplayName: Magic Circle
 	MagicCircle2.DisplayName: Magic Circle
+	ExplosionTracker.DisplayName: Explosion Tracker
+	ExplosionSpell.DisplayName: Explosion Spell
+	DeliriumBlast.DisplayName: Delirium Blast
+	DeathCurse.DisplayName: Death Curse
 }
 
 ImbueStuff: {
@@ -153,12 +144,68 @@ Configs: {
 			Label: Ignored Projectiles
 			Tooltip: Insert projectile names here to blacklist them, might not work
 		}
+
+		GenerateTucker: {
+			Label: Generate Tucker's Grave
+			Tooltip: Toggles the generation of Tucker's grave on world creation
+		}
 	}
 }
 
-NPCs.DebuffDummy.DisplayName: Debuff Dummy
+NPCs: {
+	DebuffDummy.DisplayName: Debuff Dummy
+
+	Edgelord: {
+		DisplayName: Curse Thief
+		DisplayName1: Edgelord
+		DeathCurse: Morden's Curse has left...
+		Census.SpawnCondition: Always available, spawned on world creation
+
+		Chat: {
+			Intro: Hello, {PlayerName}.
+			Grave: That grave. It once belonged to a good friend of ours, Tucker.
+			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
+			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he is as immortal as I.
+			Hello: Hello again.
+		}
+
+		Help: {
+			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
+			Early2: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
+			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
+			PreHard1: It's said there's some abomination deep, deep underground that contains a large amount of magic power. It might be benificial to obtain this power.
+			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
+			EarlyHard1: Killing that beast should have granted you some of it's power in the form of a sigil. You should use that if you haven't already.
+			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
+			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
+			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
+			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
+			NothingToSay: I don't have anything to say right now.
+		}
+
+		TownNPCMood: {
+			Content: I have no issues at the moment.
+			NoHome: Although I'm usually travelling, it would be nice to have a place to rest.
+			FarFromHome: I'm quite far from camp, aren't I?
+			LoveSpace: It's quite peaceful here.
+			DislikeCrowded: There are quite a lot of people here.
+			HateCrowded: This place is absolutely crammed.
+			LoveBiome: I love {BiomeName}, it's so open and free.
+			LikeBiome: Hm, {BiomeName} reminds me of Sameria, not a bad thing at all.
+			DislikeBiome: I must complain, {BiomeName} is so cold.
+			HateBiome: You would really put me in {BiomeName}, after everything we've been through?!
+			LikeNPC: "{NPCName} is a kind old man, like Enzior."
+			LoveNPC: "{NPCName} and I have quite a few things in common, we get along very well."
+			DislikeNPC: "{NPCName} is a pirate, something that I've had some negative experiences with out at sea."
+			HateNPC: "{NPCName} disgusts me with such experiments."
+			LikeNPC_Princess: "{NPCName} really shows me that not all royalty are wicked, quite respectable."
+			Princess_LovesNPC: "{NPCName} used to look at me funny, but we get along quite well now!"
+		}
+	}
+}
 
 MagicTierLines: {
+	Unobtainable: Unobtainable
 	Normal: "[c/2277ff:-Basic Magic-]"
 	Lost: "[c/0044ff:-Lost Magic-]"
 	Ancient: -Ancient Magic-

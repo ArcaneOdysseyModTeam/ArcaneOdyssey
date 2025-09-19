@@ -2,14 +2,14 @@
 
 	<!-- Import tModLoader mod properties -->
 	<Import Project="..\tModLoader.targets" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>$(DefineConstants);VSDEBUGMODE</DefineConstants>
+	</PropertyGroup>
 
 	<!-- General -->
 	<PropertyGroup>
 		
 	</PropertyGroup>
-	<ItemGroup>
-	  <Compile Include="README.md" />
-	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Assets\" />
 	  <Folder Include="Content\Items\Vanity\" />

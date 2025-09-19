@@ -13,9 +13,5 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class MagmaBlast : BlastSpell
 	{
-		public override void SetDefaultsSpell2()
-		{
-			Projectile.width = Projectile.height = 50; // placeholder sprite currently in effect
-		}
 	}
 }

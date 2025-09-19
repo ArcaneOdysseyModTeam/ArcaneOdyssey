@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <summary>
 		/// Without enchantments ect
 		/// </summary>
-		public virtual int AORarity => AORarities.Common;
+		public virtual AORarities AORarity => AORarities.Common;
 
 		public virtual int MinionSlots => 0;
 
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			Item.defense = AODefense.FromAODefense();
 			SetDefaultsArmour();
-			Item.value = GalleonToCopper(AOValue, AORarity);
+			Item.value = GalleonToCopper(AOValue);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -105,7 +105,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			player.GetDamage(DamageClass.Generic) += AOPower / 100f;
 			player.GetCritChance(DamageClass.Generic) += AOPower;
 			player.moveSpeed += AOAgility / 100f;
-			player.AOPlayer().AOSizeStat += AOSize;
+			player.ArcaneOdyssey().AOSizeStat += AOSize;
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
 			UpdateArmour(player);

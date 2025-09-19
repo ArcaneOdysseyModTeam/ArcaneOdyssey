@@ -30,11 +30,11 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 0.85f;
 		public override float AOMagicSize => 1.2f;
 		public override float AOMagicDamage => 0.975f;
-		public override AODebuff MagicDebuff => new(ModContent.BuffType<FreezingEffect>(), 60 * 10);
-		public override AODebuff MagicDebuff2 => new(ModContent.BuffType<AOFrozen>(), 60, 33);
+		public override AODebuffRequirement MagicDebuff => new(ModContent.BuffType<FreezingEffect>(), 60 * 10);
+		public override AODebuffRequirement MagicDebuff2 => new(ModContent.BuffType<AOFrozen>(), 60, 33);
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
-		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>(
+		public override Dictionary<Type, int> Spells => new(
 			[KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IceBlast>()),
 			// create more here as time passes
 			]);
@@ -59,42 +59,41 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
 				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.15f),
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),1.075f)
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
 			]
 			);
-			public override void SpawningEffects(Projectile projectile) 
-			{
+		public override void SpawningEffects(Projectile projectile) 
+		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.SnowflakeIce, (projectile.velocity.X * 0.5f), (projectile.velocity.Y * 0.5f), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SnowflakeIce, (projectile.velocity.X * 0.5f), (projectile.velocity.Y * 0.5f), 0, default, 3f)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),0,0,DustID.Ice,(projectile.velocity.X*0.5f),(projectile.velocity.Y*0.5f),0,default,2f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Ice,(projectile.velocity.X*0.5f),(projectile.velocity.Y*0.5f),0,default,2f)];
 			}
-			}
-		public override void LingeringEffects(Projectile projectile)
-		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.Ice, 0f, 0f, 0, default, 1f)];
 		}
 
+		public override void LingeringEffects(Projectile projectile)
+		{
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Ice, 0f, 0f, 0, default, 1f)];
+		}
+		public override void ExplosionEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 2f)];
+			}
+		}
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.SnowflakeIce, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SnowflakeIce, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.Ice, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 2f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Ice, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 2f)];
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
-		}
-			public override void AddRecipes()
-		{
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<HecateOrb>(1);
-			recipe.Register();
 		}
 	}
 }

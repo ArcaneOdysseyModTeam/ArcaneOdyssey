@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 		public override int AODefense => 204;
 		public override int AOSize => 23;
 		public override int AOAttkSpd => 23;
-		public override int AORarity => AORarities.Rare;
+		public override AORarities AORarity => AORarities.Rare;
 
 		public override int AOAgility => 30;
 		public override int AOValue => 1350;
@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.AOPlayer().sunkenArmour = true;
+			player.ArcaneOdyssey().sunkenArmour = true;
 			player.setBonus = Mod.CustomLocalization($"Items.SunkenBoots.SetText").Value;
 		}
 

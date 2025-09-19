@@ -1,6 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,51 +12,77 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle2 : AOPlayerProjectile
 	{
-		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>("ArcaneOdyssey/Content/Projectiles/MagicCircle2").Value;
+		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Content/Projectiles/{nameof(MagicCircle2)}").Value;
 
 		public override void SetDefaults()
-        {
-            Projectile.height = Projectile.width = 64;
-            Projectile.tileCollide = false;
+		{
+			Projectile.height = Projectile.width = 64;
+			Projectile.tileCollide = false;
 		}
 
 		public bool shouldBeAlive = true;
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.PI * (FramesAlive / 120f);
-            Player player = Main.player[Projectile.owner];
-            aoPlayerOwner ??= player.AOPlayer();
-			thisMagic ??= aoPlayerOwner.imbue;
-			Projectile.ai[0] += player.channel && !player.dead && thisMagic is not null && shouldBeAlive ? 0 : 1;
-			if (thisMagic is not null)
+			if (Projectile.ai[0] == 0f)
+			{
+				Projectile.ai[0] = 1f;
+				Projectile.netUpdate = true;
+			}
+			Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f);
+			Player player = Main.player[Projectile.owner];
+			aoPlayerOwner ??= player.ArcaneOdyssey();
+			if (Projectile.ai[2] == 0)
+			{
+				if (Projectile.TryGetImbue(out AOMagic imbue))
+					Projectile.ai[2] = imbue.Type;
+			}
+			Imbue = (AOMagic)ModContent.GetModItem((int)Projectile.ai[2]);
+			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null && shouldBeAlive ? 0 : 1;
+			if (Projectile.ai[0] < 1)
+			{
+				aoPlayerOwner.myCircle = Projectile;
+				if (Projectile.ai[1] == 2)
+				{
+					Projectile.Center = player.Center;
+					player.velocity = Vector2.Zero;
+					player.maxFallSpeed = 0f;
+				}
+				else
+					Projectile.position = Main.MouseWorld - new Vector2(Projectile.width/2, Projectile.height/2);
+			}
+			else
+				aoPlayerOwner.myCircle = null;
+
+			if (Imbue is not null)
 			{
 				float tempLightColorR = 0f;
 				float tempLightColorG = 0f;
 				float tempLightColorB = 0f;
-				if (thisMagic.MagicColour.R != 0f)
+				if (Imbue.MagicColour.R != 0f)
 				{
-					tempLightColorR = 3f / thisMagic.MagicColour.R;
+					tempLightColorR = 3f / Imbue.MagicColour.R;
 				}
-				if (thisMagic.MagicColour.G != 0f)
+				if (Imbue.MagicColour.G != 0f)
 				{
-					tempLightColorG = 3f / thisMagic.MagicColour.G;
+					tempLightColorG = 3f / Imbue.MagicColour.G;
 				}
-				if (thisMagic.MagicColour.B != 0f)
+				if (Imbue.MagicColour.B != 0f)
 				{
-					tempLightColorB = 3f / thisMagic.MagicColour.B;
+					tempLightColorB = 3f / Imbue.MagicColour.B;
 				}
 
 				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
 
 				if (Projectile.localAI[0] > 5 && !Main.dedServ)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, thisMagic.MagicColour, 1f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.MagicColour, 1f)];
 					spawnedDust.noGravity = true;
 					Projectile.localAI[0] = 0;
 				}
@@ -77,18 +102,19 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (thisMagic is not null)
+			if (Imbue is not null)
 			{
-				Color drawColor = thisMagic.MagicColour;
+				Color drawColor = Imbue.MagicColour;
 				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, new Vector2(Projectile.height/2, Projectile.height / 2), thisMagic.AOMagicSize * Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, new Vector2(Projectile.height/2, Projectile.height / 2), Imbue.AOMagicSize * Projectile.scale, SpriteEffects.None);
 			}
 			return false;
 		}
 
-        public override void OnKill(int timeLeft)
-        {
+		public override void OnKill(int timeLeft)
+		{
+			Main.player[Projectile.owner].ArcaneOdyssey().myCircle = null;
 			Main.player[Projectile.owner].channel = false;
-        }
+		}
 	}
 }

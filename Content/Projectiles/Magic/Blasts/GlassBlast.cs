@@ -13,9 +13,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class GlassBlast : BlastSpell
 	{
-		public override void SetDefaultsSpell2()
+		public override void SetDefaultsBlast()
 		{
-			Projectile.width = Projectile.height = 64; // placeholder sprite currently in effect
+			
 			Projectile.alpha = (int)(225 * .75f);
 		}
 	}

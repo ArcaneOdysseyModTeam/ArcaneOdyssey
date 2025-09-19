@@ -21,9 +21,10 @@ using Terraria.Audio;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class MagmaMagic : AOMagic
-	{
-		public override bool CanBeWet => false;
-		public override Color MagicColour => new Color(255,50,0,0);
+    {
+        public override bool? ColdMagic => false;
+        public override bool CanBeWet => false;
+		public override Color MagicColour => new(255,50,0,0);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 0.975f;
@@ -31,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 1.2f;
 		public override float AOMagicDamage => 0.9f;
 		public override SoundStyle? MagicSound => SoundID.Item21;
-		public override AODebuff MagicDebuff => new AODebuff(BuffID.OnFire3, 60*10);
+		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(BuffID.OnFire3, 60*10);
 		public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
 				BuffID.Chilled, // freezing
@@ -56,11 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(), 0.99f),
 				new MagicBuffMultiplier(BuffID.Wet, .95f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackI>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackII>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIII>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackMid>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<CrystalStackIIII>(),0.95f)
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.95f),
 			]
 			);
 			
@@ -68,32 +65,35 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.InfernoFork, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 2.5f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.InfernoFork, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 2.5f)];
 				spawnedDust.noGravity = true;
 			}
 		}
 		public override void LingeringEffects(Projectile projectile) 
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 1, 1, DustID.InfernoFork, 0f, 0f, 0, default, 1.2f)];
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*(float)Main.rand.NextDouble()),projectile.position.Y+(projectile.height*(float)Main.rand.NextDouble())),1,1,DustID.SolarFlare,0f,0f,0,default,1.2f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.InfernoFork, 0f, 0f, 0, default, 1.2f)];
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),1,1,DustID.SolarFlare,0f,0f,0,default,1.2f)];
 			Lighting.AddLight(projectile.position,1f,0.19f,0f);
+		}
+		public override void ExplosionEffects(Projectile projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.InfernoFork, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 1.4f)];
+			}
 		}
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * (float)Main.rand.NextDouble()), projectile.position.Y + (projectile.height * (float)Main.rand.NextDouble())), 0, 0, DustID.InfernoFork, (8f * (float)(Main.rand.NextDouble() - 0.5)), (8f * (float)(Main.rand.NextDouble() - 0.5)), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.InfernoFork, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(MagicSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MagmaBlast>()),]);
-		
-		public override void AddRecipes() 
-		{
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<HecateOrb>(1);
-			recipe.Register();
-		}
+
+		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MagmaBlast>()),]);
 	}
 }

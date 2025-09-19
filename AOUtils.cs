@@ -1,15 +1,12 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
-using ReLogic.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -18,34 +15,54 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
+
+		public static AOMagic Imbue(this Player player) => player.ArcaneOdyssey().imbue;
+
+
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-			if (goodclasses.Contains(projectile.DamageType.Name))
+			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				return true;
+				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
+				if (goodclasses.Contains(projectile.DamageType.Name))
+				{
+					return true;
+				}
+				return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle or MagicCircle2
+					&& projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.type != ProjectileID.FallingStar;
 			}
-			return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle or MagicCircle2;
+			return false;
 		}
 
-        public static bool ImbueClassCheck(Item item)
-        {
-            List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-            if (goodclasses.Contains(item.DamageType.Name))
-            {
-                return true;
-            }
-            return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed;
-        }
-
-        public static int FromAODefense(this int val)
+		public static bool ImbueClassCheck(Item item)
 		{
-			return (int)Math.Round(val/18f);
+			if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				string[] goodclasses = ["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"];
+				if (goodclasses.Contains(item.DamageType.Name))
+				{
+					return true;
+				}
+				return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)));
+			}
+			return false;
 		}
 
-		public static int IndexOf<T>(this Array array, T item)
+		public static int FromAODefense(this int val) => (int)Math.Round(val/18f);
+
+		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
+
+		public static bool TryGetImbue(this Item item, out AOMagic imbue)
 		{
-			return Array.IndexOf(array, item);
+			imbue = item.ArcaneOdyssey().imbue;
+			return imbue is not null;
+		}
+
+		public static bool TryGetImbue(this Projectile projectile, out AOMagic imbue)
+		{
+			imbue = projectile.ArcaneOdyssey().imbue;
+			return imbue is not null;
 		}
 
 		/// <summary>
@@ -58,7 +75,7 @@ namespace ArcaneOdyssey
 		public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
 		{
 			LocalizedText text = LocalizedText.Empty;
-			if (ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
+			if (global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
 			{
 				text = value;
 			}
@@ -69,51 +86,55 @@ namespace ArcaneOdyssey
 				{
 					text = text.WithFormatArgs(formatting);
 				}
-				ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
+				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
 			}
 			return text;
 		}
 
-		public static int BonusBossKills()
+		public static int GetBossKillCount()
 		{
 			int count = 0;
-			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops];
+			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates];
 			foreach (bool killed in conditions)
 			{
 				if (killed)
 					count++;
 			}
 			return count;
-		}
+		} 
+
+		public static int BossesKilled => GetBossKillCount();
 
 		/// <summary>
 		/// Arcane Odyssey rarities, converted to RarityID
 		/// </summary>
-		public class AORarities
+		public enum AORarities
 		{
-			public const short Common = -1;
-			public const short Uncommon = 0;
-			public const short Rare = 1;
-			public const short Exotic = 4;
-			public const short Legendary = 7;
+			Common = -1,
+			Uncommon = 0,
+			Rare = 1,
+			Exotic = 4,
+			Legendary = 7,
 		}
 
 		public enum AOMagicTier
 		{
-			Normal = 1,
-			Lost = 2,
-			Ancient = 3,
-			Custom = 4,
+			Unobtainable,
+			Normal,
+			Lost,
+			Ancient,
+			Custom,
 		}
 
 		/// <summary>
-		/// Arcane Odyssey weapon tiers, used for scaling. Weapon skill index: 2 is Old; 3 is Normal; 5 is Excellent
+		/// Arcane Odyssey weapon tiers, used for scaling. Weapon skill index: 2 is Old; 3 is Normal; 4 is Excellent
 		/// </summary>
-		public class AOWeaponTiers
+		public enum AOWeaponTiers
 		{
-			public const short Old = 1;
-			public const short Normal = 2;
-			public const short Excellent = 3;
+			Trash,
+			Old,
+			Normal,
+			Excellent,
 		}
 
 		/// <summary>
@@ -122,7 +143,7 @@ namespace ArcaneOdyssey
 		/// <param name="debuffid">Terraria.ID.BuffID</param>
 		/// <param name="duration">Duration, in ticks (60/second)</param>
 		/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
-		public class AODebuff(int debuffid, int duration, int? debuffRequiement = null)
+		public class AODebuffRequirement(int debuffid, int duration, int? debuffRequiement = null)
 		{
 			public int debuffID = debuffid;
 			public int debuffDuration = duration;
@@ -188,21 +209,17 @@ namespace ArcaneOdyssey
 		/// Converts AO Galleons/Drachmae to Terraria Copper
 		/// </summary>
 		/// <param name="price">Price, in Galleons</param>
-		/// <param name="rarity">Rarity of the item, use AORarities</param>
 		/// <returns></returns>
-		public static int GalleonToCopper(int price, int rarity)
-		{
-			return price * (rarity + 2) * (1 + 1 / 9);
-		}
+		public static int GalleonToCopper(int price) => price * 100; // very simple lol, previously nothing was worth anything
 
 
 		/// <summary>
 		/// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
 		/// </summary>
 		/// <param name="AODamage">AO weapon damage multiplier</param>
-		/// <param name="AOWeaponTier">AO weapon tier, use AOWeaponTiers</param>
+		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOWeaponTiers"/></param>
 		/// <returns></returns>
-		public static float WeaponDamage(int AOWeaponTier) => 25 * AOWeaponTier;
+		public static float WeaponDamage(AOWeaponTiers AOWeaponTier) => 25 * ((int)AOWeaponTier+1);
 
 		/// <summary>
 		/// Turns 1.4 into .6
@@ -216,26 +233,17 @@ namespace ArcaneOdyssey
 			return 2f - input;
 		}
 
-		public static float MultiToPercent(this float multiplier)
-		{
-			/*if (multiplier > 1)
-			{
-				return multiplier - 1;
-			}
-			else if (multiplier < 1)
-			{
-				return -(2 - (1 + multiplier));
-			}
-			else return 1;*/
-			return multiplier-1f;
-		}
+		public static float MultiToPercent(this float multiplier) => multiplier-1f; // wow simplest function on the earth
 
 		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
 		{
 			defaultValue ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
 		}
-
-		public static AOPlayer AOPlayer(this Player player) => player.GetModPlayer<AOPlayer>();
+		
+		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
+		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
+		public static AOProjectile ArcaneOdyssey(this Projectile projectile) => projectile.GetGlobalProjectile<AOProjectile>();
+		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
 	}
 }

@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 1f;
 		public override float AOMagicSize => 1f;
 		public override float AOMagicDamage => 1f;
-		public override AODebuff MagicDebuff => null;
+		public override AODebuffRequirement MagicDebuff => null;
         public override AOMagicTier MagicTier => AOMagicTier.Lost;
         public override MagicEffects Effects => new MagicEffects(
 			[ // these are debuffs cleared on hit
@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-				public override Dictionary<Type, int> Spells => new Dictionary<Type, int>([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()),]);
+				public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()),]);
 		
 		public override void AddRecipes() {
             

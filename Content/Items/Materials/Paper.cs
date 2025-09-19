@@ -8,15 +8,15 @@ namespace ArcaneOdyssey.Content.Items.Materials
     public class Paper : ModItem
     {
         public int AOValue = 1;
-        public int AORarity = AORarities.Common;
+        public AORarities AORarity = AORarities.Common;
 
         public override void SetDefaults()
         {
             Item.width = 30;
             Item.height = 32;
             Item.maxStack = 9999;
-            Item.rare = AORarity;
-            Item.value = GalleonToCopper(AOValue, Item.rare);
+            Item.rare = (int)AORarity;
+            Item.value = GalleonToCopper(AOValue);
         }
 
         public override void AddRecipes()

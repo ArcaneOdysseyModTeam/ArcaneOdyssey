@@ -1,5 +1,9 @@
-Completely rewrites how debuffs work and interact with eachother, with the power of Magic
+Adds over 20 unique magic types with unique interactions and attributes!
+Multiplayer and cross-mod compatible!
+Synergistic combat system using debuffs!
+Tons of custom visual effects!
+Make scrolls to cast various spells!
 
-More info on workshop page
+More info on Steam workshop page...
 
 Based off the game "Arcane Odyssey" by vetexgames

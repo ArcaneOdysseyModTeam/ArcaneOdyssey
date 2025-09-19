@@ -1,261 +1,31 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
-using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles;
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons;
-using Humanizer;
-using Microsoft.Xna.Framework;
-using System;
+using ArcaneOdyssey.Content.NPCS;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.Generation;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.UI;
 using Terraria.ID;
+using Terraria.IO;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
-using static ArcaneOdyssey.AOUtils;
+using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey
 {
-	public class ArcaneOdyssey : Mod 
+	public class ArcaneOdyssey : Mod // what does bro even do lmao
 	{
-		public static Dictionary<string, LocalizedText> staticLocalizer = new();
-	}
-
-	public class ItemManager : GlobalItem
-	{
-
-		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-			AOPlayer playah = player.AOPlayer();
-			if (item.ModItem is AOWeapon weap)
-			{
-				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null or 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
-				{
-					target.AddBuff(weap.WeaponDebuff.debuffID, weap.WeaponDebuff.debuffDuration);
-				}
-			}
-
-			if (playah.imbue is not null)
-			{
-				if ((playah.imbue.MagicDebuff is not null) && (playah.imbue.MagicDebuff.DebuffPercent != 0f)) 
-				{
-					if (playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent))
-					{
-						target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
-					}
-				}
-				if ((playah.imbue.MagicDebuff2 is not null) && (playah.imbue.MagicDebuff2.DebuffPercent != 0f)) 
-				{
-					if (playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent))
-					{
-						target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
-					}
-				}
-
-				if (playah.imbue.CombinedDebuffs is not null)
-				{
-					foreach (CombinedDebuff buffkeys in playah.imbue.CombinedDebuffs)
-					{
-						if (target.HasBuff(buffkeys.requirement))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-					}
-				}
-
-				foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
-				{
-					if (target.HasBuff(multiplier.buffID))
-					{
-						modifiers.FinalDamage *= multiplier.multiplier;
-					}
-				}
-
-				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-				{
-					foreach (int buffid in playah.imbue.Effects.clearBuffs)
-					{
-						if (target.HasBuff(buffid))
-						{
-							target.DelBuff(target.FindBuffIndex(buffid));
-						}
-
-					}
-				}
-			}
-		}
-		
-		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
-		{
-			if (item.type == ItemID.OceanCrateHard)
-			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArcaniumScrap>(), 15, 0, 1));
-			}
-		}
-
-		public override void UpdateInventory(Item item, Player player)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-		}
-
-		/// <summary>
-		/// used in singleplayer exclusively to display current imbue, might not work in multiplayer idk
-		/// </summary>
-		public static AOPlayer playerForImbue = null;
-
-		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-		{
-			if (ImbueClassCheck(item))
-			{
-				string imbuetextthing = Mod.CustomLocalization("ImbueStuff.NoneText").Value;
-				if (playerForImbue is not null)
-					if (playerForImbue.imbue is not null)
-						imbuetextthing = playerForImbue.imbue.Item.Name;
-				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization("ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
-			}
-
-			if (item.ModItem is AOMagic magical)
-			{
-				tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.CustomLocalization($"MagicTierLines.{magical.MagicTier}").Value));
-			}
-		}
-
-		public override bool? UseItem(Item item, Player player)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-			return null;
-		}
-
-		public override void ModifyItemScale(Item item, Player player, ref float scale)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-			if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
-			{
-				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-				{
-					scale += aoWeapon.AOSize.MultiToPercent() + player.AOPlayer().imbue.AOImbueSize.MultiToPercent() + player.AOPlayer().GetSizeMulti(item).MultiToPercent();
-				}
-				else if (item.ModItem is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
-				{
-					scale += player.AOPlayer().imbue.AOImbueSize.MultiToPercent() + player.AOPlayer().GetSizeMulti(item).MultiToPercent();
-				}
-			}
-		}
-
-		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-			if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
-			{
-				float extrakbmulti = 1f;
-				if (player.AOPlayer().imbue is WindMagic)
-				{
-					extrakbmulti = 3f;
-				}
-				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-				{
-					knockback += aoWeapon.AOSize.MultiToPercent() + player.AOPlayer().imbue.AOImbueSize.MultiToPercent() + extrakbmulti + player.AOPlayer().GetSizeMulti(item).MultiToPercent();
-				}
-				else if (item.ModItem is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
-				{
-					knockback += player.AOPlayer().imbue.AOImbueSize.MultiToPercent() + extrakbmulti.MultiToPercent();
-				}
-			}
-		}
-
-		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-			if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
-            {
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
-                {
-                    damage.Base += BonusBossKills();
-                }
-                if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-				{
-					damage += aoWeapon.AODamage.MultiToPercent() + player.AOPlayer().imbue.AOImbueDamage.MultiToPercent();
-				}
-				else if (item.ModItem is null) // do not touch items from other mods
-				{
-					damage += player.AOPlayer().imbue.AOImbueDamage.MultiToPercent();
-				}
-			}
-		}
-		public override float UseSpeedMultiplier(Item item, Player player)
-		{
-			if (player == Main.LocalPlayer)
-				playerForImbue = player.AOPlayer();
-			if (player.AOPlayer().imbue is not null && ImbueClassCheck(item))
-			{
-				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
-				{
-					return aoWeapon.AOSpeed + player.AOPlayer().imbue.AOImbueSpeed.MultiToPercent();
-				}
-				else if (item.ModItem is not null && ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-				{
-					return player.AOPlayer().imbue.AOImbueSpeed;
-				}
-				else if (item.ModItem is null) // do not touch items from other mods
-				{
-					return player.AOPlayer().imbue.AOImbueSpeed;
-				}
-			}
-			return 1f;
-		}
-	}
-
-	public class NPCDrops : GlobalNPC
-	{
-		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-		{
-			if (npc.type == NPCID.WallofFlesh)
-			{
-				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.IsPreHardmode());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
-				npcLoot.Add(leadingConditionRule);
-			}
-			if (npc.type == NPCID.CultistBoss)
-			{
-				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateOrb>()));
-				npcLoot.Add(leadingConditionRule);
-			}
-			if (npc.type == NPCID.Plantera)
-			{
-				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
-				npcLoot.Add(leadingConditionRule);
-			}
-		}
+		public static Dictionary<string, LocalizedText> staticLocalizer = [];
 	}
 
 	public class FirstCultistKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => !NPC.downedAncientCultist;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister("Mods.ArcaneOdyssey.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
 	}
 
 
@@ -270,13 +40,15 @@ namespace ArcaneOdyssey
 
 		public int AOSizeStat = 0;
 
+		public Projectile myCircle = null;
+		public float StunCD = 0;
 		public bool RightClicking => Player.altFunctionUse == 2;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
 			if (!mediumCoreDeath)
 			{
-				return [new Item(ModContent.ItemType<HecateOrb>()), new Item(ModContent.ItemType<TitleMusicBox>())];
+				return [new Item(ModContent.ItemType<PoseidonChoice>()), new Item(ModContent.ItemType<TitleMusicBox>())];
 			}
 			else return [];
 		}
@@ -314,202 +86,93 @@ namespace ArcaneOdyssey
 			}
 			return stat + 1f;
 		}
+
+        public override void PreUpdate()
+        {
+			if (Main.LocalPlayer == Player)
+				StunCD -= 1 / 60;
+        }
 	}
 
-	public class ProjectileManager : GlobalProjectile
+	public class WorldGenTasks
 	{
-		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+		public static void KillTucker(int left, int top, int right, int bottom, int tile)
 		{
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj)
+			bool success = false;
+			while (!success)
 			{
-				AOPlayer playah = Main.player[projectile.owner].AOPlayer();
-				if (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name))
+				int attempts = 0;
+				while (!success && attempts <= 1000)
 				{
-					if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && ImbueClassCheck(projectile))
+					attempts++;
+					int x = WorldGen.genRand.Next(left, right + 1);
+					int y = WorldGen.genRand.Next(top, bottom + 1);
+					if (Framing.GetTileSafely(x, y).TileType != tile)
 					{
-						AOMagic imbue = null;
-						bool spell = false;
-						if (projectile.ModProjectile is AOPlayerProjectile proj)
-						{
-							imbue = proj.thisMagic;
-							spell = proj.IsSpell;
-						}
-						else imbue = playah.imbue;
-						if (spell)
-						{
-							modifiers.FinalDamage.Base += BonusBossKills();
-						}
-						if (imbue is not null)
-						{
-							modifiers.FinalDamage *= !spell ? imbue.AOImbueDamage : imbue.AOMagicDamage;
-							if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
-							{
-								if (imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff.DebuffPercent))
-								{
-									target.AddBuff(imbue.MagicDebuff.debuffID, imbue.MagicDebuff.debuffDuration);
-								}
-							}
-							if ((imbue.MagicDebuff2 is not null) && (imbue.MagicDebuff2.DebuffPercent != 0f))
-							{
-								if (imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff2.DebuffPercent))
-								{
-									target.AddBuff(imbue.MagicDebuff2.debuffID, imbue.MagicDebuff2.debuffDuration);
-								}
-							}
-
-							if (imbue.CombinedDebuffs is not null)
-							{
-								foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
-								{
-									if (target.HasBuff(buffkeys.requirement))
-									{
-										target.AddBuff(buffkeys.result, buffkeys.duration);
-									}
-								}
-							}
-
-							foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
-							{
-								if (target.HasBuff(multiplier.buffID))
-								{
-									modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-								}
-							}
-
-							if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-							{
-								foreach (int buffid in imbue.Effects.clearBuffs)
-								{
-									if (target.HasBuff(buffid))
-									{
-										target.DelBuff(target.FindBuffIndex(buffid));
-									}
-
-								}
-							}
-						}
+						WorldGen.PlaceObject(x, y, tile, false, 2, 0, -1, Utils.NextBool(WorldGen.genRand, 2) ? 1 : -1);
 					}
+					Tile tile1 = Framing.GetTileSafely(x, y); // maybe use later for something
+					success = tile1.TileType == tile;
+				}
+				if (attempts > 1000)
+				{
+					break;
 				}
 			}
 		}
 
-		public static Dictionary<string, Vector2> OriginalScales = [];
-
-		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
+		public static void SpawnMorden()
 		{
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star")
-			{
-				Player player = Main.player[projectile.owner];
-				Vector2 dim = new(hitbox.Width, hitbox.Height);
-				if (projectile.ModProjectile is AOBaseProjectile origin)
-				{
-					dim = origin.OriginalDimensions.GetValueOrDefault(new(hitbox.Width, hitbox.Height));
-				}
-				else
-				{ 
-					dim = OriginalScales.GetValueOrDefault(projectile.Name, new(hitbox.Width, hitbox.Height)); 
-				}
-				if (ImbueClassCheck(projectile))
-				{
-					AOMagic imbue = null;
-					float scale = 1f;
-					bool spell = false;
-					if (projectile.ModProjectile is AOPlayerProjectile proj)
-					{
-						imbue = proj.thisMagic;
-						scale = proj.BaseScale.GetValueOrDefault(1f) + proj.AOSize.MultiToPercent();
-						spell = proj.IsSpell;
-					}
-					else
-						imbue = Main.player[projectile.owner].AOPlayer().imbue;
-					float mult = scale;
-					if (imbue is not null)
-					{
-						mult = (spell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + scale + player.AOPlayer().GetSizeMulti(projectile).MultiToPercent();
-					}
-					hitbox.Width = (int)(dim.X * mult);
-					hitbox.Height = (int)(dim.Y * mult);
-					projectile.scale = mult;
-				}
-			}
+			NPC edgelord = NPC.NewNPCDirect(new EntitySource_WorldGen(), Main.spawnTileX * 16, Main.spawnTileY * 16, ModContent.NPCType<Edgelord>());
+			edgelord.homeTileX = Main.spawnTileX;
+			edgelord.homeTileY = Main.spawnTileY;
+			edgelord.direction = 1;
+			edgelord.homeless = true;
 		}
+	}
 
-		public override void OnSpawn(Projectile projectile, IEntitySource source)
+	public class WorldGenStuff : ModSystem
+	{
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
-			if (projectile.ModProjectile is AOBaseProjectile origin)
-			{
-				origin.OriginalDimensions ??= projectile.Size;
-				origin.BaseScale ??= projectile.scale;
-			}
-			else
-			{
-				OriginalScales[projectile.Name] = projectile.Size;
-			}
-			if (projectile.owner == Main.myPlayer && projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.Name != "Falling Star" && ImbueClassCheck(projectile))
-			{
-				AOMagic imbue = Main.player[projectile.owner].AOPlayer().imbue;
-				bool spell = false;
-				if (projectile.ModProjectile is AOPlayerProjectile proj)
+			// Tucker died lmao
+			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
+			if (ArcaneOdysseyConfig.Instance.GenerateTucker && Stalac != -1)
+				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
-					proj.aoPlayerOwner ??= Main.player[projectile.owner].AOPlayer();
-					proj.thisMagic ??= proj.aoPlayerOwner.imbue;
-					imbue = proj.thisMagic;
-					spell = proj.IsSpell;
-				}
-				if (imbue is not null)
-					projectile.velocity *= spell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
-				
+					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
+					WorldGenTasks.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
+				}));
 
-				Player player = Main.player[projectile.owner];
-				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && projectile.ModProjectile is not MagicCircle && imbue is not null)
+            int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
+			if (guide != -1)
+			{
+                tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
                 {
-                    AOMagic.CreateMagicCircle(projectile);
-                    imbue.SpawningEffects(projectile);
-				}
-			}
-		}
+                    progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
+                    WorldGenTasks.SpawnMorden();
+                }));
+            }
+        }
 
-		public override void AI(Projectile projectile)
+		public override void PostWorldGen()
 		{
-			Player player = Main.player[projectile.owner];
-			AOPlayer aoPlayerOwner = player.AOPlayer();
-			if (projectile.ModProjectile is AOBaseProjectile based)
+			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
 			{
-				based.FramesAlive++;
-			}
-			if (projectile.ModProjectile is AOPlayerProjectile proj)
-			{
-				proj.aoPlayerOwner ??= aoPlayerOwner;
-				proj.BaseScale ??= projectile.scale;
-				if (!Main.dedServ && ImbueClassCheck(projectile))
-					proj.thisMagic?.LingeringEffects(projectile);
-				if (aoPlayerOwner is not null)
+				Chest chest = Main.chest[chestIndex];
+				if (chest != null)
 				{
-					proj.thisMagic ??= aoPlayerOwner.imbue;
-				}
-			}
-			else
-			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
-				{
-					aoPlayerOwner?.imbue?.LingeringEffects(projectile);
-				}
-			}
-		}
-
-		public override void OnKill(Projectile projectile, int timeLeft)
-		{
-			Player player = Main.player[projectile.owner];
-			AOPlayer aoPlayerOwner = player.AOPlayer();
-			if (projectile.ModProjectile is AOPlayerProjectile proj && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
-			{
-				proj.thisMagic?.KillEffects(projectile);
-			}
-			else
-			{
-				if ((projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not MagicCircle)
-				{
-					aoPlayerOwner?.imbue?.KillEffects(projectile);
+					if (Main.rand.NextBool(6000))
+					{
+						for (int i = 0; i < Chest.maxItems; i++)
+						{
+							if (chest.item[i] != null)
+							{
+								chest.item[i].SetDefaults(ModContent.ItemType<Acrimony>());
+								break;
+							}
+						}
+					}
 				}
 			}
 		}
