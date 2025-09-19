@@ -180,10 +180,7 @@ namespace ArcaneOdyssey
 
 		public override void PostAI(Projectile projectile)
 		{
-			if (Main.myPlayer == projectile.owner)
-			{
-				FramesAlive++;
-            }
+			FramesAlive++;
         }
 
         public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
