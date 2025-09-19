@@ -25,9 +25,9 @@ namespace ArcaneOdyssey
 				if (projectile.TryGetImbue(out AOMagic imbue))
 				{
 					var spell = projectile.ModProjectile is MagicSpell;
-                    if (spell)
-                        modifiers.FinalDamage += ((projectile.damage + (BossesKilled * 2f)) / projectile.damage) - 1;
-                    modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOMagicDamage).MultiToPercent();
+					if (spell)
+						modifiers.FinalDamage += ((projectile.damage + (BossesKilled * 2f)) / projectile.damage) - 1;
+					modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOMagicDamage).MultiToPercent();
 					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 					{
 						modifiers.FinalDamage += .3f;
@@ -85,7 +85,7 @@ namespace ArcaneOdyssey
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
 			Player player = Main.player[projectile.owner];
-			Vector2 dim = new(hitbox.Width, hitbox.Height);
+			Vector2 dim = projectile.ArcaneOdyssey().OriginalDimensions.GetValueOrDefault(projectile.Size);
 			if (ImbueClassCheck(projectile))
 			{
 				float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
@@ -99,13 +99,12 @@ namespace ArcaneOdyssey
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;
 			}
-            
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
-            if (projectile.owner == Main.myPlayer)
-                if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile))
+			if (projectile.owner == Main.myPlayer)
+				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile))
 				{
 					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
 						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
@@ -160,29 +159,41 @@ namespace ArcaneOdyssey
 
 			return returntype; 
 		}
-    }
-    public class AOProjectile : GlobalProjectile
-    {
-        public override bool InstancePerEntity => true;
-        public float? BaseScale = null;
-        public Vector2 OriginalDimensions;
-        public int FramesAlive = 0;
+	}
+	public class AOProjectile : GlobalProjectile
+	{
+		public override bool InstancePerEntity => true;
+		public float? BaseScale = null;
+		public Vector2? OriginalDimensions = null;
+		public int FramesAlive = 0;
 		public AOMagic imbue;
 
-        public override void OnSpawn(Projectile projectile, IEntitySource source)
-        {
-            OriginalDimensions = projectile.Size;
-            BaseScale ??= projectile.scale;
+		public override void OnSpawn(Projectile projectile, IEntitySource source)
+		{
+			OriginalDimensions ??= projectile.Size;
+			BaseScale ??= projectile.scale;
 			if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
-				imbue = Main.player[projectile.owner].ArcaneOdyssey().imbue;
-        }
+				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
+		}
 
-        public override void PostAI(Projectile projectile)
-        {
-            if (Main.myPlayer == projectile.owner)
-            {
-                FramesAlive++;
+		public override void PostAI(Projectile projectile)
+		{
+			if (Main.myPlayer == projectile.owner)
+			{
+				FramesAlive++;
             }
         }
-    }
+
+        public override bool PreAI(Projectile projectile)
+        {
+            if (FramesAlive < 1 && Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                OriginalDimensions ??= projectile.Size;
+                BaseScale ??= projectile.scale;
+                if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
+                    imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
+            }
+			return true;
+        }
+	}
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
@@ -39,9 +40,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
             }
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if (!Imbue.CanBeWet && Projectile.wet)
+			if (Projectile.TryGetImbue(out AOMagic imbue) && !imbue.CanBeWet && Projectile.wet)
 			{
-				Projectile.Kill();
+				Kill();
 				return;
 			}
 		}

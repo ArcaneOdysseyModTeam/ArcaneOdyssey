@@ -157,7 +157,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(projectile.GetSource_FromThis(), Main.player[projectile.owner].position.X + (Main.player[projectile.owner].width / 2f), Main.player[projectile.owner].position.Y + (Main.player[projectile.owner].height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle>(), 0, 0f, projectile.owner)];
 				circleprojectile.rotation = projectile.velocity.ToRotation();
-				Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 15f;
+				Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 30f;
 				circleprojectile.position += circleVec;
 				circleprojectile.scale = projectile.scale;
 				return circleprojectile;

@@ -116,12 +116,10 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else
 			{
-				foreach (Player player in Main.ActivePlayers)
-				{
-					ChatHelper.SendChatMessageToClient(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan, Main.player.IndexOf(player)); 
-				}
+				ChatHelper.SendChatMessageToClient(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan, Main.myPlayer);
 			}
-			Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 0, 0f, -1, default);
+			if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)
+				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 0, 0f, -1, default);
 		}
 		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(!Main.zenithWorld ? "e" : "e1")}").Value;
 
