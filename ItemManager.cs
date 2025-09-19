@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
@@ -100,7 +101,7 @@ namespace ArcaneOdyssey
 					}
 					else if (item.TryGetImbue(out AOMagic imbue1) && imbue1 is SteamImbue)
 					{
-						imbuetextthing = item.ArcaneOdyssey().owner.Imbue().DisplayName.Value + "?";
+						imbuetextthing = Language.GetTextValue("RandomWorldName_Adjective.Steaming");
 					}
 					tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization("ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
 				}

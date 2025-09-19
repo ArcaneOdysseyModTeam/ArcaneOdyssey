@@ -56,8 +56,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-			public override void SpawningEffects(Projectile projectile) 
-			{
+
+		public override void SpawningEffects(Projectile projectile) 
+		{
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Torch, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 5f)];
@@ -65,15 +66,17 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Pixie, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 				spawnedDust2.noGravity = true;
 			}
-			}
+		}
+
 		public override void LingeringEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 4; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Torch, 0f, 0f, 0, default, 2f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Torch, 0f, 0f, 0, default, 2f);
 			}
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Smoke, 0f, 0f, 0, default, 2f)];
-		}
+			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Smoke, 0f, 0f, 0, default, 2f);
+
+        }
 		public override void ExplosionEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 3; n++)
