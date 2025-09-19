@@ -7,13 +7,11 @@ using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -183,18 +181,16 @@ namespace ArcaneOdyssey
 			FramesAlive++;
         }
 
-        public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
+        public override bool PreAI(Projectile projectile)
         {
-			binaryWriter.Write(imbue.Type);
-			binaryWriter.WriteVector2(OriginalDimensions.GetValueOrDefault(projectile.Size));
-			binaryWriter.Write(BaseScale.GetValueOrDefault(1f));
-        }
-
-        public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
-        {
-			imbue = (AOMagic)ModContent.GetModItem(binaryReader.Read());
-			OriginalDimensions = binaryReader.ReadVector2();
-			BaseScale = binaryReader.Read();
+            if (FramesAlive < 1 && Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                OriginalDimensions ??= projectile.Size;
+                BaseScale ??= projectile.scale;
+                if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
+                    imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
+            }
+			return true;
         }
 	}
 }

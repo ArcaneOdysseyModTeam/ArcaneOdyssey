@@ -138,7 +138,7 @@ namespace ArcaneOdyssey.Title
 			spriteBatch.End();
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-			spriteBatch.Draw(Logo.Value, new(Main.screenWidth/2f, 100f), null, thecolour, 0, Logo.Value.Size()/2f, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Logo.Value, new(Main.screenWidth/2f, 125f), null, thecolour, 0, Logo.Value.Size()/2f, 1f, SpriteEffects.None, 0f);
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 			return false;
