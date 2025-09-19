@@ -58,8 +58,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 					Dust.NewDust(Projectile.position + new Vector2(Projectile.width / 2f,Projectile.height / 2f), 1, 1, DustID.Water, 50f *(0.5f - rnd.NextSingle()), 50f * (0.7f - rnd.NextSingle()), 1, default, 1.3f);
 				}
 				//Spiral Dust
-				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Sin(FramesAlive * 150) * 100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, 4f);
-				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Cos(FramesAlive * 150) * -100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, 4f);
+				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Sin(FramesAlive * 150) * 100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, Projectile.scale);
+				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Cos(FramesAlive * 150) * -100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, Projectile.scale);
 			}
 		}
 	}
