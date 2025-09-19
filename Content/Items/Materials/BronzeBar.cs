@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	public class BronzeBar : ModItem, ILocalizedModType
+	public class BronzeBar : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

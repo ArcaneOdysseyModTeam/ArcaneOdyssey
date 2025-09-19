@@ -30,8 +30,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// Imbue values are applied as multipliers to imbued projectiles,
 	/// Magic values are applied as multipliers to projectiles created using spell scrolls
 	/// </summary>
-	public abstract class AOMagic : ModItem
+	public abstract class AOMagic : ModItem, ILocalizedModType
 	{
+        public override string LocalizationCategory => "Items.Magics";
+
 		/// <summary>
 		/// magic works underwater
 		/// </summary>

@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.Content.Projectiles.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.UI.ModBrowser;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -98,6 +100,13 @@ namespace ArcaneOdyssey
 				hitbox.Width = (int)(dim.X * mult);
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;
+				if (projectile.ModProjectile is BaseStaffProjectile)
+                {
+                    hitbox.Width = (int)(dim.X * mult * 2);
+                    hitbox.Height = (int)(dim.Y * mult * 2);
+                    hitbox.X -= hitbox.Width / 2;
+					hitbox.Y -= hitbox.Height / 2;
+				}
 			}
 		}
 

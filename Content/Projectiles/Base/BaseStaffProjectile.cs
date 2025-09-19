@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
                 return;
             }
 
-            if (Projectile.ai[1] >= 600)
+            if (Projectile.ai[1] >= 600 || Projectile.ai[1] <= -600)
 			{
 				Projectile.ai[1] = 0f;
 				EffectBeforeSpin(player, spintime);

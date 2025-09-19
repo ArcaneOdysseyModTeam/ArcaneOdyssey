@@ -11,7 +11,8 @@ namespace ArcaneOdyssey.Content.Buffs
 		{
 			currentFrameThingy = 0;
 			Main.buffNoSave[Type] = true;
-			Main.buffNoTimeDisplay[Type] = false;
+			Main.debuff[Type] = true;
+			Main.buffNoTimeDisplay[Type] = true;
 		}
 
         public override void Update(Player player, ref int buffIndex)
