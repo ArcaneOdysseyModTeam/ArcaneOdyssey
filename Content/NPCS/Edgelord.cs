@@ -141,7 +141,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		{
 			if (firstButton)
 			{
-				Main.npcChatText = this.GetChatHelpButton();
+				Main.npcChatText = GetChatHelpButton();
 			}
 		}
 		public string GetChatHelpButton()
@@ -180,9 +180,14 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.PlantTip"));
 			}
 
-			if (options.Count == 0)
-				return this.GetLocalizedValue("Help.NothingToSay");
-			return Main.rand.Next(options);
+			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastHelp);
+
+            if (options.Count == 0)
+                return this.GetLocalizedValue("Help.NothingToSay");
+
+            string chosen = Main.rand.Next(options);
+			Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastHelp = chosen;
+            return chosen;
 		}
 
 		public override string GetChat()
@@ -199,12 +204,27 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (BossesKilled > 0 && !NPC.downedBoss3) 
 			{
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
-			}
-			return Main.rand.Next(options);
+            }
+
+            options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue);
+
+            if (options.Count == 0)
+                return this.GetLocalizedValue("Chat.Hello");
+
+            string chosen = Main.rand.Next(options);
+            Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue = chosen;
+            return chosen;
+            return Main.rand.Next(options);
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs) => true;
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
+	}
+
+	public class MordenDialogue : ModPlayer
+	{
+		public string LastDialogue = "";
+		public string LastHelp = "";
 	}
 }
