@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class AOMagic : ModItem, ILocalizedModType
 	{
-        public override string LocalizationCategory => "Items.Magics";
+		public override string LocalizationCategory => "Items.Magics";
 
 		/// <summary>
 		/// magic works underwater
@@ -56,10 +56,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual CombinedDebuff[] CombinedDebuffs => [];
 		public virtual SoundStyle? MagicSound => null;
 
-        /// <summary>
-        /// Leave null for neutral, true for cold, false for hot
-        /// </summary>
-        public virtual bool? ColdMagic => null;
+		/// <summary>
+		/// Leave null for neutral, true for cold, false for hot
+		/// </summary>
+		public virtual bool? ColdMagic => null;
 
 		public virtual Dictionary<Type, int> Spells => [];
 

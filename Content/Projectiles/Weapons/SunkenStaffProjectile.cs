@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class SunkenStaffProjectile : BaseStaffProjectile
 	{
+		public override bool? Cold => true;
 		public override float AOSpeed => .9f;
 		public override float AOSize => 1.25f;
 		public override float AODamage => 1f;
@@ -36,7 +37,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
 			BaseScale = 2f;
-        }
+		}
 
 		public override void PostAI()
 		{

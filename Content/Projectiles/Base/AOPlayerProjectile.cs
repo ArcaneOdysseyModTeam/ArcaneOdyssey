@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// </summary>
 	public abstract class AOPlayerProjectile : ModProjectile
 	{
+		public virtual bool? Cold => null;
 		public Item originalItem = null;
 		public Vector2? DustVelocity;
 		public bool killDust = true;

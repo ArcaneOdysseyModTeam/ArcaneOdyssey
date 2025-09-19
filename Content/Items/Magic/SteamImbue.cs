@@ -20,8 +20,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	{
 		public override float AOMagicDamage => .85f;
 		public override float AOImbueDamage => .925f;
-        public override float AOMagicSize => 1.15f;
-        public override float AOImbueSize => 1.1f;
+		public override float AOMagicSize => 1.15f;
+		public override float AOImbueSize => 1.1f;
 		public override float AOImbueSpeed => 1;
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 
@@ -44,18 +44,18 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]);
 
 		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), originalImbue.Spells.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly))]);
-        
+		
 		public override void KillEffects(Projectile projectile)
-        {
+		{
 			originalImbue.KillEffects(projectile);
-        }
-        public override void SpawningEffects(Projectile projectile)
-        {
-            originalImbue.SpawningEffects(projectile);
-        }
-        public override void LingeringEffects(Projectile projectile)
-        {
-            originalImbue.LingeringEffects(projectile);
-        }
-    }
+		}
+		public override void SpawningEffects(Projectile projectile)
+		{
+			originalImbue.SpawningEffects(projectile);
+		}
+		public override void LingeringEffects(Projectile projectile)
+		{
+			originalImbue.LingeringEffects(projectile);
+		}
+	}
 }

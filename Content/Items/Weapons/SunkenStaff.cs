@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override int AOValue => 1350;
         public override AORarities AORarity => AORarities.Rare;
         public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Excellent;
-        public override AODebuffRequirement WeaponDebuff => new AODebuffRequirement(BuffID.Wet, 600);
+        public override AODebuffRequirement WeaponDebuff => new(BuffID.Wet, 600);
 
 
         public override void SetDefaultsWeapon()

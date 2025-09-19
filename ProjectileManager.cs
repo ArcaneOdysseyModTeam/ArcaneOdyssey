@@ -101,10 +101,10 @@ namespace ArcaneOdyssey
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;
 				if (projectile.ModProjectile is BaseStaffProjectile)
-                {
-                    hitbox.Width = (int)(dim.X * mult * 2);
-                    hitbox.Height = (int)(dim.Y * mult * 2);
-                    hitbox.X -= hitbox.Width / 2;
+				{
+					hitbox.Width = (int)(dim.X * mult * 2);
+					hitbox.Height = (int)(dim.Y * mult * 2);
+					hitbox.X -= hitbox.Width / 2;
 					hitbox.Y -= hitbox.Height / 2;
 				}
 			}
@@ -182,24 +182,30 @@ namespace ArcaneOdyssey
 			OriginalDimensions ??= projectile.Size;
 			BaseScale ??= projectile.scale;
 			if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
+			{
 				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
+				if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.ColdMagic.HasValue) && (weapon.Cold.Value != imbue.ColdMagic.Value))
+				{
+					imbue = new SteamImbue() { originalImbue = imbue };
+				}
+			}
 		}
 
 		public override void PostAI(Projectile projectile)
 		{
 			FramesAlive++;
-        }
+		}
 
-        public override bool PreAI(Projectile projectile)
-        {
-            if (FramesAlive < 1 && Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                OriginalDimensions ??= projectile.Size;
-                BaseScale ??= projectile.scale;
-                if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
-                    imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
-            }
+		public override bool PreAI(Projectile projectile)
+		{
+			if (FramesAlive < 1 && Main.netMode == NetmodeID.MultiplayerClient)
+			{
+				OriginalDimensions ??= projectile.Size;
+				BaseScale ??= projectile.scale;
+				if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
+					imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
+			}
 			return true;
-        }
+		}
 	}
 }

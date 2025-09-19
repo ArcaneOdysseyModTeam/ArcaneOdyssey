@@ -201,12 +201,12 @@ namespace ArcaneOdyssey
 		public override void UpdateInventory(Item item, Player player)
 		{
 			owner = player;
-            imbue = player.ArcaneOdyssey().imbue;
-            if ((item.ModItem is AOWeapon weapon && imbue is not null) && (weapon.ColdWeapon.HasValue && imbue.ColdMagic.HasValue) && (weapon.ColdWeapon.Value != imbue.ColdMagic.Value))
+			imbue = player.ArcaneOdyssey().imbue;
+			if ((item.ModItem is AOWeapon weapon && imbue is not null) && (weapon.ColdWeapon.HasValue && imbue.ColdMagic.HasValue) && (weapon.ColdWeapon.Value != imbue.ColdMagic.Value))
 			{
 				imbue = new SteamImbue() { originalImbue = imbue };
-            }
-        }
+			}
+		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
