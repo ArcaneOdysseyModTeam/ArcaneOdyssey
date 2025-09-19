@@ -20,7 +20,8 @@ using Microsoft.Xna.Framework;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class ExplosionMagic : AOMagic
-	{
+    {
+        public override bool? ColdMagic => false;
         public override Color MagicColour => new Color(235,146,52,0);
 		public override float AOImbueSpeed => 0.925f;
         public override bool CanBeWet => false;

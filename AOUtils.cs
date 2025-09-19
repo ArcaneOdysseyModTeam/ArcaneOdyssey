@@ -119,7 +119,7 @@ namespace ArcaneOdyssey
 
 		public enum AOMagicTier
 		{
-			None,
+			Unobtainable,
 			Normal,
 			Lost,
 			Ancient,

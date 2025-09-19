@@ -51,10 +51,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// used for having freezing and frozen on a single magic ect
 		/// </summary>
 		public virtual AODebuffRequirement MagicDebuff2 => null;
-		public virtual MagicEffects Effects => null;
+		public virtual MagicEffects Effects => new([], []);
 		public virtual Color MagicColour => Color.Transparent;
-		public virtual CombinedDebuff[] CombinedDebuffs => null;
+		public virtual CombinedDebuff[] CombinedDebuffs => [];
 		public virtual SoundStyle? MagicSound => null;
+
+        /// <summary>
+        /// Leave null for neutral, true for cold, false for hot
+        /// </summary>
+        public virtual bool? ColdMagic => null;
 
 		public virtual Dictionary<Type, int> Spells => [];
 

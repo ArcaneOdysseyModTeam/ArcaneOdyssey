@@ -174,3 +174,8 @@ DeliriumMagic: {
 	DisplayName: Delirium Magic
 	Tooltip: Huh what
 }
+
+SteamImbue: {
+	DisplayName: Steam
+	Tooltip: ""
+}

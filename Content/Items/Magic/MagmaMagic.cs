@@ -21,9 +21,10 @@ using Terraria.Audio;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class MagmaMagic : AOMagic
-	{
-		public override bool CanBeWet => false;
-		public override Color MagicColour => new Color(255,50,0,0);
+    {
+        public override bool? ColdMagic => false;
+        public override bool CanBeWet => false;
+		public override Color MagicColour => new(255,50,0,0);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 0.975f;

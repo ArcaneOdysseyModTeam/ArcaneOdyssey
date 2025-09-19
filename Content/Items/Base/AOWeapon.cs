@@ -28,6 +28,18 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual AOWeaponTiers AOWeaponTier => AOWeaponTiers.Old;
 		public virtual AODebuffRequirement WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 
+
+		/// <summary>
+		/// Leave null for neutral, true for cold, false for hot
+		/// </summary>
+		public virtual bool? ColdWeapon => null;
+
+
+		/// <summary>
+		/// Leave null for regular items, true for arcanium, false for strength
+		/// </summary>
+		public virtual bool? Arcanium => null;
+
 		public virtual void SetDefaultsWeapon() { }
 
 		public override void SetDefaults()

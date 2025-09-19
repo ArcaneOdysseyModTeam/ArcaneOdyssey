@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class PlasmaMagic : AOMagic
 	{
+		public override bool? ColdMagic => false;
 		public override SoundStyle? MagicSound => SoundID.Item91;
 		public override Color MagicColour => new Color(255, 100, 255, 255);
 		public override bool CanBeWet => false;

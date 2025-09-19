@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class SandMagic : AOMagic
     {
 		public override SoundStyle? MagicSound => SoundID.Dig;
-        public override Color MagicColour => new Color(255,255,60,255);
+        public override Color MagicColour => new(255,255,60,255);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 0.975f;
 		public override float AOImbueSize => 1.053f;
@@ -29,8 +29,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSpeed => 0.95f;
 		public override float AOMagicSize => 1.1f;
 		public override float AOMagicDamage => 0.975f;
-		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(ModContent.BuffType<SandyEffect>(), 60*10);
-		public override MagicEffects Effects => new MagicEffects(
+		public override AODebuffRequirement MagicDebuff => new(ModContent.BuffType<SandyEffect>(), 60*10);
+		public override MagicEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet
 			], 
@@ -44,18 +44,21 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Wet,0.8f)
 			]
 			);
-			public override void SpawningEffects(Projectile projectile) 
+
+		public override void SpawningEffects(Projectile projectile) 
+		{
+			for (int n = 0; n<3; n++)
 			{
-				for (int n = 0; n<3; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Sand,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
-					spawnedDust.noGravity = true;
-				}
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Sand,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
+				spawnedDust.noGravity = true;
 			}
-			public override void LingeringEffects(Projectile projectile)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Sand, 0f, 0f, 0, default, 1f)];
-			}
+		}
+
+		public override void LingeringEffects(Projectile projectile)
+		{
+			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Sand, 0f, 0f, 0, default, 1f);
+		}
+
 		public override void ExplosionEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -64,6 +67,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				spawnedDust.noGravity = true;
 			}
 		}
+
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 10; n++)

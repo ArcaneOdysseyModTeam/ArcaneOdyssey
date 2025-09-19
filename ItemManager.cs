@@ -94,8 +94,14 @@ namespace ArcaneOdyssey
 				if (ImbueClassCheck(item))
 				{
 					string imbuetextthing = Mod.CustomLocalization("ImbueStuff.NoneText").Value;
-					if (item.TryGetImbue(out AOMagic imbue))
-						imbuetextthing = imbue.Item.Name;
+					if (item.TryGetImbue(out AOMagic imbue) && imbue is not SteamImbue)
+					{
+						imbuetextthing = imbue.DisplayName.Value;
+					}
+					else if (item.TryGetImbue(out AOMagic imbue1) && imbue1 is SteamImbue)
+					{
+						imbuetextthing = item.ArcaneOdyssey().owner.Imbue().DisplayName.Value + "?";
+					}
 					tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization("ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
 				}
 		}
@@ -195,12 +201,17 @@ namespace ArcaneOdyssey
 		public override void UpdateInventory(Item item, Player player)
 		{
 			owner = player;
-			imbue = player.ArcaneOdyssey().imbue;
-		}
+            imbue = player.ArcaneOdyssey().imbue;
+            if ((item.ModItem is AOWeapon weapon && imbue is not null) && (weapon.ColdWeapon.HasValue && imbue.ColdMagic.HasValue) && (weapon.ColdWeapon.Value != imbue.ColdMagic.Value))
+			{
+				imbue = new SteamImbue() { originalImbue = imbue };
+            }
+        }
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
 			owner = null;
+			imbue = null;
 		}
 	}
 }
