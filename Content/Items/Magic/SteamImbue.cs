@@ -12,6 +12,7 @@ using Terraria.ID;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using Terraria;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -43,5 +44,18 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]);
 
 		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), originalImbue.Spells.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly))]);
-	}
+        
+		public override void KillEffects(Projectile projectile)
+        {
+			originalImbue.KillEffects(projectile);
+        }
+        public override void SpawningEffects(Projectile projectile)
+        {
+            originalImbue.SpawningEffects(projectile);
+        }
+        public override void LingeringEffects(Projectile projectile)
+        {
+            originalImbue.LingeringEffects(projectile);
+        }
+    }
 }
