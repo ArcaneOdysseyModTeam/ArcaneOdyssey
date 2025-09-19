@@ -180,12 +180,12 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastHelp);
 
-            if (options.Count == 0)
-                return this.GetLocalizedValue("Help.NothingToSay");
+			if (options.Count == 0)
+				return this.GetLocalizedValue("Help.NothingToSay");
 
-            string chosen = Main.rand.Next(options);
+			string chosen = Main.rand.Next(options);
 			Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastHelp = chosen;
-            return chosen;
+			return chosen;
 		}
 
 		public override string GetChat()
@@ -202,17 +202,17 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (BossesKilled > 0 && !NPC.downedBoss3) 
 			{
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
-            }
+			}
 
-            options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue);
+			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue);
 
-            if (options.Count == 0)
-                return this.GetLocalizedValue("Chat.Hello");
+			if (options.Count == 0)
+				return this.GetLocalizedValue("Chat.Hello");
 
-            string chosen = Main.rand.Next(options);
-            Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue = chosen;
-            return chosen;
-            return Main.rand.Next(options);
+			string chosen = Main.rand.Next(options);
+			Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue = chosen;
+			return chosen;
+			return Main.rand.Next(options);
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs) => true;

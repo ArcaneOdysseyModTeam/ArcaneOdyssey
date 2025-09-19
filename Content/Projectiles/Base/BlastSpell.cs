@@ -36,8 +36,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Projectile.ai[0] = 1f;
 				BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
-                Projectile.netUpdate = true;
-            }
+				Projectile.netUpdate = true;
+			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (Projectile.TryGetImbue(out AOMagic imbue) && !imbue.CanBeWet && Projectile.wet)

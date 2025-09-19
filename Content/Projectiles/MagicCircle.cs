@@ -38,6 +38,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
+			if (Projectile.ai[0] == 0f)
+			{
+				Projectile.ai[0] = 1f;
+				Projectile.netUpdate = true;
+			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			float tempLightColorR = 0f;
 			float tempLightColorG = 0f;

@@ -14,13 +14,13 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey
 {
 	public static class AOUtils
-    {
-        public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
+	{
+		public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
 
 		public static AOMagic Imbue(this Player player) => player.ArcaneOdyssey().imbue;
 
 
-        public static bool ImbueClassCheck(Projectile projectile)
+		public static bool ImbueClassCheck(Projectile projectile)
 		{
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
@@ -35,10 +35,10 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-        public static bool ImbueClassCheck(Item item)
-        {
-            if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-            {
+		public static bool ImbueClassCheck(Item item)
+		{
+			if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
 				string[] goodclasses = ["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"];
 				if (goodclasses.Contains(item.DamageType.Name))
 				{
@@ -49,7 +49,7 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-        public static int FromAODefense(this int val) => (int)Math.Round(val/18f);
+		public static int FromAODefense(this int val) => (int)Math.Round(val/18f);
 
 		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
 
@@ -57,22 +57,22 @@ namespace ArcaneOdyssey
 		{
 			imbue = item.ArcaneOdyssey().imbue;
 			return imbue is not null;
-        }
+		}
 
 		public static bool TryGetImbue(this Projectile projectile, out AOMagic imbue)
 		{
 			imbue = projectile.ArcaneOdyssey().imbue;
 			return imbue is not null;
-        }
+		}
 
-        /// <summary>
-        /// Automatically generates localization, and formats statically
-        /// </summary>
-        /// <param name="mod">literally the mod</param>
-        /// <param name="key">The localization key</param>
-        /// <param name="formatting">Formatting args, not required</param>
-        /// <returns></returns>
-        public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
+		/// <summary>
+		/// Automatically generates localization, and formats statically
+		/// </summary>
+		/// <param name="mod">literally the mod</param>
+		/// <param name="key">The localization key</param>
+		/// <param name="formatting">Formatting args, not required</param>
+		/// <returns></returns>
+		public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
 		{
 			LocalizedText text = LocalizedText.Empty;
 			if (global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
@@ -92,7 +92,7 @@ namespace ArcaneOdyssey
 		}
 
 		public static int GetBossKillCount()
-        {
+		{
 			int count = 0;
 			bool[] conditions = [NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates];
 			foreach (bool killed in conditions)
@@ -213,13 +213,13 @@ namespace ArcaneOdyssey
 		public static int GalleonToCopper(int price) => price * 100; // very simple lol, previously nothing was worth anything
 
 
-        /// <summary>
-        /// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
-        /// </summary>
-        /// <param name="AODamage">AO weapon damage multiplier</param>
-        /// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOWeaponTiers"/></param>
-        /// <returns></returns>
-        public static float WeaponDamage(AOWeaponTiers AOWeaponTier) => 25 * ((int)AOWeaponTier+1);
+		/// <summary>
+		/// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
+		/// </summary>
+		/// <param name="AODamage">AO weapon damage multiplier</param>
+		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOWeaponTiers"/></param>
+		/// <returns></returns>
+		public static float WeaponDamage(AOWeaponTiers AOWeaponTier) => 25 * ((int)AOWeaponTier+1);
 
 		/// <summary>
 		/// Turns 1.4 into .6

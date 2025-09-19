@@ -180,10 +180,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 				return null;
 		}
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.CustomLocalization($"MagicTierLines.{MagicTier}").Value));
-        }
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.CustomLocalization($"MagicTierLines.{MagicTier}").Value));
+		}
 
 		// Dust stuff below for copy/paste
 		// hello it is me the code insect i eat your code

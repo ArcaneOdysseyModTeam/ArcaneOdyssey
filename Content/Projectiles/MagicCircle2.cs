@@ -30,6 +30,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
+			if (Projectile.ai[0] == 0f)
+			{
+				Projectile.ai[0] = 1f;
+				Projectile.netUpdate = true;
+			}
 			Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f);
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
@@ -38,8 +43,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 				if (Projectile.TryGetImbue(out AOMagic imbue))
 					Projectile.ai[2] = imbue.Type;
 			}
-            Imbue = (AOMagic)ModContent.GetModItem((int)Projectile.ai[2]);
-            Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null && shouldBeAlive ? 0 : 1;
+			Imbue = (AOMagic)ModContent.GetModItem((int)Projectile.ai[2]);
+			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null && shouldBeAlive ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
 				aoPlayerOwner.myCircle = Projectile;

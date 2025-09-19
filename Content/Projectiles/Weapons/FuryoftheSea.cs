@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AOSize => 1.25f;
 		public override float AODamage => 1f;
 		public override AODebuffRequirement Debuff => new(BuffID.Wet, 600);
-        public override SoundStyle? DebuffApplySound => SoundID.Splash;
+		public override SoundStyle? DebuffApplySound => SoundID.Splash;
 		public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Excellent;
 		
 
@@ -34,12 +34,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			Projectile.penetrate = -1;
 		}
 		public override void AI()
-        {
-            // projectile.ai[0] is the spin speed
-            aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+		{
+			// projectile.ai[0] is the spin speed
+			if (Projectile.ai[1] == 0)
+			{
+				Projectile.ai[1] = 1;
+				Projectile.netUpdate = true;
+			}
+			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 + (Projectile.ai[0] * FramesAlive);
-            Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
-            BaseScale += .05f;
+			Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
+			BaseScale += .05f;
 			if (!Main.dedServ)
 			{
 				Random rnd = new();

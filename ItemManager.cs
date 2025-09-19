@@ -133,20 +133,20 @@ namespace ArcaneOdyssey
 					knockback += imbue.AOImbueSize.MultiToPercent() + extrakbmulti.MultiToPercent();
 				}
 
-                if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
-                {
-                    knockback += imbue.AOMagicSize.MultiToPercent() + extrakbmulti;
-                }
-            }
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+				{
+					knockback += imbue.AOMagicSize.MultiToPercent() + extrakbmulti;
+				}
+			}
 		}
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
 		{
-            if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
-            {
-                damage += ((item.damage+(BossesKilled * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
-            }
-            if (item.TryGetImbue(out AOMagic imbue))
+			if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+			{
+				damage += ((item.damage+(BossesKilled * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
+			}
+			if (item.TryGetImbue(out AOMagic imbue))
 			{
 				if (item.ModItem is not null && item.ModItem is AOWeapon aoWeapon)
 				{
@@ -175,13 +175,13 @@ namespace ArcaneOdyssey
 				{
 					return imbue.AOImbueSpeed;
 				}
-            }
+			}
 
-            if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
-            {
-                return imbue.AOMagicSpeed;
-            }
-            return 1f;
+			if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)))
+			{
+				return imbue.AOMagicSpeed;
+			}
+			return 1f;
 		}
 	}
 
@@ -192,15 +192,15 @@ namespace ArcaneOdyssey
 		public Player owner;
 		public AOMagic imbue;
 
-        public override void UpdateInventory(Item item, Player player)
-        {
+		public override void UpdateInventory(Item item, Player player)
+		{
 			owner = player;
 			imbue = player.ArcaneOdyssey().imbue;
-        }
+		}
 
-        public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
-        {
+		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
+		{
 			owner = null;
-        }
+		}
 	}
 }
