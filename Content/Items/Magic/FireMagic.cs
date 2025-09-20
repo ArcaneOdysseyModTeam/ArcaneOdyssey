@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class FireMagic : AOMagic
     {
         public override bool? ColdMagic => false;
-        public override SoundStyle? MagicSound => SoundID.Item74;
+        public override SoundStyle? MagicSound => SoundID.Item20;
         public override Color MagicColour => new Color(252,107,3,0);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 1f;

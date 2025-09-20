@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOMagicSize => 3f;
 		public override float AOMagicDamage => 2f;
         public override AOMagicTier MagicTier => AOMagicTier.Custom;
-        public override SoundStyle? MagicSound => SoundID.Item21;
+        public override SoundStyle? MagicSound => SoundID.Item20;
         public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(ModContent.BuffType<AOPetrified>(),10*60);
 		public override AODebuffRequirement MagicDebuff2 => new AODebuffRequirement(BuffID.OnFire3,10*60);
 		public override MagicEffects Effects => new MagicEffects(
