@@ -28,6 +28,12 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.width = Projectile.height = 100;
             Projectile.ignoreWater = true;
+            Projectile.damage = 700;
+            Projectile.hostile = true;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
         }
         
         public override void AI()
