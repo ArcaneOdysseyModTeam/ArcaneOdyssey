@@ -16,7 +16,6 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			AOPlayer playah = player.ArcaneOdyssey();
 			if (item.ModItem is AOWeapon weap)
 			{
 				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null or 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
@@ -25,31 +24,31 @@ namespace ArcaneOdyssey
 				}
 			}
 
-			if (playah.imbue is not null)
+			if (item.TryGetImbue(out AOMagic imbue))
 			{
-				if (playah.imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 				{
 					modifiers.FinalDamage += .3f;
 				}
 
-				if ((playah.imbue.MagicDebuff is not null) && (playah.imbue.MagicDebuff.DebuffPercent != 0f))
+				if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
 				{
-					if (playah.imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff.DebuffPercent))
+					if (imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / imbue.MagicDebuff.DebuffPercent))
 					{
-						target.AddBuff(playah.imbue.MagicDebuff.debuffID, playah.imbue.MagicDebuff.debuffDuration);
+						target.AddBuff(imbue.MagicDebuff.debuffID, imbue.MagicDebuff.debuffDuration);
 					}
 				}
-				if ((playah.imbue.MagicDebuff2 is not null) && (playah.imbue.MagicDebuff2.DebuffPercent != 0f))
+				if ((imbue.MagicDebuff2 is not null) && (imbue.MagicDebuff2.DebuffPercent != 0f))
 				{
-					if (playah.imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / playah.imbue.MagicDebuff2.DebuffPercent))
+					if (imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / imbue.MagicDebuff2.DebuffPercent))
 					{
-						target.AddBuff(playah.imbue.MagicDebuff2.debuffID, playah.imbue.MagicDebuff2.debuffDuration);
+						target.AddBuff(imbue.MagicDebuff2.debuffID, imbue.MagicDebuff2.debuffDuration);
 					}
 				}
 
-				if (playah.imbue.CombinedDebuffs is not null)
+				if (imbue.CombinedDebuffs is not null)
 				{
-					foreach (CombinedDebuff buffkeys in playah.imbue.CombinedDebuffs)
+					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
 					{
 						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
@@ -58,7 +57,7 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				foreach (MagicBuffMultiplier multiplier in playah.imbue.Effects.magicBuffMultipliers)
+				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
 				{
 					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
@@ -68,7 +67,7 @@ namespace ArcaneOdyssey
 
 				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 				{
-					foreach (int buffid in playah.imbue.Effects.clearBuffs)
+					foreach (int buffid in imbue.Effects.clearBuffs)
 					{
 						if (target.HasBuff(buffid))
 						{
