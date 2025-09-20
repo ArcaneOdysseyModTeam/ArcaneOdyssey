@@ -181,6 +181,6 @@ SteamImbue: {
 		'''
 		By Valve
 
-		Part of the mod internals, just ignore this, any spells with it will cause an error
+		Part of the mod internals, just ignore this, any spells with it will cause an error (It's used for imbues)
 		'''
 }
