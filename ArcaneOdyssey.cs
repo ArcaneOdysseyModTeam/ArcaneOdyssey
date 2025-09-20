@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.NPCS;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -52,6 +53,15 @@ namespace ArcaneOdyssey
 			}
 			else return [];
 		}
+
+        public override void PreUpdateMovement()
+        {
+            if (myCircle is not null && myCircle.ai[1] == 2)
+            {
+                Player.velocity = Vector2.Zero;
+                Player.maxFallSpeed = 0f;
+            }
+        }
 
 		public override void ResetEffects()
 		{

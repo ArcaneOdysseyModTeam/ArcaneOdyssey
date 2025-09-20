@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class FireMagic : AOMagic
     {
         public override bool? ColdMagic => false;
-        public override SoundStyle? MagicSound => SoundID.Item74;
+        public override SoundStyle? MagicSound => SoundID.Item20;
         public override Color MagicColour => new Color(252,107,3,0);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 1f;
@@ -70,11 +70,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 
 		public override void LingeringEffects(Projectile projectile)
 		{
-			for (int n = 0; n < 4; n++)
+			for (int n = 0; n < 2; n++)
 			{
 				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Torch, 0f, 0f, 0, default, 2f);
 			}
-			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Smoke, 0f, 0f, 0, default, 2f);
 
         }
 		public override void ExplosionEffects(Projectile projectile)

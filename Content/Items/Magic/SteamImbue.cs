@@ -13,6 +13,7 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -47,8 +48,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		
 		public override void KillEffects(Projectile projectile)
 		{
-			originalImbue.KillEffects(projectile);
-		}
+			SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);
+            for (int n = 0; n < 30; n++)
+            {
+                Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Smoke, (5f * Main.rand.NextFloat() - 0.5f), (5f * Main.rand.NextFloat() - 0.5f), 0, default, 3f);
+            }
+        }
 		public override void SpawningEffects(Projectile projectile)
 		{
 			originalImbue.SpawningEffects(projectile);

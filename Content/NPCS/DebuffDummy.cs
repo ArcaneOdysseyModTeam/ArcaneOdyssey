@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +15,9 @@ namespace ArcaneOdyssey.Content.NPCS
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;
+            #if VSDEBUGMODE
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers());
+            #endif
         }
         public override void SetDefaults()
         {
@@ -31,5 +35,14 @@ namespace ArcaneOdyssey.Content.NPCS
             NPC.lavaImmune = false;
             NPC.aiStyle = 0;
         }
+
+        #if VSDEBUGMODE
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange([
+                new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
+            ]);
+        }
+        #endif
     }
 }

@@ -24,8 +24,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			if (Main.mouseRight)
-				player.direction = ((Projectile.position - player.position).X > 0).ToDirectionInt();
+			player.direction = ((Main.MouseWorld - player.position).X > 0).ToDirectionInt();
 			AOPlayer playah = player.ArcaneOdyssey();
 			if (charge < defaultMax && playah.myCircle is not null && playah.myCircle.ai[0] < 1)
 			{

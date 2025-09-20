@@ -15,6 +15,7 @@ using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using Terraria.Localization;
 using ArcaneOdyssey.Content.Projectiles;
 using Terraria.Chat;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -47,6 +48,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				if (NPC.life <= 0)
 				{
 					OnKill();
+					ExplodeMorden();
 				}
 			}
 			else
@@ -93,9 +95,9 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (!Main.dedServ)
 				for (int n = 0; n < 10; n++)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f)];
 					spawnedDust.noGravity = true;
-					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat()-0.5f)*3f, (Main.rand.NextFloat()-0.5f)*8f, 0, default, 1.6f)];
+					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1.6f)];
 					spawnedDust2.noGravity = true;
 				}
 		}
@@ -160,7 +162,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Help.EarlyHard1"));
 				options.Add(this.GetLocalizedValue("Help.EarlyHard2"));
-			}	
+			}
 
 			if (!Main.hardMode)
 			{
@@ -199,7 +201,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			else
 				options.Add(this.GetLocalizedValue("Chat.Hello"));
 			options.Add(this.GetLocalizedValue("Chat.AskHelp"));
-			if (BossesKilled > 0 && !NPC.downedBoss3) 
+			if (BossesKilled > 0 && !NPC.downedBoss3)
 			{
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
 			}
@@ -214,7 +216,20 @@ namespace ArcaneOdyssey.Content.NPCS
 			return chosen;
 			return Main.rand.Next(options);
 		}
-
+		public void ExplodeMorden()
+		{
+			if (!Main.dedServ)
+			{
+				for (int n = 0; n < 10; n++)
+				{
+					Dust spawnedDust = Dust.NewDustDirect(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 50f, (Main.rand.NextFloat() - 0.5f) * 50f, 0, default, 2f);
+					spawnedDust.noGravity = true;
+					Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 50f, (Main.rand.NextFloat() - 0.5f) * 50f, 0, default, 2.6f);
+					spawnedDust2.noGravity = true;
+				}
+				SoundEngine.PlaySound(SoundID.Item74, NPC.position, null);
+            }
+		}
 		public override bool CanTownNPCSpawn(int numTownNPCs) => true;
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
