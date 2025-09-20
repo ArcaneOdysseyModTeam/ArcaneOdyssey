@@ -28,7 +28,6 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.width = Projectile.height = 100;
             Projectile.ignoreWater = true;
-            //test
         }
         
         public override void AI()
