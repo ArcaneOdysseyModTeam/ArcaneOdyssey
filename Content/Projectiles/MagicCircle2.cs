@@ -30,12 +30,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
-			if (Projectile.ai[0] == 0f)
-			{
-				Projectile.ai[0] = 1f;
-				Projectile.netUpdate = true;
-			}
-			Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f);
+			if (Projectile.position != Projectile.oldPosition)
+                Projectile.netUpdate = true;
+            Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f);
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
 			if (Projectile.ai[2] == 0)
@@ -51,8 +48,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 				if (Projectile.ai[1] == 2)
 				{
 					Projectile.Center = player.Center;
-					player.velocity = Vector2.Zero;
-					player.maxFallSpeed = 0f;
 				}
 				else
 					Projectile.position = Main.MouseWorld - new Vector2(Projectile.width/2, Projectile.height/2);

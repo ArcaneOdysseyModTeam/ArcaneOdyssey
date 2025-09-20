@@ -113,7 +113,7 @@ namespace ArcaneOdyssey
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			if (projectile.owner == Main.myPlayer)
-				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile) && source is EntitySource_Parent { Entity: Player })
+				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile) && source is not EntitySource_Parent { Entity: NPC })
 				{
 					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
 						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
@@ -181,7 +181,7 @@ namespace ArcaneOdyssey
 		{
 			OriginalDimensions ??= projectile.Size;
 			BaseScale ??= projectile.scale;
-			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker) && source is EntitySource_Parent { Entity: Player })
+			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker) && source is not EntitySource_Parent { Entity: NPC })
 			{
 				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
 				if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.ColdMagic.HasValue) && (weapon.Cold.Value != imbue.ColdMagic.Value))
