@@ -9,7 +9,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	public class EmptyMagicScroll : ModItem
+	public class EmptyTechniqueScroll : ModItem
 	{
 		public virtual int AOValue => 500;
 		public virtual AORarities AORarity => AORarities.Uncommon;
@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.noUseGraphic = true;
 			Item.rare = (int)AORarity;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.DamageType = DamageClass.Magic;
+			Item.DamageType = DamageClass.Melee;
 			Item.value = GalleonToCopper(AOValue);
 			SetDefaultsScroll();
 		}
@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override void UpdateInventory(Player player)
 		{
 			AOPlayer playah = player.ArcaneOdyssey();
-			if (playah.imbue is AOMagic && Name != "EmptyMagicScroll")
+			if (playah.imbue is FightingStyle && Name != "EmptyTechniqueScroll")
 			{
 				Item.color = playah.imbue.ImbueColour;
 				if (Item.color == Color.White || Item.color == Color.Black)
@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override void AddRecipes()
 		{
-			if (Name == "EmptyMagicScroll")
+			if (Name == "EmptyTechniqueScroll")
 			{
 				CreateRecipe().AddIngredient<Paper>(10).AddTile(TileID.Bookcases).Register();
 				Recipe.Create(ItemID.PaperAirplaneA, 5).AddIngredient<Paper>().Register();
@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override bool CanUseItem(Player player)
 		{
-			return player.ArcaneOdyssey().imbue is AOMagic && Name != "EmptyMagicScroll";
+			return player.ArcaneOdyssey().imbue is FightingStyle && Name != "EmptyTechniqueScroll";
 		}
 	}
 }
