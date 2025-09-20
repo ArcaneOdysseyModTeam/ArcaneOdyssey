@@ -22,19 +22,19 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class AshMagic : AOMagic
     {
-        public override bool? ColdMagic => false;
+        public override bool? Cold => false;
         public override bool CanBeWet => false;
-        public override Color MagicColour =>  new(235,40,0,0);
+        public override Color ImbueColour =>  new(235,40,0,0);
         public override float AOImbueSpeed => 0.975f;
 		public override float AOImbueSize => 1.22f;
 		public override float AOImbueDamage => 0.95f;
-		public override float AOMagicSpeed => 0.95f;
-		public override float AOMagicSize => 1.25f;
-		public override float AOMagicDamage => 0.875f;
-        public override SoundStyle? MagicSound => SoundID.Dig;
-		public override AODebuffRequirement MagicDebuff => new(ModContent.BuffType<AOPetrified>(), 60*10,33);
+		public override float AOScrollSpeed => 0.95f;
+		public override float AOScrollSize => 1.25f;
+		public override float AOScrollDamage => 0.875f;
+        public override SoundStyle? ImbueSound => SoundID.Dig;
+		public override AODebuffRequirement ImbueDebuff => new(ModContent.BuffType<AOPetrified>(), 60*10,33);
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()),new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()),new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()),new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
-		public override MagicEffects Effects => new(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
 				ModContent.BuffType<SnowyEffect>(),
@@ -78,8 +78,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.RedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 1f)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 2f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.RedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f)];
 				spawnedDust2.noGravity = true;
 			}
 		}
@@ -97,7 +97,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			{
 				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), new(1.23f * Main.rand.NextFloat() - 0.5f, 1.23f * Main.rand.NextFloat() - 0.5f), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
 			}
-			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 
 		}
 
@@ -106,6 +106,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
             return base.PreEffects(projectile) && projectile.type != ProjectileID.SporeCloud;
         }
 
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AshBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AshBlast>()),]);
 	}
 }

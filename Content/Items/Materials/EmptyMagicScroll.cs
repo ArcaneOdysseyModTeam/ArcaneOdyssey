@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Security.Cryptography.X509Certificates;
@@ -8,7 +9,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	public class DefaultScroll : ModItem
+	public class EmptyMagicScroll : ModItem
 	{
 		public virtual int AOValue => 500;
 		public virtual AORarities AORarity => AORarities.Rare;
@@ -21,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;
 			Item.rare = (int)AORarity;
-			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.DamageType = DamageClass.Magic;
 			Item.value = GalleonToCopper(AOValue);
 			SetDefaultsScroll();
@@ -30,9 +31,9 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override void UpdateInventory(Player player)
 		{
 			AOPlayer playah = player.ArcaneOdyssey();
-			if (playah.imbue is not null && GetType().IsSubclassOf(typeof(DefaultScroll)))
+			if (playah.imbue is AOMagic && Name != "EmptyMagicScroll")
 			{
-				Item.color = playah.imbue.MagicColour;
+				Item.color = playah.imbue.ImbueColour;
 				if (Item.color == Color.White || Item.color == Color.Black)
 				{
 					Item.color.A *= (byte).5f;
@@ -41,24 +42,26 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			else Item.color = default;
 		}
 
-		public virtual void ScrollRecipe()
-		{
-			
-		}
+		public virtual void ScrollRecipe() {}
 
 		public override void AddRecipes()
 		{
-			if (Name == "DefaultScroll")
+			if (Name == "EmptyMagicScroll")
 			{
 				CreateRecipe().AddIngredient<Paper>(10).AddTile(TileID.Bookcases).Register();
 				Recipe.Create(ItemID.PaperAirplaneA, 5).AddIngredient<Paper>().Register();
-                Recipe.Create(ItemID.PaperAirplaneB, 5).AddIngredient<Paper>().Register();
-                Recipe.Create(ItemID.Book).AddIngredient<Paper>().Register();
-            }
+				Recipe.Create(ItemID.PaperAirplaneB, 5).AddIngredient<Paper>().Register();
+				Recipe.Create(ItemID.Book).AddIngredient<Paper>().Register();
+			}
 			else
 			{
 				ScrollRecipe();
 			}
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			return player.ArcaneOdyssey().imbue is AOMagic && Name != "EmptyMagicScroll";
 		}
 	}
 }

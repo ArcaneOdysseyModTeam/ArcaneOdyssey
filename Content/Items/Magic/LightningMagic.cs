@@ -21,17 +21,17 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class LightningMagic : AOMagic
 	{
-		public override SoundStyle? MagicSound => SoundID.DD2_LightningAuraZap;
-		public override Color MagicColour => new Color(255,140,255,255);
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
+		public override Color ImbueColour => new Color(255,140,255,255);
 		public override float AOImbueSpeed => 1.2f;
 		public override float AOImbueSize => .95f;
 		public override float AOImbueDamage => .95f;
-		public override float AOMagicSpeed => 1.4f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => .875f;
-		public override AODebuffRequirement MagicDebuff => new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33);
+		public override float AOScrollSpeed => 1.4f;
+		public override float AOScrollSize => 1f;
+		public override float AOScrollDamage => .875f;
+		public override AODebuffRequirement ImbueDebuff => new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33);
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
-		public override MagicEffects Effects => new MagicEffects(
+		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<AOPetrified>(), // petrified
 				ModContent.BuffType<CharredEffect>(),
@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 1.2f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1.2f)];
 			}
 		}
 		public override void KillEffects(Projectile projectile)
@@ -84,9 +84,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			{
 				_ = Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.WitherLightning, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 1.2f);
 			}
-			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightningBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightningBlast>()),]);
 	}
 }

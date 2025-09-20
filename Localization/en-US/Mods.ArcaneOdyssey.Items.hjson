@@ -22,9 +22,9 @@ PoseidonChoice: {
 	Tooltip: An sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
-DefaultScroll: {
-	DisplayName: Empty Scroll
-	Tooltip: An empty spell scroll
+EmptyMagicScroll: {
+	DisplayName: Empty Spell Scroll
+	Tooltip: An empty spell scroll, made of magic-conductive organic paper
 }
 
 SunkenSword: {

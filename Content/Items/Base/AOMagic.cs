@@ -30,132 +30,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// Imbue values are applied as multipliers to imbued projectiles,
 	/// Magic values are applied as multipliers to projectiles created using spell scrolls
 	/// </summary>
-	public abstract class AOMagic : ModItem, ILocalizedModType
-	{
-		public override string LocalizationCategory => "Items.Magics";
+	public abstract class AOMagic : Imbuable, ILocalizedModType
+    {
+        public override string LocalizationCategory => "Magics";
 
-		/// <summary>
-		/// magic works underwater
-		/// </summary>
-		public virtual bool CanBeWet => true;
-		public virtual float AOImbueSpeed => .9f;
-		public virtual float AOImbueSize => .9f;
-		public virtual float AOImbueDamage => .9f;
-		public virtual float AOMagicSpeed => AOImbueSpeed;
-		public virtual float AOMagicSize => AOImbueSize;
-		public virtual float AOMagicDamage => AOImbueDamage;
-		public virtual AOMagicTier MagicTier => AOMagicTier.Normal;
-		public virtual AODebuffRequirement MagicDebuff => null;
-
-		/// <summary>
-		/// used for having freezing and frozen on a single magic ect
-		/// </summary>
-		public virtual AODebuffRequirement MagicDebuff2 => null;
-		public virtual MagicEffects Effects => new([], []);
-		public virtual Color MagicColour => Color.Transparent;
-		public virtual CombinedDebuff[] CombinedDebuffs => [];
-		public virtual SoundStyle? MagicSound => null;
-
-		/// <summary>
-		/// Leave null for neutral, true for cold, false for hot
-		/// </summary>
-		public virtual bool? ColdMagic => null;
-
-		public virtual Dictionary<Type, int> Spells => [];
-
-		public bool FirstFrame = true;
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.CanGetPrefixes[Type] = false;
-			ItemID.Sets.ShimmerTransformToItem[Type] = Type;
-			ItemID.Sets.ItemNoGravity[Item.type] = true;
-		}
-
-		public override void SetDefaults()
-		{
-			Item.useStyle = ItemUseStyleID.DrinkOld;
-			Item.useTime = 60;
-			Item.useAnimation = 60;
-			Item.noUseGraphic = true;
-			if (this is GlassMagic)
-			{
-				Item.alpha = (int)Math.Round(255 * .2f); // glass gets 20% less visible
-			}
-		}
-
-		public override bool CanUseItem(Player player)
-		{
-			FirstFrame = true;
-			return true;
-		}
-
-		public override void AddRecipes()
-		{
-			if (MagicTier == AOMagicTier.Normal)
-			{
-				CreateRecipe().AddIngredient<PoseidonChoice>().Register();
-				Recipe.Create(ModContent.ItemType<PoseidonChoice>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
-			}
-		}
-
-		public virtual void MagicRecipe() {}
-
-		public override bool? UseItem(Player player)
-		{
-			if (FirstFrame && player.Imbue() != this)
-			{
-				CreateMagicCircle(Item, player, this);
-			}
-			if (this != player.Imbue() && FirstFrame)
-			{
-				FirstFrame = false;
-				player.ArcaneOdyssey().imbue = this;
-				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
-				if (Main.netMode == NetmodeID.SinglePlayer)
-				{
-					Main.NewText(chatmessage.Value, 13, 132, 168);
-				}
-				else if (Main.dedServ)
-				{
-					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
-				}
-			}
-			else if (FirstFrame)
-			{
-				FirstFrame = false;
-				player.ArcaneOdyssey().imbue = null;
-				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
-				if (Main.netMode == NetmodeID.SinglePlayer)
-				{
-					Main.NewText(chatmessage.Value, 13, 132, 168);
-				}
-				else if (Main.dedServ)
-				{
-					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
-				}
-			}
-			return null;
-		}
-
-		public virtual bool PreEffects(Projectile projectile)
-		{
-			if (ImbueClassCheck(projectile))
-			{
-				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-				{
-					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not (MagicCircle or ExplosionTracker or MagicCircle2);
-				}
-				else if (projectile.ModProjectile is AOPlayerProjectile)
-				{
-					return !Main.dedServ && ImbueClassCheck(projectile) && projectile.ModProjectile is not (MagicCircle or ExplosionTracker or MagicCircle2);
-				}
-			}
-			return false;
-		}
-
-		public virtual void SpawningEffects(Projectile projectile) { }
-		public virtual void LingeringEffects(Projectile projectile) { }
-		public virtual void KillEffects(Projectile projectile) { }
 		public virtual void ExplosionEffects(Projectile projectile) { }
 
 		public static Projectile CreateMagicCircle(Projectile projectile)
@@ -185,11 +63,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			else
 				return null;
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(Mod, "MagicTier", Mod.CustomLocalization($"MagicTierLines.{MagicTier}").Value));
 		}
 
 		// Dust stuff below for copy/paste

@@ -32,7 +32,7 @@ namespace ArcaneOdyssey
 
 	public class AOPlayer : ModPlayer
 	{
-		public AOMagic imbue = null;
+		public Imbuable imbue = null;
 
 		/// <summary>
 		/// Whether the user has a set of sunken armour equipped
@@ -148,14 +148,16 @@ namespace ArcaneOdyssey
 			// Tucker died lmao
 			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
 			if (ArcaneOdysseyConfig.Instance.GenerateTucker && Stalac != -1)
+			{
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
 					WorldGenTasks.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
 				}));
+			}
 
             int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
-			if (guide != -1)
+			if (ArcaneOdysseyConfig.Instance.EnableMorden && guide != -1)
 			{
                 tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
                 {

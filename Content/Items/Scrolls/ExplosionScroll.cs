@@ -12,37 +12,32 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls
 {
-	public class ExplosionScroll : DefaultScroll
+	public class ExplosionScroll : EmptyMagicScroll
 	{
 		public override void SetDefaultsScroll()
 		{
 			Item.useAnimation = Item.useTime = ExplosionTracker.defaultMax-ExplosionTracker.defaultMin;
-			Item.damage = 25;
+			Item.damage = 50;
 			Item.reuseDelay = 60;
 			Item.channel = true;
 			Item.UseSound = SoundID.Item84;
-			Item.mana = 50;
+			Item.mana = 100;
 			Item.shoot = ModContent.ProjectileType<ExplosionTracker>();
 		}
 
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<DefaultScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
+			CreateRecipe().AddIngredient<EmptyMagicScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)
 		{
 			return CanUseItem(player);
 		}
-		
-		public override bool CanUseItem(Player player)
-		{
-			return player.ArcaneOdyssey().imbue is not null;
-		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, player.Imbue());
+			AOMagic.CreateMagicCircle(Item, player, (AOMagic)player.Imbue());
 			Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, type, damage, knockback * 1.5f, player.whoAmI);
 			return false;
 		}

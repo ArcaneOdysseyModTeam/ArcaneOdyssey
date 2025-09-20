@@ -6,19 +6,24 @@ using System.Collections.Generic;
 
 namespace ArcaneOdyssey
 {
-    public class ArcaneOdysseyConfig : ModConfig
-    {
-        public override ConfigScope Mode => ConfigScope.ServerSide;
+	public class ArcaneOdysseyConfig : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [DefaultValue(false)]
-        public bool AffectsOtherMods { get; set; }
+		[DefaultValue(false)]
+		public bool AffectsOtherMods { get; set; }
 
-        public List<string> IgnoredProjectiles { get; set; }
-
-        [DefaultValue(true)]
-        public bool GenerateTucker { get; set; }
+		public List<string> IgnoredProjectiles { get; set; }
 
 
-        public static ArcaneOdysseyConfig Instance;
-    }
+		[DefaultValue(true)]
+		public bool GenerateTucker { get; set; }
+
+
+		[DefaultValue(true)]
+		public bool EnableMorden { get; set; }
+
+
+		public static ArcaneOdysseyConfig Instance;
+	}
 }

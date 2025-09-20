@@ -19,17 +19,17 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class PoisonMagic : AOMagic
 	{
-		public override SoundStyle? MagicSound => SoundID.Item17;
-        public override Color MagicColour => new(105,0,105,255);
+		public override SoundStyle? ImbueSound => SoundID.Item17;
+        public override Color ImbueColour => new(105,0,105,255);
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 0.825f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1.15f;
-		public override float AOMagicDamage => 0.75f;
-		public override AODebuffRequirement MagicDebuff => new(BuffID.Poisoned, 60*10);
-		//public override AODebuff MagicDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
-		public override MagicEffects Effects => new(
+		public override float AOScrollSpeed => 1f;
+		public override float AOScrollSize => 1.15f;
+		public override float AOScrollDamage => 0.75f;
+		public override AODebuffRequirement ImbueDebuff => new(BuffID.Poisoned, 60*10);
+		//public override AODebuff ImbueDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, Color.Purple, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Purple, 3f)];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -70,9 +70,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				if (n/2 >= 10)
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), new(1.25f * Main.rand.NextFloat() - 0.5f, 1.25f * Main.rand.NextFloat() - 0.5f), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BossesKilled, 0f);
 			}
-			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PoisonBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PoisonBlast>()),]);
 	}
 }

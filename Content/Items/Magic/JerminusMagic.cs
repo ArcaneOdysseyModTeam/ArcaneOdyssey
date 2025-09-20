@@ -17,14 +17,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class JerminusMagic : AOMagic
 	{
-		public override Color MagicColour => new Color(255,0,0,0);
+		public override Color ImbueColour => new Color(255,0,0,0);
 		public override float AOImbueSpeed => 5f;
 		public override float AOImbueSize => 10f;
 		public override float AOImbueDamage => .01f;
-        public override AOMagicTier MagicTier => AOMagicTier.Custom;
-        public override AODebuffRequirement MagicDebuff => new(BuffID.Cursed, 10*60);
-		public override AODebuffRequirement MagicDebuff2 => new(ModContent.BuffType<Trauma>(), 10*60);
-		public override MagicEffects Effects => new(
+        public override AOImbuableTier ImbuableTier => AOImbuableTier.Custom;
+        public override AODebuffRequirement ImbueDebuff => new(BuffID.Cursed, 10*60);
+		public override AODebuffRequirement ImbueDebuff2 => new(ModContent.BuffType<Trauma>(), 10*60);
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<JerminusBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<JerminusBlast>()),]);
 		
 		public override void AddRecipes() {
             

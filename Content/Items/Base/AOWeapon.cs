@@ -18,8 +18,7 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOWeapon : ModItem
-	{
-		
+	{	
         public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
@@ -53,5 +52,21 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.DamageType = DamageClass.Melee;
 			SetDefaultsWeapon();
 		}
+
+        public override bool CanUseItem(Player player)
+        {
+            if (Arcanium.HasValue && Item.TryGetImbue(out Imbuable imbue))
+			{
+				if (Arcanium.Value)
+				{
+					return imbue is AOMagic;
+				}
+				else
+				{
+					return imbue is FightingStyle;
+				}
+			}
+			return true;
+        }
 	}
 }

@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if (Projectile.TryGetImbue(out AOMagic imbue) && !imbue.CanBeWet && Projectile.wet)
+			if (Projectile.TryGetImbue(out Imbuable imbue) && !imbue.CanBeWet && Projectile.wet)
 			{
 				Kill();
 				return;

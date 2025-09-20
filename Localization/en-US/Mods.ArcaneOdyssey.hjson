@@ -125,9 +125,8 @@ Projectiles: {
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	ImbueTooltip: Current Imbue: {0}
-	MultiplayerCannotDisplay: Cannot display in multiplayer
 	NoneText: None
-	UnimbueText: Your magic has been deselected
+	UnimbueText: Your imbue has been deselected
 }
 
 PopupText.RisingTide: Rising Tide!
@@ -153,6 +152,11 @@ Configs: {
 		GenerateTucker: {
 			Label: Generate Tucker's Grave
 			Tooltip: Toggles the generation of Tucker's grave on world creation
+		}
+
+		EnableMorden: {
+			Label: Enable Morden
+			Tooltip: ""
 		}
 	}
 }
@@ -210,11 +214,19 @@ NPCs: {
 }
 
 MagicTierLines: {
-	Unobtainable: Unobtainable Magic
-	Normal: "[c/2277ff:-Basic Magic-]"
+	Unobtainable: Unobtainable
+	Normal: "[c/2277ff:-Standard Magic-]"
 	Lost: "[c/0044ff:-Lost Magic-]"
-	Ancient: -Ancient Magic-
+	Ancient: "[c/7ebcc2:-Ancient Magic-]"
 	Custom: "[c/ff0000:-Custom Magic-]"
+}
+
+FSTierLines: {
+	Unobtainable: Unobtainable
+	Normal: "[c/2277ff:-Fighting Style-]"
+	Lost: "[c/0044ff:-Lost Fighting Style-]"
+	Ancient: "[c/7ebcc2:-Ancient Fighting Style-]"
+	Custom: "[c/ff0000:-Custom Fighting Style-]"
 }
 
 ArmourAutoTooltip: {
@@ -224,4 +236,11 @@ ArmourAutoTooltip: {
 	Minions: +{0} minion slots
 	Mana: +{0} maximum mana
 	Size: "{0}% increased attack size"
+}
+
+FightingStyles: {
+	BasicCombat: {
+		DisplayName: Basic Combat
+		Tooltip: ""
+	}
 }

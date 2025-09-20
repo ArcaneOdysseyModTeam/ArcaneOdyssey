@@ -20,17 +20,17 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class SandMagic : AOMagic
     {
-		public override SoundStyle? MagicSound => SoundID.Dig;
-        public override Color MagicColour => new(255,255,60,255);
+		public override SoundStyle? ImbueSound => SoundID.Dig;
+        public override Color ImbueColour => new(255,255,60,255);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 0.975f;
 		public override float AOImbueSize => 1.053f;
 		public override float AOImbueDamage => 1.05f;
-		public override float AOMagicSpeed => 0.95f;
-		public override float AOMagicSize => 1.1f;
-		public override float AOMagicDamage => 0.975f;
-		public override AODebuffRequirement MagicDebuff => new(ModContent.BuffType<SandyEffect>(), 60*10);
-		public override MagicEffects Effects => new(
+		public override float AOScrollSpeed => 0.95f;
+		public override float AOScrollSize => 1.1f;
+		public override float AOScrollDamage => 0.975f;
+		public override AODebuffRequirement ImbueDebuff => new(ModContent.BuffType<SandyEffect>(), 60*10);
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet
 			], 
@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Sand, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Sand, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -75,9 +75,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Sand, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
-			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SandBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SandBlast>()),]);
 	}
 }

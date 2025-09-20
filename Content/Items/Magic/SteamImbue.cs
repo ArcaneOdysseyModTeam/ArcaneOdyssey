@@ -19,19 +19,19 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class SteamImbue : AOMagic
 	{
-		public override float AOMagicDamage => .85f;
+		public override float AOScrollDamage => .85f;
 		public override float AOImbueDamage => .925f;
-		public override float AOMagicSize => 1.15f;
+		public override float AOScrollSize => 1.15f;
 		public override float AOImbueSize => 1.1f;
 		public override float AOImbueSpeed => 1;
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 
-		public AOMagic originalImbue;
+		public Imbuable originalImbue;
 
-		public override Color MagicColour => Color.LightGray;
+		public override Color ImbueColour => Color.LightGray;
 
-		public override AOMagicTier MagicTier => AOMagicTier.Unobtainable;
-		public override MagicEffects Effects => new([], [
+		public override AOImbuableTier ImbuableTier => AOImbuableTier.Unobtainable;
+		public override SynergyEffects Effects => new([], [
 			new(ModContent.BuffType<AOBleed>(), 1.15f),
 			new(ModContent.BuffType<AOPetrified>(), 1.1f),
 			new(BuffID.OnFire, 1.1f),
@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			new(ModContent.BuffType<SandyEffect>(), .8f),
 			]);
 
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), originalImbue.Spells.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly))]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), originalImbue.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly))]);
 		
 		public override void KillEffects(Projectile projectile)
 		{

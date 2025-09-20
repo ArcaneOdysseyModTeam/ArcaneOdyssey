@@ -17,7 +17,7 @@ namespace ArcaneOdyssey
 	{
 		public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
 
-		public static AOMagic Imbue(this Player player) => player.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;
 
 
 		public static bool ImbueClassCheck(Projectile projectile)
@@ -29,7 +29,7 @@ namespace ArcaneOdyssey
 				{
 					return true;
 				}
-				return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle or MagicCircle2
+				return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell or StrengthTechnique || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle or MagicCircle2
 					&& projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.type != ProjectileID.FallingStar;
 			}
 			return false;
@@ -44,7 +44,7 @@ namespace ArcaneOdyssey
 				{
 					return true;
 				}
-				return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(DefaultScroll)));
+				return item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)));
 			}
 			return false;
 		}
@@ -53,16 +53,21 @@ namespace ArcaneOdyssey
 
 		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
 
-		public static bool TryGetImbue(this Item item, out AOMagic imbue)
+		public static bool TryGetImbue(this Item item, out Imbuable imbue)
 		{
 			imbue = item.ArcaneOdyssey().imbue;
 			return imbue is not null;
 		}
 
-		public static bool TryGetImbue(this Projectile projectile, out AOMagic imbue)
+		public static bool TryGetImbue(this Projectile projectile, out Imbuable imbue)
 		{
 			imbue = projectile.ArcaneOdyssey().imbue;
 			return imbue is not null;
+		}
+
+		public static bool AltUse(this Player player)
+		{
+			return player.altFunctionUse == 2;
 		}
 
 		/// <summary>
@@ -117,7 +122,7 @@ namespace ArcaneOdyssey
 			Legendary = 7,
 		}
 
-		public enum AOMagicTier
+		public enum AOImbuableTier
 		{
 			Unobtainable,
 			Normal,
@@ -127,14 +132,14 @@ namespace ArcaneOdyssey
 		}
 
 		/// <summary>
-		/// Arcane Odyssey weapon tiers, used for scaling. Weapon skill index: 2 is Old; 3 is Normal; 4 is Excellent
+		/// Arcane Odyssey weapon tiers, used for scaling. Weapon skill index: 2 is Old; 3 is Normal; 4 is Good
 		/// </summary>
 		public enum AOWeaponTiers
 		{
 			Trash,
 			Old,
 			Normal,
-			Excellent,
+			Good,
 		}
 
 		/// <summary>
@@ -163,7 +168,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="buffsToClear">Buffs this magic clears on hit</param>
 		/// <param name="buffMultipliers">Damage multipliers from having debuffs interact</param>
-		public class MagicEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
+		public class SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
 		{
 			public int[] clearBuffs = buffsToClear;
 			public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;

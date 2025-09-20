@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public float FramesAlive => Projectile.ArcaneOdyssey().FramesAlive;
 
-		public AOMagic Imbue 
+		public Imbuable Imbue 
 		{
 			get => Projectile.ArcaneOdyssey().imbue;
 			set => Projectile.ArcaneOdyssey().imbue = value;

@@ -17,17 +17,17 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class CrystalMagic : AOMagic
 	{
-		public override Color MagicColour => new Color(255,0,0,0);
+		public override Color ImbueColour => new Color(255,0,0,0);
 		public override float AOImbueSpeed => 0.95f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 1.025f;
-		public override float AOMagicSpeed => 0.9f;
-		public override float AOMagicSize => 1.15f;
-		public override float AOMagicDamage => 1.05f;
-		public override SoundStyle? MagicSound => SoundID.Shatter;
-		public override AODebuffRequirement MagicDebuff => new(ModContent.BuffType<Crystallized>(), 60*5);
+		public override float AOScrollSpeed => 0.9f;
+		public override float AOScrollSize => 1.15f;
+		public override float AOScrollDamage => 1.05f;
+		public override SoundStyle? ImbueSound => SoundID.Shatter;
+		public override AODebuffRequirement ImbueDebuff => new(ModContent.BuffType<Crystallized>(), 60*5);
 		public override CombinedDebuff[] CombinedDebuffs => [];
-		public override MagicEffects Effects => new(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.125f)
 			]
 			);
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<CrystalBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<CrystalBlast>()),]);
 
 		public override void SpawningEffects(Projectile projectile)
 		{ 
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
 			}
 		}
 
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			{
 				_ = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.GemRuby, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 1f)];
 			}
-			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 	}
 }

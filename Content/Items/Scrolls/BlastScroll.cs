@@ -11,7 +11,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls
 {
-	public class BlastScroll : DefaultScroll
+	public class BlastScroll : EmptyMagicScroll
 	{
 		public override void SetStaticDefaults()
 		{
@@ -21,37 +21,31 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 		public override void SetDefaultsScroll()
 		{
 			Item.useTime = 15;
-			Item.useAnimation = 60;
+			Item.useAnimation = 15;
 			Item.damage = 10;
 			Item.autoReuse = true;
 			Item.UseSound = SoundID.Item84;
-			Item.mana = 2;
+			Item.mana = 5;
 			Item.shootSpeed = 10;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<DefaultScroll>().AddIngredient(ItemID.WandofSparking).Register();
+			CreateRecipe().AddIngredient<EmptyMagicScroll>().AddIngredient(ItemID.WandofSparking).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)
 		{
 			return CanUseItem(player);
 		}
-		
-		public override bool CanUseItem(Player player)
-		{
-			return player.ArcaneOdyssey().imbue is not null;
-		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			AOPlayer playah = player.ArcaneOdyssey();
-			AOMagic magic = playah.imbue;
-			if (magic.Spells.TryGetValue(typeof(BlastSpell), out type))
+			if (playah.imbue.Skills.TryGetValue(typeof(BlastSpell), out type))
 			{
-				Projectile.NewProjectile(source, position, velocity * magic.AOMagicSpeed, type, (int)Math.Round(damage * (player.altFunctionUse != 2 ? 1 : .75f)), knockback, player.whoAmI, ai2: player.altFunctionUse);
+				Projectile.NewProjectile(source, position, velocity * playah.imbue.AOScrollSpeed, type, (int)Math.Round(damage * (player.altFunctionUse != 2 ? 1 : .75f)), knockback, player.whoAmI, ai2: player.altFunctionUse);
 				return false;
 			}
 			else

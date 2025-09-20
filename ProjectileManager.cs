@@ -24,30 +24,30 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.owner == Main.myPlayer && (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name)))
 			{
-				if (projectile.TryGetImbue(out AOMagic imbue))
+				if (projectile.TryGetImbue(out Imbuable imbue))
 				{
 					var spell = projectile.ModProjectile is MagicSpell;
 					if (spell)
 						modifiers.FinalDamage += ((projectile.damage + (BossesKilled * 2f)) / projectile.damage) - 1;
-					modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOMagicDamage).MultiToPercent();
+					modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOScrollDamage).MultiToPercent();
 					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 					{
 						modifiers.FinalDamage += .3f;
 					}
 
-					if ((imbue.MagicDebuff is not null) && (imbue.MagicDebuff.DebuffPercent != 0f))
+					if ((imbue.ImbueDebuff is not null) && (imbue.ImbueDebuff.DebuffPercent != 0f))
 					{
-						if (imbue.MagicDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff.DebuffPercent))
+						if (imbue.ImbueDebuff.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.ImbueDebuff.DebuffPercent))
 						{
-							target.AddBuff(imbue.MagicDebuff.debuffID, imbue.MagicDebuff.debuffDuration);
+							target.AddBuff(imbue.ImbueDebuff.debuffID, imbue.ImbueDebuff.debuffDuration);
 						}
 					}
 
-					if ((imbue.MagicDebuff2 is not null) && (imbue.MagicDebuff2.DebuffPercent != 0f))
+					if ((imbue.ImbueDebuff2 is not null) && (imbue.ImbueDebuff2.DebuffPercent != 0f))
 					{
-						if (imbue.MagicDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.MagicDebuff2.DebuffPercent))
+						if (imbue.ImbueDebuff2.DebuffPercent is null || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / imbue.ImbueDebuff2.DebuffPercent))
 						{
-							target.AddBuff(imbue.MagicDebuff2.debuffID, imbue.MagicDebuff2.debuffDuration);
+							target.AddBuff(imbue.ImbueDebuff2.debuffID, imbue.ImbueDebuff2.debuffDuration);
 						}
 					}
 
@@ -93,17 +93,17 @@ namespace ArcaneOdyssey
 				float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
 				if (projectile.ModProjectile is AOPlayerProjectile proj)
 					mult += proj.AOSize.MultiToPercent();
-				if (projectile.TryGetImbue(out AOMagic imbue))
+				if (projectile.TryGetImbue(out Imbuable imbue))
 				{
-					mult += (projectile.ModProjectile is MagicSpell ? imbue.AOMagicSize : imbue.AOImbueSize).MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
+					mult += (projectile.ModProjectile is MagicSpell ? imbue.AOScrollSize : imbue.AOImbueSize).MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
 				}
 				hitbox.Width = (int)(dim.X * mult);
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;
 				if (projectile.ModProjectile is BaseStaffProjectile)
 				{
-					hitbox.Width = (int)(dim.X * mult * 2);
-					hitbox.Height = (int)(dim.Y * mult * 2);
+					hitbox.Width = (int)(dim.X * mult * 1.5f);
+					hitbox.Height = (int)(dim.Y * mult * 1.5f);
 					hitbox.X -= hitbox.Width / 2;
 					hitbox.Y -= hitbox.Height / 2;
 				}
@@ -113,10 +113,10 @@ namespace ArcaneOdyssey
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			if (projectile.owner == Main.myPlayer)
-				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile) && source is not EntitySource_Parent { Entity: NPC })
+				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile) && source is not EntitySource_Parent { Entity: NPC })
 				{
 					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
-						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOMagicSpeed : imbue.AOImbueSpeed;
+						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOScrollSpeed : imbue.AOImbueSpeed;
 					AOMagic.CreateMagicCircle(projectile);
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 						imbue.SpawningEffects(projectile);
@@ -127,7 +127,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.owner == Main.myPlayer)
 			{
-				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile))
+				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile))
 				{
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 						imbue.LingeringEffects(projectile);
@@ -139,7 +139,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.owner == Main.myPlayer)
 			{
-				if (projectile.TryGetImbue(out AOMagic imbue) && imbue.PreEffects(projectile))
+				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile))
 				{
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 					imbue.KillEffects(projectile);
@@ -175,7 +175,7 @@ namespace ArcaneOdyssey
 		public float? BaseScale = null;
 		public Vector2? OriginalDimensions = null;
 		public int FramesAlive = 0;
-		public AOMagic imbue;
+		public Imbuable imbue;
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
@@ -184,7 +184,7 @@ namespace ArcaneOdyssey
 			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker) && source is not EntitySource_Parent { Entity: NPC })
 			{
 				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
-				if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.ColdMagic.HasValue) && (weapon.Cold.Value != imbue.ColdMagic.Value))
+				if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
 				{
 					imbue = new SteamImbue() { originalImbue = imbue };
 				}

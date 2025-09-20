@@ -228,9 +228,9 @@ namespace ArcaneOdyssey.Content.NPCS
 					spawnedDust2.noGravity = true;
 				}
 				SoundEngine.PlaySound(SoundID.Item74, NPC.position, null);
-            }
+			}
 		}
-		public override bool CanTownNPCSpawn(int numTownNPCs) => true;
+		public override bool CanTownNPCSpawn(int numTownNPCs) => ArcaneOdysseyConfig.Instance.EnableMorden;
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 	}
