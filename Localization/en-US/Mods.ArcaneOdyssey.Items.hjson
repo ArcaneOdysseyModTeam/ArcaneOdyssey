@@ -13,7 +13,7 @@ HecateShard: {
 }
 
 ArcaniumScrap: {
-	DisplayName: Arcanium Scrap
+	DisplayName: Sunken Scrap
 	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
 }
 

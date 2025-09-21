@@ -37,22 +37,25 @@ namespace ArcaneOdyssey.Content.NPCS
 			AnimationType = NPCID.Guide;
 		}
 
-		public override void PostAI()
-		{
-			if (NPC.wet && !NPC.lavaWet && !NPC.honeyWet)
+        public override bool PreAI()
+		{	
+			if ((NPC.wet && !NPC.lavaWet && !NPC.honeyWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
 			{
-				NPC.life -= 5;
+				var life = NPC.life - 5;
 				NPC.localAI[0]++;
 				if (NPC.localAI[0] % 15 == 0)
-					HitEffect(NPC.CalculateHitInfo(5, 1));
-				if (NPC.life <= 0)
+					HitEffect(NPC.CalculateHitInfo(5, 0));
+				if (life <= 0)
 				{
-					OnKill();
+					NPC.SimpleStrikeNPC(5, 0);
 					ExplodeMorden();
+					return false;
 				}
+				NPC.life -= 5;
 			}
 			else
 				NPC.localAI[0] = 0;
+			return true;
 		}
 
 		public override void SetStaticDefaults()
@@ -71,8 +74,8 @@ namespace ArcaneOdyssey.Content.NPCS
 				SetNPCAffection(NPCID.Wizard, AffectionLevel.Like).
 				SetNPCAffection(NPCID.Clothier, AffectionLevel.Love);
 			NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
-
 		}
+
 		public override List<string> SetNPCNameList() => ["Morden"];
 
 		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
@@ -123,6 +126,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)
 				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 700, 0f, -1, default);
 		}
+
 		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(!Main.zenithWorld ? "e" : "e1")}").Value;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -132,11 +136,13 @@ namespace ArcaneOdyssey.Content.NPCS
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
+
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Help";
 			button2 = null;
 		}
+
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton)
@@ -144,13 +150,17 @@ namespace ArcaneOdyssey.Content.NPCS
 				Main.npcChatText = GetChatHelpButton();
 			}
 		}
+
 		public string GetChatHelpButton()
 		{
+			MordenDialogue mordendialogue = Main.LocalPlayer.GetModPlayer<MordenDialogue>();
+
 			List<string> options = [];
 			if (false) // add conditions later
 			{
 				options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
 			}
+
 			if (BossesKilled == 0)
 			{
 				options.Add(this.GetLocalizedValue("Help.Early1"));
@@ -162,6 +172,16 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Help.EarlyHard1"));
 				options.Add(this.GetLocalizedValue("Help.EarlyHard2"));
+			}
+
+			if (Main.hardMode && !DownedBosses.downedEvander)
+			{
+				options.Add(this.GetLocalizedValue("Help.StrengthWeaponsHint"));
+			}
+
+			if (DownedBosses.downedEvander) // argos or something might be here too
+			{
+				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
 			}
 
 			if (!Main.hardMode)
@@ -180,7 +200,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.PlantTip"));
 			}
 
-			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastHelp);
+			options.RemoveAll(e => e == mordendialogue.LastHelp);
 
 			if (options.Count == 0)
 				return this.GetLocalizedValue("Help.NothingToSay");
@@ -216,6 +236,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			return chosen;
 			return Main.rand.Next(options);
 		}
+
 		public void ExplodeMorden()
 		{
 			if (!Main.dedServ)

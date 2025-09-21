@@ -190,6 +190,8 @@ NPCs: {
 			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
+			StrengthWeaponsHint: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
+			HasStrengthWeapon: I see you've encountered a strong warrior. Such warriors wield weapons too heavy for regular warriors, and so they learn to use a fighting style.
 		}
 
 		TownNPCMood: {
@@ -236,11 +238,4 @@ ArmourAutoTooltip: {
 	Minions: +{0} minion slots
 	Mana: +{0} maximum mana
 	Size: "{0}% increased attack size"
-}
-
-FightingStyles: {
-	BasicCombat: {
-		DisplayName: Basic Combat
-		Tooltip: ""
-	}
 }

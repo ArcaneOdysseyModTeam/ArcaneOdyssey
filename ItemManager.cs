@@ -125,15 +125,15 @@ namespace ArcaneOdyssey
 				if (imbue is WindMagic)
 				{
 					extrakbmulti = 3f;
-                }
+				}
 
-                if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
-                {
-                    knockback += imbue.AOScrollSize.MultiToPercent() + extrakbmulti;
-                    return;
-                }
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
+				{
+					knockback += imbue.AOScrollSize.MultiToPercent() + extrakbmulti;
+					return;
+				}
 
-                if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					knockback += imbue.AOImbueSize.MultiToPercent() + extrakbmulti.MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
 				}
@@ -147,12 +147,12 @@ namespace ArcaneOdyssey
 				damage += ((item.damage+(BossesKilled * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
 			}
 			if (item.TryGetImbue(out Imbuable imbue))
-            {
-                if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
-                {
-                    damage += imbue.AOScrollDamage.MultiToPercent();
+			{
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
+				{
+					damage += imbue.AOScrollDamage.MultiToPercent();
 					return;
-                }
+				}
 
 				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
@@ -163,11 +163,11 @@ namespace ArcaneOdyssey
 		public override float UseSpeedMultiplier(Item item, Player player)
 		{
 			if (item.TryGetImbue(out Imbuable imbue) && item.DamageType != DamageClass.MeleeNoSpeed)
-            {
-                if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
-                {
-                    return imbue.AOScrollSpeed;
-                }
+			{
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
+				{
+					return imbue.AOScrollSpeed;
+				}
 
 				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
@@ -183,31 +183,12 @@ namespace ArcaneOdyssey
 		public override bool InstancePerEntity => true;
 
 		public Player owner;
-		public Imbuable imbue;
+		public Imbuable imbue = null;
 
 		public override void UpdateInventory(Item item, Player player)
 		{
 			owner = player;
-			bool ArcaniumCheck()
-			{
-				if (item.ModItem is AOWeapon weapon1)
-				{
-					var Arcanium = weapon1.Arcanium;
-					if (Arcanium.HasValue && player.ArcaneOdyssey().imbue is not null)
-					{
-						if (Arcanium.Value)
-						{
-							return player.ArcaneOdyssey().imbue is AOMagic;
-						}
-						else
-						{
-							return player.ArcaneOdyssey().imbue is FightingStyle;
-						}
-					}
-				}
-				return true;
-			}
-			if (ArcaniumCheck() && ImbueClassCheck(item))
+			if (ImbueClassCheck(item))
 			{
 				imbue = player.ArcaneOdyssey().imbue;
 				if ((item.ModItem is AOWeapon weapon && imbue is not null) && (weapon.ColdWeapon.HasValue && imbue.Cold.HasValue) && (weapon.ColdWeapon.Value != imbue.Cold.Value))

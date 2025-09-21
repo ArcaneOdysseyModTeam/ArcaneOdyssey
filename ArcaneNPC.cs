@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.NPCS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace ArcaneOdyssey
 
 		public float StunCD = 5;
 		public float StunDuration = 1;
+
+		public bool Bleeding = false;
 
 		public bool AOStunned = false;
 
@@ -43,8 +46,17 @@ namespace ArcaneOdyssey
 				StunCD = 5;
 				StunDuration = 1;
 			}
-		}
-	}
+			Bleeding = false;
+        }
+
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+			if (Bleeding)
+			{
+				npc.lifeRegen -= 3;
+			}
+        }
+    }
 
 	public class AOGlobalNPC : GlobalNPC
 	{

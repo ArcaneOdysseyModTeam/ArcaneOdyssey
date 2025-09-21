@@ -13,6 +13,7 @@ using Terraria.ID;
 using Terraria.IO;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey
@@ -54,14 +55,14 @@ namespace ArcaneOdyssey
 			else return [];
 		}
 
-        public override void PreUpdateMovement()
-        {
-            if (myCircle is not null && myCircle.ai[1] == 2)
-            {
-                Player.velocity = Vector2.Zero;
-                Player.maxFallSpeed = 0f;
-            }
-        }
+		public override void PreUpdateMovement()
+		{
+			if (myCircle is not null && myCircle.ai[1] == 2)
+			{
+				Player.velocity = Vector2.Zero;
+				Player.maxFallSpeed = 0f;
+			}
+		}
 
 		public override void ResetEffects()
 		{
@@ -84,7 +85,7 @@ namespace ArcaneOdyssey
 			{
 				stat += .1f;
 			}
-			return stat+1;
+			return stat + 1;
 		}
 
 		public float GetSizeMulti(Projectile projectile)
@@ -94,14 +95,15 @@ namespace ArcaneOdyssey
 			{
 				stat += .1f;
 			}
-			return stat + 1f;
+			stat++;
+			return stat;
 		}
 
-        public override void PreUpdate()
-        {
+		public override void PreUpdate()
+		{
 			if (Main.LocalPlayer == Player)
 				StunCD -= 1 / 60;
-        }
+		}
 	}
 
 	public class WorldGenTasks
@@ -156,16 +158,16 @@ namespace ArcaneOdyssey
 				}));
 			}
 
-            int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
+			int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
 			if (ArcaneOdysseyConfig.Instance.EnableMorden && guide != -1)
 			{
-                tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
-                {
-                    progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
-                    WorldGenTasks.SpawnMorden();
-                }));
-            }
-        }
+				tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
+				{
+					progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
+					WorldGenTasks.SpawnMorden();
+				}));
+			}
+		}
 
 		public override void PostWorldGen()
 		{
@@ -187,6 +189,37 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
+		}
+	}
+
+	public class DownedBosses : ModSystem
+	{
+		public static bool downedEvander;
+
+		public static void ResetDefaults()
+		{
+			downedEvander = false;
+		}
+
+		public override void OnWorldLoad() => ResetDefaults();
+
+		public override void OnWorldUnload() => ResetDefaults();
+
+		public override void SaveWorldData(TagCompound tag)
+		{
+			List<string> downed = [];
+			if (downedEvander)
+			{
+				downed.Add("Evander");
+			}
+
+			tag["downed"] = downed;
+		}
+
+		public override void LoadWorldData(TagCompound tag)
+		{
+			var downed = tag.GetList<string>("downed");
+			downedEvander = downed.Contains("Evander");
 		}
 	}
 }

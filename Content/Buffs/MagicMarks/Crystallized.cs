@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class Crystallized : AODebuff
 	{
-		public int stack;
+		private int stack;
 
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {

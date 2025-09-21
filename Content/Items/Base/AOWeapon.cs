@@ -43,32 +43,36 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
-			Item.useTime = Item.useAnimation = (int)(27 * AOSpeed);
+			Item.useTime = Item.useAnimation = (int)Math.Round(27 * AOSpeed.FlipFloat());
 			Item.knockBack = 4.5f * AOSize;
             Item.rare = (int)AORarity;
 			Item.scale = AOSize;
 			Item.value = GalleonToCopper(AOValue);
 			Item.autoReuse = true;
-            Item.damage = (int)WeaponDamage(AOWeaponTier);
+			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent() };
+            Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
 			Item.DamageType = DamageClass.Melee;
 			SetDefaultsWeapon();
 		}
 
         public override bool CanUseItem(Player player)
         {
-            if (Arcanium.HasValue && Item.TryGetImbue(out Imbuable imbue))
+            if (Arcanium.HasValue)
 			{
-				if (Arcanium.Value)
+				if (Item.TryGetImbue(out Imbuable imbue))
 				{
-					return imbue is AOMagic;
+					if (Arcanium.Value)
+					{
+						return imbue is AOMagic;
+					}
+					else
+					{
+						return imbue is FightingStyle;
+					}
 				}
-				else
-				{
-					return imbue is FightingStyle;
-				}
+				return false;
 			}
-			else
-				return true;
+			return true;
         }
 	}
 }
