@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override void SetDefaults()
 		{
-			Projectile.height = Projectile.width = 40;
+			Projectile.height = Projectile.width = 60;
 			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 			Projectile.knockBack = 4.5f;

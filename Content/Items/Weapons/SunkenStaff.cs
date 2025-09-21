@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         {
             Item.DamageType = DamageClass.Melee;
             Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
-            Item.width = Item.height = 40;
+            Item.width = Item.height = 60;
             Item.channel = true;
             Item.UseSound = SoundID.SplashWeak;
             Item.useStyle = ItemUseStyleID.Shoot;

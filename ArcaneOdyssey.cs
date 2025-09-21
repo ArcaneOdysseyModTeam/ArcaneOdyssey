@@ -104,7 +104,7 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdate()
 		{
-			for (int i = 0; i < Cooldowns.Count; i++)
+			foreach (int i in Cooldowns.Keys)
 			{
 				Cooldowns[i]--;
                 if (Cooldowns[i] <= 0)
@@ -112,16 +112,16 @@ namespace ArcaneOdyssey
                     Cooldowns.Remove(i);
                 }
             }
-			for (int i = 0; i < BuffCooldowns.Count; i++)
-			{
+            foreach (int i in BuffCooldowns.Keys)
+            {
 				BuffCooldowns[i]--;
                 if (BuffCooldowns[i] <= 0)
                 {
                     BuffCooldowns.Remove(i);
                 }
             }
-			for (int i = 0; i < ItemCooldowns.Count; i++)
-			{
+            foreach (int i in ItemCooldowns.Keys)
+            {
 				ItemCooldowns[i]--;
 				if (ItemCooldowns[i] <= 0)
 				{
