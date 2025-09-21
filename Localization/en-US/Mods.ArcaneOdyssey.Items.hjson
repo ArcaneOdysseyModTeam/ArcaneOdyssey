@@ -124,3 +124,8 @@ EmptyMagicScroll: {
 	DisplayName: Empty Spell Scroll
 	Tooltip: An empty spell scroll, made of magic-conductive organic paper
 }
+
+ColossalGreatsword: {
+	DisplayName: Colossal Greatsword
+	Tooltip: An enourmous steel greatsword that was wielded by Evander the Mountainbreaker, a bounty hunter that wanders this land
+}
