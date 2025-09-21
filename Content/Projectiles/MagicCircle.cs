@@ -44,15 +44,15 @@ namespace ArcaneOdyssey.Content.Projectiles
 			float tempLightColorB = 0f;
 			if (Projectile.TryGetImbue(out Imbuable Imbue))
 			{
-				if (!(Imbue.ImbueColour.R == 0f))
+				if (Imbue.ImbueColour.R != 0f)
 				{
 					tempLightColorR = 3f / Imbue.ImbueColour.R;
 				}
-				if (!(Imbue.ImbueColour.G == 0f))
+				if (Imbue.ImbueColour.G != 0f)
 				{
 					tempLightColorG = 3f / Imbue.ImbueColour.G;
 				}
-				if (!(Imbue.ImbueColour.B == 0f))
+				if (Imbue.ImbueColour.B != 0f)
 				{
 					tempLightColorB = 3f / Imbue.ImbueColour.B;
 				}
@@ -88,7 +88,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Color drawColor = Imbue.ImbueColour;
 				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 64 * Projectile.frame, 64, 64), drawColor, Projectile.rotation, new Vector2(31f, 32f), Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.height, Projectile.width), drawColor, Projectile.rotation, new Vector2(Projectile.width/2, Projectile.height/2), Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None);
 				return false;
 			}
 			return true;

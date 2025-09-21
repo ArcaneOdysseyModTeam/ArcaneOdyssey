@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.autoReuse = false;
             Item.useAnimation = Item.useTime = 25;
+            Item.reuseDelay = 120;
         }
 
         public override void AddRecipes()

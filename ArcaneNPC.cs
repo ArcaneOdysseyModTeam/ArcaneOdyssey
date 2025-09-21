@@ -53,7 +53,7 @@ namespace ArcaneOdyssey
         {
 			if (Bleeding)
 			{
-				npc.lifeRegen -= 3;
+				npc.lifeRegen -= 9;
 			}
         }
     }

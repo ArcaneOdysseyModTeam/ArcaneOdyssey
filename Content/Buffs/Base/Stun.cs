@@ -20,15 +20,15 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 		/// <summary>
 		/// literally just for custom magics
 		/// </summary>
-		public virtual bool AffectsBosses => false;
+		public virtual bool LiterallyCheating => false;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			if (!npc.boss || AffectsBosses)
+			if (!npc.boss && npc.ArcaneOdyssey().StunCD <= 0 || LiterallyCheating) 
 			{
-				if (npc.ArcaneOdyssey().StunCD <= 0)
-					npc.ArcaneOdyssey().AOStunned = true;
+				npc.ArcaneOdyssey().AOStunned = true;
 			}
 		}
+
 		public override void SetStaticDefaults()
 		{
 			Main.pvpBuff[Type] = true;
@@ -40,12 +40,22 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (player.ArcaneOdyssey().StunCD <= 0 || AffectsBosses)
+			if (!player.ArcaneOdyssey().BuffCooldowns.ContainsKey(Type) || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
-				player.ArcaneOdyssey().StunCD = 1;
+				player.ArcaneOdyssey().Cooldowns[Type] = 60;
 				player.canFloatInWater = false;
 			}
 		}
+
+        public override bool ReApply(NPC npc, int time, int buffIndex)
+        {
+            return !LiterallyCheating;
+        }
+
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+            return !LiterallyCheating;
+        }
 	}
 }

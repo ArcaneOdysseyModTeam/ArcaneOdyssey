@@ -55,6 +55,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 			SetDefaultsWeapon();
 		}
 
+		/// <summary>
+		/// arcanium/strength weapons is checked here
+		/// </summary>
+		/// <param name="player">the player, dumbass</param>
+		/// <returns></returns>
         public override bool CanUseItem(Player player)
         {
             if (Arcanium.HasValue)

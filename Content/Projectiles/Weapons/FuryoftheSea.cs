@@ -29,9 +29,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			Projectile.knockBack = 4.5f;
 			Projectile.timeLeft = 60;
 			Projectile.friendly = true;
-			Projectile.hostile = false;
 			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
+            Projectile.ownerHitCheck = true;
+            Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
 		}
 		public override void AI()

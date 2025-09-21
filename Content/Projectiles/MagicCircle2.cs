@@ -32,15 +32,13 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (Projectile.position != Projectile.oldPosition)
                 Projectile.netUpdate = true;
-            Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f);
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
-			if (Projectile.ai[2] == 0)
+			if (Projectile.ai[2] == 0 && aoPlayerOwner.imbue is not null)
 			{
-				if (Projectile.TryGetImbue(out Imbuable imbue))
-					Projectile.ai[2] = imbue.Type;
+				Projectile.ai[2] = aoPlayerOwner.imbue.Type;
 			}
-			Imbue = (AOMagic)ModContent.GetModItem((int)Projectile.ai[2]);
+			Imbue = (Imbuable)ModContent.GetModItem((int)Projectile.ai[2]);
 			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null && shouldBeAlive ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
@@ -50,14 +48,20 @@ namespace ArcaneOdyssey.Content.Projectiles
 					Projectile.Center = player.Center;
 				}
 				else
-					Projectile.position = Main.MouseWorld - new Vector2(Projectile.width/2, Projectile.height/2);
+				{
+					if (Vector2.Distance(player.position, Main.MouseWorld) < 300) // how long is 300 lol
+					{
+						Projectile.Center = Main.MouseWorld;
+					}
+				}
 			}
 			else
 				aoPlayerOwner.myCircle = null;
 
 			if (Imbue is not null)
-			{
-				float tempLightColorR = 0f;
+            {
+                Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f) * Imbue.AOScrollSpeed;
+                float tempLightColorR = 0f;
 				float tempLightColorG = 0f;
 				float tempLightColorB = 0f;
 				if (Imbue.ImbueColour.R != 0f)
@@ -101,7 +105,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Color drawColor = Imbue.ImbueColour;
 				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, new Vector2(Projectile.height/2, Projectile.height / 2), Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None);
+				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, Projectile.Center, Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None);
 			}
 			return false;
 		}

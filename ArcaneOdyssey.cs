@@ -43,8 +43,11 @@ namespace ArcaneOdyssey
 		public int AOSizeStat = 0;
 
 		public Projectile myCircle = null;
-		public float StunCD = 0;
 		public bool RightClicking => Player.altFunctionUse == 2;
+
+		public Dictionary<int, int> Cooldowns = [];
+		public Dictionary<int, int> BuffCooldowns = [];
+		public Dictionary<int, int> ItemCooldowns = [];
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
@@ -101,8 +104,30 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdate()
 		{
-			if (Main.LocalPlayer == Player)
-				StunCD -= 1 / 60;
+			for (int i = 0; i < Cooldowns.Count; i++)
+			{
+				Cooldowns[i]--;
+                if (Cooldowns[i] <= 0)
+                {
+                    Cooldowns.Remove(i);
+                }
+            }
+			for (int i = 0; i < BuffCooldowns.Count; i++)
+			{
+				BuffCooldowns[i]--;
+                if (BuffCooldowns[i] <= 0)
+                {
+                    BuffCooldowns.Remove(i);
+                }
+            }
+			for (int i = 0; i < ItemCooldowns.Count; i++)
+			{
+				ItemCooldowns[i]--;
+				if (ItemCooldowns[i] <= 0)
+				{
+					ItemCooldowns.Remove(i);
+				}
+			}
 		}
 	}
 

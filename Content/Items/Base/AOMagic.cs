@@ -55,11 +55,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{ // add explosion spell spawning stuff later
 			if (item.ModItem is AOMagic)
 			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: 1, ai2: magicToUse is not null ? magicToUse.Type : 0)];
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: 0, ai2: magicToUse is not null ? magicToUse.Type : 0)];
 			}
 			else if (item.ModItem is ExplosionScroll)
 			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse, ai2: magicToUse is not null ? magicToUse.Type : 0)];
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse, ai2: magicToUse is not null ? magicToUse.Type : 0)];
 			}
 			else
 				return null;

@@ -8,6 +8,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
+using ArcaneOdyssey.Content.Projectiles.Weapons;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -21,11 +23,39 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
         public override bool? Arcanium => false;
 
+        public override void SetStaticDefaults()
+        {
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+        }
+
 		public override void SetDefaultsWeapon()
 		{
 			Item.width = 86;
+			Item.shootSpeed = 5;
 			Item.height = 86;
 			Item.useStyle = ItemUseStyleID.Swing;
+			Item.shoot = ModContent.ProjectileType<ColossalCleave>();
 		}
+
+		/// <summary>
+		/// only shoots projectile on alt fire
+		/// </summary>
+		/// <param name="player">the FUCKING PLAYER</param>
+		/// <returns></returns>
+        public override bool CanShoot(Player player)
+        {
+            return player.AltUse() && !player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type);
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+			player.ArcaneOdyssey().ItemCooldowns[Type] = 60*5;
+            return true;
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return CanUseItem(player);
+        }
 	}
 }

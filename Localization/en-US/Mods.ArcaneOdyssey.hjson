@@ -120,16 +120,24 @@ Projectiles: {
 	ExplosionSpell.DisplayName: Explosion Spell
 	DeliriumBlast.DisplayName: Delirium Blast
 	DeathCurse.DisplayName: Death Curse
+	ColossalCleave.DisplayName: Colossal Cleave
 }
 
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	ImbueTooltip: Current Imbue: {0}
+	ImbueTooltipMagic: Current Imbue: [c/327DFF:{0}]
+	ImbueTooltipStrength: Current Imbue: [c/700013:{0}]
+	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
+	StrengthIndicator: "[c/700013:-Strength Weapon-]"
 	NoneText: None
 	UnimbueText: Your imbue has been deselected
 }
 
-PopupText.RisingTide: Rising Tide!
+PopupText: {
+	RisingTide: Rising Tide!
+	ColossalCleave: Colossal Cleave!
+}
 
 Configs: {
 	ArcaneOdysseyConfig: {
@@ -225,7 +233,7 @@ MagicTierLines: {
 
 FSTierLines: {
 	Unobtainable: Unobtainable
-	Normal: "[c/2277ff:-Fighting Style-]"
+	Normal: "[c/700013:-Fighting Style-]"
 	Lost: "[c/0044ff:-Lost Fighting Style-]"
 	Ancient: "[c/7ebcc2:-Ancient Fighting Style-]"
 	Custom: "[c/ff0000:-Custom Fighting Style-]"

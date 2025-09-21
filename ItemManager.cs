@@ -91,19 +91,38 @@ namespace ArcaneOdyssey
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
 			if (item.ArcaneOdyssey().owner is not null)
+			{
+
+				if (item.ModItem is AOWeapon weapon && weapon.Arcanium.HasValue)
+				{
+					if (weapon.Arcanium.Value)
+					{
+						tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+					}
+					else
+					{
+                        tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+                    }
+				}
+
+
 				if (ImbueClassCheck(item))
 				{
+					bool? coolred = null;
 					string imbuetextthing = Mod.CustomLocalization("ImbueStuff.NoneText").Value;
 					if (item.TryGetImbue(out Imbuable imbue) && imbue is not SteamImbue)
 					{
+						coolred = imbue is FightingStyle;
 						imbuetextthing = imbue.DisplayName.Value;
 					}
 					else if (item.TryGetImbue(out Imbuable imbue1) && imbue1 is SteamImbue)
 					{
 						imbuetextthing = Language.GetTextValue("RandomWorldName_Adjective.Steaming");
 					}
-					tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization("ImbueStuff.ImbueTooltip", [imbuetextthing]).Value));
+					string idkwhattonamethis = coolred.HasValue ? (coolred.Value ? "Strength" : "Magic") : "";
+					tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization($"ImbueStuff.ImbueTooltip{idkwhattonamethis}", [imbuetextthing]).Value));
 				}
+			}
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
