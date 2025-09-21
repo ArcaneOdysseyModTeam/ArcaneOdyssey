@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				circleprojectile.rotation = projectile.velocity.ToRotation();
 				Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 30f;
 				circleprojectile.position += circleVec;
-				circleprojectile.scale = projectile.scale;
+				circleprojectile.scale = projectile.scale/2;
 				return circleprojectile;
 			}
 			else
@@ -65,8 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				return null;
 		}
 
-		// Dust stuff below for copy/paste
-		// hello it is me the code insect i eat your code
-		// Dust spawnedDust = Main.dust[Dust.EATEN AHHAHAH(new Vector2(projectile.position.X+(projectile.width*(float)rand.NextDouble()),projectile.position.Y+(projectile.height*(float)rand.NextDouble())),1,1,DustID.Water,0f,0f,0,default,1f)];
-	}
+        // Dust stuff below for copy/paste
+        // Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())), 1, 1, DustID.Water);
+    }
 }

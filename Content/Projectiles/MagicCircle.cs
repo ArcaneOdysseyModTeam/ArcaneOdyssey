@@ -27,13 +27,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.height = 64;
-			Projectile.width = 64;
+			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
-			Projectile.alpha = 0;
-			Projectile.frameCounter = 0;
-			Projectile.friendly = false;
-			Projectile.hostile = false;
 		}
 
 		public override void AI()
