@@ -146,5 +146,5 @@ SteamImbue: {
 
 EmptyScroll: {
 	DisplayName: Empty Scroll
-	Tooltip: ""
+	Tooltip: An empty scroll, made of organic paper
 }
