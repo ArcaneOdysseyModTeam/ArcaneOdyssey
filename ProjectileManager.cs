@@ -104,8 +104,8 @@ namespace ArcaneOdyssey
 				{
 					hitbox.Width = (int)(dim.X * mult * 1.5f);
 					hitbox.Height = (int)(dim.Y * mult * 1.5f);
-					hitbox.X -= hitbox.Width / 2;
-					hitbox.Y -= hitbox.Height / 2;
+					hitbox.X -= hitbox.Width / 3;
+					hitbox.Y -= hitbox.Height / 3;
 				}
 			}
 		}

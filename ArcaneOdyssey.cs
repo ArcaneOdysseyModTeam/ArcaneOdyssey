@@ -60,7 +60,7 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdateMovement()
 		{
-			if (myCircle is not null && myCircle.ai[1] == 2)
+			if (myCircle is not null && myCircle.ai[1] != 2)
 			{
 				Player.velocity = Vector2.Zero;
 				Player.maxFallSpeed = 0f;

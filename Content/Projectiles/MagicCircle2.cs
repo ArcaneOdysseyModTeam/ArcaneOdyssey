@@ -43,15 +43,19 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.ai[0] < 1)
 			{
 				aoPlayerOwner.myCircle = Projectile;
-				if (Projectile.ai[1] == 2)
+				if (Projectile.ai[1] != 2)
 				{
-					Projectile.Center = player.Center;
+					Projectile.Center = player.MountedCenter;
 				}
 				else
 				{
-					if (Vector2.Distance(player.position, Main.MouseWorld) < 300) // how long is 300 lol
+					if (Vector2.Distance(player.Center, Main.MouseWorld) < 400) // how long is 300 lol
 					{
 						Projectile.Center = Main.MouseWorld;
+					}
+					else
+					{
+						Projectile.Center = player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400;
 					}
 				}
 			}
@@ -105,7 +109,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Color drawColor = Imbue.ImbueColour;
 				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), drawColor, Projectile.rotation, Projectile.Center, Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None);
+				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, null, drawColor, Projectile.rotation, Projectile.GetDrawOriginCentre(), Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None);
 			}
 			return false;
 		}

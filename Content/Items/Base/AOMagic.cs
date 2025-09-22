@@ -44,7 +44,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				circleprojectile.rotation = projectile.velocity.ToRotation();
 				Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 30f;
 				circleprojectile.position += circleVec;
-				circleprojectile.scale = projectile.scale/2;
 				return circleprojectile;
 			}
 			else

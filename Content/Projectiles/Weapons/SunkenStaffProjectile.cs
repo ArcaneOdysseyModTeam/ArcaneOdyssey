@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			if (!Main.dedServ) 
 			{
 				// dust
-				for(int dustCountInt = 0;dustCountInt<2;dustCountInt++) 
+				for (int dustCountInt = 0;dustCountInt<2;dustCountInt++) 
 				{
 					Dust.NewDust(Projectile.Center, 3, 3, DustID.Water, 50f * (0.5f - Main.rand.NextFloat()) ,50f * (0.5f - Main.rand.NextFloat()), 255, default, 1.3f);
 				}
