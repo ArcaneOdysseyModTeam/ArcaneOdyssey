@@ -13,8 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class LightBlast : BlastSpell
 	{
-		public override void SetDefaultsBlast() {
-			Main.projFrames[Projectile.type] = 3;
+		public override void SetStaticDefaults() {
+			Main.projFrames[Type] = 3;
 		}
 	}
 }
