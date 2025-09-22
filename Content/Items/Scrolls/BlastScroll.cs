@@ -22,7 +22,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.damage = 10;
-			Item.autoReuse = true;
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 5;
 			Item.channel = true;

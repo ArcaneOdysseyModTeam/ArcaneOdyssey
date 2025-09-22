@@ -138,3 +138,8 @@ SteamImbue: {
 	DisplayName: Steam Imbue
 	Tooltip: ""
 }
+
+EmptyScroll: {
+	DisplayName: Empty Scroll
+	Tooltip: ""
+}

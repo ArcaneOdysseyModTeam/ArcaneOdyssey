@@ -191,19 +191,19 @@ namespace ArcaneOdyssey
 			}
 			else if (source is EntitySource_Parent { Entity: Player player })
 			{
-                imbue ??= player.HeldItem.ArcaneOdyssey().imbue;
-            }
+				imbue ??= player.HeldItem.ArcaneOdyssey().imbue;
+			}
 
 			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker) && source is not EntitySource_Parent { Entity: NPC })
 			{
 				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
-            }
+			}
 
-            if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
-            {
-                imbue = new SteamImbue() { originalImbue = imbue };
-            }
-        }
+			if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
+			{
+				imbue = new SteamImbue() { originalImbue = imbue };
+			}
+		}
 
 		public override void PostAI(Projectile projectile)
 		{
@@ -221,5 +221,10 @@ namespace ArcaneOdyssey
 			}
 			return true;
 		}
+
+        public override void SetDefaults(Projectile entity)
+        {
+            FramesAlive = 0;
+        }
 	}
 }

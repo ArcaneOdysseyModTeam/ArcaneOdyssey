@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class TechniqueScroll : EmptyScroll
 	{
-        public override bool SpellScroll => false;
+		public override bool SpellScroll => false;
 
 		public override void UpdateInventory(Player player)
 		{

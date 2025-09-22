@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
@@ -210,6 +211,19 @@ namespace ArcaneOdyssey
 		private int ImbueIndex;
 		private bool SpecificImbue = false;
 
+        public override GlobalItem Clone(Item from, Item to)
+        {
+            var clone = (AOItem)base.Clone(from, to);
+			clone.imbue = null;
+			clone.owner = null;
+			return clone;
+        }
+
+        public override void SetDefaults(Item entity)
+        {
+			owner = null;
+			imbue = null;
+        }
 
 		public override void UpdateInventory(Item item, Player player)
 		{
@@ -228,7 +242,7 @@ namespace ArcaneOdyssey
 							imbue = null;
 						}
 					}
-                    imbue = player.ArcaneOdyssey().imbue;
+					imbue = player.ArcaneOdyssey().imbue;
 				}
 
 				if (player.HeldItem == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
@@ -240,8 +254,8 @@ namespace ArcaneOdyssey
 						SpecificImbue = true;
 						ImbueIndex++;
 						if (ImbueIndex >= options.Count)
-                        {
-                            ImbueIndex = 0;
+						{
+							ImbueIndex = 0;
 						}
 						imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;

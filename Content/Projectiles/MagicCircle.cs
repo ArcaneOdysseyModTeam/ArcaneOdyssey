@@ -33,38 +33,46 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
+			Projectile.alpha = 0;
 		}
 
+		public bool MarkedForDeath = false;
+
 		public override void AI()
-		{
-			if (Projectile.ai[0] == 0f)
+        {
+            aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+            if (Projectile.ai[0] == 0f)
 			{
 				Projectile.ai[0] = 1f;
 				Projectile.netUpdate = true; 
-				if (Projectile.ai[1] == 1)
+				if (aoPlayerOwner.Player.channel)
 				{
 					charge = .75f;
 				}
-
 			}
-			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 
-
-
-			var dir = aoPlayerOwner.Player.SafeDirectionTo(Main.MouseWorld);
-			if (Projectile.ai[1] == 1 && aoPlayerOwner.Player.channel)
+			var dir = aoPlayerOwner.Player.MountedCenter.DirectionTo(Main.MouseWorld);
+			if (aoPlayerOwner.Player.channel && !MarkedForDeath)
 			{
-				charge += 1 / 60;
+				charge += 1f / 60f;
 				Projectile.rotation = dir.ToRotation();
-				Projectile.position = dir * 30;
-				if (charge >= 3)
+				Projectile.Center = aoPlayerOwner.Player.MountedCenter + (dir * 30f);
+				if (charge >= 3f)
 				{
 					aoPlayerOwner.Player.channel = false;
+					MarkedForDeath = true;
 				}
 			}
 			else
 			{
-				Projectile.alpha += 255 / 60;
+				Projectile.alpha += (255f / 60f).Round();
+				MarkedForDeath = true;
+				if (Projectile.ai[1] == 0 && AOUtils.ServerOrSingleplayer)
+				{
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * charge), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
+					proj.ArcaneOdyssey().BaseScale = charge;
+					Projectile.ai[1] = 1;
+				}
 			}
 
 			if (Projectile.TryGetImbue(out Imbuable Imbue) && !Main.dedServ)
@@ -95,7 +103,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 			if (Projectile.alpha >= 255)
 			{
-				Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * charge), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner).scale = charge;
 				Kill();
 			}
 
@@ -118,7 +125,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Color drawColor = Imbue.ImbueColour;
 				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), drawColor, Projectile.rotation, new Vector2(Projectile.width/2, Projectile.width/2), Imbue.AOScrollSize * Projectile.scale / 2, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), drawColor, Projectile.rotation, Projectile.GetDrawOriginCentre(), Imbue.AOScrollSize * Projectile.scale / 2, SpriteEffects.None, 0);
 				return false;
 			}
 			return true;

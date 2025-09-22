@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
         public override void SetDefaults()
         {
             Projectile.penetrate = -1;
-            Projectile.alpha = (int)(225 * .1f);
             Projectile.DamageType = DamageClass.Melee;
             Projectile.damage = (int)WeaponDamage(AOWeaponTier);
-            Projectile.tileCollide = false;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 60*3;
             Projectile.friendly = true;
             Projectile.height = 234;
             Projectile.width = 74;
@@ -43,7 +42,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
                 Projectile.netUpdate = true;
             }
 
-            Projectile.position += Projectile.velocity;
             Projectile.rotation = Projectile.velocity.ToRotation();
 
             if (Projectile.localAI[0] > 60 && !Main.dedServ)
@@ -52,6 +50,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
                 Imbue.ExplosionEffects(Projectile);
             }
             Projectile.localAI[0]++;
+
+            if (Projectile.ai[1] == 1)
+            {
+                Projectile.alpha += 255 / 30;
+            }
+        }
+
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            height = width /= 2;
+            fallThrough = true;
+            return true;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.velocity = Vector2.Zero;
+            Projectile.timeLeft = 30;
+            Projectile.ai[1] = 1;
+            return false;
         }
     }
 }

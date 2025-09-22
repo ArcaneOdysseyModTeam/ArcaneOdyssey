@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.Stuns;
-using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,8 +13,9 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 using Terraria.Audio;
+using ArcaneOdyssey.Content.Items.Base;
 
-namespace ArcaneOdyssey.Content.Items.Magic
+namespace ArcaneOdyssey.Content.Items
 {
 	public class SteamImbue : Imbuable
 	{
@@ -45,21 +45,28 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]);
 
 		public override void KillEffects(Projectile projectile)
-		{
-			SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);
+        {
             for (int n = 0; n < 30; n++)
             {
-                Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Smoke, (5f * Main.rand.NextFloat() - 0.5f), (5f * Main.rand.NextFloat() - 0.5f), 0, default, 3f);
+                Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Smoke, 5f * Main.rand.NextFloat() - 0.5f, 5f * Main.rand.NextFloat() - 0.5f, 0, default, 3f);
             }
         }
 		public override void SpawningEffects(Projectile projectile)
-		{
-			originalImbue.SpawningEffects(projectile);
-		}
+        {
+			KillEffects(projectile);
+            SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);
+        }
 		public override void LingeringEffects(Projectile projectile)
 		{
             for (int n = 0; n < 2; n++)
-                Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Smoke, 0f, 0f, 0, default, 2f);
+                Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Smoke, 0f, 0f, 0, default, 2f);
 		}
+
+        public override ModItem Clone(Item newEntity)
+        {
+            var clone = (SteamImbue)base.Clone(newEntity);
+			clone.originalImbue = originalImbue;
+			return clone;
+        }
 	}
 }

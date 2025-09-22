@@ -1,8 +1,9 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Magic;
+﻿using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,14 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
-		public static Vector2 GetDrawOriginCentre(this Projectile projectile) => new(projectile.width / 2, projectile.height / 2);
+		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;
+
+		public static int Round(this float num)
+		{
+			return (int)Math.Round(num);
+		}
 
 		public static List<Imbuable> GetAllImbues(this Player owner)
 		{

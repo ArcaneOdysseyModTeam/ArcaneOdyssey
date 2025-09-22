@@ -56,6 +56,7 @@ namespace ArcaneOdyssey
 				npc.lifeRegen -= 9;
 			}
         }
+
     }
 
 	public class AOGlobalNPC : GlobalNPC
