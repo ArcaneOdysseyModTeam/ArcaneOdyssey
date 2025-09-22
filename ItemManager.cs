@@ -119,7 +119,7 @@ namespace ArcaneOdyssey
 						coolred = imbue is FightingStyle;
 						imbuetextthing = imbue.DisplayName.Value;
 					}
-					else if (item.TryGetImbue(out Imbuable imbue1) && imbue1 is SteamImbue)
+					else if (item.ArcaneOdyssey().imbue is SteamImbue)
 					{
 						imbuetextthing = Language.GetTextValue("RandomWorldName_Adjective.Steaming");
 					}
@@ -205,7 +205,7 @@ namespace ArcaneOdyssey
 	{
 		public override bool InstancePerEntity => true;
 
-		public Player owner;
+		public Player owner = null;
 		public Imbuable imbue = null;
 		private int ImbueIndex;
 		private bool SpecificImbue = false;
@@ -219,9 +219,16 @@ namespace ArcaneOdyssey
 			{
 				bool justchangedspecificimbue = false;
 				bool settodefault = false;
-				if (!SpecificImbue || !options.Contains(imbue))
+				if (!SpecificImbue)
 				{
-					imbue = player.ArcaneOdyssey().imbue;
+					if (imbue is not null)
+					{
+						if (!imbue.PlayerHasImbue(player, options))
+						{
+							imbue = null;
+						}
+					}
+                    imbue = player.ArcaneOdyssey().imbue;
 				}
 
 				if (player.HeldItem == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
@@ -233,14 +240,15 @@ namespace ArcaneOdyssey
 						SpecificImbue = true;
 						ImbueIndex++;
 						if (ImbueIndex >= options.Count)
-						{
-							imbue = options[0];
+                        {
+                            ImbueIndex = 0;
 						}
-						else
-						{
-							imbue = options[ImbueIndex];
-						}
+						imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;
+						if (imbue is AOMagic magic)
+						{
+							AOMagic.CreateMagicCircle(imbue.Item, player, magic);
+						}
 					}
 					else
 					{
@@ -258,7 +266,7 @@ namespace ArcaneOdyssey
 
 				if (justchangedspecificimbue && player == Main.LocalPlayer)
 				{
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("ImbueStuff.DefaultText").Value]);
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? (imbue is not SteamImbue ? imbue.DisplayName : Language.GetTextValue("RandomWorldName_Adjective.Steaming")) : Mod.CustomLocalization("ImbueStuff.DefaultText").Value]);
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 				}
 			}

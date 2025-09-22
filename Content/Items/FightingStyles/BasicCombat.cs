@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
     public class BasicCombat : FightingStyle
     {
-
+        public override Color ImbueColour => Color.White;
     }
 }

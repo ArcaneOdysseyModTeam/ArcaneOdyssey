@@ -70,7 +70,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual void LingeringEffects(Projectile projectile) { }
 		public virtual void KillEffects(Projectile projectile) { }
 
-		public bool FirstFrame = true;
+		/// <summary>
+		/// used for explosions and pulsar type stuff ect
+		/// </summary>
+		/// <param name="projectile">THE PROJECTILE DUMBASS</param>
+        public virtual void ExplosionEffects(Projectile projectile) { }
+
+
+        public bool FirstFrame = true;
 
 		public override bool CanUseItem(Player player)
 		{

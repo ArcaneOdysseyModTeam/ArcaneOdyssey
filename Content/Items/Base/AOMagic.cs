@@ -34,8 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Base
     {
         public override string LocalizationCategory => "Magics";
 
-		public virtual void ExplosionEffects(Projectile projectile) { }
-
 		public static Projectile CreateMagicCircle(Projectile projectile)
 		{
 			if (projectile.ModProjectile is BlastSpell)
@@ -50,15 +48,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 				return null;
 		}
 
-		public static Projectile CreateMagicCircle(Item item, Player player, AOMagic magicToUse = null)
+		public static Projectile CreateMagicCircle(Item item, Player player, AOMagic magicToUse)
 		{ // add explosion spell spawning stuff later
 			if (item.ModItem is AOMagic)
 			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: 0, ai2: magicToUse is not null ? magicToUse.Type : 0)];
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), 1, 0, magicToUse.Type)];
 			}
 			else if (item.ModItem is ExplosionScroll)
 			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), ai1: player.altFunctionUse, ai2: magicToUse is not null ? magicToUse.Type : 0)];
+				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), 0, player.altFunctionUse, magicToUse.Type)];
 			}
 			else
 				return null;

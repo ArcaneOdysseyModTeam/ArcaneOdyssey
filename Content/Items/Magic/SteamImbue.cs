@@ -17,7 +17,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
-	public class SteamImbue : AOMagic
+	public class SteamImbue : Imbuable
 	{
 		public override float AOScrollDamage => .85f;
 		public override float AOImbueDamage => .925f;
@@ -44,8 +44,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			new(ModContent.BuffType<SandyEffect>(), .8f),
 			]);
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), originalImbue.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly))]);
-		
 		public override void KillEffects(Projectile projectile)
 		{
 			SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);

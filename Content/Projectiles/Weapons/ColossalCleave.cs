@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
             if (Projectile.localAI[0] > 60 && !Main.dedServ)
             {
                 Projectile.localAI[0] = 0;
-                // visual effects every second like pulsar stuff idk you go ahead red
+                Imbue.ExplosionEffects(Projectile);
             }
             Projectile.localAI[0]++;
         }

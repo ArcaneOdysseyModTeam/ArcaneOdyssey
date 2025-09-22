@@ -133,3 +133,8 @@ ColossalGreatsword: {
 		[c/700013:Special Ability: Colossal Cleave] - Shoots a projectile that pierces through enemies and walls
 		'''
 }
+
+SteamImbue: {
+	DisplayName: Steam Imbue
+	Tooltip: ""
+}

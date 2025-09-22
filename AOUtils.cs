@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
@@ -77,9 +78,24 @@ namespace ArcaneOdyssey
 			return imbue is not null;
 		}
 
+		public static bool ServerOrSingleplayer => Main.dedServ || Main.netMode == NetmodeID.SinglePlayer;
+
 		public static bool AltUse(this Player player)
 		{
 			return player.altFunctionUse == 2;
+		}
+
+		public static bool PlayerHasImbue(this Imbuable imbue, Player player, List<Imbuable> imbues = null)
+		{
+			imbues ??= player.GetAllImbues();
+			if (imbue is SteamImbue steam)
+			{
+				return imbues.Contains(steam.originalImbue);
+			}
+			else 
+			{
+                return imbues.Contains(imbue);
+            }
 		}
 
 		/// <summary>
