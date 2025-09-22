@@ -13,12 +13,16 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Items.Magic;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle : AOPlayerProjectile
 	{
 		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>("ArcaneOdyssey/Content/Projectiles/MagicCircle").Value;
+
+		public int ChargingProjectile;
+		public float charge = 1f;
 
 		public override void SetStaticDefaults()
 		{
@@ -36,14 +40,30 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.ai[0] == 0f)
 			{
 				Projectile.ai[0] = 1f;
-				Projectile.netUpdate = true;
+				Projectile.netUpdate = true; 
+				if (Projectile.ai[1] == 1)
+				{
+					charge = .75f;
+				}
+
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 
-			if (Projectile.ai[1] == 1)
+
+			Projectile.ai[2] += aoPlayerOwner.Player.channel && Projectile.ai[1] == 0 ? 0 : 1;
+
+
+			var dir = aoPlayerOwner.Player.SafeDirectionTo(Main.MouseWorld);
+			if (Projectile.ai[1] == 1 && Projectile.ai[2] == 0)
 			{
-				Projectile.rotation = aoPlayerOwner.Player.SafeDirectionTo(Main.MouseWorld).ToRotation();
-				Projectile.position = Projectile.rotation.ToRotationVector2() * 30;
+				charge += 1 / 60;
+				Projectile.rotation = dir.ToRotation();
+				Projectile.position = dir * 30;
+				if (charge >= 3)
+				{
+					Projectile.ai[2]++;
+					aoPlayerOwner.Player.channel = false;
+				}
 			}
 			else
 			{
@@ -75,10 +95,13 @@ namespace ArcaneOdyssey.Content.Projectiles
 					Projectile.localAI[0] = 0;
 				}
 			}
-			if (FramesAlive > 60)
+
+			if (Projectile.alpha >= 255)
 			{
-				Projectile.Kill();
+				Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * charge), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner).scale = charge;
+				Kill();
 			}
+
 			if (Projectile.frameCounter > 5)
 			{
 				Projectile.frame++;

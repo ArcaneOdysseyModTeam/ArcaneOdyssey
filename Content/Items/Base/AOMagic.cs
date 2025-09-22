@@ -31,38 +31,36 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// Magic values are applied as multipliers to projectiles created using spell scrolls
 	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
-    {
-        public override string LocalizationCategory => "Magics";
+	{
+		public override string LocalizationCategory => "Magics";
 
-		public static Projectile CreateMagicCircle(Projectile projectile)
-		{
-			if (projectile.ModProjectile is BlastSpell)
-			{
-				Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(projectile.GetSource_FromThis(), Main.player[projectile.owner].position.X + (Main.player[projectile.owner].width / 2f), Main.player[projectile.owner].position.Y + (Main.player[projectile.owner].height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle>(), 0, 0f, projectile.owner)];
-				circleprojectile.rotation = projectile.velocity.ToRotation();
-				Vector2 circleVec = Vector2.Normalize(projectile.velocity) * 30f;
-				circleprojectile.position += circleVec;
-				return circleprojectile;
-			}
-			else
-				return null;
-		}
-
-		public static Projectile CreateMagicCircle(Item item, Player player, AOMagic magicToUse)
+		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse)
 		{ // add explosion spell spawning stuff later
-			if (item.ModItem is AOMagic)
+			if (magicToUse is AOMagic)
 			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), 1, 0, magicToUse.Type)];
+				if (item.ModItem is AOMagic)
+				{
+					return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), 1, 0, magicToUse.Type)];
+				}
+				else if (item.ModItem is ExplosionScroll)
+				{
+					return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), 0, player.altFunctionUse, magicToUse.Type)];
+				}
+				else if (item.ModItem is BlastScroll)
+				{
+					Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(item.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle>(), item.damage, 0f, Main.player.IndexOf(player), ai1: player.channel ? 1 : 0)];
+					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
+					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
+					circleprojectile.position += circleVec;
+					((MagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastScroll), ProjectileID.WoodenArrowFriendly);
+					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					return circleprojectile;
+				}
 			}
-			else if (item.ModItem is ExplosionScroll)
-			{
-				return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, Main.player.IndexOf(player), 0, player.altFunctionUse, magicToUse.Type)];
-			}
-			else
-				return null;
+			return null;
 		}
 
-        // Dust stuff below for copy/paste
-        // Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())), 1, 1, DustID.Water);
-    }
+		// Dust stuff below for copy/paste
+		// Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())), 1, 1, DustID.Water);
+	}
 }

@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				name = player.Imbue().Name;
 			if (FirstFrame && Name != name && this is AOMagic && player == Main.LocalPlayer)
 			{
-				AOMagic.CreateMagicCircle(Item, player, (AOMagic)this);
+				AOMagic.CreateMagicCircle(Item, player, this);
 			}
 			if (Name != name && FirstFrame)
 			{

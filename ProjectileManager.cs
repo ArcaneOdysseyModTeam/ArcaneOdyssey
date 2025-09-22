@@ -117,7 +117,6 @@ namespace ArcaneOdyssey
 			{
 				if (projectile.DamageType != DamageClass.MeleeNoSpeed)
 					projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOScrollSpeed : imbue.AOImbueSpeed;
-				AOMagic.CreateMagicCircle(projectile);
 				if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 					imbue.SpawningEffects(projectile);
 			}

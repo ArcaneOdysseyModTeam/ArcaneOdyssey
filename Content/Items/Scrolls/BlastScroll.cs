@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.autoReuse = true;
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 5;
+			Item.channel = true;
 			Item.shootSpeed = 10;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
@@ -42,16 +43,8 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOPlayer playah = player.ArcaneOdyssey();
-			if (playah.imbue.Skills.TryGetValue(typeof(BlastSpell), out type))
-			{
-				Projectile.NewProjectile(source, position, velocity * playah.imbue.AOScrollSpeed, type, (int)Math.Round(damage * (player.altFunctionUse != 2 ? 1 : .75f)), knockback, player.whoAmI, ai2: player.altFunctionUse);
-				return false;
-			}
-			else
-			{
-				return true; // shoots the wooden arrow if the blast isnt found
-			}
+			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().imbue);
+			return false;
 		}
 	}
 }
