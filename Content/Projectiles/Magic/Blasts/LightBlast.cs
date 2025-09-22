@@ -13,6 +13,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class LightBlast : BlastSpell
 	{
-
+		public override void AI()
+		{
+			if (Projectile.ai[0] == 0f)
+			{
+				Projectile.ai[0] = 1f;
+				BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
+				Projectile.netUpdate = true;
+			}
+			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+			Projectile.rotation += 1f;
+			if (Projectile.TryGetImbue(out Imbuable imbue) && !imbue.CanBeWet && Projectile.wet)
+			{
+				Kill();
+				return;
+			}
+		}
 	}
 }
