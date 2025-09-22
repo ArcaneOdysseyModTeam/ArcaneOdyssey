@@ -50,18 +50,15 @@ namespace ArcaneOdyssey.Content.Projectiles
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 
 
-			Projectile.ai[2] += aoPlayerOwner.Player.channel && Projectile.ai[1] == 0 ? 0 : 1;
-
 
 			var dir = aoPlayerOwner.Player.SafeDirectionTo(Main.MouseWorld);
-			if (Projectile.ai[1] == 1 && Projectile.ai[2] == 0)
+			if (Projectile.ai[1] == 1 && aoPlayerOwner.Player.channel)
 			{
 				charge += 1 / 60;
 				Projectile.rotation = dir.ToRotation();
 				Projectile.position = dir * 30;
 				if (charge >= 3)
 				{
-					Projectile.ai[2]++;
 					aoPlayerOwner.Player.channel = false;
 				}
 			}

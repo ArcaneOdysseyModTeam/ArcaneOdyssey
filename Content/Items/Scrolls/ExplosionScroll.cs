@@ -1,5 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
@@ -12,7 +11,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls
 {
-	public class ExplosionScroll : EmptyMagicScroll
+	public class ExplosionScroll : MagicScroll
 	{
 		public override void SetDefaultsScroll()
 		{
@@ -20,14 +19,15 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.damage = 50;
 			Item.reuseDelay = 60;
 			Item.channel = true;
-			Item.UseSound = SoundID.Item84;
+            Item.DamageType = DamageClass.Magic;
+            Item.UseSound = SoundID.Item84;
 			Item.mana = 100;
 			Item.shoot = ModContent.ProjectileType<ExplosionTracker>();
 		}
 
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<EmptyMagicScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
+			CreateRecipe().AddIngredient<MagicScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)

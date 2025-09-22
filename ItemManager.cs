@@ -150,7 +150,7 @@ namespace ArcaneOdyssey
 					extrakbmulti = 3f;
 				}
 
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
 				{
 					knockback += imbue.AOScrollSize.MultiToPercent() + extrakbmulti;
 					return;
@@ -165,13 +165,13 @@ namespace ArcaneOdyssey
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
 		{
-			if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
+			if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
 			{
 				damage += ((item.damage+(BossesKilled * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
 			}
 			if (item.TryGetImbue(out Imbuable imbue))
 			{
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
 				{
 					damage += imbue.AOScrollDamage.MultiToPercent();
 					return;
@@ -187,7 +187,7 @@ namespace ArcaneOdyssey
 		{
 			if (item.TryGetImbue(out Imbuable imbue) && item.DamageType != DamageClass.MeleeNoSpeed)
 			{
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyMagicScroll)))
+				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
 				{
 					return imbue.AOScrollSpeed;
 				}
