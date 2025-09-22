@@ -45,28 +45,28 @@ namespace ArcaneOdyssey.Content.Items
 			]);
 
 		public override void KillEffects(Projectile projectile)
-        {
-            for (int n = 0; n < 30; n++)
-            {
-                Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Smoke, 5f * Main.rand.NextFloat() - 0.5f, 5f * Main.rand.NextFloat() - 0.5f, 0, default, 3f);
-            }
-        }
+		{
+			for (int n = 0; n < 30; n++)
+			{
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Smoke, 5f * Main.rand.NextFloat() - 0.5f, 5f * Main.rand.NextFloat() - 0.5f, 0, default, 3f);
+			}
+		}
 		public override void SpawningEffects(Projectile projectile)
-        {
+		{
 			KillEffects(projectile);
-            SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);
-        }
+			SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);
+		}
 		public override void LingeringEffects(Projectile projectile)
 		{
-            for (int n = 0; n < 2; n++)
-                Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Smoke, 0f, 0f, 0, default, 2f);
+			for (int n = 0; n < 2; n++)
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Smoke, 0f, 0f, 0, default, 2f);
 		}
 
-        public override ModItem Clone(Item newEntity)
-        {
-            var clone = (SteamImbue)base.Clone(newEntity);
+		public override ModItem Clone(Item newEntity)
+		{
+			var clone = (SteamImbue)base.Clone(newEntity);
 			clone.originalImbue = originalImbue;
 			return clone;
-        }
+		}
 	}
 }

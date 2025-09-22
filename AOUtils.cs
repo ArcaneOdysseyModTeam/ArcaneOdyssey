@@ -99,8 +99,8 @@ namespace ArcaneOdyssey
 			}
 			else 
 			{
-                return imbues.Contains(imbue);
-            }
+				return imbues.Contains(imbue);
+			}
 		}
 
 		/// <summary>
