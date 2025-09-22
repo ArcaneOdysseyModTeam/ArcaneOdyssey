@@ -32,6 +32,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
+			if (Projectile.frameCounter > 2)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+                {
+                    Projectile.frame = 0;
+                }
+            }
+			Projectile.frameCounter++;
 			if (Projectile.ai[0] == 0f)
 			{
 				Projectile.ai[0] = 1f;
