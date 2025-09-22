@@ -2,13 +2,16 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -242,33 +245,34 @@ namespace ArcaneOdyssey
 					else
 					{
 						SpecificImbue = false;
-                        justchangedspecificimbue = true;
+						justchangedspecificimbue = true;
 						imbue = options[0];
 						settodefault = true;
-                    }
+					}
 				}
 
-                if (item.ModItem is AOWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
-                {
-                    imbue = new SteamImbue() { originalImbue = imbue };
-                }
+				if (item.ModItem is AOWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
+				{
+					imbue = new SteamImbue() { originalImbue = imbue };
+				}
 
-                if (justchangedspecificimbue && player == Main.LocalPlayer)
-                {
-                    LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("ImbueStuff.DefaultText").Value]);
-                    Main.NewText(chatmessage.Value, 13, 132, 168);
-                }
-            }
-            else
-            {
-                imbue = null;
-            }
-        }
+				if (justchangedspecificimbue && player == Main.LocalPlayer)
+				{
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("ImbueStuff.DefaultText").Value]);
+					Main.NewText(chatmessage.Value, 13, 132, 168);
+				}
+			}
+			else
+			{
+				imbue = null;
+			}
+		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
 			owner = null;
 			imbue = null;
+			SpecificImbue = false;
 		}
 	}
 }

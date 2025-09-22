@@ -80,11 +80,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
-			if (FirstFrame && GetType() != player.Imbue().GetType() && this is AOMagic && player == Main.LocalPlayer)
+			if (FirstFrame && this != player.Imbue() && this is AOMagic && player == Main.LocalPlayer)
 			{
 				AOMagic.CreateMagicCircle(Item, player, (AOMagic)this);
 			}
-			if (GetType() != player.Imbue().GetType() && FirstFrame)
+			if (this != player.Imbue() && FirstFrame)
 			{
 				FirstFrame = false;
 				player.ArcaneOdyssey().imbue = this;

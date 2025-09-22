@@ -19,20 +19,20 @@ namespace ArcaneOdyssey
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;
 
-        public static List<Imbuable> GetAllImbues(this Player owner)
-        {
-            List<Imbuable> imbues = [];
-            foreach (Item item in owner.inventory)
-            {
-                if (item.ModItem is Imbuable imbuable)
-                {
-                    imbues.Add(imbuable);
-                }
-            }
-            return imbues;
-        }
+		public static List<Imbuable> GetAllImbues(this Player owner)
+		{
+			List<Imbuable> imbues = [];
+			foreach (Item item in owner.inventory)
+			{
+				if (item.ModItem is Imbuable imbuable)
+				{
+					imbues.Add(imbuable);
+				}
+			}
+			return imbues;
+		}
 
-        public static bool ImbueClassCheck(Projectile projectile)
+		public static bool ImbueClassCheck(Projectile projectile)
 		{
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
@@ -106,7 +106,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				text = mod.GetLocalization(key);
+				text = mod.GetLocalization(key, () => key.Split('.').LastOrDefault(key));
 				if (formatting is not null)
 				{
 					text = text.WithFormatArgs(formatting);

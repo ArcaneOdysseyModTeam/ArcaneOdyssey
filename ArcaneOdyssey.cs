@@ -107,23 +107,23 @@ namespace ArcaneOdyssey
 			foreach (string i in Cooldowns.Keys)
 			{
 				Cooldowns[i]--;
-                if (Cooldowns[i] <= 0)
-                {
-                    Cooldowns.Remove(i);
-                }
-            }
+				if (Cooldowns[i] <= 0)
+				{
+					Cooldowns.Remove(i);
+				}
+			}
 
-            foreach (int i in BuffCooldowns.Keys)
-            {
+			foreach (int i in BuffCooldowns.Keys)
+			{
 				BuffCooldowns[i]--;
-                if (BuffCooldowns[i] <= 0)
-                {
-                    BuffCooldowns.Remove(i);
-                }
-            }
+				if (BuffCooldowns[i] <= 0)
+				{
+					BuffCooldowns.Remove(i);
+				}
+			}
 
-            foreach (int i in ItemCooldowns.Keys)
-            {
+			foreach (int i in ItemCooldowns.Keys)
+			{
 				ItemCooldowns[i]--;
 				if (ItemCooldowns[i] <= 0)
 				{

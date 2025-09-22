@@ -7,6 +7,7 @@ using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -112,15 +113,14 @@ namespace ArcaneOdyssey
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
-			if (projectile.owner == Main.myPlayer)
-				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile) && source is not EntitySource_Parent { Entity: NPC })
-				{
-					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
-						projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOScrollSpeed : imbue.AOImbueSpeed;
-					AOMagic.CreateMagicCircle(projectile);
-					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-						imbue.SpawningEffects(projectile);
-				}
+			if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile) && source is not EntitySource_Parent { Entity: NPC })
+			{
+				if (projectile.DamageType != DamageClass.MeleeNoSpeed)
+					projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOScrollSpeed : imbue.AOImbueSpeed;
+				AOMagic.CreateMagicCircle(projectile);
+				if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+					imbue.SpawningEffects(projectile);
+			}
 		}
 
 		public override void AI(Projectile projectile)
@@ -181,15 +181,30 @@ namespace ArcaneOdyssey
 		{
 			OriginalDimensions ??= projectile.Size;
 			BaseScale ??= projectile.scale;
+
+			if (source is EntitySource_Parent { Entity: Projectile proj })
+			{
+				imbue ??= proj.ArcaneOdyssey().imbue;
+			}
+			else if (source is EntitySource_ItemUse source1)
+			{
+				imbue ??= source1.Item.ArcaneOdyssey().imbue;
+			}
+			else if (source is EntitySource_Parent { Entity: Player player })
+			{
+                imbue ??= player.HeldItem.ArcaneOdyssey().imbue;
+            }
+
 			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker) && source is not EntitySource_Parent { Entity: NPC })
 			{
 				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
-				if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
-				{
-					imbue = new SteamImbue() { originalImbue = imbue };
-				}
-			}
-		}
+            }
+
+            if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
+            {
+                imbue = new SteamImbue() { originalImbue = imbue };
+            }
+        }
 
 		public override void PostAI(Projectile projectile)
 		{
