@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public const int defaultMax = 3 * 60;
         public const int defaultMin = 10;
         public int charge = defaultMin;
+		public Vector2 ensuredPosition = Main.MouseWorld;
         public override void SetDefaults()
         {
 			Projectile.tileCollide = false;
@@ -29,6 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			if (charge < defaultMax && playah.myCircle is not null && playah.myCircle.ai[0] < 1)
 			{
 				Projectile.position = playah.myCircle.Center;
+				ensuredPosition = Projectile.position;
 				charge++;
 			}
 			else
@@ -42,7 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				player.itemAnimation = 0;
 				player.itemTime = 0;
 				float dmgmult = charge / 60f;
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position + ((1-Imbue.AOScrollSize) * new Vector2(100,100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * dmgmult), Projectile.knockBack, Projectile.owner);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1-Imbue.AOScrollSize) * new Vector2(100,100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * dmgmult), Projectile.knockBack, Projectile.owner);
 				SoundEngine.PlaySound(Imbue.ImbueSound, Projectile.position, null);
 				Kill();
 			}
