@@ -15,6 +15,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.UI.ModBrowser;
+using ArcaneOdyssey.Content.Items;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
