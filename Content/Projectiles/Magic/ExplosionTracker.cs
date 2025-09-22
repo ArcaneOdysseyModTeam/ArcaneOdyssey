@@ -35,6 +35,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			}
 			else
 			{
+				if (Vector2.Distance(player.Center, Main.MouseWorld) > 400) 
+				{
+					Projectile.Center = player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400;
+					ensuredPosition = Projectile.Center;
+				}
 				player.channel = false;
 				if (playah.myCircle is not null)
 				{
