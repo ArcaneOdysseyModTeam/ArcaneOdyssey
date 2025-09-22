@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 		public override void SetDefaultsBlast()
 		{
 			Projectile.alpha = (int)(225 * .07f);
+			Main.projFrames[Projectile.type] = 7;
 		}
 	}
 }

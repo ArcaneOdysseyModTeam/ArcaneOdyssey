@@ -13,6 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class EarthBlast : BlastSpell
 	{
-
+		public override void SetDefaultsBlast() {
+			Main.projFrames[Projectile.type] = 7;
+		}
 	}
 }

@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-			if (Projectile.frameCounter > 2)
+			if (Projectile.frameCounter > 5)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
