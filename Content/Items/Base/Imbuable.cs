@@ -74,10 +74,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// used for explosions and pulsar type stuff ect
 		/// </summary>
 		/// <param name="projectile">THE PROJECTILE DUMBASS</param>
-        public virtual void ExplosionEffects(Projectile projectile) { }
+		public virtual void ExplosionEffects(Projectile projectile) { }
 
 
-        public bool FirstFrame = true;
+		public bool FirstFrame = true;
 
 		public override bool CanUseItem(Player player)
 		{
@@ -109,7 +109,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (Main.dedServ)
 				{
-					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
+					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
 				}
 			}
 			else if (FirstFrame)
@@ -123,7 +123,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (Main.dedServ)
 				{
-					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
+					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
 				}
 			}
 			return null;

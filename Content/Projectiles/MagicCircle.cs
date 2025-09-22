@@ -39,9 +39,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public bool MarkedForDeath = false;
 
 		public override void AI()
-        {
-            aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-            if (Projectile.ai[0] == 0f)
+		{
+			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+			if (Projectile.ai[0] == 0f)
 			{
 				Projectile.ai[0] = 1f;
 				Projectile.netUpdate = true; 
@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && AOUtils.ServerOrSingleplayer)
 				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * charge), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge*2)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
 					proj.ArcaneOdyssey().BaseScale = charge;
 					Projectile.ai[1] = 1;
 				}

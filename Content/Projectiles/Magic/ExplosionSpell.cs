@@ -30,8 +30,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic)
 			{
+				Projectile.height = Projectile.width = (int)(imbue.AOScrollSize * 200);
 				((AOMagic)imbue).ExplosionEffects(Projectile);
-				Projectile.height = Projectile.width = (int)(imbue.AOScrollSize*200);
 			}
 		}
 	}

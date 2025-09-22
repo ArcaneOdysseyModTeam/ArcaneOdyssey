@@ -219,12 +219,6 @@ namespace ArcaneOdyssey
 			return clone;
         }
 
-        public override void SetDefaults(Item entity)
-        {
-			owner = null;
-			imbue = null;
-        }
-
 		public override void UpdateInventory(Item item, Player player)
 		{
 			owner = player;

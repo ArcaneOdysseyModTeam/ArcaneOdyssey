@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Projectiles;
@@ -202,7 +203,9 @@ namespace ArcaneOdyssey
 
 			if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
 			{
-				imbue = new SteamImbue() { originalImbue = imbue };
+				var imbueitem = new Item(ModContent.ItemType<SteamImbue>());
+				((SteamImbue)imbueitem.ModItem).originalImbue = imbue;
+				imbue = (SteamImbue)imbueitem.ModItem;
 			}
 		}
 
@@ -223,9 +226,9 @@ namespace ArcaneOdyssey
 			return true;
 		}
 
-        public override void SetDefaults(Projectile entity)
-        {
-            FramesAlive = 0;
-        }
+		public override void SetDefaults(Projectile entity)
+		{
+			FramesAlive = 0;
+		}
 	}
 }

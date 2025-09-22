@@ -21,12 +21,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int AOValue => 250;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
-        public override bool? Arcanium => false;
+		public override bool? Arcanium => false;
 
-        public override void SetStaticDefaults()
-        {
+		public override void SetStaticDefaults()
+		{
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-        }
+		}
 
 		public override void SetDefaultsWeapon()
 		{
@@ -43,22 +43,22 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		/// </summary>
 		/// <param name="player">the FUCKING PLAYER</param>
 		/// <returns></returns>
-        public override bool CanShoot(Player player)
-        {
-            return player.AltUse() && !player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type);
-        }
+		public override bool CanShoot(Player player)
+		{
+			return player.AltUse() && !player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type);
+		}
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
 			if (!player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type))
 				player.ArcaneOdyssey().ItemCooldowns[Type] = 60*3;
-			Projectile.NewProjectile(source, position, Vector2.UnitX * Item.shootSpeed * player.direction, type, damage, knockback, Main.player.IndexOf(Item.ArcaneOdyssey().owner));
-            return false;
-        }
+			Projectile.NewProjectile(source, position, Vector2.UnitX * Item.shootSpeed * player.direction, type, damage, knockback, Item.ArcaneOdyssey().owner.whoAmI);
+			return false;
+		}
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return CanUseItem(player);
-        }
+		public override bool AltFunctionUse(Player player)
+		{
+			return CanUseItem(player);
+		}
 	}
 }
