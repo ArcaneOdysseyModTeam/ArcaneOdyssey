@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -101,8 +102,8 @@ namespace ArcaneOdyssey
 					}
 					else
 					{
-                        tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
-                    }
+						tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+					}
 				}
 
 
@@ -203,21 +204,66 @@ namespace ArcaneOdyssey
 
 		public Player owner;
 		public Imbuable imbue = null;
+		private int ImbueIndex;
+		private bool SpecificImbue = false;
+
 
 		public override void UpdateInventory(Item item, Player player)
 		{
 			owner = player;
-			if (ImbueClassCheck(item))
+			var options = player.GetAllImbues();
+			if (options.Count > 0 && ImbueClassCheck(item))
 			{
-				imbue = player.ArcaneOdyssey().imbue;
-				if ((item.ModItem is AOWeapon weapon && imbue is not null) && (weapon.ColdWeapon.HasValue && imbue.Cold.HasValue) && (weapon.ColdWeapon.Value != imbue.Cold.Value))
+				bool justchangedspecificimbue = false;
+				bool settodefault = false;
+				if (!SpecificImbue || !options.Contains(imbue))
 				{
-					imbue = new SteamImbue() { originalImbue = imbue };
+					imbue = player.ArcaneOdyssey().imbue;
 				}
-			}
-			else 
-				imbue = null;
-		}
+
+				if (player.HeldItem == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
+				{
+					SpecificImbue = true;
+					player.ArcaneOdyssey().Cooldowns["CycleItemImbue"] = 5 * 60;
+					if (options.Count > 1)
+					{
+						SpecificImbue = true;
+						ImbueIndex++;
+						if (ImbueIndex >= options.Count)
+						{
+							imbue = options[0];
+						}
+						else
+						{
+							imbue = options[ImbueIndex];
+						}
+						justchangedspecificimbue = true;
+					}
+					else
+					{
+						SpecificImbue = false;
+                        justchangedspecificimbue = true;
+						imbue = options[0];
+						settodefault = true;
+                    }
+				}
+
+                if (item.ModItem is AOWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
+                {
+                    imbue = new SteamImbue() { originalImbue = imbue };
+                }
+
+                if (justchangedspecificimbue && player == Main.LocalPlayer)
+                {
+                    LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("ImbueStuff.DefaultText").Value]);
+                    Main.NewText(chatmessage.Value, 13, 132, 168);
+                }
+            }
+            else
+            {
+                imbue = null;
+            }
+        }
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{

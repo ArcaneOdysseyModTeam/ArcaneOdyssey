@@ -26,8 +26,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.tileCollide = false;
 		}
 
-		public bool shouldBeAlive = true;
-
 		public override void AI()
 		{
 			if (Projectile.position != Projectile.oldPosition)
@@ -39,7 +37,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Projectile.ai[2] = aoPlayerOwner.imbue.Type;
 			}
 			Imbue = (Imbuable)ModContent.GetModItem((int)Projectile.ai[2]);
-			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null && shouldBeAlive ? 0 : 1;
+			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
 				aoPlayerOwner.myCircle = Projectile;
@@ -93,7 +91,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 				if ((Projectile.ai[0] > 0) && !Main.dedServ)
 				{
-					shouldBeAlive = false;
 					if (Projectile.alpha < 255)
 					{
 						Projectile.alpha += 255 / 60;

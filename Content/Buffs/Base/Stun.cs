@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 			if (!player.ArcaneOdyssey().BuffCooldowns.ContainsKey(Type) || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
-				player.ArcaneOdyssey().Cooldowns[Type] = 60;
+				player.ArcaneOdyssey().BuffCooldowns[Type] = 60;
 				player.canFloatInWater = false;
 			}
 		}

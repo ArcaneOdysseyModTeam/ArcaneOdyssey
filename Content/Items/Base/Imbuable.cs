@@ -80,11 +80,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
-			if (FirstFrame && player.Imbue() != this && this is AOMagic && player == Main.LocalPlayer)
+			if (FirstFrame && GetType() != player.Imbue().GetType() && this is AOMagic && player == Main.LocalPlayer)
 			{
 				AOMagic.CreateMagicCircle(Item, player, (AOMagic)this);
 			}
-			if (this != player.Imbue() && FirstFrame)
+			if (GetType() != player.Imbue().GetType() && FirstFrame)
 			{
 				FirstFrame = false;
 				player.ArcaneOdyssey().imbue = this;
@@ -112,12 +112,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), Main.player.IndexOf(player));
 				}
 			}
-
-			if (player.AltUse() && this is FightingStyle)
-			{
-				// fist here
-			}
-
 			return null;
 		}
 

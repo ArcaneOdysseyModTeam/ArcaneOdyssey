@@ -19,8 +19,20 @@ namespace ArcaneOdyssey
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;
 
+        public static List<Imbuable> GetAllImbues(this Player owner)
+        {
+            List<Imbuable> imbues = [];
+            foreach (Item item in owner.inventory)
+            {
+                if (item.ModItem is Imbuable imbuable)
+                {
+                    imbues.Add(imbuable);
+                }
+            }
+            return imbues;
+        }
 
-		public static bool ImbueClassCheck(Projectile projectile)
+        public static bool ImbueClassCheck(Projectile projectile)
 		{
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
@@ -80,7 +92,15 @@ namespace ArcaneOdyssey
 		public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
 		{
 			LocalizedText text = LocalizedText.Empty;
-			if (global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : ""), out LocalizedText value))
+			string fulllocalstuff = "";
+			if (formatting is not null && formatting.Length > 0)
+			{
+				foreach (object format in formatting)
+				{
+					fulllocalstuff += " " + format;
+				}
+			}
+			if (global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + fulllocalstuff, out LocalizedText value))
 			{
 				text = value;
 			}
@@ -91,7 +111,7 @@ namespace ArcaneOdyssey
 				{
 					text = text.WithFormatArgs(formatting);
 				}
-				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + (formatting is not null ? " " + formatting[0] : "")] = text;
+				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + fulllocalstuff] = text;
 			}
 			return text;
 		}

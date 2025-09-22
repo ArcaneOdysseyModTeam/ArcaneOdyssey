@@ -45,7 +45,7 @@ namespace ArcaneOdyssey
 		public Projectile myCircle = null;
 		public bool RightClicking => Player.altFunctionUse == 2;
 
-		public Dictionary<int, int> Cooldowns = [];
+		public Dictionary<string, int> Cooldowns = [];
 		public Dictionary<int, int> BuffCooldowns = [];
 		public Dictionary<int, int> ItemCooldowns = [];
 
@@ -104,7 +104,7 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdate()
 		{
-			foreach (int i in Cooldowns.Keys)
+			foreach (string i in Cooldowns.Keys)
 			{
 				Cooldowns[i]--;
                 if (Cooldowns[i] <= 0)
@@ -112,6 +112,7 @@ namespace ArcaneOdyssey
                     Cooldowns.Remove(i);
                 }
             }
+
             foreach (int i in BuffCooldowns.Keys)
             {
 				BuffCooldowns[i]--;
@@ -120,6 +121,7 @@ namespace ArcaneOdyssey
                     BuffCooldowns.Remove(i);
                 }
             }
+
             foreach (int i in ItemCooldowns.Keys)
             {
 				ItemCooldowns[i]--;

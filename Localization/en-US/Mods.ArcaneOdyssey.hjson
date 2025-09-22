@@ -131,7 +131,9 @@ ImbueStuff: {
 	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
 	StrengthIndicator: "[c/700013:-Strength Weapon-]"
 	NoneText: None
+	DefaultText: default
 	UnimbueText: Your imbue has been deselected
+	SpecificImbue: Your {0}'s imbue has been set to {1}
 }
 
 PopupText: {
@@ -247,3 +249,5 @@ ArmourAutoTooltip: {
 	Mana: +{0} maximum mana
 	Size: "{0}% increased attack size"
 }
+
+Keybinds.CycleItemImbue.DisplayName: Cycle Item Imbue
