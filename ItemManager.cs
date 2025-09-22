@@ -227,7 +227,7 @@ namespace ArcaneOdyssey
 				if (player.HeldItem == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
 				{
 					SpecificImbue = true;
-					player.ArcaneOdyssey().Cooldowns["CycleItemImbue"] = 5 * 60;
+					player.ArcaneOdyssey().Cooldowns["CycleItemImbue"] = 60;
 					if (options.Count > 1)
 					{
 						SpecificImbue = true;
