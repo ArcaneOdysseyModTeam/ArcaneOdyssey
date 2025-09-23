@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ID;
+using Terraria;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -14,12 +16,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AOSize => 1;
 		public override float AOSpeed => 1;
 		public override float AODamage => 1;
-		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
-		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Old;
+		public override AORarities AORarity => AORarities.Common;
+		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Old;
 
 		public override void SetDefaultsWeapon()
 		{
-			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.height = Item.height = 46;
+			Item.useStyle = ItemUseStyleID.Thrust;
 		}
 
 		public override void AddRecipes()

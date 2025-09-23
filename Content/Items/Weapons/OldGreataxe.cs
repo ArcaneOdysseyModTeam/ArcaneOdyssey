@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void SetDefaultsWeapon()
 		{
+			Item.height = Item.height = 70;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 

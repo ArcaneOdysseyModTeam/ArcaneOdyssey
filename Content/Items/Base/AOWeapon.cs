@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOWeapon : ModItem
 	{	
-        public abstract float AOSpeed { get; }
+		public abstract float AOSpeed { get; }
 		public abstract float AOSize { get; }
 		public abstract float AODamage { get; }
 		public abstract int AOValue { get; }
@@ -45,11 +45,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			Item.useTime = Item.useAnimation = (int)Math.Round(27 * AOSpeed.FlipFloat());
 			Item.knockBack = 4.5f * AOSize;
-            Item.rare = (int)AORarity;
+			Item.rare = (int)AORarity;
 			Item.scale = AOSize;
 			Item.value = GalleonToCopper(AOValue);
-			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent() };
-            Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
+			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
+			Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
 			Item.DamageType = DamageClass.Melee;
 			SetDefaultsWeapon();
 		}
@@ -59,9 +59,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		/// <param name="player">the player, dumbass</param>
 		/// <returns></returns>
-        public override bool CanUseItem(Player player)
-        {
-            if (Arcanium.HasValue)
+		public override bool CanUseItem(Player player)
+		{
+			if (Arcanium.HasValue)
 			{
 				if (Item.TryGetImbue(out Imbuable imbue))
 				{
@@ -77,6 +77,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				return false;
 			}
 			return true;
-        }
+		}
 	}
 }
