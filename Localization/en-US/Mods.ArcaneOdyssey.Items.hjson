@@ -138,3 +138,8 @@ EmptyScroll: {
 	DisplayName: Empty Scroll
 	Tooltip: An empty scroll, made of organic paper
 }
+
+LeapScroll: {
+	DisplayName: Leap Scroll
+	Tooltip: ""
+}

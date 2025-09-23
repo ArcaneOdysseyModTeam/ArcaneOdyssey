@@ -239,7 +239,7 @@ namespace ArcaneOdyssey
 					imbue = player.ArcaneOdyssey().imbue;
 				}
 
-				if (player.HeldItem == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
+				if (!item.accessory && player.HeldItem == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
 				{
 					SpecificImbue = true;
 					player.ArcaneOdyssey().Cooldowns["CycleItemImbue"] = 60;

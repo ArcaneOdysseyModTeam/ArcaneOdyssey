@@ -1,0 +1,90 @@
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace ArcaneOdyssey.Content.Items.Equipment
+{
+	public class LeapScroll : MagicScroll
+	{
+		public override void SetDefaultsScroll()
+		{
+			Item.accessory = true;
+		}
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			AOPlayer playah = player.ArcaneOdyssey();
+			Item.ArcaneOdyssey().imbue = playah.imbue;
+			if (playah.imbue is AOMagic)
+			{
+				Item.color = playah.imbue.ImbueColour;
+				if (Item.color == Color.White || Item.color == Color.Black)
+				{
+					Item.color.A *= (byte).5f;
+				}
+				player.GetJumpState<LeapAirStep>().Enable();
+			}
+			else 
+			{ 
+				Item.color = default; 
+			}
+			
+		}
+		public override void ScrollRecipe()
+		{
+			// what will this cost i wonder hmmm
+		}
+	}
+
+	public class LeapAirStep : ExtraJump
+	{
+		public override Position GetDefaultPosition()
+		{
+			return BeforeBottleJumps;
+		}
+
+		public override float GetDurationMultiplier(Player player)
+		{
+			return player.Imbue().AOScrollSize;
+		}
+
+		public override void UpdateHorizontalSpeeds(Player player)
+		{
+			player.runAcceleration *= (player.Imbue().AOScrollSpeed + 1) * 2;
+			player.maxRunSpeed *= player.Imbue().AOScrollSpeed + 1;
+			base.UpdateHorizontalSpeeds(player);
+		}
+
+		public override bool CanStart(Player player)
+		{
+			return player.Imbue() is not null;
+		}
+
+		public override void OnStarted(Player player, ref bool playSound)
+		{
+			playSound = false;
+			Projectile proj = null;
+			if (player.Imbue() is AOMagic)
+			{
+				proj = AOMagic.CreateMagicCircle(ModContent.GetModItem(ModContent.ItemType<LeapScroll>()).Item, player, player.Imbue());
+				for (int i = 0; i < 5; i++)
+					player.Imbue().ExplosionEffects(proj);
+			}
+
+			if (player.Imbue().ImbueSound.HasValue)
+			{
+				SoundEngine.PlaySound(player.Imbue().ImbueSound.Value, player.Center + (Vector2.UnitY * 30));
+			}
+			// vfx here
+		}
+	}
+}

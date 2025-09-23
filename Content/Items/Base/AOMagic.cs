@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Equipment;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Scrolls;
@@ -55,6 +56,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly);
 					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
 					return circleprojectile;
+				}
+				else if (item.ModItem is LeapScroll)
+				{
+					var proj = Projectile.NewProjectileDirect(player.GetSource_FromThis(), player.Center + (Vector2.UnitY * 30), Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
+					proj.rotation = (-Vector2.UnitY).ToRotation();
+					proj.Center = player.Center + (Vector2.UnitY * 30);
+					((MagicCircle1)proj.ModProjectile).MarkedForDeath = true;
+					return proj;
 				}
 			}
 			return null;
