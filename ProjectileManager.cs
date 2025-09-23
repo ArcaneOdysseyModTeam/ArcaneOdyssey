@@ -16,7 +16,6 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.UI.ModBrowser;
-using ArcaneOdyssey.Content.Items;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -196,7 +195,7 @@ namespace ArcaneOdyssey
 				imbue ??= player.HeldItem.ArcaneOdyssey().imbue;
 			}
 
-			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker) && source is not EntitySource_Parent { Entity: NPC })
+			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle1 or MagicCircle2 or ExplosionTracker) && source is not EntitySource_Parent { Entity: NPC })
 			{
 				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
 			}
@@ -220,7 +219,7 @@ namespace ArcaneOdyssey
 			{
 				OriginalDimensions ??= projectile.Size;
 				BaseScale ??= projectile.scale;
-				if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle or MagicCircle2 or ExplosionTracker)
+				if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle1 or MagicCircle2 or ExplosionTracker)
 					imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
 			}
 			return true;

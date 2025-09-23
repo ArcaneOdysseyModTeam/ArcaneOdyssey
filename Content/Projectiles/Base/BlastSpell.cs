@@ -8,8 +8,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 
 		// ai 0 is first frame bool
-		// ai 1 is unused
-		// ai 2 is large size bool
 
 
 		public virtual void SetDefaultsBlast() {}
@@ -45,7 +43,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.ai[0] == 0f)
 			{
 				Projectile.ai[0] = 1f;
-				BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 				Projectile.netUpdate = true;
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
