@@ -115,16 +115,6 @@ BronzeBar: {
 	Tooltip: An alloy that does nothing yet, you wasted your time obtaining this
 }
 
-EmptyTechniqueScroll: {
-	DisplayName: Empty Technique Scroll
-	Tooltip: An empty spell scroll, made of organic paper
-}
-
-EmptyMagicScroll: {
-	DisplayName: Empty Spell Scroll
-	Tooltip: An empty spell scroll, made of magic-conductive organic paper
-}
-
 ColossalGreatsword: {
 	DisplayName: Colossal Greatsword
 	Tooltip:
