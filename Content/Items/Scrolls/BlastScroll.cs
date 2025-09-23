@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<MagicScroll>().AddIngredient(ItemID.WandofSparking).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.WandofSparking).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)

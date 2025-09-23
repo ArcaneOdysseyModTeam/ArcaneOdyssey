@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<MagicScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)
