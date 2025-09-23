@@ -176,7 +176,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public enum AOWeaponTiers
 		{
-			Trash,
+			Unobtainable,
 			Old,
 			Normal,
 			Good,
