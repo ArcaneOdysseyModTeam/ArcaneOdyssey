@@ -143,3 +143,12 @@ LeapScroll: {
 	DisplayName: Leap Scroll
 	Tooltip: ""
 }
+
+VesuvianSigil: {
+	DisplayName: Vesuvian Sigil
+	Tooltip: 
+	'''
+	A strange emblem
+	RedBirb's set
+	'''
+}
