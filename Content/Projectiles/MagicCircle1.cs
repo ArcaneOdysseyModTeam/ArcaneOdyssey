@@ -17,9 +17,9 @@ using ArcaneOdyssey.Content.Items.Magic;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public class MagicCircle : AOPlayerProjectile
+	public class MagicCircle1 : AOPlayerProjectile
 	{
-		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>("ArcaneOdyssey/Content/Projectiles/MagicCircle").Value;
+		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>("ArcaneOdyssey/Content/Projectiles/MagicCircle1").Value;
 
 		public int ChargingProjectile;
 		public float charge = 1f;
