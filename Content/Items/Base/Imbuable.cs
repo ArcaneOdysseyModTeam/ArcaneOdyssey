@@ -36,9 +36,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 			ItemID.Sets.ItemNoGravity[Item.type] = this is AOMagic;
 		}
 
-		public virtual float AOImbueSpeed => .9f;
-		public virtual float AOImbueSize => .9f;
-		public virtual float AOImbueDamage => .9f;
+		public abstract float AOImbueSpeed { get; }
+		public abstract float AOImbueSize { get; }
+		public abstract float AOImbueDamage { get; }
 		public virtual float AOScrollSpeed => AOImbueSpeed;
 		public virtual float AOScrollSize => AOImbueSize;
 		public virtual float AOScrollDamage => AOImbueDamage;

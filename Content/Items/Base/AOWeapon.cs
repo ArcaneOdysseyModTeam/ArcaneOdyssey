@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual bool? Arcanium => null;
 
-		public virtual void SetDefaultsWeapon() { }
+		public abstract void SetDefaultsWeapon();
 
 		public override void SetDefaults()
 		{

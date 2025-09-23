@@ -15,13 +15,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-			AOPlayer playah = player.ArcaneOdyssey();
-			if (playah.imbue is FightingStyle)
+			var imbue = Item.ArcaneOdyssey().imbue;
+			if (imbue is FightingStyle)
 			{
-				Item.color = playah.imbue.ImbueColour;
+				Item.color = imbue.ImbueColour;
 				if (Item.color == Color.White || Item.color == Color.Black)
 				{
-					Item.color.A *= (byte).5f;
+					Item.color.A *= (byte).75f;
 				}
 			}
 			else Item.color = default;
@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool CanUseItem(Player player)
 		{
-			return player.ArcaneOdyssey().imbue is FightingStyle;
+			return Item.ArcaneOdyssey().imbue is FightingStyle;
 		}
 	}
 }
