@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static System.Net.Mime.MediaTypeNames;
@@ -42,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 		}
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel, 5).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.Balloons).Register();
 		}
 	}
 
@@ -53,15 +54,13 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 			return BeforeBottleJumps;
 		}
 
-		public override float GetDurationMultiplier(Player player)
-		{
-			return player.Imbue().AOScrollSize;
-		}
+		public override float GetDurationMultiplier(Player player) => player.Imbue().AOScrollSize * 2;
 
 		public override void UpdateHorizontalSpeeds(Player player)
 		{
 			player.runAcceleration *= (player.Imbue().AOScrollSpeed + 1) * 2;
 			player.maxRunSpeed *= player.Imbue().AOScrollSpeed + 1;
+			player.jumpSpeedBoost *= player.Imbue().AOScrollSpeed;
 			base.UpdateHorizontalSpeeds(player);
 		}
 
@@ -83,7 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 
 			if (player.Imbue().ImbueSound.HasValue)
 			{
-				SoundEngine.PlaySound(player.Imbue().ImbueSound.Value, player.Center + (Vector2.UnitY * 30));
+				SoundEngine.PlaySound(player.Imbue().ImbueSound.Value, player.Bottom);
 			}
 			// vfx here
 		}

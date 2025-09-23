@@ -59,9 +59,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (item.ModItem is LeapScroll)
 				{
-					var proj = Projectile.NewProjectileDirect(player.GetSource_FromThis(), player.Center + (Vector2.UnitY * 30), Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
+					var proj = Projectile.NewProjectileDirect(player.GetSource_FromThis(), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
 					proj.rotation = (-Vector2.UnitY).ToRotation();
-					proj.Center = player.Center + (Vector2.UnitY * 30);
+					proj.Center = player.Bottom;
 					((MagicCircle1)proj.ModProjectile).MarkedForDeath = true;
 					return proj;
 				}

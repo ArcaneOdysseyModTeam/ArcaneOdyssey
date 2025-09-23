@@ -211,13 +211,13 @@ namespace ArcaneOdyssey
 		private int ImbueIndex;
 		private bool SpecificImbue = false;
 
-        public override GlobalItem Clone(Item from, Item to)
-        {
-            var clone = (AOItem)base.Clone(from, to);
+		public override GlobalItem Clone(Item from, Item to)
+		{
+			var clone = (AOItem)base.Clone(from, to);
 			clone.imbue = null;
 			clone.owner = null;
 			return clone;
-        }
+		}
 
 		public override void UpdateInventory(Item item, Player player)
 		{
