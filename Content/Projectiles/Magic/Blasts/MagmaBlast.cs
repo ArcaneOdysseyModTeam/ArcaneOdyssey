@@ -13,5 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class MagmaBlast : BlastSpell
 	{
+		public override void SetStaticDefaults() {
+			Main.projFrames[Type] = 7;
+		}
 	}
 }
