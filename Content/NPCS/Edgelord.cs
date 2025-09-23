@@ -16,6 +16,7 @@ using Terraria.Localization;
 using ArcaneOdyssey.Content.Projectiles;
 using Terraria.Chat;
 using Terraria.Audio;
+using ArcaneOdyssey.Content.Items.Base;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -225,6 +226,11 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (BossesKilled > 0 && !NPC.downedBoss3)
 			{
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
+			}
+
+			if (Main.LocalPlayer.HeldItem.ModItem is AOWeapon weapon && !weapon.Arcanium.GetValueOrDefault(true))
+			{
+				options.Add(this.GetLocalizedValue("Chat.StrongWarrior"));
 			}
 
 			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue);
