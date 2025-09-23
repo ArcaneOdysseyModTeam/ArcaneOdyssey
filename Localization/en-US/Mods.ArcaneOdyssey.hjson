@@ -122,6 +122,7 @@ Projectiles: {
 	DeathCurse.DisplayName: Death Curse
 	ColossalCleave.DisplayName: Colossal Cleave
 	MagicCircle1.DisplayName: Magic Circle1
+	SpiritBlast.DisplayName: Spirit Blast
 }
 
 ImbueStuff: {
@@ -188,6 +189,7 @@ NPCs: {
 			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he is as immortal as I.
 			Hello: Hello again.
 			Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
+			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior,
 		}
 
 		Help: {
@@ -202,6 +204,7 @@ NPCs: {
 			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
+			SunkenWeapon: Although made of Arcanium metal, that sword in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
 			StrengthWeaponsHint: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
 			HasStrengthWeapon: I see you've encountered a strong warrior. Such warriors wield weapons too heavy for regular warriors, and so they learn to use a fighting style.
 		}

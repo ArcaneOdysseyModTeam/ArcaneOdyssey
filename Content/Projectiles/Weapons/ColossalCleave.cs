@@ -42,7 +42,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 				Projectile.netUpdate = true;
 			}
 
-			Projectile.rotation = Projectile.velocity.ToRotation();
 
 			if (Projectile.localAI[0] > 60 && !Main.dedServ)
 			{
@@ -54,6 +53,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			if (Projectile.ai[1] == 1)
 			{
 				Projectile.alpha += 255 / 30;
+			}
+			else
+			{
+				Projectile.rotation = Projectile.velocity.ToRotation();
 			}
 		}
 

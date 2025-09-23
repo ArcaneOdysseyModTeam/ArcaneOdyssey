@@ -25,6 +25,15 @@ namespace ArcaneOdyssey
 			return (int)Math.Round(num);
 		}
 
+		public static float PitchPerfect(this float num)
+		{
+			if (num > 1)
+				num = 1;
+			if (num < -1)
+				num = -1;
+			return num;
+		}
+
 		public static List<Imbuable> GetAllImbues(this Player owner)
 		{
 			List<Imbuable> imbues = [];
@@ -160,6 +169,7 @@ namespace ArcaneOdyssey
 			Rare = 1,
 			Exotic = 4,
 			Legendary = 7,
+			Zenith = -13,
 		}
 
 		public enum AOImbuableTier
@@ -172,11 +182,10 @@ namespace ArcaneOdyssey
 		}
 
 		/// <summary>
-		/// Arcane Odyssey weapon tiers, used for scaling. Weapon skill index: 2 is Old; 3 is Normal; 4 is Good
+		/// Arcane Odyssey weapon tiers, used for scaling
 		/// </summary>
 		public enum AOWeaponTiers
 		{
-			Trash,
 			Old,
 			Normal,
 			Good,

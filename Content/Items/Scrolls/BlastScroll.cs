@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.useAnimation = 15;
 			Item.damage = 10;
 			Item.UseSound = SoundID.Item84;
-			Item.mana = 5;
+			Item.mana = 15;
 			Item.channel = true;
 			Item.DamageType = DamageClass.Magic;
 			Item.shootSpeed = 10;

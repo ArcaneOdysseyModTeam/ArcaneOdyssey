@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
+
+namespace ArcaneOdyssey.Content.Items.Base
+{
+	public abstract class SpiritWeapon : ModItem
+	{
+		public abstract int AOValue { get; }
+		public abstract AORarities AORarity { get; }
+
+		public override void SetDefaults() 
+		{
+			Item.DamageType = DamageClass.MagicSummonHybrid;
+			Item.noUseGraphic = true;
+			Item.noMelee = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.rare = (int)AORarity;
+			Item.value = GalleonToCopper(AOValue);
+			SetDefaultsSpirit();
+		}
+
+		public abstract void SetDefaultsSpirit();
+	}
+}

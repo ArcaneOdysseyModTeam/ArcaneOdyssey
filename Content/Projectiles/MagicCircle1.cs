@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && AOUtils.ServerOrSingleplayer && ChargingProjectile != 0)
 				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge * 3)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge * 4)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
 					proj.ArcaneOdyssey().BaseScale = charge/2;
 					Projectile.ai[1] = 1;
 				}

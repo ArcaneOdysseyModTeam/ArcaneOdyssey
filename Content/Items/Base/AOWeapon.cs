@@ -19,12 +19,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOWeapon : ModItem
 	{	
-        public virtual float AOSpeed => 1f;
-		public virtual float AOSize => 1f;
-		public virtual float AODamage => 1f;
+		public abstract float AOSpeed { get; }
+		public abstract float AOSize { get; }
+		public abstract float AODamage { get; }
 		public abstract int AOValue { get; }
-		public virtual AORarities AORarity => AORarities.Common;
-		public virtual AOWeaponTiers AOWeaponTier => AOWeaponTiers.Old;
+		public abstract AORarities AORarity { get; }
+		public abstract AOWeaponTiers AOWeaponTier { get; }
 		public virtual AODebuffRequirement WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 
 
@@ -39,18 +39,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual bool? Arcanium => null;
 
-		public virtual void SetDefaultsWeapon() { }
+		public abstract void SetDefaultsWeapon();
 
 		public override void SetDefaults()
 		{
 			Item.useTime = Item.useAnimation = (int)Math.Round(27 * AOSpeed.FlipFloat());
 			Item.knockBack = 4.5f * AOSize;
-            Item.rare = (int)AORarity;
+			Item.rare = (int)AORarity;
 			Item.scale = AOSize;
 			Item.value = GalleonToCopper(AOValue);
-			Item.autoReuse = true;
-			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent() };
-            Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
+			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
+			Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
 			Item.DamageType = DamageClass.Melee;
 			SetDefaultsWeapon();
 		}
@@ -60,9 +59,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		/// <param name="player">the player, dumbass</param>
 		/// <returns></returns>
-        public override bool CanUseItem(Player player)
-        {
-            if (Arcanium.HasValue)
+		public override bool CanUseItem(Player player)
+		{
+			if (Arcanium.HasValue)
 			{
 				if (Item.TryGetImbue(out Imbuable imbue))
 				{
@@ -78,6 +77,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				return false;
 			}
 			return true;
-        }
+		}
 	}
 }

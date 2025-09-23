@@ -9,25 +9,25 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-    public abstract class MagicScroll : EmptyScroll
-    {
-        public override void UpdateInventory(Player player)
-        {
-            AOPlayer playah = player.ArcaneOdyssey();
-            if (playah.imbue is AOMagic)
-            {
-                Item.color = playah.imbue.ImbueColour;
-                if (Item.color == Color.White || Item.color == Color.Black)
-                {
-                    Item.color.A *= (byte).5f;
-                }
-            }
-            else Item.color = default;
-        }
+	public abstract class MagicScroll : EmptyScroll
+	{
+		public override void UpdateInventory(Player player)
+		{
+			var imbue = Item.ArcaneOdyssey().imbue;
+			if (imbue is AOMagic)
+			{
+				Item.color = imbue.ImbueColour;
+				if (Item.color == Color.White || Item.color == Color.Black)
+				{
+					Item.color.A *= (byte).5f;
+				}
+			}
+			else Item.color = default;
+		}
 
-        public override bool CanUseItem(Player player)
-        {
-            return player.ArcaneOdyssey().imbue is AOMagic;
-        }
-    }
+		public override bool CanUseItem(Player player)
+		{
+			return Item.ArcaneOdyssey().imbue is AOMagic;
+		}
+	}
 }
