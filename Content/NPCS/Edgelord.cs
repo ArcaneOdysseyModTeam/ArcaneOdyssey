@@ -213,11 +213,12 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override string GetChat()
 		{
 			List<string> options = [];
+			options.Add(this.GetLocalizedValue("Chat.Water"));
 			if (BossesKilled == 0)
 			{
 				options.Add(this.GetLocalizedValue("Chat.Intro").Replace("{PlayerName}", Main.LocalPlayer.name));
 				options.Add(this.GetLocalizedValue("Chat.Grave"));
-				options.Add(this.GetLocalizedValue("Chat.Water"));
+
 			}
 			else
 				options.Add(this.GetLocalizedValue("Chat.Hello"));
