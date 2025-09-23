@@ -121,6 +121,7 @@ Projectiles: {
 	DeliriumBlast.DisplayName: Delirium Blast
 	DeathCurse.DisplayName: Death Curse
 	ColossalCleave.DisplayName: Colossal Cleave
+	MagicCircle1.DisplayName: Magic Circle1
 }
 
 ImbueStuff: {
