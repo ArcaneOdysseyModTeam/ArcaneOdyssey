@@ -37,27 +37,6 @@ namespace ArcaneOdyssey.Content.NPCS
 			AnimationType = NPCID.Guide;
 		}
 
-        public override bool PreAI()
-		{	
-			if ((NPC.wet && !NPC.lavaWet && !NPC.honeyWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
-			{
-				var life = NPC.life - 5;
-				NPC.localAI[0]++;
-				if (NPC.localAI[0] % 15 == 0)
-					HitEffect(NPC.CalculateHitInfo(5, 0));
-				if (life <= 0)
-				{
-					NPC.SimpleStrikeNPC(5, 0);
-					ExplodeMorden();
-					return false;
-				}
-				NPC.life -= 5;
-			}
-			else
-				NPC.localAI[0] = 0;
-			return true;
-		}
-
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 25;
@@ -93,6 +72,22 @@ namespace ArcaneOdyssey.Content.NPCS
 				modifiers.FinalDamage *= 0;
 		}
 
+		public int errorcd;
+		public override void UpdateLifeRegen(ref int damage)
+		{
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			{
+				NPC.lifeRegen = 120 * -5;
+				HitEffect(NPC.CalculateHitInfo(5, 0));
+				errorcd--;
+				if (errorcd <= 0)
+				{
+					errorcd = 30;
+					CombatText.NewText(NPC.Hitbox, Color.Aquamarine, "ERROR", Main.rand.NextBool());
+				}
+			}
+		}
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (!Main.dedServ)
@@ -121,10 +116,14 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else
 			{
-				ChatHelper.SendChatMessageToClient(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan, Main.myPlayer);
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan);
 			}
-			if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)
+			if (ServerOrSingleplayer)
 				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 700, 0f, -1, default);
+			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet)
+			{
+				ExplodeMorden();
+			}
 		}
 
 		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(!Main.zenithWorld ? "e" : "e1")}").Value;
@@ -243,7 +242,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		{
 			if (!Main.dedServ)
 			{
-				for (int n = 0; n < 10; n++)
+				for (int n = 0; n < 50; n++)
 				{
 					Dust spawnedDust = Dust.NewDustDirect(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 50f, (Main.rand.NextFloat() - 0.5f) * 50f, 0, default, 2f);
 					spawnedDust.noGravity = true;
