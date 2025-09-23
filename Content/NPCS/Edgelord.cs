@@ -217,6 +217,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Chat.Intro").Replace("{PlayerName}", Main.LocalPlayer.name));
 				options.Add(this.GetLocalizedValue("Chat.Grave"));
+				options.Add(this.GetLocalizedValue("Chat.Water"));
 			}
 			else
 				options.Add(this.GetLocalizedValue("Chat.Hello"));
