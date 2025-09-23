@@ -162,3 +162,8 @@ OldRapier: {
 	DisplayName: Old Rapier
 	Tooltip: A rapier that is most likely decades old, but it still seems to be usable
 }
+
+EaglePatrimony: {
+	DisplayName: Eagle Patrimony
+	Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
+}

@@ -122,6 +122,7 @@ Projectiles: {
 	DeathCurse.DisplayName: Death Curse
 	ColossalCleave.DisplayName: Colossal Cleave
 	MagicCircle1.DisplayName: Magic Circle1
+	SpiritBlast.DisplayName: Spirit Blast
 }
 
 ImbueStuff: {

@@ -23,6 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			Item.height = Item.height = 46;
 			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useTurn = true;
 		}
 
 		public override void AddRecipes()

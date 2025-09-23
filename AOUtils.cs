@@ -169,6 +169,7 @@ namespace ArcaneOdyssey
 			Rare = 1,
 			Exotic = 4,
 			Legendary = 7,
+			Zenith = -13,
 		}
 
 		public enum AOImbuableTier

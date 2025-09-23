@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace ArcaneOdyssey
 		{
 			if (!mediumCoreDeath)
 			{
-				return [new Item(ModContent.ItemType<PoseidonChoice>()), new Item(ModContent.ItemType<TitleMusicBox>())];
+				return [new Item(ModContent.ItemType<PoseidonChoice>()), new Item(ModContent.ItemType<TitleMusicBox>()), new Item(ModContent.ItemType<EaglePatrimony>())];
 			}
 			else return [];
 		}
