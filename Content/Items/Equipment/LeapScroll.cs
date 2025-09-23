@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using Terraria.ID;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Equipment
@@ -41,7 +42,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 		}
 		public override void ScrollRecipe()
 		{
-			// what will this cost i wonder hmmm
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel, 5).Register();
 		}
 	}
 
