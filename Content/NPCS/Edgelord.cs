@@ -17,6 +17,7 @@ using ArcaneOdyssey.Content.Projectiles;
 using Terraria.Chat;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Weapons;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -188,6 +189,11 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Help.PreHard1"));
 				options.Add(this.GetLocalizedValue("Help.PreHard2"));
+			}
+
+			if (Main.LocalPlayer.HeldItem.ModItem is SunkenSword or SunkenStaff)
+			{
+				options.Add(this.GetLocalizedValue("Help.SunkenWeapon"));
 			}
 
 			if (!NPC.downedAncientCultist && NPC.downedGolemBoss)
