@@ -23,6 +23,7 @@ namespace ArcaneOdyssey
 		public float StunDuration = 1;
 
 		public bool Bleeding = false;
+		public bool Scalding = true;
 
 		public bool AOStunned = false;
 
@@ -47,13 +48,18 @@ namespace ArcaneOdyssey
 				StunDuration = 1;
 			}
 			Bleeding = false;
+			Scalding = false;
         }
 
-        public override void UpdateLifeRegen(NPC npc, ref int damage)
-        {
+		public override void UpdateLifeRegen(NPC npc, ref int damage)
+		{
 			if (Bleeding)
 			{
 				npc.lifeRegen -= 3;
+			}
+			if (Scalding)
+			{
+				npc.lifeRegen -= 4;
 			}
         }
 

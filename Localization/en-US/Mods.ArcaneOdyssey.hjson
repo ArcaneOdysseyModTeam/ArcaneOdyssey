@@ -81,6 +81,16 @@ Buffs: {
 		DisplayName: Rowboat
 		Description: A wooden rowboat that seems to increase your fishing skill
 	}
+
+	AOScalding: {
+		DisplayName: A O Scalding
+		Description: Mods.ArcaneOdyssey.Buffs.AOScalding.Description
+	}
+
+	BlindedEffect: {
+		DisplayName: Blinded Effect
+		Description: Mods.ArcaneOdyssey.Buffs.BlindedEffect.Description
+	}
 }
 
 Projectiles: {
