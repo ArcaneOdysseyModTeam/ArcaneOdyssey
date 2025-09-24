@@ -1,0 +1,25 @@
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ID;
+
+namespace ArcaneOdyssey.Content.Buffs.MagicMarks
+{
+    public class DrainedEffect : AODebuff
+    {
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            if (!Main.dedServ)
+            {
+                var dust = Dust.NewDustDirect(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.Wraith, 0f, 0f, 1, default, 1f);
+                dust.velocity *= 0.8f;
+                dust.noGravity = true;
+            }
+        }
+    }
+}

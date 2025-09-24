@@ -27,13 +27,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSpeed => 1.25f;
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollDamage => 0.95f;
-		public override AODebuffRequirement ImbueDebuff => new AODebuffRequirement(BuffID.Obstructed, 60*10);
+		public override AODebuffRequirement ImbueDebuff => new AODebuffRequirement(ModContent.BuffType<DrainedEffect>(), 60*10);
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.7f),
+				new MagicBuffMultiplier(ModContent.BuffType<BlindedEffect>(),0.7f)
 			]
 			);
 			public override void SpawningEffects(Projectile projectile) 

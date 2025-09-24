@@ -14,6 +14,7 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
+using ArcaneOdyssey.Content.Buffs.DOT;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -31,9 +32,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<DrainedEffect>(),0.8f)
 			]
 			);
 			public override void SpawningEffects(Projectile projectile) 
