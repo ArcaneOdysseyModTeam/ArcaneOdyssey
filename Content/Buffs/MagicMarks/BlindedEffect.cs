@@ -25,12 +25,9 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
                     case 2:
                     case 3:
                     case 4:
-                        npc.AddBuff(BuffID.Confused,60 * 1,false);
-                        break;
-                    default: // if the stack number isnt valid or over 4, just delete the buff
-                        npc.DelBuff(buffIndex);
-                        buffIndex--;
-                        break;
+                    default:
+						npc.AddBuff(BuffID.Confused, 5, false);
+						break;
                 }
             }
         }
