@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Buffs.Base;
 using Terraria.Audio;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
@@ -15,16 +16,11 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			tip = Mod.CustomLocalization($"Buffs.{Name}.Description", [stack]).Value;
         }
 
-		public static int GetCrystalStack(NPC npc, int index)
-		{
-			return (npc.buffTime[index] / 60 / 5) + 1;
-        }
-
 		public override void Update(NPC npc, ref int buffIndex) 
 		{
-			if (npc.HasBuff(ModContent.BuffType<Crystallized>()))
+			if (npc.HasBuff(Type))
 			{
-				stack = GetCrystalStack(npc, buffIndex); // stacks disappear over time
+				stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				switch (stack)
 				{
 					case 1:

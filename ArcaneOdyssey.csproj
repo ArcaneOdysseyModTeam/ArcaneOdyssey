@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<!-- Import tModLoader mod properties -->
 	<Import Project="..\tModLoader.targets" />
@@ -11,8 +11,20 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
-	  <Folder Include="Assets\" />
-	  <Folder Include="Content\Items\Vanity\" />
+		<Compile Remove="**\*.py" />
+		<Compile Remove="**\*.kra" />
+		<Compile Remove="**\*.png~" />
+		<Compile Remove="**\*.md" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="**\*.py" />
+		<None Remove="**\*.kra" />
+		<None Remove="**\*.png~" />
+		<None Remove="**\*.md" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Assets\" />
+		<Folder Include="Content\Items\Vanity\" />
 	</ItemGroup>
 
 	<!-- References -->

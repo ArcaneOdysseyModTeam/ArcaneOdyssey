@@ -31,7 +31,7 @@ namespace ArcaneOdyssey
 
 			if (item.TryGetImbue(out Imbuable imbue))
 			{
-				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 				{
 					modifiers.FinalDamage += .3f;
 				}

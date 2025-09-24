@@ -17,6 +17,11 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+
+		public static int GetAOBuffStack(NPC npc, int index)
+		{
+			return (npc.buffTime[index] / 60 / 5) + 1;
+		}
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;

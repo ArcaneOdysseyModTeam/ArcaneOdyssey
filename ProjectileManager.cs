@@ -32,7 +32,7 @@ namespace ArcaneOdyssey
 					if (spell)
 						modifiers.FinalDamage += ((projectile.damage + (BossesKilled * 2f)) / projectile.damage) - 1;
 					modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOScrollDamage).MultiToPercent();
-					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && Crystallized.GetCrystalStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 					{
 						modifiers.FinalDamage += .3f;
 					}
