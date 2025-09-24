@@ -255,4 +255,7 @@ ArmourAutoTooltip: {
 	Size: "{0}% increased attack size"
 }
 
-Keybinds.CycleItemImbue.DisplayName: Cycle Item Imbue
+Keybinds: {
+	CycleItemImbue.DisplayName: Cycle Item Imbue
+	DashBind.DisplayName: Dash Bind
+}

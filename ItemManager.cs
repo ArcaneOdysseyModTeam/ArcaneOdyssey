@@ -210,8 +210,8 @@ namespace ArcaneOdyssey
 		public override GlobalItem Clone(Item from, Item to)
 		{
 			var clone = (AOItem)base.Clone(from, to);
-			clone.imbue = null;
-			clone.owner = null;
+			clone.imbue = imbue;
+			clone.owner = owner;
 			return clone;
 		}
 

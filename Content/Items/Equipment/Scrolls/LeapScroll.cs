@@ -12,7 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace ArcaneOdyssey.Content.Items.Equipment
+namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	public class LeapScroll : MagicScroll
 	{

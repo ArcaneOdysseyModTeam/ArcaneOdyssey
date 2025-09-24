@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +24,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.damage = 10;
-			Item.UseSound = SoundID.Item84;
 			Item.mana = 15;
 			Item.channel = true;
 			Item.DamageType = DamageClass.Magic;

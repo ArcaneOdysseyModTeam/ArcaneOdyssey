@@ -27,6 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.UseSound = SoundID.Item84 with { Pitch = .5f };
 			Item.damage = 25;
 			Item.useTime = Item.useAnimation = 60;
+			Item.knockBack = 3.75f;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

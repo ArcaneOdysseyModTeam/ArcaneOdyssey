@@ -296,6 +296,7 @@ namespace ArcaneOdyssey
 		}
 		
 		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
+		public static DashPlayer DashPlayer(this Player player) => player.GetModPlayer<DashPlayer>();
 		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
 		public static AOProjectile ArcaneOdyssey(this Projectile projectile) => projectile.GetGlobalProjectile<AOProjectile>();
 		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();

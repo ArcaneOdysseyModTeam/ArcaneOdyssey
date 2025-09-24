@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Equipment;
+using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Scrolls;
@@ -39,6 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{ // add explosion spell spawning stuff later
 			if (magicToUse is AOMagic)
 			{
+				SoundEngine.PlaySound(SoundID.Item84 with { Pitch=magicToUse.AOScrollSpeed.PitchPerfect() });
 				if (item.ModItem is AOMagic)
 				{
 					return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 1, 0, magicToUse.Type)];

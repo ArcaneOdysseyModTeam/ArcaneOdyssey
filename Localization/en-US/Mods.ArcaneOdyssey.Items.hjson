@@ -167,3 +167,8 @@ EaglePatrimony: {
 	DisplayName: Eagle Patrimony
 	Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
 }
+
+CrashScroll: {
+	DisplayName: Crash Scroll
+	Tooltip: Leap at your target and use momentum and strength to crash into your enemies
+}
