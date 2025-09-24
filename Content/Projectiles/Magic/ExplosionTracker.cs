@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Items.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
@@ -33,14 +34,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Projectile.position = playah.myCircle.Center;
 				ensuredPosition = Projectile.position;
 				charge++;
-				if(!isPlacedExplosion)
+				if (!isPlacedExplosion)
 				{
 					ensuredPosition = player.Center;
 				}
 			}
 			else
 			{
-				if (Vector2.Distance(player.Center, Main.MouseWorld) > 400) 
+				if (Vector2.Distance(player.Center, Main.MouseWorld) > 400)
 				{
 					Projectile.Center = player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400;
 					ensuredPosition = Projectile.Center;
@@ -49,18 +50,27 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				if (playah.myCircle is not null)
 				{
 					playah.myCircle.ai[0] += 1;
-                    playah.myCircle = null;
-                }
+					playah.myCircle = null;
+				}
 				player.itemAnimation = 0;
 				player.itemTime = 0;
 				float dmgmult = charge / 60f;
-				if(!isPlacedExplosion)
+				if (!isPlacedExplosion)
 				{
 					ensuredPosition = player.Center;
 				}
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1-Imbue.AOScrollSize) * new Vector2(100,100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * dmgmult), Projectile.knockBack, Projectile.owner);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1 - Imbue.AOScrollSize) * new Vector2(100, 100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * dmgmult), Projectile.knockBack, Projectile.owner);
 				SoundEngine.PlaySound(Imbue.ImbueSound, Projectile.position, null);
 				Kill();
+			}
+			// Outline vfx
+			Projectile.TryGetImbue(out Imbuable imbue);
+			for (int n = 0; n < 360; n+=4)
+			{
+				Vector2 currentDustPos = (new Vector2((float)Math.Cos((float)n * (MathHelper.Pi / 180f)), (float)Math.Sin((float)n * (MathHelper.Pi / 180f)))) * ((imbue.AOScrollSize * 109));
+				currentDustPos.X = Utils.Clamp<float>(currentDustPos.X, -1 * (imbue.AOScrollSize * 100), (imbue.AOScrollSize * 100));
+				currentDustPos.Y = Utils.Clamp<float>(currentDustPos.Y, -1 * (imbue.AOScrollSize * 100), (imbue.AOScrollSize * 100));
+				Dust dust = Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, default, 1f);
 			}
 		}
 	}
