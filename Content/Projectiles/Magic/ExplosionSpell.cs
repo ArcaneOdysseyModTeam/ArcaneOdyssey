@@ -24,6 +24,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 30;
 			Projectile.friendly = true;
+			Projectile.ownerHitCheck = true;
 		}
 
 		public override void AI()

@@ -29,10 +29,6 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
             Item.width = Item.height = 64;
         }
 
-        public override void UpdateArmour(Player player)
-        {
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<ArcaniumScrap>(4).AddTile(TileID.MythrilAnvil).Register();

@@ -33,19 +33,32 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 			return head.ModItem is SunkenHelm && body.ModItem is SunkenChest;
 		}
 
-		public override void UpdateArmour(Player player)
-		{
-		}
-
 		public override void UpdateArmorSet(Player player)
 		{
-			player.ArcaneOdyssey().sunkenArmour = true;
+			player.GetModPlayer<SunkenPlayer>().sunkenSetBonus = true;
 			player.setBonus = Mod.CustomLocalization($"Items.SunkenBoots.SetText").Value;
 		}
 
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<ArcaniumScrap>(3).AddTile(TileID.MythrilAnvil).Register();
+		}
+	}
+
+	public class SunkenPlayer : ModPlayer
+	{
+		public bool sunkenSetBonus = false;
+		public override void ResetEffects()
+		{
+			sunkenSetBonus = false;
+		}
+
+		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+		{
+			if (sunkenSetBonus)
+			{
+				npc.AddBuff(BuffID.Wet, 60 * 10);
+			}
 		}
 	}
 }

@@ -111,7 +111,7 @@ namespace ArcaneOdyssey
 			if (ImbueClassCheck(item))
 			{
 				bool? coolred = null;
-				string imbuetextthing = Mod.CustomLocalization("ImbueStuff.NoneText").Value;
+				string imbuetextthing = Mod.CustomLocalization("RandomWords.None").Value;
 				if (item.TryGetImbue(out Imbuable imbue) && imbue is not SteamImbue)
 				{
 					coolred = imbue is FightingStyle;
@@ -119,7 +119,7 @@ namespace ArcaneOdyssey
 				}
 				else if (item.ArcaneOdyssey().imbue is SteamImbue)
 				{
-					imbuetextthing = Language.GetTextValue("RandomWorldName_Adjective.Steaming");
+					imbuetextthing = Mod.CustomLocalization("RandomWords.Steam").Value;
 				}
 				string idkwhattonamethis = coolred.HasValue ? (coolred.Value ? "Strength" : "Magic") : "";
 				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization($"ImbueStuff.ImbueTooltip{idkwhattonamethis}", [imbuetextthing]).Value));
@@ -128,34 +128,36 @@ namespace ArcaneOdyssey
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
-			if (item.TryGetImbue(out Imbuable imbue))
+			if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
-				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				scale += player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
+				if (item.TryGetImbue(out Imbuable imbue))
 				{
-					scale += imbue.AOImbueSize.MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
+					scale += imbue.AOImbueSize.MultiToPercent();
 				}
-			}
+			} 
 		}
+		
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
 		{
 			if (item.TryGetImbue(out Imbuable imbue))
 			{
-				float extrakbmulti = 1f;
+				var extrakbmulti = 1;
 				if (imbue is WindMagic)
 				{
-					extrakbmulti = 3f;
+					extrakbmulti = 3;
 				}
 
 				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
 				{
-					knockback += imbue.AOScrollSize.MultiToPercent() + extrakbmulti;
+					knockback += imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
 					return;
 				}
 
 				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					knockback += imbue.AOImbueSize.MultiToPercent() + extrakbmulti.MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
+					knockback += imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
 				}
 			}
 		}
@@ -270,7 +272,7 @@ namespace ArcaneOdyssey
 
 				if (justchangedspecificimbue && player == Main.LocalPlayer)
 				{
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? (imbue is not SteamImbue ? imbue.DisplayName : Language.GetTextValue("RandomWorldName_Adjective.Steaming")) : Mod.CustomLocalization("ImbueStuff.DefaultText").Value]);
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? (imbue is not SteamImbue ? imbue.DisplayName : Mod.CustomLocalization("RandomWords.Steam").Value) : Mod.CustomLocalization("RandomWords.Default").Value]);
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 				}
 			}

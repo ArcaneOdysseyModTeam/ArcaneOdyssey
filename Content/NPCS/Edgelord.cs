@@ -16,6 +16,7 @@ using Terraria.Localization;
 using ArcaneOdyssey.Content.Projectiles;
 using Terraria.Chat;
 using Terraria.Audio;
+using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Weapons;
 
@@ -154,6 +155,10 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public string GetChatHelpButton()
 		{
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			{
+				return this.GetLocalizedValue("DyingText");
+			}
 			MordenDialogue mordendialogue = Main.LocalPlayer.GetModPlayer<MordenDialogue>();
 
 			List<string> options = [];
@@ -162,11 +167,35 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
 			}
 
-			if (BossesKilled == 0)
+			if (BossesKilled < 3)
 			{
 				options.Add(this.GetLocalizedValue("Help.Early1"));
-				options.Add(this.GetLocalizedValue("Help.Early2"));
 				options.Add(this.GetLocalizedValue("Help.WorldofMagic"));
+				if (Main.LocalPlayer.HasTypeInInventory(typeof(AOMagic)))
+				{
+					options.Add(this.GetLocalizedValue("Help.EarlyMagic1"));
+					options.Add(this.GetLocalizedValue("Help.EarlyMagic2"));
+				}
+				if (Main.LocalPlayer.HasTypeInInventory(typeof(FightingStyle)))
+				{
+					options.Add(this.GetLocalizedValue("Help.EarlyFighting1"));
+					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
+					if (ModLoader.HasMod("CalamityMod"))
+					{
+						doubletapdash = Mod.CustomLocalization("KeybindStuff.CalDash").Value;
+					}
+					else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
+					{
+						if ((bool)fargos.Call("DoubleTapDashDisabled"))
+						{
+							doubletapdash = Mod.CustomLocalization("KeybindStuff.FargoDash").Value;
+						}
+					}
+					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
+					options.Add(this.GetLocalizedValue("Help.EarlyFighting2").
+						Replace("{Keybind1}", doubletapdash).
+						Replace("{Keybind2}", Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));
+				}
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
@@ -191,7 +220,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.PreHard2"));
 			}
 
-			if (Main.LocalPlayer.HeldItem.ModItem is SunkenSword or SunkenStaff)
+			if (Main.LocalPlayer.HasTypeInInventory(typeof(SunkenSword)) || Main.LocalPlayer.HasTypeInInventory(typeof(SunkenStaff)))
 			{
 				options.Add(this.GetLocalizedValue("Help.SunkenWeapon"));
 			}

@@ -90,15 +90,16 @@ namespace ArcaneOdyssey
 		{
 			Player player = Main.player[projectile.owner];
 			Vector2 dim = projectile.ArcaneOdyssey().OriginalDimensions.GetValueOrDefault(projectile.Size);
-			if (ImbueClassCheck(projectile))
+			float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
+			if (projectile.ModProjectile is AOPlayerProjectile proj)
+				mult += proj.AOSize.MultiToPercent();
+			if (projectile.TryGetImbue(out Imbuable imbue))
 			{
-				float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-				if (projectile.ModProjectile is AOPlayerProjectile proj)
-					mult += proj.AOSize.MultiToPercent();
-				if (projectile.TryGetImbue(out Imbuable imbue))
-				{
-					mult += (projectile.ModProjectile is MagicSpell ? imbue.AOScrollSize : imbue.AOImbueSize).MultiToPercent() + player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
-				}
+				mult += (projectile.ModProjectile is MagicSpell ? imbue.AOScrollSize : imbue.AOImbueSize).MultiToPercent();
+			}
+			mult += player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
+			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
 				hitbox.Width = (int)(dim.X * mult);
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;

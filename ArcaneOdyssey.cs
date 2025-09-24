@@ -35,11 +35,7 @@ namespace ArcaneOdyssey
 	public class AOPlayer : ModPlayer
 	{
 		public Imbuable imbue = null;
-
-		/// <summary>
-		/// Whether the user has a set of sunken armour equipped
-		/// </summary>
-		public bool sunkenArmour = false;
+		public bool chargingSpell = false;
 
 		public int AOSizeStat = 0;
 
@@ -65,31 +61,31 @@ namespace ArcaneOdyssey
 			{
 				Player.velocity = Vector2.Zero;
 				Player.maxFallSpeed = 0f;
+				chargingSpell = true;
 			}
+		}
+
+		public override void PostUpdate()
+		{
+			if (chargingSpell)
+				Player.statDefense *= .75f;
 		}
 
 		public override void ResetEffects()
 		{
-			sunkenArmour = false;
 			AOSizeStat = 0;
+			chargingSpell = false;
 		}
 
-		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
-		{
-			if (sunkenArmour)
-			{
-				npc.AddBuff(BuffID.Wet, 60 * 10);
-			}
-		}
-
-		public float GetSizeMulti(Item item)
+		public float GetSizeMulti(Item item = null)
 		{
 			float stat = AOSizeStat / 300f;
-			if (Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
+			if (item is not null && Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
 			{
 				stat += .1f;
 			}
-			return stat + 1;
+			stat++;
+			return stat;
 		}
 
 		public float GetSizeMulti(Projectile projectile)

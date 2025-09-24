@@ -92,6 +92,8 @@ namespace ArcaneOdyssey
 		{
 			if (dash is not null && (!dash.ImbueAffected || Player.Imbue() is not null))
 			{
+				if (!dash.AnyDirection)
+					Player.dashType = DashID.None;
 				if (!dashing && !dash.OnCooldown(Player))
 				{
 					if (dash.AnyDirection && AOKeybinds.DashBind.JustPressed)

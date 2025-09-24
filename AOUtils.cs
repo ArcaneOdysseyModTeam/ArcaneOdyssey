@@ -295,7 +295,24 @@ namespace ArcaneOdyssey
 			defaultValue ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
 		}
-		
+
+		public static bool HasTypeInInventory(this Player player, Type type)
+		{
+			//var yes = new Span<Item>();
+			//player.inventory.CopyTo(yes);
+			//var no = new List<Item>(yes.ToArray());
+			var no = new List<Item>(player.inventory);
+			no.RemoveAll(e => e.ModItem is not Imbuable);
+			foreach (var item in no)
+			{
+				if (item.ModItem.GetType().Name == type.Name || item.ModItem.GetType().IsSubclassOf(type))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
 		public static DashPlayer DashPlayer(this Player player) => player.GetModPlayer<DashPlayer>();
 		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();

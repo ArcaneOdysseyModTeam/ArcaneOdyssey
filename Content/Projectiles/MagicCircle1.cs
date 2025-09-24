@@ -42,10 +42,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			var dir = aoPlayerOwner.Player.MountedCenter.DirectionTo(Main.MouseWorld);
-			if (Projectile.ai[0] == 0f)
+			if (Projectile.ai[0] == 0)
 			{
-				Projectile.ai[0] = 1f;
-				Projectile.netUpdate = true; 
+				Projectile.ai[0]++;
+				Projectile.netUpdate = true;
 				if (aoPlayerOwner.Player.channel)
 				{
 					charge = .75f;
@@ -53,8 +53,14 @@ namespace ArcaneOdyssey.Content.Projectiles
 				aoPlayerOwner.Player.direction = (dir.X > 0f).ToDirectionInt();
 			}
 
+			if (Projectile.position != Projectile.oldPosition)
+			{
+				Projectile.netUpdate = true;
+			}
+
 			if (aoPlayerOwner.Player.channel && !MarkedForDeath)
 			{
+				aoPlayerOwner.chargingSpell = true;
 				aoPlayerOwner.Player.direction = (dir.X > 0f).ToDirectionInt();
 				charge += 1f / 60f;
 				Projectile.rotation = dir.ToRotation();
@@ -71,7 +77,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && AOUtils.ServerOrSingleplayer && ChargingProjectile != 0)
 				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge * 4)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge * 5)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
 					proj.ArcaneOdyssey().BaseScale = charge/2;
 					Projectile.ai[1] = 1;
 				}

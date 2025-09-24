@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 	{
 		public override void SetDefaultsScroll()
 		{
-			Item.useAnimation = Item.useTime = ExplosionTracker.defaultMax-ExplosionTracker.defaultMin;
+			Item.useAnimation = Item.useTime = (ExplosionTracker.defaultMax-ExplosionTracker.defaultMin).Round();
 			Item.damage = 50;
 			Item.reuseDelay = 60;
 			Item.channel = true;

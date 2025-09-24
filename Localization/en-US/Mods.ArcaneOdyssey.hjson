@@ -132,8 +132,6 @@ ImbueStuff: {
 	ImbueTooltipStrength: Current Imbue: [c/700013:{0}]
 	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
 	StrengthIndicator: "[c/700013:-Strength Weapon-]"
-	NoneText: None
-	DefaultText: default
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
 }
@@ -168,9 +166,24 @@ Configs: {
 
 		EnableMorden: {
 			Label: Enable Morden
-			Tooltip: ""
+			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
 		}
 	}
+}
+
+KeybindStuff: {
+	DashHelp: Double tap a movement key
+	CalDash: Press the Calamity Dash Keybind (if set)
+	FargoDash: Press the Fargo's Dash Keybind
+	Unbound: Unbound
+}
+
+RandomWords: {
+	Press: Press
+	None: None
+	Or: or
+	Default: default
+	Steam: Steam
 }
 
 NPCs: {
@@ -181,6 +194,7 @@ NPCs: {
 		DisplayName1: Edgelord
 		DeathCurse: Morden's Curse has left...
 		Census.SpawnCondition: Always available, spawned on world creation
+		DyingText: HELP!
 
 		Chat: {
 			Intro: Hello, {PlayerName}.
@@ -194,7 +208,10 @@ NPCs: {
 
 		Help: {
 			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
-			Early2: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
+			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
+			EarlyMagic2: Magic spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
+			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but technique scrolls are needed to use your full power. Try crafting paper at a sawmill with gel and wood.
+			EarlyFighting2: Some techniques allow you to launch yourself in a direction, depending on the type you can [{Keybind1} or {Keybind2}].
 			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
 			PreHard1: It's said there's some abomination deep, deep underground that contains a large amount of magic power. It might be benificial to obtain this power.
 			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
