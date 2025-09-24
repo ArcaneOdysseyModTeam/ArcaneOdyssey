@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					if (!isPlacedExplosion)
 					{
 						explosionProjectile.localAI[0] = 1.2f; //size mult
-						explosionProjectile.damage = (explosionProjectile.damage * 1.2f).Round(); //Damage mult
+						explosionProjectile.damage = (int)((float)explosionProjectile.damage*1.2f); //Damage mult
 						explosionProjectile.AI();
 						explosionProjectile.Center = ensuredPosition;
 					}
