@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				ModContent.BuffType<FreezingEffect>(),
 				ModContent.BuffType<SnowyEffect>(),
 				ModContent.BuffType<SandyEffect>()
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.075f),
 				new MagicBuffMultiplier(BuffID.OnFire,1.075f),
@@ -42,7 +42,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
 				new MagicBuffMultiplier(BuffID.Wet,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.99f)
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.925f)
 			]
 			);
 			public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AcidBlast>()),]);

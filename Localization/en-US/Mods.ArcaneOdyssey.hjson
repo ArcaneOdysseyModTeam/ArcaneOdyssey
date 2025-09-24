@@ -91,6 +91,11 @@ Buffs: {
 		DisplayName: Blinded Effect
 		Description: Mods.ArcaneOdyssey.Buffs.BlindedEffect.Description
 	}
+
+	DrainedEffect: {
+		DisplayName: Drained Effect
+		Description: Mods.ArcaneOdyssey.Buffs.DrainedEffect.Description
+	}
 }
 
 Projectiles: {
