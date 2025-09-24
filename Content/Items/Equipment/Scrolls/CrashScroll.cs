@@ -27,17 +27,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (playah.imbue is FightingStyle)
 			{
 				Item.color = playah.imbue.ImbueColour;
-				if (Item.color == Color.White || Item.color == Color.Black)
-				{
-					Item.color.A *= (byte).5f;
-				}
 				player.DashPlayer().dash ??= new CrashDash();
 			}
-			else 
-			{ 
-				Item.color = default; 
-			}
-			
+			else Item.color = Color.Transparent;
+
 		}
 		public override void ScrollRecipe()
 		{

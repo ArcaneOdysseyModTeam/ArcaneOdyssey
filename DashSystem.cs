@@ -30,8 +30,6 @@ namespace ArcaneOdyssey
 		public abstract bool AnyDirection { get; }
 
 		public abstract int Cooldown { get; }
-
-		public int DashLeft;
 		public abstract int DashMax { get; }
 
 		public void SetCooldown(Player player)
@@ -46,9 +44,6 @@ namespace ArcaneOdyssey
 
 		public abstract float DashSpeed { get; }
 
-		public Vector2 DashVelocity;
-
-		public bool dashing;
 
 		/// <summary>
 		/// called every frame
@@ -78,59 +73,62 @@ namespace ArcaneOdyssey
 	public class DashPlayer : ModPlayer 
 	{
 		public DashSystem dash = null;
+		public int DashLeft;
+		public Vector2 DashVelocity;
+		public bool dashing;
 
 		public override void PreUpdate()
 		{
-			if (dash is not null && dash.dashing)
-				dash.DashLeft--;
+			if (dash is not null && dashing)
+				DashLeft--;
 		}
 
 		public override void ResetEffects()
 		{
+			dash = null;
 		}
 
 		public override void PreUpdateMovement()
 		{
 			if (dash is not null && (!dash.ImbueAffected || Player.Imbue() is not null))
 			{
-				if (!dash.dashing && !dash.OnCooldown(Player))
+				if (!dashing && !dash.OnCooldown(Player))
 				{
 					if (dash.AnyDirection && AOKeybinds.DashBind.JustPressed)
 					{
-						dash.DashVelocity = Player.SafeDirectionTo(Main.MouseWorld) * dash.DashSpeed;
-						dash.DashLeft = dash.DashMax;
-						dash.dashing = true;
+						DashVelocity = Player.SafeDirectionTo(Main.MouseWorld) * dash.DashSpeed;
+						DashLeft = dash.DashMax;
+						dashing = true;
 						dash.OnStart(Player);
 					}
 					else if (!dash.AnyDirection)
 					{
 						if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[2] < 15 && Player.doubleTapCardinalTimer[3] == 0)
 						{
-							dash.DashVelocity = Vector2.UnitX * dash.DashSpeed;
-							dash.DashLeft = dash.DashMax;
-							dash.dashing = true;
+							DashVelocity = Vector2.UnitX * dash.DashSpeed;
+							DashLeft = dash.DashMax;
+							dashing = true;
 							dash.OnStart(Player);
 						}
 						else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[3] < 15 && Player.doubleTapCardinalTimer[2] == 0)
 						{
-							dash.DashVelocity = -(Vector2.UnitX * dash.DashSpeed);
-							dash.DashLeft = dash.DashMax;
-							dash.dashing = true;
+							DashVelocity = -(Vector2.UnitX * dash.DashSpeed);
+							DashLeft = dash.DashMax;
+							dashing = true;
 							dash.OnStart(Player);
 						}
 					}
 				}
-				if (dash.dashing)
+				if (dashing)
 				{
 					dash.DashEffect(Player);
-					Player.velocity = dash.DashVelocity * (dash.ImbueAffected ? Player.Imbue().AOScrollSpeed : 1f);
-					Player.direction = (dash.DashVelocity.X > 0).ToDirectionInt();
-					if (dash.DashLeft <= 0)
+					Player.velocity = DashVelocity * (dash.ImbueAffected ? Player.Imbue().AOScrollSpeed : 1f);
+					Player.direction = (DashVelocity.X > 0).ToDirectionInt();
+					if (DashLeft <= 0)
 					{
 						dash.OnEnd(Player);
 						dash.SetCooldown(Player);
-						dash.dashing = false;
-						dash = null;
+						dashing = false;
 					}
 				}
 			}
@@ -138,7 +136,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
-			if (npc.IsDamageDodgeable() && dash is not null && dash.dashing)
+			if (npc.IsDamageDodgeable() && dash is not null && dashing)
 			{
 				if (dash.Immune)
 				{
@@ -153,8 +151,7 @@ namespace ArcaneOdyssey
 				{
 					dash.OnEnd(Player);
 					dash.SetCooldown(Player);
-					dash.dashing = false;
-					dash = null;
+					dashing = false;
 				}
 			}
 		}

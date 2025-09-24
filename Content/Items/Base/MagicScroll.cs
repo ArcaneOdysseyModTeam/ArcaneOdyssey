@@ -17,12 +17,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (imbue is AOMagic)
 			{
 				Item.color = imbue.ImbueColour;
-				if (Item.color == Color.White || Item.color == Color.Black)
-				{
-					Item.color.A *= (byte).5f;
-				}
 			}
-			else Item.color = default;
+			else Item.color = Color.Transparent;
 		}
 
 		public override bool CanUseItem(Player player)

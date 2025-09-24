@@ -19,12 +19,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (imbue is FightingStyle)
 			{
 				Item.color = imbue.ImbueColour;
-				if (Item.color == Color.White || Item.color == Color.Black)
-				{
-					Item.color.A *= (byte).75f;
-				}
 			}
-			else Item.color = default;
+			else Item.color = Color.Transparent;
 		}
 
 		public override bool CanUseItem(Player player)

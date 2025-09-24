@@ -28,17 +28,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (playah.imbue is AOMagic)
 			{
 				Item.color = playah.imbue.ImbueColour;
-				if (Item.color == Color.White || Item.color == Color.Black)
-				{
-					Item.color.A *= (byte).5f;
-				}
 				player.GetJumpState<LeapAirStep>().Enable();
 			}
-			else 
-			{ 
-				Item.color = default; 
-			}
-			
+			else Item.color = Color.Transparent;
+
 		}
 		public override void ScrollRecipe()
 		{
