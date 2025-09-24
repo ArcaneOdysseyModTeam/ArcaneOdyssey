@@ -63,8 +63,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				explosionProjectile.localAI[0] = 1f;
 				if (!isPlacedExplosion)
 				{
-					explosionProjectile.localAI[0] = 1.2f;
-					explosionProjectile.damage = (int)((float)explosionProjectile.damage*1.2f);
+					explosionProjectile.localAI[0] = 1.2f; //size mult
+					explosionProjectile.damage = (int)((float)explosionProjectile.damage*1.2f); //Damage mult
 					explosionProjectile.AI();
 					explosionProjectile.Center = ensuredPosition;
 				}
@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			float extraScale = 1f;
 			if (!isPlacedExplosion)
 			{
-				extraScale = 1.2f;
+				extraScale = 1.2f;//size mult
 			}
 			Projectile.TryGetImbue(out Imbuable imbue);
 			for (int n = 0; n < 360; n+=4)
