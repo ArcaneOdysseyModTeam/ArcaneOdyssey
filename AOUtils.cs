@@ -17,7 +17,6 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
-
 		public static int GetAOBuffStack(NPC npc, int index)
 		{
 			return (npc.buffTime[index] / 60 / 5) + 1;

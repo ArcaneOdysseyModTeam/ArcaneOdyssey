@@ -8,7 +8,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Materials;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls
@@ -35,6 +34,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 		public override bool AltFunctionUse(Player player)
 		{
 			return CanUseItem(player);
+		}
+
+		public override bool ScrollCheck(Player player)
+		{
+			return player.ArcaneOdyssey().myCircle is null;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

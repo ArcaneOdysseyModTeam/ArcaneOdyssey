@@ -23,7 +23,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool CanUseItem(Player player)
 		{
-			return Item.ArcaneOdyssey().imbue is AOMagic;
+			return Item.ArcaneOdyssey().imbue is AOMagic && ScrollCheck(player);
 		}
+
+		public virtual bool ScrollCheck(Player player) => true;
 	}
 }

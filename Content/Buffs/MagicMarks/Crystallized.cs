@@ -27,20 +27,16 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 					case 2:
                     case 3:
                     case 4: // ArcaneOdyssey.cs damage calculation uses this stack to increase damage
+						if (!Main.dedServ)
 						{
-							if (!Main.dedServ)
-							{
-								Dust.NewDust(npc.Center, 1, 1, DustID.GemRuby, (0.5f - Main.rand.NextFloat()) * 5f, (0.1f - Main.rand.NextFloat()) * 5f, 1, default, 2f);
-							}
-							break;
+							Dust.NewDust(npc.Center, 1, 1, DustID.GemRuby, (0.5f - Main.rand.NextFloat()) * 5f, (0.1f - Main.rand.NextFloat()) * 5f, 1, default, 2f);
 						}
+						break;
 					default: // if the stack number isnt valid or over 4, just delete the buff
-						{
-							npc.DelBuff(buffIndex);
-							SoundEngine.PlaySound(SoundID.DeerclopsIceAttack, npc.Center);
-							buffIndex--;
-							break;
-						}
+						npc.DelBuff(buffIndex);
+						SoundEngine.PlaySound(SoundID.DeerclopsIceAttack, npc.Center);
+						buffIndex--;
+						break;
 				}
             }
 		}

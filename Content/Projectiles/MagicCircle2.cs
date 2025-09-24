@@ -47,14 +47,12 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 				else
 				{
-					if (Vector2.Distance(Projectile.Center, player.position) < 400) // how long is 300 lol
+					if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
 					{
-						Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 1);
+						Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10);
 					}
 					else
-					{
-						Projectile.Center = player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400;
-					}
+						Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10);
 				}
 			}
 			else
