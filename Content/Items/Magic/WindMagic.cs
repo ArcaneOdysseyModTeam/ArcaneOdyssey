@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Wet,
 				ModContent.BuffType<SnowyEffect>(),
 				ModContent.BuffType<AOScalding>()
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),
 				new MagicBuffMultiplier(BuffID.OnFire,0.9f),
@@ -49,7 +49,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Poisoned,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.9f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-				new MagicBuffMultiplier(BuffID.Wet,0.9f)
+				new MagicBuffMultiplier(BuffID.Wet,0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f)
 			]
 			);
 			public override void SpawningEffects(Projectile projectile) 

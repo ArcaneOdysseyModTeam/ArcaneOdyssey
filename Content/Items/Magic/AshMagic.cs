@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.99f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.01f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.125f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.8f)
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.2f)
 			]
 			);
 

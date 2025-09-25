@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				ModContent.BuffType<SnowyEffect>(),
 				BuffID.Wet,
 				ModContent.BuffType<CharredEffect>()
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.15f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.01f),
@@ -52,7 +52,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
 				new MagicBuffMultiplier(BuffID.Poisoned,1.05f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.98f)
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.98f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f)
 				
 			]
 			);

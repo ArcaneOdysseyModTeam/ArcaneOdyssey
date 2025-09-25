@@ -32,10 +32,11 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.075f),
-				new MagicBuffMultiplier(BuffID.OnFire,0.99f)
+				new MagicBuffMultiplier(BuffID.OnFire,0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f)
 			]
 			);
 

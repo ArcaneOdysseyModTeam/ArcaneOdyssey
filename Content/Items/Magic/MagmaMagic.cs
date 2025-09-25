@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				ModContent.BuffType<FreezingEffect>(),
 				ModContent.BuffType<SandyEffect>(),
 				ModContent.BuffType<SnowyEffect>()
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOPetrified>(), 1.2f), // petrified
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.15f), // bleeding
@@ -58,6 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Wet, .95f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.1f),
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.075f)
 			]
 			);
 			

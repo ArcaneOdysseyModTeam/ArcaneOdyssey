@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet
-			], 
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
 				new MagicBuffMultiplier(BuffID.OnFire,1.125f),
@@ -41,7 +41,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Venom,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.8f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
-				new MagicBuffMultiplier(BuffID.Wet,0.8f)
+				new MagicBuffMultiplier(BuffID.Wet,0.8f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.125f)
 			]
 			);
 
