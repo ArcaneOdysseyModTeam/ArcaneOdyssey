@@ -36,7 +36,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				ModContent.BuffType<CharredEffect>(),
 				BuffID.Venom,
 				BuffID.OnFire3,
-				BuffID.ShadowFlame
+				BuffID.ShadowFlame,
+				ModContent.BuffType<AOScalding>()
 			], 
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.85f),

@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Items.Base;
@@ -37,7 +38,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Venom,
 				ModContent.BuffType<SandyEffect>(),
 				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>()
+				ModContent.BuffType<SnowyEffect>(),
+				ModContent.BuffType<AOScalding>()
 			], 
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),

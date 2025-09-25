@@ -40,7 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Wet,
 				ModContent.BuffType<FreezingEffect>(),
 				BuffID.OnFire3,
-				BuffID.ShadowFlame
+				BuffID.ShadowFlame,
+				ModContent.BuffType<AOScalding>()
 			], 
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.8f),
