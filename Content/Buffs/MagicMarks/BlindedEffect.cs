@@ -21,18 +21,22 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
                 stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
                 switch (stack)
                 {
-                    case 1: 
-						return;
+                    case 1:
+                        return;
                     case 2:
-						return;
-					case 3:
-						return;
-					case 4:
-						return;
-					default:
-						npc.AddBuff(BuffID.Confused, 5);
-						break;
+                        return;
+                    case 3:
+                        return;
+                    case 4:
+                        return;
+                    default:
+                        npc.AddBuff(BuffID.Confused, 5);
+                        break;
                 }
+            }
+            if (npc.HasBuff(BuffID.Confused)) {
+                npc.DelBuff(buffIndex);
+				buffIndex--;
             }
         }
 
