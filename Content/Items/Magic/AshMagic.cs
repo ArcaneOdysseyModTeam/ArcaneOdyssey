@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollDamage => 0.875f;
         public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override AODebuffRequirement ImbueDebuff => new(ModContent.BuffType<AOPetrified>(), 60*10,33);
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()),new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()),new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()),new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
+		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()),new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()),new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()),new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>()),new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
@@ -42,8 +42,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.OnFire,
 				BuffID.OnFire3,
 				ModContent.BuffType<CharredEffect>(),
-				BuffID.ShadowFlame
-			], 
+				BuffID.ShadowFlame,
+				ModContent.BuffType<AOScalding>()
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
 				new MagicBuffMultiplier(BuffID.OnFire,1.02f),
@@ -53,7 +54,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Wet,0.995f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.99f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.01f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.125f)
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.125f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.8f)
 			]
 			);
 
