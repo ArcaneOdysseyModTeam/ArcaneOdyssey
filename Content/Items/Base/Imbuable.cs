@@ -34,7 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this is BasicCombat or AOMagic)
 				ItemID.Sets.ShimmerTransformToItem[Type] = Type;
 			ItemID.Sets.ItemNoGravity[Type] = this is AOMagic;
-			ItemID.Sets.IsAMaterial[Type] = false;
 		}
 
 		public override AORarities AORarity => ImbuableTier == AOImbuableTier.Normal ? AORarities.Common : AORarities.Exotic;
@@ -158,7 +157,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.noUseGraphic = true;
 			if (this is GlassMagic)
 			{
-				Item.alpha = 255/2; // glass gets 50% less visible
+				Item.alpha = (255 * .5f).Round(); // glass gets 50% less visible
 			}
 		}
 

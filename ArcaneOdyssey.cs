@@ -101,6 +101,7 @@ namespace ArcaneOdyssey
 		{
 			if (chargingSpell)
 				Player.statDefense *= .75f;
+			chargingSpell = false;
 		}
 
 		public override void ResetEffects()

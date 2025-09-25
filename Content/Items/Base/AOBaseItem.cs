@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOBaseItem : ModItem
 	{
-		public virtual AORarities AORarity => AORarities.Common;
+		public virtual AORarities AORarity => AORarities.RESOLVESELF;
 		public virtual ItemType ItemType => ItemType.None;
 	}
 }

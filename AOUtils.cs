@@ -199,7 +199,7 @@ namespace ArcaneOdyssey
 
 		public static AORarities GetItemRare(this Item item)
 		{
-			if (item.ModItem is AOBaseItem based)
+			if (item.ModItem is AOBaseItem based && based.AORarity != AORarities.RESOLVESELF)
 			{
 				return based.AORarity;
 			}
@@ -282,6 +282,7 @@ namespace ArcaneOdyssey
 			Exotic = ItemRarityID.LightRed,
 			Arcane = ItemRarityID.Lime,
 			Zenith = ItemRarityID.Master,
+			RESOLVESELF
 		}
 
 		public enum AOImbuableTier

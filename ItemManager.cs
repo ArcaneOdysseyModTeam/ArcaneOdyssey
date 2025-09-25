@@ -95,6 +95,10 @@ namespace ArcaneOdyssey
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
+			if (item.ModItem is Imbuable)
+			{
+				tooltips.RemoveAll(e => e.Name == "Material");
+			}
 			if (item.ModItem is not null && item.ModItem.Name == "UnloadedItem")
 			{
 				return;

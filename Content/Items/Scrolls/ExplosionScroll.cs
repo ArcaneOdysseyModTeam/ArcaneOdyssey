@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, player.Imbue());
+			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().imbue);
 			Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, type, damage, knockback * 1.5f, player.whoAmI);
 			return false;
 		}

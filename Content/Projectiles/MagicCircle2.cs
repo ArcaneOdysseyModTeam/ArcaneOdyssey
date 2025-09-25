@@ -50,10 +50,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 				{
 					if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
 					{
-						Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10);
+						Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
 					}
 					else
-						Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10);
+						Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
 				}
 			}
 			else

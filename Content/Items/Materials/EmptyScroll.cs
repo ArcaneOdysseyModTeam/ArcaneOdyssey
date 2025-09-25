@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override AORarities AORarity => AORarities.Uncommon;
 		public virtual bool SpellScroll => true;
 
-		public override ItemType ItemType => ItemType.None;
+		public override ItemType ItemType => ItemType.RESOLVESELF;
 
 		public override void SetDefaults()
 		{
