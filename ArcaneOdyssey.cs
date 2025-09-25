@@ -61,7 +61,6 @@ namespace ArcaneOdyssey
 			{
 				Player.velocity = Vector2.Zero;
 				Player.maxFallSpeed = 0f;
-				chargingSpell = true;
 			}
 		}
 
@@ -74,7 +73,6 @@ namespace ArcaneOdyssey
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
-			chargingSpell = false;
 		}
 
 		public float GetSizeMulti(Item item = null)

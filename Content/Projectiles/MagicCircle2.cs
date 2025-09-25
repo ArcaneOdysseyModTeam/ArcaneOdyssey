@@ -40,6 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
+				aoPlayerOwner.chargingSpell = true;
 				aoPlayerOwner.myCircle = Projectile;
 				if (Projectile.ai[1] != 2)
 				{
@@ -56,7 +57,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 			}
 			else
+			{
 				aoPlayerOwner.myCircle = null;
+				aoPlayerOwner.chargingSpell = false;
+			}
 
 			if (Imbue is not null)
             {

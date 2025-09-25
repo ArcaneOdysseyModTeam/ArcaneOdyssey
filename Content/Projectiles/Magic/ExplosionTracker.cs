@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
 	public class ExplosionTracker : AOPlayerProjectile
 	{
+		private bool wascharging;
 		public const float defaultMax = 3f;
         public const float defaultMin = 0.6f;
         public float charge = 1f;
@@ -39,6 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					charge = defaultMin;
 					Projectile.ai[1]++;
 				}
+				playah.chargingSpell = wascharging = true;
 				Projectile.position = playah.myCircle.Center;
 				ensuredPosition = Projectile.position;
 				charge += 1/60f;
@@ -49,6 +51,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			}
 			else
 			{
+				if (wascharging)
+					playah.chargingSpell = false;
 				if (Projectile.ai[1] == 0)
 				{
 					charge = 1f;
