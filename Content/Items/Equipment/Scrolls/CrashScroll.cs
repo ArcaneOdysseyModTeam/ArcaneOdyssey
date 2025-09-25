@@ -34,7 +34,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.Balloons).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ClimbingClaws).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ShoeSpikes).Register();
 		}
 	}
 
