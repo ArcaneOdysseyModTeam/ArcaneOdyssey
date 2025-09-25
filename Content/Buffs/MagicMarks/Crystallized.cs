@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class Crystallized : AODebuff
 	{
-		private int stack;
+		private int stack = 1;
 
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
@@ -24,9 +24,12 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 				switch (stack)
 				{
 					case 1:
+						return;
 					case 2:
-                    case 3:
-                    case 4: // ArcaneOdyssey.cs damage calculation uses this stack to increase damage
+						return;
+					case 3:
+						return;
+					case 4: // ArcaneOdyssey.cs damage calculation uses this stack to increase damage
 						if (!Main.dedServ)
 						{
 							Dust.NewDust(npc.Center, 1, 1, DustID.GemRuby, (0.5f - Main.rand.NextFloat()) * 5f, (0.1f - Main.rand.NextFloat()) * 5f, 1, default, 2f);
@@ -43,7 +46,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 
 		public override bool ReApply(NPC npc, int time, int buffIndex)
         {
-			if (npc.HasBuff<Crystallized>())
+			if (npc.HasBuff(Type))
 			{
 				npc.buffTime[buffIndex] = (stack+1) * 5 * 60; // adds a "stack", or 5 second duration... could use "time", but other mods that change debuff duration might mess that up or something
 				return true;
