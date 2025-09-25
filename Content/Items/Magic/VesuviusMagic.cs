@@ -32,10 +32,30 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override AODebuffRequirement ImbueDebuff2 => new AODebuffRequirement(BuffID.OnFire3,10*60);
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
-				
-			], 
+				BuffID.Chilled, // freezing
+				ModContent.BuffType<AOPetrified>(),
+				BuffID.Wet,
+				ModContent.BuffType<AOBleed>(),
+				BuffID.Venom,
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<SandyEffect>(),
+				ModContent.BuffType<SnowyEffect>()
+			],
 			[
-				
+				new MagicBuffMultiplier(ModContent.BuffType<AOPetrified>(), 2.2f), // petrified
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 2.15f), // bleeding
+				new MagicBuffMultiplier(BuffID.OnFire, 2.075f),
+				new MagicBuffMultiplier(BuffID.Venom, 2.1f), // venom acid
+				new MagicBuffMultiplier(BuffID.Burning, 2.075f),
+				new MagicBuffMultiplier(BuffID.Poisoned, 2.05f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), 2.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(), 1.99f),
+				new MagicBuffMultiplier(BuffID.Wet, 1.95f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame, 2.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),2.075f)
 			]
 			);
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<VesuviusBlast>()),]);
