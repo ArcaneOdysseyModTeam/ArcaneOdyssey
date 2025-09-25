@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
                     case 4:
                         return;
                     default:
-                        npc.AddBuff(BuffID.Confused, 5);
+                        npc.AddBuff(BuffID.Confused, 60);
                         break;
                 }
             }
