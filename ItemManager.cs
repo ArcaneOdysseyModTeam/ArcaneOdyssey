@@ -98,8 +98,8 @@ namespace ArcaneOdyssey
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			var dashline = tooltips.Find(e => e.Name.Contains("Tooltip") && e.Mod == "Terraria");
-			if (dashline is not null && dashline.Text.Contains("{DASHBIND}"))
+			var dashline = tooltips.Find(e => e.Text.Contains("{DASHBIND}"));
+			if (dashline is not null)
 			{
 				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value));
 			}
