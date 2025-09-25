@@ -6,13 +6,16 @@ using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -95,6 +98,11 @@ namespace ArcaneOdyssey
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
+			var dashline = tooltips.Find(e => e.Name.Contains("Tooltip") && e.Mod == "Terraria");
+			if (dashline is not null && dashline.Text.Contains("{DASHBIND}"))
+			{
+				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value));
+			}
 			if (item.ModItem is Imbuable)
 			{
 				tooltips.RemoveAll(e => e.Name == "Material");

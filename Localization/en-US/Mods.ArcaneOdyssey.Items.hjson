@@ -141,7 +141,7 @@ EmptyScroll: {
 
 LeapScroll: {
 	DisplayName: Leap Scroll
-	Tooltip: ""
+	Tooltip: Use magic to launch yourself at an upwards angle, the speed and height changing with your selected magic
 }
 
 VesuvianSigil: {
@@ -170,5 +170,9 @@ EaglePatrimony: {
 
 CrashScroll: {
 	DisplayName: Crash Scroll
-	Tooltip: Leap at your target and use momentum and strength to crash into your enemies
+	Tooltip:
+		'''
+		Press {DASHBIND} to activate with a 5 second cooldown
+		Leap at your target and use momentum and strength to crash into your enemies
+		'''
 }
