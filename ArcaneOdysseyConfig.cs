@@ -13,8 +13,6 @@ namespace ArcaneOdyssey
 		[DefaultValue(false)]
 		public bool AffectsOtherMods { get; set; }
 
-		public List<string> IgnoredProjectiles { get; set; }
-
 
 		[DefaultValue(true)]
 		public bool GenerateTucker { get; set; }

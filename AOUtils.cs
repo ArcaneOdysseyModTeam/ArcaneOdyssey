@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.ExcludedProjectiles.Contains(projectile.type)))
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
 				if (goodclasses.Contains(projectile.DamageType.Name))
@@ -69,7 +70,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			if ((item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.ExcludedItems.Contains(item.type)))
 			{
 				return item.DamageType.Name == "TrueMeleeDamageClass" || item.DamageType.Name == "TrueMeleeNoSpeedDamageClass" || item.DamageType.Name == "MeleeRangedHybridDamageClass" ||
 				item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll)));
@@ -159,6 +160,112 @@ namespace ArcaneOdyssey
 			return count;
 		}
 
+		public static ItemType GetItemType(this Item item)
+		{
+			if (item.ModItem is AOBaseItem based && based.ItemType != ItemType.RESOLVESELF)
+			{
+				return based.ItemType;
+			}
+			if (item.accessory)
+			{
+				return ItemType.Accessory;
+			}
+			if (item.bodySlot != -1 || item.legSlot != -1 || item.headSlot != -1 || item.wornArmor)
+			{
+				return ItemType.Armour;
+			}
+			if (item.axe > 0 || item.pick > 0)
+			{
+				return ItemType.Tool;
+			}
+			if (item.ammo != AmmoID.None)
+			{
+				return ItemType.Ammo;
+			}
+			if (item.damage != -1)
+			{
+				return ItemType.Weapon;
+			}
+			if (item.material)
+			{
+				return ItemType.Material;
+			}
+			if (item.createTile != -1)
+			{
+				return ItemType.Block;
+			}
+			return ItemType.Item;
+		}
+
+		public static AORarities GetItemRare(this Item item)
+		{
+			if (item.ModItem is AOBaseItem based)
+			{
+				return based.AORarity;
+			}
+			if (item.expert || item.rare == ItemRarityID.Expert)
+			{
+				return AORarities.Arcane;
+			}
+			if (item.master || item.rare == ItemRarityID.Master)
+			{
+				return AORarities.Zenith;
+			}
+			switch (item.rare)
+			{
+				case -1:
+					return AORarities.Common;
+					break;
+				case 0:
+					return AORarities.Common;
+					break;
+				case 1:
+					return AORarities.Rare;
+					break;
+				case 2:
+					return AORarities.Rare;
+					break;
+				case 3:
+					return AORarities.Rare;
+					break;
+				case 4:
+					return AORarities.Exotic;
+					break;
+				case 5:
+					return AORarities.Exotic;
+					break;
+				case 6:
+					return AORarities.Arcane;
+					break;
+				case 7:
+					return AORarities.Arcane;
+					break;
+				case 8:
+					return AORarities.Arcane;
+					break;
+				case 9:
+					return AORarities.Arcane;
+					break;
+				default:
+					return AORarities.Zenith;
+					break;
+			}
+		}
+
+		public enum ItemType
+		{
+			Block,
+			Ammo,
+			Item,
+			Material,
+			Accessory,
+			Armour,
+			Weapon,
+			Tool,
+			None,
+			RESOLVESELF
+		}
+
 		/// <summary>
 		/// includes mini bosses
 		/// </summary>
@@ -169,12 +276,12 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public enum AORarities
 		{
-			Common = -1,
-			Uncommon = 0,
-			Rare = 1,
-			Exotic = 4,
-			Legendary = 7,
-			Zenith = -13,
+			Common = ItemRarityID.Gray,
+			Uncommon = ItemRarityID.White,
+			Rare = ItemRarityID.Blue,
+			Exotic = ItemRarityID.LightRed,
+			Arcane = ItemRarityID.Lime,
+			Zenith = ItemRarityID.Master,
 		}
 
 		public enum AOImbuableTier
@@ -241,7 +348,7 @@ namespace ArcaneOdyssey
 		}
 
 		/// <summary>
-		/// 
+		/// sahhhhhduiahyfoahgoaig
 		/// </summary>
 		/// <param name="requirement"></param>
 		/// <param name="result"></param>
@@ -302,9 +409,6 @@ namespace ArcaneOdyssey
 
 		public static bool HasTypeInInventory(this Player player, Type type)
 		{
-			//var yes = new Span<Item>();
-			//player.inventory.CopyTo(yes);
-			//var no = new List<Item>(yes.ToArray());
 			var no = new List<Item>(player.inventory);
 			no.RemoveAll(e => e.ModItem is not Imbuable);
 			foreach (var item in no)

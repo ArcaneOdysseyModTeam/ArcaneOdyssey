@@ -9,10 +9,10 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class SpiritWeapon : ModItem
+	public abstract class SpiritWeapon : AOBaseItem
 	{
 		public abstract int AOValue { get; }
-		public abstract AORarities AORarity { get; }
+		public override ItemType ItemType => ItemType.Weapon;
 
 		public override void SetDefaults() 
 		{

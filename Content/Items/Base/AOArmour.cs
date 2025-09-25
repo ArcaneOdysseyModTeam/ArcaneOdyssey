@@ -16,7 +16,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AOArmour : ModItem
+	public abstract class AOArmour : AOBaseItem
 	{
 		/// <summary>
 		/// At max item level btw
@@ -43,6 +43,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual int AOSize => 0;
 
+		public override ItemType ItemType => ItemType.Armour;
+
 		/// <summary>
 		/// At max item level btw
 		/// </summary>
@@ -51,7 +53,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <summary>
 		/// Without enchantments ect
 		/// </summary>
-		public virtual AORarities AORarity => AORarities.Common;
 
 		public virtual int MinionSlots => 0;
 

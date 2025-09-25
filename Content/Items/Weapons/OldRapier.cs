@@ -10,7 +10,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class OldRapier : AOWeapon
+	public class OldRapier : AORangedOrMeleeWeapon
 	{
 		public override int AOValue => 20;
 		public override float AOSize => 1;

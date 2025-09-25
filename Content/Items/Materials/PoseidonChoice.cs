@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
@@ -6,13 +7,13 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Materials
 {
     [LegacyName("HecateOrb")]
-    public class PoseidonChoice : ModItem
+    public class PoseidonChoice : AOBaseItem
     {
         public int AOValue = 10000;
-        
-        public AORarities AORarity = AORarities.Legendary;
+        public override AORarities AORarity => AORarities.Arcane;
+		public override ItemType ItemType => ItemType.Material;
 
-        public override void SetDefaults()
+		public override void SetDefaults()
         {
             Item.rare = (int)AORarity;
             Item.value = GalleonToCopper(AOValue);

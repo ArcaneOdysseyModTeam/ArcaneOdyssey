@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,12 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-    public class Acrimony : ModItem
+    public class Acrimony : AOBaseItem
     {
         public int AOValue = 10000;
 
-        public AORarities AORarity = AORarities.Legendary;
+		public override ItemType ItemType => ItemType.Material;
+		public override AORarities AORarity => AORarities.Arcane;
         public override void SetDefaults()
         {
             Item.rare = (int)AORarity;

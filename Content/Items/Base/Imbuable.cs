@@ -26,15 +26,20 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class Imbuable : ModItem
+	public abstract class Imbuable : AOBaseItem
 	{
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			if (this is BasicCombat or AOMagic)
 				ItemID.Sets.ShimmerTransformToItem[Type] = Type;
-			ItemID.Sets.ItemNoGravity[Item.type] = this is AOMagic;
+			ItemID.Sets.ItemNoGravity[Type] = this is AOMagic;
+			ItemID.Sets.IsAMaterial[Type] = false;
 		}
+
+		public override AORarities AORarity => ImbuableTier == AOImbuableTier.Normal ? AORarities.Common : AORarities.Exotic;
+
+		public override ItemType ItemType => ItemType.None;
 
 		public abstract float AOImbueSpeed { get; }
 		public abstract float AOImbueSize { get; }

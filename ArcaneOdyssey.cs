@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -22,6 +23,30 @@ namespace ArcaneOdyssey
 	public class ArcaneOdyssey : Mod // what does bro even do lmao
 	{
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
+
+		public static List<int> ExcludedItems = [];
+		public static List<int> ExcludedProjectiles = [];
+
+		public override object Call(params object[] args)
+		{
+			switch (args[0])
+			{
+				case "ExcludeProjectile":
+					ExcludedProjectiles.Add((int)args[1]);
+					return null;
+					break;
+				case "ExcludeItem":
+					ExcludedItems.Add((int)args[1]);
+					return null;
+					break;
+				case "GetImbue":
+					AOPlayer player = Main.player[(int)args[1]].ArcaneOdyssey();
+					return player.imbue.Type;
+					break;
+				default:
+					return null;
+			}
+		}
 	}
 
 	public class FirstCultistKill : IItemDropRuleCondition
@@ -50,7 +75,15 @@ namespace ArcaneOdyssey
 		{
 			if (!mediumCoreDeath)
 			{
-				return [new Item(ModContent.ItemType<PoseidonChoice>()), new Item(ModContent.ItemType<TitleMusicBox>()), new Item(ModContent.ItemType<EaglePatrimony>())];
+				List<Item> items = [
+					new Item(ModContent.ItemType<PoseidonChoice>()), 
+					new Item(ModContent.ItemType<TitleMusicBox>()), 
+					new Item(ModContent.ItemType<EaglePatrimony>())];
+				if (Main.expertMode)
+				{
+					items.Add(new Item(ModContent.ItemType<Acrimony>()));
+				}
+				return items;
 			}
 			else return [];
 		}

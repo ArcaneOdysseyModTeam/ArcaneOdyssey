@@ -8,11 +8,11 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class OldGreataxe : AOWeapon
+	public class OldGreataxe : AORangedOrMeleeWeapon
 	{
 		public override int AOValue => 50;
-		public override float AOSize => 1;
-		public override float AOSpeed => 1;
+		public override float AOSize => 1.05f;
+		public override float AOSpeed => .9f;
 		public override float AODamage => 1;
 		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
 		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Old;

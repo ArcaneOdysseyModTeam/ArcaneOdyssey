@@ -4,12 +4,14 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-    public abstract class MusicBox : ModItem
+    public abstract class MusicBox : AOBaseItem
     {
         public abstract int MusicBoxTile { get; }
         public abstract string MusicFilePath { get; }
 
-        public override void SetStaticDefaults()
+		public override AOUtils.ItemType ItemType => AOUtils.ItemType.Accessory;
+
+		public override void SetStaticDefaults()
         {
             ItemID.Sets.CanGetPrefixes[Type] = false;
             ItemID.Sets.ShimmerTransformToItem[Type] = ItemID.MusicBox;

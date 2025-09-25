@@ -13,7 +13,7 @@ using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class ColossalGreatsword : AOWeapon
+	public class ColossalGreatsword : AORangedOrMeleeWeapon
 	{
 		public override float AOSpeed => .65f;
 		public override float AOSize => 1.2f;

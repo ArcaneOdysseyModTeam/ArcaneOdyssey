@@ -21,7 +21,7 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (item.ModItem is AOWeapon weap)
+			if (item.ModItem is AORangedOrMeleeWeapon weap)
 			{
 				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null or 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
 				{
@@ -95,7 +95,22 @@ namespace ArcaneOdyssey
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (item.ModItem is AOWeapon weapon && weapon.Arcanium.HasValue)
+			if (item.ModItem is not null && item.ModItem.Name == "UnloadedItem")
+			{
+				return;
+			}
+			if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF)
+				{
+					var line = item.GetItemRare().ToString();
+					line += " ";
+					line += item.GetItemType();
+					tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
+				}
+			}
+
+			if (item.ModItem is AORangedOrMeleeWeapon weapon && weapon.Arcanium.HasValue)
 			{
 				if (weapon.Arcanium.Value)
 				{
@@ -128,7 +143,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
-			if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
 				scale += player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
 				if (item.TryGetImbue(out Imbuable imbue))
@@ -155,7 +170,7 @@ namespace ArcaneOdyssey
 					return;
 				}
 
-				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					knockback += imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
 				}
@@ -176,7 +191,7 @@ namespace ArcaneOdyssey
 					return;
 				}
 
-				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					damage += imbue.AOImbueDamage.MultiToPercent();
 				}
@@ -191,7 +206,7 @@ namespace ArcaneOdyssey
 					return imbue.AOScrollSpeed;
 				}
 
-				if (item.ModItem is null or AOWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
 					return imbue.AOImbueSpeed;
 				}
@@ -265,7 +280,7 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				if (item.ModItem is AOWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
+				if (item.ModItem is AORangedOrMeleeWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
 				{
 					imbue = new SteamImbue() { originalImbue = imbue };
 				}

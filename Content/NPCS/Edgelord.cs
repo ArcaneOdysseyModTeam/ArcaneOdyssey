@@ -267,7 +267,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
 			}
 
-			if (Main.LocalPlayer.HeldItem.ModItem is AOWeapon weapon && !weapon.Arcanium.GetValueOrDefault(true))
+			if (Main.LocalPlayer.HeldItem.ModItem is AORangedOrMeleeWeapon weapon && !weapon.Arcanium.GetValueOrDefault(true))
 			{
 				options.Add(this.GetLocalizedValue("Chat.StrongWarrior"));
 			}

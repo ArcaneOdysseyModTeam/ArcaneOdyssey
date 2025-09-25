@@ -1,12 +1,15 @@
-﻿using ArcaneOdyssey.Content.Tiles;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	public class BronzeBar : ModItem
+	public class BronzeBar : AOBaseItem
 	{
+		public override ItemType ItemType => ItemType.Material;
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 15;

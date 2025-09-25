@@ -9,11 +9,13 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	public class EmptyScroll : ModItem
+	public class EmptyScroll : AOBaseItem
 	{
 		public virtual int AOValue => 500;
-		public virtual AORarities AORarity => AORarities.Uncommon;
+		public override AORarities AORarity => AORarities.Uncommon;
 		public virtual bool SpellScroll => true;
+
+		public override ItemType ItemType => ItemType.None;
 
 		public override void SetDefaults()
 		{

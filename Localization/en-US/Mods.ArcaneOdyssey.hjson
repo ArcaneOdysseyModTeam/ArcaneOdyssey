@@ -164,7 +164,7 @@ Configs: {
 			Label: Affect other mods
 			Tooltip:
 				'''
-				Allows imbues to affect items from other mods
+				Allows imbues and rarity tooltips to affect items from other mods
 				WARNING: May result in issues!
 				'''
 		}

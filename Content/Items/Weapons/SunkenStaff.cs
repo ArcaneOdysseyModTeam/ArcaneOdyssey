@@ -12,7 +12,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-    public class SunkenStaff : AOWeapon
+    public class SunkenStaff : AORangedOrMeleeWeapon
     {
         public override bool? ColdWeapon => true;
         public override float AOSpeed => .9f;

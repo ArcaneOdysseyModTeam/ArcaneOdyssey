@@ -14,7 +14,7 @@ using System.Net.Mail;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class SunkenSword : AOWeapon
+	public class SunkenSword : AORangedOrMeleeWeapon
     {
         public override bool? ColdWeapon => true;
         public override float AOSpeed => 1.2f;

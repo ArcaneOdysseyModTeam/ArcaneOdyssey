@@ -17,13 +17,13 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AOWeapon : ModItem
+	public abstract class AORangedOrMeleeWeapon : AOBaseItem
 	{	
 		public abstract float AOSpeed { get; }
 		public abstract float AOSize { get; }
 		public abstract float AODamage { get; }
 		public abstract int AOValue { get; }
-		public abstract AORarities AORarity { get; }
+		public override ItemType ItemType => ItemType.Weapon;
 		public abstract AOWeaponTiers AOWeaponTier { get; }
 		public virtual AODebuffRequirement WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 

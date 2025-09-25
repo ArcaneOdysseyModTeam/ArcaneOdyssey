@@ -24,7 +24,7 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (projectile.owner == Main.myPlayer && (ArcaneOdysseyConfig.Instance.IgnoredProjectiles is null || !ArcaneOdysseyConfig.Instance.IgnoredProjectiles.Contains(projectile.Name)))
+			if (projectile.owner == Main.myPlayer)
 			{
 				if (projectile.TryGetImbue(out Imbuable imbue))
 				{
