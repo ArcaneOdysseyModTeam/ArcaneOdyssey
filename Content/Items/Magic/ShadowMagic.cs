@@ -34,7 +34,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.7f),
-				new MagicBuffMultiplier(ModContent.BuffType<BlindedEffect>(),0.7f)
+				new MagicBuffMultiplier(ModContent.BuffType<BlindedEffect>(),0.7f),
+				new MagicBuffMultiplier(BuffID.Confused,0.7f)
 			]
 			);
 			public override void SpawningEffects(Projectile projectile) 
