@@ -247,6 +247,10 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override string GetChat()
 		{
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			{
+				return this.GetLocalizedValue("DyingText");
+			}
 			List<string> options = [];
 			options.Add(this.GetLocalizedValue("Chat.Water"));
 			if (BossesKilled == 0)
