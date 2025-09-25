@@ -53,6 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
 			spawnedDust.noGravity = true;
+			spawnedDust.noLight = true;
 		}
 	public override void ExplosionEffects(Projectile projectile)
 		{
