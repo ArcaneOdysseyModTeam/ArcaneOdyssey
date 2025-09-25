@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Vanity
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemID.BloodButcherer).AddTile(TileID.LivingLoom).Register();
+            CreateRecipe().AddIngredient(ItemID.LavaBucket).AddTile(TileID.HellForge).Register();
         }
     }
 
