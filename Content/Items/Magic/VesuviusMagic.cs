@@ -4,6 +4,8 @@ using ArcaneOdyssey.Content.Items.Base;
 using System;
 using System.Collections.Generic;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
