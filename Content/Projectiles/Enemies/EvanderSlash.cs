@@ -10,25 +10,26 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
-	public class ColossalCleave : AOPlayerProjectile
+	public class EvanderSlash : ModProjectile
 	{
-		public override float AOSpeed => .65f;
-		public override float AOSize => 1.2f;
-		public override float AODamage => 1.15f;
-		public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
+		//public override float AOSpeed => .65f;
+		//public override float AOSize => 1.2f;
+		//public override float AODamage => 1.15f;
+		//public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
 
-		public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
+		//public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
 
 		public override void SetDefaults()
 		{
 			Projectile.penetrate = -1;
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
+			Projectile.damage = 25;
 			Projectile.timeLeft = 60*3;
-			Projectile.friendly = true;
+			Projectile.hostile = true;
 			Projectile.height = 234;
 			Projectile.width = 74;
 			Projectile.knockBack = 4.5f;
@@ -36,32 +37,22 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override void AI()
 		{
-			if (Projectile.ai[0] == 0)
-			{
-				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
-			}
-
-			if (Projectile.localAI[0] > 60 && !Main.dedServ)
-			{
-				Projectile.localAI[0] = 0;
-				Imbue?.ExplosionEffects(Projectile);
-			}
-			Projectile.localAI[0]++;
-
-			if (Projectile.timeLeft <= 30)
-			{
-				Projectile.ai[1]++;
-			}
-
-			if (Projectile.ai[1] != 0)
+			if (Projectile.ai[0] == 0 || Projectile.timeLeft < 30)
 			{
 				Projectile.alpha += 255 / 30;
+				Projectile.ai[0] = 1;
 			}
 			else
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
 			}
+
+			if (Projectile.localAI[0] > 60 && !Main.dedServ)
+			{
+				Projectile.localAI[0] = 0;
+				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.position);
+			}
+			Projectile.localAI[0]++;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -71,11 +62,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			return true;
 		}
 
+		public override bool? CanDamage()
+		{
+			return Projectile.ai[0] == 0;
+		}
+
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Projectile.velocity = Vector2.Zero;
 			Projectile.timeLeft = 30;
-			Projectile.ai[1]++;
+			Projectile.ai[0] = 1;
 			return false;
 		}
 	}
