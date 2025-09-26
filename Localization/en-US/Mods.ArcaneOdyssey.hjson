@@ -145,6 +145,7 @@ Projectiles: {
 	SpiritBlast.DisplayName: Spirit Blast
 	FrogBlast.DisplayName: Frog Blast
 	IonBlast.DisplayName: Ion Blast
+	WoodenStaffProjectile.DisplayName: Wooden Staff Projectile
 }
 
 ImbueStuff: {

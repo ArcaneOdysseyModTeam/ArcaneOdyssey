@@ -169,10 +169,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					CreateRecipe().AddIngredient<PoseidonChoice>().Register();
 				Recipe.Create(ModContent.ItemType<PoseidonChoice>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
 			}
-			else CustomRecipe();
 		}
-
-		public virtual void CustomRecipe() { }
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

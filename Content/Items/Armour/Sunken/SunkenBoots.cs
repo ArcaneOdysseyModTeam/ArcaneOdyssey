@@ -23,8 +23,9 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 		public override int AOAgility => 30;
 		public override int AOValue => 1350;
 
-		public override void SetDefaultsArmour()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = Item.height = 38;
 		}
 

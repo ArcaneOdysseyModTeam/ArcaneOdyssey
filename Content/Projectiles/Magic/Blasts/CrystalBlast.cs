@@ -13,11 +13,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class CrystalBlast : BlastSpell
 	{
-		public override void SetDefaultsBlast()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.alpha = 25;
 		}
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults() 
+		{
 			Main.projFrames[Type] = 8;
 		}
 	}

@@ -19,8 +19,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
-		public override void SetDefaultsScroll()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.damage = 10;
@@ -31,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.shoot = ProjectileID.VortexLaser; // does not actually shoot
 		}
 
-		public override void ScrollRecipe()
+		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.WandofSparking).Register();
 		}

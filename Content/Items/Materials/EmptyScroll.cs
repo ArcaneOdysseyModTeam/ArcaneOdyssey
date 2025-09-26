@@ -27,25 +27,14 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.rare = (int)AORarity;
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.value = GalleonToCopper(AOValue);
-			SetDefaultsScroll();
 		}
-		public virtual void SetDefaultsScroll() { }
-
-		public virtual void ScrollRecipe() { }
 
 		public override void AddRecipes()
 		{
-			if (Name == "EmptyScroll")
-			{
-				CreateRecipe().AddIngredient<Paper>(10).AddTile(TileID.Bookcases).Register();
-				Recipe.Create(ItemID.PaperAirplaneA, 5).AddIngredient<Paper>().Register();
-				Recipe.Create(ItemID.PaperAirplaneB, 5).AddIngredient<Paper>().Register();
-				Recipe.Create(ItemID.Book).AddIngredient<Paper>().Register();
-			}
-			else
-			{
-				ScrollRecipe();
-			}
+			CreateRecipe().AddIngredient<Paper>(10).AddTile(TileID.Bookcases).Register();
+			Recipe.Create(ItemID.PaperAirplaneA, 5).AddIngredient<Paper>().Register();
+			Recipe.Create(ItemID.PaperAirplaneB, 5).AddIngredient<Paper>().Register();
+			Recipe.Create(ItemID.Book).AddIngredient<Paper>().Register();
 		}
 	}
 }

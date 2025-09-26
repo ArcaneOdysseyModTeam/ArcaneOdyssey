@@ -58,15 +58,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual int MaxMana => 0;
 
-		public virtual void SetDefaultsArmour()
-		{
-
-		}
 
 		public override void SetDefaults()
 		{
 			Item.defense = AODefense.FromAODefense();
-			SetDefaultsArmour();
 			Item.value = GalleonToCopper(AOValue);
 		}
 

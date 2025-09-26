@@ -26,10 +26,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+			ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}
 
-		public override void SetDefaultsWeapon()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = 86;
 			Item.shootSpeed = 5;
 			Item.height = 86;

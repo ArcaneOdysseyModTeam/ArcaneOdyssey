@@ -11,12 +11,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 
 		public virtual void SetDefaultsBlast() {}
-		public override void SetDefaultsSpell()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.timeLeft = 5 * 60;
-			SetDefaultsBlast();
 			Projectile.height = Projectile.width = 64;
-			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

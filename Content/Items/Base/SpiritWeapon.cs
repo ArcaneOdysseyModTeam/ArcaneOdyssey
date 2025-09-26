@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract int AOValue { get; }
 		public override ItemType ItemType => ItemType.Weapon;
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			Item.DamageType = DamageClass.MagicSummonHybrid;
 			Item.noUseGraphic = true;
@@ -22,9 +22,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.rare = (int)AORarity;
 			Item.value = GalleonToCopper(AOValue);
-			SetDefaultsSpirit();
 		}
-
-		public abstract void SetDefaultsSpirit();
 	}
 }

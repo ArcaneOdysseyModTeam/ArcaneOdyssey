@@ -19,10 +19,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
 		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Average;
 
-		public override void SetDefaultsWeapon()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.height = 40;
 			Item.height = 40;
+			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Thrust;
 		}
 

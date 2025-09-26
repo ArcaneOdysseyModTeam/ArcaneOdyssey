@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		// ai[0] will be damage multiplier
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.penetrate = -1;
@@ -23,7 +24,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			Projectile.scale = 1f;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 30;
-			Projectile.friendly = true;
 			Projectile.ownerHitCheck = true;
 		}
 

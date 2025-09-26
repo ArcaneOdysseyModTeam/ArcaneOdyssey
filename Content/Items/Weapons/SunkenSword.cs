@@ -26,8 +26,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override AODebuffRequirement WeaponDebuff => new(BuffID.Wet, 60 * 5);
 
-		public override void SetDefaultsWeapon()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = 50;
 			Item.height = 54;
 			Item.useStyle = ItemUseStyleID.Swing;

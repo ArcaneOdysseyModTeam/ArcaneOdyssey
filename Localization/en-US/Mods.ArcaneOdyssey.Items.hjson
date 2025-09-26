@@ -186,3 +186,13 @@ RavennaSword: {
 	DisplayName: Ravenna Sword
 	Tooltip: ""
 }
+
+OldSword: {
+	DisplayName: Old Sword
+	Tooltip: ""
+}
+
+WoodenStaff: {
+	DisplayName: Wooden Staff
+	Tooltip: ""
+}
