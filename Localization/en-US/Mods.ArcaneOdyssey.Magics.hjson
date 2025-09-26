@@ -184,3 +184,13 @@ SteamImbue: {
 		Part of the mod internals, just ignore this, any spells with it will cause an error (It's used for imbues)
 		'''
 }
+
+FrogMagic: {
+	DisplayName: Frog Magic
+	Tooltip: "frog"
+}
+
+IonMagic: {
+	DisplayName: Ion Magic
+	Tooltip: "Under construction"
+}

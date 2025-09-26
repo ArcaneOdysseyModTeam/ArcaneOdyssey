@@ -181,3 +181,8 @@ OldKatana: {
 	DisplayName: Old Katana
 	Tooltip: ""
 }
+
+RavennaSword: {
+	DisplayName: Ravenna Sword
+	Tooltip: ""
+}

@@ -20,10 +20,9 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
         {
             if (!Main.dedServ)
             {
-                var dust = Dust.NewDustDirect(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.SteampunkSteam, 0f, 0f, 1, default, 1f);
+                var dust = Dust.NewDustDirect(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.CursedTorch, 0f, 0f, 1, default, 3f);
                 dust.velocity *= 0.8f;
             }
-            npc.ArcaneOdyssey().Scalding = true;
         }
     }
 }

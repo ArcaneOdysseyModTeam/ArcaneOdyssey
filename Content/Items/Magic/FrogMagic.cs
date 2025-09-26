@@ -22,6 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class FrogMagic : AOMagic
 	{
 		public override bool? Cold => false;
+		public override AOImbuableTier ImbuableTier => AOImbuableTier.Unobtainable;
 		public override SoundStyle? ImbueSound => SoundID.Frog;
 		public override Color ImbueColour => new Color(0, 255, 0, 255);
 		public override bool CanBeWet => true;
@@ -41,16 +42,18 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			);
 		public override void SpawningEffects(Projectile projectile)
 		{
-			NPC npc = NPC.NewNPCDirect(null,projectile.position,NPCID.Frog);
+			NPC npc = NPC.NewNPCDirect(null,projectile.Center,NPCID.Frog);
 			npc.velocity = projectile.velocity;
 			projectile.Kill();
 		}
 
 		public override void ExplosionEffects(Projectile projectile)
 		{
-			NPC npc = NPC.NewNPCDirect(null,projectile.position,NPCID.Frog);
-			npc.velocity = new Vector2((Main.rand.NextFloat()-0.5f)*10f,(Main.rand.NextFloat()-0.5f)*10f);
-			projectile.Kill();
+			for (int n = 0; n < 10; n++) {
+				NPC npc = NPC.NewNPCDirect(null, projectile.Center, NPCID.Frog);
+				npc.velocity = new Vector2((Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f);
+				projectile.Kill();
+			}
 		}
 
         public override void KillEffects(Projectile projectile)

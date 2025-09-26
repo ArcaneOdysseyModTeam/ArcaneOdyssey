@@ -96,6 +96,11 @@ Buffs: {
 		DisplayName: Drained Effect
 		Description: Mods.ArcaneOdyssey.Buffs.DrainedEffect.Description
 	}
+
+	IonizedEffect: {
+		DisplayName: Ionized Effect
+		Description: Mods.ArcaneOdyssey.Buffs.IonizedEffect.Description
+	}
 }
 
 Projectiles: {
@@ -138,6 +143,8 @@ Projectiles: {
 	ColossalCleave.DisplayName: Colossal Cleave
 	MagicCircle1.DisplayName: Magic Circle1
 	SpiritBlast.DisplayName: Spirit Blast
+	FrogBlast.DisplayName: Frog Blast
+	IonBlast.DisplayName: Ion Blast
 }
 
 ImbueStuff: {
