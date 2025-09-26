@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Content.Items.FightingStyles;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
