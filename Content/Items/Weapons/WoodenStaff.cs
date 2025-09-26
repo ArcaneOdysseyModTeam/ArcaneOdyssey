@@ -27,10 +27,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Melee;
-            //Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
+            Item.shoot = ModContent.ProjectileType<WoodenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
-			Item.UseSound = SoundID.Item with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
+			Item.UseSound = SoundID.Item1 with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddRecipeGroup(RecipeGroupID.Wood, 30);
+            recipe.AddIngredient(ItemID.AshWood, 30);
 			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
 			recipe.AddTile(TileID.Hellforge);
             recipe.Register();
