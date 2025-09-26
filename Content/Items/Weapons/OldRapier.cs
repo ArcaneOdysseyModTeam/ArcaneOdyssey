@@ -37,14 +37,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override bool CanUseItem(Player player)
 		{
 			canSwing = !canSwing;
-			if (canSwing)
+			if (!canSwing)
 			{
 				if (Item.useStyle == ItemUseStyleID.Thrust)
 					Item.useStyle = ItemUseStyleID.Swing;
 				else
 					Item.useStyle = ItemUseStyleID.Thrust;
 			}
-			return base.CanUseItem(player) && !canSwing;
+			return base.CanUseItem(player) && canSwing;
 		}
 	}
 }

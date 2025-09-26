@@ -50,7 +50,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			}
 			Projectile.localAI[0]++;
 
-			if (Projectile.ai[1] == 1)
+			if (Projectile.timeLeft <= 30)
+			{
+				Projectile.ai[1]++;
+			}
+
+			if (Projectile.ai[1] != 0)
 			{
 				Projectile.alpha += 255 / 30;
 			}
@@ -62,7 +67,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			height = width /= 2;
+			height = width = 1;
 			fallThrough = true;
 			return true;
 		}
@@ -71,7 +76,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		{
 			Projectile.velocity = Vector2.Zero;
 			Projectile.timeLeft = 30;
-			Projectile.ai[1] = 1;
+			Projectile.ai[1]++;
 			return false;
 		}
 	}
