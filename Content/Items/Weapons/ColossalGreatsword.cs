@@ -52,8 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (!player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type))
-				player.ArcaneOdyssey().ItemCooldowns[Type] = 60*3;
+			player.ArcaneOdyssey().ItemCooldowns[Type] = 60*3;
 			Projectile.NewProjectile(source, position, Vector2.UnitX * Item.shootSpeed * player.direction, type, damage, knockback, Item.ArcaneOdyssey().owner.whoAmI);
 			return false;
 		}

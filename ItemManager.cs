@@ -164,7 +164,6 @@ namespace ArcaneOdyssey
 				}
 			} 
 		}
-		
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
 		{
@@ -249,6 +248,15 @@ namespace ArcaneOdyssey
 		{
 			owner = player;
 			var options = player.GetAllImbues();
+			if (imbue is null)
+			{
+				SpecificImbue = false;
+			}
+			if (SpecificImbue && !player.HasTypeInInventory(imbue.GetType()))
+			{
+				SpecificImbue = false;
+			}
+
 			if (options.Count > 0 && ImbueClassCheck(item))
 			{
 				bool justchangedspecificimbue = false;
@@ -283,15 +291,18 @@ namespace ArcaneOdyssey
 						{
 							AOMagic.CreateMagicCircle(imbue.Item, player, magic);
 						}
-					}
-					else
-					{
-						SpecificImbue = false;
-						justchangedspecificimbue = true;
-						imbue = options[0];
-						settodefault = true;
-					}
+					} 
 				}
+
+				if (options.Count < 2 && (imbue != owner.Imbue()))
+				{
+					SpecificImbue = true;
+					justchangedspecificimbue = true;
+					imbue = owner.Imbue();
+					settodefault = true;
+					ImbueIndex = -1;
+				}
+				
 
 				if (item.ModItem is AORangedOrMeleeWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
 				{
@@ -307,6 +318,7 @@ namespace ArcaneOdyssey
 			else
 			{
 				imbue = null;
+				SpecificImbue = false;
 			}
 		}
 
