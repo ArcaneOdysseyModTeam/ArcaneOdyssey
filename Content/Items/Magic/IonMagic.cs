@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(0, 255, 0, 255);
 		public override bool CanBeWet => false;
-		public override float AOImbueSpeed => 0.9f;
-		public override float AOImbueSize => 0.948f;
-		public override float AOImbueDamage => 0.9f;
+		public override float AOImbueSpeed => 1.1f;
+		public override float AOImbueSize => 0.98f;
+		public override float AOImbueDamage => 1.1f;
 		public override float AOScrollSpeed => 1.25f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollDamage => 0.825f;
+		public override float AOScrollSize => 1.1f;
+		public override float AOScrollDamage => 1.2f;
 		public override AODebuffRequirement ImbueDebuff => new AODebuffRequirement(ModContent.BuffType<IonizedEffect>(), 60 * 10);
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new SynergyEffects(
