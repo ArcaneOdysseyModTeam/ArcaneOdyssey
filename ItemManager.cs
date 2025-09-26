@@ -139,14 +139,10 @@ namespace ArcaneOdyssey
 			{
 				bool? coolred = null;
 				string imbuetextthing = Mod.CustomLocalization("RandomWords.None").Value;
-				if (item.TryGetImbue(out Imbuable imbue) && imbue is not SteamImbue)
+				if (item.TryGetImbue(out Imbuable imbue))
 				{
 					coolred = imbue is FightingStyle;
 					imbuetextthing = imbue.DisplayName.Value;
-				}
-				else if (item.ArcaneOdyssey().imbue is SteamImbue)
-				{
-					imbuetextthing = Mod.CustomLocalization("RandomWords.Steam").Value;
 				}
 				string idkwhattonamethis = coolred.HasValue ? (coolred.Value ? "Strength" : "Magic") : "";
 				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization($"ImbueStuff.ImbueTooltip{idkwhattonamethis}", [imbuetextthing]).Value));
@@ -313,7 +309,7 @@ namespace ArcaneOdyssey
 
 				if (justchangedspecificimbue && player == Main.LocalPlayer)
 				{
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? (imbue is not SteamImbue ? imbue.DisplayName : Mod.CustomLocalization("RandomWords.Steam").Value) : Mod.CustomLocalization("RandomWords.Default").Value]);
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 				}
 			}

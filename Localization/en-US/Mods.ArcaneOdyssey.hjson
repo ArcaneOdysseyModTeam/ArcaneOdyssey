@@ -207,7 +207,6 @@ RandomWords: {
 	None: None
 	Or: or
 	Default: default
-	Steam: Steam
 }
 
 NPCs: {
