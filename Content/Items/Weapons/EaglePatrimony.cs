@@ -19,8 +19,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	{
 		public override int AOValue => 500;
 		public override AORarities AORarity => AORarities.Zenith;
-		public override void SetDefaultsSpirit()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = Item.height = 40;
 			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
 			Item.shootSpeed = 15;

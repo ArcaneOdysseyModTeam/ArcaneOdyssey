@@ -12,39 +12,40 @@ using ArcaneOdyssey.Content.Items.Materials;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-    public class SunkenStaff : AORangedOrMeleeWeapon
+    public class WoodenStaff : AORangedOrMeleeWeapon
     {
-        public override bool? ColdWeapon => true;
-        public override float AOSpeed => .9f;
-        public override float AOSize => 1.25f;
+        public override float AOSpeed => 1.05f;
+        public override float AOSize => 0.9f;
         public override float AODamage => 1f;
         public override int AOValue => 1350;
-        public override AORarities AORarity => AORarities.Rare;
-        public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
-        public override AODebuffRequirement WeaponDebuff => new(BuffID.Wet, 600);
+        public override AORarities AORarity => AORarities.Common;
+        public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Poor;
+        public override AODebuffRequirement WeaponDebuff => null; // dull weapon
 
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-            Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
+			Item.DamageType = DamageClass.Melee;
+            //Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
-            Item.UseSound = SoundID.SplashWeak;
+			Item.UseSound = SoundID.Item with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
             Item.useStyle = ItemUseStyleID.Shoot;
-			Item.DamageType = DamageClass.MeleeNoSpeed;
-			Item.noMelee = true;
+            Item.noMelee = true;
             Item.noUseGraphic = true;
+            Item.autoReuse = false;
             Item.useAnimation = Item.useTime = 25;
-            Item.reuseDelay = 120;
+			Item.DamageType = DamageClass.MeleeNoSpeed;
+			Item.reuseDelay = 120;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.MonkStaffT3);
-            recipe.AddIngredient<ArcaniumScrap>(2);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddRecipeGroup(RecipeGroupID.Wood, 30);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
+			recipe.AddTile(TileID.Hellforge);
             recipe.Register();
         }
     }

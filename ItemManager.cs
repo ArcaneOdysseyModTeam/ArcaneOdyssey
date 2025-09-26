@@ -209,6 +209,7 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
+
 		public override float UseSpeedMultiplier(Item item, Player player)
 		{
 			if (item.TryGetImbue(out Imbuable imbue) && item.DamageType != DamageClass.MeleeNoSpeed)

@@ -16,8 +16,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	public class LeapScroll : MagicScroll
 	{
-		public override void SetDefaultsScroll()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.accessory = true;
 		}
 
@@ -33,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			else Item.color = Color.Transparent;
 
 		}
-		public override void ScrollRecipe()
+		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.Balloons).Register();
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel).Register();

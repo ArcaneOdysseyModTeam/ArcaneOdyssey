@@ -13,8 +13,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class GlassBlast : BlastSpell
 	{
-		public override void SetDefaultsBlast()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.alpha = (int)(225 * .4f);
 		}
 		public override void SetStaticDefaults() {

@@ -20,8 +20,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
 
-		public override void SetDefaultsWeapon()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = 52;
 			Item.height = 54;
 			Item.useStyle = ItemUseStyleID.Swing;

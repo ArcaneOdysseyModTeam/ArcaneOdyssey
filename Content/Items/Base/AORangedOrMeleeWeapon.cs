@@ -39,8 +39,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual bool? Arcanium => null;
 
-		public abstract void SetDefaultsWeapon();
-
 		public override void SetDefaults()
 		{
 			Item.useTime = Item.useAnimation = (int)Math.Round(27 * AOSpeed.FlipFloat());
@@ -51,7 +49,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
 			Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
 			Item.DamageType = DamageClass.Melee;
-			SetDefaultsWeapon();
 		}
 
 		/// <summary>

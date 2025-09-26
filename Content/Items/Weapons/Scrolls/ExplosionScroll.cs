@@ -14,8 +14,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
 	public class ExplosionScroll : MagicScroll
 	{
-		public override void SetDefaultsScroll()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.useAnimation = Item.useTime = (ExplosionTracker.defaultMax-ExplosionTracker.defaultMin).Round();
 			Item.damage = 50;
 			Item.reuseDelay = 60;
@@ -26,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.shoot = ModContent.ProjectileType<ExplosionTracker>();
 		}
 
-		public override void ScrollRecipe()
+		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
 		}

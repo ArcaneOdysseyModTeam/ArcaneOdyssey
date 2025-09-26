@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class OldKatana : AORangedOrMeleeWeapon
+	public class OldSword : AORangedOrMeleeWeapon
 	{
 		public override int AOValue => 40;
 		public override float AOSize => 1;
@@ -17,11 +17,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
 		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Poor;
 
-		public override void SetDefaultsWeapon()
+		public override void SetDefaults()
 		{
-			Item.height = 74;
-			Item.height = 64;
-			Item.useStyle = ItemUseStyleID.Swing;
+			base.SetDefaults();
+			Item.height = 42;
+			Item.height = 42;
+			Item.useTurn = true;
+			Item.useStyle = ItemUseStyleID.Thrust;
 		}
 
 		public override void AddRecipes()

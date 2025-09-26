@@ -24,9 +24,10 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
         public override int MinionSlots => 2;
 
-        public override void SetDefaultsArmour()
-        {
-            Item.width = Item.height = 48;
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = Item.height = 48;
         }
 
         public override void AddRecipes()
