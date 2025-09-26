@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override bool? Cold => true;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Unobtainable;
 		public override SoundStyle? ImbueSound => SoundID.Frog;
-		public override Color ImbueColour => new Color(0, 255, 0, 255);
+		public override Color ImbueColour => new Color(0, 180, 0, 255);
 		public override bool CanBeWet => true;
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;
