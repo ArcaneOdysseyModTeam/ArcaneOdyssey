@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			Item.height = 40;
 			Item.height = 40;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = ItemUseStyleID.Thrust;
 		}
 
 		public override void AddRecipes()
