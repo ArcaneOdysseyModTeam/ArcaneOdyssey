@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons
+namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
 	public class EvanderSlash : ModProjectile
 	{

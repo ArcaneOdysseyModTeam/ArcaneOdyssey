@@ -64,9 +64,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					ensuredPosition = Projectile.Center;
 				}
 				player.channel = false;
-				if (playah.myCircle is not null)
+				if (playah.myCircle is not null && playah.myCircle.ArcaneOdyssey().imbue.Name == Imbue.Name)
 				{
-					playah.myCircle.ai[0] += 1;
+					playah.myCircle.ai[0]++;
 					playah.myCircle = null;
 				}
 				player.itemAnimation = 0;

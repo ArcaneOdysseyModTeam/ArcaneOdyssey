@@ -306,7 +306,9 @@ namespace ArcaneOdyssey
 
 				if (item.ModItem is AORangedOrMeleeWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
 				{
-					imbue = new SteamImbue() { originalImbue = imbue };
+					SteamImbue steam = (SteamImbue)new Item(ModContent.ItemType<SteamImbue>()).ModItem;
+					steam.originalImbue = imbue;
+					imbue = steam;
 				}
 
 				if (justchangedspecificimbue && player == Main.LocalPlayer)

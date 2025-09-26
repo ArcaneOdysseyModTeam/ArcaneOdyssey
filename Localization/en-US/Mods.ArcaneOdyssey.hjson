@@ -146,6 +146,7 @@ Projectiles: {
 	FrogBlast.DisplayName: Frog Blast
 	IonBlast.DisplayName: Ion Blast
 	WoodenStaffProjectile.DisplayName: Wooden Staff Projectile
+	EvanderSlash.DisplayName: Evander Slash
 }
 
 ImbueStuff: {
