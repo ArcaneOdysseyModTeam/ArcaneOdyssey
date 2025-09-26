@@ -1,34 +1,39 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls
+namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class ExplosionScroll : MagicScroll
+	public class BlastScroll : MagicScroll
 	{
+		public override void SetStaticDefaults()
+		{
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+		}
+
 		public override void SetDefaultsScroll()
 		{
-			Item.useAnimation = Item.useTime = (ExplosionTracker.defaultMax-ExplosionTracker.defaultMin).Round();
-			Item.damage = 50;
-			Item.reuseDelay = 60;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.damage = 10;
+			Item.mana = 15;
 			Item.channel = true;
-            Item.DamageType = DamageClass.Magic;
-            Item.UseSound = SoundID.Item84;
-			Item.mana = 100;
-			Item.shoot = ModContent.ProjectileType<ExplosionTracker>();
+			Item.DamageType = DamageClass.Magic;
+			Item.shootSpeed = 10;
+			Item.shoot = ProjectileID.VortexLaser; // does not actually shoot
 		}
 
 		public override void ScrollRecipe()
 		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.WandofSparking).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -36,15 +41,9 @@ namespace ArcaneOdyssey.Content.Items.Scrolls
 			return CanUseItem(player);
 		}
 
-		public override bool ScrollCheck(Player player)
-		{
-			return player.ArcaneOdyssey().myCircle is null;
-		}
-
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().imbue);
-			Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, type, damage, knockback * 1.5f, player.whoAmI);
 			return false;
 		}
 	}
