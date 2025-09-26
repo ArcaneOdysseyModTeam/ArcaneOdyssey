@@ -187,10 +187,10 @@ SteamImbue: {
 
 FrogMagic: {
 	DisplayName: Frog Magic
-	Tooltip: "frog"
+	Tooltip: frog
 }
 
 IonMagic: {
 	DisplayName: Ion Magic
-	Tooltip: "Under construction"
+	Tooltip: Under construction
 }

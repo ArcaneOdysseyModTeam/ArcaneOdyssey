@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override bool? Cold => false;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.Item91;
-		public override Color ImbueColour => new Color(255, 100, 255, 255);
+		public override Color ImbueColour => new Color(0, 255, 0, 255);
 		public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 0.9f;
 		public override float AOImbueSize => 0.948f;
@@ -60,29 +60,27 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.PinkTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CursedTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 3f)];
 			}
 		}
 
 		public override void LingeringEffects(Projectile projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.PinkTorch, 0f, 0f, 0, default, 2f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.CursedTorch, 0f, 0f, 0, default, 3f)];
 			spawnedDust.noGravity = true;
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.ShadowbeamStaff, 0f, 0f, 0, default, 2f)];
-			spawnedDust2.noGravity = true;
 		}
 		public override void ExplosionEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Firework_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.CursedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 4f)];
 			}
 		}
 		public override void KillEffects(Projectile projectile)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.ShadowbeamStaff, (5f * Main.rand.NextFloat() - 0.5f), (5f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CursedTorch, (5f * Main.rand.NextFloat() - 0.5f), (5f * Main.rand.NextFloat() - 0.5f), 0, default, 4f)];
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
