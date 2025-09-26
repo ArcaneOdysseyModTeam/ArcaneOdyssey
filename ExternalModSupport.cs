@@ -43,7 +43,7 @@ namespace ArcaneOdyssey
 				fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
 
 				// current imbue lol
-				Func<string> imbueText = () => $"Current imbue: {Main.LocalPlayer.ArcaneOdyssey().imbue.DisplayName}";
+				Func<string> imbueText = () => $"Current imbue: {(Main.LocalPlayer.ArcaneOdyssey().imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";
 				fargos.Call("AddStat", ModContent.ItemType<PoseidonChoice>(), imbueText);
 			}
 		}
