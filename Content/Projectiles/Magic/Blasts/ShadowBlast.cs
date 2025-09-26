@@ -13,6 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class ShadowBlast : BlastSpell
 	{
-
+		public override void SetStaticDefaults() {
+			Main.projFrames[Type] = 7;
+		}
 	}
 }
