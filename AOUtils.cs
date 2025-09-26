@@ -104,14 +104,19 @@ namespace ArcaneOdyssey
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player, List<Imbuable> imbues = null)
 		{
 			imbues ??= player.GetAllImbues();
-			if (imbue is SteamImbue steam)
+			var postcheck = false;
+			foreach (Imbuable imb in imbues)
 			{
-				return imbues.Contains(steam.originalImbue);
+				if (imbue is SteamImbue steam)
+				{
+					postcheck |= imb.Name == steam.originalImbue.Name;
+				}
+				else
+				{
+					postcheck |= imb.Name == imbue.Name;
+				}
 			}
-			else 
-			{
-				return imbues.Contains(imbue);
-			}
+			return postcheck;
 		}
 
 		/// <summary>

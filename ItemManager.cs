@@ -227,28 +227,21 @@ namespace ArcaneOdyssey
 	{
 		public override bool InstancePerEntity => true;
 
-		public Player owner = null;
 		public Imbuable imbue = null;
-		private int ImbueIndex;
+		public int ImbueIndex;
 		public bool SpecificImbue = false;
 
 		public override GlobalItem Clone(Item from, Item to)
 		{
 			var clone = (AOItem)base.Clone(from, to);
 			clone.imbue = imbue;
-			clone.owner = owner;
 			return clone;
 		}
 
 		public override void UpdateInventory(Item item, Player player)
 		{
-			owner = player;
 			var options = player.GetAllImbues();
-			if (imbue is null)
-			{
-				SpecificImbue = false;
-			}
-			if (SpecificImbue && !player.HasTypeInInventory(imbue.GetType()))
+			if (SpecificImbue && !imbue.PlayerHasImbue(player, options))
 			{
 				SpecificImbue = false;
 			}
@@ -259,13 +252,6 @@ namespace ArcaneOdyssey
 				bool settodefault = false;
 				if (!SpecificImbue)
 				{
-					if (imbue is not null)
-					{
-						if (!imbue.PlayerHasImbue(player, options))
-						{
-							imbue = null;
-						}
-					}
 					imbue = player.ArcaneOdyssey().imbue;
 				}
 
@@ -290,11 +276,11 @@ namespace ArcaneOdyssey
 					} 
 				}
 
-				if (options.Count < 2 && (imbue != owner.Imbue()))
+				if (options.Count < 2 && (imbue != player.Imbue()))
 				{
 					SpecificImbue = true;
 					justchangedspecificimbue = true;
-					imbue = owner.Imbue();
+					imbue = player.Imbue();
 					settodefault = true;
 					ImbueIndex = -1;
 				}
@@ -322,7 +308,6 @@ namespace ArcaneOdyssey
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
-			owner = null;
 			imbue = null;
 			SpecificImbue = false;
 		}

@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override string LocalizationCategory => "Magics";
 
 		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse)
-		{ // add explosion spell spawning stuff later
+		{
 			if (magicToUse is AOMagic)
 			{
 				SoundEngine.PlaySound(SoundID.Item84 with { Pitch=magicToUse.AOScrollSpeed.MultiToPercent().PitchPerfect() });
@@ -60,7 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (item.ModItem is LeapScroll)
 				{
-					var proj = Projectile.NewProjectileDirect(player.GetSource_FromThis(), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
+					var proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
 					proj.rotation = (-Vector2.UnitY).ToRotation();
 					proj.Center = player.Bottom;
 					((MagicCircle1)proj.ModProjectile).MarkedForDeath = true;

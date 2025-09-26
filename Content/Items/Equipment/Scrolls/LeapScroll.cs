@@ -65,10 +65,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void OnStarted(Player player, ref bool playSound)
 		{
-			Projectile proj = null;
 			if (player.Imbue() is AOMagic)
 			{
-				proj = AOMagic.CreateMagicCircle(ModContent.GetModItem(ModContent.ItemType<LeapScroll>()).Item, player, player.Imbue());
+				var item = new Item(ModContent.ItemType<LeapScroll>());
+				item.ArcaneOdyssey().imbue = player.Imbue();
+				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
 				for (int i = 0; i < 5; i++)
 					player.Imbue().ExplosionEffects(proj);
 			}
