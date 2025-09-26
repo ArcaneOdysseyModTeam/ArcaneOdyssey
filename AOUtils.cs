@@ -70,7 +70,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if ((item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.ExcludedItems.Contains(item.type)) && item.ammo == AmmoID.None)
+			if (!item.accessory && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.ExcludedItems.Contains(item.type)) && item.ammo == AmmoID.None)
 			{
 				return item.DamageType.Name == "TrueMeleeDamageClass" || item.DamageType.Name == "TrueMeleeNoSpeedDamageClass" || item.DamageType.Name == "MeleeRangedHybridDamageClass" ||
 				item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll)));

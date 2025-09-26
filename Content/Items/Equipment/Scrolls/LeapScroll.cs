@@ -65,7 +65,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void OnStarted(Player player, ref bool playSound)
 		{
-			playSound = false;
 			Projectile proj = null;
 			if (player.Imbue() is AOMagic)
 			{
@@ -76,7 +75,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 			if (player.Imbue().ImbueSound.HasValue)
 			{
-				SoundEngine.PlaySound(player.Imbue().ImbueSound.Value, player.Bottom);
+				SoundEngine.PlaySound(player.Imbue().ImbueSound, player.Bottom);
+				playSound = false;
 			}
 			// vfx here
 		}
