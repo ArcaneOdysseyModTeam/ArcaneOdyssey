@@ -187,19 +187,19 @@ SteamImbue: {
 
 FrogMagic: {
 	DisplayName: Frog Magic
-	Tooltip: 
-	'''
-	A forbidden magic that allows the user to raise and command great armies of magical beings
+	Tooltip:
+		'''
+		A forbidden magic that allows the user to raise and command great armies of magical beings
 
-	Wait no I read that wrong, it's just frogs
-	'''
+		Wait no I read that wrong, it's just frogs
+		'''
 }
 
 IonMagic: {
 	DisplayName: Ion Magic
 	Tooltip:
-	'''
-	Allows the user to create and control scorching plasma that ionizes everything in its way, causing all forms of burning to be much more vile
-	Gamma's Magic
-	'''
+		'''
+		Allows the user to create and control scorching plasma that ionizes everything in its way, causing all forms of burning to be much more vile
+		Gamma's Magic
+		'''
 }
