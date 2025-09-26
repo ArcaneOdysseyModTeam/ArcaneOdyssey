@@ -8,19 +8,19 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class OldGreataxe : AORangedOrMeleeWeapon
+	public class OldKatana : AORangedOrMeleeWeapon
 	{
-		public override int AOValue => 50;
-		public override float AOSize => 1.05f;
-		public override float AOSpeed => .9f;
-		public override float AODamage => 1;
+		public override int AOValue => 40;
+		public override float AOSize => 1;
+		public override float AOSpeed => 1.05f;
+		public override float AODamage => .9f;
 		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
 		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Poor;
 
 		public override void SetDefaultsWeapon()
 		{
-			Item.height = Item.height = 70;
-			Item.axe = 70 / 5;
+			Item.height = 74;
+			Item.height = 64;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 

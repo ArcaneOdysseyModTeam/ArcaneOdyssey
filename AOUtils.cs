@@ -299,8 +299,8 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public enum AOWeaponTiers
 		{
-			Old,
-			Normal,
+			Poor,
+			Average,
 			Good,
 		}
 

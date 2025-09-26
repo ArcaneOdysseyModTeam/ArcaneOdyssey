@@ -176,3 +176,8 @@ CrashScroll: {
 		Leap at your target and use momentum and strength to crash into your enemies
 		'''
 }
+
+OldKatana: {
+	DisplayName: Old Katana
+	Tooltip: ""
+}

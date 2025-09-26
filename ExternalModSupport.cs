@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,10 @@ namespace ArcaneOdyssey
 				// stat sheet
 				Func<string> SizeText = () => $"Attack size multiplier: {Math.Round(Main.LocalPlayer.ArcaneOdyssey().GetSizeMulti(), 3)}x";
 				fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
+
+				// current imbue lol
+				Func<string> imbueText = () => $"Current imbue: {Main.LocalPlayer.ArcaneOdyssey().imbue.DisplayName}";
+				fargos.Call("AddStat", ModContent.ItemType<PoseidonChoice>(), imbueText);
 			}
 		}
     }

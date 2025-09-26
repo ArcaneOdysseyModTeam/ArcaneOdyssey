@@ -31,7 +31,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.consumable = true;
 		}
 
-		#if VSDEBUGMODE
 		public override void AddRecipes() // only exists in debug mode :)
 		{
 			CreateRecipe().
@@ -40,6 +39,5 @@ namespace ArcaneOdyssey.Content.Items.Materials
 				AddTile(TileID.Hellforge).
 				Register();
 		}
-		#endif
 	}
 }
