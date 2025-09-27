@@ -196,3 +196,8 @@ WoodenStaff: {
 	DisplayName: Wooden Staff
 	Tooltip: ""
 }
+
+AncientHecateOrb: {
+	DisplayName: Hecate Orb
+	Tooltip: An orb of unknown origin... the world is really not ready to unleash this
+}
