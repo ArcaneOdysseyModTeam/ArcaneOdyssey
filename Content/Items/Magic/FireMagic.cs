@@ -53,6 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Poisoned,1.05f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
 				new MagicBuffMultiplier(BuffID.Slimed,1.075f),
+new MagicBuffMultiplier(BuffID.Oiled,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.98f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f)
 				
