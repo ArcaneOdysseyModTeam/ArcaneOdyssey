@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -32,6 +33,25 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.trapImmune = false;
 			NPC.lavaImmune = false;
 			NPC.aiStyle = 0;
+		}
+		private bool canJump = false;
+		public override void AI()
+		{
+			// Chase the nearest player
+			NPC.TargetClosest();
+			NPC.velocity.X += NPC.direction * 0.2f;
+
+			// Jump if there's a block
+			if (checkTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
+			{
+				NPC.velocity.Y = -5f;
+			}
+			canJump = (checkTileToDir(0,NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f);
+		}
+		public bool checkTileToDir(int direction, Vector2 pos)
+		{
+			Tile targetTile = Main.tile[(int)(pos.X / 16f)+direction, (int)(pos.Y / 16f)];
+			return (targetTile != null && targetTile.HasTile && Main.tileSolid[targetTile.TileType]);
 		}
 
 	}
