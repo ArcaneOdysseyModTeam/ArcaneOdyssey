@@ -51,6 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Venom, 1.1f), // venom acid
 				new MagicBuffMultiplier(BuffID.Burning, 1.075f),
 				new MagicBuffMultiplier(BuffID.Poisoned, 1.05f),
+				new MagicBuffMultiplier(BuffID.Slimed,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), .95f),
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), .99f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), 1.1f),

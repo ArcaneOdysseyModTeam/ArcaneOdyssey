@@ -49,6 +49,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
             burnCount += BurnStack(BuffID.Daybreak, npc);
             burnCount += BurnStack(BuffID.Frostburn, npc);
             burnCount += BurnStack(BuffID.Oiled, npc);
+            burnCount += BurnStack(BuffID.Slimed, npc);
             burnCount += BurnStack(ModContent.BuffType<CharredEffect>(), npc);
             return burnCount;
         }
