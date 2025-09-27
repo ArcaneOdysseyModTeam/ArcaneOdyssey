@@ -6,7 +6,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-    public class HecateOrb : AOBaseItem
+    public class AncientHecateOrb : AOBaseItem
     {
         public int AOValue = 20000;
         public override AORarities AORarity => AORarities.Arcane;
