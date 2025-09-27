@@ -33,14 +33,14 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.trapImmune = false;
 			NPC.lavaImmune = false;
 			NPC.aiStyle = 0;
+			NPC.ai[0] = 0;
 		}
 		private bool canJump = false;
-		public int evanderAIState = 0;
 		public override void AI()
 		{
 			// Select state
-			evanderAIState = 0;
-			if (evanderAIState == 0) //Chase
+			NPC.ai[0] = 0;
+			if (NPC.ai[0] == 0) //Chase
 			{// Chase the nearest player
 				NPC.TargetClosest();
 				if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
