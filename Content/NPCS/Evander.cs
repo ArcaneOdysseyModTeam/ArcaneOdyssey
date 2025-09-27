@@ -35,18 +35,38 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.aiStyle = 0;
 		}
 		private bool canJump = false;
+		public int evanderAIState = 0;
 		public override void AI()
 		{
-			// Chase the nearest player
-			NPC.TargetClosest();
-			NPC.velocity.X += NPC.direction * 0.2f;
+			// Select state
+			evanderAIState = 0;
+			if (evanderAIState == 0) //Chase
+			{// Chase the nearest player
+				NPC.TargetClosest();
+				if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
+				{ // Limit chasing distance
+					NPC.velocity.X += NPC.direction * 0.2f;
+					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 20f)
+					{ // Move away
+						NPC.velocity.X *= -1f;
+					}
+				}
+				if (Math.Abs(NPC.velocity.X) > 8f)
+				{
+					NPC.velocity.X *= 0.8f;
+				}
+				if (Math.Abs(NPC.velocity.X) < 0.2f)
+				{
+					NPC.velocity.X = 0f;
+				}
 
-			// Jump if there's a block
-			if (checkTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
-			{
-				NPC.velocity.Y = -5f;
+				// Jump if there's a block
+				if (checkTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
+				{
+					NPC.velocity.Y = -5f;
+				}
+				canJump = (checkTileToDir(0, NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f);
 			}
-			canJump = (checkTileToDir(0,NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f);
 		}
 		public bool checkTileToDir(int direction, Vector2 pos)
 		{
