@@ -20,11 +20,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 		{
 			Main.projFrames[Type] = 7;
 		}
-        public override bool PreDraw(ref Color lightColor)
-        {
-            timeLeftDefault ??= Projectile.timeLeft;
-            Main.EntitySpriteDraw(BlastSprite, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.Black, Color.White, (float)(FramesAlive / timeLeftDefault.Value)), Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None);
-            return false;
-        }
+        // All the pre draw stuff will go here later (oh god)
     }
 }
