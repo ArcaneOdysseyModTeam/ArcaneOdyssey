@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 		{
 			base.SetDefaults();
 			Projectile.alpha = 50;
+			Main.projFrames[Type] = 5;
 		}
 	}
 }
