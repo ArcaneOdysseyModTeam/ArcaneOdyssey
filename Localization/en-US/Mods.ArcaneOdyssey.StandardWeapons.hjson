@@ -1,0 +1,68 @@
+SunkenSword: {
+	DisplayName: Sunken Sword
+	Tooltip:
+		'''
+		A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		[c/700013:Special Ability:] [c/327DFF:Rising Tide] - Use right click to send yourself upwards, surrounding yourself with water
+		'''
+}
+
+SunkenStaff: {
+	DisplayName: Sunken Staff
+	Tooltip:
+		'''
+		An ornate green and gold staff made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		[c/327DFF:Passive Ability: Fury of the Sea] - Shoots a projectile that pierces through enemies and walls
+		'''
+}
+
+CommodoreKaiSabre: {
+	DisplayName: Commodore Kai's Standard Sabre
+	Tooltip: INCOMPLETE
+}
+
+ColossalGreatsword: {
+	DisplayName: Colossal Greatsword
+	Tooltip:
+		'''
+		An enourmous steel greatsword that was wielded by Evander the Mountainbreaker, a bounty hunter that wanders this land
+		[c/700013:Special Ability: Colossal Cleave] - Shoots a projectile that pierces through enemies and walls
+		'''
+}
+
+OldGreataxe: {
+	DisplayName: Old Greataxe
+	Tooltip: A large two-handed axe that is most likely decades old, but still seems to be usable
+}
+
+OldRapier: {
+	DisplayName: Old Rapier
+	Tooltip: A rapier that is most likely decades old, but it still seems to be usable
+}
+
+OldKatana: {
+	DisplayName: Old Katana
+	Tooltip: ""
+}
+
+RavennaSword: {
+	DisplayName: Ravenna Sword
+	Tooltip: ""
+}
+
+OldSword: {
+	DisplayName: Old Sword
+	Tooltip: ""
+}
+
+WoodenStaff: {
+	DisplayName: Wooden Staff
+	Tooltip: ""
+}
+
+OldTrident: {
+	DisplayName: Old Trident
+	Tooltip: ""
+}

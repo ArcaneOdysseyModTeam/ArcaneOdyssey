@@ -35,11 +35,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 				Projectile.netUpdate = true;
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			if (Projectile.velocity.X > 0) {
-				Projectile.rotation += 0.1f;
-			} else {
-				Projectile.rotation -= 0.1f;
-			}
+			Projectile.rotation += 0.1f * Projectile.direction;
 			if (Projectile.TryGetImbue(out Imbuable imbue) && !imbue.CanBeWet && Projectile.wet)
 			{
 				Kill();

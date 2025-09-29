@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -25,7 +26,34 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			base.SetDefaults();
 			Item.width = 52;
 			Item.height = 54;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = ItemUseStyleID.Rapier;
+		}
+
+		private bool canSwing = true;
+		public override bool CanUseItem(Player player)
+		{
+			canSwing = !canSwing;
+			if (!canSwing)
+			{
+				if (Item.useStyle == ItemUseStyleID.Thrust)
+					Item.useStyle = ItemUseStyleID.Swing;
+				else
+					Item.useStyle = ItemUseStyleID.Thrust;
+			}
+			return base.CanUseItem(player) && canSwing;
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			var name = tooltips.Find(e => e.Text.Contains("Standard"));
+			if (PrefixID.Search.TryGetName(Item.prefix, out var prefix))
+			{
+				name?.Text.Replace("Standard ", $"{prefix} ");
+			}
+			else
+			{
+				name?.Text.Replace("Standard ", null);
+			}
 		}
 	}
 }

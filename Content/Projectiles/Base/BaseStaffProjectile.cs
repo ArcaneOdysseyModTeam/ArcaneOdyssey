@@ -12,14 +12,29 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
-    {
+	{
+		public abstract AOWeaponTiers AOWeaponTier { get; }
+
+		public override void SetDefaults()
+		{
+			Projectile.height = Projectile.width = 60;
+			Projectile.DamageType = DamageClass.MeleeNoSpeed;
+			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
+			Projectile.knockBack = 4.5f;
+			Projectile.friendly = true;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.penetrate = -1;
+			Projectile.ownerHitCheck = true;
+			BaseScale = 2f;
+		}
+
 		public override void AI()
 		{
             DustVelocity = Vector2.Zero;
 			killDust = false;
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
-			originalItem ??= player.HeldItem;
 			player.heldProj = Projectile.whoAmI;
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;

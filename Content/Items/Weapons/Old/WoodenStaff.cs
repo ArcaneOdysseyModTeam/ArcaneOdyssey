@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Operations;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using ArcaneOdyssey.Content.Items.Materials;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
     public class WoodenStaff : AORangedOrMeleeWeapon
     {
@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = DamageClass.Melee;
+			Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.shoot = ModContent.ProjectileType<WoodenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
@@ -34,9 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.autoReuse = false;
-            Item.useAnimation = Item.useTime = 25;
-			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.reuseDelay = 120;
         }
 
@@ -47,6 +44,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
 			recipe.AddTile(TileID.Hellforge);
             recipe.Register();
-        }
-    }
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[Item.shoot] < 1;
+		}
+	}
 }

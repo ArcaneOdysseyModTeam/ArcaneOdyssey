@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
 	public class RavennaSword : AORangedOrMeleeWeapon
 	{

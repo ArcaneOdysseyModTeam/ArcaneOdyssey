@@ -17,8 +17,10 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AORangedOrMeleeWeapon : AOBaseItem
-	{	
+	public abstract class AORangedOrMeleeWeapon : AOBaseItem, ILocalizedModType
+	{
+		public override string LocalizationCategory => "StandardWeapons";
+
 		public abstract float AOSpeed { get; }
 		public abstract float AOSize { get; }
 		public abstract float AODamage { get; }
@@ -41,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
-			Item.useTime = Item.useAnimation = (int)Math.Round(27 * AOSpeed.FlipFloat());
+			Item.useTime = Item.useAnimation = (27 * AOSpeed.FlipFloat()).Round();
 			Item.knockBack = 4.5f * AOSize;
 			Item.rare = (int)AORarity;
 			Item.scale = AOSize;

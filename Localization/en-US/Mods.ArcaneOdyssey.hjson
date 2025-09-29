@@ -147,6 +147,7 @@ Projectiles: {
 	IonBlast.DisplayName: Ion Blast
 	WoodenStaffProjectile.DisplayName: Wooden Staff Projectile
 	EvanderSlash.DisplayName: Evander Slash
+	OldTridentProjectile.DisplayName: Old Trident Projectile
 }
 
 ImbueStuff: {

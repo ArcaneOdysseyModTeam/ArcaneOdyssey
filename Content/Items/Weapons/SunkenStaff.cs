@@ -27,15 +27,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-            Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
+			Item.DamageType = DamageClass.MeleeNoSpeed;
+			Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
-            Item.UseSound = SoundID.SplashWeak;
+            Item.UseSound = SoundID.SplashWeak with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
             Item.useStyle = ItemUseStyleID.Shoot;
-			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.useAnimation = Item.useTime = 25;
             Item.reuseDelay = 120;
         }
 
@@ -46,6 +45,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             recipe.AddIngredient<ArcaniumScrap>(2);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
-        }
-    }
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[Item.shoot] < 1;
+		}
+	}
 }

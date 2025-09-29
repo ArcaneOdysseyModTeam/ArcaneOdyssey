@@ -9,7 +9,7 @@ using Terraria;
 using static ArcaneOdyssey.AOUtils;
 using Microsoft.Xna.Framework;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
 	public class OldRapier : AORangedOrMeleeWeapon
 	{
