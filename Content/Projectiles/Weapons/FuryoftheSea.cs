@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override void SetDefaults()
 		{
-			Projectile.height = Projectile.width = 64;
+			Projectile.width =  Projectile.height = 64;
 			Projectile.alpha = (int)(225 * .75f);
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
@@ -34,6 +34,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
             Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
 		}
+		public override void SetStaticDefaults() {
+			Main.projFrames[Type] = 6;
+		}
 		public override void AI()
 		{
 			// projectile.ai[0] is the spin speed
@@ -42,8 +45,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 				Projectile.ai[1] = 1;
 				Projectile.netUpdate = true;
 			}
+			if (Projectile.frameCounter > 5)
+			{
+				Projectile.frame++;
+				Projectile.frameCounter = 0;
+				if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+				{
+					Projectile.frame = 0;
+				}
+			}
+			Projectile.frameCounter++;
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 + (Projectile.ai[0] * FramesAlive);
+			Projectile.rotation = Projectile.velocity.ToRotation();
 			Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
 			BaseScale += .05f;
 			if (!Main.dedServ)
@@ -54,9 +67,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 				//dust.velocity = Projectile.velocity * -1;
 
 				//Random Fling Dust
-				for (int dustCountInt = 0; dustCountInt < 10; dustCountInt++) 
+				for (int dustCountInt = 0; dustCountInt < 10; dustCountInt++)
 				{
-					Dust.NewDust(Projectile.position + new Vector2(Projectile.width / 2f,Projectile.height / 2f), 1, 1, DustID.Water, 50f *(0.5f - rnd.NextSingle()), 50f * (0.7f - rnd.NextSingle()), 1, default, 1.3f);
+					Dust.NewDust(Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f), 1, 1, DustID.Water, 50f * (0.5f - rnd.NextSingle()), 50f * (0.7f - rnd.NextSingle()), 1, default, 1.3f);
 				}
 				//Spiral Dust
 				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Sin(FramesAlive * 150) * 100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, Projectile.scale);
