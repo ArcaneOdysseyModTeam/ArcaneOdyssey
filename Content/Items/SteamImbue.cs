@@ -1,24 +1,31 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Terraria.ModLoader;
-using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Items.Base;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items
 {
 	public class SteamImbue : Imbuable
 	{
+		public static SteamImbue Create(Imbuable imbue)
+		{
+			SteamImbue steam = (SteamImbue)new Item(ModContent.ItemType<SteamImbue>()).ModItem;
+			steam.originalImbue = imbue;
+			return steam;
+		}
 		public override float AOScrollDamage => .85f;
 		public override float AOImbueDamage => .925f;
 		public override float AOScrollSize => 1.15f;

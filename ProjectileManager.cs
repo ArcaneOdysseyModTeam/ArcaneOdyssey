@@ -158,7 +158,7 @@ namespace ArcaneOdyssey
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
-				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, null, Color.DarkViolet, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale * 1.12f, SpriteEffects.None);
+				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, null, Color.DarkViolet, projectile.rotation, projectile.GetDrawOriginCentre(), projectile.scale * 1.12f, SpriteEffects.None);
 				returntype = false;
 			}
 
@@ -166,7 +166,7 @@ namespace ArcaneOdyssey
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
-				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, new(0, 30 * projectile.frame, 28, 30), Color.DarkRed, projectile.rotation, new Vector2(projectile.height / 2, projectile.height / 2), projectile.scale, SpriteEffects.None);
+				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, new(0, 30 * projectile.frame, 28, 30), Color.DarkRed, projectile.rotation, projectile.GetDrawOriginCentre(), projectile.scale, SpriteEffects.None);
 				returntype = false;
 			}
 
@@ -206,9 +206,7 @@ namespace ArcaneOdyssey
 
 			if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
 			{
-				var imbueitem = new Item(ModContent.ItemType<SteamImbue>());
-				((SteamImbue)imbueitem.ModItem).originalImbue = imbue;
-				imbue = (SteamImbue)imbueitem.ModItem;
+				imbue = SteamImbue.Create(imbue);
 			}
 		}
 

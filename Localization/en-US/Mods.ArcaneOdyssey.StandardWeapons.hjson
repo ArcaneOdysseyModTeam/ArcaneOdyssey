@@ -42,27 +42,27 @@ OldRapier: {
 	Tooltip: A rapier that is most likely decades old, but it still seems to be usable
 }
 
-OldKatana: {
-	DisplayName: Old Katana
-	Tooltip: ""
-}
-
 RavennaSword: {
 	DisplayName: Ravenna Sword
-	Tooltip: ""
+	Tooltip: A one-handed sword made out of bronze, designed by the Bronze Legion of the Ravenna Realm
 }
 
 OldSword: {
 	DisplayName: Old Sword
-	Tooltip: ""
+	Tooltip: A one-handed sword that is most likely decades old, but it still seems to be usable
 }
 
 WoodenStaff: {
 	DisplayName: Wooden Staff
-	Tooltip: ""
+	Tooltip: A sturdy wooden staff that works great as a weapon
 }
 
 OldTrident: {
 	DisplayName: Old Trident
-	Tooltip: ""
+	Tooltip: A trident that is most likely decades old, but it still seems to be usable
+}
+
+OldGreatsword: {
+	DisplayName: Old Greatsword
+	Tooltip: A large two-handed sword that is most likely decades old, but seems to be usable
 }

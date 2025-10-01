@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
@@ -35,7 +38,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override bool AltFunctionUse(Player player)
 		{
-			// whirlwind here
+			if (!player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type))
+			{
+				player.ArcaneOdyssey().ItemCooldowns[Type] = 60 + Whirlwind.MaxTime;
+				var proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
+				((Whirlwind)proj.ModProjectile).color = Color.Orange;
+			}
 			return false;
 		}
 	}

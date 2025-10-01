@@ -65,6 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void OnStarted(Player player, ref bool playSound)
 		{
+			player.ChangeDir((player.velocity.X > 0).ToDirectionInt());
 			if (player.Imbue() is AOMagic)
 			{
 				var item = new Item(ModContent.ItemType<LeapScroll>());

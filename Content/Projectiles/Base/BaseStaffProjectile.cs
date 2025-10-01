@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
             float spintime = 25 * AOSpeed.FlipFloat() * 2 * extramulti;
             Vector2 expectedDirection = player.SafeDirectionTo(Main.MouseWorld);
-            player.direction = (expectedDirection.X > 0f).ToDirectionInt();
+            player.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
 
 
             if (Projectile.ai[0] == 0f)

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,10 +16,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 		public abstract AOWeaponTiers AOWeaponTier { get; }
 		public const float Speed = 3.7f;
+		public override AODebuffRequirement Debuff => new(ModContent.BuffType<AOBleed>(), 50*5);
 
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
+			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
 		}
 
 		public override void SetDefaults()

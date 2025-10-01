@@ -11,7 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons
+namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class ColossalCleave : AOPlayerProjectile
 	{
