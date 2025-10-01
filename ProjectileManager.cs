@@ -103,6 +103,9 @@ namespace ArcaneOdyssey
 				hitbox.Width = (int)(dim.X * mult);
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;
+				// fix hitboxes here
+
+				// end fix hitboxes
 				if (projectile.ModProjectile is BaseStaffProjectile)
 				{
 					hitbox.Width = (int)(dim.X * mult * 1.5f);
