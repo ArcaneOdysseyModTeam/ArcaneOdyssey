@@ -39,5 +39,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 25).AddTile(TileID.Hellforge).Register();
+		}
 	}
 }

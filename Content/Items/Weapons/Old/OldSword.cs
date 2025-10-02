@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 30).AddTile(TileID.Hellforge).Register();
+			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 24).AddTile(TileID.Hellforge).Register();
 		}
 	}
 }

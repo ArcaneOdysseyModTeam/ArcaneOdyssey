@@ -40,8 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.AshWood, 30);
-			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
+            recipe.AddIngredient(ItemID.AshWood, 32);
+			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 12);
 			recipe.AddTile(TileID.Hellforge);
             recipe.Register();
 		}

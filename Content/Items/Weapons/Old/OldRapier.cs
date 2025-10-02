@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 15).AddTile(TileID.Hellforge).Register();
+			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 28).AddTile(TileID.Hellforge).Register();
 		}
 
 		private bool canSwing = true;

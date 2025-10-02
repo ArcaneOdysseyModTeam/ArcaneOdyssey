@@ -16,8 +16,6 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 {
     public class IonizedEffect : AODebuff
     {
-        private int frameNum = 0;
-
         public override void Update(NPC npc, ref int buffIndex)
         {
             if (!Main.dedServ)

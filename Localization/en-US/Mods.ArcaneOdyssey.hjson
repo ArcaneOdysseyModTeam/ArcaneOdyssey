@@ -148,6 +148,7 @@ Projectiles: {
 	EvanderSlash.DisplayName: Colossal Cleave
 	OldTridentProjectile.DisplayName: Old Trident Projectile
 	Whirlwind.DisplayName: Whirlwind
+	BronzeTridentProjectile.DisplayName: Bronze Trident Projectile
 }
 
 ImbueStuff: {

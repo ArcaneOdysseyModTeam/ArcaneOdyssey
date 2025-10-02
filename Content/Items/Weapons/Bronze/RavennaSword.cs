@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(12).AddTile(TileID.Anvils).Register(); // ravenna sword will be only pre-hardmode bronze weapon
+			CreateRecipe().AddIngredient<BronzeBar>(12).AddTile(TileID.Anvils).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)

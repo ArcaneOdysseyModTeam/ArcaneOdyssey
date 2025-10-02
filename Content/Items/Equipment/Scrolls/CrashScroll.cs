@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using static ArcaneOdyssey.AOUtils;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
@@ -52,7 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override bool OnHit(Player player, Entity target)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
-			Impact.Centre(ref gore, target.Center);
+			gore.Centre(target.Center);
 			return true;
 		}
 		public override void OnEnd(Player player)
@@ -71,7 +72,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void NaturalEnd(Player player)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
-			Impact.Centre(ref gore, player.MountedCenter + player.velocity);
+			gore.Centre(player.MountedCenter + player.velocity);
 			player.DashPlayer().StartDash(new Smash(), 2);
 		}
 	}
@@ -91,14 +92,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override bool OnHit(Player player, Entity target)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
-			Impact.Centre(ref gore, target.Center);
+			gore.Centre(target.Center);
 			return false;
 		}
 
 		public override void OnEnd(Player player)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
-			Impact.Centre(ref gore, player.Bottom);
+			gore.Centre(player.Bottom);
 		}
 	}
 }

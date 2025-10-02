@@ -72,7 +72,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Projectile.ai[2] != 0) // throwing
 			{
-				player.reuseDelay = 120;
+				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+				Projectile.timeLeft = 2;
+				Projectile.velocity.Y += .1f;
 			}
 			else
 			{
@@ -97,7 +99,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				}
 
 				// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
-				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - (MathHelper.Pi / 4); // really simple, do a 180 in the direction youre facing and correct i think
+				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4; // really simple, do a 180 in the direction youre facing and correct i think
 				if (player.itemAnimation <= 2)
 				{
 					Projectile.Kill();

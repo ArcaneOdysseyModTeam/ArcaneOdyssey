@@ -27,18 +27,6 @@ namespace ArcaneOdyssey.VFX.Gores
 			gore.timeLeft = 30;
 		}
 
-		public static Vector2 Centre(ref Gore gore, Vector2? newCentre)
-		{
-			if (newCentre.HasValue) 
-			{
-				gore.position.X = newCentre.Value.X - gore.Width / 2;
-				gore.position.Y = newCentre.Value.Y - gore.Height / 2;
-				return gore.position;
-			}
-			else
-				return new Vector2(gore.position.X - (gore.Width / 2), gore.position.Y - (gore.Height / 2));
-		}
-
 		public override bool Update(Gore gore)
 		{
 			gore.frameCounter++;

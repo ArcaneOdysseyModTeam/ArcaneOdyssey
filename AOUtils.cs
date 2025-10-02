@@ -365,6 +365,7 @@ namespace ArcaneOdyssey
 				magicBuffMultipliers = buffMultipliers;
 			}
 
+
 			public float MultiFromID(int id)
 			{
 				foreach (MagicBuffMultiplier multiplier in magicBuffMultipliers)
@@ -376,6 +377,18 @@ namespace ArcaneOdyssey
 				}
 				return 1f;
 			}
+		}
+
+		public static Vector2 Centre(this Gore gore, Vector2? newCentre)
+		{
+			if (newCentre.HasValue)
+			{
+				gore.position.X = newCentre.Value.X - gore.Width / 2;
+				gore.position.Y = newCentre.Value.Y - gore.Height / 2;
+				return gore.position;
+			}
+			else
+				return new Vector2(gore.position.X - (gore.Width / 2), gore.position.Y - (gore.Height / 2));
 		}
 
 		/// <summary>
