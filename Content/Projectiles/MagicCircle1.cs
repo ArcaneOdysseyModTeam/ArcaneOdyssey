@@ -14,6 +14,7 @@ using System.Transactions;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Items.Magic;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -60,9 +61,20 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 			if (aoPlayerOwner.Player.channel && !MarkedForDeath)
 			{
-				aoPlayerOwner.chargingSpell = true;
-				aoPlayerOwner.Player.direction = (dir.X > 0f).ToDirectionInt();
-				charge += 1f / 60f;
+				if (Projectile.ai[2] != 0)
+				{
+					aoPlayerOwner.chargingSpell = true;
+					aoPlayerOwner.Player.itemAnimation = aoPlayerOwner.Player.itemTime = 2;
+					aoPlayerOwner.Player.itemRotation = dir.ToRotation();
+					if (aoPlayerOwner.Player.direction != 1)
+					{
+						aoPlayerOwner.Player.itemRotation += MathHelper.Pi;
+					}
+					if (Main.myPlayer == Projectile.owner)
+						charge += 1f / 60f;
+				}
+				Projectile.ai[2] = 1;
+				aoPlayerOwner.Player.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = aoPlayerOwner.Player.MountedCenter + (dir * 30f);
 				if (charge >= 3f)
@@ -75,7 +87,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Projectile.alpha += (255f / 60f).Round();
 				MarkedForDeath = true;
-				if (Projectile.ai[1] == 0 && AOUtils.ServerOrSingleplayer && ChargingProjectile != 0)
+				if (Projectile.ai[1] == 0 && ServerOrSingleplayer && ChargingProjectile != 0)
 				{
 					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge * charge)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic ? 3f : 1f) * charge, Projectile.owner);
 					proj.ArcaneOdyssey().BaseScale = charge/2;

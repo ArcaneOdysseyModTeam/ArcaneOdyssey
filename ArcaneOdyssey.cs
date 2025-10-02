@@ -72,6 +72,8 @@ namespace ArcaneOdyssey
 		public Dictionary<int, int> BuffCooldowns = [];
 		public Dictionary<int, int> ItemCooldowns = [];
 
+		public bool Immobile => Player.frozen || Player.stoned || Player.shimmering || Player.moveSpeed <= 0 || Player.maxRunSpeed <= 0 || chargingSpell;
+
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
 			if (!mediumCoreDeath)
@@ -91,7 +93,7 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdateMovement()
 		{
-			if (myCircle is not null && myCircle.ai[1] != 2)
+			if (chargingSpell)
 			{
 				Player.velocity = Vector2.Zero;
 				Player.maxFallSpeed = 0f;

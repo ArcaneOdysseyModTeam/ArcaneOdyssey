@@ -1,9 +1,12 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Json;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -20,28 +23,60 @@ namespace ArcaneOdyssey
 {
 	public abstract class DashSystem
 	{
-		public abstract bool Immune {  get; }
-		public abstract string Name { get; }
+		/// <summary>
+		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
+		/// </summary>
+		public abstract bool Immune { get; }
 
+		/// <summary>
+		/// Damage of the dash, keep at 0 to deal no damage
+		/// </summary>
 		public virtual int Damage => 0;
 		public virtual DamageClass DamageType => DamageClass.Default;
+
+		/// <summary>
+		/// Knockback of the dash
+		/// </summary>
 		public virtual float Knockback => 0;
 
+		/// <summary>
+		/// Whether the dash can be trigger via hotkey, and if it can be used to go directions other than left and right
+		/// </summary>
 		public abstract bool AnyDirection { get; }
 
+		/// <summary>
+		/// The cooldown between dash uses
+		/// </summary>
 		public abstract int Cooldown { get; }
+
+		/// <summary>
+		/// How long the dash lasts for
+		/// </summary>
 		public abstract int DashMax { get; }
 
+
+		/// <summary>
+		/// Sets the dash's cooldown
+		/// </summary>
+		/// <param name="player"></param>
 		public void SetCooldown(Player player)
 		{
-			player.ArcaneOdyssey().Cooldowns[Name] = (Cooldown * (ImbueAffected ? player.Imbue().AOScrollSpeed : 1f)).Round();
+			player.ArcaneOdyssey().Cooldowns[GetType().Name] = Cooldown;
 		}
 
+		/// <summary>
+		/// Whether the dash is on cooldown
+		/// </summary>
+		/// <param name="player"></param>
+		/// <returns></returns>
 		public bool OnCooldown(Player player)
 		{
-			return player.ArcaneOdyssey().Cooldowns.ContainsKey(Name);
+			return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name);
 		}
 
+		/// <summary>
+		/// The speed of the dash per tick
+		/// </summary>
 		public abstract float DashSpeed { get; }
 
 
@@ -58,7 +93,7 @@ namespace ArcaneOdyssey
 		public virtual void OnStart(Player player) { }
 
 		/// <summary>
-		/// Called when the dash hits a target
+		/// Called when the dash collisions a target
 		/// </summary>
 		/// <param name="player"></param>
 		/// <param name="target"></param>
@@ -67,94 +102,144 @@ namespace ArcaneOdyssey
 
 		public virtual void OnEnd(Player player) { }
 
-		public virtual bool ImbueAffected => true;
+		/// <summary>
+		/// Called if the dash ends naturally without hitting any enemies
+		/// </summary>
+		public virtual void NaturalEnd(Player player)
+		{
+
+		}
 	}
 
 	public class DashPlayer : ModPlayer 
 	{
-		public DashSystem dash = null;
+		private DashSystem _dash;
+		public DashSystem Dash { get => _dash; set => _dash = !dashing ? value : _dash; }
 		public int DashLeft;
 		public Vector2 DashVelocity;
 		public bool dashing;
+		public int collisions;
 
 		public override void PreUpdate()
 		{
-			if (dash is not null && dashing)
+			if (Dash is not null && dashing)
 				DashLeft--;
+			else 
+				DashLeft = 0;
 		}
 
 		public override void ResetEffects()
 		{
-			dash = null;
+			if (!dashing)
+				Dash = null;
+		}
+
+
+		public bool FirstFrame;
+		/// <summary>
+		/// Starts a dash, does not check for cooldowns
+		/// </summary>
+		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
+		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
+		public void StartDash(DashSystem dashToUse = null, int direction = 0)
+		{
+			FirstFrame = true;
+			if (dashToUse is not null)
+				Dash = dashToUse;
+
+			collisions = 0;
+			if (Dash.AnyDirection && direction == 0)
+			{
+				DashVelocity = Player.SafeDirectionTo(Main.MouseWorld) * Dash.DashSpeed;
+			}
+			else
+			{
+				var standard = Vector2.UnitX;
+				if (direction == 2 || direction == -2)
+				{
+					standard = Vector2.UnitY * (direction/2f);
+				}
+				else
+				{ 
+					standard *= direction; 
+				}
+				DashVelocity = standard * Dash.DashSpeed;
+			}
+			Dash.OnStart(Player);
+			DashLeft = Dash.DashMax;
+			dashing = true;
 		}
 
 		public override void PreUpdateMovement()
 		{
-			if (dash is not null && (!dash.ImbueAffected || Player.Imbue() is not null))
+			if (Dash is not null)
 			{
-				if (!dash.AnyDirection)
+				FirstFrame = Dash.DashMax < DashLeft + 5;
+				if (!Dash.AnyDirection)
 					Player.dashType = DashID.None;
-				if (!dashing && !dash.OnCooldown(Player))
+				if (!dashing && !Dash.OnCooldown(Player) && !Player.mount.Active)
 				{
-					if (dash.AnyDirection && AOKeybinds.DashBind.JustPressed)
+					if (Dash.AnyDirection && AOKeybinds.DashBind.JustPressed)
 					{
-						DashVelocity = Player.SafeDirectionTo(Main.MouseWorld) * dash.DashSpeed;
-						DashLeft = dash.DashMax;
-						dashing = true;
-						dash.OnStart(Player);
+						StartDash();
 					}
-					else if (!dash.AnyDirection)
+					else if (!Dash.AnyDirection)
 					{
 						if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[2] < 15 && Player.doubleTapCardinalTimer[3] == 0)
 						{
-							DashVelocity = Vector2.UnitX * dash.DashSpeed;
-							DashLeft = dash.DashMax;
-							dashing = true;
-							dash.OnStart(Player);
+							StartDash(direction: 1);
 						}
 						else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[3] < 15 && Player.doubleTapCardinalTimer[2] == 0)
 						{
-							DashVelocity = -(Vector2.UnitX * dash.DashSpeed);
-							DashLeft = dash.DashMax;
-							dashing = true;
-							dash.OnStart(Player);
+							StartDash(direction: -1);
 						}
 					}
 				}
-				if (dashing)
+				if (dashing && !Player.mount.Active)
 				{
-					dash.DashEffect(Player);
-					Player.velocity = DashVelocity * (dash.ImbueAffected ? Player.Imbue().AOScrollSpeed : 1f);
-					Player.direction = (DashVelocity.X > 0).ToDirectionInt();
-					if (DashLeft <= 0)
+					Dash.DashEffect(Player);
+
+					if (DashVelocity.X != 0)
+						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
+					
+					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && !FirstFrame))
 					{
-						dash.OnEnd(Player);
-						dash.SetCooldown(Player);
+						Dash.OnEnd(Player);
+						Dash.SetCooldown(Player);
 						dashing = false;
+						if (collisions == 0)
+						{
+							Dash.NaturalEnd(Player);
+						}
 					}
+					else if (Dash.AnyDirection)
+						Player.velocity = DashVelocity; // fly
+					FirstFrame = false;
 				}
 			}
 		}
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
-			if (npc.IsDamageDodgeable() && dash is not null && dashing)
+			if (Dash is not null && dashing)
 			{
-				if (dash.Immune)
+				if (Dash.OnHit(Player, npc))
 				{
-					Player.immuneTime = 10;
-					modifiers.FinalDamage *= 0;
-				}
-				if (dash.Damage > 0)
-				{
-					npc.SimpleStrikeNPC((dash.Damage * (dash.ImbueAffected ? Player.Imbue().AOScrollDamage : 1f)).Round(), Player.direction, false, dash.Knockback * (dash.ImbueAffected ? Player.Imbue().AOScrollSize : 1f), dash.DamageType, dash.DamageType != DamageClass.Default);
-				}
-				if (dash.OnHit(Player, npc))
-				{
-					dash.OnEnd(Player);
-					dash.SetCooldown(Player);
+					collisions++;
+					Dash.OnEnd(Player);
+					Dash.SetCooldown(Player);
 					dashing = false;
 				}
+
+				if (Dash.Damage > 0 && npc.immune[Player.whoAmI] <= 0)
+				{
+					npc.SimpleStrikeNPC(Dash.Damage, Player.direction, knockBack: Dash.Knockback, damageType: Dash.DamageType);
+					npc.immune[Player.whoAmI] = DashLeft;
+					Player.immuneTime = Dash.DashMax;
+				}
+
+				if (Dash.Immune)
+					modifiers.FinalDamage *= 0;
 			}
 		}
 	}

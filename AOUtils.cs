@@ -25,11 +25,10 @@ namespace ArcaneOdyssey
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey().imbue;
 
-		public static int Round(this float num)
-		{
-			return (int)Math.Round(num);
-		}
+		public static int Round(this float num) => (int)Math.Round(num);
 
 		public static float PitchPerfect(this float num)
 		{
@@ -91,6 +90,17 @@ namespace ArcaneOdyssey
 		public static bool TryGetImbue(this Projectile projectile, out Imbuable imbue)
 		{
 			imbue = projectile.ArcaneOdyssey().imbue;
+			return imbue is not null;
+		}
+
+		public static bool TryGetImbue(this Player player, out Imbuable imbue)
+		{
+			imbue = player.ArcaneOdyssey().imbue;
+			return imbue is not null;
+		}
+		public static bool TryGetImbue(this ModPlayer player, out Imbuable imbue)
+		{
+			imbue = player.Player.ArcaneOdyssey().imbue;
 			return imbue is not null;
 		}
 
@@ -333,12 +343,27 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// Magic status effects
 		/// </summary>
-		/// <param name="buffsToClear">Buffs this magic clears on hit</param>
-		/// <param name="buffMultipliers">Damage multipliers from having debuffs interact</param>
-		public class SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
+		public class SynergyEffects
 		{
-			public int[] clearBuffs = buffsToClear;
-			public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;
+			public List<int> clearBuffs = [];
+			public MagicBuffMultiplier[] magicBuffMultipliers = [];
+
+			/// <param name="buffsToClear">Must be int or ModBuff, ignores all else</param>
+			public SynergyEffects(object[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
+			{
+				foreach (var buff in buffsToClear)
+				{
+					if (buff is int buffid)
+					{
+						clearBuffs.Add(buffid);
+					}
+					else if (buff is ModBuff modBuff)
+					{
+						clearBuffs.Add(modBuff.Type);
+					}
+				}
+				magicBuffMultipliers = buffMultipliers;
+			}
 
 			public float MultiFromID(int id)
 			{
@@ -371,10 +396,21 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="buffid">Terraria.ID.BuffID</param>
 		/// <param name="multi">Damage multipier (ex. 1.25f)</param>
-		public class MagicBuffMultiplier(int buffid, float multi)
+		public class MagicBuffMultiplier
 		{
-			public int buffID = buffid;
-			public float multiplier = multi;
+			public MagicBuffMultiplier(int buffid, float multi)
+			{
+				buffID = buffid;
+				multiplier = multi;
+			}
+			public MagicBuffMultiplier(ModBuff buff, float multi)
+			{
+				buffID = buff.Type;
+				multiplier = multi;
+			}
+
+			public int buffID;
+			public float multiplier;
 		}
 
 		/// <summary>
