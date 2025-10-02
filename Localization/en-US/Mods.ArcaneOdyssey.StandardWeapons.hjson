@@ -76,3 +76,8 @@ BronzeStaff: {
 	DisplayName: Bronze Staff
 	Tooltip: ""
 }
+
+RavennaGreataxe: {
+	DisplayName: Ravenna Greataxe
+	Tooltip: ""
+}

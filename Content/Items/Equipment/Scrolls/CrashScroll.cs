@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override float DashSpeed => 10;
 
-		public override int DashMax => 120;
+		public override int DashMax => 99999;
 		public override float Knockback => 0;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target)
@@ -100,6 +100,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(player.Bottom);
+			player.ArcaneOdyssey().timeTillNextMove += 15;
 		}
 	}
 }

@@ -67,12 +67,13 @@ namespace ArcaneOdyssey
 
 		public Projectile myCircle = null;
 		public bool RightClicking => Player.altFunctionUse == 2;
+		public int timeTillNextMove = 0;
 
 		public Dictionary<string, int> Cooldowns = [];
 		public Dictionary<int, int> BuffCooldowns = [];
 		public Dictionary<int, int> ItemCooldowns = [];
 
-		public bool Immobile => Player.frozen || Player.stoned || Player.shimmering || Player.moveSpeed <= 0 || Player.maxRunSpeed <= 0 || chargingSpell;
+		public bool Immobile => chargingSpell || timeTillNextMove > 0 || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
@@ -93,12 +94,7 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdateMovement()
 		{
-			if (chargingSpell)
-			{
-				Player.velocity = Vector2.Zero;
-				Player.maxFallSpeed = 0f;
-			}
-			if (Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0)
+			if (Immobile)
 			{
 				Player.velocity = Vector2.Zero;
 				Player.maxFallSpeed = 0f;
@@ -141,6 +137,11 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdate()
 		{
+			if (timeTillNextMove > 0)
+			{
+				timeTillNextMove--;
+			}
+			else timeTillNextMove = 0;
 			foreach (string i in Cooldowns.Keys)
 			{
 				Cooldowns[i]--;

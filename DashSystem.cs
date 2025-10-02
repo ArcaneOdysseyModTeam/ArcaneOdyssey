@@ -197,6 +197,7 @@ namespace ArcaneOdyssey
 				}
 				if (dashing && !Player.mount.Active)
 				{
+					Player.noFallDmg = true;
 					Dash.DashEffect(Player);
 
 					if (DashVelocity.X != 0)
