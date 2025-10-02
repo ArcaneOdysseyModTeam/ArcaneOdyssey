@@ -11,6 +11,7 @@ using System;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using System.Net.Mail;
+using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -72,7 +73,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.DD2SquireBetsySword);
+			recipe.AddIngredient<RavennaSword>();
 			recipe.AddIngredient<ArcaniumScrap>(2);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();

@@ -149,6 +149,7 @@ Projectiles: {
 	OldTridentProjectile.DisplayName: Old Trident Projectile
 	Whirlwind.DisplayName: Whirlwind
 	BronzeTridentProjectile.DisplayName: Bronze Trident Projectile
+	BronzeStaffProjectile.DisplayName: Bronze Staff Projectile
 }
 
 ImbueStuff: {

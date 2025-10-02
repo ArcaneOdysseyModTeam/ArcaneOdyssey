@@ -56,9 +56,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 			Projectile.frameCounter++;
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+			Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			Projectile.spriteDirection = (Projectile.velocity.X < 0f).ToDirectionInt();
-			BaseScale += .05f;
+			BaseScale += .025f;
 			if (!Main.dedServ)
 			{
 				Random rnd = new();

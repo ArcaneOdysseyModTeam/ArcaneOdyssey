@@ -9,6 +9,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.CodeAnalysis.Operations;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -41,7 +42,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.MonkStaffT3);
+            recipe.AddIngredient<BronzeStaff>();
             recipe.AddIngredient<ArcaniumScrap>(2);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();

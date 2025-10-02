@@ -71,3 +71,8 @@ BronzeTrident: {
 	DisplayName: Bronze Trident
 	Tooltip: ""
 }
+
+BronzeStaff: {
+	DisplayName: Bronze Staff
+	Tooltip: ""
+}

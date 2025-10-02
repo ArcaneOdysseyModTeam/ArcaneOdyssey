@@ -13,19 +13,17 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
-	public class WoodenStaffProjectile : BaseStaffProjectile
+	public class BronzeStaffProjectile : BaseStaffProjectile
 	{
-		public override bool? Cold => true;
-		public override float AOSpeed => 1.05f;
+		public override float AOSpeed => 1;
 		public override float AOSize => .9f;
-		public override float AODamage => 1f;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Poor;
+		public override float AODamage => 1.1f;
+		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 60;
-			BaseScale = 2f;
+			Projectile.height = Projectile.width = 120;
 		}
 	}
 }
