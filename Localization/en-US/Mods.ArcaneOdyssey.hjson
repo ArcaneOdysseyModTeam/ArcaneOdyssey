@@ -83,23 +83,23 @@ Buffs: {
 	}
 
 	AOScalding: {
-		DisplayName: A O Scalding
-		Description: Mods.ArcaneOdyssey.Buffs.AOScalding.Description
+		DisplayName: Scalding
+		Description: You are covered in a thick cloud of hot steam
 	}
 
 	BlindedEffect: {
-		DisplayName: Blinded Effect
-		Description: Mods.ArcaneOdyssey.Buffs.BlindedEffect.Description
+		DisplayName: Blinded
+		Description: You can't see too well
 	}
 
 	DrainedEffect: {
-		DisplayName: Drained Effect
-		Description: Mods.ArcaneOdyssey.Buffs.DrainedEffect.Description
+		DisplayName: Drained
+		Description: You feel drained and fatigued
 	}
 
 	IonizedEffect: {
-		DisplayName: Ionized Effect
-		Description: Mods.ArcaneOdyssey.Buffs.IonizedEffect.Description
+		DisplayName: Ionized
+		Description: Your skin burns and glows green
 	}
 }
 
@@ -175,7 +175,7 @@ Configs: {
 			Tooltip:
 				'''
 				Allows imbues and rarity tooltips to affect items from other mods
-				WARNING: May result in issues!
+				WARNING: May in very rare cases result in issues!
 				'''
 		}
 
