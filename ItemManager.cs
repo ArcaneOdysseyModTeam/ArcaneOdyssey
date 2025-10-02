@@ -124,7 +124,7 @@ namespace ArcaneOdyssey
 
 			if (item.ModItem is AORangedOrMeleeWeapon weapon)
 			{
-				if (weapon.Ability is not null && !Main.ContentLoaded)
+				if (weapon.Ability is not null)
 				{
 					tooltips.Add(weapon.Ability.GenerateTooltip());
 				}

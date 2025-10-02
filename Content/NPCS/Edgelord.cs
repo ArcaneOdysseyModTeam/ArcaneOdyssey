@@ -197,6 +197,10 @@ namespace ArcaneOdyssey.Content.NPCS
 						Replace("{Keybind2}", Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));
 				}
 			}
+			else if (!Main.hardMode)
+			{
+				options.Add(this.GetLocalizedValue("Help.ShimmerHint"));
+			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
 			{
