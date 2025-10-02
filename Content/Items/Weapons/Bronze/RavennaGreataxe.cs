@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			foreach (NPC npc in Main.ActiveNPCs)
 			{
-				if (npc.Center.Distance(player.MountedCenter) < 40f * 1.025f * 2f)
+				if (npc.Center.Distance(player.MountedCenter) < 40f * 1.025f * 2f && !npc.friendly && npc.immune[player.whoAmI] <= 0)
 				{
 					npc.SimpleStrikeNPC(Damage, (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: Knockback, damageType: DamageType);
 				}
