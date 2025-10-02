@@ -62,7 +62,7 @@ namespace ArcaneOdyssey
 		/// <param name="player"></param>
 		public void SetCooldown(Player player)
 		{
-			player.ArcaneOdyssey().Cooldowns[GetType().Name] = Cooldown + DashMax;
+			player.ArcaneOdyssey().Cooldowns[GetType().Name] = Cooldown;
 		}
 
 		/// <summary>
@@ -72,7 +72,7 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public bool OnCooldown(Player player)
 		{
-			return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name);
+			return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) && !player.DashPlayer().dashing;
 		}
 
 		/// <summary>
@@ -136,7 +136,7 @@ namespace ArcaneOdyssey
 		}
 
 
-		public bool FirstFrame;
+		public bool FirstFrames;
 		/// <summary>
 		/// Starts a dash, does not check for cooldowns
 		/// </summary>
@@ -144,7 +144,7 @@ namespace ArcaneOdyssey
 		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
 		public void StartDash(DashSystem dashToUse = null, int direction = 0)
 		{
-			FirstFrame = true;
+			FirstFrames = true;
 			if (dashToUse is not null)
 				Dash = dashToUse;
 
@@ -167,7 +167,6 @@ namespace ArcaneOdyssey
 				DashVelocity = standard * Dash.DashSpeed;
 			}
 			Dash.OnStart(Player);
-			Dash.SetCooldown(Player);
 			DashLeft = Dash.DashMax;
 			dashing = true;
 		}
@@ -176,7 +175,7 @@ namespace ArcaneOdyssey
 		{
 			if (Dash is not null)
 			{
-				FirstFrame = Dash.DashMax < DashLeft+2;
+				FirstFrames = Dash.DashMax < DashLeft+2;
 				if (!Dash.AnyDirection)
 					Player.dashType = DashID.None;
 				if (!dashing && !Dash.OnCooldown(Player) && !Player.mount.Active)
@@ -205,8 +204,9 @@ namespace ArcaneOdyssey
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 					
-					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && !FirstFrame))
+					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && !FirstFrames))
 					{
+						Dash.SetCooldown(Player);
 						Dash.OnEnd(Player);
 						dashing = false;
 						if (collisions == 0)
@@ -214,7 +214,7 @@ namespace ArcaneOdyssey
 							Dash.NaturalEnd(Player);
 						}
 					}
-					else if (Dash.AnyDirection || FirstFrame)
+					else if (Dash.AnyDirection || FirstFrames)
 						Player.velocity = DashVelocity; // fly
 				}
 			}
@@ -240,7 +240,10 @@ namespace ArcaneOdyssey
 				}
 
 				if (Dash.Immune)
+				{
 					modifiers.FinalDamage *= 0;
+					modifiers.Knockback *= 0;
+				}
 			}
 		}
 	}

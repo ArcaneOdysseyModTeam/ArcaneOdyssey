@@ -21,6 +21,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			base.SetDefaults();
 			Item.accessory = true;
+			Item.damage = 50;
+			Item.DamageType = DamageClass.Melee;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -44,6 +46,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 	public class Crash : DashSystem
 	{
+		public override DamageClass DamageType => DamageClass.Melee;
 		public override int Cooldown => 60 * 7;
 
 		public override bool AnyDirection => true;
@@ -79,6 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 	public class Smash : DashSystem
 	{
+		public override DamageClass DamageType => DamageClass.Melee;
 		public override bool AnyDirection => true;
 
 		public override int Damage => 50;
@@ -100,6 +104,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(player.Bottom);
+
+			foreach (NPC npc in Main.ActiveNPCs)
+			{
+				if (npc.Center.Distance(player.MountedCenter) < Player.defaultHeight * 2)
+				{
+					npc.SimpleStrikeNPC(Damage, (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: Knockback, damageType: DamageType);
+				}
+			}
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 		}
 	}

@@ -22,9 +22,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => 1.025f;
 		public override float AOSpeed => .925f;
 		public override float AODamage => 1.025f;
-		public override AOUtils.AORarities AORarity => AORarities.Common;
-		public override AOUtils.AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
-		public override WeaponAbility Ability => new(Mod, "Devestate", "Use the weight of your weapon to slam downwards", Color.Orange);
+		public override AORarities AORarity => AORarities.Common;
+		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override WeaponAbility Ability => new(Mod, "Devastate", "Use the weight of your weapon to slam downwards", Color.Orange);
 
 		public override void SetDefaults()
 		{
@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.AltUse())
 			{
-				var dash = new Devestate();
+				var dash = new Devastate();
 				if (!dash.OnCooldown(player))
 				{
 					player.DashPlayer().StartDash(dash, 2);
@@ -60,16 +60,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		}
 	}
 
-	public class Devestate : DashSystem
+	public class Devastate : DashSystem
 	{
 		public override bool AnyDirection => true;
-
 		public override int Damage => 50;
 		public override int Cooldown => 600;
-
 		public override float DashSpeed => 15;
-
 		public override int DashMax => 99999;
+		public override DamageClass DamageType => DamageClass.Melee;
 		public override float Knockback => 5;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target)
@@ -86,6 +84,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
+			foreach (NPC npc in Main.ActiveNPCs)
+			{
+				if (npc.Center.Distance(player.MountedCenter) < 40f * 1.025f * 2f)
+				{
+					npc.SimpleStrikeNPC(Damage, (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: Knockback, damageType: DamageType);
+				}
+			}
 		}
 	}
 }
