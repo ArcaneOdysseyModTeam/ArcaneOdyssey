@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.VFX.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Steamworks;
@@ -142,7 +143,7 @@ namespace ArcaneOdyssey
 				{
 					postcheck |= imb.Name == steam.originalImbue.Name;
 				}
-				else
+				else if (imbue is not null)
 				{
 					postcheck |= imb.Name == imbue.Name;
 				}
@@ -318,6 +319,7 @@ namespace ArcaneOdyssey
 			Exotic = ItemRarityID.LightRed,
 			Arcane = ItemRarityID.Lime,
 			Zenith = ItemRarityID.Master,
+			Special,
 			RESOLVESELF
 		}
 

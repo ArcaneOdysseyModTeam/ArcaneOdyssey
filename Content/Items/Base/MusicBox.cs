@@ -21,8 +21,9 @@ namespace ArcaneOdyssey.Content.Items.Base
         }
 
         public override void SetDefaults()
-        {
-            Item.DefaultToMusicBox(MusicBoxTile, 0);
+		{
+			base.SetDefaults();
+			Item.DefaultToMusicBox(MusicBoxTile, 0);
 			Item.rare = ItemRarityID.Orange;
         }
     }

@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			ItemID.Sets.ItemNoGravity[Type] = this is AOMagic;
 		}
 
-		public override AORarities AORarity => ImbuableTier == AOImbuableTier.Normal ? AORarities.Common : AORarities.Exotic;
+		public override AORarities AORarity => ImbuableTier == AOImbuableTier.Normal ? AORarities.Rare : AORarities.Exotic;
 
 		public override ItemType ItemType => ItemType.None;
 
@@ -151,6 +151,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.useTime = 60;
 			Item.useAnimation = 60;

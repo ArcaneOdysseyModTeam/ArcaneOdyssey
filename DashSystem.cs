@@ -72,7 +72,7 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public bool OnCooldown(Player player)
 		{
-			return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) && !player.DashPlayer().dashing;
+			return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) || player.DashPlayer().dashing;
 		}
 
 		/// <summary>

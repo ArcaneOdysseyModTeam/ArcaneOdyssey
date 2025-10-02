@@ -19,12 +19,12 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = 32;
 			Item.height = 32;
 			Item.noMelee = true;
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;
-			Item.rare = (int)AORarity;
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.value = GalleonToCopper(AOValue);
 		}

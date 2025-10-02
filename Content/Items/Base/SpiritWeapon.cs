@@ -16,11 +16,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.DamageType = DamageClass.MagicSummonHybrid;
 			Item.noUseGraphic = true;
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.rare = (int)AORarity;
 			Item.value = GalleonToCopper(AOValue);
 		}
 	}

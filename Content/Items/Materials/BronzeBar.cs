@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = 30;
 			Item.height = 24;
 			Item.createTile = ModContent.TileType<BronzeBarTile>();

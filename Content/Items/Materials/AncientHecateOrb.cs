@@ -9,13 +9,13 @@ namespace ArcaneOdyssey.Content.Items.Materials
     public class AncientHecateOrb : AOBaseItem
     {
         public int AOValue = 20000;
-        public override AORarities AORarity => AORarities.Arcane;
+        public override AORarities AORarity => AORarities.Zenith;
 		public override ItemType ItemType => ItemType.Material;
 
 		public override void SetDefaults()
-        {
-            Item.rare = (int)AORarity;
-            Item.value = GalleonToCopper(AOValue);
+		{
+			base.SetDefaults();
+			Item.value = GalleonToCopper(AOValue);
         }
         public override void SetStaticDefaults()
         {

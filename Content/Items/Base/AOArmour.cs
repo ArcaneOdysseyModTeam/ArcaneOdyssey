@@ -61,6 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.defense = AODefense.FromAODefense();
 			Item.value = GalleonToCopper(AOValue);
 		}

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	public class EaglePatrimony : SpiritWeapon
 	{
 		public override int AOValue => 500;
-		public override AORarities AORarity => AORarities.Zenith;
+		public override AORarities AORarity => AORarities.Special;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

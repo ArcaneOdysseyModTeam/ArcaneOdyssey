@@ -44,9 +44,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.useTime = Item.useAnimation = (27 * AOSpeed.FlipFloat()).Round();
 			Item.knockBack = 4.5f * AOSize;
-			Item.rare = (int)AORarity;
 			Item.scale = AOSize;
 			Item.value = GalleonToCopper(AOValue);
 			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };

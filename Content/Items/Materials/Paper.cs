@@ -13,11 +13,11 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override ItemType ItemType => ItemType.Material;
 
 		public override void SetDefaults()
-        {
-            Item.width = 30;
+		{
+			base.SetDefaults();
+			Item.width = 30;
             Item.height = 32;
             Item.maxStack = 9999;
-            Item.rare = (int)AORarity;
             Item.value = GalleonToCopper(AOValue);
         }
 
