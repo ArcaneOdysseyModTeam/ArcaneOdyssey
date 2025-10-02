@@ -122,15 +122,23 @@ namespace ArcaneOdyssey
 				}
 			}
 
-			if (item.ModItem is AORangedOrMeleeWeapon weapon && weapon.Arcanium.HasValue)
+			if (item.ModItem is AORangedOrMeleeWeapon weapon)
 			{
-				if (weapon.Arcanium.Value)
+				if (weapon.Ability is not null && !Main.ContentLoaded)
 				{
-					tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+					tooltips.Add(weapon.Ability.GenerateTooltip());
 				}
-				else
+
+				if (weapon.Arcanium.HasValue)
 				{
-					tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+					if (weapon.Arcanium.Value)
+					{
+						tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+					}
+					else
+					{
+						tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+					} 
 				}
 			}
 

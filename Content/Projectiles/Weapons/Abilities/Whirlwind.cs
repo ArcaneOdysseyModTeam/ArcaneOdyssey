@@ -42,60 +42,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Player player = aoPlayerOwner.Player;
-			//ManageFrame();
-			Projectile.rotation += (MathHelper.Pi / (MaxTime / 2)) * 1.1f;
-			//Projectile.rotation = (MathHelper.Pi * 4 / Projectile.timeLeft) - MathHelper.PiOver2;
+			Projectile.rotation += MathHelper.Pi / (MaxTime / 2) * 1.1f;
 			Projectile.Center = player.MountedCenter + (Projectile.rotation.ToRotationVector2() * 40f);
-			//Projectile.rotation = (Projectile.Center - player.Center).ToRotation() + MathHelper.PiOver4;
 		}
 
 		public override void PostDraw(Color lightColor)
 		{
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), color, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .95f, SpriteEffects.None);
-		}
-
-		public void ManageFrame()
-		{
-
-			//var stagething = Projectile.timeLeft < MaxTime / 2f ? MaxTime / 2f : MaxTime * 2f;
-			//if (Projectile.timeLeft < MaxTime / 2f)
-			//{
-			//	if (Projectile.timeLeft < stagething / 4f)
-			//	{
-			//		Projectile.frame = 3;
-			//	}
-			//	else if (Projectile.timeLeft < stagething / 3f)
-			//	{
-			//		Projectile.frame = 2;
-			//	}
-			//	else if (Projectile.timeLeft < stagething / 2f)
-			//	{
-			//		Projectile.frame = 1;
-			//	}
-			//	else
-			//	{
-			//		Projectile.frame = 0;
-			//	}
-			//}
-			//else
-			//{
-			//	if (Projectile.timeLeft < stagething / 4f)
-			//	{
-			//		Projectile.frame = 0;
-			//	}
-			//	else if (Projectile.timeLeft < stagething / 3f)
-			//	{
-			//		Projectile.frame = 1;
-			//	}
-			//	else if (Projectile.timeLeft < stagething / 2f)
-			//	{
-			//		Projectile.frame = 2;
-			//	}
-			//	else
-			//	{
-			//		Projectile.frame = 3;
-			//	}
-			//}
 		}
 	}
 }

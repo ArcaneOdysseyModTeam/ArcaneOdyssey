@@ -4,7 +4,6 @@ SunkenSword: {
 		'''
 		A medium-sized, one handed sword made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
 		It seems to constantly produce water
-		[c/700013:Special Ability:] [c/327DFF:Rising Tide] - Use right click to send yourself upwards, surrounding yourself with water
 		'''
 }
 
@@ -14,7 +13,6 @@ SunkenStaff: {
 		'''
 		An ornate green and gold staff made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
 		It seems to constantly produce water
-		[c/327DFF:Passive Ability: Fury of the Sea] - Shoots a projectile that pierces through enemies and walls
 		'''
 }
 
@@ -25,11 +23,7 @@ CommodoreKaiSabre: {
 
 ColossalGreatsword: {
 	DisplayName: Colossal Greatsword
-	Tooltip:
-		'''
-		An enourmous steel greatsword that was wielded by Evander the Mountainbreaker, a bounty hunter that wanders this land
-		[c/700013:Special Ability: Colossal Cleave] - Shoots a projectile that pierces through enemies and walls
-		'''
+	Tooltip: An enourmous steel greatsword that was wielded by Evander the Mountainbreaker, a bounty hunter that wanders this land
 }
 
 OldGreataxe: {
@@ -69,15 +63,15 @@ OldGreatsword: {
 
 BronzeTrident: {
 	DisplayName: Bronze Trident
-	Tooltip: ""
+	Tooltip: A sturdy bronze trident, it would serve nicely as a weapon
 }
 
 BronzeStaff: {
 	DisplayName: Bronze Staff
-	Tooltip: ""
+	Tooltip: A sturdy bronze staff that works great as a weapon
 }
 
 RavennaGreataxe: {
 	DisplayName: Ravenna Greataxe
-	Tooltip: ""
+	Tooltip: A large two-handed axe made of bronze, designed by the Bronze Legion of the Ravenna Realm
 }

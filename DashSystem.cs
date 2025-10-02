@@ -23,6 +23,7 @@ namespace ArcaneOdyssey
 {
 	public abstract class DashSystem
 	{
+		public Mod Mod { get => ModLoader.GetMod(nameof(ArcaneOdyssey)); }
 		/// <summary>
 		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
 		/// </summary>
@@ -61,7 +62,7 @@ namespace ArcaneOdyssey
 		/// <param name="player"></param>
 		public void SetCooldown(Player player)
 		{
-			player.ArcaneOdyssey().Cooldowns[GetType().Name] = Cooldown;
+			player.ArcaneOdyssey().Cooldowns[GetType().Name] = Cooldown + DashMax;
 		}
 
 		/// <summary>
@@ -166,6 +167,7 @@ namespace ArcaneOdyssey
 				DashVelocity = standard * Dash.DashSpeed;
 			}
 			Dash.OnStart(Player);
+			Dash.SetCooldown(Player);
 			DashLeft = Dash.DashMax;
 			dashing = true;
 		}
@@ -174,7 +176,7 @@ namespace ArcaneOdyssey
 		{
 			if (Dash is not null)
 			{
-				FirstFrame = Dash.DashMax < DashLeft + 5;
+				FirstFrame = Dash.DashMax < DashLeft+2;
 				if (!Dash.AnyDirection)
 					Player.dashType = DashID.None;
 				if (!dashing && !Dash.OnCooldown(Player) && !Player.mount.Active)
@@ -206,16 +208,14 @@ namespace ArcaneOdyssey
 					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && !FirstFrame))
 					{
 						Dash.OnEnd(Player);
-						Dash.SetCooldown(Player);
 						dashing = false;
 						if (collisions == 0)
 						{
 							Dash.NaturalEnd(Player);
 						}
 					}
-					else if (Dash.AnyDirection)
+					else if (Dash.AnyDirection || FirstFrame)
 						Player.velocity = DashVelocity; // fly
-					FirstFrame = false;
 				}
 			}
 		}

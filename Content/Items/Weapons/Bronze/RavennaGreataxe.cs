@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
@@ -21,8 +22,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => 1.025f;
 		public override float AOSpeed => .925f;
 		public override float AODamage => 1.025f;
-		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
-		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Average;
+		public override AOUtils.AORarities AORarity => AORarities.Common;
+		public override AOUtils.AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override WeaponAbility Ability => new(Mod, "Devestate", "Use the weight of your weapon to slam downwards", Color.Orange);
 
 		public override void SetDefaults()
 		{

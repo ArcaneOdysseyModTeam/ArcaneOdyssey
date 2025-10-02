@@ -210,6 +210,7 @@ RandomWords: {
 	None: None
 	Or: or
 	Default: default
+	Ability: Ability
 }
 
 NPCs: {

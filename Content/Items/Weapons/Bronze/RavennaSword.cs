@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
@@ -20,8 +21,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => 1;
 		public override float AOSpeed => .925f;
 		public override float AODamage => 1.05f;
-		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
-		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Average;
+		public override AORarities AORarity => AORarities.Common;
+		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override WeaponAbility Ability => new(Mod, "Whirlwind", "Spin your weapon around quickly, dealing damage surrouning enemies and holding yourself in place", Color.Orange);
 
 		public override void SetDefaults()
 		{

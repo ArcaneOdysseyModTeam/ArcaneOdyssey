@@ -106,9 +106,30 @@ namespace ArcaneOdyssey
 
 		public static bool ServerOrSingleplayer => Main.dedServ || Main.netMode == NetmodeID.SinglePlayer;
 
-		public static bool AltUse(this Player player)
+		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
+		
+
+		public class WeaponAbility(Mod mod, string name, string description, Color? color = null)
 		{
-			return player.altFunctionUse == 2;
+			private readonly string Name = name;
+			private readonly string Description = description;
+			private readonly Color? Colour = color;
+			private readonly Mod mod = mod;
+
+			public TooltipLine GenerateTooltip()
+			{
+				string text = "";
+				if (Colour.HasValue)
+				{
+					text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {Name}]";
+				}
+				else
+				{
+					text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {Name}";
+				}
+				text += $": {Description}";
+				return new TooltipLine(mod, "AOAbility", text);
+			}
 		}
 
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player, List<Imbuable> imbues = null)
