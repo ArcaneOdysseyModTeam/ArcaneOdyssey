@@ -56,6 +56,12 @@ namespace ArcaneOdyssey
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
 	}
+	public class FirstMoonLordKill : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => !NPC.downedMoonlord;
+		public bool CanShowItemDropInUI() => true;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstMoonLordKillDescription", () => "First Moon Lord Defeated").Value;
+	}
 
 
 	public class AOPlayer : ModPlayer

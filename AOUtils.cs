@@ -257,25 +257,25 @@ namespace ArcaneOdyssey
 					return AORarities.Common;
 					break;
 				case 1:
-					return AORarities.Rare;
+					return AORarities.Common;
 					break;
 				case 2:
-					return AORarities.Rare;
+					return AORarities.Uncommon;
 					break;
 				case 3:
-					return AORarities.Rare;
+					return AORarities.Uncommon;
 					break;
 				case 4:
-					return AORarities.Exotic;
+					return AORarities.Rare;
 					break;
 				case 5:
-					return AORarities.Exotic;
+					return AORarities.Rare;
 					break;
 				case 6:
-					return AORarities.Arcane;
+					return AORarities.Exotic;
 					break;
 				case 7:
-					return AORarities.Arcane;
+					return AORarities.Exotic;
 					break;
 				case 8:
 					return AORarities.Arcane;

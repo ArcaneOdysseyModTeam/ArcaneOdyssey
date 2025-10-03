@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Vanity;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,24 @@ namespace ArcaneOdyssey
 			{
 				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArcaniumScrap>(), 15));
 			}
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
+			if (ItemID.Sets.BossBag[item.type])
+			{
+				LeadingConditionRule leadingConditionRule1 = new(new Conditions.TenthAnniversaryIsUp());
+				leadingConditionRule1.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 8), true);
+				itemLoot.Add(leadingConditionRule1);
+				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
+				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
+				itemLoot.Add(leadingConditionRule2);
+				LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
+				leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
+				itemLoot.Add(leadingConditionRule3);
+				LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
+				leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
+				itemLoot.Add(leadingConditionRule4);
+			}
+			LeadingConditionRule AcrimonyCondition = new(new Conditions.NotBeesSeed());
+			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000), true);
+			itemLoot.Add(AcrimonyCondition);
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
