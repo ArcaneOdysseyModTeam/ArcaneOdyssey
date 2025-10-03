@@ -13,7 +13,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 	{
 		public virtual int AOValue => 500;
 		public override AORarities AORarity => AORarities.Uncommon;
-		public virtual bool SpellScroll => true;
 
 		public override ItemType ItemType => ItemType.RESOLVESELF;
 

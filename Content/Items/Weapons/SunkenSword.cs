@@ -35,6 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.height = 54;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.UseSound = SoundID.SplashWeak;
+			Item.DamageType = TrueMelee();
 			Item.autoReuse = true;
 		}
 

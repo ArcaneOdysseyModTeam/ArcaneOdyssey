@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (playah.imbue is FightingStyle)
 			{
 				Item.color = playah.imbue.ImbueColour;
-				player.DashPlayer().Dash ??= new Crash();
+				player.DashPlayer().SetDash(new Crash());
 			}
 			else Item.color = Color.Transparent;
 

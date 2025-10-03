@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ID;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
@@ -14,13 +15,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override float AOSize => 1f;
 		public override float AOSpeed => .9f;
 		public override float AODamage => 1.05f;
-		public override AOUtils.AORarities AORarity => AOUtils.AORarities.Common;
-		public override AOUtils.AOWeaponTiers AOWeaponTier => AOUtils.AOWeaponTiers.Poor;
+		public override AORarities AORarity => AORarities.Common;
+		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Poor;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.height = Item.height = 60;
+			Item.DamageType = TrueMelee();
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 

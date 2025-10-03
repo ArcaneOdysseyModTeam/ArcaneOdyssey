@@ -31,6 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.height = 40;
 			Item.height = 40;
 			Item.useTurn = true;
+			Item.DamageType = TrueMelee();
 			Item.useStyle = ItemUseStyleID.Thrust;
 		}
 

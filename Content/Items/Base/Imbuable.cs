@@ -70,15 +70,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual Dictionary<Type, int> Skills => [];
 
-		public virtual void SpawningEffects(Projectile projectile) { }
-		public virtual void LingeringEffects(Projectile projectile) { }
-		public virtual void KillEffects(Projectile projectile) { }
-
+		public virtual void SpawningEffects(Entity entity) { }
+		public virtual void LingeringEffects(Entity entity) { }
+		public virtual void KillEffects(Entity entity) { }
 		/// <summary>
 		/// used for explosions and pulsar type stuff ect
 		/// </summary>
-		/// <param name="projectile">THE PROJECTILE DUMBASS</param>
-		public virtual void ExplosionEffects(Projectile projectile) { }
+		public virtual void ExplosionEffects(Entity entity) { }
 
 
 		public bool FirstFrame = true;
@@ -133,17 +131,25 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return null;
 		}
 
-		public virtual bool PreEffects(Projectile projectile)
+		/// <summary>
+		/// Return false to cancel VFX
+		/// </summary>
+		/// <param name="entity">The entity to check</param>
+		/// <returns></returns>
+		public virtual bool PreEffects(Entity entity)
 		{
-			if (ImbueClassCheck(projectile))
+			if (entity is Projectile projectile)
 			{
-				if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				if (ImbueClassCheck(projectile))
 				{
-					return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionTracker or MagicCircle2);
-				}
-				else if (projectile.ModProjectile is AOPlayerProjectile)
-				{
-					return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionTracker or MagicCircle2);
+					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					{
+						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionTracker or MagicCircle2);
+					}
+					else if (projectile.ModProjectile is AOPlayerProjectile)
+					{
+						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionTracker or MagicCircle2);
+					}
 				}
 			}
 			return false;

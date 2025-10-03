@@ -220,6 +220,7 @@ NPCs: {
 		DeathCurse: Morden's Curse has left...
 		Census.SpawnCondition: Always available, spawned on world creation
 		DyingText: HELP!
+		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy
 
 		Chat: {
 			Intro: Hello, {PlayerName}.

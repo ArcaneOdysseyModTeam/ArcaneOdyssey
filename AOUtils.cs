@@ -31,6 +31,32 @@ namespace ArcaneOdyssey
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
+		public static void Kill(this Entity entity)
+		{
+			if (entity is Projectile projectile)
+			{
+				projectile.Kill();
+			}
+		}
+
+		public static DamageClass TrueMelee()
+		{
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+			{
+				return calamity.Find<DamageClass>("TrueMeleeDamageClass");
+			}
+			return DamageClass.Melee;
+		}
+
+		public static DamageClass TrueMeleeNoSpeed()
+		{
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+			{
+				return calamity.Find<DamageClass>("TrueMeleeNoSpeedDamageClass");
+			}
+			return DamageClass.MeleeNoSpeed;
+		}
+
 		public static float PitchPerfect(this float num)
 		{
 			if (num > 1)

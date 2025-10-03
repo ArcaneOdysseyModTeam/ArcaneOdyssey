@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
+			Item.DamageType = TrueMeleeNoSpeed();
 			Item.shoot = ModContent.ProjectileType<OldTridentProjectile>();
 			Item.shootSpeed = BaseSpearProjectile.Speed;
 			Item.useStyle = ItemUseStyleID.Shoot;

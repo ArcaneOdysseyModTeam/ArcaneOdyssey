@@ -143,8 +143,10 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdate()
 		{
-			if (timeTillNextMove > 0)
+			if (timeTillNextMove > 1)
 			{
+				for (int i = 0; i < 4; i++)
+					Player.doubleTapCardinalTimer[i] = 0;
 				timeTillNextMove--;
 			}
 			else timeTillNextMove = 0;

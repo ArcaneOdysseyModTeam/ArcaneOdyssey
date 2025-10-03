@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
 			]
 			);
-		public override void SpawningEffects(Projectile projectile) 
+		public override void SpawningEffects(Entity projectile) 
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -72,11 +72,11 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 		}
 
-		public override void LingeringEffects(Projectile projectile)
+		public override void LingeringEffects(Entity projectile)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Ice, 0f, 0f, 0, default, 1f)];
 		}
-		public override void ExplosionEffects(Projectile projectile)
+		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f)];
 			}
 		}
-		public override void KillEffects(Projectile projectile)
+		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{

@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void SetDefaults()
 		{
-			Projectile.DamageType = DamageClass.MeleeNoSpeed;
+			Projectile.DamageType = TrueMeleeNoSpeed();
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 			Projectile.knockBack = 4.5f;
 			Projectile.friendly = true;

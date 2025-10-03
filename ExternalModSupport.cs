@@ -17,8 +17,27 @@ namespace ArcaneOdyssey
         public override void PostSetupContent()
         {
             MusicDisplaySetup();
-			AddFargosStats();
+			AddFargosStuff();
         }
+
+		public static bool CanDoubleTapDash()
+		{
+			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
+			{
+				return !(bool)fargos.Call("DoubleTapDashDisabled");
+			}
+			return true;
+		}
+		/*
+		public static bool DashBindPressed()
+		{
+			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
+			{
+				var e = fargos.Code.GetType("Fargowiltas").GetProperty("DashKey").GetValue(null, null);
+				return ((ModKeybind)e).JustPressed;
+			}
+			return false;
+		}*/
 
         private void MusicDisplaySetup()
         {
@@ -34,7 +53,7 @@ namespace ArcaneOdyssey
 			}
         }
 
-		private void AddFargosStats()
+		private void AddFargosStuff()
 		{
 			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 			{
@@ -45,7 +64,9 @@ namespace ArcaneOdyssey
 				// current imbue lol
 				Func<string> imbueText = () => $"Current imbue: {(Main.LocalPlayer.ArcaneOdyssey().imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";
 				fargos.Call("AddStat", ModContent.ItemType<PoseidonChoice>(), imbueText);
+
+				fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", "ArcaneOdyssey.NPCs.Edgelord");
 			}
 		}
-    }
+	}
 }

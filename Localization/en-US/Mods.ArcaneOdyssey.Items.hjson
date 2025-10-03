@@ -137,3 +137,8 @@ AncientHecateOrb: {
 	DisplayName: Hecate Orb
 	Tooltip: An orb of unknown origin... the world is really not ready to unleash this
 }
+
+ReflexScroll: {
+	DisplayName: Reflex Scroll
+	Tooltip: ""
+}

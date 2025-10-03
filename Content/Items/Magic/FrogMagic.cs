@@ -40,14 +40,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			
 			]
 			);
-		public override void SpawningEffects(Projectile projectile)
+		public override void SpawningEffects(Entity projectile)
 		{
 			NPC npc = NPC.NewNPCDirect(null,projectile.Center,NPCID.Frog);
 			npc.velocity = projectile.velocity;
 			projectile.Kill();
 		}
 
-		public override void ExplosionEffects(Projectile projectile)
+		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++) {
 				NPC npc = NPC.NewNPCDirect(null, projectile.Center, NPCID.Frog);
@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 		}
 
-        public override void KillEffects(Projectile projectile)
+        public override void KillEffects(Entity projectile)
         {
 			SoundEngine.PlaySound(this.ImbueSound, projectile.position, null);
         }

@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
@@ -30,6 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.height = 144;
 			Projectile.friendly = true;
 			Projectile.timeLeft = MaxTime;
+			Projectile.DamageType = TrueMeleeNoSpeed();
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;

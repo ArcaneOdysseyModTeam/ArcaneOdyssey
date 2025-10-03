@@ -60,7 +60,7 @@ new MagicBuffMultiplier(BuffID.Oiled,1.075f),
 			]
 			);
 
-		public override void SpawningEffects(Projectile projectile) 
+		public override void SpawningEffects(Entity projectile) 
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -71,7 +71,7 @@ new MagicBuffMultiplier(BuffID.Oiled,1.075f),
 			}
 		}
 
-		public override void LingeringEffects(Projectile projectile)
+		public override void LingeringEffects(Entity projectile)
 		{
 			for (int n = 0; n < 2; n++)
 			{
@@ -79,7 +79,7 @@ new MagicBuffMultiplier(BuffID.Oiled,1.075f),
 			}
 
         }
-		public override void ExplosionEffects(Projectile projectile)
+		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -89,7 +89,7 @@ new MagicBuffMultiplier(BuffID.Oiled,1.075f),
 				spawnedDust2.noGravity = true;
 			}
 		}
-		public override void KillEffects(Projectile projectile)
+		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
