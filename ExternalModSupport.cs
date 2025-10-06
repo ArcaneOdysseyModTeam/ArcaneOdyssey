@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Items.Weapons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
@@ -28,16 +29,18 @@ namespace ArcaneOdyssey
 			}
 			return true;
 		}
-		/*
+		
 		public static bool DashBindPressed()
 		{
 			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 			{
-				var e = fargos.Code.GetType("Fargowiltas").GetProperty("DashKey").GetValue(null, null);
+				var e = fargos.GetType().
+					GetField("DashKey").
+					GetValue(BindingFlags.Static);
 				return ((ModKeybind)e).JustPressed;
 			}
 			return false;
-		}*/
+		}
 
         private void MusicDisplaySetup()
         {

@@ -79,7 +79,8 @@ namespace ArcaneOdyssey
 		public Dictionary<int, int> BuffCooldowns = [];
 		public Dictionary<int, int> ItemCooldowns = [];
 
-		public bool Immobile => chargingSpell || timeTillNextMove > 0 || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
+		public bool CompletelyFrozen => chargingSpell || timeTillNextMove > 0 || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
+		public bool Immobile => CompletelyFrozen || Player.CCed;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
@@ -100,7 +101,7 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdateMovement()
 		{
-			if (Immobile)
+			if (CompletelyFrozen)
 			{
 				Player.velocity = Vector2.Zero;
 				Player.maxFallSpeed = 0f;

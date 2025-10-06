@@ -165,7 +165,7 @@ namespace ArcaneOdyssey
 				{
 					DashDir = null;
 				}
-			}/*
+			}
 			else if (ExternalModSupport.DashBindPressed())
 			{
 				if (Player.velocity.X > 1)
@@ -178,7 +178,7 @@ namespace ArcaneOdyssey
 				}
 				else DashDir = Player.direction;
 			}
-			else DashDir = null;*/
+			else DashDir = null;
 		}
 
 		public bool FirstFrames;
@@ -210,8 +210,8 @@ namespace ArcaneOdyssey
 				}
 				DashVelocity = standard * dashToUse.DashSpeed;
 			}
-			dashToUse.OnStart(Player);
 			DashLeft = dashToUse.DashMax;
+			dashToUse.OnStart(Player);
 			dashing = true;
 		}
 
@@ -253,7 +253,7 @@ namespace ArcaneOdyssey
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
-					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && !FirstFrames))
+					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrames))
 					{
 						dash.SetCooldown(Player);
 						dash.OnEnd(Player);
