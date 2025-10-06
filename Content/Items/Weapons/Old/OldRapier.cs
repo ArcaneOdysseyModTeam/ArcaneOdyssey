@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.DamageType = TrueMelee();
 			Item.height = Item.height = 46;
 			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.DamageType = TrueMelee();
 			Item.useTurn = true;
 		}
 

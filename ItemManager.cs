@@ -131,7 +131,7 @@ namespace ArcaneOdyssey
 			}
 			if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF)
+				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF && !item.vanity && !item.questItem)
 				{
 					var line = item.GetItemRare().ToString();
 					line += " ";

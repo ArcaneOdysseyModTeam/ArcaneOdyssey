@@ -245,6 +245,10 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Ammo;
 			}
+			if (item.DamageType == DamageClass.MagicSummonHybrid)
+			{
+				return ItemType.Relic;
+			}
 			if (item.damage != -1)
 			{
 				return ItemType.Weapon;
@@ -323,6 +327,7 @@ namespace ArcaneOdyssey
 			Material,
 			Accessory,
 			Armour,
+			Relic,
 			Weapon,
 			Tool,
 			None,
@@ -363,9 +368,23 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public enum AOWeaponTiers
 		{
+			/// <summary>
+			/// Old weapons
+			/// </summary>
 			Poor,
+			/// <summary>
+			/// Bronze weapons
+			/// </summary>
 			Average,
-			Good,
+			/// <summary>
+			/// All the cool weapons
+			/// </summary>
+			Good, 
+			/// <summary>
+			/// Atleantean weapons+ use these
+			/// </summary>
+			Great,
+
 		}
 
 		/// <summary>

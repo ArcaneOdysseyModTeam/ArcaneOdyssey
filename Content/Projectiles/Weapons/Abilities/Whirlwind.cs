@@ -39,6 +39,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.usesLocalNPCImmunity = true;
 		}
+		public override float AOSize => 1;
+		public override float AOSpeed => .925f;
+		public override float AODamage => 1.05f;
 
 		public override void AI()
 		{

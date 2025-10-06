@@ -23,6 +23,8 @@ namespace ArcaneOdyssey
 {
 	public abstract class DashSystem
 	{
+		public string Name => GetType().Name;
+
 		public Mod Mod { get => ModLoader.GetMod(nameof(ArcaneOdyssey)); }
 
 		/// <summary>
@@ -166,7 +168,7 @@ namespace ArcaneOdyssey
 					DashDir = null;
 				}
 			}
-			else if (ExternalModSupport.DashBindPressed())
+			else if (ExternalModSupport.DashBind().JustPressed)
 			{
 				if (Player.velocity.X > 1)
 				{
@@ -193,6 +195,7 @@ namespace ArcaneOdyssey
 			CurrentDash = dashToUse;
 			FirstFrames = true;
 			collisions = 0;
+			ExternalModSupport.SetCalamityDash(dashToUse.Name, dashToUse.AnyDirection);
 			if (dashToUse.AnyDirection && direction == 0)
 			{
 				DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
@@ -265,6 +268,7 @@ namespace ArcaneOdyssey
 					}
 					else if (dash.AnyDirection || FirstFrames)
 						Player.velocity = DashVelocity; // fly
+					ExternalModSupport.SetCalamityDash(dash.Name, dash.AnyDirection);
 					dash.DashEffect(Player);
 				}
 			}
@@ -276,29 +280,33 @@ namespace ArcaneOdyssey
 			Player.eocDash = DashLeft;
 		}
 
-		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+		public override void PostUpdate()
 		{
-			if (Dash is not null && dashing)
+			if (Dash is not null && dashing) 
 			{
-				collisions++;
-				if (Dash.OnHit(Player, npc))
+				foreach (NPC npc in Main.ActiveNPCs)
 				{
-					Dash.OnEnd(Player);
-					Dash.SetCooldown(Player);
-					dashing = false;
-				}
+					if (npc.Hitbox.Distance(Player.Center) <= Player.defaultHeight/2f)
+					{
+						collisions++;
+						if (Dash.OnHit(Player, npc))
+						{
+							Dash.OnEnd(Player);
+							Dash.SetCooldown(Player);
+							dashing = false;
+						}
 
-				if (Dash.Damage > 0 && npc.immune[Player.whoAmI] <= 0)
-				{
-					npc.SimpleStrikeNPC(Dash.Damage, Player.direction, knockBack: Dash.Knockback, damageType: Dash.DamageType);
-					npc.immune[Player.whoAmI] = DashLeft;
-					Player.immuneTime = Dash.DashMax;
-				}
+						if (Dash.Damage > 0 && npc.immune[Player.whoAmI] <= 0)
+						{
+							npc.SimpleStrikeNPC(Dash.Damage, Player.direction, knockBack: Dash.Knockback, damageType: Dash.DamageType);
+							npc.immune[Player.whoAmI] = 2;
+						}
 
-				if (Dash.Immune)
-				{
-					modifiers.FinalDamage *= 0;
-					modifiers.Knockback *= 0;
+						if (Dash.Immune)
+						{
+							Player.immuneTime = CurrentDash.DashMax;
+						}
+					}
 				}
 			}
 		}

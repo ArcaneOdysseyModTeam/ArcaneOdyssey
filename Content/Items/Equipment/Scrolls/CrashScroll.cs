@@ -17,13 +17,17 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	public class CrashScroll : TechniqueScroll
 	{
+		public const int Cooldown = 60 * 7;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.accessory = true;
 			Item.damage = 50;
-			Item.DamageType = DamageClass.Melee;
+			Item.DamageType = TrueMeleeNoSpeed();
+			Item.useTime = Cooldown;
 		}
+
+		public override void ModifyWeaponCrit(Player player, ref float crit) => crit *= 0;
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
@@ -46,8 +50,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 	public class Crash : DashSystem
 	{
-		public override DamageClass DamageType => DamageClass.Melee;
-		public override int Cooldown => 60 * 7;
+		public override DamageClass DamageType => TrueMeleeNoSpeed();
+		public override int Cooldown => CrashScroll.Cooldown;
 
 		public override bool AnyDirection => true;
 
@@ -59,6 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			gore.Centre(target.Center);
 			return true;
 		}
+
 		public override void OnEnd(Player player)
 		{
 			player.velocity = Vector2.Zero;
@@ -91,7 +96,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 	public class Smash : DashSystem
 	{
-		public override DamageClass DamageType => DamageClass.Melee;
+		public override DamageClass DamageType => TrueMeleeNoSpeed();
 		public override bool AnyDirection => true;
 
 		public override int Damage => 50;

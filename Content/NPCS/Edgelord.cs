@@ -182,13 +182,13 @@ namespace ArcaneOdyssey.Content.NPCS
 					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
 					if (ModLoader.HasMod("CalamityMod"))
 					{
-						doubletapdash = Mod.CustomLocalization("KeybindStuff.CalDash").Value;
+						doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
 					}
 					else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 					{
 						if ((bool)fargos.Call("DoubleTapDashDisabled"))
 						{
-							doubletapdash = Mod.CustomLocalization("KeybindStuff.FargoDash").Value;
+							doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
 						}
 					}
 					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);

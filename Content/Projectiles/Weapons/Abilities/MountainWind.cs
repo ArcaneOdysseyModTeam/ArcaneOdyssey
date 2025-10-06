@@ -19,6 +19,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			Main.projFrames[Type] = 8;
 		}
+		public override float AOSize => 1.05f;
+		public override float AOSpeed => .9f;
+		public override float AODamage => 1.05f;
 
 		public override void SetDefaults()
 		{

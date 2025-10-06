@@ -30,16 +30,37 @@ namespace ArcaneOdyssey
 			return true;
 		}
 		
-		public static bool DashBindPressed()
+		public static ModKeybind DashBind()
 		{
-			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+			{
+				var a = calamity.Code.GetType("CalamityMod.CalamityKeybinds");
+				if (a is not null)
+				{
+					return (ModKeybind)a.GetProperty("DashHotkey").GetValue(null);
+				}
+			}
+			else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 			{
 				var e = fargos.GetType().
 					GetField("DashKey").
-					GetValue(BindingFlags.Static);
-				return ((ModKeybind)e).JustPressed;
+					GetValue(null);
+				return (ModKeybind)e;
 			}
-			return false;
+			return null;
+		}
+
+		public static void SetCalamityDash(string ID, bool force = false)
+		{
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+			{
+				if (calamity.TryFind("CalamityPlayer", out ModPlayer modPlayer))
+				{
+					var dashid = modPlayer.GetType().GetProperty("DashID");
+					if (force || (string)dashid.GetValue(null) == "Default Dash")
+						dashid.SetValue(modPlayer, ID);
+				}
+			}
 		}
 
         private void MusicDisplaySetup()

@@ -80,3 +80,8 @@ RavennaGreatsword: {
 	DisplayName: Ravenna Greatsword
 	Tooltip: A large two-handed sword made of bronze, designed by the Bronze Legion of the Ravenna Realm
 }
+
+BronzeRapier: {
+	DisplayName: Bronze Rapier
+	Tooltip: ""
+}

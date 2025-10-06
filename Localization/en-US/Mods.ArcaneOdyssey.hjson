@@ -142,13 +142,14 @@ Projectiles: {
 	SpiritBlast.DisplayName: Spirit Blast
 	FrogBlast.DisplayName: Frog Blast
 	IonBlast.DisplayName: Ion Blast
-	WoodenStaffProjectile.DisplayName: Wooden Staff Projectile
+	WoodenStaffProjectile.DisplayName: Wooden Staff
 	EvanderSlash.DisplayName: Colossal Cleave
-	OldTridentProjectile.DisplayName: Old Trident Projectile
+	OldTridentProjectile.DisplayName: Old Trident
 	Whirlwind.DisplayName: Whirlwind
-	BronzeTridentProjectile.DisplayName: Bronze Trident Projectile
-	BronzeStaffProjectile.DisplayName: Bronze Staff Projectile
+	BronzeTridentProjectile.DisplayName: Bronze Trident
+	BronzeStaffProjectile.DisplayName: Bronze Staff
 	MountainWind.DisplayName: Mountain Wind
+	PiercingStrikesProjectile.DisplayName: Bronze Rapier
 }
 
 ImbueStuff: {
@@ -176,13 +177,8 @@ Configs: {
 			Tooltip:
 				'''
 				Allows imbues and rarity tooltips to affect items from other mods
-				WARNING: May in very rare cases result in issues!
+				WARNING: May in very rare cases result in issues! Report any problems!
 				'''
-		}
-
-		IgnoredProjectiles: {
-			Label: Ignored Projectiles
-			Tooltip: Insert projectile names here to blacklist them, might not work
 		}
 
 		GenerateTucker: {
@@ -200,7 +196,6 @@ Configs: {
 KeybindStuff: {
 	DashHelp: Double tap a movement key
 	CalDash: Press the Calamity Dash Keybind (if set)
-	FargoDash: Press the Fargo's Dash Keybind
 	Unbound: Unbound
 }
 

@@ -15,7 +15,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class EaglePatrimony : SpiritWeapon
+	public class EaglePatrimony : RelicWeapon
 	{
 		public override int AOValue => 500;
 		public override AORarities AORarity => AORarities.Special;
