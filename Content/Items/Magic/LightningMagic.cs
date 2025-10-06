@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{// WAHT IS  THIS IM SO CONFUSED
 			if (projectile.velocity != Vector2.Zero)
 			{
-				float waveVal = 10f * MathF.Abs((((float)Main.GameUpdateCount) % 5 % 10f) - 2.5f) - 1.25f;
+				float waveVal = 10f * MathF.Abs((((float)Main.GameUpdateCount) % 5 % 10f) - 2.5f) - 10f;
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + (baseVec.RotatedBy(projectile.velocity.ToRotation())) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.CrystalPulse, new Vector2(0f, 0f), 255, default, 1.2f);
 				spawnedDust.noGravity = true;
