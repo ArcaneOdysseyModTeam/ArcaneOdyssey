@@ -23,6 +23,10 @@ namespace ArcaneOdyssey
 
 		public static bool CanDoubleTapDash()
 		{
+			if (ModLoader.HasMod("CalamityMod"))
+			{
+				return DashBind().GetAssignedKeys().Count == 0;
+			}
 			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 			{
 				return !(bool)fargos.Call("DoubleTapDashDisabled");
@@ -57,7 +61,7 @@ namespace ArcaneOdyssey
 				if (calamity.TryFind("CalamityPlayer", out ModPlayer modPlayer))
 				{
 					var dashid = modPlayer.GetType().GetProperty("DashID");
-					if (force || (string)dashid.GetValue(null) == "Default Dash")
+					if (force || (dashid.GetValue(modPlayer) is not null && (string)dashid.GetValue(modPlayer) == "Default Dash"))
 						dashid.SetValue(modPlayer, ID);
 				}
 			}

@@ -52,8 +52,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			var angle1 = velocity.ToRotation() + MathHelper.Pi / 8;
-			var angle2 = velocity.ToRotation() - MathHelper.Pi / 8;
+			float anglediv = 9;
+			var angle1 = velocity.ToRotation() + MathHelper.Pi / anglediv;
+			var angle2 = velocity.ToRotation() - MathHelper.Pi / anglediv;
 			Projectile.NewProjectile(source, position, angle1.ToRotationVector2() * Item.shootSpeed, type, damage, knockback, player.whoAmI);
 			Projectile.NewProjectile(source, position, angle2.ToRotationVector2() * Item.shootSpeed, type, damage, knockback, player.whoAmI);
 			player.ArcaneOdyssey().ItemCooldowns[Type] = 120;

@@ -222,6 +222,8 @@ namespace ArcaneOdyssey
 		{
 			dashing |= Player.solarDashing || Player.eocDash > 0;
 			DashSystem[] dashes = [Dash, Dash2];
+			if (Dash2 is not null)
+				ExternalModSupport.SetCalamityDash(Dash2.Name);
 			foreach (DashSystem dash in dashes)
 			{
 				if (dash is not null)
@@ -250,6 +252,7 @@ namespace ArcaneOdyssey
 				var dash = CurrentDash;
 				if (dashing && !Player.mount.Active && !Player.setSolar)
 				{
+					ExternalModSupport.SetCalamityDash(dash.Name, dash.AnyDirection);
 					DashLeft--;
 					Player.noFallDmg = true;
 
@@ -268,7 +271,6 @@ namespace ArcaneOdyssey
 					}
 					else if (dash.AnyDirection || FirstFrames)
 						Player.velocity = DashVelocity; // fly
-					ExternalModSupport.SetCalamityDash(dash.Name, dash.AnyDirection);
 					dash.DashEffect(Player);
 				}
 			}
