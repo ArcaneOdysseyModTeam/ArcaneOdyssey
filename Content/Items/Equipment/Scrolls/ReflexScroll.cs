@@ -66,6 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
+				SoundEngine.PlaySound(imbue.ImbueSound, player.MountedCenter);
 				player.DashPlayer().DashVelocity *= imbue.AOScrollSpeed;
 			}
 		}

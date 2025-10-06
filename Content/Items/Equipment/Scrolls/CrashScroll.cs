@@ -55,13 +55,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override bool OnHit(Player player, Entity target)
 		{
-			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
+			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), target.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(target.Center);
 			return true;
 		}
 		public override void OnEnd(Player player)
 		{
 			player.velocity = Vector2.Zero;
+			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 		}
 
 		public override float DashSpeed => 15;
@@ -129,6 +130,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				}
 			}
 			player.ArcaneOdyssey().timeTillNextMove += 15;
+			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 		}
 	}
 }

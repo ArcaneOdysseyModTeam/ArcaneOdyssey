@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
@@ -21,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => 1;
 		public override float AOSpeed => .925f;
 		public override float AODamage => 1.05f;
-		public override AORarities AORarity => AORarities.Common;
+		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
 		public override WeaponAbility Ability => new(Mod, "Whirlwind", "Spin your weapon around quickly, dealing damage surrouning enemies and holding yourself in place", Color.Orange);
 
@@ -47,6 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 				player.ArcaneOdyssey().ItemCooldowns[Type] = 60 + Whirlwind.MaxTime;
 				var proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
 				((Whirlwind)proj.ModProjectile).color = Color.Orange;
+				SoundEngine.PlaySound(Item.UseSound, player.Center);
 			}
 			return false;
 		}

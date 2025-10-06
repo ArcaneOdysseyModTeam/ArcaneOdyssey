@@ -148,6 +148,7 @@ Projectiles: {
 	Whirlwind.DisplayName: Whirlwind
 	BronzeTridentProjectile.DisplayName: Bronze Trident Projectile
 	BronzeStaffProjectile.DisplayName: Bronze Staff Projectile
+	MountainWind.DisplayName: Mountain Wind
 }
 
 ImbueStuff: {

@@ -45,16 +45,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.ai[1] = 1;
 				Projectile.netUpdate = true;
 			}
-			if (Projectile.frameCounter > 5)
+			if (Projectile.timeLeft % 6 == 0)
 			{
 				Projectile.frame++;
-				Projectile.frameCounter = 0;
-				if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+				SoundEngine.PlaySound(SoundID.Splash with { Pitch = -.25f }, Projectile.Center);
+				if (Projectile.frame >= Main.projFrames[Projectile.type])
 				{
 					Projectile.frame = 0;
 				}
 			}
-			Projectile.frameCounter++;
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
 			Projectile.rotation = Projectile.velocity.ToRotation();

@@ -32,11 +32,11 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.consumable = true;
 		}
 
-		public override void AddRecipes() // only exists in debug mode :)
+		public override void AddRecipes()
 		{
 			CreateRecipe().
-				AddIngredient(ItemID.CopperOre, 4).
-				AddIngredient(ItemID.TinOre, 4).
+				AddIngredient(ItemID.CopperOre, 2).
+				AddIngredient(ItemID.TinOre, 2).
 				AddTile(TileID.Hellforge).
 				Register();
 		}
