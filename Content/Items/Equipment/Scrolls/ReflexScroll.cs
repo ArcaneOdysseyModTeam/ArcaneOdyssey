@@ -81,6 +81,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				imbue.LingeringEffects(player);
+				player.gravity = 0f;
+				player.position.Y -= 0.6f * player.velocity.Y;
 			} 
 		}
 
