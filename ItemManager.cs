@@ -102,12 +102,12 @@ namespace ArcaneOdyssey
 				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
 				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
 				itemLoot.Add(leadingConditionRule2);
-				LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
-				leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
-				itemLoot.Add(leadingConditionRule3);
-				LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
-				leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
-				itemLoot.Add(leadingConditionRule4);
+				//LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
+				//leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
+				//itemLoot.Add(leadingConditionRule3);
+				//LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
+				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
+				//itemLoot.Add(leadingConditionRule4);
 			}
 			LeadingConditionRule AcrimonyCondition = new(new Conditions.NotBeesSeed());
 			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000), true);
