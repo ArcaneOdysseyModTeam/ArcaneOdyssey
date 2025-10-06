@@ -78,6 +78,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			gore.Centre(player.MountedCenter + player.velocity);
 			player.DashPlayer().StartDash(new Smash(), 2);
 		}
+
+		public override void OnStart(Player player)
+		{
+			if (player.TryGetImbue(out Imbuable imbue))
+			{
+				player.DashPlayer().DashVelocity *= imbue.AOScrollSpeed;
+			}
+		}
 	}
 
 	public class Smash : DashSystem
@@ -93,6 +101,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override int DashMax => 99999;
 		public override float Knockback => 0;
 		public override bool Immune => true;
+
+		public override void OnStart(Player player)
+		{
+			if (player.TryGetImbue(out Imbuable imbue))
+			{
+				player.DashPlayer().DashVelocity *= imbue.AOScrollSpeed;
+			}
+		}
 		public override bool OnHit(Player player, Entity target)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
