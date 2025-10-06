@@ -22,7 +22,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void SetDefaults()
 		{
-			Projectile.width =  Projectile.height = 64;
+			Projectile.width = 96;
+			Projectile.height = 96;
 			Projectile.alpha = (int)(225 * .75f);
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
@@ -70,8 +71,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					Dust.NewDust(Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f), 1, 1, DustID.Water, 50f * (0.5f - rnd.NextSingle()), 50f * (0.7f - rnd.NextSingle()), 1, default, 1.3f);
 				}
 				//Spiral Dust
-				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Sin(FramesAlive * 150) * 100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, Projectile.scale);
-				Dust.NewDustPerfect(Vector2.Normalize(new Vector2(-1f, -1f / (Projectile.velocity.Y / Projectile.velocity.X) - (-2f / (Projectile.velocity.X / Projectile.velocity.Y)))) * ((float)Math.Cos(FramesAlive * 150) * -100f) + (Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f)), DustID.Water_Jungle, new Vector2(0f, 0f), 1, default, Projectile.scale);
+				float waveVal = (float)Math.Sin(Main.GameUpdateCount)*50f;
+				Vector2 baseVec = new(0f, waveVal);
+				Dust spawnedDust = Dust.NewDustPerfect(Projectile.position + (baseVec.RotatedBy(Projectile.velocity.ToRotation())) + new Vector2(Projectile.width / 2f, Projectile.height / 2f), DustID.Water_Jungle, new Vector2(0f, 0f), 255, default, 3f);
+				spawnedDust.noGravity = true;
+				float waveVal2 = (float)Math.Cos(Main.GameUpdateCount)*50f;
+				Vector2 baseVec2 = new(0f, waveVal);
+				Dust spawnedDust2 = Dust.NewDustPerfect(Projectile.position + (baseVec2.RotatedBy(Projectile.velocity.ToRotation())) + new Vector2(Projectile.width / 2f, Projectile.height / 2f), DustID.Water_Jungle, new Vector2(0f, 0f), 255, default, 3f);
+				spawnedDust2.noGravity = true;
 			}
 		}
 	}
