@@ -64,17 +64,13 @@ namespace ArcaneOdyssey
 	}
 
 
-	public class AOPlayer : ModPlayer
+	public partial class AOPlayer : ModPlayer
 	{
 		public Imbuable imbue = null;
 		public bool chargingSpell = false;
-
 		public int AOSizeStat = 0;
-
 		public Projectile myCircle = null;
-		public bool RightClicking => Player.altFunctionUse == 2;
 		public int timeTillNextMove = 0;
-
 		public Dictionary<string, int> Cooldowns = [];
 		public Dictionary<int, int> BuffCooldowns = [];
 		public Dictionary<int, int> ItemCooldowns = [];
@@ -99,25 +95,18 @@ namespace ArcaneOdyssey
 			else return [];
 		}
 
-		public override void PreUpdateMovement()
-		{
-			if (CompletelyFrozen)
-			{
-				Player.velocity = Vector2.Zero;
-				Player.maxFallSpeed = 0f;
-			}
-		}
-
 		public override void PostUpdate()
 		{
 			if (chargingSpell)
 				Player.statDefense *= .75f;
 			chargingSpell = false;
+			DashStrike();
 		}
 
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
+			HandleDashing();
 		}
 
 		public float GetSizeMulti(Item item = null)

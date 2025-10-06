@@ -47,6 +47,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			return BeforeBottleJumps;
 		}
+		public override void ShowVisuals(Player player)
+		{
+			player.Imbue().LingeringEffects(player);
+		}
 
 		public override float GetDurationMultiplier(Player player) => player.Imbue().AOScrollSize * 2;
 
@@ -65,21 +69,16 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void OnStarted(Player player, ref bool playSound)
 		{
-			player.ChangeDir((player.velocity.X > 0).ToDirectionInt());
-			if (player.Imbue() is AOMagic)
-			{
-				var item = new Item(ModContent.ItemType<LeapScroll>());
-				item.ArcaneOdyssey().imbue = player.Imbue();
-				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
-				for (int i = 0; i < 5; i++)
-					player.Imbue().ExplosionEffects(proj);
-			}
+			//player.ChangeDir((player.oldVelocity.SafeNormalize(Vector2.UnitX * player.direction).X > 0).ToDirectionInt());
+			var item = new Item(ModContent.ItemType<LeapScroll>());
+			item.ArcaneOdyssey().imbue = player.Imbue();
+			var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
+			for (int i = 0; i < 5; i++)
+				player.Imbue().ExplosionEffects(proj);
 
-			if (player.Imbue().ImbueSound.HasValue)
-			{
-				SoundEngine.PlaySound(player.Imbue().ImbueSound, player.Bottom);
-				playSound = false;
-			}
+
+			SoundEngine.PlaySound(player.Imbue().ImbueSound, proj.Center);
+			playSound = !player.Imbue().ImbueSound.HasValue;
 			// vfx here
 		}
 	}

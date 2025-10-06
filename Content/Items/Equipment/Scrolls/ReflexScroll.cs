@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				Item.color = imbue.ImbueColour;
-				player.DashPlayer().SetDash(new Reflex());
+				player.ArcaneOdyssey().SetDash(new Reflex());
 			}
 			else Item.color = Color.Transparent;
 
@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				SoundEngine.PlaySound(imbue.ImbueSound, player.MountedCenter);
-				player.DashPlayer().DashVelocity *= imbue.AOScrollSpeed;
+				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
 			}
 		}
 

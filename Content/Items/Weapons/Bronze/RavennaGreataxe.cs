@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 				var dash = new Devastate();
 				if (!dash.OnCooldown(player))
 				{
-					player.DashPlayer().StartDash(dash, 2);
+					player.ArcaneOdyssey().StartDash(dash, 2);
 				}
 			}
 			return null;

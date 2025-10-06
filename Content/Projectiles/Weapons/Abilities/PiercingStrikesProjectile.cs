@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.friendly = true;
 			Projectile.DamageType = TrueMeleeNoSpeed();
 			Projectile.penetrate = -1;
+			Projectile.timeLeft = 35;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.ownerHitCheck = true;
@@ -39,7 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 				Projectile.velocity.Normalize();
 			}
-			Projectile.Center = aoPlayerOwner.Player.HandPosition.GetValueOrDefault(aoPlayerOwner.Player.MountedCenter) + (Projectile.velocity * 10);
+			Projectile.Center = aoPlayerOwner.Player.HandPosition.GetValueOrDefault(aoPlayerOwner.Player.MountedCenter) + (Projectile.velocity * 15);
 			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 			aoPlayerOwner.Player.heldProj = Projectile.whoAmI;
 		}
@@ -60,7 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void OnStart(Player player)
 		{ 
-			projectile.Projectile.velocity = player.DashPlayer().DashVelocity;
+			projectile.Projectile.velocity = player.ArcaneOdyssey().DashVelocity;
 			player.HeldItem.useStyle = ItemUseStyleID.Rapier;
 		}
 		public override void DashEffect(Player player)

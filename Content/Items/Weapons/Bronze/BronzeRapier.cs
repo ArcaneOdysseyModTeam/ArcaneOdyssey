@@ -23,6 +23,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.05f;
 		public override int AOValue => 40;
 		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AORarities AORarity => AORarities.Uncommon;
+
+		public override WeaponAbility Ability => new(Mod, "Piercing Strike", "Launch yourself towards the cursor, stabbing through any who cross your path");
 
 		public override void SetStaticDefaults()
 		{
@@ -67,14 +70,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override bool CanShoot(Player player)
 		{
-			return player.AltUse();
+			return player.AltUse() && player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			var shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
 			var dash = new PiercingStrikes { projectile = shot.ModProjectile };
-			player.DashPlayer().StartDash(dash);
+			player.ArcaneOdyssey().StartDash(dash);
 			return false;
 		}
 

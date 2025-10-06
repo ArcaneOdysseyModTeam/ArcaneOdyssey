@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.shoot = ModContent.ProjectileType<WoodenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
-			Item.UseSound = SoundID.Item1 with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
+			Item.UseSound = SoundID.Item1 with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;

@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			{
 				var dash = new RisingTide();
 				if (!dash.OnCooldown(player))
-					player.DashPlayer().StartDash(dash, -2);
+					player.ArcaneOdyssey().StartDash(dash, -2);
 			}
 			else if (!Main.dedServ) 
 			{
@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void DashEffect(Player player)
 		{
 			player.statDefense += 20;
-			if (player.DashPlayer().DashLeft%5 == 0)
+			if (player.ArcaneOdyssey().DashLeft%5 == 0)
 			{
 				player.direction *= -1;
 			}

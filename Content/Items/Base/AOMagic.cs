@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (magicToUse is AOMagic)
 			{
-				SoundEngine.PlaySound(SoundID.Item84 with { Pitch=magicToUse.AOScrollSpeed.MultiToPercent().PitchPerfect() });
+				SoundEngine.PlaySound(SoundID.Item84 with { Pitch=magicToUse.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) });
 				if (item.ModItem is AOMagic)
 				{
 					return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 1, 0, magicToUse.Type)];

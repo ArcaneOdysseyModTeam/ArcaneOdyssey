@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
-            Item.UseSound = SoundID.SplashWeak with { Pitch = AOSpeed.MultiToPercent().PitchPerfect() };
+            Item.UseSound = SoundID.SplashWeak with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
             Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
             Item.noUseGraphic = true;

@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (playah.imbue is FightingStyle)
 			{
 				Item.color = playah.imbue.ImbueColour;
-				player.DashPlayer().SetDash(new Crash());
+				player.ArcaneOdyssey().SetDash(new Crash());
 			}
 			else Item.color = Color.Transparent;
 
@@ -82,14 +82,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(player.MountedCenter + player.velocity);
-			player.DashPlayer().StartDash(new Smash(), 2);
+			player.ArcaneOdyssey().StartDash(new Smash(), 2);
 		}
 
 		public override void OnStart(Player player)
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
-				player.DashPlayer().DashVelocity *= imbue.AOScrollSpeed;
+				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
 			}
 		}
 	}
@@ -112,7 +112,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
-				player.DashPlayer().DashVelocity *= imbue.AOScrollSpeed;
+				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
 			}
 		}
 		public override bool OnHit(Player player, Entity target)

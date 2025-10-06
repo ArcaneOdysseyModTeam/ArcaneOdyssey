@@ -80,9 +80,9 @@ namespace ArcaneOdyssey
 		public bool OnCooldown(Player player)
 		{
 			if (AnyDirection)
-				return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) || player.DashPlayer().dashing;
+				return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) || player.ArcaneOdyssey().dashing;
 			else
-				return player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.DashPlayer().dashing;
+				return player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.ArcaneOdyssey().dashing;
 		}
 
 		/// <summary>
@@ -122,7 +122,7 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class DashPlayer : ModPlayer 
+	public partial class AOPlayer : ModPlayer 
 	{
 		public void SetDash(DashSystem dash)
 		{
@@ -144,7 +144,42 @@ namespace ArcaneOdyssey
 		public int collisions;
 		private int? DashDir;
 
-		public override void ResetEffects()
+		public bool FirstFrames;
+		/// <summary>
+		/// Starts a dash, does not check for cooldowns
+		/// </summary>
+		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
+		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
+		public void StartDash(DashSystem dashToUse, int direction = 0)
+		{
+			Player.timeSinceLastDashStarted = 0;
+			CurrentDash = dashToUse;
+			FirstFrames = true;
+			collisions = 0;
+			ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
+			if (dashToUse.AnyDirection && direction == 0)
+			{
+				DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
+			}
+			else
+			{
+				var standard = Vector2.UnitX;
+				if (direction == 2 || direction == -2)
+				{
+					standard = Vector2.UnitY * (direction/2f);
+				}
+				else
+				{ 
+					standard *= direction; 
+				}
+				DashVelocity = standard * dashToUse.DashSpeed;
+			}
+			DashLeft = dashToUse.DashMax;
+			dashToUse.OnStart(Player);
+			dashing = true;
+		}
+
+		public void HandleDashing()
 		{
 			if (!dashing)
 			{
@@ -183,47 +218,18 @@ namespace ArcaneOdyssey
 			else DashDir = null;
 		}
 
-		public bool FirstFrames;
-		/// <summary>
-		/// Starts a dash, does not check for cooldowns
-		/// </summary>
-		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
-		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
-		public void StartDash(DashSystem dashToUse, int direction = 0)
-		{
-			Player.timeSinceLastDashStarted = 0;
-			CurrentDash = dashToUse;
-			FirstFrames = true;
-			collisions = 0;
-			ExternalModSupport.SetCalamityDash(dashToUse.Name, dashToUse.AnyDirection);
-			if (dashToUse.AnyDirection && direction == 0)
-			{
-				DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
-			}
-			else
-			{
-				var standard = Vector2.UnitX;
-				if (direction == 2 || direction == -2)
-				{
-					standard = Vector2.UnitY * (direction/2f);
-				}
-				else
-				{ 
-					standard *= direction; 
-				}
-				DashVelocity = standard * dashToUse.DashSpeed;
-			}
-			DashLeft = dashToUse.DashMax;
-			dashToUse.OnStart(Player);
-			dashing = true;
-		}
-
 		public override void PreUpdateMovement()
 		{
+			if (CompletelyFrozen)
+			{
+				Player.velocity = Vector2.Zero;
+				Player.maxFallSpeed = 0f;
+			}
 			dashing |= Player.solarDashing || Player.eocDash > 0;
+			dashing &= !Immobile;
 			DashSystem[] dashes = [Dash, Dash2];
 			if (Dash2 is not null)
-				ExternalModSupport.SetCalamityDash(Dash2.Name);
+				ExternalModSupport.SetCalamityDash(Dash2.Name, Player);
 			foreach (DashSystem dash in dashes)
 			{
 				if (dash is not null)
@@ -252,7 +258,7 @@ namespace ArcaneOdyssey
 				var dash = CurrentDash;
 				if (dashing && !Player.mount.Active && !Player.setSolar)
 				{
-					ExternalModSupport.SetCalamityDash(dash.Name, dash.AnyDirection);
+					ExternalModSupport.SetCalamityDash(dash.Name, Player, dash.AnyDirection);
 					DashLeft--;
 					Player.noFallDmg = true;
 
@@ -282,13 +288,13 @@ namespace ArcaneOdyssey
 			Player.eocDash = DashLeft;
 		}
 
-		public override void PostUpdate()
+		public void DashStrike()
 		{
 			if (Dash is not null && dashing) 
 			{
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
-					if (npc.Hitbox.Distance(Player.Center) <= Player.defaultHeight/2f)
+					if (npc.Hitbox.Intersects(Player.Hitbox))
 					{
 						collisions++;
 						if (Dash.OnHit(Player, npc))

@@ -57,14 +57,7 @@ namespace ArcaneOdyssey
 			return DamageClass.MeleeNoSpeed;
 		}
 
-		public static float PitchPerfect(this float num)
-		{
-			if (num > 1)
-				num = 1;
-			if (num < -1)
-				num = -1;
-			return num;
-		}
+		public static float Clamp(this float num, float min, float max) => MathHelper.Clamp(num, min, max);
 
 		public static List<Imbuable> GetAllImbues(this Player owner)
 		{
@@ -545,7 +538,6 @@ namespace ArcaneOdyssey
 		}
 
 		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
-		public static DashPlayer DashPlayer(this Player player) => player.GetModPlayer<DashPlayer>();
 		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
 		public static AOProjectile ArcaneOdyssey(this Projectile projectile) => projectile.GetGlobalProjectile<AOProjectile>();
 		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
