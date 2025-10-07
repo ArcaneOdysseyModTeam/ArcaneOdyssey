@@ -24,7 +24,8 @@ namespace ArcaneOdyssey
 		public float StunDuration = 1;
 
 		public bool Bleeding = false;
-		public bool Scalding = true;
+		public bool Scalding = false;
+		public bool Seared = false;
 
 		public bool AOStunned = false;
 
@@ -50,6 +51,7 @@ namespace ArcaneOdyssey
 			}
 			Bleeding = false;
 			Scalding = false;
+			Seared = false;
         }
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -60,6 +62,9 @@ namespace ArcaneOdyssey
 			}
 			if (Scalding)
 			{
+				npc.lifeRegen -= 4;
+			}
+			if (Seared) {
 				npc.lifeRegen -= 4;
 			}
         }
@@ -88,15 +93,7 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
-			if (npc.type == NPCID.MoonLordCore)
-			{
-				LeadingConditionRule leadingConditionRule = new(new FirstMoonLordKill());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AncientHecateOrb>()));
-				npcLoot.Add(leadingConditionRule);
-			}
-			LeadingConditionRule AcrimonyCondition = new(new Conditions.NotBeesSeed());
-			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000), true);
-			npcLoot.Add(AcrimonyCondition);
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 		}
 	}
 }

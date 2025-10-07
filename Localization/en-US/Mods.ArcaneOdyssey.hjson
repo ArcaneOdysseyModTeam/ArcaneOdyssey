@@ -99,6 +99,11 @@ Buffs: {
 		DisplayName: Ionized
 		Description: Your skin burns and glows green
 	}
+
+	SearedEffect: {
+		DisplayName: Seared Effect
+		Description: Mods.ArcaneOdyssey.Buffs.SearedEffect.Description
+	}
 }
 
 Projectiles: {
