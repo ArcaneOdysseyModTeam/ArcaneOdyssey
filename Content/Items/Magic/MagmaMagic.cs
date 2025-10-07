@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Burning, 1.075f),
 				new MagicBuffMultiplier(BuffID.Poisoned, 1.05f),
 				new MagicBuffMultiplier(BuffID.Slimed,1.075f),
-new MagicBuffMultiplier(BuffID.Oiled,1.075f),
+				new MagicBuffMultiplier(BuffID.Oiled,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), .95f),
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), .99f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), 1.1f),
@@ -60,7 +60,8 @@ new MagicBuffMultiplier(BuffID.Oiled,1.075f),
 				new MagicBuffMultiplier(BuffID.Wet, .95f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.1f),
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.075f)
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.1f)
 			]
 			);
 			

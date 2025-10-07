@@ -41,8 +41,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				ModContent.BuffType<FreezingEffect>(),
 				BuffID.OnFire3,
 				BuffID.ShadowFlame,
-				ModContent.BuffType<AOScalding>()
-			], 
+				ModContent.BuffType<AOScalding>(),
+				ModContent.BuffType<SearedEffect>()
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.8f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.05f),
@@ -52,7 +53,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.1f),
 				new MagicBuffMultiplier(BuffID.OnFire3,0.9f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,0.8f),
-				new MagicBuffMultiplier(BuffID.Wet,1.1f)
+				new MagicBuffMultiplier(BuffID.Wet,1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),0.8f)
 			]
 			);
 		public override void SpawningEffects(Entity projectile) 

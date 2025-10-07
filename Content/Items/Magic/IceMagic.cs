@@ -56,9 +56,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire, .9f), // burning
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), .9f), // charred
 				new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
-				new MagicBuffMultiplier(BuffID.ShadowFlame, 1.15f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame, 0.8f),
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.1f),
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),0.8f)
 			]
 			);
 		public override void SpawningEffects(Entity projectile) 

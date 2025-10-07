@@ -50,7 +50,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.9f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
 				new MagicBuffMultiplier(BuffID.Wet,0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f)
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);
 			public override void SpawningEffects(Entity projectile) 

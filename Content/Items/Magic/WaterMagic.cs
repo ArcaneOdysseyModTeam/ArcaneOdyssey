@@ -37,8 +37,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Venom,
 				BuffID.OnFire3,
 				BuffID.ShadowFlame,
-				ModContent.BuffType<AOScalding>()
-			], 
+				ModContent.BuffType<AOScalding>(),
+				ModContent.BuffType<SearedEffect>()
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.85f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.05f),
@@ -49,7 +50,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.OnFire3,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.8f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,0.7f),
-				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),1.1f)
+				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),0.7f)
 			]
 		);
 
