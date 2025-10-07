@@ -19,11 +19,18 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 	{
 		public override Color ImbueColour => Color.White;
 
-		public override float AOImbueDamage => 1.075f;
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.06f;
-		public override float AOScrollDamage => .925f;
+		public override float AOImbueDamage => 0.9f;
+		public override float AOImbueSpeed => 1.2f;
+		public override float AOImbueSize => 1.056f;
+		public override float AOScrollDamage => .8f;
 		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
+		public override float AOScrollSpeed => 1.2f;
+
+		public override SynergyEffects Effects => new(
+			[],
+			[
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.15f)
+			]
+		);
 	}
 }
