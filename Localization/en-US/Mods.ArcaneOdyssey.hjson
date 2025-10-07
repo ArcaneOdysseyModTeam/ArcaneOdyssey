@@ -12,6 +12,7 @@ Bestiary: {
 
 MenuStyle: Odyssey Style
 AltMenuStyle: Dark Sea Style
+SpiritDamage: Spirit damage
 
 Buffs: {
 	RisenTide: {

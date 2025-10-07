@@ -386,48 +386,21 @@ namespace ArcaneOdyssey
 		/// <param name="debuffid">Terraria.ID.BuffID</param>
 		/// <param name="duration">Duration, in ticks (60/second)</param>
 		/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
-		public class AODebuffRequirement(int debuffid, int duration, int? debuffRequiement = null)
+		public struct AODebuffRequirement(int debuffid, int duration, int debuffRequiement = 0)
 		{
+			public int debuffPercent = debuffRequiement/100;
 			public int debuffID = debuffid;
 			public int debuffDuration = duration;
-			public int? DebuffPercent
-			{
-				get
-				{
-					if (debuffRequiement is not null)
-						return debuffRequiement / 100;
-					return null;
-				}
-			}
 		}
 
 		/// <summary>
 		/// Magic status effects
 		/// </summary>
-		public class SynergyEffects
+		public struct SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
 		{
-			public List<int> clearBuffs = [];
-			public MagicBuffMultiplier[] magicBuffMultipliers = [];
-
-			/// <param name="buffsToClear">Must be int or ModBuff, ignores all else</param>
-			public SynergyEffects(object[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
-			{
-				foreach (var buff in buffsToClear)
-				{
-					if (buff is int buffid)
-					{
-						clearBuffs.Add(buffid);
-					}
-					else if (buff is ModBuff modBuff)
-					{
-						clearBuffs.Add(modBuff.Type);
-					}
-				}
-				magicBuffMultipliers = buffMultipliers;
-			}
-
-
-			public float MultiFromID(int id)
+			public List<int> clearBuffs = [.. buffsToClear];
+			public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;
+			public readonly float MultiFromID(int id)
 			{
 				foreach (MagicBuffMultiplier multiplier in magicBuffMultipliers)
 				{
@@ -444,12 +417,12 @@ namespace ArcaneOdyssey
 		{
 			if (newCentre.HasValue)
 			{
-				gore.position.X = newCentre.Value.X - gore.Width / 2;
-				gore.position.Y = newCentre.Value.Y - gore.Height / 2;
+				gore.position.X = (newCentre.Value.X - gore.Width * gore.scale / 2);
+				gore.position.Y = (newCentre.Value.Y - gore.Height * gore.scale / 2);
 				return gore.position;
 			}
 			else
-				return new Vector2(gore.position.X - (gore.Width / 2), gore.position.Y - (gore.Height / 2));
+				return new Vector2(gore.position.X - (gore.Width * gore.scale / 2), gore.position.Y - (gore.Height * gore.scale / 2));
 		}
 
 		/// <summary>
@@ -458,7 +431,7 @@ namespace ArcaneOdyssey
 		/// <param name="requirement"></param>
 		/// <param name="result"></param>
 		/// <param name="duration"></param>
-		public class CombinedDebuff(int requirement, int result, int duration = 60)
+		public struct CombinedDebuff(int requirement, int result, int duration = 60)
 		{
 			public int requirement = requirement;
 			public int result = result;
@@ -470,21 +443,10 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="buffid">Terraria.ID.BuffID</param>
 		/// <param name="multi">Damage multipier (ex. 1.25f)</param>
-		public class MagicBuffMultiplier
+		public struct MagicBuffMultiplier(int buffid, float multi)
 		{
-			public MagicBuffMultiplier(int buffid, float multi)
-			{
-				buffID = buffid;
-				multiplier = multi;
-			}
-			public MagicBuffMultiplier(ModBuff buff, float multi)
-			{
-				buffID = buff.Type;
-				multiplier = multi;
-			}
-
-			public int buffID;
-			public float multiplier;
+			public int buffID = buffid;
+			public float multiplier = multi;
 		}
 
 		/// <summary>

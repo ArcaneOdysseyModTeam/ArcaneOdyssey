@@ -27,9 +27,9 @@ namespace ArcaneOdyssey
 		{
 			if (item.ModItem is AORangedOrMeleeWeapon weap)
 			{
-				if (weap.WeaponDebuff is not null && (weap.WeaponDebuff.DebuffPercent is null or 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.DebuffPercent)))
+				if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
 				{
-					target.AddBuff(weap.WeaponDebuff.debuffID, weap.WeaponDebuff.debuffDuration);
+					target.AddBuff(weap.WeaponDebuff.Value.debuffID, weap.WeaponDebuff.Value.debuffDuration);
 				}
 			}
 
@@ -43,7 +43,7 @@ namespace ArcaneOdyssey
 
 				foreach (var debuff in imbue.ImbueDebuffs)
 				{
-					if (!debuff.DebuffPercent.HasValue || modifiers.GetDamage(item.damage, true) > (target.lifeMax / debuff.DebuffPercent.Value))
+					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(item.damage, true) > (target.lifeMax / debuff.debuffPercent))
 					{
 						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
 					}

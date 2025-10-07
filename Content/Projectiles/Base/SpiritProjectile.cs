@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
 using System.Linq;
@@ -13,11 +14,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 		public override void SetDefaults()
 		{
-			Projectile.DamageType = DamageClass.MagicSummonHybrid;
-			SetSpiritDefaults();
+			Projectile.DamageType = ModContent.GetInstance<SpiritDamage>();
 		}
-
-		public abstract void SetSpiritDefaults();
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{

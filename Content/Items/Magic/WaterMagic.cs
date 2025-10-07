@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => 0.9f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-		public override AODebuffRequirement ImbueDebuff => new AODebuffRequirement(BuffID.Wet, 60*10);
+		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(BuffID.Wet, 60*10)];
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				BuffID.OnFire,

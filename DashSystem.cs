@@ -337,7 +337,7 @@ namespace ArcaneOdyssey
 
 				foreach (var debuff in imbue.ImbueDebuffs) 
 				{
-					if (!debuff.DebuffPercent.HasValue || modifiers.GetDamage(CurrentDash.Damage) > (target.lifeMax / debuff.DebuffPercent.Value))
+					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(CurrentDash.Damage) > (target.lifeMax / debuff.debuffPercent))
 					{
 						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
 					}

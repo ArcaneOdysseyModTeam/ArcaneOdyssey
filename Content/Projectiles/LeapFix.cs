@@ -25,9 +25,6 @@ namespace ArcaneOdyssey.Content.Projectiles
             Main.player[Projectile.owner].direction = (int)Projectile.ai[0];
             Projectile.Kill();
         }
-        public override bool PreDraw(ref Color lightColor)
-        {
-            return false;
-        }
+        public override bool PreDraw(ref Color lightColor) => false;
 	}
 }

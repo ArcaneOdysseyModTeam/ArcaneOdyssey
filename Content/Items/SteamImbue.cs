@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items
 		public override float AOScrollSize => 1.15f;
 		public override float AOImbueSize => 1.1f;
 		public override float AOImbueSpeed => 1;
-		public override AODebuffRequirement ImbueDebuff => new(ModContent.BuffType<AOScalding>(), 60*10);
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOScalding>(), 60*10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 
 		public Imbuable originalImbue;

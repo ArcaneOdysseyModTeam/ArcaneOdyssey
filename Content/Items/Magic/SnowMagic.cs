@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.925f;
-		public override AODebuffRequirement ImbueDebuff => new AODebuffRequirement(ModContent.BuffType<SnowyEffect>(), 60*10);
+		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<SnowyEffect>(), 60*10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()),new(ModContent.BuffType<FreezingEffect>(),ModContent.BuffType<AOFrozen>())];
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit

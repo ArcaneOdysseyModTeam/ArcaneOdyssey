@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AOSize => .9f;
 		public override float AODamage => 1.1f;
 		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AODebuffRequirement? Debuff => null;
 
 		public override void SetDefaults()
 		{
