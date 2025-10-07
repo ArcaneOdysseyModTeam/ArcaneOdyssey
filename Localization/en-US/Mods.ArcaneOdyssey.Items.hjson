@@ -140,5 +140,9 @@ AncientHecateOrb: {
 
 ReflexScroll: {
 	DisplayName: Reflex Scroll
-	Tooltip: An ability which allows the user to channel their imbue to dash
+	Tooltip: 
+		'''
+		An ability which allows the user to channel their imbue to dash
+		Grants bonus defense to imbues with slow speed
+		'''
 }

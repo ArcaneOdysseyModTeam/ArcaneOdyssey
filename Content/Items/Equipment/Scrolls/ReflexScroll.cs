@@ -1,9 +1,11 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +73,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			}
 		}
 
+		public static float CalculateResistanceMulti(Player player) => player.Imbue().AOScrollSpeed.FlipFloat().Clamp(1, 2);
+
 		public override bool OnHit(Player player, Entity target)
 		{
 			return true;
@@ -85,7 +89,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				if (player.velocity.Y > 0) {
 					player.velocity.Y *= 0.9f;
 				}
-			} 
+				player.statDefense *= CalculateResistanceMulti(player);
+			}
 		}
 
 		public override float DashSpeed => 10;
