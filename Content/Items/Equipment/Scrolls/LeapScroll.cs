@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Projectiles;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
@@ -79,6 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 			SoundEngine.PlaySound(player.Imbue().ImbueSound, proj.Center);
 			playSound = !player.Imbue().ImbueSound.HasValue;
+			Projectile.NewProjectile(player.GetSource_FromThis(),player.position,Vector2.Zero,ModContent.ProjectileType<LeapFix>(),0,0,Main.myPlayer,player.direction);
 			// vfx here
 		}
 	}

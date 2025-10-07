@@ -150,6 +150,7 @@ Projectiles: {
 	BronzeStaffProjectile.DisplayName: Bronze Staff
 	MountainWind.DisplayName: Mountain Wind
 	PiercingStrikesProjectile.DisplayName: Bronze Rapier
+	LeapFix.DisplayName: Leap Fix
 }
 
 ImbueStuff: {
