@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 1.05f;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override AODebuffRequirement ImbueDebuff => new(ModContent.BuffType<Crystallized>(), 60*5);
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<Crystallized>(), 60*5)];
 		public override CombinedDebuff[] CombinedDebuffs => [];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
