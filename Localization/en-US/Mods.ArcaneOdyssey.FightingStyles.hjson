@@ -2,3 +2,38 @@ BasicCombat: {
 	DisplayName: Basic Combat
 	Tooltip: ""
 }
+
+Boxing: {
+	DisplayName: Boxing
+	Tooltip: ""
+}
+
+CannonFist: {
+	DisplayName: Cannon Fist
+	Tooltip: ""
+}
+
+IronLeg: {
+	DisplayName: Iron Leg
+	Tooltip: ""
+}
+
+PowderFist: {
+	DisplayName: Powder Fist
+	Tooltip: ""
+}
+
+SailorFist: {
+	DisplayName: Sailor Fist
+	Tooltip: ""
+}
+
+ThermoFist: {
+	DisplayName: Thermo Fist
+	Tooltip: ""
+}
+
+VanishingStyle: {
+	DisplayName: Vanishing Style
+	Tooltip: ""
+}
