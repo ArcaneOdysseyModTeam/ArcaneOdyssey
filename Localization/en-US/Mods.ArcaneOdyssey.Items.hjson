@@ -140,5 +140,10 @@ AncientHecateOrb: {
 
 ReflexScroll: {
 	DisplayName: Reflex Scroll
-	Tooltip: ""
+	Tooltip:
+	'''
+	An ability which allows the user to channel their magic or fighting style to dash
+	While dashing, you will fall much slower
+	Double tap A or D to dash
+	'''
 }
