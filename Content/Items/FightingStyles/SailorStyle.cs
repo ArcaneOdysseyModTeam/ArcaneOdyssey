@@ -16,7 +16,7 @@ using ArcaneOdyssey.Content.Buffs.Stuns;
 
 namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
-	public class SailorFist : FightingStyle
+	public class SailorStyle : FightingStyle
 	{
 		public override Color ImbueColour => Color.White;
 

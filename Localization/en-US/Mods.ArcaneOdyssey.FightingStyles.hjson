@@ -37,3 +37,8 @@ VanishingStyle: {
 	DisplayName: Vanishing Style
 	Tooltip: ""
 }
+
+SailorStyle: {
+	DisplayName: Sailor Style
+	Tooltip: ""
+}
