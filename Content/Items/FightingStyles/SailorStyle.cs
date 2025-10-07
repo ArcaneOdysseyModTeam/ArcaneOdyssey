@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollSpeed => 1f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[
 				ModContent.BuffType<SearedEffect>(),
