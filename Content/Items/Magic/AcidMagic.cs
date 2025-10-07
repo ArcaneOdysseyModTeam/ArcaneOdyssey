@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSize => 1.05f;
 		public override float AOScrollDamage => 0.875f;
         public override SoundStyle? ImbueSound => SoundID.Splash;
-		public override AODebuffRequirement ImbueDebuff => new(BuffID.Venom, 60*10);
+		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Venom, 60*10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>(),

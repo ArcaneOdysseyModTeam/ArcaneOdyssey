@@ -40,18 +40,12 @@ namespace ArcaneOdyssey
 					modifiers.FinalDamage += .3f;
 				}
 
-				if ((imbue.ImbueDebuff is not null) && (imbue.ImbueDebuff.DebuffPercent != 0f))
+
+				foreach (var debuff in imbue.ImbueDebuffs)
 				{
-					if (imbue.ImbueDebuff.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / imbue.ImbueDebuff.DebuffPercent))
+					if (!debuff.DebuffPercent.HasValue || modifiers.GetDamage(item.damage, true) > (target.lifeMax / debuff.DebuffPercent.Value))
 					{
-						target.AddBuff(imbue.ImbueDebuff.debuffID, imbue.ImbueDebuff.debuffDuration);
-					}
-				}
-				if ((imbue.ImbueDebuff2 is not null) && (imbue.ImbueDebuff2.DebuffPercent != 0f))
-				{
-					if (imbue.ImbueDebuff2.DebuffPercent is null || modifiers.GetDamage(item.damage, true) > (target.lifeMax / imbue.ImbueDebuff2.DebuffPercent))
-					{
-						target.AddBuff(imbue.ImbueDebuff2.debuffID, imbue.ImbueDebuff2.debuffDuration);
+						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
 					}
 				}
 

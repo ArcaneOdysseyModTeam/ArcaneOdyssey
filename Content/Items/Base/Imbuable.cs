@@ -47,12 +47,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOScrollSize => AOImbueSize;
 		public virtual float AOScrollDamage => AOImbueDamage;
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
-		public virtual AODebuffRequirement ImbueDebuff => null;
-
-		/// <summary>
-		/// used for having freezing and frozen on a single magic ect
-		/// </summary>
-		public virtual AODebuffRequirement ImbueDebuff2 => null;
+		public virtual AODebuffRequirement[] ImbueDebuffs => [];
+		public virtual AODebuffRequirement ImbueDebuff { get => ImbueDebuffs[0]; set => _ = ImbueDebuffs.Append(value); }
 		public virtual SynergyEffects Effects => new([], []);
 		public virtual Color ImbueColour => Color.Transparent;
 		public virtual CombinedDebuff[] CombinedDebuffs => [];

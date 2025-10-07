@@ -30,8 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollDamage => 2f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Custom;
         public override SoundStyle? ImbueSound => SoundID.Item20;
-        public override AODebuffRequirement ImbueDebuff => new AODebuffRequirement(ModContent.BuffType<AOPetrified>(),10*60);
-		public override AODebuffRequirement ImbueDebuff2 => new AODebuffRequirement(BuffID.OnFire3,10*60);
+        public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<AOPetrified>(),10*60), new AODebuffRequirement(BuffID.OnFire3,10*60)];
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				BuffID.Chilled, // freezing

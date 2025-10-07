@@ -1,5 +1,7 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
+using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
@@ -18,6 +20,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {
@@ -89,6 +92,7 @@ namespace ArcaneOdyssey
 		/// The speed of the dash per tick
 		/// </summary>
 		public abstract float DashSpeed { get; }
+		public virtual bool UseScrollImbue => true;
 
 
 		/// <summary>
@@ -177,6 +181,10 @@ namespace ArcaneOdyssey
 			DashLeft = dashToUse.DashMax;
 			dashToUse.OnStart(Player);
 			dashing = true;
+			if (dashToUse.Immune)
+			{
+				Player.immuneTime = dashToUse.DashMax;
+			}
 		}
 
 		public void HandleDashing()
@@ -290,33 +298,95 @@ namespace ArcaneOdyssey
 
 		public void DashStrike()
 		{
-			if (Dash is not null && dashing) 
+			if (CurrentDash is not null && dashing) 
 			{
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
 					if (npc.Hitbox.Intersects(Player.Hitbox))
 					{
 						collisions++;
-						if (Dash.OnHit(Player, npc))
+						if (CurrentDash.OnHit(Player, npc))
 						{
-							Dash.OnEnd(Player);
-							Dash.SetCooldown(Player);
+							CurrentDash.OnEnd(Player);
+							CurrentDash.SetCooldown(Player);
 							dashing = false;
 						}
 
-						if (Dash.Damage > 0 && npc.immune[Player.whoAmI] <= 0)
+						if (CurrentDash.Damage > 0 && npc.immune[Player.whoAmI] <= 0 && Main.myPlayer == Player.whoAmI)
 						{
-							npc.SimpleStrikeNPC(Dash.Damage, Player.direction, knockBack: Dash.Knockback, damageType: Dash.DamageType);
+							npc.SimpleStrikeNPC(DashDamage(npc), Player.direction, knockBack: CurrentDash.Knockback, damageType: CurrentDash.DamageType);
 							npc.immune[Player.whoAmI] = 2;
-						}
-
-						if (Dash.Immune)
-						{
-							Player.immuneTime = CurrentDash.DashMax;
 						}
 					}
 				}
 			}
+		}
+
+		public int DashDamage(NPC target)
+		{
+			var modifiers = new DashDamageHelper();
+			if (Player.TryGetImbue(out var imbue))
+			{
+				if (CurrentDash.UseScrollImbue)
+					modifiers.FinalDamage += imbue.AOScrollDamage.MultiToPercent();
+				else modifiers.FinalDamage += imbue.AOImbueDamage.MultiToPercent();
+				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				{
+					modifiers.FinalDamage += .3f;
+				}
+
+				foreach (var debuff in imbue.ImbueDebuffs) 
+				{
+					if (!debuff.DebuffPercent.HasValue || modifiers.GetDamage(CurrentDash.Damage) > (target.lifeMax / debuff.DebuffPercent.Value))
+					{
+						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
+					}
+				}
+
+				if (imbue.CombinedDebuffs is not null)
+				{
+					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+					{
+						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+					}
+				}
+
+				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				{
+					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+				}
+
+				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+				{
+					foreach (int buffid in imbue.Effects.clearBuffs)
+					{
+						if (target.HasBuff(buffid))
+						{
+							target.DelBuff(target.FindBuffIndex(buffid));
+						}
+					}
+				}
+			}
+
+			return modifiers.GetDamage(CurrentDash.Damage);
+		}
+	}
+
+	/// <summary>
+	/// used so i can copy paste code
+	/// </summary>
+	public struct DashDamageHelper()
+	{
+		public StatModifier FinalDamage = new();
+		public int GetDamage(int damage)
+		{
+			return FinalDamage.ApplyTo(damage).Round();
 		}
 	}
 }
