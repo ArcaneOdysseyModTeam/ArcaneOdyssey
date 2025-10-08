@@ -86,14 +86,14 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				var player = Main.player[projectile.owner].ArcaneOdyssey();
 				if (!player.Cooldowns.ContainsKey("CannonFistShot"))
 				{
-					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && projectile.DamageType.Name != "TrueMeleeDamageClass" && projectile.DamageType.Name != "TrueMeleeNoSpeedDamageClass" && projectile.ModProjectile is not Cannonball)
+					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && projectile.DamageType.Name != "TrueMeleeDamageClass" && projectile.DamageType.Name != "TrueMeleeNoSpeedDamageClass" && projectile.type != ProjectileID.CannonballFriendly)
 					{
 						if (player.Player.ConsumeItem(ItemID.Cannonball))
 						{
-							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<Cannonball>(), (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
+							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
 						}
 						else
-							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<Cannonball>(), (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
+							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
 						player.Cooldowns["CannonFistShot"] = 60;
 					}
 				}

@@ -245,6 +245,24 @@ namespace ArcaneOdyssey
 			}
 			return 1f;
 		}
+
+		//public override bool? UseItem(Item item, Player player)
+		//{
+		//	if (item.TryGetImbue(out var imbue))
+		//	{
+		//		imbue.LingeringEffects(item);
+		//	}
+		//	return base.UseItem(item, player);z
+		//}
+
+		//public override void UseAnimation(Item item, Player player)
+		//{
+		//	if (item.TryGetImbue(out var imbue))
+		//	{
+		//		imbue.SpawningEffects(item);
+		//	}
+		//	base.UseAnimation(item, player);
+		//}
 	}
 
 	public class AOItem : GlobalItem

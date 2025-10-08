@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					dust1.noLight = true;
 					dust1.noGravity = true;
 					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * 20;
-					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, dust, Projectile.velocity, 150, Scale: .5f);
+					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, dust, Vector2.Zero, 150, Scale: .5f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
 				}
