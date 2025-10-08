@@ -94,7 +94,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				if (npc.Hitbox.Distance(player.MountedCenter) < 100f * 1.025f * 2f && !npc.friendly && npc.immune[player.whoAmI] <= 0)
 				{
-					npc.SimpleStrikeNPC(player.ArcaneOdyssey().DashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: Knockback, damageType: DamageType);
+					npc.SimpleStrikeNPC(player.ArcaneOdyssey().CalculateDashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: player.ArcaneOdyssey().CalculateDashKnockback(), damageType: DamageType);
 				}
 			}
 			if (player.TryGetImbue(out var imbue))

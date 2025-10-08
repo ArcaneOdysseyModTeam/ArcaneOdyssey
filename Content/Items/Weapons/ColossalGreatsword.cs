@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -61,6 +62,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override bool AltFunctionUse(Player player)
 		{
 			return CanUseItem(player);
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<RavennaGreatsword>().AddIngredient(ItemID.BreakerBlade).Register(); // temporary
 		}
 	}
 }

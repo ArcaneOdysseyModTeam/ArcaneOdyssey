@@ -187,11 +187,7 @@ namespace ArcaneOdyssey
 			if (item.TryGetImbue(out Imbuable imbue))
 			{
 				var extrakbmulti = 1;
-				if (imbue is WindMagic)
-				{
-					extrakbmulti = 3;
-				}
-				if (imbue is Boxing)
+				if (imbue is WindMagic or Boxing)
 				{
 					extrakbmulti = 3;
 				}
