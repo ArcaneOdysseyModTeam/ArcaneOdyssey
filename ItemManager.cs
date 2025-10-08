@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items.FightingStyles;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Vanity;
 using Microsoft.Xna.Framework;
@@ -190,7 +191,10 @@ namespace ArcaneOdyssey
 				{
 					extrakbmulti = 3;
 				}
-
+				if (imbue is Boxing)
+				{
+					extrakbmulti = 3;
+				}
 				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
 				{
 					knockback += imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
