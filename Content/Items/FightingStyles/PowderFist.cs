@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60*10)];
 		public override SynergyEffects Effects => new(
 			[],
 			[
