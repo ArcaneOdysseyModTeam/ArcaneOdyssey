@@ -5,17 +5,17 @@ BasicCombat: {
 
 Boxing: {
 	DisplayName: Boxing
-	Tooltip: ""
+	Tooltip: A fighting style utilizing gloved fists, with a focus on speed and sending opponents flying
 }
 
 CannonFist: {
 	DisplayName: Cannon Fist
-	Tooltip: ""
+	Tooltip: A fighting style that involves throwing cannonballs with tremendous strength
 }
 
 IronLeg: {
 	DisplayName: Iron Leg
-	Tooltip: ""
+	Tooltip: A Fighting Style that involves training the legs to endure tremendous force, allowing the user to kick with great power
 }
 
 PowderFist: {
@@ -25,12 +25,12 @@ PowderFist: {
 
 SailorFist: {
 	DisplayName: Sailor Fist
-	Tooltip: ""
+	Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
 }
 
 ThermoFist: {
 	DisplayName: Thermo Fist
-	Tooltip: ""
+	Tooltip: A fighting style that focuses on building up adrenaline and heat to deliver fast, burning-hot strikes
 }
 
 VanishingStyle: {
@@ -40,5 +40,5 @@ VanishingStyle: {
 
 SailorStyle: {
 	DisplayName: Sailor Style
-	Tooltip: ""
+	Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
 }
