@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
+using ArcaneOdyssey.Content.Items.FightingStyles;
 using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
@@ -314,7 +315,7 @@ namespace ArcaneOdyssey
 
 						if (CurrentDash.Damage > 0 && npc.immune[Player.whoAmI] <= 0 && Main.myPlayer == Player.whoAmI)
 						{
-							npc.SimpleStrikeNPC(DashDamage(npc), Player.direction, knockBack: CurrentDash.Knockback, damageType: CurrentDash.DamageType);
+							npc.SimpleStrikeNPC(CalculateDashDamage(npc), Player.direction, knockBack: CalculateDashKnockback(), damageType: CurrentDash.DamageType);
 							npc.immune[Player.whoAmI] = 2;
 						}
 					}
@@ -322,7 +323,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public int DashDamage(NPC target)
+		public int CalculateDashDamage(NPC target)
 		{
 			var modifiers = new DashDamageHelper();
 			if (Player.TryGetImbue(out var imbue))
@@ -375,6 +376,29 @@ namespace ArcaneOdyssey
 			}
 
 			return modifiers.GetDamage(CurrentDash.Damage);
+		}
+
+		public float CalculateDashKnockback()
+		{
+			var knockback = 1f;
+			if (this.TryGetImbue(out Imbuable imbue))
+			{
+				var extrakbmulti = 1;
+				if (imbue is WindMagic or Boxing)
+				{
+					extrakbmulti = 3;
+				}
+
+				if (CurrentDash.UseScrollImbue)
+				{
+					knockback += imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
+				}
+				else
+				{
+					knockback += imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
+				}
+			}
+			return knockback * CurrentDash.Knockback;
 		}
 	}
 

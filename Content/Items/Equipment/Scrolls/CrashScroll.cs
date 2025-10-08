@@ -143,7 +143,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			{
 				if (npc.Hitbox.Distance(player.MountedCenter) < Player.defaultHeight * 2 && !npc.friendly && npc.immune[player.whoAmI] <= 0)
 				{
-					npc.SimpleStrikeNPC(player.ArcaneOdyssey().DashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: Knockback, damageType: DamageType);
+					npc.SimpleStrikeNPC(player.ArcaneOdyssey().CalculateDashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: player.ArcaneOdyssey().CalculateDashKnockback(), damageType: DamageType);
 				}
 			}
 			player.ArcaneOdyssey().timeTillNextMove += 15;
