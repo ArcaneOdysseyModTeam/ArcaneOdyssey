@@ -87,7 +87,7 @@ ExplosionScroll: {
 
 BronzeBar: {
 	DisplayName: Bronze Bar
-	Tooltip: A bar made from a sturdy alloy, it can make some useful gear
+	Tooltip: ""
 }
 
 SteamImbue: {

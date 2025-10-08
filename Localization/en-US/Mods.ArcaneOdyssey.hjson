@@ -158,6 +158,7 @@ Projectiles: {
 	PiercingStrikesProjectile.DisplayName: Bronze Rapier
 	LeapFix.DisplayName: Leap Fix
 	PowderExplosion.DisplayName: Powder Explosion
+	PiercingGale.DisplayName: Piercing Gale
 }
 
 ImbueStuff: {

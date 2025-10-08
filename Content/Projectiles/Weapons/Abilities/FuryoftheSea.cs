@@ -26,7 +26,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.height = 96;
 			Projectile.alpha = (int)(225 * .75f);
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 			Projectile.knockBack = 4.5f;
 			Projectile.timeLeft = 60;
 			Projectile.friendly = true;
@@ -40,10 +39,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		}
 		public override void AI()
 		{
-			// projectile.ai[0] is the spin speed
-			if (Projectile.ai[1] == 0)
+			if (Projectile.ai[0] == 0)
 			{
-				Projectile.ai[1] = 1;
+				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
 			}
 			if (Projectile.timeLeft % 6 == 0)
@@ -61,7 +59,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			if (!Main.dedServ)
 			{
 				Random rnd = new();
-				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default, Projectile.ai[0])];
+				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default)];
 				dust.noGravity = true;
 				//dust.velocity = Projectile.velocity * -1;
 

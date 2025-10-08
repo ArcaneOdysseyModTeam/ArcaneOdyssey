@@ -13,12 +13,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
-		public abstract AOWeaponTiers AOWeaponTier { get; }
-
 		public override void SetDefaults()
 		{
 			Projectile.DamageType = TrueMeleeNoSpeed();
-			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 			Projectile.knockBack = 4.5f;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
@@ -64,7 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.ai[1] >= 600 || Projectile.ai[1] <= -600)
 			{
 				Projectile.ai[1] = 0f;
-				EffectBeforeSpin(player, spintime);
+				EffectBeforeSpin(player);
 			}
 			
 			else
@@ -79,6 +76,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			player.itemTime = player.itemAnimation = 2;
 		}
 
-		public virtual void EffectBeforeSpin(Player player, float spintime) { }
+		public virtual void EffectBeforeSpin(Player player) { }
 	}
 }

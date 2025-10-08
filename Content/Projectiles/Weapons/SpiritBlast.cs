@@ -18,7 +18,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		{
 			Projectile.width = Projectile.height = 64;
 			Projectile.friendly = true;
-			Projectile.alpha = (255*.25f).Round();
 		}
 
 		public override void AI()
@@ -28,7 +27,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
 			}
-			Projectile.rotation = Projectile.velocity.ToRotation();
 
 			if (!Main.dedServ)
 			{
