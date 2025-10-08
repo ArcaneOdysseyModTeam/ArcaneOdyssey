@@ -218,6 +218,11 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
 			}
 
+			if (Main.hardMode && NPC.downedPirates)
+			{
+				options.Add(this.GetLocalizedValue("Help.CannonFist"));
+			}
+
 			if (!Main.hardMode)
 			{
 				options.Add(this.GetLocalizedValue("Help.PreHard1"));

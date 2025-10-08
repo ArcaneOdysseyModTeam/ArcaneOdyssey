@@ -1,17 +1,20 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
-using Terraria.Audio;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
@@ -71,6 +74,30 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
+	}
+
+	public class CannonFistShooter : GlobalProjectile
+	{
+		public override void OnSpawn(Projectile projectile, IEntitySource source)
+		{
+			if (source is not EntitySource_Parent { Entity: NPC })
+			{
+				var player = Main.player[projectile.owner].ArcaneOdyssey();
+				if (!player.Cooldowns.ContainsKey("CannonFistShot"))
+				{
+					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && projectile.DamageType.Name != "TrueMeleeDamageClass" && projectile.DamageType.Name != "TrueMeleeNoSpeedDamageClass" && projectile.ModProjectile is not Cannonball)
+					{
+						if (player.Player.ConsumeItem(ItemID.Cannonball))
+						{
+							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<Cannonball>(), (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
+						}
+						else
+							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<Cannonball>(), (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
+						player.Cooldowns["CannonFistShot"] = 60;
+					}
+				}
+			}
 		}
 	}
 }

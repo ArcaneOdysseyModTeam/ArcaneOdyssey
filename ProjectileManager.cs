@@ -29,8 +29,6 @@ namespace ArcaneOdyssey
 				if (projectile.TryGetImbue(out Imbuable imbue))
 				{
 					var spell = projectile.ModProjectile is MagicSpell;
-					if (spell)
-						modifiers.FinalDamage += ((projectile.damage + (BossesKilled * 2f)) / projectile.damage) - 1;
 					modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOScrollDamage).MultiToPercent();
 					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 					{

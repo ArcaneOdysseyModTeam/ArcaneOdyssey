@@ -159,6 +159,7 @@ Projectiles: {
 	LeapFix.DisplayName: Leap Fix
 	PowderExplosion.DisplayName: Powder Explosion
 	PiercingGale.DisplayName: Piercing Gale
+	Cannonball.DisplayName: Cannonball
 }
 
 ImbueStuff: {
@@ -256,6 +257,7 @@ NPCs: {
 			SunkenWeapon: Although made of Arcanium metal, that sword in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
 			StrengthWeaponsHint: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
 			HasStrengthWeapon: I see you've encountered a strong warrior. Such warriors wield weapons too heavy for regular warriors, and so they learn to use a fighting style.
+			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
 		}
 
 		TownNPCMood: {
