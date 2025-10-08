@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 	public class ThermoFist : FightingStyle
 	{
 		public override Color ImbueColour => Color.White;
+		public override SoundStyle? ImbueSound => null;
 
 		public override float AOImbueDamage => 0.85f;
 		public override float AOImbueSpeed => 1.3f;
@@ -27,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		public override float AOScrollSize => 1.3f;
 		public override float AOScrollSpeed => 0.8f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new(
 			[
@@ -50,5 +51,34 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f),
 			]
 		);
+		public override void SpawningEffects(Entity projectile)
+		{ 
+			for(int n = 0;n<10;n++)
+			{
+				Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.CrimsonTorch,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1.5f);
+			}
+		}
+
+		public override void LingeringEffects(Entity projectile)
+		{
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.CrimsonTorch, 0f, 0f, 0, default, 1.5f)];
+			spawnedDust.noGravity = true;
+			spawnedDust.noLight = true;
+		}
+	public override void ExplosionEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3.5f);
+			}
+		}
+		public override void KillEffects(Entity projectile)
+		{
+			for (int n = 0; n < 30; n++)
+			{
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 2f);
+			}
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
 	}
 }

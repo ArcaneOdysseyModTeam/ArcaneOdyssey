@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 	public class CannonFist : FightingStyle
 	{
 		public override Color ImbueColour => Color.White;
+		public override SoundStyle? ImbueSound => null;
 
 		public override float AOImbueDamage => 1.085f;
 		public override float AOImbueSpeed => 1f;
