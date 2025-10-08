@@ -18,6 +18,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
+using ArcaneOdyssey.Content.Projectiles;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -41,7 +42,11 @@ namespace ArcaneOdyssey
 					modifiers.FinalDamage += .3f;
 				}
 
-
+				if (imbue is PowderFist)
+				{
+					Main.NewText("Boom!");
+					Projectile proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage/2f);
+				}
 				foreach (var debuff in imbue.ImbueDebuffs)
 				{
 					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(item.damage, true) > (target.lifeMax / debuff.debuffPercent))
