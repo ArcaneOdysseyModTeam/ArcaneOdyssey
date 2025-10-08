@@ -1,6 +1,6 @@
 BasicCombat: {
 	DisplayName: Basic Combat
-	Tooltip: ""
+	Tooltip: A basic, yet effective style of fighting using all manners of punching and kicking
 }
 
 Boxing: {
