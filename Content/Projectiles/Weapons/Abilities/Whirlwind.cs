@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Player player = aoPlayerOwner.Player;
 			Projectile.rotation += MathHelper.Pi / (MaxTime / 2) * 1.1f;
-			Projectile.Center = player.MountedCenter + (Projectile.rotation.ToRotationVector2() * 40f);
+			Projectile.Center = player.MountedCenter + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale);
 		}
 
 		public override void PostDraw(Color lightColor)

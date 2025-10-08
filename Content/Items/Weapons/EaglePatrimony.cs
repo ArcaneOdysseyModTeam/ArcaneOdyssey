@@ -22,12 +22,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
+			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.width = Item.height = 40;
 			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
 			Item.shootSpeed = 15;
 			Item.UseSound = SoundID.Item84 with { Pitch = .5f };
 			Item.damage = 25;
-			Item.useTime = Item.useAnimation = 60;
+			Item.autoReuse = true;
+			Item.useTime = Item.useAnimation = 30;
 			Item.knockBack = 3.75f;
 		}
 	}

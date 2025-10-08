@@ -80,6 +80,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.itemAnimation < 8 || player.itemTime < 8)
 				player.itemAnimation = player.itemTime = 7;
+
+			if (player.TryGetImbue(out var imbue))
+			{
+				imbue.LingeringEffects(player);
+			}
 		}
 
 		public override void OnEnd(Player player)
@@ -91,6 +96,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 				{
 					npc.SimpleStrikeNPC(player.ArcaneOdyssey().DashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: Knockback, damageType: DamageType);
 				}
+			}
+			if (player.TryGetImbue(out var imbue))
+			{
+				for (int i = 0; i < 20; i++)
+					imbue.ExplosionEffects(player);
 			}
 			// Vfx
 		}

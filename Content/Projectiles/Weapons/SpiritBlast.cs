@@ -32,9 +32,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 			if (!Main.dedServ)
 			{
-				for (float i = 0; i > 20; i--)
+				for (float i = 0; i < 20; i++)
 				{
-					Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.IcyMerman, (MathHelper.Pi / 20 * i).ToRotationVector2().X, (MathHelper.Pi / 20 * i).ToRotationVector2().Y);
+					Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.width, DustID.IcyMerman).noGravity = true;
 				}
 			}
 		}

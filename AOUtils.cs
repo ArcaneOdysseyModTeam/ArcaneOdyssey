@@ -417,12 +417,12 @@ namespace ArcaneOdyssey
 		{
 			if (newCentre.HasValue)
 			{
-				gore.position.X = (newCentre.Value.X - gore.Width * gore.scale / 2);
-				gore.position.Y = (newCentre.Value.Y - gore.Height * gore.scale / 2);
+				gore.position.X = (newCentre.Value.X - gore.Width / 2);
+				gore.position.Y = (newCentre.Value.Y - gore.Height / 2);
 				return gore.position;
 			}
 			else
-				return new Vector2(gore.position.X - (gore.Width * gore.scale / 2), gore.position.Y - (gore.Height * gore.scale / 2));
+				return new Vector2(gore.position.X - (gore.Width / 2), gore.position.Y - (gore.Height / 2));
 		}
 
 		/// <summary>
