@@ -15,12 +15,12 @@ CannonFist: {
 
 IronLeg: {
 	DisplayName: Iron Leg
-	Tooltip: A Fighting Style that involves training the legs to endure tremendous force, allowing the user to kick with great power
+	Tooltip: A fighting style that involves training the legs to endure tremendous force, allowing the user to kick with great power
 }
 
 PowderFist: {
 	DisplayName: Powder Fist
-	Tooltip: ""
+	Tooltip: A fighting style that involves covering the fists in gunpowder, allowing the user to deliver devastating explosive punches and kicks
 }
 
 SailorFist: {
@@ -35,7 +35,7 @@ ThermoFist: {
 
 VanishingStyle: {
 	DisplayName: Vanishing Style
-	Tooltip: ""
+	Tooltip: A fighting style that focuses on stealth, allowing the user to strike before they can be noticed
 }
 
 SailorStyle: {
