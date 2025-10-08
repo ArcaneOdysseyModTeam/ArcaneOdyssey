@@ -14,6 +14,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	public class PiercingGale : AOPlayerProjectile
 	{
 		public override AOUtils.AODebuffRequirement? Debuff => null;
+		public const int DustCount = 30;
+
 		public override void SetDefaults()
 		{
 			Projectile.width = Projectile.height = 64;
@@ -32,22 +34,19 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 				Projectile.velocity /= Projectile.extraUpdates+1;
 			}
-			Projectile.rotation += (MathHelper.Pi / 60)/Projectile.extraUpdates + 1;
+			Projectile.rotation += (MathHelper.Pi / 60) / Projectile.extraUpdates + 1;
 
 			var dust = DustID.RainbowTorch;
 			if (!Main.dedServ)
 			{
-				for (float i = 0; i < 19; i++)
+				for (float i = 0; i < DustCount; i++)
 				{
-					var centre = ((MathHelper.PiOver4 / 19 * i) + Projectile.rotation).ToRotationVector2() * 20;
-					var dust1 = Dust.NewDustPerfect(centre + Projectile.Center, dust, -(centre/15), 150, Scale: 1f);
+					var centre1 = ((MathHelper.PiOver4 / DustCount * i) + Projectile.rotation).ToRotationVector2() * 20;
+					var dust1 = Dust.NewDustPerfect(centre1 + Projectile.Center, dust, -(centre1/15), 150, Scale: 1f);
 					dust1.noLight = true;
 					dust1.noGravity = true;
-				}
-				for (float i = 0; i < 19; i++)
-				{
-					var centre = (MathHelper.TwoPi / 19 * i).ToRotationVector2() * 20;
-					var dust2 = Dust.NewDustPerfect(centre + Projectile.Center, dust, Projectile.velocity, 150, Scale: .5f);
+					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * 20;
+					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, dust, Projectile.velocity, 150, Scale: .5f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
 				}
