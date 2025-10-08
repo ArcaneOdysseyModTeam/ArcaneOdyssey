@@ -157,6 +157,7 @@ Projectiles: {
 	MountainWind.DisplayName: Mountain Wind
 	PiercingStrikesProjectile.DisplayName: Bronze Rapier
 	LeapFix.DisplayName: Leap Fix
+	PowderExplosion.DisplayName: Powder Explosion
 }
 
 ImbueStuff: {
