@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
 	public class Boxing : FightingStyle
 	{
-		public override Color ImbueColour => Color.White;
+		public override Color ImbueColour => Color.Red;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
 		public override float AOImbueDamage => 0.9f;
 		public override float AOImbueSpeed => 1.2f;

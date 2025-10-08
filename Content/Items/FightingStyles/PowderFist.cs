@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
 	public class PowderFist : FightingStyle
 	{
-		public override Color ImbueColour => Color.White;
+		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
 		public override float AOImbueDamage => 1.085f;

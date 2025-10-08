@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
 	public class ThermoFist : FightingStyle
 	{
-		public override Color ImbueColour => Color.White;
+		public override Color ImbueColour => Color.Orange;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 
 		public override float AOImbueDamage => 0.85f;

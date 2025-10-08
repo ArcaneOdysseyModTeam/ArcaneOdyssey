@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
 	public class SailorStyle : FightingStyle
 	{
-		public override Color ImbueColour => Color.White;
+		public override Color ImbueColour => Color.Aqua;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
 		public override float AOImbueDamage => 0.925f;

@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
 	public class IronLeg : FightingStyle
 	{
-		public override Color ImbueColour => Color.White;
+		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
 
 		public override float AOImbueDamage => 1.125f;
