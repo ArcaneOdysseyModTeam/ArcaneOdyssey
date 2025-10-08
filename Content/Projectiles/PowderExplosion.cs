@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Audio;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles
                 {
                     float AOScrollSize = 1f;
                     Projectile.damage = (int)Projectile.ai[1];
+                    SoundEngine.PlaySound(SoundID.Item14, Projectile.position, null);
                     for (int n = 0; n < 8; n++)
                     {
                         Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
