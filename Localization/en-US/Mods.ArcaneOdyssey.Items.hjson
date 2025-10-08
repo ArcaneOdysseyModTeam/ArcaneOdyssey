@@ -67,12 +67,12 @@ WoodenPaddle: {
 
 DarkSeaMusicBox: {
 	DisplayName: Music Box (Dark Sea)
-	Tooltip: Plays 'The Dark Sea' by Tobi
+	Tooltip: Plays 'The Dark Sea' by Tobi (Hailfirz)
 }
 
 TitleMusicBox: {
 	DisplayName: Music Box (Arcane Title)
-	Tooltip: Plays 'The Call of Adventure' by Tobi
+	Tooltip: Plays 'The Call of Adventure' by Tobi (Hailfirz)
 }
 
 Acrimony: {
@@ -87,7 +87,7 @@ ExplosionScroll: {
 
 BronzeBar: {
 	DisplayName: Bronze Bar
-	Tooltip: An alloy that does nothing yet, you wasted your time obtaining this
+	Tooltip: A bar made from a sturdy alloy, it can make some useful gear 
 }
 
 SteamImbue: {
