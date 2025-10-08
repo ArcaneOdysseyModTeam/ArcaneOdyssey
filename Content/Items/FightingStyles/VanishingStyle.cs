@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 	public class VanishingStyle : FightingStyle
 	{
 		public override Color ImbueColour => Color.White;
-		public override SoundStyle? ImbueSound => null;
+		public override SoundStyle? ImbueSound => SoundID.Item63;
 
 		public override float AOImbueDamage => 0.9f;
 		public override float AOImbueSpeed => 1.2f;
