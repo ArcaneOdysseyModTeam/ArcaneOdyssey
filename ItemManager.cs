@@ -44,7 +44,6 @@ namespace ArcaneOdyssey
 
 				if (imbue is PowderFist)
 				{
-					Main.NewText("Boom!");
 					Projectile proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage/2f);
 				}
 				foreach (var debuff in imbue.ImbueDebuffs)
