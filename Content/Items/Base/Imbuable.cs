@@ -133,6 +133,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <returns></returns>
 		public virtual bool PreEffects(Entity entity)
 		{
+			if (entity.velocity == entity.velocity.SafeNormalize(Vector2.Zero))
+			{
+				return false;
+			}
 			if (entity is Projectile projectile)
 			{
 				if (ImbueClassCheck(projectile))

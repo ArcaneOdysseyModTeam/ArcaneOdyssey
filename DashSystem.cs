@@ -231,8 +231,8 @@ namespace ArcaneOdyssey
 		{
 			if (CompletelyFrozen)
 			{
-				Player.velocity = Vector2.Zero;
-				Player.maxFallSpeed = 0f;
+				Player.gravity = 0f;
+				Player.velocity.Y *= 0.5f;
 			}
 			dashing |= Player.solarDashing || Player.eocDash > 0;
 			dashing &= !Immobile;

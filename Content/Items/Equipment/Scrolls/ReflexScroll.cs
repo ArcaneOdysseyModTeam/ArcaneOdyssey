@@ -86,9 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			{
 				imbue.LingeringEffects(player);
 				player.gravity = 0f;
-				if (player.velocity.Y > 0) {
-					player.velocity.Y *= 0.9f;
-				}
+				player.velocity.Y *= 0.9f;
 				player.statDefense *= CalculateResistanceMulti(player);
 			}
 		}
