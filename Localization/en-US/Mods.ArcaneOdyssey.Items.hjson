@@ -91,7 +91,7 @@ BronzeBar: {
 }
 
 SteamImbue: {
-	DisplayName: Steam Imbue
+	DisplayName: Steam
 	Tooltip:
 		'''
 		By Valve
