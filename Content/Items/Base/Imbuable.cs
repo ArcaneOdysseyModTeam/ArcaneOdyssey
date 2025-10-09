@@ -32,8 +32,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			if (this is BasicCombat or AOMagic)
-				ItemID.Sets.ShimmerTransformToItem[Type] = Type;
-			ItemID.Sets.ItemNoGravity[Type] = this is AOMagic;
+				ItemID.Sets.ItemNoGravity[Type] = true;
+			if (ImbuableTier == AOImbuableTier.Normal)
+			{
+				if (this is AOMagic or BasicCombat)
+				{
+					BasicImbues.Add(Type);
+				}
+			}
 		}
 
 		public override AORarities AORarity => ImbuableTier == AOImbuableTier.Normal ? AORarities.Rare : AORarities.Exotic;
@@ -168,13 +174,26 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
+		private static List<int> BasicImbues = [];
+
 		public override void AddRecipes()
 		{
 			if (ImbuableTier == AOImbuableTier.Normal)
 			{
 				if (this is AOMagic or BasicCombat)
-					CreateRecipe().AddIngredient<PoseidonChoice>().Register();
-				Recipe.Create(ModContent.ItemType<PoseidonChoice>()).AddIngredient(Type).AddIngredient<Acrimony>().Register(); // replace with something better later
+				{
+					CreateRecipe().AddIngredient<PoseidonChoice>().DisableDecraft().Register();
+				}
+			}
+
+			if (this is BasicCombat)
+			{
+				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
+				RecipeGroup.RegisterGroup("ArcaneOdyssey:AOMagic", goru);
+				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonChoice>());
+				recipe.AddRecipeGroup(goru);
+				recipe.AddIngredient<Acrimony>();
+				recipe.DisableDecraft().Register();
 			}
 		}
 
@@ -183,4 +202,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{(this is AOMagic ? "Magic" : "FS")}TierLines.{ImbuableTier}").Value));
 		}
 	}
+
+
 }

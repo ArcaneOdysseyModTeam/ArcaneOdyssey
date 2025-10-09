@@ -260,6 +260,29 @@ namespace ArcaneOdyssey
 			return ItemType.Item;
 		}
 
+
+		public static bool GetOwner(this Entity entity, out AOPlayer player)
+		{
+			player = null;
+			if (entity is Projectile projectile)
+			{
+				player = Main.player[projectile.owner].ArcaneOdyssey();
+				return true;
+			}
+			if (entity is NPC npc)
+			{
+				player = Main.player[npc.releaseOwner].ArcaneOdyssey();
+				return true;
+			}
+			if (entity is Player player1)
+			{
+				player = player1.ArcaneOdyssey();
+				return player.Player.active;
+			}
+
+			return false;
+		}
+
 		public static AORarities GetItemRare(this Item item)
 		{
 			if (item.ModItem is AOBaseItem based && based.AORarity != AORarities.RESOLVESELF)

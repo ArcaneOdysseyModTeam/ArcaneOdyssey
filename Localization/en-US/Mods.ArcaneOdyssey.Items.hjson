@@ -77,7 +77,7 @@ TitleMusicBox: {
 
 Acrimony: {
 	DisplayName: Prometheus's Acrimony
-	Tooltip: A legendary item that allows you to change your magic type
+	Tooltip: ""
 }
 
 ExplosionScroll: {
@@ -95,7 +95,6 @@ SteamImbue: {
 	Tooltip:
 		'''
 		By Valve
-
 		Part of the mod internals, just ignore this, any spells with it will cause an error (It's used for imbues)
 		'''
 }
@@ -149,15 +148,15 @@ ReflexScroll: {
 
 RavennaBoots: {
 	DisplayName: Ravenna Boots
-	Tooltip: ""
+	Tooltip: Ornate greaves of bronze, representing the colors of the Ravenna Realm
 }
 
 RavennaChest: {
-	DisplayName: Ravenna Chest
-	Tooltip: ""
+	DisplayName: Ravenna Chestplate
+	Tooltip: A bulkier set of armor made out of pure bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
 }
 
 RavennaHelm: {
-	DisplayName: Ravenna Helm
-	Tooltip: ""
+	DisplayName: Ravenna Helmet
+	Tooltip: A detailed helmet made out of bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
 }

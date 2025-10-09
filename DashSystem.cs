@@ -232,7 +232,11 @@ namespace ArcaneOdyssey
 			if (CompletelyFrozen)
 			{
 				Player.gravity = 0f;
-				Player.velocity.Y *= 0.5f;
+				if (Player.velocity.Y <= 1 || Player.velocity.Y >= 1)
+				{
+					Player.velocity.X *= 0.25f;
+				}
+				Player.velocity.Y *= 0.25f;
 			}
 			dashing |= Player.solarDashing || Player.eocDash > 0;
 			dashing &= !Immobile;

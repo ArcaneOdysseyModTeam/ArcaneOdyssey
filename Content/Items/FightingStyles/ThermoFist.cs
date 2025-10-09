@@ -61,6 +61,11 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		);
 		public override void SpawningEffects(Entity projectile)
 		{
+			BarValue += 5;
+			if (projectile.GetOwner(out var owner)) 
+			{
+				owner.ItemCooldowns[Type] = 60;
+			}
 			for (int n = 0; n < 10; n++)
 			{
 				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1.5f);
@@ -75,6 +80,11 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
+			BarValue++;
+			if (projectile.GetOwner(out var owner))
+			{
+				owner.ItemCooldowns[Type] = 60;
+			}
 			for (int n = 0; n < 3; n++)
 			{
 				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3.5f);

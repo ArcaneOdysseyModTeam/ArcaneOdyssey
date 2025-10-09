@@ -67,6 +67,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 
 		public override void SpawningEffects(Entity projectile)
 		{
+			BarValue--;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Water, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 3f)];
@@ -78,8 +79,10 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		{
 			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Water, 0f, 0f, 0, default, 1.2f);
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
+			BarValue--;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, 3f)];
@@ -132,7 +135,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			{
 				if (Player.TryGetImbue(out Imbuable imbue) && imbue is SailorStyle sailor && sailor.GetThisImbue(Player))
 				{
-					sailor.BarValue += 100f / (60f * 5f);
+					sailor.BarValue += 100f / (60f * 2.5f);
 				}
 			}
 		}

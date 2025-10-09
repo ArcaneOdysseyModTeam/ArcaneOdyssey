@@ -120,16 +120,18 @@ namespace ArcaneOdyssey
 			{
 				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value));
 			}
-			if (item.ModItem is Imbuable and not BasicCombat)
-			{
-				tooltips.RemoveAll(e => e.Name == "Material");
-			}
 			if (item.ModItem is not null && item.ModItem.Name == "UnloadedItem")
 			{
 				return;
 			}
+
 			if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
+				if (item.ModItem is Imbuable and not BasicCombat || item.GetItemType() == ItemType.Material)
+				{
+					tooltips.RemoveAll(e => e.Name == "Material");
+				}
+
 				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF && !item.vanity && !item.questItem)
 				{
 					var line = item.GetItemRare().ToString();

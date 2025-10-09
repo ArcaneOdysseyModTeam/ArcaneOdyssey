@@ -13,6 +13,7 @@ Bestiary: {
 MenuStyle: Odyssey Style
 AltMenuStyle: Dark Sea Style
 SpiritDamage: spirit damage
+AnyBasicImbue: Any Basic Imbue
 
 Buffs: {
 	RisenTide: {
@@ -63,7 +64,6 @@ Buffs: {
 	AOBleed: {
 		DisplayName: Bleeding
 		Description: You are losing blood fast
-		Death: "{0} bled out."
 	}
 
 	SandyEffect: {
