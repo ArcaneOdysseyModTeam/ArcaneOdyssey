@@ -1,16 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
     public abstract class FightingStyleBarred : FightingStyle
     {
-		public int BarValue = 0;
+		private int _barValue = 0;
+		public int BarValue { get => _barValue; set { 
+				bool lower = _barValue > value;
+				var oldvalue = _barValue;
+				_barValue = MathHelper.Clamp(value, 0, 100).Round();
+				if (Main.netMode == NetmodeID.SinglePlayer && lower && oldvalue/25 > value/25)
+					Main.NewText($"{DisplayName} {value}%");
+			} }
+
 		public abstract float MaxImbueSpeed { get; }
 		public abstract float MaxImbueDamage { get; }
 		public abstract float MaxImbueSize { get; }
@@ -30,5 +45,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, BarValue / 100f); }
 		public override float AOImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, BarValue / 100f); }
 		public override float AOScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, BarValue / 100f); }
+
+		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue}%")/2), Color.BlueViolet);
+		}
 	}
 }

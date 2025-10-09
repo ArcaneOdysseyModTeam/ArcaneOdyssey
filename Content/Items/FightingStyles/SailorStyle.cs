@@ -16,18 +16,25 @@ using ArcaneOdyssey.Content.Buffs.Stuns;
 
 namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
-	public class SailorStyle : FightingStyle
+	public class SailorStyle : FightingStyleBarred
 	{
 		public override bool? Cold => true;
 		public override Color ImbueColour => Color.Aqua;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
-		public override float AOImbueDamage => 0.925f;
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.278f;
-		public override float AOScrollDamage => .85f;
-		public override float AOScrollSize => 1.2f;
-		public override float AOScrollSpeed => 1f;
+
+		public override float MaxImbueSpeed => 1f;
+		public override float MaxImbueDamage => .925f;
+		public override float MaxImbueSize => 1.278f;
+		public override float MinImbueSpeed => 1f;
+		public override float MinImbueDamage => .85f;
+		public override float MinImbueSize => .833f;
+		public override float MaxScrollSpeed => 1f;
+		public override float MaxScrollDamage => .85f;
+		public override float MaxScrollSize => 1.2f;
+		public override float MinScrollSpeed => 1f;
+		public override float MinScrollDamage => .775f;
+		public override float MinScrollSize => .8f;
 
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60 * 10)];
 		public override SynergyEffects Effects => new(
@@ -55,6 +62,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				new MagicBuffMultiplier(BuffID.OnFire,0.8f)
 			]
 		);
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -66,7 +74,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Water, 0f, 0f, 0, default, 1.2f)];
+			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Water, 0f, 0f, 0, default, 1.2f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
@@ -85,9 +93,46 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Coral,15).Register();
+		}
+	}
+
+	public class SailorBars : GlobalItem
+	{
+		public override void UseAnimation(Item item, Player player)
+		{
+			if (item.TryGetImbue(out var im) && ImbueClassCheck(item) && im is SailorStyle imbue && imbue.GetThisImbue(player))
+			{
+				imbue.BarValue -= 1;
+			}
+		}
+
+		public override void OnConsumeItem(Item item, Player player)
+		{
+			if (item.type == ItemID.BottledWater)
+			{
+				if (player.TryGetImbue(out var im) && im is SailorStyle imbue && imbue.GetThisImbue(player))
+				{
+					imbue.BarValue += 50;
+				}
+			}
+		}
+	}
+
+	public class SailorDrinkWater : ModPlayer
+	{
+		public override void PostUpdate()
+		{
+			if (Player.wet && !Player.honeyWet && !Player.lavaWet)
+			{
+				if (Player.TryGetImbue(out Imbuable imbue) && imbue is SailorStyle sailor && sailor.GetThisImbue(Player))
+				{
+					sailor.BarValue += 100 / 60;
+				}
+			}
 		}
 	}
 }

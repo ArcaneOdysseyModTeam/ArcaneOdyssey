@@ -44,7 +44,7 @@ namespace ArcaneOdyssey
 
 				if (imbue is PowderFist)
 				{
-					Projectile proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage/2f);
+					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage/2f);
 				}
 				foreach (var debuff in imbue.ImbueDebuffs)
 				{
@@ -65,7 +65,7 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				foreach (var multiplier in imbue.Effects.magicBuffMultipliers)
 				{
 					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
@@ -120,7 +120,7 @@ namespace ArcaneOdyssey
 			{
 				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value));
 			}
-			if (item.ModItem is Imbuable)
+			if (item.ModItem is Imbuable and not BasicCombat)
 			{
 				tooltips.RemoveAll(e => e.Name == "Material");
 			}
@@ -134,16 +134,16 @@ namespace ArcaneOdyssey
 				{
 					var line = item.GetItemRare().ToString();
 					line += " ";
-					line += item.GetItemType();
+					line += item.GetItemType().ToString().ToLower();
 					tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
 				}
 			}
 
 			if (item.ModItem is AORangedOrMeleeWeapon weapon)
 			{
-				if (weapon.Ability is not null)
+				if (weapon.Ability.HasValue)
 				{
-					tooltips.Add(weapon.Ability.GenerateTooltip());
+					tooltips.Add(weapon.Ability.Value.GenerateTooltip());
 				}
 
 				if (weapon.Arcanium.HasValue)
@@ -283,15 +283,18 @@ namespace ArcaneOdyssey
 		public override void UpdateInventory(Item item, Player player)
 		{
 			var options = player.GetAllImbues();
+			bool justchangedspecificimbue = false;
+			bool settodefault = false;
+			imbue.GetThisImbue(player);
 			if (SpecificImbue && !imbue.PlayerHasImbue(player, options))
 			{
 				SpecificImbue = false;
+				settodefault = true;
+				justchangedspecificimbue = true;
 			}
 
 			if (options.Count > 0 && ImbueClassCheck(item))
 			{
-				bool justchangedspecificimbue = false;
-				bool settodefault = false;
 				if (!SpecificImbue)
 				{
 					imbue = player.ArcaneOdyssey().imbue;
@@ -332,17 +335,17 @@ namespace ArcaneOdyssey
 				{
 					imbue = SteamImbue.Create(imbue);
 				}
-
-				if (justchangedspecificimbue && player == Main.LocalPlayer)
-				{
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
-					Main.NewText(chatmessage.Value, 13, 132, 168);
-				}
 			}
 			else
 			{
 				imbue = null;
 				SpecificImbue = false;
+			}
+
+			if (justchangedspecificimbue && player == Main.LocalPlayer)
+			{
+				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
+				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
 		}
 

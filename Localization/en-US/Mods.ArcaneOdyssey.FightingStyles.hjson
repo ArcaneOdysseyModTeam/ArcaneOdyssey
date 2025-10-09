@@ -1,10 +1,6 @@
 BasicCombat: {
 	DisplayName: Basic Combat
-	Tooltip:
-	'''
-	A basic, yet effective style of fighting using all manners of punching and kicking
-	You can make other fighting styles from this
-	'''
+	Tooltip: A basic, yet effective style of fighting using all manners of punching and kicking
 }
 
 Boxing: {
@@ -15,10 +11,10 @@ Boxing: {
 CannonFist: {
 	DisplayName: Cannon Fist
 	Tooltip:
-	'''
-	A fighting style that involves throwing cannonballs with tremendous strength
-	Can use cannonballs from your inventory to improve strength
-	'''
+		'''
+		A fighting style that involves throwing cannonballs with tremendous strength
+		Can use cannonballs from your inventory to improve strength
+		'''
 }
 
 IronLeg: {

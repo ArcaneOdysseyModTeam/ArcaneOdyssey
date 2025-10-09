@@ -64,7 +64,7 @@ namespace ArcaneOdyssey
 			List<Imbuable> imbues = [];
 			foreach (Item item in owner.inventory)
 			{
-				if (item.ModItem is Imbuable imbuable)
+				if (item.ModItem is Imbuable imbuable && item.ModItem is not FightingStyleBarred)
 				{
 					imbues.Add(imbuable);
 				}
@@ -129,7 +129,7 @@ namespace ArcaneOdyssey
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 		
 
-		public class WeaponAbility(Mod mod, string name, string description, Color? color = null)
+		public readonly struct WeaponAbility(Mod mod, string name, string description, Color? color = null)
 		{
 			private readonly string Name = name;
 			private readonly string Description = description;
@@ -494,6 +494,25 @@ namespace ArcaneOdyssey
 				if (item.ModItem.GetType().Name == type.Name || item.ModItem.GetType().IsSubclassOf(type))
 				{
 					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool GetThisImbue(this Imbuable imbue, Player player)
+		{
+			if (player.TryGetImbue(out var playerimbue))
+			{
+				foreach (var item in player.inventory)
+				{
+					if (item.active)
+					{
+						if (item.Name == playerimbue.DisplayName.Value)
+						{
+							imbue = playerimbue;
+							return true;
+						}
+					}
 				}
 			}
 			return false;

@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => 1;
 		public override float AOSpeed => .95f;
 		public override int AOValue => 50;
-		public override WeaponAbility Ability => new(Mod, "Trident Throw", "Throw your weapon, leaving yourself unarmed", Color.Orange);
+		public override WeaponAbility? Ability => new(Mod, "Trident Throw", "Throw your weapon, leaving yourself unarmed", Color.Orange);
 
 
 		public override void SetDefaults()

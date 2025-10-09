@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int AOValue => 900;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
-		public override WeaponAbility Ability => new(Mod, "Rising Tide", "Launch yourself upwards", Color.Aqua);
+		public override WeaponAbility? Ability => new(Mod, "Rising Tide", "Launch yourself upwards", Color.Aqua);
 
 		public override AODebuffRequirement? WeaponDebuff => new(BuffID.Wet, 60 * 5);
 
