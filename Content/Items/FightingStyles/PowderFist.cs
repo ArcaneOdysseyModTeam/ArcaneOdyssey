@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.1f)
 			]
 		);
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -80,10 +80,15 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Ash, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 4f)];
 				spawnedDust2.noGravity = true;
 			}
-			if (projectile is Projectile) {
-				Projectile proj = Projectile.NewProjectileDirect(Main.projectile[projectile.whoAmI].GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, Main.projectile[projectile.whoAmI].owner, 0, Main.projectile[projectile.whoAmI].damage/2f);
+			if (projectile is Projectile)
+			{
+				Projectile proj = Projectile.NewProjectileDirect(Main.projectile[projectile.whoAmI].GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, Main.projectile[projectile.whoAmI].owner, 0, Main.projectile[projectile.whoAmI].damage / 2f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.ExplosivePowder,15).Register();
 		}
 	}
 }

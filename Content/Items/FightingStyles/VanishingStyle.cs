@@ -33,14 +33,14 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.15f)
 			]
 		);
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
 			{
-				for (int n = 0; n<3; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Wraith,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
-					spawnedDust.noGravity = true;
-				}
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Wraith, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 3f)];
+				spawnedDust.noGravity = true;
 			}
+		}
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Wraith, 0f, 0f, 0, default, 2f)];
@@ -62,6 +62,10 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.SoulofNight,5).Register();
 		}
 	}
 }

@@ -53,10 +53,10 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			]
 		);
 		public override void SpawningEffects(Entity projectile)
-		{ 
-			for(int n = 0;n<10;n++)
+		{
+			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.CrimsonTorch,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1.5f);
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1.5f);
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			spawnedDust.noGravity = true;
 			spawnedDust.noLight = true;
 		}
-	public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -80,6 +80,11 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 2f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Torch, 10).AddRecipeGroup(RecipeGroupID.Sand, 25).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.DesertTorch,5).Register();
 		}
 	}
 }

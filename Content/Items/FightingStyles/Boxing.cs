@@ -33,12 +33,12 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			]
 		);
 
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
-			for (int n = 0; n<3; n++)
+			for (int n = 0; n < 3; n++)
 			{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.BubbleBurst_White,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
-					spawnedDust.noGravity = true;
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.BubbleBurst_White, (projectile.velocity.X * 2f), (projectile.velocity.Y * 2f), 0, default, 3f)];
+				spawnedDust.noGravity = true;
 			}
 		}
 		public override void LingeringEffects(Entity projectile)
@@ -62,6 +62,10 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Silk,10).AddIngredient<Paper>(10).Register();
 		}
 	}
 }

@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.1f)
 			]
 		);
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -74,6 +74,10 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb,25).Register();
 		}
 	}
 
