@@ -22,18 +22,14 @@ namespace ArcaneOdyssey.VFX.Gores
 		public override void OnSpawn(Gore gore, IEntitySource source)
 		{
 			gore.numFrames = 12;
-			gore.frame = 0;
-			gore.sticky = true;
-			gore.timeLeft = 30;
-			gore.alpha = 255;
 		}
 
 		public override bool Update(Gore gore)
 		{
 			gore.frameCounter++;
-			if (gore.frameCounter >= 10)
+			if (gore.frameCounter >= 7)
 			{
-				if (gore.frame < gore.numFrames)
+				if (gore.frame < gore.numFrames + 1)
 				{
 					gore.frame++;
 				}
@@ -43,7 +39,6 @@ namespace ArcaneOdyssey.VFX.Gores
 				}
 				gore.frameCounter = 0;
 			}
-			gore.timeLeft--;
 			return false;
 		}
 	}

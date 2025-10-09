@@ -313,7 +313,7 @@ namespace ArcaneOdyssey
 							dashing = false;
 						}
 
-						if (CurrentDash.Damage > 0 && npc.immune[Player.whoAmI] <= 0 && Main.myPlayer == Player.whoAmI)
+						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI && !npc.friendly && npc.immune[Player.whoAmI] <= 0)
 						{
 							npc.SimpleStrikeNPC(CalculateDashDamage(npc), Player.direction, knockBack: CalculateDashKnockback(), damageType: CurrentDash.DamageType);
 							npc.immune[Player.whoAmI] = 2;

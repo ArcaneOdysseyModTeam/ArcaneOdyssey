@@ -102,6 +102,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 				for (int i = 0; i < 20; i++)
 					imbue.ExplosionEffects(player);
 			}
+			if (!Main.dedServ)
+			{
+				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.HeldItem), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());
+				gore1.Centre(player.Top);
+			}
 			// Vfx
 		}
 	}
