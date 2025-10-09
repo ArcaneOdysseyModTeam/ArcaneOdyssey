@@ -84,6 +84,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
+			player.GetModPlayer<ThermoFallOff>().resetBar = true;
 			var name = "";
 			if (player.Imbue() is SteamImbue steam)
 			{

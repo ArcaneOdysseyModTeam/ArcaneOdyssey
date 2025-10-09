@@ -17,6 +17,15 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
 	public class Boxing : FightingStyle
 	{
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
+				EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);
+			}
+		}
 		public override Color ImbueColour => Color.Red;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
 		public override float AOImbueDamage => 0.9f;
@@ -25,6 +34,15 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		public override float AOScrollDamage => .8f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1.2f;
+
+		public override void Load()
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.HandsOn}", EquipType.HandsOn, this);
+				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.HandsOff}", EquipType.HandsOff, this);
+			}
+		}
 
 		public override SynergyEffects Effects => new(
 			[],
@@ -66,6 +84,18 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Silk,10).AddIngredient<Paper>(10).Register();
+		}
+	}
+
+	public class BoxingGlovesHelper : ModPlayer
+	{
+		public override void FrameEffects()
+		{
+			if (Player.ArcaneOdyssey().imbue is Boxing item)
+			{
+				Player.handon = EquipLoader.GetEquipSlot(Mod, item.Name, EquipType.HandsOn);
+				Player.handoff = EquipLoader.GetEquipSlot(Mod, item.Name, EquipType.HandsOff);
+			}
 		}
 	}
 }

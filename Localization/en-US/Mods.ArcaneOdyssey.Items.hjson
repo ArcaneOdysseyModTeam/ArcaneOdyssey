@@ -146,3 +146,18 @@ ReflexScroll: {
 		Grants bonus defense to imbues with slow speed
 		'''
 }
+
+RavennaBoots: {
+	DisplayName: Ravenna Boots
+	Tooltip: ""
+}
+
+RavennaChest: {
+	DisplayName: Ravenna Chest
+	Tooltip: ""
+}
+
+RavennaHelm: {
+	DisplayName: Ravenna Helm
+	Tooltip: ""
+}

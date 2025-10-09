@@ -109,15 +109,22 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 
 	public class ThermoFallOff : ModPlayer
 	{
+		public bool resetBar = false;
 		public override void PostUpdate()
 		{
-			if (Player.TryGetImbue(out Imbuable imbue) && imbue is ThermoFist thermo && thermo.GetThisImbue(Player))
+			if (Player.TryGetImbue(out Imbuable imbue))
 			{
-
-				if (!Player.ArcaneOdyssey().ItemCooldowns.ContainsKey(thermo.Type))
-					thermo.BarValue -= 100f / (60 * 10f);
+				if (imbue is ThermoFist thermo && thermo.GetThisImbue(Player))
+				{
+					if (resetBar)
+					{
+						resetBar = false;
+						thermo.BarValue = 0;
+					}
+					if (!Player.ArcaneOdyssey().ItemCooldowns.ContainsKey(thermo.Type))
+						thermo.BarValue -= 100f / (60 * 10f);
+				}
 			}
-			
 		}
 	}
 }
