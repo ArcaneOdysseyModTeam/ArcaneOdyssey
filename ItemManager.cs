@@ -271,7 +271,7 @@ namespace ArcaneOdyssey
 
 		public Item thisItem;
 		public Imbuable imbue = null;
-		public int ImbueIndex;
+		public int ImbueIndex = 0;
 		public bool SpecificImbue = false;
 
 		public bool? Arcanium { get
@@ -294,7 +294,7 @@ namespace ArcaneOdyssey
 		public override void UpdateInventory(Item item, Player player)
 		{
 			thisItem = item;
-			var options = player.GetAllImbues();
+			List<Imbuable> options = [null, ..player.GetAllImbues()];
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
 			imbue.GetThisImbue(player);
@@ -326,7 +326,12 @@ namespace ArcaneOdyssey
 						}
 						imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;
-						if (imbue is AOMagic magic)
+						if (imbue is null)
+						{
+							settodefault = true;
+							SpecificImbue = false;
+						}
+						else if (imbue is AOMagic magic)
 						{
 							AOMagic.CreateMagicCircle(imbue.Item, player, magic);
 						}
