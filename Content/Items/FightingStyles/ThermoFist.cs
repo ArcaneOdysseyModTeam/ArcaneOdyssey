@@ -16,18 +16,25 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
-	public class ThermoFist : FightingStyle
+	public class ThermoFist : FightingStyleBarred
 	{
 		public override bool? Cold => false;
 		public override Color ImbueColour => Color.Orange;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 
-		public override float AOImbueDamage => 0.85f;
-		public override float AOImbueSpeed => 1.3f;
-		public override float AOImbueSize => 0.833f;
-		public override float AOScrollDamage => .75f;
-		public override float AOScrollSize => 1.3f;
-		public override float AOScrollSpeed => 0.8f;
+		public override float MaxImbueSpeed => 1.3f;
+		public override float MaxImbueDamage => .85f;
+		public override float MaxImbueSize => .833f;
+		public override float MinImbueSpeed => 1f;
+		public override float MinImbueDamage => .85f;
+		public override float MinImbueSize => .833f;
+		public override float MaxScrollSpeed => 1.3f;
+		public override float MaxScrollDamage => .75f;
+		public override float MaxScrollSize => .8f;
+		public override float MinScrollSpeed => 1f;
+		public override float MinScrollDamage => .75f;
+		public override float MinScrollSize => .8f;
+		public override Color DisplayColor => Color.Blue;
 
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
@@ -85,6 +92,32 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Torch, 10).AddRecipeGroup(RecipeGroupID.Sand, 25).Register();
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.DesertTorch,5).Register();
+		}
+	}
+
+	public class ThermoBars : GlobalItem
+	{
+		public override void UseAnimation(Item item, Player player)
+		{
+			if (item.TryGetImbue(out var im) && ImbueClassCheck(item) && im is ThermoFist thermo && thermo.GetThisImbue(player))
+			{
+				thermo.BarValue += 5;
+				player.ArcaneOdyssey().ItemCooldowns[thermo.Type] = 60;
+			}
+		}
+	}
+
+	public class ThermoFallOff : ModPlayer
+	{
+		public override void PostUpdate()
+		{
+			if (Player.TryGetImbue(out Imbuable imbue) && imbue is ThermoFist thermo && thermo.GetThisImbue(Player))
+			{
+
+				if (!Player.ArcaneOdyssey().ItemCooldowns.ContainsKey(thermo.Type))
+					thermo.BarValue -= 100f / (60 * 10f);
+			}
+			
 		}
 	}
 }

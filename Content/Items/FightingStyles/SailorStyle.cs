@@ -13,6 +13,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
@@ -35,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		public override float MinScrollSpeed => 1f;
 		public override float MinScrollDamage => .775f;
 		public override float MinScrollSize => .8f;
+		public override Color DisplayColor => Color.PaleVioletRed;
 
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60 * 10)];
 		public override SynergyEffects Effects => new(
@@ -130,7 +132,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			{
 				if (Player.TryGetImbue(out Imbuable imbue) && imbue is SailorStyle sailor && sailor.GetThisImbue(Player))
 				{
-					sailor.BarValue += 100 / 60;
+					sailor.BarValue += 100f / (60f * 5f);
 				}
 			}
 		}

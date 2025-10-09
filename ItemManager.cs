@@ -269,19 +269,31 @@ namespace ArcaneOdyssey
 	{
 		public override bool InstancePerEntity => true;
 
+		public Item thisItem;
 		public Imbuable imbue = null;
 		public int ImbueIndex;
 		public bool SpecificImbue = false;
+
+		public bool? Arcanium { get
+			{
+				if (thisItem.ModItem is AORangedOrMeleeWeapon weap)
+				{
+					return weap.Arcanium;
+				}
+				return null;
+			} }
 
 		public override GlobalItem Clone(Item from, Item to)
 		{
 			var clone = (AOItem)base.Clone(from, to);
 			clone.imbue = imbue;
+			clone.thisItem = thisItem;
 			return clone;
 		}
 
 		public override void UpdateInventory(Item item, Player player)
 		{
+			thisItem = item;
 			var options = player.GetAllImbues();
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
@@ -351,6 +363,7 @@ namespace ArcaneOdyssey
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
+			thisItem = item;
 			imbue = null;
 			SpecificImbue = false;
 		}
