@@ -112,11 +112,11 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 
 		public override void OnConsumeItem(Item item, Player player)
 		{
-			if (item.type == ItemID.BottledWater)
+			if (item.potion)
 			{
 				if (player.TryGetImbue(out var im) && im is SailorStyle imbue && imbue.GetThisImbue(player))
 				{
-					imbue.BarValue += 50;
+					imbue.BarValue = 100;
 				}
 			}
 		}

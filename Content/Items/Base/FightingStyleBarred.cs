@@ -18,13 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Base
     public abstract class FightingStyleBarred : FightingStyle
     {
 		private int _barValue = 0;
-		public int BarValue { get => _barValue; set { 
-				bool lower = _barValue > value;
-				var oldvalue = _barValue;
-				_barValue = MathHelper.Clamp(value, 0, 100).Round();
-				if (Main.netMode == NetmodeID.SinglePlayer && lower && oldvalue/25 > value/25)
-					Main.NewText($"{DisplayName} {value}%");
-			} }
+		public int BarValue { get => _barValue; set => _barValue = (int)MathHelper.Clamp(value, 0, 100); }
 
 		public abstract float MaxImbueSpeed { get; }
 		public abstract float MaxImbueDamage { get; }
@@ -48,7 +42,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue}%")/2), Color.BlueViolet);
+			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue}%") / 2), Color.BlueViolet);
+		}
+		public override void UpdateInventory(Player player)
+		{
+			if (player.Imbue() is FightingStyleBarred fs && player.Imbue().Name == Name)
+				BarValue = fs.BarValue;
+			base.UpdateInventory(player);
 		}
 	}
 }
