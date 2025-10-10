@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 		{
 			if (bracing)
 			{
-				Player.moveSpeed *= .75f;
+				Player.moveSpeed *= .33f;
 				Player.statDefense *= 1.15f;
 			}
 		}

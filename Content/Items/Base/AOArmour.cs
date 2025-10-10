@@ -94,29 +94,30 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var index = tooltips.IndexOf(tooltips.Find(e => e.Name == "Defense")) + 1;
 			if (MaxMana > 0) 
 			{
-				tooltips.Add(new(Mod, "MaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [MaxMana]).Value));
+				tooltips.Insert(index, new(Mod, "MaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [MaxMana]).Value));
 			}
 			if (MinionSlots > 0)
 			{
-				tooltips.Add(new(Mod, "MinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", [MinionSlots]).Value));
+				tooltips.Insert(index, new(Mod, "MinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", [MinionSlots]).Value));
 			}
 			if (AOAgility > 0)
 			{
-				tooltips.Add(new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(AOAgility / 10f)]).Value));
+				tooltips.Insert(index, new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(AOAgility / 10f)]).Value));
 			}
 			if (AOSize > 0)
 			{
-				tooltips.Add(new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(AOSize / 3f)]).Value));
+				tooltips.Insert(index, new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(AOSize / 3f)]).Value));
 			}
 			if (AOPower > 0)
 			{
-				tooltips.Add(new(Mod, "DamageCrit", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
+				tooltips.Insert(index, new(Mod, "DamageCrit", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
 			}
 			if (AOAttkSpd > 0)
 			{
-				tooltips.Add(new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(AOAttkSpd / 3f)]).Value));
+				tooltips.Insert(index, new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(AOAttkSpd / 3f)]).Value));
 			}
 		}
 

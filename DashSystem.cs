@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -232,11 +233,11 @@ namespace ArcaneOdyssey
 			if (CompletelyFrozen)
 			{
 				Player.gravity = 0f;
-				if (Player.velocity.Y <= 1 || Player.velocity.Y >= 1)
+				if (Player.velocity.Y > 1 || Player.velocity.Y < -1)
 				{
-					Player.velocity.X *= 0.25f;
+					Player.velocity.X *= 0;
 				}
-				Player.velocity.Y *= 0.25f;
+				Player.velocity.Y *= 0;
 			}
 			dashing |= Player.solarDashing || Player.eocDash > 0;
 			dashing &= !Immobile;

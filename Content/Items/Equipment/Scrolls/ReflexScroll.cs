@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				SoundEngine.PlaySound(imbue.ImbueSound, player.MountedCenter);
-				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed.Clamp(1, 3);
+				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed.Clamp(1, 1.5f);
 			}
 		}
 

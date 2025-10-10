@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient<BronzeStaff>();
             recipe.AddIngredient<ArcaniumScrap>(2);
-            recipe.AddTile(TileID.AdamantiteForge);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
 		}
 
