@@ -77,7 +77,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		public override void LingeringEffects(Entity projectile)
 		{
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue/66.6f),1); n++)
-			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Water, 0f, 0f, 0, default, (float)Math.Max(Math.Round((float)BarValue/50f),1));
+			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Water, 0f, 0f, 0, default, (float)Math.Max((float)BarValue/50f,1));
 		}
 
 		public override void ExplosionEffects(Entity projectile)
