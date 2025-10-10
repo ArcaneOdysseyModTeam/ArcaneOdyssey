@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
 
@@ -21,15 +22,11 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 		public override AORarities AORarity => AORarities.Common;
 		public override int AOValue => 30;
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return head.ModItem is RavennaHelm && body.ModItem is RavennaChest;
-		}
+		public override SetBonusHelper? Set => new(Mod, "Ravenna Bulwark", "Allows you to brace, slowing your movement in exchange for a defence bonus", ["RavennaHelm", "RavennaChest"], Color.Orange);
 
-		public override void UpdateArmorSet(Player player)
+		public override void ArmorSetEffects(Player player)
 		{
 			player.GetModPlayer<CenturionPlayer>().bronzeSetBonus = true;
-			player.setBonus = Mod.CustomLocalization($"Items.RavennaBoots.SetText").Value;
 		}
 
 		public override void AddRecipes()
@@ -41,9 +38,35 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 	public class CenturionPlayer : ModPlayer
 	{
 		public bool bronzeSetBonus = false;
+		public bool bracing = false;
+
 		public override void ResetEffects()
 		{
+			if (!bronzeSetBonus)
+				bracing = false;
 			bronzeSetBonus = false;
+		}
+
+		public override void ArmorSetBonusActivated()
+		{
+			if (bronzeSetBonus)
+			{
+				bracing = !bracing;
+			}
+		}
+
+		public override void PostUpdateMiscEffects()
+		{
+			if (bracing)
+			{
+				Player.moveSpeed *= .75f;
+				Player.statDefense *= 1.15f;
+			}
+		}
+
+		public override void FrameEffects()
+		{
+			// draw ravenna war shield here
 		}
 	}
 }

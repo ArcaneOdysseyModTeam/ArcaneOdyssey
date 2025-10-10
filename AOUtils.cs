@@ -134,28 +134,54 @@ namespace ArcaneOdyssey
 			private readonly string Name = name;
 			private readonly string Description = description;
 			private readonly Color? Colour = color;
-			private readonly Mod mod = mod;
+			private readonly Mod Mod = mod;
 
 			public TooltipLine GenerateTooltip()
 			{
 				string text = "";
 				if (Colour.HasValue)
 				{
-					text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {Name}]";
+					text += $"[c/{Colour.Value.Hex3()}:{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}]";
 				}
 				else
 				{
-					text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {Name}";
+					text += $"{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}";
 				}
 				text += $": {Description}";
-				return new TooltipLine(mod, "AOAbility", text);
+				return new TooltipLine(Mod, "AOAbility", text);
 			}
 		}
-		public struct SetBonusHelper(Mod mod, string textKey, Color? color = null)
+
+		/// <summary>
+		/// Helper struct for set bonuses
+		/// </summary>
+		/// <param name="mod">This mod</param>
+		/// <param name="name">The name of the set bonus</param>
+		/// <param name="description">The description of this set bonus</param>
+		/// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
+		/// <param name="colour">The colour of this set</param>
+		public struct SetBonusHelper(Mod mod, string name, string description, string[] otherItems, Color? colour = null)
 		{
-			public Mod mod = mod;
-			public string key = textKey;
-			public Color? colour = color;
+			public Mod Mod = mod;
+			public string Name = name;
+			public string Description = description;
+			public Color? Colour = colour;
+			public string[] OtherItems = otherItems;
+
+			public readonly string GenerateTooltip()
+			{
+				string text = "";
+				if (Colour.HasValue)
+				{
+					text += $"[c/{Colour.Value.Hex3()}:{Name}]";
+				}
+				else
+				{
+					text += Name;
+				}
+				text += $" - {Description}";
+				return text;
+			}
 		}
 
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player, List<Imbuable> imbues = null)

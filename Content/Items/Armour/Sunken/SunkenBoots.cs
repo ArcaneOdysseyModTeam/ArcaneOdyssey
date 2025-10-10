@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 {
@@ -22,6 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
 		public override int AOAgility => 30;
 		public override int AOValue => 1350;
+		public override SetBonusHelper? Set => new(Mod, "Aquatic Rebuttal", "Enemies that strike you are soaked", ["SunkenHelm", "SunkenChest"], Color.Aqua);
 
 		public override void SetDefaults()
 		{
@@ -29,15 +31,9 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 			Item.width = Item.height = 38;
 		}
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return head.ModItem is SunkenHelm && body.ModItem is SunkenChest;
-		}
-
-		public override void UpdateArmorSet(Player player)
+		public override void ArmorSetEffects(Player player)
 		{
 			player.GetModPlayer<SunkenPlayer>().sunkenSetBonus = true;
-			player.setBonus = Mod.CustomLocalization($"Items.SunkenBoots.SetText").Value;
 		}
 
 		public override void AddRecipes()
@@ -49,6 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 	public class SunkenPlayer : ModPlayer
 	{
 		public bool sunkenSetBonus = false;
+
 		public override void ResetEffects()
 		{
 			sunkenSetBonus = false;

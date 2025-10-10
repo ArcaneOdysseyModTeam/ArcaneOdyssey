@@ -39,7 +39,6 @@ SunkenBoots: {
 		A green and gold pair of boots made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
 		It seems to constantly produce water
 		'''
-	SetText: "[c/700013:Special Ability:] [c/327DFF:Aquatic Rebuttal] - Enemies that hit you are soaked"
 }
 
 SunkenChest: {
@@ -149,7 +148,6 @@ ReflexScroll: {
 RavennaBoots: {
 	DisplayName: Ravenna Boots
 	Tooltip: Ornate greaves of bronze, representing the colors of the Ravenna Realm
-	SetText: None
 }
 
 RavennaChest: {

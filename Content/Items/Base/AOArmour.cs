@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Armour.Sunken;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -58,6 +59,31 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual int MaxMana => 0;
 
+		/// <summary>
+		/// Should only be set on boots
+		/// </summary>
+		public virtual SetBonusHelper? Set => null;
+
+		public virtual void ArmorSetEffects(Player player) {}
+
+
+		public override void UpdateArmorSet(Player player)
+		{
+			if (Set.HasValue)
+			{
+				player.setBonus = Set.Value.GenerateTooltip();
+				ArmorSetEffects(player);
+			}
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			if (head.ModItem is not null && body.ModItem is not null && Set.HasValue)
+			{
+				return head.ModItem.Name == Set.Value.OtherItems[0] && body.ModItem.Name == Set.Value.OtherItems[1];
+			}
+			return false;
+		}
 
 		public override void SetDefaults()
 		{
