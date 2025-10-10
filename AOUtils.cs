@@ -151,6 +151,12 @@ namespace ArcaneOdyssey
 				return new TooltipLine(mod, "AOAbility", text);
 			}
 		}
+		public struct SetBonusHelper(Mod mod, string textKey, Color? color = null)
+		{
+			public Mod mod = mod;
+			public string key = textKey;
+			public Color? colour = color;
+		}
 
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player, List<Imbuable> imbues = null)
 		{
@@ -400,7 +406,7 @@ namespace ArcaneOdyssey
 			/// </summary>
 			Good, 
 			/// <summary>
-			/// Atleantean weapons+ use these
+			/// Atleantean weapons+ use these, not in ao
 			/// </summary>
 			Great,
 

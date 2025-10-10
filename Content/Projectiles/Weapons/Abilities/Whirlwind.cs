@@ -18,12 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public Color color = Color.White;
 		public const int MaxTime = 20;
-		public static Texture2D Sprite => ModContent.Request<Texture2D>("ArcaneOdyssey/Content/Projectiles/Weapons/Abilities/Whirlwind").Value;
-
-		public override void SetStaticDefaults()
-		{
-			//Main.projFrames[Type] = 4;
-		}
+		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetDefaults()
 		{

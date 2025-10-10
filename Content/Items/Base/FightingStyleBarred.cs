@@ -17,8 +17,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
     public abstract class FightingStyleBarred : FightingStyle
     {
-		private float _barValue = 0;
-		public float BarValue { get => _barValue; set => _barValue = MathHelper.Clamp(value, 0, 100); }
+		public const int BarMax = 100;
+		public const int BarMin = 0;
+
+		private float _barValue = BarMin;
+		public float BarValue { get => _barValue; set => _barValue = MathHelper.Clamp(value, BarMin, BarMax); }
 
 		public abstract Color DisplayColor { get; }
 

@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
     public class DeliriumBlast : BlastSpell
     {
-        public static Texture2D BlastSprite => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Content/Projectiles/Magic/Blasts/{nameof(DeliriumBlast)}").Value;
+        public Texture2D BlastSprite => ModContent.Request<Texture2D>(Texture).Value;
 
         public float? timeLeftDefault = null;
         public override void SetStaticDefaults()

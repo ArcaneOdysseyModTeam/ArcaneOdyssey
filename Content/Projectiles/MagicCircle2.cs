@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle2 : AOPlayerProjectile
 	{
-		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Content/Projectiles/{nameof(MagicCircle2)}").Value;
+		public Texture2D MagicCircleSprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetDefaults()
 		{

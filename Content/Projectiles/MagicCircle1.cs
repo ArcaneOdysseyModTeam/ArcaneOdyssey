@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle1 : AOPlayerProjectile
 	{
-		public static Texture2D MagicCircleSprite => ModContent.Request<Texture2D>("ArcaneOdyssey/Content/Projectiles/MagicCircle1").Value;
+		public Texture2D MagicCircleSprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public int ChargingProjectile;
 		public float charge = 1f;

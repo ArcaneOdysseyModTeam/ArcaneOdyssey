@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Title
 				velocity = new Vector2(0, 20) * (depth);
 				maxlife = (int)Math.Round(100f * depth);
 				velocity = new Vector2(0, 20) * depth;
-				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0);
+				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0-Texture.Height());
 			}
 		}
 

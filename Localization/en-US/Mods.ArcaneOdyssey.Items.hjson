@@ -149,6 +149,7 @@ ReflexScroll: {
 RavennaBoots: {
 	DisplayName: Ravenna Boots
 	Tooltip: Ornate greaves of bronze, representing the colors of the Ravenna Realm
+	SetText: "None"
 }
 
 RavennaChest: {
