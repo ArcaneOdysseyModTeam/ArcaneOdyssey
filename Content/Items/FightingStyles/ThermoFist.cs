@@ -66,17 +66,20 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			{
 				owner.ItemCooldowns[Type] = 60;
 			}
-			for (int n = 0; n < 10; n++)
+			for (int n = 0; n < (float)Math.Max(Math.Round((float)BarValue/10f),1); n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1.5f);
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, (float)Math.Max(Math.Round((float)BarValue/50f),1));
 			}
 		}
 
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.CrimsonTorch, 0f, 0f, 0, default, 1.5f)];
-			spawnedDust.noGravity = true;
-			spawnedDust.noLight = true;
+			for (int n = 0; n < (float)Math.Max(Math.Round((float)BarValue / 66.6f), 1); n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.CrimsonTorch, 0f, 0f, 0, default, (float)Math.Max(Math.Round((float)BarValue / 50f), 1))];
+				spawnedDust.noGravity = true;
+				spawnedDust.noLight = true;
+			}
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
@@ -85,16 +88,16 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			{
 				owner.ItemCooldowns[Type] = 60;
 			}
-			for (int n = 0; n < 3; n++)
+			for (int n = 0; n < (float)Math.Max(Math.Round((float)BarValue / 33.3f), 1); n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3.5f);
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue / 28.6f), 1));
 			}
 		}
 		public override void KillEffects(Entity projectile)
 		{
-			for (int n = 0; n < 30; n++)
+			for (int n = 0; n < (float)Math.Max(Math.Round((float)BarValue / 6.6f), 1); n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 2f);
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.CrimsonTorch, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, (float)Math.Max(Math.Round((float)BarValue / 50f), 1));
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
