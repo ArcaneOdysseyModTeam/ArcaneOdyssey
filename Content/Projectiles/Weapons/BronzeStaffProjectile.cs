@@ -21,12 +21,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AODamage => 1.1f;
 		public override AODebuffRequirement? Debuff => null;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.height = Projectile.width = 120;
-		}
-
 
 		public override void EffectBeforeSpin(Player player)
 		{

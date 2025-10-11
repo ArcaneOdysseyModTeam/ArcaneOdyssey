@@ -19,12 +19,5 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AOSize => .9f;
 		public override float AODamage => 1f;
 		public override AODebuffRequirement? Debuff => null;
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.height = Projectile.width = 60;
-			BaseScale = 2f;
-		}
 	}
 }

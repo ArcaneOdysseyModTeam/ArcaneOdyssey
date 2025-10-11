@@ -25,12 +25,6 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 		public override int AOValue => 1350;
 		public override SetBonusHelper? Set => new(Mod, "Aquatic Rebuttal", "Enemies that strike you are soaked", ["SunkenHelm", "SunkenChest"], Color.Aqua);
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.width = Item.height = 38;
-		}
-
 		public override void ArmorSetEffects(Player player)
 		{
 			player.GetModPlayer<SunkenPlayer>().sunkenSetBonus = true;

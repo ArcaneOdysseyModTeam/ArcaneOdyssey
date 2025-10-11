@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			Projectile.DamageType = TrueMeleeNoSpeed();
 			Projectile.knockBack = 4.5f;
+			Projectile.height = Projectile.width = 120;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;

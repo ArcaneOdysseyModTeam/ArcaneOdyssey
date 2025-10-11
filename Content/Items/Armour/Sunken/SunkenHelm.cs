@@ -24,12 +24,6 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
         public override int AOPower => 7;
         public override int MaxMana => 40;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.width = Item.height = 64;
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<ArcaniumScrap>(4).AddTile(TileID.MythrilAnvil).Register();

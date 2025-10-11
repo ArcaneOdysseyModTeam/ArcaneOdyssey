@@ -23,12 +23,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override AODebuffRequirement? Debuff => new(BuffID.Wet, 60 * 10);
 		public override SoundStyle? DebuffApplySound => SoundID.Splash;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.height = Projectile.width = 120;
-		}
-
 		public override void PostAI()
 		{
 			if (!Main.dedServ) 

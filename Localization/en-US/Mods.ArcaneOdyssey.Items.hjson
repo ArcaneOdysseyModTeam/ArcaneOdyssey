@@ -54,7 +54,7 @@ SunkenHelm: {
 	DisplayName: Sunken Helmet
 	Tooltip:
 		'''
-		A green and gold helmet made out of arcanium metal, designed to hide the wearer's eyes to enhance their senses that has spent hundreds of years underwater, causing its properties to change
+		A green and gold helmet made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
 		It seems to constantly produce water
 		'''
 }

@@ -24,12 +24,6 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
         public override int MinionSlots => 2;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.width = Item.height = 48;
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient<ArcaniumScrap>(5).AddTile(TileID.MythrilAnvil).Register();
