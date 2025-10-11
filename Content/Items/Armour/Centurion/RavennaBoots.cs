@@ -1,21 +1,37 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
+using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 {
 	[AutoloadEquip(EquipType.Legs)]
 	public class RavennaBoots : AOArmour
 	{
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shield);
+			}
+		}
+		public override void Load()
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Shield}", EquipType.Shield, this);
+			}
+		}
+
 		public override int AODefense => 56;
 		public override int AOSize => AODefense / 20;
 		public override int AOAttkSpd => AODefense / 20;
@@ -66,7 +82,10 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 
 		public override void FrameEffects()
 		{
-			// draw ravenna war shield here
+			if (bracing)
+			{
+				Player.shield = EquipLoader.GetEquipSlot(Mod, typeof(RavennaBoots).Name, EquipType.Shield);
+			}
 		}
 	}
 }

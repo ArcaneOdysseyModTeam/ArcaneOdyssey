@@ -108,8 +108,8 @@ namespace ArcaneOdyssey
 				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
 				//itemLoot.Add(leadingConditionRule4);
 			}
-			LeadingConditionRule AcrimonyCondition = new(new Conditions.NotBeesSeed());
-			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000), true);
+			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
+			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 			itemLoot.Add(AcrimonyCondition);
 		}
 

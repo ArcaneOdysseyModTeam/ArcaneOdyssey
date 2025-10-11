@@ -59,6 +59,13 @@ namespace ArcaneOdyssey
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstMoonLordKillDescription", () => "First Moon Lord Defeated").Value;
 	}
 
+	public class NoShowNoConditon : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => true;
+		public bool CanShowItemDropInUI() => false;
+		public string GetConditionDescription() => "";
+	}
+
 	public class WorldGenTasks
 	{
 		public static void KillTucker(int left, int top, int right, int bottom, int tile)

@@ -93,7 +93,15 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
+			if (npc.type == NPCID.MoonLordCore)
+			{
+				LeadingConditionRule leadingConditionRule = new(new FirstMoonLordKill());
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AncientHecateOrb>()));
+				npcLoot.Add(leadingConditionRule);
+			}
+			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
+			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
+			npcLoot.Add(AcrimonyCondition);
 		}
 	}
 }
