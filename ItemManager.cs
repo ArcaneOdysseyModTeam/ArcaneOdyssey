@@ -299,12 +299,14 @@ namespace ArcaneOdyssey
 			List<Imbuable> options = [null, ..player.GetAllImbues()];
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
-			imbue.GetThisImbue(player);
-			if (SpecificImbue && !imbue.PlayerHasImbue(player, options))
+			if (imbue is null || !player.HasTypeInInventory(imbue.GetType()))
 			{
+				if (SpecificImbue)
+				{
+					settodefault = true;
+					justchangedspecificimbue = true;
+				}
 				SpecificImbue = false;
-				settodefault = true;
-				justchangedspecificimbue = true;
 			}
 
 			if (options.Count > 0 && ImbueClassCheck(item))
