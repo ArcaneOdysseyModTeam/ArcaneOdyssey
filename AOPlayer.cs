@@ -51,7 +51,7 @@ namespace ArcaneOdyssey
 				Player.statDefense *= .75f;
 			chargingSpell = false;
 			DashStrike();
-			if (imbue is not null && !Player.HasTypeInInventory(imbue.GetType()))
+			if (imbue is not null && !imbue.PlayerHasImbue(Player))
 			{
 				imbue = null;
 			}

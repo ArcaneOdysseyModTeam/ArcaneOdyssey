@@ -184,25 +184,14 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool PlayerHasImbue(this Imbuable imbue, Player player, List<Imbuable> imbues = null)
+		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
 		{
-			imbues ??= player.GetAllImbues();
-			var postcheck = imbue is null;
-			foreach (Imbuable imb in imbues)
+			var type = imbue.GetType();
+			if (imbue is SteamImbue steam)
 			{
-				if (imb is not null && imbue is not null)
-				{
-					if (imbue is SteamImbue steam)
-					{
-						postcheck |= imb.Name == steam.originalImbue.Name;
-					}
-					else
-					{
-						postcheck |= imb.Name == imbue.Name;
-					}
-				}
+				type = steam.originalImbue.GetType();
 			}
-			return postcheck;
+			return player.HasTypeInInventory(type);
 		}
 
 		/// <summary>
@@ -475,8 +464,8 @@ namespace ArcaneOdyssey
 		{
 			if (newCentre.HasValue)
 			{
-				gore.position.X = (newCentre.Value.X - gore.Width / 2);
-				gore.position.Y = (newCentre.Value.Y - gore.Height / 2);
+				gore.position.X = (newCentre.Value.X - gore.Width / 2) * gore.scale;
+				gore.position.Y = (newCentre.Value.Y - gore.Height / 2) * gore.scale;
 				return gore.position;
 			}
 			else
