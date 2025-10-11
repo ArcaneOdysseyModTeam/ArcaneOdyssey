@@ -10,7 +10,7 @@ namespace ArcaneOdyssey
 	{
 		public override ConfigScope Mode => ConfigScope.ServerSide;
 
-		[DefaultValue(false)]
+		[DefaultValue(true)]
 		public bool AffectsOtherMods { get; set; }
 
 
