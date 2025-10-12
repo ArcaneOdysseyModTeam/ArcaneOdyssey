@@ -48,6 +48,12 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 				else
 				{
+					aoPlayerOwner.Player.itemAnimation = aoPlayerOwner.Player.itemTime = 2;
+					aoPlayerOwner.Player.itemRotation = aoPlayerOwner.Player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
+					if (aoPlayerOwner.Player.direction != 1)
+					{
+						aoPlayerOwner.Player.itemRotation += MathHelper.Pi;
+					}
 					if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
 					{
 						Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);

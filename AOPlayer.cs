@@ -24,9 +24,11 @@ namespace ArcaneOdyssey
 		public Dictionary<string, int> Cooldowns = [];
 		public Dictionary<int, int> BuffCooldowns = [];
 		public Dictionary<int, int> ItemCooldowns = [];
-
-		public bool CompletelyFrozen => chargingSpell || timeTillNextMove > 0 || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
-		public bool Immobile => CompletelyFrozen || Player.CCed;
+		public bool SoftFrozen => chargingSpell || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
+		public bool Immobile => Player.CCed || timeTillNextMove > 0;
+		public bool CanMoveOnGround;
+		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
+		public int timeSinceSoftFrozen;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
@@ -57,10 +59,39 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public void FreezeMovement() 
+		{
+			if (SoftFrozen)
+			{
+				Player.gravity = 0f;
+				if (FirstFrozenFrame)
+				{
+					CanMoveOnGround = Player.velocity.Y < 1 && Player.velocity.Y > -1;
+				}
+				if (!CanMoveOnGround)
+					Player.velocity.X *= 0;
+				Player.velocity.Y *= 0;
+				timeSinceSoftFrozen++;
+			}
+			else
+			{
+				timeSinceSoftFrozen = 0;
+				CanMoveOnGround = false;
+			}
+			if (Immobile)
+			{
+				Player.controlDown = false;
+				Player.controlUp = false;
+				Player.controlLeft = false;
+				Player.controlRight = false;
+				Player.controlUseItem = false;
+			}
+		}
+
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
-			HandleDashing();
+			HandleDashDetection();
 		}
 
 		public float GetSizeMulti(Item item = null)

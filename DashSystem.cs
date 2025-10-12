@@ -158,6 +158,7 @@ namespace ArcaneOdyssey
 		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
 		public void StartDash(DashSystem dashToUse, int direction = 0)
 		{
+			Player.noFallDmg = true;
 			Player.timeSinceLastDashStarted = 0;
 			CurrentDash = dashToUse;
 			FirstFrames = true;
@@ -189,7 +190,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public void HandleDashing()
+		public void HandleDashDetection()
 		{
 			if (!dashing)
 			{
@@ -230,17 +231,9 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdateMovement()
 		{
-			if (CompletelyFrozen)
-			{
-				Player.gravity = 0f;
-				if (Player.velocity.Y > 1 || Player.velocity.Y < -1)
-				{
-					Player.velocity.X *= 0;
-				}
-				Player.velocity.Y *= 0;
-			}
+			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
-			dashing &= !Immobile;
+			dashing &= !(Immobile || SoftFrozen);
 			DashSystem[] dashes = [Dash, Dash2];
 			if (Dash2 is not null)
 				ExternalModSupport.SetCalamityDash(Dash2.Name, Player);
@@ -268,11 +261,10 @@ namespace ArcaneOdyssey
 			}
 			if (CurrentDash is not null)
 			{
-				FirstFrames = CurrentDash.DashMax < DashLeft + 2;
-				var dash = CurrentDash;
+				FirstFrames = this.CurrentDash.DashMax < DashLeft + 2;
 				if (dashing && !Player.mount.Active && !Player.setSolar)
 				{
-					ExternalModSupport.SetCalamityDash(dash.Name, Player, dash.AnyDirection);
+					ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
 					DashLeft--;
 					Player.noFallDmg = true;
 
@@ -281,17 +273,17 @@ namespace ArcaneOdyssey
 
 					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrames))
 					{
-						dash.SetCooldown(Player);
-						dash.OnEnd(Player);
+						CurrentDash.SetCooldown(Player);
+						CurrentDash.OnEnd(Player);
 						dashing = false;
 						if (collisions == 0)
 						{
-							dash.NaturalEnd(Player);
+							CurrentDash.NaturalEnd(Player);
 						}
 					}
-					else if (dash.AnyDirection || FirstFrames)
+					else if (CurrentDash.AnyDirection || FirstFrames)
 						Player.velocity = DashVelocity; // fly
-					dash.DashEffect(Player);
+					CurrentDash.DashEffect(Player);
 				}
 			}
 			else
