@@ -464,8 +464,8 @@ namespace ArcaneOdyssey
 		{
 			if (newCentre.HasValue)
 			{
-				gore.position.X = (newCentre.Value.X - gore.Width / 2) * gore.scale;
-				gore.position.Y = (newCentre.Value.Y - gore.Height / 2) * gore.scale;
+				gore.position.X = (newCentre.Value.X * gore.scale) - (gore.Width / 2 * gore.scale);
+				gore.position.X = (newCentre.Value.Y * gore.scale) - (gore.Height / 2 * gore.scale);
 				return gore.position;
 			}
 			else
