@@ -66,7 +66,7 @@ namespace ArcaneOdyssey
 				Player.gravity = 0f;
 				if (FirstFrozenFrame)
 				{
-					CanMoveOnGround = Player.velocity.Y < 1 && Player.velocity.Y > -1;
+					CanMoveOnGround = Player.velocity.Y < 1 && Player.velocity.Y > -1 && !(Player.controlJump || Player.releaseJump);
 				}
 				if (!CanMoveOnGround)
 					Player.velocity.X *= 0;
@@ -85,6 +85,7 @@ namespace ArcaneOdyssey
 				Player.controlLeft = false;
 				Player.controlRight = false;
 				Player.controlUseItem = false;
+				Player.controlJump = false;
 			}
 		}
 

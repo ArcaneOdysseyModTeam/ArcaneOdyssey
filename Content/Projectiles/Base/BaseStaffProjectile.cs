@@ -27,8 +27,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-			DustVelocity = Vector2.Zero;
-			killDust = false;
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
 			player.heldProj = Projectile.whoAmI;

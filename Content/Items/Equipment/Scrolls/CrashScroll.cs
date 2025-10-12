@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override bool OnHit(Player player, Entity target)
 		{
-			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), target.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
+			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), target.Center, Vector2.Zero, ModContent.GoreType<Impact>());
 			gore.Centre(target.Center);
 			return true;
 		}
@@ -92,7 +92,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void NaturalEnd(Player player)
 		{
-			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
+			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>());
 			gore.Centre(player.MountedCenter + player.velocity);
 			player.ArcaneOdyssey().StartDash(new Smash(), 2);
 		}

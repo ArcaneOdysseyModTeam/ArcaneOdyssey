@@ -23,8 +23,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	public abstract class AOPlayerProjectile : ModProjectile
 	{
 		public virtual bool? Cold => null;
-		public Vector2? DustVelocity;
-		public bool killDust = true;
 		public AOPlayer aoPlayerOwner = null;
 		public bool IsSpell => this is MagicSpell;
 

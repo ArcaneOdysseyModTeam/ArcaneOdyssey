@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.NPCS;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,14 @@ namespace ArcaneOdyssey
 		public float StunCD = 5;
 		public float StunDuration = 1;
 
+		#region Debuff bools
 		public bool Bleeding = false;
+		public bool HeavyBleeding = false;
 		public bool Scalding = false;
 		public bool Seared = false;
 
 		public bool AOStunned = false;
+		#endregion
 
 		public override bool PreAI(NPC npc)
         {
@@ -50,6 +54,7 @@ namespace ArcaneOdyssey
 				StunDuration = 1;
 			}
 			Bleeding = false;
+			HeavyBleeding = false;
 			Scalding = false;
 			Seared = false;
         }
@@ -59,6 +64,10 @@ namespace ArcaneOdyssey
 			if (Bleeding)
 			{
 				npc.lifeRegen -= 3;
+			}
+			if (HeavyBleeding)
+			{
+				npc.lifeRegen -= 6;
 			}
 			if (Scalding)
 			{
