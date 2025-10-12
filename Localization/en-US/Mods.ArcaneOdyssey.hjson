@@ -1,7 +1,5 @@
 # This file will automatically update with entries for new content after a build and reload.
 
-FirstCultistKillDescription: First Lunatic Cultist Defeated
-
 WorldGen: {
 	Tucker: Burying Tucker
 	Morden: Placing Morden
@@ -14,6 +12,8 @@ Bestiary: {
 
 MenuStyle: Odyssey Style
 AltMenuStyle: Dark Sea Style
+SpiritDamage: spirit damage
+AnyBasicImbue: Any Basic Imbue
 
 Buffs: {
 	RisenTide: {
@@ -64,7 +64,6 @@ Buffs: {
 	AOBleed: {
 		DisplayName: Bleeding
 		Description: You are losing blood fast
-		Death: "{0} bled out."
 	}
 
 	SandyEffect: {
@@ -80,6 +79,31 @@ Buffs: {
 	RowboatBuff: {
 		DisplayName: Rowboat
 		Description: A wooden rowboat that seems to increase your fishing skill
+	}
+
+	AOScalding: {
+		DisplayName: Scalding
+		Description: You are covered in a thick cloud of hot steam
+	}
+
+	BlindedEffect: {
+		DisplayName: Blinded
+		Description: You can't see too well
+	}
+
+	DrainedEffect: {
+		DisplayName: Drained
+		Description: You feel drained and fatigued
+	}
+
+	IonizedEffect: {
+		DisplayName: Ionized
+		Description: Your skin burns and glows green
+	}
+
+	SearedEffect: {
+		DisplayName: Seared Effect
+		Description: Mods.ArcaneOdyssey.Buffs.SearedEffect.Description
 	}
 }
 
@@ -114,23 +138,44 @@ Projectiles: {
 	WindBlast.DisplayName: Wind Blast
 	WoodBlast.DisplayName: Wood Blast
 	JerminusBlast.DisplayName: Jerminus Blast
-	MagicCircle.DisplayName: Magic Circle
+	MagicCircle1.DisplayName: Magic Circle
 	MagicCircle2.DisplayName: Magic Circle
-	ExplosionTracker.DisplayName: Explosion Tracker
-	ExplosionSpell.DisplayName: Explosion Spell
+	ExplosionTracker.DisplayName: Explosion Spell
+	ExplosionSpell.DisplayName: Explosion
 	DeliriumBlast.DisplayName: Delirium Blast
-	DeathCurse.DisplayName: Death Curse
+	DeathCurse.DisplayName: Death Curse?
+	ColossalCleave.DisplayName: Colossal Cleave
+	SpiritBlast.DisplayName: Spirit Blast
+	FrogBlast.DisplayName: Frog Blast
+	IonBlast.DisplayName: Ion Blast
+	WoodenStaffProjectile.DisplayName: Wooden Staff
+	EvanderSlash.DisplayName: Colossal Cleave
+	OldTridentProjectile.DisplayName: Old Trident
+	Whirlwind.DisplayName: Whirlwind
+	BronzeTridentProjectile.DisplayName: Bronze Trident
+	BronzeStaffProjectile.DisplayName: Bronze Staff
+	MountainWind.DisplayName: Mountain Wind
+	PiercingStrikesProjectile.DisplayName: Bronze Rapier
+	LeapFix.DisplayName: Leap Fix
+	PowderExplosion.DisplayName: Powder Explosion
+	PiercingGale.DisplayName: Piercing Gale
 }
 
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	ImbueTooltip: Current Imbue: {0}
-	MultiplayerCannotDisplay: Cannot display in multiplayer
-	NoneText: None
-	UnimbueText: Your magic has been deselected
+	ImbueTooltipMagic: Current Imbue: [c/327DFF:{0}]
+	ImbueTooltipStrength: Current Imbue: [c/700013:{0}]
+	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
+	StrengthIndicator: "[c/700013:-Strength Weapon-]"
+	UnimbueText: Your imbue has been deselected
+	SpecificImbue: Your {0}'s imbue has been set to {1}
 }
 
-PopupText.RisingTide: Rising Tide!
+PopupText: {
+	RisingTide: Rising Tide!
+	ColossalCleave: Colossal Cleave!
+}
 
 Configs: {
 	ArcaneOdysseyConfig: {
@@ -138,23 +183,33 @@ Configs: {
 
 		AffectsOtherMods: {
 			Label: Affect other mods
-			Tooltip:
-				'''
-				Allows imbues to affect items from other mods
-				WARNING: May result in issues!
-				'''
-		}
-
-		IgnoredProjectiles: {
-			Label: Ignored Projectiles
-			Tooltip: Insert projectile names here to blacklist them, might not work
+			Tooltip: Allows imbues and rarity tooltips to affect items from other mods
 		}
 
 		GenerateTucker: {
 			Label: Generate Tucker's Grave
 			Tooltip: Toggles the generation of Tucker's grave on world creation
 		}
+
+		EnableMorden: {
+			Label: Enable Morden
+			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
+		}
 	}
+}
+
+KeybindStuff: {
+	DashHelp: Double tap a movement key
+	CalDash: Press the Calamity Dash Keybind (if set)
+	Unbound: Unbound
+}
+
+RandomWords: {
+	Press: Press
+	None: None
+	Or: or
+	Default: Default
+	Ability: Ability
 }
 
 NPCs: {
@@ -165,6 +220,8 @@ NPCs: {
 		DisplayName1: Edgelord
 		DeathCurse: Morden's Curse has left...
 		Census.SpawnCondition: Always available, spawned on world creation
+		DyingText: HELP!
+		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy
 
 		Chat: {
 			Intro: Hello, {PlayerName}.
@@ -172,20 +229,31 @@ NPCs: {
 			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
 			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he is as immortal as I.
 			Hello: Hello again.
+			Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
+			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior.
 		}
 
 		Help: {
 			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
-			Early2: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
+			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
+			EarlyMagic2: Magic spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
+			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but technique scrolls are needed to use your full power. Try crafting paper at a sawmill with gel and wood.
+			EarlyFighting2: Some techniques allow you to launch yourself in a direction, depending on the type you can [{Keybind1} or {Keybind2}].
 			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
 			PreHard1: It's said there's some abomination deep, deep underground that contains a large amount of magic power. It might be benificial to obtain this power.
 			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
 			EarlyHard1: Killing that beast should have granted you some of it's power in the form of a sigil. You should use that if you haven't already.
 			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
+			ShimmerTip: Bronze can be created using copper and tin and a lot of heat. If only there was a way to transmute those ores...
 			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
+			SunkenWeapon: Although made of Arcanium metal, that sword in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
+			StrengthWeaponsHint: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
+			HasStrengthWeapon: I see you've encountered a strong warrior. Such warriors wield weapons too heavy for regular warriors, and so they learn to use a fighting style.
+			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
+			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing potion while using it.
 		}
 
 		TownNPCMood: {
@@ -207,14 +275,24 @@ NPCs: {
 			Princess_LovesNPC: "{NPCName} used to look at me funny, but we get along quite well now!"
 		}
 	}
+
+	Evander.DisplayName: Evander, the Mountainbreaker
 }
 
 MagicTierLines: {
-	Unobtainable: Unobtainable Magic
-	Normal: "[c/2277ff:-Basic Magic-]"
+	Unobtainable: Unobtainable
+	Normal: "[c/2277ff:-Standard Magic-]"
 	Lost: "[c/0044ff:-Lost Magic-]"
-	Ancient: -Ancient Magic-
+	Ancient: "[c/7ebcc2:-Ancient Magic-]"
 	Custom: "[c/ff0000:-Custom Magic-]"
+}
+
+FSTierLines: {
+	Unobtainable: Unobtainable
+	Normal: "[c/700013:-Fighting Style-]"
+	Lost: "[c/0044ff:-Lost Fighting Style-]"
+	Ancient: "[c/7ebcc2:-Ancient Fighting Style-]"
+	Custom: "[c/ff0000:-Custom Fighting Style-]"
 }
 
 ArmourAutoTooltip: {
@@ -224,4 +302,9 @@ ArmourAutoTooltip: {
 	Minions: +{0} minion slots
 	Mana: +{0} maximum mana
 	Size: "{0}% increased attack size"
+}
+
+Keybinds: {
+	CycleItemImbue.DisplayName: Cycle Item Imbue
+	DashBind.DisplayName: Dash Bind
 }

@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Items.Base;
@@ -20,16 +21,16 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WindMagic : AOMagic
 	{
-		public override SoundStyle? MagicSound => SoundID.Dig;
-        public override Color MagicColour => new Color(255,255,255,255);
+		public override SoundStyle? ImbueSound => SoundID.Dig;
+        public override Color ImbueColour => new Color(255,255,255,255);
 		public override float AOImbueSpeed => 1.175f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => .9f;
-		public override float AOMagicSpeed => 1.35f;
-		public override float AOMagicSize => 1.2f;
-		public override float AOMagicDamage => .825f;
+		public override float AOScrollSpeed => 1.35f;
+		public override float AOScrollSize => 1.2f;
+		public override float AOScrollDamage => .825f;
         public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
-		public override MagicEffects Effects => new MagicEffects(
+		public override SynergyEffects Effects => new SynergyEffects(
 			[
 				BuffID.OnFire,
 				ModContent.BuffType<FreezingEffect>(),
@@ -37,8 +38,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				BuffID.Venom,
 				ModContent.BuffType<SandyEffect>(),
 				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>()
-			], 
+				ModContent.BuffType<SnowyEffect>(),
+				ModContent.BuffType<AOScalding>()
+			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),
 				new MagicBuffMultiplier(BuffID.OnFire,0.9f),
@@ -47,10 +49,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Poisoned,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.9f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-				new MagicBuffMultiplier(BuffID.Wet,0.9f)
+				new MagicBuffMultiplier(BuffID.Wet,0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);
-			public override void SpawningEffects(Projectile projectile) 
+			public override void SpawningEffects(Entity projectile) 
 		{
 			for (int n = 0; n<3; n++)
 			{
@@ -58,28 +62,28 @@ namespace ArcaneOdyssey.Content.Items.Magic
 					spawnedDust.noGravity = true;
 			}
 		}
-		public override void LingeringEffects(Projectile projectile)
+		public override void LingeringEffects(Entity projectile)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.BubbleBurst_White, 0f, 0f, 0, default, 1f)];
 			spawnedDust.noGravity = true;
 		}
-		public override void ExplosionEffects(Projectile projectile)
+		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOMagicSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
 		}
-		public override void KillEffects(Projectile projectile)
+		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.BubbleBurst_White, (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
-			SoundEngine.PlaySound(MagicSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()),]);
 	}
 }

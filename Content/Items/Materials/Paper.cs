@@ -1,21 +1,23 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-    public class Paper : ModItem
+    public class Paper : AOBaseItem
     {
         public int AOValue = 1;
-        public AORarities AORarity = AORarities.Common;
+        public override AORarities AORarity => AORarities.Common;
+		public override ItemType ItemType => ItemType.Material;
 
-        public override void SetDefaults()
-        {
-            Item.width = 30;
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = 30;
             Item.height = 32;
             Item.maxStack = 9999;
-            Item.rare = (int)AORarity;
             Item.value = GalleonToCopper(AOValue);
         }
 

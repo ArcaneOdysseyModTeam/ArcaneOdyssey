@@ -13,15 +13,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
     public class DeliriumBlast : BlastSpell
     {
-        public static Texture2D BlastSprite => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Content/Projectiles/Magic/Blasts/{nameof(DeliriumBlast)}").Value;
+        public Texture2D BlastSprite => ModContent.Request<Texture2D>(Texture).Value;
 
         public float? timeLeftDefault = null;
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            timeLeftDefault ??= Projectile.timeLeft;
-            Main.EntitySpriteDraw(BlastSprite, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.Black, Color.White, (float)(FramesAlive / timeLeftDefault.Value)), Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None);
-            return false;
-        }
+        public override void SetStaticDefaults()
+		{
+			Main.projFrames[Type] = 7;
+		}
+        // All the pre draw stuff will go here later (oh god)
     }
 }

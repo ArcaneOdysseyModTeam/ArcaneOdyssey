@@ -22,7 +22,6 @@ namespace ArcaneOdyssey.Content.Items.Vanity
 
         public override void SetStaticDefaults()
         {
-
             if (Main.dedServ)
                 return;
 
@@ -58,11 +57,6 @@ namespace ArcaneOdyssey.Content.Items.Vanity
             {
                 player.GetModPlayer<GuardPlayer>().vanityEquipped = true;
             }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient(ItemID.BloodButcherer).AddTile(TileID.LivingLoom).Register();
         }
     }
 

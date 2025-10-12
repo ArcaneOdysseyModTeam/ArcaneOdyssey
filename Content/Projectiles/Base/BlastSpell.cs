@@ -8,17 +8,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 
 		// ai 0 is first frame bool
-		// ai 1 is unused
-		// ai 2 is large size bool
 
 
 		public virtual void SetDefaultsBlast() {}
-		public override void SetDefaultsSpell()
+		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.timeLeft = 5 * 60;
-			SetDefaultsBlast();
 			Projectile.height = Projectile.width = 64;
-			BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -32,15 +29,24 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
+			if (Projectile.frameCounter > 5)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+                {
+                    Projectile.frame = 0;
+                }
+            }
+			Projectile.frameCounter++;
 			if (Projectile.ai[0] == 0f)
 			{
 				Projectile.ai[0] = 1f;
-				BaseScale = Projectile.ai[2] != 2 ? 0.6f : 1.2f;
 				Projectile.netUpdate = true;
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if (Projectile.TryGetImbue(out AOMagic imbue) && !imbue.CanBeWet && Projectile.wet)
+			if (Projectile.TryGetImbue(out Imbuable imbue) && !imbue.CanBeWet && Projectile.wet)
 			{
 				Kill();
 				return;

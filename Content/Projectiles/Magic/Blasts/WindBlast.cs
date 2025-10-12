@@ -13,10 +13,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
 	public class WindBlast : BlastSpell
 	{
-		public override void SetDefaultsBlast()
+		public override void SetDefaults()
 		{
-			
-			Projectile.alpha = 225;
+			base.SetDefaults();
+			Projectile.alpha = 60;
+			Main.projFrames[Type] = 7;
 		}
 	}
 }

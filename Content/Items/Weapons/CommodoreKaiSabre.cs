@@ -8,37 +8,52 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-    public class CommodoreKaiSabre : AOWeapon
-    {
-        public override float AOSpeed => 1.2f;
-        public override float AOSize => .9f;
-        public override float AODamage => 1f;
-        public override int AOValue => 900;
-        public override AORarities AORarity => AORarities.Rare;
-        public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Excellent;
+	public class CommodoreKaiSabre : AORangedOrMeleeWeapon
+	{
+		public override float AOSpeed => 1.1f;
+		public override float AOSize => 1.1f;
+		public override float AODamage => .925f;
+		public override int AOValue => 200;
+		public override AORarities AORarity => AORarities.Uncommon;
+		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
 
-        public override AODebuffRequirement WeaponDebuff => new AODebuffRequirement(BuffID.Wet, 60 * 5);
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = 52;
+			Item.height = 54;
+			Item.useStyle = ItemUseStyleID.Rapier;
+		}
 
-        public override void SetDefaultsWeapon()
-        {
-            Item.width = Item.height = 64;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = SoundID.SplashWeak;
-        }
+		private bool canSwing = true;
+		public override bool CanUseItem(Player player)
+		{
+			canSwing = !canSwing;
+			if (!canSwing)
+			{
+				if (Item.useStyle == ItemUseStyleID.Thrust)
+					Item.useStyle = ItemUseStyleID.Swing;
+				else
+					Item.useStyle = ItemUseStyleID.Thrust;
+			}
+			return base.CanUseItem(player) && canSwing;
+		}
 
-
-        public override bool? UseItem(Player player)
-        {
-            
-            return null;
-        }
-
-        public override void AddRecipes()
-        {
-            
-        }
-    }
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			var name = tooltips.Find(e => e.Text.Contains("Standard"));
+			if (PrefixID.Search.TryGetName(Item.prefix, out var prefix))
+			{
+				name?.Text.Replace("Standard ", $"{prefix} ");
+			}
+			else
+			{
+				name?.Text.Replace("Standard ", null);
+			}
+		}
+	}
 }

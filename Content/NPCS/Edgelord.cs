@@ -16,6 +16,9 @@ using Terraria.Localization;
 using ArcaneOdyssey.Content.Projectiles;
 using Terraria.Chat;
 using Terraria.Audio;
+using Terraria.GameInput;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Weapons;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -37,24 +40,6 @@ namespace ArcaneOdyssey.Content.NPCS
 			AnimationType = NPCID.Guide;
 		}
 
-		public override void PostAI()
-		{
-			if (NPC.wet && !NPC.lavaWet && !NPC.honeyWet)
-			{
-				NPC.life -= 5;
-				NPC.localAI[0]++;
-				if (NPC.localAI[0] % 15 == 0)
-					HitEffect(NPC.CalculateHitInfo(5, 1));
-				if (NPC.life <= 0)
-				{
-					OnKill();
-					ExplodeMorden();
-				}
-			}
-			else
-				NPC.localAI[0] = 0;
-		}
-
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 25;
@@ -71,8 +56,8 @@ namespace ArcaneOdyssey.Content.NPCS
 				SetNPCAffection(NPCID.Wizard, AffectionLevel.Like).
 				SetNPCAffection(NPCID.Clothier, AffectionLevel.Love);
 			NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
-
 		}
+
 		public override List<string> SetNPCNameList() => ["Morden"];
 
 		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
@@ -88,6 +73,22 @@ namespace ArcaneOdyssey.Content.NPCS
 		{
 			if (!item.TryGetImbue(out _))
 				modifiers.FinalDamage *= 0;
+		}
+
+		public int errorcd;
+		public override void UpdateLifeRegen(ref int damage)
+		{
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			{
+				NPC.lifeRegen = 120 * -5;
+				HitEffect(NPC.CalculateHitInfo(5, 0));
+				errorcd--;
+				if (errorcd <= 0)
+				{
+					errorcd = 30;
+					CombatText.NewText(NPC.Hitbox, Color.Aquamarine, "ERROR", Main.rand.NextBool());
+				}
+			}
 		}
 
 		public override void HitEffect(NPC.HitInfo hit)
@@ -118,11 +119,16 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else
 			{
-				ChatHelper.SendChatMessageToClient(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan, Main.myPlayer);
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan);
 			}
-			if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)
-				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 0, 0f, -1, default);
+			if (ServerOrSingleplayer)
+				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 700, 0f, -1, default);
+			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet)
+			{
+				ExplodeMorden();
+			}
 		}
+
 		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(!Main.zenithWorld ? "e" : "e1")}").Value;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -132,11 +138,13 @@ namespace ArcaneOdyssey.Content.NPCS
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
+
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = "Help";
 			button2 = null;
 		}
+
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton)
@@ -144,18 +152,55 @@ namespace ArcaneOdyssey.Content.NPCS
 				Main.npcChatText = GetChatHelpButton();
 			}
 		}
+
 		public string GetChatHelpButton()
 		{
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			{
+				return this.GetLocalizedValue("DyingText");
+			}
+			MordenDialogue mordendialogue = Main.LocalPlayer.GetModPlayer<MordenDialogue>();
+
 			List<string> options = [];
 			if (false) // add conditions later
 			{
 				options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
 			}
-			if (BossesKilled == 0)
+
+			if (BossesKilled < 3)
 			{
 				options.Add(this.GetLocalizedValue("Help.Early1"));
-				options.Add(this.GetLocalizedValue("Help.Early2"));
 				options.Add(this.GetLocalizedValue("Help.WorldofMagic"));
+				if (Main.LocalPlayer.HasTypeInInventory(typeof(AOMagic)))
+				{
+					options.Add(this.GetLocalizedValue("Help.EarlyMagic1"));
+					options.Add(this.GetLocalizedValue("Help.EarlyMagic2"));
+				}
+				if (Main.LocalPlayer.HasTypeInInventory(typeof(FightingStyle)))
+				{
+					options.Add(this.GetLocalizedValue("Help.SailorStyle"));
+					options.Add(this.GetLocalizedValue("Help.EarlyFighting1"));
+					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
+					if (ModLoader.HasMod("CalamityMod"))
+					{
+						doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
+					}
+					else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
+					{
+						if ((bool)fargos.Call("DoubleTapDashDisabled"))
+						{
+							doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
+						}
+					}
+					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
+					options.Add(this.GetLocalizedValue("Help.EarlyFighting2").
+						Replace("{Keybind1}", doubletapdash).
+						Replace("{Keybind2}", Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));
+				}
+			}
+			else if (!Main.hardMode)
+			{
+				options.Add(this.GetLocalizedValue("Help.ShimmerHint"));
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
@@ -164,10 +209,30 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.EarlyHard2"));
 			}
 
+			if (Main.hardMode && !DownedBosses.downedEvander)
+			{
+				options.Add(this.GetLocalizedValue("Help.StrengthWeaponsHint"));
+			}
+
+			if (DownedBosses.downedEvander) // argos or something might be here too
+			{
+				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
+			}
+
+			if (Main.hardMode && NPC.downedPirates)
+			{
+				options.Add(this.GetLocalizedValue("Help.CannonFist"));
+			}
+
 			if (!Main.hardMode)
 			{
 				options.Add(this.GetLocalizedValue("Help.PreHard1"));
 				options.Add(this.GetLocalizedValue("Help.PreHard2"));
+			}
+
+			if (Main.LocalPlayer.HasTypeInInventory(typeof(SunkenSword)) || Main.LocalPlayer.HasTypeInInventory(typeof(SunkenStaff)))
+			{
+				options.Add(this.GetLocalizedValue("Help.SunkenWeapon"));
 			}
 
 			if (!NPC.downedAncientCultist && NPC.downedGolemBoss)
@@ -180,7 +245,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.PlantTip"));
 			}
 
-			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastHelp);
+			options.RemoveAll(e => e == mordendialogue.LastHelp);
 
 			if (options.Count == 0)
 				return this.GetLocalizedValue("Help.NothingToSay");
@@ -192,11 +257,17 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override string GetChat()
 		{
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			{
+				return this.GetLocalizedValue("DyingText");
+			}
 			List<string> options = [];
+			options.Add(this.GetLocalizedValue("Chat.Water"));
 			if (BossesKilled == 0)
 			{
 				options.Add(this.GetLocalizedValue("Chat.Intro").Replace("{PlayerName}", Main.LocalPlayer.name));
 				options.Add(this.GetLocalizedValue("Chat.Grave"));
+
 			}
 			else
 				options.Add(this.GetLocalizedValue("Chat.Hello"));
@@ -204,6 +275,11 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (BossesKilled > 0 && !NPC.downedBoss3)
 			{
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
+			}
+
+			if (Main.LocalPlayer.HeldItem.ModItem is AORangedOrMeleeWeapon weapon && !weapon.Arcanium.GetValueOrDefault(true))
+			{
+				options.Add(this.GetLocalizedValue("Chat.StrongWarrior"));
 			}
 
 			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue);
@@ -216,11 +292,12 @@ namespace ArcaneOdyssey.Content.NPCS
 			return chosen;
 			return Main.rand.Next(options);
 		}
+
 		public void ExplodeMorden()
 		{
 			if (!Main.dedServ)
 			{
-				for (int n = 0; n < 10; n++)
+				for (int n = 0; n < 50; n++)
 				{
 					Dust spawnedDust = Dust.NewDustDirect(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 50f, (Main.rand.NextFloat() - 0.5f) * 50f, 0, default, 2f);
 					spawnedDust.noGravity = true;
@@ -228,9 +305,9 @@ namespace ArcaneOdyssey.Content.NPCS
 					spawnedDust2.noGravity = true;
 				}
 				SoundEngine.PlaySound(SoundID.Item74, NPC.position, null);
-            }
+			}
 		}
-		public override bool CanTownNPCSpawn(int numTownNPCs) => true;
+		public override bool CanTownNPCSpawn(int numTownNPCs) => ArcaneOdysseyConfig.Instance.EnableMorden;
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 	}

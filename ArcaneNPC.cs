@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.NPCS;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace ArcaneOdyssey
 {
@@ -21,7 +24,14 @@ namespace ArcaneOdyssey
 		public float StunCD = 5;
 		public float StunDuration = 1;
 
+		#region Debuff bools
+		public bool Bleeding = false;
+		public bool HeavyBleeding = false;
+		public bool Scalding = false;
+		public bool Seared = false;
+
 		public bool AOStunned = false;
+		#endregion
 
 		public override bool PreAI(NPC npc)
         {
@@ -43,8 +53,32 @@ namespace ArcaneOdyssey
 				StunCD = 5;
 				StunDuration = 1;
 			}
-		}
-	}
+			Bleeding = false;
+			HeavyBleeding = false;
+			Scalding = false;
+			Seared = false;
+        }
+
+		public override void UpdateLifeRegen(NPC npc, ref int damage)
+		{
+			if (Bleeding)
+			{
+				npc.lifeRegen -= 3;
+			}
+			if (HeavyBleeding)
+			{
+				npc.lifeRegen -= 6;
+			}
+			if (Scalding)
+			{
+				npc.lifeRegen -= 4;
+			}
+			if (Seared) {
+				npc.lifeRegen -= 4;
+			}
+        }
+
+    }
 
 	public class AOGlobalNPC : GlobalNPC
 	{
@@ -68,7 +102,15 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
+			if (npc.type == NPCID.MoonLordCore)
+			{
+				LeadingConditionRule leadingConditionRule = new(new FirstMoonLordKill());
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AncientHecateOrb>()));
+				npcLoot.Add(leadingConditionRule);
+			}
+			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
+			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
+			npcLoot.Add(AcrimonyCondition);
 		}
 	}
 }

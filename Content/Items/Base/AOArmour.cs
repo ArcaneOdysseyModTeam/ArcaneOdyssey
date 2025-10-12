@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Armour.Sunken;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +17,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AOArmour : ModItem
+	public abstract class AOArmour : AOBaseItem
 	{
 		/// <summary>
 		/// At max item level btw
@@ -43,6 +44,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual int AOSize => 0;
 
+		public override ItemType ItemType => ItemType.Armour;
+
 		/// <summary>
 		/// At max item level btw
 		/// </summary>
@@ -51,49 +54,70 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <summary>
 		/// Without enchantments ect
 		/// </summary>
-		public virtual AORarities AORarity => AORarities.Common;
 
 		public virtual int MinionSlots => 0;
 
 		public virtual int MaxMana => 0;
 
-		public virtual void SetDefaultsArmour()
-		{
+		/// <summary>
+		/// Should only be set on boots
+		/// </summary>
+		public virtual SetBonusHelper? Set => null;
 
+		public virtual void ArmorSetEffects(Player player) {}
+
+
+		public override void UpdateArmorSet(Player player)
+		{
+			if (Set.HasValue)
+			{
+				player.setBonus = Set.Value.GenerateTooltip();
+				ArmorSetEffects(player);
+			}
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			if (head.ModItem is not null && body.ModItem is not null && Set.HasValue)
+			{
+				return head.ModItem.Name == Set.Value.OtherItems[0] && body.ModItem.Name == Set.Value.OtherItems[1];
+			}
+			return false;
 		}
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.defense = AODefense.FromAODefense();
-			SetDefaultsArmour();
 			Item.value = GalleonToCopper(AOValue);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var index = tooltips.IndexOf(tooltips.Find(e => e.Name == "Defense")) + 1;
 			if (MaxMana > 0) 
 			{
-				tooltips.Add(new(Mod, "MaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [MaxMana]).Value));
+				tooltips.Insert(index, new(Mod, "MaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [MaxMana]).Value));
 			}
 			if (MinionSlots > 0)
 			{
-				tooltips.Add(new(Mod, "MinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", [MinionSlots]).Value));
+				tooltips.Insert(index, new(Mod, "MinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", [MinionSlots]).Value));
 			}
 			if (AOAgility > 0)
 			{
-				tooltips.Add(new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(AOAgility / 10f)]).Value));
+				tooltips.Insert(index, new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(AOAgility / 10f)]).Value));
 			}
 			if (AOSize > 0)
 			{
-				tooltips.Add(new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(AOSize / 3f)]).Value));
+				tooltips.Insert(index, new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(AOSize / 3f)]).Value));
 			}
 			if (AOPower > 0)
 			{
-				tooltips.Add(new(Mod, "DamageCrit", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
+				tooltips.Insert(index, new(Mod, "DamageCrit", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
 			}
 			if (AOAttkSpd > 0)
 			{
-				tooltips.Add(new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(AOAttkSpd / 3f)]).Value));
+				tooltips.Insert(index, new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(AOAttkSpd / 3f)]).Value));
 			}
 		}
 

@@ -19,12 +19,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;
-		public override float AOMagicSpeed => 1f;
-		public override float AOMagicSize => 1f;
-		public override float AOMagicDamage => 1f;
-		public override AODebuffRequirement MagicDebuff => null;
-        public override AOMagicTier MagicTier => AOMagicTier.Lost;
-        public override MagicEffects Effects => new MagicEffects(
+		public override float AOScrollSpeed => 1f;
+		public override float AOScrollSize => 1f;
+		public override float AOScrollDamage => 1f;
+		
+        public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+        public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-				public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<FlareBlast>()),]);
+				public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<FlareBlast>()),]);
 		
 		public override void AddRecipes() {
             

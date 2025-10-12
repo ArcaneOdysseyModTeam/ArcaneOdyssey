@@ -17,16 +17,16 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
     public class DeliriumMagic : AOMagic
     {
-        public override Color MagicColour => new Color(255,255,255,0);
+        public override Color ImbueColour => new Color(255,255,255,0);
         public override float AOImbueSpeed => 2.3f;
         public override float AOImbueSize => 5f;
         public override float AOImbueDamage => .5f;
-        public override float AOMagicDamage => 0.5f;
-        public override float AOMagicSize => 5f;
-        public override float AOMagicSpeed => 2.3f;
-        public override AOMagicTier MagicTier => AOMagicTier.Custom;
-        public override AODebuffRequirement MagicDebuff => new(BuffID.Confused, 10 * 60);
-        public override MagicEffects Effects => new MagicEffects(
+        public override float AOScrollDamage => 0.5f;
+        public override float AOScrollSize => 5f;
+        public override float AOScrollSpeed => 2.3f;
+        public override AOImbuableTier ImbuableTier => AOImbuableTier.Custom;
+        public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Confused, 10 * 60)];
+        public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -34,6 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-        public override Dictionary<Type, int> Spells => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<DeliriumBlast>()),]);
+        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<DeliriumBlast>()),]);
     }
 }

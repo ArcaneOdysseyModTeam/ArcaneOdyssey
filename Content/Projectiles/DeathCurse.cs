@@ -28,6 +28,12 @@ namespace ArcaneOdyssey.Content.Projectiles
             Projectile.tileCollide = false;
             Projectile.width = Projectile.height = 100;
             Projectile.ignoreWater = true;
+            Projectile.damage = 700;
+            Projectile.hostile = true;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
         }
         
         public override void AI()
@@ -39,7 +45,7 @@ namespace ArcaneOdyssey.Content.Projectiles
                 Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, 0, default, 2.6f);
                 spawnedDust2.noGravity = true;
             }
-            if (Projectile.position.Y < 0 || Projectile.localAI[0] > 1000)
+            if (Projectile.Bottom.Y < 0 || Projectile.localAI[0] > 1000)
             {
                 Projectile.Kill();
             }

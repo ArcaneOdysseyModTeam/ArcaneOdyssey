@@ -1,8 +1,11 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,6 +16,7 @@ using Terraria.ID;
 using Terraria.IO;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey
@@ -20,6 +24,26 @@ namespace ArcaneOdyssey
 	public class ArcaneOdyssey : Mod // what does bro even do lmao
 	{
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
+		public static List<int> ExcludedItems = [];
+		public static List<int> ExcludedProjectiles = [];
+
+		public override object Call(params object[] args)
+		{
+			switch (args[0])
+			{
+				case "ExcludeProjectile":
+					ExcludedProjectiles.Add((int)args[1]);
+					break;
+				case "ExcludeItem":
+					ExcludedItems.Add((int)args[1]);
+					break;
+				case "GetImbue":
+					AOPlayer player = Main.player[(int)args[1]].ArcaneOdyssey();
+					return player.imbue.Type;
+					break;
+			}
+			return null;
+		}
 	}
 
 	public class FirstCultistKill : IItemDropRuleCondition
@@ -28,80 +52,18 @@ namespace ArcaneOdyssey
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
 	}
-
-
-	public class AOPlayer : ModPlayer
+	public class FirstMoonLordKill : IItemDropRuleCondition
 	{
-		public AOMagic imbue = null;
+		public bool CanDrop(DropAttemptInfo info) => !NPC.downedMoonlord;
+		public bool CanShowItemDropInUI() => true;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstMoonLordKillDescription", () => "First Moon Lord Defeated").Value;
+	}
 
-		/// <summary>
-		/// Whether the user has a set of sunken armour equipped
-		/// </summary>
-		public bool sunkenArmour = false;
-
-		public int AOSizeStat = 0;
-
-		public Projectile myCircle = null;
-		public float StunCD = 0;
-		public bool RightClicking => Player.altFunctionUse == 2;
-
-		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
-		{
-			if (!mediumCoreDeath)
-			{
-				return [new Item(ModContent.ItemType<PoseidonChoice>()), new Item(ModContent.ItemType<TitleMusicBox>())];
-			}
-			else return [];
-		}
-
-        public override void PreUpdateMovement()
-        {
-            if (myCircle is not null && myCircle.ai[1] == 2)
-            {
-                Player.velocity = Vector2.Zero;
-                Player.maxFallSpeed = 0f;
-            }
-        }
-
-		public override void ResetEffects()
-		{
-			sunkenArmour = false;
-			AOSizeStat = 0;
-		}
-
-		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
-		{
-			if (sunkenArmour)
-			{
-				npc.AddBuff(BuffID.Wet, 60 * 10);
-			}
-		}
-
-		public float GetSizeMulti(Item item)
-		{
-			float stat = AOSizeStat / 300f;
-			if (Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
-			{
-				stat += .1f;
-			}
-			return stat+1;
-		}
-
-		public float GetSizeMulti(Projectile projectile)
-		{
-			float stat = AOSizeStat / 300f;
-			if (Player.meleeScaleGlove && projectile.DamageType.Name.Contains("Melee"))
-			{
-				stat += .1f;
-			}
-			return stat + 1f;
-		}
-
-        public override void PreUpdate()
-        {
-			if (Main.LocalPlayer == Player)
-				StunCD -= 1 / 60;
-        }
+	public class NoShowNoConditon : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => true;
+		public bool CanShowItemDropInUI() => false;
+		public string GetConditionDescription() => "";
 	}
 
 	public class WorldGenTasks
@@ -148,22 +110,24 @@ namespace ArcaneOdyssey
 			// Tucker died lmao
 			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
 			if (ArcaneOdysseyConfig.Instance.GenerateTucker && Stalac != -1)
+			{
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
 					WorldGenTasks.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
 				}));
+			}
 
-            int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
-			if (guide != -1)
+			int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
+			if (ArcaneOdysseyConfig.Instance.EnableMorden && guide != -1)
 			{
-                tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
-                {
-                    progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
-                    WorldGenTasks.SpawnMorden();
-                }));
-            }
-        }
+				tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
+				{
+					progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
+					WorldGenTasks.SpawnMorden();
+				}));
+			}
+		}
 
 		public override void PostWorldGen()
 		{
@@ -185,6 +149,37 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
+		}
+	}
+
+	public class DownedBosses : ModSystem
+	{
+		public static bool downedEvander;
+
+		public static void ResetDefaults()
+		{
+			downedEvander = false;
+		}
+
+		public override void OnWorldLoad() => ResetDefaults();
+
+		public override void OnWorldUnload() => ResetDefaults();
+
+		public override void SaveWorldData(TagCompound tag)
+		{
+			List<string> downed = [];
+			if (downedEvander)
+			{
+				downed.Add("Evander");
+			}
+
+			tag["downed"] = downed;
+		}
+
+		public override void LoadWorldData(TagCompound tag)
+		{
+			var downed = tag.GetList<string>("downed");
+			downedEvander = downed.Contains("Evander");
 		}
 	}
 }

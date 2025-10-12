@@ -39,16 +39,16 @@ namespace ArcaneOdyssey.Title
 			public void Draw(bool dark)
 			{
 				Main.spriteBatch.Draw(Texture.Value, position, !dark ? new Color(255f, 255f, 255f, 255f/10f) : Color.Black);
-            }
+			}
 
 			public Raindrop()
-            {
-                depth = Main.rand.NextFloat(1, .25f);
-                maxlife = 120;//(int)Math.Round(100f * depth);
-                velocity = new Vector2(0, 20) * (depth);
-                maxlife = (int)Math.Round(100f * depth);
-                velocity = new Vector2(0, 20) * depth;
-				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0);
+			{
+				depth = Main.rand.NextFloat(1, .25f);
+				maxlife = 120;//(int)Math.Round(100f * depth);
+				velocity = new Vector2(0, 20) * (depth);
+				maxlife = (int)Math.Round(100f * depth);
+				velocity = new Vector2(0, 20) * depth;
+				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0-Texture.Height());
 			}
 		}
 
@@ -68,19 +68,19 @@ namespace ArcaneOdyssey.Title
 
 		public override int Music => GetMusic();
 
-		public int GetMusic()
+		private int GetMusic()
 		{
-			int mus = MusicID.OtherworldlyRain;
+			int mus;
 			if (!AltMenu)
 			{
 				mus = MusicLoader.GetMusicSlot(Mod, "Music/TitleTheme");
-            }
+			}
 			else
 			{
 				mus = MusicLoader.GetMusicSlot(Mod, "Music/DarkSea");
 			}
 			return mus != 0 ? mus : MusicID.OtherworldlyRain;
-        }
+		}
 
 		/// <summary>
 		/// dark sea menu 
@@ -112,7 +112,7 @@ namespace ArcaneOdyssey.Title
 
 			var thecolour = AltMenu ? Color.Gray : Color.White;
 
-            spriteBatch.Draw(BackgroundTexture, drawOffset, null, thecolour, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(BackgroundTexture, drawOffset, null, thecolour, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
 			Main.time = 27000;
 			Main.dayTime = !AltMenu;
@@ -125,14 +125,14 @@ namespace ArcaneOdyssey.Title
 				Raindrops.Add(new());
 			}
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 
 			Raindrops.RemoveAll(e => e.lifevalue >= e.maxlife);
 
-            foreach (Raindrop drop in Raindrops)
+			foreach (Raindrop drop in Raindrops)
 			{
 				drop.Update();
-                drop.Draw(AltMenu);
+				drop.Draw(AltMenu);
 			}
 
 			spriteBatch.End();
@@ -170,6 +170,6 @@ namespace ArcaneOdyssey.Title
 
 	public class DarkTitle : ArcaneOdysseyMainMenu
 	{
-        public override bool AltMenu => true;
+		public override bool AltMenu => true;
 	}
 }

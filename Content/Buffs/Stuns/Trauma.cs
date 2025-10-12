@@ -8,6 +8,6 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 {
     public class Trauma : Stun
     {
-        public override bool AffectsBosses => true;
+        public override bool LiterallyCheating => true;
     }
 }

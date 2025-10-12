@@ -14,7 +14,12 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
     {
         public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!Main.dedServ) Dust.NewDust(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.SnowflakeIce, 0f, 0f, 1, default, 1f);   
+            if (!Main.dedServ)
+            {
+                var dust = Dust.NewDustDirect(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.SnowflakeIce, 0f, 0f, 1, default, 1f);
+                dust.velocity *= 0.8f;
+                dust.noGravity = true;
+            }   
         }
     }
 }

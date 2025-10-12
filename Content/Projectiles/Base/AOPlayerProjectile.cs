@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
@@ -22,9 +23,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	public abstract class AOPlayerProjectile : ModProjectile
 	{
 		public virtual bool? Cold => null;
-		public Item originalItem = null;
-		public Vector2? DustVelocity;
-		public bool killDust = true;
 		public AOPlayer aoPlayerOwner = null;
 		public bool IsSpell => this is MagicSpell;
 
@@ -36,7 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public float FramesAlive => Projectile.ArcaneOdyssey().FramesAlive;
 
-		public AOMagic Imbue 
+		public Imbuable Imbue 
 		{
 			get => Projectile.ArcaneOdyssey().imbue;
 			set => Projectile.ArcaneOdyssey().imbue = value;
@@ -46,17 +44,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
 
-		public virtual AODebuffRequirement Debuff => null;
+		public virtual AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 60*5);
 		public virtual SoundStyle? DebuffApplySound => null;
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			AOPlayerProjectile proj = Projectile.ModProjectile as AOPlayerProjectile;
-			AODebuffRequirement Debuff = proj.Debuff;
-			SoundStyle? DebuffApplySound = proj.DebuffApplySound;
-			if (Debuff is not null && (Debuff.DebuffPercent is null or 0 || modifiers.GetDamage(Projectile.damage, true) > target.lifeMax / Debuff.DebuffPercent))
+			if (Debuff.HasValue && (Debuff.Value.debuffPercent == 0 || modifiers.GetDamage(Projectile.damage, true) > target.lifeMax / Debuff.Value.debuffPercent))
 			{
-				target.AddBuff(Debuff.debuffID, Debuff.debuffDuration);
+				target.AddBuff(Debuff.Value.debuffID, Debuff.Value.debuffDuration);
 				if (DebuffApplySound.HasValue)
 				{
 					SoundEngine.PlaySound(DebuffApplySound.Value, target.position);
