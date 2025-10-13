@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			var dir = aoPlayerOwner.Player.MountedCenter.DirectionTo(Main.MouseWorld);
+			var dir = Main.myPlayer == Projectile.owner ? aoPlayerOwner.Player.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;

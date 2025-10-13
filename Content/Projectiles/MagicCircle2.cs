@@ -42,25 +42,28 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				aoPlayerOwner.chargingSpell = true;
 				aoPlayerOwner.myCircle = Projectile;
-				if (Projectile.ai[1] != 2)
-				{
-					Projectile.Center = player.MountedCenter;
-				}
-				else
-				{
-					aoPlayerOwner.Player.itemAnimation = aoPlayerOwner.Player.itemTime = 2;
-					aoPlayerOwner.Player.itemRotation = aoPlayerOwner.Player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
-					if (aoPlayerOwner.Player.direction != 1)
-					{
-						aoPlayerOwner.Player.itemRotation += MathHelper.Pi;
-					}
-					if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
-					{
-						Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
-					}
-					else
-						Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
-				}
+                if (Projectile.ai[1] != 2)
+                {
+                    Projectile.Center = player.MountedCenter;
+                }
+                else
+                {
+                    player.itemAnimation = player.itemTime = 2;
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        player.itemRotation = player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
+                        if (player.direction != 1)
+                        {
+                            player.itemRotation += MathHelper.Pi;
+                        }
+                        if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
+                        {
+                            Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
+                        }
+                        else
+                            Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
+                    }
+                }
 			}
 			else
 			{
