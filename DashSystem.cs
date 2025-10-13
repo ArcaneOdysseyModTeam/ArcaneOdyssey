@@ -199,7 +199,7 @@ namespace ArcaneOdyssey
 				CurrentDash = null;
 				DashDir = null;
 			}
-			if (ExternalModSupport.CanDoubleTapDash())
+			if (ExternalModSupport.CanDoubleTapDash() && Player.whoAmI == Main.myPlayer)
 			{
 				if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[2] < 15)
 				{
