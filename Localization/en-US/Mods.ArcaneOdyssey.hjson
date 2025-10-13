@@ -285,7 +285,7 @@ MagicTierLines: {
 	Normal: "[c/2277ff:-Standard Magic-]"
 	Lost: "[c/0044ff:-Lost Magic-]"
 	Ancient: "[c/7ebcc2:-Ancient Magic-]"
-	Custom: "[c/ff0000:-Custom Magic-]"
+	Custom: "[c/ff0000:-Developer Magic-]"
 }
 
 FSTierLines: {
@@ -293,7 +293,7 @@ FSTierLines: {
 	Normal: "[c/700013:-Fighting Style-]"
 	Lost: "[c/0044ff:-Lost Fighting Style-]"
 	Ancient: "[c/7ebcc2:-Ancient Fighting Style-]"
-	Custom: "[c/ff0000:-Custom Fighting Style-]"
+	Custom: "[c/ff0000:-Developer Fighting Style-]"
 }
 
 ArmourAutoTooltip: {
