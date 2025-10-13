@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.extraUpdates = 2;
 			Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.stopsDealingDamageAfterPenetrateHits = true;
+			Projectile.penetrate = 2;
 		}
 
 		public override void AI()

@@ -73,13 +73,13 @@ namespace ArcaneOdyssey.Title
 			int mus;
 			if (!AltMenu)
 			{
-				mus = MusicLoader.GetMusicSlot(Mod, "Music/TitleTheme");
+				mus = ExternalModSupport.GetMusic("TitleTheme", MusicID.OtherworldlyRain);
 			}
 			else
 			{
-				mus = MusicLoader.GetMusicSlot(Mod, "Music/DarkSea");
+				mus = ExternalModSupport.GetMusic("DarkSea", MusicID.OtherworldlyNight);
 			}
-			return mus != 0 ? mus : MusicID.OtherworldlyRain;
+            return mus;
 		}
 
 		/// <summary>

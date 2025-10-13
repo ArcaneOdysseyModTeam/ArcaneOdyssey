@@ -1,5 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
@@ -175,6 +174,7 @@ namespace ArcaneOdyssey
         public static void ResetDefaults()
 		{
 			downedEvander = false;
+            ExternalModSupport.hasYapped = false;
             downedEnragedEmpress = false;
         }
 

@@ -16,10 +16,10 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {
-    /// <summary>
-    /// basically AOPlayer but for npcs
-    /// </summary>
-    public class ArcaneNPC : GlobalNPC
+	/// <summary>
+	/// basically AOPlayer but for npcs
+	/// </summary>
+	public class ArcaneNPC : GlobalNPC
 	{
 		public override bool InstancePerEntity => true;
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey
 		#endregion
 
 		public override bool PreAI(NPC npc)
-        {
+		{
 			if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)
 			{
 				if (!AOStunned)
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey
 			HeavyBleeding = false;
 			Scalding = false;
 			Seared = false;
-        }
+		}
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
@@ -78,9 +78,9 @@ namespace ArcaneOdyssey
 			if (Seared) {
 				npc.lifeRegen -= 4;
 			}
-        }
+		}
 
-    }
+	}
 
 	public class AOGlobalNPC : GlobalNPC
 	{
@@ -97,17 +97,17 @@ namespace ArcaneOdyssey
 				LeadingConditionRule leadingConditionRule = new(new FirstCultistKill());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
-            }
-            if (npc.type == NPCID.HallowBoss)
-            {
-                LeadingConditionRule leadingConditionRule = new(new FirstEmpressKill());
-                leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
-                npcLoot.Add(leadingConditionRule);
-                //LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
-                //leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
-                //npcLoot.Add(leadingConditionRule1);
-            }
-            if (npc.type == NPCID.Plantera)
+			}
+			if (npc.type == NPCID.HallowBoss)
+			{
+				LeadingConditionRule leadingConditionRule = new(new FirstEmpressKill());
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
+				npcLoot.Add(leadingConditionRule);
+				//LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
+				//leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
+				//npcLoot.Add(leadingConditionRule1);
+			}
+			if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
@@ -124,17 +124,17 @@ namespace ArcaneOdyssey
 			npcLoot.Add(AcrimonyCondition);
 		}
 
-        public override void OnKill(NPC npc)
-        {
-            if (npc.type == NPCID.HallowBoss)
-            {
-                if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
-                {
-                    DownedBosses.downedEnragedEmpress = true;
-                    if (Main.dedServ)
-                        NetMessage.SendData(MessageID.WorldData);
-                }
-            }    
-        }
+		public override void OnKill(NPC npc)
+		{
+			if (npc.type == NPCID.HallowBoss)
+			{
+				if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+				{
+					DownedBosses.downedEnragedEmpress = true;
+					if (Main.dedServ)
+						NetMessage.SendData(MessageID.WorldData);
+				}
+			}    
+		}
 	}
 }
