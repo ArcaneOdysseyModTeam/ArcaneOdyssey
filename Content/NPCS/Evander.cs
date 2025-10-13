@@ -36,7 +36,6 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.lavaImmune = false;
 			NPC.aiStyle = 0;
 			NPC.ai[0] = 0;
-			NPC.ai[1] = 0;
 		}
 		private bool canJump = false;
 
