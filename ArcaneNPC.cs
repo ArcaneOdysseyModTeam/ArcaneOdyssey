@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.NPCS;
+using Microsoft.Build.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -96,8 +97,17 @@ namespace ArcaneOdyssey
 				LeadingConditionRule leadingConditionRule = new(new FirstCultistKill());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
-			}
-			if (npc.type == NPCID.Plantera)
+            }
+            if (npc.type == NPCID.HallowBoss)
+            {
+                LeadingConditionRule leadingConditionRule = new(new FirstEmpressKill());
+                leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
+                npcLoot.Add(leadingConditionRule);
+                //LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
+                //leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
+                //npcLoot.Add(leadingConditionRule1);
+            }
+            if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
@@ -113,5 +123,18 @@ namespace ArcaneOdyssey
 			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 			npcLoot.Add(AcrimonyCondition);
 		}
+
+        public override void OnKill(NPC npc)
+        {
+            if (npc.type == NPCID.HallowBoss)
+            {
+                if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+                {
+                    DownedBosses.downedEnragedEmpress = true;
+                    if (Main.dedServ)
+                        NetMessage.SendData(MessageID.WorldData);
+                }
+            }    
+        }
 	}
 }
