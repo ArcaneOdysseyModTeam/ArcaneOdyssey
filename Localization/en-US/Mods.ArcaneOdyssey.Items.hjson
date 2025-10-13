@@ -27,6 +27,11 @@ BlastScroll: {
 	Tooltip: A spell scroll which allows the user to create a charged magical blast, or create a barrage of uncharged magical blasts
 }
 
+CannonScroll: {
+	DisplayName: Cannon Scroll
+	Tooltip: A spell scroll which allows the user to create a fully charged blast instantly
+}
+
 Paper: {
 	DisplayName: Paper
 	Tooltip: Organic parchment suitable for conducting magic
