@@ -311,6 +311,10 @@ namespace ArcaneOdyssey
 			{
 				return based.AORarity;
 			}
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && ((bool)calamity.Call("GetChargeable", item) || item.rare == calamity.Find<ModRarity>("DarkOrange").Type))
+			{
+				return AORarities.Unknown;
+			}
 			if (item.expert || item.rare == ItemRarityID.Expert)
 			{
 				return AORarities.Arcane;
@@ -392,6 +396,7 @@ namespace ArcaneOdyssey
 			Arcane = ItemRarityID.Lime,
 			Zenith = ItemRarityID.Master,
 			Special,
+			Unknown,
 			RESOLVESELF
 		}
 

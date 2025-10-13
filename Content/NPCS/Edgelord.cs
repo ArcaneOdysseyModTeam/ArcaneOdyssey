@@ -38,6 +38,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.DeathSound = SoundID.NPCDeath52;
 			NPC.knockBackResist = 0;
 			AnimationType = NPCID.Guide;
+			SetDebuffVulnurablility();
 		}
 
 		public override void SetStaticDefaults()
@@ -56,6 +57,17 @@ namespace ArcaneOdyssey.Content.NPCS
 				SetNPCAffection(NPCID.Wizard, AffectionLevel.Like).
 				SetNPCAffection(NPCID.Clothier, AffectionLevel.Love);
 			NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
+		}
+
+		private void SetDebuffVulnurablility()
+		{
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+			{
+				calamity.Call("SetVulnerabilities", NPC, "electric", true);
+				calamity.Call("SetVulnerabilities", NPC, "hot", false);
+				calamity.Call("SetVulnerabilities", NPC, "sick", false);
+				calamity.Call("SetVulnerabilities", NPC, "water", true);
+			}
 		}
 
 		public override List<string> SetNPCNameList() => ["Morden"];

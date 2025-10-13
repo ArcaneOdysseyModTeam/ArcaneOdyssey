@@ -103,8 +103,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Torch, 10).AddRecipeGroup(RecipeGroupID.Sand, 25).Register();
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.DesertTorch,5).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Hellstone, 10).Register();
 		}
 	}
 

@@ -307,4 +307,5 @@ ArmourAutoTooltip: {
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Dash Bind
+	Vanish.DisplayName: Vanish
 }
