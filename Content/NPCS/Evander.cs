@@ -25,8 +25,10 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.damage = 100;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 20;
-			NPC.height = 96;
-			NPC.width = 76;
+			NPC.height = 44;
+			NPC.width = 20;
+			//Sprite height 96
+			//Sprite width 76
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
@@ -34,8 +36,10 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.lavaImmune = false;
 			NPC.aiStyle = 0;
 			NPC.ai[0] = 0;
+			NPC.ai[1] = 0;
 		}
 		private bool canJump = false;
+
 		public override void AI()
 		{
 			// Select state
