@@ -88,7 +88,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Projectile.alpha += (255f / 60f).Round();
 				MarkedForDeath = true;
-				if (Projectile.ai[1] == 0 && ServerOrSingleplayer && ChargingProjectile != 0)
+				if (Projectile.ai[1] == 0 && Main.clientPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
 					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * this.Imbue.AOScrollSpeed, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge * charge)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic or Boxing ? 3f : 1f) * charge, Projectile.owner);
 					proj.ArcaneOdyssey().BaseScale = charge/2;
