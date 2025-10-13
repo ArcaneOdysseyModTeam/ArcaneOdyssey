@@ -39,7 +39,7 @@ ThermoFist: {
 
 VanishingStyle: {
 	DisplayName: Vanishing Style
-	Tooltip: A fighting style that focuses on stealth, allowing the user to strike before they can be noticed
+	Tooltip: A fighting style that focuses on stealth ({VANISH}), allowing the user to strike before they can be noticed
 }
 
 SailorStyle: {

@@ -11,6 +11,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {
@@ -87,25 +88,25 @@ namespace ArcaneOdyssey
 			if (npc.type == NPCID.WallofFlesh)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.IsPreHardmode());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PoseidonChoice>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.CultistBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PoseidonChoice>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HecateShard>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.MoonLordCore)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstMoonLordKill());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AncientHecateOrb>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<AncientHecateOrb>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());

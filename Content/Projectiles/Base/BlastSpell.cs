@@ -31,9 +31,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (Projectile.frameCounter > 5)
             {
-                Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
                 {
                     Projectile.frame = 0;
                 }
@@ -46,7 +45,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if (Projectile.TryGetImbue(out Imbuable imbue) && !imbue.CanBeWet && Projectile.wet)
+			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
 			{
 				Kill();
 				return;

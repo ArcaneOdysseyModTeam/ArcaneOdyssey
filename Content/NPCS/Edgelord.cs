@@ -38,6 +38,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.DeathSound = SoundID.NPCDeath52;
 			NPC.knockBackResist = 0;
 			AnimationType = NPCID.Guide;
+			SetDebuffVulnurablility();
 		}
 
 		public override void SetStaticDefaults()
@@ -58,6 +59,17 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
 		}
 
+		private void SetDebuffVulnurablility()
+		{
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+			{
+				calamity.Call("SetVulnerabilities", NPC, "electric", true);
+				calamity.Call("SetVulnerabilities", NPC, "hot", false);
+				calamity.Call("SetVulnerabilities", NPC, "sick", false);
+				calamity.Call("SetVulnerabilities", NPC, "water", true);
+			}
+		}
+
 		public override List<string> SetNPCNameList() => ["Morden"];
 
 		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
@@ -66,7 +78,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		{
 			if (!projectile.hostile && projectile.type != ProjectileID.RottenEgg)
 				return false;
-			return projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null;
+			return projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType.Name == nameof(SpiritDamage) || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null;
 		}
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
@@ -75,19 +87,12 @@ namespace ArcaneOdyssey.Content.NPCS
 				modifiers.FinalDamage *= 0;
 		}
 
-		public int errorcd;
 		public override void UpdateLifeRegen(ref int damage)
 		{
-			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
 			{
 				NPC.lifeRegen = 120 * -5;
 				HitEffect(NPC.CalculateHitInfo(5, 0));
-				errorcd--;
-				if (errorcd <= 0)
-				{
-					errorcd = 30;
-					CombatText.NewText(NPC.Hitbox, Color.Aquamarine, "ERROR", Main.rand.NextBool());
-				}
 			}
 		}
 
@@ -123,7 +128,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			if (ServerOrSingleplayer)
 				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 700, 0f, -1, default);
-			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet)
+			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet)
 			{
 				ExplodeMorden();
 			}
@@ -155,7 +160,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public string GetChatHelpButton()
 		{
-			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
 			{
 				return this.GetLocalizedValue("DyingText");
 			}
@@ -257,7 +262,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override string GetChat()
 		{
-			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
 			{
 				return this.GetLocalizedValue("DyingText");
 			}

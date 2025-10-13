@@ -74,14 +74,17 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			//player.ChangeDir((player.oldVelocity.SafeNormalize(Vector2.UnitX * player.direction).X > 0).ToDirectionInt());
 			var item = new Item(ModContent.ItemType<LeapScroll>());
 			item.ArcaneOdyssey().imbue = player.Imbue();
-			var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
-			for (int i = 0; i < 5; i++)
-				player.Imbue().ExplosionEffects(proj);
+			if (player.whoAmI == Main.myPlayer)
+			{
+				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
+				for (int i = 0; i < 5; i++)
+					player.Imbue().ExplosionEffects(proj);
 
 
-			SoundEngine.PlaySound(player.Imbue().ImbueSound, proj.Center);
+				SoundEngine.PlaySound(player.Imbue().ImbueSound, proj.Center);
+			}
 			playSound = !player.Imbue().ImbueSound.HasValue;
-			Projectile.NewProjectile(player.GetSource_FromThis(),player.position,Vector2.Zero,ModContent.ProjectileType<LeapFix>(),0,0,Main.myPlayer,player.direction);
+			Projectile.NewProjectile(player.GetSource_FromThis(), player.position, Vector2.Zero, ModContent.ProjectileType<LeapFix>(), 0, 0, player.whoAmI, player.direction);
 			// vfx here
 		}
 	}

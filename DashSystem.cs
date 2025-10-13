@@ -199,7 +199,7 @@ namespace ArcaneOdyssey
 				CurrentDash = null;
 				DashDir = null;
 			}
-			if (ExternalModSupport.CanDoubleTapDash())
+			if (Player.whoAmI == Main.myPlayer && ExternalModSupport.CanDoubleTapDash())
 			{
 				if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[2] < 15)
 				{
@@ -214,7 +214,7 @@ namespace ArcaneOdyssey
 					DashDir = null;
 				}
 			}
-			else if (ExternalModSupport.DashBind().JustPressed)
+			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind().JustPressed)
 			{
 				if (Player.velocity.X > 1)
 				{
