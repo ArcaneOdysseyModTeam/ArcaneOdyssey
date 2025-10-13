@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
@@ -36,7 +35,6 @@ namespace ArcaneOdyssey
 			{
 				List<Item> items = [
 					new Item(ModContent.ItemType<PoseidonChoice>()),
-					new Item(ModContent.ItemType<TitleMusicBox>()),
 					new Item(ModContent.ItemType<EaglePatrimony>())];
 				if (Main.expertMode)
 				{
@@ -44,7 +42,7 @@ namespace ArcaneOdyssey
 				}
 				return items;
 			}
-			else return [];
+			return [];
 		}
 
 		public override void PostUpdate()

@@ -10,19 +10,39 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
-    public class ExternalModSupport : ModSystem
-    {
-        public override void PostSetupContent()
-        {
-            MusicDisplaySetup();
+	public class ExternalModSupport : ModSystem
+	{
+		public override void PostSetupContent()
+		{
 			AddFargosStuff(); 
 			AddShieldSlots();
 			MiscCalamitysStuff();
+		}
+
+        public static bool hasYapped = false;
+        public override void PreUpdateWorld()
+		{
+            if (!(hasYapped || ModLoader.HasMod("ArcaneOdysseyMusic")))
+			{
+                hasYapped = true;
+                Main.NewText("You are missing the Arcane Odyssey Music Mod (ArcaneOdysseyMusic). For the full experience, enable this mod.", Color.Teal);
+			}
+		}
+
+		public static int GetMusic(string name, int fallback = 0)
+		{
+			if (ModLoader.TryGetMod("ArcaneOdysseyMusic", out Mod musicmod))
+			{
+				return (int)musicmod.Call(name);
+			}
+			else return fallback;
 		}
 
 		public void MiscCalamitysStuff()
@@ -93,20 +113,6 @@ namespace ArcaneOdyssey
 			//	}
 			//}
 		}
-
-        private void MusicDisplaySetup()
-        {
-			if (ModLoader.TryGetMod("MusicDisplay", out Mod musicDisplay))
-			{
-				void AddMusic(string songName, string authorName, string songPath)
-				{
-					short slot = (short)MusicLoader.GetMusicSlot(Mod, $"Music/{songPath}");
-					musicDisplay.Call("AddMusic", slot, songName, authorName, Mod.DisplayName);
-				}
-				AddMusic("The Call of Adventure", "Tobi", "TitleTheme");
-				AddMusic("The Dark Sea", "Tobi", "DarkSea");
-			}
-        }
 
 		private void AddFargosStuff()
 		{
