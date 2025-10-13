@@ -15,7 +15,8 @@ namespace ArcaneOdyssey.Content.NPCS
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 17;
+			Main.npcFrameCount[Type] = 17;
+            ExternalModSupport.DeclareMiniboss(Type);
 		}
 		public override void SetDefaults()
 		{

@@ -53,7 +53,15 @@ namespace ArcaneOdyssey
 			calamity.Call("CreateCodebreakerDialogOption", "Magic Pollution", "This is abundant with magic, to a scale of which has never been recorded even among stars. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.", () => true);
 		}
 
-		public static void AddShieldSlots()
+        public static void DeclareMiniboss(int type)
+        {
+            if (!ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+                return;
+
+            calamity.Call("DeclareMiniboss", type);
+        }
+
+        public static void AddShieldSlots()
 		{
 			if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
 			{
