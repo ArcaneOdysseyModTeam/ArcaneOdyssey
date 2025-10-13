@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 17;
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = -1, Velocity = 1f };
             ExternalModSupport.DeclareMiniboss(Type);
 		}
 		public override void SetDefaults()
@@ -78,5 +79,12 @@ namespace ArcaneOdyssey.Content.NPCS
 			return (targetTile != null && targetTile.HasTile && Main.tileSolid[targetTile.TileType]);
 		}
 
-	}
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange([
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
+            ]);
+        }
+    }
 }

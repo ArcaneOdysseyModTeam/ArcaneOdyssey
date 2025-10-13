@@ -8,6 +8,7 @@ WorldGen: {
 Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
 	DebuffDummy: A being older than this world, said to be the source of everything.
+	Evander: A bounty hunter. Finish this later.
 }
 
 MenuStyle: Odyssey Style
