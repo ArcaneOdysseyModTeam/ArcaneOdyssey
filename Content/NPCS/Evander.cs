@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.NPCS
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 1;
+			Main.npcFrameCount[NPC.type] = 17;
 		}
 		public override void SetDefaults()
 		{
