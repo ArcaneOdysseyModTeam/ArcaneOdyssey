@@ -214,7 +214,7 @@ namespace ArcaneOdyssey
 					DashDir = null;
 				}
 			}
-			else if (ExternalModSupport.DashBind().JustPressed)
+			else if (ExternalModSupport.DashBind().JustPressed && Player.whoAmI == Main.myPlayer)
 			{
 				if (Player.velocity.X > 1)
 				{
