@@ -15,6 +15,7 @@ MenuStyle: Odyssey Style
 AltMenuStyle: Dark Sea Style
 SpiritDamage: spirit damage
 AnyBasicImbue: Any Basic Imbue
+AnyWings: Any Wings
 
 Buffs: {
 	RisenTide: {

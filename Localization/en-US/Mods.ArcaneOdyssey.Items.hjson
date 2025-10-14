@@ -164,3 +164,13 @@ RavennaHelm: {
 	DisplayName: Ravenna Helmet
 	Tooltip: A detailed helmet made out of bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
 }
+
+FlightScroll: {
+	DisplayName: Flight Scroll
+	Tooltip: ""
+}
+
+HoverScroll: {
+	DisplayName: Hover Scroll
+	Tooltip: ""
+}

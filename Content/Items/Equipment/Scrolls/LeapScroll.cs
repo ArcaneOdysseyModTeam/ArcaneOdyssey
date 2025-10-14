@@ -24,22 +24,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			Item.accessory = true;
 		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			AOPlayer playah = player.ArcaneOdyssey();
-			Item.ArcaneOdyssey().imbue = playah.imbue;
-			if (playah.imbue is AOMagic)
-			{
-				Item.color = playah.imbue.ImbueColour;
-				player.GetJumpState<LeapAirStep>().Enable();
-			}
-			else Item.color = Color.Transparent;
-
-		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.Balloons).Register();
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ShinyRedBalloon).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel, 5).Register();
 		}
 	}
 

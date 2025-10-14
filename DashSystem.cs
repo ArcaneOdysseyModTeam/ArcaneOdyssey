@@ -260,7 +260,7 @@ namespace ArcaneOdyssey
 			}
 			if (CurrentDash is not null)
 			{
-				FirstFrames = this.CurrentDash.DashMax < DashLeft + 2;
+				FirstFrames = CurrentDash.DashMax < DashLeft + 2;
 				if (dashing && !Player.mount.Active && !Player.setSolar)
 				{
 					ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
@@ -270,18 +270,21 @@ namespace ArcaneOdyssey
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
-					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrames))
-					{
-						CurrentDash.SetCooldown(Player);
-						CurrentDash.OnEnd(Player);
-						dashing = false;
-						if (collisions == 0)
-						{
-							CurrentDash.NaturalEnd(Player);
-						}
-					}
-					else if (CurrentDash.AnyDirection || FirstFrames)
-						Player.velocity = DashVelocity; // fly
+                    if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrames))
+                    {
+                        CurrentDash.SetCooldown(Player);
+                        CurrentDash.OnEnd(Player);
+                        dashing = false;
+                        if (collisions == 0)
+                        {
+                            CurrentDash.NaturalEnd(Player);
+                        }
+                    }
+                    else if (CurrentDash.AnyDirection || FirstFrames)
+                    {
+                        Player.velocity = DashVelocity;
+                        Player.controlJump = true;
+                    }
 					CurrentDash.DashEffect(Player);
 				}
 			}
