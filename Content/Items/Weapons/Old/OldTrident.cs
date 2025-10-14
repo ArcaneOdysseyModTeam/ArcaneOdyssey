@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
 	public class OldTrident : AORangedOrMeleeWeapon
 	{
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Poor;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
 		public override AORarities AORarity => AORarities.Common;
 		public override float AODamage => 1.05f;
 		public override float AOSize => 1f;

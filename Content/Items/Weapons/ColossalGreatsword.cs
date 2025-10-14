@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AODamage => 1.15f;
 		public override int AOValue => 250;
 		public override AORarities AORarity => AORarities.Uncommon;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override bool? Arcanium => false;
 		public override WeaponAbility? Ability => new(Mod, "Colossal Cleave", "Unleash a large slash that pierces enemies", Color.PaleVioletRed);
 

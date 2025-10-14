@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Items
 			steam.originalImbue = imbue;
 			return steam;
 		}
+
 		public override float AOScrollDamage => .85f;
 		public override float AOImbueDamage => .925f;
 		public override float AOScrollSize => 1.15f;

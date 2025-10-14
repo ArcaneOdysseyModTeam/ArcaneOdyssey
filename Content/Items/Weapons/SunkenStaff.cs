@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override float AODamage => 1f;
         public override int AOValue => 1350;
         public override AORarities AORarity => AORarities.Rare;
-        public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
+        public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
         public override AODebuffRequirement? WeaponDebuff => new(BuffID.Wet, 600);
 		public override WeaponAbility? Ability => new(Mod, "Fury of the Sea", "Shoots blasts of water that pierce enemies", Color.Aqua);
 

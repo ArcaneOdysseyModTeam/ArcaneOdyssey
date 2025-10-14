@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override float AOSpeed => .9f;
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Common;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Poor;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
 
 		public override void SetDefaults()
 		{

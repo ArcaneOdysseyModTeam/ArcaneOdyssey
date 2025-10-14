@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.1f;
 		public override int AOValue => 50;
 		public override AORarities AORarity => AORarities.Uncommon;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override WeaponAbility? Ability => new(Mod, "Piercing Gale", "Shoots blasts of air that shred enemies", Color.Orange);
 
 

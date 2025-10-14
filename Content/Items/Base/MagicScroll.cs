@@ -21,7 +21,18 @@ namespace ArcaneOdyssey.Content.Items.Base
 			else Item.color = Color.Transparent;
 		}
 
-		public override bool CanUseItem(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            AOPlayer playah = player.ArcaneOdyssey();
+            Item.ArcaneOdyssey().imbue = playah.imbue;
+            if (playah.imbue is AOMagic)
+            {
+                Item.color = playah.imbue.ImbueColour;
+            }
+            else Item.color = Color.Transparent;
+        }
+
+        public override bool CanUseItem(Player player)
 		{
 			return Item.ArcaneOdyssey().imbue is AOMagic && ScrollCheck(player);
 		}

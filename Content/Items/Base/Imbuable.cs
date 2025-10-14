@@ -42,6 +42,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
+		/// <summary>
+		/// Sets the armour stats of this magic, will be multiplied by the armour tier
+		/// </summary>
+		public virtual ImbueArmourStats? ArmourStats => null;
+
 		public override AORarities AORarity => ImbuableTier == AOImbuableTier.Normal ? AORarities.Rare : AORarities.Exotic;
 
 		public override ItemType ItemType => ItemType.None;

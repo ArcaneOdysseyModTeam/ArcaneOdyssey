@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override bool? Cold => true;
 		public override AODebuffRequirement? Debuff => new(BuffID.Wet, 600);
 		public override SoundStyle? DebuffApplySound => SoundID.Splash;
-		public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
+		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
 		
 
 		public override void SetDefaults()

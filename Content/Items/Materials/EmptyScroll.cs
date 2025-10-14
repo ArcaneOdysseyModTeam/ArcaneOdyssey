@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Security.Cryptography.X509Certificates;
@@ -26,9 +27,9 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.value = GalleonToCopper(AOValue);
-		}
+        }
 
-		public override void AddRecipes()
+        public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<Paper>(10).AddTile(TileID.Bookcases).Register();
 			Recipe.Create(ItemID.PaperAirplaneA, 5).AddIngredient<Paper>().Register();

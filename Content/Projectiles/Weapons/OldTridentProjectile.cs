@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class OldTridentProjectile : BaseSpearProjectile
 	{
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Poor;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

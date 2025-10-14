@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => .9f;
 		public override float AODamage => 1.05f;
 		public override int AOValue => 40;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;
 
 		public override WeaponAbility? Ability => new(Mod, "Piercing Strike", "Launch yourself towards the cursor, stabbing through any who cross your path");

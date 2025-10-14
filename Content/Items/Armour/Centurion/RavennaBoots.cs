@@ -15,8 +15,9 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 {
 	[AutoloadEquip(EquipType.Legs)]
 	public class RavennaBoots : AOArmour
-	{
-		public override void SetStaticDefaults()
+    {
+        public override AOItemTiers ArmourTier => AOItemTiers.Poor;
+        public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			if (Main.netMode != NetmodeID.Server)

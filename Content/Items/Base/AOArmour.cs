@@ -66,6 +66,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual void ArmorSetEffects(Player player) {}
 
+		public virtual bool? Arcanium => null;
+
+		public abstract AOItemTiers ArmourTier { get; }
+
 
 		public override void UpdateArmorSet(Player player)
 		{
@@ -121,18 +125,30 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
-		public virtual void UpdateArmour(Player player) {}
-
 		public override void UpdateEquip(Player player)
 		{
-			player.GetAttackSpeed(DamageClass.Generic) += AOAttkSpd/300;
-			player.GetDamage(DamageClass.Generic) += AOPower / 100f;
-			player.GetCritChance(DamageClass.Generic) += AOPower;
-			player.moveSpeed += AOAgility / 100f;
-			player.ArcaneOdyssey().AOSizeStat += AOSize;
+			if (Arcanium.HasValue && player.TryGetImbue(out Imbuable imbue) && imbue.ArmourStats.HasValue)
+			{
+				if ((Arcanium.Value && imbue is AOMagic) || ((!Arcanium.Value) && imbue is FightingStyle))
+				{
+					player.GetAttackSpeed(DamageClass.Generic) += (AOAttkSpd + (imbue.ArmourStats.Value.Corrected(imbue).Attkspeed * (int)ArmourTier)) / 300;
+					player.GetDamage(DamageClass.Generic) += (AOPower + (imbue.ArmourStats.Value.Corrected(imbue).Power * (int)ArmourTier)) / 100f;
+					player.GetCritChance(DamageClass.Generic) += AOPower + (imbue.ArmourStats.Value.Corrected(imbue).Power * (int)ArmourTier);
+					player.moveSpeed += (AOAgility + (imbue.ArmourStats.Value.Corrected(imbue).Agility * (int)ArmourTier)) / 100f;
+					player.ArcaneOdyssey().AOSizeStat += AOSize + (imbue.ArmourStats.Value.Corrected(imbue).Size * (int)ArmourTier);
+					player.statDefense += imbue.ArmourStats.Value.Corrected(imbue).Defence;
+				}
+			}
+			else
+			{
+				player.GetAttackSpeed(DamageClass.Generic) += AOAttkSpd / 300;
+				player.GetDamage(DamageClass.Generic) += AOPower / 100f;
+				player.GetCritChance(DamageClass.Generic) += AOPower;
+				player.moveSpeed += AOAgility / 100f;
+				player.ArcaneOdyssey().AOSizeStat += AOSize;
+			}
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
-			UpdateArmour(player);
 		}
 	}
 }

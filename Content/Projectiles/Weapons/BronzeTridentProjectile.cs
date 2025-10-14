@@ -10,6 +10,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class BronzeTridentProjectile : BaseSpearProjectile
 	{
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 	}
 }

@@ -14,8 +14,9 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 {
     [AutoloadEquip(EquipType.Head)]
     public class RavennaHelm : AOArmour
-	{
-		public override int AODefense => 188;
+    {
+        public override AOItemTiers ArmourTier => AOItemTiers.Average;
+        public override int AODefense => 188;
 		public override int AOSize => AODefense / 20;
 		public override int AOAttkSpd => AODefense / 20;
 		public override AORarities AORarity => AORarities.Uncommon;

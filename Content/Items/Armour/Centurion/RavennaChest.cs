@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
     [AutoloadEquip(EquipType.Body)]
     public class RavennaChest : AOArmour
     {
+        public override AOItemTiers ArmourTier => AOItemTiers.Average;
         public override int AODefense => 277;
         public override int AOSize => AODefense / 20;
         public override int AOAttkSpd => AODefense / 20;

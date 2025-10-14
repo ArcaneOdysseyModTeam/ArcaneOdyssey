@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
 	public class BronzeTrident : AORangedOrMeleeWeapon
 	{
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override float AODamage => 1.05f;
 		public override float AOSize => 1;

@@ -32,18 +32,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				maxAscentMultiplier *= imbue.AOScrollSize;
 			}
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            AOPlayer playah = player.ArcaneOdyssey();
-            Item.ArcaneOdyssey().imbue = playah.imbue;
-            if (playah.imbue is AOMagic)
-            {
-                Item.color = playah.imbue.ImbueColour;
-                player.GetJumpState<LeapAirStep>().Enable();
-            }
-            else Item.color = Color.Transparent;
-
-        }
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
 		{

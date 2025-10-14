@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		);
 		public override void SpawningEffects(Entity projectile)
 		{
-			BarValue += 5;
+			BarValue += 2.5f; // nerfed lmao
 			if (projectile.GetOwner(out var owner)) 
 			{
 				owner.ItemCooldowns[Type] = 60;

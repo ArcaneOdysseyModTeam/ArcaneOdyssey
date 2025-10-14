@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
         public override float AODamage => 1f;
         public override int AOValue => 1350;
         public override AORarities AORarity => AORarities.Common;
-        public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Poor;
+        public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
         public override AODebuffRequirement? WeaponDebuff => null; // dull weapon
 
 

@@ -311,7 +311,7 @@ namespace ArcaneOdyssey
 
 			if (options.Count > 0 && ImbueClassCheck(item))
 			{
-				if (!SpecificImbue)
+				if (!SpecificImbue || item.accessory)
 				{
 					imbue = player.ArcaneOdyssey().imbue;
 				}

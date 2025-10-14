@@ -185,6 +185,30 @@ namespace ArcaneOdyssey
 			}
 		}
 
+        public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility)
+        {
+            public int Size = size;
+            public int Attkspeed = attkspeed;
+            public int Power = power;
+            public int Defence = defence;
+            public int Agility = agility;
+
+            public readonly ImbueArmourStats Corrected(Imbuable imbue)
+            {
+                if (imbue is FightingStyleBarred barred)
+                {
+                    return new ImbueArmourStats(
+                        MathHelper.Lerp(0, Size, barred.BarValue / 100).Round(),
+                        MathHelper.Lerp(0, Attkspeed, barred.BarValue / 100).Round(),
+                        MathHelper.Lerp(0, Power, barred.BarValue / 100).Round(),
+                        MathHelper.Lerp(0, Defence, barred.BarValue / 100).Round(),
+                        MathHelper.Lerp(0, Agility, barred.BarValue / 100).Round()
+                        );
+                }
+                return this;
+            }
+        }
+
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
 		{
 			var type = imbue.GetType();
@@ -412,8 +436,12 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// Arcane Odyssey weapon tiers, used for scaling
 		/// </summary>
-		public enum AOWeaponTiers
+		public enum AOItemTiers
 		{
+            /// <summary>
+            /// Literally doesn't exist, don't bother
+            /// </summary>
+            None,
 			/// <summary>
 			/// Old weapons
 			/// </summary>
@@ -544,9 +572,9 @@ namespace ArcaneOdyssey
 		/// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
 		/// </summary>
 		/// <param name="AODamage">AO weapon damage multiplier</param>
-		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOWeaponTiers"/></param>
+		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOItemTiers"/></param>
 		/// <returns></returns>
-		public static float WeaponDamage(AOWeaponTiers AOWeaponTier) => 25 * ((int)AOWeaponTier+1);
+		public static float WeaponDamage(AOItemTiers AOWeaponTier) => 25 * (int)AOWeaponTier;
 
 		/// <summary>
 		/// Turns 1.4 into .6

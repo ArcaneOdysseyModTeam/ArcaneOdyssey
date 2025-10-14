@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override float AODamage => 1.15f;
 		public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
 
-		public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
+		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
 
 		public override void SetDefaults()
 		{
