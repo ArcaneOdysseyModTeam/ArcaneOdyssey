@@ -12,7 +12,7 @@ HecateShard: {
 	Tooltip: A shard of unknown origin... the world is not ready to unleash this
 }
 
-ArcaniumScrap: {
+SunkenScrap: {
 	DisplayName: Sunken Scrap
 	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
 }

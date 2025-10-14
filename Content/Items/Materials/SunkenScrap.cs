@@ -6,7 +6,8 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-    public class ArcaniumScrap : AOBaseItem
+    [LegacyName("ArcaniumScrap")]
+    public class SunkenScrap : AOBaseItem
     {
         public int AOValue = 400;
         public override AORarities AORarity => AORarities.Rare;

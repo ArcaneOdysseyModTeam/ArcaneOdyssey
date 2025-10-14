@@ -91,7 +91,7 @@ namespace ArcaneOdyssey
 		{
 			if (item.type == ItemID.OceanCrateHard)
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ArcaniumScrap>(), 15));
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
 			}
 			if (ItemID.Sets.BossBag[item.type])
 			{

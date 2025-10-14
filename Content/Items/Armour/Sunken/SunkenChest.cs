@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<ArcaniumScrap>(5).AddTile(TileID.MythrilAnvil).Register();
+            CreateRecipe().AddIngredient<SunkenScrap>(5).AddTile(TileID.MythrilAnvil).Register();
         }
     }
 }
