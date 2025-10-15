@@ -57,12 +57,12 @@ namespace ArcaneOdyssey.Content.NPCS
 					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
 					{ // Attack meelee or stop
 						NPC.velocity.X = 0f;
-						if (NPC.ai[1] >= 60) {
+						if (NPC.ai[1] >= 180) {
 							NPC.ai[0] = 2;
 							NPC.frameCounter = 0;
 							NPC.ai[1] = 0;
 						}
-					} else if (NPC.ai[1] > 60 && Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) <= 300f && Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) >= 100f)
+					} else if (NPC.ai[1] > 60 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
                     {
 						NPC.ai[0] = 1;
 						NPC.ai[1] = 0;
@@ -94,9 +94,10 @@ namespace ArcaneOdyssey.Content.NPCS
 					NPC.ai[1] = 0;
 					NPC.frameCounter = 0;
                 } else if (NPC.ai[1] == 15)
-                {
+				{
+					Vector2 aimDir = NPC.SafeDirectionTo(Main.player[NPC.target].Center);
 					Main.NewText("Collossal Cleave!");
-					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (NPC.direction * 3),NPC.position.Y,NPC.direction * 3f,0f,ModContent.ProjectileType<EvanderSlash>(),25,4.5f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (aimDir.X * 3f),NPC.position.Y + (aimDir.Y * 3f),aimDir.X * 3f,aimDir.Y * 3f,ModContent.ProjectileType<EvanderSlash>(),25,4.5f);
                 }
             } else if (NPC.ai[0] == 2) //melee
             {
