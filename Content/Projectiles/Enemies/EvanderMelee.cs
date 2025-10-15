@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.damage = 25;
 			Projectile.timeLeft = 45;
 			Projectile.hostile = true;
-			Projectile.height = Projectile.width = 80;
+			Projectile.height = Projectile.width = 110;
 			Projectile.knockBack = 4.5f;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
