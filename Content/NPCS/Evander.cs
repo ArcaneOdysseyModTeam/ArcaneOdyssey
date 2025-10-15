@@ -78,7 +78,10 @@ namespace ArcaneOdyssey.Content.NPCS
 			Tile targetTile = Main.tile[(int)(pos.X / 16f)+direction, (int)(pos.Y / 16f)];
 			return (targetTile != null && targetTile.HasTile && Main.tileSolid[targetTile.TileType]);
 		}
-
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frame.Y = 1;
+        }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange([
