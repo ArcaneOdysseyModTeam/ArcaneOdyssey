@@ -8,6 +8,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -107,7 +108,6 @@ namespace ArcaneOdyssey.Content.NPCS
                 } else if(NPC.ai[1] == 15)
                 {
 					Main.NewText("Melee!");
-					// Add the actual attack
                 }
             }
 		}
