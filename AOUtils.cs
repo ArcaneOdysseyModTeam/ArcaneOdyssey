@@ -506,36 +506,6 @@ namespace ArcaneOdyssey
 				return new Vector2(gore.position.X - (gore.Width / 2), gore.position.Y - (gore.Height / 2));
 		}
 
-		public class HecateDropMultiHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
-		{
-			public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
-			{
-
-				ItemDropAttemptResult result = default;
-				if (info.rng.Next(chanceDenominator) < chanceNumerator)
-				{
-					if (!(itemId <= 0 || itemId >= ItemLoader.ItemCount))
-					{
-						if (Main.dedServ)
-						{
-							var item = Item.NewItem(info.npc.GetSource_Loot(), info.npc.Center, itemId, 1, true, -1);
-							Main.timeItemSlotCannotBeReusedFor[item] = 60*60*5;
-							foreach (var player in Main.ActivePlayers)
-								NetMessage.SendData(MessageID.InstancedItem, player.whoAmI, -1, null, item);
-							Main.item[item].active = false;
-						}
-						else
-							CommonCode.DropItem(info, itemId, 1);
-					}
-					result.State = ItemDropAttemptResultState.Success;
-					return result;
-				}
-
-				result.State = ItemDropAttemptResultState.FailedRandomRoll;
-				return result;
-			}
-		}
-
 		/// <summary>
 		/// sahhhhhduiahyfoahgoaig
 		/// </summary>

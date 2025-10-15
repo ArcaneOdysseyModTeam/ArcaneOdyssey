@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
@@ -49,5 +51,35 @@ namespace ArcaneOdyssey
         }
 		public bool CanShowItemDropInUI() => false;
 		public string GetConditionDescription() => "";
-	}
+    }
+
+    public class HecateDropMultiHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
+    {
+        public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+        {
+
+            ItemDropAttemptResult result = default;
+            if (info.rng.Next(chanceDenominator) < chanceNumerator)
+            {
+                if (!(itemId <= 0 || itemId >= ItemLoader.ItemCount))
+                {
+                    if (Main.dedServ)
+                    {
+                        var item = Item.NewItem(info.npc.GetSource_Loot(), info.npc.Center, itemId, 1, true, -1);
+                        Main.timeItemSlotCannotBeReusedFor[item] = 60 * 60 * 5;
+                        foreach (var player in Main.ActivePlayers)
+                            NetMessage.SendData(MessageID.InstancedItem, player.whoAmI, -1, null, item);
+                        Main.item[item].active = false;
+                    }
+                    else
+                        CommonCode.DropItem(info, itemId, 1);
+                }
+                result.State = ItemDropAttemptResultState.Success;
+                return result;
+            }
+
+            result.State = ItemDropAttemptResultState.FailedRandomRoll;
+            return result;
+        }
+    }
 }

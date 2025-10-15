@@ -45,7 +45,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			if (Projectile.localAI[0] > 60 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
-				Imbue?.ExplosionEffects(Projectile);
+                for (int i = 1; i < 20; i++)
+                {
+                    Imbue?.ExplosionEffects(Projectile);
+                }
 			}
 			Projectile.localAI[0]++;
 
