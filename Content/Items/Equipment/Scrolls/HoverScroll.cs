@@ -48,6 +48,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.SandstorminaBottle).Register();
 			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.SandstormBalloons).Register();
 		}
+
+        public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+        {
+            return incomingItem.type != ItemID.FlyingCarpet;
+        }
 	}
 
 	public class HoverPlayer : ModPlayer
@@ -63,6 +68,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
                 TextureAssets.FlyingCarpet = hasHoverEquipped ? carpetNoneLol : carpetOriginal;
             }
 		}
+
+        public override void ResetEffects()
+        {
+            hasHoverEquipped = false;
+        }
 	}
 
 	public class IHATECARPETS : ModSystem
