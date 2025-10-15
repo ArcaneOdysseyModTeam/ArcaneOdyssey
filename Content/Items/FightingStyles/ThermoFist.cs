@@ -83,7 +83,6 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
-			BarValue++;
 			if (projectile.GetOwner(out var owner))
 			{
 				owner.ItemCooldowns[Type] = 60;
