@@ -82,7 +82,6 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 
 		public override void ExplosionEffects(Entity projectile)
 		{
-			BarValue--;
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue/33.3f),1); n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue/33.3f),1))];
