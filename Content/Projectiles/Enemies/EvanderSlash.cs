@@ -30,8 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.damage = 25;
 			Projectile.timeLeft = 60*3;
 			Projectile.hostile = true;
-			Projectile.height = 234;
-			Projectile.width = 74;
+			Projectile.height = Projectile.width = (234 + 74)/2; // average
 			Projectile.knockBack = 4.5f;
 		}
 
