@@ -170,7 +170,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else if (NPC.ai[0] == 2)
 			{
-				if (NPC.frameCounter > 1)
+				if (NPC.frameCounter > 2)
 				{
 					if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
 					{
