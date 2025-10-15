@@ -1,15 +1,16 @@
-﻿using System;
+﻿using ArcaneOdyssey.Content.Projectiles.Enemies;
+using Microsoft.Xna.Framework;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ArcaneOdyssey.Content.Projectiles.Enemies;
-using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -18,15 +19,14 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 17;
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = -1, Velocity = 1f };
-            ExternalModSupport.DeclareMiniboss(Type);
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+			ExternalModSupport.DeclareMiniboss(Type);
 		}
+
 		public override void SetDefaults()
 		{
 			NPC.lifeMax = 10000;
-			NPC.lifeRegen = 0;
-			NPC.noGravity = false;
-			NPC.damage = 0;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 20;
 			NPC.height = 44;
@@ -35,14 +35,11 @@ namespace ArcaneOdyssey.Content.NPCS
 			//Sprite width 76
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.friendly = false;
-			NPC.trapImmune = false;
-			NPC.lavaImmune = false;
 			NPC.aiStyle = 0;
-			NPC.frameCounter = 0;
-			NPC.ai[0] = 0; // state
-			NPC.ai[1] = 0; // state time
+			//NPC.ai[0] state
+			//NPC.ai[1] state time
 		}
+
 		private bool canJump = false;
 
 		public override void AI()
@@ -51,7 +48,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{// Chase the nearest player
 				NPC.ai[1]++;
 				NPC.TargetClosest();
-				if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
+				if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
 				{ // Limit chasing distance
 					NPC.velocity.X += NPC.direction * 0.2f;
 					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
@@ -62,12 +59,13 @@ namespace ArcaneOdyssey.Content.NPCS
 							NPC.frameCounter = 0;
 							NPC.ai[1] = 0;
 						}
-					} else if (NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
-                    {
+					}
+					else if (NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
+					{
 						NPC.ai[0] = 1;
 						NPC.ai[1] = 0;
 						NPC.frameCounter = 0;
-                    }
+					}
 				}
 				if (Math.Abs(NPC.velocity.X) > 8f)
 				{
@@ -79,47 +77,55 @@ namespace ArcaneOdyssey.Content.NPCS
 				}
 
 				// Jump if there's a block
-				if (checkTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
+				if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
 				{
 					NPC.velocity.Y = -5f;
 				}
-				canJump = (checkTileToDir(0, NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f);
-			} else if(NPC.ai[0] == 1) // col cleave
+				canJump = CheckTileToDir(0, NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f;
+			} 
+			else if (NPC.HasValidTarget && NPC.ai[0] == 1) // col cleave
 			{
 				NPC.ai[1]++;
 				NPC.velocity.X *= 0.7f;
 				if (NPC.ai[1] >= 20)
-                {
+				{
 					NPC.ai[0] = 0;
 					NPC.ai[1] = 0;
 					NPC.frameCounter = 0;
-                } else if (NPC.ai[1] == 15)
+				} 
+				else if (NPC.ai[1] == 15)
 				{
-					Vector2 aimDir = NPC.SafeDirectionTo(Main.player[NPC.target].Center);
-					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center.X + (aimDir.X * 3f),NPC.Center.Y + (aimDir.Y * 3f),aimDir.X * 3f,aimDir.Y * 3f,ModContent.ProjectileType<EvanderSlash>(),25,4.5f);
-                }
-            } else if (NPC.ai[0] == 2) //melee
-            {
+					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
+					var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 3, ModContent.ProjectileType<EvanderSlash>(), 25, 4.5f);
+                    var modproj = proj.ModProjectile as EvanderSlash;
+					proj.position = new Vector2(NPC.Center.X - (modproj.Sprite.Width / 2f), NPC.Center.Y - (modproj.Sprite.Height / 2f));
+				}
+			} 
+            else if (NPC.ai[0] == 2) //melee
+			{
 				NPC.ai[1]++;
 				if(NPC.ai[1] >= 20)
-                {
+				{
 					NPC.ai[1] = 0;
 					NPC.frameCounter = 0;
 					NPC.ai[0] = 0;
-                } else if(NPC.ai[1] == 10)
-                {
-					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center.X,NPC.Center.Y,0f,0f,ModContent.ProjectileType<EvanderMelee>(),50,4.5f);
-                }
-            }
+				} 
+				else if (NPC.ai[1] == 10)
+				{
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EvanderMelee>(), 50, 4.5f);
+				}
+			}
 		}
-		public bool checkTileToDir(int direction, Vector2 pos)
+
+		public static bool CheckTileToDir(int direction, Vector2 pos)
 		{
 			Tile targetTile = Main.tile[(int)(pos.X / 16f)+direction, (int)(pos.Y / 16f)];
-			return (targetTile != null && targetTile.HasTile && Main.tileSolid[targetTile.TileType]);
+			return targetTile != null && targetTile.HasTile && Main.tileSolid[targetTile.TileType];
 		}
+
 		public override void FindFrame(int frameHeight)
 		{
-			if (NPC.ai[0] == 0)
+			if (NPC.HasValidTarget && NPC.ai[0] == 0)
 			{
 				if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
 				{
@@ -155,6 +161,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				NPC.frame.Y = 0;
 			}
 		}
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (!Main.dedServ)
@@ -163,12 +170,12 @@ namespace ArcaneOdyssey.Content.NPCS
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f)];
 				}
 		}
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange([
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
-                new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
-            ]);
-        }
-    }
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange([
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
+			]);
+		}
+	}
 }

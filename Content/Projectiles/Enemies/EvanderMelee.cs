@@ -36,9 +36,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.tileCollide = false;
 		}
-        public override bool PreDraw(ref Color lightColor)
-        {
-			return false;
-        }
+		public override bool PreDraw(ref Color lightColor) => false;
 	}
 }
