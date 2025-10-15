@@ -57,12 +57,12 @@ namespace ArcaneOdyssey.Content.NPCS
 					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
 					{ // Attack meelee or stop
 						NPC.velocity.X = 0f;
-						if (NPC.ai[1] >= 180) {
+						if (NPC.ai[1] >= 60) {
 							NPC.ai[0] = 2;
 							NPC.frameCounter = 0;
 							NPC.ai[1] = 0;
 						}
-					} else if (NPC.ai[1] > 45 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
+					} else if (NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
                     {
 						NPC.ai[0] = 1;
 						NPC.ai[1] = 0;
