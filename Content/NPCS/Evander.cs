@@ -117,17 +117,18 @@ namespace ArcaneOdyssey.Content.NPCS
 			Tile targetTile = Main.tile[(int)(pos.X / 16f)+direction, (int)(pos.Y / 16f)];
 			return (targetTile != null && targetTile.HasTile && Main.tileSolid[targetTile.TileType]);
 		}
-        public override void FindFrame(int frameHeight)
-        {
-            if (NPC.ai[0] == 0)
-            {
+		public override void FindFrame(int frameHeight)
+		{
+			if (NPC.ai[0] == 0)
+			{
 				if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
 				{
 					NPC.frame.Y = 0;
-				} else if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
+				}
+				else if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
 				{
 					NPC.frame.Y = 0;
-                }
+				}
 				else
 				{
 					if (NPC.frameCounter > 3)
@@ -143,15 +144,25 @@ namespace ArcaneOdyssey.Content.NPCS
 						NPC.frameCounter = 0;
 					}
 					NPC.frameCounter++;
-                }
-            } else if (NPC.ai[0] == 1)
-            {
+				}
+			}
+			else if (NPC.ai[0] == 1)
+			{
 				NPC.frame.Y = 0;
-            } else if (NPC.ai[0] == 2)
-            {
+			}
+			else if (NPC.ai[0] == 2)
+			{
 				NPC.frame.Y = 0;
-            }
-        }
+			}
+		}
+		public override void HitEffect(NPC.HitInfo hit)
+		{
+			if (!Main.dedServ)
+				for (int n = 0; n < 3; n++)
+				{
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f)];
+				}
+		}
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange([
