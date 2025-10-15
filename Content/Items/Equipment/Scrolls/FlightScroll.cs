@@ -21,19 +21,16 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
-			if (!player.GetModPlayer<HoverPlayer>().hasHoverEquipped) // slow fall disabled without hover spell lol
-			{
-				ascentWhenFalling = 0;
-			}
 			if (player.TryGetImbue(out var imbue))
 			{
-                constantAscend *= imbue.AOScrollSpeed;
-				ascentWhenRising *= imbue.AOScrollDamage;
-				maxAscentMultiplier *= imbue.AOScrollSize;
+				constantAscend *= imbue.AOScrollSpeed;
+				ascentWhenRising *= imbue.AOScrollSpeed;
+				maxCanAscendMultiplier *= imbue.AOScrollSize;
+				maxAscentMultiplier *= imbue.AOScrollDamage;
 			}
-        }
+		}
 
-        public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
+		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
 		{
 			if (player.TryGetImbue(out var imbue))
 			{
@@ -44,7 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void SetStaticDefaults()
 		{
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 6.5f, 1.5f);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180);
 		}
 
 		public override void SetDefaults()
@@ -55,15 +52,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void UpdateEquip(Player player)
 		{
-			if (player.TryGetImbue(out _))
+			if (player.Imbue() is not null)
 				player.noFallDmg = true;
 			else
-				player.wings = 0;
-		}
-
-		public override bool CanEquipAccessory(Player player, int slot, bool modded)
-		{
-			return player.Imbue() is not null;
+				player.wingTime = 0;
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)

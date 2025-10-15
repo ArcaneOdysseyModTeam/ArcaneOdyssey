@@ -47,9 +47,32 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual ImbueArmourStats? ArmourStats => null;
 
-		public override AORarities AORarity => ImbuableTier == AOImbuableTier.Normal ? AORarities.Rare : AORarities.Exotic;
+		public override AORarities AORarity
+        {
+            get
+            {
+                switch (ImbuableTier)
+                {
+                    case AOImbuableTier.Normal:
+                        return AORarities.Rare;
+                        break;
+                    case AOImbuableTier.Lost:
+                        return AORarities.Exotic;
+                        break;
+                    case AOImbuableTier.Ancient:
+                        return AORarities.Arcane;
+                        break;
+                    case AOImbuableTier.Custom:
+                        return AORarities.Zenith;
+                        break;
+                    default:
+                        return AORarities.Special;
+                        break;
+                }
+            }
+        }
 
-		public override ItemType ItemType => ItemType.None;
+        public override ItemType ItemType => ItemType.None;
 
 		public abstract float AOImbueSpeed { get; }
 		public abstract float AOImbueSize { get; }
@@ -206,7 +229,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{(this is AOMagic ? "Magic" : "FS")}TierLines.{ImbuableTier}").Value));
 		}
-	}
+    }
 
 
 }

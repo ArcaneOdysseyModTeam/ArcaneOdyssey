@@ -148,19 +148,20 @@ namespace ArcaneOdyssey
 		public bool dashing;
 		public int collisions;
 		private int? DashDir;
+        private float storedWingTime;
 
-		public bool FirstFrames;
-		/// <summary>
-		/// Starts a dash, does not check for cooldowns
-		/// </summary>
-		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
-		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
-		public void StartDash(DashSystem dashToUse, int direction = 0)
+		public bool FirstFrames => CurrentDash is not null && CurrentDash.DashMax < DashLeft + 2;
+        /// <summary>
+        /// Starts a dash, does not check for cooldowns
+        /// </summary>
+        /// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
+        /// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
+        public void StartDash(DashSystem dashToUse, int direction = 0)
 		{
+            storedWingTime = Player.wingTime;
 			Player.noFallDmg = true;
 			Player.timeSinceLastDashStarted = 0;
 			CurrentDash = dashToUse;
-			FirstFrames = true;
 			collisions = 0;
 			ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
 			if (dashToUse.AnyDirection && direction == 0)
@@ -179,8 +180,10 @@ namespace ArcaneOdyssey
 					standard *= direction; 
 				}
 				DashVelocity = standard * dashToUse.DashSpeed;
-			}
-			DashLeft = dashToUse.DashMax;
+            }
+            Player.velocity = DashVelocity;
+            Player.ConsumeAllExtraJumps();
+            DashLeft = dashToUse.DashMax;
 			dashToUse.OnStart(Player);
 			dashing = true;
 			if (dashToUse.Immune)
@@ -260,10 +263,9 @@ namespace ArcaneOdyssey
 			}
 			if (CurrentDash is not null)
 			{
-				FirstFrames = CurrentDash.DashMax < DashLeft + 2;
 				if (dashing && !Player.mount.Active && !Player.setSolar)
-				{
-					ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
+                {
+                    ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
 					DashLeft--;
 					Player.noFallDmg = true;
 
@@ -272,6 +274,7 @@ namespace ArcaneOdyssey
 
                     if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrames))
                     {
+                        Player.wingTime = storedWingTime;
                         CurrentDash.SetCooldown(Player);
                         CurrentDash.OnEnd(Player);
                         dashing = false;
@@ -279,14 +282,16 @@ namespace ArcaneOdyssey
                         {
                             CurrentDash.NaturalEnd(Player);
                         }
+                        return;
                     }
                     else if (CurrentDash.AnyDirection || FirstFrames)
                     {
                         Player.velocity = DashVelocity;
                         Player.controlJump = true;
                     }
-					CurrentDash.DashEffect(Player);
-				}
+                    CurrentDash.DashEffect(Player);
+                    Player.ConsumeAllExtraJumps();
+                }
 			}
 			else
 			{
