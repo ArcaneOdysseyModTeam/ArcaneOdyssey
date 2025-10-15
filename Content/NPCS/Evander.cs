@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Enemies;
+﻿using ArcaneOdyssey.Content.Items.Weapons;
+using ArcaneOdyssey.Content.Projectiles.Enemies;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -81,9 +83,9 @@ namespace ArcaneOdyssey.Content.NPCS
 				{
 					NPC.velocity.Y = -5f;
 				} else if (NPC.wet && (NPC.ai[1] % 3 == 1))
-                {
+				{
 					NPC.velocity.Y = -1f;
-                }
+				}
 				canJump = (CheckTileToDir(0, NPC.Bottom) || CheckTileToDir(0, NPC.BottomLeft) || CheckTileToDir(0, NPC.BottomRight)) && Math.Abs(NPC.velocity.Y) < 0.01f;
 			} 
 			else if (NPC.ai[0] == 1 && NPC.HasValidTarget) // col cleave
@@ -103,7 +105,7 @@ namespace ArcaneOdyssey.Content.NPCS
 					proj.Center = NPC.Center;
 				}
 			} 
-            else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
+			else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
 			{
 				NPC.ai[1]++;
 				if(NPC.ai[1] >= 20)
@@ -188,9 +190,9 @@ namespace ArcaneOdyssey.Content.NPCS
 				NPC.frameCounter++;
 			}
 			} else
-            {
-                NPC.frame.Y = 0;
-            }
+			{
+				NPC.frame.Y = 0;
+			}
 		}
 
 		public override void HitEffect(NPC.HitInfo hit)
@@ -208,12 +210,54 @@ namespace ArcaneOdyssey.Content.NPCS
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
-        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
-        {
+		public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+		{
 			boundingBox.Width = 30;
 			boundingBox.Height = 50;
 			boundingBox.X = (int)NPC.position.X;
 			boundingBox.Y = (int)NPC.position.Y;
-        }
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			var con = new LeadingConditionRule(new FirstEvanderKill());
+			con.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<ColossalGreatsword>()));
+			npcLoot.Add(con);
+		}
+	}
+
+	public class EvanderSpawning : ModSystem
+	{
+		public override void PostUpdateWorld()
+		{
+			if (AOUtils.ServerOrSingleplayer && (!DownedBosses.downedEvander) && Main.hardMode && Main.dayTime)
+			{
+				foreach (var player in Main.ActivePlayers)
+				{
+					if (player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!BossAlive()) && Main.rand.NextBool(300 * 60))
+					{
+						NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<Evander>());
+					}
+				}
+			}
+		}
+
+		public static bool BossAlive()
+		{
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if (npc.boss)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool PlayerInOuterThirds(Player player)
+		{
+			var worldwidth = Main.maxTilesX * 16f;
+			return player.position.X < worldwidth / 3 || player.position.X > worldwidth / 3 * 2;
+		}
 	}
 }

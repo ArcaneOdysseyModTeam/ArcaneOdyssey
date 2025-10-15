@@ -63,10 +63,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			return CanUseItem(player);
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<RavennaGreatsword>().AddIngredient(ItemID.BreakerBlade).Register(); // temporary
-		}
 	}
 }

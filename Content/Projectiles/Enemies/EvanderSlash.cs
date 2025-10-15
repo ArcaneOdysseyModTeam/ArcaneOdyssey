@@ -33,7 +33,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.hostile = true;
 			Projectile.height = Projectile.width = 234;
 			Projectile.knockBack = 4.5f;
-			Projectile.stopsDealingDamageAfterPenetrateHits = true;
 		}
 
 		public override void SetStaticDefaults()

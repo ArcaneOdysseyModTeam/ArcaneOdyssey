@@ -30,9 +30,16 @@ namespace ArcaneOdyssey
 		public bool CanDrop(DropAttemptInfo info) => !NPC.downedEmpressOfLight;
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstEmpressKillDescription", () => "First Empress of Light Defeated").Value;
-	}
+    }
 
-	public class FirstDayEmpressKill : IItemDropRuleCondition
+    public class FirstEvanderKill : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEvander;
+        public bool CanShowItemDropInUI() => true;
+        public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
+    }
+
+    public class FirstDayEmpressKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEnragedEmpress;
 		public bool CanShowItemDropInUI() => true;
