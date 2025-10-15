@@ -8,6 +8,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Projectiles.Enemies;
 using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.NPCS
@@ -95,7 +96,7 @@ namespace ArcaneOdyssey.Content.NPCS
                 } else if (NPC.ai[1] == 15)
                 {
 					Main.NewText("Collossal Cleave!");
-					// add the actual attack
+					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (NPC.direction * 3),NPC.position.Y,NPC.direction * 3f,0f,ModContent.ProjectileType<EvanderSlash>(),100,3f);
                 }
             } else if (NPC.ai[0] == 2) //melee
             {
