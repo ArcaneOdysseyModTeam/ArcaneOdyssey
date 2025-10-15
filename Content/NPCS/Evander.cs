@@ -124,6 +124,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void FindFrame(int frameHeight)
 		{
+			if(NPC.HasValidTarget) {
 			if (NPC.HasValidTarget && NPC.ai[0] == 0)
 			{
 				if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
@@ -154,35 +155,39 @@ namespace ArcaneOdyssey.Content.NPCS
 			else if (NPC.ai[0] == 1)
 			{
 				if (NPC.frameCounter > 2)
+				{
+					if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
 					{
-						if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
-						{
-							NPC.frame.Y += frameHeight;
-						}
-						else
-						{
-						NPC.frame.Y = frameHeight * 17;
-						}
-						NPC.frameCounter = 0;
+						NPC.frame.Y += frameHeight;
 					}
-					NPC.frameCounter++;
+					else
+					{
+						NPC.frame.Y = frameHeight * 17;
+					}
+					NPC.frameCounter = 0;
+				}
+				NPC.frameCounter++;
 			}
 			else if (NPC.ai[0] == 2)
 			{
 				if (NPC.frameCounter > 2)
+				{
+					if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
 					{
-						if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
-						{
-							NPC.frame.Y += frameHeight;
-						}
-						else
-						{
-							NPC.frame.Y = frameHeight * 17;
-						}
-						NPC.frameCounter = 0;
+						NPC.frame.Y += frameHeight;
 					}
-					NPC.frameCounter++;
+					else
+					{
+						NPC.frame.Y = frameHeight * 17;
+					}
+					NPC.frameCounter = 0;
+				}
+				NPC.frameCounter++;
 			}
+			} else
+            {
+                NPC.frame.Y = 0;
+            }
 		}
 
 		public override void HitEffect(NPC.HitInfo hit)
