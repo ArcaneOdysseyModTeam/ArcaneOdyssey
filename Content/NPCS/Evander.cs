@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Content.NPCS
                 } else if (NPC.ai[1] == 15)
                 {
 					Main.NewText("Collossal Cleave!");
-					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (NPC.direction * 3),NPC.position.Y,NPC.direction * 3f,0f,ModContent.ProjectileType<EvanderSlash>(),100,3f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (NPC.direction * 3),NPC.position.Y,NPC.direction * 3f,0f,ModContent.ProjectileType<EvanderSlash>(),25,4.5f);
                 }
             } else if (NPC.ai[0] == 2) //melee
             {
