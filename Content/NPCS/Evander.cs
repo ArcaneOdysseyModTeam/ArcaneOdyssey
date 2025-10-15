@@ -37,7 +37,9 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.trapImmune = false;
 			NPC.lavaImmune = false;
 			NPC.aiStyle = 0;
-			NPC.ai[0] = 0;
+			NPC.frameCounter = 0;
+			NPC.ai[0] = 0; // state
+			NPC.ai[1] = 0; // state time
 		}
 		private bool canJump = false;
 
@@ -80,7 +82,28 @@ namespace ArcaneOdyssey.Content.NPCS
 		}
         public override void FindFrame(int frameHeight)
         {
-            NPC.frame.Y = 1;
+            if (NPC.ai[0] == 0)
+            {
+				if (Math.Abs(NPC.velocity.X) < 0.2f)
+				{
+					NPC.frame.Y = 0;
+				}
+				else
+				{
+					if (NPC.frameCounter < 3) {
+						if (NPC.frame.Y < 17) {
+							NPC.frame.Y += 1;
+						} else
+                        {
+							NPC.frame.Y = 1;
+                        }
+						NPC.frameCounter++;
+					} else
+                    {
+						NPC.frameCounter = 0;
+                    }
+                }
+            }
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
