@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.NPCS
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[Type] = 17;
+			Main.npcFrameCount[Type] = 27;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			ExternalModSupport.DeclareMiniboss(Type);
@@ -138,7 +138,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				{
 					if (NPC.frameCounter > 3)
 					{
-						if (NPC.frame.Y < 16 * frameHeight)
+						if (NPC.frame.Y < 16 * frameHeight && NPC.frame.Y > 0 * frameHeight)
 						{
 							NPC.frame.Y += frameHeight;
 						}
@@ -153,9 +153,9 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else if (NPC.ai[0] == 1)
 			{
-				if (NPC.frameCounter > 3)
+				if (NPC.frameCounter > 2)
 					{
-						if (NPC.frame.Y < 27 * frameHeight)
+						if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
 						{
 							NPC.frame.Y += frameHeight;
 						}
@@ -169,9 +169,9 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else if (NPC.ai[0] == 2)
 			{
-				if (NPC.frameCounter > 3)
+				if (NPC.frameCounter > 2)
 					{
-						if (NPC.frame.Y < 27 * frameHeight)
+						if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
 						{
 							NPC.frame.Y += frameHeight;
 						}
