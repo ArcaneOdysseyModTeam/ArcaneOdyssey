@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
-			if (player.TryGetImbue(out var imbue))
+			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
 			{
 				constantAscend *= imbue.AOScrollSpeed;
 				ascentWhenRising *= imbue.AOScrollSpeed;
@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
 		{
-			if (player.TryGetImbue(out var imbue))
+			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
 			{
 				speed *= imbue.AOScrollSpeed;
 				acceleration *= imbue.AOScrollDamage;
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void UpdateEquip(Player player)
 		{
-			if (player.Imbue() is not null)
+			if (player.Imbue() is AOMagic)
 				player.noFallDmg = true;
 			else
 				player.wingTime = 0;
@@ -60,7 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override bool WingUpdate(Player player, bool inUse)
 		{
-			if (player.TryGetImbue(out var imbue) && inUse)
+			if (player.TryGetImbue(out var imbue) && inUse && imbue is AOMagic)
 			{
 				imbue.LingeringEffects(player);
 			}

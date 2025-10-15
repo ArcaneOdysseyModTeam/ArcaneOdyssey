@@ -101,7 +101,8 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Coral,15).Register();
+            CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Coral, 15).Register();
+            // add alternate recipe here when addon
 		}
 	}
 

@@ -16,8 +16,25 @@ using Terraria.Audio;
 namespace ArcaneOdyssey.Content.Items.FightingStyles
 {
 	public class IronLeg : FightingStyle
-	{
-		public override Color ImbueColour => Color.LightGray;
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            if (Main.netMode != NetmodeID.Server)
+            {
+                EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shoes);
+            }
+        }
+
+        public override void Load()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Shoes}", EquipType.Shoes, this);
+            }
+        }
+
+        public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
 
 		public override float AOImbueDamage => 1.125f;
@@ -44,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Mercury, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Mercury, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1f);
 			}
 		}
 
@@ -54,24 +71,36 @@ namespace ArcaneOdyssey.Content.Items.FightingStyles
 			spawnedDust.noGravity = true;
 			spawnedDust.noLight = true;
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f);
 			}
 		}
 		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Mercury, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 1f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Mercury, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 1f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar,15).Register();
+            CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).Register();
 		}
-	}
+    }
+
+    public class ILegLegHelper : ModPlayer
+    {
+        public override void FrameEffects()
+        {
+            if (Player.ArcaneOdyssey().imbue is IronLeg || (Player.HeldItem.type != ItemID.None && Player.HeldItem.ArcaneOdyssey().imbue is IronLeg))
+            {
+                Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
+            }
+        }
+    }
 }
