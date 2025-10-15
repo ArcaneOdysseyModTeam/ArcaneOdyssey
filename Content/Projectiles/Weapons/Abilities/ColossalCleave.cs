@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.knockBack = 4.5f;
 		}
 
-		public override void AI()
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ProjectileID.Sets.TrailingMode[Type] = 0;
+		}
+
+		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+            {
+                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + Projectile.GetDrawOriginCentre();// + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(Sprite, drawPos, null, color, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None, 0);
+            }
+            return false;
+        }
+
+        public override void AI()
 		{
 			if (Projectile.ai[0] == 0)
 			{
@@ -42,13 +62,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 			}
 
-			if (Projectile.localAI[0] > 60 && !Main.dedServ)
+			if (Projectile.localAI[0] >= 30 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
-                for (int i = 1; i < 20; i++)
-                {
-                    Imbue?.ExplosionEffects(Projectile);
-                }
+				for (int i = 1; i < 20; i++)
+				{
+					Imbue?.ExplosionEffects(Projectile);
+				}
 			}
 			Projectile.localAI[0]++;
 
