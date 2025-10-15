@@ -77,11 +77,16 @@ namespace ArcaneOdyssey.Content.NPCS
 				{
 					NPC.velocity.X = 0f;
 				}
-
+				bool tileUnderIsFlat = Main.tile[(int)(NPC.Bottom.X / 16f), (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
+				bool tileNextToFlatTile = Main.tileSolid[Main.tile[(int)(NPC.Bottom.X / 16f)+NPC.direction, (int)(NPC.Bottom.Y / 16f)].TileType] && !Main.tile[(int)(NPC.Bottom.X / 16f)+NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsActuated && !Main.tile[(int)(NPC.Bottom.X / 16f)+NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
 				// Jump if there's a block
 				if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
 				{
 					NPC.velocity.Y = -5f;
+				} else if (tileUnderIsFlat) {
+					if (tileNextToFlatTile && (NPC.ai[1] % 5 == 1)) {
+						NPC.velocity.Y = -2f;
+					}
 				} else if (NPC.wet && (NPC.ai[1] % 3 == 1))
 				{
 					NPC.velocity.Y = -1f;
@@ -124,7 +129,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		public static bool CheckTileToDir(int direction, Vector2 pos)
 		{
 			Tile targetTile = Main.tile[(int)(pos.X / 16f)+direction, (int)(pos.Y / 16f)];
-			return targetTile != null && targetTile.HasTile && Main.tileSolid[targetTile.TileType];
+			return targetTile != null && targetTile.HasTile && (Main.tileSolid[targetTile.TileType] && !targetTile.IsActuated);
 		}
 
 		public override void FindFrame(int frameHeight)
