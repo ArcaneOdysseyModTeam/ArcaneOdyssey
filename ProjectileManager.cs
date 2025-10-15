@@ -24,58 +24,57 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (projectile.owner == Main.myPlayer)
+			
+			if (projectile.TryGetImbue(out Imbuable imbue))
 			{
-				if (projectile.TryGetImbue(out Imbuable imbue))
+				var spell = projectile.ModProjectile is MagicSpell;
+				modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOScrollDamage).MultiToPercent();
+				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 				{
-					var spell = projectile.ModProjectile is MagicSpell;
-					modifiers.FinalDamage += (!spell ? imbue.AOImbueDamage : imbue.AOScrollDamage).MultiToPercent();
-					if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+					modifiers.FinalDamage += .3f;
+				}
+
+
+				foreach (var debuff in imbue.ImbueDebuffs)
+				{
+					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / debuff.debuffPercent))
 					{
-						modifiers.FinalDamage += .3f;
+						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
 					}
+				}
 
-
-					foreach (var debuff in imbue.ImbueDebuffs)
+				if (imbue.CombinedDebuffs is not null)
+				{
+					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
 					{
-						if ((debuff.debuffPercent == 0) || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / debuff.debuffPercent))
+						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
-							target.AddBuff(debuff.debuffID, debuff.debuffDuration);
+							target.AddBuff(buffkeys.result, buffkeys.duration);
 						}
 					}
+				}
 
-					if (imbue.CombinedDebuffs is not null)
+				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				{
+					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
-						foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
-						{
-							if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-							{
-								target.AddBuff(buffkeys.result, buffkeys.duration);
-							}
-						}
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
 					}
+				}
 
-					foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+				{
+					foreach (int buffid in imbue.Effects.clearBuffs)
 					{
-						if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+						if (target.HasBuff(buffid))
 						{
-							modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-						}
-					}
-
-					if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-					{
-						foreach (int buffid in imbue.Effects.clearBuffs)
-						{
-							if (target.HasBuff(buffid))
-							{
-								target.DelBuff(target.FindBuffIndex(buffid));
-							}
+							target.DelBuff(target.FindBuffIndex(buffid));
 						}
 					}
 				}
 			}
 		}
+		
 
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{

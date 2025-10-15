@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons;
+using ArcaneOdyssey.Content.Projectiles.Relic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

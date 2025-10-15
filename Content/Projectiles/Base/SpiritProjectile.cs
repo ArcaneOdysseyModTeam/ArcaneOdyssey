@@ -1,4 +1,7 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Magic;
 using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
@@ -6,14 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class SpiritProjectile : AOPlayerProjectile
-	{
-		public override AOUtils.AODebuffRequirement? Debuff => null;
-		public override void SetDefaults()
+    {
+        public override AODebuffRequirement? Debuff => null;
+        public virtual CombinedDebuff[] CombinedDebuffs => [];
+        public virtual SynergyEffects Effects => new([], []);
+
+
+        public override void SetDefaults()
 		{
 			Projectile.DamageType = ModContent.GetInstance<SpiritDamage>();
 		}
@@ -21,10 +31,39 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			base.ModifyHitNPC(target, ref modifiers);
-			ManageSynergies();
-		}
 
-		public virtual void ManageSynergies() { }
+            if (CombinedDebuffs is not null)
+            {
+                foreach (CombinedDebuff buffkeys in CombinedDebuffs)
+                {
+                    if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+                    {
+                        target.AddBuff(buffkeys.result, buffkeys.duration);
+                    }
+                }
+            }
+
+            foreach (MagicBuffMultiplier multiplier in Effects.magicBuffMultipliers)
+            {
+                if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+                {
+                    modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+                }
+            }
+
+            if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+            {
+                foreach (int buffid in Effects.clearBuffs)
+                {
+                    if (target.HasBuff(buffid))
+                    {
+                        target.DelBuff(target.FindBuffIndex(buffid));
+                    }
+                }
+            }
+        }
+
+		public virtual void ManageSynergies(ref NPC.HitModifiers modifiers) { }
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
