@@ -161,6 +161,7 @@ Projectiles: {
 	LeapFix.DisplayName: Leap Fix
 	PowderExplosion.DisplayName: Powder Explosion
 	PiercingGale.DisplayName: Piercing Gale
+	EvanderMelee.DisplayName: Evander Melee
 }
 
 ImbueStuff: {

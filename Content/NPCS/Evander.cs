@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Content.NPCS
 							NPC.frameCounter = 0;
 							NPC.ai[1] = 0;
 						}
-					} else if (NPC.ai[1] > 60 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
+					} else if (NPC.ai[1] > 45 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
                     {
 						NPC.ai[0] = 1;
 						NPC.ai[1] = 0;
@@ -97,19 +97,20 @@ namespace ArcaneOdyssey.Content.NPCS
 				{
 					Vector2 aimDir = NPC.SafeDirectionTo(Main.player[NPC.target].Center);
 					Main.NewText("Collossal Cleave!");
-					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.position.X + (aimDir.X * 3f),NPC.position.Y + (aimDir.Y * 3f),aimDir.X * 3f,aimDir.Y * 3f,ModContent.ProjectileType<EvanderSlash>(),25,4.5f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center.X + (aimDir.X * 3f),NPC.Center.Y + (aimDir.Y * 3f),aimDir.X * 3f,aimDir.Y * 3f,ModContent.ProjectileType<EvanderSlash>(),25,4.5f);
                 }
             } else if (NPC.ai[0] == 2) //melee
             {
 				NPC.ai[1]++;
-				if(NPC.ai[1] >= 30)
+				if(NPC.ai[1] >= 20)
                 {
 					NPC.ai[1] = 0;
 					NPC.frameCounter = 0;
 					NPC.ai[0] = 0;
-                } else if(NPC.ai[1] == 15)
+                } else if(NPC.ai[1] == 10)
                 {
 					Main.NewText("Melee!");
+					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center.X,NPC.Center.Y,0f,0f,ModContent.ProjectileType<EvanderMelee>(),50,4.5f);
                 }
             }
 		}
