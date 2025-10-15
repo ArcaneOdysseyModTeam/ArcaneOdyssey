@@ -84,24 +84,25 @@ namespace ArcaneOdyssey.Content.NPCS
         {
             if (NPC.ai[0] == 0)
             {
-				if (Math.Abs(NPC.velocity.X) < 0.2f)
+				if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
 				{
 					NPC.frame.Y = 0;
 				}
 				else
 				{
-					if (NPC.frameCounter < 3) {
-						if (NPC.frame.Y < 17) {
-							NPC.frame.Y += 1;
-						} else
-                        {
-							NPC.frame.Y = 1;
-                        }
-						NPC.frameCounter++;
-					} else
-                    {
+					if (NPC.frameCounter > 3)
+					{
+						if (NPC.frame.Y < 16 * frameHeight)
+						{
+							NPC.frame.Y += frameHeight;
+						}
+						else
+						{
+							NPC.frame.Y = frameHeight;
+						}
 						NPC.frameCounter = 0;
-                    }
+					}
+					NPC.frameCounter++;
                 }
             }
         }
