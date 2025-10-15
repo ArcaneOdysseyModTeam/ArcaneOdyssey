@@ -153,11 +153,35 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else if (NPC.ai[0] == 1)
 			{
-				NPC.frame.Y = 0;
+				if (NPC.frameCounter > 3)
+					{
+						if (NPC.frame.Y < 27 * frameHeight)
+						{
+							NPC.frame.Y += frameHeight;
+						}
+						else
+						{
+						NPC.frame.Y = frameHeight * 17;
+						}
+						NPC.frameCounter = 0;
+					}
+					NPC.frameCounter++;
 			}
 			else if (NPC.ai[0] == 2)
 			{
-				NPC.frame.Y = 0;
+				if (NPC.frameCounter > 3)
+					{
+						if (NPC.frame.Y < 27 * frameHeight)
+						{
+							NPC.frame.Y += frameHeight;
+						}
+						else
+						{
+							NPC.frame.Y = frameHeight * 17;
+						}
+						NPC.frameCounter = 0;
+					}
+					NPC.frameCounter++;
 			}
 		}
 
