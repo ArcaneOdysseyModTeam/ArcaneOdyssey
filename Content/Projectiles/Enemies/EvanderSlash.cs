@@ -94,5 +94,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.ai[0] = 1;
 			return false;
 		}
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+			Projectile.ai[0] = 1;
+        }
 	}
 }
