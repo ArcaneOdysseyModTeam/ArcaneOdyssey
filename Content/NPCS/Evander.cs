@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.lifeMax = 10000;
 			NPC.lifeRegen = 0;
 			NPC.noGravity = false;
-			NPC.damage = 100;
+			NPC.damage = 0;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 20;
 			NPC.height = 44;
@@ -45,18 +45,27 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void AI()
 		{
-			// Select state
-			NPC.ai[0] = 0;
 			if (NPC.ai[0] == 0) //Chase
 			{// Chase the nearest player
+				NPC.ai[1]++;
 				NPC.TargetClosest();
 				if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
 				{ // Limit chasing distance
 					NPC.velocity.X += NPC.direction * 0.2f;
-					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 20f)
-					{ // Move away
-						NPC.velocity.X *= -1f;
-					}
+					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
+					{ // Attack meelee or stop
+						NPC.velocity.X = 0f;
+						if (NPC.ai[1] >= 60) {
+							NPC.ai[0] = 2;
+							NPC.frameCounter = 0;
+							NPC.ai[1] = 0;
+						}
+					} else if (NPC.ai[1] > 60 && Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) <= 300f && Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) >= 100f)
+                    {
+						NPC.ai[0] = 1;
+						NPC.ai[1] = 0;
+						NPC.frameCounter = 0;
+                    }
 				}
 				if (Math.Abs(NPC.velocity.X) > 8f)
 				{
@@ -73,7 +82,32 @@ namespace ArcaneOdyssey.Content.NPCS
 					NPC.velocity.Y = -5f;
 				}
 				canJump = (checkTileToDir(0, NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f);
-			}
+			} else if(NPC.ai[0] == 1) // col cleave
+			{
+				NPC.ai[1]++;
+				NPC.velocity.X *= 0.7f;
+				if (NPC.ai[1] >= 20)
+                {
+					NPC.ai[0] = 0;
+					NPC.ai[1] = 0;
+					NPC.frameCounter = 0;
+                } else if (NPC.ai[1] == 15)
+                {
+					Main.NewText("Collossal Cleave!");
+                }
+            } else if (NPC.ai[0] == 2) //melee
+            {
+				NPC.ai[1]++;
+				if(NPC.ai[1] >= 30)
+                {
+					NPC.ai[1] = 0;
+					NPC.frameCounter = 0;
+					NPC.ai[0] = 0;
+                } else if(NPC.ai[1] == 15)
+                {
+					Main.NewText("Melee!");
+                }
+            }
 		}
 		public bool checkTileToDir(int direction, Vector2 pos)
 		{
@@ -87,7 +121,10 @@ namespace ArcaneOdyssey.Content.NPCS
 				if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
 				{
 					NPC.frame.Y = 0;
-				}
+				} else if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
+				{
+					NPC.frame.Y = 0;
+                }
 				else
 				{
 					if (NPC.frameCounter > 3)
@@ -104,6 +141,12 @@ namespace ArcaneOdyssey.Content.NPCS
 					}
 					NPC.frameCounter++;
                 }
+            } else if (NPC.ai[0] == 1)
+            {
+				NPC.frame.Y = 0;
+            } else if (NPC.ai[0] == 2)
+            {
+				NPC.frame.Y = 0;
             }
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
