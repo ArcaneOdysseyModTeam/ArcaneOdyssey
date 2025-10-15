@@ -12,6 +12,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Items.FightingStyles;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
@@ -56,6 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override bool AnyDirection => true;
 
 		public override int Damage => 50;
+
 		public override void DashEffect(Player player)
 		{
 			if (player.TryGetImbue(out var imbue))
@@ -102,7 +104,15 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
-			}
+				if (imbue is ThermoFist thermo)
+				{
+					thermo.BarValue += 5;
+                }
+                if (imbue is SailorStyle sailor)
+                {
+                    sailor.BarValue -= 10;
+                }
+            }
 		}
 	}
 
@@ -125,7 +135,15 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
-			}
+                if (imbue is ThermoFist thermo)
+                {
+                    thermo.BarValue += 5;
+                }
+                if (imbue is SailorStyle sailor)
+                {
+                    sailor.BarValue -= 10;
+                }
+            }
 		}
 		public override bool OnHit(Player player, Entity target)
 		{
