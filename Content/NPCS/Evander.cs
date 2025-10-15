@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 10000;
+			NPC.lifeMax = 5000;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 20;
 			NPC.height = 44;
