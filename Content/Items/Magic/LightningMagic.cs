@@ -31,7 +31,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollDamage => .875f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
-		public override SynergyEffects Effects => new SynergyEffects(
+
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<AOPetrified>(), // petrified
 				ModContent.BuffType<CharredEffect>(),
@@ -45,7 +46,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
 				new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
 				new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid
-				new MagicBuffMultiplier(BuffID.Wet, 1.05f), // (add stunning later!)
+				new MagicBuffMultiplier(BuffID.Wet, 1.05f), // 
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)

@@ -20,7 +20,7 @@ using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey
 {
-	public class ArcaneOdyssey : Mod // what does bro even do lmao
+	public class ArcaneOdyssey : Mod
 	{
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
 		public static List<int> ExcludedItems = [];
@@ -30,29 +30,53 @@ namespace ArcaneOdyssey
 		{
 			switch (args[0])
 			{
-                case "BlacklistProjectile":
+				case "BlacklistProjectile":
 				case "ExcludeProjectile":
 					ExcludedProjectiles.Add((int)args[1]);
 					break;
-                case "BlacklistItem":
-                case "ExcludeItem":
+				case "BlacklistItem":
+				case "ExcludeItem":
 					ExcludedItems.Add((int)args[1]);
 					break;
 				case "GetPlayerImbue":
 					AOPlayer player = Main.player[(int)args[1]].ArcaneOdyssey();
 					return player.imbue.Type;
 					break;
-                case "GetItemImbue":
-                    Imbuable imbue = new Item((int)args[1]).ArcaneOdyssey().imbue;
-                    return imbue.Type;
-                    break;
-            }
+				case "GetItemImbue":
+					Imbuable imbue = new Item((int)args[1]).ArcaneOdyssey().imbue;
+					return imbue.Type;
+					break;
+			}
 			return null;
 		}
 	}
 
-	public class WorldGenTasks
+	public class WorldGenStuff : ModSystem
 	{
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
+		{
+			// Tucker died lmao
+			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
+			if (ArcaneOdysseyConfig.Instance.GenerateTucker && Stalac != -1)
+			{
+				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
+				{
+					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
+					KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
+				}));
+			}
+
+			int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
+			if (ArcaneOdysseyConfig.Instance.EnableMorden && guide != -1)
+			{
+				tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
+				{
+					progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
+					SpawnMorden();
+				}));
+			}
+		}
+
 		public static void KillTucker(int left, int top, int right, int bottom, int tile)
 		{
 			bool success = false;
@@ -86,33 +110,6 @@ namespace ArcaneOdyssey
 			edgelord.direction = 1;
 			edgelord.homeless = true;
 		}
-	}
-
-	public class WorldGenStuff : ModSystem
-	{
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
-		{
-			// Tucker died lmao
-			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
-			if (ArcaneOdysseyConfig.Instance.GenerateTucker && Stalac != -1)
-			{
-				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
-				{
-					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					WorldGenTasks.KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
-				}));
-			}
-
-			int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
-			if (ArcaneOdysseyConfig.Instance.EnableMorden && guide != -1)
-			{
-				tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
-				{
-					progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
-					WorldGenTasks.SpawnMorden();
-				}));
-			}
-		}
 
 		public override void PostWorldGen()
 		{
@@ -140,14 +137,14 @@ namespace ArcaneOdyssey
 	public class DownedBosses : ModSystem
 	{
 		public static bool downedEvander;
-        public static bool downedEnragedEmpress;
+		public static bool downedEnragedEmpress;
 
-        public static void ResetDefaults()
+		public static void ResetDefaults()
 		{
 			downedEvander = false;
-            ExternalModSupport.hasYapped = false;
-            downedEnragedEmpress = false;
-        }
+			ExternalModSupport.hasYapped = false;
+			downedEnragedEmpress = false;
+		}
 
 		public override void OnWorldLoad() => ResetDefaults();
 
@@ -157,9 +154,9 @@ namespace ArcaneOdyssey
 		{
 			List<string> downed = [];
 			if (downedEvander)
-			    downed.Add("Evander");
-            if (downedEnragedEmpress)
-                downed.Add("EnragedEoL");
+				downed.Add("Evander");
+			if (downedEnragedEmpress)
+				downed.Add("EnragedEoL");
 
 			tag["downed"] = downed;
 		}
@@ -168,7 +165,7 @@ namespace ArcaneOdyssey
 		{
 			var downed = tag.GetList<string>("downed");
 			downedEvander = downed.Contains("Evander");
-            downedEnragedEmpress = downed.Contains("EnragedEoL");
+			downedEnragedEmpress = downed.Contains("EnragedEoL");
 		}
 	}
 }
