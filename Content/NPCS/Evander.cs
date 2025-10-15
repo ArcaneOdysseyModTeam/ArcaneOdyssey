@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				}
 				canJump = CheckTileToDir(0, NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f;
 			} 
-			else if (NPC.ai[0] == 1) // col cleave
+			else if (NPC.ai[0] == 1 && NPC.HasValidTarget) // col cleave
 			{
 				NPC.ai[1]++;
 				NPC.velocity.X *= 0.7f;
@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Content.NPCS
 					proj.Center = NPC.Center;
 				}
 			} 
-            else if (NPC.ai[0] == 2) //melee
+            else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
 			{
 				NPC.ai[1]++;
 				if(NPC.ai[1] >= 20)
