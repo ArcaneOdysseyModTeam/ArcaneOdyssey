@@ -96,7 +96,6 @@ namespace ArcaneOdyssey.Content.NPCS
                 } else if (NPC.ai[1] == 15)
 				{
 					Vector2 aimDir = NPC.SafeDirectionTo(Main.player[NPC.target].Center);
-					Main.NewText("Collossal Cleave!");
 					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center.X + (aimDir.X * 3f),NPC.Center.Y + (aimDir.Y * 3f),aimDir.X * 3f,aimDir.Y * 3f,ModContent.ProjectileType<EvanderSlash>(),25,4.5f);
                 }
             } else if (NPC.ai[0] == 2) //melee
@@ -109,7 +108,6 @@ namespace ArcaneOdyssey.Content.NPCS
 					NPC.ai[0] = 0;
                 } else if(NPC.ai[1] == 10)
                 {
-					Main.NewText("Melee!");
 					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center.X,NPC.Center.Y,0f,0f,ModContent.ProjectileType<EvanderMelee>(),50,4.5f);
                 }
             }
