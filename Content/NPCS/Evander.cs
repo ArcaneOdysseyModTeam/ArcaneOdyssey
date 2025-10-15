@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				{
 					NPC.velocity.Y = -5f;
 				}
-				canJump = CheckTileToDir(0, NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f;
+				canJump = (CheckTileToDir(0, NPC.Bottom) || CheckTileToDir(0, NPC.BottomLeft) || CheckTileToDir(0, NPC.BottomRight)) && Math.Abs(NPC.velocity.Y) < 0.01f;
 			} 
 			else if (NPC.ai[0] == 1 && NPC.HasValidTarget) // col cleave
 			{
