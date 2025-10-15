@@ -33,6 +33,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.hostile = true;
 			Projectile.height = Projectile.width = 234;
 			Projectile.knockBack = 4.5f;
+			Projectile.stopsDealingDamageAfterPenetrateHits = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -56,7 +57,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		public override void AI()
 		{
-			if (Projectile.ai[0] == 0 || Projectile.timeLeft < 30)
+			if (Projectile.timeLeft < 30)
 			{
 				Projectile.alpha += 255 / 30;
 				Projectile.ai[0] = 1;
