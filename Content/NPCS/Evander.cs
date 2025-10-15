@@ -94,6 +94,7 @@ namespace ArcaneOdyssey.Content.NPCS
                 } else if (NPC.ai[1] == 15)
                 {
 					Main.NewText("Collossal Cleave!");
+					// add the actual attack
                 }
             } else if (NPC.ai[0] == 2) //melee
             {
@@ -106,6 +107,7 @@ namespace ArcaneOdyssey.Content.NPCS
                 } else if(NPC.ai[1] == 15)
                 {
 					Main.NewText("Melee!");
+					// Add the actual attack
                 }
             }
 		}
