@@ -45,12 +45,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Vector2 drawOrigin = new(Sprite.Width / 2f, Sprite.Height / 2f);
             for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
             {
-                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin;// + new Vector2(0f, Projectile.gfxOffY);
+                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + Projectile.GetDrawOriginCentre();// + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(Sprite, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(Sprite, drawPos, null, color, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None, 0);
             }
             return false;
         }
@@ -63,7 +62,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 			}
 
-			if (Projectile.localAI[0] >= 60 && !Main.dedServ)
+			if (Projectile.localAI[0] >= 30 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
 				for (int i = 1; i < 20; i++)

@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				}
 				canJump = CheckTileToDir(0, NPC.Bottom) && Math.Abs(NPC.velocity.Y) < 0.01f;
 			} 
-			else if (NPC.HasValidTarget && NPC.ai[0] == 1) // col cleave
+			else if (NPC.ai[0] == 1) // col cleave
 			{
 				NPC.ai[1]++;
 				NPC.velocity.X *= 0.7f;
@@ -93,12 +93,11 @@ namespace ArcaneOdyssey.Content.NPCS
 					NPC.ai[1] = 0;
 					NPC.frameCounter = 0;
 				} 
-				else if (NPC.ai[1] == 15)
+				else if (NPC.HasValidTarget && NPC.ai[1] == 15)
 				{
 					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
-					var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 3, ModContent.ProjectileType<EvanderSlash>(), 25, 4.5f);
-                    var modproj = proj.ModProjectile as EvanderSlash;
-					proj.position = new Vector2(NPC.Center.X - (modproj.Sprite.Width / 2f), NPC.Center.Y - (modproj.Sprite.Height / 2f));
+					var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 5, ModContent.ProjectileType<EvanderSlash>(), 25, 4.5f);
+					proj.Center = NPC.Center;
 				}
 			} 
             else if (NPC.ai[0] == 2) //melee
