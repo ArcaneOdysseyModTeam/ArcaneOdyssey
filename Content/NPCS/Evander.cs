@@ -205,5 +205,12 @@ namespace ArcaneOdyssey.Content.NPCS
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+        {
+			boundingBox.Width = 30;
+			boundingBox.Height = 50;
+			boundingBox.X = (int)NPC.position.X;
+			boundingBox.Y = (int)NPC.position.Y;
+        }
 	}
 }
