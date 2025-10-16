@@ -184,3 +184,13 @@ BeamScroll: {
 	DisplayName: Beam Scroll
 	Tooltip: ""
 }
+
+HeadlessHead: {
+	DisplayName: Headless Head
+	Tooltip: ""
+}
+
+HeadlessHeadWithWig: {
+	DisplayName: Headless Head With Wig
+	Tooltip: ""
+}
