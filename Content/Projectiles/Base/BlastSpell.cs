@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
                 Projectile.penetrate = -1;
                 Projectile.tileCollide = false;
                 Projectile.timeLeft = 2 * 60;
-                Projectile.velocity /= 4;
+                Projectile.velocity /= 3;
             }
             else if (Projectile.ai[0] == (int)BlastMode.Pulsar)
             {
