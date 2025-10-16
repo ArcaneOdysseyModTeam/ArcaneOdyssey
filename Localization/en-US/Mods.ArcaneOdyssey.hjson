@@ -112,44 +112,44 @@ Buffs: {
 Projectiles: {
 	FuryoftheSea.DisplayName: Fury of the Sea
 	SunkenStaffProjectile.DisplayName: Sunken Staff
-	IceBlast.DisplayName: Ice Blast
-	AcidBlast.DisplayName: Acid Blast
-	AetherBlast.DisplayName: Aether Blast
-	AncientLightningBlast.DisplayName: Ancient Lightning Blast
-	AshBlast.DisplayName: Ash Blast
-	CrystalBlast.DisplayName: Crystal Blast
-	EarthBlast.DisplayName: Earth Blast
-	ExplosionBlast.DisplayName: Explosion Blast
-	FireBlast.DisplayName: Fire Blast
-	FlareBlast.DisplayName: Flare Blast
-	GlassBlast.DisplayName: Glass Blast
-	GravityBlast.DisplayName: Gravity Blast
-	HeatBlast.DisplayName: Heat Blast
-	LightBlast.DisplayName: Light Blast
-	LightningBlast.DisplayName: Lightning Blast
-	MagmaBlast.DisplayName: Magma Blast
-	MetalBlast.DisplayName: Metal Blast
-	PlasmaBlast.DisplayName: Plasma Blast
-	PoisonBlast.DisplayName: Poison Blast
-	PoisonLightningBlast.DisplayName: Poison Lightning Blast
-	SandBlast.DisplayName: Sand Blast
-	ShadowBlast.DisplayName: Shadow Blast
-	SnowBlast.DisplayName: Snow Blast
-	VesuviusBlast.DisplayName: Vesuvius Blast
-	WaterBlast.DisplayName: Water Blast
-	WindBlast.DisplayName: Wind Blast
-	WoodBlast.DisplayName: Wood Blast
-	JerminusBlast.DisplayName: Jerminus Blast
+	IceBlast.DisplayName: Ice Projectile
+	AcidBlast.DisplayName: Acid Projectile
+	AetherBlast.DisplayName: Aether Projectile
+	AncientLightningBlast.DisplayName: Ancient Lightning Projectile
+	AshBlast.DisplayName: Ash Projectile
+	CrystalBlast.DisplayName: Crystal Projectile
+	EarthBlast.DisplayName: Earth Projectile
+	ExplosionBlast.DisplayName: Explosion Projectile
+	FireBlast.DisplayName: Fire Projectile
+	FlareBlast.DisplayName: Flare Projectile
+	GlassBlast.DisplayName: Glass Projectile
+	GravityBlast.DisplayName: Gravity Projectile
+	HeatBlast.DisplayName: Heat Projectile
+	LightBlast.DisplayName: Light Projectile
+	LightningBlast.DisplayName: Lightning Projectile
+	MagmaBlast.DisplayName: Magma Projectile
+	MetalBlast.DisplayName: Metal Projectile
+	PlasmaBlast.DisplayName: Plasma Projectile
+	PoisonBlast.DisplayName: Poison Projectile
+	PoisonLightningBlast.DisplayName: Poison Lightning Projectile
+	SandBlast.DisplayName: Sand Projectile
+	ShadowBlast.DisplayName: Shadow Projectile
+	SnowBlast.DisplayName: Snow Projectile
+	VesuviusBlast.DisplayName: Vesuvius Projectile
+	WaterBlast.DisplayName: Water Projectile
+	WindBlast.DisplayName: Wind Projectile
+	WoodBlast.DisplayName: Wood Projectile
+	JerminusBlast.DisplayName: Jerminus Projectile
 	MagicCircle1.DisplayName: Magic Circle
 	MagicCircle2.DisplayName: Magic Circle
 	ExplosionTracker.DisplayName: Explosion Spell
 	ExplosionSpell.DisplayName: Explosion
-	DeliriumBlast.DisplayName: Delirium Blast
+	DeliriumBlast.DisplayName: Delirium Projectile
 	DeathCurse.DisplayName: Death Curse..
 	ColossalCleave.DisplayName: Colossal Cleave
-	SpiritBlast.DisplayName: Spirit Blast
-	FrogBlast.DisplayName: Frog Blast
-	IonBlast.DisplayName: Ion Blast
+	SpiritBlast.DisplayName: Spirit Projectile
+	FrogBlast.DisplayName: Frog
+	IonBlast.DisplayName: Ion Projectile
 	WoodenStaffProjectile.DisplayName: Wooden Staff
 	EvanderSlash.DisplayName: Colossal Cleave
 	OldTridentProjectile.DisplayName: Old Trident
