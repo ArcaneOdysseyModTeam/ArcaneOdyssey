@@ -125,7 +125,7 @@ namespace ArcaneOdyssey
 			return imbue is not null;
 		}
 
-		public static bool ServerOrSingleplayer => Main.dedServ || Main.netMode == NetmodeID.SinglePlayer;
+		public static bool ServerOrSingleplayer => Main.netMode != NetmodeID.MultiplayerClient;
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 		

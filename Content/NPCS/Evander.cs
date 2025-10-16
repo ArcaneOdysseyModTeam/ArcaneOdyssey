@@ -106,7 +106,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				else if (NPC.HasValidTarget && NPC.ai[1] == 15)
 				{
 					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
-					var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 5, ModContent.ProjectileType<EvanderSlash>(), 25, 4.5f);
+					var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 5, ModContent.ProjectileType<EvanderSlash>(), 35, 4.5f);
 					proj.Center = NPC.Center;
 				}
 			} 
@@ -121,7 +121,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				} 
 				else if (NPC.ai[1] == 10)
 				{
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EvanderMelee>(), 50, 4.5f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EvanderMelee>(), 75, 4.5f);
 				}
 			}
 		}
@@ -229,6 +229,13 @@ namespace ArcaneOdyssey.Content.NPCS
 			con.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<ColossalGreatsword>()));
 			npcLoot.Add(con);
 		}
+
+        public override void OnKill()
+        {
+            DownedBosses.downedEvander = true;
+            if (Main.dedServ)
+                NetMessage.SendData(MessageID.WorldData);
+        }
 	}
 
 	public class EvanderSpawning : ModSystem
@@ -241,7 +248,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				{
 					if (player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!BossAlive()) && Main.rand.NextBool(300 * 60))
 					{
-						NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<Evander>());
+						NPC.SpawnBoss(player.position.X.Round(), player.position.Y.Round() - Main.screenHeight, ModContent.NPCType<Evander>(), player.whoAmI);
 					}
 				}
 			}
@@ -251,7 +258,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
-				if (npc.boss)
+				if (npc.boss || npc.ModNPC is Evander)
 				{
 					return true;
 				}

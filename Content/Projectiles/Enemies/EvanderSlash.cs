@@ -66,10 +66,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				Projectile.rotation = Projectile.velocity.ToRotation();
 			}
 
-			if (Projectile.localAI[0] > 60 && !Main.dedServ)
+			if (Projectile.localAI[0] > 20 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
-				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.position);
+				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 			}
 			Projectile.localAI[0]++;
 		}
