@@ -68,19 +68,30 @@ namespace ArcaneOdyssey.Content.Items.Base
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingMode = BlastMode.Cannon;
 					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
 					return circleprojectile;
-                }
-                else if (item.ModItem is PulsarScroll)
-                {
-                    Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(item.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle1>(), item.damage, 0f, player.whoAmI)];
-                    circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
-                    Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
-                    circleprojectile.position += circleVec;
-                    ((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly);
-                    ((MagicCircle1)circleprojectile.ModProjectile).ChargingMode = BlastMode.Pulsar;
-                    circleprojectile.ArcaneOdyssey().imbue = magicToUse;
-                    return circleprojectile;
-                }
-                else if (item.ModItem is LeapScroll)
+				}
+				else if (item.ModItem is PulsarScroll)
+				{
+					Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(item.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle1>(), item.damage, 0f, player.whoAmI)];
+					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
+					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
+					circleprojectile.position += circleVec;
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly);
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingMode = BlastMode.Pulsar;
+					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					return circleprojectile;
+				}
+				else if (item.ModItem is BeamScroll)
+				{
+					Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(item.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle1>(), item.damage, 0f, player.whoAmI)];
+					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
+					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
+					circleprojectile.position += circleVec;
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly);
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingMode = BlastMode.Beam;
+					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					return circleprojectile;
+				}
+				else if (item.ModItem is LeapScroll)
 				{
 					var proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
 					proj.rotation = (-Vector2.UnitY).ToRotation();
