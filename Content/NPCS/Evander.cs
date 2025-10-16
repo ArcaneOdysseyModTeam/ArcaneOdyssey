@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Chat;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS
@@ -232,9 +233,16 @@ namespace ArcaneOdyssey.Content.NPCS
 
         public override void OnKill()
         {
-            DownedBosses.downedEvander = true;
-            if (Main.dedServ)
-                NetMessage.SendData(MessageID.WorldData);
+			DownedBosses.downedEvander = true;
+			if (!Main.dedServ)
+			{
+				Main.NewText(Mod.CustomLocalization("NPCs.Evander.DeathMessage").Value, new Color(175,75,255));
+			}
+			else
+			{
+				NetMessage.SendData(MessageID.WorldData);
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("NPCs.Evander.DeathMessage").ToNetworkText(), new Color(175,75,255));
+			}
         }
 	}
 

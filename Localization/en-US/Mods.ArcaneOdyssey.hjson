@@ -279,7 +279,10 @@ NPCs: {
 		}
 	}
 
-	Evander.DisplayName: Evander, the Mountainbreaker
+	Evander: {
+		DisplayName: Evander, the Mountainbreaker
+		DeathMessage: Evander, the Mountainbreaker has been defeated!
+	}
 }
 
 MagicTierLines: {
