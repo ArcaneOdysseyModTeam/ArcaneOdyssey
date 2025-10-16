@@ -16,8 +16,8 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
         {
            if (!Main.dedServ)
             {
-                var dust = Dust.NewDustDirect(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.SnowBlock, 0f, 0f, 1, default, 1f);
-                dust.velocity *= 0.8f;
+                var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.SnowBlock, 0f, 0f, 1, default, 1f);
+                dust.velocity *= 0.1f;
                 dust.noGravity = true;
             }   
         }

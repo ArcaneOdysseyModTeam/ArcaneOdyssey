@@ -73,7 +73,7 @@ namespace ArcaneOdyssey
 			}
 			if (Scalding)
 			{
-				npc.lifeRegen -= 4;
+				npc.lifeRegen -= 5;
 			}
 			if (Seared) {
 				npc.lifeRegen -= 4;
