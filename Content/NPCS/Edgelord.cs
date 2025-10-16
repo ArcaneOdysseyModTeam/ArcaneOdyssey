@@ -181,11 +181,13 @@ namespace ArcaneOdyssey.Content.NPCS
 				{
 					options.Add(this.GetLocalizedValue("Help.EarlyMagic1"));
 					options.Add(this.GetLocalizedValue("Help.EarlyMagic2"));
+					options.Add(this.GetLocalizedValue("Help.EarlyMagic3"));
 				}
 				if (Main.LocalPlayer.HasTypeInInventory(typeof(FightingStyle)))
 				{
 					options.Add(this.GetLocalizedValue("Help.SailorStyle"));
 					options.Add(this.GetLocalizedValue("Help.EarlyFighting1"));
+					options.Add(this.GetLocalizedValue("Help.EarlyMagic3"));
 					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
 					if (ModLoader.HasMod("CalamityMod"))
 					{
