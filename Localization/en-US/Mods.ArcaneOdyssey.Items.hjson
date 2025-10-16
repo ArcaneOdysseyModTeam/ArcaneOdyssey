@@ -75,8 +75,8 @@ DarkSeaMusicBox: {
 }
 
 TitleMusicBox: {
-	DisplayName: Music Box (Arcane Title)
-	Tooltip: Plays 'The Call of Adventure' by Tobi (Hailfirz)
+	DisplayName: Arcane Music Box
+	Tooltip: Can be crafted into its alternative in the music mod
 }
 
 Acrimony: {
