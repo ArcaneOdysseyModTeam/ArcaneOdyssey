@@ -14,7 +14,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	[LegacyName("DarkSeaMusicBox", "TitleMusicBox")] // removed items are added here
+	[LegacyName("DarkSeaMusicBox")] // removed items are added here
 	public class Acrimony : AOBaseItem
 	{
 		public int AOValue = 10000;
