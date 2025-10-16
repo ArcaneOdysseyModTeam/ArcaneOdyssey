@@ -13,6 +13,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Chat;
+using ArcaneOdyssey.VFX.Gores;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS
@@ -238,8 +239,18 @@ namespace ArcaneOdyssey.Content.NPCS
         public override void OnKill()
         {
 			DownedBosses.downedEvander = true;
+			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Top, NPC.velocity, ModContent.GoreType<EvanderHead>(), 1f);
+			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderRightArm>(), 1f);
+			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderLeftArm>(), 1f);
+			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderTorso>(), 1f);
+			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderLeg>(), 1f);
+			Gore.NewGore(NPC.GetSource_FromThis(),NPC.Center,NPC.velocity,ModContent.GoreType<EvanderLeg>(),1f);
 			if (!Main.dedServ)
 			{
+				for (int n = 0; n < 20; n++)
+				{
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f)];
+				}
 				Main.NewText(Mod.CustomLocalization("NPCs.Evander.DeathMessage").Value, new Color(175,75,255));
 			}
 			else
