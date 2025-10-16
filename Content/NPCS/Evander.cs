@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.NPCS
 					{ // Attack meelee or stop
 						NPC.velocity.X = 0f;
 						if (NPC.ai[1] >= 60) {
-							NPC.position.X += NPC.direction * 3;
+							
 							NPC.ai[0] = 2;
 							NPC.frameCounter = 0;
 							NPC.ai[1] = 0;
@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Content.NPCS
 					}
 					else if (NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
 					{
-						NPC.position.X += NPC.direction * 3;
+						
 						NPC.ai[0] = 1;
 						NPC.ai[1] = 0;
 						NPC.frameCounter = 0;
@@ -103,7 +103,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				NPC.velocity.X *= 0.7f;
 				if (NPC.ai[1] >= 20)
 				{
-					NPC.position.X -= NPC.direction * 3;
+					
 					NPC.ai[0] = 0;
 					NPC.ai[1] = 0;
 					NPC.frameCounter = 0;
@@ -120,7 +120,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				NPC.ai[1]++;
 				if(NPC.ai[1] >= 20)
 				{
-					NPC.position.X -= NPC.direction * 3;
+					
 					NPC.ai[1] = 0;
 					NPC.frameCounter = 0;
 					NPC.ai[0] = 0;
