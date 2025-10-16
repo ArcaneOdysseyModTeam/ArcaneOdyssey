@@ -33,8 +33,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.height = 234;
 			Projectile.width = 74;
 			Projectile.knockBack = 4.5f;
-			Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
 		}
 
 		public override void SetStaticDefaults()
