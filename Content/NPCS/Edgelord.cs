@@ -176,6 +176,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				options.Add(this.GetLocalizedValue("Help.Early1"));
 				options.Add(this.GetLocalizedValue("Help.WorldofMagic"));
+				options.Add(this.GetLocalizedValue("Help.WeaponSkills"));
 				if (Main.LocalPlayer.HasTypeInInventory(typeof(AOMagic)))
 				{
 					options.Add(this.GetLocalizedValue("Help.EarlyMagic1"));

@@ -257,6 +257,7 @@ NPCs: {
 			HasStrengthWeapon: I see you've encountered a strong warrior. Such warriors wield weapons too heavy for regular warriors, and so they learn to use a fighting style.
 			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
 			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing potion while using it.
+			WeaponSkills: Some weapons have special skills, make good use of them! (Press alt mouse button to use weapon skills)
 		}
 
 		TownNPCMood: {
