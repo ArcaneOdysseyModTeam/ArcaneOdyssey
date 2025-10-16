@@ -185,29 +185,29 @@ namespace ArcaneOdyssey
 			}
 		}
 
-        public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility)
-        {
-            public int Size = size;
-            public int Attkspeed = attkspeed;
-            public int Power = power;
-            public int Defence = defence;
-            public int Agility = agility;
+		public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility)
+		{
+			public int Size = size;
+			public int Attkspeed = attkspeed;
+			public int Power = power;
+			public int Defence = defence;
+			public int Agility = agility;
 
-            public readonly ImbueArmourStats Corrected(Imbuable imbue)
-            {
-                if (imbue is FightingStyleBarred barred)
-                {
-                    return new ImbueArmourStats(
-                        MathHelper.Lerp(0, Size, barred.BarValue / 100).Round(),
-                        MathHelper.Lerp(0, Attkspeed, barred.BarValue / 100).Round(),
-                        MathHelper.Lerp(0, Power, barred.BarValue / 100).Round(),
-                        MathHelper.Lerp(0, Defence, barred.BarValue / 100).Round(),
-                        MathHelper.Lerp(0, Agility, barred.BarValue / 100).Round()
-                        );
-                }
-                return this;
-            }
-        }
+			public readonly ImbueArmourStats Corrected(Imbuable imbue)
+			{
+				if (imbue is FightingStyleBarred barred)
+				{
+					return new ImbueArmourStats(
+						MathHelper.Lerp(0, Size, barred.BarValue / 100).Round(),
+						MathHelper.Lerp(0, Attkspeed, barred.BarValue / 100).Round(),
+						MathHelper.Lerp(0, Power, barred.BarValue / 100).Round(),
+						MathHelper.Lerp(0, Defence, barred.BarValue / 100).Round(),
+						MathHelper.Lerp(0, Agility, barred.BarValue / 100).Round()
+						);
+				}
+				return this;
+			}
+		}
 
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
 		{
@@ -271,6 +271,10 @@ namespace ArcaneOdyssey
 			{
 				return based.ItemType;
 			}
+			if (item.vanity)
+			{
+				return ItemType.Vanity;
+			}
 			if (item.accessory)
 			{
 				return ItemType.Accessory;
@@ -287,7 +291,7 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Ammo;
 			}
-			if (item.DamageType == DamageClass.MagicSummonHybrid)
+			if (item.DamageType == ModContent.GetInstance<SpiritDamage>())
 			{
 				return ItemType.Relic;
 			}
@@ -400,6 +404,7 @@ namespace ArcaneOdyssey
 			Weapon,
 			Tool,
 			None,
+			Vanity,
 			RESOLVESELF
 		}
 
@@ -438,10 +443,10 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public enum AOItemTiers
 		{
-            /// <summary>
-            /// Literally doesn't exist, don't bother
-            /// </summary>
-            None,
+			/// <summary>
+			/// Literally doesn't exist, don't bother
+			/// </summary>
+			None,
 			/// <summary>
 			/// Old weapons
 			/// </summary>

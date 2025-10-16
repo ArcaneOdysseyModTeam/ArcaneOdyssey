@@ -131,8 +131,12 @@ namespace ArcaneOdyssey
 				{
 					tooltips.RemoveAll(e => e.Name == "Material");
 				}
+				if (item.GetItemType() == ItemType.Vanity)
+				{
+					tooltips.RemoveAll(e => e.Name == "Vanity");
+				}
 
-				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF && !item.vanity && !item.questItem)
+				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF && !item.questItem)
 				{
 					var line = item.GetItemRare().ToString();
 					line += " ";

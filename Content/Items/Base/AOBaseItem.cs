@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	public abstract class AOBaseItem : ModItem
 	{
 		public virtual AORarities AORarity => AORarities.RESOLVESELF;
-		public virtual ItemType ItemType => ItemType.None;
+		public virtual ItemType ItemType => ItemType.RESOLVESELF;
 
 		public override void SetDefaults()
 		{

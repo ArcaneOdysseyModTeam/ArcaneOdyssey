@@ -1,34 +1,36 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Vanity
 {
-    [AutoloadEquip(EquipType.Head)]
-    public class HeadlessHeadWithWig : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
-            ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = false;
-            ArmorIDs.Head.Sets.DrawFullHair[equipSlotHead] = true;
-        }
+	[AutoloadEquip(EquipType.Head)]
+	public class HeadlessHeadWithWig : AOBaseItem
+	{
+		public override AORarities AORarity => AORarities.Special;
+		public override void SetStaticDefaults()
+		{
+			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
+			ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = false;
+			ArmorIDs.Head.Sets.DrawFullHair[equipSlotHead] = true;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<HeadlessHead>();
+		}
 
-        public override void SetDefaults()
-        {
-            Item.width = Item.height = 50;
-            Item.accessory = true;
-            Item.value = 0;
-            Item.rare = ItemRarityID.Red;
-            Item.vanity = true;
-        }
+		public override void SetDefaults()
+		{
+			Item.width = Item.height = 50;
+			Item.accessory = true;
+			Item.vanity = true;
+		}
 
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient<HeadlessHead>().AddIngredient(ItemID.FamiliarWig).Register();
-        }
-    }
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<HeadlessHead>().AddIngredient(ItemID.FamiliarWig).Register();
+		}
+	}
 }
