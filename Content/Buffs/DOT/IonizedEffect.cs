@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
                 dust.noGravity = true;
                 dust.velocity *= 0.8f;
             }
-            npc.lifeRegen -= 15 + (10 * GetBurnStacks(npc));
+            npc.lifeRegen -= 25 + (30 * GetBurnStacks(npc));
         }
         private int BurnStack(int buff, NPC npc)
         {
