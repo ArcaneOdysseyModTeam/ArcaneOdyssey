@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
@@ -24,6 +25,8 @@ namespace ArcaneOdyssey.Content.Items
 		{
 			SteamImbue steam = (SteamImbue)new Item(ModContent.ItemType<SteamImbue>()).ModItem;
 			steam.originalImbue = imbue;
+			if (imbue is null)
+				steam.originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
 			return steam;
 		}
 
@@ -75,6 +78,8 @@ namespace ArcaneOdyssey.Content.Items
 		{
 			var clone = (SteamImbue)base.Clone(newEntity);
 			clone.originalImbue = originalImbue;
+			if (originalImbue is null)
+				clone.originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
 			return clone;
 		}
 	}
