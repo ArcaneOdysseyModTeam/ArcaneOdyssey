@@ -208,11 +208,26 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
-			if (!Main.dedServ)
-				for (int n = 0; n < 3; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f)];
-				}
+            if (!Main.dedServ)
+            {
+                for (int n = 0; n < 3; n++)
+                {
+                    Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f);
+                }
+                if (NPC.life <= 0)
+                {
+                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Top, NPC.velocity, ModContent.GoreType<EvanderHead>(), 1f);
+                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Right, NPC.velocity, ModContent.GoreType<EvanderRightArm>(), 1f);
+                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Left, NPC.velocity, ModContent.GoreType<EvanderLeftArm>(), 1f);
+                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderTorso>(), 1f);
+                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.BottomLeft, NPC.velocity, ModContent.GoreType<EvanderLeg>(), 1f);
+                    Gore.NewGore(NPC.GetSource_FromThis(), NPC.BottomRight, NPC.velocity, ModContent.GoreType<EvanderLeg>(), 1f);
+                    for (int n = 0; n < 17; n++)
+                    {
+                        Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f);
+                    }
+                }
+            }
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
@@ -221,6 +236,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
+
 		public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
 		{
 			boundingBox.Width = 30;
@@ -239,20 +255,10 @@ namespace ArcaneOdyssey.Content.NPCS
         public override void OnKill()
         {
 			DownedBosses.downedEvander = true;
-			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Top, NPC.velocity, ModContent.GoreType<EvanderHead>(), 1f);
-			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderRightArm>(), 1f);
-			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderLeftArm>(), 1f);
-			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderTorso>(), 1f);
-			Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderLeg>(), 1f);
-			Gore.NewGore(NPC.GetSource_FromThis(),NPC.Center,NPC.velocity,ModContent.GoreType<EvanderLeg>(),1f);
 			if (!Main.dedServ)
 			{
-				for (int n = 0; n < 20; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f)];
-				}
 				Main.NewText(Mod.CustomLocalization("NPCs.Evander.DeathMessage").Value, new Color(175,75,255));
-			}
+            }
 			else
 			{
 				NetMessage.SendData(MessageID.WorldData);

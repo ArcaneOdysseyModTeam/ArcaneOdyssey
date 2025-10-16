@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.penetrate = -1;
-			Projectile.alpha = 255;
 			Projectile.height = Projectile.width = 200;
-			Projectile.scale = 1f;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 30;
 			Projectile.ownerHitCheck = true;
@@ -31,9 +30,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic)
 			{
-				Projectile.height = Projectile.width = (int)((imbue.AOScrollSize * 200)*Projectile.localAI[0]);
 				((AOMagic)imbue).ExplosionEffects(Projectile);
 			}
 		}
+
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic)
+            {
+                hitbox.Height = hitbox.Width = (int)((imbue.AOScrollSize * 200) * Projectile.ai[0]);
+            }
+        }
+
+        public override bool PreDraw(ref Color lightColor) => false;
 	}
 }

@@ -72,12 +72,12 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 			}
 		}
 
-		public override void PostUpdateMiscEffects()
+		public override void PostUpdateRunSpeeds()
 		{
 			if (bracing)
 			{
-				Player.moveSpeed *= .33f;
-				Player.statDefense *= 1.15f;
+				Player.moveSpeed -= .5f;
+				Player.statDefense *= 1.2f;
 			}
 		}
 

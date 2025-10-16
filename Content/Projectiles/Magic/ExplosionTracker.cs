@@ -78,11 +78,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var explosionProjectile = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1 - Imbue.AOScrollSize) * new Vector2(100, 100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * (charge * (charge/2))), Projectile.knockBack, Projectile.owner)];
-					explosionProjectile.localAI[0] = 1f;
+					var explosionProjectile = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1 - Imbue.AOScrollSize) * new Vector2(100, 100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * (charge * (charge/2))), Projectile.knockBack, Projectile.owner, 1)];
 					if (!isPlacedExplosion)
 					{
-						explosionProjectile.localAI[0] = 1.2f; //size mult
+						explosionProjectile.ai[0] = 1.2f; //size mult
 						explosionProjectile.damage = (explosionProjectile.damage * 1.2f).Round(); //Damage mult
 						explosionProjectile.AI();
 						explosionProjectile.Center = ensuredPosition;

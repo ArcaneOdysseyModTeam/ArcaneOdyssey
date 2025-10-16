@@ -174,3 +174,8 @@ HoverScroll: {
 	DisplayName: Hover Scroll
 	Tooltip: ""
 }
+
+PulsarScroll: {
+	DisplayName: Pulsar Scroll
+	Tooltip: ""
+}

@@ -12,40 +12,26 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class ExplosionScroll : MagicScroll
+	public class PulsarScroll : MagicScroll
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useAnimation = Item.useTime = (ExplosionTracker.defaultMax-ExplosionTracker.defaultMin).Round();
-			Item.damage = 50;
-			Item.reuseDelay = 60;
-			Item.channel = true;
+			Item.damage = 60;
             Item.DamageType = DamageClass.Magic;
             Item.UseSound = SoundID.Item84;
-			Item.mana = 100;
-			Item.shoot = ModContent.ProjectileType<ExplosionTracker>();
+			Item.mana = 50;
+            Item.shoot = ProjectileID.WoodenArrowFriendly;
 		}
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
-		}
-
-		public override bool AltFunctionUse(Player player)
-		{
-			return CanUseItem(player);
-		}
-
-		public override bool CanUseItem(Player player)
-		{
-			return base.CanUseItem(player) && player.ArcaneOdyssey().myCircle is null;
+			CreateRecipe().AddIngredient<BlastScroll>().AddIngredient(ItemID.ExplosivePowder, 5).Register();
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().imbue);
-			Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, type, damage, knockback * 1.5f, player.whoAmI);
 			return false;
 		}
 	}

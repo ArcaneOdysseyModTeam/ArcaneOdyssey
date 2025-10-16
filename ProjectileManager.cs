@@ -110,7 +110,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile) && source is not EntitySource_Parent { Entity: NPC })
 			{
-				if (projectile.DamageType != DamageClass.MeleeNoSpeed)
+				if (projectile.DamageType != DamageClass.MeleeNoSpeed && projectile.ModProjectile is not BlastSpell)
 					projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOScrollSpeed : imbue.AOImbueSpeed;
 				if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 					imbue.SpawningEffects(projectile);
