@@ -39,9 +39,14 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
-			], 
+			],
 			[
-				
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<DrainedEffect>(),0.8f),
+				new MagicBuffMultiplier(BuffID.Venom,1.05f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.05f)
 			]
 			);
 		public override void SpawningEffects(Entity projectile)
@@ -104,6 +109,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
         {
 			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<LightMagic>().Register();
 			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<GlassMagic>().Register();
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<CrystalMagic>().Register();
         }
 	}
 }
