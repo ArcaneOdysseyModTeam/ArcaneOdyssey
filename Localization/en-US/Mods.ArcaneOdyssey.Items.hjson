@@ -11,7 +11,7 @@ HecateShard: {
 	DisplayName: Hecate Shard
 	Tooltip:
 		'''
-		A shard formed of the essence of the godess hecate
+		A shard formed of the essence of the goddess hecate
 		Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
 		'''
 }
@@ -127,7 +127,7 @@ CrashScroll: {
 
 AncientHecateOrb: {
 	DisplayName: Hecate Orb
-	Tooltip: An orb formed of the essence of the godess hecate... the world is really not ready to unleash this
+	Tooltip: An orb formed of the essence of the goddess hecate... the world is really not ready to unleash this
 }
 
 ReflexScroll: {
