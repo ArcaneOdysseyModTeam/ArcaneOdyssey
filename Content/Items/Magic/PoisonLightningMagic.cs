@@ -118,7 +118,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PoisonLightningBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<PoisonLightningPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<PoisonLightningCannon>())]);
 		
 		public override void AddRecipes() {
-            
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<LightningMagic>().Register();
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<PoisonMagic>().Register();
         }
 	}
 }

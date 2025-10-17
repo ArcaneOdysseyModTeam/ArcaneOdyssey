@@ -9,7 +9,11 @@ KindraBlade: {
 
 HecateShard: {
 	DisplayName: Hecate Shard
-	Tooltip: A shard of unknown origin... the world is not ready to unleash this
+	Tooltip:
+	'''
+	A shard formed of the essence of the godess hecate
+	Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+	'''
 }
 
 SunkenScrap: {
