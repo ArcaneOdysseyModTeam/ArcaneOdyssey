@@ -11,7 +11,7 @@ HecateShard: {
 	DisplayName: Hecate Shard
 	Tooltip:
 		'''
-		A shard formed of the essence of the goddess hecate
+		A shard formed of the essence of the goddess Hecate
 		Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
 		'''
 }
@@ -61,11 +61,6 @@ SunkenHelm: {
 WoodenPaddle: {
 	DisplayName: Wooden Paddle
 	Tooltip: A wooden paddle for a rowboat, it seems to contain trace magic
-}
-
-DarkSeaMusicBox: {
-	DisplayName: Music Box (Dark Sea)
-	Tooltip: Plays 'The Dark Sea' by Tobi (Hailfirz)
 }
 
 TitleMusicBox: {
