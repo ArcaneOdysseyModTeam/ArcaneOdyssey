@@ -23,7 +23,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class IceMagic : AOMagic
     {
-		public override SoundStyle? ImbueSound => SoundID.Item27;
+        public override bool? Cold => true;
+        public override SoundStyle? ImbueSound => SoundID.Item27;
         public override Color ImbueColour => new Color(30,200,255,255);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => .925f;

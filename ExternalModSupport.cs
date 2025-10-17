@@ -36,6 +36,14 @@ namespace ArcaneOdyssey
 			}
 		}
 
+        public static void RegisterDebuff(ModBuff buff)
+        {
+            if (ModLoader.TryGetMod("CalamityMod", out var cal))
+            {
+                cal.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
+            }
+        }
+
 		public static int GetMusic(string name, int fallback = 0)
 		{
 			if (ModLoader.TryGetMod("ArcaneOdysseyMusic", out Mod musicmod))

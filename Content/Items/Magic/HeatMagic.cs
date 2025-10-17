@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class HeatMagic : AOMagic
     {
+        public override bool? Cold => false;
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;

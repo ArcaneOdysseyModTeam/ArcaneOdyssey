@@ -46,7 +46,15 @@ namespace ArcaneOdyssey
 					Imbuable imbue = new Item((int)args[1]).ArcaneOdyssey().imbue;
 					return imbue.Type;
 					break;
-			}
+                case "RegisterItemTemperature":
+                    var item = args[1] as Item;
+                    item.ArcaneOdyssey().Cold = (bool)args[2];
+                    break;
+                case "GetItemTemperature":
+                    var item1 = args[1] as Item;
+                    return item1.ArcaneOdyssey().Cold;
+                    break;
+            }
 			return null;
 		}
 	}

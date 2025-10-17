@@ -22,8 +22,8 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WindMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.Dig;
+    {
+        public override SoundStyle? ImbueSound => SoundID.Dig;
         public override Color ImbueColour => new(255,255,255,255);
 		public override float AOImbueSpeed => 1.175f;
 		public override float AOImbueSize => 1.15f;

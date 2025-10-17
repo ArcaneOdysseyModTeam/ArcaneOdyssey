@@ -280,6 +280,21 @@ namespace ArcaneOdyssey
 		public int ImbueIndex = 0;
 		public bool SpecificImbue = false;
 
+
+		private bool? _cold = null;
+		public bool? Cold
+		{
+			get
+			{
+				if (thisItem.ModItem is AORangedOrMeleeWeapon weap)
+				{
+					return weap.Cold;
+				}
+				return _cold;
+			}
+			set => _cold = value;
+		}
+
 		public bool? Arcanium { get
 			{
 				if (thisItem.ModItem is AORangedOrMeleeWeapon weap)
@@ -293,13 +308,73 @@ namespace ArcaneOdyssey
 		{
 			var clone = (AOItem)base.Clone(from, to);
 			clone.imbue = imbue;
+			clone._cold = _cold;
 			clone.thisItem = thisItem;
 			return clone;
 		}
 
+		public override void SetDefaults(Item item)
+        {
+            switch (item.type)
+            {
+                case ItemID.IceSickle:
+                case ItemID.IceBlade:
+                case ItemID.Frostbrand:
+                case ItemID.ChristmasTreeSword:
+                case ItemID.NorthPole:
+                case ItemID.Snowball:
+                case ItemID.SnowballCannon:
+                case ItemID.FrostDaggerfish:
+                case ItemID.IceBow:
+                case ItemID.IceBoomerang:
+                case ItemID.Flairon:
+                case ItemID.ElfMelter:
+                case ItemID.Tsunami:
+                    Cold = true;
+                    break;
+                case ItemID.DD2SquireBetsySword:
+                case ItemID.DD2SquireDemonSword:
+                case ItemID.ShadowFlameKnife:
+                case ItemID.FieryGreatsword:
+                case ItemID.Flamarang:
+                case ItemID.Sunfury:
+                case ItemID.FlamingMace:
+                case ItemID.DayBreak:
+                case ItemID.MoltenFury:
+                case ItemID.HellwingBow:
+                case ItemID.ShadowFlameBow:
+                case ItemID.SolarEruption:
+                case ItemID.MolotovCocktail:
+                case ItemID.PhoenixBlaster:
+                case ItemID.Flamethrower:
+                case ItemID.BluePhaseblade:
+                case ItemID.DD2BetsyBow:
+                case ItemID.GreenPhaseblade:
+                case ItemID.OrangePhaseblade:
+                case ItemID.DD2PhoenixBow:
+                case ItemID.PurplePhaseblade:
+                case ItemID.RedPhaseblade:
+                case ItemID.WhitePhaseblade:
+                case ItemID.YellowPhaseblade:
+                case ItemID.GreenPhasesaber:
+                case ItemID.OrangePhasesaber:
+                case ItemID.PurplePhasesaber:
+                case ItemID.WhitePhasesaber:
+                case ItemID.YellowPhasesaber:
+                case ItemID.RedPhasesaber:
+                case ItemID.BluePhasesaber:
+                case ItemID.HelFire:
+                case ItemID.Amarok:
+                case ItemID.Cascade:
+                case ItemID.ObsidianSwordfish:
+                    Cold = false;
+                    break;
+            }
+        }
+
 		public override void UpdateInventory(Item item, Player player)
 		{
-			thisItem = item;
+            thisItem = item;
 			List<Imbuable> options = [null, ..player.GetAllImbues()];
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
@@ -356,7 +431,7 @@ namespace ArcaneOdyssey
 				}
 				
 
-				if (item.ModItem is AORangedOrMeleeWeapon weapon && imbue is not null && weapon.ColdWeapon.HasValue && imbue.Cold.HasValue && (weapon.ColdWeapon.Value != imbue.Cold.Value))
+				if (imbue is not null && Cold.HasValue && imbue.Cold.HasValue && (Cold.Value != imbue.Cold.Value))
 				{
 					imbue = SteamImbue.Create(imbue);
 				}
