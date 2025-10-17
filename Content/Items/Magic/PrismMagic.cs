@@ -18,14 +18,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class PrismMagic : AOMagic
 	{
-        public override bool? Cold => false;
-		public override float AOImbueSpeed => 1f;
-        public override bool CanBeWet => false;
+        public override float AOImbueSpeed => 1f;
+        public override float AOImbueDamage => 1f;
         public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollDamage => 1f;
+
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		
 		public override SynergyEffects Effects => new(
@@ -39,7 +35,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		
         public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PrismBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<PrismPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<PrismCannon>())]);
 		
-		public override void AddRecipes() {
+		public override void AddRecipes()
+        {
 			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<LightMagic>().Register();
 			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<GlassMagic>().Register();
         }

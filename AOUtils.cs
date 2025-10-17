@@ -75,7 +75,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.ExcludedProjectiles.Contains(projectile.type)))
+			if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedProjectiles.Contains(projectile.type)))
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
 				if (goodclasses.Contains(projectile.DamageType.Name))
@@ -90,7 +90,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (!item.accessory && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.ExcludedItems.Contains(item.type)) && item.ammo == AmmoID.None)
+			if (!item.accessory && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedItems.Contains(item.type)) && item.ammo == AmmoID.None)
 			{
 				return item.DamageType.Name == "TrueMeleeDamageClass" || item.DamageType.Name == "TrueMeleeNoSpeedDamageClass" || item.DamageType.Name == "MeleeRangedHybridDamageClass" ||
 				item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll)));

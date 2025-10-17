@@ -315,6 +315,7 @@ namespace ArcaneOdyssey
 
 		public override void SetDefaults(Item item)
         {
+            Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
             switch (item.type)
             {
                 case ItemID.IceSickle:
@@ -366,7 +367,6 @@ namespace ArcaneOdyssey
                 case ItemID.HelFire:
                 case ItemID.Amarok:
                 case ItemID.Cascade:
-                case ItemID.ObsidianSwordfish:
                     Cold = false;
                     break;
             }

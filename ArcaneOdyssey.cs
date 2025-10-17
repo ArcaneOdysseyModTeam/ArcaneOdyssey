@@ -23,8 +23,9 @@ namespace ArcaneOdyssey
 	public class ArcaneOdyssey : Mod
 	{
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
-		public static List<int> ExcludedItems = [];
-		public static List<int> ExcludedProjectiles = [];
+        public static Dictionary<int, bool?> coldItems = [];
+        public static List<int> excludedItems = [];
+		public static List<int> excludedProjectiles = [];
 
 		public override object Call(params object[] args)
 		{
@@ -32,11 +33,11 @@ namespace ArcaneOdyssey
 			{
 				case "BlacklistProjectile":
 				case "ExcludeProjectile":
-					ExcludedProjectiles.Add((int)args[1]);
+					excludedProjectiles.Add((int)args[1]);
 					break;
 				case "BlacklistItem":
 				case "ExcludeItem":
-					ExcludedItems.Add((int)args[1]);
+					excludedItems.Add((int)args[1]);
 					break;
 				case "GetPlayerImbue":
 					AOPlayer player = Main.player[(int)args[1]].ArcaneOdyssey();
@@ -47,8 +48,8 @@ namespace ArcaneOdyssey
 					return imbue.Type;
 					break;
                 case "RegisterItemTemperature":
-                    var item = args[1] as Item;
-                    item.ArcaneOdyssey().Cold = (bool)args[2];
+                case "AddItemTemperature":
+                    coldItems.Add((int)args[1], (bool?)args[2]);
                     break;
                 case "GetItemTemperature":
                     var item1 = args[1] as Item;
