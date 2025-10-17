@@ -28,8 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.mana = 15;
 			Item.channel = true;
 			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 10;
-			Item.shoot = ProjectileID.VortexLaser; // does not actually shoot
+			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
 		public override void AddRecipes()

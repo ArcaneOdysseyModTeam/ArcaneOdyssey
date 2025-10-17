@@ -1,17 +1,18 @@
+using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using Terraria.Audio;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -39,13 +40,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.125f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<CrystalBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<CrystalBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<CrystalCannon>())]);
 
 		public override void SpawningEffects(Entity projectile)
-		{ 
-			for(int n = 0;n<10;n++)
+		{
+            for (int n = 0; n < 10; n++)
 			{
-				_ = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.GemRuby,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f)];
+				Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.GemRuby,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f);
 			}
 		}
 
@@ -59,7 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f);
 			}
 		}
 
@@ -67,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				_ = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.GemRuby, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 1f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.GemRuby, (2f * Main.rand.NextFloat() - 0.5f), (2f * Main.rand.NextFloat() - 0.5f), 0, default, 1f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}

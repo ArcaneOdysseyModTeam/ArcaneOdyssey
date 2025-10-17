@@ -162,6 +162,37 @@ Projectiles: {
 	PowderExplosion.DisplayName: Powder Explosion
 	PiercingGale.DisplayName: Piercing Gale
 	EvanderMelee.DisplayName: Colossal Greatsword
+	BeamSpell.DisplayName: Beam Spell
+	AcidCannon.DisplayName: Acid Cannon
+	AetherCannon.DisplayName: Aether Cannon
+	AncientLightningCannon.DisplayName: Ancient Lightning Cannon
+	AshCannon.DisplayName: Ash Cannon
+	CrystalCannon.DisplayName: Crystal Cannon
+	DeliriumCannon.DisplayName: Delirium Cannon
+	EarthCannon.DisplayName: Earth Cannon
+	ExplosionCannon.DisplayName: Explosion Cannon
+	FireCannon.DisplayName: Fire Cannon
+	FlareCannon.DisplayName: Flare Cannon
+	GlassCannon.DisplayName: Glass Cannon
+	GravityCannon.DisplayName: Gravity Cannon
+	HeatCannon.DisplayName: Heat Cannon
+	IceCannon.DisplayName: Ice Cannon
+	IonCannon.DisplayName: Ion Cannon
+	JerminusCannon.DisplayName: Jerminus Cannon
+	LightCannon.DisplayName: Light Cannon
+	LightningCannon.DisplayName: Lightning Cannon
+	MagmaCannon.DisplayName: Magma Cannon
+	MetalCannon.DisplayName: Metal Cannon
+	PlasmaCannon.DisplayName: Plasma Cannon
+	PoisonCannon.DisplayName: Poison Cannon
+	PoisonLightningCannon.DisplayName: Poison Lightning Cannon
+	SandCannon.DisplayName: Sand Cannon
+	ShadowCannon.DisplayName: Shadow Cannon
+	SnowCannon.DisplayName: Snow Cannon
+	VesuviusCannon.DisplayName: Vesuvius Cannon
+	WaterCannon.DisplayName: Water Cannon
+	WindCannon.DisplayName: Wind Cannon
+	WoodCannon.DisplayName: Wood Cannon
 }
 
 ImbueStuff: {

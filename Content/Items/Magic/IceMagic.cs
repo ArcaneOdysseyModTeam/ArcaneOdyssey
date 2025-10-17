@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -33,10 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<FreezingEffect>(), 60 * 10), new(ModContent.BuffType<AOFrozen>(), 60, 33)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
-		public override Dictionary<Type, int> Skills => new(
-			[KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IceBlast>()),
-			// create more here as time passes
-			]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IceBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IceCannon>())]);
 
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit

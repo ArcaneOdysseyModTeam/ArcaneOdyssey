@@ -1,27 +1,28 @@
+using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
-using ArcaneOdyssey.Content.Buffs.DOT;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class LightMagic : AOMagic
 	{
 		public override SoundStyle? ImbueSound => SoundID.Item9;
-        public override Color ImbueColour => new Color(255,255,0,255);
+        public override Color ImbueColour => new(255,255,0,255);
 		public override float AOImbueSpeed => 1.3f;
 		public override float AOImbueSize => 0.946f;
 		public override float AOImbueDamage => 0.9f;
@@ -29,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 0.87f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<BlindedEffect>(), 60*5)];
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			],
@@ -76,6 +77,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<LightCannon>())]);
 	}
 }

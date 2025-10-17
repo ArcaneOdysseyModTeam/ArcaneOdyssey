@@ -1,20 +1,21 @@
+using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
 using System;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -72,6 +73,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MetalBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MetalBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<MetalCannon>())]);
 	}
 }

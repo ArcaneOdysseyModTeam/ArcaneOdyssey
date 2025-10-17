@@ -1,21 +1,22 @@
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
-using System;
+using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -23,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
     {
         public override bool? Cold => false;
         public override SoundStyle? ImbueSound => SoundID.Item20;
-        public override Color ImbueColour => new Color(252,107,3,0);
+        public override Color ImbueColour => new(252,107,3,0);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1.11f;
@@ -31,9 +32,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.85f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(BuffID.OnFire, 60*10)];
-		public override CombinedDebuff[] CombinedDebuffs => [new (ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.OnFire, 60*10)];
+		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<AOBleed>(),
 				ModContent.BuffType<FreezingEffect>(),
@@ -101,6 +102,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<FireBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<FireBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<FireCannon>())]);
 	}
 }

@@ -9,10 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons
 {
-	public class FrogBlast : BlastSpell
+	public class JerminusCannon : CannonSpell
 	{
-		
+
 	}
 }

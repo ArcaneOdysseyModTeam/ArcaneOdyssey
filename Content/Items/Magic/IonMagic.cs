@@ -1,21 +1,22 @@
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
-using System;
+using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -34,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollDamage => 1.2f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<IonizedEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<AOBleed>(),
 				ModContent.BuffType<CharredEffect>(),
@@ -88,6 +89,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IonBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IonBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IonCannon>())]);
 	}
 }

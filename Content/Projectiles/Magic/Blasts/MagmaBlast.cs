@@ -17,30 +17,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 		{
 			Main.projFrames[Type] = 4;
 		}
-		public override void AI()
+		public override void Rotate()
 		{
-			if (Projectile.frameCounter > 5)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
-                {
-                    Projectile.frame = 0;
-                }
-            }
-			Projectile.frameCounter++;
-			if (Projectile.ai[0] == 0f)
-			{
-				Projectile.ai[0] = 1f;
-				Projectile.netUpdate = true;
-			}
-			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.rotation += 0.1f * Projectile.direction;
-			if (Projectile.TryGetImbue(out Imbuable imbue) && !imbue.CanBeWet && Projectile.wet)
-			{
-				Kill();
-				return;
-			}
 		}
 	}
 }

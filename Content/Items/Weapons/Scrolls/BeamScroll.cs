@@ -19,7 +19,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 1;
+			Item.damage = 20;
+            Item.channel = true;
 			Item.mana = 30;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot

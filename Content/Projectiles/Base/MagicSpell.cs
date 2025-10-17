@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class MagicSpell : AOPlayerProjectile
 	{
+        public override AOUtils.AODebuffRequirement? Debuff => null;
 		public override void SetDefaults()
 		{
 			Projectile.DamageType = DamageClass.Magic;

@@ -1,21 +1,22 @@
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
-using System;
+using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -62,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.PinkTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.PinkTorch, (projectile.velocity.X * 0.4f), (projectile.velocity.Y * 0.4f), 0, default, 1f);
 			}
 		}
 
@@ -77,17 +78,17 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Firework_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Firework_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f);
 			}
 		}
 		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.ShadowbeamStaff, (5f * Main.rand.NextFloat() - 0.5f), (5f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.ShadowbeamStaff, (5f * Main.rand.NextFloat() - 0.5f), (5f * Main.rand.NextFloat() - 0.5f), 0, default, 3f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PlasmaBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PlasmaBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<PlasmaCannon>())]);
 	}
 }

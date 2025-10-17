@@ -1,27 +1,28 @@
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
-using System;
-using System.Collections.Generic;
-using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
-using Microsoft.Xna.Framework;
-using ArcaneOdyssey.Content.Projectiles;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class VesuviusMagic : AOMagic
 	{
-        public override Color ImbueColour => new Color(0,0,255,0);
+        public override Color ImbueColour => new(0,0,255,0);
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 3f;
 		public override float AOImbueDamage => 2f;
@@ -30,8 +31,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollDamage => 2f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Custom;
         public override SoundStyle? ImbueSound => SoundID.Item20;
-        public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<AOPetrified>(),10*60), new AODebuffRequirement(BuffID.OnFire3,10*60)];
-		public override SynergyEffects Effects => new SynergyEffects(
+        public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(),10*60), new AODebuffRequirement(BuffID.OnFire3,10*60)];
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Chilled, // freezing
 				ModContent.BuffType<AOPetrified>(),
@@ -60,8 +61,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),2.075f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<VesuviusBlast>()),]);
-		public override void SpawningEffects(Entity projectile)
+
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<VesuviusBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<VesuviusCannon>())]);
+		
+        public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -72,16 +75,16 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0,0,255,0), 1.2f)];
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f)];
+			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0,0,255,0), 1.2f);
+			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f);
 			Lighting.AddLight(projectile.position, 1f, 0.19f, 0f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, new Color(0,0,255,0), 2f)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Blue, 2f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, new Color(0,0,255,0), 2f);
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Blue, 2f);
 			}
 		}
 
@@ -94,7 +97,9 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override void AddRecipes() {
+
+		public override void AddRecipes() 
+        {
             
         }
 	}

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 {
@@ -17,7 +18,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
 		{
 			base.SetDefaults();
 			Projectile.alpha = 60;
-			Main.projFrames[Type] = 7;
 		}
+
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Type] = 7;
+        }
 	}
 }

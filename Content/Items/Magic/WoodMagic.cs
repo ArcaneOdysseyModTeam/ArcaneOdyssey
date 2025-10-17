@@ -1,27 +1,28 @@
+using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WoodMagic : AOMagic
 	{
 		public override SoundStyle? ImbueSound => SoundID.Dig;
-        public override Color ImbueColour => new Color(61,33,0,255);
+        public override Color ImbueColour => new(61,33,0,255);
 		public override float AOImbueSpeed => 0.9f;
 		public override float AOImbueSize => 1.162f;
 		public override float AOImbueDamage => 1.025f;
@@ -29,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 0.95f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			],
@@ -48,13 +49,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		{
 			for(int n = 0; n<3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Pearlwood,(projectile.velocity.X*0.2f),(projectile.velocity.Y*0.2f),0,default,1.5f)];
+				Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Pearlwood,(projectile.velocity.X*0.2f),(projectile.velocity.Y*0.2f),0,default,1.5f);
 			}
 		}
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Pearlwood, (projectile.velocity.X * 0.2f), (projectile.velocity.Y * 0.2f), 0, default, 1f)];
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.GrassBlades,(projectile.velocity.X*0.2f),(projectile.velocity.Y*0.2f),0,default,1.5f)];
+			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, DustID.Pearlwood, (projectile.velocity.X * 0.2f), (projectile.velocity.Y * 0.2f), 0, default, 1f);
+			Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.GrassBlades,(projectile.velocity.X*0.2f),(projectile.velocity.Y*0.2f),0,default,1.5f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
@@ -78,6 +79,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WoodBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WoodBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<WoodCannon>())]);
 	}
 }

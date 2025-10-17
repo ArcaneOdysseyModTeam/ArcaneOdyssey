@@ -1,9 +1,11 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+﻿using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using ArcaneOdyssey.Content.Buffs.Stuns;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +13,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
     public class DeliriumMagic : AOMagic
     {
-        public override Color ImbueColour => new Color(255,255,255,0);
+        public override Color ImbueColour => new(255,255,255,0);
         public override float AOImbueSpeed => 2.3f;
         public override float AOImbueSize => 5f;
         public override float AOImbueDamage => .5f;
@@ -26,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override float AOScrollSpeed => 2.3f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Custom;
         public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Confused, 10 * 60)];
-        public override SynergyEffects Effects => new SynergyEffects(
+        public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -34,6 +35,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<DeliriumBlast>()),]);
+        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<DeliriumBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<DeliriumCannon>())]);
     }
 }

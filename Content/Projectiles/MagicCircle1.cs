@@ -24,7 +24,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public Texture2D MagicCircleSprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public int ChargingProjectile;
-		public BlastMode ChargingMode = BlastMode.Blast;
 		public float charge = 1f;
 
 		public override void SetStaticDefaults()
@@ -89,15 +88,22 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Projectile.alpha += (255f / 60f).Round();
 				MarkedForDeath = true;
-				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
-				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10, ChargingProjectile, (int)Math.Round(Projectile.damage * (charge * charge)), 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic or Boxing ? 3f : 1f) * charge, Projectile.owner, (int)ChargingMode);
-					if (ChargingMode == BlastMode.Blast)
-						proj.ArcaneOdyssey().BaseScale = charge/2;
-                    if (ChargingMode == BlastMode.Cannon)
+                if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
+                {
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10, ChargingProjectile, Projectile.damage, 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic or Boxing ? 3f : 1f) * charge, Projectile.owner);
+                    if (proj.ModProjectile is CannonSpell)
+                    {
                         proj.ArcaneOdyssey().BaseScale = 2;
-                    if (ChargingMode == BlastMode.Pulsar)
+                    }
+                    else if (proj.ModProjectile is PulsarSpell)
+                    {
                         proj.ArcaneOdyssey().BaseScale = .5f;
+                    }
+                    else
+                    {
+                        proj.ArcaneOdyssey().BaseScale = charge / 2;
+                        proj.damage = (Projectile.damage * (charge * charge)).Round();
+                    }
                     proj.netUpdate = true;
 					Projectile.ai[1] = 1;
 				}

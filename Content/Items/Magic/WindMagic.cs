@@ -1,28 +1,29 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
-using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WindMagic : AOMagic
 	{
 		public override SoundStyle? ImbueSound => SoundID.Dig;
-        public override Color ImbueColour => new Color(255,255,255,255);
+        public override Color ImbueColour => new(255,255,255,255);
 		public override float AOImbueSpeed => 1.175f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => .9f;
@@ -30,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => .825f;
         public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override SynergyEffects Effects => new(
 			[
 				BuffID.OnFire,
 				ModContent.BuffType<FreezingEffect>(),
@@ -84,6 +85,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<WindCannon>())]);
 	}
 }

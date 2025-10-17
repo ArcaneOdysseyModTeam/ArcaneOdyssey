@@ -1,27 +1,28 @@
+using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
-using ArcaneOdyssey.Content.Projectiles;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Buffs.DOT;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class EarthMagic : AOMagic
 	{
-        public override Color ImbueColour => new Color(69,42,1,0);
+        public override Color ImbueColour => new(69,42,1,0);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.26f;
 		public override float AOImbueDamage => 1.075f;
@@ -43,24 +44,25 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()),]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<EarthCannon>())]);
 		
 		public override void SpawningEffects(Entity projectile) 
 		{
-			for (int n = 0; n < 3; n++){
+			for (int n = 0; n < 3; n++)
+            {
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Dirt,(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
 				spawnedDust.noGravity = true;
 			}
 		}
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Dirt, 0f, 0f, 0, default, 1f)];
+            Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.Dirt, 0f, 0f, 0, default, 1f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Dirt, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Dirt, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f);
 			}
 		}
 		public override void KillEffects(Entity projectile)

@@ -12,6 +12,7 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -26,29 +27,31 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollDamage => 0.875f;
         public override SoundStyle? ImbueSound => SoundID.Splash;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Venom, 60*10)];
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
+        public override SynergyEffects Effects => new(
+            [ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<SandyEffect>()
-			],
-			[
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.075f),
-				new MagicBuffMultiplier(BuffID.OnFire,1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.2f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.05f),
-				new MagicBuffMultiplier(BuffID.Poisoned,1.05f),
-				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
-				new MagicBuffMultiplier(BuffID.Wet,0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.1f)
-			]
-			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AcidBlast>()),]);
-		public override void SpawningEffects(Entity projectile) 
+                ModContent.BuffType<SnowyEffect>(),
+                ModContent.BuffType<SandyEffect>()
+            ],
+            [
+                new(ModContent.BuffType<AOBleed>(),1.075f),
+                new(BuffID.OnFire,1.075f),
+                new(ModContent.BuffType<CharredEffect>(),1.1f),
+                new(ModContent.BuffType<FreezingEffect>(),1.2f),
+                new(BuffID.OnFire3,1.05f),
+                new(BuffID.Poisoned,1.05f),
+                new(BuffID.ShadowFlame,1.1f),
+                new(BuffID.Wet,0.9f),
+                new(ModContent.BuffType<Crystallized>(),0.9f),
+                new(ModContent.BuffType<SandyEffect>(),0.99f),
+                new(ModContent.BuffType<AOScalding>(),1.075f),
+                new(ModContent.BuffType<SearedEffect>(),1.1f)
+            ]
+            );
+
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AcidBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AcidCannon>())]);
+		
+        public override void SpawningEffects(Entity projectile) 
 		{
 			for (int n = 0; n<3; n++)
 			{

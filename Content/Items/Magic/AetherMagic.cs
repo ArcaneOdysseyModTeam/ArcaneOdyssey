@@ -1,6 +1,7 @@
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollDamage => 1f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
 			], 
@@ -32,7 +33,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-			public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AetherBlast>()),]);
+		
+        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AetherBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AetherCannon>())]);
 		
 		public override void AddRecipes() {
             
