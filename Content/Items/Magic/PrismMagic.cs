@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public static Color[] rainbowColors = [Color.Red, Color.Orange, Color.Green, Color.Blue, Color.Indigo, Color.Violet];
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
         public override Color ImbueColour => new(255,255,255);
-        public override float AOImbueSpeed => 1f;
-        public override float AOImbueDamage => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOScrollSpeed => 1f;
-        public override float AOScrollDamage => 1f;
-        public override float AOScrollSize => 1f;
+        public override float AOImbueSpeed => 1.1f;
+        public override float AOImbueDamage => 1.2f;
+		public override float AOImbueSize => 1.15f;
+		public override float AOScrollSpeed => 1.1f;
+        public override float AOScrollDamage => 1.2f;
+        public override float AOScrollSize => 1.15f;
 
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<BlindedEffect>(), 60*5),new(ModContent.BuffType<AOBleed>(), 60*10)];
