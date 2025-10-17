@@ -22,8 +22,9 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class WaterMagic : AOMagic
-	{
-		public override Color ImbueColour => new(0,30,255,0);
+    {
+        public override bool? Cold => true;
+        public override Color ImbueColour => new(0,30,255,0);
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1.22f;
 		public override float AOImbueDamage => 0.975f;

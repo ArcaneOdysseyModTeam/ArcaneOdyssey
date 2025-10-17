@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            ExternalModSupport.RegisterDebuff(this);
         }
     }
 }

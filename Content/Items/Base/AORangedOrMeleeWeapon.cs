@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <summary>
 		/// Leave null for neutral, true for cold, false for hot
 		/// </summary>
-		public virtual bool? ColdWeapon => null;
+		public virtual bool? Cold => null;
 
 
 		/// <summary>

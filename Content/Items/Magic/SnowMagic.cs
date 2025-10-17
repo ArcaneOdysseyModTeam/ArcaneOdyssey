@@ -22,8 +22,9 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class SnowMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.Dig;
+    {
+        public override bool? Cold => true;
+        public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255,255,255,255);
 		public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 1.05f;

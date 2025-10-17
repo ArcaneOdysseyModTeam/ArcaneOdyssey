@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 {
 	public class SunkenSword : AORangedOrMeleeWeapon
     {
-        public override bool? ColdWeapon => true;
+        public override bool? Cold => true;
         public override float AOSpeed => 1.2f;
 		public override float AOSize => .9f;
 		public override float AODamage => 1f;

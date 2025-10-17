@@ -25,12 +25,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
         public override void AI()
         {
 
-            if (Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner && Imbue is not null)
             {
                 if (Projectile.localAI[0] > 30)
                 {
                     Projectile.localAI[0] = 0;
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity, ModContent.ProjectileType<ExplosionSpell>(), 40, 0f, Projectile.owner, 1.3f);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity/4, ModContent.ProjectileType<ExplosionSpell>(), 40, 0f, Projectile.owner, 1.3f);
                     proj.Center = Projectile.Center;
                 }
                 else
