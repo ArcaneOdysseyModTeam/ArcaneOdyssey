@@ -10,8 +10,9 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	public class EmptyScroll : AOBaseItem
+	public class EmptyScroll : AOBaseItem, ILocalizedModType
 	{
+        public override string LocalizationCategory => GetType().IsSubclassOf(typeof(EmptyScroll)) ? "Spells.Scrolls" : base.LocalizationCategory;
 		public virtual int AOValue => 500;
 		public override AORarities AORarity => AORarities.Uncommon;
 

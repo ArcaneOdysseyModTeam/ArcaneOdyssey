@@ -7,6 +7,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSpeed => 1.4f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => .875f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 
 		public override SynergyEffects Effects => new(
@@ -104,6 +105,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightningBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<LightningCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightningBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<LightningPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<LightningCannon>())]);
 	}
 }

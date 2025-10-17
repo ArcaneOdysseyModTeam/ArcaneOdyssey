@@ -1,0 +1,154 @@
+Scrolls: {
+	BlastScroll: {
+		DisplayName: Blast Scroll
+		Tooltip: A spell scroll which allows the user to create a charged magical blast, or create a barrage of uncharged magical blasts
+	}
+
+	CannonScroll: {
+		DisplayName: Cannon Scroll
+		Tooltip: A spell scroll which allows the user to create a massive blast that can smash through one wall
+	}
+
+	ExplosionScroll: {
+		DisplayName: Explosion Scroll
+		Tooltip: Creates an explosion around you, or you can direct it towards your enemies
+	}
+
+	FlightScroll: {
+		DisplayName: Flight Scroll
+		Tooltip: ""
+	}
+
+	HoverScroll: {
+		DisplayName: Hover Scroll
+		Tooltip: ""
+	}
+
+	PulsarScroll: {
+		DisplayName: Pulsar Scroll
+		Tooltip: ""
+	}
+
+	BeamScroll: {
+		DisplayName: Beam Scroll
+		Tooltip: ""
+	}
+
+	CrashScroll: {
+		DisplayName: Crash Scroll
+		Tooltip: ""
+	}
+
+	LeapScroll: {
+		DisplayName: Leap Scroll
+		Tooltip: ""
+	}
+
+	ReflexScroll: {
+		DisplayName: Reflex Scroll
+		Tooltip: ""
+	}
+}
+
+BeamSpell.DisplayName: Beam Spell
+
+Blasts: {
+	AcidBlast.DisplayName: Acid Blast
+	AetherBlast.DisplayName: Aether Blast
+	AncientLightningBlast.DisplayName: Ancient Lightning Blast
+	AshBlast.DisplayName: Ash Blast
+	CrystalBlast.DisplayName: Crystal Blast
+	DeliriumBlast.DisplayName: Delirium Blast
+	EarthBlast.DisplayName: Earth Blast
+	ExplosionBlast.DisplayName: Explosion Blast
+	FireBlast.DisplayName: Fire Blast
+	FlareBlast.DisplayName: Flare Blast
+	GlassBlast.DisplayName: Glass Blast
+	GravityBlast.DisplayName: Gravity Blast
+	HeatBlast.DisplayName: Heat Blast
+	IceBlast.DisplayName: Ice Blast
+	IonBlast.DisplayName: Ion Blast
+	JerminusBlast.DisplayName: Jerminus Blast
+	LightBlast.DisplayName: Light Blast
+	LightningBlast.DisplayName: Lightning Blast
+	MagmaBlast.DisplayName: Magma Blast
+	MetalBlast.DisplayName: Metal Blast
+	PlasmaBlast.DisplayName: Plasma Blast
+	PoisonBlast.DisplayName: Poison Blast
+	PoisonLightningBlast.DisplayName: Poison Lightning Blast
+	SandBlast.DisplayName: Sand Blast
+	ShadowBlast.DisplayName: Shadow Blast
+	SnowBlast.DisplayName: Snow Blast
+	VesuviusBlast.DisplayName: Vesuvius Blast
+	WaterBlast.DisplayName: Water Blast
+	WindBlast.DisplayName: Wind Blast
+	WoodBlast.DisplayName: Wood Blast
+}
+
+Cannons: {
+	AcidCannon.DisplayName: Acid Cannon
+	AetherCannon.DisplayName: Aether Cannon
+	AncientLightningCannon.DisplayName: Ancient Lightning Cannon
+	AshCannon.DisplayName: Ash Cannon
+	CrystalCannon.DisplayName: Crystal Cannon
+	DeliriumCannon.DisplayName: Delirium Cannon
+	EarthCannon.DisplayName: Earth Cannon
+	ExplosionCannon.DisplayName: Explosion Cannon
+	FireCannon.DisplayName: Fire Cannon
+	FlareCannon.DisplayName: Flare Cannon
+	GlassCannon.DisplayName: Glass Cannon
+	GravityCannon.DisplayName: Gravity Cannon
+	HeatCannon.DisplayName: Heat Cannon
+	IceCannon.DisplayName: Ice Cannon
+	IonCannon.DisplayName: Ion Cannon
+	JerminusCannon.DisplayName: Jerminus Cannon
+	LightCannon.DisplayName: Light Cannon
+	LightningCannon.DisplayName: Lightning Cannon
+	MagmaCannon.DisplayName: Magma Cannon
+	MetalCannon.DisplayName: Metal Cannon
+	PlasmaCannon.DisplayName: Plasma Cannon
+	PoisonCannon.DisplayName: Poison Cannon
+	PoisonLightningCannon.DisplayName: Poison Lightning Cannon
+	SandCannon.DisplayName: Sand Cannon
+	ShadowCannon.DisplayName: Shadow Cannon
+	SnowCannon.DisplayName: Snow Cannon
+	VesuviusCannon.DisplayName: Vesuvius Cannon
+	WaterCannon.DisplayName: Water Cannon
+	WindCannon.DisplayName: Wind Cannon
+	WoodCannon.DisplayName: Wood Cannon
+}
+
+ExplosionSpell.DisplayName: Explosion Spell
+
+Pulsars: {
+	AcidPulsar.DisplayName: Acid Pulsar
+	AetherPulsar.DisplayName: Aether Pulsar
+	AncientLightningPulsar.DisplayName: Ancient Lightning Pulsar
+	AshPulsar.DisplayName: Ash Pulsar
+	CrystalPulsar.DisplayName: Crystal Pulsar
+	DeliriumPulsar.DisplayName: Delirium Pulsar
+	EarthPulsar.DisplayName: Earth Pulsar
+	ExplosionPulsar.DisplayName: Explosion Pulsar
+	FirePulsar.DisplayName: Fire Pulsar
+	FlarePulsar.DisplayName: Flare Pulsar
+	GlassPulsar.DisplayName: Glass Pulsar
+	GravityPulsar.DisplayName: Gravity Pulsar
+	HeatPulsar.DisplayName: Heat Pulsar
+	IcePulsar.DisplayName: Ice Pulsar
+	IonPulsar.DisplayName: Ion Pulsar
+	JerminusPulsar.DisplayName: Jerminus Pulsar
+	LightningPulsar.DisplayName: Lightning Pulsar
+	LightPulsar.DisplayName: Light Pulsar
+	MagmaPulsar.DisplayName: Magma Pulsar
+	MetalPulsar.DisplayName: Metal Pulsar
+	PlasmaPulsar.DisplayName: Plasma Pulsar
+	PoisonLightningPulsar.DisplayName: Poison Lightning Pulsar
+	PoisonPulsar.DisplayName: Poison Pulsar
+	SandPulsar.DisplayName: Sand Pulsar
+	ShadowPulsar.DisplayName: Shadow Pulsar
+	SnowPulsar.DisplayName: Snow Pulsar
+	VesuviusPulsar.DisplayName: Vesuvius Pulsar
+	WaterPulsar.DisplayName: Water Pulsar
+	WindPulsar.DisplayName: Wind Pulsar
+	WoodPulsar.DisplayName: Wood Pulsar
+}

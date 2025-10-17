@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -62,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<VesuviusBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<VesuviusCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<VesuviusBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<VesuviusPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<VesuviusCannon>())]);
 		
         public override void SpawningEffects(Entity projectile)
 		{

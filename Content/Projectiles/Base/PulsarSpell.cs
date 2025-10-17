@@ -12,8 +12,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-    public abstract class PulsarSpell : MagicSpell
+    public abstract class PulsarSpell : MagicSpell, ILocalizedModType
     {
+        public override string LocalizationCategory => "Spells.Pulsars";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -23,11 +24,19 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
         public override void AI()
         {
-            if (Main.myPlayer == Projectile.owner && ++Projectile.localAI[0] > 30)
+
+            if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.localAI[0] = 0;
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity, ModContent.ProjectileType<ExplosionSpell>(), 40, 0f, Projectile.owner, 1.3f);
-                proj.Center = Projectile.Center + Projectile.velocity;
+                if (Projectile.localAI[0] > 30)
+                {
+                    Projectile.localAI[0] = 0;
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity, ModContent.ProjectileType<ExplosionSpell>(), 40, 0f, Projectile.owner, 1.3f);
+                    proj.Center = Projectile.Center;
+                }
+                else
+                {
+                    Projectile.localAI[0] += Imbue.AOScrollSpeed;
+                }
             }
             if (Projectile.frameCounter > 5)
             {

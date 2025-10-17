@@ -1,6 +1,8 @@
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -32,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GravityCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<GravityPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GravityCannon>())]);
 		
 		public override void AddRecipes() {
 			

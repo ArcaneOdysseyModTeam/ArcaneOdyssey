@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 		
-        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AncientLightningCannon>())]);
+        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AncientLightningPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AncientLightningCannon>())]);
 		
 		public override void AddRecipes() {
             

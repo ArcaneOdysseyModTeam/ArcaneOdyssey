@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -43,8 +44,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 		public override void SpawningEffects(Entity projectile)
-		{ 
-			for(int n = 0;n<10;n++)
+		{
+            for (int n = 0; n < 10; n++)
 			{
 				Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,DustID.Glass,(projectile.velocity.X*0.4f),(projectile.velocity.Y*0.4f),0,default,1f);
 			}
@@ -71,6 +72,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GlassBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GlassCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GlassBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<GlassPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GlassCannon>())]);
 	}
 }

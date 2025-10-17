@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<EarthCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<EarthPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<EarthCannon>())]);
 		
 		public override void SpawningEffects(Entity projectile) 
 		{

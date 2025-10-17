@@ -6,14 +6,12 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	/// <summary>
-	/// Blast is the most versatile projectile ever lmao
-	/// </summary>
-	public abstract class BlastSpell : MagicSpell
+	public abstract class BlastSpell : MagicSpell, ILocalizedModType
 	{
         // ai 2 is first frame bool
 
-		public override void SetDefaults()
+        public override string LocalizationCategory => "Spells.Blasts";
+        public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;

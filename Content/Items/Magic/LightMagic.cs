@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class LightMagic : AOMagic
 	{
 		public override SoundStyle? ImbueSound => SoundID.Item9;
-        public override Color ImbueColour => new(255,255,0,255);
+		public override Color ImbueColour => new(255,255,0,255);
 		public override float AOImbueSpeed => 1.3f;
 		public override float AOImbueSize => 0.946f;
 		public override float AOImbueDamage => 0.9f;
@@ -77,6 +78,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<LightCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<LightPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<LightCannon>())]);
 	}
 }

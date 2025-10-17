@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 
         public override void KillEffects(Entity projectile)
         {
-			SoundEngine.PlaySound(this.ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
         }
 	}
 }

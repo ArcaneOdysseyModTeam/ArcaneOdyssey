@@ -105,94 +105,8 @@ Buffs: {
 
 	SearedEffect: {
 		DisplayName: Seared Effect
-		Description: Mods.ArcaneOdyssey.Buffs.SearedEffect.Description
+		Description: Your skin is seared red by heat
 	}
-}
-
-Projectiles: {
-	FuryoftheSea.DisplayName: Fury of the Sea
-	SunkenStaffProjectile.DisplayName: Sunken Staff
-	IceBlast.DisplayName: Ice Projectile
-	AcidBlast.DisplayName: Acid Projectile
-	AetherBlast.DisplayName: Aether Projectile
-	AncientLightningBlast.DisplayName: Ancient Lightning Projectile
-	AshBlast.DisplayName: Ash Projectile
-	CrystalBlast.DisplayName: Crystal Projectile
-	EarthBlast.DisplayName: Earth Projectile
-	ExplosionBlast.DisplayName: Explosion Projectile
-	FireBlast.DisplayName: Fire Projectile
-	FlareBlast.DisplayName: Flare Projectile
-	GlassBlast.DisplayName: Glass Projectile
-	GravityBlast.DisplayName: Gravity Projectile
-	HeatBlast.DisplayName: Heat Projectile
-	LightBlast.DisplayName: Light Projectile
-	LightningBlast.DisplayName: Lightning Projectile
-	MagmaBlast.DisplayName: Magma Projectile
-	MetalBlast.DisplayName: Metal Projectile
-	PlasmaBlast.DisplayName: Plasma Projectile
-	PoisonBlast.DisplayName: Poison Projectile
-	PoisonLightningBlast.DisplayName: Poison Lightning Projectile
-	SandBlast.DisplayName: Sand Projectile
-	ShadowBlast.DisplayName: Shadow Projectile
-	SnowBlast.DisplayName: Snow Projectile
-	VesuviusBlast.DisplayName: Vesuvius Projectile
-	WaterBlast.DisplayName: Water Projectile
-	WindBlast.DisplayName: Wind Projectile
-	WoodBlast.DisplayName: Wood Projectile
-	JerminusBlast.DisplayName: Jerminus Projectile
-	MagicCircle1.DisplayName: Magic Circle
-	MagicCircle2.DisplayName: Magic Circle
-	ExplosionTracker.DisplayName: Explosion Spell
-	ExplosionSpell.DisplayName: Explosion
-	DeliriumBlast.DisplayName: Delirium Projectile
-	DeathCurse.DisplayName: Death Curse..
-	ColossalCleave.DisplayName: Colossal Cleave
-	SpiritBlast.DisplayName: Spirit Projectile
-	FrogBlast.DisplayName: Frog
-	IonBlast.DisplayName: Ion Projectile
-	WoodenStaffProjectile.DisplayName: Wooden Staff
-	EvanderSlash.DisplayName: Colossal Cleave
-	OldTridentProjectile.DisplayName: Old Trident
-	Whirlwind.DisplayName: Whirlwind
-	BronzeTridentProjectile.DisplayName: Bronze Trident
-	BronzeStaffProjectile.DisplayName: Bronze Staff
-	MountainWind.DisplayName: Mountain Wind
-	PiercingStrikesProjectile.DisplayName: Bronze Rapier
-	LeapFix.DisplayName: Leap Fix
-	PowderExplosion.DisplayName: Powder Explosion
-	PiercingGale.DisplayName: Piercing Gale
-	EvanderMelee.DisplayName: Colossal Greatsword
-	BeamSpell.DisplayName: Beam Spell
-	AcidCannon.DisplayName: Acid Cannon
-	AetherCannon.DisplayName: Aether Cannon
-	AncientLightningCannon.DisplayName: Ancient Lightning Cannon
-	AshCannon.DisplayName: Ash Cannon
-	CrystalCannon.DisplayName: Crystal Cannon
-	DeliriumCannon.DisplayName: Delirium Cannon
-	EarthCannon.DisplayName: Earth Cannon
-	ExplosionCannon.DisplayName: Explosion Cannon
-	FireCannon.DisplayName: Fire Cannon
-	FlareCannon.DisplayName: Flare Cannon
-	GlassCannon.DisplayName: Glass Cannon
-	GravityCannon.DisplayName: Gravity Cannon
-	HeatCannon.DisplayName: Heat Cannon
-	IceCannon.DisplayName: Ice Cannon
-	IonCannon.DisplayName: Ion Cannon
-	JerminusCannon.DisplayName: Jerminus Cannon
-	LightCannon.DisplayName: Light Cannon
-	LightningCannon.DisplayName: Lightning Cannon
-	MagmaCannon.DisplayName: Magma Cannon
-	MetalCannon.DisplayName: Metal Cannon
-	PlasmaCannon.DisplayName: Plasma Cannon
-	PoisonCannon.DisplayName: Poison Cannon
-	PoisonLightningCannon.DisplayName: Poison Lightning Cannon
-	SandCannon.DisplayName: Sand Cannon
-	ShadowCannon.DisplayName: Shadow Cannon
-	SnowCannon.DisplayName: Snow Cannon
-	VesuviusCannon.DisplayName: Vesuvius Cannon
-	WaterCannon.DisplayName: Water Cannon
-	WindCannon.DisplayName: Wind Cannon
-	WoodCannon.DisplayName: Wood Cannon
 }
 
 ImbueStuff: {
@@ -347,4 +261,27 @@ Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Dash Bind
 	Vanish.DisplayName: Vanish
+}
+
+Projectiles: {
+	DeathCurse.DisplayName: Death Curse
+	EvanderMelee.DisplayName: Evander Melee
+	EvanderSlash.DisplayName: Evander Slash
+	LeapFix.DisplayName: Leap Fix
+	ExplosionTracker.DisplayName: Explosion Tracker
+	MagicCircle1.DisplayName: Magic Circle1
+	MagicCircle2.DisplayName: Magic Circle2
+	PowderExplosion.DisplayName: Powder Explosion
+	SpiritBlast.DisplayName: Spirit Blast
+	ColossalCleave.DisplayName: Colossal Cleave
+	FuryoftheSea.DisplayName: Furyofthe Sea
+	MountainWind.DisplayName: Mountain Wind
+	PiercingGale.DisplayName: Piercing Gale
+	PiercingStrikesProjectile.DisplayName: Piercing Strikes Projectile
+	Whirlwind.DisplayName: Whirlwind
+	BronzeStaffProjectile.DisplayName: Bronze Staff Projectile
+	BronzeTridentProjectile.DisplayName: Bronze Trident Projectile
+	OldTridentProjectile.DisplayName: Old Trident Projectile
+	SunkenStaffProjectile.DisplayName: Sunken Staff Projectile
+	WoodenStaffProjectile.DisplayName: Wooden Staff Projectile
 }

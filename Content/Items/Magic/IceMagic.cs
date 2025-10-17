@@ -5,18 +5,19 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -34,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<FreezingEffect>(), 60 * 10), new(ModContent.BuffType<AOFrozen>(), 60, 33)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IceBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IceCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IceBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<IcePulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IceCannon>())]);
 
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit

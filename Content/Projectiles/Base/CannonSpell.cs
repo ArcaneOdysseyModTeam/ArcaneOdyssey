@@ -14,9 +14,10 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class CannonSpell : MagicSpell
-	{
-		public int TileTimer = 0;
+	public abstract class CannonSpell : MagicSpell, ILocalizedModType
+    {
+        public override string LocalizationCategory => "Spells.Cannons";
+        public int TileTimer = 0;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override float AOScrollSpeed => 1.25f;
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollDamage => 1.2f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<IonizedEffect>(), 60 * 10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<IonizedEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -89,6 +90,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IonBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IonCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IonBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<IonPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IonCannon>())]);
 	}
 }

@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,6 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SandBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<SandCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SandBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<SandPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<SandCannon>())]);
 	}
 }

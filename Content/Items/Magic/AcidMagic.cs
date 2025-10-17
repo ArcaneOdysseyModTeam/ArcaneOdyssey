@@ -13,6 +13,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 
 namespace ArcaneOdyssey.Content.Items.Magic
 {
@@ -49,7 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
             ]
             );
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AcidBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AcidCannon>())]);
+		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AcidBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AcidCannon>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AcidPulsar>())]);
 		
         public override void SpawningEffects(Entity projectile) 
 		{
