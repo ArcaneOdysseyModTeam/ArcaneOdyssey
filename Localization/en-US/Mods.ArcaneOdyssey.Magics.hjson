@@ -204,3 +204,8 @@ IonMagic: {
 		Gamma's Magic
 		'''
 }
+
+PrismMagic: {
+	DisplayName: Prism Magic
+	Tooltip: ""
+}

@@ -83,6 +83,7 @@ Blasts: {
 	WaterBlast.DisplayName: Water Blast
 	WindBlast.DisplayName: Wind Blast
 	WoodBlast.DisplayName: Wood Blast
+	PrismBlast.DisplayName: Prism Blast
 }
 
 Cannons: {
@@ -116,6 +117,7 @@ Cannons: {
 	WaterCannon.DisplayName: Water Cannon
 	WindCannon.DisplayName: Wind Cannon
 	WoodCannon.DisplayName: Wood Cannon
+	PrismCannon.DisplayName: Prism Cannon
 }
 
 ExplosionSpell.DisplayName: Explosion Spell
@@ -151,4 +153,5 @@ Pulsars: {
 	WaterPulsar.DisplayName: Water Pulsar
 	WindPulsar.DisplayName: Wind Pulsar
 	WoodPulsar.DisplayName: Wood Pulsar
+	PrismPulsar.DisplayName: Prism Pulsar
 }
