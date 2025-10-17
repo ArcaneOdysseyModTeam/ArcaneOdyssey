@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
 using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using System;
 using System.Collections.Generic;
+using ArcaneOdyssey.Content.Items.Materials;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Magic
         public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PrismBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<PrismPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<PrismCannon>())]);
 		
 		public override void AddRecipes() {
-            
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<LightMagic>().Register();
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<GlassMagic>().Register();
         }
 	}
 }
