@@ -144,7 +144,7 @@ namespace ArcaneOdyssey
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
 			bool returntype = true;
-			if (Main.player[projectile.owner].ArcaneOdyssey().imbue is PoisonMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+			if ((Main.player[projectile.owner].ArcaneOdyssey().imbue is PoisonMagic || Main.player[projectile.owner].ArcaneOdyssey().imbue is PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
