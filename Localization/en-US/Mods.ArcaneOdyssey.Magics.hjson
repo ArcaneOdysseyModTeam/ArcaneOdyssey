@@ -207,5 +207,5 @@ IonMagic: {
 
 PrismMagic: {
 	DisplayName: Prism Magic
-	Tooltip: ""
+	Tooltip: Allows the user to form vibrant prisms of glass that shatter into a brilliant display of reflective shards and blinding lights
 }
