@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	{
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new Color(240,140,255,255);
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollDamage => 1f;
+		public override float AOImbueSpeed => 1.4f;
+		public override float AOImbueSize => 1.15f;
+		public override float AOImbueDamage => 0.9f;
+		public override float AOScrollSpeed => 1.4f;
+		public override float AOScrollSize => 1.15f;
+		public override float AOScrollDamage => 0.9f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Poisoned, 60 * 10), new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
