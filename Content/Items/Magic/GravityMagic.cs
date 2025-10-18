@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ArcaneOdyssey.VFX.Dusts;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Magic
@@ -34,7 +35,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<GravityPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GravityCannon>())]);
-		
+        public override void LingeringEffects(Entity entity)
+        {
+			Dust.NewDust(entity.position,entity.Hitbox.Width,entity.Hitbox.Height,ModContent.DustType<GravityDust>(),0f,0f,0,default,2f);
+        }
 		public override void AddRecipes() {
 			
 		}
