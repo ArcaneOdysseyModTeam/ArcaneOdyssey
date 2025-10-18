@@ -24,10 +24,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class VesuviusMagic : AOMagic
 	{
         public override Color ImbueColour => new(0,0,255,0);
-		public override float AOImbueSpeed => 1f;
+		public override float AOImbueSpeed => 1.2f;
 		public override float AOImbueSize => 3f;
 		public override float AOImbueDamage => 2f;
-		public override float AOScrollSpeed => 1f;
+		public override float AOScrollSpeed => 1.2f;
 		public override float AOScrollSize => 3f;
 		public override float AOScrollDamage => 2f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Custom;
