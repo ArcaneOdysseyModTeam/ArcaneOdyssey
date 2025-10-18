@@ -21,6 +21,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
             Projectile.height = Projectile.width = 64;
             Projectile.velocity /= 4;
         }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width /= 4;
+            height /= 4;
+            fallThrough = true;
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
 
         public override void AI()
         {

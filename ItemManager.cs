@@ -275,7 +275,7 @@ namespace ArcaneOdyssey
 	{
 		public override bool InstancePerEntity => true;
 
-		public Item thisItem;
+		public Item thisItem = null;
 		public Imbuable imbue = null;
 		public int ImbueIndex = 0;
 		public bool SpecificImbue = false;
@@ -286,7 +286,7 @@ namespace ArcaneOdyssey
 		{
 			get
 			{
-				if (thisItem.ModItem is AORangedOrMeleeWeapon weap)
+				if (thisItem is not null && thisItem.ModItem is AORangedOrMeleeWeapon weap)
 				{
 					return weap.Cold;
 				}
@@ -297,7 +297,7 @@ namespace ArcaneOdyssey
 
 		public bool? Arcanium { get
 			{
-				if (thisItem.ModItem is AORangedOrMeleeWeapon weap)
+				if (thisItem is not null && thisItem.ModItem is AORangedOrMeleeWeapon weap)
 				{
 					return weap.Arcanium;
 				}

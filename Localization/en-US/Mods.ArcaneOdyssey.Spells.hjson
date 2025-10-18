@@ -48,6 +48,11 @@ Scrolls: {
 		DisplayName: Reflex Scroll
 		Tooltip: ""
 	}
+
+	ShotScroll: {
+		DisplayName: Shot Scroll
+		Tooltip: ""
+	}
 }
 
 BeamSpell.DisplayName: Beam Spell

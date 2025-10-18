@@ -10,8 +10,8 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class TechniqueScroll : EmptyScroll
-	{
-		public override void UpdateInventory(Player player)
+    {
+        public override void UpdateInventory(Player player)
 		{
 			var imbue = Item.ArcaneOdyssey().imbue;
             if (imbue is FightingStyle and not FightingStyleBarred)

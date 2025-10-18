@@ -285,3 +285,5 @@ Projectiles: {
 	SunkenStaffProjectile.DisplayName: Sunken Staff Projectile
 	WoodenStaffProjectile.DisplayName: Wooden Staff Projectile
 }
+
+Techniques.ShotTechnique.DisplayName: Shot Technique
