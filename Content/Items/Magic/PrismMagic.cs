@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class PrismMagic : AOMagic
 	{
-		public static Color[] rainbowColors = [Color.Red, Color.Orange, Color.Green, Color.Blue, Color.Indigo, Color.Violet];
+		public static Color[] rainbowColors = [new Color(255, 153, 200),new Color(189, 165, 249),new Color(189, 239, 249),new Color(195, 252, 186)];
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
         public override Color ImbueColour => new(255,255,255);
         public override float AOImbueSpeed => 1.1f;
@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			int rainbowStep = (int)Main.GameUpdateCount;
 			for (int n = 0; n < 3; n++)
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[rainbowStep % 6], 1f);
+                Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[rainbowStep % 3], 1f);
 				dust.noGravity = true;
 				rainbowStep++;
 				Dust.NewDust(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.Glass, 0f, 0f, 0,default, 1f);
@@ -67,16 +67,16 @@ namespace ArcaneOdyssey.Content.Items.Magic
             {
 				if (((Projectile)projectile).type == ModContent.ProjectileType<BeamSpell>())
                 {
-					Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[((Projectile)projectile).numUpdates % 6], 1.4f);
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[((Projectile)projectile).numUpdates % 3], 1.4f);
 					dust.noGravity = true;
                 } else
                 {
-					Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 6], 1.4f);
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f);
 					dust.noGravity = true;
                 }
             } else
             {
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 6], 1.4f);
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f);
 				dust.noGravity = true;
             }
 		}
@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			int rainbowStep = (int)Main.GameUpdateCount;
 			for (int n = 0; n < 10; n++)
 			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[rainbowStep % 6], 2f);
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[rainbowStep % 3], 2f);
 				dust.noGravity = true;
 				rainbowStep++;
 				Dust.NewDust(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.Glass, 0f, 0f, 0,default, 1.2f);
@@ -98,7 +98,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 0.9f);
 			for (int n = 0; n < 10; n++)
             {
-				Dust dust = Dust.NewDustDirect(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, rainbowColors[rainbowStep % 6], 1.3f);
+				Dust dust = Dust.NewDustDirect(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, rainbowColors[rainbowStep % 3], 1.3f);
 				dust.noGravity = true;
 				rainbowStep++;
             }
