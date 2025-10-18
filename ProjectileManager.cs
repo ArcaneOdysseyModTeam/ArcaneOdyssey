@@ -129,16 +129,17 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override void OnKill(Projectile projectile, int timeLeft)
+		public override bool PreKill(Projectile projectile, int timeLeft)
 		{
-			if (projectile.owner == Main.myPlayer)
+			if (!Main.dedServ)
 			{
 				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile))
 				{
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-					imbue.KillEffects(projectile);
+					    imbue.KillEffects(projectile);
 				}
 			}
+            return base.PreKill(projectile, timeLeft);
 		}
 
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
