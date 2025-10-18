@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class ShotTechnique : StrengthTechnique
 	{
-		public const int DustCount = 30;
+		public const int DustCount = 20;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override void AI()
 		{
-			if (Projectile.localAI[0] > 2)
+			if (Projectile.localAI[0] > 2 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
 				for (float i = 0; i < DustCount; i++)
@@ -33,7 +33,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 					dust2.noLight = true;
 					dust2.alpha = 250;
 					dust2.noGravity = true;
-					Imbue?.LingeringEffects(Projectile);
 				}
 			}
 			Projectile.localAI[0]++;
@@ -44,6 +43,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
             width = height /= 2;
             fallThrough = true;
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
+
+        public override bool PreKill(int timeLeft)
+        {
+            if (!Main.dedServ)
+                for (float i = 0; i < DustCount; i++)
+                {
+                    var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * Projectile.width;
+                    var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.RainbowTorch, (-centre2) / 5, 150, Scale: 1.5f);
+                    dust2.noLight = true;
+                    dust2.alpha = 250;
+                    dust2.noGravity = true;
+                    Imbue?.ExplosionEffects(Projectile);
+                }
+            return base.PreKill(timeLeft);
         }
 	}
 }
