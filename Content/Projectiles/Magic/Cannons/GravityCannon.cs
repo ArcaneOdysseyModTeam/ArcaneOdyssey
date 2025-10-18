@@ -13,6 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons
 {
 	public class GravityCannon : CannonSpell
 	{
-
+		public override void SetStaticDefaults() {
+			Main.projFrames[Type] = 4;
+		}
 	}
 }
