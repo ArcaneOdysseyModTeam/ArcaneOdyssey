@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class PrismMagic : AOMagic
 	{
-		public static Color[] rainbowColors = [new Color(255, 153, 200),new Color(189, 165, 249),new Color(189, 239, 249),new Color(195, 252, 186)];
+		public static Color[] rainbowColors = [new Color(255, 71, 124),new Color(94, 61, 255),new Color(87, 219, 255),new Color(100, 255, 93)];
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
         public override Color ImbueColour => new(255,255,255);
         public override float AOImbueSpeed => 1.1f;
