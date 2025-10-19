@@ -265,8 +265,8 @@ Keybinds: {
 
 Projectiles: {
 	DeathCurse.DisplayName: Death Curse
-	EvanderMelee.DisplayName: Evander Melee
-	EvanderSlash.DisplayName: Evander Slash
+	EvanderMelee.DisplayName: Evander's Blade
+	EvanderSlash.DisplayName: Evander's Colossal Cleave
 	LeapFix.DisplayName: Leap Fix
 	ExplosionTracker.DisplayName: Explosion Tracker
 	MagicCircle1.DisplayName: Magic Circle1
