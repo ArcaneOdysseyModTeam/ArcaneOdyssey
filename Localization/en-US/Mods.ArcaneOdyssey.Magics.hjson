@@ -109,11 +109,7 @@ AetherMagic: {
 
 AncientLightningMagic: {
 	DisplayName: Ancient Lightning Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Allows the user to create devastating bolts of red chaotic lightning
 }
 
 FlareMagic: {
@@ -127,11 +123,7 @@ FlareMagic: {
 
 GravityMagic: {
 	DisplayName: Gravity Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Allows the user to command crushing forces that can cause heavy damage to everything that gets in their way
 }
 
 HeatMagic: {
@@ -145,11 +137,7 @@ HeatMagic: {
 
 PoisonLightningMagic: {
 	DisplayName: Poison Lightning Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
+	Tooltip: Allows the user to create large bolts of poisonous lightning
 }
 
 VesuviusMagic: {
