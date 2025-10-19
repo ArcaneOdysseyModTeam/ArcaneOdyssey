@@ -12,6 +12,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.VFX.Dusts;
+using ArcaneOdyssey.Content.Items.Materials;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Magic
