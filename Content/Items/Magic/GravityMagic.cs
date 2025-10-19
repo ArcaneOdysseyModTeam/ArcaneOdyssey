@@ -19,11 +19,13 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class GravityMagic : AOMagic
 	{
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
+		public override SoundStyle? ImbueSound => SoundID.Item91;
+		public override Color ImbueColour => new Color(120, 0, 200, 255);
+		public override float AOImbueSpeed => 1.1f;
+		public override float AOImbueSize => 1,2f;
 		public override float AOImbueDamage => 1f;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1f;
+		public override float AOScrollSpeed => 1.1f;
+		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		
@@ -36,10 +38,36 @@ namespace ArcaneOdyssey.Content.Items.Magic
 			]
 			);
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<GravityPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GravityCannon>())]);
-        public override void LingeringEffects(Entity entity)
-        {
-			Dust.NewDust(entity.position,entity.Hitbox.Width,entity.Hitbox.Height,ModContent.DustType<GravityDust>(),0f,0f,0,default,2f);
-        }
+        public override void SpawningEffects(Entity projectile) 
+		{
+			for (int n = 0; n<3; n++)
+			{
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())),0,0,ModContent.DustType<GravityDust>(),(projectile.velocity.X*2f),(projectile.velocity.Y*2f),0,default,3f)];
+					spawnedDust.noGravity = true;
+			}
+		}
+		public override void LingeringEffects(Entity projectile)
+		{
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, ModContent.DustType<GravityDust>(), 0f, 0f, 0, default, 1f)];
+			spawnedDust.noGravity = true;
+		}
+		public override void ExplosionEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width / 2f), projectile.position.Y + (projectile.height / 2f)), 1, 1, ModContent.DustType<GravityDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+			}
+		}
+		public override void KillEffects(Entity projectile)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 0, 0, ModContent.DustType<GravityDust>(), (8f * Main.rand.NextFloat() - 0.5f), (8f * Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+			}
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
 		public override void AddRecipes()
         {
 			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<EarthMagic>().Register();
