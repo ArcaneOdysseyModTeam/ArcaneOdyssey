@@ -15,6 +15,8 @@ using ArcaneOdyssey.VFX.Dusts;
 using ArcaneOdyssey.Content.Items.Materials;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Magic
