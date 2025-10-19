@@ -34,9 +34,20 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
 				
-			], 
+			],
 			[
-				
+				new MagicBuffMultiplier(BuffID.OnFire,0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.125f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.1f),
+				new MagicBuffMultiplier(BuffID.Poisoned,0.9f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
+				new MagicBuffMultiplier(BuffID.Wet,0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
+				new MagicBuffMultiplier(BuffID.Venom,1.075f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<GravityPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GravityCannon>())]);
