@@ -13,6 +13,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.VFX.Dusts;
 using ArcaneOdyssey.Content.Items.Materials;
+using Terraria.Audio;
+using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Magic
@@ -22,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(120, 0, 200, 255);
 		public override float AOImbueSpeed => 1.1f;
-		public override float AOImbueSize => 1,2f;
+		public override float AOImbueSize => 1.2f;
 		public override float AOImbueDamage => 1f;
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => 1.2f;
