@@ -39,8 +39,10 @@ namespace ArcaneOdyssey.Content.Items.Magic
         {
 			Dust.NewDust(entity.position,entity.Hitbox.Width,entity.Hitbox.Height,ModContent.DustType<GravityDust>(),0f,0f,0,default,2f);
         }
-		public override void AddRecipes() {
-			
-		}
+		public override void AddRecipes()
+        {
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<EarthMagic>().Register();
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<WindMagic>().Register();
+        }
 	}
 }
