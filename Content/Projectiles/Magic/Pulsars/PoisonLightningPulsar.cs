@@ -13,6 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars
 {
 	public class PoisonLightningPulsar : PulsarSpell
 	{
-
+		public override void SetStaticDefaults() {
+			Main.projFrames[Type] = 6;
+		}
 	}
 }

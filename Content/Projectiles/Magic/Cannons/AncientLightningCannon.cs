@@ -13,6 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons
 {
 	public class AncientLightningCannon : CannonSpell
 	{
-
+		public override void SetStaticDefaults() {
+			Main.projFrames[Type] = 6;
+		}
 	}
 }
