@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Vanity;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Build.Framework;
 using System;
@@ -119,6 +120,12 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<AncientHecateOrb>()));
 				npcLoot.Add(leadingConditionRule);
 			}
+            if (npc.type == NPCID.HeadlessHorseman)
+            {
+                LeadingConditionRule leadingConditionRule = new(new NoShowNoConditon());
+                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeadlessHead>(), 100));
+                npcLoot.Add(leadingConditionRule);
+            }
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 			npcLoot.Add(AcrimonyCondition);

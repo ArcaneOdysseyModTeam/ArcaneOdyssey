@@ -18,7 +18,6 @@ namespace ArcaneOdyssey.Content.Items.Vanity
 		{
 			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
 			ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = false;
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<HeadlessHeadWithWig>();
 		}
 
 		public override void SetDefaults()
