@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 {
 	public class GravityMagic : AOMagic
 	{
-		public override SoundStyle? ImbueSound => SoundID.Item91;
+		public override SoundStyle? ImbueSound => SoundID.NPCHit52;
 		public override Color ImbueColour => new Color(120, 0, 200, 255);
 		public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueSize => 1.2f;
