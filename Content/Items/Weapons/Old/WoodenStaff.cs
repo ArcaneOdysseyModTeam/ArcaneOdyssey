@@ -9,6 +9,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.CodeAnalysis.Operations;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using ArcaneOdyssey.Content.Items.Materials;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
@@ -21,6 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
         public override AORarities AORarity => AORarities.Common;
         public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
         public override AODebuffRequirement? WeaponDebuff => null; // dull weapon
+        public override SoundStyle UseSound => SoundID.Item1;
 
 
 		public override void SetDefaults()
@@ -30,7 +32,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.shoot = ModContent.ProjectileType<WoodenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
-			Item.UseSound = SoundID.Item1 with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;

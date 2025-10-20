@@ -264,26 +264,27 @@ Keybinds: {
 }
 
 Projectiles: {
-	DeathCurse.DisplayName: Death Curse
+	DeathCurse.DisplayName: Death Curse..
 	EvanderMelee.DisplayName: Evander's Blade
 	EvanderSlash.DisplayName: Evander's Colossal Cleave
 	LeapFix.DisplayName: Leap Fix
-	ExplosionTracker.DisplayName: Explosion Tracker
-	MagicCircle1.DisplayName: Magic Circle1
-	MagicCircle2.DisplayName: Magic Circle2
+	ExplosionTracker.DisplayName: Magic Circle
+	MagicCircle1.DisplayName: Magic Circle
+	MagicCircle2.DisplayName: Magic Circle
 	PowderExplosion.DisplayName: Powder Explosion
 	SpiritBlast.DisplayName: Spirit Blast
 	ColossalCleave.DisplayName: Colossal Cleave
-	FuryoftheSea.DisplayName: Furyofthe Sea
+	FuryoftheSea.DisplayName: Fury of the Sea
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
-	PiercingStrikesProjectile.DisplayName: Piercing Strikes Projectile
+	PiercingStrikesProjectile.DisplayName: Piercing Strike
 	Whirlwind.DisplayName: Whirlwind
-	BronzeStaffProjectile.DisplayName: Bronze Staff Projectile
-	BronzeTridentProjectile.DisplayName: Bronze Trident Projectile
-	OldTridentProjectile.DisplayName: Old Trident Projectile
-	SunkenStaffProjectile.DisplayName: Sunken Staff Projectile
-	WoodenStaffProjectile.DisplayName: Wooden Staff Projectile
+	BronzeStaffProjectile.DisplayName: Bronze Staff
+	BronzeTridentProjectile.DisplayName: Bronze Trident
+	OldTridentProjectile.DisplayName: Old Trident
+	SunkenStaffProjectile.DisplayName: Sunken Staff
+	WoodenStaffProjectile.DisplayName: Wooden Staff
+	KatanaSlash.DisplayName: Slash
 }
 
-Techniques.ShotTechnique.DisplayName: Shot Technique
+Techniques.ShotTechnique.DisplayName: Shot

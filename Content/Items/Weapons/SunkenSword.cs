@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponAbility? Ability => new(Mod, "Rising Tide", "Launch yourself upwards", Color.Aqua);
-
+        public override SoundStyle UseSound => SoundID.SplashWeak;
 		public override AODebuffRequirement? WeaponDebuff => new(BuffID.Wet, 60 * 5);
 
 		public override void SetDefaults()
@@ -34,7 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.width = 50;
 			Item.height = 54;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.UseSound = SoundID.SplashWeak;
 			Item.DamageType = TrueMelee();
 			Item.autoReuse = true;
 		}

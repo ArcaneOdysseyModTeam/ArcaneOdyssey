@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public Color color = Color.White;
 		public const int MaxTime = 20;
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+        public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
-		public override void SetDefaults()
+        public override void SetDefaults()
 		{
 			Projectile.width = //60;
 			Projectile.height = 144;

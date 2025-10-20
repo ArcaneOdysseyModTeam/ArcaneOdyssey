@@ -17,8 +17,8 @@ SunkenStaff: {
 }
 
 CommodoreKaiSabre: {
-	DisplayName: Commodore Kai's Standard Sabre
-	Tooltip: INCOMPLETE
+	DisplayName: Commodore Kai's Sabre
+	Tooltip: A well-made sabre that was forged for Red Sabre Kai
 }
 
 ColossalGreatsword: {

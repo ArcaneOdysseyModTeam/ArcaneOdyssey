@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.Operations;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Bronze;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -24,6 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
         public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
         public override AODebuffRequirement? WeaponDebuff => new(BuffID.Wet, 600);
 		public override WeaponAbility? Ability => new(Mod, "Fury of the Sea", "Shoots blasts of water that pierce enemies", Color.Aqua);
+        public override SoundStyle UseSound => SoundID.SplashWeak;
 
 
 		public override void SetDefaults()
@@ -33,7 +35,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.shoot = ModContent.ProjectileType<SunkenStaffProjectile>();
             Item.width = Item.height = 60;
             Item.channel = true;
-            Item.UseSound = SoundID.SplashWeak with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
             Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
             Item.noUseGraphic = true;

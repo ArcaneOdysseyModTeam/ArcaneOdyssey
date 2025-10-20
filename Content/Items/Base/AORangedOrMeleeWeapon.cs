@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
@@ -29,12 +30,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public virtual AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 		public virtual WeaponAbility? Ability => null;
+        public virtual SoundStyle UseSound => SoundID.Item71;
 
 
-		/// <summary>
-		/// Leave null for neutral, true for cold, false for hot
-		/// </summary>
-		public virtual bool? Cold => null;
+        /// <summary>
+        /// Leave null for neutral, true for cold, false for hot
+        /// </summary>
+        public virtual bool? Cold => null;
 
 
 		/// <summary>
@@ -49,7 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.knockBack = 4.5f * AOSize;
 			Item.scale = AOSize;
 			Item.value = GalleonToCopper(AOValue);
-			Item.UseSound = SoundID.Item71 with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
+			Item.UseSound = UseSound with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
 			Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
 			Item.DamageType = DamageClass.Melee;
 		}

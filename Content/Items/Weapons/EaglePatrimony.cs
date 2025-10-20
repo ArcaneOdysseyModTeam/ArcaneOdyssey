@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	{
 		public override int AOValue => 500;
 		public override AORarities AORarity => AORarities.Special;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -26,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.width = Item.height = 40;
 			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
 			Item.shootSpeed = 15;
-			Item.UseSound = SoundID.Item84 with { Pitch = .5f };
+			Item.UseSound = SoundID.Item84 with { Pitch = .75f };
 			Item.damage = 25;
 			Item.autoReuse = true;
 			Item.useTime = Item.useAnimation = 30;

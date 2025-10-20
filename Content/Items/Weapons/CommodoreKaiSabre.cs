@@ -1,14 +1,17 @@
 using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Weapons;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using Microsoft.Xna.Framework;
 using Steamworks;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
-using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -26,34 +29,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			base.SetDefaults();
 			Item.width = 52;
 			Item.height = 54;
-			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.shoot = ModContent.ProjectileType<KatanaSlash>();
 		}
 
-		private bool canSwing = true;
-		public override bool CanUseItem(Player player)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			canSwing = !canSwing;
-			if (!canSwing)
-			{
-				if (Item.useStyle == ItemUseStyleID.Thrust)
-					Item.useStyle = ItemUseStyleID.Swing;
-				else
-					Item.useStyle = ItemUseStyleID.Thrust;
-			}
-			return base.CanUseItem(player) && canSwing;
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			var name = tooltips.Find(e => e.Text.Contains("Standard"));
-			if (PrefixID.Search.TryGetName(Item.prefix, out var prefix))
-			{
-				name?.Text.Replace("Standard ", $"{prefix} ");
-			}
-			else
-			{
-				name?.Text.Replace("Standard ", null);
-			}
+			var proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
+			((KatanaSlash)proj.ModProjectile).color = this.Imbue() is not null ? Color.Lerp(Color.Red, this.Imbue().ImbueColour, .5f) : Color.Red;
+			return false;
 		}
 	}
 }
