@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Vanity;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Build.Framework;
@@ -85,6 +86,18 @@ namespace ArcaneOdyssey
 
 	public class AOGlobalNPC : GlobalNPC
 	{
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
+        {
+            if (item.Imbue() is GravityMagic)
+                modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
+        }
+
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            if (projectile.Imbue() is GravityMagic)
+                modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
+        }
+
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
 			if (npc.type == NPCID.WallofFlesh)
@@ -120,12 +133,12 @@ namespace ArcaneOdyssey
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<AncientHecateOrb>()));
 				npcLoot.Add(leadingConditionRule);
 			}
-            if (npc.type == NPCID.HeadlessHorseman)
-            {
-                LeadingConditionRule leadingConditionRule = new(new NoShowNoConditon());
-                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeadlessHead>(), 100));
-                npcLoot.Add(leadingConditionRule);
-            }
+			if (npc.type == NPCID.HeadlessHorseman)
+			{
+				LeadingConditionRule leadingConditionRule = new(new NoShowNoConditon());
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeadlessHead>(), 100));
+				npcLoot.Add(leadingConditionRule);
+			}
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 			npcLoot.Add(AcrimonyCondition);

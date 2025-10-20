@@ -375,10 +375,10 @@ namespace ArcaneOdyssey
 					return AORarities.Rare;
 					break;
 				case 6:
-					return AORarities.Exotic;
+					return AORarities.Mystic;
 					break;
 				case 7:
-					return AORarities.Exotic;
+					return AORarities.Mystic;
 					break;
 				case 8:
 					return AORarities.Arcane;
@@ -421,7 +421,7 @@ namespace ArcaneOdyssey
 			Common = ItemRarityID.Gray,
 			Uncommon = ItemRarityID.White,
 			Rare = ItemRarityID.Blue,
-			Exotic = ItemRarityID.LightRed,
+			Mystic = ItemRarityID.LightRed,
 			Arcane = ItemRarityID.Lime,
 			Zenith = ItemRarityID.Master,
 			Special,

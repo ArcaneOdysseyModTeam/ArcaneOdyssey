@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Base
                         return AORarities.Rare;
                         break;
                     case AOImbuableTier.Lost:
-                        return AORarities.Exotic;
+                        return AORarities.Mystic;
                         break;
                     case AOImbuableTier.Ancient:
                         return AORarities.Arcane;
