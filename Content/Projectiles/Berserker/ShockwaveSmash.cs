@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				Projectile.ai[0] = 1;
 			}
             aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-            Projectile.Center.MoveTowards(Main.MouseWorld, 30);
+            Projectile.Center = aoPlayerOwner.Player.Center + (Projectile.velocity * 30);
 
             if (++Projectile.frameCounter > 1)
 			{
