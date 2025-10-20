@@ -87,6 +87,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
         {
 			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<EarthMagic>().Register();
 			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<WindMagic>().Register();
+			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<MagmaMagic>().Register();
         }
 	}
 }
