@@ -78,9 +78,41 @@ namespace ArcaneOdyssey.Content.Items.Base
 				player.setBonus = Set.Value.GenerateTooltip();
 				ArmorSetEffects(player);
 			}
-		}
+        }
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
+        public int GetArmourSizeStat()
+        {
+            int val = AOSize;
+            if (this.Imbue() is not null)
+                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Size * (int)ArmourTier;
+            return val;
+        }
+
+        public int GetArmourAgilityStat()
+        {
+            int val = AOAgility;
+            if (this.Imbue() is not null)
+                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Agility * (int)ArmourTier;
+            return val;
+        }
+
+        public int GetArmourPowerStat()
+        {
+            int val = AOPower;
+            if (this.Imbue() is not null)
+                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Power * (int)ArmourTier;
+            return val;
+        }
+
+        public int GetArmourAttkSpeedStat()
+        {
+            int val = AOAttkSpd;
+            if (this.Imbue() is not null)
+                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Attkspeed * (int)ArmourTier;
+            return val;
+        }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			if (head.ModItem is not null && body.ModItem is not null && Set.HasValue)
 			{
@@ -99,7 +131,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			var index = tooltips.IndexOf(tooltips.Find(e => e.Name == "Defense")) + 1;
-			if (MaxMana > 0) 
+			if (MaxMana > 0)
 			{
 				tooltips.Insert(index, new(Mod, "MaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [MaxMana]).Value));
 			}
@@ -109,11 +141,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (AOAgility > 0)
 			{
-				tooltips.Insert(index, new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(AOAgility / 10f)]).Value));
+				tooltips.Insert(index, new(Mod, "MoveSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(GetArmourAgilityStat() / 10f)]).Value));
 			}
 			if (AOSize > 0)
 			{
-				tooltips.Insert(index, new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(AOSize / 3f)]).Value));
+				tooltips.Insert(index, new(Mod, "AttackSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(GetArmourSizeStat() / 3f)]).Value));
 			}
 			if (AOPower > 0)
 			{
@@ -121,7 +153,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (AOAttkSpd > 0)
 			{
-				tooltips.Insert(index, new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(AOAttkSpd / 3f)]).Value));
+				tooltips.Insert(index, new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(GetArmourAttkSpeedStat() / 3f)]).Value));
 			}
 		}
 
@@ -131,23 +163,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				if ((Arcanium.Value && imbue is AOMagic) || ((!Arcanium.Value) && imbue is FightingStyle))
 				{
-					player.GetAttackSpeed(DamageClass.Generic) += (AOAttkSpd + (imbue.ArmourStats.Value.Corrected(imbue).Attkspeed * (int)ArmourTier)) / 300;
-					player.GetDamage(DamageClass.Generic) += (AOPower + (imbue.ArmourStats.Value.Corrected(imbue).Power * (int)ArmourTier)) / 100f;
-					player.GetCritChance(DamageClass.Generic) += AOPower + (imbue.ArmourStats.Value.Corrected(imbue).Power * (int)ArmourTier);
-					player.moveSpeed += (AOAgility + (imbue.ArmourStats.Value.Corrected(imbue).Agility * (int)ArmourTier)) / 100f;
-					player.ArcaneOdyssey().AOSizeStat += AOSize + (imbue.ArmourStats.Value.Corrected(imbue).Size * (int)ArmourTier);
-					player.statDefense += imbue.ArmourStats.Value.Corrected(imbue).Defence;
+					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence;
 				}
-			}
-			else
-			{
-				player.GetAttackSpeed(DamageClass.Generic) += AOAttkSpd / 300;
-				player.GetDamage(DamageClass.Generic) += AOPower / 100f;
-				player.GetCritChance(DamageClass.Generic) += AOPower;
-				player.moveSpeed += AOAgility / 100f;
-				player.ArcaneOdyssey().AOSizeStat += AOSize;
-			}
-			player.maxMinions += MinionSlots;
+            }
+            player.moveSpeed += GetArmourAgilityStat() / 100f;
+            player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
+            player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
+            player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
+            player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 300;
+            player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
 		}
 	}

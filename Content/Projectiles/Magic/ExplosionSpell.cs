@@ -28,9 +28,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public override void AI()
 		{
-			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic)
+			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic magic)
 			{
-				((AOMagic)imbue).ExplosionEffects(Projectile);
+				magic.ExplosionEffects(Projectile);
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
         {
             if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic)
             {
-                hitbox.Height = hitbox.Width = (int)((imbue.AOScrollSize * 200) * Projectile.ai[0]);
+                hitbox.Height = hitbox.Width = (int)(imbue.AOScrollSize * 200 * Projectile.ai[0]);
             }
         }
 

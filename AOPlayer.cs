@@ -95,14 +95,19 @@ namespace ArcaneOdyssey
 			HandleDashDetection();
 		}
 
-		public float GetSizeMulti(Item item = null)
+        public float GetSizeMulti(Item item = null)
 		{
 			float stat = AOSizeStat / 300f;
-			if (item is not null && Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
-			{
-				stat += .1f;
-			}
-			stat++;
+            if (item is not null && imbue is not null && item.ModItem is AOArmour armour)
+            {
+                stat = AOSizeStat + (imbue.ArmourStats.Value.Corrected(imbue).Size * (int)armour.ArmourTier);
+                stat /= 300f;
+            }
+            if (item is not null && Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
+            {
+                stat += .1f;
+            }
+            stat++;
 			return stat;
 		}
 

@@ -287,4 +287,7 @@ Projectiles: {
 	KatanaSlash.DisplayName: Slash
 }
 
-Techniques.ShotTechnique.DisplayName: Shot
+Techniques: {
+	ShotTechnique.DisplayName: Shot
+	ShockwaveSmash.DisplayName: Smash
+}

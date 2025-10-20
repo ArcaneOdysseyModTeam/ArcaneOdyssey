@@ -53,6 +53,11 @@ Scrolls: {
 		DisplayName: Shot Scroll
 		Tooltip: ""
 	}
+
+	SmashScroll: {
+		DisplayName: Smash Scroll
+		Tooltip: ""
+	}
 }
 
 BeamSpell.DisplayName: Beam Spell
