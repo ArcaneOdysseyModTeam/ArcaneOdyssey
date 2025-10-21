@@ -184,7 +184,7 @@ namespace ArcaneOdyssey
 		{
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
-				scale += player.ArcaneOdyssey().GetSizeMulti(item).MultiToPercent();
+				scale += player.ArcaneOdyssey().GetSizeMulti(item);
 				if (item.TryGetImbue(out Imbuable imbue))
 				{
 					scale += imbue.AOImbueSize.MultiToPercent();

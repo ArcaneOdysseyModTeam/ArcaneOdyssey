@@ -86,17 +86,17 @@ namespace ArcaneOdyssey
 
 	public class AOGlobalNPC : GlobalNPC
 	{
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
-        {
-            if (item.Imbue() is GravityMagic)
-                modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
-        }
+		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
+		{
+			if (item.Imbue() is GravityMagic)
+				modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
+		}
 
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
-        {
-            if (projectile.Imbue() is GravityMagic)
-                modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
-        }
+		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+		{
+			if (projectile.Imbue() is GravityMagic)
+				modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
+		}
 
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{

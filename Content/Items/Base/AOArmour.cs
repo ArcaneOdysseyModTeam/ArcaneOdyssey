@@ -78,41 +78,41 @@ namespace ArcaneOdyssey.Content.Items.Base
 				player.setBonus = Set.Value.GenerateTooltip();
 				ArmorSetEffects(player);
 			}
-        }
+		}
 
-        public int GetArmourSizeStat()
-        {
-            int val = AOSize;
-            if (this.Imbue() is not null)
-                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Size * (int)ArmourTier;
-            return val;
-        }
+		public int GetArmourSizeStat()
+		{
+			int val = AOSize;
+			if (this.Imbue() is not null)
+				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Size * (int)ArmourTier;
+			return val;
+		}
 
-        public int GetArmourAgilityStat()
-        {
-            int val = AOAgility;
-            if (this.Imbue() is not null)
-                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Agility * (int)ArmourTier;
-            return val;
-        }
+		public int GetArmourAgilityStat()
+		{
+			int val = AOAgility;
+			if (this.Imbue() is not null)
+				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Agility * (int)ArmourTier;
+			return val;
+		}
 
-        public int GetArmourPowerStat()
-        {
-            int val = AOPower;
-            if (this.Imbue() is not null)
-                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Power * (int)ArmourTier;
-            return val;
-        }
+		public int GetArmourPowerStat()
+		{
+			int val = AOPower;
+			if (this.Imbue() is not null)
+				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Power * (int)ArmourTier;
+			return val;
+		}
 
-        public int GetArmourAttkSpeedStat()
-        {
-            int val = AOAttkSpd;
-            if (this.Imbue() is not null)
-                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Attkspeed * (int)ArmourTier;
-            return val;
-        }
+		public int GetArmourAttkSpeedStat()
+		{
+			int val = AOAttkSpd;
+			if (this.Imbue() is not null)
+				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Attkspeed * (int)ArmourTier;
+			return val;
+		}
 
-        public override bool IsArmorSet(Item head, Item body, Item legs)
+		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			if (head.ModItem is not null && body.ModItem is not null && Set.HasValue)
 			{
@@ -165,13 +165,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence;
 				}
-            }
-            player.moveSpeed += GetArmourAgilityStat() / 100f;
-            player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
-            player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
-            player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
-            player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 300;
-            player.maxMinions += MinionSlots;
+			}
+			player.moveSpeed += GetArmourAgilityStat() / 100f;
+			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
+			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
+			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
+			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 300;
+			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
 		}
 	}

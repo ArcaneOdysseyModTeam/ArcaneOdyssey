@@ -27,13 +27,13 @@ namespace ArcaneOdyssey
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;
-        public static Imbuable Imbue(this ModPlayer player) => player.ArcaneOdyssey().imbue;
-        public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey().imbue;
-        public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey().imbue;
-        public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey().imbue;
-        public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this ModPlayer player) => player.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey().imbue;
 
-        public static int Round(this float num) => (int)Math.Round(num);
+		public static int Round(this float num) => (int)Math.Round(num);
 
 		public static void Kill(this Entity entity)
 		{
@@ -611,8 +611,8 @@ namespace ArcaneOdyssey
 		public static AOPlayer ArcaneOdyssey(this ModPlayer player) => player.Player.GetModPlayer<AOPlayer>();
 		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
 		public static AOProjectile ArcaneOdyssey(this Projectile projectile) => projectile.GetGlobalProjectile<AOProjectile>();
-        public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile.Projectile.GetGlobalProjectile<AOProjectile>();
-        public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
-        public static AOItem ArcaneOdyssey(this ModItem item) => item.Item.GetGlobalItem<AOItem>();
-    }
+		public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile.Projectile.GetGlobalProjectile<AOProjectile>();
+		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
+		public static AOItem ArcaneOdyssey(this ModItem item) => item.Item.GetGlobalItem<AOItem>();
+	}
 }

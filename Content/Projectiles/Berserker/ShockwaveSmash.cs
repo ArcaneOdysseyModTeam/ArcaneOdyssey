@@ -21,10 +21,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			base.SetDefaults();
 			Projectile.width = Projectile.height = 100;
 			Projectile.usesLocalNPCImmunity = true;
-            Projectile.friendly = true;
-            Projectile.ownerHitCheck = true;
-            Projectile.DamageType = DamageClass.MeleeNoSpeed;
-            Projectile.localNPCHitCooldown = -1;
+			Projectile.friendly = true;
+			Projectile.ownerHitCheck = true;
+			Projectile.DamageType = DamageClass.MeleeNoSpeed;
+			Projectile.localNPCHitCooldown = -1;
 		}
 
 		public override void SetStaticDefaults()
@@ -37,28 +37,28 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.netUpdate = true;
-                Projectile.velocity.Normalize();
+				Projectile.velocity.Normalize();
+				aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+				Projectile.Center = aoPlayerOwner.Player.Center + (Projectile.velocity * 30);
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.ai[0] = 1;
 			}
-            aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-            Projectile.Center = aoPlayerOwner.Player.Center + (Projectile.velocity * 30);
 
-            if (++Projectile.frameCounter > 1)
+			if (++Projectile.frameCounter > 1)
 			{
 				Projectile.frameCounter = 0;
-                BaseScale = 1 + (Projectile.frame * .1f);
+				BaseScale = 1 + (Projectile.frame * .1f);
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Kill();
 				}
-            }
+			}
 
-            if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
-            {
-                fs.ExplosionEffects(Projectile);
-            }
-        }
+			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
+			{
+				fs.ExplosionEffects(Projectile);
+			}
+		}
 
 		public override bool PreDraw(ref Color lightColor)
 		{

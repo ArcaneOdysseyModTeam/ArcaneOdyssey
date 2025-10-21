@@ -87,7 +87,7 @@ namespace ArcaneOdyssey
 			{
 				mult += (projectile.ModProjectile is MagicSpell ? imbue.AOScrollSize : imbue.AOImbueSize).MultiToPercent();
 			}
-			mult += player.ArcaneOdyssey().GetSizeMulti(projectile).MultiToPercent();
+			mult += player.ArcaneOdyssey().GetSizeMulti(projectile);
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
 				hitbox.Width = (int)(dim.X * mult);
@@ -112,8 +112,8 @@ namespace ArcaneOdyssey
 			{
 				if (projectile.DamageType != DamageClass.MeleeNoSpeed)
 					projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOScrollSpeed : imbue.AOImbueSpeed;
-                if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-                    imbue.SpawningEffects(projectile);
+				if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+					imbue.SpawningEffects(projectile);
 			}
 		}
 
@@ -136,10 +136,10 @@ namespace ArcaneOdyssey
 				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile))
 				{
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-					    imbue.KillEffects(projectile);
+						imbue.KillEffects(projectile);
 				}
 			}
-            return base.PreKill(projectile, timeLeft);
+			return base.PreKill(projectile, timeLeft);
 		}
 
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
