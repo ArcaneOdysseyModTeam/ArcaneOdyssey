@@ -22,7 +22,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			Projectile.width = Projectile.height = 100;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.friendly = true;
+            Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
+            Projectile.tileCollide = false;
 			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.localNPCHitCooldown = -1;
 		}
@@ -44,10 +46,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				Projectile.ai[0] = 1;
 			}
 
-			if (++Projectile.frameCounter > 1)
+			if (++Projectile.frameCounter > 2)
 			{
 				Projectile.frameCounter = 0;
-				BaseScale = 1 + (Projectile.frame * .1f);
+				BaseScale = 1 + (Projectile.frame * .2f);
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Kill();
