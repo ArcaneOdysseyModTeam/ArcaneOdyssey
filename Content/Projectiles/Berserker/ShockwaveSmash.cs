@@ -49,14 +49,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			if (++Projectile.frameCounter > 2)
 			{
 				Projectile.frameCounter = 0;
-				BaseScale = 1 + (Projectile.frame * .2f);
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Kill();
 				}
-			}
+            }
+            BaseScale = 1 + (Projectile.frame * .2f);
 
-			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
+            if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
 			{
 				fs.ExplosionEffects(Projectile);
 			}
