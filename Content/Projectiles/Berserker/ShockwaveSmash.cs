@@ -22,9 +22,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			Projectile.width = Projectile.height = 100;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.friendly = true;
-            Projectile.penetrate = -1;
+			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
-            Projectile.tileCollide = false;
+			Projectile.tileCollide = false;
 			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.localNPCHitCooldown = -1;
 		}
@@ -53,10 +53,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				{
 					Kill();
 				}
-            }
-            BaseScale = 1 + (Projectile.frame * .2f);
+			}
+			BaseScale += .2f / 3;
 
-            if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
+			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
 			{
 				fs.ExplosionEffects(Projectile);
 			}
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (Imbue is not null)
 			{
-				Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Imbue is null ? Color.White : Imbue.ImbueColour, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None);
+				Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Imbue is null ? lightColor : Imbue.ImbueColour, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None);
 				return false;
 			}
 			return true;

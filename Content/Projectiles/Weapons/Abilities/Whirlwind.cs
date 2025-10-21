@@ -18,12 +18,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public Color color = Color.White;
 		public const int MaxTime = 20;
-        public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
-        public override void SetDefaults()
+		public override void SetDefaults()
 		{
-			Projectile.width = //60;
-			Projectile.height = 144;
+			Projectile.width = Projectile.height = 144;
 			Projectile.friendly = true;
 			Projectile.timeLeft = MaxTime;
 			Projectile.DamageType = TrueMeleeNoSpeed();
@@ -48,7 +47,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void PostDraw(Color lightColor)
 		{
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Color.Lerp(Color.White, color, .5f), Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .95f, SpriteEffects.None);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Color.Lerp(lightColor, color, .5f), Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .95f, SpriteEffects.None);
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), color, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .90f, SpriteEffects.None);
 		}
 	}
