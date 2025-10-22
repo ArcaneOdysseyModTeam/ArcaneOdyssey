@@ -119,6 +119,14 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdate()
 		{
+			if (elfPet && Player.statLife <= 0)
+            {
+                if (ArcaneOdysseyConfig.Instance.ElfPetSoundEffects)
+                {
+					Main.NewText("Elf death noise would be here");
+					elfPet = false;
+                }
+            }
 			if (!Player.HasBuff<ElfPetBuff>())
             {
 				elfPet = false;

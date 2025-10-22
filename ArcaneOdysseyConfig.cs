@@ -21,6 +21,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool EnableMorden { get; set; }
 
+		[DefaultValue(true)]
+		public bool ElfPetSoundEffects { get; set; }
+
 
 		public static ArcaneOdysseyConfig Instance;
 	}

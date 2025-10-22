@@ -148,6 +148,11 @@ Configs: {
 			Label: Enable Morden
 			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
 		}
+
+		ElfPetSoundEffects: {
+			Label: Elf Pet Sound Effects
+			Tooltip: ""
+		}
 	}
 }
 

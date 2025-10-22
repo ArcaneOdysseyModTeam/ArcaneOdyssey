@@ -96,7 +96,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
                         if (!haveICelebrated) {
                             // Confetti
                             Main.NewText("Confetti");
+                            if (ArcaneOdysseyConfig.Instance.ElfPetSoundEffects)
+                            {
+                                //Audio here
+                                Main.NewText("Elf yippee sound effect would be here");
+                            }
                             haveICelebrated = true;
+                        
                         }
                     }
                 }
