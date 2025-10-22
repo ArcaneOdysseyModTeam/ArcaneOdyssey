@@ -31,8 +31,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
             }
             targetPosition = player.Center;
             float targetAngle = Projectile.Center.AngleTo(targetPosition);
-            if (Vector2.Distance(Projectile.Center,targetPosition) >= 5) {
+            if (Vector2.Distance(Projectile.Center, targetPosition) >= 5)
+            {
                 Projectile.Center += new Vector2(MathF.Cos(targetAngle), MathF.Sin(targetAngle));
+            }
+            if (Projectile.Center.X > player.Center.X)
+            {
+                Projectile.spriteDirection = 1;
+            } else
+            {
+                Projectile.spriteDirection = -1;
             }
         }
     }
