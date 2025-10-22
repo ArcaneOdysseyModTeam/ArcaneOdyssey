@@ -112,7 +112,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
                 }
             } else
             {
-                targetPosition = player.Center + new Vector2(player.direction * 30f, -30f);
+                targetPosition = player.Center + new Vector2(player.direction * 60f, 7f);
                 Projectile.spriteDirection = player.direction;
                 //Get frame
                 if (Projectile.frame < 4)
