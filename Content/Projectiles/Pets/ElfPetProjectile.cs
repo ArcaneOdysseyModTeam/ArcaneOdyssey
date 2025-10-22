@@ -16,6 +16,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 {
     public class ElfPetProjectile : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Projectile.type] = 12;
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
