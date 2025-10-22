@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
         private bool haveICelebrated = false;
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 12;
+            Main.projFrames[Projectile.type] = 13;
             Main.projPet[Projectile.type] = true;
         }
         public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
             Projectile.tileCollide = false;
             Projectile.ai[0] = 0;
             Projectile.frameCounter = 0;
-            Projectile.frame = 13;
+            Projectile.frame = 12;
         }
         public override bool PreAI()
         {
