@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.Pets;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
@@ -118,6 +119,10 @@ namespace ArcaneOdyssey
 
 		public override void PreUpdate()
 		{
+			if (!Player.HasBuff<ElfPetBuff>())
+            {
+				elfPet = false;
+            }
 			if (timeTillNextMove > 1)
 			{
 				for (int i = 0; i < 4; i++)
