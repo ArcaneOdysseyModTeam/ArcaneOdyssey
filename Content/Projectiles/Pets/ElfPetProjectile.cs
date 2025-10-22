@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
             }
             if (Projectile.ai[0] > 0) {
                 wasThereABoss = false;
-                targetPosition = player.Center + new Vector2(player.direction * -17f, -30f);
+                targetPosition = player.Center + new Vector2(player.direction * -38f, -30f);
                 if (Projectile.Center.X > player.Center.X)
                 {
                     Projectile.spriteDirection = -1;
