@@ -25,7 +25,8 @@ namespace ArcaneOdyssey.Content.Buffs.Pets
             player.GetModPlayer<AOPlayer>().elfPet = true;
             bool projectileNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<ElfPetProjectile>()] <= 0;
             if (projectileNotSpawned && player.whoAmI == Main.myPlayer) {
-				Projectile.NewProjectile(player.GetSource_FromThis(),player.Center,Microsoft.Xna.Framework.Vector2.Zero,ModContent.ProjectileType<ElfPetProjectile>(),0,0f,player.whoAmI);
+                Projectile elfPet = Projectile.NewProjectileDirect(player.GetSource_FromThis(), player.Center, Microsoft.Xna.Framework.Vector2.Zero, ModContent.ProjectileType<ElfPetProjectile>(), 0, 0f, player.whoAmI);
+                elfPet.Center = player.Center;
 			}
         }
     }

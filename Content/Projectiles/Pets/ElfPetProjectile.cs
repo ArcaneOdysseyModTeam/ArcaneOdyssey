@@ -21,6 +21,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
         {
             Main.projFrames[Projectile.type] = 12;
         }
+        public override void SetDefaults()
+        {
+            Projectile.width = 264;
+            Projectile.height = 218;
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -37,10 +42,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
             }
             if (Projectile.Center.X > player.Center.X)
             {
-                Projectile.spriteDirection = 1;
+                Projectile.spriteDirection = -1;
             } else
             {
-                Projectile.spriteDirection = -1;
+                Projectile.spriteDirection = 1;
             }
         }
     }
