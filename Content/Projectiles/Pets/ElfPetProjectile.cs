@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 {
     public class ElfPetProjectile : ModProjectile
     {
+        private Vector2 targetPosition;
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 12;
@@ -24,10 +25,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
         {
             Player player = Main.player[Projectile.owner];
             AOPlayer modPlayer = player.GetModPlayer<AOPlayer>();
-            if(modPlayer.elfPet)
+            if (modPlayer.elfPet)
             {
                 Projectile.timeLeft = 2;
             }
+            targetPosition = player.position;
+            Projectile.position = targetPosition;
         }
     }
 }
