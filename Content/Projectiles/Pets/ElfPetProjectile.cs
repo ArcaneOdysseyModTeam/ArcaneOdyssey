@@ -141,7 +141,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
             {
                 Projectile.Center = targetPosition;
                 //idk add like teleport dust here
-                Main.NewText("Wow what amazing teleport dust");
             } else if (Vector2.Distance(Projectile.Center, targetPosition) > 500)
             {
                 Projectile.Center += new Vector2(MathF.Cos(targetAngle), MathF.Sin(targetAngle)) * 15;
