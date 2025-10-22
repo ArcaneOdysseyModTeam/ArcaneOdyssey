@@ -29,8 +29,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
             {
                 Projectile.timeLeft = 2;
             }
-            targetPosition = player.position;
-            Projectile.position = targetPosition;
+            targetPosition = player.Center;
+            float targetAngle = Projectile.Center.AngleTo(targetPosition);
+            if (Vector2.Distance(Projectile.Center,targetPosition) >= 5) {
+                Projectile.Center += new Vector2(MathF.Cos(targetAngle), MathF.Sin(targetAngle));
+            }
         }
     }
 }
