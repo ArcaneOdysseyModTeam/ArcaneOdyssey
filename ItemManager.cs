@@ -93,7 +93,7 @@ namespace ArcaneOdyssey
 			{
 				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
 			}
-			if (ItemID.Sets.BossBag[item.type])
+			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])
 			{
 				LeadingConditionRule leadingConditionRule1 = new(new Conditions.TenthAnniversaryIsUp());
 				leadingConditionRule1.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 8), true);
