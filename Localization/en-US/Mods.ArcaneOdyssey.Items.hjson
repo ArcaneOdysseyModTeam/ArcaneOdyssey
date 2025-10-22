@@ -158,3 +158,8 @@ HeadlessHeadWithWig: {
 	DisplayName: Headless Head With Wig
 	Tooltip: ""
 }
+
+ElfPetItem: {
+	Tooltip: ""
+	DisplayName: Elf Pet Item
+}

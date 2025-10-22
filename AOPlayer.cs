@@ -27,6 +27,7 @@ namespace ArcaneOdyssey
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
+		public bool elfPet;
 		public int timeSinceSoftFrozen;
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)

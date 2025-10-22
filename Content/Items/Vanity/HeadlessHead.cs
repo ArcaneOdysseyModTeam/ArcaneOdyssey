@@ -26,5 +26,10 @@ namespace ArcaneOdyssey.Content.Items.Vanity
 			Item.accessory = true;
 			Item.vanity = true;
 		}
+        public override bool CanEquipAccessory(Player player, int slot, bool modded)
+		{
+			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
+			return slot == equipSlotHead;
+        }
 	}
 }

@@ -107,6 +107,11 @@ Buffs: {
 		DisplayName: Seared Effect
 		Description: Your skin is seared red by heat
 	}
+
+	ElfPetBuff: {
+		Description: Mods.ArcaneOdyssey.Buffs.ElfPetBuff.Description
+		DisplayName: Elf Pet Buff
+	}
 }
 
 ImbueStuff: {
@@ -285,6 +290,7 @@ Projectiles: {
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
 	KatanaSlash.DisplayName: Slash
+	ElfPetProjectile.DisplayName: Elf Pet Projectile
 }
 
 Techniques: {
