@@ -8,6 +8,7 @@ using ArcaneOdyssey.Content.Projectiles.Pets;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Buffs.Pets
 {
@@ -24,7 +25,7 @@ namespace ArcaneOdyssey.Content.Buffs.Pets
             player.GetModPlayer<AOPlayer>().elfPet = true;
             bool projectileNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<ElfPetProjectile>()] <= 0;
             if (projectileNotSpawned && player.whoAmI == Main.myPlayer) {
-				Projectile.NewProjectile(player.GetSource_FromThis,player.Center,Vector2.Zero,ModContent.ProjectileType<ElfPetProjectile>(),0,0f,player.whoAmI);
+				Projectile.NewProjectile(player.GetSource_FromThis(),player.Center,Microsoft.Xna.Framework.Vector2.Zero,ModContent.ProjectileType<ElfPetProjectile>(),0,0f,player.whoAmI);
 			}
         }
     }
