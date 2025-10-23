@@ -1,7 +1,7 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Ancient
 {
 	public class IonCannon : CannonSpell
 	{

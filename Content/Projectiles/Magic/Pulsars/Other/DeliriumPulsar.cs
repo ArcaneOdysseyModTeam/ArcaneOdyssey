@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Other
 {
     public class DeliriumPulsar : PulsarSpell
     {

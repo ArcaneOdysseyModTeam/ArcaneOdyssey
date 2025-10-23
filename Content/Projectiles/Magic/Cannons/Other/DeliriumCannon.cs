@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Other
 {
     public class DeliriumCannon : CannonSpell
     {

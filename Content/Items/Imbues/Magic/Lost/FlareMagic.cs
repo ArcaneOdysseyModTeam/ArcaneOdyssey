@@ -1,7 +1,7 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
 using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
 using System;
 using System.Collections.Generic;

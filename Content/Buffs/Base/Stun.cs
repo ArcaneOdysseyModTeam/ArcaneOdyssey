@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Buffs.Stuns
+namespace ArcaneOdyssey.Content.Buffs.Base
 {
 	/// <summary>
 	/// nobody will tell its a custom debuff thats the point lol

@@ -1,4 +1,6 @@
-﻿namespace ArcaneOdyssey.Content.Buffs.Stuns
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+
+namespace ArcaneOdyssey.Content.Buffs.Stuns
 {
     public class Trauma : Stun
     {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Other
 {
     public class DeliriumBlast : BlastSpell
     {

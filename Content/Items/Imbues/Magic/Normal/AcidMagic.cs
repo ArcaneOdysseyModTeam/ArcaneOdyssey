@@ -10,9 +10,9 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Normal;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {

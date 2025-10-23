@@ -6,7 +6,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Normal;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

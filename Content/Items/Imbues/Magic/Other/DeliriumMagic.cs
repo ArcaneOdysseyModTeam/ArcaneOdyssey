@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Other;
+using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Other;
+using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Other;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
