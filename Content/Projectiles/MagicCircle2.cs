@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 			if (Imbue is not null)
             {
-                Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f) * Imbue.AOScrollSpeed;
+                Projectile.rotation = MathHelper.Pi * (Projectile.numUpdates / 120f) * Imbue.AOScrollSpeed;
                 float tempLightColorR = 0f;
 				float tempLightColorG = 0f;
 				float tempLightColorB = 0f;

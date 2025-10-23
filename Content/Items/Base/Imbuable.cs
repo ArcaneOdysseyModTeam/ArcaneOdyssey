@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
-			if (this is BasicCombat or AOMagic)
+			if (this is AOMagic)
 				ItemID.Sets.ItemNoGravity[Type] = true;
 			if (ImbuableTier == AOImbuableTier.Normal)
 			{
@@ -48,31 +48,31 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual ImbueArmourStats? ArmourStats => null;
 
 		public override AORarities AORarity
-        {
-            get
-            {
-                switch (ImbuableTier)
-                {
-                    case AOImbuableTier.Normal:
-                        return AORarities.Rare;
-                        break;
-                    case AOImbuableTier.Lost:
-                        return AORarities.Mystic;
-                        break;
-                    case AOImbuableTier.Ancient:
-                        return AORarities.Arcane;
-                        break;
-                    case AOImbuableTier.Custom:
-                        return AORarities.Zenith;
-                        break;
-                    default:
-                        return AORarities.Special;
-                        break;
-                }
-            }
-        }
+		{
+			get
+			{
+				switch (ImbuableTier)
+				{
+					case AOImbuableTier.Normal:
+						return AORarities.Rare;
+						break;
+					case AOImbuableTier.Lost:
+						return AORarities.Mystic;
+						break;
+					case AOImbuableTier.Ancient:
+						return AORarities.Arcane;
+						break;
+					case AOImbuableTier.Custom:
+						return AORarities.Zenith;
+						break;
+					default:
+						return AORarities.Special;
+						break;
+				}
+			}
+		}
 
-        public override ItemType ItemType => ItemType.None;
+		public override ItemType ItemType => ItemType.None;
 
 		public abstract float AOImbueSpeed { get; }
 		public abstract float AOImbueSize { get; }
@@ -229,7 +229,5 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{(this is AOMagic ? "Magic" : "FS")}TierLines.{ImbuableTier}").Value));
 		}
-    }
-
-
+	}
 }

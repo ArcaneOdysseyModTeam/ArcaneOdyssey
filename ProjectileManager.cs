@@ -169,7 +169,6 @@ namespace ArcaneOdyssey
 		public override bool InstancePerEntity => true;
 		public float? BaseScale = null;
 		public Vector2? OriginalDimensions = null;
-		public int FramesAlive = 0;
 		public Imbuable imbue;
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -201,14 +200,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override void PostAI(Projectile projectile)
-		{
-			FramesAlive++;
-		}
-
 		public override bool PreAI(Projectile projectile)
 		{
-			if (FramesAlive < 1 && Main.netMode == NetmodeID.MultiplayerClient)
+			if (projectile.numUpdates < 1 && Main.netMode == NetmodeID.MultiplayerClient)
 			{
 				OriginalDimensions ??= projectile.Size;
 				BaseScale ??= projectile.scale;
@@ -216,11 +210,6 @@ namespace ArcaneOdyssey
 					imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
 			}
 			return true;
-		}
-
-		public override void SetDefaults(Projectile entity)
-		{
-			FramesAlive = 0;
 		}
 	}
 }

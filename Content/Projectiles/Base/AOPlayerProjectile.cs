@@ -32,8 +32,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().BaseScale = value; 
 		}
 
-		public float FramesAlive => Projectile.ArcaneOdyssey().FramesAlive;
-
 		public Imbuable Imbue 
 		{
 			get => Projectile.ArcaneOdyssey().imbue;

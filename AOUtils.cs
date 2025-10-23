@@ -298,7 +298,7 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Relic;
 			}
-			if (item.damage != -1)
+			if (item.damage > 0 && item.useStyle != ItemUseStyleID.None)
 			{
 				return ItemType.Weapon;
 			}
