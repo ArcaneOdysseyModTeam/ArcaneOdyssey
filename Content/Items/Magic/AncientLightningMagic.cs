@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 				spawnedDust.noGravity = true;
 			}
 			Lighting.AddLight(projectile.position,2,0,0);
-			Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.CrimsonTorch, 0f, 0f, 0, default, 1.3f);
+			//Dust.NewDust(new Vector2(projectile.position.X + (projectile.width * Main.rand.NextFloat()), projectile.position.Y + (projectile.height * Main.rand.NextFloat())), 1, 1, DustID.CrimsonTorch, 0f, 0f, 0, default, 1.3f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
