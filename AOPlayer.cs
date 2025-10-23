@@ -97,25 +97,7 @@ namespace ArcaneOdyssey
 			HandleDashDetection();
 		}
 
-		public float GetSizeMulti(Item item = null)
-		{
-			float stat = AOSizeStat / 300f;
-			if (item is not null && Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
-			{
-				stat += .1f;
-			}
-			return stat;
-		}
-
-		public float GetSizeMulti(Projectile projectile)
-		{
-			float stat = AOSizeStat / 300f;
-			if (Player.meleeScaleGlove && projectile.DamageType.Name.Contains("Melee"))
-			{
-				stat += .1f;
-			}
-			return stat;
-		}
+		public float GetSizeMulti() => AOSizeStat / 300f;
 
 		public override void PreUpdate()
 		{

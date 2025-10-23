@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.FightingStyles;
-using ArcaneOdyssey.Content.Items.Magic;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
@@ -23,6 +21,9 @@ using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using static ArcaneOdyssey.AOUtils;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
+using ArcaneOdyssey.Content.Items.Imbues;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {

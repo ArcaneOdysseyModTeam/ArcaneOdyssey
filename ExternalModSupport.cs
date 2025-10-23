@@ -14,6 +14,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Items.Imbues;
 
 namespace ArcaneOdyssey
 {
@@ -135,8 +136,8 @@ namespace ArcaneOdyssey
 			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 			{
 				// stat sheet
-				Func<string> SizeText = () => $"Attack size multiplier: {Math.Round(Main.LocalPlayer.ArcaneOdyssey().GetSizeMulti(), 3)}x";
-				fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
+				Func<string> SizeText = () => $"Attack size multiplier: {1+Math.Round(Main.LocalPlayer.ArcaneOdyssey().GetSizeMulti(), 3)}x";
+				fargos.Call("AddStat", ModContent.ItemType<SteamImbue>(), SizeText);
 
 				// current imbue lol
 				Func<string> imbueText = () => $"Current imbue: {(Main.LocalPlayer.ArcaneOdyssey().imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";

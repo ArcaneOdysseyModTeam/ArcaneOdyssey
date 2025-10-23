@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Magic;
-using ArcaneOdyssey.Content.Items.FightingStyles;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Vanity;
 using Microsoft.Xna.Framework;
@@ -20,6 +17,9 @@ using Terraria.ModLoader.IO;
 using Terraria.UI;
 using ArcaneOdyssey.Content.Projectiles;
 using static ArcaneOdyssey.AOUtils;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
+using ArcaneOdyssey.Content.Items.Imbues;
 
 namespace ArcaneOdyssey
 {
@@ -184,7 +184,7 @@ namespace ArcaneOdyssey
 		{
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
-				scale += player.ArcaneOdyssey().GetSizeMulti(item);
+				scale += player.ArcaneOdyssey().GetSizeMulti();
 				if (item.TryGetImbue(out Imbuable imbue))
 				{
 					scale += imbue.AOImbueSize.MultiToPercent();

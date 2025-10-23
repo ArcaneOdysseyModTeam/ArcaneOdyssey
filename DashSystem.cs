@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.FightingStyles;
-using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;

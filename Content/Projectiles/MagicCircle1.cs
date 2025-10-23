@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Items.Magic;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.FightingStyles;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {

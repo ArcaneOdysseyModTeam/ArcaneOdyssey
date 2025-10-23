@@ -1,7 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Magic;
+using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
@@ -87,7 +88,7 @@ namespace ArcaneOdyssey
 			{
 				mult += (projectile.ModProjectile is MagicSpell ? imbue.AOScrollSize : imbue.AOImbueSize).MultiToPercent();
 			}
-			mult += player.ArcaneOdyssey().GetSizeMulti(projectile);
+			mult += player.ArcaneOdyssey().GetSizeMulti();
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
 				hitbox.Width = (int)(dim.X * mult);
