@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Magic
 	public class AncientLightningMagic : AOMagic
 	{
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
-		public override Color ImbueColour => new Color(255,0,0,255);
+		public override Color ImbueColour => new(255,0,0,255);
 		public override float AOImbueSpeed => 1.4f;
 		public override float AOImbueSize => 1.1f;
 		public override float AOImbueDamage => 1.3f;
