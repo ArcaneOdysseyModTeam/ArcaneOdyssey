@@ -1,17 +1,5 @@
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Tiles.MusicBoxes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.UI;
-using Terraria.ID;
 using ArcaneOdyssey.Content.Projectiles.Pets;
 using ArcaneOdyssey.Content.Buffs.Pets;
 using Microsoft.Xna.Framework;

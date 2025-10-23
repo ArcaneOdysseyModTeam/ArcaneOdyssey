@@ -1,14 +1,9 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {

@@ -1,20 +1,10 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Vanity;
-using ArcaneOdyssey.Content.NPCS;
-using Microsoft.Build.Framework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {

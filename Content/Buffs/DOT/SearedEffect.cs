@@ -1,14 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using Steamworks;
-using System.Linq.Expressions;
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static ArcaneOdyssey.AOUtils;
-using Terraria.Localization;
 using ArcaneOdyssey.Content.Buffs.Base;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT

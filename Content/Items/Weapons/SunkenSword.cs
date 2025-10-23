@@ -1,7 +1,4 @@
-using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
-using Steamworks;
-using System.Linq.Expressions;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -10,7 +7,6 @@ using Microsoft.Xna.Framework;
 using System;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
-using System.Net.Mail;
 using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Content.Items.Weapons

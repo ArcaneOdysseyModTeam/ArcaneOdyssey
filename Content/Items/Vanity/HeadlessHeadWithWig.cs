@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;

@@ -1,17 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Items.Base;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 using static ArcaneOdyssey.AOUtils;
 
 

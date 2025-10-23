@@ -1,18 +1,8 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Buffs.Stuns;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Magic;
-using System;
-using System.Collections.Generic;
-using System.Formats.Asn1;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {

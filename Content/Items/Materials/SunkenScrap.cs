@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 

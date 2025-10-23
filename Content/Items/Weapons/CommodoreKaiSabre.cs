@@ -1,13 +1,7 @@
-using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
-using Steamworks;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;

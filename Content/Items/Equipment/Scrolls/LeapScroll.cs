@@ -1,18 +1,11 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {

@@ -1,12 +1,9 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
-using Microsoft.CodeAnalysis.Operations;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;

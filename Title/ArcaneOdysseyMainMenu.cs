@@ -1,14 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.RGB;
 using Terraria.ID;
 using Terraria.ModLoader;
 

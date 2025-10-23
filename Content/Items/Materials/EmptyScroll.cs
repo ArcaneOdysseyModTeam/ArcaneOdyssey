@@ -1,8 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

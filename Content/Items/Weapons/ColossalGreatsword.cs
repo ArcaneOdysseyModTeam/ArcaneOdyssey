@@ -1,16 +1,11 @@
-using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
-using Steamworks;
-using System.Linq.Expressions;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {

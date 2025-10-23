@@ -1,15 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static ArcaneOdyssey.AOUtils;
-using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Items.Materials;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
