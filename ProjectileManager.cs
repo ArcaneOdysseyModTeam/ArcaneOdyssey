@@ -167,38 +167,53 @@ namespace ArcaneOdyssey
 		public float? BaseScale = null;
 		public Vector2? OriginalDimensions = null;
 		public Imbuable imbue;
+        public Projectile thisProjectile = null;
+
+        private bool? _cold = null;
+		public bool? Cold { get 
+			{
+				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj && proj.Cold.HasValue)
+				{
+					return proj.Cold.Value;
+				}
+				return _cold;
+			} set => _cold = value; }
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
+            thisProjectile = projectile;
 			OriginalDimensions ??= projectile.Size;
 			BaseScale ??= projectile.scale;
+			if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle1 or MagicCircle2 or ExplosionTracker)
+			{
+				if (source is EntitySource_Parent { Entity: Projectile proj })
+				{
+					imbue ??= proj.ArcaneOdyssey().imbue;
+					Cold ??= proj.ArcaneOdyssey().Cold;
+				}
+				else if (source is EntitySource_Parent { Entity: Item item })
+				{
+					if (item.TryGetGlobalItem<AOItem>(out var aOItem))
+					{
+						imbue ??= aOItem.imbue;
+						Cold ??= aOItem.Cold;
+					}
+				}
+				else if (source is EntitySource_Parent { Entity: Player player })
+				{
+					imbue ??= player.ArcaneOdyssey().imbue;
+				}
 
-			if (source is EntitySource_Parent { Entity: Projectile proj })
-			{
-				imbue ??= proj.ArcaneOdyssey().imbue;
-			}
-			else if (source is EntitySource_ItemUse source1)
-			{
-				imbue ??= source1.Item.ArcaneOdyssey().imbue;
-			}
-			else if (source is EntitySource_Parent { Entity: Player player })
-			{
-				imbue ??= player.HeldItem.ArcaneOdyssey().imbue;
-			}
-
-			if ((ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle1 or MagicCircle2 or ExplosionTracker) && source is not EntitySource_Parent { Entity: NPC })
-			{
-				imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
-			}
-
-			if ((projectile.ModProjectile is AOPlayerProjectile weapon && imbue is not null) && (weapon.Cold.HasValue && imbue.Cold.HasValue) && (weapon.Cold.Value != imbue.Cold.Value))
-			{
-				imbue = SteamImbue.Create(imbue);
+				if (imbue is not null && (Cold.HasValue && imbue.Cold.HasValue) && (Cold.Value != imbue.Cold.Value))
+				{
+					imbue = SteamImbue.Create(imbue);
+				}
 			}
 		}
 
 		public override bool PreAI(Projectile projectile)
 		{
+            thisProjectile = projectile;
 			if (projectile.numUpdates < 1 && Main.netMode == NetmodeID.MultiplayerClient)
 			{
 				OriginalDimensions ??= projectile.Size;

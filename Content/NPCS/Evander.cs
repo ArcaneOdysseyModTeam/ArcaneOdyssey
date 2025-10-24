@@ -1,20 +1,23 @@
 ﻿using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
+using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Chat;
-using ArcaneOdyssey.VFX.Gores;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
+    [AutoloadBossHead]
 	public class Evander : ModNPC
-	{
-		public override void SetStaticDefaults()
+    {
+        public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 27;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
@@ -36,6 +39,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.aiStyle = 0;
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
+            ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, true, null, true, false, false);
 		}
 
 		private bool canJump = false;

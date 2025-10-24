@@ -132,7 +132,7 @@ namespace ArcaneOdyssey
 					tooltips.RemoveAll(e => e.Name == "Vanity");
 				}
 
-				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF && !item.questItem)
+				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF)
 				{
 					var line = item.GetItemRare().ToString();
 					line += " ";
@@ -391,7 +391,7 @@ namespace ArcaneOdyssey
 					imbue = player.ArcaneOdyssey().imbue;
 				}
 
-				if (!item.accessory && player.HeldItem == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
+				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
 				{
 					SpecificImbue = true;
 					player.ArcaneOdyssey().Cooldowns["CycleItemImbue"] = 60;

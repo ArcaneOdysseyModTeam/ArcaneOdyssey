@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Base
             }
             else if (imbue is FightingStyleBarred barred)
             {
-                Item.color = Color.Lerp(Color.Transparent, barred.ImbueColour, barred.BarValue / 100);
+                Item.color = Color.Lerp(Color.Transparent, barred.ImbueColour, barred.BarValue / FightingStyleBarred.BarMax);
             }
             else Item.color = Color.Transparent;
 		}
@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Base
             }
             else if (playah.imbue is FightingStyleBarred barred)
             {
-                Item.color = Color.Lerp(Color.Transparent, barred.ImbueColour, barred.BarValue/100);
+                Item.color = Color.Lerp(Color.Transparent, barred.ImbueColour, barred.BarValue / FightingStyleBarred.BarMax);
             }
             else Item.color = Color.Transparent;
 

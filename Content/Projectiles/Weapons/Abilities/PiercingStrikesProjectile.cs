@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void OnStart(Player player)
 		{ 
 			projectile.Projectile.velocity = player.ArcaneOdyssey().DashVelocity;
-			player.HeldItem.useStyle = ItemUseStyleID.Rapier;
+			player.PlayerItem().useStyle = ItemUseStyleID.Rapier;
 		}
 		public override void DashEffect(Player player)
 		{

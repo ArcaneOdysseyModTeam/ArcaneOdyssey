@@ -1,10 +1,13 @@
 ﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Materials;
-using System;
-using Terraria;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.NPCS;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
@@ -15,25 +18,26 @@ namespace ArcaneOdyssey
 			AddFargosStuff(); 
 			AddShieldSlots();
 			MiscCalamitysStuff();
+			AddBossChecklist();
 		}
 
-        public static bool hasYapped = false;
-        public override void PreUpdateWorld()
+		public static bool hasYapped = false;
+		public override void PreUpdateWorld()
 		{
-            if (!(hasYapped || ModLoader.HasMod("ArcaneOdysseyMusic")))
+			if (!(hasYapped || ModLoader.HasMod("ArcaneOdysseyMusic")))
 			{
-                hasYapped = true;
-                Main.NewText("You are missing the Arcane Odyssey Music Mod (ArcaneOdysseyMusic). For the full experience, enable this mod.", Color.Teal);
+				hasYapped = true;
+				Main.NewText("You are missing the Arcane Odyssey Music Mod (ArcaneOdysseyMusic). For the full experience, enable this mod.", Color.Teal);
 			}
 		}
 
-        public static void RegisterDebuff(ModBuff buff)
-        {
-            if (ModLoader.TryGetMod("CalamityMod", out var cal))
-            {
-                cal.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
-            }
-        }
+		public static void RegisterDebuff(ModBuff buff)
+		{
+			if (ModLoader.TryGetMod("CalamityMod", out var cal))
+			{
+				cal.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
+			}
+		}
 
 		public static int GetMusic(string name, int fallback = 0)
 		{
@@ -52,15 +56,15 @@ namespace ArcaneOdyssey
 			calamity.Call("CreateCodebreakerDialogOption", "Magic Pollution", "This is abundant with magic, to a scale of which has never been recorded even among stars. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.", () => true);
 		}
 
-        public static void DeclareMiniboss(int type)
-        {
-            if (!ModLoader.TryGetMod("CalamityMod", out Mod calamity))
-                return;
+		public static void DeclareMiniboss(int type)
+		{
+			if (!ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+				return;
 
-            calamity.Call("DeclareMiniboss", type);
-        }
+			calamity.Call("DeclareMiniboss", type);
+		}
 
-        public static void AddShieldSlots()
+		public static void AddShieldSlots()
 		{
 			if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
 			{
@@ -135,6 +139,70 @@ namespace ArcaneOdyssey
 
 				fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", "ArcaneOdyssey.NPCs.Edgelord");
 			}
+		}
+		public bool HasCalamity => ModLoader.HasMod("CalamityMod");
+		public bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
+		public bool HasFargos => ModLoader.HasMod("Fargowiltas");
+
+		private void AddBossChecklist()
+		{
+			if (!ModLoader.TryGetMod("BossChecklist", out var bossChecklist) || bossChecklist.Version < new Version(1, 6))
+			{
+				return;
+			}
+
+			void EvanderStuff()
+			{
+				string internalName = nameof(Evander);
+				float weight = 7.1f; // right after wof
+				Func<bool> downed = () => DownedBosses.downedEvander;
+				int bossType = ModContent.NPCType<Evander>();
+				//int spawnItem = ModContent.ItemType<>();
+				LocalizedText spawnInfo = Mod.CustomLocalization("NPCs.Evander.SpawnInfo");
+
+				bossChecklist.Call(
+				"LogBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					//["spawnItems"] = spawnItem,
+					["spawnInfo"] = spawnInfo
+				});
+			}
+
+			EvanderStuff();
+		}
+
+		public struct DebuffVulnurablilities(bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null)
+		{
+			public bool? sick = sick;
+			public bool? hot = hot;
+			public bool? electric = electric;
+			public bool? water = water;
+			public bool? cold = cold;
+
+			public readonly void ApplyDebuffVulnurablility(NPC NPC)
+			{
+				if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+				{
+					if (sick.HasValue)
+						calamity.Call("SetVulnerabilities", NPC, "sick", sick.Value);
+					if(electric.HasValue)
+						calamity.Call("SetVulnerabilities", NPC, "electric", electric.Value);
+					if (water.HasValue)
+						calamity.Call("SetVulnerabilities", NPC, "water", water.Value);
+					if (hot.HasValue)
+						calamity.Call("SetVulnerabilities", NPC, "hot", hot.Value);
+					if (cold.HasValue)
+						calamity.Call("SetVulnerabilities", NPC, "cold", cold.Value);
+				}
+			}
+
+			public static void SetDebuffVulnurablility(NPC NPC, bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null) => new DebuffVulnurablilities(sick, hot, electric, water, cold).ApplyDebuffVulnurablility(NPC);
 		}
 	}
 }

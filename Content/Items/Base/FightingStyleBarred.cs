@@ -10,11 +10,23 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
     public abstract class FightingStyleBarred : FightingStyle
     {
-		public const int BarMax = 100;
-		public const int BarMin = 0;
+		public const float BarMax = 100f;
+		public const float BarMin = 0f;
 
 		private float _barValue = BarMin;
-		public float BarValue { get => _barValue; set => _barValue = MathHelper.Clamp(value, BarMin, BarMax); }
+		public float BarValue { get => UpdateBar(); set => UpdateBar(value); }
+
+        /// <summary>
+        /// Allows extra stuff to happen when the bar value changes or is requested
+        /// </summary>
+        /// <param name="value">The new bar value, if any</param>
+        /// <returns>The bar, after any changes</returns>
+        public virtual float UpdateBar(float? value = null)
+        {
+            if (value.HasValue)
+                _barValue = MathHelper.Clamp(value.Value, BarMin, BarMax);
+            return _barValue;
+        }
 
 		public abstract Color DisplayColor { get; }
 
@@ -31,12 +43,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract float MinScrollDamage { get; }
 		public abstract float MinScrollSize { get; }
 
-		public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, BarValue / 100f); }
-		public override float AOScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, BarValue / 100f); }
-		public override float AOImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, BarValue / 100f); }
-		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, BarValue / 100f); }
-		public override float AOImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, BarValue / 100f); }
-		public override float AOScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, BarValue / 100f); }
+		public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, BarValue / BarMax); }
+		public override float AOScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, BarValue / BarMax); }
+		public override float AOImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, BarValue / BarMax); }
+		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, BarValue / BarMax); }
+		public override float AOImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, BarValue / BarMax); }
+		public override float AOScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, BarValue / BarMax); }
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

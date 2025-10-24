@@ -74,7 +74,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedProjectiles.Contains(projectile.type)))
+			if (projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedProjectiles.Contains(projectile.type)))
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
 				if (goodclasses.Contains(projectile.DamageType.Name))
@@ -89,7 +89,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (!item.accessory && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedItems.Contains(item.type)) && item.ammo == AmmoID.None)
+			if (item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedItems.Contains(item.type)) && item.ammo == AmmoID.None)
 			{
 				return item.DamageType.Name == "TrueMeleeDamageClass" || item.DamageType.Name == "TrueMeleeNoSpeedDamageClass" || item.DamageType.Name == "MeleeRangedHybridDamageClass" ||
 				item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll)));
@@ -197,11 +197,11 @@ namespace ArcaneOdyssey
 				if (imbue is FightingStyleBarred barred)
 				{
 					return new ImbueArmourStats(
-						MathHelper.Lerp(0, Size, barred.BarValue / 100).Round(),
-						MathHelper.Lerp(0, Attkspeed, barred.BarValue / 100).Round(),
-						MathHelper.Lerp(0, Power, barred.BarValue / 100).Round(),
-						MathHelper.Lerp(0, Defence, barred.BarValue / 100).Round(),
-						MathHelper.Lerp(0, Agility, barred.BarValue / 100).Round()
+						MathHelper.Lerp(0, Size, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Attkspeed, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Power, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Defence, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Agility, barred.BarValue / FightingStyleBarred.BarMax).Round()
 						);
 				}
 				return this;
@@ -255,7 +255,15 @@ namespace ArcaneOdyssey
 		private static int GetBossKillCount()
 		{
 			int count = 0;
-			bool[] conditions = [DownedBosses.downedEvander, NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates];
+			List<bool> conditions = [DownedBosses.downedEvander, NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates];
+			if (ModLoader.TryGetMod("CalamityMod", out var cal))
+			{
+				string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
+				foreach (var boss in extrBosses)
+				{
+					conditions.Add((bool)cal.Call("GetBossDowned", boss));
+				}
+			}
 			foreach (bool killed in conditions)
 			{
 				if (killed)
@@ -338,10 +346,39 @@ namespace ArcaneOdyssey
 			{
 				return based.AORarity;
 			}
-			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && ((bool)calamity.Call("GetChargeable", item) || item.rare == calamity.Find<ModRarity>("DarkOrange").Type))
+
+			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
 			{
-				return AORarities.Unknown;
+				if (item.rare == calamity.Find<ModRarity>("DarkOrange").Type)
+				{
+					return AORarities.Unknown;
+				}
 			}
+
+			if (ModLoader.TryGetMod("NoxusBoss", out var wotg))
+			{
+				if (item.rare == wotg.Find<ModRarity>("SolynRewardRarity").Type)
+				{
+					return AORarities.Mystic;
+				}
+				if (item.rare == wotg.Find<ModRarity>("GenesisComponentRarity").Type)
+				{
+					return AORarities.Unknown;
+				}
+				if (item.rare == wotg.Find<ModRarity>("NamelessDeityRarity").Type)
+				{
+					return AORarities.Unknown;
+				}
+				if (item.rare == wotg.Find<ModRarity>("AvatarRarity").Type)
+				{
+					return AORarities.Unknown;
+				}
+			}
+			if (item.questItem || item.rare == ItemRarityID.Quest)
+			{
+				return AORarities.Rare;
+			}
+
 			if (item.expert || item.rare == ItemRarityID.Expert)
 			{
 				return AORarities.Arcane;
@@ -352,37 +389,37 @@ namespace ArcaneOdyssey
 			}
 			switch (item.rare)
 			{
-				case -1:
+				case ItemRarityID.Gray:
 					return AORarities.Common;
 					break;
-				case 0:
+				case ItemRarityID.White:
 					return AORarities.Common;
 					break;
-				case 1:
+				case ItemRarityID.Blue:
 					return AORarities.Common;
 					break;
-				case 2:
+				case ItemRarityID.Green:
 					return AORarities.Uncommon;
 					break;
-				case 3:
+				case ItemRarityID.Orange:
 					return AORarities.Uncommon;
 					break;
-				case 4:
+				case ItemRarityID.LightRed:
 					return AORarities.Rare;
 					break;
-				case 5:
+				case ItemRarityID.Pink:
 					return AORarities.Rare;
 					break;
-				case 6:
+				case ItemRarityID.LightPurple:
 					return AORarities.Mystic;
 					break;
-				case 7:
+				case ItemRarityID.Lime:
 					return AORarities.Mystic;
 					break;
-				case 8:
+				case ItemRarityID.Yellow:
 					return AORarities.Arcane;
 					break;
-				case 9:
+				case ItemRarityID.Cyan:
 					return AORarities.Arcane;
 					break;
 				default:
@@ -603,6 +640,15 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
+		public static Item PlayerItem(this Player player)
+		{
+			if (Main.myPlayer == player.whoAmI && Main.mouseItem.active)
+			{
+				return Main.mouseItem;
+			}
+			else return player.HeldItem;
+		}
+
 		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
 		public static AOPlayer ArcaneOdyssey(this ModPlayer player) => player.Player.GetModPlayer<AOPlayer>();
 		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
@@ -610,5 +656,7 @@ namespace ArcaneOdyssey
 		public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile.Projectile.GetGlobalProjectile<AOProjectile>();
 		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
 		public static AOItem ArcaneOdyssey(this ModItem item) => item.Item.GetGlobalItem<AOItem>();
+		public static bool TryArcaneOdysset(this Item item, out AOItem result) => item.TryGetGlobalItem(out result);
+		public static bool TryArcaneOdysset(this ModItem item, out AOItem result) => item.Item.TryGetGlobalItem(out result);
 	}
 }

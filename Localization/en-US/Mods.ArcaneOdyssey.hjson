@@ -239,6 +239,7 @@ NPCs: {
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
 		DeathMessage: Evander, the Mountainbreaker has been defeated!
+		SpawnInfo: Spawns naturally in Hardmode in the outer 1/3 forests of the world, during the day
 	}
 }
 
@@ -302,3 +303,5 @@ Techniques: {
 	ShotTechnique.DisplayName: Shot
 	ShockwaveSmash.DisplayName: Smash
 }
+
+Evander.SpawnInfo: SpawnInfo

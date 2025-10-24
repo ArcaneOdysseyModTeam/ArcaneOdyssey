@@ -101,11 +101,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
 				if (imbue is ThermoFist thermo)
 				{
-					thermo.BarValue += 5;
+                    thermo.BarValue += FightingStyleBarred.BarMax / 20f;
                 }
                 if (imbue is SailorStyle sailor)
                 {
-                    sailor.BarValue -= 10;
+                    sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
                 }
             }
 		}
@@ -132,11 +132,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
                 if (imbue is ThermoFist thermo)
                 {
-                    thermo.BarValue += 5;
+                    thermo.BarValue += FightingStyleBarred.BarMax / 20f;
                 }
                 if (imbue is SailorStyle sailor)
                 {
-                    sailor.BarValue -= 10;
+                    sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
                 }
             }
 		}

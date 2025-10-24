@@ -55,14 +55,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f),
 			]
 		);
+
 		public override void SpawningEffects(Entity projectile)
 		{
-			BarValue += 2.5f; // nerfed lmao
+            BarValue += BarMax / 40f; // nerfed lmao
 			if (projectile.GetOwner(out var owner)) 
 			{
 				owner.ItemCooldowns[Type] = 60;
 			}
-			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue/10f),1); n++)
+            for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 10)), 1); n++)
 			{
 				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.CrimsonTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, (float)Math.Max(Math.Round((float)BarValue/50f),1));
 			}
@@ -70,7 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 
 		public override void LingeringEffects(Entity projectile)
 		{
-			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / 66.6f), 1); n++)
+            for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.CrimsonTorch, 0f, 0f, 0, default, (float)Math.Max((float)BarValue / 50f, 1))];
 				spawnedDust.noGravity = true;
@@ -83,9 +84,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 			{
 				owner.ItemCooldowns[Type] = 60;
 			}
-			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / 33.3f), 1); n++)
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue / 28.6f), 1));
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue * (BarMax * .286f)), 1));
 			}
 		}
 		public override void KillEffects(Entity projectile)
@@ -108,7 +109,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 		{
 			if (item.TryGetImbue(out var im) && ImbueClassCheck(item) && im is ThermoFist thermo && thermo.GetThisImbue(player))
 			{
-				thermo.BarValue += 5;
+                thermo.BarValue += FightingStyleBarred.BarMax / 20f;
 				player.ArcaneOdyssey().ItemCooldowns[thermo.Type] = 60;
 			}
 		}
@@ -126,10 +127,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 					if (resetBar)
 					{
 						resetBar = false;
-						thermo.BarValue = 0;
+						thermo.BarValue = FightingStyleBarred.BarMin;
 					}
-					if (!Player.ArcaneOdyssey().ItemCooldowns.ContainsKey(thermo.Type))
-						thermo.BarValue -= 100f / (60 * 10f);
+                    if (!Player.ArcaneOdyssey().ItemCooldowns.ContainsKey(thermo.Type))
+                        thermo.BarValue -= FightingStyleBarred.BarMax / ((FightingStyleBarred.BarMax * .6f) * (FightingStyleBarred.BarMax / 10f));
 				}
 			}
 		}

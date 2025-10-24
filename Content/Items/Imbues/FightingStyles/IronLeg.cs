@@ -92,7 +92,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
     {
         public override void FrameEffects()
         {
-            if (Player.ArcaneOdyssey().imbue is IronLeg || Player.HeldItem.type != ItemID.None && Player.HeldItem.ArcaneOdyssey().imbue is IronLeg)
+            if (Player.ArcaneOdyssey().imbue is IronLeg || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().imbue is IronLeg)
             {
                 Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
             }
