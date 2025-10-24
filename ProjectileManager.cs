@@ -186,12 +186,12 @@ namespace ArcaneOdyssey
 			BaseScale ??= projectile.scale;
 			if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle1 or MagicCircle2 or ExplosionTracker)
 			{
-				if (source is EntitySource_Parent { Entity: Projectile proj })
-				{
-					imbue ??= proj.ArcaneOdyssey().imbue;
-					Cold ??= proj.ArcaneOdyssey().Cold;
-				}
-				else if (source is EntitySource_Parent { Entity: Item item })
+                if (source is EntitySource_Parent { Entity: Projectile proj })
+                {
+                    imbue ??= proj.ArcaneOdyssey().imbue;
+                    Cold ??= proj.ArcaneOdyssey().Cold;
+                }
+                else if (source is EntitySource_ItemUse { Item: Item item })
 				{
 					if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
