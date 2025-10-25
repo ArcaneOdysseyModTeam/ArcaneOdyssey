@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 		public override void SpawningEffects(Entity projectile)
 		{
             BarValue += BarMax / 40f; // nerfed lmao
-			if (projectile.GetOwner(out var owner)) 
+			if (projectile.TryGetOwner(out AOPlayer owner)) 
 			{
 				owner.ItemCooldowns[Type] = 60;
 			}
@@ -80,7 +80,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
-			if (projectile.GetOwner(out var owner))
+			if (projectile.TryGetOwner(out AOPlayer owner))
 			{
 				owner.ItemCooldowns[Type] = 60;
 			}

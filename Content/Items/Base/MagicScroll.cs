@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override void UpdateInventory(Player player)
 		{
-			var imbue = Item.ArcaneOdyssey().imbue;
+			var imbue = Item.ArcaneOdyssey().Imbue;
 			if (imbue is AOMagic)
 			{
 				Item.color = imbue.ImbueColour;
@@ -19,17 +19,17 @@ namespace ArcaneOdyssey.Content.Items.Base
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             AOPlayer playah = player.ArcaneOdyssey();
-            Item.ArcaneOdyssey().imbue = playah.imbue;
-            if (playah.imbue is AOMagic)
+            Item.ArcaneOdyssey().Imbue = playah.Imbue;
+            if (playah.Imbue is AOMagic)
             {
-                Item.color = playah.imbue.ImbueColour;
+                Item.color = playah.Imbue.ImbueColour;
             }
             else Item.color = Color.Transparent;
         }
 
         public override bool CanUseItem(Player player)
 		{
-			return Item.ArcaneOdyssey().imbue is AOMagic;
+			return Item.ArcaneOdyssey().Imbue is AOMagic;
 		}
 	}
 }

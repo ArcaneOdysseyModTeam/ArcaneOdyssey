@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			if (item.ArcaneOdyssey().imbue is FightingStyleBarred fs && ImbueClassCheck(item) && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false) && item.ModItem is not MagicScroll)
+			if (item.ArcaneOdyssey().Imbue is FightingStyleBarred fs && ImbueClassCheck(item) && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false) && item.ModItem is not MagicScroll)
 				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.ImbueColour);
 		}
 	}

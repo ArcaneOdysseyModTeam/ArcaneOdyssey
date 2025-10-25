@@ -112,7 +112,7 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public partial class AOPlayer : ModPlayer 
+	public partial class AOPlayer : ModPlayer, IImbuableEntity
 	{
 		public void SetDash(DashSystem dash)
 		{
@@ -133,17 +133,18 @@ namespace ArcaneOdyssey
 		public bool dashing;
 		public int collisions;
 		private int? DashDir;
-        private float storedWingTime;
+		private float storedWingTime;
 
-		public bool FirstFrames => CurrentDash is not null && CurrentDash.DashMax < DashLeft + 2;
-        /// <summary>
-        /// Starts a dash, does not check for cooldowns
-        /// </summary>
-        /// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
-        /// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
-        public void StartDash(DashSystem dashToUse, int direction = 0)
+		public bool FirstFrame => CurrentDash is not null && DashLeft == CurrentDash.DashMax;
+
+		/// <summary>
+		/// Starts a dash, does not check for cooldowns
+		/// </summary>
+		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
+		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
+		public void StartDash(DashSystem dashToUse, int direction = 0)
 		{
-            storedWingTime = Player.wingTime;
+			storedWingTime = Player.wingTime;
 			Player.noFallDmg = true;
 			Player.timeSinceLastDashStarted = 0;
 			CurrentDash = dashToUse;
@@ -165,10 +166,10 @@ namespace ArcaneOdyssey
 					standard *= direction; 
 				}
 				DashVelocity = standard * dashToUse.DashSpeed;
-            }
-            Player.velocity = DashVelocity;
-            Player.ConsumeAllExtraJumps();
-            DashLeft = dashToUse.DashMax;
+			}
+			Player.velocity = DashVelocity;
+			Player.ConsumeAllExtraJumps();
+			DashLeft = dashToUse.DashMax;
 			dashToUse.OnStart(Player);
 			dashing = true;
 			if (dashToUse.Immune)
@@ -249,34 +250,38 @@ namespace ArcaneOdyssey
 			if (CurrentDash is not null)
 			{
 				if (dashing && !Player.mount.Active && !Player.setSolar)
-                {
-                    ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
-					DashLeft--;
+				{
+					ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
 					Player.noFallDmg = true;
 
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
-                    if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrames))
-                    {
-                        Player.wingTime = storedWingTime;
-                        CurrentDash.SetCooldown(Player);
-                        CurrentDash.OnEnd(Player);
-                        dashing = false;
-                        if (collisions == 0)
-                        {
-                            CurrentDash.NaturalEnd(Player);
-                        }
-                        return;
+					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame))
+					{
+						Player.wingTime = storedWingTime;
+						CurrentDash.SetCooldown(Player);
+						CurrentDash.OnEnd(Player);
+						dashing = false;
+						if (collisions == 0)
+						{
+							CurrentDash.NaturalEnd(Player);
+						}
+						return;
                     }
-                    else if (CurrentDash.AnyDirection || FirstFrames)
-                    {
-                        Player.velocity = DashVelocity;
-                        Player.controlJump = true;
-                    }
+
                     CurrentDash.DashEffect(Player);
-                    Player.ConsumeAllExtraJumps();
-                }
+                    if (CurrentDash.AnyDirection)
+					{
+						Player.velocity = DashVelocity;
+					}
+					else if (FirstFrame)
+					{
+						Player.velocity += DashVelocity;
+					}
+					Player.ConsumeAllExtraJumps();
+					DashLeft--;
+				}
 			}
 			else
 			{
@@ -315,17 +320,17 @@ namespace ArcaneOdyssey
 		public int CalculateDashDamage(NPC target)
 		{
 			var modifiers = new DashDamageHelper();
-			if (Player.TryGetImbue(out var imbue))
+			if (Imbue is not null)
 			{
 				if (CurrentDash.UseScrollImbue)
-					modifiers.FinalDamage += imbue.AOScrollDamage.MultiToPercent();
-				else modifiers.FinalDamage += imbue.AOImbueDamage.MultiToPercent();
-				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+					modifiers.FinalDamage += Imbue.AOScrollDamage.MultiToPercent();
+				else modifiers.FinalDamage += Imbue.AOImbueDamage.MultiToPercent();
+				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 				{
 					modifiers.FinalDamage += .3f;
 				}
 
-				foreach (var debuff in imbue.ImbueDebuffs) 
+				foreach (var debuff in Imbue.ImbueDebuffs) 
 				{
 					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(CurrentDash.Damage) > (target.lifeMax / debuff.debuffPercent))
 					{
@@ -333,9 +338,9 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				if (imbue.CombinedDebuffs is not null)
+				if (Imbue.CombinedDebuffs is not null)
 				{
-					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
 					{
 						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
@@ -344,7 +349,7 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
 				{
 					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
@@ -354,7 +359,7 @@ namespace ArcaneOdyssey
 
 				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 				{
-					foreach (int buffid in imbue.Effects.clearBuffs)
+					foreach (int buffid in Imbue.Effects.clearBuffs)
 					{
 						if (target.HasBuff(buffid))
 						{

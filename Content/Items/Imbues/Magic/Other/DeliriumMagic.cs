@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
         public override float AOScrollDamage => 0.5f;
         public override float AOScrollSize => 5f;
         public override float AOScrollSpeed => 2.3f;
-        public override AOImbuableTier ImbuableTier => AOImbuableTier.Custom;
+        public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
         public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Confused, 10 * 60)];
         public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

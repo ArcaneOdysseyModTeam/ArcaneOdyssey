@@ -10,9 +10,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 	public class FrogMagic : AOMagic
 	{
 		public override bool? Cold => true;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Unobtainable;
+		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
 		public override SoundStyle? ImbueSound => SoundID.Frog;
-		public override Color ImbueColour => new Color(0, 180, 0, 255);
+		public override Color ImbueColour => new(0, 180, 0, 255);
 		public override bool CanBeWet => true;
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;

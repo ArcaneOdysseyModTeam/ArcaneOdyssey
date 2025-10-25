@@ -25,8 +25,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public Imbuable Imbue 
 		{
-			get => Projectile.ArcaneOdyssey().imbue;
-			set => Projectile.ArcaneOdyssey().imbue = value;
+			get => Projectile.ArcaneOdyssey().Imbue;
+			set => Projectile.ArcaneOdyssey().Imbue = value;
 		}
 
 		public virtual float AOSpeed => 1f;

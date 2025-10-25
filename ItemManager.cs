@@ -267,12 +267,12 @@ namespace ArcaneOdyssey
 		//}
 	}
 
-	public class AOItem : GlobalItem
+	public class AOItem : GlobalItem, IImbuableEntity
 	{
 		public override bool InstancePerEntity => true;
 
 		public Item thisItem = null;
-		public Imbuable imbue = null;
+		public Imbuable Imbue { get; set; }
 		public int ImbueIndex = 0;
 		public bool SpecificImbue = false;
 
@@ -303,7 +303,7 @@ namespace ArcaneOdyssey
 		public override GlobalItem Clone(Item from, Item to)
 		{
 			var clone = (AOItem)base.Clone(from, to);
-			clone.imbue = imbue;
+			clone.Imbue = Imbue;
 			clone._cold = _cold;
 			clone.thisItem = thisItem;
 			return clone;
@@ -374,7 +374,7 @@ namespace ArcaneOdyssey
 			List<Imbuable> options = [null, ..player.GetAllImbues()];
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
-			if (imbue is null || !imbue.PlayerHasImbue(player))
+			if (Imbue is null || !Imbue.PlayerHasImbue(player))
 			{
 				if (SpecificImbue)
 				{
@@ -388,7 +388,7 @@ namespace ArcaneOdyssey
 			{
 				if (!SpecificImbue || item.accessory)
 				{
-					imbue = player.ArcaneOdyssey().imbue;
+					Imbue = player.ArcaneOdyssey().Imbue;
 				}
 
 				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
@@ -403,44 +403,44 @@ namespace ArcaneOdyssey
 						{
 							ImbueIndex = 0;
 						}
-						imbue = options[ImbueIndex];
+						Imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;
-						if (imbue is null)
+						if (Imbue is null)
 						{
 							settodefault = true;
 							SpecificImbue = false;
 						}
-						else if (imbue is AOMagic magic)
+						else if (Imbue is AOMagic magic)
 						{
-							AOMagic.CreateMagicCircle(imbue.Item, player, magic);
+							AOMagic.CreateMagicCircle(Imbue.Item, player, magic);
 						}
 					} 
 				}
 
-				if (options.Count < 2 && (imbue != player.Imbue()))
+				if (options.Count < 2 && (Imbue != player.Imbue()))
 				{
 					SpecificImbue = true;
 					justchangedspecificimbue = true;
-					imbue = player.Imbue();
+					Imbue = player.Imbue();
 					settodefault = true;
 					ImbueIndex = -1;
 				}
 				
 
-				if (imbue is not null && Cold.HasValue && imbue.Cold.HasValue && (Cold.Value != imbue.Cold.Value))
+				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
 				{
-					imbue = SteamImbue.Create(imbue);
+					Imbue = SteamImbue.Create(Imbue);
 				}
 			}
 			else
 			{
-				imbue = null;
+				Imbue = null;
 				SpecificImbue = false;
 			}
 
 			if (justchangedspecificimbue && player == Main.LocalPlayer)
 			{
-				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
+				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
 				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
 		}
@@ -448,7 +448,7 @@ namespace ArcaneOdyssey
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
 			thisItem = item;
-			imbue = null;
+			Imbue = null;
 			SpecificImbue = false;
 		}
 	}

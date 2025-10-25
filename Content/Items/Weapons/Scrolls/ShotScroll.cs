@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.useTime = Item.useAnimation = 30;
 			Item.damage = 50;
 			Item.shoot = ModContent.ProjectileType<ShotTechnique>();
-			Item.shootSpeed = 2f;
+			Item.shootSpeed = 5f;
 			Item.DamageType = DamageClass.Melee;
 		}
 

@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 
 		public override Color ImbueColour => Color.LightGray;
 
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Unobtainable;
+		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
 		public override SynergyEffects Effects => new([], [
 			new(ModContent.BuffType<AOBleed>(), 1.15f),
 			new(ModContent.BuffType<AOPetrified>(), 1.1f),

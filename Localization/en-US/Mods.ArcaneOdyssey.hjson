@@ -244,19 +244,17 @@ NPCs: {
 }
 
 MagicTierLines: {
-	Unobtainable: Unobtainable
-	Normal: "[c/2277ff:-Standard Magic-]"
-	Lost: "[c/0044ff:-Lost Magic-]"
-	Ancient: "[c/7ebcc2:-Ancient Magic-]"
-	Custom: "[c/ff0000:-Developer Magic-]"
+	Normal: "[c/2277ff:~ Standard Magic ~]"
+	Lost: "[c/0044ff:~ Lost Magic ~]"
+	Ancient: "[c/7ebcc2:~ Ancient Magic ~]"
+	Developer: "[c/ff0000:~ Developer Magic ~]"
 }
 
 FSTierLines: {
-	Unobtainable: Unobtainable
-	Normal: "[c/700013:-Fighting Style-]"
-	Lost: "[c/0044ff:-Lost Fighting Style-]"
-	Ancient: "[c/7ebcc2:-Ancient Fighting Style-]"
-	Custom: "[c/ff0000:-Developer Fighting Style-]"
+	Normal: "[c/700013:~ Fighting Style ~]"
+	Lost: "[c/0044ff:~ Lost Fighting Style ~]"
+	Ancient: "[c/7ebcc2:~ Ancient Fighting Style ~]"
+	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
 }
 
 ArmourAutoTooltip: {

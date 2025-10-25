@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override bool CanUseItem(Player player)
 		{
-			return Item.ArcaneOdyssey().imbue is not null;
+			return Item.ArcaneOdyssey().Imbue is not null;
 		}
 
 		public override void SetDefaults()

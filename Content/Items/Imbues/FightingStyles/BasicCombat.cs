@@ -19,15 +19,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 		
 		public override void SpawningEffects(Entity projectile) 
 		{
-			for (int n = 0; n<3; n++)
+			for (int n = 0; n < 3; n++)
 			{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.BubbleBurst_White,projectile.velocity.X*2f,projectile.velocity.Y*2f,0,default,3f)];
-					spawnedDust.noGravity = true;
+                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.BubbleBurst_White, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
+				spawnedDust.noGravity = true;
 			}
 		}
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.BubbleBurst_White, 0f, 0f, 0, default, 1f)];
+            Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.BubbleBurst_White, 0f, 0f, 0, default, 1f)];
 			spawnedDust.noGravity = true;
 		}
 		public override void ExplosionEffects(Entity projectile)

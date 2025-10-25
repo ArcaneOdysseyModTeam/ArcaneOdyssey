@@ -44,91 +44,91 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		private bool canJump = false;
 
-		public override void AI()
-		{
-			if (NPC.ai[0] == 0) //Chase
-			{// Chase the nearest player
-				NPC.ai[1]++;
-				NPC.TargetClosest();
-				if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
-				{ // Limit chasing distance
-					NPC.velocity.X += NPC.direction * 0.2f;
-					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
-					{ // Attack meelee or stop
-						NPC.velocity.X = 0f;
-						if (NPC.ai[1] >= 60) {
-							
-							NPC.ai[0] = 2;
-							NPC.frameCounter = 0;
-							NPC.ai[1] = 0;
-						}
-					}
-					else if (NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
-					{
-						
-						NPC.ai[0] = 1;
-						NPC.ai[1] = 0;
-						NPC.frameCounter = 0;
-					}
-				}
-				if (Math.Abs(NPC.velocity.X) > 8f)
-				{
-					NPC.velocity.X *= 0.8f;
-				}
-				if (Math.Abs(NPC.velocity.X) < 0.2f)
-				{
-					NPC.velocity.X = 0f;
-				}
-				bool tileUnderIsFlat = Main.tile[(int)(NPC.Bottom.X / 16f), (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
-				bool tileNextToFlatTile = Main.tileSolid[Main.tile[(int)(NPC.Bottom.X / 16f)+NPC.direction, (int)(NPC.Bottom.Y / 16f)].TileType] && !Main.tile[(int)(NPC.Bottom.X / 16f)+NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsActuated && !Main.tile[(int)(NPC.Bottom.X / 16f)+NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
-				// Jump if there's a block
-				if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
-				{
-					NPC.velocity.Y = -5f;
-				} else if (tileUnderIsFlat) {
-					if (tileNextToFlatTile && (NPC.ai[1] % 5 == 1)) {
-						NPC.velocity.Y = -2f;
-					}
-				} else if (NPC.wet && (NPC.ai[1] % 3 == 1))
-				{
-					NPC.velocity.Y = -1f;
-				}
-				canJump = (CheckTileToDir(0, NPC.Bottom) || CheckTileToDir(0, NPC.BottomLeft) || CheckTileToDir(0, NPC.BottomRight)) && Math.Abs(NPC.velocity.Y) < 0.01f;
-			} 
-			else if (NPC.ai[0] == 1 && NPC.HasValidTarget) // col cleave
-			{
-				NPC.ai[1]++;
-				NPC.velocity.X *= 0.7f;
-				if (NPC.ai[1] >= 20)
-				{
-					
-					NPC.ai[0] = 0;
-					NPC.ai[1] = 0;
-					NPC.frameCounter = 0;
-				} 
-				else if (NPC.HasValidTarget && NPC.ai[1] == 15)
-				{
-					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
-					var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 5, ModContent.ProjectileType<EvanderSlash>(), 35, 4.5f);
-					proj.Center = NPC.Center;
-				}
-			} 
-			else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
-			{
-				NPC.ai[1]++;
-				if(NPC.ai[1] >= 20)
-				{
-					
-					NPC.ai[1] = 0;
-					NPC.frameCounter = 0;
-					NPC.ai[0] = 0;
-				} 
-				else if (NPC.ai[1] == 10)
-				{
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EvanderMelee>(), 75, 4.5f);
-				}
-			}
-		}
+        public override void AI()
+        {
+            if (NPC.ai[0] == 0) //Chase
+            {// Chase the nearest player
+                NPC.ai[1]++;
+                NPC.TargetClosest();
+                if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
+                { // Limit chasing distance
+                    NPC.velocity.X += NPC.direction * 0.2f;
+                    if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
+                    { // Attack meelee or stop
+                        NPC.velocity.X = 0f;
+                        if (NPC.ai[1] >= 60) {
+
+                            NPC.ai[0] = 2;
+                            NPC.frameCounter = 0;
+                            NPC.ai[1] = 0;
+                        }
+                    }
+                    else if (NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
+                    {
+
+                        NPC.ai[0] = 1;
+                        NPC.ai[1] = 0;
+                        NPC.frameCounter = 0;
+                    }
+                }
+                if (Math.Abs(NPC.velocity.X) > 8f)
+                {
+                    NPC.velocity.X *= 0.8f;
+                }
+                if (Math.Abs(NPC.velocity.X) < 0.2f)
+                {
+                    NPC.velocity.X = 0f;
+                }
+                bool tileUnderIsFlat = Main.tile[(int)(NPC.Bottom.X / 16f), (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
+                bool tileNextToFlatTile = Main.tileSolid[Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].TileType] && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsActuated && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
+                // Jump if there's a block
+                if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
+                {
+                    NPC.velocity.Y = -5f;
+                } else if (tileUnderIsFlat) {
+                    if (tileNextToFlatTile && (NPC.ai[1] % 5 == 1)) {
+                        NPC.velocity.Y = -2f;
+                    }
+                } else if (NPC.wet && (NPC.ai[1] % 3 == 1))
+                {
+                    NPC.velocity.Y = -1f;
+                }
+                canJump = (CheckTileToDir(0, NPC.Bottom) || CheckTileToDir(0, NPC.BottomLeft) || CheckTileToDir(0, NPC.BottomRight)) && Math.Abs(NPC.velocity.Y) < 0.01f;
+            }
+            else if (NPC.ai[0] == 1 && NPC.HasValidTarget) // col cleave
+            {
+                NPC.ai[1]++;
+                NPC.velocity.X *= 0.7f;
+                if (NPC.ai[1] >= 20)
+                {
+
+                    NPC.ai[0] = 0;
+                    NPC.ai[1] = 0;
+                    NPC.frameCounter = 0;
+                }
+                else if (NPC.HasValidTarget && NPC.ai[1] == 15)
+                {
+                    Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
+                    var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 5, ModContent.ProjectileType<EvanderSlash>(), 35, 4.5f);
+                    proj.Center = NPC.Center;
+                }
+            }
+            else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
+            {
+                NPC.ai[1]++;
+                if (NPC.ai[1] >= 20)
+                {
+
+                    NPC.ai[1] = 0;
+                    NPC.frameCounter = 0;
+                    NPC.ai[0] = 0;
+                }
+                else if (NPC.ai[1] == 10)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EvanderMelee>(), 75, 4.5f);
+                }
+            }
+        }
 
 		public static bool CheckTileToDir(int direction, Vector2 pos)
 		{

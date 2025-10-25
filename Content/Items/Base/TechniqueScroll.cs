@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Items.Base
     {
         public override void UpdateInventory(Player player)
 		{
-			var imbue = Item.ArcaneOdyssey().imbue;
+			var imbue = Item.ArcaneOdyssey().Imbue;
             if (imbue is FightingStyle and not FightingStyleBarred)
             {
                 Item.color = imbue.ImbueColour;
@@ -22,18 +22,18 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool CanUseItem(Player player)
 		{
-			return Item.ArcaneOdyssey().imbue is FightingStyle;
+			return Item.ArcaneOdyssey().Imbue is FightingStyle;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             AOPlayer playah = player.ArcaneOdyssey();
-            Item.ArcaneOdyssey().imbue = playah.imbue;
-            if (playah.imbue is FightingStyle and not FightingStyleBarred)
+            Item.ArcaneOdyssey().Imbue = playah.Imbue;
+            if (playah.Imbue is FightingStyle and not FightingStyleBarred)
             {
-                Item.color = playah.imbue.ImbueColour;
+                Item.color = playah.Imbue.ImbueColour;
             }
-            else if (playah.imbue is FightingStyleBarred barred)
+            else if (playah.Imbue is FightingStyleBarred barred)
             {
                 Item.color = Color.Lerp(Color.Transparent, barred.ImbueColour, barred.BarValue / FightingStyleBarred.BarMax);
             }

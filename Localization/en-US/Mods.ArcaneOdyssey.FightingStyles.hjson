@@ -46,3 +46,8 @@ SailorStyle: {
 	DisplayName: Sailor Style
 	Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
 }
+
+GodFist: {
+	DisplayName: God Fist
+	Tooltip: ""
+}

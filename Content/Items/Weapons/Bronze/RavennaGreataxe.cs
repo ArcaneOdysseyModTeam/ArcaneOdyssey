@@ -84,13 +84,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-			foreach (NPC npc in Main.ActiveNPCs)
-			{
-				if (npc.Hitbox.Distance(player.MountedCenter) < 100f * 1.025f * 2f && !npc.friendly && npc.immune[player.whoAmI] <= 0)
-				{
-					npc.SimpleStrikeNPC(player.ArcaneOdyssey().CalculateDashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: player.ArcaneOdyssey().CalculateDashKnockback(), damageType: DamageType);
-				}
-			}
+            SimulateAOE(100, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
 			if (player.TryGetImbue(out var imbue))
 			{
 				for (int i = 0; i < 20; i++)

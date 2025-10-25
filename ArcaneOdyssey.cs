@@ -34,10 +34,10 @@ namespace ArcaneOdyssey
 					break;
 				case "GetPlayerImbue":
 					AOPlayer player = Main.player[(int)args[1]].ArcaneOdyssey();
-					return player.imbue.Type;
+					return player.Imbue.Type;
 					break;
 				case "GetItemImbue":
-					Imbuable imbue = new Item((int)args[1]).ArcaneOdyssey().imbue;
+					Imbuable imbue = new Item((int)args[1]).ArcaneOdyssey().Imbue;
 					return imbue.Type;
 					break;
                 case "RegisterItemTemperature":

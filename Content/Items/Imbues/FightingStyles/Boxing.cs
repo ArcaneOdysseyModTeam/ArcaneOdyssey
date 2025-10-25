@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 	{
 		public override void FrameEffects()
 		{
-			if (Player.ArcaneOdyssey().imbue is Boxing || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().imbue is Boxing)
+			if (Player.ArcaneOdyssey().Imbue is Boxing || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().Imbue is Boxing)
 			{
 				Player.handon = EquipLoader.GetEquipSlot(Mod, typeof(Boxing).Name, EquipType.HandsOn);
 				Player.handoff = EquipLoader.GetEquipSlot(Mod, typeof(Boxing).Name, EquipType.HandsOff);

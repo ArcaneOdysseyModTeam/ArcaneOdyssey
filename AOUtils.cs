@@ -1,8 +1,11 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -22,12 +25,12 @@ namespace ArcaneOdyssey
 		}
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
-		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().imbue;
-		public static Imbuable Imbue(this ModPlayer player) => player.ArcaneOdyssey().imbue;
-		public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey().imbue;
-		public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey().imbue;
-		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey().imbue;
-		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey().imbue;
+		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().Imbue;
+		public static Imbuable Imbue(this ModPlayer player) => player.ArcaneOdyssey().Imbue;
+		public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey().Imbue;
+		public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey().Imbue;
+		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey().Imbue;
+		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey().Imbue;
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
@@ -72,6 +75,90 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool modifyimbuestats = true)
+		{
+            if (source is null) return;
+			Imbuable imbue = source.ArcaneOdyssey()?.Imbue;
+			if (imbue is not null)
+			{
+				if (modifyimbuestats)
+				{
+					if (source is Projectile proj && proj.ModProjectile is MagicSpell)
+					{
+						range *= imbue.AOScrollSize;
+						knockback *= imbue.AOScrollSize;
+						damage *= imbue.AOScrollDamage;
+					}
+					else
+					{
+						range *= imbue.AOImbueSize;
+						knockback *= imbue.AOImbueSize;
+						damage *= imbue.AOImbueDamage;
+					}
+				}
+
+
+			}
+
+			foreach (NPC target in Main.ActiveNPCs)
+			{
+				if (target.Hitbox.Distance(origin) <= range)
+				{
+					var modifiers = new DashDamageHelper();
+                    if (imbue is not null)
+                    {
+                        if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+                        {
+                            modifiers.FinalDamage += .3f;
+                        }
+
+                        foreach (var debuff in imbue.ImbueDebuffs)
+                        {
+                            if ((debuff.debuffPercent == 0) || modifiers.GetDamage(damage.Round()) > (target.lifeMax / debuff.debuffPercent))
+                            {
+                                target.AddBuff(debuff.debuffID, debuff.debuffDuration);
+                            }
+                        }
+
+                        if (imbue.CombinedDebuffs is not null)
+                        {
+                            foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+                            {
+                                if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+                                {
+                                    target.AddBuff(buffkeys.result, buffkeys.duration);
+                                }
+                            }
+                        }
+
+                        foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+                        {
+                            if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+                            {
+                                modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+                            }
+                        }
+
+                        if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+                        {
+                            foreach (int buffid in imbue.Effects.clearBuffs)
+                            {
+                                if (target.HasBuff(buffid))
+                                {
+                                    target.DelBuff(target.FindBuffIndex(buffid));
+                                }
+                            }
+                        }
+                    }
+					if (modifiers.GetDamage(damage.Round()) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
+					{ 
+						target.SimpleStrikeNPC(modifiers.GetDamage(damage.Round()), ((target.Center - origin).X > 0).ToDirectionInt(), false, knockback, damageClass, true);
+						target.immune[player.whoAmI] = 2;
+					}
+				}
+			}
+		}
+
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
 			if (projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedProjectiles.Contains(projectile.type)))
@@ -81,7 +168,7 @@ namespace ArcaneOdyssey
 				{
 					return true;
 				}
-				return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell or StrengthTechnique || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle1 or MagicCircle2
+				return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell or StrengthTechnique or MagicCircle1 or MagicCircle2 or ExplosionTracker || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle1 or MagicCircle2
 					&& projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.type != ProjectileID.FallingStar;
 			}
 			return false;
@@ -103,24 +190,24 @@ namespace ArcaneOdyssey
 
 		public static bool TryGetImbue(this Item item, out Imbuable imbue)
 		{
-			imbue = item.ArcaneOdyssey().imbue;
+			imbue = item.ArcaneOdyssey().Imbue;
 			return imbue is not null;
 		}
 
 		public static bool TryGetImbue(this Projectile projectile, out Imbuable imbue)
 		{
-			imbue = projectile.ArcaneOdyssey().imbue;
+			imbue = projectile.ArcaneOdyssey().Imbue;
 			return imbue is not null;
 		}
 
 		public static bool TryGetImbue(this Player player, out Imbuable imbue)
 		{
-			imbue = player.ArcaneOdyssey().imbue;
+			imbue = player.ArcaneOdyssey().Imbue;
 			return imbue is not null;
 		}
 		public static bool TryGetImbue(this ModPlayer player, out Imbuable imbue)
 		{
-			imbue = player.Player.ArcaneOdyssey().imbue;
+			imbue = player.Player.ArcaneOdyssey().Imbue;
 			return imbue is not null;
 		}
 
@@ -318,26 +405,32 @@ namespace ArcaneOdyssey
 		}
 
 
-		public static bool GetOwner(this Entity entity, out AOPlayer player)
+		public static bool TryGetOwner(this Entity entity, out AOPlayer player)
+		{
+			var e = entity.TryGetOwner(out Player playr);
+			if (playr.TryArcaneOdyssey(out player))
+			{
+				return e;
+			}
+			return false;
+		}
+
+		public static bool TryGetOwner(this Entity entity, out Player player)
 		{
 			player = null;
 			if (entity is Projectile projectile)
 			{
-				player = Main.player[projectile.owner].ArcaneOdyssey();
-				return true;
+				player = Main.player[projectile.owner];
 			}
 			if (entity is NPC npc)
 			{
-				player = Main.player[npc.releaseOwner].ArcaneOdyssey();
-				return true;
+				player = Main.player[npc.releaseOwner];
 			}
 			if (entity is Player player1)
 			{
-				player = player1.ArcaneOdyssey();
-				return player.Player.active;
+				player = player1;
 			}
-
-			return false;
+			return player is not null && player.active;
 		}
 
 		public static AORarities GetItemRare(this Item item)
@@ -467,11 +560,10 @@ namespace ArcaneOdyssey
 
 		public enum AOImbuableTier
 		{
-			Unobtainable,
 			Normal,
 			Lost,
 			Ancient,
-			Custom,
+			Developer,
 		}
 
 		/// <summary>
@@ -651,12 +743,29 @@ namespace ArcaneOdyssey
 
 		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
 		public static AOPlayer ArcaneOdyssey(this ModPlayer player) => player.Player.GetModPlayer<AOPlayer>();
+		public static bool TryArcaneOdyssey(this Player player, out AOPlayer playah) => player.TryGetModPlayer(out playah);
+		public static bool TryArcaneOdyssey(this ModPlayer player, out AOPlayer playah) => player.Player.TryGetModPlayer(out playah);
 		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
 		public static AOProjectile ArcaneOdyssey(this Projectile projectile) => projectile.GetGlobalProjectile<AOProjectile>();
 		public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile.Projectile.GetGlobalProjectile<AOProjectile>();
 		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
+		public static IImbuableEntity ArcaneOdyssey(this Entity entity)
+		{
+			if (entity is Projectile projectile)
+				return projectile.ArcaneOdyssey();
+			if (entity is Player player)
+				return player.ArcaneOdyssey();
+			if (entity is Item item)
+				return item.ArcaneOdyssey();
+			return null;
+		}
 		public static AOItem ArcaneOdyssey(this ModItem item) => item.Item.GetGlobalItem<AOItem>();
-		public static bool TryArcaneOdysset(this Item item, out AOItem result) => item.TryGetGlobalItem(out result);
-		public static bool TryArcaneOdysset(this ModItem item, out AOItem result) => item.Item.TryGetGlobalItem(out result);
+		public static bool TryArcaneOdyssey(this Item item, out AOItem result) => item.TryGetGlobalItem(out result);
+		public static bool TryArcaneOdyssey(this ModItem item, out AOItem result) => item.Item.TryGetGlobalItem(out result);
+	}
+
+	public interface IImbuableEntity
+	{
+		public Imbuable Imbue { get; set; }
 	}
 }

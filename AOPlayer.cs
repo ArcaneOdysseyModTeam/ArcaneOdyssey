@@ -9,9 +9,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
-	public partial class AOPlayer : ModPlayer
+	public partial class AOPlayer : ModPlayer, IImbuableEntity
 	{
-		public Imbuable imbue = null;
+        public Imbuable Imbue { get; set; }
 		public bool chargingSpell = false;
 		public int AOSizeStat = 0;
 		public Projectile myCircle = null;
@@ -48,9 +48,9 @@ namespace ArcaneOdyssey
 				Player.statDefense *= .75f;
 			chargingSpell = false;
 			DashStrike();
-			if (imbue is not null && !imbue.PlayerHasImbue(Player))
+			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
-				imbue = null;
+				Imbue = null;
 			}
 		}
 

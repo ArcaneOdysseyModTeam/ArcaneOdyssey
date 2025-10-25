@@ -24,9 +24,9 @@ namespace ArcaneOdyssey.Content.Projectiles
                 Projectile.netUpdate = true;
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
-			if (Projectile.ai[2] == 0 && aoPlayerOwner.imbue is not null)
+			if (Projectile.ai[2] == 0 && aoPlayerOwner.Imbue is not null)
 			{
-				Projectile.ai[2] = aoPlayerOwner.imbue.Type;
+				Projectile.ai[2] = aoPlayerOwner.Imbue.Type;
 			}
 			Imbue = (Imbuable)ModContent.GetModItem((int)Projectile.ai[2]);
 			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null ? 0 : 1;

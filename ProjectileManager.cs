@@ -21,7 +21,6 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			
 			if (projectile.TryGetImbue(out Imbuable imbue))
 			{
 				var spell = projectile.ModProjectile is MagicSpell;
@@ -75,6 +74,8 @@ namespace ArcaneOdyssey
 
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
+			if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0)
+				return;
 			Player player = Main.player[projectile.owner];
 			Vector2 dim = projectile.ArcaneOdyssey().OriginalDimensions.GetValueOrDefault(projectile.Size);
 			float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
@@ -90,9 +91,6 @@ namespace ArcaneOdyssey
 				hitbox.Width = (int)(dim.X * mult);
 				hitbox.Height = (int)(dim.Y * mult);
 				projectile.scale = mult;
-				// fix hitboxes here
-
-				// end fix hitboxes
 				if (projectile.ModProjectile is BaseStaffProjectile)
 				{
 					hitbox.Width = (int)(dim.X * mult * 1.5f);
@@ -142,7 +140,7 @@ namespace ArcaneOdyssey
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
 			bool returntype = true;
-			if ((Main.player[projectile.owner].ArcaneOdyssey().imbue is PoisonMagic || Main.player[projectile.owner].ArcaneOdyssey().imbue is PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+			if ((Main.player[projectile.owner].ArcaneOdyssey().Imbue is PoisonMagic || Main.player[projectile.owner].ArcaneOdyssey().Imbue is PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
@@ -150,7 +148,7 @@ namespace ArcaneOdyssey
 				returntype = false;
 			}
 
-			else if (Main.player[projectile.owner].ArcaneOdyssey().imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
+			else if (Main.player[projectile.owner].ArcaneOdyssey().Imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
@@ -161,15 +159,15 @@ namespace ArcaneOdyssey
 			return returntype; 
 		}
 	}
-	public class AOProjectile : GlobalProjectile
+	public class AOProjectile : GlobalProjectile, IImbuableEntity
 	{
 		public override bool InstancePerEntity => true;
 		public float? BaseScale = null;
 		public Vector2? OriginalDimensions = null;
-		public Imbuable imbue;
-        public Projectile thisProjectile = null;
+		public Imbuable Imbue { get; set; }
+		public Projectile thisProjectile = null;
 
-        private bool? _cold = null;
+		private bool? _cold = null;
 		public bool? Cold { get 
 			{
 				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj && proj.Cold.HasValue)
@@ -181,46 +179,47 @@ namespace ArcaneOdyssey
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
-            thisProjectile = projectile;
+			thisProjectile = projectile;
 			OriginalDimensions ??= projectile.Size;
 			BaseScale ??= projectile.scale;
-			if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle1 or MagicCircle2 or ExplosionTracker)
+			if (ImbueClassCheck(projectile))
 			{
-                if (source is EntitySource_Parent { Entity: Projectile proj })
-                {
-                    imbue ??= proj.ArcaneOdyssey().imbue;
-                    Cold ??= proj.ArcaneOdyssey().Cold;
-                }
-                else if (source is EntitySource_ItemUse { Item: Item item })
+				if (source is EntitySource_Parent { Entity: Projectile proj })
+				{
+					Imbue ??= proj.ArcaneOdyssey().Imbue;
+					Cold ??= proj.ArcaneOdyssey().Cold;
+				}
+				else if (source is EntitySource_ItemUse { Item: Item item })
 				{
 					if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
-						imbue ??= aOItem.imbue;
+						Imbue ??= aOItem.Imbue;
 						Cold ??= aOItem.Cold;
 					}
 				}
 				else if (source is EntitySource_Parent { Entity: Player player })
 				{
-					imbue ??= player.ArcaneOdyssey().imbue;
+					Imbue ??= player.ArcaneOdyssey().Imbue;
 				}
 
-				if (imbue is not null && (Cold.HasValue && imbue.Cold.HasValue) && (Cold.Value != imbue.Cold.Value))
+				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
 				{
-					imbue = SteamImbue.Create(imbue);
+					Imbue = SteamImbue.Create(Imbue);
 				}
 			}
 		}
 
 		public override bool PreAI(Projectile projectile)
 		{
-            thisProjectile = projectile;
+			thisProjectile = projectile;
 			if (projectile.numUpdates < 1 && Main.netMode == NetmodeID.MultiplayerClient)
 			{
 				OriginalDimensions ??= projectile.Size;
 				BaseScale ??= projectile.scale;
-				if (ImbueClassCheck(projectile) || projectile.ModProjectile is MagicCircle1 or MagicCircle2 or ExplosionTracker)
-					imbue ??= Main.player[projectile.owner].ArcaneOdyssey().imbue;
+				if (ImbueClassCheck(projectile))
+					Imbue ??= Main.player[projectile.owner].ArcaneOdyssey().Imbue;
 			}
+            projectile.coldDamage = Cold.GetValueOrDefault(false) || (Imbue is not null && Imbue.Cold.GetValueOrDefault(false));
 			return true;
 		}
 	}

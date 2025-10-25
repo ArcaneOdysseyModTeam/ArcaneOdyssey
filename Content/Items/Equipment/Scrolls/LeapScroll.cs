@@ -20,10 +20,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			AOPlayer playah = player.ArcaneOdyssey();
-			Item.ArcaneOdyssey().imbue = playah.imbue;
-			if (playah.imbue is AOMagic)
+			Item.ArcaneOdyssey().Imbue = playah.Imbue;
+			if (playah.Imbue is AOMagic)
 			{
-				Item.color = playah.imbue.ImbueColour;
+				Item.color = playah.Imbue.ImbueColour;
 				player.GetJumpState<LeapAirStep>().Enable();
 			}
 			else Item.color = Color.Transparent;
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			//player.ChangeDir((player.oldVelocity.SafeNormalize(Vector2.UnitX * player.direction).X > 0).ToDirectionInt());
 			var item = new Item(ModContent.ItemType<LeapScroll>());
-			item.ArcaneOdyssey().imbue = player.Imbue();
+			item.ArcaneOdyssey().Imbue = player.Imbue();
 			if (player.whoAmI == Main.myPlayer)
 			{
 				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());

@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					case AOImbuableTier.Ancient:
 						return AORarities.Arcane;
 						break;
-					case AOImbuableTier.Custom:
+					case AOImbuableTier.Developer:
 						return AORarities.Zenith;
 						break;
 					default:
@@ -125,7 +125,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (Name != name && FirstFrame)
 			{
 				FirstFrame = false;
-				player.ArcaneOdyssey().imbue = this;
+				player.ArcaneOdyssey().Imbue = this;
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
@@ -139,7 +139,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			else if (FirstFrame)
 			{
 				FirstFrame = false;
-				player.ArcaneOdyssey().imbue = null;
+				player.ArcaneOdyssey().Imbue = null;
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{

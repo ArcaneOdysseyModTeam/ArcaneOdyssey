@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 	public class SailorStyle : FightingStyleBarred
 	{
 		public override bool? Cold => true;
-		public override Color ImbueColour => Color.Aqua;
+		public override Color ImbueColour => Color.CornflowerBlue;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
 

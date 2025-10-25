@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly);
-					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
 				else if (item.ModItem is CannonScroll)
@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(CannonSpell), ProjectileID.WoodenArrowFriendly);
-					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
 				else if (item.ModItem is PulsarScroll)
@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(PulsarSpell), ProjectileID.WoodenArrowFriendly);
-					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
 				else if (item.ModItem is BeamScroll)
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<BeamSpell>();
-					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
 				else if (item.ModItem is LeapScroll)

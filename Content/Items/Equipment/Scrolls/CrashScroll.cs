@@ -28,10 +28,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			AOPlayer playah = player.ArcaneOdyssey();
-			Item.ArcaneOdyssey().imbue = playah.imbue;
-			if (playah.imbue is FightingStyle)
+			Item.ArcaneOdyssey().Imbue = playah.Imbue;
+			if (playah.Imbue is FightingStyle)
 			{
-				Item.color = playah.imbue.ImbueColour;
+				Item.color = playah.Imbue.ImbueColour;
 				player.ArcaneOdyssey().SetDash(new Crash());
 			}
 			else Item.color = Color.Transparent;
@@ -152,13 +152,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(player.Bottom);
 
-			foreach (NPC npc in Main.ActiveNPCs)
-			{
-				if (npc.Hitbox.Distance(player.MountedCenter) < Player.defaultHeight * 2 && !npc.friendly && npc.immune[player.whoAmI] <= 0)
-				{
-					npc.SimpleStrikeNPC(player.ArcaneOdyssey().CalculateDashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: player.ArcaneOdyssey().CalculateDashKnockback(), damageType: DamageType);
-				}
-			}
+            SimulateAOE(Player.defaultHeight * 2, Damage, player.Bottom, Knockback, player, DamageType);
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 			if (player.TryGetImbue(out var imbue))
