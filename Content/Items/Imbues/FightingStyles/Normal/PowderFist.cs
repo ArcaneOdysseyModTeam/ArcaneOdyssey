@@ -1,19 +1,19 @@
-﻿using ArcaneOdyssey.Content.Buffs.DOT;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using Terraria.Audio;
+using ArcaneOdyssey.Content.Projectiles;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
-	public class CannonFist : FightingStyle
+	public class PowderFist : FightingStyle
 	{
-		public override Color ImbueColour => Color.Black;
+		public override bool? Cold => false;
+		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
 		public override float AOImbueDamage => 1.085f;
@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[],
 			[
@@ -34,14 +34,22 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ash, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 4f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Pixie, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
 				spawnedDust.noGravity = true;
+				Dust spawnedDust3 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Pixie, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
+				spawnedDust3.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ash, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 4f)];
+				spawnedDust2.noGravity = true;
 			}
 		}
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Ash, 0f, 0f, 0, default, 2f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Pixie, 0f, 0f, 0, default, 1.6f)];
 			spawnedDust.noGravity = true;
+			Dust spawnedDust3 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Pixie, 0f, 0f, 0, default, 1.6f)];
+			spawnedDust3.noGravity = true;
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Ash, 0f, 0f, 0, default, 2f)];
+			spawnedDust2.noGravity = true;
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
@@ -66,35 +74,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ash, 8f * Main.rand.NextFloat() - 0.5f, 8f * Main.rand.NextFloat() - 0.5f, 0, default, 4f)];
 				spawnedDust2.noGravity = true;
 			}
+			if (projectile is Projectile)
+			{
+				Projectile proj = Projectile.NewProjectileDirect(Main.projectile[projectile.whoAmI].GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, Main.projectile[projectile.whoAmI].owner, 0, Main.projectile[projectile.whoAmI].damage / 2f);
+			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb, 25).Register();
-		}
-	}
-
-	public class CannonFistShooter : GlobalProjectile
-	{
-		public override void OnSpawn(Projectile projectile, IEntitySource source)
-		{
-			if (source is not EntitySource_Parent { Entity: NPC })
-			{
-				var player = Main.player[projectile.owner].ArcaneOdyssey();
-				if (!player.Cooldowns.ContainsKey("CannonFistShot"))
-				{
-					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && projectile.DamageType.Name != "TrueMeleeDamageClass" && projectile.DamageType.Name != "TrueMeleeNoSpeedDamageClass" && projectile.type != ProjectileID.CannonballFriendly)
-					{
-						if (player.Player.ConsumeItem(ItemID.Cannonball))
-						{
-							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
-						}
-						else
-							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
-						player.Cooldowns["CannonFistShot"] = 60;
-					}
-				}
-			}
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.ExplosivePowder,15).Register();
 		}
 	}
 }

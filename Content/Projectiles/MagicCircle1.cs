@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {

@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -53,7 +54,10 @@ namespace ArcaneOdyssey
 			if (!ModLoader.TryGetMod("CalamityMod", out Mod calamity))
 				return;
 
-			calamity.Call("CreateCodebreakerDialogOption", "Magic Pollution", "This is abundant with magic, to a scale of which has never been recorded even among stars. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.", () => true);
+            string[] descs = [Mod.CustomLocalization("CodebreakerDialogOption.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description4").Value];
+			calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Name").Value, 
+                string.Join(' ', descs),
+                () => true);
 		}
 
 		public static void DeclareMiniboss(int type)
@@ -137,9 +141,10 @@ namespace ArcaneOdyssey
 				Func<string> imbueText = () => $"Current Imbue: {(Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";
 				fargos.Call("AddStat", ModContent.ItemType<PoseidonChoice>(), imbueText);
 
-				fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", "ArcaneOdyssey.NPCs.Edgelord");
+				fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{nameof(ArcaneOdyssey)}.NPCs.Edgelord");
 			}
 		}
+
 		public bool HasCalamity => ModLoader.HasMod("CalamityMod");
 		public bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
 		public bool HasFargos => ModLoader.HasMod("Fargowiltas");

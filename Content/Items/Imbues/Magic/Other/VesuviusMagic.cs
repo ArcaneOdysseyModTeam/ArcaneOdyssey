@@ -94,10 +94,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-
-		public override void AddRecipes() 
-        {
-            
-        }
 	}
 }

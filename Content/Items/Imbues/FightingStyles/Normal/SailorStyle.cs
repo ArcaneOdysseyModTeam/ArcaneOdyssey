@@ -10,7 +10,7 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class SailorStyle : FightingStyleBarred
 	{

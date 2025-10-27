@@ -4,7 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class BasicCombat : FightingStyle
 	{

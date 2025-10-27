@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Ancient;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Ancient;
@@ -87,5 +88,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IonBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<IonPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IonCannon>())]);
+
+        public override void AddRecipes()
+        {
+            this.CreateAncientRecipe(typeof(AetherMagic), typeof(AncientLightningMagic), typeof(PoisonLightningMagic));
+        }
 	}
 }

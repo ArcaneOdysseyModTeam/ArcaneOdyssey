@@ -10,10 +10,10 @@ namespace ArcaneOdyssey.Content.Items.Vanity
         {
             if (!Main.dedServ)
             {
-                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Red_Head", EquipType.Head, this);
-                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Red_Body", EquipType.Body, this);
-                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Red_Legs", EquipType.Legs, this);
-                EquipLoader.AddEquipTexture(Mod, "ArcaneOdyssey/Content/Items/Vanity/Red_Back", EquipType.Back, this);
+                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Head", EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Body", EquipType.Body, this);
+                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Legs", EquipType.Legs, this);
+                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Back", EquipType.Back, this);
             }
         }
 

@@ -8,7 +8,7 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using Terraria.Audio;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class Boxing : FightingStyle
 	{

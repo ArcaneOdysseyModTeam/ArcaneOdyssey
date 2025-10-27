@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 		public override float AOImbueSize => 10f;
 		public override float AOImbueDamage => .2f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Cursed, 10*60), new (ModContent.BuffType<Trauma>(), 10*60)];
+        public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Cursed, 10 * 60), new(ModContent.BuffType<Trauma>(), 10 * 60)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
@@ -30,9 +30,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 			]
 			);
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<JerminusBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<JerminusPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<JerminusCannon>())]);
-		
-		public override void AddRecipes() {
-            
-        }
 	}
 }

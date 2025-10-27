@@ -168,6 +168,7 @@ RandomWords: {
 	Or: or
 	Default: Default
 	Ability: Ability
+	Material: Material
 }
 
 NPCs: {
@@ -302,4 +303,10 @@ Techniques: {
 	ShockwaveSmash.DisplayName: Smash
 }
 
-Evander.SpawnInfo: SpawnInfo
+CodebreakerDialogOption: {
+	Name: Magic Pollution
+	Description1: This planet is abundant with magic, to a scale of which has never been recorded even among gods.
+	Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
+	Description3: Long before my creation, the only ones left that still know the answers would be the cursed ones of old, Xeroc, who has been unaccounted for, and Yharon, who still needs much more time to revive.
+	Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
+}

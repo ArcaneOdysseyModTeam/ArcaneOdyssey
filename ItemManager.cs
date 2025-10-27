@@ -14,8 +14,8 @@ using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 
 namespace ArcaneOdyssey
 {

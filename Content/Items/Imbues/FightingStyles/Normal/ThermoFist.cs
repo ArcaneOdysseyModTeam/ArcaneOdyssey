@@ -10,7 +10,7 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using Terraria.Audio;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class ThermoFist : FightingStyleBarred
 	{
@@ -130,7 +130,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
 						thermo.BarValue = FightingStyleBarred.BarMin;
 					}
                     if (!Player.ArcaneOdyssey().ItemCooldowns.ContainsKey(thermo.Type))
-                        thermo.BarValue -= FightingStyleBarred.BarMax / ((FightingStyleBarred.BarMax * .6f) * (FightingStyleBarred.BarMax / 10f));
+                        thermo.BarValue -= FightingStyleBarred.BarMax / (FightingStyleBarred.BarMax * .6f * (FightingStyleBarred.BarMax / 10f));
 				}
 			}
 		}

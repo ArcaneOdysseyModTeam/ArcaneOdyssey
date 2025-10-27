@@ -83,9 +83,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		}
 		public override void AddRecipes()
         {
-			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<EarthMagic>().Register();
-			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<WindMagic>().Register();
-			CreateRecipe().AddIngredient<HecateShard>().AddIngredient<MagmaMagic>().Register();
+            this.CreateLostRecipe(typeof(EarthMagic), typeof(WindMagic), typeof(MagmaMagic));
         }
 	}
 }

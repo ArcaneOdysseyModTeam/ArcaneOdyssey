@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
@@ -37,6 +37,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			else Item.color = Color.Transparent;
 
 		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ClimbingClaws).Register();

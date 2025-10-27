@@ -8,9 +8,11 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AORangedOrMeleeWeapon : AOBaseItem, ILocalizedModType
+	public abstract class AORangedOrMeleeWeapon : AOBaseItem, ILocalizedModType, IImbuableEntity
 	{
 		public override string LocalizationCategory => "StandardWeapons";
+
+        public Imbuable Imbue {  get => Item.ArcaneOdyssey().Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		public abstract float AOSpeed { get; }
 		public abstract float AOSize { get; }

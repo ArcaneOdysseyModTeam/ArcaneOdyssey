@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using Terraria.Audio;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class VanishingStyle : FightingStyle // make barred later
 	{

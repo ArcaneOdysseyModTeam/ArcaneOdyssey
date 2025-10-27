@@ -13,8 +13,9 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -43,25 +44,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			get
 			{
-				switch (ImbuableTier)
-				{
-					case AOImbuableTier.Normal:
-						return AORarities.Rare;
-						break;
-					case AOImbuableTier.Lost:
-						return AORarities.Mystic;
-						break;
-					case AOImbuableTier.Ancient:
-						return AORarities.Arcane;
-						break;
-					case AOImbuableTier.Developer:
-						return AORarities.Zenith;
-						break;
-					default:
-						return AORarities.Special;
-						break;
-				}
-			}
+                return ImbuableTier switch
+                {
+                    AOImbuableTier.Normal => AORarities.Rare,
+                    AOImbuableTier.Lost => AORarities.Mystic,
+                    AOImbuableTier.Ancient => AORarities.Arcane,
+                    AOImbuableTier.Developer => AORarities.Zenith,
+                    _ => AORarities.Special,
+                };
+            }
 		}
 
 		public override ItemType ItemType => ItemType.None;
@@ -188,7 +179,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.useTime = 60;
 			Item.useAnimation = 60;
 			Item.noUseGraphic = true;
-			if (this is GlassMagic)
+			if (this is GlassMagic or PrismMagic)
 			{
 				Item.alpha = (255 * .5f).Round(); // glass gets 50% less visible
 			}
@@ -209,7 +200,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this is BasicCombat)
 			{
 				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
-				RecipeGroup.RegisterGroup("ArcaneOdyssey:AOMagic", goru);
+				RecipeGroup.RegisterGroup($"{nameof(ArcaneOdyssey)}:AnyBasicImbue", goru);
 				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonChoice>());
 				recipe.AddRecipeGroup(goru);
 				recipe.AddIngredient<Acrimony>();
