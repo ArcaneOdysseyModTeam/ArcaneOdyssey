@@ -80,7 +80,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			}
 		}
 
-		public override float DashSpeed => 10;
+		public override float DashSpeed => 6;
 
 		public override int DashMax => 30;
 

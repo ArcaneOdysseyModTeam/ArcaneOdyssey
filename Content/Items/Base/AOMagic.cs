@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
 	{
-		public override string LocalizationCategory => "Magics";
+		public override string LocalizationCategory => "Magics." + ImbuableTier;
 
 		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse)
 		{
@@ -85,8 +85,5 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			return null;
 		}
-
-		// Dust stuff below for copy/paste
-		// Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())), 1, 1, DustID.Water);
-	}
+    }
 }

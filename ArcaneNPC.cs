@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Vanity;
+using ArcaneOdyssey.Content.NPCS;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -53,24 +54,28 @@ namespace ArcaneOdyssey
 			Seared = false;
 		}
 
-		public override void UpdateLifeRegen(NPC npc, ref int damage)
-		{
-			if (Bleeding)
-			{
-				npc.lifeRegen -= 3;
-			}
-			if (HeavyBleeding)
-			{
-				npc.lifeRegen -= 6;
-			}
-			if (Scalding)
-			{
-				npc.lifeRegen -= 5;
-			}
-			if (Seared) {
-				npc.lifeRegen -= 4;
-			}
-		}
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            if (npc.ModNPC is not Edgelord) // morden is immune to dot lol
+            {
+                if (Bleeding)
+                {
+                    npc.lifeRegen -= 3;
+                }
+                if (HeavyBleeding)
+                {
+                    npc.lifeRegen -= 6;
+                }
+                if (Scalding)
+                {
+                    npc.lifeRegen -= 5;
+                }
+                if (Seared)
+                {
+                    npc.lifeRegen -= 4;
+                }
+            }
+        }
 
 	}
 

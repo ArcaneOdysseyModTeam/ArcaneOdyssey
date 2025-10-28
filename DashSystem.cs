@@ -167,11 +167,11 @@ namespace ArcaneOdyssey
 				}
 				DashVelocity = standard * dashToUse.DashSpeed;
 			}
-			Player.velocity = DashVelocity;
 			Player.ConsumeAllExtraJumps();
 			DashLeft = dashToUse.DashMax;
 			dashToUse.OnStart(Player);
-			dashing = true;
+            Player.velocity = DashVelocity;
+            dashing = true;
 			if (dashToUse.Immune)
 			{
 				Player.immuneTime = dashToUse.DashMax;

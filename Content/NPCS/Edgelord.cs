@@ -13,6 +13,7 @@ using Terraria.Audio;
 using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Weapons;
+using System;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -32,7 +33,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.DeathSound = SoundID.NPCDeath52;
 			NPC.knockBackResist = 0;
 			AnimationType = NPCID.Guide;
-            ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, false, false, true, true);
+			ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, false, false, true, true);
 		}
 
 		public override void SetStaticDefaults()
@@ -57,26 +58,30 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
 
-		public override bool? CanBeHitByProjectile(Projectile projectile)
-		{
-			if (!projectile.hostile && projectile.type != ProjectileID.RottenEgg)
-				return false;
-			return projectile.TryGetImbue(out _) || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType.Name == nameof(SpiritDamage) || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile) ? true : null;
-		}
-
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			if (!item.TryGetImbue(out _))
-				modifiers.FinalDamage *= 0;
+			if (item.Imbue() is not AOMagic)
+            {
+                modifiers.FinalDamage *= 0;
+                NPC.life += 1;
+            }
+        }
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
+		{
+            if (!(projectile.Imbue() is AOMagic || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType.Name == nameof(SpiritDamage) || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile)))
+            { 
+                modifiers.FinalDamage *= 0;
+                NPC.life += 1;
+            }
 		}
 
 		public override void UpdateLifeRegen(ref int damage)
 		{
-			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
-			{
-				NPC.lifeRegen = 120 * -5;
-				HitEffect(NPC.CalculateHitInfo(5, 0));
-			}
+            if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+            {
+                NPC.lifeRegen = 120 * -5;
+                HitEffect(NPC.CalculateHitInfo(5, 0));
+            }
 		}
 
 		public override void HitEffect(NPC.HitInfo hit)
@@ -281,7 +286,6 @@ namespace ArcaneOdyssey.Content.NPCS
 			string chosen = Main.rand.Next(options);
 			Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue = chosen;
 			return chosen;
-			return Main.rand.Next(options);
 		}
 
 		public void ExplodeMorden()

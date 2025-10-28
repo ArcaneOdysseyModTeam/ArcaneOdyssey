@@ -87,29 +87,29 @@ namespace ArcaneOdyssey
 			var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + lost.DisplayName.Value + " " + lost.Mod.CustomLocalization("RandomWords.Material").Value, [..types]);
 			RecipeGroup.RegisterGroup(nameof(global::ArcaneOdyssey.ArcaneOdyssey) + ":" + lost.Name + "Material", group);
 			var rec = Recipe.Create(lost.Type);
-            rec.AddRecipeGroup(group);
-            rec.AddIngredient<HecateShard>();
-            rec.DisableDecraft();
-            rec.Register();
-        }
+			rec.AddRecipeGroup(group);
+			rec.AddIngredient<HecateShard>();
+			rec.DisableDecraft();
+			rec.Register();
+		}
 
-        public static void CreateAncientRecipe(this Imbuable ancient, params Type[] imbues)
-        {
-            List<int> types = [];
-            foreach (var type in imbues)
-            {
-                types.Add(ancient.Mod.Find<ModItem>(type.Name).Type);
-            }
-            var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + ancient.DisplayName.Value + " " + ancient.Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
-            RecipeGroup.RegisterGroup(nameof(global::ArcaneOdyssey.ArcaneOdyssey) + ":" + ancient.Name + "Material", group);
-            var rec = Recipe.Create(ancient.Type);
-            rec.AddRecipeGroup(group);
-            rec.AddIngredient<AncientHecateOrb>();
-            rec.DisableDecraft();
-            rec.Register();
-        }
+		public static void CreateAncientRecipe(this Imbuable ancient, params Type[] imbues)
+		{
+			List<int> types = [];
+			foreach (var type in imbues)
+			{
+				types.Add(ancient.Mod.Find<ModItem>(type.Name).Type);
+			}
+			var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + ancient.DisplayName.Value + " " + ancient.Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+			RecipeGroup.RegisterGroup(nameof(global::ArcaneOdyssey.ArcaneOdyssey) + ":" + ancient.Name + "Material", group);
+			var rec = Recipe.Create(ancient.Type);
+			rec.AddRecipeGroup(group);
+			rec.AddIngredient<AncientHecateOrb>();
+			rec.DisableDecraft();
+			rec.Register();
+		}
 
-        public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool modifyimbuestats = true)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool modifyimbuestats = true)
 		{
 			if (source is null) return;
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
@@ -269,11 +269,11 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
 		{
-            if (mod is not global::ArcaneOdyssey.ArcaneOdyssey)
-            {
-                mod = ModLoader.GetMod(nameof(global::ArcaneOdyssey.ArcaneOdyssey));
-            }
-            LocalizedText text = LocalizedText.Empty;
+			if (mod is not global::ArcaneOdyssey.ArcaneOdyssey)
+			{
+				mod = ModInstance;
+			}
+			LocalizedText text = LocalizedText.Empty;
 			string fulllocalstuff = "";
 			if (formatting is not null && formatting.Length > 0)
 			{
@@ -296,13 +296,17 @@ namespace ArcaneOdyssey
 				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + fulllocalstuff] = text;
 			}
 			return text;
-		}
+        }
 
+        public static ArcaneOdyssey ModInstance => global::ArcaneOdyssey.ArcaneOdyssey.Instance;
+
+
+        public static bool checklistfailed = false;
 		private static int GetBossKillCount()
 		{
 			int count = 0;
 			List<bool> conditions = [];
-			if (!ModLoader.TryGetMod("BossChecklist", out var checklist))
+			if (checklistfailed || !ModLoader.TryGetMod("BossChecklist", out var checklist))
 			{
 				conditions.AddRange([DownedBosses.downedEvander, NPC.downedBoss1, NPC.downedBoss2, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
 				if (ModLoader.TryGetMod("CalamityMod", out var cal))
@@ -314,24 +318,33 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-            else
-            {
-                var data = (Dictionary<string, Dictionary<string, object>>)checklist.Call("GetBossInfoDictionary");
-                foreach (var boss in data)
+			else
+			{
+				var raw = checklist.Call("GetBossInfoDictionary", ModInstance);
+                if (raw is Dictionary<string, Dictionary<string, object>> data)
                 {
-                    bool isbossormini = (bool)boss.Value["isBoss"] || (bool)boss.Value["isMiniboss"];
-                    if (isbossormini)
+                    foreach (var boss in data)
                     {
-                        var func = (Func<bool>)boss.Value["downed"];
-                        conditions.Add(func.Invoke());
+                        bool isbossormini = (bool)boss.Value["isBoss"] || (bool)boss.Value["isMiniboss"];
+                        if (isbossormini)
+                        {
+                            var func = (Func<bool>)boss.Value["downed"];
+                            conditions.Add(func.Invoke());
+                        }
                     }
                 }
-            }
+                else
+                {
+                    checklistfailed = true;
+                    return GetBossKillCount();
+                }
+			}
 			foreach (bool killed in conditions)
 			{
 				if (killed)
 					count++;
 			}
+            checklistfailed = false;
 			return count;
 		}
 
@@ -478,87 +491,87 @@ namespace ArcaneOdyssey
 			};
 		}
 
-        #region structs and enums
+		#region structs and enums
 
-        public readonly struct WeaponAbility(Mod mod, string name, string description, Color? color = null)
-        {
-            private readonly string Name = name;
-            private readonly string Description = description;
-            private readonly Color? Colour = color;
-            private readonly Mod Mod = mod;
+		public readonly struct WeaponAbility(Mod mod, string name, string description, Color? color = null)
+		{
+			private readonly string Name = name;
+			private readonly string Description = description;
+			private readonly Color? Colour = color;
+			private readonly Mod Mod = mod;
 
-            public TooltipLine GenerateTooltip()
-            {
-                string text = "";
-                if (Colour.HasValue)
-                {
-                    text += $"[c/{Colour.Value.Hex3()}:{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}]";
-                }
-                else
-                {
-                    text += $"{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}";
-                }
-                text += $": {Description}";
-                return new TooltipLine(Mod, "AOAbility", text);
-            }
-        }
+			public TooltipLine GenerateTooltip()
+			{
+				string text = "";
+				if (Colour.HasValue)
+				{
+					text += $"[c/{Colour.Value.Hex3()}:{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}]";
+				}
+				else
+				{
+					text += $"{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}";
+				}
+				text += $": {Description}";
+				return new TooltipLine(Mod, "AOAbility", text);
+			}
+		}
 
-        /// <summary>
-        /// Helper struct for set bonuses
-        /// </summary>
-        /// <param name="mod">This mod</param>
-        /// <param name="name">The name of the set bonus</param>
-        /// <param name="description">The description of this set bonus</param>
-        /// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
-        /// <param name="colour">The colour of this set</param>
-        public struct SetBonusHelper(Mod mod, string name, string description, string[] otherItems, Color? colour = null)
-        {
-            public Mod Mod = mod;
-            public string Name = name;
-            public string Description = description;
-            public Color? Colour = colour;
-            public string[] OtherItems = otherItems;
+		/// <summary>
+		/// Helper struct for set bonuses
+		/// </summary>
+		/// <param name="mod">This mod</param>
+		/// <param name="name">The name of the set bonus</param>
+		/// <param name="description">The description of this set bonus</param>
+		/// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
+		/// <param name="colour">The colour of this set</param>
+		public struct SetBonusHelper(Mod mod, string name, string description, string[] otherItems, Color? colour = null)
+		{
+			public Mod Mod = mod;
+			public string Name = name;
+			public string Description = description;
+			public Color? Colour = colour;
+			public string[] OtherItems = otherItems;
 
-            public readonly string GenerateTooltip()
-            {
-                string text = "";
-                if (Colour.HasValue)
-                {
-                    text += $"[c/{Colour.Value.Hex3()}:{Name}]";
-                }
-                else
-                {
-                    text += Name;
-                }
-                text += $" - {Description}";
-                return text;
-            }
-        }
+			public readonly string GenerateTooltip()
+			{
+				string text = "";
+				if (Colour.HasValue)
+				{
+					text += $"[c/{Colour.Value.Hex3()}:{Name}]";
+				}
+				else
+				{
+					text += Name;
+				}
+				text += $" - {Description}";
+				return text;
+			}
+		}
 
-        public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility)
-        {
-            public int Size = size;
-            public int Attkspeed = attkspeed;
-            public int Power = power;
-            public int Defence = defence;
-            public int Agility = agility;
+		public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility)
+		{
+			public int Size = size;
+			public int Attkspeed = attkspeed;
+			public int Power = power;
+			public int Defence = defence;
+			public int Agility = agility;
 
-            public readonly ImbueArmourStats Corrected(Imbuable imbue)
-            {
-                if (imbue is FightingStyleBarred barred)
-                {
-                    return new ImbueArmourStats(
-                        MathHelper.Lerp(0, Size, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-                        MathHelper.Lerp(0, Attkspeed, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-                        MathHelper.Lerp(0, Power, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-                        MathHelper.Lerp(0, Defence, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-                        MathHelper.Lerp(0, Agility, barred.BarValue / FightingStyleBarred.BarMax).Round()
-                        );
-                }
-                return this;
-            }
-        }
-        public enum ItemType
+			public readonly ImbueArmourStats Corrected(Imbuable imbue)
+			{
+				if (imbue is FightingStyleBarred barred)
+				{
+					return new ImbueArmourStats(
+						MathHelper.Lerp(0, Size, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Attkspeed, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Power, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Defence, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Agility, barred.BarValue / FightingStyleBarred.BarMax).Round()
+						);
+				}
+				return this;
+			}
+		}
+		public enum ItemType
 		{
 			Block,
 			Ammo,

@@ -15,9 +15,11 @@ namespace ArcaneOdyssey
 {
 	public class ArcaneOdyssey : Mod
 	{
+		public static ArcaneOdyssey Instance => ModContent.GetInstance<ArcaneOdyssey>();
+
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
-        public static Dictionary<int, bool?> coldItems = [];
-        public static List<int> excludedItems = [];
+		public static Dictionary<int, bool?> coldItems = [];
+		public static List<int> excludedItems = [];
 		public static List<int> excludedProjectiles = [];
 
 		public override object Call(params object[] args)
@@ -40,15 +42,15 @@ namespace ArcaneOdyssey
 					Imbuable imbue = new Item((int)args[1]).ArcaneOdyssey().Imbue;
 					return imbue.Type;
 					break;
-                case "RegisterItemTemperature":
-                case "AddItemTemperature":
-                    coldItems.Add((int)args[1], (bool?)args[2]);
-                    break;
-                case "GetItemTemperature":
-                    var item1 = args[1] as Item;
-                    return item1.ArcaneOdyssey().Cold;
-                    break;
-            }
+				case "RegisterItemTemperature":
+				case "AddItemTemperature":
+					coldItems.Add((int)args[1], (bool?)args[2]);
+					break;
+				case "GetItemTemperature":
+					var item1 = args[1] as Item;
+					return item1.ArcaneOdyssey().Cold;
+					break;
+			}
 			return null;
 		}
 	}
