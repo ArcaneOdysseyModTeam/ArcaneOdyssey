@@ -52,6 +52,6 @@ Normal: {
 Developer: {
 	GodFist: {
 		DisplayName: God Fist
-		Tooltip: "MADE IN HEAVEN"
+		Tooltip: MADE IN HEAVEN
 	}
 }

@@ -8,41 +8,6 @@ Ancient: {
 Lost: {
 	AetherMagic: {
 		DisplayName: Aether Magic
-		Tooltip: ""
-	}
-
-	AncientLightningMagic: {
-		DisplayName: Ancient Lightning Magic
-		Tooltip: ""
-	}
-
-	FlareMagic: {
-		DisplayName: Flare Magic
-		Tooltip: ""
-	}
-
-	GravityMagic: {
-		DisplayName: Gravity Magic
-		Tooltip: ""
-	}
-
-	HeatMagic: {
-		DisplayName: Heat Magic
-		Tooltip: ""
-	}
-
-	PoisonLightningMagic: {
-		DisplayName: Poison Lightning Magic
-		Tooltip: ""
-	}
-
-	PrismMagic: {
-		DisplayName: Prism Magic
-		Tooltip: ""
-	}
-	
-	AetherMagic: {
-		DisplayName: Aether Magic
 		Tooltip:
 			'''
 			Allows the user to use a magic
