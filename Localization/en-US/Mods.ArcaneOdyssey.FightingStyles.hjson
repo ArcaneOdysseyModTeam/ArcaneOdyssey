@@ -1,53 +1,57 @@
-BasicCombat: {
-	DisplayName: Basic Combat
-	Tooltip: A basic, yet effective style of fighting using all manners of punching and kicking
+Normal: {
+	BasicCombat: {
+		DisplayName: Basic Combat
+		Tooltip: A basic, yet effective style of fighting using all manners of punching and kicking
+	}
+
+	Boxing: {
+		DisplayName: Boxing
+		Tooltip: A fighting style utilizing gloved fists, with a focus on speed and sending opponents flying
+	}
+
+	CannonFist: {
+		DisplayName: Cannon Fist
+		Tooltip:
+			'''
+			A fighting style that involves throwing cannonballs with tremendous strength
+			Can use cannonballs from your inventory to improve strength
+			'''
+	}
+
+	IronLeg: {
+		DisplayName: Iron Leg
+		Tooltip: A fighting style that involves training the legs to endure tremendous force, allowing the user to kick with great power
+	}
+
+	PowderFist: {
+		DisplayName: Powder Fist
+		Tooltip: A fighting style that involves covering the fists in gunpowder, allowing the user to deliver devastating explosive punches and kicks
+	}
+
+	SailorFist: {
+		DisplayName: Sailor Fist
+		Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
+	}
+
+	ThermoFist: {
+		DisplayName: Thermo Fist
+		Tooltip: A fighting style that focuses on building up adrenaline and heat to deliver fast, burning-hot strikes
+	}
+
+	VanishingStyle: {
+		DisplayName: Vanishing Style
+		Tooltip: A fighting style that focuses on stealth ({VANISH}), allowing the user to strike before they can be noticed
+	}
+
+	SailorStyle: {
+		DisplayName: Sailor Style
+		Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
+	}
 }
 
-Boxing: {
-	DisplayName: Boxing
-	Tooltip: A fighting style utilizing gloved fists, with a focus on speed and sending opponents flying
-}
-
-CannonFist: {
-	DisplayName: Cannon Fist
-	Tooltip:
-		'''
-		A fighting style that involves throwing cannonballs with tremendous strength
-		Can use cannonballs from your inventory to improve strength
-		'''
-}
-
-IronLeg: {
-	DisplayName: Iron Leg
-	Tooltip: A fighting style that involves training the legs to endure tremendous force, allowing the user to kick with great power
-}
-
-PowderFist: {
-	DisplayName: Powder Fist
-	Tooltip: A fighting style that involves covering the fists in gunpowder, allowing the user to deliver devastating explosive punches and kicks
-}
-
-SailorFist: {
-	DisplayName: Sailor Fist
-	Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
-}
-
-ThermoFist: {
-	DisplayName: Thermo Fist
-	Tooltip: A fighting style that focuses on building up adrenaline and heat to deliver fast, burning-hot strikes
-}
-
-VanishingStyle: {
-	DisplayName: Vanishing Style
-	Tooltip: A fighting style that focuses on stealth ({VANISH}), allowing the user to strike before they can be noticed
-}
-
-SailorStyle: {
-	DisplayName: Sailor Style
-	Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
-}
-
-GodFist: {
-	DisplayName: God Fist
-	Tooltip: ""
+Developer: {
+	GodFist: {
+		DisplayName: God Fist
+		Tooltip: "MADE IN HEAVEN"
+	}
 }

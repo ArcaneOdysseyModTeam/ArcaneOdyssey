@@ -16,6 +16,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Other;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -44,15 +45,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			get
 			{
-                return ImbuableTier switch
-                {
-                    AOImbuableTier.Normal => AORarities.Rare,
-                    AOImbuableTier.Lost => AORarities.Mystic,
-                    AOImbuableTier.Ancient => AORarities.Arcane,
-                    AOImbuableTier.Developer => AORarities.Zenith,
-                    _ => AORarities.Special,
-                };
-            }
+				return ImbuableTier switch
+				{
+					AOImbuableTier.Normal => AORarities.Rare,
+					AOImbuableTier.Lost => AORarities.Mystic,
+					AOImbuableTier.Ancient => AORarities.Arcane,
+					AOImbuableTier.Developer => AORarities.Zenith,
+					_ => AORarities.Special,
+				};
+			}
 		}
 
 		public override ItemType ItemType => ItemType.None;
@@ -210,7 +211,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{(this is AOMagic ? "Magic" : "FS")}TierLines.{ImbuableTier}").Value));
+			if (this is not FrogMagic)
+				tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{(this is AOMagic ? "Magic" : "FS")}TierLines.{ImbuableTier}").Value));
 		}
 	}
 }

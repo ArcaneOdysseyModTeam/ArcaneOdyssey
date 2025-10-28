@@ -1,198 +1,238 @@
-LightningMagic: {
-	DisplayName: Lightning Magic
-	Tooltip: Allows the user to create swift bolts of destructive lightning
+Ancient: {
+	IonMagic: {
+		DisplayName: Ion Magic
+		Tooltip: Allows the user to create and control scorching plasma that ionizes everything in its way, causing all forms of burning to be much more vile
+	}
 }
 
-IceMagic: {
-	DisplayName: Ice Magic
-	Tooltip: Allows the user to generate cold hard ice which can freeze and chill to the blood and bone
+Lost: {
+	AetherMagic: {
+		DisplayName: Aether Magic
+		Tooltip: ""
+	}
+
+	AncientLightningMagic: {
+		DisplayName: Ancient Lightning Magic
+		Tooltip: ""
+	}
+
+	FlareMagic: {
+		DisplayName: Flare Magic
+		Tooltip: ""
+	}
+
+	GravityMagic: {
+		DisplayName: Gravity Magic
+		Tooltip: ""
+	}
+
+	HeatMagic: {
+		DisplayName: Heat Magic
+		Tooltip: ""
+	}
+
+	PoisonLightningMagic: {
+		DisplayName: Poison Lightning Magic
+		Tooltip: ""
+	}
+
+	PrismMagic: {
+		DisplayName: Prism Magic
+		Tooltip: ""
+	}
+	
+	AetherMagic: {
+		DisplayName: Aether Magic
+		Tooltip:
+			'''
+			Allows the user to use a magic
+			Incomplete
+			'''
+	}
+
+	AncientLightningMagic: {
+		DisplayName: Ancient Lightning Magic
+		Tooltip: Allows the user to create devastating bolts of red chaotic lightning
+	}
+
+	FlareMagic: {
+		DisplayName: Flare Magic
+		Tooltip:
+			'''
+			Allows the user to use a magic
+			Incomplete
+			'''
+	}
+
+	GravityMagic: {
+		DisplayName: Gravity Magic
+		Tooltip: Allows the user to command crushing forces that can cause heavy damage to everything that gets in their way
+	}
+
+	HeatMagic: {
+		DisplayName: Heat Magic
+		Tooltip:
+			'''
+			Allows the user to use a magic
+			Incomplete
+			'''
+	}
+
+	PoisonLightningMagic: {
+		DisplayName: Poison Lightning Magic
+		Tooltip: Allows the user to create large bolts of poisonous lightning
+	}
+
+	PrismMagic: {
+		DisplayName: Prism Magic
+		Tooltip: Allows the user to form vibrant prisms of glass that shatter into a brilliant display of reflective shards and blinding lights
+	}
 }
 
-MagmaMagic: {
-	DisplayName: Magma Magic
-	Tooltip: Allows the user to unleash eruptions of thick, molten rock that melts all in its path
+Normal: {
+	LightningMagic: {
+		DisplayName: Lightning Magic
+		Tooltip: Allows the user to create swift bolts of destructive lightning
+	}
+
+	IceMagic: {
+		DisplayName: Ice Magic
+		Tooltip: Allows the user to generate cold hard ice which can freeze and chill to the blood and bone
+	}
+
+	MagmaMagic: {
+		DisplayName: Magma Magic
+		Tooltip: Allows the user to unleash eruptions of thick, molten rock that melts all in its path
+	}
+
+	WindMagic: {
+		DisplayName: Wind Magic
+		Tooltip: Allows the user to send turbulent gales that whirl enemies into tumultuous peril
+	}
+
+	AcidMagic: {
+		DisplayName: Acid Magic
+		Tooltip: Allows the user to form a caustic, reactive liquid that corrodes through enemies
+	}
+
+	AshMagic: {
+		DisplayName: Ash Magic
+		Tooltip: Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues
+	}
+
+	CrystalMagic: {
+		DisplayName: Crystal Magic
+		Tooltip: Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation
+	}
+
+	EarthMagic: {
+		DisplayName: Earth Magic
+		Tooltip: Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars
+	}
+
+	ExplosionMagic: {
+		DisplayName: Explosion Magic
+		Tooltip: Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion
+	}
+
+	FireMagic: {
+		DisplayName: Fire Magic
+		Tooltip: Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze
+	}
+
+	GlassMagic: {
+		DisplayName: Glass Magic
+		Tooltip: Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay
+	}
+
+	LightMagic: {
+		DisplayName: Light Magic
+		Tooltip: Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck
+	}
+
+	MetalMagic: {
+		DisplayName: Metal Magic
+		Tooltip: Allows the user to form dense metals that demolish obstructions with their immense weight and force
+	}
+
+	PlasmaMagic: {
+		DisplayName: Plasma Magic
+		Tooltip: Allows the user to cast fervent plasma that swiftly scorches rivals with coruscating heat
+	}
+
+	PoisonMagic: {
+		DisplayName: Poison Magic
+		Tooltip: Allows the user to form noxious fumes which inflict chronic poisons and leave lethal clouds of gas
+	}
+
+	SandMagic: {
+		DisplayName: Sand Magic
+		Tooltip: Allows the user to create densely-packed sand that hits with treacherous force while hindering sight
+	}
+
+	ShadowMagic: {
+		DisplayName: Shadow Magic
+		Tooltip: Allows the user to evoke ominous dark shadows that drain color and grace from all that they touch
+	}
+
+	SnowMagic: {
+		DisplayName: Snow Magic
+		Tooltip: Allows the user to form wintry snow, snuffing out heat and sight under chilly layers
+	}
+
+	WaterMagic: {
+		DisplayName: Water Magic
+		Tooltip: Allows the user to utilize water's vast potential to rinse foes with tidal forces
+	}
+
+	WoodMagic: {
+		DisplayName: Wood Magic
+		Tooltip: Allows the user to slam foes with solid wood and bark, becoming even stronger when exposed to heat
+	}
 }
 
-WindMagic: {
-	DisplayName: Wind Magic
-	Tooltip: Allows the user to send turbulent gales that whirl enemies into tumultuous peril
-}
+Developer: {
+	DeliriumMagic: {
+		DisplayName: Delirium Magic
+		Tooltip: Huh what
+	}
 
-AcidMagic: {
-	DisplayName: Acid Magic
-	Tooltip: Allows the user to form a caustic, reactive liquid that corrodes through enemies
-}
+	SteamImbue: {
+		DisplayName: Steam
+		Tooltip:
+			'''
+			By Valve
 
-AshMagic: {
-	DisplayName: Ash Magic
-	Tooltip: Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues
-}
+			Part of the mod internals, just ignore this, any spells with it will cause an error (It's used for imbues)
+			'''
+	}
 
-CrystalMagic: {
-	DisplayName: Crystal Magic
-	Tooltip: Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation
-}
+	FrogMagic: {
+		DisplayName: Frog Magic
+		Tooltip:
+			'''
+			A forbidden magic that allows the user to raise and command great armies of magical beings
 
-EarthMagic: {
-	DisplayName: Earth Magic
-	Tooltip: Allows the user to generate solid rock to crush enemies under giant boulders and earthen pillars
-}
+			Wait no I read that wrong, it's just frogs
+			[c/00aa00:-Frog Magic-]
+			'''
+	}
 
-ExplosionMagic: {
-	DisplayName: Explosion Magic
-	Tooltip: Allows the user to wreak havoc with massive explosions, leaving any remains singed from combustion
-}
+	VesuviusMagic: {
+		DisplayName: Vesuvius Magic
+		Tooltip:
+			'''
+			Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way
+			Redbirb1508's Magic
+			'''
+	}
 
-FireMagic: {
-	DisplayName: Fire Magic
-	Tooltip: Allows the user to cast fearsome flames, engulfing enemies in a roaring blaze
-}
-
-GlassMagic: {
-	DisplayName: Glass Magic
-	Tooltip: Allows the user to generate elegant ornaments of glass that can shatter into knife-like shards to keep danger at bay
-}
-
-LightMagic: {
-	DisplayName: Light Magic
-	Tooltip: Allows the user to overwhelm foes with shining light moving at incredible speeds and blinding anyone struck
-}
-
-MetalMagic: {
-	DisplayName: Metal Magic
-	Tooltip: Allows the user to form dense metals that demolish obstructions with their immense weight and force
-}
-
-PlasmaMagic: {
-	DisplayName: Plasma Magic
-	Tooltip: Allows the user to cast fervent plasma that swiftly scorches rivals with coruscating heat
-}
-
-PoisonMagic: {
-	DisplayName: Poison Magic
-	Tooltip: Allows the user to form noxious fumes which inflict chronic poisons and leave lethal clouds of gas
-}
-
-SandMagic: {
-	DisplayName: Sand Magic
-	Tooltip: Allows the user to create densely-packed sand that hits with treacherous force while hindering sight
-}
-
-ShadowMagic: {
-	DisplayName: Shadow Magic
-	Tooltip: Allows the user to evoke ominous dark shadows that drain color and grace from all that they touch
-}
-
-SnowMagic: {
-	DisplayName: Snow Magic
-	Tooltip: Allows the user to form wintry snow, snuffing out heat and sight under chilly layers
-}
-
-WaterMagic: {
-	DisplayName: Water Magic
-	Tooltip: Allows the user to utilize water's vast potential to rinse foes with tidal forces
-}
-
-WoodMagic: {
-	DisplayName: Wood Magic
-	Tooltip: Allows the user to slam foes with solid wood and bark, becoming even stronger when exposed to heat
-}
-
-AetherMagic: {
-	DisplayName: Aether Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
-}
-
-AncientLightningMagic: {
-	DisplayName: Ancient Lightning Magic
-	Tooltip: Allows the user to create devastating bolts of red chaotic lightning
-}
-
-FlareMagic: {
-	DisplayName: Flare Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
-}
-
-GravityMagic: {
-	DisplayName: Gravity Magic
-	Tooltip: Allows the user to command crushing forces that can cause heavy damage to everything that gets in their way
-}
-
-HeatMagic: {
-	DisplayName: Heat Magic
-	Tooltip:
-		'''
-		Allows the user to use a magic
-		Incomplete
-		'''
-}
-
-PoisonLightningMagic: {
-	DisplayName: Poison Lightning Magic
-	Tooltip: Allows the user to create large bolts of poisonous lightning
-}
-
-VesuviusMagic: {
-	DisplayName: Vesuvius Magic
-	Tooltip:
-		'''
-		Allows the user to control an unholy form of magma magic which instantly paralyzes anything that is unlucky enough to get in its way
-		Redbirb1508's Magic
-		'''
-}
-
-JerminusMagic: {
-	DisplayName: Jerminus Magic
-	Tooltip:
-		'''
-		Grants a slow death to all those who cross it
-		Guard Boi's Magic
-		'''
-}
-
-DeliriumMagic: {
-	DisplayName: Delirium Magic
-	Tooltip: Huh what
-}
-
-SteamImbue: {
-	DisplayName: Steam
-	Tooltip:
-		'''
-		By Valve
-
-		Part of the mod internals, just ignore this, any spells with it will cause an error (It's used for imbues)
-		'''
-}
-
-FrogMagic: {
-	DisplayName: Frog Magic
-	Tooltip:
-		'''
-		A forbidden magic that allows the user to raise and command great armies of magical beings
-
-		Wait no I read that wrong, it's just frogs
-		[c/00aa00:-Frog Magic-]
-		'''
-}
-
-IonMagic: {
-	DisplayName: Ion Magic
-	Tooltip:
-		'''
-		Allows the user to create and control scorching plasma that ionizes everything in its way, causing all forms of burning to be much more vile
-		'''
-}
-
-PrismMagic: {
-	DisplayName: Prism Magic
-	Tooltip: Allows the user to form vibrant prisms of glass that shatter into a brilliant display of reflective shards and blinding lights
+	JerminusMagic: {
+		DisplayName: Jerminus Magic
+		Tooltip:
+			'''
+			Grants a slow death to all those who cross it
+			Guard Boi's Magic
+			'''
+	}
 }
