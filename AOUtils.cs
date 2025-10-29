@@ -606,6 +606,7 @@ namespace ArcaneOdyssey
 			Normal,
 			Lost,
 			Ancient,
+            Primordial, // unused
 			Developer,
 		}
 

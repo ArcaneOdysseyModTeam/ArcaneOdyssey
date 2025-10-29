@@ -32,7 +32,6 @@ Blasts: {
 	WaterBlast.DisplayName: Water Blast
 	WindBlast.DisplayName: Wind Blast
 	WoodBlast.DisplayName: Wood Blast
-	DeliriumBlast.DisplayName: Delirium Blast
 	JerminusBlast.DisplayName: Jerminus Blast
 	VesuviusBlast.DisplayName: Vesuvius Blast
 }
@@ -69,7 +68,6 @@ Cannons: {
 	WaterCannon.DisplayName: Water Cannon
 	WindCannon.DisplayName: Wind Cannon
 	WoodCannon.DisplayName: Wood Cannon
-	DeliriumCannon.DisplayName: Delirium Cannon
 	JerminusCannon.DisplayName: Jerminus Cannon
 	VesuviusCannon.DisplayName: Vesuvius Cannon
 }
@@ -108,7 +106,6 @@ Pulsars: {
 	WaterPulsar.DisplayName: Water Pulsar
 	WindPulsar.DisplayName: Wind Pulsar
 	WoodPulsar.DisplayName: Wood Pulsar
-	DeliriumPulsar.DisplayName: Delirium Pulsar
 	JerminusPulsar.DisplayName: Jerminus Pulsar
 	VesuviusPulsar.DisplayName: Vesuvius Pulsar
 }
