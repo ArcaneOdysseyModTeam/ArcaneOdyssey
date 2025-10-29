@@ -45,11 +45,6 @@ EvanderPoster: {
 	Tooltip: ""
 }
 
-TitleMusicBox: {
-	DisplayName: "Title Music Box?"
-	Tooltip: Download the music mod to restore this item
-}
-
 ElfPetItem: {
 	DisplayName: Aether's Heart
 	Tooltip: ThyGoodBoy's pet
@@ -57,7 +52,7 @@ ElfPetItem: {
 
 ReflexScroll: {
 	DisplayName: Reflex Scroll
-	Tooltip: 
+	Tooltip:
 		'''
 		Allows the user to dash
 		Grants bonus defence to slow imbues
