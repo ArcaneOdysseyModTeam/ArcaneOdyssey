@@ -121,7 +121,7 @@ namespace ArcaneOdyssey
 			var dashline = tooltips.Find(e => e.Text.Contains("{DASHBIND}"));
 			if (dashline is not null)
 			{
-				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value));
+				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
 			}
 			if (item.ModItem is not null && item.ModItem.Name == "UnloadedItem")
 			{

@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
         // ai 2 is first frame bool
 
-        public override string LocalizationCategory => "Spells.Blasts";
+        public override string LocalizationCategory => "Magic.Spells.Blasts";
         public override void SetDefaults()
 		{
 			base.SetDefaults();

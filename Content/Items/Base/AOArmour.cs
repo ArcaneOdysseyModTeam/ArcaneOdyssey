@@ -6,8 +6,10 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AOArmour : AOBaseItem
+	public abstract class AOArmour : AOBaseItem, ILocalizedModType
 	{
+        public override string LocalizationCategory => "Items.Armour";
+
 		/// <summary>
 		/// At max item level btw
 		/// </summary>

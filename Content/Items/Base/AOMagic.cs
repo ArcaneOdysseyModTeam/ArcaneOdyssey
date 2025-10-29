@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
 	{
-		public override string LocalizationCategory => "Magics." + ImbuableTier;
+		public override string LocalizationCategory => "Magic." + ImbuableTier;
 
 		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse)
 		{

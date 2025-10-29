@@ -179,16 +179,16 @@ namespace ArcaneOdyssey.Content.NPCS
 					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
 					if (ModLoader.HasMod("CalamityMod"))
 					{
-						doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
+						doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
 					}
 					else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 					{
 						if ((bool)fargos.Call("DoubleTapDashDisabled"))
 						{
-							doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
+							doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
 						}
 					}
-					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("KeybindStuff.Unbound").Value);
+					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
 					options.Add(this.GetLocalizedValue("Help.EarlyFighting2").
 						Replace("{Keybind1}", doubletapdash).
 						Replace("{Keybind2}", Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));

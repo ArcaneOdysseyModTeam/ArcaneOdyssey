@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
     public abstract class PulsarSpell : MagicSpell, ILocalizedModType
     {
-        public override string LocalizationCategory => "Spells.Pulsars";
+        public override string LocalizationCategory => "Magic.Spells.Pulsars";
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -55,3 +55,25 @@ Developer: {
 		Tooltip: MADE IN HEAVEN
 	}
 }
+
+Scrolls: {
+	CrashScroll: {
+		DisplayName: Crash Scroll
+		Tooltip: ""
+	}
+
+	ShotScroll: {
+		DisplayName: Shot Scroll
+		Tooltip: ""
+	}
+
+	SmashScroll: {
+		DisplayName: Smash Scroll
+		Tooltip: ""
+	}
+}
+
+Techniques: {
+	ShockwaveSmash.DisplayName: Shockwave Smash
+	ShotTechnique.DisplayName: Shot Technique
+}

@@ -3,19 +3,18 @@
 WorldGen: {
 	Tucker: Burying Tucker
 	Morden: Placing Morden
+	EliusArena: Spawning a mysterious sky island
 }
 
 Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
 	DebuffDummy: A being older than this world, said to be the source of everything.
-	Evander: A bounty hunter. Finish this later.
+	Evander: A famous bounty hunter, who hunts your bounty placed on you.
 }
 
 MenuStyle: Odyssey Style
-AltMenuStyle: Dark Sea Style
 SpiritDamage: spirit damage
 AnyBasicImbue: Any Basic Imbue
-AnyWings: Any Wings
 
 Buffs: {
 	RisenTide: {
@@ -125,11 +124,6 @@ ImbueStuff: {
 	SpecificImbue: Your {0}'s imbue has been set to {1}
 }
 
-PopupText: {
-	RisingTide: Rising Tide!
-	ColossalCleave: Colossal Cleave!
-}
-
 Configs: {
 	ArcaneOdysseyConfig: {
 		DisplayName: Arcane Odyssey Config
@@ -156,20 +150,7 @@ Configs: {
 	}
 }
 
-KeybindStuff: {
-	DashHelp: Double tap a movement key
-	CalDash: Press the Calamity Dash Keybind (if set)
-	Unbound: Unbound
-}
-
-RandomWords: {
-	Press: Press
-	None: None
-	Or: or
-	Default: Default
-	Ability: Ability
-	Material: Material
-}
+KeybindStuff.DashHelp: Double tap a movement key
 
 NPCs: {
 	DebuffDummy.DisplayName: ???
@@ -267,6 +248,14 @@ ArmourAutoTooltip: {
 	Size: "{0}% increased attack size"
 }
 
+CodebreakerDialogOption: {
+	Name: Magic Pollution
+	Description1: This planet is abundant with magic, to a scale of which has never been recorded even among gods.
+	Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
+	Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world; Xeroc, who has been unaccounted for; Yharon, who still needs much more time to revive.
+	Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
+}
+
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Dash Bind
@@ -274,39 +263,26 @@ Keybinds: {
 }
 
 Projectiles: {
-	DeathCurse.DisplayName: Death Curse..
-	EvanderMelee.DisplayName: Evander's Blade
+	DeathCurse.DisplayName: Death Curse
+	EvanderMelee.DisplayName: Evander's Greatsword
 	EvanderSlash.DisplayName: Evander's Colossal Cleave
-	LeapFix.DisplayName: Leap Fix
-	ExplosionTracker.DisplayName: Magic Circle
+	LeapFix.DisplayName: Leap Spell
+	ExplosionTracker.DisplayName: Explosion Spell
 	MagicCircle1.DisplayName: Magic Circle
 	MagicCircle2.DisplayName: Magic Circle
+	ElfPetProjectile.DisplayName: Aether
 	PowderExplosion.DisplayName: Powder Explosion
 	SpiritBlast.DisplayName: Spirit Blast
 	ColossalCleave.DisplayName: Colossal Cleave
 	FuryoftheSea.DisplayName: Fury of the Sea
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
-	PiercingStrikesProjectile.DisplayName: Piercing Strike
+	PiercingStrikesProjectile.DisplayName: Piercing Strikes
 	Whirlwind.DisplayName: Whirlwind
 	BronzeStaffProjectile.DisplayName: Bronze Staff
 	BronzeTridentProjectile.DisplayName: Bronze Trident
+	KatanaSlash.DisplayName: Katana Slash
 	OldTridentProjectile.DisplayName: Old Trident
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
-	KatanaSlash.DisplayName: Slash
-	ElfPetProjectile.DisplayName: Elf Pet Projectile
-}
-
-Techniques: {
-	ShotTechnique.DisplayName: Shot
-	ShockwaveSmash.DisplayName: Smash
-}
-
-CodebreakerDialogOption: {
-	Name: Magic Pollution
-	Description1: This planet is abundant with magic, to a scale of which has never been recorded even among gods.
-	Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
-	Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world; Xeroc, who has been unaccounted for; Yharon, who still needs much more time to revive.
-	Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
 }

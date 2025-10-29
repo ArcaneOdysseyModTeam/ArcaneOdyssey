@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AORangedOrMeleeWeapon : AOBaseItem, ILocalizedModType, IImbuableEntity
 	{
-		public override string LocalizationCategory => "StandardWeapons";
+		public override string LocalizationCategory => "Items.Weapons";
 
         public Imbuable Imbue {  get => Item.ArcaneOdyssey().Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 

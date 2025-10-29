@@ -48,7 +48,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.Imbue() is AOMagic)
 				player.noFallDmg = true;
 			else
-				player.wingTime = 0;
+            {
+                player.slowFall = false;
+                player.wingTime = 0;
+            }
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)
@@ -63,55 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void AddRecipes()
 		{
-			var group = new RecipeGroup(() => Mod.CustomLocalization("AnyWings").Value, [
-				ItemID.DemonWings,
-				ItemID.AngelWings,
-				ItemID.RedsWings,
-				ItemID.ButterflyWings,
-				ItemID.FairyWings,
-				ItemID.HarpyWings,
-				ItemID.BoneWings,
-				ItemID.FlameWings,
-				ItemID.FrozenWings,
-				ItemID.GhostWings,
-				ItemID.SteampunkWings,
-				ItemID.LeafWings,
-				ItemID.BatWings,
-				ItemID.BeeWings,
-				ItemID.DTownsWings,
-				ItemID.WillsWings,
-				ItemID.CrownosWings,
-				ItemID.CenxsWings,
-				ItemID.TatteredFairyWings,
-				ItemID.SpookyWings,
-				ItemID.Hoverboard,
-				ItemID.FestiveWings,
-				ItemID.BeetleWings,
-				ItemID.FinWings,
-				ItemID.FishronWings,
-				ItemID.MothronWings,
-				ItemID.WingsSolar,
-				ItemID.WingsVortex,
-				ItemID.WingsNebula,
-				ItemID.WingsStardust,
-				ItemID.Yoraiz0rWings,
-				ItemID.JimsWings,
-				ItemID.SkiphsWings,
-				ItemID.LokisWings,
-				ItemID.BetsyWings,
-				ItemID.ArkhalisWings,
-				ItemID.LeinforsWings,
-				ItemID.BejeweledValkyrieWing,
-				ItemID.GhostarsWings,
-				ItemID.GroxTheGreatWings,
-				ItemID.FoodBarbarianWings,
-				ItemID.SafemanWings,
-				ItemID.CreativeWings,
-				ItemID.RainbowWings,
-				ItemID.LongRainbowTrailWings,
-			]);
-			var any = RecipeGroup.RegisterGroup("AnyWings", group);
-			CreateRecipe().AddRecipeGroup(any).AddIngredient<EmptyScroll>().Register();
+			CreateRecipe().AddIngredient(ItemID.SoulofFlight, 20).AddIngredient<EmptyScroll>().Register();
 		}
 	}
 }

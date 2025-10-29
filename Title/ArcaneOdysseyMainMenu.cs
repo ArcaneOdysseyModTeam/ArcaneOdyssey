@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Title
 
 		public static Texture2D BackgroundTexture => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Title/TitleBackground").Value;
 
-		public override string DisplayName => !AltMenu ? Mod.CustomLocalization("MenuStyle").Value : Mod.CustomLocalization("AltMenuStyle").Value;
+		public override string DisplayName => Mod.CustomLocalization("MenuStyle").Value;
 
 		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<TheTitleStyle>();
 
@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Title
 		}
 
 		/// <summary>
-		/// dark sea menu 
+		/// dark sea menu, disable until dark sea update lol
 		/// </summary>
 		public virtual bool AltMenu => false;
 
@@ -161,10 +161,5 @@ namespace ArcaneOdyssey.Title
 		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot($"{nameof(ArcaneOdyssey)}/Backgrounds/Blank");
 		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot($"{nameof(ArcaneOdyssey)}/Backgrounds/Blank");
 		public override bool PreDrawCloseBackground(SpriteBatch spriteBatch) => false;
-	}
-
-	public class DarkTitle : ArcaneOdysseyMainMenu
-	{
-		public override bool AltMenu => true;
 	}
 }

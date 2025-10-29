@@ -1,0 +1,79 @@
+BronzeRapier: {
+	DisplayName: Bronze Rapier
+	Tooltip: ""
+}
+
+BronzeStaff: {
+	DisplayName: Bronze Staff
+	Tooltip: ""
+}
+
+BronzeTrident: {
+	DisplayName: Bronze Trident
+	Tooltip: ""
+}
+
+RavennaGreataxe: {
+	DisplayName: Ravenna Greataxe
+	Tooltip: ""
+}
+
+RavennaGreatsword: {
+	DisplayName: Ravenna Greatsword
+	Tooltip: ""
+}
+
+RavennaSword: {
+	DisplayName: Ravenna Sword
+	Tooltip: ""
+}
+
+ColossalGreatsword: {
+	DisplayName: Colossal Greatsword
+	Tooltip: ""
+}
+
+CommodoreKaiSabre: {
+	DisplayName: Commodore Kai Sabre
+	Tooltip: ""
+}
+
+OldGreataxe: {
+	DisplayName: Old Greataxe
+	Tooltip: ""
+}
+
+OldGreatsword: {
+	DisplayName: Old Greatsword
+	Tooltip: ""
+}
+
+OldRapier: {
+	DisplayName: Old Rapier
+	Tooltip: ""
+}
+
+OldSword: {
+	DisplayName: Old Sword
+	Tooltip: ""
+}
+
+OldTrident: {
+	DisplayName: Old Trident
+	Tooltip: ""
+}
+
+WoodenStaff: {
+	DisplayName: Wooden Staff
+	Tooltip: ""
+}
+
+SunkenStaff: {
+	DisplayName: Sunken Staff
+	Tooltip: ""
+}
+
+SunkenSword: {
+	DisplayName: Sunken Sword
+	Tooltip: ""
+}
