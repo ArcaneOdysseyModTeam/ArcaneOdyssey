@@ -52,6 +52,11 @@ Lost: {
 		DisplayName: Prism Magic
 		Tooltip: Allows the user to form vibrant prisms of glass that shatter into a brilliant display of reflective shards and blinding lights
 	}
+
+	ShadowflameMagic: {
+		DisplayName: Shadowflame Magic
+		Tooltip: Allows the user to manifest dark purple flames which burn even through water
+	}
 }
 
 Normal: {

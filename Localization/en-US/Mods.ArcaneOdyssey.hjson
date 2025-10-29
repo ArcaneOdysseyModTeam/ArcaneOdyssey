@@ -109,8 +109,8 @@ Buffs: {
 	}
 
 	ElfPetBuff: {
-		Description: Mods.ArcaneOdyssey.Buffs.ElfPetBuff.Description
-		DisplayName: Elf Pet Buff
+		Description: Aether is now following you around, boosting your morale and determination
+		DisplayName: Aether The Elf
 	}
 }
 
