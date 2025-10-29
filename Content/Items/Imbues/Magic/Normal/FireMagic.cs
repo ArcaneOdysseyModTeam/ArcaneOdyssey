@@ -37,7 +37,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				ModContent.BuffType<FreezingEffect>(),
 				ModContent.BuffType<SnowyEffect>(),
 				BuffID.Wet,
-				ModContent.BuffType<CharredEffect>()
+				ModContent.BuffType<CharredEffect>(),
+				BuffID.Oiled,
+				BuffID.Slimed
 			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.15f),

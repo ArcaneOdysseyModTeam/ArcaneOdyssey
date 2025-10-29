@@ -50,6 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.1f), // freezing
 				new MagicBuffMultiplier(BuffID.Wet, 1.1f), // (add stunning later!)
 				new MagicBuffMultiplier(BuffID.OnFire, .9f), // burning
+				new(BuffID.Oiled,1.03f),
 				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), .9f), // charred
 				new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
 				new MagicBuffMultiplier(BuffID.ShadowFlame, 0.8f),

@@ -35,6 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				BuffID.Venom,
 				BuffID.OnFire3,
 				BuffID.ShadowFlame,
+				BuffID.Oiled,
 				ModContent.BuffType<AOScalding>(),
 				ModContent.BuffType<SearedEffect>()
 			],
@@ -46,6 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new MagicBuffMultiplier(BuffID.Venom,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.075f),
 				new MagicBuffMultiplier(BuffID.OnFire3,0.9f),
+				new(BuffID.Oiled,0.98f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.8f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,0.7f),
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),1.1f),

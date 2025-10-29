@@ -37,6 +37,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				ModContent.BuffType<CharredEffect>(),
 				BuffID.Venom,
 				BuffID.Wet,
+				BuffID.Oiled,
 				ModContent.BuffType<FreezingEffect>(),
 				BuffID.OnFire3,
 				BuffID.ShadowFlame,

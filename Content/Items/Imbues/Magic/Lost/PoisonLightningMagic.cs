@@ -50,7 +50,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
 				new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
 				new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid
-				new MagicBuffMultiplier(BuffID.Wet, 1.05f), // 
+				new MagicBuffMultiplier(BuffID.Wet, 1.05f), //
+				new MagicBuffMultiplier(BuffID.Oiled,0.98f), 
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)

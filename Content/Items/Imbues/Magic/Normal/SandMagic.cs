@@ -30,7 +30,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SandyEffect>(), 60*10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.Wet
+				BuffID.Wet,
+				BuffID.Oiled
 			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
@@ -40,6 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.8f),
 				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
 				new MagicBuffMultiplier(BuffID.Wet,0.8f),
+				new(BuffID.Oiled,0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.125f)
 			]
 			);

@@ -45,6 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.99f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
 				new MagicBuffMultiplier(BuffID.Wet,0.99f),
+				new(BuffID.Oiled,1.075f),
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.99f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.125f),
 				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)

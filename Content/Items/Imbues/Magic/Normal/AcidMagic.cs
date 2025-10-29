@@ -42,6 +42,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
                 new(BuffID.Poisoned,1.05f),
                 new(BuffID.ShadowFlame,1.1f),
                 new(BuffID.Wet,0.9f),
+				new(BuffID.Oiled,1.05f),
                 new(ModContent.BuffType<Crystallized>(),0.9f),
                 new(ModContent.BuffType<SandyEffect>(),0.99f),
                 new(ModContent.BuffType<AOScalding>(),1.075f),

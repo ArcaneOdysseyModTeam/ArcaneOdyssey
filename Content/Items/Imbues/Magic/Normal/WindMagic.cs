@@ -37,7 +37,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				ModContent.BuffType<SandyEffect>(),
 				BuffID.Wet,
 				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<AOScalding>()
+				ModContent.BuffType<AOScalding>(),
+				BuffID.Oiled
 			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),
@@ -48,6 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.9f),
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
 				new MagicBuffMultiplier(BuffID.Wet,0.9f),
+				new(BuffID.Oiled,0.98f),
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f),
 				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
 			]

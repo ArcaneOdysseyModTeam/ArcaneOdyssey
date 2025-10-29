@@ -39,7 +39,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				BuffID.Venom,
 				ModContent.BuffType<FreezingEffect>(),
 				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<SnowyEffect>()
+				ModContent.BuffType<SnowyEffect>(),
+				BuffID.Oiled
 			],
 			[
 				new MagicBuffMultiplier(ModContent.BuffType<AOPetrified>(), 1.2f), // petrified
