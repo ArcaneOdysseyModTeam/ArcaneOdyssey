@@ -134,7 +134,7 @@ namespace ArcaneOdyssey
 			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 			{
 				// stat sheet
-				Func<string> SizeText = () => $"Attack size multiplier: {1+Math.Round(Main.LocalPlayer.ArcaneOdyssey().GetSizeMulti(), 3)}x";
+				Func<string> SizeText = () => $"Attack size multiplier: {1+Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x";
 				fargos.Call("AddStat", ModContent.ItemType<SteamImbue>(), SizeText);
 
 				// current imbue lol

@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Items.Vanity
+namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class HeadlessHeadWithWig : AOBaseItem

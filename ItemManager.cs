@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Vanity;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +15,8 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Equipment.Vanity;
+using ArcaneOdyssey.Content.Items.Equipment.Pets;
 
 namespace ArcaneOdyssey
 {
@@ -97,13 +98,19 @@ namespace ArcaneOdyssey
 				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
 				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
 				itemLoot.Add(leadingConditionRule2);
-				//LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
-				//leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
-				//itemLoot.Add(leadingConditionRule3);
-				//LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
-				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
-				//itemLoot.Add(leadingConditionRule4);
-			}
+                //LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
+                //leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
+                //itemLoot.Add(leadingConditionRule3);
+                //LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
+                //leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
+                //itemLoot.Add(leadingConditionRule4);
+                //LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
+                //leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 8), true);
+                //itemLoot.Add(leadingConditionRule5);
+                //LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
+                //leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
+                //itemLoot.Add(leadingConditionRule6);
+            }
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 			itemLoot.Add(AcrimonyCondition);
@@ -180,7 +187,7 @@ namespace ArcaneOdyssey
 		{
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
-				scale += player.ArcaneOdyssey().GetSizeMulti();
+				scale += player.ArcaneOdyssey().SizeMulti;
 				if (item.TryGetImbue(out Imbuable imbue))
 				{
 					scale += imbue.AOImbueSize.MultiToPercent();

@@ -87,19 +87,15 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ResetEffects()
-		{
-			AOSizeStat = 0;
+        {
+            AOSizeStat = 0;
 			HandleDashDetection();
 		}
 
-		public float GetSizeMulti() => AOSizeStat / 300f;
+		public float SizeMulti => AOSizeStat / 300f;
 
 		public override void PreUpdate()
 		{
-			if (!Player.HasBuff<ElfPetBuff>())
-            {
-				elfPet = false;
-            }
 			if (timeTillNextMove > 1)
 			{
 				for (int i = 0; i < 4; i++)

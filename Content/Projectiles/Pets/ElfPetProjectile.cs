@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Buffs.Pets;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -51,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
         {
             Projectile.active = true;
             Player player = Main.player[Projectile.owner];
-            AOPlayer modPlayer = player.GetModPlayer<AOPlayer>();
+            var modPlayer = player.GetModPlayer<ThyPlayer>();
             if (modPlayer.elfPet)
             {
                 Projectile.timeLeft = 2;

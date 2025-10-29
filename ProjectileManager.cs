@@ -85,7 +85,7 @@ namespace ArcaneOdyssey
 			{
 				mult += (projectile.ModProjectile is MagicSpell ? imbue.AOScrollSize : imbue.AOImbueSize).MultiToPercent();
 			}
-			mult += player.ArcaneOdyssey().GetSizeMulti();
+			mult += player.ArcaneOdyssey().SizeMulti;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
 				hitbox.Width = (int)(dim.X * mult);

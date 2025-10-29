@@ -1,19 +1,23 @@
+﻿using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Items.Vanity
+namespace ArcaneOdyssey.Content.Items.Equipment.Vanity
 {
-    public class VesuvianSigil : ModItem
+    public class KindraBlade : AOBaseItem
     {
+        public override AORarities AORarity => AORarities.Special;
+
         public override void Load()
         {
             if (!Main.dedServ)
             {
-                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Head", EquipType.Head, this);
-                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Body", EquipType.Body, this);
-                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Legs", EquipType.Legs, this);
-                EquipLoader.AddEquipTexture(Mod, $"{nameof(ArcaneOdyssey)}/Content/Items/Vanity/Red_Back", EquipType.Back, this);
+                EquipLoader.AddEquipTexture(Mod, Texture.Replace("Blade", "_Head"), EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, Texture.Replace("Blade", "_Body"), EquipType.Body, this);
+                EquipLoader.AddEquipTexture(Mod, Texture.Replace("Blade", "_Legs"), EquipType.Legs, this);
+                EquipLoader.AddEquipTexture(Mod, Texture.Replace("Blade", "_Back"), EquipType.Back, this);
             }
         }
 
@@ -35,8 +39,8 @@ namespace ArcaneOdyssey.Content.Items.Vanity
 
         public override void SetDefaults()
         {
-            Item.width = 40;
-            Item.height = 40;
+            Item.width = 26;
+            Item.height = 38;
             Item.accessory = true;
             Item.value = 0;
             Item.rare = ItemRarityID.Red;
@@ -45,19 +49,19 @@ namespace ArcaneOdyssey.Content.Items.Vanity
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<RedPlayer>().vanityEquipped = true;
+            player.GetModPlayer<GuardPlayer>().vanityEquipped = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             if (!hideVisual)
             {
-                player.GetModPlayer<RedPlayer>().vanityEquipped = true;
+                player.GetModPlayer<GuardPlayer>().vanityEquipped = true;
             }
         }
     }
 
-    public class RedPlayer : ModPlayer
+    public class GuardPlayer : ModPlayer
     {
         public bool vanityEquipped = false;
 
@@ -70,10 +74,10 @@ namespace ArcaneOdyssey.Content.Items.Vanity
         {
             if (vanityEquipped)
             {
-                Player.back = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Back);
-                Player.legs = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Legs);
-                Player.head = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Head);
-                Player.body = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Body);
+                Player.back = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Back);
+                Player.legs = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Legs);
+                Player.head = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Head);
+                Player.body = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Body);
             }
         }
     }
