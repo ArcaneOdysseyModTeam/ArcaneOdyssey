@@ -12,9 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class AetherMagic : AOMagic
 	{
-        public override bool? Cold => false;
 		public override float AOImbueSpeed => 1f;
-        public override bool CanBeWet => false;
         public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;
 		public override float AOScrollSpeed => 1f;

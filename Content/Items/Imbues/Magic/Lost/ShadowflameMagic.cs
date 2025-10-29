@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
         public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new Color(255, 100, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-        public override bool CanBeWet => false;
+        public override bool CanBeWet => true;
         public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 1.1f;

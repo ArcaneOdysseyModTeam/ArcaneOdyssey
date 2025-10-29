@@ -62,6 +62,11 @@ Lost: {
 		DisplayName: Diamond Magic
 		Tooltip: Allows the user to mainfest hard, sharp diamonds which cut enemies and are seemingly immune to scratches
 	}
+
+	OilMagic: {
+		DisplayName: Oil Magic
+		Tooltip: ""
+	}
 }
 
 Normal: {

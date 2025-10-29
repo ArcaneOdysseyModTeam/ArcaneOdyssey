@@ -96,6 +96,7 @@ Blasts: {
 	PrismBlast.DisplayName: Prism Blast
 	ShadowflameBlast.DisplayName: Shadowflame Blast
 	DiamondBlast.DisplayName: Diamond Blast
+	OilBlast.DisplayName: Oil Blast
 }
 
 Cannons: {
@@ -132,6 +133,7 @@ Cannons: {
 	PrismCannon.DisplayName: Prism Cannon
 	ShadowflameCannon.DisplayName: Shadowflame Cannon
 	DiamondCannon.DisplayName: Diamond Cannon
+	OilCannon.DisplayName: Oil Cannon
 }
 
 ExplosionSpell.DisplayName: Explosion Spell
@@ -170,4 +172,5 @@ Pulsars: {
 	PrismPulsar.DisplayName: Prism Pulsar
 	ShadowflamePulsar.DisplayName: Shadowflame Pulsar
 	DiamondPulsar.DisplayName: Diamond Pulsar
+	OilPulsar.DisplayName: Oil Pulsar
 }
