@@ -13,6 +13,7 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
+using Terraria;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -38,7 +39,37 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<OilBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<OilPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<OilCannon>())]);
-		
+		public override void SpawningEffects(Entity projectile) 
+		{
+            for (int n = 0; n < 3; n++)
+
+            {
+                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Corruption, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, Color.Black, 3f)];
+                spawnedDust.noGravity = true;
+            }
+		}
+
+		public override void LingeringEffects(Entity projectile) 
+		{
+            Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Water_Corruption, 0f, 0f, 0, Color.Black, 1.2f);
+		}
+		public override void ExplosionEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 1, 1, DustID.Water_Corruption, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, Color.Black, 3f)];
+				spawnedDust.noGravity = true;
+			}
+		}
+		public override void KillEffects(Entity projectile)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Corruption, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Color.Black, 3f)];
+				spawnedDust.noGravity = true;
+			}
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
 		public override void AddRecipes() {
             
         }
