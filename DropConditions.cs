@@ -33,6 +33,12 @@ namespace ArcaneOdyssey
         public bool CanShowItemDropInUI() => true;
         public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
     }
+    public class NotFirstEvanderKill : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info) => DownedBosses.downedEvander;
+        public bool CanShowItemDropInUI() => true;
+        public string GetConditionDescription() => Language.GetOrRegister($"Mods.{nameof(ArcaneOdyssey)}.NotFirstEvanderKillDescription", () => "Following Evanders Defeated").Value;
+    }
 
     public class FirstDayEmpressKill : IItemDropRuleCondition
 	{

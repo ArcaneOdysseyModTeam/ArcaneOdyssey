@@ -42,8 +42,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Vanity
             Item.width = 26;
             Item.height = 38;
             Item.accessory = true;
-            Item.value = 0;
-            Item.rare = ItemRarityID.Red;
             Item.vanity = true;
         }
 
@@ -74,10 +72,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Vanity
         {
             if (vanityEquipped)
             {
-                Player.back = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Back);
-                Player.legs = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Legs);
-                Player.head = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Head);
-                Player.body = EquipLoader.GetEquipSlot(Mod, "KindraBlade", EquipType.Body);
+                Player.back = EquipLoader.GetEquipSlot(Mod, nameof(KindraBlade), EquipType.Back);
+                Player.legs = EquipLoader.GetEquipSlot(Mod, nameof(KindraBlade), EquipType.Legs);
+                Player.head = EquipLoader.GetEquipSlot(Mod, nameof(KindraBlade), EquipType.Head);
+                Player.body = EquipLoader.GetEquipSlot(Mod, nameof(KindraBlade), EquipType.Body);
             }
         }
     }

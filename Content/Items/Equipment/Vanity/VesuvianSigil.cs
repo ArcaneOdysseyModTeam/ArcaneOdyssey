@@ -42,8 +42,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Vanity
             Item.width = 40;
             Item.height = 40;
             Item.accessory = true;
-            Item.value = 0;
-            Item.rare = ItemRarityID.Red;
             Item.vanity = true;
         }
 
@@ -74,10 +72,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Vanity
         {
             if (vanityEquipped)
             {
-                Player.back = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Back);
-                Player.legs = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Legs);
-                Player.head = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Head);
-                Player.body = EquipLoader.GetEquipSlot(Mod, "VesuvianSigil", EquipType.Body);
+                Player.back = EquipLoader.GetEquipSlot(Mod, nameof(VesuvianSigil), EquipType.Back);
+                Player.legs = EquipLoader.GetEquipSlot(Mod, nameof(VesuvianSigil), EquipType.Legs);
+                Player.head = EquipLoader.GetEquipSlot(Mod, nameof(VesuvianSigil), EquipType.Head);
+                Player.body = EquipLoader.GetEquipSlot(Mod, nameof(VesuvianSigil), EquipType.Body);
             }
         }
     }

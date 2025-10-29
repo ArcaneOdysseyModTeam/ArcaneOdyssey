@@ -54,28 +54,28 @@ namespace ArcaneOdyssey
 			Seared = false;
 		}
 
-        public override void UpdateLifeRegen(NPC npc, ref int damage)
-        {
-            if (npc.ModNPC is not Edgelord) // morden is immune to dot lol
-            {
-                if (Bleeding)
-                {
-                    npc.lifeRegen -= 3;
-                }
-                if (HeavyBleeding)
-                {
-                    npc.lifeRegen -= 6;
-                }
-                if (Scalding)
-                {
-                    npc.lifeRegen -= 5;
-                }
-                if (Seared)
-                {
-                    npc.lifeRegen -= 4;
-                }
-            }
-        }
+		public override void UpdateLifeRegen(NPC npc, ref int damage)
+		{
+			if (npc.ModNPC is not Edgelord) // morden is immune to dot lol
+			{
+				if (Bleeding)
+				{
+					npc.lifeRegen -= 3;
+				}
+				if (HeavyBleeding)
+				{
+					npc.lifeRegen -= 6;
+				}
+				if (Scalding)
+				{
+					npc.lifeRegen -= 5;
+				}
+				if (Seared)
+				{
+					npc.lifeRegen -= 4;
+				}
+			}
+		}
 
 	}
 
@@ -141,15 +141,17 @@ namespace ArcaneOdyssey
 
 		public override void OnKill(NPC npc)
 		{
-			if (npc.type == NPCID.HallowBoss)
-			{
-				if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
-				{
-					DownedBosses.downedEnragedEmpress = true;
-					if (Main.dedServ)
-						NetMessage.SendData(MessageID.WorldData);
-				}
-			}    
+			//if (npc.type == NPCID.HallowBoss)
+			//{
+			//	if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+			//	{
+			//		DownedBosses.downedEnragedEmpress = true;
+			//		if (Main.dedServ)
+			//		{
+			//			NetMessage.SendData(MessageID.WorldData);
+			//		}
+			//	}
+			//}    
 		}
 	}
 }

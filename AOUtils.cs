@@ -21,10 +21,6 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
-		public static int GetAOBuffStack(NPC npc, int index)
-		{
-			return (npc.buffTime[index] / 60 / 5) + 1;
-		}
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().Imbue;
@@ -296,12 +292,12 @@ namespace ArcaneOdyssey
 				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + fulllocalstuff] = text;
 			}
 			return text;
-        }
+		}
 
-        public static ArcaneOdyssey ModInstance => global::ArcaneOdyssey.ArcaneOdyssey.Instance;
+		public static ArcaneOdyssey ModInstance => global::ArcaneOdyssey.ArcaneOdyssey.Instance;
 
 
-        public static bool checklistfailed = false;
+		public static bool checklistfailed = false;
 		private static int GetBossKillCount()
 		{
 			int count = 0;
@@ -321,30 +317,30 @@ namespace ArcaneOdyssey
 			else
 			{
 				var raw = checklist.Call("GetBossInfoDictionary", ModInstance);
-                if (raw is Dictionary<string, Dictionary<string, object>> data)
-                {
-                    foreach (var boss in data)
-                    {
-                        bool isbossormini = (bool)boss.Value["isBoss"] || (bool)boss.Value["isMiniboss"];
-                        if (isbossormini)
-                        {
-                            var func = (Func<bool>)boss.Value["downed"];
-                            conditions.Add(func.Invoke());
-                        }
-                    }
-                }
-                else
-                {
-                    checklistfailed = true;
-                    return GetBossKillCount();
-                }
+				if (raw is Dictionary<string, Dictionary<string, object>> data)
+				{
+					foreach (var boss in data)
+					{
+						bool isbossormini = (bool)boss.Value["isBoss"] || (bool)boss.Value["isMiniboss"];
+						if (isbossormini)
+						{
+							var func = (Func<bool>)boss.Value["downed"];
+							conditions.Add(func.Invoke());
+						}
+					}
+				}
+				else
+				{
+					checklistfailed = true;
+					return GetBossKillCount();
+				}
 			}
 			foreach (bool killed in conditions)
 			{
 				if (killed)
 					count++;
 			}
-            checklistfailed = false;
+			checklistfailed = false;
 			return count;
 		}
 
@@ -352,6 +348,36 @@ namespace ArcaneOdyssey
 		/// includes mini bosses
 		/// </summary>
 		public static int BossesKilled => GetBossKillCount();
+
+		public static bool TryGetOwner(this Entity entity, out AOPlayer player)
+		{
+			var e = entity.TryGetOwner(out Player playr);
+			if (playr.TryArcaneOdyssey(out player))
+			{
+				return e;
+			}
+			return false;
+		}
+
+		public static bool TryGetOwner(this Entity entity, out Player player)
+		{
+			player = null;
+			if (entity is Projectile projectile)
+			{
+				player = Main.player[projectile.owner];
+			}
+			if (entity is NPC npc)
+			{
+				player = Main.player[npc.releaseOwner];
+			}
+			if (entity is Player player1)
+			{
+				player = player1;
+			}
+			return player is not null && player.active;
+		}
+
+		#region Enum Getters
 
 		public static ItemType GetItemType(this Item item)
 		{
@@ -396,35 +422,6 @@ namespace ArcaneOdyssey
 				return ItemType.Block;
 			}
 			return ItemType.Item;
-		}
-
-
-		public static bool TryGetOwner(this Entity entity, out AOPlayer player)
-		{
-			var e = entity.TryGetOwner(out Player playr);
-			if (playr.TryArcaneOdyssey(out player))
-			{
-				return e;
-			}
-			return false;
-		}
-
-		public static bool TryGetOwner(this Entity entity, out Player player)
-		{
-			player = null;
-			if (entity is Projectile projectile)
-			{
-				player = Main.player[projectile.owner];
-			}
-			if (entity is NPC npc)
-			{
-				player = Main.player[npc.releaseOwner];
-			}
-			if (entity is Player player1)
-			{
-				player = player1;
-			}
-			return player is not null && player.active;
 		}
 
 		public static AORarities GetItemRare(this Item item)
@@ -490,6 +487,7 @@ namespace ArcaneOdyssey
 				_ => AORarities.Zenith,
 			};
 		}
+		#endregion
 
 		#region structs and enums
 
@@ -696,16 +694,20 @@ namespace ArcaneOdyssey
 			public float multiplier = multi;
 		}
 
-		#endregion
+        #endregion
 
-		#region Random Math Functions
+        #region Random Math Functions
+        public static int GetAOBuffStack(NPC npc, int index)
+        {
+            return (npc.buffTime[index] / 60 / 5) + 1;
+        }
 
-		/// <summary>
-		/// Converts AO Galleons/Drachmae to Terraria Copper
-		/// </summary>
-		/// <param name="price">Price, in Galleons</param>
-		/// <returns></returns>
-		public static int GalleonToCopper(int price) => price * 100; // very simple lol, previously nothing was worth anything
+        /// <summary>
+        /// Converts AO Galleons/Drachmae to Terraria Copper
+        /// </summary>
+        /// <param name="price">Price, in Galleons</param>
+        /// <returns></returns>
+        public static int GalleonToCopper(int price) => Item.buyPrice(silver: price);
 
 
 		/// <summary>

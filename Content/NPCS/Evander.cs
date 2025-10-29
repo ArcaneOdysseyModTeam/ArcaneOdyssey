@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Weapons;
+﻿using ArcaneOdyssey.Content.Items.Consumables;
+using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
@@ -37,6 +38,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 0;
+            NPC.value = Item.buyPrice(gold: 10);
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
             ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, true, null, true, false, false);
@@ -248,7 +250,10 @@ namespace ArcaneOdyssey.Content.NPCS
 			var con = new LeadingConditionRule(new FirstEvanderKill());
 			con.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<ColossalGreatsword>()));
 			npcLoot.Add(con);
-		}
+            con = new LeadingConditionRule(new NoShowNoConditon());
+            con.OnSuccess(new CommonDrop(ModContent.ItemType<EvanderPoster>(), 1), true);
+            npcLoot.Add(new HecateDropMultiHelper(ModContent.ItemType<EvanderPoster>()));
+        }
 
         public override void OnKill()
         {
@@ -273,7 +278,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				foreach (var player in Main.ActivePlayers)
 				{
-					if (player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!BossAlive()) && Main.rand.NextBool(300 * 60))
+					if (player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!EvanderOrBossAlive()) && Main.rand.NextBool(300 * 60))
 					{
 						NPC.SpawnBoss(player.position.X.Round(), player.position.Y.Round() - Main.screenHeight, ModContent.NPCType<Evander>(), player.whoAmI);
 					}
@@ -281,7 +286,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 		}
 
-		public static bool BossAlive()
+		public static bool EvanderOrBossAlive()
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{

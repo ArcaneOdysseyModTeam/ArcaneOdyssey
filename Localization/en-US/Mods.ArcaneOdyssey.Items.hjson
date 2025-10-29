@@ -163,3 +163,8 @@ ElfPetItem: {
 	Tooltip: ""
 	DisplayName: Elf Pet Item
 }
+
+EvanderPoster: {
+	DisplayName: Evander Poster
+	Tooltip: ""
+}
