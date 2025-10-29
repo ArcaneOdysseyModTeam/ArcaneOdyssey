@@ -11,13 +11,15 @@ using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class OilMagic : AOMagic
 	{
-        public override bool CanBeWet => false;
+		public override bool CanBeWet => false;
+		public override Color ImbueColour => new(20,20,20);
         public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;

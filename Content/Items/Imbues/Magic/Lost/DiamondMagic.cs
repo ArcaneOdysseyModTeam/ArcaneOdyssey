@@ -10,6 +10,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using static ArcaneOdyssey.AOUtils;
 
@@ -23,6 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 1f;
+		public override Color ImbueColour => new(50,255,255);
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
         public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
