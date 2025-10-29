@@ -46,28 +46,32 @@ EvanderPoster: {
 }
 
 TitleMusicBox: {
-	DisplayName: Title Music Box
-	Tooltip: ""
+	DisplayName: "Title Music Box?"
+	Tooltip: Download the music mod to restore this item
 }
 
 ElfPetItem: {
-	DisplayName: Elf Pet Item
-	Tooltip: ""
+	DisplayName: Aether's Heart
+	Tooltip: ThyGoodBoy's pet
 }
 
 ReflexScroll: {
 	DisplayName: Reflex Scroll
-	Tooltip: ""
+	Tooltip: 
+		'''
+		Allows the user to dash
+		Grants bonus defence to slow imbues
+		'''
 }
 
 KindraBlade: {
 	DisplayName: Kindra Blade
-	Tooltip: ""
+	Tooltip: Guard Boi's vanity
 }
 
 VesuvianSigil: {
 	DisplayName: Vesuvian Sigil
-	Tooltip: ""
+	Tooltip: RedBirb1508's vanity
 }
 
 WoodenPaddle: {
@@ -77,16 +81,16 @@ WoodenPaddle: {
 
 SteamImbue: {
 	DisplayName: Steam Imbue
-	Tooltip: ""
+	Tooltip: I swear this isn't the attack size stat
 }
 
 Acrimony: {
-	DisplayName: Acrimony
+	DisplayName: Prometheus's Acrimony
 	Tooltip: ""
 }
 
 AncientHecateOrb: {
-	DisplayName: Ancient Hecate Orb
+	DisplayName: Hecate's Orb
 	Tooltip: ""
 }
 
@@ -111,7 +115,7 @@ Paper: {
 }
 
 PoseidonChoice: {
-	DisplayName: Poseidon Choice
+	DisplayName: Poseidon's Spirit
 	Tooltip: ""
 }
 

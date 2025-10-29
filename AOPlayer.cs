@@ -11,7 +11,7 @@ namespace ArcaneOdyssey
 {
 	public partial class AOPlayer : ModPlayer, IImbuableEntity
 	{
-        public Imbuable Imbue { get; set; }
+		public Imbuable Imbue { get; set; }
 		public bool chargingSpell = false;
 		public int AOSizeStat = 0;
 		public Projectile myCircle = null;
@@ -33,10 +33,7 @@ namespace ArcaneOdyssey
 				List<Item> items = [
 					new Item(ModContent.ItemType<PoseidonChoice>()),
 					new Item(ModContent.ItemType<EaglePatrimony>())];
-				if (Main.expertMode)
-				{
-					items.Add(new Item(ModContent.ItemType<Acrimony>()));
-				}
+				items.Add(new Item(ModContent.ItemType<Acrimony>()));
 				return items;
 			}
 			return [];
@@ -87,8 +84,8 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ResetEffects()
-        {
-            AOSizeStat = 0;
+		{
+			AOSizeStat = 0;
 			HandleDashDetection();
 		}
 

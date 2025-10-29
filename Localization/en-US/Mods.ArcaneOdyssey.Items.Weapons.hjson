@@ -70,10 +70,10 @@ WoodenStaff: {
 
 SunkenStaff: {
 	DisplayName: Sunken Staff
-	Tooltip: ""
+	Tooltip: It seems to constantly produce water
 }
 
 SunkenSword: {
 	DisplayName: Sunken Sword
-	Tooltip: ""
+	Tooltip: It seems to constantly produce water
 }

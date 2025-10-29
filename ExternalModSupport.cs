@@ -145,9 +145,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public bool HasCalamity => ModLoader.HasMod("CalamityMod");
-		public bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
-		public bool HasFargos => ModLoader.HasMod("Fargowiltas");
+		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
+        public static bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
+        public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 
 		private void AddBossChecklist()
 		{
