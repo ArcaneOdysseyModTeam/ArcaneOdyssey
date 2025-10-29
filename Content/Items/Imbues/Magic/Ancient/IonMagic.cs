@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 
         public override void AddRecipes()
         {
-            this.CreateAncientRecipe(typeof(AetherMagic), typeof(HeatMagic), typeof(FlareMagic));
+            this.CreateAncientRecipe(typeof(AetherMagic), typeof(HeatMagic), typeof(FlareMagic),typeof(ShadowflameMagic));
         }
 	}
 }
