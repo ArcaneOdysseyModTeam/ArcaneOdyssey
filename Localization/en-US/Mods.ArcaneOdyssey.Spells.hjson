@@ -95,6 +95,7 @@ Blasts: {
 	WoodBlast.DisplayName: Wood Blast
 	PrismBlast.DisplayName: Prism Blast
 	ShadowflameBlast.DisplayName: Shadowflame Blast
+	DiamondBlast.DisplayName: Diamond Blast
 }
 
 Cannons: {
@@ -130,6 +131,7 @@ Cannons: {
 	WoodCannon.DisplayName: Wood Cannon
 	PrismCannon.DisplayName: Prism Cannon
 	ShadowflameCannon.DisplayName: Shadowflame Cannon
+	DiamondCannon.DisplayName: Diamond Cannon
 }
 
 ExplosionSpell.DisplayName: Explosion Spell
@@ -167,4 +169,5 @@ Pulsars: {
 	WoodPulsar.DisplayName: Wood Pulsar
 	PrismPulsar.DisplayName: Prism Pulsar
 	ShadowflamePulsar.DisplayName: Shadowflame Pulsar
+	DiamondPulsar.DisplayName: Diamond Pulsar
 }

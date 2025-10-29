@@ -57,6 +57,11 @@ Lost: {
 		DisplayName: Shadowflame Magic
 		Tooltip: Allows the user to manifest dark purple flames which burn even through water
 	}
+
+	DiamondMagic: {
+		DisplayName: Diamond Magic
+		Tooltip: Allows the user to mainfest hard, sharp diamonds which cut enemies and are seemingly immune to scratches
+	}
 }
 
 Normal: {
