@@ -7,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class AetherMagic : AOMagic
 	{
+		public override Color ImbueColour => new(255,255,0,255);
 		public override float AOImbueSpeed => 1f;
         public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;

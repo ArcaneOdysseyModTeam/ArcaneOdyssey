@@ -7,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class FlareMagic : AOMagic
-    {
+	{
+		public override Color ImbueColour => new(255,0,0,255);
         public override bool? Cold => false;
         public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 1f;
