@@ -30,6 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
 		
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit

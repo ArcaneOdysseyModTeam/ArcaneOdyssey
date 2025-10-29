@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -21,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 1f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60*10),new(ModContent.BuffType<BlindedEffect>(), 60*5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
