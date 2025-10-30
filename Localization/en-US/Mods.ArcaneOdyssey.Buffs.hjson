@@ -92,3 +92,8 @@ PheonixHealing: {
 	DisplayName: Pheonix Healing
 	Description: Nearby players have enhanced life regeneration
 }
+
+HeavyBleed: {
+	DisplayName: Heavy Bleed
+	Description: Mods.ArcaneOdyssey.Buffs.HeavyBleed.Description
+}
