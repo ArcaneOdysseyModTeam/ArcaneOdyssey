@@ -65,7 +65,7 @@ Lost: {
 
 	OilMagic: {
 		DisplayName: Oil Magic
-		Tooltip: ""
+		Tooltip: Allows the user to create flammable crude oil and to coat targets in it
 	}
 }
 
