@@ -35,7 +35,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			],
 			[
-				
+				new(BuffID.OnFire,1.15f),
+				new(BuffID.OnFire3,1.15f),
+				new(BuffID.ShadowFlame,1.15f),
+				new(ModContent.BuffType<AOBleed>(),1.1f),
+				new(ModContent.BuffType<HeavyBleed>(),1.1f),
+				new(ModContent.BuffType<SandyEffect>(),0.96f),
+				new(ModContent.BuffType<SnowyEffect>(),0.96f),
+				new(ModContent.BuffType<CharredEffect>(),1.05f),
+				new(ModContent.BuffType<SearedEffect>(),1.1f)
 			]
 			);
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<OilBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<OilPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<OilCannon>())]);
@@ -71,7 +79,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		public override void AddRecipes() {
-            
+			this.CreateLostRecipe(typeof(WaterMagic),typeof(EarthMagic),typeof(WoodMagic));
         }
 	}
 }
