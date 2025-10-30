@@ -1,0 +1,94 @@
+FreezingEffect: {
+	DisplayName: Freezing
+	Description: Your fingers are turning pale
+}
+
+SnowyEffect: {
+	DisplayName: Snowy
+	Description: Feels chilly
+}
+
+AOFrozen: {
+	DisplayName: Frozen
+	Description: You can't move
+}
+
+AOPetrified: {
+	DisplayName: Petrified
+	Description: You can't move
+}
+
+AOParalyzed: {
+	DisplayName: Paralyzed
+	Description: You can't move
+}
+
+CharredEffect: {
+	DisplayName: Charred
+	Description: You are covered in ash
+}
+
+Crystallized: {
+	DisplayName: Crystallized
+	Description: "{0} Crystals are embeded in your body, ready to shatter and deal damage"
+}
+
+AOBleed: {
+	DisplayName: Bleeding
+	Description: You are losing blood fast
+}
+
+SandyEffect: {
+	Description: You are covered in sand
+	DisplayName: Sandy Effect
+}
+
+Trauma: {
+	DisplayName: Traumatized
+	Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
+}
+
+RowboatBuff: {
+	DisplayName: Rowboat
+	Description: A wooden rowboat that seems to increase your fishing skill
+}
+
+AOScalding: {
+	DisplayName: Scalding
+	Description: You are covered in a thick cloud of hot steam
+}
+
+BlindedEffect: {
+	DisplayName: Blinded
+	Description: You can't see too well
+}
+
+DrainedEffect: {
+	DisplayName: Drained
+	Description: You feel drained and fatigued
+}
+
+IonizedEffect: {
+	DisplayName: Ionized
+	Description: Your skin burns and glows green
+}
+
+SearedEffect: {
+	DisplayName: Seared Effect
+	Description: Your skin is seared red by heat
+}
+
+ElfPetBuff: {
+	Description: Aether is now following you around, boosting your morale and determination
+	DisplayName: Aether The Elf
+}
+
+AncientLightingChain: {
+	DisplayName: Ancient Lighting Chain
+	Description: Ancient Lightning steaks between enemies
+}
+
+PheonixHealing: {
+	DisplayName: Pheonix Healing
+	Description: Nearby players have enhanced life regeneration
+}

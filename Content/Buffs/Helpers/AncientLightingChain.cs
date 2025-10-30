@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 
 				foreach (var npcs in Main.ActiveNPCs)
 				{
-					if (npcs.Center.Distance(npc.Center) < ChainDistance && (!npc.friendly))
+					if (npcs.Center.Distance(npc.Center) <= ChainDistance && (!npc.friendly))
 					{
 						npcs.Center.Distance(npc.Center);
 						npcs.AddBuff(Type, 60);

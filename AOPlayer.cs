@@ -26,6 +26,13 @@ namespace ArcaneOdyssey
 		public bool elfPet;
 		public int timeSinceSoftFrozen;
 
+        public int pheonixHealing;
+
+        public override void UpdateLifeRegen()
+        {
+            Player.lifeRegen += 5 * pheonixHealing;
+        }
+
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
 			if (!mediumCoreDeath)
@@ -86,6 +93,7 @@ namespace ArcaneOdyssey
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
+            pheonixHealing = 0;
 			HandleDashDetection();
 		}
 
