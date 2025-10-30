@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
         {
             foreach (var player in Main.ActivePlayers)
             {
-                if (npc.Hitbox.Distance(player.Center) <= 800)
+                if (npc.Hitbox.Distance(player.Center) <= 800 && ((!EvanderSpawning.EvanderOrBossAlive()) || npc.boss))
                 {
-                    player.ArcaneOdyssey().pheonixHealing += 1;
+                    player.ArcaneOdyssey().pheonixHealing += npc.boss ? 2 : 1;
                     if (!Main.dedServ)
                         HealEffect(player, npc);
                 }
