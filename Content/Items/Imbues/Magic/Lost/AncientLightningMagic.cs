@@ -1,4 +1,5 @@
 using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.Helpers;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
@@ -24,14 +25,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(255,0,0,255);
-        public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float AOImbueSpeed => 1.4f;
 		public override float AOImbueSize => 1.1f;
 		public override float AOImbueDamage => 1.3f;
 		public override float AOScrollSpeed => 1.4f;
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollDamage => 1.3f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33), new(ModContent.BuffType<AncientLightingChain>(), 60)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 
 		public override SynergyEffects Effects => new(
@@ -68,20 +69,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{// WAHT IS  THIS IM SO CONFUSED
 			if (projectile.velocity != Vector2.Zero)
 			{
-				float waveVal = 0f;
-				if (projectile is Projectile) {
-					if (((Projectile)projectile).type == ModContent.ProjectileType<BeamSpell>())
-					{
-						waveVal = 10f * MathF.Abs((float)((Projectile)projectile).numUpdates % 5 % 10f - 2.5f) - 12.5f;
-					}
-					else
-					{
-						waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
-					}
-				} else
-                {
-                    waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
-                }
+				float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
+				if (projectile is Projectile proj && proj.extraUpdates > 0)
+				{
+					waveVal = 10f * MathF.Abs((float)proj.numUpdates % 5 % 10f - 2.5f) - 12.5f;
+				}
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.TheDestroyer, new Vector2(0f, 0f), 255, Color.Red, 1.2f);
 				spawnedDust.noGravity = true;
@@ -107,9 +99,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		}
 
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AncientLightningPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AncientLightningCannon>())]);
-        public override void AddRecipes()
-        {
-            this.CreateLostRecipe(typeof(LightningMagic));
-        }
+		public override void AddRecipes()
+		{
+			this.CreateLostRecipe(typeof(LightningMagic));
+		}
 	}
 }

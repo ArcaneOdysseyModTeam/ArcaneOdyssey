@@ -73,38 +73,6 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
-		public static void CreateLostRecipe(this Imbuable lost, params Type[] imbues)
-		{
-			List<int> types = [];
-			foreach (var type in imbues)
-			{
-				types.Add(lost.Mod.Find<ModItem>(type.Name).Type);
-			}
-			var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + lost.DisplayName.Value + " " + lost.Mod.CustomLocalization("RandomWords.Material").Value, [..types]);
-			RecipeGroup.RegisterGroup(nameof(global::ArcaneOdyssey.ArcaneOdyssey) + ":" + lost.Name + "Material", group);
-			var rec = Recipe.Create(lost.Type);
-			rec.AddRecipeGroup(group);
-			rec.AddIngredient<HecateShard>();
-			rec.DisableDecraft();
-			rec.Register();
-		}
-
-		public static void CreateAncientRecipe(this Imbuable ancient, params Type[] imbues)
-		{
-			List<int> types = [];
-			foreach (var type in imbues)
-			{
-				types.Add(ancient.Mod.Find<ModItem>(type.Name).Type);
-			}
-			var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + ancient.DisplayName.Value + " " + ancient.Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
-			RecipeGroup.RegisterGroup(nameof(global::ArcaneOdyssey.ArcaneOdyssey) + ":" + ancient.Name + "Material", group);
-			var rec = Recipe.Create(ancient.Type);
-			rec.AddRecipeGroup(group);
-			rec.AddIngredient<AncientHecateOrb>();
-			rec.DisableDecraft();
-			rec.Register();
-		}
-
 		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool modifyimbuestats = true)
 		{
 			if (source is null) return;

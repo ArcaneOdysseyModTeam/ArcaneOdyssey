@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
@@ -6,8 +7,10 @@ using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using System;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
@@ -21,7 +24,39 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override string LocalizationCategory => "Magic." + ImbuableTier;
 
-		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse)
+        public void CreateLostRecipe(params Type[] imbues)
+        {
+            List<int> types = [];
+            foreach (var type in imbues)
+            {
+                types.Add(Mod.Find<ModItem>(type.Name).Type);
+            }
+            var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+            RecipeGroup.RegisterGroup(nameof(ArcaneOdyssey) + ":" + Name + "Material", group);
+            var rec = Recipe.Create(Type);
+            rec.AddRecipeGroup(group);
+            rec.AddIngredient<HecateShard>();
+            rec.DisableDecraft();
+            rec.Register();
+        }
+
+        public void CreateAncientRecipe(params Type[] imbues)
+        {
+            List<int> types = [];
+            foreach (var type in imbues)
+            {
+                types.Add(Mod.Find<ModItem>(type.Name).Type);
+            }
+            var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+            RecipeGroup.RegisterGroup(nameof(ArcaneOdyssey) + ":" + Name + "Material", group);
+            var rec = Recipe.Create(Type);
+            rec.AddRecipeGroup(group);
+            rec.AddIngredient<AncientHecateOrb>();
+            rec.DisableDecraft();
+            rec.Register();
+        }
+
+        public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse)
 		{
 			if (magicToUse is AOMagic)
 			{

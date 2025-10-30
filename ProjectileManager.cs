@@ -208,10 +208,9 @@ namespace ArcaneOdyssey
             projectile.coldDamage = Cold.GetValueOrDefault(false) || (Imbue is not null && Imbue.Cold.GetValueOrDefault(false));
 			return true;
 		}
-
         public override void AI(Projectile projectile)
         {
-            if (projectile.owner == Main.myPlayer && (projectile.numUpdates % (projectile.extraUpdates + 1) == 0))
+            if (projectile.owner == Main.myPlayer)
             {
                 if (Imbue is not null && Imbue.PreEffects(projectile))
                 {

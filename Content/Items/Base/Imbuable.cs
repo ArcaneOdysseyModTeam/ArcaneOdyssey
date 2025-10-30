@@ -152,7 +152,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <returns></returns>
 		public virtual bool PreEffects(Entity entity)
 		{
-			if (entity.velocity == entity.velocity.SafeNormalize(Vector2.Zero))
+            if (entity.velocity == Vector2.Zero || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
 			{
 				return false;
 			}

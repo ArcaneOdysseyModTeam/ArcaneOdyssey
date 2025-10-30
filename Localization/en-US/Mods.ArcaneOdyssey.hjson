@@ -111,6 +111,11 @@ Buffs: {
 		Description: Aether is now following you around, boosting your morale and determination
 		DisplayName: Aether The Elf
 	}
+
+	AncientLightingChain: {
+		DisplayName: Ancient Lighting Chain
+		Description: Mods.ArcaneOdyssey.Buffs.AncientLightingChain.Description
+	}
 }
 
 ImbueStuff: {

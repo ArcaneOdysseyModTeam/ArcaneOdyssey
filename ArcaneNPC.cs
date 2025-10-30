@@ -17,7 +17,8 @@ namespace ArcaneOdyssey
 		public override bool InstancePerEntity => true;
 
 		public float StunCD = 5;
-		public float StunDuration = 1;
+        public float ZapCD = 5; // ancient lightning chain
+        public float StunDuration = 1;
 
 		#region Debuff bools
 		public bool Bleeding = false;
@@ -41,8 +42,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ResetEffects(NPC npc)
-		{
-			if (StunDuration <= 0 && AOStunned)
+        {
+            ZapCD -= 1 / 60f;
+            if (StunDuration <= 0 && AOStunned)
 			{
 				AOStunned = false;
 				StunCD = 5;
