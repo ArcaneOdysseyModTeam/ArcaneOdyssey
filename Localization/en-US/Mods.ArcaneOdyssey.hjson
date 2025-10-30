@@ -287,4 +287,5 @@ Projectiles: {
 	OldTridentProjectile.DisplayName: Old Trident
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
+	BronzeTriastaProjectile.DisplayName: Bronze Triasta Projectile
 }

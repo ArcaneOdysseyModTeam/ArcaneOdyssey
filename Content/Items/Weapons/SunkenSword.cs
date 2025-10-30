@@ -34,26 +34,27 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.autoReuse = true;
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
+		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool? UseItem(Player player)
 		{
-			if (player.altFunctionUse == 2)
+			if (!Main.dedServ) 
 			{
-				var dash = new RisingTide();
-				if (!dash.OnCooldown(player))
-					player.ArcaneOdyssey().StartDash(dash, -2);
+                // Particles from swinging
+                Dust.NewDust(player.MountedCenter + new Vector2(player.direction * 3f, 0f), 3, 3, DustID.Water, (player.direction * 30f) * (0.8f - Main.rand.NextFloat()), 30f * (0.5f - Main.rand.NextFloat()), 255, default, 1.3f);
 			}
-			else if (!Main.dedServ) 
-			{
-				// Particles from swinging
-				Dust.NewDust(player.MountedCenter+new Vector2(player.direction*3f,0f),3,3,DustID.Water,(player.direction*30f)*(0.8f-Main.rand.NextFloat()),30f*(0.5f-Main.rand.NextFloat()),255,default,1.3f);
-			}   
 			return null;
 		}
+
+        public override void UseAnimation(Player player)
+        {
+            if (player.AltUse())
+            {
+                var dash = new RisingTide();
+                if (!dash.OnCooldown(player))
+                    player.ArcaneOdyssey().StartDash(dash, -2);
+            }
+        }
 
 		public override void AddRecipes()
 		{
@@ -67,11 +68,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class RisingTide : DashSystem
 	{
-		public override float DashSpeed => 20;
+		public override float DashSpeed => 10;
 		public override int DashMax => 60;
 		public override bool AnyDirection => false;
 		public override bool Immune => false;
-		public override int Cooldown => 60*5;
+		public override int Cooldown => 60*3;
 		public override bool OnHit(Player player, Entity target)
 		{
 			return false;
@@ -87,11 +88,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		}
 
 		public override void OnStart(Player player)
-		{
-			if (!Main.dedServ)
+        {
+            if (!Main.dedServ)
 			{
-				if (Main.LocalPlayer.whoAmI == player.whoAmI)
-					player.velocity.Y *= 0.1f;
 				SoundEngine.PlaySound(SoundID.Splash, player.position);
 				// Adds dust
 				for (int dustCountInt = 0; dustCountInt < 50; dustCountInt++)

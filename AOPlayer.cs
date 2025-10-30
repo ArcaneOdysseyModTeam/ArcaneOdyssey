@@ -103,7 +103,7 @@ namespace ArcaneOdyssey
 			foreach (string i in Cooldowns.Keys)
 			{
 				Cooldowns[i]--;
-				if (Cooldowns[i] <= 0)
+				if (Cooldowns[i] <= 0 || ArcaneOdyssey.devMode)
 				{
 					Cooldowns.Remove(i);
 				}
@@ -112,7 +112,7 @@ namespace ArcaneOdyssey
 			foreach (int i in BuffCooldowns.Keys)
 			{
 				BuffCooldowns[i]--;
-				if (BuffCooldowns[i] <= 0)
+				if (BuffCooldowns[i] <= 0 || ArcaneOdyssey.devMode)
 				{
 					BuffCooldowns.Remove(i);
 				}
@@ -121,7 +121,7 @@ namespace ArcaneOdyssey
 			foreach (int i in ItemCooldowns.Keys)
 			{
 				ItemCooldowns[i]--;
-				if (ItemCooldowns[i] <= 0)
+				if (ItemCooldowns[i] <= 0 || ArcaneOdyssey.devMode)
 				{
 					ItemCooldowns.Remove(i);
 				}

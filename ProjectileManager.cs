@@ -101,29 +101,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override void OnSpawn(Projectile projectile, IEntitySource source)
-		{
-			if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile) && source is not EntitySource_Parent { Entity: NPC })
-			{
-				if (projectile.DamageType != DamageClass.MeleeNoSpeed)
-					projectile.velocity *= projectile.ModProjectile is MagicSpell ? imbue.AOScrollSpeed : imbue.AOImbueSpeed;
-				if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-					imbue.SpawningEffects(projectile);
-			}
-		}
-
-		public override void AI(Projectile projectile)
-		{
-			if (projectile.owner == Main.myPlayer)
-			{
-				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile))
-				{
-					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-						imbue.LingeringEffects(projectile);
-				}
-			}
-		}
-
 		public override bool PreKill(Projectile projectile, int timeLeft)
 		{
 			if (!Main.dedServ)
@@ -175,9 +152,10 @@ namespace ArcaneOdyssey
 					return proj.Cold.Value;
 				}
 				return _cold;
-			} set => _cold = value; }
+			} set => _cold = value;
+        }
 
-		public override void OnSpawn(Projectile projectile, IEntitySource source)
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			thisProjectile = projectile;
 			OriginalDimensions ??= projectile.Size;
@@ -206,7 +184,15 @@ namespace ArcaneOdyssey
 				{
 					Imbue = SteamImbue.Create(Imbue);
 				}
-			}
+
+                if (Imbue is not null && Imbue.PreEffects(projectile))
+                {
+                    if (projectile.DamageType != DamageClass.MeleeNoSpeed)
+                        projectile.velocity *= projectile.ModProjectile is MagicSpell ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed;
+                    if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+                        Imbue.SpawningEffects(projectile);
+                }
+            }
 		}
 
 		public override bool PreAI(Projectile projectile)
@@ -222,5 +208,16 @@ namespace ArcaneOdyssey
             projectile.coldDamage = Cold.GetValueOrDefault(false) || (Imbue is not null && Imbue.Cold.GetValueOrDefault(false));
 			return true;
 		}
+
+        public override void AI(Projectile projectile)
+        {
+            if (projectile.owner == Main.myPlayer && (projectile.numUpdates % (projectile.extraUpdates + 1) == 0))
+            {
+                if (Imbue is not null && Imbue.PreEffects(projectile))
+                {
+                    Imbue.LingeringEffects(projectile);
+                }
+            }
+        }
 	}
 }

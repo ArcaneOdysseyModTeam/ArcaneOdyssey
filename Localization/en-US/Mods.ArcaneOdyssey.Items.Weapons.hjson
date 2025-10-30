@@ -77,3 +77,8 @@ SunkenSword: {
 	DisplayName: Sunken Sword
 	Tooltip: It seems to constantly produce water
 }
+
+BronzeTriasta: {
+	DisplayName: Triasta of Bronze
+	Tooltip: ""
+}

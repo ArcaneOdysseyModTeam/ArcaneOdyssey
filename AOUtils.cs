@@ -491,26 +491,34 @@ namespace ArcaneOdyssey
 
 		#region structs and enums
 
-		public readonly struct WeaponAbility(Mod mod, string name, string description, Color? color = null)
+		public struct WeaponAbility(Mod mod, string name, string description = "No description", Color? color = null)
 		{
-			private readonly string Name = name;
-			private readonly string Description = description;
-			private readonly Color? Colour = color;
-			private readonly Mod Mod = mod;
+			public static string Key(Mod mod, string name)
+			{
+			    return $"Mods.{mod.Name}.WeaponAbilities." + name.Replace(" ", null);
+			}
 
-			public TooltipLine GenerateTooltip()
+			public string Name = name;
+			public string Description = description;
+			public Color? Colour = color;
+			public Mod mod = mod;
+			public string LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name).Value;
+            public string LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description).Value;
+
+
+            public readonly TooltipLine GenerateTooltip()
 			{
 				string text = "";
 				if (Colour.HasValue)
 				{
-					text += $"[c/{Colour.Value.Hex3()}:{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}]";
+					text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName}]";
 				}
 				else
 				{
-					text += $"{Mod.CustomLocalization("RandomWords.Ability").Value} - {Name}";
+					text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName}";
 				}
-				text += $": {Description}";
-				return new TooltipLine(Mod, "AOAbility", text);
+				text += $": {LocalizedDescription}";
+				return new TooltipLine(mod, "AOAbility", text);
 			}
 		}
 
@@ -606,7 +614,7 @@ namespace ArcaneOdyssey
 			Normal,
 			Lost,
 			Ancient,
-            Primordial, // unused
+			Primordial, // unused
 			Developer,
 		}
 
@@ -695,20 +703,20 @@ namespace ArcaneOdyssey
 			public float multiplier = multi;
 		}
 
-        #endregion
+		#endregion
 
-        #region Random Math Functions
-        public static int GetAOBuffStack(NPC npc, int index)
-        {
-            return (npc.buffTime[index] / 60 / 5) + 1;
-        }
+		#region Random Math Functions
+		public static int GetAOBuffStack(NPC npc, int index)
+		{
+			return (npc.buffTime[index] / 60 / 5) + 1;
+		}
 
-        /// <summary>
-        /// Converts AO Galleons/Drachmae to Terraria Copper
-        /// </summary>
-        /// <param name="price">Price, in Galleons</param>
-        /// <returns></returns>
-        public static int GalleonToCopper(int price) => Item.buyPrice(silver: price);
+		/// <summary>
+		/// Converts AO Galleons/Drachmae to Terraria Copper
+		/// </summary>
+		/// <param name="price">Price, in Galleons</param>
+		/// <returns></returns>
+		public static int GalleonToCopper(int price) => Item.buyPrice(silver: price);
 
 
 		/// <summary>

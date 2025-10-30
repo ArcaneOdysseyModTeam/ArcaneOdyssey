@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -69,15 +70,30 @@ namespace ArcaneOdyssey
 		public bool OnCooldown(Player player)
 		{
 			if (AnyDirection)
-				return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) || player.ArcaneOdyssey().dashing;
+				return (player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
 			else
-				return player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.ArcaneOdyssey().dashing;
+				return (player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
 		}
 
-		/// <summary>
-		/// The speed of the dash per tick
-		/// </summary>
-		public abstract float DashSpeed { get; }
+        /// <summary>
+        /// Whether the dash is on cooldown
+        /// </summary>
+        /// <param name="dashType"></param>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public static bool OnCooldown(Type dashType, Player player)
+		{
+            var dash = Activator.CreateInstance(dashType) as DashSystem;
+			if (dash.AnyDirection)
+				return (player.ArcaneOdyssey().Cooldowns.ContainsKey(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+			else
+				return (player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+		}
+
+        /// <summary>
+        /// The speed of the dash per tick
+        /// </summary>
+        public abstract float DashSpeed { get; }
 		public virtual bool UseScrollImbue => true;
 
 
@@ -170,8 +186,8 @@ namespace ArcaneOdyssey
 			Player.ConsumeAllExtraJumps();
 			DashLeft = dashToUse.DashMax;
 			dashToUse.OnStart(Player);
-            Player.velocity = DashVelocity;
-            dashing = true;
+			Player.velocity = DashVelocity;
+			dashing = true;
 			if (dashToUse.Immune)
 			{
 				Player.immuneTime = dashToUse.DashMax;
@@ -268,10 +284,10 @@ namespace ArcaneOdyssey
 							CurrentDash.NaturalEnd(Player);
 						}
 						return;
-                    }
+					}
 
-                    CurrentDash.DashEffect(Player);
-                    if (CurrentDash.AnyDirection)
+					CurrentDash.DashEffect(Player);
+					if (CurrentDash.AnyDirection)
 					{
 						Player.velocity = DashVelocity;
 					}
@@ -300,7 +316,7 @@ namespace ArcaneOdyssey
 					if (npc.Hitbox.Intersects(Player.Hitbox))
 					{
 						collisions++;
-						if (CurrentDash.OnHit(Player, npc))
+						if ((!npc.friendly) && CurrentDash.OnHit(Player, npc))
 						{
 							CurrentDash.OnEnd(Player);
 							CurrentDash.SetCooldown(Player);

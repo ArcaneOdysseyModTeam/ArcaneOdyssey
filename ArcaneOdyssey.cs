@@ -15,6 +15,11 @@ namespace ArcaneOdyssey
 {
 	public class ArcaneOdyssey : Mod
 	{
+		/// <summary>
+		/// disable all cooldowns and stuff lmao
+		/// </summary>
+		public static bool devMode => DevMode.devMode;
+
 		public static ArcaneOdyssey Instance => ModContent.GetInstance<ArcaneOdyssey>();
 
 		public static Dictionary<string, LocalizedText> staticLocalizer = [];
@@ -136,6 +141,21 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
+	}
+
+	public class DevMode : ModSystem 
+	{
+		/// <summary>
+		/// disable all cooldowns and stuff lmao
+		/// </summary>
+		public static bool devMode = false;
+
+		#if VSDEBUGMODE
+		public override void Load()
+		{
+			devMode = true;
+		}
+		#endif
 	}
 
 	public class DownedBosses : ModSystem

@@ -52,8 +52,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.netUpdate = true;
 				if (Projectile.ai[2] != 0) // throwing
 				{
-					Projectile.velocity *= 3;
-					Projectile.timeLeft = 60;
+					Projectile.velocity *= 3 / (Projectile.extraUpdates + 1f);
+					Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
 				}
 				else
 				{
@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 				if (player.itemAnimation < player.itemAnimationMax / 2)
 				{
-					Projectile.ai[1] -= Speed;
+					Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
 					if (Projectile.localAI[0] == 0f)
 					{
 						Projectile.netUpdate = true;
@@ -87,10 +87,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 						EffectBeforeReelBack();
 					}
 				}
-
 				else
 				{
-					Projectile.ai[1] += Speed;
+					Projectile.ai[1] += Speed / (Projectile.extraUpdates + 1f);
 				}
 
 				// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
