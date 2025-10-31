@@ -24,7 +24,6 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.ArmorPenetration += player.ArcaneOdyssey().AOPierceStat;
 			if (item.ModItem is AORangedOrMeleeWeapon weap)
 			{
 				if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
@@ -170,7 +169,7 @@ namespace ArcaneOdyssey
 			}
 
 
-			if (ImbueClassCheck(item))
+			if (ImbueClassCheck(item) && item.active)
 			{
 				bool? coolred = null;
 				string imbuetextthing = Mod.CustomLocalization("RandomWords.None").Value;

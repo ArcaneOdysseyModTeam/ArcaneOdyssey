@@ -1,6 +1,8 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+﻿using ArcaneOdyssey.Content.Items.Equipment.Accessories;
+using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
 using System;
@@ -135,10 +137,10 @@ namespace ArcaneOdyssey
 			{
 				// stat sheet
 				Func<string> SizeText = () => $"Attack size multiplier: {1+Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x";
-				fargos.Call("AddStat", ModContent.ItemType<SteamImbue>(), SizeText);
+				fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
 
-				// current imbue lol
-				Func<string> imbueText = () => $"Current Imbue: {(Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";
+                // current imbue lol
+                Func<string> imbueText = () => $"Current Imbue: {(Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";
 				fargos.Call("AddStat", ModContent.ItemType<PoseidonChoice>(), imbueText);
 
 				fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{nameof(ArcaneOdyssey)}.NPCs.Edgelord");

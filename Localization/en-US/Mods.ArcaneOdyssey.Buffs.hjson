@@ -95,5 +95,5 @@ PheonixHealing: {
 
 HeavyBleed: {
 	DisplayName: Heavy Bleed
-	Description: Mods.ArcaneOdyssey.Buffs.HeavyBleed.Description
+	Description: You might have an artery leaking
 }

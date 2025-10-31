@@ -40,6 +40,16 @@ namespace ArcaneOdyssey
 			}
 		}
 
+        public static bool BossAlive()
+        {
+            foreach (var npc in Main.ActiveNPCs)
+            {
+                if (npc.boss)
+                    return true;
+            }
+            return false;
+        }
+
 		public static DamageClass TrueMelee()
 		{
 			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
@@ -432,21 +442,21 @@ namespace ArcaneOdyssey
 			{
 				return AORarities.Zenith;
 			}
-			return item.rare switch
-			{
-				ItemRarityID.Gray => AORarities.Common,
-				ItemRarityID.White => AORarities.Common,
-				ItemRarityID.Blue => AORarities.Common,
-				ItemRarityID.Green => AORarities.Uncommon,
-				ItemRarityID.Orange => AORarities.Uncommon,
-				ItemRarityID.LightRed => AORarities.Rare,
-				ItemRarityID.Pink => AORarities.Rare,
-				ItemRarityID.LightPurple => AORarities.Mystic,
-				ItemRarityID.Lime => AORarities.Mystic,
-				ItemRarityID.Yellow => AORarities.Arcane,
-				ItemRarityID.Cyan => AORarities.Arcane,
-				_ => AORarities.Zenith,
-			};
+            return item.rare switch
+            {
+                ItemRarityID.Gray => AORarities.Common,
+                ItemRarityID.White => AORarities.Common,
+                ItemRarityID.Blue => AORarities.Common,
+                ItemRarityID.Green => AORarities.Uncommon,
+                ItemRarityID.Orange => AORarities.Uncommon,
+                ItemRarityID.LightRed => AORarities.Rare,
+                ItemRarityID.Pink => AORarities.Rare,
+                ItemRarityID.LightPurple => AORarities.Mystic,
+                ItemRarityID.Lime => AORarities.Mystic,
+                ItemRarityID.Yellow => AORarities.Arcane,
+                ItemRarityID.Cyan => AORarities.Arcane,
+                _ => AORarities.Zenith,
+            };
 		}
 		#endregion
 

@@ -14,7 +14,6 @@ namespace ArcaneOdyssey
 		public Imbuable Imbue { get; set; }
 		public bool chargingSpell = false;
 		public int AOSizeStat = 0;
-        public int AOPierceStat = 0;
         public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
 		public Dictionary<string, int> Cooldowns = [];
@@ -94,7 +93,6 @@ namespace ArcaneOdyssey
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
-            AOPierceStat = 0;
             pheonixHealing = 0;
 			HandleDashDetection();
 		}

@@ -126,12 +126,12 @@ EaglePatrimony: {
 
 Accessories: {
 	EvanderCape: {
-		DisplayName: Evander Cape
+		DisplayName: Mountainbreaker Cape
 		Tooltip: ""
 	}
 
 	EvanderGauntlet: {
-		DisplayName: Evander Gauntlet
+		DisplayName: Mountainbreaker Gauntlet
 		Tooltip: ""
 	}
 }

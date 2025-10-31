@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
@@ -10,12 +8,12 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
     public class PheonixHealing : AODebuff
     {
-        public const float HealDistance = 200f;
+        public const float HealDistance = 700f;
         public override void Update(NPC npc, ref int buffIndex)
         {
             foreach (var player in Main.ActivePlayers)
             {
-                if (npc.Hitbox.Distance(player.Center) <= 800 && ((!EvanderSpawning.EvanderOrBossAlive()) || npc.boss))
+                if (npc.Hitbox.Distance(player.Center) <= HealDistance && ((!AOUtils.BossAlive()) || npc.boss))
                 {
                     player.ArcaneOdyssey().pheonixHealing += npc.boss ? 2 : 1;
                     if (!Main.dedServ)

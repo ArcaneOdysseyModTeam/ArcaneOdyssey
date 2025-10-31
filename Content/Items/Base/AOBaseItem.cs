@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetDefaults()
 		{
-			if (AORarity != AORarities.RESOLVESELF || AORarity != AORarities.Special)
+			if (AORarity != AORarities.RESOLVESELF && AORarity != AORarities.Special)
 				Item.rare = (int)AORarity;
 			if (AORarity == AORarities.Special) 
 			{

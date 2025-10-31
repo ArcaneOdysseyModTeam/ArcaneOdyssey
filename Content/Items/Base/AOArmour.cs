@@ -165,7 +165,7 @@ namespace ArcaneOdyssey.Content.Items.Base
             }
             if (AOPierce > 0)
             {
-                tooltips.Insert(index, new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat()]).Value));
+                tooltips.Insert(index, new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat()/5]).Value));
             }
             tooltips.Reverse();
         }
@@ -182,8 +182,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			player.moveSpeed += GetArmourAgilityStat() / 100f;
 			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
 			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
-			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
-            player.ArcaneOdyssey().AOPierceStat += GetArmourPierceStat();
+            player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
+            player.GetArmorPenetration(DamageClass.Generic) += GetArmourPierceStat() / 5;
             player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 300;
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;

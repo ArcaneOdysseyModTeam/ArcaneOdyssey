@@ -5,6 +5,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Accessories
 {
 	public class EvanderCape : AOArmour
 	{
+        public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers ArmourTier => AOItemTiers.Good;
 		public override int AODefense => 170;
 		public override int AOPierce => 21;

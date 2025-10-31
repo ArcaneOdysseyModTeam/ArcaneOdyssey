@@ -100,66 +100,61 @@ namespace ArcaneOdyssey
 				}
 				return _cold;
 			} set => _cold = value;
-        }
+		}
 
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if (projectile.owner != 255)
-            {
-                var player = Main.player[projectile.owner];
-                modifiers.ArmorPenetration += player.ArcaneOdyssey().AOPierceStat;
-            }
-            if (Imbue is not null)
-            {
-                var spell = projectile.ModProjectile is MagicSpell;
-                modifiers.FinalDamage += (!spell ? Imbue.AOImbueDamage : Imbue.AOScrollDamage).MultiToPercent();
-                if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
-                {
-                    modifiers.FinalDamage += .3f;
-                }
+		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (Imbue is not null)
+			{
+				var spell = projectile.ModProjectile is MagicSpell;
+				modifiers.FinalDamage += (!spell ? Imbue.AOImbueDamage : Imbue.AOScrollDamage).MultiToPercent();
+				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				{
+					modifiers.FinalDamage += .3f;
+				}
 
 
-                foreach (var debuff in Imbue.ImbueDebuffs)
-                {
-                    if ((debuff.debuffPercent == 0) || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / debuff.debuffPercent))
-                    {
-                        target.AddBuff(debuff.debuffID, debuff.debuffDuration);
-                    }
-                }
+				foreach (var debuff in Imbue.ImbueDebuffs)
+				{
+					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / debuff.debuffPercent))
+					{
+						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
+					}
+				}
 
-                if (Imbue.CombinedDebuffs is not null)
-                {
-                    foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
-                    {
-                        if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-                        {
-                            target.AddBuff(buffkeys.result, buffkeys.duration);
-                        }
-                    }
-                }
+				if (Imbue.CombinedDebuffs is not null)
+				{
+					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
+					{
+						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+					}
+				}
 
-                foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
-                {
-                    if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-                    {
-                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-                    }
-                }
+				foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
+				{
+					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+				}
 
-                if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-                {
-                    foreach (int buffid in Imbue.Effects.clearBuffs)
-                    {
-                        if (target.HasBuff(buffid))
-                        {
-                            target.DelBuff(target.FindBuffIndex(buffid));
-                        }
-                    }
-                }
-            }
-        }
+				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+				{
+					foreach (int buffid in Imbue.Effects.clearBuffs)
+					{
+						if (target.HasBuff(buffid))
+						{
+							target.DelBuff(target.FindBuffIndex(buffid));
+						}
+					}
+				}
+			}
+		}
 
-        public override void OnSpawn(Projectile projectile, IEntitySource source)
+		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			thisProjectile = projectile;
 			OriginalDimensions ??= projectile.Size;
@@ -189,14 +184,14 @@ namespace ArcaneOdyssey
 					Imbue = SteamImbue.Create(Imbue);
 				}
 
-                if (Imbue is not null && Imbue.PreEffects(projectile))
-                {
-                    if (projectile.DamageType != DamageClass.MeleeNoSpeed)
-                        projectile.velocity *= projectile.ModProjectile is MagicSpell ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed;
-                    if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-                        Imbue.SpawningEffects(projectile);
-                }
-            }
+				if (Imbue is not null && Imbue.PreEffects(projectile))
+				{
+					if (projectile.DamageType != DamageClass.MeleeNoSpeed)
+						projectile.velocity *= projectile.ModProjectile is MagicSpell ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed;
+					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+						Imbue.SpawningEffects(projectile);
+				}
+			}
 		}
 
 		public override bool PreAI(Projectile projectile)
@@ -209,18 +204,18 @@ namespace ArcaneOdyssey
 				if (ImbueClassCheck(projectile))
 					Imbue ??= Main.player[projectile.owner].ArcaneOdyssey().Imbue;
 			}
-            projectile.coldDamage = Cold.GetValueOrDefault(false) || (Imbue is not null && Imbue.Cold.GetValueOrDefault(false));
+			projectile.coldDamage = Cold.GetValueOrDefault(false) || (Imbue is not null && Imbue.Cold.GetValueOrDefault(false));
 			return true;
 		}
-        public override void AI(Projectile projectile)
-        {
-            if (projectile.owner == Main.myPlayer)
-            {
-                if (Imbue is not null && Imbue.PreEffects(projectile))
-                {
-                    Imbue.LingeringEffects(projectile);
-                }
-            }
-        }
+		public override void AI(Projectile projectile)
+		{
+			if (projectile.owner == Main.myPlayer)
+			{
+				if (Imbue is not null && Imbue.PreEffects(projectile))
+				{
+					Imbue.LingeringEffects(projectile);
+				}
+			}
+		}
 	}
 }
