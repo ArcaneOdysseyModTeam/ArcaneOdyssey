@@ -64,6 +64,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
     {
         public override string Name => "Colossal Cleave Cooldown";
         public override int CooldownLength => 60 * 3;
-        public override bool DisplayCooldown => true;
+        
     }
 }

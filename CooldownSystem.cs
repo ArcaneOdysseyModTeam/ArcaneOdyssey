@@ -14,9 +14,8 @@ namespace ArcaneOdyssey
         public abstract int CooldownLength { get; }
         public virtual string ID => GetType().Name;
         public abstract string Name { get; }
-        public abstract bool DisplayCooldown { get; }
-        public bool ManualTickdown => true; // DisplayCooldown && ModLoader.HasMod(DLCMod);
-        public string Texture;
+        public bool ManualTickdown => true;
+        public virtual string Texture => null;
 
         public Cooldown AOCooldown => new(ID, Language.GetOrRegister(ArcaneOdyssey.Instance.GetLocalizationKey($"Cooldowns.{ID}"), () => Name), ManualTickdown, CooldownLength);
 
