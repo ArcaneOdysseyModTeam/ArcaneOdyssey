@@ -9,11 +9,11 @@ namespace ArcaneOdyssey.Content.Items.Materials
 {
 	public class BronzeBar : AOBaseItem
 	{
-		public override ItemType ItemType => ItemType.Material;
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 15;
 		}
+        public override AORarities AORarity => AORarities.Uncommon;
 
 		public override void SetDefaults()
 		{
@@ -23,7 +23,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.createTile = ModContent.TileType<BronzeBarTile>();
 			Item.maxStack = 9999;
 			Item.value = Item.sellPrice(silver: 30); // bit less than hellstone
-			Item.rare = ItemRarityID.Green;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 			Item.useAnimation = 15;

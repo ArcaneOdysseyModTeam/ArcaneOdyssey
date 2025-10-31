@@ -7,7 +7,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 	public abstract class RelicWeapon : AOBaseItem
 	{
 		public abstract int AOValue { get; }
-		public override ItemType ItemType => ItemType.Relic;
 
 		public override void SetDefaults()
 		{

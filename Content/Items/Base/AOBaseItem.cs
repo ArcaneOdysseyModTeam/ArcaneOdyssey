@@ -6,12 +6,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOBaseItem : ModItem
 	{
-		public virtual AORarities AORarity => AORarities.RESOLVESELF;
-		public virtual ItemType ItemType => ItemType.RESOLVESELF;
+		public abstract AORarities AORarity { get; }
+		public virtual bool ShowItemTypeTooltip => true;
 
 		public override void SetDefaults()
 		{
-			if (AORarity != AORarities.RESOLVESELF && AORarity != AORarities.Special)
+			if (AORarity != AORarities.Special)
 				Item.rare = (int)AORarity;
 			if (AORarity == AORarities.Special) 
 			{

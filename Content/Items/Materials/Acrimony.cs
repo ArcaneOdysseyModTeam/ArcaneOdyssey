@@ -13,8 +13,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 	public class Acrimony : AOBaseItem
 	{
 		public int AOValue = 10000;
-
-		public override ItemType ItemType => ItemType.Material;
 		public override AORarities AORarity => AORarities.Arcane;
 		public override void SetDefaults()
 		{

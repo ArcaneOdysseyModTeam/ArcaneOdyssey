@@ -353,10 +353,6 @@ namespace ArcaneOdyssey
 
 		public static ItemType GetItemType(this Item item)
 		{
-			if (item.ModItem is AOBaseItem based && based.ItemType != ItemType.RESOLVESELF)
-			{
-				return based.ItemType;
-			}
 			if (item.vanity)
 			{
 				return ItemType.Vanity;
@@ -398,11 +394,6 @@ namespace ArcaneOdyssey
 
 		public static AORarities GetItemRare(this Item item)
 		{
-			if (item.ModItem is AOBaseItem based && based.AORarity != AORarities.RESOLVESELF)
-			{
-				return based.AORarity;
-			}
-
 			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
 			{
 				if (item.rare == calamity.Find<ModRarity>("DarkOrange").Type)
@@ -562,9 +553,7 @@ namespace ArcaneOdyssey
 			Relic,
 			Weapon,
 			Tool,
-			None,
-			Vanity,
-			RESOLVESELF
+			Vanity
 		}
 
 		/// <summary>
@@ -580,8 +569,7 @@ namespace ArcaneOdyssey
 			Mystic = ItemRarityID.LightPurple,
 			Arcane = ItemRarityID.Yellow,
 			Mythical = ItemRarityID.Red,
-			Special,
-			RESOLVESELF
+			Special
 		}
 
 		public enum AOImbuableTier

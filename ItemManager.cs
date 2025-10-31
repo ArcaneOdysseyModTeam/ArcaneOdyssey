@@ -139,7 +139,7 @@ namespace ArcaneOdyssey
 					tooltips.RemoveAll(e => e.Name == "Vanity");
 				}
 
-				if (item.GetItemType() != ItemType.None && item.GetItemType() != ItemType.RESOLVESELF)
+				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
 				{
 					var line = item.GetItemRare().ToString();
 					line += " ";

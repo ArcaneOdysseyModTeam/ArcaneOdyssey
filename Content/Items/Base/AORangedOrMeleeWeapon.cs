@@ -18,7 +18,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract float AOSize { get; }
 		public abstract float AODamage { get; }
 		public abstract int AOValue { get; }
-		public override ItemType ItemType => ItemType.Weapon;
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public virtual AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 		public virtual WeaponAbility? Ability => null;

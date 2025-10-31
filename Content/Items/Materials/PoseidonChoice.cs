@@ -14,7 +14,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
     {
         public int AOValue = 10000;
         public override AORarities AORarity => AORarities.Arcane;
-        public override ItemType ItemType => ItemType.Material;
 
         public override void SetDefaults()
         {

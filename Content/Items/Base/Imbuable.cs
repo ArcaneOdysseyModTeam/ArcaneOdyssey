@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
-		public override ItemType ItemType => ItemType.None;
+		public override bool ShowItemTypeTooltip => false;
 
 		public abstract float AOImbueSpeed { get; }
 		public abstract float AOImbueSize { get; }
@@ -152,7 +152,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <returns></returns>
 		public virtual bool PreEffects(Entity entity)
 		{
-            if (entity.velocity == Vector2.Zero || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
+			if (entity.velocity == Vector2.Zero || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
 			{
 				return false;
 			}
