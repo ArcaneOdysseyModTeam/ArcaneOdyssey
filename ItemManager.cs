@@ -397,10 +397,10 @@ namespace ArcaneOdyssey
 					Imbue = player.ArcaneOdyssey().Imbue;
 				}
 
-				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().Cooldowns.ContainsKey("CycleItemImbue"))
+				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown(nameof(CycleCooldown)))
 				{
 					SpecificImbue = true;
-					player.ArcaneOdyssey().Cooldowns["CycleItemImbue"] = 60;
+					player.ArcaneOdyssey().Cooldowns.Add(new CycleCooldown().AOCooldown);
 					if (options.Count > 1)
 					{
 						SpecificImbue = true;
@@ -458,4 +458,11 @@ namespace ArcaneOdyssey
 			SpecificImbue = false;
 		}
 	}
+
+    public class CycleCooldown : CooldownSystem
+    {
+        public override string Name => "Cycle Item Imbue";
+        public override int CooldownLength => 60;
+        public override bool DisplayCooldown => false;
+    }
 }

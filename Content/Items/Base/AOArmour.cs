@@ -135,7 +135,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-            if (tooltips.Contains(tooltips.Find(e => e.Name == "Social")))
+			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social")))
 				return;
 			tooltips.Reverse();
 			var index = tooltips.IndexOf(tooltips.Find(e => e.Name == "Defense" || e.Name == "Equipable" || e.Name == "FavoriteDesc" || e.Name == "ItemName" || e.Name.StartsWith("Tooltip"))) - 1;

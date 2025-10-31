@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
+using Steamworks;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -56,10 +57,7 @@ namespace ArcaneOdyssey
 		/// <param name="player"></param>
 		public void SetCooldown(Player player)
 		{
-			if (AnyDirection)
-				player.ArcaneOdyssey().Cooldowns[GetType().Name] = Cooldown;
-			else
-				player.ArcaneOdyssey().Cooldowns["StandardDash"] = Cooldown;
+			player.ArcaneOdyssey().Cooldowns.Add(AOCooldown);
 		}
 
 		/// <summary>
@@ -70,30 +68,30 @@ namespace ArcaneOdyssey
 		public bool OnCooldown(Player player)
 		{
 			if (AnyDirection)
-				return (player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
 			else
-				return (player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
 		}
 
-        /// <summary>
-        /// Whether the dash is on cooldown
-        /// </summary>
-        /// <param name="dashType"></param>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public static bool OnCooldown(Type dashType, Player player)
+		/// <summary>
+		/// Whether the dash is on cooldown
+		/// </summary>
+		/// <param name="dashType"></param>
+		/// <param name="player"></param>
+		/// <returns></returns>
+		public static bool OnCooldown(Type dashType, Player player)
 		{
-            var dash = Activator.CreateInstance(dashType) as DashSystem;
+			var dash = Activator.CreateInstance(dashType) as DashSystem;
 			if (dash.AnyDirection)
-				return (player.ArcaneOdyssey().Cooldowns.ContainsKey(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
 			else
-				return (player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
 		}
 
-        /// <summary>
-        /// The speed of the dash per tick
-        /// </summary>
-        public abstract float DashSpeed { get; }
+		/// <summary>
+		/// The speed of the dash per tick
+		/// </summary>
+		public abstract float DashSpeed { get; }
 		public virtual bool UseScrollImbue => true;
 
 
@@ -126,6 +124,8 @@ namespace ArcaneOdyssey
 		{
 
 		}
+
+		public Cooldown AOCooldown => new(AnyDirection ? Name : "StandardDash", Mod, true, Cooldown);
 	}
 
 	public partial class AOPlayer : ModPlayer, IImbuableEntity

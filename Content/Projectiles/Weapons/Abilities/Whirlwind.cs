@@ -44,4 +44,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), color, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .90f, SpriteEffects.None);
 		}
 	}
+
+    public class WhirlwindCooldown : CooldownSystem
+    {
+        public override int CooldownLength => 60 + Whirlwind.MaxTime;
+        public override bool DisplayCooldown => true;
+        public override string Name => "Whirlwind Cooldown";
+    }
 }

@@ -462,8 +462,8 @@ namespace ArcaneOdyssey
 			public string Description = description;
 			public Color? Colour = color;
 			public Mod mod = mod;
-			public string LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name).Value;
-			public string LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description).Value;
+			public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
+			public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
 
 
 			public readonly TooltipLine GenerateTooltip()
@@ -471,13 +471,13 @@ namespace ArcaneOdyssey
 				string text = "";
 				if (Colour.HasValue)
 				{
-					text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName}]";
+					text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}]";
 				}
 				else
 				{
-					text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName}";
+					text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}";
 				}
-				text += $": {LocalizedDescription}";
+				text += $": {LocalizedDescription.Value}";
 				return new TooltipLine(mod, "AOAbility", text);
 			}
 		}

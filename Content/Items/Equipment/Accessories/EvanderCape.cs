@@ -4,10 +4,10 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Accessories
 {
-    [AutoloadEquip(EquipType.Back)]
+	[AutoloadEquip(EquipType.Back)]
 	public class EvanderCape : AOArmour
 	{
-        public override AORarities AORarity => AORarities.Uncommon;
+		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers ArmourTier => AOItemTiers.Good;
 		public override int AODefense => 170;
 		public override int AOPierce => 21;

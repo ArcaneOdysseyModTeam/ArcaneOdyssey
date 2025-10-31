@@ -91,11 +91,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public override void PreUpdate()
 		{
-			if (Player.ArcaneOdyssey().Imbue is VanishingStyle && !Player.ArcaneOdyssey().Cooldowns.ContainsKey("Vanish") && AOKeybinds.Vanish.JustPressed) // add more conditions later
+			if (Player.ArcaneOdyssey().Imbue is VanishingStyle && (!Player.ArcaneOdyssey().OnCooldown(nameof(VanishCooldown))) && AOKeybinds.Vanish.JustPressed) // add more conditions later
 			{
-				Player.ArcaneOdyssey().Cooldowns["Vanish"] = 15 * 60;
+				Player.ArcaneOdyssey().Cooldowns.Add(new VanishCooldown().AOCooldown);
 				Player.AddBuff(BuffID.Invisibility, 60 * 5);
 			}
 		}
+	}
+
+	public class VanishCooldown : CooldownSystem
+	{
+        public override string Name => "Vanish";
+        public override int CooldownLength => 12 * 60;
+        public override bool DisplayCooldown => true;
 	}
 }

@@ -15,14 +15,11 @@ namespace ArcaneOdyssey
 		public int AOSizeStat = 0;
         public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
-		public Dictionary<string, int> Cooldowns = [];
-		public Dictionary<int, int> BuffCooldowns = [];
-		public Dictionary<int, int> ItemCooldowns = [];
+		public List<Cooldown> Cooldowns = [];
 		public bool SoftFrozen => chargingSpell || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
-		public bool elfPet;
 		public int timeSinceSoftFrozen;
 
         public int pheonixHealing;
@@ -107,32 +104,36 @@ namespace ArcaneOdyssey
 				timeTillNextMove--;
 			}
 			else timeTillNextMove = 0;
-			foreach (string i in Cooldowns.Keys)
+            List<Cooldown> toremove = [];
+            Dictionary<int, Cooldown> tochange = [];
+			foreach (var Cooldown in Cooldowns)
 			{
-				Cooldowns[i]--;
-				if (Cooldowns[i] <= 0 || ArcaneOdyssey.devMode)
-				{
-					Cooldowns.Remove(i);
-				}
+                if (Cooldown.TickDown)
+                {
+                    var cool = Cooldown;
+                    if (--cool.cooldownRemaining <= 0 || ArcaneOdyssey.devMode)
+                    {
+                        toremove.Add(Cooldown);
+                    }
+                    else
+                    {
+                        tochange.Add(Cooldowns.IndexOf(Cooldown), cool);
+                    }
+                }
 			}
+            foreach (var Cooldown in tochange)
+            {
+                Cooldowns[Cooldown.Key] = Cooldown.Value;
+            }
+            foreach (var Cooldown in toremove)
+            {
+                Cooldowns.Remove(Cooldown);
+            }
+        }
 
-			foreach (int i in BuffCooldowns.Keys)
-			{
-				BuffCooldowns[i]--;
-				if (BuffCooldowns[i] <= 0 || ArcaneOdyssey.devMode)
-				{
-					BuffCooldowns.Remove(i);
-				}
-			}
-
-			foreach (int i in ItemCooldowns.Keys)
-			{
-				ItemCooldowns[i]--;
-				if (ItemCooldowns[i] <= 0 || ArcaneOdyssey.devMode)
-				{
-					ItemCooldowns.Remove(i);
-				}
-			}
-		}
+        public bool OnCooldown(string ID)
+        {
+            return Cooldowns.Contains(Cooldowns.Find(e => e.ID == ID));
+        }
 	}
 }

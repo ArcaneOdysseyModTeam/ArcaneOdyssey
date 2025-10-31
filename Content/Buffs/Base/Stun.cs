@@ -33,10 +33,10 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (!player.ArcaneOdyssey().BuffCooldowns.ContainsKey(Type) || LiterallyCheating)
+			if ((player.ArcaneOdyssey().OnCooldown(Name + "Buff")) || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
-				player.ArcaneOdyssey().BuffCooldowns[Type] = 60;
+                player.ArcaneOdyssey().Cooldowns.Add(new(Name + "Buff", DisplayName, true, 60));
 				player.canFloatInWater = false;
 			}
 		}

@@ -44,12 +44,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		/// <returns></returns>
 		public override bool CanShoot(Player player)
 		{
-			return player.AltUse() && !player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type);
+			return player.AltUse() && !player.ArcaneOdyssey().OnCooldown(Name);
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			player.ArcaneOdyssey().ItemCooldowns[Type] = 60*3;
+            player.ArcaneOdyssey().Cooldowns.Add(new ColossalCleaveCooldown().AOCooldown);
 			Projectile.NewProjectile(source, position, Vector2.UnitX * Item.shootSpeed * player.direction, type, damage, knockback, player.whoAmI);
 			return false;
 		}
@@ -59,4 +59,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			return CanUseItem(player);
 		}
 	}
+
+    public class ColossalCleaveCooldown : CooldownSystem
+    {
+        public override string Name => "Colossal Cleave Cooldown";
+        public override int CooldownLength => 60 * 3;
+        public override bool DisplayCooldown => true;
+    }
 }

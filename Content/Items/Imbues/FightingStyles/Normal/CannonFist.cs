@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			if (source is not EntitySource_Parent { Entity: NPC })
 			{
 				var player = Main.player[projectile.owner].ArcaneOdyssey();
-				if (!player.Cooldowns.ContainsKey("CannonFistShot"))
+				if (!player.OnCooldown("CannonFistShot"))
 				{
 					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && projectile.DamageType.Name != "TrueMeleeDamageClass" && projectile.DamageType.Name != "TrueMeleeNoSpeedDamageClass" && projectile.type != ProjectileID.CannonballFriendly)
 					{
@@ -91,10 +91,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 						}
 						else
 							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
-						player.Cooldowns["CannonFistShot"] = 60;
+                        player.Cooldowns.Add(new CannonFistShotCooldown().AOCooldown);
 					}
 				}
 			}
 		}
 	}
+
+    public class CannonFistShotCooldown : CooldownSystem
+    {
+        public override int CooldownLength => 60;
+        public override bool DisplayCooldown => true;
+        public override string Name => "Cannon Fist Shot Cooldown";
+    }
 }

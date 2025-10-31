@@ -97,7 +97,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relic
 					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
 					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 8);
 					dust.noGravity = true;
-                    SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
+					SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
 				}
 			}
 			return base.PreKill(timeLeft);
