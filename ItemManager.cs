@@ -16,7 +16,6 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Equipment.Vanity;
-using ArcaneOdyssey.Content.Items.Equipment.Pets;
 
 namespace ArcaneOdyssey
 {

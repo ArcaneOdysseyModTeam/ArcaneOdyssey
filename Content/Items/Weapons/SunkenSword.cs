@@ -2,7 +2,6 @@ using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System;
 using static ArcaneOdyssey.AOUtils;

@@ -13,7 +13,6 @@ using Terraria.Audio;
 using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Weapons;
-using System;
 
 namespace ArcaneOdyssey.Content.NPCS
 {

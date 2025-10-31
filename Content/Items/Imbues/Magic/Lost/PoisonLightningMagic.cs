@@ -3,7 +3,6 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
@@ -31,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.9f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Poisoned, 60 * 10), new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<ElectrifiedToxins>(), 60 * 10), new(ModContent.BuffType<AOParalyzed>(), 60, 25)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

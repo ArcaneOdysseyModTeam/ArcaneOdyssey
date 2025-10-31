@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.Items.Weapons;
-using ArcaneOdyssey.Content.Projectiles.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Buffs.Helpers
 {

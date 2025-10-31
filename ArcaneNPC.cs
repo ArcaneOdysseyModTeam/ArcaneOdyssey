@@ -25,6 +25,7 @@ namespace ArcaneOdyssey
 		public bool HeavyBleeding = false;
 		public bool Scalding = false;
 		public bool Seared = false;
+        public bool ElecToxins = false;
 
 		public bool AOStunned = false;
 		#endregion
@@ -54,6 +55,7 @@ namespace ArcaneOdyssey
 			HeavyBleeding = false;
 			Scalding = false;
 			Seared = false;
+            ElecToxins = false;
 		}
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -76,6 +78,10 @@ namespace ArcaneOdyssey
 				{
 					npc.lifeRegen -= 4;
 				}
+                if (ElecToxins)
+                {
+                    npc.lifeRegen -= 10;
+                }
 			}
 		}
 

@@ -15,7 +15,6 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using Terraria;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Materials;
 
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost

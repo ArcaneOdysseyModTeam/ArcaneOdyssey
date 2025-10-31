@@ -2,7 +2,6 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using System;
 using System.Collections.Generic;
-using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Terraria;

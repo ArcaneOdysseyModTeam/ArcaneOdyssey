@@ -4,13 +4,11 @@ using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS

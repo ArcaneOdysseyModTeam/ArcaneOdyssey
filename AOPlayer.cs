@@ -1,7 +1,6 @@
-﻿using ArcaneOdyssey.Content.Buffs.Pets;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Weapons;
+using ArcaneOdyssey.Content.Items.Weapons.Relics;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using System.Collections.Generic;
 using Terraria;

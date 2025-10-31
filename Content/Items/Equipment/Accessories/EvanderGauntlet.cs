@@ -1,15 +1,14 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Accessories
 {
 	public class EvanderGauntlet : AOArmour
-    {
-        public override AORarities AORarity => AORarities.Uncommon;
-        public override void Load()
+	{
+		public override AORarities AORarity => AORarities.Uncommon;
+		public override void Load()
 		{
 			if (!Main.dedServ)
 			{

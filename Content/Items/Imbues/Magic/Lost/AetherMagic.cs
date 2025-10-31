@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost

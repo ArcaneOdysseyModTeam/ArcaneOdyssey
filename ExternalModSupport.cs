@@ -1,13 +1,10 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Accessories;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Imbues;
+﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
