@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Consumables;
+using ArcaneOdyssey.Content.Items.Equipment.Accessories;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
@@ -247,12 +248,9 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			var con = new LeadingConditionRule(new FirstEvanderKill());
-			con.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<ColossalGreatsword>()));
-			npcLoot.Add(con);
-            con = new LeadingConditionRule(new NoShowNoConditon());
-            con.OnSuccess(new CommonDrop(ModContent.ItemType<EvanderPoster>(), 1), true);
-            npcLoot.Add(new HecateDropMultiHelper(ModContent.ItemType<EvanderPoster>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ColossalGreatsword>(), 4));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderCape>(), 4));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderGauntlet>(), 4));
         }
 
         public override void OnKill()
@@ -274,11 +272,11 @@ namespace ArcaneOdyssey.Content.NPCS
 	{
 		public override void PostUpdateWorld()
 		{
-			if (AOUtils.ServerOrSingleplayer && (!DownedBosses.downedEvander) && Main.hardMode && Main.dayTime)
+			if (AOUtils.ServerOrSingleplayer && Main.hardMode && Main.dayTime)
 			{
 				foreach (var player in Main.ActivePlayers)
 				{
-					if (player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!EvanderOrBossAlive()) && Main.rand.NextBool(300 * 60))
+					if (player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!EvanderOrBossAlive()) && Main.rand.NextBool(DownedBosses.downedEvander ? 600 * 30 : 300 * 30))
 					{
 						NPC.SpawnBoss(player.position.X.Round(), player.position.Y.Round() - Main.screenHeight, ModContent.NPCType<Evander>(), player.whoAmI);
 					}

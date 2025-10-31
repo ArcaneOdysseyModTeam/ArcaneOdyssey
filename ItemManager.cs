@@ -24,6 +24,7 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
+			modifiers.ArmorPenetration += player.ArcaneOdyssey().AOPierceStat;
 			if (item.ModItem is AORangedOrMeleeWeapon weap)
 			{
 				if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
@@ -98,19 +99,19 @@ namespace ArcaneOdyssey
 				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
 				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
 				itemLoot.Add(leadingConditionRule2);
-                //LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
-                //leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
-                //itemLoot.Add(leadingConditionRule3);
-                //LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
-                //leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
-                //itemLoot.Add(leadingConditionRule4);
-                //LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
-                //leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 8), true);
-                //itemLoot.Add(leadingConditionRule5);
-                //LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
-                //leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
-                //itemLoot.Add(leadingConditionRule6);
-            }
+				//LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
+				//leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
+				//itemLoot.Add(leadingConditionRule3);
+				//LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
+				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
+				//itemLoot.Add(leadingConditionRule4);
+				//LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
+				//leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 8), true);
+				//itemLoot.Add(leadingConditionRule5);
+				//LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
+				//leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
+				//itemLoot.Add(leadingConditionRule6);
+			}
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 			itemLoot.Add(AcrimonyCondition);
@@ -317,67 +318,67 @@ namespace ArcaneOdyssey
 		}
 
 		public override void SetDefaults(Item item)
-        {
-            Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
-            switch (item.type)
-            {
-                case ItemID.IceSickle:
-                case ItemID.IceBlade:
-                case ItemID.Frostbrand:
-                case ItemID.ChristmasTreeSword:
-                case ItemID.NorthPole:
-                case ItemID.Snowball:
-                case ItemID.SnowballCannon:
-                case ItemID.FrostDaggerfish:
-                case ItemID.IceBow:
-                case ItemID.IceBoomerang:
-                case ItemID.Flairon:
-                case ItemID.ElfMelter:
-                case ItemID.Tsunami:
-                    Cold = true;
-                    break;
-                case ItemID.DD2SquireBetsySword:
-                case ItemID.DD2SquireDemonSword:
-                case ItemID.ShadowFlameKnife:
-                case ItemID.FieryGreatsword:
-                case ItemID.Flamarang:
-                case ItemID.Sunfury:
-                case ItemID.FlamingMace:
-                case ItemID.DayBreak:
-                case ItemID.MoltenFury:
-                case ItemID.HellwingBow:
-                case ItemID.ShadowFlameBow:
-                case ItemID.SolarEruption:
-                case ItemID.MolotovCocktail:
-                case ItemID.PhoenixBlaster:
-                case ItemID.Flamethrower:
-                case ItemID.BluePhaseblade:
-                case ItemID.DD2BetsyBow:
-                case ItemID.GreenPhaseblade:
-                case ItemID.OrangePhaseblade:
-                case ItemID.DD2PhoenixBow:
-                case ItemID.PurplePhaseblade:
-                case ItemID.RedPhaseblade:
-                case ItemID.WhitePhaseblade:
-                case ItemID.YellowPhaseblade:
-                case ItemID.GreenPhasesaber:
-                case ItemID.OrangePhasesaber:
-                case ItemID.PurplePhasesaber:
-                case ItemID.WhitePhasesaber:
-                case ItemID.YellowPhasesaber:
-                case ItemID.RedPhasesaber:
-                case ItemID.BluePhasesaber:
-                case ItemID.HelFire:
-                case ItemID.Amarok:
-                case ItemID.Cascade:
-                    Cold = false;
-                    break;
-            }
-        }
+		{
+			Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
+			switch (item.type)
+			{
+				case ItemID.IceSickle:
+				case ItemID.IceBlade:
+				case ItemID.Frostbrand:
+				case ItemID.ChristmasTreeSword:
+				case ItemID.NorthPole:
+				case ItemID.Snowball:
+				case ItemID.SnowballCannon:
+				case ItemID.FrostDaggerfish:
+				case ItemID.IceBow:
+				case ItemID.IceBoomerang:
+				case ItemID.Flairon:
+				case ItemID.ElfMelter:
+				case ItemID.Tsunami:
+					Cold = true;
+					break;
+				case ItemID.DD2SquireBetsySword:
+				case ItemID.DD2SquireDemonSword:
+				case ItemID.ShadowFlameKnife:
+				case ItemID.FieryGreatsword:
+				case ItemID.Flamarang:
+				case ItemID.Sunfury:
+				case ItemID.FlamingMace:
+				case ItemID.DayBreak:
+				case ItemID.MoltenFury:
+				case ItemID.HellwingBow:
+				case ItemID.ShadowFlameBow:
+				case ItemID.SolarEruption:
+				case ItemID.MolotovCocktail:
+				case ItemID.PhoenixBlaster:
+				case ItemID.Flamethrower:
+				case ItemID.BluePhaseblade:
+				case ItemID.DD2BetsyBow:
+				case ItemID.GreenPhaseblade:
+				case ItemID.OrangePhaseblade:
+				case ItemID.DD2PhoenixBow:
+				case ItemID.PurplePhaseblade:
+				case ItemID.RedPhaseblade:
+				case ItemID.WhitePhaseblade:
+				case ItemID.YellowPhaseblade:
+				case ItemID.GreenPhasesaber:
+				case ItemID.OrangePhasesaber:
+				case ItemID.PurplePhasesaber:
+				case ItemID.WhitePhasesaber:
+				case ItemID.YellowPhasesaber:
+				case ItemID.RedPhasesaber:
+				case ItemID.BluePhasesaber:
+				case ItemID.HelFire:
+				case ItemID.Amarok:
+				case ItemID.Cascade:
+					Cold = false;
+					break;
+			}
+		}
 
 		public override void UpdateInventory(Item item, Player player)
 		{
-            thisItem = item;
+			thisItem = item;
 			List<Imbuable> options = [null, ..player.GetAllImbues()];
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;

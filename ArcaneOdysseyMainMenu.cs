@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Title
+namespace ArcaneOdyssey
 {
 	public class ArcaneOdysseyMainMenu : ModMenu
 	{
@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Title
 			public Vector2 velocity;
 			public Vector2 position;
 
-			public static Asset<Texture2D> Texture => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Title/Raindrop");
+			public static Asset<Texture2D> Texture => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Assets/Raindrop");
 
 			public void Update()
 			{
@@ -36,20 +36,20 @@ namespace ArcaneOdyssey.Title
 				Main.spriteBatch.Draw(Texture.Value, position, !dark ? new Color(255f, 255f, 255f, 255f/10f) : Color.Black);
 			}
 
-			public Raindrop()
-			{
-				depth = Main.rand.NextFloat(1, .25f);
-				maxlife = 120;//(int)Math.Round(100f * depth);
-				velocity = new Vector2(0, 20) * (depth);
-				maxlife = (int)Math.Round(100f * depth);
-				velocity = new Vector2(0, 20) * depth;
-				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0-Texture.Height());
-			}
+            public Raindrop()
+            {
+                depth = Main.rand.NextFloat(1, .25f);
+                maxlife = 120;//(int)Math.Round(100f * depth);
+                velocity = new Vector2(0, 20) * depth;
+                maxlife = (int)Math.Round(100f * depth);
+                velocity = new Vector2(0, 20) * depth;
+                position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0 - Texture.Height());
+            }
 		}
 
 		public static List<Raindrop> Raindrops = [];
 
-		public static Texture2D BackgroundTexture => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Title/TitleBackground").Value;
+		public static Texture2D BackgroundTexture => ModContent.Request<Texture2D>($"{nameof(ArcaneOdyssey)}/Assets/TitleBackground").Value;
 
 		public override string DisplayName => Mod.CustomLocalization("MenuStyle").Value;
 

@@ -123,3 +123,15 @@ EaglePatrimony: {
 	DisplayName: Eagle Patrimony
 	Tooltip: ""
 }
+
+Accessories: {
+	EvanderCape: {
+		DisplayName: Evander Cape
+		Tooltip: ""
+	}
+
+	EvanderGauntlet: {
+		DisplayName: Evander Gauntlet
+		Tooltip: ""
+	}
+}

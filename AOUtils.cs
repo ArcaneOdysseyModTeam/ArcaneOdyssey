@@ -231,7 +231,7 @@ namespace ArcaneOdyssey
 		/// <param name="key">The localization key</param>
 		/// <param name="formatting">Formatting args, not required</param>
 		/// <returns></returns>
-		public static LocalizedText CustomLocalization(this Mod mod, string key, object[] formatting = null)
+		public static LocalizedText CustomLocalization(this Mod mod, string key, params object[] formatting)
 		{
 			if (mod is not global::ArcaneOdyssey.ArcaneOdyssey)
 			{
@@ -239,12 +239,9 @@ namespace ArcaneOdyssey
 			}
 			LocalizedText text = LocalizedText.Empty;
 			string fulllocalstuff = "";
-			if (formatting is not null && formatting.Length > 0)
+			foreach (object format in formatting)
 			{
-				foreach (object format in formatting)
-				{
-					fulllocalstuff += " " + format;
-				}
+				fulllocalstuff += " " + format;
 			}
 			if (global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + fulllocalstuff, out LocalizedText value))
 			{
@@ -252,11 +249,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				text = mod.GetLocalization(key, () => key.Split('.').LastOrDefault(key));
-				if (formatting is not null)
-				{
-					text = text.WithFormatArgs(formatting);
-				}
+				text = mod.GetLocalization(key, () => key.Split('.').LastOrDefault(key)).WithFormatArgs(formatting);
 				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + fulllocalstuff] = text;
 			}
 			return text;
@@ -463,7 +456,7 @@ namespace ArcaneOdyssey
 		{
 			public static string Key(Mod mod, string name)
 			{
-			    return $"Mods.{mod.Name}.WeaponAbilities." + name.Replace(" ", null);
+				return $"Mods.{mod.Name}.WeaponAbilities." + name.Replace(" ", null);
 			}
 
 			public string Name = name;
@@ -471,10 +464,10 @@ namespace ArcaneOdyssey
 			public Color? Colour = color;
 			public Mod mod = mod;
 			public string LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name).Value;
-            public string LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description).Value;
+			public string LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description).Value;
 
 
-            public readonly TooltipLine GenerateTooltip()
+			public readonly TooltipLine GenerateTooltip()
 			{
 				string text = "";
 				if (Colour.HasValue)
@@ -522,11 +515,12 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility)
+		public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce)
 		{
 			public int Size = size;
 			public int Attkspeed = attkspeed;
 			public int Power = power;
+			public int Pierce = pierce;
 			public int Defence = defence;
 			public int Agility = agility;
 
@@ -539,7 +533,8 @@ namespace ArcaneOdyssey
 						MathHelper.Lerp(0, Attkspeed, barred.BarValue / FightingStyleBarred.BarMax).Round(),
 						MathHelper.Lerp(0, Power, barred.BarValue / FightingStyleBarred.BarMax).Round(),
 						MathHelper.Lerp(0, Defence, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-						MathHelper.Lerp(0, Agility, barred.BarValue / FightingStyleBarred.BarMax).Round()
+						MathHelper.Lerp(0, Agility, barred.BarValue / FightingStyleBarred.BarMax).Round(),
+						MathHelper.Lerp(0, Pierce, barred.BarValue / FightingStyleBarred.BarMax).Round()
 						);
 				}
 				return this;

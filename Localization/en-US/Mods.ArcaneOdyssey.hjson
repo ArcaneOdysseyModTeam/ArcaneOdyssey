@@ -151,6 +151,7 @@ ArmourAutoTooltip: {
 	Minions: +{0} minion slots
 	Mana: +{0} maximum mana
 	Size: "{0}% increased attack size"
+	Pierce: "Ignore {0} enemy defence"
 }
 
 CodebreakerDialogOption: {

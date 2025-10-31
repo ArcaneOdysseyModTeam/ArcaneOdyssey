@@ -6,9 +6,12 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
+    /// <summary>
+    /// also works as an accessory
+    /// </summary>
 	public abstract class AOArmour : AOBaseItem, ILocalizedModType
 	{
-        public override string LocalizationCategory => "Items.Armour";
+        public override string LocalizationCategory => Item.accessory ? "Items.Accessories" : "Items.Armour";
 
 		/// <summary>
 		/// At max item level btw
@@ -26,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual int AOAttkSpd => 0;
 
 		/// <summary>
-		/// At max item level btw
+		/// Base value
 		/// </summary>
 		public virtual int AOValue => 0;
 
@@ -35,12 +38,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual int AOSize => 0;
 
-		public override ItemType ItemType => ItemType.Armour;
+        /// <summary>
+        /// At max item level btw
+        /// </summary>
+        public virtual int AOPierce => 0;
 
-		/// <summary>
-		/// At max item level btw
-		/// </summary>
-		public virtual int AOPower => 0;
+        /// <summary>
+        /// At max item level btw
+        /// </summary>
+        public virtual int AOPower => 0;
 
 		/// <summary>
 		/// Without enchantments ect
@@ -85,9 +91,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this.Imbue() is not null)
 				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Agility * (int)ArmourTier;
 			return val;
-		}
+        }
 
-		public int GetArmourPowerStat()
+        public int GetArmourPierceStat()
+        {
+            int val = AOPierce;
+            if (this.Imbue() is not null)
+                val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Pierce * (int)ArmourTier;
+            return val;
+        }
+
+        public int GetArmourPowerStat()
 		{
 			int val = AOPower;
 			if (this.Imbue() is not null)
@@ -121,7 +135,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			var index = tooltips.IndexOf(tooltips.Find(e => e.Name == "Defense")) + 1;
+            tooltips.Reverse();
+			var index = tooltips.IndexOf(tooltips.Find(e => e.Name == "Defense" || e.Name == "Equipable" || e.Name == "FavoriteDesc" || e.Name == "ItemName")) - 1;
+            if (index < 0)
+                index = 0;
 			if (MaxMana > 0)
 			{
 				tooltips.Insert(index, new(Mod, "MaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [MaxMana]).Value));
@@ -145,8 +162,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (AOAttkSpd > 0)
 			{
 				tooltips.Insert(index, new(Mod, "AttackSpeed", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(GetArmourAttkSpeedStat() / 3f)]).Value));
-			}
-		}
+            }
+            if (AOPierce > 0)
+            {
+                tooltips.Insert(index, new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat()]).Value));
+            }
+            tooltips.Reverse();
+        }
 
 		public override void UpdateEquip(Player player)
 		{
@@ -161,7 +183,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
 			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
 			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
-			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 300;
+            player.ArcaneOdyssey().AOPierceStat += GetArmourPierceStat();
+            player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 300;
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
 		}
