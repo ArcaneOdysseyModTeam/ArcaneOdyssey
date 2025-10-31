@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Accessories
 		{
 			if (equipped)
 			{
-				if (Player.direction == 1)
+				if (Player.direction == -1)
 				{
 					Player.handon = EquipLoader.GetEquipSlot(Mod, nameof(EvanderGauntlet), EquipType.HandsOn);
 				}
