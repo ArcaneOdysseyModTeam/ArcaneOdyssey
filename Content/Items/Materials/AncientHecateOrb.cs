@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
     public class AncientHecateOrb : AOBaseItem
     {
         public int AOValue = 20000;
-        public override AORarities AORarity => AORarities.Zenith;
+        public override AORarities AORarity => AORarities.Mythical;
         public override ItemType ItemType => ItemType.Material;
 
         public override void SetDefaults()

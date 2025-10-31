@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.VFX.Rarities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -40,15 +41,15 @@ namespace ArcaneOdyssey
 			}
 		}
 
-        public static bool BossAlive()
-        {
-            foreach (var npc in Main.ActiveNPCs)
-            {
-                if (npc.boss)
-                    return true;
-            }
-            return false;
-        }
+		public static bool BossAlive()
+		{
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if (npc.boss)
+					return true;
+			}
+			return false;
+		}
 
 		public static DamageClass TrueMelee()
 		{
@@ -440,23 +441,23 @@ namespace ArcaneOdyssey
 			}
 			if (item.master || item.rare == ItemRarityID.Master)
 			{
-				return AORarities.Zenith;
+				return AORarities.Mythical;
 			}
-            return item.rare switch
-            {
-                ItemRarityID.Gray => AORarities.Common,
-                ItemRarityID.White => AORarities.Common,
-                ItemRarityID.Blue => AORarities.Common,
-                ItemRarityID.Green => AORarities.Uncommon,
-                ItemRarityID.Orange => AORarities.Uncommon,
-                ItemRarityID.LightRed => AORarities.Rare,
-                ItemRarityID.Pink => AORarities.Rare,
-                ItemRarityID.LightPurple => AORarities.Mystic,
-                ItemRarityID.Lime => AORarities.Mystic,
-                ItemRarityID.Yellow => AORarities.Arcane,
-                ItemRarityID.Cyan => AORarities.Arcane,
-                _ => AORarities.Zenith,
-            };
+			return item.rare switch
+			{
+				ItemRarityID.Gray => AORarities.Common,
+				ItemRarityID.White => AORarities.Common,
+				ItemRarityID.Blue => AORarities.Common,
+				ItemRarityID.Green => AORarities.Uncommon,
+				ItemRarityID.Orange => AORarities.Uncommon,
+				ItemRarityID.LightRed => AORarities.Rare,
+				ItemRarityID.Pink => AORarities.Rare,
+				ItemRarityID.LightPurple => AORarities.Mystic,
+				ItemRarityID.Lime => AORarities.Mystic,
+				ItemRarityID.Yellow => AORarities.Arcane,
+				ItemRarityID.Cyan => AORarities.Arcane,
+				_ => AORarities.Mythical,
+			};
 		}
 		#endregion
 
@@ -569,16 +570,17 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// Arcane Odyssey rarities, converted to RarityID
 		/// </summary>
+
 		public enum AORarities
 		{
-			Common = ItemRarityID.Gray,
-			Uncommon = ItemRarityID.White,
-			Rare = ItemRarityID.Blue,
-			Mystic = ItemRarityID.LightRed,
-			Arcane = ItemRarityID.Lime,
-			Zenith = ItemRarityID.Master,
+			Unknown = ItemRarityID.Gray,
+			Common = ItemRarityID.White,
+			Uncommon = ItemRarityID.Green,
+			Rare = ItemRarityID.LightRed,
+			Mystic = ItemRarityID.LightPurple,
+			Arcane = ItemRarityID.Yellow,
+			Mythical = ItemRarityID.Red,
 			Special,
-			Unknown,
 			RESOLVESELF
 		}
 
