@@ -105,7 +105,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		
 		public override void AddRecipes()
         {
-            this.CreateLostRecipe(typeof(LightMagic), typeof(GlassMagic), typeof(CrystalMagic));
+            CreateLostRecipe(typeof(LightMagic), typeof(GlassMagic), typeof(CrystalMagic));
         }
 	}
 }

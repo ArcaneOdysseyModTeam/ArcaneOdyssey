@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		public override void AddRecipes() {
-			this.CreateLostRecipe(typeof(WaterMagic),typeof(EarthMagic),typeof(WoodMagic));
+			CreateLostRecipe(typeof(WaterMagic),typeof(EarthMagic),typeof(WoodMagic));
         }
 	}
 }

@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<DiamondBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<DiamondPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<DiamondCannon>())]);
 		
 		public override void AddRecipes() {
-            this.CreateLostRecipe(typeof(CrystalMagic), typeof(EarthMagic));
+            CreateLostRecipe(typeof(CrystalMagic), typeof(EarthMagic));
         }
 	}
 }
