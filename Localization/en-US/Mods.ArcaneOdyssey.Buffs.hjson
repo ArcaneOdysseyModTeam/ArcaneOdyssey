@@ -97,3 +97,8 @@ HeavyBleed: {
 	DisplayName: Heavy Bleed
 	Description: You might have an artery leaking
 }
+
+ElectrifiedToxins: {
+	DisplayName: Electrified Toxins
+	Description: Mods.ArcaneOdyssey.Buffs.ElectrifiedToxins.Description
+}

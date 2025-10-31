@@ -11,32 +11,32 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Projectiles.Relic
 {
 	public class SpiritBlast : SpiritProjectile
-    {
-        public override AODebuffRequirement? Debuff => new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33);
-        public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
+	{
+		public override AODebuffRequirement? Debuff => new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33);
+		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 
-        public override SynergyEffects Effects => new( // copy of lightning lmao
-            [ // these are debuffs cleared on hit
+		public override SynergyEffects Effects => new( // copy of lightning lmao
+			[ // these are debuffs cleared on hit
 				ModContent.BuffType<AOPetrified>(), // petrified
 				ModContent.BuffType<CharredEffect>(),
-                ModContent.BuffType<SandyEffect>(),
-                ModContent.BuffType<AOBleed>(),
-                ModContent.BuffType<AOFrozen>()
-            ],
-            [
-                new MagicBuffMultiplier(BuffID.Chilled, 1.2f), // frozen
+				ModContent.BuffType<SandyEffect>(),
+				ModContent.BuffType<AOBleed>(),
+				ModContent.BuffType<AOFrozen>()
+			],
+			[
+				new MagicBuffMultiplier(BuffID.Chilled, 1.2f), // frozen
 				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
 				new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
 				new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
 				new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid
 				new MagicBuffMultiplier(BuffID.Wet, 1.05f), // (add stunning later!)
 				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-                new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
-                new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
-            ]
-            );
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
+			]
+			);
 
-        public override void SetDefaults()
+		public override void SetDefaults()
 		{
 			Projectile.width = Projectile.height = 64;
 			Projectile.friendly = true;
@@ -69,9 +69,38 @@ namespace ArcaneOdyssey.Content.Projectiles.Relic
 
 		public override bool PreDraw(ref Color lightColor) => false;
 
-        public override void ManageSynergies(ref NPC.HitModifiers modifiers)
-        {
-            base.ManageSynergies(ref modifiers);
-        }
+		public override void ManageSynergies(ref NPC.HitModifiers modifiers)
+		{
+			base.ManageSynergies(ref modifiers);
+		}
+
+		public const int DustCount = 50;
+
+		public override bool PreKill(int timeLeft)
+		{
+			if (!Main.dedServ)
+			{
+				for (float i = 0; i < DustCount; i++)
+				{
+					var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					var dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 4);
+					dust.noGravity = true;
+					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 5);
+					dust.noGravity = true;
+					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 6);
+					dust.noGravity = true;
+					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 7);
+					dust.noGravity = true;
+					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 8);
+					dust.noGravity = true;
+                    SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
+				}
+			}
+			return base.PreKill(timeLeft);
+		}
 	}
 }
