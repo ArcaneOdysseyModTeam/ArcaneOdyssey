@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void SetDefaults()
 		{
 			Projectile.height = Projectile.width = 128;
+			BaseScale = .5f;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 0;
 		}
@@ -57,6 +58,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				if (Projectile.ai[2] != 0)
 				{
 					aoPlayerOwner.chargingSpell = true;
+					aoPlayerOwner.Player.heldProj = Projectile.whoAmI;
 					aoPlayerOwner.Player.itemAnimation = aoPlayerOwner.Player.itemTime = 2;
 					aoPlayerOwner.Player.itemRotation = dir.ToRotation();
 					if (aoPlayerOwner.Player.direction != 1)
@@ -69,7 +71,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Projectile.ai[2] = 1;
 				aoPlayerOwner.Player.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
-				Projectile.Center = aoPlayerOwner.Player.MountedCenter + (dir * 30f);
+				Projectile.Center = aoPlayerOwner.Player.MountedCenter + (dir * 20f);
 				if (charge >= 3f)
 				{
 					aoPlayerOwner.Player.channel = false;
@@ -149,7 +151,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (Imbue is not null)
 			{
-				lightColor = Color.Lerp(Imbue.ImbueColour, lightColor, .5f);
+				lightColor = Imbue.ImbueColour;
 			}
 			return true;
 		}

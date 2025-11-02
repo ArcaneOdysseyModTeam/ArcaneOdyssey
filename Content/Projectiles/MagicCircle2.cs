@@ -108,7 +108,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Imbue is not null)
 			{
 				lightColor = Imbue.ImbueColour;
-				lightColor *= 1f - (Projectile.alpha / 255f);
 			}
 			return true;
 		}
