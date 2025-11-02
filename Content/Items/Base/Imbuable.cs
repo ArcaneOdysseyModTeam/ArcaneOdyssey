@@ -201,7 +201,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this is BasicCombat)
 			{
 				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
-				RecipeGroup.RegisterGroup($"{nameof(ArcaneOdyssey)}:AnyBasicImbue", goru);
+				RecipeGroup.RegisterGroup($"{ArcaneOdyssey.InternalName}:AnyBasicImbue", goru);
 				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonChoice>());
 				recipe.AddRecipeGroup(goru);
 				recipe.AddIngredient<Acrimony>();

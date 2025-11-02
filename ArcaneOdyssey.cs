@@ -19,6 +19,7 @@ namespace ArcaneOdyssey
 		/// disable all cooldowns and stuff lmao
 		/// </summary>
 		public static bool devMode => DevMode.devMode;
+		public readonly static string InternalName = typeof(ArcaneOdyssey).Name;
 
 		public static ArcaneOdyssey Instance => ModContent.GetInstance<ArcaneOdyssey>();
 

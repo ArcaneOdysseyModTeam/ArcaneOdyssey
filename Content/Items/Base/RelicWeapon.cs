@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 	public class SpiritDamage : DamageClass
 	{
+        public static readonly string InternalName = typeof(SpiritDamage).Name;
 		public override LocalizedText DisplayName => Mod.CustomLocalization("SpiritDamage");
 
 		public override bool GetEffectInheritance(DamageClass damageClass)

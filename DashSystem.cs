@@ -16,7 +16,7 @@ namespace ArcaneOdyssey
 	{
 		public string Name => GetType().Name;
 
-		public Mod Mod { get => ModLoader.GetMod(nameof(ArcaneOdyssey)); }
+		public Mod Mod { get => ModLoader.GetMod(ArcaneOdyssey.InternalName); }
 
 		/// <summary>
 		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
