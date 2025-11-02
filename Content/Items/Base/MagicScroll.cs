@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			var imbue = Item.ArcaneOdyssey().Imbue;
 			if (imbue is AOMagic)
 			{
-				Item.color = imbue.ImbueColour with { A = (byte)(255 * .9f) };
+				Item.color = imbue.ImbueColour with { A = (byte)(255 * .75f) };
 			}
 			else Item.color = Color.Transparent;
 		}
@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Base
             Item.ArcaneOdyssey().Imbue = playah.Imbue;
             if (playah.Imbue is AOMagic)
             {
-                Item.color = playah.Imbue.ImbueColour with { A = (byte)(255 * .9f) };
+                Item.color = playah.Imbue.ImbueColour with { A = (byte)(255 * .75f) };
             }
             else Item.color = Color.Transparent;
         }

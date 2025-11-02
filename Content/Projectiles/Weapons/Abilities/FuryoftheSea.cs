@@ -46,9 +46,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 			if (Projectile.timeLeft % 6 == 0)
 			{
-				Projectile.frame++;
 				SoundEngine.PlaySound(SoundID.Splash with { Pitch = -.25f }, Projectile.Center);
-				if (Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Projectile.type])
 				{
 					Projectile.frame = 0;
 				}

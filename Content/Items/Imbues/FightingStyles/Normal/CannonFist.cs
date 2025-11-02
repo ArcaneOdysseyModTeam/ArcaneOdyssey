@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 						}
 						else
 							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
-                        player.Cooldowns.Add(new CannonFistShotCooldown().AOCooldown);
+                        player.SetCooldown(new CannonFistShotCooldown().AOCooldown);
 					}
 				}
 			}

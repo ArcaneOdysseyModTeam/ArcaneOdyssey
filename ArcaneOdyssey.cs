@@ -149,13 +149,6 @@ namespace ArcaneOdyssey
 		/// disable all cooldowns and stuff lmao
 		/// </summary>
 		public static bool devMode = false;
-
-		#if VSDEBUGMODE
-		public override void Load()
-		{
-			devMode = true;
-		}
-		#endif
 	}
 
 	public class DownedBosses : ModSystem

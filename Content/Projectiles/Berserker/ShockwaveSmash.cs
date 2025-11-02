@@ -61,8 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (Imbue is not null)
 			{
-				Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Imbue is null ? lightColor : Imbue.ImbueColour, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None);
-				return false;
+                lightColor = Color.Lerp(lightColor, Imbue.ImbueColour, .5f);
 			}
 			return true;
 		}

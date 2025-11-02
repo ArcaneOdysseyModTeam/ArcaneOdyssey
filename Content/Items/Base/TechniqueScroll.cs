@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			var imbue = Item.ArcaneOdyssey().Imbue;
             if (imbue is FightingStyle and not FightingStyleBarred)
             {
-                Item.color = imbue.ImbueColour with { A = (byte)(255 * .9f) };
+                Item.color = imbue.ImbueColour with { A = (byte)(255 * .75f) };
             }
             else if (imbue is FightingStyleBarred barred)
             {
@@ -33,11 +33,11 @@ namespace ArcaneOdyssey.Content.Items.Base
             Item.ArcaneOdyssey().Imbue = playah.Imbue;
             if (playah.Imbue is FightingStyle and not FightingStyleBarred)
             {
-                Item.color = playah.Imbue.ImbueColour with { A = (byte)(255 * .9f) };
+                Item.color = playah.Imbue.ImbueColour with { A = (byte)(255 * .75f) };
             }
             else if (playah.Imbue is FightingStyleBarred barred)
             {
-                Item.color = Color.Lerp(Color.Transparent, barred.ImbueColour with { A = (byte)(255 * .9f) }, barred.BarValue / FightingStyleBarred.BarMax);
+                Item.color = Color.Lerp(Color.Transparent, barred.ImbueColour with { A = (byte)(255 * .75f) }, barred.BarValue / FightingStyleBarred.BarMax);
             }
             else Item.color = Color.Transparent;
 

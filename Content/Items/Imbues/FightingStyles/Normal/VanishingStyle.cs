@@ -93,7 +93,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (Player.ArcaneOdyssey().Imbue is VanishingStyle && (!Player.ArcaneOdyssey().OnCooldown(nameof(VanishCooldown))) && AOKeybinds.Vanish.JustPressed) // add more conditions later
 			{
-				Player.ArcaneOdyssey().Cooldowns.Add(new VanishCooldown().AOCooldown);
+				Player.ArcaneOdyssey().SetCooldown(new VanishCooldown().AOCooldown);
 				Player.AddBuff(BuffID.Invisibility, 60 * 5);
 			}
 		}

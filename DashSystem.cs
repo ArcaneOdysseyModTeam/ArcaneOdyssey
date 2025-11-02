@@ -57,7 +57,7 @@ namespace ArcaneOdyssey
 		/// <param name="player"></param>
 		public void SetCooldown(Player player)
 		{
-			player.ArcaneOdyssey().Cooldowns.Add(AOCooldown);
+			player.ArcaneOdyssey().SetCooldown(AOCooldown);
 		}
 
 		/// <summary>

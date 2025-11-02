@@ -94,46 +94,5 @@ namespace ArcaneOdyssey
 		}
 
 		public float SizeMulti => AOSizeStat / 300f;
-
-		public override void PreUpdate()
-		{
-			if (timeTillNextMove > 1)
-			{
-				for (int i = 0; i < 4; i++)
-					Player.doubleTapCardinalTimer[i] = 0;
-				timeTillNextMove--;
-			}
-			else timeTillNextMove = 0;
-            List<Cooldown> toremove = [];
-            Dictionary<int, Cooldown> tochange = [];
-			foreach (var Cooldown in Cooldowns)
-			{
-                if (Cooldown.TickDown)
-                {
-                    var cool = Cooldown;
-                    if (--cool.cooldownRemaining <= 0 || ArcaneOdyssey.devMode)
-                    {
-                        toremove.Add(Cooldown);
-                    }
-                    else
-                    {
-                        tochange.Add(Cooldowns.IndexOf(Cooldown), cool);
-                    }
-                }
-			}
-            foreach (var Cooldown in tochange)
-            {
-                Cooldowns[Cooldown.Key] = Cooldown.Value;
-            }
-            foreach (var Cooldown in toremove)
-            {
-                Cooldowns.Remove(Cooldown);
-            }
-        }
-
-        public bool OnCooldown(string ID)
-        {
-            return Cooldowns.Contains(Cooldowns.Find(e => e.ID == ID));
-        }
 	}
 }

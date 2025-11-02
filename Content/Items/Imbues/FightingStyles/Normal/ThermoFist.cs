@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
             BarValue += BarMax / 40f; // nerfed lmao
 			if (projectile.TryGetOwner(out AOPlayer owner)) 
 			{
-                owner.Cooldowns.Add(new(Name, DisplayName, true, 60));
+                owner.SetCooldown(new(Name, DisplayName, true, 60));
 			}
             for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 10)), 1); n++)
 			{
@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (projectile.TryGetOwner(out AOPlayer owner))
             {
-                owner.Cooldowns.Add(new(Name, DisplayName, true, 60));
+                owner.SetCooldown(new(Name, DisplayName, true, 60));
             }
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
@@ -110,7 +110,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			if (item.TryGetImbue(out var im) && ImbueClassCheck(item) && im is ThermoFist thermo && thermo.GetThisImbue(player))
 			{
                 thermo.BarValue += FightingStyleBarred.BarMax / 20f;
-                player.ArcaneOdyssey().Cooldowns.Add(new(thermo.Name, thermo.DisplayName, true, 60));
+                player.ArcaneOdyssey().SetCooldown(new(thermo.Name, thermo.DisplayName, true, 60));
             }
 		}
 	}
