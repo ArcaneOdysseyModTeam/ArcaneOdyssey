@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			if (Projectile.position != Projectile.oldPosition)
-                Projectile.netUpdate = true;
+				Projectile.netUpdate = true;
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
 			if (Projectile.ai[2] == 0 && aoPlayerOwner.Imbue is not null)
@@ -34,28 +34,28 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				aoPlayerOwner.chargingSpell = true;
 				aoPlayerOwner.myCircle = Projectile;
-                if (Projectile.ai[1] != 2)
-                {
-                    Projectile.Center = player.MountedCenter;
-                }
-                else
-                {
-                    player.itemAnimation = player.itemTime = 2;
-                    if (Main.myPlayer == Projectile.owner)
-                    {
-                        player.itemRotation = player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
-                        if (player.direction != 1)
-                        {
-                            player.itemRotation += MathHelper.Pi;
-                        }
-                        if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
-                        {
-                            Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
-                        }
-                        else
-                            Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
-                    }
-                }
+				if (Projectile.ai[1] != 2)
+				{
+					Projectile.Center = player.MountedCenter;
+				}
+				else
+				{
+					player.itemAnimation = player.itemTime = 2;
+					if (Main.myPlayer == Projectile.owner)
+					{
+						player.itemRotation = player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
+						if (player.direction != 1)
+						{
+							player.itemRotation += MathHelper.Pi;
+						}
+						if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
+						{
+							Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
+						}
+						else
+							Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
+					}
+				}
 			}
 			else
 			{
@@ -64,9 +64,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 			}
 
 			if (Imbue is not null)
-            {
-                Projectile.rotation += MathHelper.Pi / 120f * Imbue.AOScrollSpeed;
-                float tempLightColorR = 0f;
+			{
+				Projectile.rotation += MathHelper.Pi / 120f * Imbue.AOScrollSpeed;
+				float tempLightColorR = 0f;
 				float tempLightColorG = 0f;
 				float tempLightColorB = 0f;
 				if (Imbue.ImbueColour.R != 0f)
@@ -107,11 +107,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (Imbue is not null)
 			{
-				Color drawColor = Imbue.ImbueColour;
-				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, null, drawColor, Projectile.rotation, Projectile.GetDrawOriginCentre(), Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None);
+				lightColor = Imbue.ImbueColour;
+				lightColor *= 1f - (Projectile.alpha / 255f);
 			}
-			return false;
+			return true;
 		}
 
 		public override void OnKill(int timeLeft)

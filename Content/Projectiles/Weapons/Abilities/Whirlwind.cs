@@ -48,7 +48,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
     public class WhirlwindCooldown : CooldownSystem
     {
         public override int CooldownLength => 60 + Whirlwind.MaxTime;
-        public override bool DisplayCooldown => true;
         public override string Name => "Whirlwind Cooldown";
     }
 }

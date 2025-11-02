@@ -103,6 +103,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
         public override string Name => "Vanish";
         public override int CooldownLength => 12 * 60;
-        public override bool DisplayCooldown => true;
 	}
 }

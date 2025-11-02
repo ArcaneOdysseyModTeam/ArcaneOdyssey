@@ -776,8 +776,15 @@ namespace ArcaneOdyssey
 
 		public static IImbuableEntity AnyArcaneOdyssey(this Entity entity)
 		{
-			if (entity is Projectile projectile)
-				return projectile.GetGlobalProjectile<AOProjectile>();
+            if (entity is Projectile projectile)
+            {
+                if (projectile.ModProjectile is AOPlayerProjectile proj)
+                {
+                    return proj;
+                }
+                else
+                    return projectile.GetGlobalProjectile<AOProjectile>();
+            }
 			if (entity is Player player)
 				return player.GetModPlayer<AOPlayer>();
 			if (entity is Item item)

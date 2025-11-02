@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+			Imbue ??= aoPlayerOwner.Imbue;
 			var dir = Main.myPlayer == Projectile.owner ? aoPlayerOwner.Player.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
@@ -43,7 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				{
 					charge = .75f;
 				}
-				aoPlayerOwner.Player.direction = (dir.X > 0f).ToDirectionInt();
+				aoPlayerOwner.Player.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
 
 			if (Projectile.position != Projectile.oldPosition || Projectile.rotation != Projectile.oldRot[0])
@@ -79,28 +80,28 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Projectile.alpha += (255f / 60f).Round();
 				MarkedForDeath = true;
-                if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
-                {
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10, ChargingProjectile, Projectile.damage, 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic or Boxing ? 3f : 1f) * charge, Projectile.owner);
-                    if (proj.ModProjectile is CannonSpell)
-                    {
-                        proj.ArcaneOdyssey().BaseScale = 2;
-                    }
-                    else if (proj.ModProjectile is PulsarSpell)
-                    {
-                        proj.ArcaneOdyssey().BaseScale = .5f;
-                    }
-                    else
-                    {
-                        proj.ArcaneOdyssey().BaseScale = charge / 2;
-                        proj.damage = (Projectile.damage * (charge * charge)).Round();
-                    }
-                    proj.netUpdate = true;
+				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
+				{
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10, ChargingProjectile, Projectile.damage, 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic or Boxing ? 3f : 1f) * charge, Projectile.owner);
+					if (proj.ModProjectile is CannonSpell)
+					{
+						proj.ArcaneOdyssey().BaseScale = 2;
+					}
+					else if (proj.ModProjectile is PulsarSpell)
+					{
+						proj.ArcaneOdyssey().BaseScale = .5f;
+					}
+					else
+					{
+						proj.ArcaneOdyssey().BaseScale = charge / 2;
+						proj.damage = (Projectile.damage * (charge * charge)).Round();
+					}
+					proj.netUpdate = true;
 					Projectile.ai[1] = 1;
 				}
 			}
 
-			if (Projectile.TryGetImbue(out Imbuable Imbue) && !Main.dedServ)
+			if (Imbue is not null && !Main.dedServ)
 			{
 				float tempLightColorR = 0f;
 				float tempLightColorG = 0f;
@@ -146,12 +147,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Projectile.TryGetImbue(out Imbuable Imbue))
+			if (Imbue is not null)
 			{
-				Color drawColor = Imbue.ImbueColour;
-				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), drawColor, Projectile.rotation, Projectile.GetDrawOriginCentre(), Imbue.AOScrollSize * Projectile.scale / 2, SpriteEffects.None, 0);
-				return false;
+				lightColor = Color.Lerp(Imbue.ImbueColour, lightColor, .5f);
 			}
 			return true;
 		}

@@ -101,7 +101,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
     public class CannonFistShotCooldown : CooldownSystem
     {
         public override int CooldownLength => 60;
-        public override bool DisplayCooldown => true;
         public override string Name => "Cannon Fist Shot Cooldown";
     }
 }

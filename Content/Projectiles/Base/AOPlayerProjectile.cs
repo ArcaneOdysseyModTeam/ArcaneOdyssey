@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// <summary>
 	/// Projectile created by the player, usually via weapon
 	/// </summary>
-	public abstract class AOPlayerProjectile : ModProjectile
+	public abstract class AOPlayerProjectile : ModProjectile, IImbuableEntity
 	{
 		public virtual bool? Cold => null;
 		public AOPlayer aoPlayerOwner = null;
@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().BaseScale = value; 
 		}
 
-		public Imbuable Imbue 
+		public Imbuable Imbue
 		{
 			get => Projectile.ArcaneOdyssey().Imbue;
 			set => Projectile.ArcaneOdyssey().Imbue = value;

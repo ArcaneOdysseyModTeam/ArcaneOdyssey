@@ -172,14 +172,12 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				var standard = Vector2.UnitX;
+				var standard = Vector2.UnitX * direction;
+                //if (Player.velocity.Y < 0)
+                //standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
 				if (direction == 2 || direction == -2)
 				{
 					standard = Vector2.UnitY * (direction/2f);
-				}
-				else
-				{ 
-					standard *= direction; 
 				}
 				DashVelocity = standard * dashToUse.DashSpeed;
 			}
@@ -220,11 +218,11 @@ namespace ArcaneOdyssey
 			}
 			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind().JustPressed)
 			{
-				if (Player.velocity.X > 1)
+				if (Player.controlRight || Player.direction == 1)
 				{
 					DashDir = 1;
 				}
-				else if (Player.velocity.X < -1)
+				else if (Player.controlLeft || Player.direction == -1)
 				{
 					DashDir = -1;
 				}
