@@ -1,32 +1,44 @@
 Armour: {
 	RavennaBoots: {
 		DisplayName: Ravenna Boots
-		Tooltip: ""
+		Tooltip: Ornate greaves of bronze, representing the colors of the Ravenna Realm
 	}
 
 	RavennaChest: {
 		DisplayName: Ravenna Chest
-		Tooltip: ""
+		Tooltip: A bulkier set of armor made out of pure bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
 	}
 
 	RavennaHelm: {
 		DisplayName: Ravenna Helm
-		Tooltip: ""
+		Tooltip: A detailed helmet made out of bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
 	}
 
 	SunkenBoots: {
 		DisplayName: Sunken Boots
-		Tooltip: ""
+		Tooltip:
+		'''
+		A green and gold pair of boots made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		'''
 	}
 
 	SunkenChest: {
 		DisplayName: Sunken Chest
-		Tooltip: ""
+		Tooltip:
+		'''
+		A green and gold chestplate made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		'''
 	}
 
 	SunkenHelm: {
 		DisplayName: Sunken Helm
-		Tooltip: ""
+		Tooltip:
+		'''
+		A green and gold helmet made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+		It seems to constantly produce water
+		'''
 	}
 }
 
@@ -71,67 +83,71 @@ VesuvianSigil: {
 
 WoodenPaddle: {
 	DisplayName: Wooden Paddle
-	Tooltip: ""
+	Tooltip: A wooden paddle for a rowboat, it seems to contain trace magic
 }
 
 SteamImbue: {
 	DisplayName: Steam Imbue
-	Tooltip: I swear this isn't the attack size stat
+	Tooltip:
 }
 
 Acrimony: {
 	DisplayName: Prometheus's Acrimony
-	Tooltip: ""
+	Tooltip: A glowing white clover, which can be used to change one's magic
 }
 
 AncientHecateOrb: {
 	DisplayName: Hecate's Orb
-	Tooltip: ""
+	Tooltip: An orb formed of the essence of the goddess hecate... the world is really not ready to unleash this
 }
 
 BronzeBar: {
 	DisplayName: Bronze Bar
-	Tooltip: ""
+	Tooltip: A bar of bronze
 }
 
 EmptyScroll: {
 	DisplayName: Empty Scroll
-	Tooltip: ""
+	Tooltip: A simple scroll
 }
 
 HecateShard: {
 	DisplayName: Hecate Shard
-	Tooltip: ""
+	Tooltip:
+	'''
+		A shard formed of the essence of the goddess Hecate
+		Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+	'''
 }
 
 Paper: {
 	DisplayName: Paper
-	Tooltip: ""
+	Tooltip: Organic parchment suitable for conducting magic
 }
 
 PoseidonChoice: {
 	DisplayName: Poseidon's Spirit
-	Tooltip: ""
+	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
 SunkenScrap: {
 	DisplayName: Sunken Scrap
-	Tooltip: ""
+	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
 }
 
 EaglePatrimony: {
 	DisplayName: Eagle Patrimony
-	Tooltip: ""
+	Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
 }
 
 Accessories: {
 	EvanderCape: {
 		DisplayName: Mountainbreaker Cape
-		Tooltip: ""
+		Tooltip: A tattered cape taken from Evander, The Mountainbreaker
 	}
 
 	EvanderGauntlet: {
 		DisplayName: Mountainbreaker Gauntlet
-		Tooltip: ""
+		Tooltip: A guantlet taken from Evander, The Mountainbreaker
 	}
 }

@@ -85,7 +85,7 @@ ElfPetBuff: {
 
 AncientLightingChain: {
 	DisplayName: Ancient Lighting Chain
-	Description: Ancient Lightning steaks between enemies
+	Description: Ancient Lightning streaks between enemies
 }
 
 PheonixHealing: {
@@ -100,5 +100,5 @@ HeavyBleed: {
 
 ElectrifiedToxins: {
 	DisplayName: Electrified Toxins
-	Description: Mods.ArcaneOdyssey.Buffs.ElectrifiedToxins.Description
+	Description: You are being shocked, while being poisoned
 }
