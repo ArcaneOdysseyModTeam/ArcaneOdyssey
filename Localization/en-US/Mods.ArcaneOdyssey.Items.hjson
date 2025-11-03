@@ -44,12 +44,12 @@ Armour: {
 
 HeadlessHead: {
 	DisplayName: Headless Head
-	Tooltip: ""
+	Tooltip: A strange vanity item which seemingly makes your head and hair invisible
 }
 
 HeadlessHeadWithWig: {
 	DisplayName: Headless Head With Wig
-	Tooltip: ""
+	Tooltip: A strange vanity item which seemingly makes your head invisible, keeping the hair
 }
 
 EvanderPoster: {
