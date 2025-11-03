@@ -88,7 +88,7 @@ WoodenPaddle: {
 
 SteamImbue: {
 	DisplayName: Steam Imbue
-	Tooltip:
+	Tooltip: ""
 }
 
 Acrimony: {
