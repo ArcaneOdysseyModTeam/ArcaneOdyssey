@@ -17,28 +17,28 @@ Armour: {
 	SunkenBoots: {
 		DisplayName: Sunken Boots
 		Tooltip:
-		'''
-		A green and gold pair of boots made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-		It seems to constantly produce water
-		'''
+			'''
+			A green and gold pair of boots made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+			It seems to constantly produce water
+			'''
 	}
 
 	SunkenChest: {
 		DisplayName: Sunken Chest
 		Tooltip:
-		'''
-		A green and gold chestplate made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-		It seems to constantly produce water
-		'''
+			'''
+			A green and gold chestplate made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+			It seems to constantly produce water
+			'''
 	}
 
 	SunkenHelm: {
 		DisplayName: Sunken Helm
 		Tooltip:
-		'''
-		A green and gold helmet made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-		It seems to constantly produce water
-		'''
+			'''
+			A green and gold helmet made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
+			It seems to constantly produce water
+			'''
 	}
 }
 
@@ -114,10 +114,10 @@ EmptyScroll: {
 HecateShard: {
 	DisplayName: Hecate Shard
 	Tooltip:
-	'''
-		A shard formed of the essence of the goddess Hecate
-		Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
-	'''
+		'''
+			A shard formed of the essence of the goddess Hecate
+			Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+		'''
 }
 
 Paper: {
