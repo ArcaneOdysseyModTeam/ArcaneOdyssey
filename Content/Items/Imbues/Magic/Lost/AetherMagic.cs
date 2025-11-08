@@ -9,11 +9,15 @@ using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using Terraria.Audio;
+using Terraria;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class AetherMagic : AOMagic
 	{
+		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => new(255, 255, 0, 255);
 		public override bool? Cold => false;
         public override bool CanBeWet => false;
@@ -35,7 +39,44 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			);
 		
         public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AetherBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AetherPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AetherCannon>())]);
-		
+		public override void SpawningEffects(Entity projectile) 
+			{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowStarDust, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 3f)];
+				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.YellowTorch,projectile.velocity.X*0.2f,projectile.velocity.Y*0.2f,0,default,3f)];
+				spawnedDust2.noGravity = true;
+			}
+			}
+		public override void LingeringEffects(Entity projectile)
+		{
+			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.YellowStarDust, 0f, 0f, 0, default, 1f)];
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.YellowTorch, 0f, 0f, 0, default, 2f)];
+			spawnedDust2.noGravity = true;
+			Lighting.AddLight(projectile.position, 2, 2, 0);
+		}
+		public override void ExplosionEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.YellowTorch, (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), 0, default, 3f)];
+				spawnedDust2.noGravity = true;
+			}
+		}
+		public override void KillEffects(Entity projectile)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowStarDust, 28f * (Main.rand.NextFloat() - 0.5f), 28f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowTorch, 28f * (Main.rand.NextFloat() - 0.5f), 28f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				spawnedDust2.noGravity = true;
+			}
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
 		public override void AddRecipes() 
         {
             
