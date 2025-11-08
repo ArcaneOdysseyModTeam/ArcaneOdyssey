@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
-using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
+using System;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.Helpers
@@ -35,7 +37,17 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 
 		public static void ChainVFX(Vector2 start, Vector2 end)
 		{
-			
+			Vector2 currentPosition = start;
+			for (int n = 0;n < 20;n++)
+			{
+				currentPosition += new Vector2(MathF.Cos(start.AngleTo(end)),MathF.Sin(start.AngleTo(end)))/(start.Distance(end)/20f);
+                Dust spawnedDust = Dust.NewDustPerfect(currentPosition + new Vector2(0f,GetWaveVal(n)).RotatedBy(start.AngleTo(end)), DustID.TheDestroyer, Vector2.Zero, 255, Color.Red, 1.2f);
+				spawnedDust.noGravity = true;
+            }
 		}
+		private static float GetWaveVal(float timestamp)
+        {
+            return 10f * MathF.Abs(timestamp % 5 % 10f - 2.5f) - 12.5f;
+        }
 	}
 }
