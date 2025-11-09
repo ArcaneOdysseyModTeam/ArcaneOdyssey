@@ -72,20 +72,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			spawnedDust.noGravity = true;
 			if (projectile.velocity != Vector2.Zero)
 			{
-				float waveVal = 0f;
-				if (projectile is Projectile) {
-					if (((Projectile)projectile).type == ModContent.ProjectileType<BeamSpell>())
-					{
-						waveVal = 10f * MathF.Abs((float)((Projectile)projectile).numUpdates % 5 % 10f - 2.5f) - 12.5f;
-					}
-					else
-					{
-						waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
-					}
-				} else
-                {
-                    waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
-                }
+				float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
+				if (projectile is Projectile proj && proj.extraUpdates > 0)
+				{
+					waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)proj.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
+				}
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust2 = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.CrystalPulse, new Vector2(0f, 0f), 255, default, 1.2f);
 				spawnedDust2.noGravity = true;

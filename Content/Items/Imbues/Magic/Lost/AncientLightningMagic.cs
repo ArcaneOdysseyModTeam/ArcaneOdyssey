@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
 				if (projectile is Projectile proj && proj.extraUpdates > 0)
 				{
-					waveVal = 10f * MathF.Abs((float)proj.numUpdates % 5 % 10f - 2.5f) - 12.5f;
+					waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)proj.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
 				}
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.TheDestroyer, new Vector2(0f, 0f), 255, Color.Red, 1.2f);
