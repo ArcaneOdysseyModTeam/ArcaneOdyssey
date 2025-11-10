@@ -90,14 +90,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ash, 8f * Main.rand.NextFloat() - 0.5f, 8f * Main.rand.NextFloat() - 0.5f, 0, default, 3f);
+				Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ash, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f);
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.RedTorch, 8f * Main.rand.NextFloat() - 0.5f, 8f * Main.rand.NextFloat() - 0.5f, 0, default, 2f);
+				Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.RedTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2f);
 				spawnedDust2.noGravity = true;
 			}
 			for (int n = 0; n < 10; n++)
 			{
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), new(1.23f * Main.rand.NextFloat() - 0.5f, 1.23f * Main.rand.NextFloat() - 0.5f), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), new(1.23f * (Main.rand.NextFloat() - 0.5f), 1.23f * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 
