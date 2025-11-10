@@ -80,8 +80,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 						explosionProjectile.ai[0] = 1.2f; //size mult
 						explosionProjectile.damage = (explosionProjectile.damage * 1.2f).Round(); //Damage mult
 						explosionProjectile.AI();
-						explosionProjectile.Center = ensuredPosition;
 					}
+					explosionProjectile.Center = ensuredPosition;
 				}
 				SoundEngine.PlaySound(Imbue.ImbueSound, Projectile.position, null);
 				Kill();
