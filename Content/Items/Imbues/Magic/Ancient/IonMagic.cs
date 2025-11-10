@@ -76,7 +76,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 1, 1, DustID.CursedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 4f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.CursedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 4f)];
 			}
 		}
 		public override void KillEffects(Entity projectile)

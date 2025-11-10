@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
                 for (int n = 0; n < 3; n++)
                 {
-                    Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + Projectile.width / 2f, Projectile.position.Y + Projectile.height / 2f), 1, 1, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 255/2, default, 3f)];
+                    Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.Center, 1, 1, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 255/2, default, 3f)];
                     spawnedDust.noGravity = true;
                 }
             }

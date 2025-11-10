@@ -92,10 +92,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
         public override void ExplosionEffects(Entity projectile)
         {
 			int rainbowStep = (int)Main.GameUpdateCount;
-			Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 1, 1, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 0.9f);
+			Dust.NewDust(projectile.Center, 1, 1, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 0.9f);
 			for (int n = 0; n < 10; n++)
             {
-				Dust dust = Dust.NewDustDirect(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 1, 1, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, rainbowColors[rainbowStep % 3], 1.3f);
+				Dust dust = Dust.NewDustDirect(projectile.Center, 1, 1, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, rainbowColors[rainbowStep % 3], 1.3f);
 				dust.noGravity = true;
 				rainbowStep++;
             }
