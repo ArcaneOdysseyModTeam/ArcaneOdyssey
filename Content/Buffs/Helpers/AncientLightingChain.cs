@@ -4,6 +4,7 @@ using Terraria.ID;
 using System;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 
 namespace ArcaneOdyssey.Content.Buffs.Helpers
 {
@@ -28,7 +29,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 						}
 					}
 				}
-				npc.SimpleStrikeNPC(50, Main.rand.NextBool().ToDirectionInt(), damageType: DamageClass.Magic, damageVariation: true);
+				npc.HitNPC(50, Main.rand.NextBool().ToDirectionInt(), ModContent.GetInstance<AncientLightningMagic>(), damageType: DamageClass.Magic, damageVariation: true);
 			}
 
 			npc.DelBuff(buffIndex);

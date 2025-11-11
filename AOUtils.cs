@@ -158,8 +158,8 @@ namespace ArcaneOdyssey
 					}
 					if (modifiers.GetDamage(damage.Round()) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
 					{ 
-						target.SimpleStrikeNPC(modifiers.GetDamage(damage.Round()), ((target.Center - origin).X > 0).ToDirectionInt(), false, knockback, damageClass, true);
-						target.immune[player.whoAmI] = 2;
+						target.HitNPC(modifiers.GetDamage(damage.Round()), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
+						target.immune[player.whoAmI] = 20;
 					}
 				}
 			}
@@ -220,9 +220,20 @@ namespace ArcaneOdyssey
 		public static bool ServerOrSingleplayer => Main.netMode != NetmodeID.MultiplayerClient;
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
-		
 
-		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
+
+        public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
+        {
+            if (player is not null && player.active && player.TryArcaneOdyssey(out var playah))
+            {
+                playah.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
+            }
+            npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
+        }
+
+
+
+        public static bool PlayerHasImbue(this Imbuable imbue, Player player)
 		{
 			var type = imbue.GetType();
 			if (imbue is SteamImbue steam)
@@ -498,19 +509,27 @@ namespace ArcaneOdyssey
 			public Color? Colour = colour;
 			public string[] OtherItems = otherItems;
 
-			public readonly string GenerateTooltip()
+            public static string Key(Mod mod, string name)
+            {
+                return $"Mods.{mod.Name}.ArmourSetTooltips." + name.Replace(" ", null);
+            }
+
+            public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
+            public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
+
+            public readonly string GenerateTooltip()
 			{
 				string text = "";
-				if (Colour.HasValue)
-				{
-					text += $"[c/{Colour.Value.Hex3()}:{Name}]";
-				}
-				else
-				{
-					text += Name;
-				}
-				text += $" - {Description}";
-				return text;
+                if (Colour.HasValue)
+                {
+                    text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
+                }
+                else
+                {
+                    text += LocalizedName.Value;
+                }
+                text += $" - {LocalizedDescription.Value}";
+                return text;
 			}
 		}
 
@@ -528,12 +547,12 @@ namespace ArcaneOdyssey
 				if (imbue is FightingStyleBarred barred)
 				{
 					return new ImbueArmourStats(
-						MathHelper.Lerp(0, Size, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-						MathHelper.Lerp(0, Attkspeed, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-						MathHelper.Lerp(0, Power, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-						MathHelper.Lerp(0, Defence, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-						MathHelper.Lerp(0, Agility, barred.BarValue / FightingStyleBarred.BarMax).Round(),
-						MathHelper.Lerp(0, Pierce, barred.BarValue / FightingStyleBarred.BarMax).Round()
+						MathHelper.Lerp(0, Size, barred.LerpValue).Round(),
+						MathHelper.Lerp(0, Attkspeed, barred.LerpValue).Round(),
+						MathHelper.Lerp(0, Power, barred.LerpValue).Round(),
+						MathHelper.Lerp(0, Defence, barred.LerpValue).Round(),
+						MathHelper.Lerp(0, Agility, barred.LerpValue).Round(),
+						MathHelper.Lerp(0, Pierce, barred.LerpValue).Round()
 						);
 				}
 				return this;
@@ -614,15 +633,23 @@ namespace ArcaneOdyssey
 		/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
 		public struct AODebuffRequirement(int debuffid, int duration, int debuffRequiement = 0)
 		{
-			public int debuffPercent = debuffRequiement/100;
+			public float debuffPercent = debuffRequiement / 100f;
 			public int debuffID = debuffid;
 			public int debuffDuration = duration;
 		}
 
-		/// <summary>
-		/// Magic status effects
-		/// </summary>
-		public struct SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
+        public struct ImbueDebuffHelper(Imbuable imbue, int damagedone, NPC npc, int buffID)
+        {
+            public Imbuable imbue = imbue;
+            public int damagedone = damagedone;
+            public NPC npc = npc;
+            public int buffID = buffID;
+        }
+
+        /// <summary>
+        /// Magic status effects
+        /// </summary>
+        public struct SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
 		{
 			public List<int> clearBuffs = [.. buffsToClear];
 			public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;

@@ -12,6 +12,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Relics
 		public override int AOValue => 500;
 		public override AORarities AORarity => AORarities.Special;
 
+        // Next Update, this will become capable of being imbued, and counts as a starter imbue 
+        //public override void SetStaticDefaults()
+        //{
+        //    Imbuable.BasicImbues.Add(Type);
+        //}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

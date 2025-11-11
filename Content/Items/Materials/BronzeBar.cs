@@ -11,8 +11,9 @@ namespace ArcaneOdyssey.Content.Items.Materials
 	{
 		public override void SetStaticDefaults()
 		{
-			Item.ResearchUnlockCount = 15;
+			Item.ResearchUnlockCount = 25;
 		}
+
         public override AORarities AORarity => AORarities.Uncommon;
 
 		public override void SetDefaults()
@@ -33,11 +34,18 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().
-				AddIngredient(ItemID.CopperOre, 2).
-				AddIngredient(ItemID.TinOre, 2).
+            CreateRecipe(10).
+                AddIngredient(ItemID.CopperOre, 4).
+                AddIngredient(ItemID.TinOre, 4).
+                AddIngredient(ItemID.ShadowScale, 1).
 				AddTile(TileID.Hellforge).
 				Register();
-		}
+            CreateRecipe(10).
+                AddIngredient(ItemID.CopperOre, 4).
+                AddIngredient(ItemID.TinOre, 4).
+                AddIngredient(ItemID.TissueSample, 1).
+                AddTile(TileID.Hellforge).
+                Register();
+        }
 	}
 }

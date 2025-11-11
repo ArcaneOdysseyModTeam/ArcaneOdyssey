@@ -11,12 +11,10 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Other;
+using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -184,6 +182,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return false;
 		}
 
+        public virtual float ItemInvisibility => 0f;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -191,13 +191,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.useTime = 60;
 			Item.useAnimation = 60;
 			Item.noUseGraphic = true;
-			if (this is GlassMagic or PrismMagic)
-			{
-				Item.alpha = (255 * .5f).Round(); // glass gets 50% less visible
-			}
+			Item.alpha = (255 * MathHelper.Clamp(ItemInvisibility, 0f, 1f)).Round();
 		}
 
-		private static List<int> BasicImbues = [];
+		internal static List<int> BasicImbues = [];
 
 		public override void AddRecipes()
 		{

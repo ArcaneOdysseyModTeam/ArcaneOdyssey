@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(25).AddIngredient<WoodenStaff>().AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(12).AddIngredient<WoodenStaff>().AddTile(TileID.Anvils).Register();
 		}
 
 		public override bool CanUseItem(Player player)

@@ -5,6 +5,8 @@ using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -23,6 +25,35 @@ namespace ArcaneOdyssey
 		public int timeSinceSoftFrozen;
 
         public int pheonixHealing;
+
+        public List<ImbueDebuffHelper> DebuffHelpers = [];
+
+        public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
+        {
+            if (useplayerimbue)
+            imbue ??= Imbue;
+            if (imbue is not null)
+            {
+                foreach (var buff in imbue.ImbueDebuffs)
+                {
+                    var instance = DebuffHelpers.Find(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
+                    if (DebuffHelpers.Contains(instance))
+                    {
+                        int damage = instance.damagedone + damagedone;
+                        if (canAddBuffs && (float)damage / npc.lifeMax > buff.debuffPercent)
+                        {
+                            npc.AddBuff(buff.debuffID, buff.debuffDuration);
+                            damage = 0;
+                        }
+                        DebuffHelpers[DebuffHelpers.IndexOf(instance)] = instance with { damagedone = damage };
+                    }
+                    else
+                    {
+                        DebuffHelpers.Add(new(imbue, damagedone, npc, buff.debuffID));
+                    }
+                }
+            }
+        }
 
         public override void UpdateLifeRegen()
         {

@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(24).AddIngredient<OldGreataxe>().AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(10).AddIngredient<OldGreataxe>().AddTile(TileID.Anvils).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)

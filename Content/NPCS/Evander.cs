@@ -136,73 +136,73 @@ namespace ArcaneOdyssey.Content.NPCS
 			return targetTile != null && targetTile.HasTile && (Main.tileSolid[targetTile.TileType] && !targetTile.IsActuated);
 		}
 
-		public override void FindFrame(int frameHeight)
-		{
-			if(NPC.HasValidTarget) {
-			if (NPC.HasValidTarget && NPC.ai[0] == 0)
-			{
-				if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
-				{
-					NPC.frame.Y = 0;
-				}
-				else if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
-				{
-					NPC.frame.Y = 0;
-				}
-				else
-				{
-					if (NPC.frameCounter > 3)
-					{
-						if (NPC.frame.Y < 16 * frameHeight && NPC.frame.Y > 0 * frameHeight)
-						{
-							NPC.frame.Y += frameHeight;
-						}
-						else
-						{
-							NPC.frame.Y = frameHeight;
-						}
-						NPC.frameCounter = 0;
-					}
-					NPC.frameCounter++;
-				}
-			}
-			else if (NPC.ai[0] == 1)
-			{
-				if (NPC.frameCounter > 2)
-				{
-					if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
-					{
-						NPC.frame.Y += frameHeight;
-					}
-					else
-					{
-						NPC.frame.Y = frameHeight * 17;
-					}
-					NPC.frameCounter = 0;
-				}
-				NPC.frameCounter++;
-			}
-			else if (NPC.ai[0] == 2)
-			{
-				if (NPC.frameCounter > 2)
-				{
-					if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
-					{
-						NPC.frame.Y += frameHeight;
-					}
-					else
-					{
-						NPC.frame.Y = frameHeight * 17;
-					}
-					NPC.frameCounter = 0;
-				}
-				NPC.frameCounter++;
-			}
-			} else
-			{
-				NPC.frame.Y = 0;
-			}
-		}
+        public override void FindFrame(int frameHeight)
+        {
+            if (NPC.HasValidTarget) {
+                if (NPC.HasValidTarget && NPC.ai[0] == 0)
+                {
+                    if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
+                    {
+                        NPC.frame.Y = 0;
+                    }
+                    else if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
+                    {
+                        NPC.frame.Y = 0;
+                    }
+                    else
+                    {
+                        if (NPC.frameCounter > 3)
+                        {
+                            if (NPC.frame.Y < 16 * frameHeight && NPC.frame.Y > 0 * frameHeight)
+                            {
+                                NPC.frame.Y += frameHeight;
+                            }
+                            else
+                            {
+                                NPC.frame.Y = frameHeight;
+                            }
+                            NPC.frameCounter = 0;
+                        }
+                        NPC.frameCounter++;
+                    }
+                }
+                else if (NPC.ai[0] == 1)
+                {
+                    if (NPC.frameCounter > 2)
+                    {
+                        if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
+                        {
+                            NPC.frame.Y += frameHeight;
+                        }
+                        else
+                        {
+                            NPC.frame.Y = frameHeight * 17;
+                        }
+                        NPC.frameCounter = 0;
+                    }
+                    NPC.frameCounter++;
+                }
+                else if (NPC.ai[0] == 2)
+                {
+                    if (NPC.frameCounter > 2)
+                    {
+                        if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
+                        {
+                            NPC.frame.Y += frameHeight;
+                        }
+                        else
+                        {
+                            NPC.frame.Y = frameHeight * 17;
+                        }
+                        NPC.frameCounter = 0;
+                    }
+                    NPC.frameCounter++;
+                }
+            } else
+            {
+                NPC.frame.Y = 0;
+            }
+        }
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
@@ -252,16 +252,16 @@ namespace ArcaneOdyssey.Content.NPCS
 
         public override void OnKill()
         {
-			DownedBosses.downedEvander = true;
-			if (!Main.dedServ)
-			{
-				Main.NewText(Mod.CustomLocalization("NPCs.Evander.DeathMessage").Value, new Color(175,75,255));
+            DownedBosses.downedEvander = true;
+            if (!Main.dedServ)
+            {
+                Main.NewText(Mod.CustomLocalization("NPCs.Evander.DeathMessage").Value, new Color(175, 75, 255));
             }
-			else
-			{
-				NetMessage.SendData(MessageID.WorldData);
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("NPCs.Evander.DeathMessage").ToNetworkText(), new Color(175,75,255));
-			}
+            else
+            {
+                NetMessage.SendData(MessageID.WorldData);
+                ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("NPCs.Evander.DeathMessage").ToNetworkText(), new Color(175, 75, 255));
+            }
         }
 	}
 
@@ -269,7 +269,7 @@ namespace ArcaneOdyssey.Content.NPCS
 	{
 		public override void PostUpdateWorld()
 		{
-			if (AOUtils.ServerOrSingleplayer && Main.hardMode && Main.dayTime)
+			if (AOUtils.ServerOrSingleplayer && Main.hardMode)
 			{
 				foreach (var player in Main.ActivePlayers)
 				{

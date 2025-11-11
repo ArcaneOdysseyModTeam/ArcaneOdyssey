@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient<BronzeBar>(40).AddTile(TileID.Anvils).Register();
+            CreateRecipe().AddIngredient<BronzeBar>(10).AddTile(TileID.Anvils).Register();
         }
     }
 }

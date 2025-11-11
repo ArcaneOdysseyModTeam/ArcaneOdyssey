@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(28).AddIngredient<OldRapier>().AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(8).AddIngredient<OldRapier>().AddTile(TileID.Anvils).Register();
 		}
 
 		private bool canSwing = true;

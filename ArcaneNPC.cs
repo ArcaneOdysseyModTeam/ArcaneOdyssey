@@ -42,6 +42,17 @@ namespace ArcaneOdyssey
 			return !AOStunned;
 		}
 
+        public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, item.Imbue());
+        }
+
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (projectile.TryGetOwner(out var player))
+                player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, projectile.Imbue());
+        }
+
 		public override void ResetEffects(NPC npc)
         {
             ZapCD -= 1 / 60f;

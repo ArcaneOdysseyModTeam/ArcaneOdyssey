@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(32).AddIngredient<OldGreatsword>().AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(12).AddIngredient<OldGreatsword>().AddTile(TileID.Anvils).Register();
 		}
 
         public bool EveryOther = true;

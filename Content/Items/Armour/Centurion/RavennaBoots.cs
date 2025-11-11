@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 	public class RavennaBoots : AOArmour
     {
         public override AOItemTiers ArmourTier => AOItemTiers.Poor;
+
         public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -20,6 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shield);
 			}
 		}
+
 		public override void Load()
 		{
 			if (Main.netMode != NetmodeID.Server)
@@ -43,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(30).AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(15).AddTile(TileID.Anvils).Register();
 		}
 	}
 

@@ -14,7 +14,7 @@ Bestiary: {
 
 MenuStyle: Odyssey Style
 SpiritDamage: spirit damage
-AnyBasicImbue: Any Basic Imbue
+AnyBasicImbue: Any Worthy Item
 
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
@@ -124,7 +124,7 @@ NPCs: {
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
 		DeathMessage: Evander, the Mountainbreaker has been defeated!
-		SpawnInfo: Spawns naturally in Hardmode in the outer 1/3 forests of the world, during the day
+		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world. Spawning frequency reduced after being defeated.
 	}
 }
 

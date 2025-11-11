@@ -19,8 +19,11 @@ using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class PrismMagic : AOMagic
-	{
-		public static Color[] rainbowColors = [new Color(255, 71, 124),new Color(94, 61, 255),new Color(87, 219, 255),new Color(100, 255, 93)];
+    {
+        public override float ItemInvisibility => .5f;
+
+        private static readonly Color[] rainbowColors = [new Color(255, 71, 124), new Color(94, 61, 255), new Color(87, 219, 255), new Color(100, 255, 93)];
+
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
         public override Color ImbueColour => new(255, 255, 255);
         public override float AOImbueSpeed => 1.1f;
@@ -46,6 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				new MagicBuffMultiplier(BuffID.OnFire3,1.05f)
 			]
 			);
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			int rainbowStep = (int)Main.GameUpdateCount;
@@ -57,6 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust.NewDust(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.Glass, 0f, 0f, 0,default, 1f);
             }
 		}
+
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust.NewDust(projectile.position, projectile.Hitbox.Width, projectile.Hitbox.Height, DustID.Glass, 0f, 0f, 0,default, 0.5f);

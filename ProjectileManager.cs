@@ -110,14 +110,6 @@ namespace ArcaneOdyssey
 					modifiers.FinalDamage += .3f;
 				}
 
-				foreach (var debuff in Imbue.ImbueDebuffs)
-				{
-					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(projectile.damage, true) > (target.lifeMax / debuff.debuffPercent))
-					{
-						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
-					}
-				}
-
 				if (Imbue.CombinedDebuffs is not null)
 				{
 					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
