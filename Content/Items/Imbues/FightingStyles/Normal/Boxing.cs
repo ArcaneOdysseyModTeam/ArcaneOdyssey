@@ -11,8 +11,9 @@ using Terraria.Audio;
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class Boxing : FightingStyle
-	{
-		public override void SetStaticDefaults()
+    {
+        public override float KBMulti => 2f;
+        public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			if (Main.netMode != NetmodeID.Server)

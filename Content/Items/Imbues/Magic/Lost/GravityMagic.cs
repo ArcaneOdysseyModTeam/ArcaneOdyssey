@@ -19,8 +19,9 @@ using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class GravityMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.NPCHit52;
+    {
+        public override float KBMulti => 3f;
+        public override SoundStyle? ImbueSound => SoundID.NPCHit52;
 		public override Color ImbueColour => new Color(120, 0, 200, 255);
 		public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueSize => 1.2f;

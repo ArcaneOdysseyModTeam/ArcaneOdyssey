@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WindMagic : AOMagic
     {
+        public override float KBMulti => 2f;
         public override SoundStyle? ImbueSound => SoundID.Dig;
         public override Color ImbueColour => new(255,255,255,255);
 		public override float AOImbueSpeed => 1.175f;

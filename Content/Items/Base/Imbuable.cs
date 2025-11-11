@@ -81,6 +81,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual bool CanBeWet => true;
 
+        public virtual float KBMulti => 1f;
+
 		public virtual Dictionary<Type, int> Skills => [];
 
 		public virtual void SpawningEffects(Entity entity) { }
@@ -152,7 +154,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <returns></returns>
 		public virtual bool PreEffects(Entity entity)
 		{
-			if (entity.velocity == Vector2.Zero || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
+			if ((entity.velocity.X < 2 && entity.velocity.X > -2 && entity.velocity.Y < 2 && entity.velocity.Y > -2) || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
 			{
 				return false;
 			}

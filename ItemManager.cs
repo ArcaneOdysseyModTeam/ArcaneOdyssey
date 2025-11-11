@@ -21,68 +21,6 @@ namespace ArcaneOdyssey
 {
 	public class ItemManager : GlobalItem
 	{
-		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (item.ModItem is AORangedOrMeleeWeapon weap)
-			{
-				if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
-				{
-					target.AddBuff(weap.WeaponDebuff.Value.debuffID, weap.WeaponDebuff.Value.debuffDuration);
-				}
-			}
-
-			if (item.TryGetImbue(out Imbuable imbue))
-			{
-				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
-				{
-					modifiers.FinalDamage += .3f;
-				}
-
-				if (imbue is PowderFist)
-				{
-					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage/2f);
-				}
-				foreach (var debuff in imbue.ImbueDebuffs)
-				{
-					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(item.damage, true) > (target.lifeMax / debuff.debuffPercent))
-					{
-						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
-					}
-				}
-
-				if (imbue.CombinedDebuffs is not null)
-				{
-					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
-					{
-						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-					}
-				}
-
-				foreach (var multiplier in imbue.Effects.magicBuffMultipliers)
-				{
-					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-				}
-
-				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-				{
-					foreach (int buffid in imbue.Effects.clearBuffs)
-					{
-						if (target.HasBuff(buffid))
-						{
-							target.DelBuff(target.FindBuffIndex(buffid));
-						}
-
-					}
-				}
-			}
-		}
-
 		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
 			if (item.type == ItemID.OceanCrateHard)
@@ -182,78 +120,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override void ModifyItemScale(Item item, Player player, ref float scale)
-		{
-			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
-			{
-				scale += player.ArcaneOdyssey().SizeMulti;
-				if (item.TryGetImbue(out Imbuable imbue))
-				{
-					scale += imbue.AOImbueSize.MultiToPercent();
-				}
-			} 
-		}
-
-		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-		{
-			if (item.TryGetImbue(out Imbuable imbue))
-			{
-				var extrakbmulti = 1;
-				if (imbue is WindMagic or Boxing)
-				{
-					extrakbmulti = 3;
-				}
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
-				{
-					knockback += imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
-					return;
-				}
-
-				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
-				{
-					knockback += imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
-				}
-			}
-		}
-
-		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-		{
-			if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
-			{
-				damage += ((item.damage+(BossesKilled * 2f)) / item.damage)-1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
-			}
-			if (item.TryGetImbue(out Imbuable imbue))
-			{
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
-				{
-					damage += imbue.AOScrollDamage.MultiToPercent();
-					return;
-				}
-
-				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
-				{
-					damage += imbue.AOImbueDamage.MultiToPercent();
-				}
-			}
-		}
-
-		public override float UseSpeedMultiplier(Item item, Player player)
-		{
-			if (item.TryGetImbue(out Imbuable imbue) && !item.DamageType.Name.Contains("NoSpeed"))
-			{
-				if (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(MagicScroll)))
-				{
-					return imbue.AOScrollSpeed;
-				}
-
-				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-				{
-					return imbue.AOImbueSpeed;
-				}
-			}
-			return 1f;
-		}
-
 		//public override bool? UseItem(Item item, Player player)
 		//{
 		//	if (item.TryGetImbue(out var imbue))
@@ -315,7 +181,61 @@ namespace ArcaneOdyssey
 			return clone;
 		}
 
-		public override void SetDefaults(Item item)
+        public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
+            {
+                if (item.ModItem is EmptyScroll || item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false))
+                {
+                    velocity *= Imbue.AOScrollSpeed;
+                }
+                else
+                {
+                    velocity *= Imbue.AOImbueSpeed;
+                }
+            }
+        }
+
+        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
+        {
+            if (Imbue is not null)
+            {
+                knockback *= Imbue.KBMulti;
+                if (item.ModItem is MagicScroll || Arcanium.GetValueOrDefault())
+                {
+                    knockback += Imbue.AOScrollSize.MultiToPercent();
+                    return;
+                }
+
+                if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+                {
+                    knockback += Imbue.AOImbueSize.MultiToPercent();
+                }
+            }
+        }
+
+        public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
+        {
+            if (item.ModItem is MagicScroll)
+            {
+                damage += ((item.damage + (BossesKilled * 2f)) / item.damage) - 1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
+            }
+            if (Imbue is not null)
+            {
+                if (item.ModItem is MagicScroll)
+                {
+                    damage += Imbue.AOScrollDamage.MultiToPercent();
+                    return;
+                }
+
+                if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+                {
+                    damage += Imbue.AOImbueDamage.MultiToPercent();
+                }
+            }
+        }
+
+        public override void SetDefaults(Item item)
 		{
 			Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
 			switch (item.type)
@@ -372,9 +292,45 @@ namespace ArcaneOdyssey
 					Cold = false;
 					break;
 			}
-		}
+        }
 
-		public override void UpdateInventory(Item item, Player player)
+        public override void ModifyItemScale(Item item, Player player, ref float scale)
+        {
+            if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+            {
+                scale += player.ArcaneOdyssey().SizeMulti;
+                if (Imbue is not null)
+                {
+                    if (!Arcanium.GetValueOrDefault(false))
+                    {
+                        scale += Imbue.AOImbueSize.MultiToPercent();
+                    }
+                    else 
+                    {
+                        scale += Imbue.AOScrollSize.MultiToPercent();
+                    }
+                }
+            }
+        }
+
+        public override float UseSpeedMultiplier(Item item, Player player)
+        {
+            if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
+            {
+                if (item.ModItem is MagicScroll || Arcanium.GetValueOrDefault())
+                {
+                    return Imbue.AOScrollSpeed;
+                }
+
+                if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+                {
+                    return Imbue.AOImbueSpeed;
+                }
+            }
+            return 1f;
+        }
+
+        public override void UpdateInventory(Item item, Player player)
 		{
 			thisItem = item;
 			List<Imbuable> options = [null, ..player.GetAllImbues()];
@@ -456,6 +412,68 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			Imbue = null;
 			SpecificImbue = false;
-		}
-	}
+        }
+
+        public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (item.ModItem is AORangedOrMeleeWeapon weap)
+            {
+                if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
+                {
+                    target.AddBuff(weap.WeaponDebuff.Value.debuffID, weap.WeaponDebuff.Value.debuffDuration);
+                }
+            }
+
+            if (Imbue is not null)
+            {
+                if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+                {
+                    modifiers.FinalDamage += .3f;
+                }
+
+                if (Imbue is PowderFist)
+                {
+                    Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage / 2f);
+                }
+                foreach (var debuff in Imbue.ImbueDebuffs)
+                {
+                    if ((debuff.debuffPercent == 0) || modifiers.GetDamage(item.damage, true) > (target.lifeMax / debuff.debuffPercent))
+                    {
+                        target.AddBuff(debuff.debuffID, debuff.debuffDuration);
+                    }
+                }
+
+                if (Imbue.CombinedDebuffs is not null)
+                {
+                    foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
+                    {
+                        if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+                        {
+                            target.AddBuff(buffkeys.result, buffkeys.duration);
+                        }
+                    }
+                }
+
+                foreach (var multiplier in Imbue.Effects.magicBuffMultipliers)
+                {
+                    if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+                    {
+                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+                    }
+                }
+
+                if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+                {
+                    foreach (int buffid in Imbue.Effects.clearBuffs)
+                    {
+                        if (target.HasBuff(buffid))
+                        {
+                            target.DelBuff(target.FindBuffIndex(buffid));
+                        }
+
+                    }
+                }
+            }
+        }
+    }
 }

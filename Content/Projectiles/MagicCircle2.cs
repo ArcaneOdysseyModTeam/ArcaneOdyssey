@@ -10,9 +10,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle2 : AOPlayerProjectile
 	{
-		public Texture2D MagicCircleSprite => ModContent.Request<Texture2D>(Texture).Value;
+        public override bool? CanDamage() => false;
 
-		public override void SetDefaults()
+        public override void SetDefaults()
 		{
 			Projectile.height = Projectile.width = 64;
 			Projectile.tileCollide = false;

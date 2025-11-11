@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	{
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
-		public override int DashMax => 5;
+		public override int DashMax => 3;
 		public override bool AnyDirection => true;
 		public override int Cooldown => 60 * 10;
 		public override bool OnHit(Player player, Entity target)
