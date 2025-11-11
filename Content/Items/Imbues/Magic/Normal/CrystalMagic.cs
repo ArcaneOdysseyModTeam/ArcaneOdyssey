@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class CrystalMagic : AOMagic
 	{
-		public override Color ImbueColour => new Color(255,0,0,0);
+		public override Color ImbueColour => new(255, 0, 0);
 		public override float AOImbueSpeed => 0.95f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 1.025f;

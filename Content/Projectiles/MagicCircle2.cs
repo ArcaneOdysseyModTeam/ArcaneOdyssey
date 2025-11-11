@@ -107,7 +107,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (Imbue is not null)
 			{
-				lightColor = Imbue.ImbueColour;
+				lightColor = Imbue.GetColor();
 			}
 			return true;
 		}

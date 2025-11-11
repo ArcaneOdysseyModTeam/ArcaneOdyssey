@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual bool CanBeWet => true;
 
-        public virtual float KBMulti => 1f;
+		public virtual float KBMulti => 1f;
 
 		public virtual Dictionary<Type, int> Skills => [];
 
@@ -146,6 +146,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			return null;
 		}
+
+        public Color GetColor(Color? colour = null)
+        {
+            if (this is FightingStyleBarred bar)
+            {
+                return Color.Lerp(colour.GetValueOrDefault(), ImbueColour, bar.LerpValue);
+            }
+            return ImbueColour;
+        }
 
 		/// <summary>
 		/// Return false to cancel VFX

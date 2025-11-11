@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown().AOCooldown);
 				var proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
-				((Whirlwind)proj.ModProjectile).color = this.Imbue() is not null ? Color.Lerp(Color.Orange, this.Imbue().ImbueColour, .5f) : Color.Orange;
+				((Whirlwind)proj.ModProjectile).color = this.Imbue() is not null ? Color.Lerp(Color.Orange, this.Imbue().GetColor(), .5f) : Color.Orange;
 				SoundEngine.PlaySound(Item.UseSound, player.Center);
 			}
 			return false;

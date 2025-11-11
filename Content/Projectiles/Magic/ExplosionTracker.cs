@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					Vector2 currentDustPos = (new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f)))) * ((imbue.AOScrollSize * 109) * extraScale);
 					currentDustPos.X = Utils.Clamp(currentDustPos.X, -1 * (imbue.AOScrollSize * 100 * extraScale), (imbue.AOScrollSize * 100 * extraScale));
 					currentDustPos.Y = Utils.Clamp(currentDustPos.Y, -1 * (imbue.AOScrollSize * 100 * extraScale), (imbue.AOScrollSize * 100 * extraScale));
-					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, imbue.ImbueColour, 1f);
+					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, imbue.GetColor(), 1f);
 				}
 			}
 		}

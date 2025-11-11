@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			var proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-			((KatanaSlash)proj.ModProjectile).color = this.Imbue() is not null ? Color.Lerp(Color.Red, this.Imbue().ImbueColour, .5f) : Color.Red;
+			((KatanaSlash)proj.ModProjectile).color = this.Imbue() is not null ? Color.Lerp(Color.Red, this.Imbue().GetColor(), .5f) : Color.Red;
 			return false;
 		}
 	}

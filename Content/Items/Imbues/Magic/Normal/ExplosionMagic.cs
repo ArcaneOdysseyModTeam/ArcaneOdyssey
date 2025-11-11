@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 	public class ExplosionMagic : AOMagic
     {
         public override bool? Cold => false;
-        public override Color ImbueColour => new(235,146,52,0);
+        public override Color ImbueColour => new(235, 146, 52);
 		public override float AOImbueSpeed => 0.925f;
         public override bool CanBeWet => false;
         public override float AOImbueSize => 1.3f;

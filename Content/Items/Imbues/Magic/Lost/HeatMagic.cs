@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class HeatMagic : AOMagic
 	{
-		public override Color ImbueColour => new(255,0,0,255);
+        public override Color ImbueColour => new(255, 0, 0);
         public override bool? Cold => false;
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 1f;

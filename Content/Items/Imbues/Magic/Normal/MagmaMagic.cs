@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
     {
         public override bool? Cold => false;
         public override bool CanBeWet => false;
-		public override Color ImbueColour => new(255,50,0,0);
+        public override Color ImbueColour => new(255, 50, 0);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 0.975f;

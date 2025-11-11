@@ -43,12 +43,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract float MinScrollDamage { get; }
 		public abstract float MinScrollSize { get; }
 
-		public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, BarValue / BarMax); }
-		public override float AOScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, BarValue / BarMax); }
-		public override float AOImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, BarValue / BarMax); }
-		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, BarValue / BarMax); }
-		public override float AOImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, BarValue / BarMax); }
-		public override float AOScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, BarValue / BarMax); }
+        public float LerpValue => MathHelper.Clamp(BarValue * 1.25f / BarMax, 0f, 1f);
+
+
+        public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, LerpValue); }
+		public override float AOScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, LerpValue); }
+		public override float AOImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, LerpValue); }
+		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, LerpValue); }
+		public override float AOImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, LerpValue); }
+		public override float AOScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, LerpValue); }
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
@@ -68,7 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			if (item.ArcaneOdyssey().Imbue is FightingStyleBarred fs && ImbueClassCheck(item) && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false) && item.ModItem is not MagicScroll)
-				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.ImbueColour);
+				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 {
 	public class JerminusMagic : AOMagic
 	{
-		public override Color ImbueColour => new(255,0,0,0);
+        public override Color ImbueColour => new(255, 0, 0);
 		public override float AOImbueSpeed => 5f;
 		public override float AOImbueSize => 10f;
 		public override float AOImbueDamage => .2f;

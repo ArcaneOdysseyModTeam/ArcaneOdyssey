@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class EarthMagic : AOMagic
 	{
-        public override Color ImbueColour => new(69,42,1,0);
+        public override Color ImbueColour => new(69, 42, 1);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.26f;
 		public override float AOImbueDamage => 1.075f;

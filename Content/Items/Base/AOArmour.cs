@@ -138,7 +138,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social")))
 				return;
 			tooltips.Reverse();
-			var index = tooltips.IndexOf(tooltips.Find(e => e.Name == "Defense" || e.Name == "Equipable" || e.Name == "FavoriteDesc" || e.Name == "ItemName" || e.Name.StartsWith("Tooltip"))) - 1;
+			var index = tooltips.IndexOf(tooltips.Find(e => e.Name.StartsWith("Tooltip") || e.Name == "Defense"|| e.Name == "Equipable" || e.Name == "FavoriteDesc" || e.Name == "ItemName")) - 1;
 			if (index < 0)
 				index = 0;
 			int lasttooltip = 0;

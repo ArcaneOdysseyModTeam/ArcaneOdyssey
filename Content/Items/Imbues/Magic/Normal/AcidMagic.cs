@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class AcidMagic : AOMagic
 	{
-		public override Color ImbueColour => new Color(245,0,240,0);
+        public override Color ImbueColour => new Color(245, 0, 240);
 		public override float AOImbueSpeed => 0.925f;
 		public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;

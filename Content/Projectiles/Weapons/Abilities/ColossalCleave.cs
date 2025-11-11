@@ -43,8 +43,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
             for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
             {
                 Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + Projectile.GetDrawOriginCentre();// + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(Sprite, drawPos, null, Imbue is not null ? Color.Lerp(Imbue.ImbueColour, color, .5f) : color, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None, 0);
+                Color colour = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(Sprite, drawPos, null, Imbue is not null ? Color.Lerp(Imbue.GetColor(colour), colour, .5f) : colour, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None, 0);
             }
             return false;
         }

@@ -31,11 +31,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			Item.ArcaneOdyssey().Imbue = playah.Imbue;
 			if (playah.Imbue is FightingStyle)
 			{
-				Item.color = playah.Imbue.ImbueColour;
+				Item.color = playah.Imbue.GetColor();
 				player.ArcaneOdyssey().SetDash(new Crash());
 			}
 			else Item.color = Color.Transparent;
-
 		}
 
 		public override void AddRecipes()
