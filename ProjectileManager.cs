@@ -18,35 +18,6 @@ namespace ArcaneOdyssey
 {
 	public class ProjectileManager : GlobalProjectile
 	{
-		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
-		{
-			if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0)
-				return;
-			Player player = Main.player[projectile.owner];
-			Vector2 dim = projectile.ArcaneOdyssey().OriginalDimensions.GetValueOrDefault(projectile.Size);
-			float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-			if (projectile.ModProjectile is AOPlayerProjectile proj)
-				mult += proj.AOSize.MultiToPercent();
-			if (projectile.TryGetImbue(out Imbuable imbue))
-			{
-				mult += (projectile.ModProjectile is MagicSpell ? imbue.AOScrollSize : imbue.AOImbueSize).MultiToPercent();
-			}
-			mult += player.ArcaneOdyssey().SizeMulti;
-			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-			{
-				hitbox.Width = (int)(dim.X * mult);
-				hitbox.Height = (int)(dim.Y * mult);
-				projectile.scale = mult;
-				if (projectile.ModProjectile is BaseStaffProjectile)
-				{
-					hitbox.Width = (int)(dim.X * mult * 1.5f);
-					hitbox.Height = (int)(dim.Y * mult * 1.5f);
-					hitbox.X -= hitbox.Width / 3;
-					hitbox.Y -= hitbox.Height / 3;
-				}
-			}
-		}
-
 		public override bool PreKill(Projectile projectile, int timeLeft)
 		{
 			if (!Main.dedServ)
@@ -83,12 +54,60 @@ namespace ArcaneOdyssey
 		}
 	}
 	public class AOProjectile : GlobalProjectile, IImbuableEntity
-	{
+    {
+        public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
+        {
+            if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0 || !CanBeAffected)
+                return;
+            Player player = Main.player[projectile.owner];
+            Vector2 dim = projectile.ArcaneOdyssey().OriginalDimensions.GetValueOrDefault(projectile.Size);
+            float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
+            if (projectile.ModProjectile is AOPlayerProjectile proj)
+                mult += proj.AOSize.MultiToPercent();
+            if (Imbue is not null)
+            {
+                mult += (projectile.ModProjectile is MagicSpell ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
+            }
+            mult += player.ArcaneOdyssey().SizeMulti;
+            if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+            {
+                hitbox.Width = (int)(dim.X * mult);
+                hitbox.Height = (int)(dim.Y * mult);
+                projectile.scale = mult;
+                if (projectile.ModProjectile is BaseStaffProjectile)
+                {
+                    hitbox.Width = (int)(dim.X * mult * 1.5f);
+                    hitbox.Height = (int)(dim.Y * mult * 1.5f);
+                    hitbox.X -= hitbox.Width / 3;
+                    hitbox.Y -= hitbox.Height / 3;
+                }
+            }
+        }
+        public override void SetDefaults(Projectile entity)
+        {
+            if (ArcaneOdyssey.excludedProjectiles.Contains(entity.type))
+            {
+                CanBeAffected = false;
+            }
+        }
+
 		public override bool InstancePerEntity => true;
 		public float? BaseScale = null;
 		public Vector2? OriginalDimensions = null;
 		public Imbuable Imbue { get; set; }
 		public Projectile thisProjectile = null;
+
+        private bool _canImbue = true;
+        public bool CanBeAffected { get
+            {
+                if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj)
+                {
+                    return proj.CanHaveImbue;
+                }
+                return _canImbue;
+            } set => _canImbue = value;
+        }
+
 
 		private bool? _cold = null;
 		public bool? Cold { get 

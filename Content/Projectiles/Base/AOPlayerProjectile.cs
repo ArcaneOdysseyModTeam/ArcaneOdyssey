@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// </summary>
 	public abstract class AOPlayerProjectile : ModProjectile, IImbuableEntity
 	{
+        public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 		public AOPlayer aoPlayerOwner = null;
 		public bool IsSpell => this is MagicSpell;

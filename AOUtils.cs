@@ -21,12 +21,12 @@ namespace ArcaneOdyssey
 	{
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
-		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey().Imbue;
-		public static Imbuable Imbue(this ModPlayer player) => player.ArcaneOdyssey().Imbue;
-		public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey().Imbue;
-		public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey().Imbue;
-		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey().Imbue;
-		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey().Imbue;
+		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this ModPlayer player) => player.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey()?.Imbue;
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
@@ -36,6 +36,18 @@ namespace ArcaneOdyssey
 			{
 				projectile.Kill();
 			}
+            if (entity is Item item)
+            {
+                item.active = false;
+            }
+            if (entity is Player player)
+            {
+                player.statLife = 0;
+            }
+            if (entity is NPC npc)
+            {
+                npc.StrikeInstantKill();
+            }
 		}
 
 		public static bool BossAlive()
@@ -67,6 +79,11 @@ namespace ArcaneOdyssey
 		}
 
 		public static float Clamp(this float num, float min, float max) => MathHelper.Clamp(num, min, max);
+
+        public static void AverageDimensions(this Entity projectile)
+        {
+            projectile.width = projectile.height = (projectile.width + projectile.height) / 2;
+        }
 
 		public static List<Imbuable> GetAllImbues(this Player owner)
 		{
@@ -167,7 +184,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			if (projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedProjectiles.Contains(projectile.type)))
+			if (projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 			{
 				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
 				if (goodclasses.Contains(projectile.DamageType.Name))
@@ -182,7 +199,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (!global::ArcaneOdyssey.ArcaneOdyssey.excludedItems.Contains(item.type)) && item.ammo == AmmoID.None)
+			if (item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
 				return item.DamageType.Name == "TrueMeleeDamageClass" || item.DamageType.Name == "TrueMeleeNoSpeedDamageClass" || item.DamageType.Name == "MeleeRangedHybridDamageClass" ||
 				item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll)));

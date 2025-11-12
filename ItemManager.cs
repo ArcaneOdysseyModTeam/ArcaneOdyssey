@@ -1,6 +1,12 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Equipment.Vanity;
+using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +16,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Projectiles;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 
 namespace ArcaneOdyssey
 {
@@ -60,7 +61,7 @@ namespace ArcaneOdyssey
 			{
 				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
 			}
-			if (item.ModItem is not null && item.ModItem.Name == "UnloadedItem")
+			if ((item.ModItem is not null && item.ModItem.Name == "UnloadedItem") || !item.ArcaneOdyssey().CanBeAffected)
 			{
 				return;
 			}
@@ -148,8 +149,22 @@ namespace ArcaneOdyssey
 		public int ImbueIndex = 0;
 		public bool SpecificImbue = false;
 
+        private bool _canImbue = true;
+        public bool CanBeAffected
+        {
+            get
+            {
+                if (thisItem is not null && thisItem.ModItem is AORangedOrMeleeWeapon item)
+                {
+                    return item.CanHaveImbue;
+                }
+                return _canImbue;
+            }
+            set => _canImbue = value;
+        }
 
-		private bool? _cold = null;
+
+        private bool? _cold = null;
 		public bool? Cold
 		{
 			get
@@ -182,8 +197,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-		{
-			if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
+        {
+            if (!CanBeAffected)
+                return;
+            if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
 			{
 				if (item.ModItem is EmptyScroll || item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false))
 				{
@@ -197,8 +214,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-		{
-			if (Imbue is not null)
+        {
+            if (!CanBeAffected)
+                return;
+            if (Imbue is not null)
 			{
 				knockback *= Imbue.KBMulti;
 				if (item.ModItem is MagicScroll || Arcanium.GetValueOrDefault())
@@ -215,8 +234,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-		{
-			if (item.ModItem is MagicScroll)
+        {
+            if (!CanBeAffected)
+                return;
+            if (item.ModItem is MagicScroll)
 			{
 				damage += ((item.damage + (BossesKilled * 2f)) / item.damage) - 1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
 			}
@@ -237,66 +258,75 @@ namespace ArcaneOdyssey
 
 		public override void SetDefaults(Item item)
 		{
+            if (ArcaneOdyssey.excludedItems.Contains(item.type))
+            {
+                CanBeAffected = false;
+            }
 			Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
-			switch (item.type)
-			{
-				case ItemID.IceSickle:
-				case ItemID.IceBlade:
-				case ItemID.Frostbrand:
-				case ItemID.ChristmasTreeSword:
-				case ItemID.NorthPole:
-				case ItemID.Snowball:
-				case ItemID.SnowballCannon:
-				case ItemID.FrostDaggerfish:
-				case ItemID.IceBow:
-				case ItemID.IceBoomerang:
-				case ItemID.Flairon:
-				case ItemID.ElfMelter:
-				case ItemID.Tsunami:
-					Cold = true;
-					break;
-				case ItemID.DD2SquireBetsySword:
-				case ItemID.DD2SquireDemonSword:
-				case ItemID.ShadowFlameKnife:
-				case ItemID.FieryGreatsword:
-				case ItemID.Flamarang:
-				case ItemID.Sunfury:
-				case ItemID.FlamingMace:
-				case ItemID.DayBreak:
-				case ItemID.MoltenFury:
-				case ItemID.HellwingBow:
-				case ItemID.ShadowFlameBow:
-				case ItemID.SolarEruption:
-				case ItemID.MolotovCocktail:
-				case ItemID.PhoenixBlaster:
-				case ItemID.Flamethrower:
-				case ItemID.BluePhaseblade:
-				case ItemID.DD2BetsyBow:
-				case ItemID.GreenPhaseblade:
-				case ItemID.OrangePhaseblade:
-				case ItemID.DD2PhoenixBow:
-				case ItemID.PurplePhaseblade:
-				case ItemID.RedPhaseblade:
-				case ItemID.WhitePhaseblade:
-				case ItemID.YellowPhaseblade:
-				case ItemID.GreenPhasesaber:
-				case ItemID.OrangePhasesaber:
-				case ItemID.PurplePhasesaber:
-				case ItemID.WhitePhasesaber:
-				case ItemID.YellowPhasesaber:
-				case ItemID.RedPhasesaber:
-				case ItemID.BluePhasesaber:
-				case ItemID.HelFire:
-				case ItemID.Amarok:
-				case ItemID.Cascade:
-					Cold = false;
-					break;
-			}
+            if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
+            {
+                switch (item.type)
+                {
+                    case ItemID.IceSickle:
+                    case ItemID.IceBlade:
+                    case ItemID.Frostbrand:
+                    case ItemID.ChristmasTreeSword:
+                    case ItemID.NorthPole:
+                    case ItemID.Snowball:
+                    case ItemID.SnowballCannon:
+                    case ItemID.FrostDaggerfish:
+                    case ItemID.IceBow:
+                    case ItemID.IceBoomerang:
+                    case ItemID.Flairon:
+                    case ItemID.ElfMelter:
+                    case ItemID.Tsunami:
+                        Cold = true;
+                        break;
+                    case ItemID.DD2SquireBetsySword:
+                    case ItemID.DD2SquireDemonSword:
+                    case ItemID.ShadowFlameKnife:
+                    case ItemID.FieryGreatsword:
+                    case ItemID.Flamarang:
+                    case ItemID.Sunfury:
+                    case ItemID.FlamingMace:
+                    case ItemID.DayBreak:
+                    case ItemID.MoltenFury:
+                    case ItemID.HellwingBow:
+                    case ItemID.ShadowFlameBow:
+                    case ItemID.SolarEruption:
+                    case ItemID.MolotovCocktail:
+                    case ItemID.PhoenixBlaster:
+                    case ItemID.Flamethrower:
+                    case ItemID.BluePhaseblade:
+                    case ItemID.DD2BetsyBow:
+                    case ItemID.GreenPhaseblade:
+                    case ItemID.OrangePhaseblade:
+                    case ItemID.DD2PhoenixBow:
+                    case ItemID.PurplePhaseblade:
+                    case ItemID.RedPhaseblade:
+                    case ItemID.WhitePhaseblade:
+                    case ItemID.YellowPhaseblade:
+                    case ItemID.GreenPhasesaber:
+                    case ItemID.OrangePhasesaber:
+                    case ItemID.PurplePhasesaber:
+                    case ItemID.WhitePhasesaber:
+                    case ItemID.YellowPhasesaber:
+                    case ItemID.RedPhasesaber:
+                    case ItemID.BluePhasesaber:
+                    case ItemID.HelFire:
+                    case ItemID.Amarok:
+                    case ItemID.Cascade:
+                        Cold = false;
+                        break;
+                }
+            }
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
-		{
-			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+        {
+            if (!CanBeAffected)
+                return;
+            if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
 				scale += player.ArcaneOdyssey().SizeMulti;
 				if (Imbue is not null)
@@ -315,7 +345,7 @@ namespace ArcaneOdyssey
 
 		public override float UseSpeedMultiplier(Item item, Player player)
 		{
-			if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
+			if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
 			{
 				if (item.ModItem is MagicScroll || Arcanium.GetValueOrDefault())
 				{
@@ -327,12 +357,14 @@ namespace ArcaneOdyssey
 					return Imbue.AOImbueSpeed;
 				}
 			}
-			return 1f;
+			return base.UseSpeedMultiplier(item, player);
 		}
 
 		public override void UpdateInventory(Item item, Player player)
 		{
 			thisItem = item;
+            if (!CanBeAffected)
+                return;
 			List<Imbuable> options = [null, ..player.GetAllImbues()];
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
@@ -415,8 +447,10 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (item.ModItem is AORangedOrMeleeWeapon weap)
+        {
+            if (!CanBeAffected)
+                return;
+            if (item.ModItem is AORangedOrMeleeWeapon weap)
 			{
 				if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
 				{

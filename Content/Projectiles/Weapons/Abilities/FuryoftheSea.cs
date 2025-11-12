@@ -22,8 +22,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 96;
+			Projectile.width = 114;
 			Projectile.height = 96;
+            Projectile.AverageDimensions();
 			Projectile.alpha = (int)(225 * .75f);
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.knockBack = 4.5f;

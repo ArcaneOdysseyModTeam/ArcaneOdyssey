@@ -12,6 +12,8 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria.Audio;
 using Terraria;
 using Terraria.ID;
+using ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -49,6 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			}
+
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.YellowStarDust, 0f, 0f, 0, default, 1f)];
@@ -56,6 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			spawnedDust2.noGravity = true;
 			Lighting.AddLight(projectile.position, 2, 2, 0);
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -66,6 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 		}
+
 		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
@@ -76,10 +81,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+            if (projectile is Projectile proj && proj.ModProjectile is not AetherExplosion)
+            {
+                if (proj.owner == Main.myPlayer)
+                {
+                    Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 8, 0, proj.owner);
+                }
+            }
 		}
+
 		public override void AddRecipes() 
         {
-            
+            CreateLostRecipe(typeof(LightMagic));
         }
 	}
 }

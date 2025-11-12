@@ -17,30 +17,30 @@ namespace ArcaneOdyssey.Content.NPCS
 	public class Evander : ModNPC
     {
         public override void SetStaticDefaults()
-		{
-			Main.npcFrameCount[Type] = 27;
-			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-			ExternalModSupport.DeclareMiniboss(Type);
-		}
+        {
+            Main.npcFrameCount[Type] = 27;
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+            ExternalModSupport.DeclareMiniboss(Type);
+        }
 
-		public override void SetDefaults()
-		{
-			NPC.lifeMax = 5000;
-			NPC.knockBackResist = 0f;
-			NPC.defense = 20;
-			NPC.height = 44;
-			NPC.width = 20;
-			//Sprite height 96
-			//Sprite width 76
-			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.aiStyle = 0;
+        public override void SetDefaults()
+        {
+            NPC.lifeMax = 5000;
+            NPC.knockBackResist = 0f;
+            NPC.defense = 20;
+            NPC.height = 44;
+            NPC.width = 20;
+            //Sprite height 96
+            //Sprite width 76
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.aiStyle = NPCAIStyleID.FaceClosestPlayer;
             NPC.value = Item.buyPrice(gold: 10);
-			//NPC.ai[0] state
-			//NPC.ai[1] state time
+            //NPC.ai[0] state
+            //NPC.ai[1] state time
             ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, true, null, true, false, false);
-		}
+        }
 
 		private bool canJump = false;
 
@@ -130,11 +130,11 @@ namespace ArcaneOdyssey.Content.NPCS
             }
         }
 
-		public static bool CheckTileToDir(int direction, Vector2 pos)
-		{
-			Tile targetTile = Main.tile[(int)(pos.X / 16f)+direction, (int)(pos.Y / 16f)];
-			return targetTile != null && targetTile.HasTile && (Main.tileSolid[targetTile.TileType] && !targetTile.IsActuated);
-		}
+        public static bool CheckTileToDir(int direction, Vector2 pos)
+        {
+            Tile targetTile = Main.tile[(pos.X / 16f).Round() + direction, (pos.Y / 16f).Round()];
+            return targetTile != null && targetTile.HasTile && (Main.tileSolid[targetTile.TileType] && !targetTile.IsActuated);
+        }
 
         public override void FindFrame(int frameHeight)
         {
@@ -227,6 +227,7 @@ namespace ArcaneOdyssey.Content.NPCS
                 }
             }
 		}
+
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			bestiaryEntry.Info.AddRange([

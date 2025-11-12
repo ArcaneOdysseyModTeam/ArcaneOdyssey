@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost
 	public class AetherPulsar : PulsarSpell
 	{
 		public override void SetStaticDefaults() {
-			Main.projFrames[Type] = 7;
+			Main.projFrames[Type] = 6;
 		}
 	}
 }

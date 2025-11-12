@@ -10,10 +10,8 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool AffectsOtherMods { get; set; }
 
-
 		[DefaultValue(true)]
 		public bool GenerateTucker { get; set; }
-
 
 		[DefaultValue(true)]
 		public bool EnableMorden { get; set; }
@@ -21,7 +19,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool ElfPetSoundEffects { get; set; }
 
+        [DefaultValue(true)]
+        public bool VanillaItemTemperatures { get; set; }
 
-		public static ArcaneOdysseyConfig Instance;
+        public static ArcaneOdysseyConfig Instance;
 	}
 }

@@ -14,6 +14,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 
         public Imbuable Imbue {  get => Item.ArcaneOdyssey().Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
+        public virtual bool CanHaveImbue => true;
+
 		public abstract float AOSpeed { get; }
 		public abstract float AOSize { get; }
 		public abstract float AODamage { get; }

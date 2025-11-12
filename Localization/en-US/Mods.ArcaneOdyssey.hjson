@@ -50,6 +50,11 @@ Configs: {
 			Label: Elf Pet Sound Effects
 			Tooltip: ""
 		}
+
+		VanillaItemTemperatures: {
+			Label: Vanilla Item Temperatures
+			Tooltip: ""
+		}
 	}
 }
 
@@ -192,4 +197,5 @@ Projectiles: {
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
 	BronzeTriastaProjectile.DisplayName: Bronze Triasta Projectile
+	AetherExplosion.DisplayName: Aether Explosion
 }

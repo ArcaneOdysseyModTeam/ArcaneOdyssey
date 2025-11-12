@@ -1,8 +1,10 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey
 {
@@ -65,7 +67,6 @@ namespace ArcaneOdyssey
     {
         public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
         {
-
             ItemDropAttemptResult result = default;
             if (info.rng.Next(chanceDenominator) < chanceNumerator)
             {

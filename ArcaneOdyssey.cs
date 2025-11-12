@@ -23,10 +23,10 @@ namespace ArcaneOdyssey
 
 		public static ArcaneOdyssey Instance => ModContent.GetInstance<ArcaneOdyssey>();
 
-		public static Dictionary<string, LocalizedText> staticLocalizer = [];
-		public static Dictionary<int, bool?> coldItems = [];
-		public static List<int> excludedItems = [];
-		public static List<int> excludedProjectiles = [];
+		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
+		internal static Dictionary<int, bool?> coldItems = [];
+		internal static List<int> excludedItems = [];
+		internal static List<int> excludedProjectiles = [];
 
 		public override object Call(params object[] args)
 		{

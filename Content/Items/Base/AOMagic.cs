@@ -26,18 +26,29 @@ namespace ArcaneOdyssey.Content.Items.Base
 
         public void CreateLostRecipe(params Type[] imbues)
         {
-            List<int> types = [];
-            foreach (var type in imbues)
+            if (imbues.Length > 1)
             {
-                types.Add(Mod.Find<ModItem>(type.Name).Type);
+                List<int> types = [];
+                foreach (var type in imbues)
+                {
+                    types.Add(Mod.Find<ModItem>(type.Name).Type);
+                }
+                var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+                RecipeGroup.RegisterGroup(ArcaneOdyssey.InternalName + ":" + Name + "Material", group);
+                var rec = Recipe.Create(Type);
+                rec.AddRecipeGroup(group);
+                rec.AddIngredient<HecateShard>();
+                rec.DisableDecraft();
+                rec.Register();
             }
-            var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
-            RecipeGroup.RegisterGroup(ArcaneOdyssey.InternalName + ":" + Name + "Material", group);
-            var rec = Recipe.Create(Type);
-            rec.AddRecipeGroup(group);
-            rec.AddIngredient<HecateShard>();
-            rec.DisableDecraft();
-            rec.Register();
+            else if (imbues.Length == 1)
+            {
+                var rec = CreateRecipe();
+                rec.AddIngredient(Mod.Find<ModItem>(imbues[0].Name).Type);
+                rec.AddIngredient<HecateShard>();
+                rec.DisableDecraft();
+                rec.Register();
+            }
         }
 
         public void CreateAncientRecipe(params Type[] imbues)

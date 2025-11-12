@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					AOImbuableTier.Normal => AORarities.Rare,
 					AOImbuableTier.Lost => AORarities.Mystic,
 					AOImbuableTier.Ancient => AORarities.Arcane,
-					AOImbuableTier.Developer => AORarities.Mythical,
+                    AOImbuableTier.Primordial => AORarities.Mythical,
 					_ => AORarities.Special,
 				};
 			}
@@ -200,7 +200,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (ImbuableTier == AOImbuableTier.Normal)
 			{
-				if (this is AOMagic or BasicCombat)
+				if (this is AOMagic or BasicCombat) // or EaglePatrimony)
 				{
 					CreateRecipe().AddIngredient<PoseidonChoice>().DisableDecraft().Register();
 				}
