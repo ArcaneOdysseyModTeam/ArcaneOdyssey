@@ -8,11 +8,7 @@ Ancient: {
 Lost: {
 	AetherMagic: {
 		DisplayName: Aether Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
+		Tooltip: Allows the user to manifest bursts of explosive light that char and blind foes
 	}
 
 	AncientLightningMagic: {

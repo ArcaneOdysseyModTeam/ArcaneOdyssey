@@ -12,6 +12,7 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria.Audio;
 using Terraria;
 using Terraria.ID;
+using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 
@@ -33,10 +34,25 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60*10),new(ModContent.BuffType<BlindedEffect>(), 60*5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
-			], 
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<SnowyEffect>(),
+				BuffID.Wet
+			],
 			[
-				
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.01f),
+				new MagicBuffMultiplier(BuffID.OnFire,1.125f),
+				new MagicBuffMultiplier(BuffID.Venom,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.01f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.99f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
+				new MagicBuffMultiplier(BuffID.Wet,0.99f),
+				new(BuffID.Oiled,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.99f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.125f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f),
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<DrainedEffect>(),0.8f)
 			]
 			);
 		
