@@ -19,7 +19,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
             Projectile.localNPCHitCooldown = -1;
             Projectile.Center = Projectile.position;
             Projectile.penetrate = -1;
-            BaseScale = .75f;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -37,7 +36,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 
         public override void AI()
         {
-            if (++Projectile.frameCounter >= 8)
+            if (++Projectile.frameCounter >= 4)
             {
                 Projectile.frameCounter = 0;
                 if (++Projectile.frame >= Main.projFrames[Type])
