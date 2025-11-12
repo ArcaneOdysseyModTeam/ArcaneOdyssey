@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
             Projectile.Center = Projectile.position;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.alpha = 90;
+            Projectile.alpha = 40;
         }
         public override AODebuffRequirement? Debuff => null;
         public override void OnSpawn(IEntitySource source)
