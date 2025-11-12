@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.Center = Projectile.position;
+            Projectile.penetrate = -1;
             BaseScale = .75f;
         }
 
@@ -36,8 +37,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 
         public override void AI()
         {
-            if (++Projectile.frameCounter >= 30)
+            if (++Projectile.frameCounter >= 8)
             {
+                Projectile.frameCounter = 0;
                 if (++Projectile.frame >= Main.projFrames[Type])
                 {
                     Kill();
