@@ -21,12 +21,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(20,20,20);
-        public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollDamage => 1f;
+        public override float AOImbueSpeed => 1.1f;
+		public override float AOImbueSize => 1.22f;
+		public override float AOImbueDamage => 1.28f;
+		public override float AOScrollSpeed => 1.1f;
+		public override float AOScrollSize => 1.25f;
+		public override float AOScrollDamage => 1.28f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
         public override SoundStyle? ImbueSound => SoundID.Splash;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Oiled, 60*10)];
