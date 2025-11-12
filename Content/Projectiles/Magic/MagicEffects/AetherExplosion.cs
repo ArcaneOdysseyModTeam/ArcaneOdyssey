@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
@@ -11,10 +12,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 {
     public class AetherExplosion : AOPlayerProjectile
     {
+        
         public override void SetDefaults()
         {
             base.SetDefaults();
-            
             Projectile.height = Projectile.width = 128;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
@@ -24,7 +25,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
         }
-
+        public override AODebuffRequirement? Debuff => null;
         public override void OnSpawn(IEntitySource source)
         {
             if (source is EntitySource_Parent { Entity: Projectile projectile })
