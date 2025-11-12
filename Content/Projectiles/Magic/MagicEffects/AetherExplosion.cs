@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,6 +14,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
         public override void SetDefaults()
         {
             base.SetDefaults();
+            
             Projectile.height = Projectile.width = 128;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
@@ -19,6 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
             Projectile.localNPCHitCooldown = -1;
             Projectile.Center = Projectile.position;
             Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -26,6 +30,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
             if (source is EntitySource_Parent { Entity: Projectile projectile })
             {
                 BaseScale = (projectile.width + projectile.height) / 2f / Projectile.width;
+                if (BaseScale < 0.5f)
+                {
+                    BaseScale = 0.5f;
+                }
             }
         }
 

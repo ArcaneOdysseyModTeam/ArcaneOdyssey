@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
             {
                 if (proj.owner == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 8, 0, proj.owner);
+                    Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 3, 0, proj.owner);
                 }
             }
 		}

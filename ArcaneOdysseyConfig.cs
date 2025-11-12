@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using Terraria;
 using Terraria.ModLoader.Config;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey
 {
@@ -10,18 +13,22 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool AffectsOtherMods { get; set; }
 
+
 		[DefaultValue(true)]
 		public bool GenerateTucker { get; set; }
+
 
 		[DefaultValue(true)]
 		public bool EnableMorden { get; set; }
 
 		[DefaultValue(true)]
-		public bool ElfPetSoundEffects { get; set; }
+		public bool ElfPetSoundEffects
+		{ get; set; }
+		[DefaultValue(true)]
+		public bool VanillaItemTemperatures
+		{ get; set; }
 
-        [DefaultValue(true)]
-        public bool VanillaItemTemperatures { get; set; }
 
-        public static ArcaneOdysseyConfig Instance;
+		public static ArcaneOdysseyConfig Instance;
 	}
 }
