@@ -52,20 +52,20 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
             for (int n = 0; n < 3; n++)
 
             {
-                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Corruption, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, Color.Black, 3f)];
+                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Cavern, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, Color.Black, 3f)];
                 spawnedDust.noGravity = true;
             }
 		}
 
 		public override void LingeringEffects(Entity projectile) 
 		{
-            Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Water_Corruption, 0f, 0f, 0, Color.Black, 1.2f);
+            Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Water_Cavern, 0f, 0f, 0, Color.Black, 1.2f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Water_Corruption, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, Color.Black, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Water_Cavern, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, Color.Black, 3f)];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Corruption, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Color.Black, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Cavern, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Color.Black, 3f)];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
