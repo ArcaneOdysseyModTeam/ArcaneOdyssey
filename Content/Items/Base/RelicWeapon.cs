@@ -25,25 +25,25 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{
-			return damageClass == MagicSummonHybrid || damageClass == Magic || damageClass == Summon || damageClass == SummonMeleeSpeed;
+			return damageClass == Magic || damageClass == Summon;
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{
 			if (damageClass == Summon)
 			{
-				return new StatInheritanceData(0.75f, 0.75f, 0.75f, 0.75f, 0.75f);
+				return ThreeQuartersInheritance;
 			}
 			if (damageClass == Magic)
 			{
-				return new StatInheritanceData(0.25f, 0.25f, 0.25f, 0.25f, 0.25f);
+				return QuarterInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
 
 		public override bool GetPrefixInheritance(DamageClass damageClass)
-		{
-			return damageClass == Magic || damageClass == Summon;
-		}
+        {
+            return false;
+        }
 	}
 }

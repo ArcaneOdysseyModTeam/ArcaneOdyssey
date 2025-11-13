@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				var player = Main.player[projectile.owner].ArcaneOdyssey();
 				if (!player.OnCooldown("CannonFistShot"))
 				{
-					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && projectile.DamageType.Name != "TrueMeleeDamageClass" && projectile.DamageType.Name != "TrueMeleeNoSpeedDamageClass" && projectile.type != ProjectileID.CannonballFriendly)
+					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && !projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
 					{
 						if (player.Player.ConsumeItem(ItemID.Cannonball))
 						{

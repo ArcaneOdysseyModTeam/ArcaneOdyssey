@@ -24,11 +24,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.useTurn = true;
 		}
 
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 28).AddTile(TileID.Hellforge).Register();
-		}
-
 		private bool canSwing = true;
 		public override bool CanUseItem(Player player)
 		{

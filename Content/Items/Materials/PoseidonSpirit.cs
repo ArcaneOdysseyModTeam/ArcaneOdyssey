@@ -4,17 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-    [LegacyName("HecateOrb")]
-    public class PoseidonChoice : AOBaseItem
+    public class PoseidonSpirit : AOBaseItem
     {
-        public int AOValue = 0;
-        public override AORarities AORarity => AORarities.Arcane;
+        public int AOValue = 10000;
+        public override AORarities AORarity => AORarities.Mythical;
 
         public override void SetDefaults()
         {
@@ -26,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
         public override void SetStaticDefaults()
         {
             ItemID.Sets.CanGetPrefixes[Type] = false;
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            ItemID.Sets.ItemNoGravity[Type] = true;
         }
 
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)

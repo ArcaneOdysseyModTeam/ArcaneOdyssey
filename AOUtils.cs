@@ -50,7 +50,12 @@ namespace ArcaneOdyssey
             }
 		}
 
-		public static bool BossAlive()
+        public static StatInheritanceData ThreeQuartersInheritance => new(0.75f, 0.75f, 0.75f, 0.75f, 0.75f);
+        public static StatInheritanceData QuarterInheritance => new(0.25f, 0.25f, 0.25f, 0.25f, 0.25f);
+        public static StatInheritanceData HalfInheritance => new(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
+
+
+        public static bool BossAlive()
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
@@ -186,13 +191,16 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 			{
-				List<string> goodclasses = new(["TrueMeleeDamageClass", "TrueMeleeNoSpeedDamageClass", "MeleeRangedHybridDamageClass"]);
-				if (goodclasses.Contains(projectile.DamageType.Name))
-				{
-					return true;
-				}
-				return (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.Ranged || projectile.ModProjectile is MagicSpell or StrengthTechnique or MagicCircle1 or MagicCircle2 or ExplosionTracker || projectile.DamageType == DamageClass.MeleeNoSpeed) && projectile.ModProjectile is not MagicCircle1 or MagicCircle2
-					&& projectile.owner != 255 && !projectile.hostile && !projectile.npcProj && projectile.type != ProjectileID.FallingStar;
+				return (
+                        projectile.DamageType.CountsAsClass(DamageClass.Melee) 
+                        || projectile.DamageType.CountsAsClass(DamageClass.Ranged) 
+                        || projectile.ModProjectile is MagicSpell or StrengthTechnique or MagicCircle1 or MagicCircle2 or ExplosionTracker
+                    ) 
+                    && projectile.ModProjectile is not MagicCircle1 or MagicCircle2
+					&& projectile.owner != 255 
+                    && !projectile.hostile 
+                    && !projectile.npcProj 
+                    && projectile.type != ProjectileID.FallingStar;
 			}
 			return false;
 		}
@@ -201,13 +209,18 @@ namespace ArcaneOdyssey
 		{
 			if (item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
-				return item.DamageType.Name == "TrueMeleeDamageClass" || item.DamageType.Name == "TrueMeleeNoSpeedDamageClass" || item.DamageType.Name == "MeleeRangedHybridDamageClass" ||
-				item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.Ranged || item.DamageType == DamageClass.MeleeNoSpeed || (item.ModItem is not null && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll)));
+				return item.DamageType.CountsAsClass(DamageClass.Melee) 
+                    || item.DamageType.CountsAsClass(DamageClass.Ranged) 
+                    || 
+                    (
+                        item.ModItem is not null 
+                        && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll))
+                    );
 			}
 			return false;
 		}
 
-		public static int FromAODefense(this int val) => (int)Math.Round(val/18f);
+        public static int FromAODefense(this int val) => (int)Math.Round(val / 18f);
 
 		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
 

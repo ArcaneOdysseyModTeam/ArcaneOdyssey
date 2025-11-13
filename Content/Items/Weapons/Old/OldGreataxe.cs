@@ -22,10 +22,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.DamageType = TrueMelee();
 			Item.autoReuse = true;
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 32).AddTile(TileID.Hellforge).Register();
-		}
 	}
 }

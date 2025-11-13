@@ -130,6 +130,11 @@ PoseidonChoice: {
 	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
+PoseidonSpirit: {
+	DisplayName: Poseidon's Spirit
+	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
+}
+
 SunkenScrap: {
 	DisplayName: Sunken Scrap
 	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties

@@ -33,15 +33,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.reuseDelay = 120;
         }
 
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.AshWood, 32);
-			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 12);
-			recipe.AddTile(TileID.Hellforge);
-            recipe.Register();
-		}
-
 		public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 1;

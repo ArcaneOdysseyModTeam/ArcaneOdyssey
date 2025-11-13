@@ -196,6 +196,7 @@ Projectiles: {
 	OldTridentProjectile.DisplayName: Old Trident
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
-	BronzeTriastaProjectile.DisplayName: Bronze Triasta Projectile
-	AetherExplosion.DisplayName: Aether Explosion
+	BronzeTriastaProjectile.DisplayName: Bronze Triasta
+	AetherExplosion.DisplayName: Aether Aftershock
+	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
 }

@@ -22,10 +22,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Thrust;
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 24).AddTile(TileID.Hellforge).Register();
-		}
 	}
 }

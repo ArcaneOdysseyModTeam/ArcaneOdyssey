@@ -117,13 +117,13 @@ namespace ArcaneOdyssey
 			if (npc.type == NPCID.WallofFlesh)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.IsPreHardmode());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.CultistBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.HallowBoss)
@@ -131,11 +131,11 @@ namespace ArcaneOdyssey
 				LeadingConditionRule leadingConditionRule = new(new FirstEmpressKill());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
-				//LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
-				//leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonChoice>()));
-				//npcLoot.Add(leadingConditionRule1);
-			}
-			if (npc.type == NPCID.Plantera)
+                //LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
+                //leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
+                //npcLoot.Add(leadingConditionRule1);
+            }
+            if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));

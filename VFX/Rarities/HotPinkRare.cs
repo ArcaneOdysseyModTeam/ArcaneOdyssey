@@ -5,6 +5,6 @@ namespace ArcaneOdyssey.VFX.Rarities
 {
 	public class HotPinkRare : ModRarity
 	{
-		public override Color RarityColor => Color.HotPink;
+		public override Color RarityColor => Color.DeepPink; // actual scam
 	}
 }

@@ -1,7 +1,9 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.NPCS;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Generation;
@@ -123,34 +125,52 @@ namespace ArcaneOdyssey
 
 		public override void PostWorldGen()
 		{
-			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
-			{
-				Chest chest = Main.chest[chestIndex];
-				if (chest != null)
-				{
-					if (Main.rand.NextBool(6000))
-					{
-						for (int i = 0; i < Chest.maxItems; i++)
-						{
-							if (chest.item[i] != null)
-							{
-								chest.item[i].SetDefaults(ModContent.ItemType<Acrimony>());
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+            for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
+            {
+                Chest chest = Main.chest[chestIndex];
+                if (chest != null)
+                {
+                    if (Main.rand.NextBool(6000))
+                    {
+                        for (int i = 0; i < Chest.maxItems; i++)
+                        {
+                            if (chest.item[i] != null && chest.item[i].IsAir)
+                            {
+                                chest.item[i].SetDefaults(ModContent.ItemType<Acrimony>());
+                                break;
+                            }
+                        }
+                    }
 
-	public class DevMode : ModSystem 
-	{
-		/// <summary>
-		/// disable all cooldowns and stuff lmao
-		/// </summary>
-		public static bool devMode = false;
-	}
+                    int[] oldItems = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>(),];
+                    if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && !Chest.IsLocked(chest.x, chest.y)) // cavern chests probably
+                    {
+                        if (Main.rand.Next(Enumerable.Range(0, oldItems.Length).ToArray()) != 0)
+                        {
+                            for (int i = 0; i < Chest.maxItems; i++)
+                            {
+                                if (chest.item[i] != null && chest.item[i].IsAir)
+                                {
+                                    chest.item[i].SetDefaults(Main.rand.Next(oldItems));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+		}
+    }
+
+    public class DevMode : ModSystem { public static bool devMode = false; }
+
+    public class AODebuffManager : GlobalBuff
+    {
+        public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
+        {
+            buffName = buffName.Replace("Imbue", "Gel");
+        }
+    }
 
 	public class DownedBosses : ModSystem
 	{

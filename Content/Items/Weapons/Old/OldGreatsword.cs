@@ -20,10 +20,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.DamageType = TrueMelee();
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddRecipeGroup(RecipeGroupID.IronBar, 32).AddTile(TileID.Hellforge).Register();
-		}
 	}
 }
