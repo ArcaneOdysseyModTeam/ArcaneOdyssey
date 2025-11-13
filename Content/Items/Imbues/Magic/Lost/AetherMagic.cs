@@ -84,8 +84,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.YellowTorch, (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), 0, default, 3f)];
 				spawnedDust2.noGravity = true;
-			}
-		}
+            }
+            if (projectile is Projectile proj && proj.ModProjectile is not AetherExplosion)
+            {
+                if (proj.owner == Main.myPlayer && AetherExplosion.Count < 1)
+                {
+                    Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 4, 0, proj.owner);
+                }
+            }
+        }
 
 		public override void KillEffects(Entity projectile)
 		{
@@ -99,9 +106,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
             if (projectile is Projectile proj && proj.ModProjectile is not AetherExplosion)
             {
-                if (proj.owner == Main.myPlayer)
+                if (proj.owner == Main.myPlayer && AetherExplosion.Count < 3)
                 {
-                    Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 3, 0, proj.owner);
+                    Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 4, 0, proj.owner);
                 }
             }
 		}

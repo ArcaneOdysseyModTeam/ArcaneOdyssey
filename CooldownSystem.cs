@@ -70,7 +70,13 @@ namespace ArcaneOdyssey
 				timeTillNextMove--;
 			}
 			else timeTillNextMove = 0;
-			foreach (var Cooldown in Cooldowns)
+
+            foreach (var Cooldown in tochange)
+            {
+                Cooldowns[Cooldown.Key] = Cooldown.Value;
+            }
+
+            foreach (var Cooldown in Cooldowns)
 			{
 				if (Cooldown.TickDown)
 				{

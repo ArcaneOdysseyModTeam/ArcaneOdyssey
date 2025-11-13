@@ -34,36 +34,36 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
-		public override SynergyEffects Effects => new(
-			[
-				BuffID.Wet,
-				ModContent.BuffType<AOBleed>(),
-				ModContent.BuffType<FreezingEffect>()
-			],
-			[
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.85f),
-				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.15f),
-				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
-				new MagicBuffMultiplier(BuffID.Venom,1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.1f),
-				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.8f),
-				new MagicBuffMultiplier(BuffID.OnFire,1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f),
-			]
-		);
+        public override SynergyEffects Effects => new(
+            [
+                BuffID.Wet,
+                ModContent.BuffType<AOBleed>(),
+                ModContent.BuffType<FreezingEffect>()
+            ],
+            [
+                new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.85f),
+                new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.95f),
+                new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.95f),
+                new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.15f),
+                new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
+                new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
+                new MagicBuffMultiplier(BuffID.Venom,1.075f),
+                new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.1f),
+                new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
+                new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.8f),
+                new MagicBuffMultiplier(BuffID.OnFire,1.1f),
+                new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f),
+            ]
+        );
 
 		public override void SpawningEffects(Entity projectile)
 		{
-            BarValue += BarMax / 40f; // nerfed lmao
+			BarValue += BarMax / 40f; // nerfed lmao
 			if (projectile.TryGetOwner(out AOPlayer owner)) 
 			{
-                owner.SetCooldown(new(Name, DisplayName, true, 60));
+				owner.SetCooldown(new(Name, DisplayName, true, 60));
 			}
-            for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 10)), 1); n++)
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 10)), 1); n++)
 			{
 				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.CrimsonTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, (float)Math.Max(Math.Round((float)BarValue/50f),1));
 			}
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override void LingeringEffects(Entity projectile)
 		{
-            for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.CrimsonTorch, 0f, 0f, 0, default, (float)Math.Max((float)BarValue / 50f, 1))];
 				spawnedDust.noGravity = true;
@@ -82,9 +82,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override void ExplosionEffects(Entity projectile)
 		{
 			if (projectile.TryGetOwner(out AOPlayer owner))
-            {
-                owner.SetCooldown(new(Name, DisplayName, true, 60));
-            }
+			{
+				owner.SetCooldown(new(Name, DisplayName, true, 60));
+			}
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
 				Dust.NewDust(projectile.Center, 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue * (BarMax * .286f)), 1));
@@ -112,6 +112,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				BarValue = BarMin;
 				player.GetModPlayer<ThermoFallOff>().resetBar = false;
 			}
+            base.UpdateInventory(player);
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)
@@ -126,9 +127,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (item.TryGetImbue(out var im) && ImbueClassCheck(item) && im is ThermoFist thermo && thermo.GetThisImbue(player))
 			{
-                thermo.BarValue += FightingStyleBarred.BarMax / 20f;
-                player.ArcaneOdyssey().SetCooldown(new(thermo.Name, thermo.DisplayName, true, 60));
-            }
+				thermo.BarValue += FightingStyleBarred.BarMax / 20f;
+				player.ArcaneOdyssey().SetCooldown(new(thermo.Name, thermo.DisplayName, true, 60));
+			}
 		}
 	}
 
@@ -141,13 +142,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				if (imbue is ThermoFist thermo && thermo.GetThisImbue(Player))
 				{
-					if (resetBar)
-					{
-						resetBar = false;
-						thermo.BarValue = FightingStyleBarred.BarMin;
-					}
-                    if (!Player.ArcaneOdyssey().OnCooldown(thermo.Name))
-                        thermo.BarValue -= FightingStyleBarred.BarMax / (FightingStyleBarred.BarMax * .6f * (FightingStyleBarred.BarMax / 10f));
+					if (!Player.ArcaneOdyssey().OnCooldown(thermo.Name))
+						thermo.BarValue -= FightingStyleBarred.BarMax / (FightingStyleBarred.BarMax * .6f * (FightingStyleBarred.BarMax / 10f));
 				}
 			}
 		}
