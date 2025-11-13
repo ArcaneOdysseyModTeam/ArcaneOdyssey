@@ -50,9 +50,11 @@ namespace ArcaneOdyssey
             }
 		}
 
-        public static StatInheritanceData ThreeQuartersInheritance => new(0.75f, 0.75f, 0.75f, 0.75f, 0.75f);
-        public static StatInheritanceData QuarterInheritance => new(0.25f, 0.25f, 0.25f, 0.25f, 0.25f);
-        public static StatInheritanceData HalfInheritance => new(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
+        public static StatInheritanceData ThreeQuartersInheritance => QuickInheritance(.75f);
+        public static StatInheritanceData QuarterInheritance => QuickInheritance(.25f);
+        public static StatInheritanceData HalfInheritance => QuickInheritance(.5f);
+        public static StatInheritanceData QuickInheritance(float num) => new(num, num, num, num, num); // makes me hungry
+        public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
 
 
         public static bool BossAlive()

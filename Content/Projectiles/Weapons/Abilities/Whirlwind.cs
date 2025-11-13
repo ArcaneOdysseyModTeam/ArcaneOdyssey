@@ -48,8 +48,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
             for (float i = AfterimageCount; i > 0; i--)
             {
                 var rotoffset1 = rotoffset * i;
-                var adjustedrotation1 = player.MountedCenter + ((Projectile.rotation + rotoffset1).ToRotationVector2() * 44f * Projectile.scale);
-                var colour1 = Color.Lerp(Color.White, colour, 1f / AfterimageCount) with { A = (byte)(255 / (AfterimageCount)) };
+                var adjustedrotation1 = player.MountedCenter + ((Projectile.rotation - rotoffset1).ToRotationVector2() * 44f * Projectile.scale);
+                var colour1 = Color.Lerp(Color.White, colour, 1f / AfterimageCount) with { A = (byte)(255 / AfterimageCount) };
                 var scale = Projectile.scale - (Projectile.scale / 20f * i);
                 Main.EntitySpriteDraw(Sprite, adjustedrotation1 - Main.screenPosition, null, colour1, Projectile.rotation + rotoffset1, Projectile.GetDrawOriginCentre(), scale, SpriteEffects.None);
                 Lighting.AddLight(adjustedrotation1, colour1.R / 255f * Projectile.scale, colour1.G / 255f * Projectile.scale, colour1.B / 255f * Projectile.scale);
