@@ -82,3 +82,8 @@ BronzeTriasta: {
 	DisplayName: Triasta of Bronze
 	Tooltip: A bronze triasta imbued with some aether magic
 }
+
+StormCaller: {
+	DisplayName: Storm Caller
+	Tooltip: ""
+}

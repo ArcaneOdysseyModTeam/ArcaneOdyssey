@@ -37,15 +37,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		}
 
 		public override bool AltFunctionUse(Player player)
-		{
-			if (!player.ArcaneOdyssey().OnCooldown(nameof(WhirlwindCooldown)))
-			{
-				player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown().AOCooldown);
-				var proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
-				((Whirlwind)proj.ModProjectile).colour = this.Imbue()?.GetColor(Color.Orange) ?? Color.Orange;
-				SoundEngine.PlaySound(Item.UseSound, player.Center);
-			}
-			return false;
+        {
+            if (player.ownedProjectileCounts[Item.shoot] < 1 && !player.ArcaneOdyssey().OnCooldown(nameof(WhirlwindCooldown)))
+            {
+                player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown().AOCooldown);
+                var proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
+                ((Whirlwind)proj.ModProjectile).colour = this.Imbue()?.GetColor(Color.Orange) ?? Color.Orange;
+                SoundEngine.PlaySound(Item.UseSound, player.Center);
+            }
+            return true;
 		}
 	}
 }

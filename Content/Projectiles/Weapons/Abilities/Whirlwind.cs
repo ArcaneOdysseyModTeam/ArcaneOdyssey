@@ -10,8 +10,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	public class Whirlwind : AOPlayerProjectile
 	{
 		public Color colour = Color.White;
-		public const int MaxTime = 20;
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+		public static readonly int MaxTime = 20;
+        public static readonly float AfterimageCount = 5f;
+        public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetDefaults()
 		{
@@ -34,27 +35,33 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Player player = aoPlayerOwner.Player;
-			Projectile.rotation += MathHelper.Pi / (MaxTime / 2) * 1.1f;
+			Projectile.rotation += (MathHelper.Pi / (MaxTime / 2) * 1.1f) * (Imbue?.AOImbueSpeed ?? 1f);
 			Projectile.Center = player.MountedCenter + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale);
-			//Projectile.alpha = (255 / AfterimageCount * 2).Round();
-		}
-
-        public static readonly float AfterimageCount = 5f;
+            player.itemRotation = player.itemAnimation = 5;
+            player.itemRotation = player.MountedCenter.DirectionTo(Projectile.Center).ToRotation() - MathHelper.Pi + (MathHelper.Pi / (AfterimageCount / .5f));
+            player.direction = ((Projectile.Center.X > 0).ToDirectionInt());
+            //Projectile.alpha = (255 / AfterimageCount * 2).Round();
+        }
 
 		public override bool PreDraw(ref Color lightColour)
 		{
 			Player player = aoPlayerOwner.Player;
-            var rotoffset = MathHelper.Pi / AfterimageCount;
-            for (float i = AfterimageCount; i > 0; i--)
+            var rotoffset = MathHelper.Pi / (AfterimageCount * 2);
+            for (float i = 1; i < AfterimageCount + 1; i++)
             {
                 var rotoffset1 = rotoffset * i;
-                var adjustedrotation1 = player.MountedCenter + ((Projectile.rotation - rotoffset1).ToRotationVector2() * 44f * Projectile.scale);
-                var colour1 = Color.Lerp(Color.White, colour, 1f / AfterimageCount) with { A = (byte)(255 / AfterimageCount) };
-                var scale = Projectile.scale - (Projectile.scale / 20f * i);
+                var adjustedrotation1 = player.MountedCenter + ((Projectile.rotation + rotoffset1).ToRotationVector2() * 44f * Projectile.scale);
+                var colour1 = Color.Lerp(Color.Transparent with { A = lightColour.A }, colour, 1f / AfterimageCount * i);// with { A = (byte)(255 / AfterimageCount * i) };
+                var scale = Projectile.scale - (Projectile.scale / 18f * AfterimageCount) + (Projectile.scale / 18f * i);
                 Main.EntitySpriteDraw(Sprite, adjustedrotation1 - Main.screenPosition, null, colour1, Projectile.rotation + rotoffset1, Projectile.GetDrawOriginCentre(), scale, SpriteEffects.None);
                 Lighting.AddLight(adjustedrotation1, colour1.R / 255f * Projectile.scale, colour1.G / 255f * Projectile.scale, colour1.B / 255f * Projectile.scale);
             }
             return AfterimageCount < 1;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            aoPlayerOwner.Player.itemAnimation = aoPlayerOwner.Player.itemTime = 0;
         }
 	}
 
