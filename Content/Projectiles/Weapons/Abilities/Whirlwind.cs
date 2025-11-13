@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Player player = aoPlayerOwner.Player;
 			Projectile.rotation += MathHelper.Pi / (MaxTime / 2) * 1.1f;
 			Projectile.Center = player.MountedCenter + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale);
-			Projectile.alpha = (255 / AfterimageCount * 2).Round();
+			//Projectile.alpha = (255 / AfterimageCount * 2).Round();
 		}
 
         public static readonly float AfterimageCount = 5f;
@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
             {
                 var rotoffset1 = rotoffset * i;
                 var adjustedrotation1 = player.MountedCenter + ((Projectile.rotation + rotoffset1).ToRotationVector2() * 44f * Projectile.scale);
-                var colour1 = Color.Lerp(Color.White, colour, 1 / AfterimageCount) with { A = (byte)(255 / (AfterimageCount + 1)) };
+                var colour1 = Color.Lerp(Color.White, colour, 1f / AfterimageCount) with { A = (byte)(255 / (AfterimageCount)) };
                 var scale = Projectile.scale - (Projectile.scale / 20f * i);
                 Main.EntitySpriteDraw(Sprite, adjustedrotation1 - Main.screenPosition, null, colour1, Projectile.rotation + rotoffset1, Projectile.GetDrawOriginCentre(), scale, SpriteEffects.None);
                 Lighting.AddLight(adjustedrotation1, colour1.R / 255f * Projectile.scale, colour1.G / 255f * Projectile.scale, colour1.B / 255f * Projectile.scale);
