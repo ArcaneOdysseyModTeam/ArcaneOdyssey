@@ -18,7 +18,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class AcidMagic : AOMagic
 	{
-        public override Color ImbueColour => new Color(245, 0, 240);
+        public override float DashSpeed => 1.2f; // burst
+        public override Color ImbueColour => new(245, 0, 240);
 		public override float AOImbueSpeed => 0.925f;
 		public override float AOImbueSize => 1f;
 		public override float AOImbueDamage => 1f;
@@ -50,7 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
             ]
             );
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AcidBlast>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AcidCannon>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AcidPulsar>())]);
+		public override List<Type> Skills => [typeof(AcidBlast), typeof(AcidCannon), typeof(AcidPulsar)];
 		
         public override void SpawningEffects(Entity projectile) 
 		{

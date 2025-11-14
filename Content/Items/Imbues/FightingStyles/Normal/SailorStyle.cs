@@ -13,8 +13,9 @@ using ArcaneOdyssey.Content.Buffs.Stuns;
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class SailorStyle : FightingStyleBarred
-	{
-		public override bool? Cold => true;
+    {
+        public override float DashSpeed => BarValue > (BarMax / 2) ? 1.2f : 1f; // burst?
+        public override bool? Cold => true;
 		public override Color ImbueColour => Color.CornflowerBlue;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 

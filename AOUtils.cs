@@ -525,6 +525,13 @@ namespace ArcaneOdyssey
 			}
 		}
 
+        public enum DashType
+        {
+            Standard,
+            Burst,
+            Instant
+        }
+
 		/// <summary>
 		/// Helper struct for set bonuses
 		/// </summary>

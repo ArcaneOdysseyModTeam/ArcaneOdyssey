@@ -58,16 +58,13 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				SoundEngine.PlaySound(imbue.ImbueSound, player.MountedCenter);
-				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed.Clamp(1, 1.5f);
+				player.ArcaneOdyssey().DashVelocity *= imbue.DashSpeed;
 			}
 		}
 
-		public static float CalculateResistanceMulti(Player player) => player.Imbue().AOScrollSpeed.FlipFloat().Clamp(1, 2);
+		public static float CalculateResistanceMulti(Player player) => player.Imbue()?.DashResist ?? 1f;
 
-		public override bool OnHit(Player player, Entity target)
-		{
-			return true;
-		}
+		public override bool OnHit(Player player, Entity target) => true;
 
 		public override void DashEffect(Player player)
 		{

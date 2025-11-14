@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class AncientLightningMagic : AOMagic
 	{
+        public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(255,0,0,255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
@@ -96,7 +97,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AncientLightningBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AncientLightningPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AncientLightningCannon>())]);
+		public override List<Type> Skills => [typeof(AncientLightningBlast), typeof(AncientLightningPulsar), typeof(AncientLightningCannon)];
 		public override void AddRecipes()
 		{
 			CreateLostRecipe(typeof(LightningMagic));

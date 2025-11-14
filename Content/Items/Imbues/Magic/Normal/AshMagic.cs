@@ -110,6 +110,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			return base.PreEffects(projectile);
         }
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AshBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AshPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AshCannon>())]);
+		public override List<Type> Skills => [typeof(AshBlast), typeof(AshPulsar), typeof(AshCannon)];
 	}
 }

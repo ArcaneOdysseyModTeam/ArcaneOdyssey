@@ -12,8 +12,9 @@ using Microsoft.Xna.Framework;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class FlareMagic : AOMagic
-	{
-		public override Color ImbueColour => new(255,0,0,255);
+    {
+        public override float DashSpeed => 1.2f; // burst
+        public override Color ImbueColour => new(255,0,0,255);
         public override bool? Cold => false;
         public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 1f;
@@ -32,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<FlareBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<FlarePulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<FlareCannon>())]);
+		public override List<Type> Skills => [typeof(FlareBlast), typeof(FlarePulsar), typeof(FlareCannon)];
 		
 		public override void AddRecipes() 
         {

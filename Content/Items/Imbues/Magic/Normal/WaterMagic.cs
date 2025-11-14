@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WaterMagic : AOMagic
     {
+        public override float DashSpeed => 1.2f; // burst
         public override bool? Cold => true;
         public override Color ImbueColour => new(0, 30, 255);
 		public override float AOImbueSpeed => 1f;
@@ -87,6 +88,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WaterBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<WaterPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<WaterCannon>())]);
+		public override List<Type> Skills => [typeof(WaterBlast), typeof(WaterPulsar), typeof(WaterCannon)];
 	}
 }

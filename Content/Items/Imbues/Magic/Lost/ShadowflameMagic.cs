@@ -20,10 +20,11 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class ShadowflameMagic : AOMagic
-	{
+    {
+        public override float DashSpeed => 1.2f; // burst
         public override bool? Cold => false;
         public override SoundStyle? ImbueSound => SoundID.Item20;
-		public override Color ImbueColour => new Color(255, 100, 255);
+		public override Color ImbueColour => new(255, 100, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
         public override bool CanBeWet => true;
         public override float AOImbueSpeed => 1.1f;
@@ -101,7 +102,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		
-        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<ShadowflameBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<ShadowflamePulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<ShadowflameCannon>())]);
+        public override List<Type> Skills => [typeof(ShadowflameBlast), typeof(ShadowflamePulsar), typeof(ShadowflameCannon)];
 		
 		public override void AddRecipes() 
         {

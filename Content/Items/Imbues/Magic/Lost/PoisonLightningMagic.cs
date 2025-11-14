@@ -20,8 +20,9 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class PoisonLightningMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
+    {
+        public override float DashSpeed => 1.5f; // instant
+        public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(105,0,105,255);
 		public override float AOImbueSpeed => 1.4f;
 		public override float AOImbueSize => 1.15f;
@@ -104,7 +105,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<PoisonLightningBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<PoisonLightningPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<PoisonLightningCannon>())]);
+        public override List<Type> Skills => [typeof(PoisonLightningBlast), typeof(PoisonLightningPulsar), typeof(PoisonLightningCannon)];
 		
 		public override void AddRecipes() 
         {

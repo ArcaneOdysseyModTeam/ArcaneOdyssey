@@ -20,41 +20,45 @@ using ArcaneOdyssey.Content.Items.Weapons.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class Imbuable : AOBaseItem
-	{
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.CanGetPrefixes[Type] = false;
-			if (this is AOMagic)
-				ItemID.Sets.ItemNoGravity[Type] = true;
-			if (ImbuableTier == AOImbuableTier.Normal)
-			{
-				if (this is AOMagic or BasicCombat)
-				{
-					BasicImbues.Add(Type);
-				}
-			}
-		}
+    public abstract class Imbuable : AOBaseItem
+    {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.CanGetPrefixes[Type] = false;
+            if (this is AOMagic)
+                ItemID.Sets.ItemNoGravity[Type] = true;
+            if (ImbuableTier == AOImbuableTier.Normal)
+            {
+                if (this is AOMagic or BasicCombat)
+                {
+                    BasicImbues.Add(Type);
+                }
+            }
+        }
 
-		/// <summary>
-		/// Sets the armour stats of this magic, will be multiplied by the armour tier
-		/// </summary>
-		public virtual ImbueArmourStats? ArmourStats => null;
+        /// <summary>
+        /// Sets the armour stats of this magic, will be multiplied by the armour tier
+        /// </summary>
+        public virtual ImbueArmourStats? ArmourStats => null;
 
-		public override AORarities AORarity
-		{
-			get
-			{
-				return ImbuableTier switch
-				{
-					AOImbuableTier.Normal => AORarities.Rare,
-					AOImbuableTier.Lost => AORarities.Mystic,
-					AOImbuableTier.Ancient => AORarities.Arcane,
+        public override AORarities AORarity
+        {
+            get
+            {
+                return ImbuableTier switch
+                {
+                    AOImbuableTier.Normal => AORarities.Rare,
+                    AOImbuableTier.Lost => AORarities.Mystic,
+                    AOImbuableTier.Ancient => AORarities.Arcane,
                     AOImbuableTier.Primordial => AORarities.Mythical,
-					_ => AORarities.Special,
-				};
-			}
-		}
+                    _ => AORarities.Special,
+                };
+            }
+        }
+
+
+        public virtual float DashResist => 1f;
+        public virtual float DashSpeed => 1f;
 
 		public override bool ShowItemTypeTooltip => false;
 
@@ -83,7 +87,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual float KBMulti => 1f;
 
-		public virtual Dictionary<Type, int> Skills => [];
+		public virtual List<Type> Skills => [];
+
+        public int GetSkill(Type skill, int fallback = ProjectileID.AmethystBolt)
+        {
+            var aaa = Skills.Find(e => e.IsSubclassOf(skill));
+            if (Skills.Contains(aaa))
+                return Mod.Find<ModProjectile>(aaa.Name).Type;
+            return fallback;
+        }
 
 		public virtual void SpawningEffects(Entity entity) { }
 		public virtual void LingeringEffects(Entity entity) { }

@@ -11,8 +11,11 @@ using Terraria.Audio;
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class VanishingStyle : FightingStyle // make barred later
-	{
-		public override Color ImbueColour => Color.Black;
+    {
+        //public override float DashSpeed => BarValue > (BarMax / 2) ? 1.5f : 1.2f; // instant?
+        public override float DashSpeed => 1.2f;
+
+        public override Color ImbueColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item64;
 
 		public override float AOImbueDamage => 0.9f;

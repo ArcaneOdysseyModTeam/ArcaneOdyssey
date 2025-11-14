@@ -19,16 +19,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class OilMagic : AOMagic
 	{
+		public override float DashSpeed => 1.2f; // burst
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(20,20,20);
-        public override float AOImbueSpeed => 1.1f;
+		public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueSize => 1.22f;
 		public override float AOImbueDamage => 1.28f;
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => 1.28f;
-        public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-        public override SoundStyle? ImbueSound => SoundID.Splash;
+		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override SoundStyle? ImbueSound => SoundID.Splash;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Oiled, 60*10)];
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit
@@ -46,20 +47,20 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				new(ModContent.BuffType<SearedEffect>(),1.1f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<OilBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<OilPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<OilCannon>())]);
+		public override List<Type> Skills => [typeof(OilBlast), typeof(OilPulsar), typeof(OilCannon)];
 		public override void SpawningEffects(Entity projectile) 
 		{
-            for (int n = 0; n < 3; n++)
+			for (int n = 0; n < 3; n++)
 
-            {
-                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Cavern, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, Color.Black, 3f)];
-                spawnedDust.noGravity = true;
-            }
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water_Cavern, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, Color.Black, 3f)];
+				spawnedDust.noGravity = true;
+			}
 		}
 
 		public override void LingeringEffects(Entity projectile) 
 		{
-            Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Water_Cavern, 0f, 0f, 0, Color.Black, 1.2f);
+			Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Water_Cavern, 0f, 0f, 0, Color.Black, 1.2f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{
@@ -80,6 +81,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		}
 		public override void AddRecipes() {
 			CreateLostRecipe(typeof(WaterMagic),typeof(EarthMagic),typeof(WoodMagic));
-        }
+		}
 	}
 }

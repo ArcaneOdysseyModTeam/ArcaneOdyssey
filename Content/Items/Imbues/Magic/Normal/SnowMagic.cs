@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class SnowMagic : AOMagic
     {
+        public override float DashResist => 1.05f;
         public override bool? Cold => true;
         public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255,255,255,255);
@@ -86,6 +87,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SnowBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<SnowPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<SnowCannon>())]);
+		public override List<Type> Skills => [typeof(SnowBlast), typeof(SnowPulsar), typeof(SnowCannon)];
 	}
 }

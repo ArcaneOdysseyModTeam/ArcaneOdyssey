@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class GravityMagic : AOMagic
     {
+        public override float DashSpeed => 1.2f; // burst
         public override float KBMulti => 3f;
         public override SoundStyle? ImbueSound => SoundID.NPCHit52;
 		public override Color ImbueColour => new Color(120, 0, 200, 255);
@@ -52,7 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GravityBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<GravityPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GravityCannon>())]);
+		public override List<Type> Skills => [typeof(GravityBlast), typeof(GravityPulsar), typeof(GravityCannon)];
         public override void SpawningEffects(Entity projectile) 
 		{
 			for (int n = 0; n<3; n++)

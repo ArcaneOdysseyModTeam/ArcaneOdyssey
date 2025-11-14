@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class DiamondMagic : AOMagic
     {
+        public override float DashResist => 1.6f;
         public override float AOImbueSpeed => 1.13f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 1.3f;
@@ -72,7 +73,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<DiamondBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<DiamondPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<DiamondCannon>())]);
+		public override List<Type> Skills => [typeof(DiamondBlast), typeof(DiamondPulsar), typeof(DiamondCannon)];
 		
 		public override void AddRecipes() {
             CreateLostRecipe(typeof(CrystalMagic), typeof(EarthMagic),typeof(MetalMagic),typeof(SandMagic),typeof(GlassMagic),typeof(MagmaMagic),typeof(WoodMagic));

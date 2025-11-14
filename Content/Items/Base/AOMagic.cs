@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly);
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill(typeof(BlastSpell));
 					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(CannonSpell), ProjectileID.WoodenArrowFriendly);
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill(typeof(CannonSpell));
 					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
@@ -106,7 +106,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(PulsarSpell), ProjectileID.WoodenArrowFriendly);
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill(typeof(PulsarSpell));
 					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}

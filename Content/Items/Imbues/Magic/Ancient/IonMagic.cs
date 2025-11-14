@@ -19,8 +19,9 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 {
 	public class IonMagic : AOMagic
-	{
-		public override bool? Cold => false;
+    {
+        public override float DashSpeed => 1.5f; // instant
+        public override bool? Cold => false;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(0, 255, 0, 255);
@@ -87,7 +88,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IonBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<IonPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IonCannon>())]);
+
+		public override List<Type> Skills => [typeof(IonBlast), typeof(IonPulsar), typeof(IonCannon)];
 
         public override void AddRecipes()
         {

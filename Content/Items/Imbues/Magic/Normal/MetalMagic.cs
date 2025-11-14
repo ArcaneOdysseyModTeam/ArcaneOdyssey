@@ -17,9 +17,10 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MetalMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.Item99;
-        public override Color ImbueColour => new Color(100,100,100,255);
+    {
+        public override float DashResist => 1.5f;
+        public override SoundStyle? ImbueSound => SoundID.Item99;
+        public override Color ImbueColour => new(100,100,100,255);
 		public override float AOImbueSpeed => 0.825f;
 		public override float AOImbueSize => 1.158f;
 		public override float AOImbueDamage => 1.1f;
@@ -70,6 +71,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MetalBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<MetalPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<MetalCannon>())]);
+		public override List<Type> Skills => [typeof(MetalBlast), typeof(MetalPulsar), typeof(MetalCannon)];
 	}
 }

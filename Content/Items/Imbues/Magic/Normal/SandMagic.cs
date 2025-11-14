@@ -18,7 +18,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class SandMagic : AOMagic
     {
-		public override SoundStyle? ImbueSound => SoundID.Dig;
+        public override float DashResist => 1.1f;
+        public override SoundStyle? ImbueSound => SoundID.Dig;
         public override Color ImbueColour => new(255,255,60,255);
         public override bool CanBeWet => false;
         public override float AOImbueSpeed => 0.975f;
@@ -79,6 +80,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<SandBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<SandPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<SandCannon>())]);
+		public override List<Type> Skills => [typeof(SandBlast), typeof(SandPulsar), typeof(SandCannon)];
 	}
 }

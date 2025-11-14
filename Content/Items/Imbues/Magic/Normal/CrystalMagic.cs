@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class CrystalMagic : AOMagic
 	{
+        public override float DashResist => 1.3f;
 		public override Color ImbueColour => new(255, 0, 0);
 		public override float AOImbueSpeed => 0.95f;
 		public override float AOImbueSize => 1.11f;
@@ -40,7 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.125f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<CrystalBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<CrystalPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<CrystalCannon>())]);
+		public override List<Type> Skills => [typeof(CrystalBlast), typeof(CrystalPulsar), typeof(CrystalCannon)];
 
 		public override void SpawningEffects(Entity projectile)
 		{

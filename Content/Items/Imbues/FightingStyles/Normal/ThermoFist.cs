@@ -31,8 +31,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override float MinScrollDamage => .75f;
 		public override float MinScrollSize => .8f;
 		public override Color DisplayColor => Color.Blue;
+        public override float DashSpeed => BarValue > (BarMax / 2) ? 1.5f : 1f; // instant?
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
+        public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
         public override SynergyEffects Effects => new(
             [

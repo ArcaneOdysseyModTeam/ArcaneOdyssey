@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class IronLeg : FightingStyle
     {
+        public override float DashResist => 1.35f;
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

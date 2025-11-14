@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class FireMagic : AOMagic
     {
+        public override float DashSpeed => 1.2f; // burst
         public override bool? Cold => false;
         public override SoundStyle? ImbueSound => SoundID.Item20;
         public override Color ImbueColour => new(252,107,3,0);
@@ -101,6 +102,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<FireBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<FirePulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<FireCannon>())]);
+		public override List<Type> Skills => [typeof(FireBlast), typeof(FirePulsar), typeof(FireCannon)];
 	}
 }

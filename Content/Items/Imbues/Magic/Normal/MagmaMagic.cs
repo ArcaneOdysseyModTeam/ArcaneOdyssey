@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MagmaMagic : AOMagic
     {
+        public override float DashResist => 1.2f;
         public override bool? Cold => false;
         public override bool CanBeWet => false;
         public override Color ImbueColour => new(255, 50, 0);
@@ -96,6 +97,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<MagmaBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<MagmaPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<MagmaCannon>())]);
+		public override List<Type> Skills => [typeof(MagmaBlast), typeof(MagmaPulsar), typeof(MagmaCannon)];
 	}
 }

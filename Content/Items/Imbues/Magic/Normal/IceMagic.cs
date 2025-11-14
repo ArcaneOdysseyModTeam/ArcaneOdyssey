@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class IceMagic : AOMagic
     {
+        public override float DashResist => 1.3f;
         public override bool? Cold => true;
         public override SoundStyle? ImbueSound => SoundID.Item27;
         public override Color ImbueColour => new Color(30,200,255,255);
@@ -32,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<FreezingEffect>(), 60 * 10), new(ModContent.BuffType<AOFrozen>(), 60, 33)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<IceBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<IcePulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<IceCannon>())]);
+		public override List<Type> Skills => [typeof(IceBlast), typeof(IcePulsar), typeof(IceCannon)];
 
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit

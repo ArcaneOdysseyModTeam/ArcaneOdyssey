@@ -27,6 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 		public override float AOScrollSize => 3f;
 		public override float AOScrollDamage => 2f;
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
+        public override float DashStat => .8f;
         public override SoundStyle? ImbueSound => SoundID.Item20;
         public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(),10*60), new AODebuffRequirement(BuffID.OnFire3,10*60)];
 		public override SynergyEffects Effects => new(
@@ -59,7 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 			]
 			);
 
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<VesuviusBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<VesuviusPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<VesuviusCannon>())]);
+		public override List<Type> Skills => [typeof(VesuviusBlast), typeof(VesuviusPulsar), typeof(VesuviusCannon)];
 		
         public override void SpawningEffects(Entity projectile)
 		{

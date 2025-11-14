@@ -17,7 +17,8 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class EarthMagic : AOMagic
-	{
+    {
+        public override float DashResist => 1.4f;
         public override Color ImbueColour => new(69, 42, 1);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.26f;
@@ -40,7 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<EarthBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<EarthPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<EarthCannon>())]);
+		public override List<Type> Skills => [typeof(EarthBlast), typeof(EarthPulsar), typeof(EarthCannon)];
 		
 		public override void SpawningEffects(Entity projectile) 
 		{

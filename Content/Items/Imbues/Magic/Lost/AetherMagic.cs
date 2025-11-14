@@ -19,8 +19,9 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class AetherMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.Item9;
+    {
+        public override float DashSpeed => 1.5f; // instant
+        public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => new(255, 255, 0, 255);
 		public override bool? Cold => false;
         public override bool CanBeWet => false;
@@ -56,7 +57,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 		
-        public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<AetherBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<AetherPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<AetherCannon>())]);
+        public override List<Type> Skills => [typeof(AetherBlast), typeof(AetherPulsar), typeof(AetherCannon)];
+
 		public override void SpawningEffects(Entity projectile) 
 			{
 			for (int n = 0; n < 3; n++)

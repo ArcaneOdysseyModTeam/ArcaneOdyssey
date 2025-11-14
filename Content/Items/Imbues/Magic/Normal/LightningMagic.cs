@@ -18,8 +18,9 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class LightningMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
+    {
+        public override float DashSpeed => 1.5f; // instant
+        public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
         public override Color ImbueColour => new(255, 140, 255, 255);
 		public override float AOImbueSpeed => 1.2f;
 		public override float AOImbueSize => .95f;
@@ -92,6 +93,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 		
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<LightningBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<LightningPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<LightningCannon>())]);
+		public override List<Type> Skills => [typeof(LightningBlast), typeof(LightningPulsar), typeof(LightningCannon)];
 	}
 }

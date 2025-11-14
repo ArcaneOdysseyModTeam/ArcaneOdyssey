@@ -13,7 +13,8 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class HeatMagic : AOMagic
-	{
+    {
+        public override float DashSpeed => 1.2f; // burst
         public override Color ImbueColour => new(255, 0, 0);
         public override bool? Cold => false;
         public override bool CanBeWet => false;
@@ -34,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			]
 			);
-				public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<HeatBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<HeatPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<HeatCannon>())]);
+				public override List<Type> Skills => [typeof(HeatBlast), typeof(HeatPulsar), typeof(HeatCannon)];
 		
 		public override void AddRecipes() {
             

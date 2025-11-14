@@ -17,8 +17,9 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WoodMagic : AOMagic
-	{
-		public override SoundStyle? ImbueSound => SoundID.Dig;
+    {
+        public override float DashResist => 1.3f;
+        public override SoundStyle? ImbueSound => SoundID.Dig;
         public override Color ImbueColour => new(61,33,0,255);
 		public override float AOImbueSpeed => 0.9f;
 		public override float AOImbueSize => 1.162f;
@@ -76,6 +77,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WoodBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<WoodPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<WoodCannon>())]);
+		public override List<Type> Skills => [typeof(WoodBlast), typeof(WoodPulsar), typeof(WoodCannon)];
 	}
 }

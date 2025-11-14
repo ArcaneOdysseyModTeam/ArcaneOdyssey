@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WindMagic : AOMagic
     {
+        public override float DashSpeed => 1.5f; // instant
         public override float KBMulti => 2f;
         public override SoundStyle? ImbueSound => SoundID.Dig;
         public override Color ImbueColour => new(255,255,255,255);
@@ -85,6 +86,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<WindBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<WindPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<WindCannon>())]);
+		public override List<Type> Skills => [typeof(WindBlast), typeof(WindPulsar), typeof(WindCannon)];
 	}
 }

@@ -17,7 +17,8 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class GlassMagic : AOMagic
-	{
+    {
+        public override float DashResist => 1.05f;
         public override float ItemInvisibility => .5f;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
         public override Color ImbueColour => new(255,255,255);
@@ -69,6 +70,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override Dictionary<Type, int> Skills => new([KeyValuePair.Create(typeof(BlastSpell), ModContent.ProjectileType<GlassBlast>()), KeyValuePair.Create(typeof(PulsarSpell), ModContent.ProjectileType<GlassPulsar>()), KeyValuePair.Create(typeof(CannonSpell), ModContent.ProjectileType<GlassCannon>())]);
+		public override List<Type> Skills => [typeof(GlassBlast), typeof(GlassPulsar), typeof(GlassCannon)];
 	}
 }
