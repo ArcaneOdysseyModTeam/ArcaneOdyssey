@@ -11,8 +11,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AOSpeed => 1;
 		public override float AOSize => .9f;
 		public override float AODamage => 1.1f;
-		public override AODebuffRequirement? Debuff => null;
-
 
 		public override void EffectBeforeSpin(Player player)
 		{
