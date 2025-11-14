@@ -205,7 +205,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 			else if (!Main.hardMode)
 			{
-				options.Add(this.GetLocalizedValue("Help.ShimmerHint"));
+				options.Add(this.GetLocalizedValue("Help.ShimmerTip"));
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
