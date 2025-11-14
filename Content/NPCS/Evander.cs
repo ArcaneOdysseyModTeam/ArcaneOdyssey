@@ -106,7 +106,7 @@ namespace ArcaneOdyssey.Content.NPCS
                     NPC.ai[1] = 0;
                     NPC.frameCounter = 0;
                 }
-                else if (NPC.HasValidTarget && NPC.ai[1] == 15)
+                else if (NPC.HasValidTarget && NPC.ai[1] == 15 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
                     var proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.position, aimDir * 5, ModContent.ProjectileType<EvanderSlash>(), 35, 4.5f);
@@ -123,7 +123,7 @@ namespace ArcaneOdyssey.Content.NPCS
                     NPC.frameCounter = 0;
                     NPC.ai[0] = 0;
                 }
-                else if (NPC.ai[1] == 10)
+                else if (NPC.ai[1] == 10 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EvanderMelee>(), 75, 4.5f);
                 }
