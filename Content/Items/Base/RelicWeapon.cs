@@ -12,8 +12,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			base.SetDefaults();
 			Item.DamageType = ModContent.GetInstance<SpiritDamage>();
-			Item.noUseGraphic = true;
-			Item.noMelee = true; // could add a virtual bool to toggle this later
+			Item.noUseGraphic = true; // could add a virtual bool to toggle this later
+            Item.noMelee = true;
 			Item.value = GalleonToCopper(AOValue);
 		}
 	}

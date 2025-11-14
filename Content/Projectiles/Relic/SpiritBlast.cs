@@ -69,11 +69,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relic
 
 		public override bool PreDraw(ref Color lightColor) => false;
 
-		public override void ManageSynergies(ref NPC.HitModifiers modifiers)
-		{
-			base.ManageSynergies(ref modifiers);
-		}
-
 		public const int DustCount = 50;
 
         public override void OnKill(int timeLeft)
@@ -91,9 +86,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Relic
                     centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
                     dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (15 + (Main.rand.NextFloat() * 2)));
                     dust.noGravity = true;
-                    SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
-				}
-			}
+                }
+                SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
+            }
 		}
 	}
 }
