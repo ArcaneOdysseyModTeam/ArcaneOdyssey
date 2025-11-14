@@ -76,31 +76,24 @@ namespace ArcaneOdyssey.Content.Projectiles.Relic
 
 		public const int DustCount = 50;
 
-		public override bool PreKill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
-			if (!Main.dedServ)
+            if (!Main.dedServ)
 			{
 				for (float i = 0; i < DustCount; i++)
 				{
 					var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-					var dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 4);
+					var dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (13 + (Main.rand.NextFloat() * 2)));
 					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 5);
-					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 6);
-					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 7);
-					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-					dust = Dust.NewDustPerfect(centre + Projectile.Center, DustID.IcyMerman, (-centre) / 8);
-					dust.noGravity = true;
-					SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
+                    centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+                    dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (14 + (Main.rand.NextFloat() * 2)));
+                    dust.noGravity = true;
+                    centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+                    dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (15 + (Main.rand.NextFloat() * 2)));
+                    dust.noGravity = true;
+                    SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
 				}
 			}
-			return base.PreKill(timeLeft);
 		}
 	}
 }
