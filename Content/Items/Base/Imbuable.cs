@@ -20,45 +20,45 @@ using ArcaneOdyssey.Content.Items.Weapons.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-    public abstract class Imbuable : AOBaseItem
-    {
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.CanGetPrefixes[Type] = false;
-            if (this is AOMagic)
-                ItemID.Sets.ItemNoGravity[Type] = true;
-            if (ImbuableTier == AOImbuableTier.Normal)
-            {
-                if (this is AOMagic or BasicCombat)
-                {
-                    BasicImbues.Add(Type);
-                }
-            }
-        }
+	public abstract class Imbuable : AOBaseItem
+	{
+		public override void SetStaticDefaults()
+		{
+			ItemID.Sets.CanGetPrefixes[Type] = false;
+			if (this is AOMagic)
+				ItemID.Sets.ItemNoGravity[Type] = true;
+			if (ImbuableTier == AOImbuableTier.Normal)
+			{
+				if (this is AOMagic or BasicCombat)
+				{
+					BasicImbues.Add(Type);
+				}
+			}
+		}
 
-        /// <summary>
-        /// Sets the armour stats of this magic, will be multiplied by the armour tier
-        /// </summary>
-        public virtual ImbueArmourStats? ArmourStats => null;
+		/// <summary>
+		/// Sets the armour stats of this magic, will be multiplied by the armour tier
+		/// </summary>
+		public virtual ImbueArmourStats? ArmourStats => null;
 
-        public override AORarities AORarity
-        {
-            get
-            {
-                return ImbuableTier switch
-                {
-                    AOImbuableTier.Normal => AORarities.Rare,
-                    AOImbuableTier.Lost => AORarities.Mystic,
-                    AOImbuableTier.Ancient => AORarities.Arcane,
-                    AOImbuableTier.Primordial => AORarities.Mythical,
-                    _ => AORarities.Special,
-                };
-            }
-        }
+		public override AORarities AORarity
+		{
+			get
+			{
+				return ImbuableTier switch
+				{
+					AOImbuableTier.Normal => AORarities.Rare,
+					AOImbuableTier.Lost => AORarities.Mystic,
+					AOImbuableTier.Ancient => AORarities.Arcane,
+					AOImbuableTier.Primordial => AORarities.Mythical,
+					_ => AORarities.Special,
+				};
+			}
+		}
 
 
-        public virtual float DashResist => 1f;
-        public virtual float DashSpeed => 1f;
+		public virtual float DashResist => 1f;
+		public virtual float DashSpeed => 1f;
 
 		public override bool ShowItemTypeTooltip => false;
 
@@ -89,13 +89,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual List<Type> Skills => [];
 
-        public int GetSkill(Type skill, int fallback = ProjectileID.AmethystBolt)
-        {
-            var aaa = Skills.Find(e => e.IsSubclassOf(skill));
-            if (Skills.Contains(aaa))
-                return Mod.Find<ModProjectile>(aaa.Name).Type;
-            return fallback;
-        }
+		public int GetSkill(Type skill, int fallback = ProjectileID.AmethystBolt)
+		{
+			var aaa = Skills.Find(e => e.IsSubclassOf(skill));
+			if (Skills.Contains(aaa))
+				return Mod.Find<ModProjectile>(aaa.Name).Type;
+			return fallback;
+		}
 
 		public virtual void SpawningEffects(Entity entity) { }
 		public virtual void LingeringEffects(Entity entity) { }
@@ -159,14 +159,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return null;
 		}
 
-        public Color GetColor(Color? colour = null)
-        {
-            if (this is FightingStyleBarred bar)
-            {
-                return Color.Lerp(colour.GetValueOrDefault(), ImbueColour, bar.LerpValue);
-            }
-            return ImbueColour;
-        }
+		public Color GetColor(Color? colour = null)
+		{
+			if (this is FightingStyleBarred bar)
+			{
+				return Color.Lerp(colour.GetValueOrDefault(), ImbueColour, bar.LerpValue);
+			}
+			return ImbueColour;
+		}
 
 		/// <summary>
 		/// Return false to cancel VFX
@@ -196,7 +196,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return false;
 		}
 
-        public virtual float ItemInvisibility => 0f;
+		public virtual float ItemInvisibility => 0f;
 
 		public override void SetDefaults()
 		{
@@ -215,15 +215,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (ImbuableTier == AOImbuableTier.Normal)
 			{
 				if (this is AOMagic or BasicCombat)
-                {
-                    RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
-                    RecipeGroup.RegisterGroup($"{ArcaneOdyssey.InternalName}:PoseidonSpirit", group);
-                    CreateRecipe().AddRecipeGroup(group).DisableDecraft().Register();
+				{
+					RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
+					RecipeGroup.RegisterGroup($"{ArcaneOdyssey.InternalName}:PoseidonSpirit", group);
+					CreateRecipe().AddRecipeGroup(group).DisableDecraft().Register();
 				}
-                //if (this is EaglePatrimony)
-                //{
-                //    CreateRecipe().AddIngredient<PoseidonChoice>().DisableDecraft().Register();
-                //}
+				//if (this is EaglePatrimony)
+				//{
+				//    CreateRecipe().AddIngredient<PoseidonChoice>().DisableDecraft().Register();
+				//}
 			}
 
 			if (this is BasicCombat)
@@ -237,15 +237,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
-        public string ModifyTooltipsPrefixThing { get
-            {
-                if (this is AOMagic) { return "Magic"; }
-                if (this is FightingStyle) { return "FS"; }
-                else { return null; }
-            } }
+		public string ModifyTooltipsPrefixThing { get
+			{
+				if (this is AOMagic) { return "Magic"; }
+				if (this is FightingStyle) { return "FS"; }
+				else { return null; }
+			} }
 
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (this is not FrogMagic && ModifyTooltipsPrefixThing is not null)
 				tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefixThing}TierLines.{ImbuableTier}").Value));

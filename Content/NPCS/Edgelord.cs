@@ -60,27 +60,27 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
 			if (item.Imbue() is not AOMagic)
-            {
-                modifiers.FinalDamage *= 0;
-                NPC.life += 1;
-            }
-        }
+			{
+				modifiers.FinalDamage *= 0;
+				NPC.life += 1;
+			}
+		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-            if (!(projectile.Imbue() is AOMagic || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType is SpiritDamage || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile)))
-            { 
-                modifiers.FinalDamage *= 0;
-                NPC.life += 1;
-            }
+			if (!(projectile.Imbue() is AOMagic || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType is SpiritDamage || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile)))
+			{ 
+				modifiers.FinalDamage *= 0;
+				NPC.life += 1;
+			}
 		}
 
 		public override void UpdateLifeRegen(ref int damage)
 		{
-            if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
-            {
-                NPC.lifeRegen = 120 * -5;
-                HitEffect(NPC.CalculateHitInfo(5, 0));
-            }
+			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			{
+				NPC.lifeRegen = 120 * -5;
+				HitEffect(NPC.CalculateHitInfo(5, 0));
+			}
 		}
 
 		public override void HitEffect(NPC.HitInfo hit)
@@ -193,9 +193,32 @@ namespace ArcaneOdyssey.Content.NPCS
 						Replace("{Keybind2}", Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));
 				}
 			}
-			else if (!Main.hardMode)
+
+			if (NPC.downedBoss2 && !Main.hardMode)
 			{
-				options.Add(this.GetLocalizedValue("Help.ShimmerHint"));
+				if (WorldGen.SavedOreTiers.Copper == TileID.Copper)
+				{
+					if (WorldGen.SavedOreTiers.Gold == TileID.Gold)
+					{
+						options.Add(this.GetLocalizedValue("Help.BronzeTipCopperGold"));
+					}
+					else
+					{
+						options.Add(this.GetLocalizedValue("Help.BronzeTipCopperPlatinum"));
+					}
+				}
+				else
+				{
+					if (WorldGen.SavedOreTiers.Gold == TileID.Gold)
+					{
+						options.Add(this.GetLocalizedValue("Help.BronzeTipTinGold"));
+					}
+					else
+					{
+						options.Add(this.GetLocalizedValue("Help.BronzeTipTinPlatinum"));
+					}
+				}
+				
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
