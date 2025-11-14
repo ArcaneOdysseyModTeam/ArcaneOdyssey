@@ -1,5 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
 using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
 using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
@@ -12,7 +11,6 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using static ArcaneOdyssey.AOUtils;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost

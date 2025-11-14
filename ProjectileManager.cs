@@ -53,7 +53,7 @@ namespace ArcaneOdyssey
 			return returntype; 
 		}
 	}
-	public class AOProjectile : GlobalProjectile, IImbuableEntity
+	public class AOProjectile : GlobalProjectile, IImbuable
     {
         public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
         {

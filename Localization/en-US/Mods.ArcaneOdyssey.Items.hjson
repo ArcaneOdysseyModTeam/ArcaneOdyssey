@@ -67,7 +67,7 @@ ReflexScroll: {
 	Tooltip:
 		'''
 		Allows the user to dash
-		Grants bonus defence to slow imbues
+		Some imbues grant resistance while dashing
 		'''
 }
 
@@ -93,7 +93,7 @@ SteamImbue: {
 
 Acrimony: {
 	DisplayName: Prometheus's Acrimony
-	Tooltip: A glowing white clover, which can be used to change one's magic
+	Tooltip: ""
 }
 
 AncientHecateOrb: {
@@ -103,21 +103,17 @@ AncientHecateOrb: {
 
 BronzeBar: {
 	DisplayName: Bronze Bar
-	Tooltip: A bar of bronze
+	Tooltip: ""
 }
 
 EmptyScroll: {
 	DisplayName: Empty Scroll
-	Tooltip: A simple scroll
+	Tooltip: ""
 }
 
 HecateShard: {
 	DisplayName: Hecate Shard
-	Tooltip:
-		'''
-		A shard formed of the essence of the goddess Hecate
-		Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
-		'''
+	Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
 }
 
 Paper: {
@@ -137,7 +133,7 @@ PoseidonSpirit: {
 
 SunkenScrap: {
 	DisplayName: Sunken Scrap
-	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
+	Tooltip: ""
 }
 
 EaglePatrimony: {
@@ -148,11 +144,11 @@ EaglePatrimony: {
 Accessories: {
 	EvanderCape: {
 		DisplayName: Mountainbreaker Cape
-		Tooltip: A tattered cape taken from Evander, The Mountainbreaker
+		Tooltip: ""
 	}
 
 	EvanderGauntlet: {
 		DisplayName: Mountainbreaker Gauntlet
-		Tooltip: A guantlet taken from Evander, The Mountainbreaker
+		Tooltip: ""
 	}
 }

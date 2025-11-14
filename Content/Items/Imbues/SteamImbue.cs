@@ -8,7 +8,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Imbues
 {
@@ -28,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override float AOScrollSize => 1.15f;
 		public override float AOImbueSize => 1.1f;
 		public override float AOImbueSpeed => 1;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOScalding>(), 60*10)];
+        public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOScalding>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 
 		public Imbuable originalImbue;
@@ -56,11 +55,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Smoke, 5f * Main.rand.NextFloat() - 0.5f, 5f * Main.rand.NextFloat() - 0.5f, (255 * .75f).Round(), default, 3f);
 			}
 		}
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			KillEffects(projectile);
 			SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);
 		}
+
         public override void LingeringEffects(Entity projectile)
         {
             for (int n = 0; n < 2; n++)
@@ -75,5 +76,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues
                 clone.originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
             return clone;
         }
-	}
+
+        public override void UpdateInventory(Player player)
+        {
+            Item.active = false;
+        }
+
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+        {
+            Item.active = false;
+        }
+    }
 }

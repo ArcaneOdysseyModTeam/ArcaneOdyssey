@@ -1,15 +1,10 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -22,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Rare;
 		public override SoundStyle UseSound => SoundID.Item5;
-		public const int ArrowCount = 5;
+        public override WeaponAbility? Ability => new(Mod, "Storm of Arrows", "Arrows fall from the sky above the cursor", Color.MediumPurple);
 
         public override void SetStaticDefaults()
         {
@@ -45,21 +40,28 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override bool AltFunctionUse(Player player) => true;
 
+        public override void UseAnimation(Player player)
+        {
+        }
+
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			if (player.AltUse())
             {
-                player.itemRotation = player.MountedCenter.DirectionTo(new Vector2(Main.MouseWorld.X, Main.screenPosition.Y)).ToRotation();
+                var offsetX = Main.MouseWorld.X + (Main.screenWidth / 35f * Main.rand.Next(-2, 3));
+                var offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
+                var pos = new Vector2(offsetX, offsetY);
+                player.itemRotation = player.MountedCenter.DirectionTo(pos).ToRotation();
                 if (player.direction != 1)
                 {
                     player.itemRotation += MathHelper.Pi;
                 }
-                for (int i = -2; i < ArrowCount - 2; i++)
+                for (int i = -2; i < 3; i++)
 				{
-					var offsetX = Main.MouseWorld.X + (Main.screenWidth / 30f * i);
-					var offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
-					var pos = new Vector2(offsetX, offsetY);
-                    var proj = Projectile.NewProjectileDirect(source, pos, Vector2.UnitY * velocity.Length(), type, damage / ArrowCount, knockback / ArrowCount, player.whoAmI);
+					offsetX = Main.MouseWorld.X + (Main.screenWidth / 30f * i);
+					offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
+					pos = new Vector2(offsetX, offsetY);
+                    var proj = Projectile.NewProjectileDirect(source, pos, Vector2.UnitY * velocity.Length(), type, damage / 6, knockback / 6, player.whoAmI);
                     proj.Center = pos;
                 }
 				return false;

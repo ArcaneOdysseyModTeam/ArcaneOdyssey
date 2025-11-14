@@ -3,7 +3,6 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
-using Steamworks;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -128,7 +127,7 @@ namespace ArcaneOdyssey
 		public Cooldown AOCooldown => new(AnyDirection ? Name : "StandardDash", Mod, true, Cooldown);
 	}
 
-	public partial class AOPlayer : ModPlayer, IImbuableEntity
+	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public void SetDash(DashSystem dash)
 		{

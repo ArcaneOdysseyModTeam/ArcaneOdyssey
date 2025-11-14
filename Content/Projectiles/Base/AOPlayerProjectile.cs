@@ -3,7 +3,6 @@ using ArcaneOdyssey.Content.Items.Base;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
@@ -11,7 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// <summary>
 	/// Projectile created by the player, usually via weapon
 	/// </summary>
-	public abstract class AOPlayerProjectile : ModProjectile, IImbuableEntity
+	public abstract class AOPlayerProjectile : ModProjectile, IImbuable
 	{
         public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;

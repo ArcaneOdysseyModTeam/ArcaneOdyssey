@@ -80,7 +80,7 @@ SunkenSword: {
 
 BronzeTriasta: {
 	DisplayName: Triasta of Bronze
-	Tooltip: A bronze triasta imbued with some aether magic
+	Tooltip: ""
 }
 
 StormCaller: {

@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {

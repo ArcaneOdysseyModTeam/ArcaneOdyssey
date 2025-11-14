@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using Terraria;
+﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
-using System.Collections.Generic;
 
 namespace ArcaneOdyssey
 {

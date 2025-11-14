@@ -35,12 +35,12 @@ Crystallized: {
 
 AOBleed: {
 	DisplayName: Bleeding
-	Description: You are losing blood fast
+	Description: You are losing blood
 }
 
 SandyEffect: {
 	Description: You are covered in sand
-	DisplayName: Sandy Effect
+	DisplayName: Sandy
 }
 
 Trauma: {

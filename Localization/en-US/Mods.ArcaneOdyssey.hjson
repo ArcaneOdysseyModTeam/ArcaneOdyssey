@@ -53,7 +53,7 @@ Configs: {
 
 		VanillaItemTemperatures: {
 			Label: Vanilla Item Temperatures
-			Tooltip: ""
+			Tooltip: Toggles whether vanilla items can have the Steam imbue
 		}
 	}
 }
@@ -61,15 +61,13 @@ Configs: {
 KeybindStuff.DashHelp: Double tap a movement key
 
 NPCs: {
-	DebuffDummy.DisplayName: ???
-
 	Edgelord: {
 		DisplayName: Curse Thief
 		DisplayName1: Edgelord
 		DeathCurse: Morden's Curse has left...
 		Census.SpawnCondition: Always available, spawned on world creation
 		DyingText: HELP!
-		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy
+		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy.
 
 		Chat: {
 			Intro: Hello, {PlayerName}.
@@ -94,10 +92,7 @@ NPCs: {
 			EarlyHard1: Killing that beast should have granted you some of it's power in the form of a sigil. You should use that if you haven't already.
 			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			BronzeTipCopperGold: Bronze can be created using copper and gold and some sort of chaotic material.
-			BronzeTipTinGold: Bronze can be created using tin and gold and some sort of chaotic material.
-			BronzeTipCopperPlatinum: Bronze can be created using copper and platinum and some sort of chaotic material.
-			BronzeTipTinPlatinum: Bronze can be created using tin and platinum and some sort of chaotic material.
+			BronzeTip: Bronze can be created using {0} and {1} and some sort of chaotic material.
 			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
@@ -107,6 +102,7 @@ NPCs: {
 			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
 			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing drink while using it.
 			WeaponSkills: Some weapons have special skills, make good use of them.
+			SpiritWeapon: Relic weapons are items that were blessed by gods and granted power. Only those with Relics may harness Spirit Energy.
 		}
 
 		TownNPCMood: {
@@ -132,8 +128,10 @@ NPCs: {
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
 		DeathMessage: Evander, the Mountainbreaker has been defeated!
-		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world. Spawning frequency reduced after being defeated.
+		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world. Spawning decreased reduced after being defeated.
 	}
+
+	DebuffDummy.DisplayName: Debuff Dummy
 }
 
 MagicTierLines: {

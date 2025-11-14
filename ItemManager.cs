@@ -6,7 +6,6 @@ using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -140,7 +139,7 @@ namespace ArcaneOdyssey
         //}
     }
 
-    public class AOItem : GlobalItem, IImbuableEntity
+    public class AOItem : GlobalItem, IImbuable
     {
         public override bool InstancePerEntity => true;
 
@@ -265,7 +264,6 @@ namespace ArcaneOdyssey
             {
                 CanBeAffected = false;
             }
-            Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
             if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
             {
                 switch (item.type)
@@ -323,6 +321,7 @@ namespace ArcaneOdyssey
                         break;
                 }
             }
+            Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
         }
 
         public override void ModifyItemScale(Item item, Player player, ref float scale)

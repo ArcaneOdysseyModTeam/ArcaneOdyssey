@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -57,7 +53,7 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public partial class AOPlayer : ModPlayer, IImbuableEntity
+	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		private List<Cooldown> toremove = [];
 		private Dictionary<int, Cooldown> tochange = [];

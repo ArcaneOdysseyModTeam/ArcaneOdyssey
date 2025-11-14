@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Content.Items.Materials;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 {

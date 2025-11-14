@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class PiercingGale : AOPlayerProjectile
 	{
-		public override AOUtils.AODebuffRequirement? Debuff => null;
+		public override AODebuffRequirement? Debuff => null;
 		public const int DustCount = 30;
 
 		public override void SetDefaults()

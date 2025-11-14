@@ -5,7 +5,6 @@ using ArcaneOdyssey.Content.Buffs.Pets;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Items.Base;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Pets
 {

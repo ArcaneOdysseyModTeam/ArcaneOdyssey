@@ -1,9 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Relic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Relics
 {
@@ -11,12 +11,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Relics
 	{
 		public override int AOValue => 500;
 		public override AORarities AORarity => AORarities.Special;
-
-        // Next Update, this will become capable of being imbued, and counts as a starter imbue 
-        //public override void SetStaticDefaults()
-        //{
-        //    Imbuable.BasicImbues.Add(Type);
-        //}
 
 		public override void SetDefaults()
 		{
@@ -30,6 +24,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Relics
 			Item.autoReuse = true;
 			Item.useTime = Item.useAnimation = 30;
 			Item.knockBack = 3.75f;
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<PoseidonChoice>().DisableDecraft().Register();
 		}
 	}
 }

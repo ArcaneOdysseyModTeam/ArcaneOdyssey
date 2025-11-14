@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Mounts;
 using Terraria.ModLoader;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Equipment
 {

@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Content.Items.Materials;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 

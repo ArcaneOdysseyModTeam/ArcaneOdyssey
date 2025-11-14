@@ -62,15 +62,15 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (item.Imbue() is not AOMagic)
 			{
 				modifiers.FinalDamage *= 0;
-				NPC.life += 1;
+				NPC.life += 5;
 			}
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (!(projectile.Imbue() is AOMagic || ((projectile.DamageType == DamageClass.Magic || projectile.DamageType is SpiritDamage || projectile.DamageType == DamageClass.MagicSummonHybrid) && projectile.hostile)))
+			if (!(projectile.Imbue() is AOMagic || (projectile.DamageType.CountsAsClass(DamageClass.Magic) && projectile.hostile)))
 			{ 
 				modifiers.FinalDamage *= 0;
-				NPC.life += 1;
+				NPC.life += 5;
 			}
 		}
 
@@ -107,11 +107,11 @@ namespace ArcaneOdyssey.Content.NPCS
 					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, default, 2.6f)];
 					spawnedDust2.noGravity = true;
 				}
-				Main.NewText(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").Value, Color.DarkCyan);
+				Main.NewText(Mod.CustomLocalization($"NPCs.{Name}.DeathCurse").Value, Color.DarkCyan);
 			}
 			else
 			{
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("NPCs.Edgelord.DeathCurse").ToNetworkText(), Color.DarkCyan);
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"NPCs.{Name}.DeathCurse").ToNetworkText(), Color.DarkCyan);
 			}
 			if (ServerOrSingleplayer)
 				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 700, 0f, -1, default);
@@ -133,8 +133,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = "Help";
-			button2 = null;
+			button = Mod.CustomLocalization("RandomWords.Help").Value;
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -151,7 +150,6 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				return this.GetLocalizedValue("DyingText");
 			}
-			MordenDialogue mordendialogue = Main.LocalPlayer.GetModPlayer<MordenDialogue>();
 
 			List<string> options = [];
 			if (false) // add conditions later
@@ -161,6 +159,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			if (BossesKilled < 3)
 			{
+				options.Add(this.GetLocalizedValue("Help.SpiritWeapon"));
 				options.Add(this.GetLocalizedValue("Help.Early1"));
 				options.Add(this.GetLocalizedValue("Help.WorldofMagic"));
 				options.Add(this.GetLocalizedValue("Help.WeaponSkills"));
@@ -196,29 +195,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			if (NPC.downedBoss2 && !Main.hardMode)
 			{
-				if (WorldGen.SavedOreTiers.Copper == TileID.Copper)
-				{
-					if (WorldGen.SavedOreTiers.Gold == TileID.Gold)
-					{
-						options.Add(this.GetLocalizedValue("Help.BronzeTipCopperGold"));
-					}
-					else
-					{
-						options.Add(this.GetLocalizedValue("Help.BronzeTipCopperPlatinum"));
-					}
-				}
-				else
-				{
-					if (WorldGen.SavedOreTiers.Gold == TileID.Gold)
-					{
-						options.Add(this.GetLocalizedValue("Help.BronzeTipTinGold"));
-					}
-					else
-					{
-						options.Add(this.GetLocalizedValue("Help.BronzeTipTinPlatinum"));
-					}
-				}
-				
+				options.Add(Mod.CustomLocalization(this.GetLocalizationKey("Help.BronzeTip"), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Copper), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Gold)).Value);
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
@@ -263,15 +240,18 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.PlantTip"));
 			}
 
-			options.RemoveAll(e => e == mordendialogue.LastHelp);
+			options.RemoveAll(e => e == LastHelp);
 
 			if (options.Count == 0)
 				return this.GetLocalizedValue("Help.NothingToSay");
 
 			string chosen = Main.rand.Next(options);
-			Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastHelp = chosen;
+			LastHelp = chosen;
 			return chosen;
 		}
+
+		private static string LastDialogue = "";
+		private static string LastHelp = "";
 
 		public override string GetChat()
 		{
@@ -300,13 +280,13 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Chat.StrongWarrior"));
 			}
 
-			options.RemoveAll(e => e == Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue);
+			options.RemoveAll(e => e == LastDialogue);
 
 			if (options.Count == 0)
 				return this.GetLocalizedValue("Chat.Hello");
 
 			string chosen = Main.rand.Next(options);
-			Main.LocalPlayer.GetModPlayer<MordenDialogue>().LastDialogue = chosen;
+			LastDialogue = chosen;
 			return chosen;
 		}
 
@@ -327,11 +307,5 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override bool CanTownNPCSpawn(int numTownNPCs) => ArcaneOdysseyConfig.Instance.EnableMorden;
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
-	}
-
-	public class MordenDialogue : ModPlayer
-	{
-		public string LastDialogue = "";
-		public string LastHelp = "";
 	}
 }

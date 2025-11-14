@@ -15,8 +15,6 @@ using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Other;
 using static ArcaneOdyssey.AOUtils;
-using System.Text.RegularExpressions;
-using ArcaneOdyssey.Content.Items.Weapons.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -106,7 +104,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual void ExplosionEffects(Entity entity) { }
 
 
-		public bool FirstFrame = true;
+		private bool FirstFrame = true;
 
 		public override bool CanUseItem(Player player)
 		{
@@ -220,24 +218,20 @@ namespace ArcaneOdyssey.Content.Items.Base
 					RecipeGroup.RegisterGroup($"{ArcaneOdyssey.InternalName}:PoseidonSpirit", group);
 					CreateRecipe().AddRecipeGroup(group).DisableDecraft().Register();
 				}
-				//if (this is EaglePatrimony)
-				//{
-				//    CreateRecipe().AddIngredient<PoseidonChoice>().DisableDecraft().Register();
-				//}
 			}
 
 			if (this is BasicCombat)
 			{
 				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
 				RecipeGroup.RegisterGroup($"{ArcaneOdyssey.InternalName}:AnyBasicImbue", goru);
-				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonChoice>());
+				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonSpirit>());
 				recipe.AddRecipeGroup(goru);
 				recipe.AddIngredient<Acrimony>();
 				recipe.DisableDecraft().Register();
 			}
 		}
 
-		public string ModifyTooltipsPrefixThing { get
+		public string ModifyTooltipsPrefix { get
 			{
 				if (this is AOMagic) { return "Magic"; }
 				if (this is FightingStyle) { return "FS"; }
@@ -247,8 +241,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (this is not FrogMagic && ModifyTooltipsPrefixThing is not null)
-				tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefixThing}TierLines.{ImbuableTier}").Value));
+			if (this is not FrogMagic && ModifyTooltipsPrefix is not null)
+				tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
 	}
 }

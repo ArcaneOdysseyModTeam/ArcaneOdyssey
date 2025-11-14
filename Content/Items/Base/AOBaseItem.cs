@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.VFX.Rarities;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {

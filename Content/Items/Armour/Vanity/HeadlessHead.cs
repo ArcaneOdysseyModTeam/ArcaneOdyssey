@@ -2,7 +2,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Items.Base;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 {

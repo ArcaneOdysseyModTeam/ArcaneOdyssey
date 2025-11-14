@@ -36,28 +36,28 @@ namespace ArcaneOdyssey
 			{
 				projectile.Kill();
 			}
-            if (entity is Item item)
-            {
-                item.active = false;
-            }
-            if (entity is Player player)
-            {
-                player.statLife = 0;
-            }
-            if (entity is NPC npc)
-            {
-                npc.StrikeInstantKill();
-            }
+			if (entity is Item item)
+			{
+				item.active = false;
+			}
+			if (entity is Player player)
+			{
+				player.statLife = 0;
+			}
+			if (entity is NPC npc)
+			{
+				npc.StrikeInstantKill();
+			}
 		}
 
-        public static StatInheritanceData ThreeQuartersInheritance => QuickInheritance(.75f);
-        public static StatInheritanceData QuarterInheritance => QuickInheritance(.25f);
-        public static StatInheritanceData HalfInheritance => QuickInheritance(.5f);
-        public static StatInheritanceData QuickInheritance(float num) => new(num, num, num, num, num); // makes me hungry
-        public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
+		public static StatInheritanceData ThreeQuartersInheritance => QuickInheritance(.75f);
+		public static StatInheritanceData QuarterInheritance => QuickInheritance(.25f);
+		public static StatInheritanceData HalfInheritance => QuickInheritance(.5f);
+		public static StatInheritanceData QuickInheritance(float num) => new(num, num, num, num, num); // makes me hungry
+		public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
 
 
-        public static bool BossAlive()
+		public static bool BossAlive()
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
@@ -87,10 +87,10 @@ namespace ArcaneOdyssey
 
 		public static float Clamp(this float num, float min, float max) => MathHelper.Clamp(num, min, max);
 
-        public static void AverageDimensions(this Entity projectile)
-        {
-            projectile.width = projectile.height = (projectile.width + projectile.height) / 2;
-        }
+		public static void AverageDimensions(this Entity projectile)
+		{
+			projectile.width = projectile.height = (projectile.width + projectile.height) / 2;
+		}
 
 		public static List<Imbuable> GetAllImbues(this Player owner)
 		{
@@ -194,15 +194,15 @@ namespace ArcaneOdyssey
 			if (projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 			{
 				return (
-                        projectile.DamageType.CountsAsClass(DamageClass.Melee) 
-                        || projectile.DamageType.CountsAsClass(DamageClass.Ranged) 
-                        || projectile.ModProjectile is MagicSpell or StrengthTechnique or MagicCircle1 or MagicCircle2 or ExplosionTracker
-                    ) 
-                    && projectile.ModProjectile is not MagicCircle1 or MagicCircle2
+						projectile.DamageType.CountsAsClass(DamageClass.Melee) 
+						|| projectile.DamageType.CountsAsClass(DamageClass.Ranged) 
+						|| projectile.ModProjectile is MagicSpell or StrengthTechnique or MagicCircle1 or MagicCircle2 or ExplosionTracker
+					) 
+					&& projectile.ModProjectile is not MagicCircle1 or MagicCircle2
 					&& projectile.owner != 255 
-                    && !projectile.hostile 
-                    && !projectile.npcProj 
-                    && projectile.type != ProjectileID.FallingStar;
+					&& !projectile.hostile 
+					&& !projectile.npcProj 
+					&& projectile.type != ProjectileID.FallingStar;
 			}
 			return false;
 		}
@@ -212,40 +212,40 @@ namespace ArcaneOdyssey
 			if (item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
 				return item.DamageType.CountsAsClass(DamageClass.Melee) 
-                    || item.DamageType.CountsAsClass(DamageClass.Ranged) 
-                    || 
-                    (
-                        item.ModItem is not null 
-                        && item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll))
-                    );
+					|| item.DamageType.CountsAsClass(DamageClass.Ranged) 
+					|| 
+					(
+						item.ModItem is not null 
+						&& item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll))
+					);
 			}
 			return false;
 		}
 
-        public static int FromAODefense(this int val) => (int)Math.Round(val / 18f);
+		public static int FromAODefense(this int val) => (int)Math.Round(val / 18f);
 
 		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
 
 		public static bool TryGetImbue(this Item item, out Imbuable imbue)
 		{
-			imbue = item.ArcaneOdyssey().Imbue;
+			imbue = item.ArcaneOdyssey()?.Imbue;
 			return imbue is not null;
 		}
 
 		public static bool TryGetImbue(this Projectile projectile, out Imbuable imbue)
 		{
-			imbue = projectile.ArcaneOdyssey().Imbue;
+			imbue = projectile.ArcaneOdyssey()?.Imbue;
 			return imbue is not null;
 		}
 
 		public static bool TryGetImbue(this Player player, out Imbuable imbue)
 		{
-			imbue = player.ArcaneOdyssey().Imbue;
+			imbue = player.ArcaneOdyssey()?.Imbue;
 			return imbue is not null;
 		}
 		public static bool TryGetImbue(this ModPlayer player, out Imbuable imbue)
 		{
-			imbue = player.Player.ArcaneOdyssey().Imbue;
+			imbue = player.Player.ArcaneOdyssey()?.Imbue;
 			return imbue is not null;
 		}
 
@@ -254,18 +254,18 @@ namespace ArcaneOdyssey
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 
 
-        public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
-        {
-            if (player is not null && player.active && player.TryArcaneOdyssey(out var playah))
-            {
-                playah.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
-            }
-            npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
-        }
+		public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
+		{
+			if (player is not null && player.active && player.TryArcaneOdyssey(out var playah))
+			{
+				playah.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
+			}
+			npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
+		}
 
 
 
-        public static bool PlayerHasImbue(this Imbuable imbue, Player player)
+		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
 		{
 			var type = imbue.GetType();
 			if (imbue is SteamImbue steam)
@@ -493,242 +493,6 @@ namespace ArcaneOdyssey
 		#endregion
 
 		#region structs and enums
-
-		public struct WeaponAbility(Mod mod, string name, string description = "No description", Color? color = null)
-		{
-			public static string Key(Mod mod, string name)
-			{
-				return $"Mods.{mod.Name}.WeaponAbilities." + name.Replace(" ", null);
-			}
-
-			public string Name = name;
-			public string Description = description;
-			public Color? Colour = color;
-			public Mod mod = mod;
-			public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
-			public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
-
-
-			public readonly TooltipLine GenerateTooltip()
-			{
-				string text = "";
-				if (Colour.HasValue)
-				{
-					text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}]";
-				}
-				else
-				{
-					text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}";
-				}
-				text += $": {LocalizedDescription.Value}";
-				return new TooltipLine(mod, "AOAbility", text);
-			}
-		}
-
-        public enum DashType
-        {
-            Standard,
-            Burst,
-            Instant
-        }
-
-		/// <summary>
-		/// Helper struct for set bonuses
-		/// </summary>
-		/// <param name="mod">This mod</param>
-		/// <param name="name">The name of the set bonus</param>
-		/// <param name="description">The description of this set bonus</param>
-		/// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
-		/// <param name="colour">The colour of this set</param>
-		public struct SetBonusHelper(Mod mod, string name, string description, string[] otherItems, Color? colour = null)
-		{
-			public Mod Mod = mod;
-			public string Name = name;
-			public string Description = description;
-			public Color? Colour = colour;
-			public string[] OtherItems = otherItems;
-
-            public static string Key(Mod mod, string name)
-            {
-                return $"Mods.{mod.Name}.ArmourSetTooltips." + name.Replace(" ", null);
-            }
-
-            public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
-            public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
-
-            public readonly string GenerateTooltip()
-			{
-				string text = "";
-                if (Colour.HasValue)
-                {
-                    text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
-                }
-                else
-                {
-                    text += LocalizedName.Value;
-                }
-                text += $" - {LocalizedDescription.Value}";
-                return text;
-			}
-		}
-
-		public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce)
-		{
-			public int Size = size;
-			public int Attkspeed = attkspeed;
-			public int Power = power;
-			public int Pierce = pierce;
-			public int Defence = defence;
-			public int Agility = agility;
-
-			public readonly ImbueArmourStats Corrected(Imbuable imbue)
-			{
-				if (imbue is FightingStyleBarred barred)
-				{
-					return new ImbueArmourStats(
-						MathHelper.Lerp(0, Size, barred.LerpValue).Round(),
-						MathHelper.Lerp(0, Attkspeed, barred.LerpValue).Round(),
-						MathHelper.Lerp(0, Power, barred.LerpValue).Round(),
-						MathHelper.Lerp(0, Defence, barred.LerpValue).Round(),
-						MathHelper.Lerp(0, Agility, barred.LerpValue).Round(),
-						MathHelper.Lerp(0, Pierce, barred.LerpValue).Round()
-						);
-				}
-				return this;
-			}
-		}
-		public enum ItemType
-		{
-			Block,
-			Ammo,
-			Item,
-			Material,
-			Accessory,
-			Armour,
-			Relic,
-			Weapon,
-			Tool,
-			Vanity
-		}
-
-		/// <summary>
-		/// Arcane Odyssey rarities, converted to RarityID
-		/// </summary>
-
-		public enum AORarities
-		{
-			Unknown = ItemRarityID.Gray,
-			Common = ItemRarityID.White,
-			Uncommon = ItemRarityID.Green,
-			Rare = ItemRarityID.LightRed,
-			Mystic = ItemRarityID.LightPurple,
-			Arcane = ItemRarityID.Yellow,
-			Mythical = ItemRarityID.Red,
-			Special
-		}
-
-		public enum AOImbuableTier
-		{
-			Normal,
-			Lost,
-			Ancient,
-			Primordial, // unused
-			Developer,
-		}
-
-		/// <summary>
-		/// Arcane Odyssey weapon tiers, used for scaling
-		/// </summary>
-		public enum AOItemTiers
-		{
-			/// <summary>
-			/// Literally doesn't exist, don't bother
-			/// </summary>
-			None,
-			/// <summary>
-			/// Old weapons
-			/// </summary>
-			Poor,
-			/// <summary>
-			/// Bronze weapons
-			/// </summary>
-			Average,
-			/// <summary>
-			/// All the cool weapons
-			/// </summary>
-			Good, 
-			/// <summary>
-			/// Atleantean weapons+ use these, not in ao
-			/// </summary>
-			Great,
-
-		}
-
-		/// <summary>
-		/// Represents an AO debuff
-		/// </summary>
-		/// <param name="debuffid">Terraria.ID.BuffID</param>
-		/// <param name="duration">Duration, in ticks (60/second)</param>
-		/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
-		public struct AODebuffRequirement(int debuffid, int duration, int debuffRequiement = 0)
-		{
-			public float debuffPercent = debuffRequiement / 100f;
-			public int debuffID = debuffid;
-			public int debuffDuration = duration;
-		}
-
-        public struct ImbueDebuffHelper(Imbuable imbue, int damagedone, NPC npc, int buffID)
-        {
-            public Imbuable imbue = imbue;
-            public int damagedone = damagedone;
-            public NPC npc = npc;
-            public int buffID = buffID;
-        }
-
-        /// <summary>
-        /// Magic status effects
-        /// </summary>
-        public struct SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
-		{
-			public List<int> clearBuffs = [.. buffsToClear];
-			public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;
-			public readonly float MultiFromID(int id)
-			{
-				foreach (MagicBuffMultiplier multiplier in magicBuffMultipliers)
-				{
-					if (multiplier.buffID == id)
-					{
-						return multiplier.multiplier;
-					}
-				}
-				return 1f;
-			}
-		}
-
-		/// <summary>
-		/// sahhhhhduiahyfoahgoaig
-		/// </summary>
-		/// <param name="requirement"></param>
-		/// <param name="result"></param>
-		/// <param name="duration"></param>
-		public struct CombinedDebuff(int requirement, int result, int duration = 60)
-		{
-			public int requirement = requirement;
-			public int result = result;
-			public int duration = duration;
-		}
-
-		/// <summary>
-		/// Damage multipliers from having debuffs interact
-		/// </summary>
-		/// <param name="buffid">Terraria.ID.BuffID</param>
-		/// <param name="multi">Damage multipier (ex. 1.25f)</param>
-		public struct MagicBuffMultiplier(int buffid, float multi)
-		{
-			public int buffID = buffid;
-			public float multiplier = multi;
-		}
-
 		#endregion
 
 		#region Random Math Functions
@@ -812,15 +576,14 @@ namespace ArcaneOdyssey
 
 		public static bool GetThisImbue(this Imbuable imbue, Player player)
 		{
-			if (player.TryGetImbue(out var playerimbue))
+			if (imbue is not null)
 			{
 				foreach (var item in player.inventory)
 				{
 					if (item.active)
 					{
-						if (item.Name == playerimbue.DisplayName.Value)
+						if (item.Name == imbue.DisplayName.Value)
 						{
-							imbue = playerimbue;
 							return true;
 						}
 					}
@@ -840,17 +603,17 @@ namespace ArcaneOdyssey
 		public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile.Projectile.GetGlobalProjectile<AOProjectile>();
 		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
 
-		public static IImbuableEntity AnyArcaneOdyssey(this Entity entity)
+		public static IImbuable AnyArcaneOdyssey(this Entity entity)
 		{
-            if (entity is Projectile projectile)
-            {
-                if (projectile.ModProjectile is AOPlayerProjectile proj)
-                {
-                    return proj;
-                }
-                else
-                    return projectile.GetGlobalProjectile<AOProjectile>();
-            }
+			if (entity is Projectile projectile)
+			{
+				if (projectile.ModProjectile is AOPlayerProjectile proj)
+				{
+					return proj;
+				}
+				else
+					return projectile.GetGlobalProjectile<AOProjectile>();
+			}
 			if (entity is Player player)
 				return player.GetModPlayer<AOPlayer>();
 			if (entity is Item item)
@@ -864,7 +627,243 @@ namespace ArcaneOdyssey
 		#endregion
 	}
 
-	public interface IImbuableEntity
+	public struct WeaponAbility(Mod mod, string name, string description = null, Color? color = null)
+	{
+		public static string Key(Mod mod, string name)
+		{
+			return $"Mods.{mod.Name}.WeaponAbilities." + name.Replace(" ", null);
+		}
+
+		public string Name = name;
+		public string Description = description;
+		public Color? Colour = color;
+		public Mod mod = mod;
+		public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
+		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
+
+
+		public readonly TooltipLine GenerateTooltip()
+		{
+			string text = "";
+			if (Colour.HasValue)
+			{
+				text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}]";
+			}
+			else
+			{
+				text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}";
+			}
+            if (Description is not null)
+			    text += $": {LocalizedDescription.Value}";
+			return new TooltipLine(mod, "AOAbility", text);
+		}
+	}
+
+	public enum DashType
+	{
+		Standard,
+		Burst,
+		Instant
+	}
+
+	/// <summary>
+	/// Helper struct for set bonuses
+	/// </summary>
+	/// <param name="mod">This mod</param>
+	/// <param name="name">The name of the set bonus</param>
+	/// <param name="description">The description of this set bonus</param>
+	/// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
+	/// <param name="colour">The colour of this set</param>
+	public struct SetBonusHelper(Mod mod, string name, string description, string[] otherItems, Color? colour = null)
+	{
+		public Mod Mod = mod;
+		public string Name = name;
+		public string Description = description;
+		public Color? Colour = colour;
+		public string[] OtherItems = otherItems;
+
+		public static string Key(Mod mod, string name)
+		{
+			return $"Mods.{mod.Name}.ArmourSetTooltips." + name.Replace(" ", null);
+		}
+
+		public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
+		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
+
+		public readonly string GenerateTooltip()
+		{
+			string text = "";
+			if (Colour.HasValue)
+			{
+				text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
+			}
+			else
+			{
+				text += LocalizedName.Value;
+			}
+			text += $" - {LocalizedDescription.Value}";
+			return text;
+		}
+	}
+
+	public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce)
+	{
+		public int Size = size;
+		public int Attkspeed = attkspeed;
+		public int Power = power;
+		public int Pierce = pierce;
+		public int Defence = defence;
+		public int Agility = agility;
+
+		public readonly ImbueArmourStats Corrected(Imbuable imbue)
+		{
+			if (imbue is FightingStyleBarred barred)
+			{
+				return new ImbueArmourStats(
+					MathHelper.Lerp(0, Size, barred.LerpValue).Round(),
+					MathHelper.Lerp(0, Attkspeed, barred.LerpValue).Round(),
+					MathHelper.Lerp(0, Power, barred.LerpValue).Round(),
+					MathHelper.Lerp(0, Defence, barred.LerpValue).Round(),
+					MathHelper.Lerp(0, Agility, barred.LerpValue).Round(),
+					MathHelper.Lerp(0, Pierce, barred.LerpValue).Round()
+					);
+			}
+			return this;
+		}
+	}
+	public enum ItemType
+	{
+		Block,
+		Ammo,
+		Item,
+		Material,
+		Accessory,
+		Armour,
+		Relic,
+		Weapon,
+		Tool,
+		Vanity
+	}
+
+	/// <summary>
+	/// Arcane Odyssey rarities, converted to RarityID
+	/// </summary>
+
+	public enum AORarities
+	{
+		Unknown = ItemRarityID.Gray,
+		Common = ItemRarityID.White,
+		Uncommon = ItemRarityID.Green,
+		Rare = ItemRarityID.LightRed,
+		Mystic = ItemRarityID.LightPurple,
+		Arcane = ItemRarityID.Yellow,
+		Mythical = ItemRarityID.Red,
+		Special
+	}
+
+	public enum AOImbuableTier
+	{
+		Normal,
+		Lost,
+		Ancient,
+		Primordial, // unused
+		Developer,
+	}
+
+	/// <summary>
+	/// Arcane Odyssey weapon tiers, used for scaling
+	/// </summary>
+	public enum AOItemTiers
+	{
+		/// <summary>
+		/// Literally doesn't exist, don't bother
+		/// </summary>
+		None,
+		/// <summary>
+		/// Old weapons
+		/// </summary>
+		Poor,
+		/// <summary>
+		/// Bronze weapons
+		/// </summary>
+		Average,
+		/// <summary>
+		/// All the cool weapons
+		/// </summary>
+		Good,
+		/// <summary>
+		/// Atleantean weapons+ use these, not in ao
+		/// </summary>
+		Great,
+
+	}
+
+	/// <summary>
+	/// Represents an AO debuff
+	/// </summary>
+	/// <param name="debuffid">Terraria.ID.BuffID</param>
+	/// <param name="duration">Duration, in ticks (60/second)</param>
+	/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
+	public struct AODebuffRequirement(int debuffid, int duration, int debuffRequiement = 0)
+	{
+		public float debuffPercent = debuffRequiement / 100f;
+		public int debuffID = debuffid;
+		public int debuffDuration = duration;
+	}
+
+	public struct ImbueDebuffHelper(Imbuable imbue, int damagedone, NPC npc, int buffID)
+	{
+		public Imbuable imbue = imbue;
+		public int damagedone = damagedone;
+		public NPC npc = npc;
+		public int buffID = buffID;
+	}
+
+	/// <summary>
+	/// Magic status effects
+	/// </summary>
+	public struct SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
+	{
+		public List<int> clearBuffs = [.. buffsToClear];
+		public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;
+		public readonly float MultiFromID(int id)
+		{
+			foreach (MagicBuffMultiplier multiplier in magicBuffMultipliers)
+			{
+				if (multiplier.buffID == id)
+				{
+					return multiplier.multiplier;
+				}
+			}
+			return 1f;
+		}
+	}
+
+	/// <summary>
+	/// sahhhhhduiahyfoahgoaig
+	/// </summary>
+	/// <param name="requirement"></param>
+	/// <param name="result"></param>
+	/// <param name="duration"></param>
+	public struct CombinedDebuff(int requirement, int result, int duration = 60)
+	{
+		public int requirement = requirement;
+		public int result = result;
+		public int duration = duration;
+	}
+
+	/// <summary>
+	/// Damage multipliers from having debuffs interact
+	/// </summary>
+	/// <param name="buffid">Terraria.ID.BuffID</param>
+	/// <param name="multi">Damage multipier (ex. 1.25f)</param>
+	public struct MagicBuffMultiplier(int buffid, float multi)
+	{
+		public int buffID = buffid;
+		public float multiplier = multi;
+	}
+
+	public interface IImbuable
 	{
 		public Imbuable Imbue { get; set; }
 	}

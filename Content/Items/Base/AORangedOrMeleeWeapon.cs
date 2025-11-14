@@ -8,7 +8,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AORangedOrMeleeWeapon : AOBaseItem, ILocalizedModType, IImbuableEntity
+	public abstract class AORangedOrMeleeWeapon : AOBaseItem, ILocalizedModType, IImbuable
 	{
 		public override string LocalizationCategory => "Items.Weapons";
 
