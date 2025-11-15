@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
         public override List<Type> Skills => [typeof(AetherBlast), typeof(AetherPulsar), typeof(AetherCannon)];
 
 		public override void SpawningEffects(Entity projectile) 
-			{
+		{
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowStarDust, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 3f)];
@@ -68,12 +68,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			}
 
-		public override void LingeringEffects(Entity projectile)
-		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.YellowStarDust, 0f, 0f, 0, default, 1f)];
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.YellowTorch, 0f, 0f, 0, default, 2f)];
-			spawnedDust2.noGravity = true;
-			Lighting.AddLight(projectile.position, 2, 2, 0);
+        public override void LingeringEffects(Entity projectile)
+        {
+            if (!Main.dedServ) 
+            { 
+                Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.YellowStarDust, 0f, 0f, 0, default, 1f);
+                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.YellowTorch, 0f, 0f, 0, default, 2f)];
+                spawnedDust.noGravity = true;
+                Lighting.AddLight(projectile.position, 2, 2, 0); 
+            }
 		}
 
 		public override void ExplosionEffects(Entity projectile)

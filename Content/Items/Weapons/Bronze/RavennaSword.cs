@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
@@ -41,8 +42,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
             if (player.ownedProjectileCounts[Item.shoot] < 1 && !player.ArcaneOdyssey().OnCooldown(nameof(WhirlwindCooldown)))
             {
                 player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown().AOCooldown);
-                var proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
-                ((Whirlwind)proj.ModProjectile).colour = this.Imbue()?.GetColor(Color.Orange) ?? Color.Orange;
+                var proj = Projectile.NewProjectileDirect(new EntitySource_ItemUse(player, Item), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
+                ((Whirlwind)proj.ModProjectile).colour = proj.Imbue()?.GetColor(Color.Orange) ?? Color.Orange;
                 SoundEngine.PlaySound(Item.UseSound, player.Center);
             }
             return true;

@@ -35,19 +35,27 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 				float progress;
 				Vector2 dustpos;
 
-				var offsetpoint = Vector2.Lerp(player.MountedCenter, npc.Center, Main.rand.NextFloat());
-                offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) / 5f;
+				var offsetpoint = Vector2.Lerp(player.MountedCenter, npc.Center, .5f);
 
 				if (!progressed)
 				{
 					progress = MathHelper.Clamp(i / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
-					dustpos = Vector2.Lerp(player.MountedCenter, offsetpoint, progress);
 				}
 				else
 				{
-					progress = MathHelper.Clamp((i - (player.MountedCenter.Distance(npc.Center) / 2f)) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
-					dustpos = Vector2.Lerp(offsetpoint, npc.Center, progress);
+					progress = 1f - MathHelper.Clamp((i - (player.MountedCenter.Distance(npc.Center) / 2f)) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
 				}
+
+                offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) / 5f * progress * Main.rand.NextFloat();
+
+                if (!progressed)
+                {
+                    dustpos = Vector2.Lerp(player.MountedCenter, offsetpoint, progress);
+                }
+                else
+                {
+                    dustpos = Vector2.Lerp(npc.Center, offsetpoint, progress);
+                }
 
 				if (i % 20 == 0)
 				{

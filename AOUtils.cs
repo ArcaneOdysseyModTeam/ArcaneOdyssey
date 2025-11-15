@@ -817,7 +817,9 @@ namespace ArcaneOdyssey
 		public int damagedone = damagedone;
 		public NPC npc = npc;
 		public int buffID = buffID;
-	}
+
+        internal static int[] AlternateBuff = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
+    }
 
 	/// <summary>
 	/// Magic status effects

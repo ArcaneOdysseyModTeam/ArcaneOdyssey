@@ -71,27 +71,33 @@ namespace ArcaneOdyssey
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
+            // onfire is 4 * 2, or 8
+            // poison is 6 * 2, or 12
+            // frostburn is 8 * 2, or 16
+            // shadowflame is 15 * 2, or 30
+            // cursed inferno is 24 * 2, or 48
+            // acid venom is 30 * 2, or 60
 			if (npc.ModNPC is not Edgelord) // morden is immune to dot lol
 			{
 				if (Bleeding)
 				{
-					npc.lifeRegen -= 3;
+					npc.lifeRegen -= 10;
 				}
 				if (HeavyBleeding)
 				{
-					npc.lifeRegen -= 6;
+					npc.lifeRegen -= 20;
 				}
 				if (Scalding)
 				{
-					npc.lifeRegen -= 5;
+					npc.lifeRegen -= 25;
 				}
 				if (Seared)
 				{
-					npc.lifeRegen -= 4;
+					npc.lifeRegen -= 15;
 				}
                 if (ElecToxins)
                 {
-                    npc.lifeRegen -= 10;
+                    npc.lifeRegen -= 80;
                 }
 			}
 		}

@@ -22,9 +22,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			AOPlayer playah = player.ArcaneOdyssey();
 			Item.ArcaneOdyssey().Imbue = playah.Imbue;
 			if (playah.Imbue is AOMagic)
-			{
-				Item.color = playah.Imbue.GetColor();
-				player.GetJumpState<LeapAirStep>().Enable();
+            {
+                Item.color = playah.Imbue.GetColor() with { A = (byte)(255 * .75f) };
+                player.GetJumpState<LeapAirStep>().Enable();
 			}
 			else Item.color = Color.Transparent;
 		}

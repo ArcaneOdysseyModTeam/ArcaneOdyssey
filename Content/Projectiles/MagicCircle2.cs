@@ -58,7 +58,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 			}
 			else
 			{
-				aoPlayerOwner.myCircle = null;
 				aoPlayerOwner.chargingSpell = false;
 			}
 
@@ -112,8 +111,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 		}
 
 		public override void OnKill(int timeLeft)
-		{
-			Main.player[Projectile.owner].ArcaneOdyssey().myCircle = null;
+        {
+            aoPlayerOwner.myCircle = null;
 			Main.player[Projectile.owner].channel = false;
 		}
 	}

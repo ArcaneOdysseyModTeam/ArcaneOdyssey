@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10, ChargingProjectile, Projectile.damage, 4.5f * this.Imbue.AOScrollSize * (this.Imbue is WindMagic or Boxing ? 3f : 1f) * charge, Projectile.owner);
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, Projectile.damage, 4.5f * Imbue.AOScrollSize * (Imbue is WindMagic or Boxing ? 3f : 1f) * charge, Projectile.owner);
 					if (proj.ModProjectile is CannonSpell)
 					{
 						proj.ArcaneOdyssey().BaseScale = 2;

@@ -35,25 +35,30 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Player player = aoPlayerOwner.Player;
-			Projectile.rotation += (MathHelper.Pi / (MaxTime / 2) * 1.1f) * (Imbue?.AOImbueSpeed ?? 1f);
-			Projectile.Center = player.MountedCenter + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale);
-            player.itemRotation = player.itemAnimation = 5;
+			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed ?? 1f) * player.direction * (MaxTime - Projectile.timeLeft);
+			Projectile.Center = player.MountedCenter + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale * player.direction);
+            player.itemTime = player.itemAnimation = 5;
             player.itemRotation = player.MountedCenter.DirectionTo(Projectile.Center).ToRotation() - MathHelper.Pi + (MathHelper.Pi / (AfterimageCount / .5f));
-            player.direction = ((Projectile.Center.X > 0).ToDirectionInt());
+            //if (player.direction == -1)
+            //{
+            //    player.itemRotation += MathHelper.Pi;
+            //}
+            //player.direction = ((Projectile.Center.X > 0).ToDirectionInt());
             //Projectile.alpha = (255 / AfterimageCount * 2).Round();
         }
 
 		public override bool PreDraw(ref Color lightColour)
 		{
 			Player player = aoPlayerOwner.Player;
-            var rotoffset = MathHelper.Pi / (AfterimageCount * 2);
+            var rotoffset = MathHelper.Pi / (AfterimageCount * 2) * player.direction;
             for (float i = 1; i < AfterimageCount + 1; i++)
             {
+                var mode = player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
                 var rotoffset1 = rotoffset * i;
                 var adjustedrotation1 = player.MountedCenter + ((Projectile.rotation + rotoffset1).ToRotationVector2() * 44f * Projectile.scale);
                 var colour1 = Color.Lerp(Color.Transparent with { A = lightColour.A }, colour, 1f / AfterimageCount * i);// with { A = (byte)(255 / AfterimageCount * i) };
                 var scale = Projectile.scale - (Projectile.scale / 18f * AfterimageCount) + (Projectile.scale / 18f * i);
-                Main.EntitySpriteDraw(Sprite, adjustedrotation1 - Main.screenPosition, null, colour1, Projectile.rotation + rotoffset1, Projectile.GetDrawOriginCentre(), scale, SpriteEffects.None);
+                Main.EntitySpriteDraw(Sprite, adjustedrotation1 - Main.screenPosition, null, colour1, Projectile.rotation + rotoffset1, Projectile.GetDrawOriginCentre(), scale, mode);
                 Lighting.AddLight(adjustedrotation1, colour1.R / 255f * Projectile.scale, colour1.G / 255f * Projectile.scale, colour1.B / 255f * Projectile.scale);
             }
             return AfterimageCount < 1;

@@ -13,6 +13,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace ArcaneOdyssey
 {
@@ -83,6 +84,7 @@ namespace ArcaneOdyssey
                 }
             }
         }
+
         public override void SetDefaults(Projectile entity)
         {
             if (ArcaneOdyssey.excludedProjectiles.Contains(entity.type))
@@ -132,8 +134,12 @@ namespace ArcaneOdyssey
 				if (Imbue.CombinedDebuffs is not null)
 				{
 					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
-					{
-						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+                    {
+                        if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffkeys.requirement]) || (ImbueDebuffHelper.AlternateBuff[buffkeys.requirement] == BuffID.Wet && target.wet))
+                        {
+                            target.AddBuff(buffkeys.result, buffkeys.duration);
+                        }
+                        if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
 							target.AddBuff(buffkeys.result, buffkeys.duration);
 						}
@@ -141,8 +147,12 @@ namespace ArcaneOdyssey
 				}
 
 				foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
-				{
-					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+                {
+                    if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[multiplier.buffID]) || (ImbueDebuffHelper.AlternateBuff[multiplier.buffID] == BuffID.Wet && target.wet))
+                    {
+                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+                    }
+                    if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
 						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
 					}
@@ -151,8 +161,12 @@ namespace ArcaneOdyssey
 				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 				{
 					foreach (int buffid in Imbue.Effects.clearBuffs)
-					{
-						if (target.HasBuff(buffid))
+                    {
+                        if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffid]))
+                        {
+                            target.DelBuff(target.FindBuffIndex(ImbueDebuffHelper.AlternateBuff[buffid]));
+                        }
+                        if (target.HasBuff(buffid))
 						{
 							target.DelBuff(target.FindBuffIndex(buffid));
 						}
@@ -197,7 +211,7 @@ namespace ArcaneOdyssey
 
 				if (Imbue is not null && Imbue.PreEffects(projectile))
                 {
-                    if (spawnedbyprojectile)
+                    if (spawnedbyprojectile && !projectile.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed))
                     {
                         if (magicspeed)
                         {

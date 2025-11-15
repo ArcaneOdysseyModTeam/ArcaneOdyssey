@@ -18,31 +18,31 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
             }
             npc.lifeRegen -= 25 + (30 * GetBurnStacks(npc));
         }
-        private int BurnStack(int buff, NPC npc)
+
+        private static int GetBurnStacks(NPC npc)
         {
-            if (npc.HasBuff(buff))
+            int BurnStack(int buff)
             {
-                return 1;
+                if (npc.HasBuff(buff))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            else
-            {
-                return 0;
-            }
-        }
-        private int GetBurnStacks(NPC npc)
-        {
             int burnCount = 0;
-            burnCount = 0;
-            burnCount += BurnStack(BuffID.OnFire, npc);
-            burnCount += BurnStack(BuffID.ShadowFlame, npc);
-            burnCount += BurnStack(BuffID.OnFire3, npc);
-            burnCount += BurnStack(BuffID.CursedInferno, npc);
-            burnCount += BurnStack(BuffID.Daybreak, npc);
-            burnCount += BurnStack(BuffID.Frostburn, npc);
-            burnCount += BurnStack(BuffID.Oiled, npc);
-            burnCount += BurnStack(BuffID.Slimed, npc);
-            burnCount += BurnStack(ModContent.BuffType<CharredEffect>(), npc);
-            burnCount += BurnStack(ModContent.BuffType<SearedEffect>(), npc);
+            burnCount += BurnStack(BuffID.OnFire);
+            burnCount += BurnStack(BuffID.ShadowFlame);
+            burnCount += BurnStack(BuffID.OnFire3);
+            burnCount += BurnStack(BuffID.CursedInferno);
+            burnCount += BurnStack(BuffID.Daybreak);
+            burnCount += BurnStack(BuffID.Frostburn);
+            burnCount += BurnStack(BuffID.Oiled);
+            burnCount += BurnStack(BuffID.Slimed);
+            burnCount += BurnStack(ModContent.BuffType<CharredEffect>());
+            burnCount += BurnStack(ModContent.BuffType<SearedEffect>());
             return burnCount;
         }
     }
