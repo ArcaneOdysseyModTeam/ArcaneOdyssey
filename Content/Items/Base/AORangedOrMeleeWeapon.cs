@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override string LocalizationCategory => "Items.Weapons";
 
-        public Imbuable Imbue {  get => Item.ArcaneOdyssey().Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
+        public Imbuable Imbue { get => Item.ArcaneOdyssey().Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
         public virtual bool CanHaveImbue => true;
 

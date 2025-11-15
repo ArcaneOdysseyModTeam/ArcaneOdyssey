@@ -94,22 +94,22 @@ namespace ArcaneOdyssey
 				{
 					tooltips.Add(weapon.Ability.Value.GenerateTooltip());
 				}
+            }
 
-				if (weapon.Arcanium.HasValue)
-				{
-					if (weapon.Arcanium.Value)
-					{
-						tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
-					}
-					else
-					{
-						tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
-					}
-				}
-			}
+            if (item.ArcaneOdyssey().Arcanium.HasValue)
+            {
+                if (item.ArcaneOdyssey().Arcanium.Value)
+                {
+                    tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+                }
+                else
+                {
+                    tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+                }
+            }
 
 
-			if (ImbueClassCheck(item) && item.active)
+            if (ImbueClassCheck(item) && item.active)
 			{
 				bool? coolred = null;
 				string imbuetextthing = Mod.CustomLocalization("RandomWords.None").Value;
@@ -180,6 +180,7 @@ namespace ArcaneOdyssey
 			set => _cold = value;
 		}
 
+        private bool? _arcanium = null;
 		public bool? Arcanium
 		{
 			get
@@ -188,8 +189,9 @@ namespace ArcaneOdyssey
 				{
 					return weap.Arcanium;
 				}
-				return null;
+				return _arcanium;
 			}
+            set => _arcanium = value;
 		}
 
 		public override GlobalItem Clone(Item from, Item to)
@@ -208,7 +210,7 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
 			{
-				if (item.ModItem is EmptyScroll || item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false))
+				if (item.ModItem is EmptyScroll || Arcanium.HasValue)
 				{
 					velocity *= Imbue.AOScrollSpeed;
 				}
@@ -220,13 +222,14 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-		{
-			if (!CanBeAffected)
+        {
+            thisItem = item;
+            if (!CanBeAffected)
 				return;
 			if (Imbue is not null)
 			{
 				knockback *= Imbue.KBMulti;
-				if (item.ModItem is MagicScroll || Arcanium.GetValueOrDefault())
+				if (item.ModItem is MagicScroll || Arcanium.HasValue)
 				{
 					knockback += Imbue.AOScrollSize.MultiToPercent();
 					return;
@@ -240,8 +243,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-		{
-			if (!CanBeAffected)
+        {
+            thisItem = item;
+            if (!CanBeAffected)
 				return;
 			if (item.ModItem is MagicScroll)
 			{
@@ -249,7 +253,7 @@ namespace ArcaneOdyssey
 			}
 			if (Imbue is not null)
 			{
-				if (item.ModItem is MagicScroll)
+				if (item.ModItem is MagicScroll || Arcanium.HasValue)
 				{
 					damage += Imbue.AOScrollDamage.MultiToPercent();
 					return;
@@ -263,8 +267,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void SetDefaults(Item item)
-		{
-			if (ArcaneOdyssey.excludedItems.Contains(item.type))
+        {
+            thisItem = item;
+            if (ArcaneOdyssey.excludedItems.Contains(item.type))
 			{
 				CanBeAffected = false;
 			}
@@ -330,6 +335,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
+            thisItem = item;
 			if (!CanBeAffected)
 				return;
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
@@ -337,7 +343,7 @@ namespace ArcaneOdyssey
 				scale += player.ArcaneOdyssey().SizeMulti;
 				if (Imbue is not null)
 				{
-					if (!Arcanium.GetValueOrDefault(false))
+					if (!Arcanium.HasValue)
 					{
 						scale += Imbue.AOImbueSize.MultiToPercent();
 					}
@@ -350,19 +356,23 @@ namespace ArcaneOdyssey
 		}
 
 		public override float UseSpeedMultiplier(Item item, Player player)
-		{
-			if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
-			{
-				if (item.ModItem is MagicScroll || Arcanium.GetValueOrDefault())
-				{
-					return Imbue.AOScrollSpeed;
-				}
+        {
+            thisItem = item;
+            if (CanBeAffected)
+            {
+                if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
+                {
+                    if (item.ModItem is MagicScroll || Arcanium.HasValue)
+                    {
+                        return Imbue.AOScrollSpeed;
+                    }
 
-				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-				{
-					return Imbue.AOImbueSpeed;
-				}
-			}
+                    if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+                    {
+                        return Imbue.AOImbueSpeed;
+                    }
+                }
+            }
 			return base.UseSpeedMultiplier(item, player);
 		}
 
@@ -453,8 +463,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (!CanBeAffected)
+        {
+            thisItem = item;
+            if (!CanBeAffected)
 				return;
 
 			if (player.meleeEnchant != 0 && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))

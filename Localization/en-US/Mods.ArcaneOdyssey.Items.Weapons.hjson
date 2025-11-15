@@ -87,3 +87,8 @@ StormCaller: {
 	DisplayName: Storm Caller
 	Tooltip: ""
 }
+
+LionsHalberd: {
+	DisplayName: Lion's Halberd
+	Tooltip: ""
+}

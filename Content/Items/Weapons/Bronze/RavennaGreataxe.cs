@@ -59,10 +59,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 	{
 		public override bool AnyDirection => true;
 		public override int Damage => 50;
-		public override int Cooldown => 600;
+		public override int Cooldown => 300;
 		public override float DashSpeed => 15;
 		public override int DashMax => 99999;
-		public override DamageClass DamageType => DamageClass.Melee;
+		public override DamageClass DamageType => TrueMelee();
 		public override float Knockback => 5;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target)

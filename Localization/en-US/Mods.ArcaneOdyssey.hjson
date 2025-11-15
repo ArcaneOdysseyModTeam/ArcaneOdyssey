@@ -189,15 +189,16 @@ Projectiles: {
 	FuryoftheSea.DisplayName: Fury of the Sea
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
-	PiercingStrikesProjectile.DisplayName: Piercing Strikes
+	PiercingStrikesProjectile.DisplayName: Bronze Rapier
 	Whirlwind.DisplayName: Whirlwind
 	BronzeStaffProjectile.DisplayName: Bronze Staff
 	BronzeTridentProjectile.DisplayName: Bronze Trident
-	KatanaSlash.DisplayName: Katana Slash
+	KatanaSlash.DisplayName: Slash
 	OldTridentProjectile.DisplayName: Old Trident
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
 	BronzeTriastaProjectile.DisplayName: Bronze Triasta
 	AetherExplosion.DisplayName: Aether Aftershock
 	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
+	SeismicSlashRock.DisplayName: Rock
 }
