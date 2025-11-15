@@ -206,7 +206,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			if (Main.hardMode && !DownedBosses.downedEvander)
 			{
-				options.Add(this.GetLocalizedValue("Help.StrengthWeaponsHint"));
+				options.Add(this.GetLocalizedValue("Help.EvanderWarning"));
 			}
 
 			if (DownedBosses.downedEvander) // argos or something might be here too

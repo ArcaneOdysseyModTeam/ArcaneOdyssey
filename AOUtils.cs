@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -27,6 +28,8 @@ namespace ArcaneOdyssey
 		public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey()?.Imbue;
+
+        public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
 
 		public static int Round(this float num) => (int)Math.Round(num);
 

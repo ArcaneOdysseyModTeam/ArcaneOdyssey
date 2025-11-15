@@ -97,8 +97,8 @@ NPCs: {
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
 			SunkenWeapon: Although made of Arcanium metal, that sword in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
-			StrengthWeaponsHint: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
-			HasStrengthWeapon: I see you've encountered a strong warrior. Such warriors wield weapons too heavy for regular warriors, and so they learn to use a fighting style.
+			EvanderWarning: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
+			HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
 			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
 			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing drink while using it.
 			WeaponSkills: Some weapons have special skills, make good use of them.

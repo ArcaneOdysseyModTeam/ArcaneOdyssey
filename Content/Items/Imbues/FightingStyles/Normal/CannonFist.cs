@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -80,7 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			if (source is not EntitySource_Parent { Entity: NPC })
 			{
 				var player = Main.player[projectile.owner].ArcaneOdyssey();
-				if (!player.OnCooldown("CannonFistShot"))
+				if (!player.OnCooldown("CannonFistShotCooldown"))
 				{
 					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist && !projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
 					{
@@ -96,6 +97,26 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			}
 		}
 	}
+
+    public class CannonFistItemShot : GlobalItem
+    {
+        public override void UseAnimation(Item item, Player player)
+        {
+            if (item.Imbue() is CannonFist && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(true))
+            {
+                if (!player.ArcaneOdyssey().OnCooldown("CannonFistShotCooldown"))
+                {
+                    if (player.ConsumeItem(ItemID.Cannonball))
+                    {
+                        Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (item.damage * .5f).Round(), item.knockBack * .5f, player.whoAmI);
+                    }
+                    else
+                        Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (item.damage * .25f).Round(), item.knockBack * .25f, player.whoAmI);
+                    player.ArcaneOdyssey().SetCooldown(new CannonFistShotCooldown().AOCooldown);
+                }
+            }
+        }
+    }
 
     public class CannonFistShotCooldown : CooldownSystem
     {
