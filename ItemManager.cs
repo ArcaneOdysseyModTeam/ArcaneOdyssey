@@ -94,22 +94,22 @@ namespace ArcaneOdyssey
 				{
 					tooltips.Add(weapon.Ability.Value.GenerateTooltip());
 				}
-            }
+			}
 
-            if (item.ArcaneOdyssey().Arcanium.HasValue)
-            {
-                if (item.ArcaneOdyssey().Arcanium.Value)
-                {
-                    tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
-                }
-                else
-                {
-                    tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
-                }
-            }
+			if (item.ArcaneOdyssey().Arcanium.HasValue)
+			{
+				if (item.ArcaneOdyssey().Arcanium.Value)
+				{
+					tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+				}
+				else
+				{
+					tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+				}
+			}
 
 
-            if (ImbueClassCheck(item) && item.active)
+			if (ImbueClassCheck(item) && item.active)
 			{
 				bool? coolred = null;
 				string imbuetextthing = Mod.CustomLocalization("RandomWords.None").Value;
@@ -180,7 +180,7 @@ namespace ArcaneOdyssey
 			set => _cold = value;
 		}
 
-        private bool? _arcanium = null;
+		private bool? _arcanium = null;
 		public bool? Arcanium
 		{
 			get
@@ -191,7 +191,7 @@ namespace ArcaneOdyssey
 				}
 				return _arcanium;
 			}
-            set => _arcanium = value;
+			set => _arcanium = value;
 		}
 
 		public override GlobalItem Clone(Item from, Item to)
@@ -205,7 +205,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-            thisItem = item;
+			thisItem = item;
 			if (!CanBeAffected)
 				return;
 			if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
@@ -222,9 +222,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-        {
-            thisItem = item;
-            if (!CanBeAffected)
+		{
+			thisItem = item;
+			if (!CanBeAffected)
 				return;
 			if (Imbue is not null)
 			{
@@ -243,9 +243,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-        {
-            thisItem = item;
-            if (!CanBeAffected)
+		{
+			thisItem = item;
+			if (!CanBeAffected)
 				return;
 			if (item.ModItem is MagicScroll)
 			{
@@ -267,9 +267,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void SetDefaults(Item item)
-        {
-            thisItem = item;
-            if (ArcaneOdyssey.excludedItems.Contains(item.type))
+		{
+			thisItem = item;
+			if (ArcaneOdyssey.excludedItems.Contains(item.type))
 			{
 				CanBeAffected = false;
 			}
@@ -335,7 +335,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
-            thisItem = item;
+			thisItem = item;
 			if (!CanBeAffected)
 				return;
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
@@ -356,31 +356,31 @@ namespace ArcaneOdyssey
 		}
 
 		public override float UseSpeedMultiplier(Item item, Player player)
-        {
-            thisItem = item;
-            if (CanBeAffected)
-            {
-                if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
-                {
-                    if (item.ModItem is MagicScroll || Arcanium.HasValue)
-                    {
-                        return Imbue.AOScrollSpeed;
-                    }
+		{
+			thisItem = item;
+			if (CanBeAffected)
+			{
+				if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
+				{
+					if (item.ModItem is MagicScroll || Arcanium.HasValue)
+					{
+						return Imbue.AOScrollSpeed;
+					}
 
-                    if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-                    {
-                        return Imbue.AOImbueSpeed;
-                    }
-                }
-            }
+					if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					{
+						return Imbue.AOImbueSpeed;
+					}
+				}
+			}
 			return base.UseSpeedMultiplier(item, player);
 		}
 
 		public override void UpdateInventory(Item item, Player player)
 		{
 			thisItem = item;
-            if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
-                Cold = null;
+			if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
+				Cold = null;
 			if (!CanBeAffected)
 				return;
 			List<Imbuable> options = [null, .. player.GetAllImbues()];
@@ -394,14 +394,14 @@ namespace ArcaneOdyssey
 					settodefault = true;
 					SpecificImbue = false;
 				}
-            }
+			}
 
-            if (Imbue?.Type == player.Imbue()?.Type)
-            {
-                SpecificImbue = false;
-            }
+			if (Imbue?.Type == player.Imbue()?.Type)
+			{
+				SpecificImbue = false;
+			}
 
-            if (options.Count > 0 && ImbueClassCheck(item))
+			if (options.Count > 0 && ImbueClassCheck(item))
 			{
 				if (!SpecificImbue || item.accessory)
 				{
@@ -470,9 +470,9 @@ namespace ArcaneOdyssey
 		}
 
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            thisItem = item;
-            if (!CanBeAffected)
+		{
+			thisItem = item;
+			if (!CanBeAffected)
 				return;
 
 			if (player.meleeEnchant != 0 && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
@@ -534,10 +534,10 @@ namespace ArcaneOdyssey
 				{
 					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
 					{
-                        if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffkeys.requirement]) || (ImbueDebuffHelper.AlternateBuff[buffkeys.requirement] == BuffID.Wet && target.wet))
-                        {
-                            target.AddBuff(buffkeys.result, buffkeys.duration);
-                        }
+						if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffkeys.requirement]) || (ImbueDebuffHelper.AlternateBuff[buffkeys.requirement] == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
 						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
 							target.AddBuff(buffkeys.result, buffkeys.duration);
@@ -546,12 +546,12 @@ namespace ArcaneOdyssey
 				}
 
 				foreach (var multiplier in Imbue.Effects.magicBuffMultipliers)
-                {
-                    if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[multiplier.buffID]) || (ImbueDebuffHelper.AlternateBuff[multiplier.buffID] == BuffID.Wet && target.wet))
-                    {
-                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-                    }
-                    if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+				{
+					if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[multiplier.buffID]) || (ImbueDebuffHelper.AlternateBuff[multiplier.buffID] == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
 						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
 					}
@@ -560,12 +560,12 @@ namespace ArcaneOdyssey
 				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 				{
 					foreach (int buffid in Imbue.Effects.clearBuffs)
-                    {
-                        if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffid]))
-                        {
-                            target.DelBuff(target.FindBuffIndex(ImbueDebuffHelper.AlternateBuff[buffid]));
-                        }
-                        if (target.HasBuff(buffid))
+					{
+						if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffid]))
+						{
+							target.DelBuff(target.FindBuffIndex(ImbueDebuffHelper.AlternateBuff[buffid]));
+						}
+						if (target.HasBuff(buffid))
 						{
 							target.DelBuff(target.FindBuffIndex(buffid));
 						}

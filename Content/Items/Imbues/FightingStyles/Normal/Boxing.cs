@@ -10,10 +10,10 @@ using Terraria.Audio;
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class Boxing : FightingStyle
-    {
-        public override float DashSpeed => 1.5f; // instant
-        public override float KBMulti => 2f;
-        public override void SetStaticDefaults()
+	{
+		public override float DashSpeed => 1.5f; // instant
+		public override float KBMulti => 2f;
+		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			if (Main.netMode != NetmodeID.Server)

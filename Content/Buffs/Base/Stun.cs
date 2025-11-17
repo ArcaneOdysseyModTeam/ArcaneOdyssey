@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = false;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-            ExternalModSupport.RegisterDebuff(this);
+			ExternalModSupport.RegisterDebuff(this);
 		}
 
 		public override void Update(Player player, ref int buffIndex)
@@ -36,19 +36,19 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 			if ((player.ArcaneOdyssey().OnCooldown(Name + "Buff")) || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
-                player.ArcaneOdyssey().SetCooldown(new(Name + "Buff", DisplayName, true, 60));
+				player.ArcaneOdyssey().SetCooldown(new(Name + "Buff", DisplayName, true, 60));
 				player.canFloatInWater = false;
 			}
 		}
 
-        public override bool ReApply(NPC npc, int time, int buffIndex)
-        {
-            return !LiterallyCheating;
-        }
+		public override bool ReApply(NPC npc, int time, int buffIndex)
+		{
+			return !LiterallyCheating;
+		}
 
-        public override bool ReApply(Player player, int time, int buffIndex)
-        {
-            return !LiterallyCheating;
-        }
+		public override bool ReApply(Player player, int time, int buffIndex)
+		{
+			return !LiterallyCheating;
+		}
 	}
 }

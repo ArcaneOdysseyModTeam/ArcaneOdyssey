@@ -246,12 +246,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-            this.ArcaneOdyssey().Imbue = this;
+			this.ArcaneOdyssey().Imbue = this;
 		}
 
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            this.ArcaneOdyssey().Imbue = this;
-        }
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			this.ArcaneOdyssey().Imbue = this;
+		}
 	}
 }

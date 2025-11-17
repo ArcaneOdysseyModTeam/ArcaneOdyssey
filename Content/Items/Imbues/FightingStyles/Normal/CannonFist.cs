@@ -91,36 +91,36 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 						}
 						else
 							Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
-                        player.SetCooldown(new CannonFistShotCooldown().AOCooldown);
+						player.SetCooldown(new CannonFistShotCooldown().AOCooldown);
 					}
 				}
 			}
 		}
 	}
 
-    public class CannonFistItemShot : GlobalItem
-    {
-        public override void UseAnimation(Item item, Player player)
-        {
-            if (item.Imbue() is CannonFist && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(true))
-            {
-                if (!player.ArcaneOdyssey().OnCooldown("CannonFistShotCooldown"))
-                {
-                    if (player.ConsumeItem(ItemID.Cannonball))
-                    {
-                        Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (item.damage * .5f).Round(), item.knockBack * .5f, player.whoAmI);
-                    }
-                    else
-                        Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (item.damage * .25f).Round(), item.knockBack * .25f, player.whoAmI);
-                    player.ArcaneOdyssey().SetCooldown(new CannonFistShotCooldown().AOCooldown);
-                }
-            }
-        }
-    }
+	public class CannonFistItemShot : GlobalItem
+	{
+		public override void UseAnimation(Item item, Player player)
+		{
+			if (item.Imbue() is CannonFist && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(true))
+			{
+				if (!player.ArcaneOdyssey().OnCooldown("CannonFistShotCooldown"))
+				{
+					if (player.ConsumeItem(ItemID.Cannonball))
+					{
+						Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (item.damage * .5f).Round(), item.knockBack * .5f, player.whoAmI);
+					}
+					else
+						Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (item.damage * .25f).Round(), item.knockBack * .25f, player.whoAmI);
+					player.ArcaneOdyssey().SetCooldown(new CannonFistShotCooldown().AOCooldown);
+				}
+			}
+		}
+	}
 
-    public class CannonFistShotCooldown : CooldownSystem
-    {
-        public override int CooldownLength => 60;
-        public override string Name => "Cannon Fist Shot Cooldown";
-    }
+	public class CannonFistShotCooldown : CooldownSystem
+	{
+		public override int CooldownLength => 60;
+		public override string Name => "Cannon Fist Shot Cooldown";
+	}
 }

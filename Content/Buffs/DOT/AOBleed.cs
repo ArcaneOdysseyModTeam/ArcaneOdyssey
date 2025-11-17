@@ -14,13 +14,13 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		public override void Update(NPC npc, ref int buffIndex) 
 		{
 			frameNum++;
-            if (frameNum > 20)
+			if (frameNum > 20)
 			{
 				frameNum = 0;
 				for (int dustCountInt = 0; dustCountInt < 10; dustCountInt++)
 				{
-                    Dust.NewDust(npc.position + new Vector2(npc.width / 2f, npc.height / 2f), 1, 1, DustID.Blood, Alpha: 1);
-                }
+					Dust.NewDust(npc.position + new Vector2(npc.width / 2f, npc.height / 2f), 1, 1, DustID.Blood, Alpha: 1);
+				}
 			}
 			npc.ArcaneOdyssey().Bleeding = true;
 		}

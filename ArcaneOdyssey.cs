@@ -158,34 +158,34 @@ namespace ArcaneOdyssey
 							}
 						}
 
-                        if (Main.rand.NextBool(10))
-                        {
-                            for (int i = 0; i < Chest.maxItems; i++)
-                            {
-                                if (chest.item[i] != null && chest.item[i].IsAir)
-                                {
-                                    chest.item[i].SetDefaults(ModContent.ItemType<CannonScroll>());
-                                    break;
-                                }
-                            }
-                        }
+						if (Main.rand.NextBool(10))
+						{
+							for (int i = 0; i < Chest.maxItems; i++)
+							{
+								if (chest.item[i] != null && chest.item[i].IsAir)
+								{
+									chest.item[i].SetDefaults(ModContent.ItemType<CannonScroll>());
+									break;
+								}
+							}
+						}
 					}
 
-                    if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
-                    {
+					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
+					{
 
-                        if (Main.rand.NextBool(5))
-                        {
-                            for (int i = 0; i < Chest.maxItems; i++)
-                            {
-                                if (chest.item[i] != null && chest.item[i].IsAir)
-                                {
-                                    chest.item[i].SetDefaults(ModContent.ItemType<PulsarScroll>());
-                                    break;
-                                }
-                            }
-                        }
-                    }
+						if (Main.rand.NextBool(5))
+						{
+							for (int i = 0; i < Chest.maxItems; i++)
+							{
+								if (chest.item[i] != null && chest.item[i].IsAir)
+								{
+									chest.item[i].SetDefaults(ModContent.ItemType<PulsarScroll>());
+									break;
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -205,6 +205,8 @@ namespace ArcaneOdyssey
 	{
 		public static bool downedEvander;
 		public static bool downedEnragedEmpress;
+		public static bool downedWorldEater;
+		public static bool downedBrain;
 
 		public static void ResetDefaults()
 		{
@@ -233,6 +235,42 @@ namespace ArcaneOdyssey
 			var downed = tag.GetList<string>("downed");
 			downedEvander = downed.Contains("Evander");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
+		}
+	}
+
+	public class DownedNPCTracker : GlobalNPC
+	{
+		public override void OnKill(NPC npc)
+		{
+			if (npc.type == NPCID.HallowBoss)
+			{
+				//if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+				//{
+				//    DownedBosses.downedEnragedEmpress = true;
+				//    if (Main.dedServ)
+				//    {
+				//        NetMessage.SendData(MessageID.WorldData);
+				//    }
+				//}
+			}
+
+			if (npc.type == NPCID.EaterofWorldsHead)
+			{
+				DownedBosses.downedWorldEater = true;
+				if (Main.dedServ)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
+			if (npc.type == NPCID.BrainofCthulhu)
+			{
+				DownedBosses.downedBrain = true;
+				if (Main.dedServ)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
 		}
 	}
 }

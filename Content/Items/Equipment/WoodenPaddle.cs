@@ -13,9 +13,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 			Item.mountType = ModContent.MountType<Rowboat>();
 			Item.value = 1000;
 		}
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			CreateRecipe().AddIngredient(ItemID.PalmWood, 100).AddTile(TileID.WorkBenches).Register();
-        }
+		}
 	}
 }

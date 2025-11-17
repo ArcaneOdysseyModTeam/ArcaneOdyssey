@@ -112,10 +112,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				BarValue = BarMin;
 				player.GetModPlayer<ThermoFallOff>().resetBar = false;
-            }
-            if (!player.ArcaneOdyssey().OnCooldown(Name))
-                BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-            base.UpdateInventory(player);
+			}
+			if (!player.ArcaneOdyssey().OnCooldown(Name))
+				BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
+			base.UpdateInventory(player);
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)
@@ -126,10 +126,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 	public class ThermoBars : GlobalItem
 	{
-        public const float BarMax = FightingStyleBarred.BarMax;
-        public const float BarMin = FightingStyleBarred.BarMin;
+		public const float BarMax = FightingStyleBarred.BarMax;
+		public const float BarMin = FightingStyleBarred.BarMin;
 
-        public override void UpdateInventory(Item item, Player player)
+		public override void UpdateInventory(Item item, Player player)
 		{
 			if (item.Imbue() is ThermoFist thermo)
 			{
@@ -147,10 +147,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	}
 
 	public class ThermoFallOff : ModPlayer
-    {
-        public const float BarMax = FightingStyleBarred.BarMax;
-        public const float BarMin = FightingStyleBarred.BarMin;
-        public bool resetBar = false;
+	{
+		public const float BarMax = FightingStyleBarred.BarMax;
+		public const float BarMin = FightingStyleBarred.BarMin;
+		public bool resetBar = false;
 
 		public override void PostUpdate()
 		{

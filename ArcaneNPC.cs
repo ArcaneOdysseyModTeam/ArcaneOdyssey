@@ -17,15 +17,15 @@ namespace ArcaneOdyssey
 		public override bool InstancePerEntity => true;
 
 		public float StunCD = 5;
-        public float ZapCD = 5; // ancient lightning chain
-        public float StunDuration = 1;
+		public float ZapCD = 5; // ancient lightning chain
+		public float StunDuration = 1;
 
 		#region Debuff bools
 		public bool Bleeding = false;
 		public bool HeavyBleeding = false;
 		public bool Scalding = false;
 		public bool Seared = false;
-        public bool ElecToxins = false;
+		public bool ElecToxins = false;
 
 		public bool AOStunned = false;
 		#endregion
@@ -42,21 +42,21 @@ namespace ArcaneOdyssey
 			return !AOStunned;
 		}
 
-        public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-            player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, item.Imbue());
-        }
+		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
+		{
+			player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, item.Imbue());
+		}
 
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-            if (projectile.TryGetOwner(out var player))
-                player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, projectile.Imbue());
-        }
+		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+		{
+			if (projectile.TryGetOwner(out var player))
+				player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, projectile.Imbue());
+		}
 
 		public override void ResetEffects(NPC npc)
-        {
-            ZapCD -= 1 / 60f;
-            if (StunDuration <= 0 && AOStunned)
+		{
+			ZapCD -= 1 / 60f;
+			if (StunDuration <= 0 && AOStunned)
 			{
 				AOStunned = false;
 				StunCD = 5;
@@ -66,17 +66,17 @@ namespace ArcaneOdyssey
 			HeavyBleeding = false;
 			Scalding = false;
 			Seared = false;
-            ElecToxins = false;
+			ElecToxins = false;
 		}
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
-            // onfire is 4 * 2, or 8
-            // poison is 6 * 2, or 12
-            // frostburn is 8 * 2, or 16
-            // shadowflame is 15 * 2, or 30
-            // cursed inferno is 24 * 2, or 48
-            // acid venom is 30 * 2, or 60
+			// onfire is 4 * 2, or 8
+			// poison is 6 * 2, or 12
+			// frostburn is 8 * 2, or 16
+			// shadowflame is 15 * 2, or 30
+			// cursed inferno is 24 * 2, or 48
+			// acid venom is 30 * 2, or 60
 			if (npc.ModNPC is not Edgelord) // morden is immune to dot lol
 			{
 				if (Bleeding)
@@ -95,10 +95,10 @@ namespace ArcaneOdyssey
 				{
 					npc.lifeRegen -= 15;
 				}
-                if (ElecToxins)
-                {
-                    npc.lifeRegen -= 80;
-                }
+				if (ElecToxins)
+				{
+					npc.lifeRegen -= 80;
+				}
 			}
 		}
 
@@ -137,11 +137,11 @@ namespace ArcaneOdyssey
 				LeadingConditionRule leadingConditionRule = new(new FirstEmpressKill());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
-                //LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
-                //leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
-                //npcLoot.Add(leadingConditionRule1);
-            }
-            if (npc.type == NPCID.Plantera)
+				//LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
+				//leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
+				//npcLoot.Add(leadingConditionRule1);
+			}
+			if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
@@ -162,21 +162,6 @@ namespace ArcaneOdyssey
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
 			npcLoot.Add(AcrimonyCondition);
-		}
-
-		public override void OnKill(NPC npc)
-		{
-			//if (npc.type == NPCID.HallowBoss)
-			//{
-			//	if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
-			//	{
-			//		DownedBosses.downedEnragedEmpress = true;
-			//		if (Main.dedServ)
-			//		{
-			//			NetMessage.SendData(MessageID.WorldData);
-			//		}
-			//	}
-			//}    
 		}
 	}
 }

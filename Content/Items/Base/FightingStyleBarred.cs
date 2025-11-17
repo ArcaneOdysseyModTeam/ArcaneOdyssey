@@ -8,25 +8,25 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-    public abstract class FightingStyleBarred : FightingStyle
-    {
+	public abstract class FightingStyleBarred : FightingStyle
+	{
 		public const float BarMax = 100f;
 		public const float BarMin = 0f;
 
 		private float _barValue = BarMin;
 		public float BarValue { get => UpdateBar(); set => UpdateBar(value); }
 
-        /// <summary>
-        /// Allows extra stuff to happen when the bar value changes or is requested
-        /// </summary>
-        /// <param name="value">The new bar value, if any</param>
-        /// <returns>The bar, after any changes</returns>
-        public virtual float UpdateBar(float? value = null)
-        {
-            if (value.HasValue)
-                _barValue = MathHelper.Clamp(value.Value, BarMin, BarMax);
-            return _barValue;
-        }
+		/// <summary>
+		/// Allows extra stuff to happen when the bar value changes or is requested
+		/// </summary>
+		/// <param name="value">The new bar value, if any</param>
+		/// <returns>The bar, after any changes</returns>
+		public virtual float UpdateBar(float? value = null)
+		{
+			if (value.HasValue)
+				_barValue = MathHelper.Clamp(value.Value, BarMin, BarMax);
+			return _barValue;
+		}
 
 		public abstract Color DisplayColor { get; }
 
@@ -43,10 +43,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract float MinScrollDamage { get; }
 		public abstract float MinScrollSize { get; }
 
-        public float LerpValue => MathHelper.Clamp(BarValue * 1.25f / BarMax, 0f, 1f);
+		public float LerpValue => MathHelper.Clamp(BarValue * 1.25f / BarMax, 0f, 1f);
 
 
-        public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, LerpValue); }
+		public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, LerpValue); }
 		public override float AOScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, LerpValue); }
 		public override float AOImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, LerpValue); }
 		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, LerpValue); }

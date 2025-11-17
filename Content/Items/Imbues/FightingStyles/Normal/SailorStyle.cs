@@ -97,21 +97,21 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override void AddRecipes()
 		{
-            var rec = CreateRecipe().AddIngredient<BasicCombat>();
-            if (ExternalModSupport.HasCalamity)
-            {
-                rec.AddIngredient(ExternalModSupport.Calamity.Find<ModItem>("SeaRemains"), 5);
-            }
-            else if (ExternalModSupport.HasThorium)
-            {
-                rec.AddIngredient(ExternalModSupport.Thorium.Find<ModItem>("DepthScale"), 5);
-            }
-            else
-            {
-                rec.AddIngredient(ItemID.Coral, 15);
-            }
-            rec.Register();
-        }
+			var rec = CreateRecipe().AddIngredient<BasicCombat>();
+			if (ExternalModSupport.HasCalamity)
+			{
+				rec.AddIngredient(ExternalModSupport.Calamity.Find<ModItem>("SeaRemains"), 5);
+			}
+			else if (ExternalModSupport.HasThorium)
+			{
+				rec.AddIngredient(ExternalModSupport.Thorium.Find<ModItem>("DepthScale"), 5);
+			}
+			else
+			{
+				rec.AddIngredient(ItemID.Coral, 15);
+			}
+			rec.Register();
+		}
 
 		public override void UpdateInventory(Player player)
 		{

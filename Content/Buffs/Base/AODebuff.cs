@@ -4,18 +4,18 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.Base
 {
-    /// <summary>
-    /// basic debuff for things like Snowy
-    /// </summary>
-    public abstract class AODebuff : ModBuff
-    {
-        public override void SetStaticDefaults()
-        {
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = false;
-            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-            ExternalModSupport.RegisterDebuff(this);
-        }
-    }
+	/// <summary>
+	/// basic debuff for things like Snowy
+	/// </summary>
+	public abstract class AODebuff : ModBuff
+	{
+		public override void SetStaticDefaults()
+		{
+			Main.debuff[Type] = true;
+			Main.buffNoSave[Type] = true;
+			Main.buffNoTimeDisplay[Type] = false;
+			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+			ExternalModSupport.RegisterDebuff(this);
+		}
+	}
 }

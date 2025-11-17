@@ -10,9 +10,9 @@ using ArcaneOdyssey.Content.Projectiles;
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class PowderFist : FightingStyle
-    {
-        public override float DashSpeed => 1.2f;
-        public override bool? Cold => false;
+	{
+		public override float DashSpeed => 1.2f;
+		public override bool? Cold => false;
 		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 

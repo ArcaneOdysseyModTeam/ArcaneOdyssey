@@ -10,26 +10,26 @@ using Terraria.Audio;
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class IronLeg : FightingStyle
-    {
-        public override float DashResist => 1.35f;
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            if (Main.netMode != NetmodeID.Server)
-            {
-                EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shoes);
-            }
-        }
+	{
+		public override float DashResist => 1.35f;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shoes);
+			}
+		}
 
-        public override void Load()
-        {
-            if (Main.netMode != NetmodeID.Server)
-            {
-                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Shoes}", EquipType.Shoes, this);
-            }
-        }
+		public override void Load()
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Shoes}", EquipType.Shoes, this);
+			}
+		}
 
-        public override Color ImbueColour => Color.LightGray;
+		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
 
 		public override float AOImbueDamage => 1.125f;
@@ -84,18 +84,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		}
 		public override void AddRecipes()
 		{
-            CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).Register();
 		}
-    }
+	}
 
-    public class ILegLegHelper : ModPlayer
-    {
-        public override void FrameEffects()
-        {
-            if (Player.ArcaneOdyssey().Imbue is IronLeg || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().Imbue is IronLeg)
-            {
-                Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
-            }
-        }
-    }
+	public class ILegLegHelper : ModPlayer
+	{
+		public override void FrameEffects()
+		{
+			if (Player.ArcaneOdyssey().Imbue is IronLeg || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().Imbue is IronLeg)
+			{
+				Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
+			}
+		}
+	}
 }

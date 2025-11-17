@@ -31,6 +31,6 @@ namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 		{
 			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
 			return slot == equipSlotHead;
-        }
+		}
 	}
 }

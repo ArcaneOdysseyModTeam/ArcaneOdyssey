@@ -12,9 +12,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override string LocalizationCategory => "Items.Weapons";
 
-        public Imbuable Imbue { get => Item.ArcaneOdyssey().Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
+		public Imbuable Imbue { get => Item.ArcaneOdyssey().Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
-        public virtual bool CanHaveImbue => true;
+		public virtual bool CanHaveImbue => true;
 
 		public abstract float AOSpeed { get; }
 		public abstract float AOSize { get; }
@@ -23,13 +23,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public virtual AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 		public virtual WeaponAbility? Ability => null;
-        public virtual SoundStyle UseSound => SoundID.Item71;
+		public virtual SoundStyle UseSound => SoundID.Item71;
 
 
-        /// <summary>
-        /// Leave null for neutral, true for cold, false for hot
-        /// </summary>
-        public virtual bool? Cold => null;
+		/// <summary>
+		/// Leave null for neutral, true for cold, false for hot
+		/// </summary>
+		public virtual bool? Cold => null;
 
 
 		/// <summary>

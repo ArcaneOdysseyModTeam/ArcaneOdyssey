@@ -8,36 +8,36 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Pets
 {
-    public class ElfPetItem : AOBaseItem
-    {
-        public override AORarities AORarity => AORarities.Special;
+	public class ElfPetItem : AOBaseItem
+	{
+		public override AORarities AORarity => AORarities.Special;
 
-        public override void SetDefaults()
-        {
-            Item.shoot = ModContent.ProjectileType<ElfPetProjectile>();
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.buffType = ModContent.BuffType<ElfPetBuff>();
-            Item.noMelee = true;
-            Item.useAnimation = 20;
-            Item.useTime = 20;
-            Item.UseSound = SoundID.Meowmere;
-        }
+		public override void SetDefaults()
+		{
+			Item.shoot = ModContent.ProjectileType<ElfPetProjectile>();
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.buffType = ModContent.BuffType<ElfPetBuff>();
+			Item.noMelee = true;
+			Item.useAnimation = 20;
+			Item.useTime = 20;
+			Item.UseSound = SoundID.Meowmere;
+		}
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            if (player.whoAmI == Main.myPlayer && player.ItemTimeIsZero)
-            {
-                player.AddBuff(Item.buffType, 3600, true);
-            }
-        }
-    }
+		public override void UseStyle(Player player, Rectangle heldItemFrame)
+		{
+			if (player.whoAmI == Main.myPlayer && player.ItemTimeIsZero)
+			{
+				player.AddBuff(Item.buffType, 3600, true);
+			}
+		}
+	}
 
-    public class ThyPlayer : ModPlayer
-    {
-        public bool elfPet;
-        public override void ResetEffects()
-        {
-            elfPet = false;
-        }
-    }
+	public class ThyPlayer : ModPlayer
+	{
+		public bool elfPet;
+		public override void ResetEffects()
+		{
+			elfPet = false;
+		}
+	}
 }

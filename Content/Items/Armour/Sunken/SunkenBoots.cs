@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 	[AutoloadEquip(EquipType.Legs)]
 	public class SunkenBoots : AOArmour
 	{
-        public override AOItemTiers ArmourTier => AOItemTiers.Good;
+		public override AOItemTiers ArmourTier => AOItemTiers.Good;
 		public override int AODefense => 204;
 		public override int AOSize => 23;
 		public override int AOAttkSpd => 23;

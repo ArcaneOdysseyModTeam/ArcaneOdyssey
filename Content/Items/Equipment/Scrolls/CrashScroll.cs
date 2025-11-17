@@ -101,13 +101,13 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
 				if (imbue is ThermoFist thermo)
 				{
-                    thermo.BarValue += FightingStyleBarred.BarMax / 20f;
-                }
-                if (imbue is SailorStyle sailor)
-                {
-                    sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
-                }
-            }
+					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
+				}
+				if (imbue is SailorStyle sailor)
+				{
+					sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
+				}
+			}
 		}
 	}
 
@@ -130,15 +130,15 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
-                if (imbue is ThermoFist thermo)
-                {
-                    thermo.BarValue += FightingStyleBarred.BarMax / 20f;
-                }
-                if (imbue is SailorStyle sailor)
-                {
-                    sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
-                }
-            }
+				if (imbue is ThermoFist thermo)
+				{
+					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
+				}
+				if (imbue is SailorStyle sailor)
+				{
+					sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
+				}
+			}
 		}
 		public override bool OnHit(Player player, Entity target)
 		{
@@ -152,7 +152,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(player.Bottom);
 
-            SimulateAOE(Player.defaultHeight * 2, Damage, player.Bottom, Knockback, player, DamageType);
+			SimulateAOE(Player.defaultHeight * 2, Damage, player.Bottom, Knockback, player, DamageType);
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 			if (player.TryGetImbue(out var imbue))

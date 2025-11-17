@@ -12,9 +12,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateInventory(Player player)
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
-            {
-                Item.color = imbue.GetColor() with { A = (byte)(255 * .75f) };
-            }
+			{
+				Item.color = imbue.GetColor() with { A = (byte)(255 * .75f) };
+			}
 			else Item.color = Color.Transparent;
 		}
 
@@ -32,9 +32,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
-            {
-                Item.color = imbue.GetColor() with { A = (byte)(255 * .75f) };
-                player.ArcaneOdyssey().SetDash(new Reflex());
+			{
+				Item.color = imbue.GetColor() with { A = (byte)(255 * .75f) };
+				player.ArcaneOdyssey().SetDash(new Reflex());
 			}
 			else Item.color = Color.Transparent;
 

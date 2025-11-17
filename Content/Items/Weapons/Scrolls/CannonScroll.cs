@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
 	public class CannonScroll : MagicScroll
 	{
-        public override int AOValue => 1000;
+		public override int AOValue => 1000;
 
 		public override void SetDefaults()
 		{

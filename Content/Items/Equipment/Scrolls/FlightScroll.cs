@@ -48,10 +48,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.Imbue() is AOMagic)
 				player.noFallDmg = true;
 			else
-            {
-                player.slowFall = false;
-                player.wingTime = 0;
-            }
+			{
+				player.slowFall = false;
+				player.wingTime = 0;
+			}
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)

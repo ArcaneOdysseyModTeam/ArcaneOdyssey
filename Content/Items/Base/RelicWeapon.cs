@@ -13,14 +13,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 			base.SetDefaults();
 			Item.DamageType = ModContent.GetInstance<SpiritDamage>();
 			Item.noUseGraphic = true; // could add a virtual bool to toggle this later
-            Item.noMelee = true;
+			Item.noMelee = true;
 			Item.value = GalleonToCopper(AOValue);
 		}
 	}
 
 	public class SpiritDamage : DamageClass
 	{
-        public static readonly string InternalName = typeof(SpiritDamage).Name;
+		public static readonly string InternalName = typeof(SpiritDamage).Name;
 		public override LocalizedText DisplayName => Mod.CustomLocalization("SpiritDamage");
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
@@ -42,8 +42,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		public override bool GetPrefixInheritance(DamageClass damageClass)
-        {
-            return false;
-        }
+		{
+			return false;
+		}
 	}
 }

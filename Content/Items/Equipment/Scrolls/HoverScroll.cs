@@ -29,9 +29,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 					player.moveSpeed += imbue.AOScrollSpeed.MultiToPercent();
 					imbue.LingeringEffects(player);
 				}
-                else
-                    player.carpetTime = (player.carpetTime * imbue.AOScrollDamage).Round();
-            }
+				else
+					player.carpetTime = (player.carpetTime * imbue.AOScrollDamage).Round();
+			}
 		}
 
 		public override void AddRecipes()
@@ -41,10 +41,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.SandstormBalloons).Register();
 		}
 
-        public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
-        {
-            return incomingItem.type != ItemID.FlyingCarpet;
-        }
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			return incomingItem.type != ItemID.FlyingCarpet;
+		}
 	}
 
 	public class HoverPlayer : ModPlayer
@@ -54,25 +54,25 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void PostUpdateMiscEffects()
 		{
 			if ((!Main.dedServ) && Main.myPlayer == Player.whoAmI)
-            {
-                Asset<Texture2D> carpetNoneLol = ModContent.Request<Texture2D>($"{ArcaneOdyssey.InternalName}/Assets/BlankCarpet");
-                Asset<Texture2D> carpetOriginal = IHATECARPETS.carpet;
-                TextureAssets.FlyingCarpet = hasHoverEquipped ? carpetNoneLol : carpetOriginal;
-            }
+			{
+				Asset<Texture2D> carpetNoneLol = ModContent.Request<Texture2D>($"{ArcaneOdyssey.InternalName}/Assets/BlankCarpet");
+				Asset<Texture2D> carpetOriginal = IHATECARPETS.carpet;
+				TextureAssets.FlyingCarpet = hasHoverEquipped ? carpetNoneLol : carpetOriginal;
+			}
 		}
 
-        public override void ResetEffects()
-        {
-            hasHoverEquipped = false;
-        }
+		public override void ResetEffects()
+		{
+			hasHoverEquipped = false;
+		}
 	}
 
 	public class IHATECARPETS : ModSystem
 	{
-        public static Asset<Texture2D> carpet;
+		public static Asset<Texture2D> carpet;
 		public override void Load()
 		{
-            carpet = TextureAssets.FlyingCarpet;
+			carpet = TextureAssets.FlyingCarpet;
 		}
 	}
 }

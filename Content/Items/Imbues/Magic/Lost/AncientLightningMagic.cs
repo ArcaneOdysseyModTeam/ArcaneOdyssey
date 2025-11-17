@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class AncientLightningMagic : AOMagic
 	{
-        public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(255,0,0,255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
