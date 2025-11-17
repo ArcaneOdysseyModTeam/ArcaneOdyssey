@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Accessories;
+﻿using ArcaneOdyssey.Content.Items.BossTrophies;
+using ArcaneOdyssey.Content.Items.Equipment.Accessories;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
@@ -249,6 +250,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ColossalGreatsword>(), 4));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderCape>(), 4));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderGauntlet>(), 4));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderTrophy>(), 10));
         }
 
         public override void OnKill()

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+﻿using ArcaneOdyssey.Content.Items.BossTrophies;
+using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
@@ -166,7 +167,7 @@ namespace ArcaneOdyssey
 				float weight = 7.1f; // right after wof
 				Func<bool> downed = () => DownedBosses.downedEvander;
 				int bossType = ModContent.NPCType<Evander>();
-				//int spawnItem = ModContent.ItemType<>();
+				int trophy = ModContent.ItemType<EvanderTrophy>();
 				LocalizedText spawnInfo = Mod.CustomLocalization("NPCs.Evander.SpawnInfo");
 
 				bossChecklist.Call(
@@ -178,7 +179,7 @@ namespace ArcaneOdyssey
 				bossType,
 				new Dictionary<string, object>()
 				{
-					//["spawnItems"] = spawnItem,
+                    ["collectibles"] = new List<int> { trophy },
 					["spawnInfo"] = spawnInfo
 				});
 			}
