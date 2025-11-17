@@ -31,31 +31,31 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override float MinScrollDamage => .75f;
 		public override float MinScrollSize => .8f;
 		public override Color DisplayColor => Color.Blue;
-        public override float DashSpeed => BarValue > (BarMax / 2) ? 1.5f : 1f; // instant?
+		public override float DashSpeed => BarValue > (BarMax / 2) ? 1.5f : 1f; // instant?
 
-        public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
-        public override SynergyEffects Effects => new(
-            [
-                BuffID.Wet,
-                ModContent.BuffType<AOBleed>(),
-                ModContent.BuffType<FreezingEffect>()
-            ],
-            [
-                new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.85f),
-                new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.95f),
-                new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.95f),
-                new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.15f),
-                new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
-                new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
-                new MagicBuffMultiplier(BuffID.Venom,1.075f),
-                new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.1f),
-                new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
-                new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.8f),
-                new MagicBuffMultiplier(BuffID.OnFire,1.1f),
-                new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f),
-            ]
-        );
+		public override SynergyEffects Effects => new(
+			[
+				BuffID.Wet,
+				ModContent.BuffType<AOBleed>(),
+				ModContent.BuffType<FreezingEffect>()
+			],
+			[
+				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.85f),
+				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(),0.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),0.95f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.15f),
+				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.1f),
+				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
+				new MagicBuffMultiplier(BuffID.Venom,1.075f),
+				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.1f),
+				new MagicBuffMultiplier(BuffID.ShadowFlame,1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.8f),
+				new MagicBuffMultiplier(BuffID.OnFire,1.1f),
+				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.1f),
+			]
+		);
 
 		public override void SpawningEffects(Entity projectile)
 		{
@@ -112,7 +112,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				BarValue = BarMin;
 				player.GetModPlayer<ThermoFallOff>().resetBar = false;
-			}
+            }
+            if (!player.ArcaneOdyssey().OnCooldown(Name))
+                BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
             base.UpdateInventory(player);
 		}
 
@@ -124,19 +126,32 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 	public class ThermoBars : GlobalItem
 	{
+        public const float BarMax = FightingStyleBarred.BarMax;
+        public const float BarMin = FightingStyleBarred.BarMin;
+
+        public override void UpdateInventory(Item item, Player player)
+		{
+			if (item.Imbue() is ThermoFist thermo)
+			{
+			}
+		}
+
 		public override void UseAnimation(Item item, Player player)
 		{
-			if (item.TryGetImbue(out var im) && ImbueClassCheck(item) && im is ThermoFist thermo && thermo.GetThisImbue(player))
+			if (item.Imbue() is ThermoFist thermo)
 			{
-				thermo.BarValue += FightingStyleBarred.BarMax / 20f;
+				thermo.BarValue += BarMax / 20f;
 				player.ArcaneOdyssey().SetCooldown(new(thermo.Name, thermo.DisplayName, true, 60));
 			}
 		}
 	}
 
 	public class ThermoFallOff : ModPlayer
-	{
-		public bool resetBar = false;
+    {
+        public const float BarMax = FightingStyleBarred.BarMax;
+        public const float BarMin = FightingStyleBarred.BarMin;
+        public bool resetBar = false;
+
 		public override void PostUpdate()
 		{
 			if (Player.TryGetImbue(out Imbuable imbue))
@@ -144,7 +159,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				if (imbue is ThermoFist thermo && thermo.GetThisImbue(Player))
 				{
 					if (!Player.ArcaneOdyssey().OnCooldown(thermo.Name))
-						thermo.BarValue -= FightingStyleBarred.BarMax / (FightingStyleBarred.BarMax * .6f * (FightingStyleBarred.BarMax / 10f));
+						thermo.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 				}
 			}
 		}

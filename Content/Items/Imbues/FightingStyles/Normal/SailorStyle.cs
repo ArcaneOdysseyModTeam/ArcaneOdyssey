@@ -13,9 +13,9 @@ using ArcaneOdyssey.Content.Buffs.Stuns;
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class SailorStyle : FightingStyleBarred
-    {
-        public override float DashSpeed => BarValue > (BarMax / 2) ? 1.2f : 1f; // burst?
-        public override bool? Cold => true;
+	{
+		public override float DashSpeed => BarValue > (BarMax / 2) ? 1.2f : 1f; // burst?
+		public override bool? Cold => true;
 		public override Color ImbueColour => Color.CornflowerBlue;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
@@ -62,25 +62,25 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override void SpawningEffects(Entity projectile)
 		{
-            BarValue -= BarMax / 100f;
-            for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++) 
+			BarValue -= BarMax / 100f;
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++) 
 			{
-                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Water, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		public override void LingeringEffects(Entity projectile)
 		{
-            for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
-                Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Water, 0f, 0f, 0, default, (float)Math.Min(Math.Max((float)BarValue / (BarMax / 3), 1), 2.2f));
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Water, 0f, 0f, 0, default, (float)Math.Min(Math.Max((float)BarValue / (BarMax / 3), 1), 2.2f));
 		}
 
 		public override void ExplosionEffects(Entity projectile)
 		{
-            for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++) 
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++) 
 			{
-                Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -96,8 +96,29 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override void AddRecipes()
 		{
-            CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Coral, 15).Register();
-            // add alternate recipe here when addon
+            var rec = CreateRecipe().AddIngredient<BasicCombat>();
+            if (ExternalModSupport.HasCalamity)
+            {
+                rec.AddIngredient(ExternalModSupport.Calamity.Find<ModItem>("SeaRemains"), 5);
+            }
+            else if (ExternalModSupport.HasThorium)
+            {
+                rec.AddIngredient(ExternalModSupport.Thorium.Find<ModItem>("DepthScales"), 5);
+            }
+            else
+            {
+                rec.AddIngredient(ItemID.Coral, 15);
+            }
+            rec.Register();
+        }
+
+		public override void UpdateInventory(Player player)
+		{
+			if (player.wet && !player.honeyWet && !player.lavaWet)
+			{
+				BarValue += BarMax / (BarMax * .6f * 2.5f);
+			}
+			base.UpdateInventory(player);
 		}
 	}
 
@@ -105,9 +126,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public override void UseAnimation(Item item, Player player)
 		{
-			if (item.TryGetImbue(out var im) && ImbueClassCheck(item) && im is SailorStyle imbue && imbue.GetThisImbue(player))
+			if (item.Imbue() is SailorStyle imbue)
 			{
-                imbue.BarValue -= FightingStyleBarred.BarMax / 100f;
+				imbue.BarValue -= FightingStyleBarred.BarMax / 100f;
 			}
 		}
 
@@ -115,23 +136,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (item.potion)
 			{
-				if (player.TryGetImbue(out var im) && im is SailorStyle imbue && imbue.GetThisImbue(player))
+				if (item.Imbue() is SailorStyle imbue)
 				{
 					imbue.BarValue = FightingStyleBarred.BarMax;
-				}
-			}
-		}
-	}
-
-	public class SailorDrinkWater : ModPlayer
-	{
-		public override void PostUpdate()
-		{
-			if (Player.wet && !Player.honeyWet && !Player.lavaWet)
-			{
-				if (Player.TryGetImbue(out Imbuable imbue) && imbue is SailorStyle sailor && sailor.GetThisImbue(Player))
-				{
-                    sailor.BarValue += FightingStyleBarred.BarMax / (FightingStyleBarred.BarMax * .6f * 2.5f);
 				}
 			}
 		}

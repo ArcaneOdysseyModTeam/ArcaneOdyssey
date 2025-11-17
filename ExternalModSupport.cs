@@ -21,7 +21,7 @@ namespace ArcaneOdyssey
 			AddBossChecklist();
 		}
 
-		public static bool hasYapped = false;
+		internal static bool hasYapped = false;
 		public override void PreUpdateWorld()
 		{
 			if (!(hasYapped || ModLoader.HasMod("ArcaneOdysseyMusic")))
@@ -145,10 +145,15 @@ namespace ArcaneOdyssey
 		}
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
+        public static Mod Calamity => ModLoader.GetMod("CalamityMod");
         public static bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
+        public static Mod MusicMod => ModLoader.GetMod("ArcaneOdysseyMusic");
         public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
+        public static Mod Fargos => ModLoader.GetMod("Fargowiltas");
+        public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
+        public static Mod Thorium => ModLoader.GetMod("ThoriumMod");
 
-		private void AddBossChecklist()
+        private void AddBossChecklist()
 		{
 			if (!ModLoader.TryGetMod("BossChecklist", out var bossChecklist) || bossChecklist.Version < new Version(1, 6))
 			{
@@ -195,7 +200,7 @@ namespace ArcaneOdyssey
 				{
 					if (sick.HasValue)
 						calamity.Call("SetVulnerabilities", NPC, "sick", sick.Value);
-					if(electric.HasValue)
+					if (electric.HasValue)
 						calamity.Call("SetVulnerabilities", NPC, "electric", electric.Value);
 					if (water.HasValue)
 						calamity.Call("SetVulnerabilities", NPC, "water", water.Value);
@@ -205,7 +210,6 @@ namespace ArcaneOdyssey
 						calamity.Call("SetVulnerabilities", NPC, "cold", cold.Value);
 				}
 			}
-
 			public static void SetDebuffVulnurablility(NPC NPC, bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null) => new DebuffVulnurablilities(sick, hot, electric, water, cold).ApplyDebuffVulnurablility(NPC);
 		}
 	}

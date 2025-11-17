@@ -100,7 +100,7 @@ namespace ArcaneOdyssey
 			List<Imbuable> imbues = [];
 			foreach (Item item in owner.inventory)
 			{
-				if (item.ModItem is Imbuable imbuable && item.ModItem is not FightingStyleBarred)
+				if (item.ModItem is Imbuable imbuable)// && item.ModItem is not FightingStyleBarred)
 				{
 					imbues.Add(imbuable);
 				}

@@ -76,15 +76,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues
                 clone.originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
             return clone;
         }
-
-        public override void UpdateInventory(Player player)
-        {
-            Item.active = false;
-        }
-
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            Item.active = false;
-        }
     }
 }

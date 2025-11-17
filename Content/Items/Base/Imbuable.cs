@@ -238,11 +238,20 @@ namespace ArcaneOdyssey.Content.Items.Base
 				else { return null; }
 			} }
 
-
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (this is not FrogMagic && ModifyTooltipsPrefix is not null)
 				tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
+
+		public override void UpdateInventory(Player player)
+		{
+            this.ArcaneOdyssey().Imbue = this;
+		}
+
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+        {
+            this.ArcaneOdyssey().Imbue = this;
+        }
 	}
 }

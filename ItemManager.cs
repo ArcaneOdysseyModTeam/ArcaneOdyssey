@@ -199,7 +199,7 @@ namespace ArcaneOdyssey
 			var clone = (AOItem)base.Clone(from, to);
 			clone.Imbue = Imbue;
 			clone._cold = _cold;
-			clone.thisItem = thisItem;
+			clone.thisItem = to;
 			return clone;
 		}
 
@@ -394,9 +394,14 @@ namespace ArcaneOdyssey
 					settodefault = true;
 					SpecificImbue = false;
 				}
-			}
+            }
 
-			if (options.Count > 0 && ImbueClassCheck(item))
+            if (Imbue?.Type == player.Imbue()?.Type)
+            {
+                SpecificImbue = false;
+            }
+
+            if (options.Count > 0 && ImbueClassCheck(item))
 			{
 				if (!SpecificImbue || item.accessory)
 				{
@@ -416,7 +421,7 @@ namespace ArcaneOdyssey
 						}
 						Imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;
-						if (Imbue == player.Imbue())
+						if (Imbue.Type == player.Imbue().Type)
 						{
 							settodefault = true;
 							SpecificImbue = false;
