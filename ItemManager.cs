@@ -379,6 +379,8 @@ namespace ArcaneOdyssey
 		public override void UpdateInventory(Item item, Player player)
 		{
 			thisItem = item;
+            if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
+                Cold = null;
 			if (!CanBeAffected)
 				return;
 			List<Imbuable> options = [null, .. player.GetAllImbues()];

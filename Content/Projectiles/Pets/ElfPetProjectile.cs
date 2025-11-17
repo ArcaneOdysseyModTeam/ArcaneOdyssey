@@ -90,7 +90,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
                                 int[] confettis = [DustID.Confetti_Blue,DustID.Confetti_Green,DustID.Confetti_Pink,DustID.Confetti_Yellow];
                                 Dust.NewDust(Projectile.Center + new Vector2(0f,-25f),1,1,confettis[(int)Math.Round(Main.rand.NextFloat()*3f)],0,0);
                             }
-                            if (ArcaneOdysseyConfig.Instance.ElfPetSoundEffects)
+                            if (ArcaneOdysseyClientConfig.Instance.ElfPetSoundEffects)
                             {
                                 //Audio here
                                 Main.NewText("Elf yippee sound effect would be here");

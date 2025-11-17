@@ -69,7 +69,7 @@ namespace ArcaneOdyssey
 		{
 			// Tucker died lmao
 			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
-			if (ArcaneOdysseyConfig.Instance.GenerateTucker && Stalac != -1)
+			if (ArcaneOdysseyClientConfig.Instance.GenerateTucker && Stalac != -1)
 			{
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{

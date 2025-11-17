@@ -29,16 +29,11 @@ ImbueStuff: {
 
 Configs: {
 	ArcaneOdysseyConfig: {
-		DisplayName: Arcane Odyssey Config
+		DisplayName: Server Config
 
 		AffectsOtherMods: {
 			Label: Affect other mods
 			Tooltip: Allows imbues and rarity tooltips to affect items from other mods
-		}
-
-		GenerateTucker: {
-			Label: Generate Tucker's Grave
-			Tooltip: Toggles the generation of Tucker's grave on world creation
 		}
 
 		EnableMorden: {
@@ -46,14 +41,28 @@ Configs: {
 			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
 		}
 
+		VanillaItemTemperatures: {
+			Label: Vanilla Item Temperatures
+			Tooltip: Toggles whether vanilla items can have the Steam imbue
+		}
+
+		ProjectileSizes: {
+			Label: Projectile Sizes
+			Tooltip: Toggles projectiles having their size affected by the mod
+		}
+	}
+
+	ArcaneOdysseyClientConfig: {
+		DisplayName: Client Config
+
 		ElfPetSoundEffects: {
 			Label: Elf Pet Sound Effects
 			Tooltip: ""
 		}
 
-		VanillaItemTemperatures: {
-			Label: Vanilla Item Temperatures
-			Tooltip: Toggles whether vanilla items can have the Steam imbue
+		GenerateTucker: {
+			Label: Generate Tucker's Grave
+			Tooltip: Toggles the generation of Tucker's grave on world creation
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace ArcaneOdyssey
 		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey()?.Imbue;
 
-        public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
+		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
@@ -392,6 +392,12 @@ namespace ArcaneOdyssey
 			return player is not null && player.active;
 		}
 
+		public static Player GetOwner(this Entity entity)
+		{
+			entity.TryGetOwner(out Player player);
+            return player;
+		}
+
 		#region Enum Getters
 
 		public static ItemType GetItemType(this Item item)
@@ -656,8 +662,8 @@ namespace ArcaneOdyssey
 			{
 				text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}";
 			}
-            if (Description is not null)
-			    text += $": {LocalizedDescription.Value}";
+			if (Description is not null)
+				text += $": {LocalizedDescription.Value}";
 			return new TooltipLine(mod, "AOAbility", text);
 		}
 	}
@@ -821,8 +827,8 @@ namespace ArcaneOdyssey
 		public NPC npc = npc;
 		public int buffID = buffID;
 
-        internal static int[] AlternateBuff = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
-    }
+		internal static int[] AlternateBuff = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
+	}
 
 	/// <summary>
 	/// Magic status effects

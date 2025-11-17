@@ -29,7 +29,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
             if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
                 Count++;
-				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .2f, 2f);
+                if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+				    BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .2f, 2f);
 			}
             else
             {

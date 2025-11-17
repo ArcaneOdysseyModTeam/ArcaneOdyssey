@@ -12,15 +12,27 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// </summary>
 	public abstract class AOPlayerProjectile : ModProjectile, IImbuable
 	{
-        public virtual bool CanHaveImbue => true;
+		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 		public AOPlayer aoPlayerOwner = null;
 		public bool IsSpell => this is MagicSpell;
 
 		public float BaseScale 
 		{  
-			get => Projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-			set => Projectile.ArcaneOdyssey().BaseScale = value; 
+			get 
+			{
+				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+					return Projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
+				else
+					return Projectile.scale;
+			}
+			set
+			{
+				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+					Projectile.ArcaneOdyssey().BaseScale = value;
+				else
+					Projectile.scale = value;
+			}
 		}
 
 		public Imbuable Imbue

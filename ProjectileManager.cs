@@ -19,23 +19,10 @@ namespace ArcaneOdyssey
 {
 	public class ProjectileManager : GlobalProjectile
 	{
-		public override bool PreKill(Projectile projectile, int timeLeft)
-		{
-			if (!Main.dedServ)
-			{
-				if (projectile.TryGetImbue(out Imbuable imbue) && imbue.PreEffects(projectile))
-				{
-					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
-						imbue.KillEffects(projectile);
-				}
-			}
-			return base.PreKill(projectile, timeLeft);
-		}
-
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
 			bool returntype = true;
-			if (Main.player[projectile.owner].ArcaneOdyssey().Imbue is PoisonMagic or PoisonLightningMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+			if (projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
@@ -43,7 +30,7 @@ namespace ArcaneOdyssey
 				returntype = false;
 			}
 
-			else if (Main.player[projectile.owner].ArcaneOdyssey().Imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
+			else if (projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
@@ -54,11 +41,13 @@ namespace ArcaneOdyssey
 			return returntype; 
 		}
 	}
+
 	public class AOProjectile : GlobalProjectile, IImbuable
     {
         public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
         {
-            if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0 || !CanBeAffected)
+            thisProjectile = projectile;
+            if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0 || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
                 return;
             Player player = Main.player[projectile.owner];
             Vector2 dim = projectile.ArcaneOdyssey().OriginalDimensions.GetValueOrDefault(projectile.Size);
@@ -94,8 +83,26 @@ namespace ArcaneOdyssey
         }
 
 		public override bool InstancePerEntity => true;
-		public float? BaseScale = null;
-		public Vector2? OriginalDimensions = null;
+
+        private float? _basescale = null;
+        public float? BaseScale
+        {
+            get
+            {
+                if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+                    return _basescale.GetValueOrDefault(1f);
+                else
+                    return thisProjectile.scale;
+            }
+            set
+            {
+                if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+                    _basescale = value;
+                else
+                    thisProjectile.scale = value.GetValueOrDefault(1f);
+            }
+        }
+        public Vector2? OriginalDimensions = null;
 		public Imbuable Imbue { get; set; }
 		public Projectile thisProjectile = null;
 
@@ -120,9 +127,22 @@ namespace ArcaneOdyssey
 				}
 				return _cold;
 			} set => _cold = value;
-		}
+        }
 
-		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        public override bool PreKill(Projectile projectile, int timeLeft)
+        {
+            if (!Main.dedServ)
+            {
+                if (Imbue is not null && Imbue.PreEffects(projectile))
+                {
+                    if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+                        Imbue.KillEffects(projectile);
+                }
+            }
+            return base.PreKill(projectile, timeLeft);
+        }
+
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
 			if (Imbue is not null)
 			{
