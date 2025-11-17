@@ -9,6 +9,7 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
@@ -103,7 +104,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
             }
             else if (ExternalModSupport.HasThorium)
             {
-                rec.AddIngredient(ExternalModSupport.Thorium.Find<ModItem>("DepthScales"), 5);
+                rec.AddIngredient(ExternalModSupport.Thorium.Find<ModItem>("DepthScale"), 5);
             }
             else
             {

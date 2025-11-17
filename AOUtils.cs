@@ -90,6 +90,8 @@ namespace ArcaneOdyssey
 
 		public static float Clamp(this float num, float min, float max) => MathHelper.Clamp(num, min, max);
 
+		public static bool IsLocked(this Chest chest) => Chest.IsLocked(chest.x, chest.y);
+
 		public static void AverageDimensions(this Entity projectile)
 		{
 			projectile.width = projectile.height = (projectile.width + projectile.height) / 2;
@@ -395,7 +397,7 @@ namespace ArcaneOdyssey
 		public static Player GetOwner(this Entity entity)
 		{
 			entity.TryGetOwner(out Player player);
-            return player;
+			return player;
 		}
 
 		#region Enum Getters
