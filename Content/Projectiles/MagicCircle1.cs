@@ -12,17 +12,19 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public int ChargingProjectile;
 		public float charge = 1f;
 
-        public override bool? CanDamage() => false;
+		public override bool? CanDamage() => false;
 
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 4;
+			//ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Projectile.type] = true;
 		}
 
 		public override void SetDefaults()
 		{
 			Projectile.height = Projectile.width = 128;
-			BaseScale = .5f;
+			if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+				BaseScale = .5f;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 0;
 		}
