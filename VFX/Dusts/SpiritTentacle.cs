@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.VFX.Dusts
         public Texture2D Tentacle => Mod.Assets.Request<Texture2D>("Assets/SpiritTentacle").Value;
         public override bool PreDraw(Dust dust)
         {
-            Main.EntitySpriteDraw(Tentacle, (dust.position + AOUtils.DefaultDustDimensions) - (Tentacle.Size() / 2), null, dust.color with { A = (byte)(255 - dust.alpha) }, dust.rotation, Tentacle.Size() / 2, dust.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(Tentacle, (dust.position + AOUtils.DefaultDustDimensions * dust.scale) - (Tentacle.Size() / 2 * dust.scale), null, dust.color with { A = (byte)(255 - dust.alpha) }, dust.rotation, Tentacle.Size() / 2, dust.scale, SpriteEffects.None);
             return false;
         }
     }
