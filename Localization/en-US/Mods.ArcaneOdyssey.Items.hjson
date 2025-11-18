@@ -152,3 +152,8 @@ Accessories: {
 		Tooltip: ""
 	}
 }
+
+EvanderTrophy: {
+	DisplayName: Evander Trophy
+	Tooltip: ""
+}

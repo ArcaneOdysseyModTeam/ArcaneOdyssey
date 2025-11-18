@@ -1,8 +1,7 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
 using ArcaneOdyssey.Content.Tiles.BossTrophies;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ArcaneOdyssey.Content.Items.BossTrophies
 {

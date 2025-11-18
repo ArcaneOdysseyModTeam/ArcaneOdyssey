@@ -1,6 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+using Terraria.ObjectData;
+using Terraria.Localization;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Tiles.BossTrophies
 {
@@ -11,7 +14,6 @@ namespace ArcaneOdyssey.Content.Tiles.BossTrophies
             Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
             TileID.Sets.FramesOnKillWall[Type] = true;
-
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
             TileObjectData.addTile(Type);
 

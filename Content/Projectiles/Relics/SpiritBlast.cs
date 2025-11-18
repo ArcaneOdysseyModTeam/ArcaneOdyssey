@@ -53,8 +53,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 			if (!Main.dedServ)
 			{
-                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SpiritTentacle>(), Alpha: 255 / 2).noGravity = true;
-				for (float i = 0; i < 20; i++)
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SpiritTentacle>(), newColor: Color.White, Alpha: 255 / 4 * 3, Scale: .75f).noGravity = true;
+				for (float i = 0; i < 10; i++)
 				{
 					Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.width, DustID.IcyMerman, Projectile.velocity.X/2, Projectile.velocity.Y/2).noGravity = true;
 				}

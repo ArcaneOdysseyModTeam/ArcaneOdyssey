@@ -9,6 +9,7 @@ using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
@@ -59,18 +60,17 @@ namespace ArcaneOdyssey
 		public static StatInheritanceData QuickInheritance(float num) => new(num, num, num, num, num); // makes me hungry
 		public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
 
-
         public static readonly Vector2 DefaultDustDimensions = new(10, 10);
         public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
         {
             if (newPos.HasValue)
             {
-                return dust.position + (DefaultDustDimensions / 2f);
+                dust.position = newPos.Value - (DefaultDustDimensions / 2f * dust.scale);
+                return dust.position;
             }
             else
             {
-                dust.position = newPos.Value - (DefaultDustDimensions / 2f);
-                return dust.position;
+                return dust.position + (DefaultDustDimensions / 2f * dust.scale);
             }
         }
 
