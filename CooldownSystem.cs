@@ -13,7 +13,7 @@ namespace ArcaneOdyssey
 		public bool ManualTickdown => true;
 		public virtual string Texture => null;
 
-		public Cooldown AOCooldown => new(ID, Language.GetOrRegister(ArcaneOdyssey.Instance.GetLocalizationKey($"Cooldowns.{ID}"), () => Name), ManualTickdown, CooldownLength);
+		public Cooldown AOCooldown => new(ID, Language.GetOrRegister(ArcaneOdysseyMod.Instance.GetLocalizationKey($"Cooldowns.{ID}"), () => Name), ManualTickdown, CooldownLength);
 
 		public CooldownSystem()
 		{
@@ -77,7 +77,7 @@ namespace ArcaneOdyssey
 				if (Cooldown.TickDown)
 				{
 					var cool = Cooldown;
-					if (--cool.cooldownRemaining <= 0 || ArcaneOdyssey.devMode)
+					if (--cool.cooldownRemaining <= 0 || ArcaneOdysseyMod.devMode)
 					{
 						if (OnCooldown(Cooldown.ID) && !toremove.Contains(Cooldown))
 							toremove.Add(Cooldown);

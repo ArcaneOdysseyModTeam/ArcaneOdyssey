@@ -76,7 +76,7 @@ namespace ArcaneOdyssey
 
         public override void SetDefaults(Projectile entity)
         {
-            if (ArcaneOdyssey.excludedProjectiles.Contains(entity.type))
+            if (ArcaneOdysseyMod.excludedProjectiles.Contains(entity.type))
             {
                 CanBeAffected = false;
             }

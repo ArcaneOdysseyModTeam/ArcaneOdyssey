@@ -141,7 +141,7 @@ namespace ArcaneOdyssey
                 Func<string> imbueText = () => $"Current Imbue: {(Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";
 				fargos.Call("AddStat", ModContent.ItemType<PoseidonChoice>(), imbueText);
 
-				fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{ArcaneOdyssey.InternalName}.NPCs.Edgelord");
+				fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{ArcaneOdysseyMod.InternalName}.NPCs.Edgelord");
 			}
 		}
 

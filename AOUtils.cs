@@ -303,7 +303,7 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public static LocalizedText CustomLocalization(this Mod mod, string key, params object[] formatting)
 		{
-			if (mod is not global::ArcaneOdyssey.ArcaneOdyssey)
+			if (mod is not ArcaneOdysseyMod)
 			{
 				mod = ModInstance;
 			}
@@ -313,19 +313,19 @@ namespace ArcaneOdyssey
 			{
 				fulllocalstuff += " " + format;
 			}
-			if (global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + fulllocalstuff, out LocalizedText value))
+			if (ArcaneOdysseyMod.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + fulllocalstuff, out LocalizedText value))
 			{
 				text = value;
 			}
 			else
 			{
-				text = mod.GetLocalization(key, () => key.Split('.').LastOrDefault(key)).WithFormatArgs(formatting);
-				global::ArcaneOdyssey.ArcaneOdyssey.staticLocalizer[mod.GetLocalizationKey(key) + fulllocalstuff] = text;
+				text = Language.GetOrRegister(mod.GetLocalizationKey(key), () => key.Split('.').LastOrDefault(key)).WithFormatArgs(formatting);
+				ArcaneOdysseyMod.staticLocalizer[mod.GetLocalizationKey(key) + fulllocalstuff] = text;
 			}
 			return text;
 		}
 
-		public static ArcaneOdyssey ModInstance => global::ArcaneOdyssey.ArcaneOdyssey.Instance;
+		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
 
 
 		private static bool checklistfailed = false;

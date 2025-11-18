@@ -15,7 +15,7 @@ namespace ArcaneOdyssey
 	{
 		public string Name => GetType().Name;
 
-		public Mod Mod { get => ModLoader.GetMod(ArcaneOdyssey.InternalName); }
+		public Mod Mod { get => ModLoader.GetMod(ArcaneOdysseyMod.InternalName); }
 
 		/// <summary>
 		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
@@ -67,9 +67,9 @@ namespace ArcaneOdyssey
 		public bool OnCooldown(Player player)
 		{
 			if (AnyDirection)
-				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
 			else
-				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
 		}
 
 		/// <summary>
@@ -82,9 +82,9 @@ namespace ArcaneOdyssey
 		{
 			var dash = Activator.CreateInstance(dashType) as DashSystem;
 			if (dash.AnyDirection)
-				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
 			else
-				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdyssey.devMode;
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
 		}
 
 		/// <summary>

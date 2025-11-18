@@ -269,7 +269,7 @@ namespace ArcaneOdyssey
 		public override void SetDefaults(Item item)
 		{
 			thisItem = item;
-			if (ArcaneOdyssey.excludedItems.Contains(item.type))
+			if (ArcaneOdysseyMod.excludedItems.Contains(item.type))
 			{
 				CanBeAffected = false;
 			}
@@ -330,7 +330,7 @@ namespace ArcaneOdyssey
 						break;
 				}
 			}
-			Cold = ArcaneOdyssey.coldItems.GetValueOrDefault(item.type, null);
+			Cold = ArcaneOdysseyMod.coldItems.GetValueOrDefault(item.type, null);
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)

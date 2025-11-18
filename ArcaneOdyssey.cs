@@ -16,15 +16,15 @@ using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey
 {
-	public class ArcaneOdyssey : Mod
+	public class ArcaneOdysseyMod : Mod
 	{
 		/// <summary>
 		/// disable all cooldowns and stuff lmao
 		/// </summary>
 		public static bool devMode => DevMode.devMode;
-		public readonly static string InternalName = typeof(ArcaneOdyssey).Name;
+		public const string InternalName = "ArcaneOdyssey";
 
-		public static ArcaneOdyssey Instance => ModContent.GetInstance<ArcaneOdyssey>();
+		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
 		internal static Dictionary<int, bool?> coldItems = [];

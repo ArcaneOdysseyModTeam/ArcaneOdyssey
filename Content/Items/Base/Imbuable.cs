@@ -215,7 +215,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				if (this is AOMagic or BasicCombat)
 				{
 					RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
-					RecipeGroup.RegisterGroup($"{ArcaneOdyssey.InternalName}:PoseidonSpirit", group);
+					RecipeGroup.RegisterGroup($"{ArcaneOdysseyMod.InternalName}:PoseidonSpirit", group);
 					CreateRecipe().AddRecipeGroup(group).DisableDecraft().Register();
 				}
 			}
@@ -223,7 +223,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this is BasicCombat)
 			{
 				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
-				RecipeGroup.RegisterGroup($"{ArcaneOdyssey.InternalName}:AnyBasicImbue", goru);
+				RecipeGroup.RegisterGroup($"{ArcaneOdysseyMod.InternalName}:AnyBasicImbue", goru);
 				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonSpirit>());
 				recipe.AddRecipeGroup(goru);
 				recipe.AddIngredient<Acrimony>();
