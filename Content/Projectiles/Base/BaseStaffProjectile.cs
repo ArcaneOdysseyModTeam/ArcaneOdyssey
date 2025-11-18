@@ -26,13 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
-			float extramulti = 1f;
-			if (Imbue is not null)
-			{
-				extramulti = Imbue.AOImbueSpeed.FlipFloat();
-			}
-
-			float spintime = 25 * AOSpeed.FlipFloat() * 2 * extramulti;
+			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed ?? 1f);
 			Vector2 expectedDirection = player.SafeDirectionTo(Main.MouseWorld);
 			player.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
 

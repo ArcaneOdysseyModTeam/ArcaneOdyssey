@@ -60,21 +60,21 @@ namespace ArcaneOdyssey
 		public static StatInheritanceData QuickInheritance(float num) => new(num, num, num, num, num); // makes me hungry
 		public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
 
-        public static readonly Vector2 DefaultDustDimensions = new(10, 10);
-        public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
-        {
-            if (newPos.HasValue)
-            {
-                dust.position = newPos.Value - (DefaultDustDimensions / 2f * dust.scale);
-                return dust.position;
-            }
-            else
-            {
-                return dust.position + (DefaultDustDimensions / 2f * dust.scale);
-            }
-        }
+		public static readonly Vector2 DefaultDustDimensions = new(10, 10);
+		public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
+		{
+			if (newPos.HasValue)
+			{
+				dust.position = newPos.Value - (DefaultDustDimensions / 2f * dust.scale);
+				return dust.position;
+			}
+			else
+			{
+				return dust.position + (DefaultDustDimensions / 2f * dust.scale);
+			}
+		}
 
-        public static bool BossAlive()
+		public static bool BossAlive()
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
@@ -559,12 +559,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="input">Input</param>
 		/// <returns></returns>
-		public static float FlipFloat(this float input)
-		{
-			if (input >= 2)
-				return .01f;
-			return 2f - input;
-		}
+		public static float FlipFloat(this float input) => MathHelper.Clamp(2f - input, .1f, 2);
 
 		public static float MultiToPercent(this float multiplier) => multiplier-1f; // wow simplest function on the earth
 
