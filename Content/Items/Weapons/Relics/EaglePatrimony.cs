@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles.Relic;
+using ArcaneOdyssey.Content.Projectiles.Relics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

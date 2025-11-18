@@ -2,13 +2,14 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Projectiles.Relic
+namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class SpiritBlast : SpiritProjectile
 	{
@@ -52,6 +53,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relic
 
 			if (!Main.dedServ)
 			{
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SpiritTentacle>(), Alpha: 255/2);
 				for (float i = 0; i < 20; i++)
 				{
 					Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.width, DustID.IcyMerman, Projectile.velocity.X/2, Projectile.velocity.Y/2).noGravity = true;

@@ -60,7 +60,21 @@ namespace ArcaneOdyssey
 		public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
 
 
-		public static bool BossAlive()
+        public static readonly Vector2 DefaultDustDimensions = new(10, 10);
+        public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
+        {
+            if (newPos.HasValue)
+            {
+                return dust.position + (DefaultDustDimensions / 2f);
+            }
+            else
+            {
+                dust.position = newPos.Value - (DefaultDustDimensions / 2f);
+                return dust.position;
+            }
+        }
+
+        public static bool BossAlive()
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
@@ -314,7 +328,7 @@ namespace ArcaneOdyssey
 		public static ArcaneOdyssey ModInstance => global::ArcaneOdyssey.ArcaneOdyssey.Instance;
 
 
-		public static bool checklistfailed = false;
+		private static bool checklistfailed = false;
 		private static int GetBossKillCount()
 		{
 			int count = 0;
