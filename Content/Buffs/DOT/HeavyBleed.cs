@@ -27,6 +27,8 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			npc.ArcaneOdyssey().HeavyBleeding = true;
 			if (npc.buffTime[buffIndex] == 1)
 			{
+                totalTicks = 0;
+                frameNum = 0;
 				npc.HitNPC(totalTicks / 30, Main.rand.NextBool().ToDirectionInt());
 			}
 		}

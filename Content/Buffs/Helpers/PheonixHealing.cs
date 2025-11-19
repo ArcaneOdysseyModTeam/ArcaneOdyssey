@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 					dustpos = Vector2.Lerp(npc.Center, offsetpoint, progress);
 				}
 
-				if (i % 20 == 0)
+				if (i % 5 == 0)
 				{
 					var dust = Dust.NewDustPerfect(dustpos, Main.rand.Next(new int[] { DustID.BlueTorch, DustID.YellowTorch }));
 					dust.noGravity = true;
