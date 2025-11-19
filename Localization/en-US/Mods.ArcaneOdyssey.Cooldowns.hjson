@@ -1,0 +1,39 @@
+﻿CrashCooldown: {
+	DisplayName: Crash Cooldown
+	Description: Crash is on cooldown
+}
+
+VanishCooldown: {
+	DisplayName: Vanish Cooldown
+	Description: Vanish is on cooldown
+}
+
+DevastateCooldown: {
+	DisplayName: Devastate Cooldown
+	Description: Devastate is on cooldown
+}
+
+ColossalCleaveCooldown: {
+	DisplayName: Colossal Cleave Cooldown
+	Description: Colossal Cleave is on cooldown
+}
+
+RisingTideCooldown: {
+	DisplayName: Rising Tide Cooldown
+	Description: Rising Tide is on cooldown
+}
+
+SeismicSlashCooldown: {
+	DisplayName: Seismic Slash Cooldown
+	Description: Seismic Slash is on cooldown
+}
+
+PiercingStrikesCooldown: {
+	DisplayName: Piercing Strike Cooldown
+	Description: Piercing Strike is on cooldown
+}
+
+WhirlwindCooldown: {
+	DisplayName: Whirlwind Cooldown
+	Description: Whirlwind is on cooldown
+}

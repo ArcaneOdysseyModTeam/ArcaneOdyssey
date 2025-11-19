@@ -45,7 +45,7 @@ namespace ArcaneOdyssey
 
 		public virtual int CooldownLength => 0;
 
-		public override string LocalizationCategory => "Buffs.Cooldowns";
+		public override string LocalizationCategory => "Cooldowns";
 
 		public override LocalizedText Description => Language.GetOrRegister(Mod.GetLocalizationKey($"{LocalizationCategory}.{Name}.Description"), () => $"{DisplayName.Value} is on cooldown");
     }
