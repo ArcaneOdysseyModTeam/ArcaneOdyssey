@@ -39,7 +39,7 @@ namespace ArcaneOdyssey
 		{
 			if (ExtraIconTexture is not null)
 			{
-				spriteBatch.Draw(ModContent.Request<Texture2D>(ExtraIconTexture).Value, drawParams.Position + (drawParams.SourceRectangle.Size() / 2), drawParams.DrawColor);
+				spriteBatch.Draw(ModContent.Request<Texture2D>(ArcaneOdysseyMod.InternalName + "/" + ExtraIconTexture).Value, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
 			}
 		}
 
@@ -47,10 +47,10 @@ namespace ArcaneOdyssey
 
 		public override string LocalizationCategory => "Cooldowns";
 
-		public override LocalizedText Description => Language.GetOrRegister(Mod.GetLocalizationKey($"{LocalizationCategory}.{Name}.Description"), () => $"{DisplayName.Value} is on cooldown");
-    }
+		public override LocalizedText Description => Language.GetOrRegister(Mod.GetLocalizationKey($"{LocalizationCategory}.{Name}.Description"), () => $"{DisplayName.Value.Replace(" Cooldown", null)} is on cooldown");
+	}
 
-    public struct Cooldown
+	public struct Cooldown
 	{
 		public string ID;
 		public LocalizedText Name;

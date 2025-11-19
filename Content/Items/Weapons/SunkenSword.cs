@@ -102,6 +102,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int DisplayedCooldownID => ModContent.BuffType<RisingTideCooldown>();
 	}
 
-	public class RisingTideCooldown : DisplayedCooldown { }
+	public class RisingTideCooldown : DisplayedCooldown 
+    {
+        public override string ExtraIconTexture => "Assets/RisingTide";
+    }
 }
 
