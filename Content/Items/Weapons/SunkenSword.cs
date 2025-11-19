@@ -7,20 +7,21 @@ using System;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Bronze;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
 	public class SunkenSword : AORangedOrMeleeWeapon
-    {
-        public override bool? Cold => true;
-        public override float AOSpeed => 1.2f;
+	{
+		public override bool? Cold => true;
+		public override float AOSpeed => 1.2f;
 		public override float AOSize => .9f;
 		public override float AODamage => 1f;
 		public override int AOValue => 900;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponAbility? Ability => new(Mod, "Rising Tide", "Launch yourself upwards", Color.Aqua);
-        public override SoundStyle UseSound => SoundID.SplashWeak;
+		public override SoundStyle UseSound => SoundID.SplashWeak;
 		public override AODebuffRequirement? WeaponDebuff => new(BuffID.Wet, 60 * 5);
 
 		public override void SetDefaults()
@@ -37,23 +38,19 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override bool? UseItem(Player player)
 		{
+			if (player.AltUse())
+			{
+				var dash = new RisingTide();
+				if (!dash.OnCooldown(player))
+					player.ArcaneOdyssey().StartDash(dash, -2);
+			}
 			if (!Main.dedServ) 
 			{
-                // Particles from swinging
-                Dust.NewDust(player.MountedCenter + new Vector2(player.direction * 3f, 0f), 3, 3, DustID.Water, (player.direction * 30f) * (0.8f - Main.rand.NextFloat()), 30f * (0.5f - Main.rand.NextFloat()), 255, default, 1.3f);
+				// Particles from swinging
+				Dust.NewDust(player.MountedCenter + new Vector2(player.direction * 3f, 0f), 3, 3, DustID.Water, (player.direction * 30f) * (0.8f - Main.rand.NextFloat()), 30f * (0.5f - Main.rand.NextFloat()), 255, default, 1.3f);
 			}
 			return null;
 		}
-
-        public override void UseAnimation(Player player)
-        {
-            if (player.AltUse())
-            {
-                var dash = new RisingTide();
-                if (!dash.OnCooldown(player))
-                    player.ArcaneOdyssey().StartDash(dash, -2);
-            }
-        }
 
 		public override void AddRecipes()
 		{
@@ -87,8 +84,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		}
 
 		public override void OnStart(Player player)
-        {
-            if (!Main.dedServ)
+		{
+			if (!Main.dedServ)
 			{
 				SoundEngine.PlaySound(SoundID.Splash, player.position);
 				// Adds dust
@@ -101,6 +98,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				}
 			}
 		}
+
+		public override int DisplayedCooldownID => ModContent.BuffType<RisingTideCooldown>();
 	}
+
+	public class RisingTideCooldown : DisplayedCooldown { }
 }
 

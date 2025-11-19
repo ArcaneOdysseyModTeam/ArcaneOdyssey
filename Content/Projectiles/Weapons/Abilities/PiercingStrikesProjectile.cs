@@ -68,5 +68,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			projectile.Projectile.Kill();
 		}
-	}
+
+        public override int DisplayedCooldownID => ModContent.BuffType<PiercingStrikesCooldown>();
+    }
+
+    public class PiercingStrikesCooldown : DisplayedCooldown { }
 }

@@ -109,6 +109,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				}
 			}
 		}
+
+		public override int DisplayedCooldownID => ModContent.BuffType<CrashCooldown>();
 	}
 
 	public class Smash : DashSystem
@@ -170,4 +172,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			}
 		}
 	}
+
+	public class CrashCooldown : DisplayedCooldown { }
 }

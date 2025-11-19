@@ -4,7 +4,9 @@ using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
@@ -56,7 +58,12 @@ namespace ArcaneOdyssey
 		/// <param name="player"></param>
 		public void SetCooldown(Player player)
 		{
-			player.ArcaneOdyssey().SetCooldown(AOCooldown);
+			if (DisplayedCooldownID != -1)
+			{
+				player.ArcaneOdyssey()?.SetCooldown(DisplayedCooldownID, Cooldown);
+			}
+			else
+				player.ArcaneOdyssey()?.SetCooldown(AOCooldown);
 		}
 
 		/// <summary>
@@ -66,6 +73,10 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public bool OnCooldown(Player player)
 		{
+			if (DisplayedCooldownID != -1)
+			{
+				return player.ArcaneOdyssey().OnCooldown(DisplayedCooldownID) && !ArcaneOdysseyMod.devMode;
+			}
 			if (AnyDirection)
 				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
 			else
@@ -81,6 +92,10 @@ namespace ArcaneOdyssey
 		public static bool OnCooldown(Type dashType, Player player)
 		{
 			var dash = Activator.CreateInstance(dashType) as DashSystem;
+			if (dash.DisplayedCooldownID != -1)
+			{
+				return player.ArcaneOdyssey().OnCooldown(dash.DisplayedCooldownID) && !ArcaneOdysseyMod.devMode;
+			}
 			if (dash.AnyDirection)
 				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
 			else
@@ -121,6 +136,8 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public virtual void NaturalEnd(Player player) { }
 
+		public virtual int DisplayedCooldownID => -1;
+
 		public Cooldown AOCooldown => new(AnyDirection ? Name : "StandardDash", Mod, Cooldown);
 	}
 
@@ -156,6 +173,7 @@ namespace ArcaneOdyssey
 		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
 		public void StartDash(DashSystem dashToUse, int direction = 0)
 		{
+            dashToUse.SetCooldown(Player);
 			storedWingTime = Player.wingTime;
 			Player.noFallDmg = true;
 			Player.timeSinceLastDashStarted = 0;

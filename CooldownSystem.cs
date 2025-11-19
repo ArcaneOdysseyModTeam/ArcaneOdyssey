@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -9,24 +12,45 @@ namespace ArcaneOdyssey
 	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{
 		public override string Texture => Mod.Name + "/Assets/Debuff";
+		public virtual string ExtraIconTexture => null;
 
 		public override void SetStaticDefaults()
 		{
 			Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
+			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 
-        public abstract int CooldownLength { get; }
+		public int TypeID
+		{
+			get
+			{
+				if (ArcaneOdysseyMod.Instance.TryFind<ModBuff>(Name, out var cooldown))
+				{
+					return cooldown.Type;
+				}
+				else
+					return Type;
+			}
+		}
 
-        public override string LocalizationCategory => "Buffs.Cooldowns";
+		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
+		{
+			if (ExtraIconTexture is not null)
+			{
+				spriteBatch.Draw(ModContent.Request<Texture2D>(ExtraIconTexture).Value, drawParams.Position + (drawParams.SourceRectangle.Size() / 2), drawParams.DrawColor);
+			}
+		}
 
-		//public override LocalizedText Description => Language.GetOrRegister(Mod.GetLocalizationKey($"Cooldowns.{Name}.Description"), () => $"{DisplayName.Value} is on cooldown");
-		//public override LocalizedText DisplayName => Language.GetOrRegister(Mod.GetLocalizationKey($"Cooldowns.{Name}.Name"), () => base.DisplayName.Value);
-	}
+		public virtual int CooldownLength => 0;
 
-	public struct Cooldown
+		public override string LocalizationCategory => "Buffs.Cooldowns";
+
+		public override LocalizedText Description => Language.GetOrRegister(Mod.GetLocalizationKey($"{LocalizationCategory}.{Name}.Description"), () => $"{DisplayName.Value} is on cooldown");
+    }
+
+    public struct Cooldown
 	{
 		public string ID;
 		public LocalizedText Name;
@@ -123,8 +147,12 @@ namespace ArcaneOdyssey
 
 		public void SetCooldown(DisplayedCooldown cooldown)
 		{
-            var real = ModContent.Find<ModBuff>(cooldown.Name);
-			Player.AddBuff(real.Type, cooldown.CooldownLength);
+			Player.AddBuff(cooldown.TypeID, cooldown.CooldownLength);
+		}
+
+		public void SetCooldown(int cooldown, int length)
+		{
+			Player.AddBuff(cooldown, length);
 		}
 	}
 }

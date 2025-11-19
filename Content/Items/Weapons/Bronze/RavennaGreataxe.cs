@@ -70,6 +70,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			return false;
 		}
 
+		public override int DisplayedCooldownID => ModContent.BuffType<DevastateCooldown>();
+
 		public override void DashEffect(Player player)
 		{
 			if (player.itemAnimation < 8 || player.itemTime < 8)
@@ -84,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-            SimulateAOE(100, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
+			SimulateAOE(100, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
 			if (player.TryGetImbue(out var imbue))
 			{
 				for (int i = 0; i < 20; i++)
@@ -98,4 +100,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			// Vfx
 		}
 	}
+
+	public class DevastateCooldown : DisplayedCooldown { }
 }

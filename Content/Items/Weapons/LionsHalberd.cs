@@ -30,34 +30,34 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			base.SetDefaults();
 			Item.width = 70;
 			Item.height = 68;
-            Item.axe = 105 / 5;
-            Item.useStyle = ItemUseStyleID.Swing;
+			Item.axe = 105 / 5;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 		}
 
 		public override bool AltFunctionUse(Player player)
 		{
 			return CanUseItem(player);
-        }
+		}
 
-        public override bool? UseItem(Player player)
-        {
-            if (player.AltUse())
-            {
-                var dash = new SeismicSlash();
-                if (!dash.OnCooldown(player))
-                {
-                    player.ArcaneOdyssey().StartDash(dash, 2);
-                }
-            }
-            return null;
-        }
+		public override bool? UseItem(Player player)
+		{
+			if (player.AltUse())
+			{
+				var dash = new SeismicSlash();
+				if (!dash.OnCooldown(player))
+				{
+					player.ArcaneOdyssey().StartDash(dash, 2);
+				}
+			}
+			return null;
+		}
 
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient<RavennaGreataxe>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
-        }
-    }
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<RavennaGreataxe>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
+		}
+	}
 
 	public class SeismicSlash : DashSystem
 	{
@@ -83,18 +83,22 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			}
 		}
 
-        public override void OnEnd(Player player)
-        {
-            player.ArcaneOdyssey().timeTillNextMove += 15;
-            if (player.TryGetImbue(out var imbue))
-            {
-                for (int i = 0; i < 15; i++)
-                    imbue.ExplosionEffects(player);
-            }
-            if (player.whoAmI == Main.myPlayer)
-            {
-                Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (imbue?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
-            }
-        }
+		public override void OnEnd(Player player)
+		{
+			player.ArcaneOdyssey().timeTillNextMove += 15;
+			if (player.TryGetImbue(out var imbue))
+			{
+				for (int i = 0; i < 15; i++)
+					imbue.ExplosionEffects(player);
+			}
+			if (player.whoAmI == Main.myPlayer)
+			{
+				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (imbue?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
+			}
+		}
+
+		public override int DisplayedCooldownID => ModContent.BuffType<SeismicSlashCooldown>();
 	}
+
+	public class SeismicSlashCooldown : DisplayedCooldown { }
 }
