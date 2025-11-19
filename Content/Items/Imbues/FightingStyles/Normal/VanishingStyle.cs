@@ -95,15 +95,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (Player.ArcaneOdyssey().Imbue is VanishingStyle && (!Player.ArcaneOdyssey().OnCooldown(nameof(VanishCooldown))) && AOKeybinds.Vanish.JustPressed) // add more conditions later
 			{
-				Player.ArcaneOdyssey().SetCooldown(new VanishCooldown().AOCooldown);
+				Player.ArcaneOdyssey().SetCooldown(new VanishCooldown());
 				Player.AddBuff(BuffID.Invisibility, 60 * 5);
 			}
 		}
 	}
 
-	public class VanishCooldown : CooldownSystem
+	public class VanishCooldown : DisplayedCooldown
 	{
-		public override string Name => "Vanish";
 		public override int CooldownLength => 12 * 60;
 	}
 }

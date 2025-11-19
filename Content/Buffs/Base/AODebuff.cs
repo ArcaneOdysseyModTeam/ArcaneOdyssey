@@ -13,7 +13,6 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 		{
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
-			Main.buffNoTimeDisplay[Type] = false;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 			ExternalModSupport.RegisterDebuff(this);
 		}

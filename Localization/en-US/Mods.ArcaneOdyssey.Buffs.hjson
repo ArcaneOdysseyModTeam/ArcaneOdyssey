@@ -102,3 +102,20 @@ ElectrifiedToxins: {
 	DisplayName: Electrified Toxins
 	Description: You are being shocked, while being poisoned
 }
+
+Cooldowns: {
+	VanishCooldown: {
+		DisplayName: Vanish Cooldown
+		Description: Mods.ArcaneOdyssey.Buffs.Cooldowns.VanishCooldown.Description
+	}
+
+	ColossalCleaveCooldown: {
+		DisplayName: Colossal Cleave Cooldown
+		Description: Mods.ArcaneOdyssey.Buffs.Cooldowns.ColossalCleaveCooldown.Description
+	}
+
+	WhirlwindCooldown: {
+		DisplayName: Whirlwind Cooldown
+		Description: Mods.ArcaneOdyssey.Buffs.Cooldowns.WhirlwindCooldown.Description
+	}
+}

@@ -411,7 +411,7 @@ namespace ArcaneOdyssey
 				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
 				{
 					SpecificImbue = true;
-					player.ArcaneOdyssey().SetCooldown(new("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, true, 60));
+					player.ArcaneOdyssey().SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
 					if (options.Count > 1)
 					{
 						SpecificImbue = true;

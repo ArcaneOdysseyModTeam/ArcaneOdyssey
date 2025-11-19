@@ -119,12 +119,9 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// Called if the dash ends naturally without hitting any enemies
 		/// </summary>
-		public virtual void NaturalEnd(Player player)
-		{
+		public virtual void NaturalEnd(Player player) { }
 
-		}
-
-		public Cooldown AOCooldown => new(AnyDirection ? Name : "StandardDash", Mod, true, Cooldown);
+		public Cooldown AOCooldown => new(AnyDirection ? Name : "StandardDash", Mod, Cooldown);
 	}
 
 	public partial class AOPlayer : ModPlayer, IImbuable
@@ -172,8 +169,8 @@ namespace ArcaneOdyssey
 			else
 			{
 				var standard = Vector2.UnitX * direction;
-                //if (Player.velocity.Y < 0)
-                //standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
+				//if (Player.velocity.Y < 0)
+				//standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
 				if (direction == 2 || direction == -2)
 				{
 					standard = Vector2.UnitY * (direction/2f);

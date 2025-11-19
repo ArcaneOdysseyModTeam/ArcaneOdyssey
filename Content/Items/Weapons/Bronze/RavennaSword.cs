@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
         {
             if (player.ownedProjectileCounts[Item.shoot] < 1 && !player.ArcaneOdyssey().OnCooldown(nameof(WhirlwindCooldown)))
             {
-                player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown().AOCooldown);
+                player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown());
                 var proj = Projectile.NewProjectileDirect(new EntitySource_ItemUse(player, Item), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
                 ((Whirlwind)proj.ModProjectile).colour = proj.Imbue()?.GetColor(Color.Orange) ?? Color.Orange;
                 SoundEngine.PlaySound(Item.UseSound, player.Center);

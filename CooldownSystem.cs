@@ -1,54 +1,55 @@
 ﻿using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
-	public abstract class CooldownSystem
+	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{
-		public static List<CooldownSystem> All = [];
-		public abstract int CooldownLength { get; }
-		public virtual string ID => GetType().Name;
-		public abstract string Name { get; }
-		public bool ManualTickdown => true;
-		public virtual string Texture => null;
+		public override string Texture => Mod.Name + "/Assets/Debuff";
 
-		public Cooldown AOCooldown => new(ID, Language.GetOrRegister(ArcaneOdysseyMod.Instance.GetLocalizationKey($"Cooldowns.{ID}"), () => Name), ManualTickdown, CooldownLength);
-
-		public CooldownSystem()
+		public override void SetStaticDefaults()
 		{
-			All.Add(this);
+			Main.debuff[Type] = true;
+            Main.pvpBuff[Type] = true;
+			Main.buffNoSave[Type] = true;
+			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
+
+        public abstract int CooldownLength { get; }
+
+        public override string LocalizationCategory => "Buffs.Cooldowns";
+
+		//public override LocalizedText Description => Language.GetOrRegister(Mod.GetLocalizationKey($"Cooldowns.{Name}.Description"), () => $"{DisplayName.Value} is on cooldown");
+		//public override LocalizedText DisplayName => Language.GetOrRegister(Mod.GetLocalizationKey($"Cooldowns.{Name}.Name"), () => base.DisplayName.Value);
 	}
 
 	public struct Cooldown
 	{
 		public string ID;
 		public LocalizedText Name;
-		public bool TickDown;
 		public int cooldownRemaining;
 
-		public Cooldown(string ID, LocalizedText Name, bool TickDown, int CooldownLength)
+		public Cooldown(string ID, LocalizedText Name, int CooldownLength)
 		{
 			this.ID = ID;
 			this.Name = Name;
-			this.TickDown = TickDown;
 			cooldownRemaining = CooldownLength;
 		}
 
-		public Cooldown(string ID, Mod mod, string Name, bool TickDown, int CooldownLength)
+		public Cooldown(string ID, Mod mod, string Name, int CooldownLength)
 		{
 			this.ID = ID;
 			this.Name = Language.GetOrRegister(mod.GetLocalizationKey("Cooldowns." + ID), () => Name);
-			this.TickDown = TickDown;
 			cooldownRemaining = CooldownLength;
 		}
 
-		public Cooldown(string ID, Mod mod, bool TickDown, int CooldownLength)
+		public Cooldown(string ID, Mod mod, int CooldownLength)
 		{
 			this.ID = ID;
 			Name = mod.CustomLocalization("Cooldowns." + ID);
-			this.TickDown = TickDown;
 			cooldownRemaining = CooldownLength;
 		}
 	}
@@ -67,26 +68,23 @@ namespace ArcaneOdyssey
 			}
 			else timeTillNextMove = 0;
 
-            foreach (var Cooldown in tochange)
-            {
-                Cooldowns[Cooldown.Key] = Cooldown.Value;
-            }
-
-            foreach (var Cooldown in Cooldowns)
+			foreach (var Cooldown in tochange)
 			{
-				if (Cooldown.TickDown)
+				Cooldowns[Cooldown.Key] = Cooldown.Value;
+			}
+
+			foreach (var Cooldown in Cooldowns)
+			{
+				var cool = Cooldown;
+				if (--cool.cooldownRemaining <= 0 || ArcaneOdysseyMod.devMode)
 				{
-					var cool = Cooldown;
-					if (--cool.cooldownRemaining <= 0 || ArcaneOdysseyMod.devMode)
-					{
-						if (OnCooldown(Cooldown.ID) && !toremove.Contains(Cooldown))
-							toremove.Add(Cooldown);
-					}
-					else
-					{
-						if (OnCooldown(Cooldown.ID))
-							tochange[Cooldowns.IndexOf(Cooldown)] = cool;
-					}
+					if (OnCooldown(Cooldown.ID) && !toremove.Contains(Cooldown))
+						toremove.Add(Cooldown);
+				}
+				else
+				{
+					if (OnCooldown(Cooldown.ID))
+						tochange[Cooldowns.IndexOf(Cooldown)] = cool;
 				}
 			}
 
@@ -102,10 +100,9 @@ namespace ArcaneOdyssey
 			toremove = [];
 		}
 
-		public bool OnCooldown(string ID)
-		{
-			return GetCooldown(ID).ID is not null;
-		}
+		public bool OnCooldown(string ID) => GetCooldown(ID).ID is not null;
+
+		public bool OnCooldown(int ID) => Player.HasBuff(ID);
 
 		public Cooldown GetCooldown(string ID)
 		{
@@ -122,6 +119,12 @@ namespace ArcaneOdyssey
 			{
 				Cooldowns.Add(cooldown);
 			}
+		}
+
+		public void SetCooldown(DisplayedCooldown cooldown)
+		{
+            var real = ModContent.Find<ModBuff>(cooldown.Name);
+			Player.AddBuff(real.Type, cooldown.CooldownLength);
 		}
 	}
 }

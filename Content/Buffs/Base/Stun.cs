@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 			if ((player.ArcaneOdyssey().OnCooldown(Name + "Buff")) || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
-				player.ArcaneOdyssey().SetCooldown(new(Name + "Buff", DisplayName, true, 60));
+				player.ArcaneOdyssey().SetCooldown(new Cooldown(Name + "Buff", DisplayName, 60));
 				player.canFloatInWater = false;
 			}
 		}
