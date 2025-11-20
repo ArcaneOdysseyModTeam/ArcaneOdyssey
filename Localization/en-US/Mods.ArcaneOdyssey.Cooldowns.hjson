@@ -37,3 +37,8 @@ WhirlwindCooldown: {
 	DisplayName: Whirlwind Cooldown
 	Description: Whirlwind is on cooldown
 }
+
+EtherealFlashCooldown: {
+	DisplayName: Ethereal Flash Cooldown
+	Description: Ethereal Flash is on cooldown
+}
