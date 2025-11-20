@@ -104,5 +104,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	public class VanishCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 12 * 60;
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(VanishingStyle);
 	}
 }

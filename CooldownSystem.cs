@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.UI.ModBrowser;
 
 namespace ArcaneOdyssey
 {
@@ -39,7 +40,10 @@ namespace ArcaneOdyssey
 		{
 			if (ExtraIconTexture is not null)
 			{
-				spriteBatch.Draw(ModContent.Request<Texture2D>(ArcaneOdysseyMod.InternalName + "/" + ExtraIconTexture).Value, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
+				if (ModContent.RequestIfExists<Texture2D>(ExtraIconTexture, out var tex))
+				{
+					spriteBatch.Draw(tex.Value, drawParams.MouseRectangle with { Height = drawParams.MouseRectangle.Height - (drawParams.MouseRectangle.Height / 32 * 4), Width = drawParams.MouseRectangle.Width - (drawParams.MouseRectangle.Width / 32 * 4), X = drawParams.MouseRectangle.X + (drawParams.MouseRectangle.Width / 32 * 2), Y = drawParams.MouseRectangle.Y + (drawParams.MouseRectangle.Height / 32 * 2) }, null, drawParams.DrawColor);
+				}
 			}
 		}
 

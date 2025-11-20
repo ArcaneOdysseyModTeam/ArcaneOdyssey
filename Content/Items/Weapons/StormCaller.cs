@@ -43,6 +43,17 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			return true; 
 		}
 
+        public override void OnConsumeAmmo(Item ammo, Player player)
+        {
+            if (player.AltUse())
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    player.ConsumeItem(ammo.type);
+                }
+            }
+        }
+
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			if (player.AltUse())
@@ -57,14 +68,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				}
 				for (int i = -2; i < 3; i++)
 				{
-					if (i == -2 || player.ConsumeItem(source.AmmoItemIdUsed))
-					{
-						offsetX = Main.MouseWorld.X + (Main.screenWidth / 30f * i);
-						offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
-						pos = new Vector2(offsetX, offsetY);
-						var proj = Projectile.NewProjectileDirect(source, pos, Vector2.UnitY * velocity.Length(), type, damage / 5, knockback / 5f, player.whoAmI);
-						proj.Center = pos;
-					}
+					offsetX = Main.MouseWorld.X + (Main.screenWidth / 35f * i);
+					offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
+					pos = new Vector2(offsetX, offsetY);
+					var proj = Projectile.NewProjectileDirect(source, pos, Vector2.UnitY * velocity.Length(), type, damage / 5, knockback / 5f, player.whoAmI);
+					proj.Center = pos;
 				}
 				return false;
 			}

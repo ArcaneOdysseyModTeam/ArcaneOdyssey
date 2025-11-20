@@ -29,28 +29,28 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			base.SetDefaults();
 			Item.noMelee = true;
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.DamageType = TrueMeleeNoSpeed();
-            Item.shootSpeed = BaseSpearProjectile.Speed;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.DamageType = TrueMeleeNoSpeed();
+			Item.shootSpeed = BaseSpearProjectile.Speed;
 			Item.noUseGraphic = true;
 			Item.width = Item.height = 52;
-            Item.shoot = ModContent.ProjectileType<BronzeTriastaProjectile>();
+			Item.shoot = ModContent.ProjectileType<BronzeTriastaProjectile>();
 		}
 
 		public override bool AltFunctionUse(Player player) => true;
 
-        public override void UseAnimation(Player player)
-        {
-            if (player.AltUse() && !DashSystem.OnCooldown(typeof(EtherealFlash), player))
-            {
-                player.ArcaneOdyssey().StartDash(new EtherealFlash());
-            }
-        }
+		public override void UseAnimation(Player player)
+		{
+			if (player.AltUse() && !DashSystem.OnCooldown(typeof(EtherealFlash), player))
+			{
+				player.ArcaneOdyssey().StartDash(new EtherealFlash());
+			}
+		}
 
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient<BronzeTrident>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
-        }
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BronzeTrident>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
+		}
 	}
 
 	public class EtherealFlash : DashSystem
@@ -68,15 +68,22 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void OnEnd(Player player)
 		{
 			SimulateAOE(160, 70, player.MountedCenter, 4.5f, player, TrueMeleeNoSpeed());
-            player.velocity = Vector2.Zero;
-        }
+			player.velocity = Vector2.Zero;
+		}
 
-        public override void DashEffect(Player player)
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                Dust.NewDust(player.MountedCenter, player.width, player.height, DustID.HeatRay, player.ArcaneOdyssey().DashVelocity.X/10f, player.ArcaneOdyssey().DashVelocity.Y/10f, Scale: 2);
-            }
-        }
+		public override void DashEffect(Player player)
+		{
+			for (int i = 0; i < 20; i++)
+			{
+				Dust.NewDust(player.MountedCenter, player.width, player.height, DustID.HeatRay, player.ArcaneOdyssey().DashVelocity.X/10f, player.ArcaneOdyssey().DashVelocity.Y/10f, Scale: 2);
+			}
+		}
+
+		public override int DisplayedCooldownID => ModContent.BuffType<EtherealFlashCooldown>();
+	}
+
+	public class EtherealFlashCooldown : DisplayedCooldown
+	{
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(BronzeTriasta);
 	}
 }

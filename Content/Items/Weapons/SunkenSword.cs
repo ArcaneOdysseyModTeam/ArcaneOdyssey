@@ -103,8 +103,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	}
 
 	public class RisingTideCooldown : DisplayedCooldown 
-    {
-        public override string ExtraIconTexture => "Assets/RisingTide";
-    }
+	{
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(SunkenSword);
+	}
 }
 

@@ -100,5 +100,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int DisplayedCooldownID => ModContent.BuffType<SeismicSlashCooldown>();
 	}
 
-	public class SeismicSlashCooldown : DisplayedCooldown { }
+	public class SeismicSlashCooldown : DisplayedCooldown
+	{
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(LionsHalberd);
+	}
 }

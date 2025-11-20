@@ -1,10 +1,10 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -62,5 +62,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	public class ColossalCleaveCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 * 3;
-	}
+        public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(ColossalGreatsword);
+    }
 }
