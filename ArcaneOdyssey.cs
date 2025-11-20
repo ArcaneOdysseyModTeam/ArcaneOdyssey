@@ -1,8 +1,10 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.NPCS;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -195,6 +197,25 @@ namespace ArcaneOdyssey
 
 	public class AODebuffManager : GlobalBuff
 	{
+		public override bool PreDraw(SpriteBatch spriteBatch, int type, int buffIndex, ref BuffDrawParams drawParams)
+		{
+			if (type == BuffID.Oiled)
+			{
+                spriteBatch.Draw(ModContent.Request<Texture2D>(Mod.Name + "/Assets/Debuff").Value, drawParams.MouseRectangle, drawParams.DrawColor);
+				return false;
+			}
+
+			return true;
+		}
+
+        public override void PostDraw(SpriteBatch spriteBatch, int type, int buffIndex, BuffDrawParams drawParams)
+        {
+            if (type == BuffID.Oiled)
+            {
+                spriteBatch.Draw(ModContent.Request<Texture2D>(typeof(OilMagic).FullName.Replace('.', '/')).Value, drawParams.MouseRectangle with { Height = drawParams.MouseRectangle.Height - (drawParams.MouseRectangle.Height / 32 * 4), Width = drawParams.MouseRectangle.Width - (drawParams.MouseRectangle.Width / 32 * 4), X = drawParams.MouseRectangle.X + (drawParams.MouseRectangle.Width / 32 * 2), Y = drawParams.MouseRectangle.Y + (drawParams.MouseRectangle.Height / 32 * 2) }, drawParams.DrawColor);
+            }
+        }
+
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
 		{
 			buffName = buffName.Replace("Imbue", "Gel");

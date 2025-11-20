@@ -156,7 +156,7 @@ namespace ArcaneOdyssey
 			if (npc.type == NPCID.HeadlessHorseman)
 			{
 				LeadingConditionRule leadingConditionRule = new(new NoShowNoConditon());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeadlessHead>(), 100));
+				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeadlessHead>(), 30));
 				npcLoot.Add(leadingConditionRule);
 			}
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());

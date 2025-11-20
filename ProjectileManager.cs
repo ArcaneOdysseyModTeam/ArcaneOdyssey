@@ -21,24 +21,22 @@ namespace ArcaneOdyssey
 	{
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
-			bool returntype = true;
 			if (projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
 				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, null, Color.DarkViolet, projectile.rotation, projectile.GetDrawOriginCentre(), projectile.scale * 1.12f, SpriteEffects.None);
-				returntype = false;
+				return false;
 			}
 
-			else if (projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
+			if (projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
 			{
 				Main.instance.LoadProjectile(projectile.type);
 				var asset = TextureAssets.Projectile[projectile.type];
 				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, new(0, 30 * projectile.frame, 28, 30), Color.DarkRed, projectile.rotation, projectile.GetDrawOriginCentre(), projectile.scale, SpriteEffects.None);
-				returntype = false;
+                return false;
 			}
-
-			return returntype; 
+			return true; 
 		}
 	}
 
