@@ -94,7 +94,7 @@ PheonixHealing: {
 }
 
 HeavyBleed: {
-	DisplayName: Heavy Bleed
+	DisplayName: Severe Bleeding
 	Description: You might have an artery leaking
 }
 
