@@ -42,8 +42,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
                 float anglediv = 9;
                 var angle1 = velocity.ToRotation() + MathHelper.Pi / anglediv;
                 var angle2 = velocity.ToRotation() - MathHelper.Pi / anglediv;
-                Projectile.NewProjectile(source, position, angle1.ToRotationVector2() * Item.shootSpeed * (Imbue?.AOImbueSpeed ?? 1f), type, damage, knockback, player.whoAmI);
-                Projectile.NewProjectile(source, position, angle2.ToRotationVector2() * Item.shootSpeed * (Imbue?.AOImbueSpeed ?? 1f), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, angle1.ToRotationVector2() * velocity.Length(), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, angle2.ToRotationVector2() * velocity.Length(), type, damage, knockback, player.whoAmI);
                 Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
             }
             EveryOther = !EveryOther;
