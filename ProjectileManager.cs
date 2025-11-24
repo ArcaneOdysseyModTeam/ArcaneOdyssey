@@ -242,6 +242,7 @@ namespace ArcaneOdyssey
                     if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 						Imbue.SpawningEffects(projectile);
 				}
+                projectile.DamageType = projectile.DamageType.Imbued(Imbue);
 			}
 		}
 
