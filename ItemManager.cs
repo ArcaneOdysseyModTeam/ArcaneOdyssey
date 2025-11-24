@@ -401,8 +401,9 @@ namespace ArcaneOdyssey
 			if (options.Count > 0 && ImbueClassCheck(item))
 			{
 				if (!SpecificImbue || item.accessory)
-				{
-					Imbue = player.ArcaneOdyssey().Imbue;
+                {
+                    item.DamageType = item.DamageType.UnImbued();
+                    Imbue = player.ArcaneOdyssey().Imbue;
 				}
 
 				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
@@ -444,8 +445,9 @@ namespace ArcaneOdyssey
 
 
 				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
-				{
-					Imbue = SteamImbue.Create(Imbue);
+                {
+                    item.DamageType = item.DamageType.UnImbued();
+                    Imbue = SteamImbue.Create(Imbue);
 				}
 			}
 			else
