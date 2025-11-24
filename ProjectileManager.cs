@@ -13,7 +13,6 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace ArcaneOdyssey
 {

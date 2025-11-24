@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
         public override void SetDefaults()
 		{
-			Projectile.DamageType = ModContent.GetInstance<SpiritDamage>();
+			Projectile.DamageType = ModContent.GetInstance<Oracle>();
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

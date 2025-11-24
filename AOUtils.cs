@@ -9,7 +9,6 @@ using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
@@ -21,6 +20,136 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue)
+		{
+            if (imbue is null)
+            {
+                return damageClass.UnImbued();
+            }
+
+			if (imbue is not SteamImbue steam)
+			{
+				if (damageClass == DamageClass.Melee && imbue is AOMagic)
+				{
+					return ModContent.GetInstance<Conjurer>();
+				}
+				if (damageClass == DamageClass.MeleeNoSpeed && imbue is AOMagic)
+				{
+					return ModContent.GetInstance<ConjurerNoSpeed>();
+				}
+				if (damageClass == DamageClass.Melee && imbue is FightingStyle)
+				{
+					return ModContent.GetInstance<Warlord>();
+				}
+				if (damageClass == DamageClass.MeleeNoSpeed && imbue is FightingStyle)
+				{
+					return ModContent.GetInstance<WarlordNoSpeed>();
+				}
+
+				if (damageClass == TrueMelee() && imbue is AOMagic)
+				{
+					return ModContent.GetInstance<Conjurer>();
+				}
+				if (damageClass == TrueMeleeNoSpeed() && imbue is AOMagic)
+				{
+					return ModContent.GetInstance<ConjurerNoSpeed>();
+				}
+				if (damageClass == TrueMelee() && imbue is FightingStyle)
+				{
+					return ModContent.GetInstance<Warlord>();
+				}
+				if (damageClass == TrueMeleeNoSpeed() && imbue is FightingStyle)
+				{
+					return ModContent.GetInstance<WarlordNoSpeed>();
+				}
+
+				if (damageClass == DamageClass.Ranged && imbue is AOMagic)
+				{
+					return ModContent.GetInstance<RangedConjurer>();
+				}
+				if (damageClass == DamageClass.Ranged && imbue is FightingStyle)
+				{
+					return ModContent.GetInstance<RangedWarlord>();
+				}
+			}
+			else
+			{
+				var steamimbue = steam.originalImbue;
+				if (damageClass == DamageClass.Melee && steamimbue is AOMagic)
+				{
+					return ModContent.GetInstance<Conjurer>();
+				}
+				if (damageClass == DamageClass.MeleeNoSpeed && steamimbue is AOMagic)
+				{
+					return ModContent.GetInstance<ConjurerNoSpeed>();
+				}
+				if (damageClass == DamageClass.Melee && steamimbue is FightingStyle)
+				{
+					return ModContent.GetInstance<Warlord>();
+				}
+				if (damageClass == DamageClass.MeleeNoSpeed && steamimbue is FightingStyle)
+				{
+					return ModContent.GetInstance<WarlordNoSpeed>();
+				}
+
+				if (damageClass == TrueMelee() && steamimbue is AOMagic)
+				{
+					return ModContent.GetInstance<Conjurer>();
+				}
+				if (damageClass == TrueMeleeNoSpeed() && steamimbue is AOMagic)
+				{
+					return ModContent.GetInstance<ConjurerNoSpeed>();
+				}
+				if (damageClass == TrueMelee() && steamimbue is FightingStyle)
+				{
+					return ModContent.GetInstance<Warlord>();
+				}
+				if (damageClass == TrueMeleeNoSpeed() && steamimbue is FightingStyle)
+				{
+					return ModContent.GetInstance<WarlordNoSpeed>();
+				}
+
+				if (damageClass == DamageClass.Ranged && steamimbue is AOMagic)
+				{
+					return ModContent.GetInstance<RangedConjurer>();
+				}
+				if (damageClass == DamageClass.Ranged && steamimbue is FightingStyle)
+				{
+					return ModContent.GetInstance<RangedWarlord>();
+				}
+			}
+
+			return damageClass;
+		}
+
+		public static DamageClass UnImbued(this DamageClass damageClass)
+		{
+			if (damageClass.Name == Conjurer.InternalName || damageClass.Name == Warlord.InternalName)
+			{
+				return DamageClass.Melee;
+			}
+			if (damageClass.Name == ConjurerNoSpeed.InternalName || damageClass.Name == WarlordNoSpeed.InternalName)
+			{
+				return DamageClass.MeleeNoSpeed;
+			}
+
+			if (damageClass.Name == TrueConjurer.InternalName || damageClass.Name == TrueWarlord.InternalName)
+			{
+				return TrueMelee();
+			}
+			if (damageClass.Name == TrueWarlordNoSpeed.InternalName || damageClass.Name == TrueConjurerNoSpeed.InternalName)
+			{
+				return TrueMeleeNoSpeed();
+			}
+
+			if (damageClass.Name == RangedWarlord.InternalName || damageClass.Name == RangedConjurer.InternalName)
+			{
+				return DamageClass.Ranged;
+			}
+
+			return damageClass;
+		}
+
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey()?.Imbue;
@@ -54,6 +183,8 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static StatInheritanceData WarlordInheritance => new(1.1f, 1.2f, .8f, 1f, 1.4f);
+		public static StatInheritanceData MostInheritance => QuickInheritance(.9f);
 		public static StatInheritanceData ThreeQuartersInheritance => QuickInheritance(.75f);
 		public static StatInheritanceData QuarterInheritance => QuickInheritance(.25f);
 		public static StatInheritanceData HalfInheritance => QuickInheritance(.5f);
@@ -325,7 +456,10 @@ namespace ArcaneOdyssey
 			return text;
 		}
 
-		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
+        public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback = null) => Language.GetOrRegister(mod.GetLocalizationKey(key), () => fallback ?? mod.CustomLocalization(key).Value);
+
+
+        public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
 
 
 		private static bool checklistfailed = false;
@@ -438,7 +572,7 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Ammo;
 			}
-			if (item.DamageType == ModContent.GetInstance<SpiritDamage>())
+			if (item.DamageType == ModContent.GetInstance<Oracle>())
 			{
 				return ItemType.Relic;
 			}

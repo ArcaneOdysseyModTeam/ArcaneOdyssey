@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Terraria;
 using Terraria.ModLoader.Config;
 
 namespace ArcaneOdyssey

@@ -13,7 +13,6 @@ Bestiary: {
 }
 
 MenuStyle: Odyssey Style
-SpiritDamage: spirit damage
 AnyBasicImbue: Any Worthy Item
 
 ImbueStuff: {
@@ -210,4 +209,18 @@ Projectiles: {
 	AetherExplosion.DisplayName: Aether Aftershock
 	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
 	SeismicSlashRock.DisplayName: Rock
+}
+
+DamageClasses: {
+	Conjurer: conjurer damage
+	ConjurerNoSpeed: conjurer damage
+	Oracle: spirit damage
+	RangedConjurer: ranged conjurer damage
+	RangedWarlord: ranged warlord damage
+	TrueConjurer: true conjurer damage
+	TrueConjurerNoSpeed: true conjurer damage
+	TrueWarlord: true warlord damage
+	TrueWarlordNoSpeed: true warlord damage
+	Warlord: warlord damage
+	WarlordNoSpeed: warlord damage
 }

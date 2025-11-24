@@ -7,9 +7,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Formats.Asn1;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -18,7 +16,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace ArcaneOdyssey
 {
@@ -421,7 +418,7 @@ namespace ArcaneOdyssey
 						}
 						Imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;
-						if (Imbue.Type == player.Imbue().Type)
+						if (Imbue.Type == player.Imbue()?.Type)
 						{
 							settodefault = true;
 							SpecificImbue = false;
@@ -460,6 +457,7 @@ namespace ArcaneOdyssey
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
 				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
+            item.DamageType = item.DamageType.Imbued(item.Imbue());
 		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)

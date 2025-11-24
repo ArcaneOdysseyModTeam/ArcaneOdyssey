@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.UI.ModBrowser;
 
 namespace ArcaneOdyssey
 {

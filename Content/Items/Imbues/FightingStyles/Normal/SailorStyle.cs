@@ -5,11 +5,9 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Buffs.Stuns;
-using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {

@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using Terraria.Audio;
