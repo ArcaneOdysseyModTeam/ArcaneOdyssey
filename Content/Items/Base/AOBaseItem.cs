@@ -6,6 +6,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 	public abstract class AOBaseItem : ModItem
 	{
 		public abstract AORarities AORarity { get; }
+
+        public virtual ItemType? ItemCategory => null;
+
 		public virtual bool ShowItemTypeTooltip => true;
 
 		public override void SetDefaults()

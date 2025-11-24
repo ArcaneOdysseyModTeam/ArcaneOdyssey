@@ -552,6 +552,10 @@ namespace ArcaneOdyssey
 
 		public static ItemType GetItemType(this Item item)
 		{
+            if (item.ModItem is AOBaseItem based && based.ItemCategory.HasValue) 
+            { 
+                return based.ItemCategory.Value;
+            }
 			if (item.vanity)
 			{
 				return ItemType.Vanity;
@@ -572,7 +576,7 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Ammo;
 			}
-			if (item.DamageType == ModContent.GetInstance<Oracle>())
+			if (item.DamageType.Name == Oracle.InternalName)
 			{
 				return ItemType.Relic;
 			}

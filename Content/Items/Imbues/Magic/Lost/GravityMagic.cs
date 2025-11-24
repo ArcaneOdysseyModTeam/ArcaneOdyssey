@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float DashSpeed => 1.2f; // burst
 		public override float KBMulti => 3f;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit52;
-		public override Color ImbueColour => new Color(120, 0, 200, 255);
+		public override Color ImbueColour => new(120, 0, 200, 255);
 		public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueSize => 1.2f;
 		public override float AOImbueDamage => 1f;
@@ -60,11 +60,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 					spawnedDust.noGravity = true;
 			}
 		}
+
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, ModContent.DustType<GravityDust>(), 0f, 0f, 0, default, 2.3f)];
 			spawnedDust.noGravity = true;
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -73,6 +75,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 			}
 		}
+
 		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
@@ -82,6 +85,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
+
 		public override void AddRecipes()
 		{
 			CreateLostRecipe(typeof(EarthMagic), typeof(WindMagic), typeof(MagmaMagic));
