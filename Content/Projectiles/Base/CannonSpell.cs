@@ -6,6 +6,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class CannonSpell : MagicSpell, ILocalizedModType
     {
+        public override string Texture => FullName.Replace('.', '/').Replace("Cannon", "Blast");
         public override string LocalizationCategory => "Magic.Spells.Cannons";
         public int TileTimer = 0;
 		public override void SetDefaults()
