@@ -416,6 +416,7 @@ namespace ArcaneOdyssey
 						{
 							ImbueIndex = 0;
 						}
+                        item.DamageType = item.DamageType.UnImbued();
 						Imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;
 						if (Imbue.Type == player.Imbue()?.Type)
@@ -435,7 +436,8 @@ namespace ArcaneOdyssey
 				{
 					SpecificImbue = true;
 					justchangedspecificimbue = true;
-					Imbue = player.Imbue();
+                    item.DamageType = item.DamageType.UnImbued();
+                    Imbue = player.Imbue();
 					settodefault = true;
 					ImbueIndex = -1;
 				}
@@ -457,7 +459,7 @@ namespace ArcaneOdyssey
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
 				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
-            item.DamageType = item.DamageType.Imbued(item.Imbue());
+            item.DamageType = item.DamageType.Imbued(Imbue);
 		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
