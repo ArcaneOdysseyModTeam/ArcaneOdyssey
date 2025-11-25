@@ -17,9 +17,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual bool CanHaveImbue => true;
 
-		public abstract float AOSpeed { get; }
-		public abstract float AOSize { get; }
-		public abstract float AODamage { get; }
+        public virtual float AOSpeed => 1f;
+        public virtual float AOSize => 1f;
+        public virtual float AODamage => 1f;
 		public abstract int AOValue { get; }
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public virtual AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);

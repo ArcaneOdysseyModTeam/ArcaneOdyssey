@@ -92,3 +92,8 @@ LionsHalberd: {
 	DisplayName: Lion's Halberd
 	Tooltip: ""
 }
+
+BronzeMusket: {
+	DisplayName: Bronze Musket
+	Tooltip: ""
+}
