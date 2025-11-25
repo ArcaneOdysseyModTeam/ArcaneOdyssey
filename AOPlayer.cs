@@ -18,6 +18,7 @@ namespace ArcaneOdyssey
 		public bool SoftFrozen => chargingSpell || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
+        public int groundedCounter = 0;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
@@ -28,7 +29,7 @@ namespace ArcaneOdyssey
 		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
 			if (useplayerimbue)
-			imbue ??= Imbue;
+				imbue ??= Imbue;
 			if (imbue is not null)
 			{
 				foreach (var buff in imbue.ImbueDebuffs)
@@ -63,8 +64,8 @@ namespace ArcaneOdyssey
 			{
 				List<Item> items = [
 						new Item(ModContent.ItemType<PoseidonChoice>()),
+						new Item(ModContent.ItemType<Acrimony>())
 					];
-				items.Add(new Item(ModContent.ItemType<Acrimony>()));
 				return items;
 			}
 			return [];
@@ -84,34 +85,31 @@ namespace ArcaneOdyssey
 
 		public void FreezeMovement() 
 		{
-			if (SoftFrozen)
-			{
-				if (FirstFrozenFrame)
-				{
-					CanMoveOnGround = Player.velocity.Y < 1 && Player.velocity.Y > -1 && !(Player.controlJump || Player.releaseJump);
-				}
-				if (!CanMoveOnGround)
-				{
-					Player.gravity = 0f;
-					Player.velocity.X *= 0;
-					Player.velocity.Y *= 0;
-				}
-				timeSinceSoftFrozen++;
-			}
-			else
-			{
-				timeSinceSoftFrozen = 0;
-				CanMoveOnGround = false;
-			}
-			if (Immobile)
-			{
-				Player.controlDown = false;
-				Player.controlUp = false;
-				Player.controlLeft = false;
-				Player.controlRight = false;
-				Player.controlUseItem = false;
-				Player.controlJump = false;
-			}
+            if (Player.velocity.Y < 1 && Player.velocity.Y > -1)
+            {
+                groundedCounter++;
+            }
+            else
+                groundedCounter = 0;
+            if (SoftFrozen)
+            {
+                if (FirstFrozenFrame)
+                {
+                    CanMoveOnGround = groundedCounter > 10;
+                }
+                if (!CanMoveOnGround)
+                {
+                    Player.gravity = 0f;
+                    Player.velocity.X *= 0;
+                    Player.velocity.Y *= 0;
+                }
+                timeSinceSoftFrozen++;
+            }
+            else
+            {
+                timeSinceSoftFrozen = 0;
+                CanMoveOnGround = false;
+            }
 		}
 
 		public override void ResetEffects()

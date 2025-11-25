@@ -32,8 +32,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
             {
                 for (float i = 0; i < DustCount; i++)
                 {
-                    var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-                    var dust = Dust.NewDustPerfect(Projectile.Center, DustID.RainbowTorch, centre / 14);
+                    var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 3);
+                    var dust = Dust.NewDustPerfect(Projectile.Center, DustID.MushroomTorch, centre / 14);
                     dust.noGravity = true;
                 }
             }
@@ -48,8 +48,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
                 {
                     for (float i = 0; i < DustCount; i++)
                     {
-                        var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (entity.width * 2);
-                        var dust = Dust.NewDustPerfect(entity.Center, DustID.RainbowTorch, centre / e);
+                        var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (entity.width * 1.2f);
+                        var dust = Dust.NewDustPerfect(entity.Center, DustID.MushroomTorch, centre / e);
                         dust.noGravity = true;
                     }
                 }
@@ -62,8 +62,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
             {
                 for (float i = 0; i < DustCount; i++)
                 {
-                    var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (entity.width * 2);
-                    var dust = Dust.NewDustPerfect(entity.Center, DustID.RainbowTorch, centre / (DustCount * .75f));
+                    var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * entity.width;
+                    var dust = Dust.NewDustPerfect(entity.Center, DustID.MushroomTorch, centre / (DustCount * .75f));
                     dust.noGravity = true;
                 }
             }

@@ -34,6 +34,7 @@ Blasts: {
 	WoodBlast.DisplayName: Wood Blast
 	JerminusBlast.DisplayName: Jerminus Blast
 	VesuviusBlast.DisplayName: Vesuvius Blast
+	SoundBlast.DisplayName: Sound Blast
 }
 
 Cannons: {
@@ -70,6 +71,7 @@ Cannons: {
 	WoodCannon.DisplayName: Wood Cannon
 	JerminusCannon.DisplayName: Jerminus Cannon
 	VesuviusCannon.DisplayName: Vesuvius Cannon
+	SoundCannon.DisplayName: Sound Cannon
 }
 
 ExplosionSpell.DisplayName: Explosion Spell
@@ -108,4 +110,5 @@ Pulsars: {
 	WoodPulsar.DisplayName: Wood Pulsar
 	JerminusPulsar.DisplayName: Jerminus Pulsar
 	VesuviusPulsar.DisplayName: Vesuvius Pulsar
+	SoundPulsar.DisplayName: Sound Pulsar
 }

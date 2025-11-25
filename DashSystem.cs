@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using System;
@@ -15,7 +13,7 @@ namespace ArcaneOdyssey
 	{
 		public string Name => GetType().Name;
 
-		public Mod Mod { get => ModLoader.GetMod(ArcaneOdysseyMod.InternalName); }
+		public static Mod Mod => ArcaneOdysseyMod.Instance;
 
 		/// <summary>
 		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
@@ -171,7 +169,7 @@ namespace ArcaneOdyssey
 		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
 		public void StartDash(DashSystem dashToUse, int direction = 0)
 		{
-            dashToUse.SetCooldown(Player);
+			dashToUse.SetCooldown(Player);
 			storedWingTime = Player.wingTime;
 			Player.noFallDmg = true;
 			Player.timeSinceLastDashStarted = 0;
@@ -401,21 +399,16 @@ namespace ArcaneOdyssey
 		public float CalculateDashKnockback()
 		{
 			var knockback = 1f;
-			if (this.TryGetImbue(out Imbuable imbue))
+			if (Imbue is not null)
 			{
-				var extrakbmulti = 1;
-				if (imbue is WindMagic or Boxing)
-				{
-					extrakbmulti = 3;
-				}
-
+                var extrakbmulti = Imbue.KBMulti;
 				if (CurrentDash.UseScrollImbue)
 				{
-					knockback += imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
+					knockback += Imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
 				}
 				else
 				{
-					knockback += imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
+					knockback += Imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
 				}
 			}
 			return knockback * CurrentDash.Knockback;

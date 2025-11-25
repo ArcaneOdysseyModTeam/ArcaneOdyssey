@@ -63,6 +63,11 @@ Lost: {
 		DisplayName: Oil Magic
 		Tooltip: Allows the user to create flammable crude oil and to coat targets in it
 	}
+
+	SoundMagic: {
+		DisplayName: Sound Magic
+		Tooltip: ""
+	}
 }
 
 Normal: {
