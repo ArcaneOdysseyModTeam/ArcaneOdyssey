@@ -38,9 +38,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.useAmmo = AmmoID.Arrow;
 		}
 
-		public override bool AltFunctionUse(Player player) => true; 
+		public override bool AltFunctionUse(Player player) => true;
 
-		public override void OnConsumeAmmo(Item ammo, Player player)
+        public override Vector2? HoldoutOffset()
+        {
+            return new();
+        }
+
+        public override void OnConsumeAmmo(Item ammo, Player player)
 		{
 			if (player.AltUse())
 			{

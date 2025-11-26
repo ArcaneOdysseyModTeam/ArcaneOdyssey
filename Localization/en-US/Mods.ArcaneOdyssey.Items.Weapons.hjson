@@ -97,3 +97,8 @@ BronzeMusket: {
 	DisplayName: Bronze Musket
 	Tooltip: ""
 }
+
+BronzeFlintlock: {
+	DisplayName: Bronze Flintlock
+	Tooltip: ""
+}

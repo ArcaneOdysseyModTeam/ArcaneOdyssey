@@ -22,10 +22,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override WeaponAbility? Ability => new(Mod, "Piercing Strike", "Launch yourself towards the cursor, stabbing through any who cross your path", Color.Orange);
 
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

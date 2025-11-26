@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.noMelee = true;
 			Item.DamageType = DamageClass.Ranged;
 			Item.useAmmo = AmmoID.Bullet;
-			Item.shootSpeed = 10;
+			Item.shootSpeed = 8;
 			Item.shoot = ProjectileID.Bullet;
 		}
 
@@ -39,11 +39,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				type = ProjectileID.BulletHighVelocity;
 			}
-		}
+        }
 
-		public override void AddRecipes()
+        public override Vector2? HoldoutOffset()
         {
-            CreateRecipe().AddIngredient(ItemID.TheUndertaker).AddIngredient<BronzeBar>(10).Register();
+            return new(-11, 0);
+        }
+
+        public override void AddRecipes()
+        {
             CreateRecipe().AddIngredient(ItemID.Musket).AddIngredient<BronzeBar>(10).Register();
 		}
 	}
