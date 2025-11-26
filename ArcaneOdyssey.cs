@@ -64,6 +64,18 @@ namespace ArcaneOdyssey
 			}
 			return null;
 		}
+
+		public override void PostSetupContent()
+		{
+			// generate localization
+			this.CoolCustomLocalization("RandomWords.Default");
+			this.CoolCustomLocalization("RandomWords.Unbound");
+			this.CoolCustomLocalization("RandomWords.None");
+			this.CoolCustomLocalization("RandomWords.Material");
+			this.CoolCustomLocalization("RandomWords.Help");
+			this.CoolCustomLocalization("RandomWords.Ability");
+			this.CoolCustomLocalization("RandomWords.Press");
+		}
 	}
 
 	public class WorldGenStuff : ModSystem

@@ -123,11 +123,16 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override float DashSpeed => 10;
 
-		public override int DashMax => 99999;
+		public override int DashMax => 600;
 		public override float Knockback => 0;
 		public override bool Immune => true;
 
-		public override void OnStart(Player player)
+        public override bool ExtraCheck(Player player)
+        {
+            return !player.wet;
+        }
+
+        public override void OnStart(Player player)
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{

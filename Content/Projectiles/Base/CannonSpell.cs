@@ -5,10 +5,11 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class CannonSpell : MagicSpell, ILocalizedModType
-    {
-        public override string Texture => GetType().FullName.Replace('.', '/').Replace("Cannon", "Blast");
-        public override string LocalizationCategory => "Magic.Spells.Cannons";
-        public int TileTimer = 0;
+	{
+		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Cannon", "Blast");
+		public override string LocalizationCategory => "Magic.Spells.Cannons";
+		public int TileTimer = 0;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -17,8 +18,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.ownerHitCheck = true;
 			Projectile.timeLeft = 3 * 60;
 			Projectile.velocity /= 3;
-            BaseScale = 2;
-        }
+			BaseScale = 2;
+		}
 
 		public override void AI()
 		{

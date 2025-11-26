@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -22,6 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}
 
@@ -64,8 +66,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override bool AnyDirection => true;
 		public override int Damage => 50;
 		public override int Cooldown => 300;
-		public override float DashSpeed => 15;
-		public override int DashMax => 99999;
+		public override float DashSpeed => 20;
+		public override int DashMax => 600;
 		public override DamageClass DamageType => DamageClass.Melee;
 		public override float Knockback => 5;
 		public override bool Immune => true;
@@ -83,6 +85,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			}
 		}
 
+		public override bool ExtraCheck(Player player)
+		{
+			return !player.wet;
+		}
+
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
@@ -91,11 +98,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				for (int i = 0; i < 15; i++)
 					imbue.ExplosionEffects(player);
 			}
-			if (player.whoAmI == Main.myPlayer)
-			{
-				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (imbue?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
-			}
 		}
+
+        public override void NaturalEnd(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
+            }
+        }
 
 		public override int DisplayedCooldownID => ModContent.BuffType<SeismicSlashCooldown>();
 	}

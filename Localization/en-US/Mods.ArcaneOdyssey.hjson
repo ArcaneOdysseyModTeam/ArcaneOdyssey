@@ -224,3 +224,85 @@ DamageClasses: {
 	Warlord: warlord damage
 	WarlordNoSpeed: warlord damage
 }
+
+WeaponAbilities: {
+	MultiShot: {
+		DisplayName: Multi Shot
+		Description: Shoots a spread of bullets
+	}
+
+	PiercingShot: {
+		DisplayName: Piercing Shot
+		Description: Converts Musket Balls to High Velocity Bullets
+	}
+
+	PiercingStrike: {
+		DisplayName: Piercing Strike
+		Description: Launch yourself towards the cursor, stabbing through any who cross your path
+	}
+
+	PiercingGale: {
+		DisplayName: Piercing Gale
+		Description: Shoots blasts of air that shred enemies
+	}
+
+	TridentThrow: {
+		DisplayName: Trident Throw
+		Description: Throw your weapon, leaving yourself unarmed
+	}
+
+	Devastate: {
+		DisplayName: Devastate
+		Description: Use the weight of your weapon to slam downwards
+	}
+
+	MountainWind: {
+		DisplayName: Mountain Wind
+		Description: Swing your blade and unleash three tornados that spread out
+	}
+
+	Whirlwind: {
+		DisplayName: Whirlwind
+		Description: Spin your weapon around quickly, dealing damage to surrounding enemies and holding yourself in place
+	}
+
+	EtherealFlash: {
+		DisplayName: Ethereal Flash
+		Description: Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target
+	}
+
+	ColossalCleave: {
+		DisplayName: Colossal Cleave
+		Description: Unleash a large slash that pierces enemies
+	}
+
+	SeismicSlash: {
+		DisplayName: Seismic Slash
+		Description: Slam into the ground, then upearth and launch a rock towards your cursor
+	}
+
+	StormofArrows: {
+		DisplayName: Storm of Arrows
+		Description: Allows arrows to fall from the sky above the cursor
+	}
+
+	FuryoftheSea: {
+		DisplayName: Fury of the Sea
+		Description: Shoots blasts of water that pierce enemies
+	}
+
+	RisingTide: {
+		DisplayName: Rising Tide
+		Description: Launch yourself upwards
+	}
+}
+
+RandomWords: {
+	Ability: Ability
+	Default: Default
+	Unbound: Unbound
+	None: None
+	Material: Material
+	Help: Help
+	Press: Press
+}

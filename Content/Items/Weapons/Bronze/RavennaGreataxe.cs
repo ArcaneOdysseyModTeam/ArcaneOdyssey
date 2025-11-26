@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override int Damage => 50;
 		public override int Cooldown => 300;
 		public override float DashSpeed => 15;
-		public override int DashMax => 99999;
+		public override int DashMax => 600;
 		public override DamageClass DamageType => TrueMelee();
 		public override float Knockback => 5;
 		public override bool Immune => true;
@@ -81,6 +81,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				imbue.LingeringEffects(player);
 			}
+		}
+
+		public override bool ExtraCheck(Player player)
+		{
+			return !player.wet;
 		}
 
 		public override void OnEnd(Player player)

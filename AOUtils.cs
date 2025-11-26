@@ -263,7 +263,7 @@ namespace ArcaneOdyssey
 			{
 				if (modifyimbuestats)
 				{
-					if (source is Projectile proj && proj.ModProjectile is MagicSpell)
+					if ((source is Projectile proj && proj.ModProjectile is MagicSpell) || (source is Item item && item.ArcaneOdyssey().Arcanium.HasValue))
 					{
 						range *= imbue.AOScrollSize;
 						knockback *= imbue.AOScrollSize;
@@ -725,7 +725,7 @@ namespace ArcaneOdyssey
 
 		public static Item PlayerItem(this Player player)
 		{
-			if (Main.myPlayer == player.whoAmI && Main.mouseItem.active)
+			if (Main.myPlayer == player.whoAmI && (!Main.mouseItem.IsAir) && Main.mouseItem.active)
 			{
 				return Main.mouseItem;
 			}

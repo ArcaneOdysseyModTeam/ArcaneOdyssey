@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void SetStaticDefaults()
 		{
+            base.SetStaticDefaults();
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 

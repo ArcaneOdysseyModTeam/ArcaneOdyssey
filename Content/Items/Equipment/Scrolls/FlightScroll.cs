@@ -14,13 +14,13 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
-			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
-			{
-				constantAscend *= imbue.AOScrollSpeed;
-				ascentWhenRising *= imbue.AOScrollSpeed;
-				maxCanAscendMultiplier *= imbue.AOScrollSize;
-				maxAscentMultiplier *= imbue.AOScrollDamage;
-			}
+            if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
+            {
+                constantAscend *= imbue.AOScrollSpeed;
+                ascentWhenRising *= imbue.AOScrollSpeed;
+                maxCanAscendMultiplier *= imbue.AOScrollSpeed;
+                maxAscentMultiplier *= imbue.AOScrollSpeed;
+            }
 		}
 
 		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
@@ -28,13 +28,13 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
 			{
 				speed *= imbue.AOScrollSpeed;
-				acceleration *= imbue.AOScrollDamage;
+				acceleration *= imbue.AOScrollSpeed;
 			}
 		}
 
 		public override void SetStaticDefaults()
 		{
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, hasHoldDownHoverFeatures: true);
 		}
 
 		public override void SetDefaults()
@@ -46,7 +46,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateEquip(Player player)
 		{
 			if (player.Imbue() is AOMagic)
+			{
 				player.noFallDmg = true;
+			}
 			else
 			{
 				player.slowFall = false;

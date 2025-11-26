@@ -32,6 +32,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual bool? Cold => null;
 
+        public override void SetStaticDefaults()
+        {
+            if (Ability.HasValue)
+                Ability.Value.GenerateTooltip();
+        }
 
 		/// <summary>
 		/// Leave null for regular items, true for arcanium, false for strength
