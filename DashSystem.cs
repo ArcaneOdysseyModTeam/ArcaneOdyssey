@@ -79,12 +79,12 @@ namespace ArcaneOdyssey
 				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
 		}
 
-        /// <summary>
-        /// Called every frame, if returns false the dash ends
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public virtual bool ExtraCheck(Player player) => true;
+		/// <summary>
+		/// Called every frame, and before the dash starts
+		/// </summary>
+		/// <param name="player"></param>
+		/// <returns>Whether to keep dashing</returns>
+		public virtual bool ExtraCheck(Player player) => true;
 
 		/// <summary>
 		/// Whether the dash is on cooldown
@@ -170,46 +170,46 @@ namespace ArcaneOdyssey
 		public bool FirstFrame => CurrentDash is not null && DashLeft == CurrentDash.DashMax;
 
 		/// <summary>
-		/// Starts a dash, does not check for cooldowns
+		/// Starts a dash, does not check for cooldowns but will use ExtraCheck
 		/// </summary>
 		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
 		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
 		public void StartDash(DashSystem dashToUse, int direction = 0)
 		{
-            if (dashToUse.ExtraCheck(Player))
-            {
-                dashToUse.SetCooldown(Player);
-                storedWingTime = Player.wingTime;
-                Player.noFallDmg = true;
-                Player.timeSinceLastDashStarted = 0;
-                CurrentDash = dashToUse;
-                collisions = 0;
-                ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
-                if (dashToUse.AnyDirection && direction == 0)
-                {
-                    DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
-                }
-                else
-                {
-                    var standard = Vector2.UnitX * direction;
-                    //if (Player.velocity.Y < 0)
-                    //standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
-                    if (direction == 2 || direction == -2)
-                    {
-                        standard = Vector2.UnitY * (direction / 2f);
-                    }
-                    DashVelocity = standard * dashToUse.DashSpeed;
-                }
-                Player.ConsumeAllExtraJumps();
-                DashLeft = dashToUse.DashMax;
-                dashToUse.OnStart(Player);
-                Player.velocity = DashVelocity;
-                dashing = true;
-                if (dashToUse.Immune)
-                {
-                    Player.immuneTime = dashToUse.DashMax;
-                }
-            }
+			if (dashToUse.ExtraCheck(Player))
+			{
+				dashToUse.SetCooldown(Player);
+				storedWingTime = Player.wingTime;
+				Player.noFallDmg = true;
+				Player.timeSinceLastDashStarted = 0;
+				CurrentDash = dashToUse;
+				collisions = 0;
+				ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
+				if (dashToUse.AnyDirection && direction == 0)
+				{
+					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
+				}
+				else
+				{
+					var standard = Vector2.UnitX * direction;
+					//if (Player.velocity.Y < 0)
+					//standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
+					if (direction == 2 || direction == -2)
+					{
+						standard = Vector2.UnitY * (direction / 2f);
+					}
+					DashVelocity = standard * dashToUse.DashSpeed;
+				}
+				Player.ConsumeAllExtraJumps();
+				DashLeft = dashToUse.DashMax;
+				dashToUse.OnStart(Player);
+				Player.velocity = DashVelocity;
+				dashing = true;
+				if (dashToUse.Immune)
+				{
+					Player.immuneTime = dashToUse.DashMax;
+				}
+			}
 		}
 
 		public void HandleDashDetection()
@@ -293,8 +293,8 @@ namespace ArcaneOdyssey
 
 					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame))
 					{
-                        if (!Player.mount.Active)
-						    Player.wingTime = storedWingTime;
+						if (!Player.mount.Active)
+							Player.wingTime = storedWingTime;
 						CurrentDash.SetCooldown(Player);
 						CurrentDash.OnEnd(Player);
 						dashing = false;
@@ -412,7 +412,7 @@ namespace ArcaneOdyssey
 			var knockback = 1f;
 			if (Imbue is not null)
 			{
-                var extrakbmulti = Imbue.KBMulti;
+				var extrakbmulti = Imbue.KBMulti;
 				if (CurrentDash.UseScrollImbue)
 				{
 					knockback += Imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
