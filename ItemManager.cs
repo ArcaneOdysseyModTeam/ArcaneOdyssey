@@ -7,6 +7,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
+using Steamworks;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -205,18 +206,39 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (!CanBeAffected)
 				return;
-			if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed"))
+			if (Imbue is not null) 
 			{
-				if (item.ModItem is EmptyScroll || Arcanium.HasValue)
+				if (!item.DamageType.Name.Contains("NoSpeed"))
 				{
-					velocity *= Imbue.AOScrollSpeed;
-				}
-				else
-				{
-					velocity *= Imbue.AOImbueSpeed;
+					if (item.ModItem is EmptyScroll || Arcanium.HasValue)
+					{
+						velocity *= Imbue.AOScrollSpeed;
+					}
+					else
+					{
+						velocity *= Imbue.AOImbueSpeed;
+					}
 				}
 			}
 		}
+
+        public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
+        {
+            thisItem = item;
+            if (!CanBeAffected)
+                return;
+            if (Imbue is not null)
+            {
+                if (item.ModItem is EmptyScroll || Arcanium.HasValue)
+                {
+                    crit *= Imbue.AOScrollDamage;
+                }
+                else
+                {
+                    crit *= Imbue.AOImbueDamage;
+                }
+            }
+        }
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
 		{
@@ -401,9 +423,9 @@ namespace ArcaneOdyssey
 			if (options.Count > 0 && ImbueClassCheck(item))
 			{
 				if (!SpecificImbue || item.accessory)
-                {
-                    item.DamageType = item.DamageType.UnImbued();
-                    Imbue = player.ArcaneOdyssey().Imbue;
+				{
+					item.DamageType = item.DamageType.UnImbued();
+					Imbue = player.ArcaneOdyssey().Imbue;
 				}
 
 				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
@@ -417,7 +439,7 @@ namespace ArcaneOdyssey
 						{
 							ImbueIndex = 0;
 						}
-                        item.DamageType = item.DamageType.UnImbued();
+						item.DamageType = item.DamageType.UnImbued();
 						Imbue = options[ImbueIndex];
 						justchangedspecificimbue = true;
 						if (Imbue.Type == player.Imbue()?.Type)
@@ -437,17 +459,17 @@ namespace ArcaneOdyssey
 				{
 					SpecificImbue = true;
 					justchangedspecificimbue = true;
-                    item.DamageType = item.DamageType.UnImbued();
-                    Imbue = player.Imbue();
+					item.DamageType = item.DamageType.UnImbued();
+					Imbue = player.Imbue();
 					settodefault = true;
 					ImbueIndex = -1;
 				}
 
 
 				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
-                {
-                    item.DamageType = item.DamageType.UnImbued();
-                    Imbue = SteamImbue.Create(Imbue);
+				{
+					item.DamageType = item.DamageType.UnImbued();
+					Imbue = SteamImbue.Create(Imbue);
 				}
 			}
 			else
@@ -461,7 +483,7 @@ namespace ArcaneOdyssey
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, !settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value]);
 				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
-            item.DamageType = item.DamageType.Imbued(Imbue);
+			item.DamageType = item.DamageType.Imbued(Imbue);
 		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)

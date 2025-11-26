@@ -17,7 +17,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.ownerHitCheck = true;
 			Projectile.timeLeft = 3 * 60;
 			Projectile.velocity /= 3;
-		}
+            BaseScale = 2;
+        }
 
 		public override void AI()
 		{
