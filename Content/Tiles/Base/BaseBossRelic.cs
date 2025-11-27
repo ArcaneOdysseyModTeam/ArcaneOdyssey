@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Tiles.Base
 {
     public abstract class BaseBossRelic : ModTile
     {
-        public override string Texture => $"{ArcaneOdysseyMod.InternalName}/Assets/RelicBase";
+        public override string Texture => $"{Mod.Name}/Assets/RelicBase";
 
         public Asset<Texture2D> FloaterTexture;
 

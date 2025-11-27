@@ -20,10 +20,12 @@ ImbueStuff: {
 	ImbueTooltip: Current Imbue: {0}
 	ImbueTooltipMagic: Current Imbue: [c/327DFF:{0}]
 	ImbueTooltipStrength: Current Imbue: [c/700013:{0}]
-	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
-	StrengthIndicator: "[c/700013:-Strength Weapon-]"
+	ImbueTooltipSpirit: Current Imbue: [c/00FF66:{0}]
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
+	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
+	StrengthIndicator: "[c/700013:-Strength Weapon-]"
+	ArtisinalIndicator: "[c/ADA500:-Artisinal Weapon-]"
 }
 
 Configs: {
@@ -41,8 +43,8 @@ Configs: {
 		}
 
 		VanillaItemTemperatures: {
-			Label: "[i:ArcaneOdyssey/FireMagic] Vanilla Item Temperatures"
-			Tooltip: Toggles whether vanilla items can have the Steam imbue
+			Label: "[i:ArcaneOdyssey/FireMagic] Vanilla Item Attributes"
+			Tooltip: Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
 		}
 
 		ProjectileSizes: {
@@ -91,7 +93,7 @@ NPCs: {
 			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
 			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
 			EarlyMagic2: Magic spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
-			EarlyMagic3: You can imbue your items with your magic or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply effects to your enemies.
+			EarlyMagic3: You can imbue your items with your magic or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
 			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but technique scrolls are needed to use your full power. Try crafting paper at a sawmill with gel and wood.
 			EarlyFighting2: Some techniques allow you to launch yourself in a direction, depending on the type you can [{Keybind1} or {Keybind2}].
 			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
@@ -169,11 +171,15 @@ ArmourAutoTooltip: {
 }
 
 CodebreakerDialogOption: {
-	Name: Magic Pollution
-	Description1: This planet is abundant with magic, to a scale of which has never been recorded even among gods.
+	Name: The Dark Sea
+	Description1: This planet is abundant with magic, to a scale of which has never been recorded even among auric dragons and true gods.
 	Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
-	Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world; Xeroc, who has been unaccounted for; Yharon, who still needs much more time to revive.
+	Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world - Xeroc, who has been unaccounted for - Yharon, who still needs much more time to revive.
 	Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
+	DemiDescription1: While observing you, I have learned many things about the past of this planet. The amount of energy needed to create the "fracture" far exceeds what any current living being can output, barring the traitor almighty.
+	DemiDescription2: A majority of the world has been devastated by this "fracture". This was long before my creation. Of course, I had no issue finding the source of the great mana storm.
+	DemiDescription3: Attempts to approach the Dark Sea Epicentre have been unsuccessful, as I lose control of my machines due to the interferance and magical corruption.
+	DemiDescription4: As a demigod, I regret to convey that you possess more knowledge about methods to approach such a place than I.
 }
 
 Keybinds: {
@@ -209,6 +215,7 @@ Projectiles: {
 	AetherExplosion.DisplayName: Aether Aftershock
 	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
 	SeismicSlashRock.DisplayName: Rock
+	BronzeRapierProjectile.DisplayName: Bronze Rapier Projectile
 }
 
 DamageClasses: {

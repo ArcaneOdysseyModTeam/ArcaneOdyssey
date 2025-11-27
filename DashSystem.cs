@@ -71,12 +71,12 @@ namespace ArcaneOdyssey
 		{
 			if (DisplayedCooldownID != -1)
 			{
-				return player.ArcaneOdyssey().OnCooldown(DisplayedCooldownID) && !ArcaneOdysseyMod.devMode;
+				return player.ArcaneOdyssey().OnCooldown(DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
 			}
 			if (AnyDirection)
-				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
+				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 			else
-				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 		}
 
 		/// <summary>
@@ -97,12 +97,12 @@ namespace ArcaneOdyssey
 			var dash = Activator.CreateInstance(dashType) as DashSystem;
 			if (dash.DisplayedCooldownID != -1)
 			{
-				return player.ArcaneOdyssey().OnCooldown(dash.DisplayedCooldownID) && !ArcaneOdysseyMod.devMode;
+				return player.ArcaneOdyssey().OnCooldown(dash.DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
 			}
 			if (dash.AnyDirection)
-				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
+				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 			else
-				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.devMode;
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 		}
 
 		/// <summary>

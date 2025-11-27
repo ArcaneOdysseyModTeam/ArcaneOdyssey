@@ -3,11 +3,11 @@ using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost
 {
-    public class BlizzardCannon : CannonSpell
-    {z
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Type] = 4;
-        }
-    }
+	public class BlizzardCannon : CannonSpell
+	{
+		public override void SetStaticDefaults()
+		{
+			Main.projFrames[Type] = 4;
+		}
+	}
 }

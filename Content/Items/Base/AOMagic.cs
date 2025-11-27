@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					types.Add(Mod.Find<ModItem>(type.Name).Type);
 				}
 				var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
-				RecipeGroup.RegisterGroup(ArcaneOdysseyMod.InternalName + ":" + Name + "Material", group);
+				RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
 				var rec = Recipe.Create(Type);
 				rec.AddRecipeGroup(group);
 				rec.AddIngredient<HecateShard>();
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				types.Add(Mod.Find<ModItem>(type.Name).Type);
 			}
 			var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
-			RecipeGroup.RegisterGroup(ArcaneOdysseyMod.InternalName + ":" + Name + "Material", group);
+			RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
 			var rec = Recipe.Create(Type);
 			rec.AddRecipeGroup(group);
 			rec.AddIngredient<AncientHecateOrb>();

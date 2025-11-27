@@ -23,14 +23,19 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// disable all cooldowns and stuff lmao
 		/// </summary>
-		public static bool devMode => DevMode.devMode;
+		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
 		public const string InternalName = "ArcaneOdyssey";
 
 		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
-		internal static Dictionary<int, bool?> coldItems = [];
+
+		internal static int[] alternateBuffs = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
+		internal static bool?[] itemTemperatures = ItemID.Sets.Factory.CreateCustomSet<bool?>(null);
+		internal static int[] weaponTypes = ItemID.Sets.Factory.CreateIntSet();
+
 		internal static List<int> excludedItems = [];
+
 		internal static List<int> excludedProjectiles = [];
 
 		public override object Call(params object[] args)
@@ -54,12 +59,24 @@ namespace ArcaneOdyssey
 					return imbue.Type;
 					break;
 				case "RegisterItemTemperature":
+				case "SetItemTemperature":
 				case "AddItemTemperature":
-					coldItems.Add((int)args[1], (bool?)args[2]);
+					itemTemperatures[(int)args[1]] = (bool?)args[2];
 					break;
 				case "GetItemTemperature":
 					var item1 = args[1] as Item;
 					return item1.ArcaneOdyssey().Cold;
+					break;
+				case "AddWeaponType":
+				case "RegisterWeaponType":
+				case "SetWeaponType":
+					var item2 = (int)args[1];
+					var type = (int)args[2];
+					weaponTypes[item2] = type;
+					break;
+				case "GetWeaponType":
+					var item3 = (int)args[1];
+					return weaponTypes[item3];
 					break;
 			}
 			return null;

@@ -247,7 +247,7 @@ namespace ArcaneOdyssey
 			List<Imbuable> imbues = [];
 			foreach (Item item in owner.inventory)
 			{
-				if (item.ModItem is Imbuable imbuable)// && item.ModItem is not FightingStyleBarred)
+				if (item.ModItem is Imbuable imbuable)
 				{
 					imbues.Add(imbuable);
 				}
@@ -263,7 +263,7 @@ namespace ArcaneOdyssey
 			{
 				if (modifyimbuestats)
 				{
-					if ((source is Projectile proj && proj.ModProjectile is MagicSpell) || (source is Item item && item.ArcaneOdyssey().Arcanium.HasValue))
+					if ((source is Projectile proj && proj.ModProjectile is MagicSpell) || (source is Item item && item.ArcaneOdyssey().BenifitsFromScrollStats))
 					{
 						range *= imbue.AOScrollSize;
 						knockback *= imbue.AOScrollSize;
@@ -341,7 +341,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			if (projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
+			if (projectile is not null && projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 			{
 				return (
 						projectile.DamageType.CountsAsClass(DamageClass.Melee) 
@@ -359,15 +359,50 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
+			if (item is not null && item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
-				return item.DamageType.CountsAsClass(DamageClass.Melee) 
-					|| item.DamageType.CountsAsClass(DamageClass.Ranged) 
-					|| 
-					(
-						item.ModItem is not null 
-						&& item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll))
-					);
+				if (item.ArcaneOdyssey().WeaponsType != WeaponType.Artisinal)
+				{
+					return item.DamageType.CountsAsClass(DamageClass.Melee)
+						|| item.DamageType.CountsAsClass(DamageClass.Ranged)
+						||
+						(
+							item.ModItem is not null
+							&& item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll))
+						);
+				}
+			}
+			return false;
+		}
+
+		public static bool CanHaveImbue(this Item item, Imbuable imbue)
+		{
+			if (ImbueClassCheck(item))
+			{
+				if (imbue is SteamImbue steam)
+				{
+					return CanHaveImbue(item, steam.originalImbue);
+				}
+				if (item.ModItem is MagicScroll)
+				{
+					return imbue is AOMagic;
+				}
+				if (item.ModItem is TechniqueScroll)
+				{
+					return imbue is FightingStyleBarred;
+				}
+				if (imbue is FightingStyle)
+				{
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength;
+				}
+				if (imbue is AOMagic)
+				{
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium;
+				}
+				if (imbue is null)
+				{
+					return true;
+				}
 			}
 			return false;
 		}
@@ -412,8 +447,6 @@ namespace ArcaneOdyssey
 			}
 			npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
 		}
-
-
 
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
 		{
@@ -712,7 +745,7 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory(this Player player, Type type)
 		{
 			var no = new List<Item>(player.inventory);
-			no.RemoveAll(e => e.ModItem is not Imbuable);
+			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{
 				if (item.ModItem.GetType().Name == type.Name || item.ModItem.GetType().IsSubclassOf(type))
@@ -919,6 +952,14 @@ namespace ArcaneOdyssey
 		Special
 	}
 
+	public enum WeaponType
+	{
+		Normal = -1,
+		Arcanium,
+		Strength,
+		Artisinal
+	}
+
 	public enum AOImbuableTier
 	{
 		Normal,
@@ -975,8 +1016,6 @@ namespace ArcaneOdyssey
 		public int damagedone = damagedone;
 		public NPC npc = npc;
 		public int buffID = buffID;
-
-		internal static int[] AlternateBuff = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
 	}
 
 	/// <summary>

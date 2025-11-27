@@ -35,6 +35,16 @@ Blasts: {
 	JerminusBlast.DisplayName: Jerminus Blast
 	VesuviusBlast.DisplayName: Vesuvius Blast
 	SoundBlast.DisplayName: Sound Blast
+	BlizzardBlast.DisplayName: Blizzard Blast
+	CloudBlast.DisplayName: Cloud Blast
+	DarknessBlast.DisplayName: Darkness Blast
+	EnergyBlast.DisplayName: Energy Blast
+	FrostmetalBlast.DisplayName: Frostmetal Blast
+	LunarBlast.DisplayName: Lunar Blast
+	PhoenixBlast.DisplayName: Phoenix Blast
+	PlantBlast.DisplayName: Plant Blast
+	SlashBlast.DisplayName: Slash Blast
+	SunBlast.DisplayName: Sun Blast
 }
 
 Cannons: {
@@ -72,6 +82,16 @@ Cannons: {
 	JerminusCannon.DisplayName: Jerminus Cannon
 	VesuviusCannon.DisplayName: Vesuvius Cannon
 	SoundCannon.DisplayName: Sound Cannon
+	BlizzardCannon.DisplayName: Blizzard Cannon
+	CloudCannon.DisplayName: Cloud Cannon
+	DarknessCannon.DisplayName: Darkness Cannon
+	EnergyCannon.DisplayName: Energy Cannon
+	FrostmetalCannon.DisplayName: Frostmetal Cannon
+	LunarCannon.DisplayName: Lunar Cannon
+	PhoenixCannon.DisplayName: Phoenix Cannon
+	PlantCannon.DisplayName: Plant Cannon
+	SlashCannon.DisplayName: Slash Cannon
+	SunCannon.DisplayName: Sun Cannon
 }
 
 ExplosionSpell.DisplayName: Explosion Spell
@@ -111,4 +131,14 @@ Pulsars: {
 	JerminusPulsar.DisplayName: Jerminus Pulsar
 	VesuviusPulsar.DisplayName: Vesuvius Pulsar
 	SoundPulsar.DisplayName: Sound Pulsar
+	BlizzardPulsar.DisplayName: Blizzard Pulsar
+	CloudPulsar.DisplayName: Cloud Pulsar
+	DarknessPulsar.DisplayName: Darkness Pulsar
+	EnergyPulsar.DisplayName: Energy Pulsar
+	FrostmetalPulsar.DisplayName: Frostmetal Pulsar
+	LunarPulsar.DisplayName: Lunar Pulsar
+	PhoenixPulsar.DisplayName: Phoenix Pulsar
+	PlantPulsar.DisplayName: Plant Pulsar
+	SlashPulsar.DisplayName: Slash Pulsar
+	SunPulsar.DisplayName: Sun Pulsar
 }

@@ -152,7 +152,7 @@ namespace ArcaneOdyssey
 				{
 					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
                     {
-                        if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffkeys.requirement]) || (ImbueDebuffHelper.AlternateBuff[buffkeys.requirement] == BuffID.Wet && target.wet))
+                        if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
                         {
                             target.AddBuff(buffkeys.result, buffkeys.duration);
                         }
@@ -165,7 +165,7 @@ namespace ArcaneOdyssey
 
 				foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
                 {
-                    if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[multiplier.buffID]) || (ImbueDebuffHelper.AlternateBuff[multiplier.buffID] == BuffID.Wet && target.wet))
+                    if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
                     {
                         modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
                     }
@@ -179,9 +179,9 @@ namespace ArcaneOdyssey
 				{
 					foreach (int buffid in Imbue.Effects.clearBuffs)
                     {
-                        if (target.HasBuff(ImbueDebuffHelper.AlternateBuff[buffid]))
+                        if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
                         {
-                            target.DelBuff(target.FindBuffIndex(ImbueDebuffHelper.AlternateBuff[buffid]));
+                            target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
                         }
                         if (target.HasBuff(buffid))
 						{

@@ -96,10 +96,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		public virtual void SpawningEffects(Entity entity) { }
+
 		public virtual void LingeringEffects(Entity entity) { }
+
 		public virtual void KillEffects(Entity entity) { }
+
 		/// <summary>
-		/// used for explosions and pulsar type stuff ect
+		/// Used for explosions and pulsar stuff ect
 		/// </summary>
 		public virtual void ExplosionEffects(Entity entity) { }
 
@@ -215,7 +218,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				if (this is AOMagic or BasicCombat)
 				{
 					RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
-					RecipeGroup.RegisterGroup($"{ArcaneOdysseyMod.InternalName}:PoseidonSpirit", group);
+					RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpirit", group);
 					CreateRecipe().AddRecipeGroup(group).DisableDecraft().Register();
 				}
 			}
@@ -223,7 +226,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this is BasicCombat)
 			{
 				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
-				RecipeGroup.RegisterGroup($"{ArcaneOdysseyMod.InternalName}:AnyBasicImbue", goru);
+				RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", goru);
 				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonSpirit>());
 				recipe.AddRecipeGroup(goru);
 				recipe.AddIngredient<Acrimony>();

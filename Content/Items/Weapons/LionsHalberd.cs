@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -18,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int AOValue => 250;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override bool? Arcanium => false;
+		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override WeaponAbility? Ability => new(Mod, "Seismic Slash", "Slam into the ground, then upearth and launch a rock towards your cursor", Color.Gold);
 
 		public override void SetStaticDefaults()

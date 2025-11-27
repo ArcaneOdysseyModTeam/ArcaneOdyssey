@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 
 		public override void SetStaticDefaults()
 		{
-			ImbueDebuffHelper.AlternateBuff[Type] = BuffID.Midas;
+			ArcaneOdysseyMod.alternateBuffs[Type] = BuffID.Midas;
 		}
 
 		public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)

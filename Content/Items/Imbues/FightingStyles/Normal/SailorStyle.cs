@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				rec.AddIngredient(ExternalModSupport.Calamity.Find<ModItem>("SeaRemains"), 5);
 			}
-			else if (ExternalModSupport.HasThorium)
+			if (ExternalModSupport.HasThorium)
 			{
 				rec.AddIngredient(ExternalModSupport.Thorium.Find<ModItem>("DepthScale"), 5);
 			}
@@ -135,10 +135,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (item.potion)
 			{
-				if (item.Imbue() is SailorStyle imbue)
+				if (player.Imbue() is SailorStyle imbue)
 				{
 					imbue.BarValue = FightingStyleBarred.BarMax;
 				}
+				if (player.PlayerItem()?.Imbue() is SailorStyle imbue2)
+				{
+					imbue2.BarValue = FightingStyleBarred.BarMax;
+				}
+
 			}
 		}
 	}

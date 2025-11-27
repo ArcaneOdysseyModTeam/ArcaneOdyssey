@@ -16,13 +16,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int AOValue => 250;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override bool? Arcanium => false;
+		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override WeaponAbility? Ability => new(Mod, "Colossal Cleave", "Unleash a large slash that pierces enemies", Color.PaleVioletRed);
 
 		public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}
 
@@ -63,6 +63,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	public class ColossalCleaveCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 * 3;
-        public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(ColossalGreatsword);
-    }
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(ColossalGreatsword);
+	}
 }

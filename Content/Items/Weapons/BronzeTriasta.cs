@@ -67,8 +67,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void OnEnd(Player player)
 		{
-			SimulateAOE(160, 70, player.MountedCenter, 4.5f, player, TrueMeleeNoSpeed());
+			SimulateAOE(150, 70, player.MountedCenter, 4.5f, player, TrueMeleeNoSpeed());
 			player.velocity = Vector2.Zero;
+			player.PlayerItem()?.Imbue()?.KillEffects(player);
 		}
 
 		public override void DashEffect(Player player)

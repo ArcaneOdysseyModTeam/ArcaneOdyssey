@@ -80,22 +80,22 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			if (source is not EntitySource_Parent { Entity: NPC })
 			{
 				var player = Main.player[projectile.owner].ArcaneOdyssey();
-                if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist cfist)
+				if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist cfist)
 				{
-                    if (!player.OnCooldown(cfist.Name))
-                    {
-                        if (!projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
-                        {
-                            if (player.Player.ConsumeItem(ItemID.Cannonball))
-                            {
-                                Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
-                            }
-                            else
-                                Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
-                            player.SetCooldown(new Cooldown(cfist.Name, Mod, 60));
-                        }
-                    }
-                }
+					if (!player.OnCooldown(cfist.Name))
+					{
+						if (!projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
+						{
+							if (player.Player.ConsumeItem(ItemID.Cannonball))
+							{
+								Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
+							}
+							else
+								Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
+							player.SetCooldown(new Cooldown(cfist.Name, Mod, 60));
+						}
+					}
+				}
 			}
 		}
 	}
@@ -104,7 +104,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public override void UseAnimation(Item item, Player player)
 		{
-			if (item.Imbue() is CannonFist cfist && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(true))
+			if (item.Imbue() is CannonFist cfist && item.ArcaneOdyssey().WeaponsType == WeaponType.Arcanium)
 			{
 				if (!player.ArcaneOdyssey().OnCooldown(cfist.Name))
 				{

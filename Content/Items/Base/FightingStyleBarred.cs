@@ -60,8 +60,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-			if (player.Imbue() is FightingStyleBarred fs && player.Imbue().Name == Name)
-				BarValue = fs.BarValue;
+			if (player.Imbue() is FightingStyleBarred fs1 && fs1.Name == Name)
+			{
+				BarValue = fs1.BarValue;
+			}
+			//if (AOUtils.PlayerItem(player)?.ModItem is FightingStyleBarred fs && fs.Name == Name)
+			//{
+			//	BarValue = fs.BarValue;
+			//}
 			base.UpdateInventory(player);
 		}
 	}
@@ -70,7 +76,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			if (item.ArcaneOdyssey().Imbue is FightingStyleBarred fs && ImbueClassCheck(item) && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false) && item.ModItem is not MagicScroll)
+			if (item.ArcaneOdyssey().Imbue is FightingStyleBarred fs && item.ModItem is not Imbuable)
 				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 		}
 	}
