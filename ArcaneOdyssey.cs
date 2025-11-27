@@ -90,7 +90,6 @@ namespace ArcaneOdyssey
 			this.CoolCustomLocalization("RandomWords.None");
 			this.CoolCustomLocalization("RandomWords.Material");
 			this.CoolCustomLocalization("RandomWords.Help");
-			this.CoolCustomLocalization("RandomWords.Ability");
 			this.CoolCustomLocalization("RandomWords.Press");
 		}
 	}

@@ -305,7 +305,6 @@ WeaponAbilities: {
 }
 
 RandomWords: {
-	Ability: Ability
 	Default: Default
 	Unbound: Unbound
 	None: None

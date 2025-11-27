@@ -818,7 +818,7 @@ namespace ArcaneOdyssey
 		#endregion
 	}
 
-	public struct WeaponAbility(Mod mod, string name, string description = null, Color? color = null)
+	public struct WeaponAbility(Mod mod, string name = null, string description = null, Color? color = null)
 	{
 		public static string Key(Mod mod, string name)
 		{
@@ -836,16 +836,26 @@ namespace ArcaneOdyssey
 		public readonly TooltipLine GenerateTooltip()
 		{
 			string text = "";
-			if (Colour.HasValue)
+			if (Name is not null)
 			{
-				text += $"[c/{Colour.Value.Hex3()}:{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}]";
+				if (Colour.HasValue)
+				{
+					text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
+				}
+				else
+				{
+					text += LocalizedName.Value;
+				}
 			}
-			else
+			if (Description is not null) 
 			{
-				text += $"{mod.CustomLocalization("RandomWords.Ability").Value} - {LocalizedName.Value}";
+				if (Name is not null)
+					text += $": {LocalizedDescription.Value}";
+				else if (Colour.HasValue)
+					text += $"[c/{Colour.Value.Hex3()}:{LocalizedDescription.Value}";
+				else
+					text += LocalizedDescription.Value;
 			}
-			if (Description is not null)
-				text += $": {LocalizedDescription.Value}";
 			return new TooltipLine(mod, "AOAbility", text);
 		}
 	}
