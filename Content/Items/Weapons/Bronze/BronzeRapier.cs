@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.DamageType = TrueMelee();
-			Item.shoot = ModContent.ProjectileType<PiercingStrikesProjectile>();
+			Item.shoot = ModContent.ProjectileType<BronzeRapierProjectile>();
 		}
 
 		public override void AddRecipes()

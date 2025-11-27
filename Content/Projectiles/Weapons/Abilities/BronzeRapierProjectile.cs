@@ -7,7 +7,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
-	public class PiercingStrikesProjectile : AOPlayerProjectile
+	public class BronzeRapierProjectile : AOPlayerProjectile
 	{
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		}
 		public override bool AnyDirection => true;
 		public override int Cooldown => 180;
-		public ModProjectile projectile;
+		public BronzeRapierProjectile projectile;
 
 		public override void OnStart(Player player)
 		{ 
@@ -72,5 +72,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
         public override int DisplayedCooldownID => ModContent.BuffType<PiercingStrikesCooldown>();
     }
 
-    public class PiercingStrikesCooldown : DisplayedCooldown { }
+    public class PiercingStrikesCooldown : DisplayedCooldown 
+    {
+        public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + $"/{nameof(BronzeRapierProjectile)}";
+    }
 }

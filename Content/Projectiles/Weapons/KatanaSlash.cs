@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			{
 				Projectile.netUpdate = true;
 				Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 300);
-				Projectile.rotation = MathHelper.Pi*4 / Main.rand.Next(50);
+                Projectile.rotation = MathHelper.Pi * 4 / Main.rand.Next(50);
 				Projectile.ai[0] = 1;
 			}
 
