@@ -1,9 +1,9 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost
 {
-	public class PhoenixBlast : BlastSpell
+	public class SunPulsar : PulsarSpell
 	{
 		public override void SetStaticDefaults() 
 		{

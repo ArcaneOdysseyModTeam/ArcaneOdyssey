@@ -1,10 +1,10 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost
 {
-	public class EnergyBlast : BlastSpell
-	{
+	public class EnergyPulsar : PulsarSpell
+    {
 		public override void SetStaticDefaults() 
 		{
 			Main.projFrames[Type] = 3;

@@ -22,10 +22,10 @@ namespace ArcaneOdyssey
 	{
 		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue)
 		{
-            if (imbue is null)
-            {
-                return damageClass.UnImbued();
-            }
+			if (imbue is null)
+			{
+				return damageClass.UnImbued();
+			}
 
 			if (imbue is not SteamImbue steam)
 			{
@@ -456,10 +456,10 @@ namespace ArcaneOdyssey
 			return text;
 		}
 
-        public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback = null) => Language.GetOrRegister(mod.GetLocalizationKey(key), () => fallback ?? mod.CustomLocalization(key).Value);
+		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback = null) => Language.GetOrRegister(mod.GetLocalizationKey(key), () => fallback ?? mod.CustomLocalization(key).Value);
 
 
-        public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
+		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
 
 
 		private static bool checklistfailed = false;
@@ -552,10 +552,10 @@ namespace ArcaneOdyssey
 
 		public static ItemType GetItemType(this Item item)
 		{
-            if (item.ModItem is AOBaseItem based && based.ItemCategory.HasValue) 
-            { 
-                return based.ItemCategory.Value;
-            }
+			if (item.ModItem is AOBaseItem based && based.ItemCategory.HasValue) 
+			{ 
+				return based.ItemCategory.Value;
+			}
 			if (item.vanity)
 			{
 				return ItemType.Vanity;

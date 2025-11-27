@@ -127,12 +127,12 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override float Knockback => 0;
 		public override bool Immune => true;
 
-        public override bool ExtraCheck(Player player)
-        {
-            return !player.wet;
-        }
+		public override bool ExtraCheck(Player player)
+		{
+			return !player.wet;
+		}
 
-        public override void OnStart(Player player)
+		public override void OnStart(Player player)
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{

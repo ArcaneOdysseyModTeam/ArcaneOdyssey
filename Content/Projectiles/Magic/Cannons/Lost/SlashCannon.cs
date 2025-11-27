@@ -1,9 +1,9 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost
 {
-	public class PhoenixBlast : BlastSpell
+	public class SlashCannon : CannonSpell
 	{
 		public override void SetStaticDefaults() 
 		{

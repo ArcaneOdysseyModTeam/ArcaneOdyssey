@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class SoundMagic : AOMagic
 	{
+		public override Color ImbueColour => new(94, 236, 255);
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Roar;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;

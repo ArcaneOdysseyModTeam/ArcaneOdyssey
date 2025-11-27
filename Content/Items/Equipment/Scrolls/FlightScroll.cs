@@ -14,13 +14,13 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
-            if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
-            {
-                constantAscend *= imbue.AOScrollSpeed;
-                ascentWhenRising *= imbue.AOScrollSpeed;
-                maxCanAscendMultiplier *= imbue.AOScrollSpeed;
-                maxAscentMultiplier *= imbue.AOScrollSpeed;
-            }
+			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
+			{
+				constantAscend *= imbue.AOScrollSpeed;
+				ascentWhenRising *= imbue.AOScrollSpeed;
+				maxCanAscendMultiplier *= imbue.AOScrollSpeed;
+				maxAscentMultiplier *= imbue.AOScrollSpeed;
+			}
 		}
 
 		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)

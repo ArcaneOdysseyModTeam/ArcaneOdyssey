@@ -1,9 +1,9 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost
 {
-	public class PlantBlast : BlastSpell
+	public class PlantCannon : CannonSpell
 	{
 		public override void SetStaticDefaults() 
 		{

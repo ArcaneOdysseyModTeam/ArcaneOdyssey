@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost
 {
-	public class DarknessBlast : BlastSpell
+	public class DarknessCannon : CannonSpell
 	{
 		public override void SetStaticDefaults()
 		{
@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
 
 		public override void PostDraw(Color lightColor)
 		{
-			// pulse effect goes here, add to cannon and pulsar too
+			// pulse effect goes here, add to blast and pulsar too
 		}
 	}
 }

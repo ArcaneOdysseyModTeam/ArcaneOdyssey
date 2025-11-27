@@ -100,13 +100,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			}
 		}
 
-        public override void NaturalEnd(Player player)
-        {
-            if (player.whoAmI == Main.myPlayer)
-            {
-                Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
-            }
-        }
+		public override void NaturalEnd(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer)
+			{
+				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
+			}
+		}
 
 		public override int DisplayedCooldownID => ModContent.BuffType<SeismicSlashCooldown>();
 	}
