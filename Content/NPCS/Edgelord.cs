@@ -209,7 +209,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.EvanderWarning"));
 			}
 
-			if (DownedBosses.downedEvander) // argos or something might be here too
+			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
 			{
 				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
 			}
@@ -275,7 +275,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
 			}
 
-			if (Main.LocalPlayer.PlayerItem().ModItem is AORangedOrMeleeWeapon weapon && weapon.WeaponsType == WeaponType.Strength)
+			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
 			{
 				options.Add(this.GetLocalizedValue("Chat.StrongWarrior"));
 			}
