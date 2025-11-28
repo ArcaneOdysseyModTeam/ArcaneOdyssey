@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -203,9 +204,21 @@ namespace ArcaneOdyssey
 			{
 				return dust.position + (DefaultDustDimensions / 2f * dust.scale);
 			}
-		}
+        }
+        public static Vector2 Centre(this Dust dust, PreDrawnDust predust, Vector2? newPos = null)
+        {
+            if (newPos.HasValue)
+            {
+                dust.position = newPos.Value - (predust / 2f * dust.scale);
+                return dust.position;
+            }
+            else
+            {
+                return dust.position + (DefaultDustDimensions / 2f * dust.scale);
+            }
+        }
 
-		public static bool BossAlive()
+        public static bool BossAlive()
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
