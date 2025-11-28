@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -41,6 +43,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().Imbue = value;
 		}
 
+		public override void SetDefaults()
+		{
+			BaseScale = AOSize;
+		}
+
 		public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
@@ -66,6 +73,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public void Kill()
 		{
 			Projectile.Kill();
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			var tex = ModContent.Request<Texture2D>(Texture).Value;
+			Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, new(0, tex.Height * Projectile.frame, tex.Width, tex.Height), lightColor with { A = (byte)(255 - Projectile.alpha) }, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None);
+			return false;
 		}
 	}
 }

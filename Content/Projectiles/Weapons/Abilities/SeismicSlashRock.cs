@@ -6,14 +6,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
     public class SeismicSlashRock : AOPlayerProjectile
     {
+        public override float AOSize => 2f;
+
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Projectile.timeLeft = 120;
             Projectile.width = Projectile.height = 16;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Melee;
-            BaseScale = 2f;
         }
 
         public override void AI()

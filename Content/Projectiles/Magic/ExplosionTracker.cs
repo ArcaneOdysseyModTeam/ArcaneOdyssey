@@ -19,7 +19,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public Vector2 ensuredPosition = Main.MouseWorld;
         public override void SetDefaults()
         {
-			Projectile.tileCollide = false;
+            base.SetDefaults();
+            Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
         }
 		public override void AI()

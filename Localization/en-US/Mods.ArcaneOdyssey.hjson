@@ -216,6 +216,7 @@ Projectiles: {
 	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
 	SeismicSlashRock.DisplayName: Rock
 	BronzeRapierProjectile.DisplayName: Bronze Rapier Projectile
+	FrostmetalShard.DisplayName: Frostmetal Shard
 }
 
 DamageClasses: {
@@ -311,4 +312,11 @@ RandomWords: {
 	Material: Material
 	Help: Help
 	Press: Press
+}
+
+Achievements: {
+	MountainBreaker: {
+		FriendlyName: Mountain Breaker
+		Description: Slay Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
+	}
 }

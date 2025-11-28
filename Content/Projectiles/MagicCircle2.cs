@@ -12,8 +12,9 @@ namespace ArcaneOdyssey.Content.Projectiles
         public override bool? CanDamage() => false;
 
         public override void SetDefaults()
-		{
-			Projectile.height = Projectile.width = 64;
+        {
+            base.SetDefaults();
+            Projectile.height = Projectile.width = 64;
 			Projectile.tileCollide = false;
 		}
 

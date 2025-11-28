@@ -1,4 +1,7 @@
-﻿using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -7,8 +10,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
         public override string LocalizationCategory => "Magic.Spells";
         public override AODebuffRequirement? Debuff => null;
 		public override void SetDefaults()
-		{
-			Projectile.DamageType = DamageClass.Magic;
+        {
+            base.SetDefaults();
+            Projectile.DamageType = DamageClass.Magic;
 			Projectile.friendly = true;
 		}
 	}

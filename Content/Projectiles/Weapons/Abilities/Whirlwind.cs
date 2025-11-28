@@ -15,8 +15,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetDefaults()
-		{
-			Projectile.width = Projectile.height = 144;
+        {
+            base.SetDefaults();
+            Projectile.width = Projectile.height = 144;
 			Projectile.friendly = true;
 			Projectile.timeLeft = MaxTime;
 			Projectile.DamageType = TrueMeleeNoSpeed();
@@ -27,7 +28,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.usesLocalNPCImmunity = true;
 		}
-		public override float AOSize => 1;
 		public override float AOSpeed => .925f;
 		public override float AODamage => 1.05f;
 

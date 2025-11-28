@@ -20,8 +20,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		
 
 		public override void SetDefaults()
-		{
-			Projectile.width = 114;
+        {
+            base.SetDefaults();
+            Projectile.width = 114;
 			Projectile.height = 96;
             Projectile.AverageDimensions();
 			Projectile.alpha = (int)(225 * .75f);
@@ -34,9 +35,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
             Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
 		}
-		public override void SetStaticDefaults() {
+
+		public override void SetStaticDefaults() 
+        {
 			Main.projFrames[Type] = 6;
 		}
+
 		public override void AI()
 		{
 			if (Projectile.ai[0] == 0)
@@ -73,7 +77,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Dust spawnedDust = Dust.NewDustPerfect(Projectile.position + (baseVec.RotatedBy(Projectile.velocity.ToRotation())) + new Vector2(Projectile.width / 2f, Projectile.height / 2f), DustID.Water_Jungle, new Vector2(0f, 0f), 255, default, 3f);
 				spawnedDust.noGravity = true;
 				float waveVal2 = (float)Math.Cos(Main.GameUpdateCount)*50f;
-				Vector2 baseVec2 = new(0f, waveVal);
+				Vector2 baseVec2 = new(0f, waveVal2);
 				Dust spawnedDust2 = Dust.NewDustPerfect(Projectile.position + (baseVec2.RotatedBy(Projectile.velocity.ToRotation())) + new Vector2(Projectile.width / 2f, Projectile.height / 2f), DustID.Water_Jungle, new Vector2(0f, 0f), 255, default, 3f);
 				spawnedDust2.noGravity = true;
 			}

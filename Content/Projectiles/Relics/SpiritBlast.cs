@@ -38,8 +38,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			);
 
 		public override void SetDefaults()
-		{
-			Projectile.width = Projectile.height = 64;
+        {
+            base.SetDefaults();
+            Projectile.width = Projectile.height = 64;
 			Projectile.friendly = true;
 		}
 

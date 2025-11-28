@@ -12,8 +12,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 
         public override void SetDefaults()
-		{
-			Projectile.DamageType = ModContent.GetInstance<Oracle>();
+        {
+            base.SetDefaults();
+            Projectile.DamageType = ModContent.GetInstance<Oracle>();
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

@@ -12,8 +12,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public const int DustCount = 30;
 
 		public override void SetDefaults()
-		{
-			Projectile.width = Projectile.height = 64;
+        {
+            base.SetDefaults();
+            Projectile.width = Projectile.height = 64;
 			Projectile.friendly = true;
 			Projectile.extraUpdates = 2;
 			Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);

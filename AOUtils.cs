@@ -204,21 +204,9 @@ namespace ArcaneOdyssey
 			{
 				return dust.position + (DefaultDustDimensions / 2f * dust.scale);
 			}
-        }
-        public static Vector2 Centre(this Dust dust, PreDrawnDust predust, Vector2? newPos = null)
-        {
-            if (newPos.HasValue)
-            {
-                dust.position = newPos.Value - (predust / 2f * dust.scale);
-                return dust.position;
-            }
-            else
-            {
-                return dust.position + (DefaultDustDimensions / 2f * dust.scale);
-            }
-        }
+		}
 
-        public static bool BossAlive()
+		public static bool BossAlive()
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
@@ -352,7 +340,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-        public static string Replace(this string text, string toRemove) => text.Replace(toRemove, null);
+		public static string Replace(this string text, string toRemove) => text.Replace(toRemove, null);
 
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
@@ -994,12 +982,12 @@ namespace ArcaneOdyssey
 		Developer,
 	}
 
-    public enum SkillType
-    {
-        Blast,
-        Cannon,
-        Pulsar
-    }
+	public enum SkillType
+	{
+		Blast,
+		Cannon,
+		Pulsar
+	}
 
 	/// <summary>
 	/// Arcane Odyssey weapon tiers, used for scaling

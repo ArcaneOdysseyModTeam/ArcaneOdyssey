@@ -18,11 +18,12 @@ namespace ArcaneOdyssey.Content.Projectiles
 			//ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Projectile.type] = true;
 		}
 
+        public override float AOSize => .5f;
+
 		public override void SetDefaults()
-		{
-			Projectile.height = Projectile.width = 128;
-			if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-				BaseScale = .5f;
+        {
+            base.SetDefaults();
+            Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 0;
 		}

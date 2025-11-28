@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 {
 	public class AetherExplosion : AOPlayerProjectile
 	{
-        internal static int Count = 0;
+		internal static int Count = 0;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -25,17 +25,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 		public override AODebuffRequirement? Debuff => null;
 
 		public override void OnSpawn(IEntitySource source)
-        {
-            if (source is EntitySource_Parent { Entity: Projectile projectile })
+		{
+			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
-                Count++;
-                if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-				    BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .2f, 2f);
+				Count++;
+				//if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+					BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .2f, 2f);
 			}
-            else
-            {
-                Projectile.active = false;
-            }    
+			else
+			{
+				Projectile.active = false;
+			}    
 		}
 
 		public override void SetStaticDefaults()
@@ -44,8 +44,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 		}
 
 		public override void AI()
-        {
-            if (++Projectile.frameCounter >= 3)
+		{
+			if (++Projectile.frameCounter >= 3)
 			{
 				Projectile.frameCounter = 0;
 				if (++Projectile.frame >= Main.projFrames[Type])
@@ -54,10 +54,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 				}
 			}
 		}
-        public override bool PreKill(int timeLeft)
-        {
-            Count--;
-            return base.PreKill(timeLeft);
-        }
+
+		public override bool PreKill(int timeLeft)
+		{
+			Count--;
+			return base.PreKill(timeLeft);
+		}
 	}
 }
