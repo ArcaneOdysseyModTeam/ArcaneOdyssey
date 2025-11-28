@@ -49,14 +49,17 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 					Item.useStyle = ItemUseStyleID.Thrust;
 				Item.noMelee = false;
 				Item.noUseGraphic = false;
+                return canSwing;
 			}
-			else if (player.AltUse())
+			if (player.AltUse())
 			{
-				Item.useStyle = ItemUseStyleID.Rapier;
+                canSwing = true;
+                Item.useStyle = ItemUseStyleID.Rapier;
 				Item.noMelee = true;
 				Item.noUseGraphic = true;
+                return true;
 			}
-			return base.CanUseItem(player) && canSwing;
+			return base.CanUseItem(player);
 		}
 
 		public override bool CanShoot(Player player)

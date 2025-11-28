@@ -2,12 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -31,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<FreezingEffect>(), 60 * 10), new(ModContent.BuffType<AOFrozen>(), 60, 33)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
 
-		public override List<Type> Skills => [typeof(IceBlast), typeof(IcePulsar), typeof(IceCannon)];
+        
 
 		public override SynergyEffects Effects => new SynergyEffects(
 			[ // these are debuffs cleared on hit

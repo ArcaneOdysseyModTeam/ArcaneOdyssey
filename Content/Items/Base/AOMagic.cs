@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -86,7 +85,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill(typeof(BlastSpell));
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
 					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
@@ -96,7 +95,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill(typeof(CannonSpell));
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Cannon");
 					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
@@ -106,7 +105,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill(typeof(PulsarSpell));
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Pulsar");
 					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}

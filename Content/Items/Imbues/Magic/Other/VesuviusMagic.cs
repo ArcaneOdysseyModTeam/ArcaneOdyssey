@@ -2,12 +2,7 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Other;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Other;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Other;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -57,8 +52,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),2.075f)
 			]
 			);
-
-		public override List<Type> Skills => [typeof(VesuviusBlast), typeof(VesuviusPulsar), typeof(VesuviusCannon)];
 		
         public override void SpawningEffects(Entity projectile)
 		{

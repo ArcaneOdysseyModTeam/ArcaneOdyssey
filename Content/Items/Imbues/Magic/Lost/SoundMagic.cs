@@ -2,12 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -97,7 +92,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			CreateLostRecipe(typeof(WindMagic), typeof(GlassMagic), typeof(LightningMagic));
 		}
-
-		public override List<Type> Skills => [typeof(SoundBlast), typeof(SoundCannon), typeof(SoundPulsar)];
 	}
 }

@@ -1,9 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
-using System;
-using System.Collections.Generic;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
@@ -99,8 +94,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		
-        public override List<Type> Skills => [typeof(ShadowflameBlast), typeof(ShadowflamePulsar), typeof(ShadowflameCannon)];
 		
 		public override void AddRecipes() 
         {

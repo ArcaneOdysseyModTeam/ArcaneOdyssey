@@ -1,11 +1,6 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -60,18 +55,16 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				spawnedDust2.noGravity = true;
 			}
 		}
-		public override void KillEffects(Entity projectile)
-		{
-			for (int n = 0; n < 10; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowStarDust, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
-				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
-				spawnedDust2.noGravity = true;
-			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
-		}
-
-		public override List<Type> Skills => [typeof(LightBlast), typeof(LightPulsar), typeof(LightCannon)];
+        public override void KillEffects(Entity projectile)
+        {
+            for (int n = 0; n < 10; n++)
+            {
+                Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowStarDust, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+                spawnedDust.noGravity = true;
+                Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+                spawnedDust2.noGravity = true;
+            }
+            SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+        }
 	}
 }

@@ -26,6 +26,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.ownerHitCheck = true;
 		}
 
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
+        }
+
 		public override void AI()
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
@@ -35,7 +41,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 				Projectile.velocity.Normalize();
 			}
-			Projectile.Center = aoPlayerOwner.Player.HandPosition.GetValueOrDefault(aoPlayerOwner.Player.MountedCenter) + (Projectile.velocity * 15);
+			Projectile.Center = aoPlayerOwner.Player.HandPosition.GetValueOrDefault(aoPlayerOwner.Player.MountedCenter) + (Projectile.velocity * 18);
+            Projectile.Center = Projectile.Center with { Y = Projectile.Center.Y + 8f };
 			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 			aoPlayerOwner.Player.heldProj = Projectile.whoAmI;
 		}
@@ -67,6 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void OnEnd(Player player)
 		{
 			projectile.Projectile.Kill();
+            player.velocity *= .75f;
 		}
 
         public override int DisplayedCooldownID => ModContent.BuffType<PiercingStrikesCooldown>();

@@ -3,7 +3,6 @@ using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -85,13 +84,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual float KBMulti => 1f;
 
-		public virtual List<Type> Skills => [];
-
-		public int GetSkill(Type skill, int fallback = ProjectileID.AmethystBolt)
+		public int GetSkill(string skill, int fallback = ProjectileID.AmethystBolt)
 		{
-			var aaa = Skills.Find(e => e.IsSubclassOf(skill));
-			if (Skills.Contains(aaa))
-				return Mod.Find<ModProjectile>(aaa.Name).Type;
+			if (Mod.TryFind<ModProjectile>(Name.Replace("Magic") + $"{skill}", out var proj))
+			{
+				return proj.Type;
+			}
 			return fallback;
 		}
 
@@ -210,16 +208,19 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		internal static List<int> BasicImbues = [];
-
+		internal static int? GroupNum = null;
 		public override void AddRecipes()
 		{
 			if (ImbuableTier == AOImbuableTier.Normal)
 			{
 				if (this is AOMagic or BasicCombat)
 				{
-					RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
-					RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpirit", group);
-					CreateRecipe().AddRecipeGroup(group).DisableDecraft().Register();
+					if (!GroupNum.HasValue)
+					{
+						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
+						GroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
+					}
+					CreateRecipe().AddRecipeGroup(GroupNum.Value).DisableDecraft().Register();
 				}
 			}
 

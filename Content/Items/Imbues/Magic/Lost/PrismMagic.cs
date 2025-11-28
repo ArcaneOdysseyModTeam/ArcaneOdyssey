@@ -3,12 +3,7 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -107,8 +102,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				rainbowStep++;
 			}
 		}
-
-		public override List<Type> Skills => [typeof(PrismBlast), typeof(PrismPulsar), typeof(PrismCannon)];
 		
 		public override void AddRecipes()
 		{

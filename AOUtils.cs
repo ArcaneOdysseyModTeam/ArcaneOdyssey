@@ -339,6 +339,8 @@ namespace ArcaneOdyssey
 			}
 		}
 
+        public static string Replace(this string text, string toRemove) => text.Replace(toRemove, null);
+
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
 			if (projectile is not null && projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
@@ -978,6 +980,13 @@ namespace ArcaneOdyssey
 		Primordial, // unused
 		Developer,
 	}
+
+    public enum SkillType
+    {
+        Blast,
+        Cannon,
+        Pulsar
+    }
 
 	/// <summary>
 	/// Arcane Odyssey weapon tiers, used for scaling

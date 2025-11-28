@@ -7,7 +7,6 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
-using Steamworks;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -480,12 +479,6 @@ namespace ArcaneOdyssey
 					settodefault = true;
 					imbueIndex = -1;
 				}
-
-
-				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
-				{
-					Imbue = SteamImbue.Create(Imbue);
-				}
 			}
 			else
 			{
@@ -499,6 +492,11 @@ namespace ArcaneOdyssey
 					Imbue = player.Imbue();
 				else
 					Imbue = null;
+			}
+
+			if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
+			{
+				Imbue = SteamImbue.Create(Imbue);
 			}
 
 			if (justchangedspecificimbue && player == Main.LocalPlayer)

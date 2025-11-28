@@ -1,9 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
-using System;
-using System.Collections.Generic;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Terraria.ID;
@@ -71,7 +66,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override List<Type> Skills => [typeof(DiamondBlast), typeof(DiamondPulsar), typeof(DiamondCannon)];
+
+        
 		
 		public override void AddRecipes() {
 			CreateLostRecipe(typeof(CrystalMagic), typeof(EarthMagic),typeof(MetalMagic),typeof(SandMagic),typeof(GlassMagic),typeof(MagmaMagic),typeof(WoodMagic));

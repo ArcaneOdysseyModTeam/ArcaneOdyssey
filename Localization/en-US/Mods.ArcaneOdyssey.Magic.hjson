@@ -68,6 +68,56 @@ Lost: {
 		DisplayName: Sound Magic
 		Tooltip: ""
 	}
+
+	BlizzardMagic: {
+		DisplayName: Blizzard Magic
+		Tooltip: ""
+	}
+
+	CloudMagic: {
+		DisplayName: Cloud Magic
+		Tooltip: ""
+	}
+
+	DarknessMagic: {
+		DisplayName: Darkness Magic
+		Tooltip: ""
+	}
+
+	EnergyMagic: {
+		DisplayName: Energy Magic
+		Tooltip: ""
+	}
+
+	FrostmetalMagic: {
+		DisplayName: Frostmetal Magic
+		Tooltip: ""
+	}
+
+	LunarMagic: {
+		DisplayName: Lunar Magic
+		Tooltip: ""
+	}
+
+	PhoenixMagic: {
+		DisplayName: Phoenix Magic
+		Tooltip: ""
+	}
+
+	PlantMagic: {
+		DisplayName: Plant Magic
+		Tooltip: ""
+	}
+
+	SlashMagic: {
+		DisplayName: Slash Magic
+		Tooltip: ""
+	}
+
+	SunMagic: {
+		DisplayName: Sun Magic
+		Tooltip: ""
+	}
 }
 
 Normal: {

@@ -1,9 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
-using System;
-using System.Collections.Generic;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Terraria.ID;
@@ -45,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				new(ModContent.BuffType<SearedEffect>(),1.1f)
 			]
 			);
-		public override List<Type> Skills => [typeof(OilBlast), typeof(OilPulsar), typeof(OilCannon)];
+
 		public override void SpawningEffects(Entity projectile) 
 		{
 			for (int n = 0; n < 3; n++)

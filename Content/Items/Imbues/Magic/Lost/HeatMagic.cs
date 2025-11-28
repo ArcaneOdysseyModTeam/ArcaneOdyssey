@@ -1,9 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
-using System;
-using System.Collections.Generic;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Buffs.DOT;
@@ -33,7 +28,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			]
 			);
-				public override List<Type> Skills => [typeof(HeatBlast), typeof(HeatPulsar), typeof(HeatCannon)];
 		
 		public override void AddRecipes() {
             

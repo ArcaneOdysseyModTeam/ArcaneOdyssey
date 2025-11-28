@@ -1,11 +1,6 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -65,6 +60,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override List<Type> Skills => [typeof(ShadowBlast), typeof(ShadowPulsar), typeof(ShadowCannon)];
 	}
 }

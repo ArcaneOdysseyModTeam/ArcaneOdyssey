@@ -1,16 +1,11 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -49,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
             ]
             );
 
-		public override List<Type> Skills => [typeof(AcidBlast), typeof(AcidCannon), typeof(AcidPulsar)];
+        
 		
         public override void SpawningEffects(Entity projectile) 
 		{

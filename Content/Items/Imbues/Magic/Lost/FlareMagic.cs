@@ -1,9 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost;
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
@@ -30,7 +25,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			]
 			);
-		public override List<Type> Skills => [typeof(FlareBlast), typeof(FlarePulsar), typeof(FlareCannon)];
+
+        
 		
 		public override void AddRecipes() 
 		{

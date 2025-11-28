@@ -3,12 +3,7 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Ancient;
-using ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Ancient;
-using ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Ancient;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -86,8 +81,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-
-		public override List<Type> Skills => [typeof(IonBlast), typeof(IonPulsar), typeof(IonCannon)];
 
 		public override void AddRecipes()
 		{
