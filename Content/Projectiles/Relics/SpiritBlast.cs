@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (!Main.dedServ)
 			{
 				Lighting.AddLight(Projectile.Center, TorchID.Ice);
-				Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SpiritTentacle>(), newColor: Color.White, Alpha: 255 / 4 * 3, Scale: .75f).noGravity = true;
+				Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SpiritTentacle>(), newColor: Color.White, Alpha: 255 / 4, Scale: .75f).noGravity = true;
 				for (float i = 0; i < 10; i++)
 				{
 					Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.width, DustID.IcyMerman, Projectile.velocity.X/2, Projectile.velocity.Y/2).noGravity = true;

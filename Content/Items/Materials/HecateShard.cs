@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
         {
             Lighting.AddLight(Item.Center,2,0,2);
             Texture2D texture = TextureAssets.Item[Item.type].Value;
-            Main.EntitySpriteDraw(texture,Item.Center - Main.screenPosition,new Rectangle(0,0,Item.width,Item.height),Color.White,0f,Vector2.Zero,1f,SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None);
             return false;
         }
     }
