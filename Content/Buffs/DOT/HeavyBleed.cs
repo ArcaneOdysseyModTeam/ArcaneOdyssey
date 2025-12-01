@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 					Dust.NewDust(npc.position + new Vector2(npc.width / 2f, npc.height / 2f), 1, 1, DustID.Blood, Alpha: 1);
 				}
 			}
-			npc.ArcaneOdyssey().HeavyBleeding = true;
+			npc.ArcaneOdyssey().heavyBleeding = true;
 			if (npc.buffTime[buffIndex] == 1)
 			{
                 totalTicks = 0;

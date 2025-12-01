@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 					Dust.NewDust(npc.position + new Vector2(npc.width / 2f, npc.height / 2f), 1, 1, DustID.Blood, Alpha: 1);
 				}
 			}
-			npc.ArcaneOdyssey().Bleeding = true;
+			npc.ArcaneOdyssey().bleeding = true;
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)

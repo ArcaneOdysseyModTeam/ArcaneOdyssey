@@ -6,7 +6,6 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

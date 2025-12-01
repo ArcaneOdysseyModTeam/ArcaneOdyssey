@@ -3,20 +3,32 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Content.Buffs.Helpers
+namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-	public class PheonixHealing : AODebuff
+	public class PhoenixHealing : AODebuff
 	{
 		public const float HealDistance = 700f;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			bool noPlayerFound = true;
+			npc.ArcaneOdyssey().phoenixDrain = true;
 			foreach (var player in Main.ActivePlayers)
 			{
 				if (npc.Hitbox.Distance(player.Center) <= HealDistance && (!AOUtils.BossAlive() || npc.boss))
 				{
+					noPlayerFound = false;
 					player.ArcaneOdyssey().pheonixHealing += npc.boss ? 2 : 1;
+					npc.ArcaneOdyssey().lesserPhoenixDrain++;
 					if (!Main.dedServ)
 						HealEffect(player, npc);
+				}
+			}
+			if (noPlayerFound)
+			{
+				if (Main.GameUpdateCount % 4 == 0)
+				{
+					Dust.NewDust(npc.position, npc.width, npc.height, DustID.BlueTorch, Scale: 1.4f);
+					Dust.NewDust(npc.position, npc.width, npc.height, DustID.YellowTorch, Scale: 1.4f);
 				}
 			}
 		}
@@ -30,8 +42,8 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 			}
 			for (float i = 0; i < player.MountedCenter.Distance(npc.Center).Round(); i++)
 			{
-                if (!Main.rand.NextBool(10))
-                    continue;
+				if (!Main.rand.NextBool(10))
+					continue;
 				var progressed = i >= player.MountedCenter.Distance(npc.Center).Round() / 2f;
 				float progress;
 				Vector2 dustpos;
@@ -44,7 +56,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 				}
 				else
 				{
-					progress = 1f - MathHelper.Clamp((i - (player.MountedCenter.Distance(npc.Center) / 2f)) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
+					progress = 1f - MathHelper.Clamp((i - player.MountedCenter.Distance(npc.Center) / 2f) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
 				}
 
 				offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);

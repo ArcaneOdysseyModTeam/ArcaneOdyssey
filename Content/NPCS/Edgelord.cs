@@ -51,6 +51,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				SetNPCAffection(NPCID.Wizard, AffectionLevel.Like).
 				SetNPCAffection(NPCID.Clothier, AffectionLevel.Love);
 			NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
+			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 		}
 
 		public override List<string> SetNPCNameList() => ["Morden"];

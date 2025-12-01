@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 {

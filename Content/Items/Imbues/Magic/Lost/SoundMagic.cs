@@ -37,18 +37,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 
 		public const int DustCount = 30;
-		public override void KillEffects(Entity Projectile)
+		public override void KillEffects(Entity entity)
 		{
 			if (!Main.dedServ)
 			{
 				for (float i = 0; i < DustCount; i++)
 				{
-					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (Projectile.width * 3);
-					var dust = Dust.NewDustPerfect(Projectile.Center, DustID.MushroomTorch, centre / 14);
+					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * entity.width;
+					var dust = Dust.NewDustPerfect(entity.Center, DustID.MushroomTorch, centre / 14);
 					dust.noGravity = true;
 				}
 			}
-			SoundEngine.PlaySound(ImbueSound, Projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, entity.Center);
 		}
 
 		public override void ExplosionEffects(Entity entity)

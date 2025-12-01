@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.ArcaneOdyssey().ElecToxins = true;
+			npc.ArcaneOdyssey().elecToxins = true;
 		}
 	}
 }

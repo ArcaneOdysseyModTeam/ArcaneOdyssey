@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Content.NPCS;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Terraria.Achievements;
-using Terraria.GameContent.Achievements;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
@@ -16,6 +13,6 @@ namespace ArcaneOdyssey
             AddNPCKilledCondition(ModContent.NPCType<Evander>());
 		}
 
-		public override Position GetDefaultPosition() => new After("ITS_HARD");
+		public override Position GetDefaultPosition() => new After("STILL_HUNGRY");
 	}
 }

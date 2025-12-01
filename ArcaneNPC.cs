@@ -21,11 +21,13 @@ namespace ArcaneOdyssey
 		public float StunDuration = 1;
 
 		#region Debuff bools
-		public bool Bleeding = false;
-		public bool HeavyBleeding = false;
-		public bool Scalding = false;
-		public bool Seared = false;
-		public bool ElecToxins = false;
+		public bool bleeding = false;
+		public bool heavyBleeding = false;
+		public bool scalding = false;
+		public bool seared = false;
+		public bool elecToxins = false;
+		public bool phoenixDrain = false;
+		public int lesserPhoenixDrain = 0;
 
 		public bool AOStunned = false;
 		#endregion
@@ -62,11 +64,13 @@ namespace ArcaneOdyssey
 				StunCD = 5;
 				StunDuration = 1;
 			}
-			Bleeding = false;
-			HeavyBleeding = false;
-			Scalding = false;
-			Seared = false;
-			ElecToxins = false;
+			bleeding = false;
+			heavyBleeding = false;
+			scalding = false;
+			seared = false;
+			elecToxins = false;
+			phoenixDrain = false;
+			lesserPhoenixDrain = 0;
 		}
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -77,31 +81,34 @@ namespace ArcaneOdyssey
 			// shadowflame is 15 * 2, or 30
 			// cursed inferno is 24 * 2, or 48
 			// acid venom is 30 * 2, or 60
-			if (npc.ModNPC is not Edgelord) // morden is immune to dot lol
+			if (bleeding)
 			{
-				if (Bleeding)
-				{
-					npc.lifeRegen -= 10;
-				}
-				if (HeavyBleeding)
-				{
-					npc.lifeRegen -= 20;
-				}
-				if (Scalding)
-				{
-					npc.lifeRegen -= 25;
-				}
-				if (Seared)
-				{
-					npc.lifeRegen -= 15;
-				}
-				if (ElecToxins)
-				{
-					npc.lifeRegen -= 80;
-				}
+				npc.lifeRegen -= 10;
+			}
+			if (heavyBleeding)
+			{
+				npc.lifeRegen -= 20;
+			}
+			if (scalding)
+			{
+				npc.lifeRegen -= 25;
+			}
+			if (seared)
+			{
+				npc.lifeRegen -= 15;
+			}
+			if (elecToxins)
+			{
+				npc.lifeRegen -= 80;
+			}
+			if (phoenixDrain)
+			{
+				if (lesserPhoenixDrain > 0)
+					npc.lifeRegen -= 5 * lesserPhoenixDrain;
+				else
+					npc.lifeRegen -= 14;
 			}
 		}
-
 	}
 
 	public class AOGlobalNPC : GlobalNPC
