@@ -23,13 +23,15 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 
 		public static void HealEffect(Player player, NPC npc)
 		{
-			if (Main.GameUpdateCount % 3 == 0)
+			if (Main.GameUpdateCount % 2 == 0 && player.ArcaneOdyssey().pheonixHealing < 3)
 			{
-				Dust.NewDust(player.position, player.width, player.height, DustID.BlueTorch, Scale: 1.5f);
-				Dust.NewDust(player.position, player.width, player.height, DustID.YellowTorch, Scale: 1.5f);
+				Dust.NewDust(player.position, player.width, player.height, DustID.BlueTorch, Scale: 1.4f);
+				Dust.NewDust(player.position, player.width, player.height, DustID.YellowTorch, Scale: 1.4f);
 			}
 			for (float i = 0; i < player.MountedCenter.Distance(npc.Center).Round(); i++)
 			{
+                if (!Main.rand.NextBool(10))
+                    continue;
 				var progressed = i >= player.MountedCenter.Distance(npc.Center).Round() / 2f;
 				float progress;
 				Vector2 dustpos;
@@ -45,7 +47,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 					progress = 1f - MathHelper.Clamp((i - (player.MountedCenter.Distance(npc.Center) / 2f)) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
 				}
 
-				offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) / 5f * progress * Main.rand.NextFloat();
+				offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
 
 				if (!progressed)
 				{
@@ -56,11 +58,8 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 					dustpos = Vector2.Lerp(npc.Center, offsetpoint, progress);
 				}
 
-				if (i % 5 == 0)
-				{
-					var dust = Dust.NewDustPerfect(dustpos, Main.rand.Next(new int[] { DustID.BlueTorch, DustID.YellowTorch }));
-					dust.noGravity = true;
-				}
+				var dust = Dust.NewDustPerfect(dustpos, Main.rand.Next(new int[] { DustID.BlueTorch, DustID.YellowTorch }));
+				dust.noGravity = true;
 			}
 		}
 	}

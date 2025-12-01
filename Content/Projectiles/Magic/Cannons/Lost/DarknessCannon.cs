@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -17,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost
 		{
 			if (ModContent.RequestIfExists<Texture2D>(Texture + "_Pulse", out var texture))
 			{
-				Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, new(0, texture.Width() * Projectile.frame, texture.Width(), texture.Width()), lightColor with { A = (byte)(lightColor.A * 0.5f) }, Projectile.rotation, new(texture.Width() / 2f), Projectile.scale, SpriteEffects.None);
+				Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, new(0, texture.Width() * Projectile.frame, texture.Width(), texture.Width()), Color.Lerp(lightColor, Color.Transparent, DarknessBlast.TransparencyLerp), Projectile.rotation, new(texture.Width() / 2f), Projectile.scale, SpriteEffects.None);
 			}
 		}
 	}

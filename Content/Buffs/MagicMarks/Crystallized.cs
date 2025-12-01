@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 		{
 			if (npc.HasBuff(Type))
 			{
-				npc.buffTime[buffIndex] = (stack+1) * 5 * 60; // adds a "stack", or 5 second duration... could use "time", but other mods that change debuff duration might mess that up or something
+                npc.buffTime[buffIndex] += time;
 				return true;
 			}
 			else return false;
