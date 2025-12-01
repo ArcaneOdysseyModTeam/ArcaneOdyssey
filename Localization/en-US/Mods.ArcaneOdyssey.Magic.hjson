@@ -91,7 +91,7 @@ Lost: {
 
 	FrostmetalMagic: {
 		DisplayName: Frostmetal Magic
-		Tooltip: ""
+		Tooltip: Allows the user to materialize frigid cold metal that slashes and freezes
 	}
 
 	LunarMagic: {
