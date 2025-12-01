@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
     {
         public override float DashResist => 1.5f;
         public override SoundStyle? ImbueSound => SoundID.Item99;
-        public override Color ImbueColour => new(100,100,100,255);
+        public override Color ImbueColour => new(100, 100, 100);
 		public override float AOImbueSpeed => 0.825f;
 		public override float AOImbueSize => 1.158f;
 		public override float AOImbueDamage => 1.1f;
@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1.025f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>()
 			], 

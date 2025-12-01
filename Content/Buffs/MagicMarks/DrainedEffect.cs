@@ -6,7 +6,6 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class DrainedEffect : AODebuff
 	{
-		private int stack = 1;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (!Main.dedServ)
@@ -17,7 +16,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			}
 			if (npc.HasBuff(Type))
 			{
-				stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
+				var stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				switch (stack)
 				{
 					case 1:

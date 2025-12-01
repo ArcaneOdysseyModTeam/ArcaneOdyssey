@@ -1038,7 +1038,7 @@ namespace ArcaneOdyssey
 	}
 
 	/// <summary>
-	/// Magic status effects
+	/// Imbue status effects
 	/// </summary>
 	public struct SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
 	{

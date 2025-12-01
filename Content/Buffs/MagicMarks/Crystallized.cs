@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Buffs.Base;
 using Terraria.Audio;
 using static ArcaneOdyssey.AOUtils;
+using Terraria.Localization;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
@@ -18,7 +19,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 
 		public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
 		{
-			tip = Mod.CustomLocalization($"Buffs.{Name}.Description", [stack]).Value;
+			tip = Mod.CustomLocalization(LocalizationCategory.Replace($"Mods.{Mod.Name}.") + ".Description", [stack]).Value;
 		}
 
 		public override void Update(NPC npc, ref int buffIndex) 

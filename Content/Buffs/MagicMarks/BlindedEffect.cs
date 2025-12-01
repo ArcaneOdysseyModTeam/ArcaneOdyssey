@@ -7,7 +7,6 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class BlindedEffect : AODebuff
 	{
-		private int stack = 1;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (!Main.dedServ)
@@ -18,7 +17,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			}
 			if (npc.HasBuff(Type))
 			{
-				stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
+				var stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				switch (stack)
 				{
 					case 1:
@@ -34,7 +33,8 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 						break;
 				}
 			}
-			if (npc.HasBuff(BuffID.Confused)) {
+			if (npc.HasBuff(BuffID.Confused)) 
+            {
 				npc.DelBuff(buffIndex);
 				buffIndex--;
 			}
