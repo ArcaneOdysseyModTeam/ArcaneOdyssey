@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float DashResist => 1.45f;
 		public override SoundStyle? ImbueSound => SoundID.Item27;
-		public override Color ImbueColour => new(100, 100, 100);
+		public override Color ImbueColour => Color.Lerp(new(100, 100, 100), new(30, 200, 255), .5f);
 		public override float AOImbueSpeed => 0.8f;
 		public override float AOImbueSize => 1.3f;
 		public override float AOImbueDamage => 1.4f;
@@ -82,15 +82,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void KillEffects(Entity entity)
 		{
-            if (entity is Projectile projectile) 
-            {
-                if (projectile.ModProjectile is FrostmetalShard)
-                    return;
-                for (int i = 0; i <= 3; i++)
-                {
-                    Projectile.NewProjectileDirect(entity.GetSource_Death(), entity.Center, Vector2.Zero, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
-                }
-            }
+            if (Main.dedServ)
+                return;
+			if (entity is Projectile projectile && Main.myPlayer == projectile.owner)
+			{
+			    for (int i = 0; i < 3; i++)
+			    {
+				    var angle = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 7f;
+				    var proj = Projectile.NewProjectileDirect(entity.GetSource_Death(), entity.Center, angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
+				    proj.frame = i;
+			    }
+			}
 			for (int n = 0; n < 15; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.SnowflakeIce, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];

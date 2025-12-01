@@ -88,9 +88,9 @@ AncientLightingChain: {
 	Description: Ancient Lightning streaks between enemies
 }
 
-PheonixHealing: {
-	DisplayName: Pheonix Healing
-	Description: Nearby players have enhanced life regeneration
+PhoenixHealing: {
+	DisplayName: Flames of the Phoenix
+	Description: Nearby enemies are sapping your life regeneration
 }
 
 HeavyBleed: {
