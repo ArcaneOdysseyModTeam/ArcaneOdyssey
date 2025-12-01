@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Smoke, 5f * Main.rand.NextFloat() - 0.5f, 5f * Main.rand.NextFloat() - 0.5f, (255 * .75f).Round(), default, 3f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Smoke, 5f * Main.rand.NextFloat() - 0.5f, 5f * Main.rand.NextFloat() - 0.5f, (255 * .75f).Round(), default, 3f);
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override void LingeringEffects(Entity projectile)
 		{
 			for (int n = 0; n < 2; n++)
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Smoke, 0f, 0f, (255 * .75f).Round(), default, 2f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Smoke, 0f, 0f, (255 * .75f).Round(), default, 2f);
 		}
 
 		public override ModItem Clone(Item newEntity)

@@ -56,7 +56,7 @@ Lost: {
 
 	DiamondMagic: {
 		DisplayName: Diamond Magic
-		Tooltip: Allows the user to mainfest hard, sharp diamonds which cut enemies and are seemingly immune to scratches
+		Tooltip: Allows the user to mainfest hard, sharp diamonds which cut enemies and never break
 	}
 
 	OilMagic: {
@@ -81,7 +81,7 @@ Lost: {
 
 	DarknessMagic: {
 		DisplayName: Darkness Magic
-		Tooltip: ""
+		Tooltip: Allows the user to call upon the dark abyss, engulfing all who cross it in pitch night
 	}
 
 	EnergyMagic: {
@@ -225,12 +225,7 @@ Normal: {
 Developer: {
 	SteamImbue: {
 		DisplayName: Steam
-		Tooltip:
-			'''
-			By Valve
-
-			Part of the mod internals, just ignore this, any spells with it will cause an error (It's used for imbues)
-			'''
+		Tooltip: Created when something hot is imbued with something cold, as well as the other way around
 	}
 
 	FrogMagic: {
@@ -239,7 +234,7 @@ Developer: {
 			'''
 			A forbidden magic that allows the user to raise and command great armies of magical beings
 
-			Wait no I read that wrong, it's just frogs
+			Wait, no - I read that wrong... it's just frogs
 			[c/00aa00:-Frog Magic-]
 			'''
 	}
@@ -257,7 +252,7 @@ Developer: {
 		DisplayName: Jerminus Magic
 		Tooltip:
 			'''
-			Grants a slow death to all those who cross it
+			Those who rain gently and persistently have an infinitely greater impact than those who act like thunder
 			Guard Boi's Magic
 			'''
 	}
