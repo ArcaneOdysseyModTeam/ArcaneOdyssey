@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
 {
@@ -13,7 +15,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
 
 		public override void PostDraw(Color lightColor)
 		{
-			// pulse effect goes here, add to cannon and pulsar too
+			if (ModContent.RequestIfExists<Texture2D>(Texture + "_Pulse", out var texture))
+			{
+				Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, new(0, texture.Width() * Projectile.frame, texture.Width(), texture.Width()), lightColor with { A = (byte)(lightColor.A * .5f) }, Projectile.rotation, new(texture.Width()), Projectile.scale, SpriteEffects.None);
+			}
 		}
 	}
 }
