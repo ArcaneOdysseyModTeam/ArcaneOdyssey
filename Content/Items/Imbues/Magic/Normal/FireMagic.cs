@@ -11,13 +11,13 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class FireMagic : AOMagic
-    {
-        public override float DashSpeed => 1.2f; // burst
-        public override bool? Cold => false;
-        public override SoundStyle? ImbueSound => SoundID.Item20;
-        public override Color ImbueColour => new(252,107,3,0);
-        public override bool CanBeWet => false;
-        public override float AOImbueSpeed => 1f;
+	{
+		public override float DashSpeed => 1.2f; // burst
+		public override bool? Cold => false;
+		public override SoundStyle? ImbueSound => SoundID.Item20;
+        public override Color ImbueColour => new(252, 107, 3);
+		public override bool CanBeWet => false;
+		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 0.925f;
 		public override float AOScrollSpeed => 1f;
@@ -32,7 +32,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				ModContent.BuffType<SnowyEffect>(),
 				BuffID.Wet,
 				ModContent.BuffType<CharredEffect>(),
-				BuffID.Oiled,
 				BuffID.Slimed
 			],
 			[
@@ -73,7 +72,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.Torch, 0f, 0f, 0, default, 2f);
 			}
 
-        }
+		}
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -96,6 +95,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-        
+		
 	}
 }

@@ -66,7 +66,7 @@ Lost: {
 
 	SoundMagic: {
 		DisplayName: Sound Magic
-		Tooltip: ""
+		Tooltip: Allows the user to unleash deafeningly loud attacks that rattle the skulls of enemies
 	}
 
 	BlizzardMagic: {
@@ -101,7 +101,7 @@ Lost: {
 
 	PhoenixMagic: {
 		DisplayName: Phoenix Magic
-		Tooltip: ""
+		Tooltip: Allows the user to call upon the power of the flaming phoenix, harming foes and healing allies
 	}
 
 	PlantMagic: {
