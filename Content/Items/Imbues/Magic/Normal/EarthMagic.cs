@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				ModContent.BuffType<FreezingEffect>()
 			], 
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
-				new MagicBuffMultiplier(BuffID.Venom,1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.02f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
+				new(ModContent.BuffType<AOBleed>(),1.1f),
+				new(BuffID.Venom,1.075f),
+				new(ModContent.BuffType<Crystallized>(),1.075f),
+				new(ModContent.BuffType<FreezingEffect>(),1.02f),
+				new(BuffID.OnFire3,1.075f),
+				new(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
 

@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override SynergyEffects Effects => new(
 			[],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.1f)
+				new(ModContent.BuffType<Crystallized>(),1.1f)
 			]
 		);
 		public override void SpawningEffects(Entity projectile)

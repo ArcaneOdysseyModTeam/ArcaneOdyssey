@@ -36,17 +36,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				BuffID.Oiled
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.9f),
-				new MagicBuffMultiplier(BuffID.OnFire,0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.125f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new MagicBuffMultiplier(BuffID.Poisoned,0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),0.9f),
-				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-				new MagicBuffMultiplier(BuffID.Wet,0.9f),
+				new(ModContent.BuffType<Crystallized>(),0.9f),
+				new(BuffID.OnFire,0.9f),
+				new(ModContent.BuffType<CharredEffect>(),1.125f),
+				new(ModContent.BuffType<FreezingEffect>(),1.1f),
+				new(BuffID.Poisoned,0.9f),
+				new(ModContent.BuffType<SandyEffect>(),0.9f),
+				new(BuffID.ShadowFlame,1.15f),
+				new(BuffID.Wet,0.9f),
 				new(BuffID.Oiled,0.98f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
+				new(ModContent.BuffType<AOScalding>(),0.9f),
+				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);
 			public override void SpawningEffects(Entity projectile) 

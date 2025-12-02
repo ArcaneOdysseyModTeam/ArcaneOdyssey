@@ -25,8 +25,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<DrainedEffect>(),0.8f)
+				new(ModContent.BuffType<Crystallized>(),1.075f),
+				new(ModContent.BuffType<DrainedEffect>(),0.8f)
 			]
 			);
 			public override void SpawningEffects(Entity projectile) 

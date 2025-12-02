@@ -36,12 +36,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<DrainedEffect>(),0.8f),
-				new MagicBuffMultiplier(BuffID.Venom,1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.05f)
+				new(ModContent.BuffType<Crystallized>(),1.075f),
+				new(ModContent.BuffType<DrainedEffect>(),0.8f),
+				new(BuffID.Venom,1.05f),
+				new(ModContent.BuffType<FreezingEffect>(),1.075f),
+				new(ModContent.BuffType<SandyEffect>(),1.1f),
+				new(BuffID.OnFire3,1.05f)
 			]
 			);
 

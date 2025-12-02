@@ -25,15 +25,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				ModContent.BuffType<AOFrozen>()
 			],
 			[
-				new MagicBuffMultiplier(BuffID.Chilled, 1.2f), // frozen
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
-				new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid
-				new MagicBuffMultiplier(BuffID.Wet, 1.05f), // (add stunning later!)
-				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
+				new(BuffID.Chilled, 1.2f), // frozen
+				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
+				new(BuffID.Burning, 1.15f), // scalding
+				new(BuffID.OnFire3, 1.075f), // melting/hellfire
+				new(BuffID.Venom, 1.075f), // venom acid
+				new(BuffID.Wet, 1.05f), // (add stunning later!)
+				new(BuffID.ShadowFlame,1.15f),
+				new(ModContent.BuffType<Crystallized>(),1.075f),
+				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);
 

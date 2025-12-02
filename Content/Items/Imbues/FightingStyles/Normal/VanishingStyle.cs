@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override SynergyEffects Effects => new(
 			[],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.15f)
+				new(ModContent.BuffType<FreezingEffect>(),1.15f)
 			]
 		);
 

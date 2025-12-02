@@ -31,19 +31,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			],
 			[
-				new MagicBuffMultiplier(BuffID.OnFire,0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.125f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new MagicBuffMultiplier(BuffID.Poisoned,0.9f),
-				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-				new MagicBuffMultiplier(BuffID.Wet,0.9f),
-				new MagicBuffMultiplier(BuffID.Oiled,0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
-				new MagicBuffMultiplier(BuffID.Venom,1.075f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f)
+				new(BuffID.OnFire,0.9f),
+				new(ModContent.BuffType<CharredEffect>(),1.125f),
+				new(ModContent.BuffType<FreezingEffect>(),1.1f),
+				new(BuffID.Poisoned,0.9f),
+				new(BuffID.ShadowFlame,1.15f),
+				new(BuffID.Wet,0.9f),
+				new(BuffID.Oiled,0.9f),
+				new(ModContent.BuffType<AOScalding>(),0.9f),
+				new(ModContent.BuffType<SearedEffect>(),1.15f),
+				new(ModContent.BuffType<AOBleed>(),1.1f),
+				new(BuffID.Venom,1.075f),
+				new(BuffID.OnFire3,1.075f),
+				new(ModContent.BuffType<SandyEffect>(),1.1f)
 			]
 			);
 

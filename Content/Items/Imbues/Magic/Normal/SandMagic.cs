@@ -28,15 +28,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				BuffID.Oiled
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.1f),
-				new MagicBuffMultiplier(BuffID.OnFire,1.125f),
-				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(),1.01f),
-				new MagicBuffMultiplier(BuffID.Venom,1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.8f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.075f),
-				new MagicBuffMultiplier(BuffID.Wet,0.8f),
+				new(ModContent.BuffType<AOBleed>(),1.1f),
+				new(BuffID.OnFire,1.125f),
+				new(ModContent.BuffType<CharredEffect>(),1.01f),
+				new(BuffID.Venom,1.075f),
+				new(ModContent.BuffType<Crystallized>(),0.8f),
+				new(BuffID.OnFire3,1.075f),
+				new(BuffID.Wet,0.8f),
 				new(BuffID.Oiled,0.9f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),1.125f)
+				new(ModContent.BuffType<AOScalding>(),1.125f)
 			]
 			);
 

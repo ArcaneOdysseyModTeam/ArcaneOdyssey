@@ -18,11 +18,7 @@ Lost: {
 
 	FlareMagic: {
 		DisplayName: Flare Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
+		Tooltip: Allows the user to unleash chaotic, hellish flames to enact your wrath
 	}
 
 	GravityMagic: {
@@ -32,11 +28,7 @@ Lost: {
 
 	HeatMagic: {
 		DisplayName: Heat Magic
-		Tooltip:
-			'''
-			Allows the user to use a magic
-			Incomplete
-			'''
+		Tooltip: Allows the user to create scalding hot air that burns all
 	}
 
 	PoisonLightningMagic: {

@@ -35,21 +35,21 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 				ModContent.BuffType<SnowyEffect>()
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<AOPetrified>(), 2.2f), // petrified
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 2.15f), // bleeding
-				new MagicBuffMultiplier(BuffID.OnFire, 2.075f),
-				new MagicBuffMultiplier(BuffID.Venom, 2.1f), // venom acid
-				new MagicBuffMultiplier(BuffID.Burning, 2.075f),
-				new MagicBuffMultiplier(BuffID.Poisoned, 2.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), 2.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(), 1.99f),
-				new MagicBuffMultiplier(BuffID.Wet, 1.95f),
-				new MagicBuffMultiplier(BuffID.ShadowFlame, 2.1f),
-				new MagicBuffMultiplier(BuffID.Slimed,2.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.95f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),2.075f)
+				new(ModContent.BuffType<AOPetrified>(), 2.2f), // petrified
+				new(ModContent.BuffType<AOBleed>(), 2.15f), // bleeding
+				new(BuffID.OnFire, 2.075f),
+				new(BuffID.Venom, 2.1f), // venom acid
+				new(BuffID.Burning, 2.075f),
+				new(BuffID.Poisoned, 2.05f),
+				new(ModContent.BuffType<FreezingEffect>(), 1.95f),
+				new(ModContent.BuffType<SnowyEffect>(), 1.99f),
+				new(ModContent.BuffType<CharredEffect>(), 2.1f),
+				new(ModContent.BuffType<SandyEffect>(), 1.99f),
+				new(BuffID.Wet, 1.95f),
+				new(BuffID.ShadowFlame, 2.1f),
+				new(BuffID.Slimed,2.075f),
+				new(ModContent.BuffType<Crystallized>(),1.95f),
+				new(ModContent.BuffType<AOScalding>(),2.075f)
 			]
 			);
 		

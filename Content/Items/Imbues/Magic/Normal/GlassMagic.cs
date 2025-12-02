@@ -27,11 +27,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				
 			], 
 			[
-				new MagicBuffMultiplier(BuffID.Venom,1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.92f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.05f)
+				new(BuffID.Venom,1.05f),
+				new(ModContent.BuffType<Crystallized>(),0.92f),
+				new(ModContent.BuffType<FreezingEffect>(),1.075f),
+				new(ModContent.BuffType<SandyEffect>(),1.1f),
+				new(BuffID.OnFire3,1.05f)
 			]
 			);
 		public override void SpawningEffects(Entity projectile)

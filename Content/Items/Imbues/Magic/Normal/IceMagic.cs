@@ -39,18 +39,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				ModContent.BuffType<CharredEffect>()
 			],
 			[ // synergies
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new MagicBuffMultiplier(ModContent.BuffType<AOFrozen>(), 1.1f), // frozen
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(), 1.1f), // freezing
-				new MagicBuffMultiplier(BuffID.Wet, 1.1f), // (add stunning later!)
-				new MagicBuffMultiplier(BuffID.OnFire, .9f), // burning
+				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
+				new(ModContent.BuffType<AOFrozen>(), 1.1f), // frozen
+				new(ModContent.BuffType<FreezingEffect>(), 1.1f), // freezing
+				new(BuffID.Wet, 1.1f), // (add stunning later!)
+				new(BuffID.OnFire, .9f), // burning
 				new(BuffID.Oiled,1.03f),
-				new MagicBuffMultiplier(ModContent.BuffType<CharredEffect>(), .9f), // charred
-				new MagicBuffMultiplier(BuffID.OnFire3, .8f), // scorched
-				new MagicBuffMultiplier(BuffID.ShadowFlame, 0.8f),
-				new MagicBuffMultiplier(ModContent.BuffType<SnowyEffect>(), 1.1f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),0.8f)
+				new(ModContent.BuffType<CharredEffect>(), .9f), // charred
+				new(BuffID.OnFire3, .8f), // scorched
+				new(BuffID.ShadowFlame, 0.8f),
+				new(ModContent.BuffType<SnowyEffect>(), 1.1f),
+				new(ModContent.BuffType<Crystallized>(),1.075f),
+				new(ModContent.BuffType<SearedEffect>(),0.8f)
 			]
 			);
 		public override void SpawningEffects(Entity projectile) 

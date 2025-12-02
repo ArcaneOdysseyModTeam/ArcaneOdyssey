@@ -36,19 +36,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				ModContent.BuffType<AOFrozen>()
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.075f),
-				new MagicBuffMultiplier(BuffID.OnFire,0.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f),
-				new MagicBuffMultiplier(BuffID.Chilled, 1.2f), // frozen
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new MagicBuffMultiplier(BuffID.Burning, 1.15f), // scalding
-				new MagicBuffMultiplier(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new MagicBuffMultiplier(BuffID.Venom, 1.075f), // venom acid
-				new MagicBuffMultiplier(BuffID.Wet, 1.05f), //
-				new MagicBuffMultiplier(BuffID.Oiled,0.98f), 
-				new MagicBuffMultiplier(BuffID.ShadowFlame,1.15f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.075f),
-				new MagicBuffMultiplier(ModContent.BuffType<SearedEffect>(),1.15f)
+				new(ModContent.BuffType<AOBleed>(),1.075f),
+				new(BuffID.OnFire,0.99f),
+				new(ModContent.BuffType<AOScalding>(),0.9f),
+				new(BuffID.Chilled, 1.2f), // frozen
+				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
+				new(BuffID.Burning, 1.15f), // scalding
+				new(BuffID.OnFire3, 1.075f), // melting/hellfire
+				new(BuffID.Venom, 1.075f), // venom acid
+				new(BuffID.Wet, 1.05f), //
+				new(BuffID.Oiled,0.98f), 
+				new(BuffID.ShadowFlame,1.15f),
+				new(ModContent.BuffType<Crystallized>(),1.075f),
+				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);
 		public override void SpawningEffects(Entity projectile)

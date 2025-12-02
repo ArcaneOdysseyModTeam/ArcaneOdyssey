@@ -27,9 +27,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<AOBleed>(),1.075f),
-				new MagicBuffMultiplier(BuffID.OnFire,0.99f),
-				new MagicBuffMultiplier(ModContent.BuffType<AOScalding>(),0.9f)
+				new(ModContent.BuffType<AOBleed>(),1.075f),
+				new(BuffID.OnFire,0.99f),
+				new(ModContent.BuffType<AOScalding>(),0.9f)
 			]
 			);
 

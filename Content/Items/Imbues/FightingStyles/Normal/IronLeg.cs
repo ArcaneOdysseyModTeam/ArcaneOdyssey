@@ -45,11 +45,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				ModContent.BuffType<FreezingEffect>()
 			],
 			[
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),1.05f),
-				new MagicBuffMultiplier(ModContent.BuffType<FreezingEffect>(),1.2f),
-				new MagicBuffMultiplier(ModContent.BuffType<SandyEffect>(),1.1f),
-				new MagicBuffMultiplier(BuffID.OnFire3,1.1f),
-				new MagicBuffMultiplier(BuffID.Venom,1.1f)
+				new(ModContent.BuffType<Crystallized>(),1.05f),
+				new(ModContent.BuffType<FreezingEffect>(),1.2f),
+				new(ModContent.BuffType<SandyEffect>(),1.1f),
+				new(BuffID.OnFire3,1.1f),
+				new(BuffID.Venom,1.1f)
 			]
 		);
 		public override void SpawningEffects(Entity projectile)

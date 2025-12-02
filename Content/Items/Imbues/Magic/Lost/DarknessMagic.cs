@@ -24,9 +24,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				
 			],
 			[
-				new MagicBuffMultiplier(BuffID.Confused,1.2f),
-				new MagicBuffMultiplier(ModContent.BuffType<Crystallized>(),0.7f),
-				new MagicBuffMultiplier(ModContent.BuffType<BlindedEffect>(),0.7f),
+				new(BuffID.Confused,1.2f),
+				new(ModContent.BuffType<Crystallized>(),0.7f),
+				new(ModContent.BuffType<BlindedEffect>(),0.7f),
 			]
 			);
 
