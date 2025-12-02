@@ -27,11 +27,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
-                BuffID.Slimed,
-                ModContent.BuffType<FreezingEffect>(),
-                ModContent.BuffType<SnowyEffect>(),
-                ModContent.BuffType<AOFrozen>()
-            ],
+				BuffID.Slimed,
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<SnowyEffect>(),
+				ModContent.BuffType<AOFrozen>()
+			],
 			[
 				new(ModContent.BuffType<AOBleed>(),1.15f),
 				new(ModContent.BuffType<SnowyEffect>(),0.99f),
@@ -64,8 +64,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			for (int n = 0; n < 2; n++)
 			{
 				var spawnedDust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, ModContent.DustType<HeatDust>(), newColor: Color.White, Alpha: (255 * .75f).Round());
-                spawnedDust.noGravity = true;
-            }
+				spawnedDust.noGravity = true;
+			}
 		}
 
 		public override void ExplosionEffects(Entity projectile)

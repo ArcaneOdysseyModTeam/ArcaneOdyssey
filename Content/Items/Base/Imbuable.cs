@@ -59,12 +59,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool ShowItemTypeTooltip => false;
 
-		public abstract float AOImbueSpeed { get; }
-		public abstract float AOImbueSize { get; }
-		public abstract float AOImbueDamage { get; }
-		public virtual float AOScrollSpeed => AOImbueSpeed;
-		public virtual float AOScrollSize => AOImbueSize;
-		public virtual float AOScrollDamage => AOImbueDamage;
+        public virtual float AOImbueSpeed => .9f;
+		public virtual float AOImbueSize => .9f;
+        public virtual float AOImbueDamage => .9f;
+        public virtual float AOScrollSpeed => AOImbueSpeed + .1f;
+		public virtual float AOScrollSize => AOImbueSize + .1f;
+		public virtual float AOScrollDamage => AOImbueDamage + .1f;
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
 		public virtual AODebuffRequirement[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);

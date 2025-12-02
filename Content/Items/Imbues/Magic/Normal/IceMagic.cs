@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 
         
 
-		public override SynergyEffects Effects => new SynergyEffects(
+		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
 				ModContent.BuffType<AOBleed>(),

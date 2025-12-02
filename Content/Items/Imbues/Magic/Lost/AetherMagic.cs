@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
-		public override Color ImbueColour => new(255, 255, 0, 255);
+		public override Color ImbueColour => new(255, 255, 0);
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 1.28f;
