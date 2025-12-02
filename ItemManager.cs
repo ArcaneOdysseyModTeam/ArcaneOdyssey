@@ -7,6 +7,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -105,18 +106,6 @@ namespace ArcaneOdyssey
 			{
 				tooltips.Add(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
 			}
-
-
-			if (ImbueClassCheck(item))
-			{
-				string imbuetextthing = Mod.CustomLocalization("RandomWords.None").Value;
-				if (item.Imbue() is not null && item.CanHaveImbue(item.Imbue()))
-				{
-					imbuetextthing = item.Imbue().DisplayName.Value;
-				}
-				string tooltipcolourline = item.Imbue() is FightingStyle ? "Strength" : (item.Imbue() is AOMagic ? "Magic" : ""); //(imbue is RelicWeapon ? "Spirit" :""));
-				tooltips.Add(new TooltipLine(Mod, "ImbueText", Mod.CustomLocalization($"ImbueStuff.ImbueTooltip{tooltipcolourline}", [imbuetextthing]).Value));
-			}
 		}
 
 		//public override bool? UseItem(Item item, Player player)
@@ -199,6 +188,22 @@ namespace ArcaneOdyssey
 			clone._cold = _cold;
 			clone.thisItem = to;
 			return clone;
+		}
+
+		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			thisItem = item;
+			if (Imbue is null || !CanBeAffected)
+				return;
+            Imbuable imbue = Imbue;
+            if (Imbue is SteamImbue steam)
+                imbue = steam.originalImbue;
+			if (ModContent.RequestIfExists<Texture2D>(imbue.Texture, out var texture))
+			{
+				Vector2 dimensions = new(frame.Width, frame.Height);
+                Vector2 location = position + (dimensions * .25f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .3f, SpriteEffects.None, 1f);
+			}
 		}
 
 		public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => 1.3f;
 		public override float AOImbueSize => 1.3f;
 		public override float AOImbueDamage => 1.3f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<DrainedEffect>(), (60 * 7.5f).Round())];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<DrainedEffect>(), (60 * 7.5f).Round())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				

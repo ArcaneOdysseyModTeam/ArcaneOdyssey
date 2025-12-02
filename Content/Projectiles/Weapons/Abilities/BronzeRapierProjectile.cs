@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.velocity.Normalize();
 			}
 			Projectile.Center = aoPlayerOwner.Player.HandPosition.GetValueOrDefault(aoPlayerOwner.Player.MountedCenter) + (Projectile.velocity * 18);
-			Projectile.Center = Projectile.Center with { Y = Projectile.Center.Y - 8f };
+			//Projectile.Center = Projectile.Center with { Y = Projectile.Center.Y - 8f };
 			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 			aoPlayerOwner.Player.heldProj = Projectile.whoAmI;
 		}

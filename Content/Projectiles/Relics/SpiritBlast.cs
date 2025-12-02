@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class SpiritBlast : SpiritProjectile
 	{
-		public override AODebuffRequirement? Debuff => new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 33);
+		public override AODebuffRequirement? Debuff => new(ModContent.BuffType<AOParalyzed>(), 60, 33);
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 
 		public override SynergyEffects Effects => new( // copy of lightning lmao

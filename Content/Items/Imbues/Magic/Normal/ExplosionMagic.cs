@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.3f;
 		public override float AOScrollDamage => 0.925f;
         public override SoundStyle? ImbueSound => SoundID.Item14;
-		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<CharredEffect>(), 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60*10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>(),

@@ -43,12 +43,12 @@ Configs: {
 		}
 
 		VanillaItemTemperatures: {
-			Label: "[i:ArcaneOdyssey/FireMagic] Vanilla Item Attributes"
+			Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
 			Tooltip: Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
 		}
 
 		ProjectileSizes: {
-			Label: "[i:ArcaneOdyssey/SteamImbue] Projectile Sizes"
+			Label: "[i:ArcaneOdyssey/ColossalGreatsword] Projectile Sizes"
 			Tooltip: Toggles projectiles having their size affected by the mod
 		}
 	}

@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
         public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
         public override float DashResist => 1.3f;
         public override SoundStyle? ImbueSound => SoundID.Item20;
-        public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(),10*60), new AODebuffRequirement(BuffID.OnFire3,10*60)];
+        public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(),10*60), new(BuffID.OnFire3,10*60)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Chilled, // freezing

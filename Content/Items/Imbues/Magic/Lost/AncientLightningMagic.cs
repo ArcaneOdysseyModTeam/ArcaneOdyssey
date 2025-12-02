@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 1.4f;
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollDamage => 1.3f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new AODebuffRequirement(ModContent.BuffType<AOParalyzed>(), 60, 16), new(ModContent.BuffType<AncientLightingChain>(), 60)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOParalyzed>(), 60, 16), new(ModContent.BuffType<AncientLightingChain>(), 60)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 
 		public override SynergyEffects Effects => new(
