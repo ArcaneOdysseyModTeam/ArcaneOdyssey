@@ -59,7 +59,10 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 					progress = 1f - MathHelper.Clamp((i - player.MountedCenter.Distance(npc.Center) / 2f) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
 				}
 
-				offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
+				if (!ArcaneOdysseyClientConfig.Instance.AlternatePhoenixEffectVFX)
+					offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
+				else
+					offsetpoint.Y += player.MountedCenter.Distance(npc.Center) * .1f * progress * Main.rand.NextFloat().FlipFloat();
 
 				if (!progressed)
 				{

@@ -65,6 +65,11 @@ Configs: {
 			Label: "[i:CrossGraveMarker] Generate Tucker's Grave"
 			Tooltip: Toggles the generation of Tucker's grave on world creation
 		}
+
+		AlternatePhoenixEffectVFX: {
+			Label: "[i:ArcaneOdyssey/PhoenixMagic] Alternate Phoenix Flames Effect"
+			Tooltip: Toggles an alternate look for the Phoenix Magic debuff's effect, resembling a bird
+		}
 	}
 }
 
