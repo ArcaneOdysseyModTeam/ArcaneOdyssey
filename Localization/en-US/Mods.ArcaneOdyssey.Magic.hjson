@@ -118,6 +118,11 @@ Lost: {
 		DisplayName: Sun Magic
 		Tooltip: ""
 	}
+
+	StormMagic: {
+		DisplayName: Storm Magic
+		Tooltip: ""
+	}
 }
 
 Normal: {

@@ -205,7 +205,7 @@ namespace ArcaneOdyssey
 			bool spawnedbyprojectile = false;
 			bool magicspeed = false;
 
-			if (projectile.ModProjectile is AOPlayerProjectile proj1)
+			if (projectile.ModProjectile is AOPlayerProjectile proj1 && !projectile.DamageType.CountsAsClass<MeleeNoSpeedDamageClass>())
 			{
 				projectile.velocity *= proj1.AOSpeed;
 			}

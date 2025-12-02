@@ -63,8 +63,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Venom, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1f)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.UnholyWater, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Venom, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.UnholyWater, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
 			}
 		}
 

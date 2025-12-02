@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 {
@@ -12,14 +13,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 			Main.projFrames[Type] = 3;
 		}
 
+		private float randomRotationOffset;
+
+		public override float AOSize => 1.35f;
+
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
 			Projectile.width = Projectile.height = 20;
 			Projectile.friendly = true;
 			Projectile.stopsDealingDamageAfterPenetrateHits = true;
 			Projectile.timeLeft = 120;
-			BaseScale = 1.35f;
+            Projectile.DamageType = ModContent.GetInstance<Conjurer>();
+			randomRotationOffset = Main.rand.NextFloat(MathHelper.TwoPi);
 		}
 
 		public override void OnKill(int timeLeft)
@@ -43,7 +50,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 			{
 				Projectile.velocity.Y = 16f;
 			}
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			Projectile.rotation = Projectile.velocity.ToRotation() + randomRotationOffset;
 		}
 	}
 }

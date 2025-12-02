@@ -45,6 +45,7 @@ Blasts: {
 	PlantBlast.DisplayName: Plant Blast
 	SlashBlast.DisplayName: Slash Blast
 	SunBlast.DisplayName: Sun Blast
+	StormBlast.DisplayName: Storm Blast
 }
 
 Cannons: {
@@ -92,6 +93,7 @@ Cannons: {
 	PlantCannon.DisplayName: Plant Cannon
 	SlashCannon.DisplayName: Slash Cannon
 	SunCannon.DisplayName: Sun Cannon
+	StormCannon.DisplayName: Storm Cannon
 }
 
 ExplosionSpell.DisplayName: Explosion Spell
@@ -141,4 +143,5 @@ Pulsars: {
 	PlantPulsar.DisplayName: Plant Pulsar
 	SlashPulsar.DisplayName: Slash Pulsar
 	SunPulsar.DisplayName: Sun Pulsar
+	StormPulsar.DisplayName: Storm Pulsar
 }

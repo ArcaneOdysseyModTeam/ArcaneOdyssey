@@ -75,9 +75,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.InfernoFork, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.InfernoFork, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(projectile.Center, 1, 1, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1.4f);
+				Dust.NewDust(projectile.Center, 0, 0, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1.4f);
 			}
 		}
 		public override void KillEffects(Entity projectile)

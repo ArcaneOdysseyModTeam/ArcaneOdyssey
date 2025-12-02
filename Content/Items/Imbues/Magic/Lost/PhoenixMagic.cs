@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
+        public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(0, 204, 255); // lerp between yellow and blue later
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
@@ -75,9 +76,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, default, 5.5f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, default, 5.5f)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, default, 5.5f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, default, 5.5f)];
 				spawnedDust2.noGravity = true;
 			}
 		}

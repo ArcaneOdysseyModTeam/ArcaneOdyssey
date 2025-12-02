@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	public class FrostmetalMagic : AOMagic
 	{
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+        public override bool? Cold => true;
 		public override float DashResist => 1.45f;
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 		public override Color ImbueColour => Color.Lerp(new(100, 100, 100), new(30, 200, 255), .5f);
@@ -52,60 +53,68 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			);
 
 		public override void SpawningEffects(Entity projectile)
-        {
-            if (Main.dedServ)
-                return;
-            for (int n = 0; n < 10; n++)
+		{
+			if (Main.dedServ)
+				return;
+			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Mercury, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f);
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SnowflakeIce, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 0, default, 3f)];
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Mercury, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, Scale: 2f);
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SnowflakeIce, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f)];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ice, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 0, default, 2f);
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ice, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
 			}
 		}
 
 		public override void LingeringEffects(Entity projectile)
-        {
-            if (Main.dedServ)
-                return;
-            Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SilverFlame)];
+		{
+			if (Main.dedServ)
+				return;
+			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SilverFlame, Scale: 2f)];
 			spawnedDust.noGravity = true;
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ice);
 		}
 
 		public override void ExplosionEffects(Entity projectile)
-        {
-            if (Main.dedServ)
-                return;
-            for (int n = 0; n < 3; n++)
+		{
+			if (Main.dedServ)
+				return;
+			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize))];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(projectile.Center, 1, 1, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize));
-				Dust.NewDust(projectile.Center, 1, 1, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f);
+				Dust.NewDust(projectile.Center, 0, 0, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize));
+				Dust.NewDust(projectile.Center, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), Scale: 2f);
 			}
+		}
+
+		public override bool PreEffects(Entity entity)
+		{
+			if (entity is Projectile projectile)
+				if (projectile.ModProjectile is FrostmetalShard)
+					return false;
+			return base.PreEffects(entity);
 		}
 
 		public override void KillEffects(Entity entity)
 		{
-            if (Main.dedServ)
-                return;
+			if (Main.dedServ)
+				return;
 			if (entity is Projectile projectile && Main.myPlayer == projectile.owner)
 			{
-			    for (int i = 0; i < 3; i++)
-			    {
-				    var angle = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 7f;
-                    angle.Y *= 0.35f;
-				    var proj = Projectile.NewProjectileDirect(entity.GetSource_Death(), entity.Center, angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
-				    proj.frame = i;
-			    }
+				for (int i = 0; i < 3; i++)
+				{
+					var angle = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 7f;
+					angle.Y *= 0.35f;
+					var proj = Projectile.NewProjectileDirect(entity.GetSource_FromThis(), entity.Center, angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
+					proj.frame = i;
+				}
 			}
 			for (int n = 0; n < 15; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.SnowflakeIce, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.SnowflakeIce, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f))];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Ice, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2f);
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, 1f);
+				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Ice, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f));
+				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), Scale: 2f);
 			}
 			SoundEngine.PlaySound(ImbueSound, entity.position, null);
 		}

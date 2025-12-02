@@ -77,9 +77,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.FireworkFountain_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1.3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.FireworkFountain_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1.3f)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Shadowflame, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2.8f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Shadowflame, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2.8f)];
 				spawnedDust2.noGravity = true;
 			}
 		}

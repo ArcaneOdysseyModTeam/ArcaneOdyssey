@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			}
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
-				Dust.NewDust(projectile.Center, 1, 1, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue * (BarMax * .286f)), 1));
+				Dust.NewDust(projectile.Center, 0, 0, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue * (BarMax * .286f)), 1));
 			}
 		}
 		

@@ -19,9 +19,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
 
 		public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.penetrate = -1;
+		{
+			base.SetDefaults();
+			Projectile.penetrate = -1;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 			Projectile.timeLeft = 60*3;
@@ -39,18 +39,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
-        public override bool PreDraw(ref Color lightColor)
-        {
-            for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
-            {
-                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + Projectile.GetDrawOriginCentre();// + new Vector2(0f, Projectile.gfxOffY);
-                Color colour = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(Sprite, drawPos, null, Imbue is not null ? Color.Lerp(Imbue.GetColor(colour), colour, .5f) : colour, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale, SpriteEffects.None, 0);
-            }
-            return false;
-        }
+		public override bool PreDraw(ref Color lightColor)
+		{
+			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+			{
+				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
+				Color colour = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, Imbue is not null ? Color.Lerp(Imbue.GetColor(colour), colour, .5f) : colour, Projectile.rotation, Sprite.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+			}
+			return false;
+		}
 
-        public override void AI()
+		public override void AI()
 		{
 			if (Projectile.ai[0] == 0)
 			{

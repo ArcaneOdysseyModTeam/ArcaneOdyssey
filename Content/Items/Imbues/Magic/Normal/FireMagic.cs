@@ -77,9 +77,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Flare, (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), 0, default, 8f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Flare, (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), 0, default, 8f)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
 				spawnedDust2.noGravity = true;
 			}
 		}

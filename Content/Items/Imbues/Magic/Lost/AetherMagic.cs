@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1.15f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-        public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10), new(ModContent.BuffType<BlindedEffect>(), 60 * 5)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10), new(ModContent.BuffType<BlindedEffect>(), 60 * 5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>(),
@@ -51,8 +51,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			);
 
 
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
+			if (Main.dedServ)
+				return;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.YellowStarDust, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 3f)];
@@ -60,7 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.YellowTorch,projectile.velocity.X*0.2f,projectile.velocity.Y*0.2f,0,default,3f)];
 				spawnedDust2.noGravity = true;
 			}
-			}
+		}
 
 		public override void LingeringEffects(Entity projectile)
 		{
@@ -75,39 +77,44 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Entity projectile)
 		{
+			if (Main.dedServ)
+				return;
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), 0, default, 3f)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.YellowTorch, (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.YellowTorch, (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * AOScrollSize), 0, default, 3f)];
 				spawnedDust2.noGravity = true;
 			}
-			if (projectile is Projectile proj && proj.ModProjectile is not AetherExplosion)
+		}
+
+		public override void KillEffects(Entity entity)
+		{
+			if (Main.dedServ)
+				return;
+			for (int n = 0; n < 10; n++)
 			{
-				if (proj.owner == Main.myPlayer && AetherExplosion.Count < 1)
+				Dust spawnedDust = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.YellowStarDust, 28f * (Main.rand.NextFloat() - 0.5f), 28f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.YellowTorch, 28f * (Main.rand.NextFloat() - 0.5f), 28f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				spawnedDust2.noGravity = true;
+			}
+			SoundEngine.PlaySound(ImbueSound, entity.position, null);
+			if (entity is Projectile projectile)
+			{
+				if (projectile.owner == Main.myPlayer && AetherExplosion.Count < 3)
 				{
-					Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 4, 0, proj.owner);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), entity.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), projectile.damage / 4, 0, projectile.owner);
 				}
 			}
 		}
 
-		public override void KillEffects(Entity projectile)
+		public override bool PreEffects(Entity entity)
 		{
-			for (int n = 0; n < 10; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.YellowStarDust, 28f * (Main.rand.NextFloat() - 0.5f), 28f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
-				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.YellowTorch, 28f * (Main.rand.NextFloat() - 0.5f), 28f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
-				spawnedDust2.noGravity = true;
-			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
-			if (projectile is Projectile proj && proj.ModProjectile is not AetherExplosion)
-			{
-				if (proj.owner == Main.myPlayer && AetherExplosion.Count < 3)
-				{
-					Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), proj.damage / 4, 0, proj.owner);
-				}
-			}
+			if (entity is Projectile projectile)
+				if (projectile.ModProjectile is AetherExplosion)
+					return false;
+			return base.PreEffects(entity);
 		}
 
 		public override void AddRecipes() 

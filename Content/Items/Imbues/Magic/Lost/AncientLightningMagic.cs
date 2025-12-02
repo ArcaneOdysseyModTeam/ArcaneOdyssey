@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust dust = Dust.NewDustDirect(projectile.Center, 1, 1, DustID.Firework_Red, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Red, 2.3f);
+				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Firework_Red, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Red, 2.3f);
 				dust.noGravity = true;
 			}
 		}

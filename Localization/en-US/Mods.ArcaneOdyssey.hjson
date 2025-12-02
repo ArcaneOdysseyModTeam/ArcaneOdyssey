@@ -222,6 +222,7 @@ Projectiles: {
 	SeismicSlashRock.DisplayName: Rock
 	BronzeRapierProjectile.DisplayName: Bronze Rapier Projectile
 	FrostmetalShard.DisplayName: Frostmetal Shard
+	PrismLinger.DisplayName: Prism Magic Shards
 }
 
 DamageClasses: {

@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -16,10 +17,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float DashResist => 1.15f;
 		public override float ItemInvisibility => .5f;
 
-		private static readonly Color[] rainbowColors = [new Color(255, 71, 124), new Color(94, 61, 255), new Color(87, 219, 255), new Color(100, 255, 93)];
+		internal static readonly Color[] rainbowColors = [new Color(255, 71, 124), new Color(94, 61, 255), new Color(87, 219, 255), new Color(100, 255, 93)];
 
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override Color ImbueColour => new(255, 255, 255);
+		public override Color ImbueColour => Color.White;
 		public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueDamage => 1.2f;
 		public override float AOImbueSize => 1.15f;
@@ -46,6 +47,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void SpawningEffects(Entity entity)
 		{
+			if (Main.dedServ)
+				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
 			for (int n = 0; n < 3; n++)
 			{
@@ -58,6 +61,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void LingeringEffects(Entity entity)
 		{
+			if (Main.dedServ)
+				return;
 			Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0, default, 0.5f);
 			if (entity is Projectile projectile)
 			{
@@ -80,6 +85,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void KillEffects(Entity entity)
 		{
+			if (Main.dedServ)
+				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
 			for (int n = 0; n < 10; n++)
 			{
@@ -89,10 +96,22 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0,default, 1.2f);
 			}
 			SoundEngine.PlaySound(ImbueSound, entity.position, null);
+			if (entity is Projectile projectile && projectile.owner == Main.myPlayer && projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<PrismLinger>()] < 3)
+				Projectile.NewProjectile(entity.GetSource_FromThis(), entity.Center, Vector2.Zero, ModContent.ProjectileType<PrismLinger>(), projectile.damage / 6, 0, projectile.owner);
+		}
+
+		public override bool PreEffects(Entity entity)
+		{
+			if (entity is Projectile projectile)
+				if (projectile.ModProjectile is PrismLinger)
+					return false;
+			return base.PreEffects(entity);
 		}
 
 		public override void ExplosionEffects(Entity entity)
 		{
+			if (Main.dedServ)
+				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
 			Dust.NewDust(entity.Center, 1, 1, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 0.9f);
 			for (int n = 0; n < 10; n++)
