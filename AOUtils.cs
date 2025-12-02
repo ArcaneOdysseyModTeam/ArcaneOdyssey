@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
@@ -194,7 +195,7 @@ namespace ArcaneOdyssey
 		public static readonly Vector2 DefaultDustDimensions = new(10, 10);
 		public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
 		{
-            Vector2 dimensions = new(dust.frame.Width, dust.frame.Height);
+			Vector2 dimensions = new(dust.frame.Width, dust.frame.Height);
 			if (newPos.HasValue)
 			{
 				dust.position = newPos.Value - (dimensions / 2f * dust.scale);

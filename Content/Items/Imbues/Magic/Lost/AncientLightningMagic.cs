@@ -50,8 +50,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
+			if (Main.dedServ)
+				return;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1.2f);
@@ -60,6 +62,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void LingeringEffects(Entity projectile)
 		{// WAHT IS  THIS IM SO CONFUSED
+			if (Main.dedServ)
+				return;
 			if (projectile.velocity != Vector2.Zero)
 			{
 				float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
@@ -74,24 +78,29 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			Lighting.AddLight(projectile.position,2,0,0);
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, 0f, 0f, 0, default, .7f);
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
+			if (Main.dedServ)
+				return;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Firework_Red, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Red, 2.3f);
 				dust.noGravity = true;
 			}
 		}
+
 		public override void KillEffects(Entity projectile)
 		{
+			if (Main.dedServ)
+				return;
 			for (int n = 0; n < 10; n++)
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2.5f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-
-        
+		
 		public override void AddRecipes()
 		{
 			CreateLostRecipe(typeof(LightningMagic));

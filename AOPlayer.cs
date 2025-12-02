@@ -1,9 +1,12 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -30,9 +33,13 @@ namespace ArcaneOdyssey
 		{
 			if (useplayerimbue)
 				imbue ??= Imbue;
-			if (imbue is not null)
-			{
-				foreach (var buff in imbue.ImbueDebuffs)
+            if (imbue is not null)
+            {
+                if (imbue is EnergyMagic)
+                {
+                    Player.statMana = Math.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
+                }
+                foreach (var buff in imbue.ImbueDebuffs)
 				{
 					var instance = DebuffHelpers.Find(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
 					if (DebuffHelpers.Contains(instance))

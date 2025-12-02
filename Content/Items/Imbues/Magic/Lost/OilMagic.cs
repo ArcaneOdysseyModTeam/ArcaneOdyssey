@@ -41,9 +41,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile) 
-		{
-			for (int n = 0; n < 3; n++)
+		public override void SpawningEffects(Entity projectile)
+        {
+            if (Main.dedServ)
+                return;
+            for (int n = 0; n < 3; n++)
 
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water_Cavern, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, Color.Black, 3f)];
@@ -51,28 +53,36 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile) 
-		{
-			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water_Cavern, 0f, 0f, 0, Color.Black, 1.2f);
+		public override void LingeringEffects(Entity projectile)
+        {
+            if (Main.dedServ)
+                return;
+            Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water_Cavern, 0f, 0f, 0, Color.Black, 1.2f);
 		}
+
 		public override void ExplosionEffects(Entity projectile)
-		{
-			for (int n = 0; n < 3; n++)
+        {
+            if (Main.dedServ)
+                return;
+            for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Water_Cavern, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, Color.Black, 3f)];
 				spawnedDust.noGravity = true;
 			}
 		}
 		public override void KillEffects(Entity projectile)
-		{
-			for (int n = 0; n < 10; n++)
+        {
+            if (Main.dedServ)
+                return;
+            for (int n = 0; n < 10; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water_Cavern, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Color.Black, 3f)];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		public override void AddRecipes() {
+		public override void AddRecipes() 
+        {
 			CreateLostRecipe(typeof(WaterMagic),typeof(EarthMagic),typeof(WoodMagic));
 		}
 	}

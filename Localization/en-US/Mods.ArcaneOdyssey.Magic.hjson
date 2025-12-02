@@ -86,7 +86,7 @@ Lost: {
 
 	EnergyMagic: {
 		DisplayName: Energy Magic
-		Tooltip: ""
+		Tooltip: Allows the user to harness pure magical energy, sapping mana from struck enemies
 	}
 
 	FrostmetalMagic: {
