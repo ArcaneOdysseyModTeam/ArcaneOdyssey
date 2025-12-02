@@ -194,14 +194,15 @@ namespace ArcaneOdyssey
 		public static readonly Vector2 DefaultDustDimensions = new(10, 10);
 		public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
 		{
+            Vector2 dimensions = new(dust.frame.Width, dust.frame.Height);
 			if (newPos.HasValue)
 			{
-				dust.position = newPos.Value - (DefaultDustDimensions / 2f * dust.scale);
+				dust.position = newPos.Value - (dimensions / 2f * dust.scale);
 				return dust.position;
 			}
 			else
 			{
-				return dust.position + (DefaultDustDimensions / 2f * dust.scale);
+				return dust.position + (dimensions / 2f * dust.scale);
 			}
 		}
 

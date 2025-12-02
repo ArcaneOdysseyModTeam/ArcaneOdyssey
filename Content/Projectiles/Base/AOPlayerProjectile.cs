@@ -77,12 +77,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-            if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
-            {
-                Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), lightColor with { A = (byte)(255 - Projectile.alpha) }, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, SpriteEffects.None);
-                return false;
-            }
-            return true;
+			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
+			{
+				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, SpriteEffects.None);
+				return false;
+			}
+			return true;
 		}
 	}
 }

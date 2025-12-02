@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -62,8 +63,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public BronzeRapierProjectile projectile;
 
 		public override void OnStart(Player player)
-		{ 
-			projectile.Projectile.velocity = player.ArcaneOdyssey().DashVelocity;
+        {
+            projectile.Projectile.velocity = player.ArcaneOdyssey().DashVelocity;
 			player.PlayerItem().useStyle = ItemUseStyleID.Rapier;
 		}
 		public override void DashEffect(Player player)

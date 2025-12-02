@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -15,20 +16,19 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 4;
-			//ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Projectile.type] = true;
 		}
 
-        public override float AOSize => .5f;
+		public override float AOSize => .5f;
 
 		public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.height = Projectile.width = 128;
+		{
+			base.SetDefaults();
+			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 0;
 		}
 
-		public bool MarkedForDeath = false;
+		internal bool MarkedForDeath = false;
 
 		public override void AI()
 		{
@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
 					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, Projectile.damage, 4.5f * Imbue.AOScrollSize * Imbue.KBMulti * charge, Projectile.owner);
-					if (proj.ModProjectile is BlastSpell)
+					if (proj.ModProjectile is BlastSpell or BeamSpell)
 					{
 						proj.ArcaneOdyssey().BaseScale = charge / 2;
 						proj.damage = (Projectile.damage * (charge * charge)).Round();
@@ -143,7 +143,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				lightColor = Imbue.ImbueColour;
 			}
-			return true;
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

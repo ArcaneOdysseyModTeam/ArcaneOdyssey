@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			if (!Main.dedServ) 
 			{
 				// Particles from swinging
-				Dust.NewDust(player.MountedCenter + new Vector2(player.direction * 3f, 0f), 3, 3, DustID.Water, (player.direction * 30f) * (0.8f - Main.rand.NextFloat()), 30f * (0.5f - Main.rand.NextFloat()), 255, default, 1.3f);
+				Dust.NewDust(player.MountedCenter + new Vector2(player.direction * 3f * (Imbue?.AOImbueSize ?? 1f), 0f), 3, 3, DustID.Water, (player.direction * 30f) * (0.8f - Main.rand.NextFloat()) * (Imbue?.AOImbueSize ?? 1f), 30f * (0.5f - Main.rand.NextFloat()) * (Imbue?.AOImbueSpeed ?? 1f), 255, default, 1.3f);
 			}
 			return null;
 		}

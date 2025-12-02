@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			base.SetDefaults();
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.DamageType = TrueMeleeNoSpeed();
+			Item.DamageType = TrueMelee();
 			Item.shootSpeed = BaseSpearProjectile.Speed;
 			Item.noUseGraphic = true;
 			Item.width = Item.height = 52;
@@ -78,9 +78,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			{
 				Dust.NewDust(player.MountedCenter, player.width, player.height, DustID.HeatRay, player.ArcaneOdyssey().DashVelocity.X/10f, player.ArcaneOdyssey().DashVelocity.Y/10f, Scale: 2);
 			}
-		}
+        }
 
-		public override int DisplayedCooldownID => ModContent.BuffType<EtherealFlashCooldown>();
+        public override int DisplayedCooldownID => ModContent.BuffType<EtherealFlashCooldown>();
 	}
 
 	public class EtherealFlashCooldown : DisplayedCooldown

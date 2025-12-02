@@ -52,8 +52,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			);
 
 		public override void SpawningEffects(Entity projectile)
-		{
-			for (int n = 0; n < 10; n++)
+        {
+            if (Main.dedServ)
+                return;
+            for (int n = 0; n < 10; n++)
 			{
 				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Mercury, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f);
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SnowflakeIce, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 0, default, 3f)];
@@ -63,15 +65,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		}
 
 		public override void LingeringEffects(Entity projectile)
-		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SilverFlame)];
+        {
+            if (Main.dedServ)
+                return;
+            Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SilverFlame)];
 			spawnedDust.noGravity = true;
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ice);
 		}
 
 		public override void ExplosionEffects(Entity projectile)
-		{
-			for (int n = 0; n < 3; n++)
+        {
+            if (Main.dedServ)
+                return;
+            for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 1, 1, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f)];
 				spawnedDust.noGravity = true;
@@ -89,6 +95,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			    for (int i = 0; i < 3; i++)
 			    {
 				    var angle = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 7f;
+                    angle.Y *= 0.35f;
 				    var proj = Projectile.NewProjectileDirect(entity.GetSource_Death(), entity.Center, angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
 				    proj.frame = i;
 			    }

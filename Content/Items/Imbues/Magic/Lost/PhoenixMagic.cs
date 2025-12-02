@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-		public override Color ImbueColour => new(252, 107, 3); // lerp between yellow and blue later
+		public override Color ImbueColour => new(0, 204, 255); // lerp between yellow and blue later
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float AOImbueDamage => .95f;
 		public override float AOImbueSpeed => 1.2f;
@@ -57,8 +57,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			if (!Main.dedServ)
 			{
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.BlueTorch);
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.YellowTorch);
+				Dust.NewDust(entity.position, entity.width, entity.height, DustID.BlueTorch, Scale: 1.5f);
+				Dust.NewDust(entity.position, entity.width, entity.height, DustID.YellowTorch, Scale: 1.5f);
 			}
 		}
 		public override void SpawningEffects(Entity entity)

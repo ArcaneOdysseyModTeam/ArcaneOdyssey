@@ -108,7 +108,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				lightColor = Imbue.GetColor();
 			}
-			return true;
+			return base.PreDraw(ref lightColor);
 		}
 
 		public override void OnKill(int timeLeft)
