@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Relics
 			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
 			Item.shootSpeed = 15;
 			Item.UseSound = SoundID.Item84 with { Pitch = .75f };
-			Item.damage = 25;
+			Item.damage = 13;
 			Item.autoReuse = true;
 			Item.useTime = Item.useAnimation = 30;
 			Item.knockBack = 3.75f;
