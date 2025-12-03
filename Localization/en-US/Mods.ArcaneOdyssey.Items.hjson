@@ -1,60 +1,18 @@
 Armour: {
-	RavennaBoots: {
-		DisplayName: Ravenna Boots
-		Tooltip: Ornate greaves of bronze, representing the colors of the Ravenna Realm
-	}
-
-	RavennaChest: {
-		DisplayName: Ravenna Chest
-		Tooltip: A bulkier set of armor made out of pure bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
-	}
-
-	RavennaHelm: {
-		DisplayName: Ravenna Helm
-		Tooltip: A detailed helmet made out of bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
-	}
-
 	SunkenBoots: {
 		DisplayName: Sunken Boots
-		Tooltip:
-			'''
-			A green and gold pair of boots made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-			It seems to constantly produce water
-			'''
+		Tooltip: It seems to constantly produce water
 	}
 
 	SunkenChest: {
 		DisplayName: Sunken Chest
-		Tooltip:
-			'''
-			A green and gold chestplate made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-			It seems to constantly produce water
-			'''
+		Tooltip: It seems to constantly produce water
 	}
 
 	SunkenHelm: {
 		DisplayName: Sunken Helm
-		Tooltip:
-			'''
-			A green and gold helmet made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-			It seems to constantly produce water
-			'''
+		Tooltip: It seems to constantly produce water
 	}
-}
-
-HeadlessHead: {
-	DisplayName: Headless Head
-	Tooltip: A strange vanity item which seemingly makes your head and hair invisible
-}
-
-HeadlessHeadWithWig: {
-	DisplayName: Headless Head With Wig
-	Tooltip: A strange vanity item which seemingly makes your head invisible, keeping the hair
-}
-
-EvanderPoster: {
-	DisplayName: Evander Poster
-	Tooltip: ""
 }
 
 ElfPetItem: {
@@ -66,7 +24,7 @@ ReflexScroll: {
 	DisplayName: Reflex Scroll
 	Tooltip:
 		'''
-		Allows the user to dash
+		Allows the user to dash, speed changes with the imbue
 		Some imbues grant resistance while dashing
 		'''
 }
@@ -86,34 +44,19 @@ WoodenPaddle: {
 	Tooltip: A wooden paddle for a rowboat, it seems to contain trace magic
 }
 
-SteamImbue: {
-	DisplayName: Steam Imbue
-	Tooltip: ""
-}
-
 Acrimony: {
 	DisplayName: Prometheus's Acrimony
 	Tooltip: ""
 }
 
 AncientHecateOrb: {
-	DisplayName: Hecate's Orb
+	DisplayName: Hecate Orb
 	Tooltip: An orb formed of the essence of the goddess hecate... the world is really not ready to unleash this
-}
-
-BronzeBar: {
-	DisplayName: Bronze Bar
-	Tooltip: ""
-}
-
-EmptyScroll: {
-	DisplayName: Empty Scroll
-	Tooltip: ""
 }
 
 HecateShard: {
 	DisplayName: Hecate Shard
-	Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+	Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic], coming soon
 }
 
 Paper: {
@@ -131,11 +74,6 @@ PoseidonSpirit: {
 	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
-SunkenScrap: {
-	DisplayName: Sunken Scrap
-	Tooltip: ""
-}
-
 EaglePatrimony: {
 	DisplayName: Eagle Patrimony
 	Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
@@ -151,9 +89,4 @@ Accessories: {
 		DisplayName: Mountainbreaker Gauntlet
 		Tooltip: ""
 	}
-}
-
-EvanderTrophy: {
-	DisplayName: Evander Trophy
-	Tooltip: ""
 }

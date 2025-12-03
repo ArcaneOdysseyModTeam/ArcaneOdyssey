@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Relics
 {
 	public class EaglePatrimony : RelicWeapon
 	{
-		public override int AOValue => 500;
+		public override int AOValue => 0;
 		public override AORarities AORarity => AORarities.Special;
 
 		public override void SetDefaults()

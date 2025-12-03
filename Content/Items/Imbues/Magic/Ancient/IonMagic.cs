@@ -53,6 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 				new(BuffID.ShadowFlame,1.1f)
 			]
 			);
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
@@ -84,7 +85,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 
 		public override void AddRecipes()
 		{
-			//CreateAncientRecipe(typeof(AetherMagic), typeof(HeatMagic), typeof(FlareMagic),typeof(ShadowflameMagic));
+			CreateAncientRecipe(typeof(AetherMagic), typeof(HeatMagic), typeof(FlareMagic),typeof(ShadowflameMagic));
 		}
 	}
 }

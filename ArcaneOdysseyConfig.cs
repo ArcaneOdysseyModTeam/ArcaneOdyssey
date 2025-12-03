@@ -34,8 +34,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool ElfPetSoundEffects { get; set; }
 
-		[DefaultValue(false)]
-		public bool AlternatePhoenixEffectVFX { get; set; }
+		// LOSTMAGICS
+		//[DefaultValue(false)]
+		//public bool AlternatePhoenixEffectVFX { get; set; }
 
 		public static ArcaneOdysseyClientConfig Instance;
 	}

@@ -25,7 +25,7 @@ namespace ArcaneOdyssey
 		internal static bool hasYapped = false;
 		public override void PreUpdateWorld()
 		{
-			if (!(hasYapped || HasMusicMod))
+			if (!(hasYapped || HasMusicMod || ArcaneOdysseyMod.DevMode))
 			{
 				hasYapped = true;
 				Main.NewText("You are missing the Arcane Odyssey Music Mod (ArcaneOdysseyMusic). For the full experience, enable this mod.", Color.Teal);
