@@ -195,13 +195,13 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (Imbue is null || !CanBeAffected)
 				return;
-            Imbuable imbue = Imbue;
-            if (Imbue is SteamImbue steam)
-                imbue = steam.originalImbue;
+			Imbuable imbue = Imbue;
+			if (Imbue is SteamImbue steam)
+				imbue = steam.originalImbue;
 			if (ModContent.RequestIfExists<Texture2D>(imbue.Texture, out var texture))
 			{
 				Vector2 dimensions = new(frame.Width, frame.Height);
-                Vector2 location = position + (dimensions * .25f);
+				Vector2 location = position + (dimensions * .25f);
 				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .3f, SpriteEffects.None, 1f);
 			}
 		}
@@ -358,8 +358,12 @@ namespace ArcaneOdyssey
 				}
 				switch (item.type)
 				{
+					case ItemID.AleThrowingGlove:
 					case ItemID.BreakerBlade:
 						WeaponsType = WeaponType.Strength;
+						break;
+					case ItemID.Zenith:
+						WeaponType = WeaponType.Artisinal;
 						break;
 				}
 			}

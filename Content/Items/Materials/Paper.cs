@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			base.SetDefaults();
 			Item.width = 30;
             Item.height = 32;
-            Item.maxStack = 9999;
+            Item.maxStack = Item.CommonMaxStack;
             Item.value = GalleonToCopper(AOValue);
         }
 

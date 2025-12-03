@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 {
 	public class PhoenixHealing : AODebuff
 	{
-		public const float HealDistance = 700f;
+		public const int HealDistance = 700;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			bool noPlayerFound = true;
@@ -59,9 +59,12 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 					progress = 1f - MathHelper.Clamp((i - player.MountedCenter.Distance(npc.Center) / 2f) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
 				}
 
-                // LOSTMAGICS
-                //if (!ArcaneOdysseyClientConfig.Instance.AlternatePhoenixEffectVFX)
-                offsetpoint.Y -= player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
+				// LOSTMAGICS
+				//if (!ArcaneOdysseyClientConfig.Instance.AlternatePhoenixEffectVFX)
+				//{
+				//	var upangle = (npc.Center.DirectionTo(player.MountedCenter) - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
+				//	offsetpoint += upangle;
+				//}
 				//else
 				//	offsetpoint.Y += player.MountedCenter.Distance(npc.Center) * .1f * progress * Main.rand.NextFloat().FlipFloat();
 

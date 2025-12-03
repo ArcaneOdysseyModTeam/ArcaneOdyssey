@@ -111,7 +111,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 					tempLightColorB = 3f / Imbue.GetColor().B;
 				}
 				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
-				if (Projectile.localAI[0] > 5)
+				if (Projectile.localAI[0]++ > 5)
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColor(), 1f)];
 					spawnedDust.noGravity = true;
@@ -124,7 +124,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Kill();
 			}
 
-			if (Projectile.frameCounter > 5)
+			if (Projectile.frameCounter++ > 5)
 			{
 				Projectile.frame++;
 				Projectile.frameCounter = 0;
@@ -133,8 +133,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 					Projectile.frame = 0;
 				}
 			}
-			Projectile.localAI[0]++;
-			Projectile.frameCounter++;
 		}
 
 		public override bool PreDraw(ref Color lightColor)

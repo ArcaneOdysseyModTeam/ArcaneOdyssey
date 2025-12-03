@@ -26,9 +26,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 		}
 
-		public override void AddRecipes()
-		{
-		}
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
             Lighting.AddLight(Item.Center, 3, 3, 3);

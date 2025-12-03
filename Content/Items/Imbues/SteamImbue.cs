@@ -35,6 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override Color ImbueColour => Color.LightGray;
 
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
+
 		public override SynergyEffects Effects => new([], [
 			new(ModContent.BuffType<AOBleed>(), 1.15f),
 			new(ModContent.BuffType<AOPetrified>(), 1.1f),
@@ -71,9 +72,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override ModItem Clone(Item newEntity)
 		{
 			var clone = (SteamImbue)base.Clone(newEntity);
-			clone.originalImbue = originalImbue;
 			if (originalImbue is null)
-				clone.originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
+				originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
+			clone.originalImbue = originalImbue;
 			return clone;
 		}
 	}

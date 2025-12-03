@@ -22,8 +22,8 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.width = 30;
 			Item.height = 24;
 			Item.createTile = ModContent.TileType<BronzeBarTile>();
-			Item.maxStack = 9999;
-			Item.value = Item.sellPrice(silver: 30); // bit less than hellstone
+			Item.maxStack = Item.CommonMaxStack;
+            Item.value = Item.sellPrice(silver: 30); // bit less than hellstone
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 			Item.useAnimation = 15;
