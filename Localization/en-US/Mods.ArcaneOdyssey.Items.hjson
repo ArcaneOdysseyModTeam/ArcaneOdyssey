@@ -13,6 +13,21 @@ Armour: {
 		DisplayName: Sunken Helm
 		Tooltip: It seems to constantly produce water
 	}
+
+	RavennaBoots: {
+		DisplayName: Ravenna Boots
+		Tooltip: ""
+	}
+
+	RavennaChest: {
+		DisplayName: Ravenna Chest
+		Tooltip: ""
+	}
+
+	RavennaHelm: {
+		DisplayName: Ravenna Helm
+		Tooltip: ""
+	}
 }
 
 ElfPetItem: {
@@ -89,4 +104,39 @@ Accessories: {
 		DisplayName: Mountainbreaker Gauntlet
 		Tooltip: ""
 	}
+}
+
+HeadlessHead: {
+	DisplayName: Headless Head
+	Tooltip: ""
+}
+
+HeadlessHeadWithWig: {
+	DisplayName: Headless Head With Wig
+	Tooltip: ""
+}
+
+EvanderTrophy: {
+	DisplayName: Evander Trophy
+	Tooltip: ""
+}
+
+SteamImbue: {
+	DisplayName: Steam Imbue
+	Tooltip: ""
+}
+
+BronzeBar: {
+	DisplayName: Bronze Bar
+	Tooltip: ""
+}
+
+EmptyScroll: {
+	DisplayName: Empty Scroll
+	Tooltip: ""
+}
+
+SunkenScrap: {
+	DisplayName: Sunken Scrap
+	Tooltip: ""
 }

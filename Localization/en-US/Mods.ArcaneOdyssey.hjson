@@ -167,7 +167,7 @@ ArmourAutoTooltip: {
 	Minions: Increases your max number of minions by {0}
 	Mana: Increases maximum mana by {0}
 	Size: "{0}% increased attack size"
-	Pierce: "Increases armour penetration by {0}"
+	Pierce: Increases armour penetration by {0}
 }
 
 CodebreakerDialogOption: {
@@ -203,6 +203,15 @@ Projectiles: {
 	SeismicSlashRock.DisplayName: Rock
 	BronzeRapierProjectile.DisplayName: Bronze Rapier
 	PrismLinger.DisplayName: Prism Magic Shards
+	DeathCurse.DisplayName: Death Curse
+	AetherExplosion.DisplayName: Aether Explosion
+	FrostmetalShard.DisplayName: Frostmetal Shard
+	PowderExplosion.DisplayName: Powder Explosion
+	SpiritBlast.DisplayName: Spirit Blast
+	ColossalCleave.DisplayName: Colossal Cleave
+	MountainWind.DisplayName: Mountain Wind
+	PiercingGale.DisplayName: Piercing Gale
+	Whirlwind.DisplayName: Whirlwind
 }
 
 DamageClasses: {
@@ -295,5 +304,31 @@ Achievements: {
 	MountainBreaker: {
 		FriendlyName: Mountain Breaker
 		Description: Slay Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
+	}
+}
+
+Keybinds: {
+	CycleItemImbue.DisplayName: Cycle Item Imbue
+	DashBind.DisplayName: Dash Bind
+	Vanish.DisplayName: Vanish
+}
+
+RandomWords: {
+	Default: Default
+	Unbound: Unbound
+	None: None
+	Material: Material
+	Help: Help
+	Press: Press
+}
+
+Mods: {
+	ArcaneOdyssey: {
+		Items: {
+			PoseidonSpirit: {
+				DisplayName: DisplayName
+				Tooltip: Tooltip
+			}
+		}
 	}
 }
