@@ -133,7 +133,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
         public static bool CheckTileToDir(int direction, Vector2 pos)
         {
-            Tile targetTile = Main.tile[(pos.X / 16f).Round() + direction, (pos.Y / 16f).Round()];
+            Tile targetTile = Main.tile[(int)(float.Floor(pos.X / 16f)) + direction, (pos.Y / 16f).Round()];
             return targetTile != null && targetTile.HasTile && (Main.tileSolid[targetTile.TileType] && !targetTile.IsActuated);
         }
 
