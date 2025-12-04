@@ -363,7 +363,7 @@ namespace ArcaneOdyssey
 						WeaponsType = WeaponType.Strength;
 						break;
 					case ItemID.Zenith:
-						WeaponType = WeaponType.Artisinal;
+						WeaponsType = WeaponType.Artisinal;
 						break;
 				}
 			}

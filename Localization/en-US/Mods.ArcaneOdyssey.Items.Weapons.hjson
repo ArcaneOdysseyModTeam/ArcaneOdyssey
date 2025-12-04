@@ -7,3 +7,93 @@ SunkenSword: {
 	DisplayName: Sunken Sword
 	Tooltip: It seems to constantly produce water
 }
+
+BronzeFlintlock: {
+	DisplayName: Bronze Flintlock
+	Tooltip: ""
+}
+
+BronzeMusket: {
+	DisplayName: Bronze Musket
+	Tooltip: ""
+}
+
+BronzeRapier: {
+	DisplayName: Bronze Rapier
+	Tooltip: ""
+}
+
+BronzeStaff: {
+	DisplayName: Bronze Staff
+	Tooltip: ""
+}
+
+BronzeTrident: {
+	DisplayName: Bronze Trident
+	Tooltip: ""
+}
+
+RavennaGreataxe: {
+	DisplayName: Ravenna Greataxe
+	Tooltip: ""
+}
+
+RavennaGreatsword: {
+	DisplayName: Ravenna Greatsword
+	Tooltip: ""
+}
+
+RavennaSword: {
+	DisplayName: Ravenna Sword
+	Tooltip: ""
+}
+
+BronzeTriasta: {
+	DisplayName: Bronze Triasta
+	Tooltip: ""
+}
+
+ColossalGreatsword: {
+	DisplayName: Colossal Greatsword
+	Tooltip: ""
+}
+
+CommodoreKaiSabre: {
+	DisplayName: Commodore Kai Sabre
+	Tooltip: ""
+}
+
+LionsHalberd: {
+	DisplayName: Lions Halberd
+	Tooltip: ""
+}
+
+OldGreataxe: {
+	DisplayName: Old Greataxe
+	Tooltip: ""
+}
+
+OldGreatsword: {
+	DisplayName: Old Greatsword
+	Tooltip: ""
+}
+
+OldRapier: {
+	DisplayName: Old Rapier
+	Tooltip: ""
+}
+
+OldSword: {
+	DisplayName: Old Sword
+	Tooltip: ""
+}
+
+WoodenStaff: {
+	DisplayName: Wooden Staff
+	Tooltip: ""
+}
+
+StormCaller: {
+	DisplayName: Storm Caller
+	Tooltip: ""
+}

@@ -393,7 +393,11 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is TechniqueScroll)
 				{
-					return imbue is FightingStyleBarred;
+					return imbue is FightingStyle;
+				}
+				if (item.ModItem is EmptyScroll)
+				{
+					return true;
 				}
 				if (imbue is FightingStyle)
 				{

@@ -1,2 +1,146 @@
 BeamSpell.DisplayName: Beam Spell
 ExplosionSpell.DisplayName: Explosion Spell
+
+Blasts: {
+	IonBlast.DisplayName: Ion Blast
+	AetherBlast.DisplayName: Aether Blast
+	AncientLightningBlast.DisplayName: Ancient Lightning Blast
+	BlizzardBlast.DisplayName: Blizzard Blast
+	CloudBlast.DisplayName: Cloud Blast
+	DarknessBlast.DisplayName: Darkness Blast
+	DiamondBlast.DisplayName: Diamond Blast
+	EnergyBlast.DisplayName: Energy Blast
+	FlareBlast.DisplayName: Flare Blast
+	FrostmetalBlast.DisplayName: Frostmetal Blast
+	GravityBlast.DisplayName: Gravity Blast
+	HeatBlast.DisplayName: Heat Blast
+	LunarBlast.DisplayName: Lunar Blast
+	OilBlast.DisplayName: Oil Blast
+	PhoenixBlast.DisplayName: Phoenix Blast
+	PlantBlast.DisplayName: Plant Blast
+	PoisonLightningBlast.DisplayName: Poison Lightning Blast
+	PrismBlast.DisplayName: Prism Blast
+	ShadowflameBlast.DisplayName: Shadowflame Blast
+	SlashBlast.DisplayName: Slash Blast
+	SoundBlast.DisplayName: Sound Blast
+	StormBlast.DisplayName: Storm Blast
+	SunBlast.DisplayName: Sun Blast
+	AcidBlast.DisplayName: Acid Blast
+	AshBlast.DisplayName: Ash Blast
+	CrystalBlast.DisplayName: Crystal Blast
+	EarthBlast.DisplayName: Earth Blast
+	ExplosionBlast.DisplayName: Explosion Blast
+	FireBlast.DisplayName: Fire Blast
+	GlassBlast.DisplayName: Glass Blast
+	IceBlast.DisplayName: Ice Blast
+	LightBlast.DisplayName: Light Blast
+	LightningBlast.DisplayName: Lightning Blast
+	MagmaBlast.DisplayName: Magma Blast
+	MetalBlast.DisplayName: Metal Blast
+	PlasmaBlast.DisplayName: Plasma Blast
+	PoisonBlast.DisplayName: Poison Blast
+	SandBlast.DisplayName: Sand Blast
+	ShadowBlast.DisplayName: Shadow Blast
+	SnowBlast.DisplayName: Snow Blast
+	WaterBlast.DisplayName: Water Blast
+	WindBlast.DisplayName: Wind Blast
+	WoodBlast.DisplayName: Wood Blast
+	JerminusBlast.DisplayName: Jerminus Blast
+	VesuviusBlast.DisplayName: Vesuvius Blast
+}
+
+Cannons: {
+	IonCannon.DisplayName: Ion Cannon
+	AetherCannon.DisplayName: Aether Cannon
+	AncientLightningCannon.DisplayName: Ancient Lightning Cannon
+	BlizzardCannon.DisplayName: Blizzard Cannon
+	CloudCannon.DisplayName: Cloud Cannon
+	DarknessCannon.DisplayName: Darkness Cannon
+	DiamondCannon.DisplayName: Diamond Cannon
+	EnergyCannon.DisplayName: Energy Cannon
+	FlareCannon.DisplayName: Flare Cannon
+	FrostmetalCannon.DisplayName: Frostmetal Cannon
+	GravityCannon.DisplayName: Gravity Cannon
+	HeatCannon.DisplayName: Heat Cannon
+	LunarCannon.DisplayName: Lunar Cannon
+	OilCannon.DisplayName: Oil Cannon
+	PhoenixCannon.DisplayName: Phoenix Cannon
+	PlantCannon.DisplayName: Plant Cannon
+	PoisonLightningCannon.DisplayName: Poison Lightning Cannon
+	PrismCannon.DisplayName: Prism Cannon
+	ShadowflameCannon.DisplayName: Shadowflame Cannon
+	SlashCannon.DisplayName: Slash Cannon
+	SoundCannon.DisplayName: Sound Cannon
+	StormCannon.DisplayName: Storm Cannon
+	SunCannon.DisplayName: Sun Cannon
+	AcidCannon.DisplayName: Acid Cannon
+	AshCannon.DisplayName: Ash Cannon
+	CrystalCannon.DisplayName: Crystal Cannon
+	EarthCannon.DisplayName: Earth Cannon
+	ExplosionCannon.DisplayName: Explosion Cannon
+	FireCannon.DisplayName: Fire Cannon
+	GlassCannon.DisplayName: Glass Cannon
+	IceCannon.DisplayName: Ice Cannon
+	LightCannon.DisplayName: Light Cannon
+	LightningCannon.DisplayName: Lightning Cannon
+	MagmaCannon.DisplayName: Magma Cannon
+	MetalCannon.DisplayName: Metal Cannon
+	PlasmaCannon.DisplayName: Plasma Cannon
+	PoisonCannon.DisplayName: Poison Cannon
+	SandCannon.DisplayName: Sand Cannon
+	ShadowCannon.DisplayName: Shadow Cannon
+	SnowCannon.DisplayName: Snow Cannon
+	WaterCannon.DisplayName: Water Cannon
+	WindCannon.DisplayName: Wind Cannon
+	WoodCannon.DisplayName: Wood Cannon
+	JerminusCannon.DisplayName: Jerminus Cannon
+	VesuviusCannon.DisplayName: Vesuvius Cannon
+}
+
+Pulsars: {
+	IonPulsar.DisplayName: Ion Pulsar
+	AetherPulsar.DisplayName: Aether Pulsar
+	AncientLightningPulsar.DisplayName: Ancient Lightning Pulsar
+	BlizzardPulsar.DisplayName: Blizzard Pulsar
+	CloudPulsar.DisplayName: Cloud Pulsar
+	DarknessPulsar.DisplayName: Darkness Pulsar
+	DiamondPulsar.DisplayName: Diamond Pulsar
+	EnergyPulsar.DisplayName: Energy Pulsar
+	FlarePulsar.DisplayName: Flare Pulsar
+	FrostmetalPulsar.DisplayName: Frostmetal Pulsar
+	GravityPulsar.DisplayName: Gravity Pulsar
+	HeatPulsar.DisplayName: Heat Pulsar
+	LunarPulsar.DisplayName: Lunar Pulsar
+	OilPulsar.DisplayName: Oil Pulsar
+	PhoenixPulsar.DisplayName: Phoenix Pulsar
+	PlantPulsar.DisplayName: Plant Pulsar
+	PoisonLightningPulsar.DisplayName: Poison Lightning Pulsar
+	PrismPulsar.DisplayName: Prism Pulsar
+	ShadowflamePulsar.DisplayName: Shadowflame Pulsar
+	SlashPulsar.DisplayName: Slash Pulsar
+	SoundPulsar.DisplayName: Sound Pulsar
+	StormPulsar.DisplayName: Storm Pulsar
+	SunPulsar.DisplayName: Sun Pulsar
+	AcidPulsar.DisplayName: Acid Pulsar
+	AshPulsar.DisplayName: Ash Pulsar
+	CrystalPulsar.DisplayName: Crystal Pulsar
+	EarthPulsar.DisplayName: Earth Pulsar
+	ExplosionPulsar.DisplayName: Explosion Pulsar
+	FirePulsar.DisplayName: Fire Pulsar
+	GlassPulsar.DisplayName: Glass Pulsar
+	IcePulsar.DisplayName: Ice Pulsar
+	LightningPulsar.DisplayName: Lightning Pulsar
+	LightPulsar.DisplayName: Light Pulsar
+	MagmaPulsar.DisplayName: Magma Pulsar
+	MetalPulsar.DisplayName: Metal Pulsar
+	PlasmaPulsar.DisplayName: Plasma Pulsar
+	PoisonPulsar.DisplayName: Poison Pulsar
+	SandPulsar.DisplayName: Sand Pulsar
+	ShadowPulsar.DisplayName: Shadow Pulsar
+	SnowPulsar.DisplayName: Snow Pulsar
+	WaterPulsar.DisplayName: Water Pulsar
+	WindPulsar.DisplayName: Wind Pulsar
+	WoodPulsar.DisplayName: Wood Pulsar
+	JerminusPulsar.DisplayName: Jerminus Pulsar
+	VesuviusPulsar.DisplayName: Vesuvius Pulsar
+}

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Weapons.Relics
+namespace ArcaneOdyssey.Content.Items.Relics
 {
 	public class EaglePatrimony : RelicWeapon
 	{

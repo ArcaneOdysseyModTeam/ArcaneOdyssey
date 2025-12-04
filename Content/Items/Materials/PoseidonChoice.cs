@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
@@ -22,8 +23,8 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.width = Item.height = 64;
 		}
 
-		public override LocalizedText DisplayName => Mod.CustomLocalization($"Mods.{Mod.Name}.{LocalizationCategory}.{nameof(PoseidonSpirit)}.DisplayName");
-		public override LocalizedText Tooltip => Mod.CustomLocalization($"Mods.{Mod.Name}.{LocalizationCategory}.{nameof(PoseidonSpirit)}.Tooltip");
+		public override LocalizedText DisplayName => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.DisplayName");
+		public override LocalizedText Tooltip => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.Tooltip");
 
 		public override void SetStaticDefaults()
 		{
