@@ -29,14 +29,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return CanUseItem(player);
-		}
+		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool CanUseItem(Player player)
 		{
-			return base.CanUseItem(player) && player.ArcaneOdyssey().myCircle is null;
+			return base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

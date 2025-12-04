@@ -363,7 +363,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item is not null && item.active && (!item.accessory) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
+			if (item is not null && item.active && (!item.accessory || item.ModItem is AnyScroll) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
 				if (item.ArcaneOdyssey().WeaponsType != WeaponType.Artisinal)
 				{
@@ -371,8 +371,7 @@ namespace ArcaneOdyssey
 						|| item.DamageType.CountsAsClass(DamageClass.Ranged)
 						||
 						(
-							item.ModItem is not null
-							&& item.ModItem.GetType().IsSubclassOf(typeof(EmptyScroll))
+							item.ModItem is AnyScroll
 						);
 				}
 			}
@@ -395,7 +394,7 @@ namespace ArcaneOdyssey
 				{
 					return imbue is FightingStyle;
 				}
-				if (item.ModItem is EmptyScroll)
+				if (item.ModItem is AnyScroll)
 				{
 					return true;
 				}

@@ -18,15 +18,12 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			AOPlayer playah = player.ArcaneOdyssey();
-			Item.ArcaneOdyssey().Imbue = playah.Imbue;
-			if (playah.Imbue is AOMagic)
+        {
+            base.UpdateAccessory(player, hideVisual);
+			if (Item.Imbue() is not null)
 			{
-				Item.color = playah.Imbue.GetColor() with { A = (byte)(255 * .75f) };
 				player.GetJumpState<LeapAirStep>().Enable();
 			}
-			else Item.color = Color.Transparent;
 		}
 
 		public override void AddRecipes()

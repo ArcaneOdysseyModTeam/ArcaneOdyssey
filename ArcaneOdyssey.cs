@@ -52,12 +52,12 @@ namespace ArcaneOdyssey
 					excludedItems.Add((int)args[1]);
 					break;
 				case "GetPlayerImbue":
-					AOPlayer player = Main.player[(int)args[1]].ArcaneOdyssey();
-					return player.Imbue.Type;
+					Imbuable imbue1 = Main.player[(int)args[1]].ArcaneOdyssey()?.Imbue;
+					return imbue1;
 					break;
 				case "GetItemImbue":
-					Imbuable imbue = new Item((int)args[1]).ArcaneOdyssey().Imbue;
-					return imbue.Type;
+					Imbuable imbue = ((Item)args[1]).ArcaneOdyssey()?.Imbue;
+					return imbue;
 					break;
 				case "RegisterItemTemperature":
 				case "SetItemTemperature":
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey
 					break;
 				case "GetItemTemperature":
 					var item1 = args[1] as Item;
-					return item1.ArcaneOdyssey().Cold;
+					return item1.ArcaneOdyssey()?.Cold;
 					break;
 				case "AddWeaponType":
 				case "RegisterWeaponType":

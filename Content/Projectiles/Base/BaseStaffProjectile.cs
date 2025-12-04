@@ -7,9 +7,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
 		public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.DamageType = TrueMeleeNoSpeed();
+		{
+			base.SetDefaults();
+			Projectile.DamageType = TrueMeleeNoSpeed();
 			Projectile.knockBack = 4.5f;
 			Projectile.height = Projectile.width = 120;
 			Projectile.friendly = true;
@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
-			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed ?? 1f);
+			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed.FlipFloat() ?? 1f);
 			Vector2 expectedDirection = player.SafeDirectionTo(Main.MouseWorld);
 			player.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
 
@@ -53,11 +53,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			
 			else
 			{
-				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / spintime);
+				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / (25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed ?? 1f)));
 			}
 
 			Projectile.rotation += MathHelper.TwoPi * 2f / spintime * player.direction;
-            player.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
+			player.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
 			player.itemTime = player.itemAnimation = 2;
 		}
 

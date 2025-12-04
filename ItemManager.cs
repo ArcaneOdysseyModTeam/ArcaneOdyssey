@@ -107,24 +107,6 @@ namespace ArcaneOdyssey
 				tooltips.Add(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
 			}
 		}
-
-		//public override bool? UseItem(Item item, Player player)
-		//{
-		//	if (item.TryGetImbue(out var imbue))
-		//	{
-		//		imbue.LingeringEffects(item);
-		//	}
-		//	return base.UseItem(item, player);z
-		//}
-
-		//public override void UseAnimation(Item item, Player player)
-		//{
-		//	if (item.TryGetImbue(out var imbue))
-		//	{
-		//		imbue.SpawningEffects(item);
-		//	}
-		//	base.UseAnimation(item, player);
-		//}
 	}
 
 	public class AOItem : GlobalItem, IImbuable
@@ -150,7 +132,7 @@ namespace ArcaneOdyssey
 			set => _weaponsType = value;
 		}
 
-		public bool BenifitsFromScrollStats => thisItem.ModItem is EmptyScroll || WeaponsType == WeaponType.Arcanium || WeaponsType == WeaponType.Strength;
+		public bool BenifitsFromScrollStats => thisItem.ModItem is AnyScroll || WeaponsType == WeaponType.Arcanium || WeaponsType == WeaponType.Strength;
 
 		private bool _canImbue = true;
 		public bool CanBeAffected
@@ -195,10 +177,7 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (Imbue is null || !CanBeAffected)
 				return;
-			Imbuable imbue = Imbue;
-			if (Imbue is SteamImbue steam)
-				imbue = steam.originalImbue;
-			if (ModContent.RequestIfExists<Texture2D>(imbue.Texture, out var texture))
+			if (ModContent.RequestIfExists<Texture2D>(Imbue.Texture, out var texture))
 			{
 				Vector2 dimensions = new(frame.Width, frame.Height);
 				Vector2 location = position + (dimensions * .25f);

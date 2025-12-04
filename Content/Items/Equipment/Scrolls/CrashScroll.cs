@@ -1,19 +1,20 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	public class CrashScroll : TechniqueScroll
 	{
-		public const int Cooldown = 60 * 7;
+		public const int Cooldown = 60 * 5;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -23,18 +24,15 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			Item.useTime = Cooldown;
 		}
 
-		public override void ModifyWeaponCrit(Player player, ref float crit) => crit *= 0;
+		public override void ModifyWeaponCrit(Player player, ref float crit) => crit = 0;
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			AOPlayer playah = player.ArcaneOdyssey();
-			Item.ArcaneOdyssey().Imbue = playah.Imbue;
-			if (playah.Imbue is FightingStyle)
+        {
+            base.UpdateAccessory(player, hideVisual);
+            if (Item.Imbue() is not null)
 			{
-				Item.color = playah.Imbue.GetColor();
-				player.ArcaneOdyssey().SetDash(new Crash());
+				player.ArcaneOdyssey()?.SetDash(new Crash());
 			}
-			else Item.color = Color.Transparent;
 		}
 
 		public override void AddRecipes()
@@ -136,7 +134,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
-				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
 				if (imbue is ThermoFist thermo)
 				{
 					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
