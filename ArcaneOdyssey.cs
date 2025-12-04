@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.NPCS;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;

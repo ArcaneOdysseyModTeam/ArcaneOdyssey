@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
@@ -166,9 +167,9 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			foreach (string key in helpOptions.Keys)
 			{
-				if (helpOptions[i]())
+				if (helpOptions[key]())
 				{
-					options.Add(i);
+					options.Add(key);
 				}
 			}
 
