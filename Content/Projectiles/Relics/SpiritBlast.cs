@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 					dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (15 + (Main.rand.NextFloat() * 2)));
 					dust.noGravity = true;
 				}
-				SimulateAOE(Projectile.width * 2.5f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
+				SimulateAOE(Projectile.width * 1.25f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
 			}
 		}
 	}

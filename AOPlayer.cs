@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey
 {
@@ -21,7 +20,7 @@ namespace ArcaneOdyssey
 		public bool SoftFrozen => chargingSpell || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
-        public int groundedCounter = 0;
+		public int groundedCounter = 0;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
@@ -33,13 +32,13 @@ namespace ArcaneOdyssey
 		{
 			if (useplayerimbue)
 				imbue ??= Imbue;
-            if (imbue is not null)
-            {
-                if (imbue is EnergyMagic)
-                {
-                    Player.statMana = Math.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
-                }
-                foreach (var buff in imbue.ImbueDebuffs)
+			if (imbue is not null)
+			{
+				if (imbue is EnergyMagic)
+				{
+					Player.statMana = Math.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
+				}
+				foreach (var buff in imbue.ImbueDebuffs)
 				{
 					var instance = DebuffHelpers.Find(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
 					if (DebuffHelpers.Contains(instance))
@@ -60,9 +59,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override void UpdateLifeRegen()
+		public override void NaturalLifeRegen(ref float regen)
 		{
-			Player.lifeRegen += 5 * pheonixHealing;
+			regen *= 1f + (pheonixHealing / 5f);
 		}
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -90,33 +89,33 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public void FreezeMovement() 
+		public void FreezeMovement()
 		{
-            if (Player.velocity.Y < 1 && Player.velocity.Y > -1)
-            {
-                groundedCounter++;
-            }
-            else
-                groundedCounter = 0;
-            if (SoftFrozen)
-            {
-                if (FirstFrozenFrame)
-                {
-                    CanMoveOnGround = groundedCounter > 10;
-                }
-                if (!CanMoveOnGround)
-                {
-                    Player.gravity = 0f;
-                    Player.velocity.X *= 0;
-                    Player.velocity.Y *= 0;
-                }
-                timeSinceSoftFrozen++;
-            }
-            else
-            {
-                timeSinceSoftFrozen = 0;
-                CanMoveOnGround = false;
-            }
+			if (Player.velocity.Y < 1 && Player.velocity.Y > -1)
+			{
+				groundedCounter++;
+			}
+			else
+				groundedCounter = 0;
+			if (SoftFrozen)
+			{
+				if (FirstFrozenFrame)
+				{
+					CanMoveOnGround = groundedCounter > 10;
+				}
+				if (!CanMoveOnGround)
+				{
+					Player.gravity = 0f;
+					Player.velocity.X *= 0;
+					Player.velocity.Y *= 0;
+				}
+				timeSinceSoftFrozen++;
+			}
+			else
+			{
+				timeSinceSoftFrozen = 0;
+				CanMoveOnGround = false;
+			}
 		}
 
 		public override void ResetEffects()

@@ -321,14 +321,3 @@ RandomWords: {
 	Help: Help
 	Press: Press
 }
-
-Mods: {
-	ArcaneOdyssey: {
-		Items: {
-			PoseidonSpirit: {
-				DisplayName: DisplayName
-				Tooltip: Tooltip
-			}
-		}
-	}
-}
