@@ -22,16 +22,11 @@ namespace ArcaneOdyssey.VFX.Gores
 
 		public override bool Update(Gore gore)
 		{
-			gore.frameCounter++;
-			if (gore.frameCounter >= 10)
+			if (++gore.frameCounter >= 10)
 			{
-				if (gore.frame + 1 > 2)
+				if (++gore.frame > gore.numFrames)
 				{
 					gore.frame = 0;
-				}
-				else
-				{
-					gore.frame++;
 				}
 				gore.frameCounter = 0;
 			}

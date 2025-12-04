@@ -113,6 +113,7 @@ NPCs: {
 			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing drink while using it.
 			WeaponSkills: Some weapons have special skills, make good use of them.
 			SpiritWeapon: Relic weapons are items that were blessed by gods and granted power. Only those with Relics may harness Spirit Energy.
+			ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
 		}
 
 		TownNPCMood: {

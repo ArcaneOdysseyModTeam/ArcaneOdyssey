@@ -145,6 +145,12 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 		}
 
+		internal static Dictionary<string, Func<bool>> helpOptions = [];
+		public static void AddHelpOption(string value, Func<bool> condition)
+		{
+			helpOptions[value] = condition;
+		}
+
 		public string GetChatHelpButton()
 		{
 			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
@@ -156,6 +162,14 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (false) // add conditions later
 			{
 				options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
+			}
+
+			foreach (string key in helpOptions.Keys)
+			{
+				if (helpOptions[i]())
+				{
+					options.Add(i);
+				}
 			}
 
 			if (BossesKilled < 3)
@@ -213,9 +227,14 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
 			{
 				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
-			}
+            }
 
-			if (Main.hardMode && NPC.downedPirates)
+            if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Artisinal)
+            {
+                options.Add(this.GetLocalizedValue("Help.ArtisinalWeapon"));
+            }
+
+            if (Main.hardMode && NPC.downedPirates)
 			{
 				options.Add(this.GetLocalizedValue("Help.CannonFist"));
 			}
@@ -305,6 +324,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				SoundEngine.PlaySound(SoundID.Item74, NPC.position, null);
 			}
 		}
+
 		public override bool CanTownNPCSpawn(int numTownNPCs) => ArcaneOdysseyConfig.Instance.EnableMorden;
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;

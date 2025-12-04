@@ -78,6 +78,9 @@ namespace ArcaneOdyssey
 					var item3 = (int)args[1];
 					return weaponTypes[item3];
 					break;
+				case "AddMordenDialogue":
+					Edgelord.AddHelpOption((string)args[1], (Func<bool>)args[2]);
+					break;
 			}
 			return null;
 		}
