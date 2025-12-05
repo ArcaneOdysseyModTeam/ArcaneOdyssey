@@ -14,12 +14,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost
 			Main.projFrames[Type] = 4;
 		}
 
-		public override void PostDraw(Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
+
 			if (ModContent.RequestIfExists<Texture2D>(Texture + "_Overlay", out var texture))
 			{
-				Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, new(0, texture.Width() * overlayFrame, texture.Width(), texture.Width()), lightColor, -MathHelper.PiOver2, new(texture.Width() / 2f), Projectile.scale, SpriteEffects.None);
+				Main.EntitySpriteDraw(texture.Value, Projectile.Center - (Projectile.velocity.SafeNormalize(Vector2.Zero) * (Projectile.Size / 2f * Projectile.scale)) - Main.screenPosition, new(0, texture.Width() * overlayFrame, texture.Width(), texture.Width()), lightColor, Projectile.velocity.ToRotation(), new(texture.Width() / 2f), Projectile.scale * .9f, SpriteEffects.None);
 			}
+			return base.PreDraw(ref lightColor);
 		}
 
 		private int overlayFrame = 0;

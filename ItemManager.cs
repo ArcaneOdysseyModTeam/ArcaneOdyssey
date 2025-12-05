@@ -181,7 +181,7 @@ namespace ArcaneOdyssey
 			{
 				Vector2 dimensions = new(frame.Width, frame.Height);
 				Vector2 location = position + (dimensions * .25f);
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .3f, SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .3f * (item.width / frame.Width * 1.2f), SpriteEffects.None, 1f);
 			}
 		}
 

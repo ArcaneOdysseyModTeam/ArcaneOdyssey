@@ -227,11 +227,11 @@ DamageClasses: {
 	TrueWarlordNoSpeed: true warlord damage
 	Warlord: warlord damage
 	WarlordNoSpeed: warlord damage
-	Knight: knight
-	KnightNoSpeed: knight
-	RangedKnight: ranged knight
-	TrueKnight: true knight
-	TrueKnightNoSpeed: true knight
+	Knight: knight damage
+	KnightNoSpeed: knight damage
+	RangedKnight: ranged knight damage
+	TrueKnight: true knight damage
+	TrueKnightNoSpeed: true knight damage
 }
 
 WeaponAbilities: {
