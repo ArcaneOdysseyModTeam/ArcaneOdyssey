@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override string LocalizationCategory => "Magic.Spells.Cannons";
 		public int TileTimer = 0;
 
-        public override float AOSize => 2f;
+		public override float AOSize => 2f;
 
 		public override void SetDefaults()
 		{
@@ -26,26 +26,30 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (TileTimer > 0)
 				TileTimer--;
-			if (Projectile.frameCounter > 5)
-			{
-				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
-				{
-					Projectile.frame = 0;
-				}
-			}
-			Projectile.frameCounter++;
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;
 				Projectile.netUpdate = true;
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
+			Animate();
 			Rotate();
 			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
 			{
 				Kill();
 				return;
+			}
+		}
+
+		public virtual void Animate()
+		{
+			if (Projectile.frameCounter++ > 5)
+			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				{
+					Projectile.frame = 0;
+				}
 			}
 		}
 

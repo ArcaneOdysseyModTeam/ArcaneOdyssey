@@ -6,14 +6,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BlastSpell : MagicSpell, ILocalizedModType
 	{
-        // ai 2 is first frame bool
+		// ai 2 is first frame bool
 
-        public override string LocalizationCategory => "Magic.Spells.Blasts";
-        public override void SetDefaults()
+		public override string LocalizationCategory => "Magic.Spells.Blasts";
+		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-            Projectile.timeLeft = 5 * 60;
+			Projectile.timeLeft = 5 * 60;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -26,23 +26,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 
 		public override void AI()
-        {
-            if (Projectile.frameCounter > 5)
-			{
-				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
-				{
-					Projectile.frame = 0;
-				}
-			}
-			Projectile.frameCounter++;
+		{
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;
 				Projectile.netUpdate = true;
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-            Rotate();
+			Animate();
+			Rotate();
 			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
 			{
 				Kill();
@@ -50,9 +42,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 		}
 
-        public virtual void Rotate()
-        {
-            Projectile.rotation = Projectile.velocity.ToRotation();
-        }
+		public virtual void Animate()
+		{
+			if (Projectile.frameCounter++ > 5)
+			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				{
+					Projectile.frame = 0;
+				}
+			}
+		}
+
+		public virtual void Rotate()
+		{
+			Projectile.rotation = Projectile.velocity.ToRotation();
+		}
 	}
 }

@@ -205,6 +205,11 @@ namespace ArcaneOdyssey
 						}
 					}
 
+					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon chests probably
+					{
+						// maybe oathkeeper goes here later
+					}
+
 					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
 					{
 
