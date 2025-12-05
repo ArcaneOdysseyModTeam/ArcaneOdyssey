@@ -155,11 +155,11 @@ MagicTierLines: {
 
 FSTierLines: {
 	Normal: "[c/700013:~ Fighting Style ~]"
-	Lost: "[c/0044ff:~ Lost Fighting Style ~]"
-	Ancient: "[c/7ebcc2:~ Ancient Fighting Style ~]"
-	Primordial: "[c/ffc2c2:~ Primordial Fighting Style ~]"
+	Lost: "[c/7ebcc2:~ Lost Fighting Style ~]"
 	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
 }
+
+RelicTierLines.Normal: "[c/2277ff:~ Relic ~]"
 
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
@@ -227,6 +227,11 @@ DamageClasses: {
 	TrueWarlordNoSpeed: true warlord damage
 	Warlord: warlord damage
 	WarlordNoSpeed: warlord damage
+	Knight: knight
+	KnightNoSpeed: knight
+	RangedKnight: ranged knight
+	TrueKnight: true knight
+	TrueKnightNoSpeed: true knight
 }
 
 WeaponAbilities: {

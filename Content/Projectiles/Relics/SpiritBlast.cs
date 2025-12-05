@@ -13,30 +13,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class SpiritBlast : SpiritProjectile
 	{
-		public override AODebuffRequirement? Debuff => new(ModContent.BuffType<AOParalyzed>(), 60, 33);
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
-
-		public override SynergyEffects Effects => new( // copy of lightning lmao
-			[ // these are debuffs cleared on hit
-				ModContent.BuffType<AOPetrified>(), // petrified
-				ModContent.BuffType<CharredEffect>(),
-				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<AOBleed>(),
-				ModContent.BuffType<AOFrozen>()
-			],
-			[
-				new(BuffID.Chilled, 1.2f), // frozen
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(BuffID.Burning, 1.15f), // scalding
-				new(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new(BuffID.Venom, 1.075f), // venom acid
-				new(BuffID.Wet, 1.05f), // (add stunning later!)
-				new(BuffID.ShadowFlame,1.15f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
-			]
-			);
-
 		public override void SetDefaults()
         {
             base.SetDefaults();
@@ -55,7 +31,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (!Main.dedServ)
 			{
 				Lighting.AddLight(Projectile.Center, TorchID.Ice);
-				Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SpiritTentacle>(), newColor: Color.White, Scale: .75f).noGravity = true;
 				for (float i = 0; i < 10; i++)
 				{
 					Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.width, DustID.IcyMerman, Projectile.velocity.X/2, Projectile.velocity.Y/2).noGravity = true;

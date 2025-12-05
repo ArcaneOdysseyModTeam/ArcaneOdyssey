@@ -14,6 +14,7 @@ using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Other;
 using static ArcaneOdyssey.AOUtils;
+using ArcaneOdyssey.Content.Items.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -59,13 +60,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool ShowItemTypeTooltip => false;
 
-        public virtual float AOImbueSpeed => .9f;
+		public virtual float AOImbueSpeed => .9f;
 		public virtual float AOImbueSize => .9f;
-        public virtual float AOImbueDamage => .9f;
-        public virtual float AOScrollSpeed => AOImbueSpeed + .1f;
-		public virtual float AOScrollSize => AOImbueSize + .1f;
-		public virtual float AOScrollDamage => AOImbueDamage + .1f;
-		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
+		public virtual float AOImbueDamage => .9f;
+		public virtual float AOScrollSpeed => AOImbueSpeed < 1f ? AOImbueSpeed + .1f : AOImbueSpeed - .1f;
+		public virtual float AOScrollSize => AOImbueSize < 1f ? AOImbueSize + .1f : AOImbueSize - .1f;
+        public virtual float AOScrollDamage => AOImbueDamage < 1f ? AOImbueDamage + .1f : AOImbueDamage - .1f;
+        public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
 		public virtual AODebuffRequirement[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);
 		public virtual Color ImbueColour => Color.Transparent;
@@ -115,44 +116,47 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
-			player.GetModPlayer<ThermoFallOff>().resetBar = true;
-			var name = "";
-			if (player.Imbue() is SteamImbue steam)
+			if (!player.AltUse())
 			{
-				name = steam.originalImbue.Name;
-			}
-			else if (player.Imbue() is not null) 
-				name = player.Imbue().Name;
-			if (FirstFrame && Name != name && this is AOMagic && player == Main.LocalPlayer)
-			{
-				AOMagic.CreateMagicCircle(Item, player, this);
-			}
-			if (Name != name && FirstFrame)
-			{
-				FirstFrame = false;
-				player.ArcaneOdyssey().Imbue = this;
-				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
-				if (Main.netMode == NetmodeID.SinglePlayer)
+				player.GetModPlayer<ThermoFallOff>().resetBar = true;
+				var name = "";
+				if (player.Imbue() is SteamImbue steam)
 				{
-					Main.NewText(chatmessage.Value, 13, 132, 168);
+					name = steam.originalImbue.Name;
 				}
-				else if (Main.dedServ)
+				else if (player.Imbue() is not null)
+					name = player.Imbue().Name;
+				if (FirstFrame && Name != name && this is AOMagic && player == Main.LocalPlayer)
 				{
-					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
+					AOMagic.CreateMagicCircle(Item, player, this);
 				}
-			}
-			else if (FirstFrame)
-			{
-				FirstFrame = false;
-				player.ArcaneOdyssey().Imbue = null;
-				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
-				if (Main.netMode == NetmodeID.SinglePlayer)
+				if (Name != name && FirstFrame)
 				{
-					Main.NewText(chatmessage.Value, 13, 132, 168);
+					FirstFrame = false;
+					player.ArcaneOdyssey().Imbue = this;
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
+					if (Main.netMode == NetmodeID.SinglePlayer)
+					{
+						Main.NewText(chatmessage.Value, 13, 132, 168);
+					}
+					else if (Main.dedServ)
+					{
+						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
+					}
 				}
-				else if (Main.dedServ)
+				else if (FirstFrame)
 				{
-					ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
+					FirstFrame = false;
+					player.ArcaneOdyssey().Imbue = null;
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
+					if (Main.netMode == NetmodeID.SinglePlayer)
+					{
+						Main.NewText(chatmessage.Value, 13, 132, 168);
+					}
+					else if (Main.dedServ)
+					{
+						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
+					}
 				}
 			}
 			return null;
@@ -201,8 +205,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			base.SetDefaults();
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.useTime = 60;
-			Item.useAnimation = 60;
+			Item.width = Item.height = 52;
+			Item.useAnimation = Item.useTime = 60;
 			Item.noUseGraphic = true;
 			Item.alpha = (255 * MathHelper.Clamp(ItemInvisibility, 0f, 1f)).Round();
 		}
@@ -239,6 +243,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				if (this is AOMagic) { return "Magic"; }
 				if (this is FightingStyle) { return "FS"; }
+				if (this is RelicWeapon) { return "Relic"; }
 				else { return null; }
 			} }
 

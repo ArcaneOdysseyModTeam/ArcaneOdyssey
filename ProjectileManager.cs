@@ -217,11 +217,15 @@ namespace ArcaneOdyssey
 					Imbue ??= proj.ArcaneOdyssey().Imbue;
 					Cold ??= proj.ArcaneOdyssey().Cold;
 					spawnedbyprojectile = Imbue is not null;
-					magicspeed = proj.ModProjectile is MagicSpell;
+					magicspeed = proj.ModProjectile is MagicSpell or StrengthTechnique or SpiritProjectile;
 				}
 				else if (source is EntitySource_ItemUse { Item: Item item })
 				{
-					if (item.TryGetGlobalItem<AOItem>(out var aOItem))
+					if (item.ModItem is RelicWeapon relic)
+					{
+						Imbue ??= relic;
+					}
+					else if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
 						Imbue ??= aOItem.Imbue;
 						Cold ??= aOItem.Cold;

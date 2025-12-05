@@ -21,7 +21,7 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
-		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue)
+		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue = null)
 		{
 			if (imbue is null)
 			{
@@ -38,6 +38,14 @@ namespace ArcaneOdyssey
 				{
 					return ModContent.GetInstance<ConjurerNoSpeed>();
 				}
+				if (damageClass == DamageClass.Melee && imbue is RelicWeapon)
+				{
+					return ModContent.GetInstance<Knight>();
+				}
+				if (damageClass == DamageClass.MeleeNoSpeed && imbue is RelicWeapon)
+				{
+					return ModContent.GetInstance<KnightNoSpeed>();
+				}
 				if (damageClass == DamageClass.Melee && imbue is FightingStyle)
 				{
 					return ModContent.GetInstance<Warlord>();
@@ -49,24 +57,36 @@ namespace ArcaneOdyssey
 
 				if (damageClass == TrueMelee() && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<Conjurer>();
+					return ModContent.GetInstance<TrueConjurer>();
 				}
 				if (damageClass == TrueMeleeNoSpeed() && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<ConjurerNoSpeed>();
+					return ModContent.GetInstance<TrueConjurerNoSpeed>();
+				}
+				if (damageClass == TrueMelee() && imbue is RelicWeapon)
+				{
+					return ModContent.GetInstance<TrueKnight>();
+				}
+				if (damageClass == TrueMeleeNoSpeed() && imbue is RelicWeapon)
+				{
+					return ModContent.GetInstance<TrueKnightNoSpeed>();
 				}
 				if (damageClass == TrueMelee() && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<Warlord>();
+					return ModContent.GetInstance<TrueWarlord>();
 				}
 				if (damageClass == TrueMeleeNoSpeed() && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<WarlordNoSpeed>();
+					return ModContent.GetInstance<TrueWarlordNoSpeed>();
 				}
 
 				if (damageClass == DamageClass.Ranged && imbue is AOMagic)
 				{
 					return ModContent.GetInstance<RangedConjurer>();
+				}
+				if (damageClass == DamageClass.Ranged && imbue is RelicWeapon)
+				{
+					return ModContent.GetInstance<RangedKnight>();
 				}
 				if (damageClass == DamageClass.Ranged && imbue is FightingStyle)
 				{
@@ -75,49 +95,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				var steamimbue = steam.originalImbue;
-				if (damageClass == DamageClass.Melee && steamimbue is AOMagic)
-				{
-					return ModContent.GetInstance<Conjurer>();
-				}
-				if (damageClass == DamageClass.MeleeNoSpeed && steamimbue is AOMagic)
-				{
-					return ModContent.GetInstance<ConjurerNoSpeed>();
-				}
-				if (damageClass == DamageClass.Melee && steamimbue is FightingStyle)
-				{
-					return ModContent.GetInstance<Warlord>();
-				}
-				if (damageClass == DamageClass.MeleeNoSpeed && steamimbue is FightingStyle)
-				{
-					return ModContent.GetInstance<WarlordNoSpeed>();
-				}
-
-				if (damageClass == TrueMelee() && steamimbue is AOMagic)
-				{
-					return ModContent.GetInstance<Conjurer>();
-				}
-				if (damageClass == TrueMeleeNoSpeed() && steamimbue is AOMagic)
-				{
-					return ModContent.GetInstance<ConjurerNoSpeed>();
-				}
-				if (damageClass == TrueMelee() && steamimbue is FightingStyle)
-				{
-					return ModContent.GetInstance<Warlord>();
-				}
-				if (damageClass == TrueMeleeNoSpeed() && steamimbue is FightingStyle)
-				{
-					return ModContent.GetInstance<WarlordNoSpeed>();
-				}
-
-				if (damageClass == DamageClass.Ranged && steamimbue is AOMagic)
-				{
-					return ModContent.GetInstance<RangedConjurer>();
-				}
-				if (damageClass == DamageClass.Ranged && steamimbue is FightingStyle)
-				{
-					return ModContent.GetInstance<RangedWarlord>();
-				}
+				return damageClass.Imbued(steam.originalImbue);
 			}
 
 			return damageClass;
@@ -125,25 +103,25 @@ namespace ArcaneOdyssey
 
 		public static DamageClass UnImbued(this DamageClass damageClass)
 		{
-			if (damageClass.Name == Conjurer.InternalName || damageClass.Name == Warlord.InternalName)
+			if (damageClass.Name == Conjurer.InternalName || damageClass.Name == Warlord.InternalName || damageClass.Name == Knight.InternalName)
 			{
 				return DamageClass.Melee;
 			}
-			if (damageClass.Name == ConjurerNoSpeed.InternalName || damageClass.Name == WarlordNoSpeed.InternalName)
+			if (damageClass.Name == ConjurerNoSpeed.InternalName || damageClass.Name == WarlordNoSpeed.InternalName || damageClass.Name == KnightNoSpeed.InternalName)
 			{
 				return DamageClass.MeleeNoSpeed;
 			}
 
-			if (damageClass.Name == TrueConjurer.InternalName || damageClass.Name == TrueWarlord.InternalName)
+			if (damageClass.Name == TrueConjurer.InternalName || damageClass.Name == TrueWarlord.InternalName || damageClass.Name == TrueKnight.InternalName)
 			{
 				return TrueMelee();
 			}
-			if (damageClass.Name == TrueWarlordNoSpeed.InternalName || damageClass.Name == TrueConjurerNoSpeed.InternalName)
+			if (damageClass.Name == TrueWarlordNoSpeed.InternalName || damageClass.Name == TrueConjurerNoSpeed.InternalName || damageClass.Name == TrueKnightNoSpeed.InternalName)
 			{
 				return TrueMeleeNoSpeed();
 			}
 
-			if (damageClass.Name == RangedWarlord.InternalName || damageClass.Name == RangedConjurer.InternalName)
+			if (damageClass.Name == RangedWarlord.InternalName || damageClass.Name == RangedConjurer.InternalName || damageClass.Name == RangedKnight.InternalName)
 			{
 				return DamageClass.Ranged;
 			}
@@ -406,6 +384,10 @@ namespace ArcaneOdyssey
 				{
 					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium;
 				}
+				if (imbue is RelicWeapon)
+				{
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal;
+				}
 				if (imbue is null)
 				{
 					return true;
@@ -615,10 +597,6 @@ namespace ArcaneOdyssey
 			if (item.ammo != AmmoID.None)
 			{
 				return ItemType.Ammo;
-			}
-			if (item.DamageType.Name == Oracle.InternalName)
-			{
-				return ItemType.Relic;
 			}
 			if (item.damage > 0 && item.useStyle != ItemUseStyleID.None)
 			{
@@ -947,7 +925,6 @@ namespace ArcaneOdyssey
 		Material,
 		Accessory,
 		Armour,
-		Relic,
 		Weapon,
 		Tool,
 		Vanity

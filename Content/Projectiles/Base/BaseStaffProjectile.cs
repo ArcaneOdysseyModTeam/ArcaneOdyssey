@@ -1,11 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
