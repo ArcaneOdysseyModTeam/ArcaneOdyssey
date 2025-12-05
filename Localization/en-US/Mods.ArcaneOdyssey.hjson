@@ -3,225 +3,81 @@
 WorldGen: {
 	Tucker: Burying Tucker
 	Morden: Placing Morden
+	EliusArena: Spawning a mysterious sky island
 }
 
 Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
-	DebuffDummy: A being older than this world, said to be the source of everything.
+	Evander: A famous bounty hunter, who hunts the bounty placed on you.
 }
 
 MenuStyle: Odyssey Style
-AltMenuStyle: Dark Sea Style
-SpiritDamage: spirit damage
-AnyBasicImbue: Any Basic Imbue
-
-Buffs: {
-	RisenTide: {
-		Description: Rising Tide is on cooldown
-		DisplayName: Drained Sea
-	}
-
-	FreezingEffect: {
-		DisplayName: Freezing
-		Description: Your fingers are turning pale
-	}
-
-	SnowyEffect: {
-		DisplayName: Snowy
-		Description: Feels chilly
-	}
-
-	RisingTide: {
-		DisplayName: Rising Tide
-		Description: Rapidly ascending
-	}
-
-	AOFrozen: {
-		DisplayName: Frozen
-		Description: You can't move
-	}
-
-	AOPetrified: {
-		DisplayName: Petrified
-		Description: You can't move
-	}
-
-	AOParalyzed: {
-		DisplayName: Paralyzed
-		Description: You can't move
-	}
-
-	CharredEffect: {
-		DisplayName: Charred
-		Description: You are covered in ash
-	}
-
-	Crystallized: {
-		DisplayName: Crystallized
-		Description: "{0} Crystals are embeded in your body, ready to shatter and deal damage"
-	}
-
-	AOBleed: {
-		DisplayName: Bleeding
-		Description: You are losing blood fast
-	}
-
-	SandyEffect: {
-		Description: You are covered in sand
-		DisplayName: Sandy Effect
-	}
-
-	Trauma: {
-		DisplayName: Traumatized
-		Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
-	}
-
-	RowboatBuff: {
-		DisplayName: Rowboat
-		Description: A wooden rowboat that seems to increase your fishing skill
-	}
-
-	AOScalding: {
-		DisplayName: Scalding
-		Description: You are covered in a thick cloud of hot steam
-	}
-
-	BlindedEffect: {
-		DisplayName: Blinded
-		Description: You can't see too well
-	}
-
-	DrainedEffect: {
-		DisplayName: Drained
-		Description: You feel drained and fatigued
-	}
-
-	IonizedEffect: {
-		DisplayName: Ionized
-		Description: Your skin burns and glows green
-	}
-
-	SearedEffect: {
-		DisplayName: Seared Effect
-		Description: Mods.ArcaneOdyssey.Buffs.SearedEffect.Description
-	}
-}
-
-Projectiles: {
-	FuryoftheSea.DisplayName: Fury of the Sea
-	SunkenStaffProjectile.DisplayName: Sunken Staff
-	IceBlast.DisplayName: Ice Blast
-	AcidBlast.DisplayName: Acid Blast
-	AetherBlast.DisplayName: Aether Blast
-	AncientLightningBlast.DisplayName: Ancient Lightning Blast
-	AshBlast.DisplayName: Ash Blast
-	CrystalBlast.DisplayName: Crystal Blast
-	EarthBlast.DisplayName: Earth Blast
-	ExplosionBlast.DisplayName: Explosion Blast
-	FireBlast.DisplayName: Fire Blast
-	FlareBlast.DisplayName: Flare Blast
-	GlassBlast.DisplayName: Glass Blast
-	GravityBlast.DisplayName: Gravity Blast
-	HeatBlast.DisplayName: Heat Blast
-	LightBlast.DisplayName: Light Blast
-	LightningBlast.DisplayName: Lightning Blast
-	MagmaBlast.DisplayName: Magma Blast
-	MetalBlast.DisplayName: Metal Blast
-	PlasmaBlast.DisplayName: Plasma Blast
-	PoisonBlast.DisplayName: Poison Blast
-	PoisonLightningBlast.DisplayName: Poison Lightning Blast
-	SandBlast.DisplayName: Sand Blast
-	ShadowBlast.DisplayName: Shadow Blast
-	SnowBlast.DisplayName: Snow Blast
-	VesuviusBlast.DisplayName: Vesuvius Blast
-	WaterBlast.DisplayName: Water Blast
-	WindBlast.DisplayName: Wind Blast
-	WoodBlast.DisplayName: Wood Blast
-	JerminusBlast.DisplayName: Jerminus Blast
-	MagicCircle1.DisplayName: Magic Circle
-	MagicCircle2.DisplayName: Magic Circle
-	ExplosionTracker.DisplayName: Explosion Spell
-	ExplosionSpell.DisplayName: Explosion
-	DeliriumBlast.DisplayName: Delirium Blast
-	DeathCurse.DisplayName: Death Curse..
-	ColossalCleave.DisplayName: Colossal Cleave
-	SpiritBlast.DisplayName: Spirit Blast
-	FrogBlast.DisplayName: Frog Blast
-	IonBlast.DisplayName: Ion Blast
-	WoodenStaffProjectile.DisplayName: Wooden Staff
-	EvanderSlash.DisplayName: Colossal Cleave
-	OldTridentProjectile.DisplayName: Old Trident
-	Whirlwind.DisplayName: Whirlwind
-	BronzeTridentProjectile.DisplayName: Bronze Trident
-	BronzeStaffProjectile.DisplayName: Bronze Staff
-	MountainWind.DisplayName: Mountain Wind
-	PiercingStrikesProjectile.DisplayName: Bronze Rapier
-	LeapFix.DisplayName: Leap Fix
-	PowderExplosion.DisplayName: Powder Explosion
-	PiercingGale.DisplayName: Piercing Gale
-}
+AnyBasicImbue: Any Worthy Item
 
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
-	ImbueTooltip: Current Imbue: {0}
-	ImbueTooltipMagic: Current Imbue: [c/327DFF:{0}]
-	ImbueTooltipStrength: Current Imbue: [c/700013:{0}]
-	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
-	StrengthIndicator: "[c/700013:-Strength Weapon-]"
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
-}
-
-PopupText: {
-	RisingTide: Rising Tide!
-	ColossalCleave: Colossal Cleave!
+	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
+	StrengthIndicator: "[c/700013:-Strength Weapon-]"
+	ArtisinalIndicator: "[c/ADA500:-Artisinal Weapon-]"
 }
 
 Configs: {
 	ArcaneOdysseyConfig: {
-		DisplayName: Arcane Odyssey Config
+		DisplayName: Server Config
 
 		AffectsOtherMods: {
-			Label: Affect other mods
+			Label: "[i:Cog] Affect other mods"
 			Tooltip: Allows imbues and rarity tooltips to affect items from other mods
 		}
 
+		EnableMorden: {
+			Label: "[i:Flymeal] Enable Morden"
+			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
+		}
+
+		VanillaItemTemperatures: {
+			Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
+			Tooltip: Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
+		}
+
+		ProjectileSizes: {
+			Label: "[i:ArcaneOdyssey/ColossalGreatsword] Projectile Sizes"
+			Tooltip: Toggles projectiles having their size affected by the mod
+		}
+	}
+
+	ArcaneOdysseyClientConfig: {
+		DisplayName: Client Config
+
+		ElfPetSoundEffects: {
+			Label: "[i:ArcaneOdyssey/ElfPetItem] Elf Pet Sound Effects"
+			Tooltip: ""
+		}
+
 		GenerateTucker: {
-			Label: Generate Tucker's Grave
+			Label: "[i:CrossGraveMarker] Generate Tucker's Grave"
 			Tooltip: Toggles the generation of Tucker's grave on world creation
 		}
 
-		EnableMorden: {
-			Label: Enable Morden
-			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
+		AlternatePhoenixEffectVFX: {
+			Label: "[i:ArcaneOdyssey/PhoenixMagic] Alternate Phoenix Flames Effect"
+			Tooltip: Toggles an alternate look for the Phoenix Magic debuff's effect, resembling a bird
 		}
 	}
 }
 
-KeybindStuff: {
-	DashHelp: Double tap a movement key
-	CalDash: Press the Calamity Dash Keybind (if set)
-	Unbound: Unbound
-}
-
-RandomWords: {
-	Press: Press
-	None: None
-	Or: or
-	Default: Default
-	Ability: Ability
-}
+KeybindStuff.DashHelp: Double tap a movement key
 
 NPCs: {
-	DebuffDummy.DisplayName: ???
-
 	Edgelord: {
 		DisplayName: Curse Thief
 		DisplayName1: Edgelord
 		DeathCurse: Morden's Curse has left...
 		Census.SpawnCondition: Always available, spawned on world creation
 		DyingText: HELP!
-		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy
+		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy.
 
 		Chat: {
 			Intro: Hello, {PlayerName}.
@@ -230,13 +86,14 @@ NPCs: {
 			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he is as immortal as I.
 			Hello: Hello again.
 			Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
-			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior.
+			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior. Talk to me if you need help using it.
 		}
 
 		Help: {
 			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
 			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
 			EarlyMagic2: Magic spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
+			EarlyMagic3: You can imbue your items with your magic or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
 			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but technique scrolls are needed to use your full power. Try crafting paper at a sawmill with gel and wood.
 			EarlyFighting2: Some techniques allow you to launch yourself in a direction, depending on the type you can [{Keybind1} or {Keybind2}].
 			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
@@ -245,15 +102,18 @@ NPCs: {
 			EarlyHard1: Killing that beast should have granted you some of it's power in the form of a sigil. You should use that if you haven't already.
 			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			ShimmerTip: Bronze can be created using copper and tin and a lot of heat. If only there was a way to transmute those ores...
+			BronzeTip: Bronze can be created using {0} and {1} and some sort of chaotic material.
 			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
 			SunkenWeapon: Although made of Arcanium metal, that sword in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
-			StrengthWeaponsHint: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
-			HasStrengthWeapon: I see you've encountered a strong warrior. Such warriors wield weapons too heavy for regular warriors, and so they learn to use a fighting style.
+			EvanderWarning: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
+			HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
 			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
-			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing potion while using it.
+			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing drink while using it.
+			WeaponSkills: Some weapons have special skills, make good use of them.
+			SpiritWeapon: Relic weapons are items that were blessed by gods and granted power. Only those with Relics may harness Spirit Energy.
+			ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
 		}
 
 		TownNPCMood: {
@@ -276,36 +136,194 @@ NPCs: {
 		}
 	}
 
-	Evander.DisplayName: Evander, the Mountainbreaker
+	Evander: {
+		DisplayName: Evander, the Mountainbreaker
+		DeathMessage: Evander, the Mountainbreaker has been defeated!
+		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world. Spawning decreased reduced after being defeated.
+	}
+
+	DebuffDummy.DisplayName: Debuff Dummy
 }
 
 MagicTierLines: {
-	Unobtainable: Unobtainable
-	Normal: "[c/2277ff:-Standard Magic-]"
-	Lost: "[c/0044ff:-Lost Magic-]"
-	Ancient: "[c/7ebcc2:-Ancient Magic-]"
-	Custom: "[c/ff0000:-Custom Magic-]"
+	Normal: "[c/2277ff:~ Standard Magic ~]"
+	Lost: "[c/0044ff:~ Lost Magic ~]"
+	Ancient: "[c/7ebcc2:~ Ancient Magic ~]"
+	Primordial: "[c/ffc2c2:~ Primordial Magic ~]"
+	Developer: "[c/ff0000:~ Developer Magic ~]"
 }
 
 FSTierLines: {
-	Unobtainable: Unobtainable
-	Normal: "[c/700013:-Fighting Style-]"
-	Lost: "[c/0044ff:-Lost Fighting Style-]"
-	Ancient: "[c/7ebcc2:-Ancient Fighting Style-]"
-	Custom: "[c/ff0000:-Custom Fighting Style-]"
+	Normal: "[c/700013:~ Fighting Style ~]"
+	Lost: "[c/7ebcc2:~ Lost Fighting Style ~]"
+	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
 }
+
+RelicTierLines.Normal: "[c/2277ff:~ Relic ~]"
 
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
 	Speed: "{0}% increased attack speed"
 	Power: "{0}% increased damage and critical strike chance"
-	Minions: +{0} minion slots
-	Mana: +{0} maximum mana
+	Minions: Increases your max number of minions by {0}
+	Mana: Increases maximum mana by {0}
 	Size: "{0}% increased attack size"
+	Pierce: Increases armour penetration by {0}
+}
+
+CodebreakerDialogOption: {
+	Name: The Dark Sea
+	Description1: This planet is abundant with magic, to a scale of which has never been recorded even among auric dragons and true gods.
+	Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
+	Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world - Xeroc, who has been unaccounted for - Yharon, who still needs much more time to revive.
+	Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
+	DemiDescription1: While observing you, I have learned many things about the past of this planet. The amount of energy needed to create the "fracture" far exceeds what any current living being can output, barring the traitor almighty.
+	DemiDescription2: A majority of the world has been devastated by this "fracture". This was long before my creation. Of course, I had no issue finding the source of the great mana storm.
+	DemiDescription3: Attempts to approach the Dark Sea Epicentre have been unsuccessful, as I lose control of my machines due to the interferance and magical corruption.
+	DemiDescription4: As a demigod, I regret to convey that you possess more knowledge about methods to approach such a place than I.
+}
+
+Projectiles: {
+	EvanderMelee.DisplayName: Colossal Greatsword
+	EvanderSlash.DisplayName: Colossal Cleave
+	LeapFix.DisplayName: Leap Spell
+	ExplosionTracker.DisplayName: Explosion Spell
+	MagicCircle1.DisplayName: Magic Circle
+	MagicCircle2.DisplayName: Magic Circle
+	ElfPetProjectile.DisplayName: Aether
+	FuryoftheSea.DisplayName: Fury of the Sea
+	PiercingStrikesProjectile.DisplayName: Bronze Rapier
+	BronzeStaffProjectile.DisplayName: Bronze Staff
+	BronzeTridentProjectile.DisplayName: Bronze Trident
+	KatanaSlash.DisplayName: Slash
+	OldTridentProjectile.DisplayName: Old Trident
+	SunkenStaffProjectile.DisplayName: Sunken Staff
+	WoodenStaffProjectile.DisplayName: Wooden Staff
+	BronzeTriastaProjectile.DisplayName: Bronze Triasta
+	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
+	SeismicSlashRock.DisplayName: Rock
+	BronzeRapierProjectile.DisplayName: Bronze Rapier
+	PrismLinger.DisplayName: Prism Magic Shards
+	DeathCurse.DisplayName: Death Curse
+	AetherExplosion.DisplayName: Aether Explosion
+	FrostmetalShard.DisplayName: Frostmetal Shard
+	PowderExplosion.DisplayName: Powder Explosion
+	SpiritBlast.DisplayName: Spirit Blast
+	ColossalCleave.DisplayName: Colossal Cleave
+	MountainWind.DisplayName: Mountain Wind
+	PiercingGale.DisplayName: Piercing Gale
+	Whirlwind.DisplayName: Whirlwind
+}
+
+DamageClasses: {
+	Conjurer: conjurer damage
+	ConjurerNoSpeed: conjurer damage
+	Oracle: spirit damage
+	RangedConjurer: ranged conjurer damage
+	RangedWarlord: ranged warlord damage
+	TrueConjurer: true conjurer damage
+	TrueConjurerNoSpeed: true conjurer damage
+	TrueWarlord: true warlord damage
+	TrueWarlordNoSpeed: true warlord damage
+	Warlord: warlord damage
+	WarlordNoSpeed: warlord damage
+	Knight: knight damage
+	KnightNoSpeed: knight damage
+	RangedKnight: ranged knight damage
+	TrueKnight: true knight damage
+	TrueKnightNoSpeed: true knight damage
+}
+
+WeaponAbilities: {
+	MultiShot: {
+		DisplayName: Multi Shot
+		Description: Shoots a spread of bullets
+	}
+
+	PiercingShot: {
+		DisplayName: Piercing Shot
+		Description: Converts Musket Balls to High Velocity Bullets
+	}
+
+	PiercingStrike: {
+		DisplayName: Piercing Strike
+		Description: Launch yourself towards the cursor, stabbing through any who cross your path
+	}
+
+	PiercingGale: {
+		DisplayName: Piercing Gale
+		Description: Shoots blasts of air that shred enemies
+	}
+
+	TridentThrow: {
+		DisplayName: Trident Throw
+		Description: Throw your weapon, leaving yourself unarmed
+	}
+
+	Devastate: {
+		DisplayName: Devastate
+		Description: Use the weight of your weapon to slam downwards
+	}
+
+	MountainWind: {
+		DisplayName: Mountain Wind
+		Description: Swing your blade and unleash three tornados that spread out
+	}
+
+	Whirlwind: {
+		DisplayName: Whirlwind
+		Description: Spin your weapon around quickly, dealing damage to surrounding enemies and holding yourself in place
+	}
+
+	EtherealFlash: {
+		DisplayName: Ethereal Flash
+		Description: Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target
+	}
+
+	ColossalCleave: {
+		DisplayName: Colossal Cleave
+		Description: Unleash a large slash that pierces enemies
+	}
+
+	SeismicSlash: {
+		DisplayName: Seismic Slash
+		Description: Slam into the ground, then upearth and launch a rock towards your cursor
+	}
+
+	StormofArrows: {
+		DisplayName: Storm of Arrows
+		Description: Allows arrows to fall from the sky above the cursor
+	}
+
+	FuryoftheSea: {
+		DisplayName: Fury of the Sea
+		Description: Shoots blasts of water that pierce enemies
+	}
+
+	RisingTide: {
+		DisplayName: Rising Tide
+		Description: Launch yourself upwards
+	}
+}
+
+Achievements: {
+	MountainBreaker: {
+		FriendlyName: Mountain Breaker
+		Description: Slay Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
+	}
 }
 
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Dash Bind
 	Vanish.DisplayName: Vanish
+}
+
+RandomWords: {
+	Default: Default
+	Unbound: Unbound
+	None: None
+	Material: Material
+	Help: Help
+	Press: Press
 }

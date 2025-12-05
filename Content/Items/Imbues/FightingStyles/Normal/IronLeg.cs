@@ -1,0 +1,101 @@
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using Terraria;
+using Terraria.ID;
+using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Buffs.DOT;
+using Terraria.Audio;
+
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
+{
+	public class IronLeg : FightingStyle
+	{
+		public override float DashResist => 1.35f;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shoes);
+			}
+		}
+
+		public override void Load()
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Shoes}", EquipType.Shoes, this);
+			}
+		}
+
+		public override Color ImbueColour => Color.LightGray;
+		public override SoundStyle? ImbueSound => SoundID.Item99;
+
+		public override float AOImbueDamage => 1.125f;
+		public override float AOImbueSpeed => 0.75f;
+		public override float AOImbueSize => 1.1f;
+		public override float AOScrollDamage => .95f;
+		public override float AOScrollSize => 1.1f;
+		public override float AOScrollSpeed => 0.75f;
+
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+		public override SynergyEffects Effects => new(
+			[
+				ModContent.BuffType<FreezingEffect>()
+			],
+			[
+				new(ModContent.BuffType<Crystallized>(),1.05f),
+				new(ModContent.BuffType<FreezingEffect>(),1.2f),
+				new(ModContent.BuffType<SandyEffect>(),1.1f),
+				new(BuffID.OnFire3,1.1f),
+				new(BuffID.Venom,1.1f)
+			]
+		);
+		public override void SpawningEffects(Entity projectile)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Mercury, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1f);
+			}
+		}
+
+		public override void LingeringEffects(Entity projectile)
+		{
+			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
+			spawnedDust.noGravity = true;
+			spawnedDust.noLight = true;
+		}
+
+		public override void ExplosionEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust.NewDust(projectile.Center, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f);
+			}
+		}
+		public override void KillEffects(Entity projectile)
+		{
+			for (int n = 0; n < 30; n++)
+			{
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, 1f);
+			}
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).Register();
+		}
+	}
+
+	public class ILegLegHelper : ModPlayer
+	{
+		public override void FrameEffects()
+		{
+			if (Player.ArcaneOdyssey().Imbue is IronLeg || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().Imbue is IronLeg)
+			{
+				Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
+			}
+		}
+	}
+}

@@ -1,16 +1,10 @@
-using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
-using Steamworks;
-using System.Linq.Expressions;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static ArcaneOdyssey.AOUtils;
-using Terraria.DataStructures;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -20,13 +14,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AOSize => 1.2f;
 		public override float AODamage => 1.15f;
 		public override int AOValue => 250;
-		public override AORarities AORarity => AORarities.Uncommon;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
-		public override bool? Arcanium => false;
+		public override AORarities AORarity => AORarities.Rare;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override WeaponAbility? Ability => new(Mod, "Colossal Cleave", "Unleash a large slash that pierces enemies", Color.PaleVioletRed);
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}
@@ -49,12 +44,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		/// <returns></returns>
 		public override bool CanShoot(Player player)
 		{
-			return player.AltUse() && !player.ArcaneOdyssey().ItemCooldowns.ContainsKey(Type);
+			return player.AltUse() && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<ColossalCleaveCooldown>());
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			player.ArcaneOdyssey().ItemCooldowns[Type] = 60*3;
+			player.ArcaneOdyssey().SetCooldown(new ColossalCleaveCooldown());
 			Projectile.NewProjectile(source, position, Vector2.UnitX * Item.shootSpeed * player.direction, type, damage, knockback, player.whoAmI);
 			return false;
 		}
@@ -63,10 +58,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			return CanUseItem(player);
 		}
+	}
 
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<RavennaGreatsword>().AddIngredient(ItemID.BreakerBlade).Register(); // temporary
-		}
+	public class ColossalCleaveCooldown : DisplayedCooldown
+	{
+		public override int CooldownLength => 60 * 3;
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(ColossalGreatsword);
 	}
 }

@@ -1,21 +1,17 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 {
 	[AutoloadEquip(EquipType.Legs)]
 	public class RavennaBoots : AOArmour
 	{
+		public override AOItemTiers ArmourTier => AOItemTiers.Poor;
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -24,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shield);
 			}
 		}
+
 		public override void Load()
 		{
 			if (Main.netMode != NetmodeID.Server)
@@ -47,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(30).AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(15).AddTile(TileID.Anvils).Register();
 		}
 	}
 
@@ -71,12 +68,12 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 			}
 		}
 
-		public override void PostUpdateMiscEffects()
+		public override void PostUpdateRunSpeeds()
 		{
 			if (bracing)
 			{
-				Player.moveSpeed *= .33f;
-				Player.statDefense *= 1.15f;
+				Player.moveSpeed -= .5f;
+				Player.statDefense *= 1.2f;
 			}
 		}
 

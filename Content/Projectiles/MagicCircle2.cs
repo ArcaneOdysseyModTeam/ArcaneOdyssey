@@ -1,16 +1,7 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
 
@@ -18,23 +9,24 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle2 : AOPlayerProjectile
 	{
-		public Texture2D MagicCircleSprite => ModContent.Request<Texture2D>(Texture).Value;
+        public override bool? CanDamage() => false;
 
-		public override void SetDefaults()
-		{
-			Projectile.height = Projectile.width = 64;
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.height = Projectile.width = 64;
 			Projectile.tileCollide = false;
 		}
 
 		public override void AI()
 		{
 			if (Projectile.position != Projectile.oldPosition)
-                Projectile.netUpdate = true;
+				Projectile.netUpdate = true;
 			Player player = Main.player[Projectile.owner];
 			aoPlayerOwner ??= player.ArcaneOdyssey();
-			if (Projectile.ai[2] == 0 && aoPlayerOwner.imbue is not null)
+			if (Projectile.ai[2] == 0 && aoPlayerOwner.Imbue is not null)
 			{
-				Projectile.ai[2] = aoPlayerOwner.imbue.Type;
+				Projectile.ai[2] = aoPlayerOwner.Imbue.Type;
 			}
 			Imbue = (Imbuable)ModContent.GetModItem((int)Projectile.ai[2]);
 			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null ? 0 : 1;
@@ -42,59 +34,58 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				aoPlayerOwner.chargingSpell = true;
 				aoPlayerOwner.myCircle = Projectile;
-                if (Projectile.ai[1] != 2)
-                {
-                    Projectile.Center = player.MountedCenter;
-                }
-                else
-                {
-                    player.itemAnimation = player.itemTime = 2;
-                    if (Main.myPlayer == Projectile.owner)
-                    {
-                        player.itemRotation = player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
-                        if (player.direction != 1)
-                        {
-                            player.itemRotation += MathHelper.Pi;
-                        }
-                        if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
-                        {
-                            Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
-                        }
-                        else
-                            Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
-                    }
-                }
+				if (Projectile.ai[1] != 2)
+				{
+					Projectile.Center = player.MountedCenter;
+				}
+				else
+				{
+					player.itemAnimation = player.itemTime = 2;
+					if (Main.myPlayer == Projectile.owner)
+					{
+						player.itemRotation = player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
+						if (player.direction != 1)
+						{
+							player.itemRotation += MathHelper.Pi;
+						}
+						if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
+						{
+							Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
+						}
+						else
+							Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
+					}
+				}
 			}
 			else
 			{
-				aoPlayerOwner.myCircle = null;
 				aoPlayerOwner.chargingSpell = false;
 			}
 
 			if (Imbue is not null)
-            {
-                Projectile.rotation = MathHelper.Pi * (Projectile.ArcaneOdyssey().FramesAlive / 120f) * Imbue.AOScrollSpeed;
-                float tempLightColorR = 0f;
+			{
+				Projectile.rotation += MathHelper.Pi / 120f * Imbue.AOScrollSpeed;
+				float tempLightColorR = 0f;
 				float tempLightColorG = 0f;
 				float tempLightColorB = 0f;
-				if (Imbue.ImbueColour.R != 0f)
+				if (Imbue.GetColor().R != 0f)
 				{
-					tempLightColorR = 3f / Imbue.ImbueColour.R;
+					tempLightColorR = 3f / Imbue.GetColor().R;
 				}
-				if (Imbue.ImbueColour.G != 0f)
+				if (Imbue.GetColor().G != 0f)
 				{
-					tempLightColorG = 3f / Imbue.ImbueColour.G;
+					tempLightColorG = 3f / Imbue.GetColor().G;
 				}
-				if (Imbue.ImbueColour.B != 0f)
+				if (Imbue.GetColor().B != 0f)
 				{
-					tempLightColorB = 3f / Imbue.ImbueColour.B;
+					tempLightColorB = 3f / Imbue.GetColor().B;
 				}
 
 				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
 
 				if (Projectile.localAI[0] > 5 && !Main.dedServ)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.ImbueColour, 1f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColor(), 1f)];
 					spawnedDust.noGravity = true;
 					Projectile.localAI[0] = 0;
 				}
@@ -115,16 +106,14 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (Imbue is not null)
 			{
-				Color drawColor = Imbue.ImbueColour;
-				drawColor *= 1f - (Projectile.alpha / 255f);
-				Main.EntitySpriteDraw(MagicCircleSprite, Projectile.Center - Main.screenPosition, null, drawColor, Projectile.rotation, Projectile.GetDrawOriginCentre(), Imbue.AOScrollSize * Projectile.scale, SpriteEffects.None);
+				lightColor = Imbue.GetColor();
 			}
-			return false;
+			return base.PreDraw(ref lightColor);
 		}
 
 		public override void OnKill(int timeLeft)
-		{
-			Main.player[Projectile.owner].ArcaneOdyssey().myCircle = null;
+        {
+            aoPlayerOwner.myCircle = null;
 			Main.player[Projectile.owner].channel = false;
 		}
 	}

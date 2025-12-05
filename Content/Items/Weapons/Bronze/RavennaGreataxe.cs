@@ -1,14 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSpeed => .925f;
 		public override float AODamage => 1.025f;
 		public override AORarities AORarity => AORarities.Uncommon;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override WeaponAbility? Ability => new(Mod, "Devastate", "Use the weight of your weapon to slam downwards", Color.Orange);
 
 		public override void SetDefaults()
@@ -39,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(24).AddIngredient<OldGreataxe>().AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(10).AddIngredient<OldGreataxe>().AddTile(TileID.Anvils).Register();
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -65,16 +59,18 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 	{
 		public override bool AnyDirection => true;
 		public override int Damage => 50;
-		public override int Cooldown => 600;
+		public override int Cooldown => 300;
 		public override float DashSpeed => 15;
-		public override int DashMax => 99999;
-		public override DamageClass DamageType => DamageClass.Melee;
+		public override int DashMax => 600;
+		public override DamageClass DamageType => TrueMelee();
 		public override float Knockback => 5;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target)
 		{
 			return false;
 		}
+
+		public override int DisplayedCooldownID => ModContent.BuffType<DevastateCooldown>();
 
 		public override void DashEffect(Player player)
 		{
@@ -87,16 +83,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			}
 		}
 
+		public override bool ExtraCheck(Player player)
+		{
+			return !player.wet;
+		}
+
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-			foreach (NPC npc in Main.ActiveNPCs)
-			{
-				if (npc.Hitbox.Distance(player.MountedCenter) < 100f * 1.025f * 2f && !npc.friendly && npc.immune[player.whoAmI] <= 0)
-				{
-					npc.SimpleStrikeNPC(player.ArcaneOdyssey().CalculateDashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: player.ArcaneOdyssey().CalculateDashKnockback(), damageType: DamageType);
-				}
-			}
+			SimulateAOE(100, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
 			if (player.TryGetImbue(out var imbue))
 			{
 				for (int i = 0; i < 20; i++)
@@ -104,10 +99,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			}
 			if (!Main.dedServ)
 			{
-				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.HeldItem), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());
+				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.PlayerItem()), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());
 				gore1.Centre(player.Top);
 			}
 			// Vfx
 		}
+	}
+
+	public class DevastateCooldown : DisplayedCooldown
+	{
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(RavennaGreataxe);
 	}
 }

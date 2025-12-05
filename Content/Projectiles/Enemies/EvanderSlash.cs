@@ -1,56 +1,67 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
 	public class EvanderSlash : ModProjectile
 	{
-		//public override float AOSpeed => .65f;
-		//public override float AOSize => 1.2f;
-		//public override float AODamage => 1.15f;
-		//public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
+        //public override float AOSpeed => .65f;
+        //public override float AOSize => 1.2f;
+        //public override float AODamage => 1.15f;
+        //public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
 
-		//public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
+        //public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
 
-		public override void SetDefaults()
+        public override void SetDefaults()
+        {
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.damage = 25;
+            Projectile.timeLeft = 60 * 3;
+            Projectile.hostile = true;
+            Projectile.height = Projectile.width = 234;
+            Projectile.knockBack = 4.5f;
+        }
+
+		public override void SetStaticDefaults()
 		{
-			Projectile.penetrate = -1;
-			Projectile.DamageType = DamageClass.Melee;
-			Projectile.damage = 25;
-			Projectile.timeLeft = 60*3;
-			Projectile.hostile = true;
-			Projectile.height = Projectile.width = (234 + 74)/2; // average
-			Projectile.knockBack = 4.5f;
+			base.SetStaticDefaults();
+            Main.projFrames[Type] = 3;
 		}
 
 		public override void AI()
 		{
-			if (Projectile.ai[0] == 0 || Projectile.timeLeft < 30)
+			if (Projectile.timeLeft < 30)
 			{
-				Projectile.alpha += 255 / 30;
-				Projectile.ai[0] = 1;
+				Projectile.alpha = 255 / Projectile.timeLeft;
+				Projectile.ai[0] += .075f;
 			}
 			else
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
-			}
+            }
 
-			if (Projectile.localAI[0] > 60 && !Main.dedServ)
+            if (Projectile.timeLeft % 6 == 0)
+            {
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
+            if (Projectile.localAI[0] > 20 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
-				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.position);
-			}
+				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
+                for (int n = 0; n < 3; n++)
+                {
+                    Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.Center, 1, 1, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 255/2, default, 3f)];
+                    spawnedDust.noGravity = true;
+                }
+            }
 			Projectile.localAI[0]++;
 		}
 
@@ -63,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		public override bool? CanDamage()
 		{
-			return Projectile.ai[0] == 0;
+			return Projectile.ai[0] < 1;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -73,5 +84,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.ai[0] = 1;
 			return false;
 		}
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+			Projectile.ai[0] = 1;
+        }
 	}
 }

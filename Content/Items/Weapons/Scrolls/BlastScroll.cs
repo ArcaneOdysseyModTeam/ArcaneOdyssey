@@ -1,14 +1,10 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
@@ -28,8 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.mana = 15;
 			Item.channel = true;
 			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 10;
-			Item.shoot = ProjectileID.VortexLaser; // does not actually shoot
+			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
 		public override void AddRecipes()
@@ -44,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().imbue);
+			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().Imbue);
 			return false;
 		}
 	}

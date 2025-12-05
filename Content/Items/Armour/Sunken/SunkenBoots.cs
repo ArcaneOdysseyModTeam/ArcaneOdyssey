@@ -1,13 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 
@@ -16,6 +10,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 	[AutoloadEquip(EquipType.Legs)]
 	public class SunkenBoots : AOArmour
 	{
+		public override AOItemTiers ArmourTier => AOItemTiers.Good;
 		public override int AODefense => 204;
 		public override int AOSize => 23;
 		public override int AOAttkSpd => 23;
@@ -32,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<ArcaniumScrap>(3).AddTile(TileID.MythrilAnvil).Register();
+			CreateRecipe().AddIngredient<SunkenScrap>(3).AddTile(TileID.MythrilAnvil).Register();
 		}
 	}
 

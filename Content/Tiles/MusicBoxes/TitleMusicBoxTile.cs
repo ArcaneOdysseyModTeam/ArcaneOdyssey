@@ -1,15 +1,14 @@
-﻿using ArcaneOdyssey.Content.Tiles.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Tiles.MusicBoxes
 {
-    public class TitleMusicBoxTile : MusicBoxTile
-    {
-
-    }
+	public class TitleMusicBoxTile : ModTile
+	{
+		public override void EmitParticles(int i, int j, Tile tile, short tileFrameX, short tileFrameY, Color tileLight, bool visible)
+		{
+            WorldGen.KillTile(i, j);
+		}
+	}
 }

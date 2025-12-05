@@ -1,28 +1,16 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Magic;
+﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
+using System;
 using Terraria.Audio;
-using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -33,7 +21,62 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
 	{
-		public override string LocalizationCategory => "Magics";
+		public override string LocalizationCategory => "Magic." + ImbuableTier;
+
+		public void CreateLostRecipe(params Type[] imbues)
+        {
+            // LOSTMAGICS
+            //if (imbues.Length > 1)
+            //{
+            //	List<int> types = [];
+            //	foreach (var type in imbues)
+            //	{
+            //		types.Add(Mod.Find<ModItem>(type.Name).Type);
+            //	}
+            //	var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+            //	RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
+            //	var rec = Recipe.Create(Type);
+            //	rec.AddRecipeGroup(group);
+            //	rec.AddIngredient<HecateShard>();
+            //	rec.DisableDecraft();
+            //	rec.Register();
+            //}
+            //else if (imbues.Length == 1)
+            //{
+            //	var rec = CreateRecipe();
+            //	rec.AddIngredient(Mod.Find<ModItem>(imbues[0].Name).Type);
+            //	rec.AddIngredient<HecateShard>();
+            //	rec.DisableDecraft();
+            //	rec.Register();
+            //}
+        }
+
+        public void CreateAncientRecipe(params Type[] imbues)
+		{
+			//if (imbues.Length > 1)
+			//{
+			//	List<int> types = [];
+			//	foreach (var type in imbues)
+			//	{
+			//		types.Add(Mod.Find<ModItem>(type.Name).Type);
+			//	}
+			//	var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+			//	RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
+			//	var rec = Recipe.Create(Type);
+			//	rec.AddRecipeGroup(group);
+			//	rec.AddIngredient<AncientHecateOrb>();
+			//	rec.DisableDecraft();
+			//	rec.Register();
+			//}
+			//else if (imbues.Length == 1)
+			//{
+			//	var rec = CreateRecipe();
+			//	rec.AddIngredient(Mod.Find<ModItem>(imbues[0].Name).Type);
+			//	rec.AddIngredient<AncientHecateOrb>();
+			//	rec.DisableDecraft();
+			//	rec.Register();
+			//}
+		}
 
 		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse)
 		{
@@ -54,14 +97,44 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.Skills.GetValueOrDefault(typeof(BlastSpell), ProjectileID.WoodenArrowFriendly);
-					circleprojectile.ArcaneOdyssey().imbue = magicToUse;
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
+					return circleprojectile;
+				}
+				else if (item.ModItem is CannonScroll)
+				{
+					Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(item.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle1>(), item.damage, 0f, player.whoAmI)];
+					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
+					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
+					circleprojectile.position += circleVec;
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Cannon");
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
+					return circleprojectile;
+				}
+				else if (item.ModItem is PulsarScroll)
+				{
+					Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(item.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle1>(), item.damage, 0f, player.whoAmI)];
+					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
+					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
+					circleprojectile.position += circleVec;
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Pulsar");
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
+					return circleprojectile;
+				}
+				else if (item.ModItem is BeamScroll)
+				{
+					Projectile circleprojectile = Main.projectile[Projectile.NewProjectile(item.GetSource_FromThis(), player.position.X + (player.width / 2f), player.position.Y + (player.height / 2f), 0f, 0f, ModContent.ProjectileType<MagicCircle1>(), item.damage, 0f, player.whoAmI)];
+					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
+					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
+					circleprojectile.position += circleVec;
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<BeamSpell>();
+					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					return circleprojectile;
 				}
 				else if (item.ModItem is LeapScroll)
 				{
 					var proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
-					proj.rotation = (-Vector2.UnitY).ToRotation();
+					proj.rotation = MathHelper.PiOver2;
 					proj.Center = player.Bottom;
 					((MagicCircle1)proj.ModProjectile).MarkedForDeath = true;
 					return proj;
@@ -69,8 +142,5 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			return null;
 		}
-
-		// Dust stuff below for copy/paste
-		// Dust spawnedDust = Dust.NewDustDirect(new Vector2(projectile.position.X+(projectile.width*Main.rand.NextFloat()),projectile.position.Y+(projectile.height*Main.rand.NextFloat())), 1, 1, DustID.Water);
 	}
 }

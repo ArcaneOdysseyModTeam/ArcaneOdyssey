@@ -1,16 +1,8 @@
-﻿using ArcaneOdyssey.Content.Buffs.Base;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using ArcaneOdyssey;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Buffs.Stuns
+namespace ArcaneOdyssey.Content.Buffs.Base
 {
 	/// <summary>
 	/// nobody will tell its a custom debuff thats the point lol
@@ -36,26 +28,27 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = false;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+			ExternalModSupport.RegisterDebuff(this);
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (!player.ArcaneOdyssey().BuffCooldowns.ContainsKey(Type) || LiterallyCheating)
+			if ((player.ArcaneOdyssey().OnCooldown(Name + "Buff")) || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
-				player.ArcaneOdyssey().BuffCooldowns[Type] = 60;
+				player.ArcaneOdyssey().SetCooldown(new Cooldown(Name + "Buff", DisplayName, 60));
 				player.canFloatInWater = false;
 			}
 		}
 
-        public override bool ReApply(NPC npc, int time, int buffIndex)
-        {
-            return !LiterallyCheating;
-        }
+		public override bool ReApply(NPC npc, int time, int buffIndex)
+		{
+			return !LiterallyCheating;
+		}
 
-        public override bool ReApply(Player player, int time, int buffIndex)
-        {
-            return !LiterallyCheating;
-        }
+		public override bool ReApply(Player player, int time, int buffIndex)
+		{
+			return !LiterallyCheating;
+		}
 	}
 }

@@ -1,27 +1,10 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
-using ArcaneOdyssey.Content.Items.FightingStyles;
-using ArcaneOdyssey.Content.Items.Magic;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Weapons;
-using ArcaneOdyssey.Content.NPCS;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.Runtime.Serialization.Json;
+using System;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.GameContent.Generation;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.IO;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.WorldBuilding;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -30,7 +13,7 @@ namespace ArcaneOdyssey
 	{
 		public string Name => GetType().Name;
 
-		public Mod Mod { get => ModLoader.GetMod(nameof(ArcaneOdyssey)); }
+		public static Mod Mod => ArcaneOdysseyMod.Instance;
 
 		/// <summary>
 		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
@@ -71,10 +54,12 @@ namespace ArcaneOdyssey
 		/// <param name="player"></param>
 		public void SetCooldown(Player player)
 		{
-			if (AnyDirection)
-				player.ArcaneOdyssey().Cooldowns[GetType().Name] = Cooldown;
+			if (DisplayedCooldownID != -1)
+			{
+				player.ArcaneOdyssey()?.SetCooldown(DisplayedCooldownID, Cooldown);
+			}
 			else
-				player.ArcaneOdyssey().Cooldowns["StandardDash"] = Cooldown;
+				player.ArcaneOdyssey()?.SetCooldown(AOCooldown);
 		}
 
 		/// <summary>
@@ -84,10 +69,40 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public bool OnCooldown(Player player)
 		{
+			if (DisplayedCooldownID != -1)
+			{
+				return player.ArcaneOdyssey().OnCooldown(DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
+			}
 			if (AnyDirection)
-				return player.ArcaneOdyssey().Cooldowns.ContainsKey(GetType().Name) || player.ArcaneOdyssey().dashing;
+				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 			else
-				return player.ArcaneOdyssey().Cooldowns.ContainsKey("StandardDash") || player.ArcaneOdyssey().dashing;
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
+		}
+
+		/// <summary>
+		/// Called every frame, and before the dash starts
+		/// </summary>
+		/// <param name="player"></param>
+		/// <returns>Whether to keep dashing</returns>
+		public virtual bool ExtraCheck(Player player) => true;
+
+		/// <summary>
+		/// Whether the dash is on cooldown
+		/// </summary>
+		/// <param name="dashType"></param>
+		/// <param name="player"></param>
+		/// <returns></returns>
+		public static bool OnCooldown(Type dashType, Player player)
+		{
+			var dash = Activator.CreateInstance(dashType) as DashSystem;
+			if (dash.DisplayedCooldownID != -1)
+			{
+				return player.ArcaneOdyssey().OnCooldown(dash.DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
+			}
+			if (dash.AnyDirection)
+				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
+			else
+				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 		}
 
 		/// <summary>
@@ -122,13 +137,14 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// Called if the dash ends naturally without hitting any enemies
 		/// </summary>
-		public virtual void NaturalEnd(Player player)
-		{
+		public virtual void NaturalEnd(Player player) { }
 
-		}
+		public virtual int DisplayedCooldownID => -1;
+
+		public Cooldown AOCooldown => new(AnyDirection ? Name : "StandardDash", Mod, Cooldown);
 	}
 
-	public partial class AOPlayer : ModPlayer 
+	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public void SetDash(DashSystem dash)
 		{
@@ -149,44 +165,50 @@ namespace ArcaneOdyssey
 		public bool dashing;
 		public int collisions;
 		private int? DashDir;
+		private float storedWingTime;
 
-		public bool FirstFrames;
+		public bool FirstFrame => CurrentDash is not null && DashLeft == CurrentDash.DashMax;
+
 		/// <summary>
-		/// Starts a dash, does not check for cooldowns
+		/// Starts a dash, does not check for cooldowns but will use ExtraCheck
 		/// </summary>
 		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
 		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
 		public void StartDash(DashSystem dashToUse, int direction = 0)
 		{
-			Player.noFallDmg = true;
-			Player.timeSinceLastDashStarted = 0;
-			CurrentDash = dashToUse;
-			FirstFrames = true;
-			collisions = 0;
-			ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
-			if (dashToUse.AnyDirection && direction == 0)
+			if (dashToUse.ExtraCheck(Player))
 			{
-				DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
-			}
-			else
-			{
-				var standard = Vector2.UnitX;
-				if (direction == 2 || direction == -2)
+				dashToUse.SetCooldown(Player);
+				storedWingTime = Player.wingTime;
+				Player.noFallDmg = true;
+				Player.timeSinceLastDashStarted = 0;
+				CurrentDash = dashToUse;
+				collisions = 0;
+				ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
+				if (dashToUse.AnyDirection && direction == 0)
 				{
-					standard = Vector2.UnitY * (direction/2f);
+					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
 				}
 				else
-				{ 
-					standard *= direction; 
+				{
+					var standard = Vector2.UnitX * direction;
+					//if (Player.velocity.Y < 0)
+					//standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
+					if (direction == 2 || direction == -2)
+					{
+						standard = Vector2.UnitY * (direction / 2f);
+					}
+					DashVelocity = standard * dashToUse.DashSpeed;
 				}
-				DashVelocity = standard * dashToUse.DashSpeed;
-			}
-			DashLeft = dashToUse.DashMax;
-			dashToUse.OnStart(Player);
-			dashing = true;
-			if (dashToUse.Immune)
-			{
-				Player.immuneTime = dashToUse.DashMax;
+				Player.ConsumeAllExtraJumps();
+				DashLeft = dashToUse.DashMax;
+				dashToUse.OnStart(Player);
+				Player.velocity = DashVelocity;
+				dashing = true;
+				if (dashToUse.Immune)
+				{
+					Player.immuneTime = dashToUse.DashMax;
+				}
 			}
 		}
 
@@ -216,11 +238,11 @@ namespace ArcaneOdyssey
 			}
 			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind().JustPressed)
 			{
-				if (Player.velocity.X > 1)
+				if (Player.controlRight || Player.direction == 1)
 				{
 					DashDir = 1;
 				}
-				else if (Player.velocity.X < -1)
+				else if (Player.controlLeft || Player.direction == -1)
 				{
 					DashDir = -1;
 				}
@@ -261,18 +283,18 @@ namespace ArcaneOdyssey
 			}
 			if (CurrentDash is not null)
 			{
-				FirstFrames = this.CurrentDash.DashMax < DashLeft + 2;
-				if (dashing && !Player.mount.Active && !Player.setSolar)
+				if (dashing)
 				{
 					ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
-					DashLeft--;
 					Player.noFallDmg = true;
 
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
-					if (DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrames))
+					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame))
 					{
+						if (!Player.mount.Active)
+							Player.wingTime = storedWingTime;
 						CurrentDash.SetCooldown(Player);
 						CurrentDash.OnEnd(Player);
 						dashing = false;
@@ -280,10 +302,20 @@ namespace ArcaneOdyssey
 						{
 							CurrentDash.NaturalEnd(Player);
 						}
+						return;
 					}
-					else if (CurrentDash.AnyDirection || FirstFrames)
-						Player.velocity = DashVelocity; // fly
+
 					CurrentDash.DashEffect(Player);
+					if (CurrentDash.AnyDirection)
+					{
+						Player.velocity = DashVelocity;
+					}
+					else if (FirstFrame)
+					{
+						Player.velocity += DashVelocity;
+					}
+					Player.ConsumeAllExtraJumps();
+					DashLeft--;
 				}
 			}
 			else
@@ -303,7 +335,7 @@ namespace ArcaneOdyssey
 					if (npc.Hitbox.Intersects(Player.Hitbox))
 					{
 						collisions++;
-						if (CurrentDash.OnHit(Player, npc))
+						if ((!npc.friendly) && CurrentDash.OnHit(Player, npc))
 						{
 							CurrentDash.OnEnd(Player);
 							CurrentDash.SetCooldown(Player);
@@ -312,8 +344,8 @@ namespace ArcaneOdyssey
 
 						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI && !npc.friendly && npc.immune[Player.whoAmI] <= 0)
 						{
-							npc.SimpleStrikeNPC(CalculateDashDamage(npc), Player.direction, knockBack: CalculateDashKnockback(), damageType: CurrentDash.DamageType);
-							npc.immune[Player.whoAmI] = 2;
+							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, false, CalculateDashKnockback(), CurrentDash.DamageType, true);
+							npc.immune[Player.whoAmI] = 5;
 						}
 					}
 				}
@@ -323,17 +355,17 @@ namespace ArcaneOdyssey
 		public int CalculateDashDamage(NPC target)
 		{
 			var modifiers = new DashDamageHelper();
-			if (Player.TryGetImbue(out var imbue))
+			if (Imbue is not null)
 			{
 				if (CurrentDash.UseScrollImbue)
-					modifiers.FinalDamage += imbue.AOScrollDamage.MultiToPercent();
-				else modifiers.FinalDamage += imbue.AOImbueDamage.MultiToPercent();
-				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+					modifiers.FinalDamage += Imbue.AOScrollDamage.MultiToPercent();
+				else modifiers.FinalDamage += Imbue.AOImbueDamage.MultiToPercent();
+				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 				{
 					modifiers.FinalDamage += .3f;
 				}
 
-				foreach (var debuff in imbue.ImbueDebuffs) 
+				foreach (var debuff in Imbue.ImbueDebuffs) 
 				{
 					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(CurrentDash.Damage) > (target.lifeMax / debuff.debuffPercent))
 					{
@@ -341,9 +373,9 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				if (imbue.CombinedDebuffs is not null)
+				if (Imbue.CombinedDebuffs is not null)
 				{
-					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
 					{
 						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
@@ -352,7 +384,7 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
 				{
 					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
@@ -362,7 +394,7 @@ namespace ArcaneOdyssey
 
 				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 				{
-					foreach (int buffid in imbue.Effects.clearBuffs)
+					foreach (int buffid in Imbue.Effects.clearBuffs)
 					{
 						if (target.HasBuff(buffid))
 						{
@@ -378,21 +410,16 @@ namespace ArcaneOdyssey
 		public float CalculateDashKnockback()
 		{
 			var knockback = 1f;
-			if (this.TryGetImbue(out Imbuable imbue))
+			if (Imbue is not null)
 			{
-				var extrakbmulti = 1;
-				if (imbue is WindMagic or Boxing)
-				{
-					extrakbmulti = 3;
-				}
-
+				var extrakbmulti = Imbue.KBMulti;
 				if (CurrentDash.UseScrollImbue)
 				{
-					knockback += imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
+					knockback += Imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
 				}
 				else
 				{
-					knockback += imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
+					knockback += Imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
 				}
 			}
 			return knockback * CurrentDash.Knockback;

@@ -1,10 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -20,10 +16,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override float AODamage => 1.15f;
 		public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
 
-		public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
+		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.penetrate = -1;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
@@ -34,6 +31,25 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.knockBack = 4.5f;
 		}
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ProjectileID.Sets.TrailingMode[Type] = 0;
+		}
+
+		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+			{
+				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
+				Color colour = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, Imbue is not null ? Color.Lerp(Imbue.GetColor(colour), colour, .5f) : colour, Projectile.rotation, Sprite.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+			}
+			return false;
+		}
+
 		public override void AI()
 		{
 			if (Projectile.ai[0] == 0)
@@ -42,10 +58,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 			}
 
-			if (Projectile.localAI[0] > 60 && !Main.dedServ)
+			if (Projectile.localAI[0] >= 30 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
-				Imbue?.ExplosionEffects(Projectile);
+				for (int i = 1; i < 20; i++)
+				{
+					Imbue?.ExplosionEffects(Projectile);
+				}
 			}
 			Projectile.localAI[0]++;
 

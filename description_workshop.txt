@@ -1,18 +1,14 @@
-Adds over 20 unique magic types with unique interactions and attributes!
+Adds tons of elemental magic types and fighting styles with unique interactions and attributes!
+New classes/playstyles!
 Multiplayer and cross-mod compatible!
 Synergistic combat system using debuffs!
 Tons of custom visual effects!
-Make scrolls to cast various spells and unleash skilled techniques!
+Obtain scrolls to cast various spells and unleash skilled techniques!
 
 To use the mod, aquire a magic or fighting style. You can do this with the Poseidon's Spirit, an item which you will spawn with.
 Magics and fighting styles can enchant your weapons with their element in a synergistic system, and enable the use of spell/technique scrolls.
+Weapons change their class as you imbue them, allowing for unique playstyles with hybrid gear.
 
 For feedback/suggestions, questions, and bug reports, please refer to our [url=https://discord.gg/D9NpuGdZsY]Discord[/url].
 
 [i]Based off the game "Arcane Odyssey" by vetexgames[/i]
-
-Planned upcoming features:
-[olist]
-[*] Lost magics
-[*] Bosses and world generation
-[*] More spells

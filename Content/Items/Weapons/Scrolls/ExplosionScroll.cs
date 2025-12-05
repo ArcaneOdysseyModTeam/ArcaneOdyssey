@@ -1,14 +1,11 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
@@ -32,19 +29,16 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return CanUseItem(player);
-		}
+		public override bool AltFunctionUse(Player player) => true;
 
-		public override bool ScrollCheck(Player player)
+		public override bool CanUseItem(Player player)
 		{
-			return player.ArcaneOdyssey().myCircle is null;
+			return base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().imbue);
+			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().Imbue);
 			Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, type, damage, knockback * 1.5f, player.whoAmI);
 			return false;
 		}

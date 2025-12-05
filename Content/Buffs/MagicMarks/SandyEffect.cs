@@ -1,25 +1,19 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
-    public class SandyEffect : AODebuff
-    {
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-            if (!Main.dedServ)
-            {
-                var dust = Dust.NewDustDirect(npc.position + new Vector2((float)npc.width / 2f, (float)npc.height / 2f), 1, 1, DustID.Sand, 0f, 0f, 1, default, 1f);
-                dust.velocity *= 0.8f;
-                dust.noGravity = true;
-            }   
-        }
-    }
+	public class SandyEffect : AODebuff
+	{
+		public override void Update(NPC npc, ref int buffIndex)
+		{
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.Sand, 0f, 0f, 1, default, 1f);
+				dust.velocity *= 0.1f;
+				dust.noGravity = true;
+			}   
+		}
+	}
 }

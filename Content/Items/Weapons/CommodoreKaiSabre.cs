@@ -1,14 +1,10 @@
-using ArcaneOdyssey.Content.Buffs;
 using ArcaneOdyssey.Content.Items.Base;
-using Steamworks;
-using System.Linq.Expressions;
+using ArcaneOdyssey.Content.Projectiles.Weapons;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static ArcaneOdyssey.AOUtils;
-using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -19,41 +15,22 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AODamage => .925f;
 		public override int AOValue => 200;
 		public override AORarities AORarity => AORarities.Uncommon;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Good;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.width = 52;
 			Item.height = 54;
-			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.shoot = ModContent.ProjectileType<KatanaSlash>();
 		}
 
-		private bool canSwing = true;
-		public override bool CanUseItem(Player player)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			canSwing = !canSwing;
-			if (!canSwing)
-			{
-				if (Item.useStyle == ItemUseStyleID.Thrust)
-					Item.useStyle = ItemUseStyleID.Swing;
-				else
-					Item.useStyle = ItemUseStyleID.Thrust;
-			}
-			return base.CanUseItem(player) && canSwing;
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			var name = tooltips.Find(e => e.Text.Contains("Standard"));
-			if (PrefixID.Search.TryGetName(Item.prefix, out var prefix))
-			{
-				name?.Text.Replace("Standard ", $"{prefix} ");
-			}
-			else
-			{
-				name?.Text.Replace("Standard ", null);
-			}
+			var proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
+			((KatanaSlash)proj.ModProjectile).color = this.Imbue() is not null ? Color.Lerp(Color.Red, this.Imbue().GetColor(), .5f) : Color.Red;
+			return false;
 		}
 	}
 }

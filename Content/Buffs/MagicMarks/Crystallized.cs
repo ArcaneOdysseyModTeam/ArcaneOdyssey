@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Buffs.Base;
 using Terraria.Audio;
 using static ArcaneOdyssey.AOUtils;
+using Terraria.Localization;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
@@ -11,10 +12,15 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 	{
 		private int stack = 1;
 
-        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
-        {
-			tip = Mod.CustomLocalization($"Buffs.{Name}.Description", [stack]).Value;
-        }
+		public override void SetStaticDefaults()
+		{
+			ArcaneOdysseyMod.alternateBuffs[Type] = BuffID.Midas;
+		}
+
+		public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+		{
+			tip = Mod.CustomLocalization(LocalizationCategory.Replace($"Mods.{Mod.Name}.") + ".Description", [stack]).Value;
+		}
 
 		public override void Update(NPC npc, ref int buffIndex) 
 		{
@@ -41,14 +47,14 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 						buffIndex--;
 						break;
 				}
-            }
+			}
 		}
 
 		public override bool ReApply(NPC npc, int time, int buffIndex)
-        {
+		{
 			if (npc.HasBuff(Type))
 			{
-				npc.buffTime[buffIndex] = (stack+1) * 5 * 60; // adds a "stack", or 5 second duration... could use "time", but other mods that change debuff duration might mess that up or something
+                npc.buffTime[buffIndex] += time;
 				return true;
 			}
 			else return false;

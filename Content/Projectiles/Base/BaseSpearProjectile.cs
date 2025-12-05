@@ -1,11 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
-using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
@@ -14,7 +9,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseSpearProjectile : AOPlayerProjectile
 	{
-		public abstract AOWeaponTiers AOWeaponTier { get; }
+		public abstract AOItemTiers AOWeaponTier { get; }
 		public const float Speed = 3.7f;
 		public override AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 50*5);
 
@@ -26,6 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.height = Projectile.width = 60;
 			Projectile.knockBack = 4.5f;
 			Projectile.friendly = true;
@@ -57,8 +53,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.netUpdate = true;
 				if (Projectile.ai[2] != 0) // throwing
 				{
-					Projectile.velocity *= 3;
-					Projectile.timeLeft = 60;
+					Projectile.velocity *= 3 / (Projectile.extraUpdates + 1f);
+					Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
 				}
 				else
 				{
@@ -74,7 +70,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
 				Projectile.timeLeft = 2;
-				Projectile.velocity.Y += .1f;
+				Projectile.velocity.Y += 0.13f;
+				if (Projectile.velocity.Y > 16f)
+				{
+					Projectile.velocity.Y = 16f;
+				}
 			}
 			else
 			{
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 				if (player.itemAnimation < player.itemAnimationMax / 2)
 				{
-					Projectile.ai[1] -= Speed;
+					Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
 					if (Projectile.localAI[0] == 0f)
 					{
 						Projectile.netUpdate = true;
@@ -92,14 +92,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 						EffectBeforeReelBack();
 					}
 				}
-
 				else
 				{
-					Projectile.ai[1] += Speed;
+					Projectile.ai[1] += Speed / (Projectile.extraUpdates + 1f);
 				}
 
-				// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
-				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4; // really simple, do a 180 in the direction youre facing and correct i think
+				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 				if (player.itemAnimation <= 2)
 				{
 					Projectile.Kill();

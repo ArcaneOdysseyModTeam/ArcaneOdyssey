@@ -3,11 +3,6 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -22,15 +17,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => .9f;
 		public override float AODamage => 1.05f;
 		public override int AOValue => 40;
-		public override AOWeaponTiers AOWeaponTier => AOWeaponTiers.Average;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;
 
-		public override WeaponAbility? Ability => new(Mod, "Piercing Strike", "Launch yourself towards the cursor, stabbing through any who cross your path");
+		public override WeaponAbility? Ability => new(Mod, "Piercing Strike", "Launch yourself towards the cursor, stabbing through any who cross your path", Color.Orange);
 
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -38,12 +29,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.DamageType = TrueMelee();
-			Item.shoot = ModContent.ProjectileType<PiercingStrikesProjectile>();
+			Item.shoot = ModContent.ProjectileType<BronzeRapierProjectile>();
 		}
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(28).AddIngredient<OldRapier>().AddTile(TileID.Anvils).Register();
+			CreateRecipe().AddIngredient<BronzeBar>(8).AddIngredient<OldRapier>().AddTile(TileID.Anvils).Register();
 		}
 
 		private bool canSwing = true;
@@ -58,14 +49,17 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 					Item.useStyle = ItemUseStyleID.Thrust;
 				Item.noMelee = false;
 				Item.noUseGraphic = false;
+                return canSwing;
 			}
-			else if (player.AltUse())
+			if (player.AltUse())
 			{
-				Item.useStyle = ItemUseStyleID.Rapier;
+                canSwing = true;
+                Item.useStyle = ItemUseStyleID.Rapier;
 				Item.noMelee = true;
 				Item.noUseGraphic = true;
+                return true;
 			}
-			return base.CanUseItem(player) && canSwing;
+			return base.CanUseItem(player);
 		}
 
 		public override bool CanShoot(Player player)
@@ -76,7 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			var shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-			var dash = new PiercingStrikes { projectile = shot.ModProjectile };
+			var dash = new PiercingStrikes { projectile = (BronzeRapierProjectile)shot.ModProjectile };
 			player.ArcaneOdyssey().StartDash(dash);
 			return false;
 		}

@@ -1,23 +1,20 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.AOUtils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	public class CrashScroll : TechniqueScroll
 	{
-		public const int Cooldown = 60 * 7;
+		public const int Cooldown = 60 * 5;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -27,20 +24,17 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			Item.useTime = Cooldown;
 		}
 
-		public override void ModifyWeaponCrit(Player player, ref float crit) => crit *= 0;
+		public override void ModifyWeaponCrit(Player player, ref float crit) => crit = 0;
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			AOPlayer playah = player.ArcaneOdyssey();
-			Item.ArcaneOdyssey().imbue = playah.imbue;
-			if (playah.imbue is FightingStyle)
+        {
+            base.UpdateAccessory(player, hideVisual);
+            if (Item.Imbue() is not null)
 			{
-				Item.color = playah.imbue.ImbueColour;
-				player.ArcaneOdyssey().SetDash(new Crash());
+				player.ArcaneOdyssey()?.SetDash(new Crash());
 			}
-			else Item.color = Color.Transparent;
-
 		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ClimbingClaws).Register();
@@ -56,6 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override bool AnyDirection => true;
 
 		public override int Damage => 50;
+
 		public override void DashEffect(Player player)
 		{
 			if (player.TryGetImbue(out var imbue))
@@ -102,8 +97,18 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
+				if (imbue is ThermoFist thermo)
+				{
+					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
+				}
+				if (imbue is SailorStyle sailor)
+				{
+					sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
+				}
 			}
 		}
+
+		public override int DisplayedCooldownID => ModContent.BuffType<CrashCooldown>();
 	}
 
 	public class Smash : DashSystem
@@ -116,15 +121,27 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override float DashSpeed => 10;
 
-		public override int DashMax => 99999;
+		public override int DashMax => 600;
 		public override float Knockback => 0;
 		public override bool Immune => true;
+
+		public override bool ExtraCheck(Player player)
+		{
+			return !player.wet;
+		}
 
 		public override void OnStart(Player player)
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
-				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
+				if (imbue is ThermoFist thermo)
+				{
+					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
+				}
+				if (imbue is SailorStyle sailor)
+				{
+					sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
+				}
 			}
 		}
 		public override bool OnHit(Player player, Entity target)
@@ -139,13 +156,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(player.Bottom);
 
-			foreach (NPC npc in Main.ActiveNPCs)
-			{
-				if (npc.Hitbox.Distance(player.MountedCenter) < Player.defaultHeight * 2 && !npc.friendly && npc.immune[player.whoAmI] <= 0)
-				{
-					npc.SimpleStrikeNPC(player.ArcaneOdyssey().CalculateDashDamage(npc), (player.MountedCenter.X - npc.Center.X > 0).ToDirectionInt(), knockBack: player.ArcaneOdyssey().CalculateDashKnockback(), damageType: DamageType);
-				}
-			}
+			SimulateAOE(Player.defaultHeight * 2, Damage, player.Bottom, Knockback, player, DamageType);
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 			if (player.TryGetImbue(out var imbue))
@@ -162,5 +173,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				imbue.LingeringEffects(player);
 			}
 		}
+	}
+
+	public class CrashCooldown : DisplayedCooldown
+	{
+		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(CrashScroll);
 	}
 }

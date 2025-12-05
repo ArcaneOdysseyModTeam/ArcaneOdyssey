@@ -1,18 +1,11 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
 
 namespace ArcaneOdyssey.Content.Buffs.Stuns
 {
-    /// <summary>
-    /// nobody will tell its a custom debuff thats the point lol
-    /// </summary>
-    public class AOFrozen : Stun
-    {
-    }
+	/// <summary>
+	/// nobody will tell its a custom debuff thats the point lol
+	/// </summary>
+	public class AOFrozen : Stun
+	{
+	}
 }

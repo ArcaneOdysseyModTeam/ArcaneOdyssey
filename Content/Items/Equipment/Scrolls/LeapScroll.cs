@@ -1,18 +1,11 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
@@ -25,21 +18,18 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			AOPlayer playah = player.ArcaneOdyssey();
-			Item.ArcaneOdyssey().imbue = playah.imbue;
-			if (playah.imbue is AOMagic)
+        {
+            base.UpdateAccessory(player, hideVisual);
+			if (Item.Imbue() is not null)
 			{
-				Item.color = playah.imbue.ImbueColour;
 				player.GetJumpState<LeapAirStep>().Enable();
 			}
-			else Item.color = Color.Transparent;
-
 		}
+
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.Balloons).Register();
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ShinyRedBalloon).Register();
+			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel, 5).Register();
 		}
 	}
 
@@ -73,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			//player.ChangeDir((player.oldVelocity.SafeNormalize(Vector2.UnitX * player.direction).X > 0).ToDirectionInt());
 			var item = new Item(ModContent.ItemType<LeapScroll>());
-			item.ArcaneOdyssey().imbue = player.Imbue();
+			item.ArcaneOdyssey().Imbue = player.Imbue();
 			if (player.whoAmI == Main.myPlayer)
 			{
 				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());

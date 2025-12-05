@@ -1,50 +1,82 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Equipment.MusicBoxes;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Weapons;
+using ArcaneOdyssey.Content.Items.Relics;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {
-	public partial class AOPlayer : ModPlayer
+	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public Imbuable imbue = null;
+		public Imbuable Imbue { get; set; }
 		public bool chargingSpell = false;
 		public int AOSizeStat = 0;
 		public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
-		public Dictionary<string, int> Cooldowns = [];
-		public Dictionary<int, int> BuffCooldowns = [];
-		public Dictionary<int, int> ItemCooldowns = [];
+		public List<Cooldown> Cooldowns = [];
 		public bool SoftFrozen => chargingSpell || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
+		public int groundedCounter = 0;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
+
+		public int pheonixHealing;
+
+		public List<ImbueDebuffHelper> DebuffHelpers = [];
+
+		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
+		{
+			if (useplayerimbue)
+				imbue ??= Imbue;
+			if (imbue is not null)
+			{
+				if (imbue is EnergyMagic)
+				{
+					Player.statMana = Math.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
+				}
+				foreach (var buff in imbue.ImbueDebuffs)
+				{
+					var instance = DebuffHelpers.Find(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
+					if (DebuffHelpers.Contains(instance))
+					{
+						int damage = instance.damagedone + damagedone;
+						if (canAddBuffs && (float)damage / npc.lifeMax > buff.debuffPercent)
+						{
+							npc.AddBuff(buff.debuffID, buff.debuffDuration);
+							damage = 0;
+						}
+						DebuffHelpers[DebuffHelpers.IndexOf(instance)] = instance with { damagedone = damage };
+					}
+					else
+					{
+						DebuffHelpers.Add(new(imbue, damagedone, npc, buff.debuffID));
+					}
+				}
+			}
+		}
+
+		public override void NaturalLifeRegen(ref float regen)
+		{
+			regen *= 1f + (pheonixHealing / 5f);
+		}
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
 			if (!mediumCoreDeath)
 			{
 				List<Item> items = [
-					new Item(ModContent.ItemType<PoseidonChoice>()),
-					new Item(ModContent.ItemType<TitleMusicBox>()),
-					new Item(ModContent.ItemType<EaglePatrimony>())];
-				if (Main.expertMode)
-				{
-					items.Add(new Item(ModContent.ItemType<Acrimony>()));
-				}
+						new Item(ModContent.ItemType<PoseidonChoice>()),
+						new Item(ModContent.ItemType<EaglePatrimony>()),
+						new Item(ModContent.ItemType<Acrimony>())
+					];
 				return items;
 			}
-			else return [];
+			return [];
 		}
 
 		public override void PostUpdate()
@@ -53,19 +85,25 @@ namespace ArcaneOdyssey
 				Player.statDefense *= .75f;
 			chargingSpell = false;
 			DashStrike();
-			if (imbue is not null && !imbue.PlayerHasImbue(Player))
+			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
-				imbue = null;
+				Imbue = null;
 			}
 		}
 
-		public void FreezeMovement() 
+		public void FreezeMovement()
 		{
+			if (Player.velocity.Y < 1 && Player.velocity.Y > -1)
+			{
+				groundedCounter++;
+			}
+			else
+				groundedCounter = 0;
 			if (SoftFrozen)
 			{
 				if (FirstFrozenFrame)
 				{
-					CanMoveOnGround = Player.velocity.Y < 1 && Player.velocity.Y > -1 && !(Player.controlJump || Player.releaseJump);
+					CanMoveOnGround = groundedCounter > 10;
 				}
 				if (!CanMoveOnGround)
 				{
@@ -80,80 +118,15 @@ namespace ArcaneOdyssey
 				timeSinceSoftFrozen = 0;
 				CanMoveOnGround = false;
 			}
-			if (Immobile)
-			{
-				Player.controlDown = false;
-				Player.controlUp = false;
-				Player.controlLeft = false;
-				Player.controlRight = false;
-				Player.controlUseItem = false;
-				Player.controlJump = false;
-			}
 		}
 
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
+			pheonixHealing = 0;
 			HandleDashDetection();
 		}
 
-		public float GetSizeMulti(Item item = null)
-		{
-			float stat = AOSizeStat / 300f;
-			if (item is not null && Player.meleeScaleGlove && item.DamageType.Name.Contains("Melee"))
-			{
-				stat += .1f;
-			}
-			stat++;
-			return stat;
-		}
-
-		public float GetSizeMulti(Projectile projectile)
-		{
-			float stat = AOSizeStat / 300f;
-			if (Player.meleeScaleGlove && projectile.DamageType.Name.Contains("Melee"))
-			{
-				stat += .1f;
-			}
-			stat++;
-			return stat;
-		}
-
-		public override void PreUpdate()
-		{
-			if (timeTillNextMove > 1)
-			{
-				for (int i = 0; i < 4; i++)
-					Player.doubleTapCardinalTimer[i] = 0;
-				timeTillNextMove--;
-			}
-			else timeTillNextMove = 0;
-			foreach (string i in Cooldowns.Keys)
-			{
-				Cooldowns[i]--;
-				if (Cooldowns[i] <= 0)
-				{
-					Cooldowns.Remove(i);
-				}
-			}
-
-			foreach (int i in BuffCooldowns.Keys)
-			{
-				BuffCooldowns[i]--;
-				if (BuffCooldowns[i] <= 0)
-				{
-					BuffCooldowns.Remove(i);
-				}
-			}
-
-			foreach (int i in ItemCooldowns.Keys)
-			{
-				ItemCooldowns[i]--;
-				if (ItemCooldowns[i] <= 0)
-				{
-					ItemCooldowns.Remove(i);
-				}
-			}
-		}
+		public float SizeMulti => AOSizeStat / 300f;
 	}
 }

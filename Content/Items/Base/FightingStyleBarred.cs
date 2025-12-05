@@ -1,27 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ReLogic.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-    public abstract class FightingStyleBarred : FightingStyle
-    {
-		public const int BarMax = 100;
-		public const int BarMin = 0;
+	public abstract class FightingStyleBarred : FightingStyle
+	{
+		public const float BarMax = 100f;
+		public const float BarMin = 0f;
 
 		private float _barValue = BarMin;
-		public float BarValue { get => _barValue; set => _barValue = MathHelper.Clamp(value, BarMin, BarMax); }
+		public float BarValue { get => UpdateBar(); set => UpdateBar(value); }
+
+		/// <summary>
+		/// Allows extra stuff to happen when the bar value changes or is requested
+		/// </summary>
+		/// <param name="value">The new bar value, if any</param>
+		/// <returns>The bar, after any changes</returns>
+		public virtual float UpdateBar(float? value = null)
+		{
+			if (value.HasValue)
+				_barValue = MathHelper.Clamp(value.Value, BarMin, BarMax);
+			return _barValue;
+		}
 
 		public abstract Color DisplayColor { get; }
 
@@ -38,12 +42,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract float MinScrollDamage { get; }
 		public abstract float MinScrollSize { get; }
 
-		public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, BarValue / 100f); }
-		public override float AOScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, BarValue / 100f); }
-		public override float AOImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, BarValue / 100f); }
-		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, BarValue / 100f); }
-		public override float AOImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, BarValue / 100f); }
-		public override float AOScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, BarValue / 100f); }
+		public float LerpValue => MathHelper.Clamp(BarValue * 1.25f / BarMax, 0f, 1f);
+
+
+		public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, LerpValue); }
+		public override float AOScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, LerpValue); }
+		public override float AOImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, LerpValue); }
+		public override float AOScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, LerpValue); }
+		public override float AOImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, LerpValue); }
+		public override float AOScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, LerpValue); }
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
@@ -52,8 +59,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-			if (player.Imbue() is FightingStyleBarred fs && player.Imbue().Name == Name)
-				BarValue = fs.BarValue;
+			if (player.Imbue() is FightingStyleBarred fs1 && fs1.Name == Name)
+			{
+				BarValue = fs1.BarValue;
+			}
+			//if (AOUtils.PlayerItem(player)?.ModItem is FightingStyleBarred fs && fs.Name == Name)
+			//{
+			//	BarValue = fs.BarValue;
+			//}
 			base.UpdateInventory(player);
 		}
 	}
@@ -62,8 +75,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			if (item.ArcaneOdyssey().imbue is FightingStyleBarred fs && ImbueClassCheck(item) && !item.ArcaneOdyssey().Arcanium.GetValueOrDefault(false) && item.ModItem is not MagicScroll)
-				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.ImbueColour);
+			if (item.ArcaneOdyssey().Imbue is FightingStyleBarred fs && item.ModItem is not Imbuable)
+				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 		}
 	}
 }

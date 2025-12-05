@@ -1,62 +1,57 @@
+Armour: {
+	SunkenBoots: {
+		DisplayName: Sunken Boots
+		Tooltip: It seems to constantly produce water
+	}
+
+	SunkenChest: {
+		DisplayName: Sunken Chest
+		Tooltip: It seems to constantly produce water
+	}
+
+	SunkenHelm: {
+		DisplayName: Sunken Helm
+		Tooltip: It seems to constantly produce water
+	}
+
+	RavennaBoots: {
+		DisplayName: Ravenna Boots
+		Tooltip: ""
+	}
+
+	RavennaChest: {
+		DisplayName: Ravenna Chest
+		Tooltip: ""
+	}
+
+	RavennaHelm: {
+		DisplayName: Ravenna Helm
+		Tooltip: ""
+	}
+}
+
+ElfPetItem: {
+	DisplayName: Aether's Heart
+	Tooltip: ThyGoodBoy's pet
+}
+
+ReflexScroll: {
+	DisplayName: Reflex Scroll
+	Tooltip:
+		'''
+		Allows the user to dash, speed changes with the imbue
+		Some imbues grant resistance while dashing
+		'''
+}
+
 KindraBlade: {
-	DisplayName: Kindra's Blade
-	Tooltip:
-		'''
-		A blood red blade, there is probably a story behind this
-		Guard Boi's Vanity Set
-		'''
+	DisplayName: Kindra Blade
+	Tooltip: Guard Boi's vanity
 }
 
-HecateShard: {
-	DisplayName: Hecate Shard
-	Tooltip: A shard of unknown origin... the world is not ready to unleash this
-}
-
-ArcaniumScrap: {
-	DisplayName: Sunken Scrap
-	Tooltip: A large chunk of arcanium metal that has spent hundreds of years under the sea, imbuing it with intense magical properties
-}
-
-PoseidonChoice: {
-	DisplayName: Poseidon's Spirit
-	Tooltip: An sigil of ancient power, which can be focused upon to grant power to those who are worthy
-}
-
-BlastScroll: {
-	DisplayName: Blast Scroll
-	Tooltip: A spell scroll which allows the user to create a charged magical blast, or create a barrage of uncharged magical blasts
-}
-
-Paper: {
-	DisplayName: Paper
-	Tooltip: Organic parchment suitable for conducting magic
-}
-
-SunkenBoots: {
-	DisplayName: Sunken Boots
-	Tooltip:
-		'''
-		A green and gold pair of boots made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-		It seems to constantly produce water
-		'''
-}
-
-SunkenChest: {
-	DisplayName: Sunken Chestplate
-	Tooltip:
-		'''
-		A green and gold chestplate made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-		It seems to constantly produce water
-		'''
-}
-
-SunkenHelm: {
-	DisplayName: Sunken Helmet
-	Tooltip:
-		'''
-		A green and gold helmet made out of arcanium metal that has spent hundreds of years underwater, causing its properties to change
-		It seems to constantly produce water
-		'''
+VesuvianSigil: {
+	DisplayName: Vesuvian Sigil
+	Tooltip: RedBirb1508's vanity
 }
 
 WoodenPaddle: {
@@ -64,57 +59,34 @@ WoodenPaddle: {
 	Tooltip: A wooden paddle for a rowboat, it seems to contain trace magic
 }
 
-DarkSeaMusicBox: {
-	DisplayName: Music Box (Dark Sea)
-	Tooltip: Plays 'The Dark Sea' by Tobi (Hailfirz)
-}
-
-TitleMusicBox: {
-	DisplayName: Music Box (Arcane Title)
-	Tooltip: Plays 'The Call of Adventure' by Tobi (Hailfirz)
-}
-
 Acrimony: {
 	DisplayName: Prometheus's Acrimony
 	Tooltip: ""
 }
 
-ExplosionScroll: {
-	DisplayName: Explosion Scroll
-	Tooltip: Creates an explosion at your cursor's position, or can hold you in place and turn you into the source
+AncientHecateOrb: {
+	DisplayName: Hecate Orb
+	Tooltip: An orb formed of the essence of the goddess hecate... the world is really not ready to unleash this
 }
 
-BronzeBar: {
-	DisplayName: Bronze Bar
-	Tooltip: ""
+HecateShard: {
+	DisplayName: Hecate Shard
+	Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic], coming soon
 }
 
-SteamImbue: {
-	DisplayName: Steam
-	Tooltip:
-		'''
-		By Valve
-		Part of the mod internals, just ignore this, any spells with it will cause an error (It's used for imbues)
-		'''
+Paper: {
+	DisplayName: Paper
+	Tooltip: Organic parchment suitable for conducting magic
 }
 
-EmptyScroll: {
-	DisplayName: Empty Scroll
-	Tooltip: An empty scroll, made of organic paper
+PoseidonChoice: {
+	DisplayName: Poseidon's Spirit
+	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
-LeapScroll: {
-	DisplayName: Leap Scroll
-	Tooltip: Use magic to launch yourself at an upwards angle, the speed and height changing with your selected magic
-}
-
-VesuvianSigil: {
-	DisplayName: Vesuvian Sigil
-	Tooltip:
-		'''
-		A strange emblem
-		RedBirb1508's Vanity Set
-		'''
+PoseidonSpirit: {
+	DisplayName: Poseidon's Spirit
+	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
 EaglePatrimony: {
@@ -122,40 +94,49 @@ EaglePatrimony: {
 	Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
 }
 
-CrashScroll: {
-	DisplayName: Crash Scroll
-	Tooltip:
-		'''
-		Press {DASHBIND} to activate with a 5 second cooldown
-		Leap at your target and use momentum and strength to crash into your enemies
-		'''
+Accessories: {
+	EvanderCape: {
+		DisplayName: Mountainbreaker Cape
+		Tooltip: ""
+	}
+
+	EvanderGauntlet: {
+		DisplayName: Mountainbreaker Gauntlet
+		Tooltip: ""
+	}
 }
 
-AncientHecateOrb: {
-	DisplayName: Hecate Orb
-	Tooltip: An orb of unknown origin... the world is really not ready to unleash this
+HeadlessHead: {
+	DisplayName: Headless Head
+	Tooltip: ""
 }
 
-ReflexScroll: {
-	DisplayName: Reflex Scroll
-	Tooltip:
-		'''
-		An ability which allows the user to channel their imbue to dash
-		Grants bonus defense to imbues with slow speed
-		'''
+HeadlessHeadWithWig: {
+	DisplayName: Headless Head With Wig
+	Tooltip: ""
 }
 
-RavennaBoots: {
-	DisplayName: Ravenna Boots
-	Tooltip: Ornate greaves of bronze, representing the colors of the Ravenna Realm
+EvanderTrophy: {
+	DisplayName: Evander Trophy
+	Tooltip: ""
 }
 
-RavennaChest: {
-	DisplayName: Ravenna Chestplate
-	Tooltip: A bulkier set of armor made out of pure bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
+SteamImbue: {
+	DisplayName: Steam Imbue
+	Tooltip: ""
 }
 
-RavennaHelm: {
-	DisplayName: Ravenna Helmet
-	Tooltip: A detailed helmet made out of bronze, made to be worn by the Centurions of the Bronze Legion of Ravenna
+BronzeBar: {
+	DisplayName: Bronze Bar
+	Tooltip: ""
+}
+
+EmptyScroll: {
+	DisplayName: Empty Scroll
+	Tooltip: ""
+}
+
+SunkenScrap: {
+	DisplayName: Sunken Scrap
+	Tooltip: ""
 }

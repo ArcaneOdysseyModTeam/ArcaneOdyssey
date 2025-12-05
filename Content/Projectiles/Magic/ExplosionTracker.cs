@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +19,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public Vector2 ensuredPosition = Main.MouseWorld;
         public override void SetDefaults()
         {
-			Projectile.tileCollide = false;
+            base.SetDefaults();
+            Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
         }
 		public override void AI()
@@ -64,7 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					ensuredPosition = Projectile.Center;
 				}
 				player.channel = false;
-				if (playah.myCircle is not null && playah.myCircle.ArcaneOdyssey().imbue.Name == Imbue.Name)
+				if (playah.myCircle is not null && playah.myCircle.ArcaneOdyssey().Imbue.Name == Imbue.Name)
 				{
 					playah.myCircle.ai[0]++;
 					playah.myCircle = null;
@@ -78,15 +75,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var explosionProjectile = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1 - Imbue.AOScrollSize) * new Vector2(100, 100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * (charge * (charge/2))), Projectile.knockBack, Projectile.owner)];
-					explosionProjectile.localAI[0] = 1f;
+					var explosionProjectile = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1 - Imbue.AOScrollSize) * new Vector2(100, 100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * (charge * (charge/2))), Projectile.knockBack, Projectile.owner, 1)];
 					if (!isPlacedExplosion)
 					{
-						explosionProjectile.localAI[0] = 1.2f; //size mult
+						explosionProjectile.ai[0] = 1.2f; //size mult
 						explosionProjectile.damage = (explosionProjectile.damage * 1.2f).Round(); //Damage mult
-						explosionProjectile.AI();
-						explosionProjectile.Center = ensuredPosition;
 					}
+					explosionProjectile.Center = ensuredPosition;
 				}
 				SoundEngine.PlaySound(Imbue.ImbueSound, Projectile.position, null);
 				Kill();
@@ -105,7 +100,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					Vector2 currentDustPos = (new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f)))) * ((imbue.AOScrollSize * 109) * extraScale);
 					currentDustPos.X = Utils.Clamp(currentDustPos.X, -1 * (imbue.AOScrollSize * 100 * extraScale), (imbue.AOScrollSize * 100 * extraScale));
 					currentDustPos.Y = Utils.Clamp(currentDustPos.Y, -1 * (imbue.AOScrollSize * 100 * extraScale), (imbue.AOScrollSize * 100 * extraScale));
-					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, imbue.ImbueColour, 1f);
+					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, imbue.GetColor(), 1f);
 				}
 			}
 		}

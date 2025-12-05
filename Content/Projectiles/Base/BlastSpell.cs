@@ -1,21 +1,19 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class BlastSpell : MagicSpell
+	public abstract class BlastSpell : MagicSpell, ILocalizedModType
 	{
+		// ai 2 is first frame bool
 
-		// ai 0 is first frame bool
-
-
-		public virtual void SetDefaultsBlast() {}
+		public override string LocalizationCategory => "Magic.Spells.Blasts";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.timeLeft = 5 * 60;
 			Projectile.height = Projectile.width = 64;
+			Projectile.timeLeft = 5 * 60;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -29,27 +27,36 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-			if (Projectile.frameCounter > 5)
-            {
-                Projectile.frameCounter = 0;
-                if (++Projectile.frame >= Main.projFrames[Projectile.type])
-                {
-                    Projectile.frame = 0;
-                }
-            }
-			Projectile.frameCounter++;
-			if (Projectile.ai[0] == 0f)
+			if (Projectile.ai[2] == 0f)
 			{
-				Projectile.ai[0] = 1f;
+				Projectile.ai[2] = 1f;
 				Projectile.netUpdate = true;
 			}
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			Projectile.rotation = Projectile.velocity.ToRotation();
+			Animate();
+			Rotate();
 			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
 			{
 				Kill();
 				return;
 			}
+		}
+
+		public virtual void Animate()
+		{
+			if (Projectile.frameCounter++ > 5)
+			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				{
+					Projectile.frame = 0;
+				}
+			}
+		}
+
+		public virtual void Rotate()
+		{
+			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 	}
 }

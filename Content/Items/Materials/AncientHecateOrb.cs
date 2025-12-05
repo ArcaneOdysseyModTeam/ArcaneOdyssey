@@ -1,15 +1,9 @@
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
@@ -17,8 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
     public class AncientHecateOrb : AOBaseItem
     {
         public int AOValue = 20000;
-        public override AORarities AORarity => AORarities.Zenith;
-        public override ItemType ItemType => ItemType.Material;
+        public override AORarities AORarity => AORarities.Mythical;
 
         public override void SetDefaults()
         {
@@ -36,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
         {
             Lighting.AddLight(Item.Center,2,0,2);
             Texture2D texture = TextureAssets.Item[Item.type].Value;
-            Main.EntitySpriteDraw(texture,Item.Center - Main.screenPosition,new Rectangle(0,0,Item.width,Item.height),Color.White,0f,Vector2.Zero,0.8f,SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None);
             return false;
         }
     }

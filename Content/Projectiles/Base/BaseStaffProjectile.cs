@@ -1,20 +1,20 @@
-﻿using System;
-using ArcaneOdyssey.Content.Items.Base;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
+		}
+
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.DamageType = TrueMeleeNoSpeed();
 			Projectile.knockBack = 4.5f;
 			Projectile.height = Projectile.width = 120;
@@ -33,13 +33,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
 			Projectile.direction = 1;
 
-			float extramulti = 1f;
-			if (Imbue is not null)
-			{
-				extramulti = Imbue.AOImbueSpeed.FlipFloat();
-			}
-
-			float spintime = 25 * AOSpeed.FlipFloat() * 2 * extramulti;
+			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed.FlipFloat() ?? 1f);
 			Vector2 expectedDirection = player.SafeDirectionTo(Main.MouseWorld);
 			player.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
 
@@ -65,13 +59,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			
 			else
 			{
-				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / spintime);
+				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / (25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed ?? 1f)));
 			}
 
 			Projectile.rotation += MathHelper.TwoPi * 2f / spintime * player.direction;
-			// remember that rotation is in radians, meaning pi is actually what you use (pi is a 360)
-
-			player.itemRotation = MathHelper.WrapAngle(Projectile.rotation); ;
+			player.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
 			player.itemTime = player.itemAnimation = 2;
 		}
 
