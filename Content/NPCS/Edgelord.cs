@@ -228,14 +228,14 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
 			{
 				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
-            }
+			}
 
-            if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Artisinal)
-            {
-                options.Add(this.GetLocalizedValue("Help.ArtisinalWeapon"));
-            }
+			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Artisinal)
+			{
+				options.Add(this.GetLocalizedValue("Help.ArtisinalWeapon"));
+			}
 
-            if (Main.hardMode && NPC.downedPirates)
+			if (Main.hardMode && NPC.downedPirates)
 			{
 				options.Add(this.GetLocalizedValue("Help.CannonFist"));
 			}
@@ -296,7 +296,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
 			}
 
-			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
+			if (Main.LocalPlayer.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
 			{
 				options.Add(this.GetLocalizedValue("Chat.StrongWarrior"));
 			}
