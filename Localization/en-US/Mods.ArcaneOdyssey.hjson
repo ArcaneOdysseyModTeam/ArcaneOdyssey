@@ -18,9 +18,9 @@ ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
-	ArcaniumIndicator: "[c/327DFF:-Arcanium Weapon-]"
-	StrengthIndicator: "[c/700013:-Strength Weapon-]"
-	ArtisinalIndicator: "[c/ADA500:-Artisinal Weapon-]"
+	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Requires Magic]"
+	StrengthIndicator: "[c/700013:Strength Weapon - Requires Fighting Style]"
+	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
 }
 
 Configs: {
