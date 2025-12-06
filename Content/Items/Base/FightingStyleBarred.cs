@@ -63,20 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				BarValue = fs1.BarValue;
 			}
-			//if (AOUtils.PlayerItem(player)?.ModItem is FightingStyleBarred fs && fs.Name == Name)
-			//{
-			//	BarValue = fs.BarValue;
-			//}
 			base.UpdateInventory(player);
-		}
-	}
-
-	public class ImbueBarDisplay : GlobalItem
-	{
-		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-		{
-			if (item.ArcaneOdyssey().Imbue is FightingStyleBarred fs && item.ModItem is not Imbuable)
-				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 		}
 	}
 }

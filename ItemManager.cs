@@ -8,9 +8,11 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -168,7 +170,9 @@ namespace ArcaneOdyssey
 			var clone = (AOItem)base.Clone(from, to);
 			clone.Imbue = Imbue;
 			clone._cold = _cold;
+			clone._weaponsType = _weaponsType;
 			clone.thisItem = to;
+			clone._canImbue = _canImbue;
 			return clone;
 		}
 
@@ -181,7 +185,11 @@ namespace ArcaneOdyssey
 			{
 				Vector2 dimensions = new(frame.Width, frame.Height);
 				Vector2 location = position + (dimensions * .25f);
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .3f * (item.width / frame.Width * 1.2f), SpriteEffects.None, 1f);
+
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
+				
+				if (Imbue is FightingStyleBarred fs && item.ModItem is not Imbuable)
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 			}
 		}
 
@@ -493,7 +501,8 @@ namespace ArcaneOdyssey
 				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
 			item.DamageType = item.DamageType.UnImbued();
-			item.DamageType = item.DamageType.Imbued(Imbue);
+			if (item.ModItem is not TechniqueScroll)
+				item.DamageType = item.DamageType.Imbued(Imbue);
 		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)

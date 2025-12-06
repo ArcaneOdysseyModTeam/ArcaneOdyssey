@@ -86,7 +86,8 @@ namespace ArcaneOdyssey.Content.NPCS
                 if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
                 {
                     NPC.velocity.Y = -5f;
-                } else if (tileUnderIsFlat) {
+                } 
+                else if (tileUnderIsFlat) {
                     if (tileNextToFlatTile && (NPC.ai[1] % 5 == 1)) {
                         NPC.velocity.Y = -2f;
                     }
