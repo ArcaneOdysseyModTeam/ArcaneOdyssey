@@ -409,6 +409,8 @@ namespace ArcaneOdyssey
 			}
 			if (!CanBeAffected)
 				return;
+			if (Main.myPlayer != player.whoAmI)
+				return;
 			List<Imbuable> options = [null, .. player.GetAllImbues()];
 			options.RemoveAll(e => !item.CanHaveImbue(e));
 			bool justchangedspecificimbue = false;
