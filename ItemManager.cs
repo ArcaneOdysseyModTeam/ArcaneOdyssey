@@ -359,7 +359,7 @@ namespace ArcaneOdyssey
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
 			thisItem = item;
-			if (!CanBeAffected)
+			if (item.noMelee || !CanBeAffected)
 				return;
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
