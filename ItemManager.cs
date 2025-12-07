@@ -230,6 +230,8 @@ namespace ArcaneOdyssey
 					crit *= Imbue.AOImbueDamage;
 				}
 			}
+			if (Imbue is VanishingStyle && player.HasBuff(BuffID.Invisibility))
+				crit = 100;
 		}
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
