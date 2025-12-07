@@ -55,31 +55,6 @@ namespace ArcaneOdyssey
 					return ModContent.GetInstance<WarlordNoSpeed>();
 				}
 
-				if (damageClass == TrueMelee() && imbue is AOMagic)
-				{
-					return ModContent.GetInstance<TrueConjurer>();
-				}
-				if (damageClass == TrueMeleeNoSpeed() && imbue is AOMagic)
-				{
-					return ModContent.GetInstance<TrueConjurerNoSpeed>();
-				}
-				if (damageClass == TrueMelee() && imbue is RelicWeapon)
-				{
-					return ModContent.GetInstance<TrueKnight>();
-				}
-				if (damageClass == TrueMeleeNoSpeed() && imbue is RelicWeapon)
-				{
-					return ModContent.GetInstance<TrueKnightNoSpeed>();
-				}
-				if (damageClass == TrueMelee() && imbue is FightingStyle)
-				{
-					return ModContent.GetInstance<TrueWarlord>();
-				}
-				if (damageClass == TrueMeleeNoSpeed() && imbue is FightingStyle)
-				{
-					return ModContent.GetInstance<TrueWarlordNoSpeed>();
-				}
-
 				if (damageClass == DamageClass.Ranged && imbue is AOMagic)
 				{
 					return ModContent.GetInstance<RangedConjurer>();
@@ -110,15 +85,6 @@ namespace ArcaneOdyssey
 			if (damageClass.Name == ConjurerNoSpeed.InternalName || damageClass.Name == WarlordNoSpeed.InternalName || damageClass.Name == KnightNoSpeed.InternalName)
 			{
 				return DamageClass.MeleeNoSpeed;
-			}
-
-			if (damageClass.Name == TrueConjurer.InternalName || damageClass.Name == TrueWarlord.InternalName || damageClass.Name == TrueKnight.InternalName)
-			{
-				return TrueMelee();
-			}
-			if (damageClass.Name == TrueWarlordNoSpeed.InternalName || damageClass.Name == TrueConjurerNoSpeed.InternalName || damageClass.Name == TrueKnightNoSpeed.InternalName)
-			{
-				return TrueMeleeNoSpeed();
 			}
 
 			if (damageClass.Name == RangedWarlord.InternalName || damageClass.Name == RangedConjurer.InternalName || damageClass.Name == RangedKnight.InternalName)
