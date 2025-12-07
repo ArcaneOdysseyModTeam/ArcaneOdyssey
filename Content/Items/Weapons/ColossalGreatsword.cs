@@ -50,14 +50,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			player.ArcaneOdyssey().SetCooldown(new ColossalCleaveCooldown());
-			Projectile.NewProjectile(source, position, Vector2.UnitX * Item.shootSpeed * player.direction, type, damage, knockback, player.whoAmI);
+			Projectile.NewProjectile(source, position, Vector2.UnitX * velocity.Length() * player.direction, type, damage, knockback, player.whoAmI);
 			return false;
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return CanUseItem(player);
-		}
+		public override bool AltFunctionUse(Player player) => true;
 	}
 
 	public class ColossalCleaveCooldown : DisplayedCooldown

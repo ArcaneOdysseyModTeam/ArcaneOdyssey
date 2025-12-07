@@ -36,10 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.useTurn = true;
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return CanUseItem(player);
-		}
+		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool? UseItem(Player player)
 		{
@@ -84,10 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			}
 		}
 
-		public override bool ExtraCheck(Player player)
-		{
-			return !player.wet;
-		}
+		public override bool ExtraCheck(Player player) => !player.wet;
 
 		public override void OnEnd(Player player)
 		{

@@ -618,25 +618,5 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
-
-		public override bool CanUseItem(Item item, Player player)
-		{
-			thisItem = item;
-			if (!CanBeAffected)
-				return base.CanUseItem(item, player);
-			if (WeaponsType == WeaponType.Arcanium)
-			{
-				return Imbue is AOMagic;
-			}
-			if (WeaponsType == WeaponType.Strength)
-			{
-				return Imbue is FightingStyle;
-			}
-			if (WeaponsType == WeaponType.Artisinal)
-			{
-				return Imbue is null;
-			}
-			return true;
-		}
 	}
 }
