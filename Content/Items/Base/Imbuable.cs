@@ -116,7 +116,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
-			if (!player.AltUse())
+			if (!player.AltUse() && Main.myPlayer == player.whoAmI)
 			{
 				player.GetModPlayer<ThermoFallOff>().resetBar = true;
 				var name = "";
@@ -212,29 +212,31 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		internal static List<int> BasicImbues = [];
-		internal static int? GroupNum = null;
-		public override void AddRecipes()
+		internal static int? poseidonGroupNum = null;
+        public override void AddRecipes()
 		{
 			if (ImbuableTier == AOImbuableTier.Normal)
 			{
 				if (this is AOMagic or BasicCombat)
 				{
-					if (!GroupNum.HasValue)
+					if (!poseidonGroupNum.HasValue)
 					{
 						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
-						GroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
-					}
-					CreateRecipe().AddRecipeGroup(GroupNum.Value).DisableDecraft().Register();
+						poseidonGroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
+                    }
+                    CreateRecipe().AddRecipeGroup(poseidonGroupNum.Value).DisableDecraft().Register();
 				}
 			}
 
 			if (this is BasicCombat)
-			{
-				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
+            {
+                RecipeGroup group = new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>());
+                RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", group);
+                var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
 				RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", goru);
 				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonSpirit>());
 				recipe.AddRecipeGroup(goru);
-				recipe.AddIngredient<Acrimony>();
+				recipe.AddRecipeGroup(group);
 				recipe.DisableDecraft().Register();
 			}
 		}

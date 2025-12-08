@@ -72,7 +72,7 @@ namespace ArcaneOdyssey
 				List<Item> items = [
 						new Item(ModContent.ItemType<PoseidonChoice>()),
 						new Item(ModContent.ItemType<EaglePatrimony>()),
-						new Item(ModContent.ItemType<Acrimony>())
+						new Item(ModContent.ItemType<StarterAcrimony>())
 					];
 				return items;
 			}
