@@ -530,25 +530,29 @@ namespace ArcaneOdyssey
 						switch (player.meleeEnchant)
 						{
 							case 1:
-								target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10), false);
+								target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10));
 								break;
 							case 2:
-								target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), false);
+								target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7));
 								break;
 							case 3:
-								target.AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
+								target.AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7));
 								break;
 							case 4:
-								target.AddBuff(BuffID.Midas, 120, false);
+								target.AddBuff(BuffID.Midas, 120);
 								break;
 							case 5:
-								target.AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20), false);
+								target.AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20));
 								break;
 							case 6:
-								target.AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4), false);
+								target.AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4));
 								break;
 							case 8:
-								target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10), false);
+								target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
+								break;
+							default:
+								if (player.ArcaneOdyssey().gel.HasValue)
+									target.AddBuff(player.ArcaneOdyssey().gel.Value, 60 * Main.rand.Next(5, 10));
 								break;
 						}
 					}

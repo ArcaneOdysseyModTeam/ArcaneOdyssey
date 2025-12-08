@@ -18,6 +18,8 @@ namespace ArcaneOdyssey
 		public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
+
+		public int? gel = null;
 		public bool SoftFrozen => chargingSpell || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;

@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.UI.ModBrowser;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -144,6 +145,48 @@ namespace ArcaneOdyssey
 			thisProjectile = projectile;
 			if (!CanBeAffected)
 				return;
+
+			if (projectile.TryGetOwner(out var player))
+			{
+				if (player.meleeEnchant != 0 && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+				{
+					// apply early for synergies and stuff, no way to do it for modded imbues
+					foreach (var buff in player.buffType)
+					{
+						if (Main.meleeBuff[buff])
+						{
+							switch (player.meleeEnchant)
+							{
+								case 1:
+									target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10));
+									break;
+								case 2:
+									target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7));
+									break;
+								case 3:
+									target.AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7));
+									break;
+								case 4:
+									target.AddBuff(BuffID.Midas, 120);
+									break;
+								case 5:
+									target.AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20));
+									break;
+								case 6:
+									target.AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4));
+									break;
+								case 8:
+									target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
+									break;
+								default:
+									if (player.ArcaneOdyssey().gel.HasValue)
+										target.AddBuff(player.ArcaneOdyssey().gel.Value, 60 * Main.rand.Next(5, 10));
+									break;
+							}
+						}
+					}
+				}
+			}
 			if (Imbue is not null)
 			{
 				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
