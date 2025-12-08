@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -59,7 +60,44 @@ namespace ArcaneOdyssey.Content.Items.Relics
 
 		public override void LingeringEffects(Entity entity)
 		{
-			Dust.NewDustDirect(entity.position, entity.width, entity.height, ModContent.DustType<SpiritTentacle>(), newColor: Color.White, Scale: .75f).noGravity = true;
+			Dust.NewDustDirect(entity.position, entity.width, entity.height, ModContent.DustType<SpiritTentacle>(), Scale: 1f).noGravity = true;
+		}
+
+		public override void KillEffects(Entity entity)
+		{
+			if (!Main.dedServ)
+			{
+				for (float i = 0; i < SpiritBlast.DustCount; i++)
+				{
+					var centre = (MathHelper.TwoPi / SpiritBlast.DustCount * i).ToRotationVector2() * (entity.width + entity.height);
+					var dust = Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (13 + (Main.rand.NextFloat() * 2)));
+                    dust.noGravity = true;
+					centre = (MathHelper.TwoPi / SpiritBlast.DustCount * i).ToRotationVector2() * (entity.width + entity.height);
+					dust = Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (14 + (Main.rand.NextFloat() * 2)));
+                    dust.noGravity = true;
+					centre = (MathHelper.TwoPi / SpiritBlast.DustCount * i).ToRotationVector2() * (entity.width + entity.height);
+					dust = Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (15 + (Main.rand.NextFloat() * 2)));
+					dust.noGravity = true;
+				}
+			}
+		}
+
+		public override void SpawningEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<SpiritTentacle>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f)];
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void ExplosionEffects(Entity projectile)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 0, 0, ModContent.DustType<SpiritTentacle>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize))];
+				spawnedDust.noGravity = true;
+			}
 		}
 	}
 }

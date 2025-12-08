@@ -294,13 +294,11 @@ namespace ArcaneOdyssey
 				return (
 						projectile.DamageType.CountsAsClass(DamageClass.Melee) 
 						|| projectile.DamageType.CountsAsClass(DamageClass.Ranged) 
-						|| projectile.ModProjectile is MagicSpell or StrengthTechnique or MagicCircle1 or MagicCircle2 or ExplosionTracker
+						|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique
 					) 
-					&& projectile.ModProjectile is not MagicCircle1 or MagicCircle2
 					&& projectile.owner != 255 
 					&& !projectile.hostile 
-					&& !projectile.npcProj 
-					&& projectile.type != ProjectileID.FallingStar;
+					&& !projectile.npcProj;
 			}
 			return false;
 		}

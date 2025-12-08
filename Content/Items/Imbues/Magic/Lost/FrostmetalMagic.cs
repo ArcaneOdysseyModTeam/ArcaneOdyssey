@@ -58,10 +58,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				return;
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Mercury, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, Scale: 2f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Mercury, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, Scale: 2f);
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SnowflakeIce, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f)];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Ice, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ice, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
 			}
 		}
 
