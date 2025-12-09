@@ -117,7 +117,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool? UseItem(Player player)
 		{
-			if (!player.AltUse())
+			if (!player.AltUse() && Main.myPlayer == player.whoAmI)
 			{
 				player.GetModPlayer<ThermoFallOff>().resetBar = true;
 				var name = "";
@@ -231,12 +231,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 
 			if (this is BasicCombat)
-			{
-				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
+            {
+                RecipeGroup group = new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>());
+                RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", group);
+                var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
 				RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", goru);
 				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonSpirit>());
 				recipe.AddRecipeGroup(goru);
-				recipe.AddIngredient<Acrimony>();
+				recipe.AddRecipeGroup(group);
 				recipe.DisableDecraft().Register();
 			}
 		}

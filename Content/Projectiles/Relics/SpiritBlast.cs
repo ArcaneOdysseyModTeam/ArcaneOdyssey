@@ -56,13 +56,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			{
 				for (float i = 0; i < DustCount; i++)
 				{
-					var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width + Projectile.height);
 					var dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (13 + (Main.rand.NextFloat() * 2)));
 					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width + Projectile.height);
 					dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (14 + (Main.rand.NextFloat() * 2)));
 					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width + Projectile.height);
 					dust = Dust.NewDustPerfect(Projectile.Center, DustID.IcyMerman, centre / (15 + (Main.rand.NextFloat() * 2)));
 					dust.noGravity = true;
 				}

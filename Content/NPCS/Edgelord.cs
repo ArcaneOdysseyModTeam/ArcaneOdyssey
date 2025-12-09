@@ -225,12 +225,12 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue("Help.EvanderWarning"));
 			}
 
-			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
+			if (Main.LocalPlayer.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
 			{
 				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
 			}
 
-			if (Main.LocalPlayer.PlayerItem().ModItem.ArcaneOdyssey().WeaponsType == WeaponType.Artisinal)
+			if (Main.LocalPlayer.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Artisinal)
 			{
 				options.Add(this.GetLocalizedValue("Help.ArtisinalWeapon"));
 			}

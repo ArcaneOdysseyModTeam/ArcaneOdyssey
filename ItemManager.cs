@@ -378,7 +378,7 @@ namespace ArcaneOdyssey
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
 			thisItem = item;
-			if (!CanBeAffected || item.noMelee)
+			if (item.noMelee || !CanBeAffected)
 				return;
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
@@ -429,6 +429,8 @@ namespace ArcaneOdyssey
 				WeaponsType = WeaponType.Normal;
 			}
 			if (!CanBeAffected)
+				return;
+			if (Main.myPlayer != player.whoAmI)
 				return;
 			List<Imbuable> options = [null, .. player.GetAllImbues()];
 			options.RemoveAll(e => !item.CanHaveImbue(e));

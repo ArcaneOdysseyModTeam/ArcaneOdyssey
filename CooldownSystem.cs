@@ -126,9 +126,9 @@ namespace ArcaneOdyssey
 			toremove = [];
 		}
 
-		public bool OnCooldown(string ID) => GetCooldown(ID).ID is not null;
+		public bool OnCooldown(string ID) => GetCooldown(ID).ID is not null && !ArcaneOdysseyMod.DevMode;
 
-		public bool OnCooldown(int ID) => Player.HasBuff(ID);
+		public bool OnCooldown(int ID) => Player.HasBuff(ID) && !ArcaneOdysseyMod.DevMode;
 
 		public Cooldown GetCooldown(string ID)
 		{

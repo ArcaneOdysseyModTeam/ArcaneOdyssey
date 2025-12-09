@@ -13,18 +13,17 @@ namespace ArcaneOdyssey.Content.Items.Materials
 	[LegacyName("HecateOrb")]
 	public class PoseidonChoice : AOBaseItem
 	{
-		public int AOValue = 0;
-		public override AORarities AORarity => AORarities.Arcane;
+		public override AORarities AORarity => AORarities.Mythical;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.value = GalleonToCopper(AOValue);
 			Item.width = Item.height = 64;
 		}
 
 		public override LocalizedText DisplayName => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.DisplayName");
 		public override LocalizedText Tooltip => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.Tooltip");
+		public override string Texture => (GetType().Namespace + "." + nameof(PoseidonSpirit)).Replace('.', '/');
 
 		public override void SetStaticDefaults()
 		{
