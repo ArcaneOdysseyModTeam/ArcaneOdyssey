@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class Imbuable : AOBaseItem
 	{
+		public Imbuable SecondImbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
@@ -65,8 +66,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOImbueDamage => .9f;
 		public virtual float AOScrollSpeed => AOImbueSpeed < 1f ? AOImbueSpeed + .1f : AOImbueSpeed - .1f;
 		public virtual float AOScrollSize => AOImbueSize < 1f ? AOImbueSize + .1f : AOImbueSize - .1f;
-        public virtual float AOScrollDamage => AOImbueDamage < 1f ? AOImbueDamage + .1f : AOImbueDamage - .1f;
-        public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
+		public virtual float AOScrollDamage => AOImbueDamage < 1f ? AOImbueDamage + .1f : AOImbueDamage - .1f;
+		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
 		public virtual AODebuffRequirement[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);
 		public virtual Color ImbueColour => Color.Transparent;
@@ -85,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual float KBMulti => 1f;
 
-		public int GetSkill(string skill, int fallback = ProjectileID.AmethystBolt)
+		public int GetSkill(string skill, int fallback = ProjectileID.EnchantedBeam)
 		{
 			if (Mod.TryFind<ModProjectile>(Name.Replace("Magic") + $"{skill}", out var proj))
 			{
@@ -122,7 +123,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				var name = "";
 				if (player.Imbue() is SteamImbue steam)
 				{
-					name = steam.originalImbue.Name;
+					name = steam.SecondImbue.Name;
 				}
 				else if (player.Imbue() is not null)
 					name = player.Imbue().Name;
@@ -212,19 +213,20 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		internal static List<int> BasicImbues = [];
-		internal static int? GroupNum = null;
+		internal static int? poseidonGroupNum = null;
+
 		public override void AddRecipes()
 		{
 			if (ImbuableTier == AOImbuableTier.Normal)
 			{
 				if (this is AOMagic or BasicCombat)
 				{
-					if (!GroupNum.HasValue)
+					if (!poseidonGroupNum.HasValue)
 					{
 						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
-						GroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
+						poseidonGroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
 					}
-					CreateRecipe().AddRecipeGroup(GroupNum.Value).DisableDecraft().Register();
+					CreateRecipe().AddRecipeGroup(poseidonGroupNum.Value).DisableDecraft().Register();
 				}
 			}
 
@@ -251,16 +253,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (this is not FrogMagic && ModifyTooltipsPrefix is not null)
 				tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			this.ArcaneOdyssey().Imbue = this;
-		}
-
-		public override void Update(ref float gravity, ref float maxFallSpeed)
-		{
-			this.ArcaneOdyssey().Imbue = this;
 		}
 	}
 }

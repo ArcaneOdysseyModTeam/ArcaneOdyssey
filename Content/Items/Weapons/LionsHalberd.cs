@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.useTurn = true;
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public override bool AltFunctionUse(Player player) => Imbue is FightingStyle;
 
 		public override bool? UseItem(Player player)
 		{

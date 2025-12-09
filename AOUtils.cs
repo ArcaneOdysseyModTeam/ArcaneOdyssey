@@ -95,7 +95,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				return damageClass.Imbued(steam.originalImbue);
+				return damageClass.Imbued(steam.SecondImbue);
 			}
 
 			return damageClass;
@@ -267,48 +267,7 @@ namespace ArcaneOdyssey
 					var modifiers = new DashDamageHelper();
 					if (imbue is not null)
 					{
-						if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
-						{
-							modifiers.FinalDamage += .3f;
-						}
-
-						foreach (var debuff in imbue.ImbueDebuffs)
-						{
-							if ((debuff.debuffPercent == 0) || modifiers.GetDamage(damage.Round()) > (target.lifeMax / debuff.debuffPercent))
-							{
-								target.AddBuff(debuff.debuffID, debuff.debuffDuration);
-							}
-						}
-
-						if (imbue.CombinedDebuffs is not null)
-						{
-							foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
-							{
-								if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-								{
-									target.AddBuff(buffkeys.result, buffkeys.duration);
-								}
-							}
-						}
-
-						foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
-						{
-							if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-							{
-								modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-							}
-						}
-
-						if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-						{
-							foreach (int buffid in imbue.Effects.clearBuffs)
-							{
-								if (target.HasBuff(buffid))
-								{
-									target.DelBuff(target.FindBuffIndex(buffid));
-								}
-							}
-						}
+						CalculateImbueDamage(imbue, target, ref modifiers);
 					}
 					if (modifiers.GetDamage(damage.Round()) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
 					{ 
@@ -328,7 +287,7 @@ namespace ArcaneOdyssey
 				return (
 						projectile.DamageType.CountsAsClass(DamageClass.Melee) 
 						|| projectile.DamageType.CountsAsClass(DamageClass.Ranged) 
-						|| projectile.ModProjectile is MagicSpell or StrengthTechnique or MagicCircle1 or MagicCircle2 or ExplosionTracker
+						|| projectile.ModProjectile is MagicSpell or StrengthTechnique or SpiritProjectile
 					) 
 					&& projectile.ModProjectile is not MagicCircle1 or MagicCircle2
 					&& projectile.owner != 255 
@@ -349,7 +308,7 @@ namespace ArcaneOdyssey
 						|| item.DamageType.CountsAsClass(DamageClass.Ranged)
 						||
 						(
-							item.ModItem is AnyScroll
+							item.ModItem is AnyScroll or Imbuable
 						);
 				}
 			}
@@ -362,7 +321,7 @@ namespace ArcaneOdyssey
 			{
 				if (imbue is SteamImbue steam)
 				{
-					return CanHaveImbue(item, steam.originalImbue);
+					return CanHaveImbue(item, steam.SecondImbue);
 				}
 				if (item.ModItem is MagicScroll)
 				{
@@ -376,17 +335,21 @@ namespace ArcaneOdyssey
 				{
 					return true;
 				}
+				if (item.ModItem is RelicWeapon)
+				{
+					return imbue is AOMagic;
+				}
 				if (imbue is FightingStyle)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength;
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength || item.ModItem is RelicWeapon or AOMagic;
 				}
 				if (imbue is AOMagic)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium;
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium || item.ModItem is RelicWeapon;
 				}
 				if (imbue is RelicWeapon)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal;
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ModItem is AOMagic;
 				}
 				if (imbue is null)
 				{
@@ -394,6 +357,145 @@ namespace ArcaneOdyssey
 				}
 			}
 			return false;
+		}
+
+		public static bool CanHaveSecondImbue(this Entity entity, Imbuable imbue)
+		{
+			if (imbue.SecondImbue is not null)
+			{
+				if (entity is Projectile projectile)
+				{
+					return projectile.ModProjectile is not StrengthTechnique or MagicSpell or SpiritProjectile;
+				}
+				if (entity is Item item)
+				{
+					return item.ArcaneOdyssey().BenifitsFromScrollStats;
+				}
+			}
+			return false;
+		}
+
+		public static bool CanHaveSecondImbue(this Entity entity, Imbuable imbue, out Imbuable secondimbue)
+		{
+			secondimbue = imbue?.SecondImbue;
+			if (imbue is not null && imbue is not SteamImbue && imbue.SecondImbue is not null) 
+			{ 
+				if (entity is Projectile projectile)
+				{
+					return projectile.ModProjectile is not StrengthTechnique or MagicSpell or SpiritProjectile;
+				}
+				if (entity is Item item)
+				{
+					return item.ArcaneOdyssey().WeaponsType != WeaponType.Normal || item.ArcaneOdyssey().BenifitsFromScrollStats;
+				}
+			}
+			return false;
+		}
+
+		public static void CalculateImbueDamage(Imbuable imbue, NPC target, ref DashDamageHelper modifiers)
+        {
+            if (imbue is not null)
+            {
+                if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+                {
+                    modifiers.FinalDamage += .3f;
+                }
+
+                if (imbue.CombinedDebuffs is not null)
+                {
+                    foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+                    {
+                        if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
+                        {
+                            target.AddBuff(buffkeys.result, buffkeys.duration);
+                        }
+                        if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+                        {
+                            target.AddBuff(buffkeys.result, buffkeys.duration);
+                        }
+                    }
+                }
+
+                foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+                {
+                    if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
+                    {
+                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+                    }
+                    if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+                    {
+                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+                    }
+                }
+
+                if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+                {
+                    foreach (int buffid in imbue.Effects.clearBuffs)
+                    {
+                        if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
+                        {
+                            target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
+                        }
+                        if (target.HasBuff(buffid))
+                        {
+                            target.DelBuff(target.FindBuffIndex(buffid));
+                        }
+                    }
+                }
+            }
+        }
+
+		public static void CalculateImbueDamage(Imbuable imbue, NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (imbue is not null)
+			{
+				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				{
+					modifiers.FinalDamage += .3f;
+				}
+
+				if (imbue.CombinedDebuffs is not null)
+				{
+					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+					{
+						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+					}
+				}
+
+				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				{
+					if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+				}
+
+				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+				{
+					foreach (int buffid in imbue.Effects.clearBuffs)
+					{
+						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
+						{
+							target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
+						}
+						if (target.HasBuff(buffid))
+						{
+							target.DelBuff(target.FindBuffIndex(buffid));
+						}
+					}
+				}
+			}
 		}
 
 		public static int FromAODefense(this int val) => (int)Math.Round(val / 18f);
@@ -442,7 +544,7 @@ namespace ArcaneOdyssey
 			var type = imbue.GetType();
 			if (imbue is SteamImbue steam)
 			{
-				type = steam.originalImbue.GetType();
+				type = steam.SecondImbue.GetType();
 			}
 			return player.HasTypeInInventory(type);
 		}

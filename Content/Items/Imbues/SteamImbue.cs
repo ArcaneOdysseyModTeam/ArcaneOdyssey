@@ -16,9 +16,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public static SteamImbue Create(Imbuable imbue)
 		{
 			SteamImbue steam = (SteamImbue)new Item(ModContent.ItemType<SteamImbue>()).ModItem;
-			steam.originalImbue = imbue;
+			steam.SecondImbue = imbue;
 			if (imbue is null)
-				steam.originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
+				steam.SecondImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
 			return steam;
 		}
 
@@ -29,8 +29,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override float AOImbueSpeed => 1;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOScalding>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
-
-		public Imbuable originalImbue;
 
 		public override Color ImbueColour => Color.LightGray;
 
@@ -72,9 +70,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override ModItem Clone(Item newEntity)
 		{
 			var clone = (SteamImbue)base.Clone(newEntity);
-			if (originalImbue is null)
-				originalImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
-			clone.originalImbue = originalImbue;
+			SecondImbue ??= (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
+			clone.SecondImbue = SecondImbue;
 			return clone;
 		}
 	}

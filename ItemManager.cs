@@ -188,7 +188,18 @@ namespace ArcaneOdyssey
 
 				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
 				
-				if (Imbue is FightingStyleBarred fs && item.ModItem is not Imbuable)
+				if (Imbue is FightingStyleBarred fs && item.ModItem.Type != Imbue.Type)
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
+			}
+			if (item.CanHaveSecondImbue(Imbue, out var second) && ModContent.RequestIfExists<Texture2D>(second.Texture, out var texture2))
+			{
+				Vector2 dimensions = new(frame.Width, frame.Height);
+				Vector2 location = position + (dimensions * .25f);
+				location.X -= texture2.Width() * .35f;
+
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
+
+				if (second is FightingStyleBarred fs && item.ModItem.Type != second.Type)
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 			}
 		}
@@ -206,10 +217,12 @@ namespace ArcaneOdyssey
 					{
 						velocity *= Imbue.AOScrollSpeed;
 					}
-					else
+					else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
 						velocity *= Imbue.AOImbueSpeed;
 					}
+					if (item.CanHaveSecondImbue(Imbue, out var secondimbue))
+						velocity *= secondimbue.AOImbueSpeed;
 				}
 			}
 		}
@@ -228,6 +241,8 @@ namespace ArcaneOdyssey
 				else
 				{
 					crit *= Imbue.AOImbueDamage;
+					if (item.CanHaveSecondImbue(Imbue, out var second))
+						crit *= second.AOImbueDamage;
 				}
 			}
 			if (Imbue is VanishingStyle && player.HasBuff(BuffID.Invisibility))
@@ -241,17 +256,20 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is not null)
 			{
-				knockback *= Imbue.KBMulti;
 				if (BenifitsFromScrollStats)
 				{
 					knockback += Imbue.AOScrollSize.MultiToPercent();
-					return;
 				}
-
-				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					knockback += Imbue.AOImbueSize.MultiToPercent();
+					if (item.CanHaveSecondImbue(Imbue, out var second))
+						knockback *= second.AOImbueSize.MultiToPercent();
 				}
+				var extraknockbackmulti = Imbue.KBMulti;
+				if (item.CanHaveSecondImbue(Imbue, out var second1))
+					extraknockbackmulti += second1.KBMulti.MultiToPercent();
+				knockback *= extraknockbackmulti;
 			}
 		}
 
@@ -269,13 +287,13 @@ namespace ArcaneOdyssey
 				if (BenifitsFromScrollStats)
 				{
 					damage += Imbue.AOScrollDamage.MultiToPercent();
-					return;
 				}
-
-				if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					damage += Imbue.AOImbueDamage.MultiToPercent();
 				}
+				if (item.CanHaveSecondImbue(Imbue, out var second))
+					damage += second.AOImbueDamage.MultiToPercent();
 			}
 		}
 
@@ -347,7 +365,6 @@ namespace ArcaneOdyssey
 				}
 				switch (item.type)
 				{
-					case ItemID.AleThrowingGlove:
 					case ItemID.BreakerBlade:
 						WeaponsType = WeaponType.Strength;
 						break;
@@ -361,14 +378,14 @@ namespace ArcaneOdyssey
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
 			thisItem = item;
-			if (!CanBeAffected)
+			if (!CanBeAffected || item.noMelee)
 				return;
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
 				scale += player.ArcaneOdyssey().SizeMulti;
 				if (Imbue is not null)
 				{
-					if (BenifitsFromScrollStats)
+					if (!BenifitsFromScrollStats)
 					{
 						scale += Imbue.AOImbueSize.MultiToPercent();
 					}
@@ -376,6 +393,8 @@ namespace ArcaneOdyssey
 					{
 						scale += Imbue.AOScrollSize.MultiToPercent();
 					}
+					if (item.CanHaveSecondImbue(Imbue, out var second))
+						scale += second.AOScrollSize.MultiToPercent();
 				}
 			}
 		}
@@ -394,7 +413,7 @@ namespace ArcaneOdyssey
 
 					if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return Imbue.AOImbueSpeed;
+						return Imbue.AOImbueSpeed + (item.CanHaveSecondImbue(Imbue, out var second) ? second.AOImbueSpeed.MultiToPercent() : 0f);
 					}
 				}
 			}
@@ -569,57 +588,13 @@ namespace ArcaneOdyssey
 
 			if (Imbue is not null)
 			{
-				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
-				{
-					modifiers.FinalDamage += .3f;
-				}
-
 				if (Imbue is PowderFist)
 				{
 					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage / 2f);
 				}
-
-				if (Imbue.CombinedDebuffs is not null)
-				{
-					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
-					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-					}
-				}
-
-				foreach (var multiplier in Imbue.Effects.magicBuffMultipliers)
-				{
-					if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-				}
-
-				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-				{
-					foreach (int buffid in Imbue.Effects.clearBuffs)
-					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
-						{
-							target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
-						}
-						if (target.HasBuff(buffid))
-						{
-							target.DelBuff(target.FindBuffIndex(buffid));
-						}
-					}
-				}
+				CalculateImbueDamage(Imbue, target, ref modifiers);
+				if (item.CanHaveSecondImbue(Imbue, out var second))
+					CalculateImbueDamage(second, target, ref modifiers);
 			}
 		}
 	}

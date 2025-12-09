@@ -42,9 +42,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		/// </summary>
 		/// <param name="player">the FUCKING PLAYER</param>
 		/// <returns></returns>
-		public override bool CanShoot(Player player)
+		public override bool AltFunctionUse(Player player)
 		{
-			return player.AltUse() && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<ColossalCleaveCooldown>());
+			return Imbue is FightingStyle && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<ColossalCleaveCooldown>());
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -53,8 +53,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Projectile.NewProjectile(source, position, Vector2.UnitX * velocity.Length() * player.direction, type, damage, knockback, player.whoAmI);
 			return false;
 		}
-
-		public override bool AltFunctionUse(Player player) => true;
 	}
 
 	public class ColossalCleaveCooldown : DisplayedCooldown

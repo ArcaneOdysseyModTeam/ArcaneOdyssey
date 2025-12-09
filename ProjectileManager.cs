@@ -21,20 +21,14 @@ namespace ArcaneOdyssey
 	{
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
-			if (projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.SecondImbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.SecondImbue is PoisonMagic or PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
-				Main.instance.LoadProjectile(projectile.type);
-				var asset = TextureAssets.Projectile[projectile.type];
-				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, null, Color.DarkViolet, projectile.rotation, projectile.GetDrawOriginCentre(), projectile.scale * 1.12f, SpriteEffects.None);
-				return false;
+				lightColor = projectile.GetAlpha(Color.DarkRed);
 			}
 
-			if (projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic && projectile.type == ProjectileID.SporeCloud)
+			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is AshMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.SecondImbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.SecondImbue is AshMagic) && projectile.type == ProjectileID.SporeCloud)
 			{
-				Main.instance.LoadProjectile(projectile.type);
-				var asset = TextureAssets.Projectile[projectile.type];
-				Main.EntitySpriteDraw(asset.Value, projectile.Center - Main.screenPosition, new(0, 30 * projectile.frame, 28, 30), Color.DarkRed, projectile.rotation, projectile.GetDrawOriginCentre(), projectile.scale, SpriteEffects.None);
-				return false;
+				lightColor = projectile.GetAlpha(Color.DarkRed);
 			}
 			return true; 
 		}
@@ -52,7 +46,11 @@ namespace ArcaneOdyssey
 			float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
 			if (Imbue is not null)
 			{
-				mult += (projectile.ModProjectile is MagicSpell ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
+				mult += (projectile.ModProjectile is MagicSpell or StrengthTechnique or SpiritProjectile ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
+				if (projectile.CanHaveSecondImbue(Imbue, out var second))
+				{
+					mult += second.AOImbueSize;
+				}
 			}
 			mult += player.ArcaneOdyssey().SizeMulti;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
@@ -134,7 +132,11 @@ namespace ArcaneOdyssey
 				if (Imbue is not null && Imbue.PreEffects(projectile))
 				{
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+					{
 						Imbue.KillEffects(projectile);
+						if (projectile.CanHaveSecondImbue(Imbue, out var second))
+							second.KillEffects(projectile);
+					}
 				}
 			}
 			return true;
@@ -187,55 +189,10 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-			if (Imbue is not null)
-			{
-				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
-				{
-					modifiers.FinalDamage += .3f;
-				}
+			CalculateImbueDamage(Imbue, target, ref modifiers);
+			if (projectile.CanHaveSecondImbue(Imbue, out var second))
+				CalculateImbueDamage(second, target, ref modifiers);
 
-				if (Imbue.CombinedDebuffs is not null)
-				{
-					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
-					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-					}
-				}
-
-				foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
-				{
-					if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-				}
-
-				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-				{
-					foreach (int buffid in Imbue.Effects.clearBuffs)
-					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
-						{
-							target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
-						}
-						if (target.HasBuff(buffid))
-						{
-							target.DelBuff(target.FindBuffIndex(buffid));
-						}
-					}
-				}
-			}
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -245,8 +202,6 @@ namespace ArcaneOdyssey
 				return;
 			OriginalDimensions ??= projectile.Size;
 			BaseScale ??= projectile.scale;
-			bool spawnedbyprojectile = false;
-			bool magicspeed = false;
 
 			if (projectile.ModProjectile is AOPlayerProjectile proj1 && !projectile.DamageType.CountsAsClass<MeleeNoSpeedDamageClass>())
 			{
@@ -258,25 +213,30 @@ namespace ArcaneOdyssey
 				if (source is EntitySource_Parent { Entity: Projectile proj })
 				{
 					Imbue ??= proj.ArcaneOdyssey().Imbue;
+					if (projectile.CanHaveSecondImbue(Imbue, out var second))
+						Imbue.SecondImbue ??= second;
 					Cold ??= proj.ArcaneOdyssey().Cold;
-					spawnedbyprojectile = Imbue is not null;
-					magicspeed = proj.ModProjectile is MagicSpell or StrengthTechnique or SpiritProjectile;
 				}
 				else if (source is EntitySource_ItemUse { Item: Item item })
 				{
 					if (item.ModItem is RelicWeapon relic)
 					{
 						Imbue ??= relic;
+						Imbue.SecondImbue ??= relic.SecondImbue;
 					}
 					else if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
 						Imbue ??= aOItem.Imbue;
+						if (projectile.CanHaveSecondImbue(Imbue, out var second))
+							Imbue.SecondImbue ??= second;
 						Cold ??= aOItem.Cold;
 					}
 				}
 				else if (source is EntitySource_Parent { Entity: Player player })
 				{
 					Imbue ??= player.ArcaneOdyssey().Imbue;
+					if (projectile.CanHaveSecondImbue(Imbue, out var second))
+						Imbue.SecondImbue ??= second;
 				}
 
 				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
@@ -284,21 +244,19 @@ namespace ArcaneOdyssey
 					Imbue = SteamImbue.Create(Imbue);
 				}
 
+				if (Imbue is not null && Imbue.SecondImbue is not null && Imbue.Cold.HasValue && Imbue.SecondImbue.Cold.HasValue && (Imbue.Cold.Value != Imbue.SecondImbue.Cold.Value))
+				{
+					Imbue.SecondImbue = SteamImbue.Create(Imbue);
+				}
+
 				if (Imbue is not null && Imbue.PreEffects(projectile))
 				{
-					if (spawnedbyprojectile && !projectile.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed))
-					{
-						if (magicspeed)
-						{
-							projectile.velocity *= Imbue.AOScrollSpeed;
-						}
-						else
-						{
-							projectile.velocity *= Imbue.AOImbueSpeed;
-						}
-					}
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+					{
 						Imbue.SpawningEffects(projectile);
+						if (projectile.CanHaveSecondImbue(Imbue, out var second))
+							second.SpawningEffects(projectile);
+					}
 				}
 				projectile.DamageType = projectile.DamageType.Imbued(Imbue);
 			}
@@ -311,9 +269,6 @@ namespace ArcaneOdyssey
 			{
 				OriginalDimensions ??= projectile.Size;
 				BaseScale ??= projectile.scale;
-				//if (ImbueClassCheck(projectile))
-				//	Imbue ??= Main.player[projectile.owner].ArcaneOdyssey().Imbue;
-				projectile.coldDamage = Cold.GetValueOrDefault(false) || (Imbue is not null && Imbue.Cold.GetValueOrDefault(false));
 			}
 			return true;
 		}
@@ -326,6 +281,8 @@ namespace ArcaneOdyssey
 			if (Imbue is not null && Imbue.PreEffects(projectile))
 			{
 				Imbue.LingeringEffects(projectile);
+				if (projectile.CanHaveSecondImbue(Imbue, out var second))
+					second.LingeringEffects(projectile);
 			}
 		}
 	}
