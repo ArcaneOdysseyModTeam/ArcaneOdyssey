@@ -232,6 +232,9 @@ DamageClasses: {
 	RangedKnight: ranged knight damage
 	TrueKnight: true knight damage
 	TrueKnightNoSpeed: true knight damage
+	Juggernaut: juggernaut damage
+	Paladin: paladin damage
+	Warlock: warlock damage
 }
 
 WeaponAbilities: {

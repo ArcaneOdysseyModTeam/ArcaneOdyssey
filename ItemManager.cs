@@ -523,9 +523,8 @@ namespace ArcaneOdyssey
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, Imbue is null ? Mod.CustomLocalization("RandomWords.None") : (!settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value)]);
 				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
-			item.DamageType = item.DamageType.UnImbued();
-			if (item.ModItem is not TechniqueScroll)
-				item.DamageType = item.DamageType.Imbued(Imbue);
+			item.DamageType = item.DamageType.UnImbued(item);
+			item.DamageType = item.DamageType.Imbued(Imbue, item);
 		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
