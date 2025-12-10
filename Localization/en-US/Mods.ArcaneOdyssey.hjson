@@ -221,10 +221,6 @@ DamageClasses: {
 	Oracle: spirit damage
 	RangedConjurer: ranged conjurer damage
 	RangedWarlord: ranged warlord damage
-	TrueConjurer: true conjurer damage
-	TrueConjurerNoSpeed: true conjurer damage
-	TrueWarlord: true warlord damage
-	TrueWarlordNoSpeed: true warlord damage
 	Warlord: warlord damage
 	WarlordNoSpeed: warlord damage
 	Knight: knight damage

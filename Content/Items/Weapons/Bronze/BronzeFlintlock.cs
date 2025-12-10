@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				for (int i = 0; i < 8; i++)
 				{
-					var offset = MathHelper.Pi / 6f;
+					var offset = MathHelper.TwoPi / 16f;
 					var velo = (velocity.ToRotation() - offset + (offset * 2 * Main.rand.NextFloat())).ToRotationVector2() * velocity.Length();
                     Projectile.NewProjectile(source, position, velo, type, damage / 4, knockback / 4, player.whoAmI);
                 }
