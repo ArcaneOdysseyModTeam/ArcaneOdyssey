@@ -21,7 +21,7 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
-		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue = null)
+		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue = null, Item item = null)
 		{
 			if (imbue is null)
 			{
@@ -30,6 +30,38 @@ namespace ArcaneOdyssey
 
 			if (imbue is not SteamImbue steam)
 			{
+				if (item is not null)
+				{
+					if (item.ModItem is RelicWeapon)
+					{
+						if (imbue is AOMagic)
+						{
+							return ModContent.GetInstance<Paladin>();
+						}
+					}
+
+					if (damageClass == DamageClass.Magic && imbue is AOMagic && item.CanHaveSecondImbue(imbue, out var second))
+					{
+						if (second is RelicWeapon)
+						{
+							return ModContent.GetInstance<Paladin>();
+						}
+					}
+
+					if (damageClass == DamageClass.Melee && imbue is FightingStyle && item.CanHaveSecondImbue(imbue, out var second1))
+					{
+						if (second1 is AOMagic)
+						{
+							return ModContent.GetInstance<Warlock>();
+						}
+
+						if (second1 is RelicWeapon)
+						{
+							return ModContent.GetInstance<Juggernaut>();
+						}
+					}
+				}
+
 				if (damageClass == DamageClass.Melee && imbue is AOMagic)
 				{
 					return ModContent.GetInstance<Conjurer>();
@@ -76,9 +108,9 @@ namespace ArcaneOdyssey
 			return damageClass;
 		}
 
-		public static DamageClass UnImbued(this DamageClass damageClass)
+		public static DamageClass UnImbued(this DamageClass damageClass, Item item = null)
 		{
-			if (damageClass.Name == Conjurer.InternalName || damageClass.Name == Warlord.InternalName || damageClass.Name == Knight.InternalName)
+			if (damageClass.Name == Warlock.InternalName || damageClass.Name == Juggernaut.InternalName || damageClass.Name == Conjurer.InternalName || damageClass.Name == Warlord.InternalName || damageClass.Name == Knight.InternalName)
 			{
 				return DamageClass.Melee;
 			}
@@ -92,17 +124,32 @@ namespace ArcaneOdyssey
 				return DamageClass.Ranged;
 			}
 
+			if (damageClass.Name == Paladin.InternalName)
+			{
+				if (item is not null)
+				{
+					if (item.ModItem is RelicWeapon)
+					{
+						return ModContent.GetInstance<Oracle>();
+					}
+					if (item.ModItem is AnyScroll)
+					{
+						return DamageClass.Magic;
+					}
+				}
+			}
+
 			return damageClass;
 		}
 
 		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
-		public static Imbuable Imbue(this Player player) => player.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this ModPlayer player) => player.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this Projectile projectile) => projectile.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this ModProjectile projectile) => projectile.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this Item item) => item.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this ModItem item) => item.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this Player player) => player?.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this ModPlayer player) => player?.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this Projectile projectile) => projectile?.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this ModProjectile projectile) => projectile?.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this Item item) => item?.ArcaneOdyssey()?.Imbue;
+		public static Imbuable Imbue(this ModItem item) => item?.ArcaneOdyssey()?.Imbue;
 
 		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
 
@@ -305,15 +352,15 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is FightingStyle)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength || item.ModItem is RelicWeapon or AOMagic;
+					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength) && item.ModItem is not Imbuable;
 				}
 				if (imbue is AOMagic)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium || item.ModItem is RelicWeapon;
+					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is RelicWeapon or FightingStyle);
 				}
 				if (imbue is RelicWeapon)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ModItem is AOMagic;
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || item.ModItem is AOMagic or FightingStyle);
 				}
 				if (imbue is null)
 				{
@@ -343,71 +390,72 @@ namespace ArcaneOdyssey
 		{
 			secondimbue = imbue?.SecondImbue;
 			if (imbue is not null && imbue is not SteamImbue && imbue.SecondImbue is not null) 
-			{ 
+			{
 				if (entity is Projectile projectile)
 				{
-					return projectile.ModProjectile is not StrengthTechnique or MagicSpell or SpiritProjectile;
+					return projectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile || projectile.ArcaneOdyssey().OriginWeaponType != WeaponType.Normal;
 				}
 				if (entity is Item item)
 				{
-					return item.ArcaneOdyssey().WeaponsType != WeaponType.Normal || item.ArcaneOdyssey().BenifitsFromScrollStats;
+					if (item.TryArcaneOdyssey(out var AOItem))
+						return AOItem.WeaponsType != WeaponType.Normal || AOItem.BenifitsFromScrollStats;
 				}
 			}
 			return false;
 		}
 
 		public static void CalculateImbueDamage(Imbuable imbue, NPC target, ref DashDamageHelper modifiers)
-        {
-            if (imbue is not null)
-            {
-                if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
-                {
-                    modifiers.FinalDamage += .3f;
-                }
+		{
+			if (imbue is not null)
+			{
+				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				{
+					modifiers.FinalDamage += .3f;
+				}
 
-                if (imbue.CombinedDebuffs is not null)
-                {
-                    foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
-                    {
-                        if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
-                        {
-                            target.AddBuff(buffkeys.result, buffkeys.duration);
-                        }
-                        if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-                        {
-                            target.AddBuff(buffkeys.result, buffkeys.duration);
-                        }
-                    }
-                }
+				if (imbue.CombinedDebuffs is not null)
+				{
+					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+					{
+						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+					}
+				}
 
-                foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
-                {
-                    if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
-                    {
-                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-                    }
-                    if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-                    {
-                        modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-                    }
-                }
+				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				{
+					if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+				}
 
-                if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-                {
-                    foreach (int buffid in imbue.Effects.clearBuffs)
-                    {
-                        if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
-                        {
-                            target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
-                        }
-                        if (target.HasBuff(buffid))
-                        {
-                            target.DelBuff(target.FindBuffIndex(buffid));
-                        }
-                    }
-                }
-            }
-        }
+				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
+				{
+					foreach (int buffid in imbue.Effects.clearBuffs)
+					{
+						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
+						{
+							target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
+						}
+						if (target.HasBuff(buffid))
+						{
+							target.DelBuff(target.FindBuffIndex(buffid));
+						}
+					}
+				}
+			}
+		}
 
 		public static void CalculateImbueDamage(Imbuable imbue, NPC target, ref NPC.HitModifiers modifiers)
 		{

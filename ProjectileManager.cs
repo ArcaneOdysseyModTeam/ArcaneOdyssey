@@ -49,7 +49,7 @@ namespace ArcaneOdyssey
 				mult += (projectile.ModProjectile is MagicSpell or StrengthTechnique or SpiritProjectile ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
 				if (projectile.CanHaveSecondImbue(Imbue, out var second))
 				{
-					mult += second.AOImbueSize;
+					mult += second.AOImbueSize.MultiToPercent();
 				}
 			}
 			mult += player.ArcaneOdyssey().SizeMulti;
@@ -101,6 +101,8 @@ namespace ArcaneOdyssey
 		public Imbuable Imbue { get; set; }
 		public Projectile thisProjectile = null;
 
+		public WeaponType OriginWeaponType;
+
 		private bool _canImbue = true;
 		public bool CanBeAffected { get
 			{
@@ -134,7 +136,7 @@ namespace ArcaneOdyssey
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 					{
 						Imbue.KillEffects(projectile);
-						if (projectile.CanHaveSecondImbue(Imbue, out var second))
+						if (projectile.CanHaveSecondImbue(Imbue, out var second) && second.PreEffects(projectile))
 							second.KillEffects(projectile);
 					}
 				}
@@ -213,30 +215,24 @@ namespace ArcaneOdyssey
 				if (source is EntitySource_Parent { Entity: Projectile proj })
 				{
 					Imbue ??= proj.ArcaneOdyssey().Imbue;
-					if (projectile.CanHaveSecondImbue(Imbue, out var second))
-						Imbue.SecondImbue ??= second;
 					Cold ??= proj.ArcaneOdyssey().Cold;
 				}
 				else if (source is EntitySource_ItemUse { Item: Item item })
 				{
-					if (item.ModItem is RelicWeapon relic)
+					if (item.ModItem is Imbuable relic)
 					{
 						Imbue ??= relic;
-						Imbue.SecondImbue ??= relic.SecondImbue;
 					}
 					else if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
+						OriginWeaponType = aOItem.WeaponsType;
 						Imbue ??= aOItem.Imbue;
-						if (projectile.CanHaveSecondImbue(Imbue, out var second))
-							Imbue.SecondImbue ??= second;
 						Cold ??= aOItem.Cold;
 					}
 				}
 				else if (source is EntitySource_Parent { Entity: Player player })
 				{
 					Imbue ??= player.ArcaneOdyssey().Imbue;
-					if (projectile.CanHaveSecondImbue(Imbue, out var second))
-						Imbue.SecondImbue ??= second;
 				}
 
 				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
@@ -254,7 +250,7 @@ namespace ArcaneOdyssey
 					if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
 					{
 						Imbue.SpawningEffects(projectile);
-						if (projectile.CanHaveSecondImbue(Imbue, out var second))
+						if (projectile.CanHaveSecondImbue(Imbue, out var second) && second.PreEffects(projectile))
 							second.SpawningEffects(projectile);
 					}
 				}
@@ -281,7 +277,7 @@ namespace ArcaneOdyssey
 			if (Imbue is not null && Imbue.PreEffects(projectile))
 			{
 				Imbue.LingeringEffects(projectile);
-				if (projectile.CanHaveSecondImbue(Imbue, out var second))
+				if (projectile.CanHaveSecondImbue(Imbue, out var second) && second.PreEffects(projectile))
 					second.LingeringEffects(projectile);
 			}
 		}

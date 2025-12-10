@@ -231,10 +231,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 
 			if (this is BasicCombat)
-            {
-                RecipeGroup group = new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>());
-                RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", group);
-                var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
+			{
+				RecipeGroup group = new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>());
+				RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", group);
+				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
 				RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", goru);
 				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonSpirit>());
 				recipe.AddRecipeGroup(goru);

@@ -15,7 +15,7 @@ namespace ArcaneOdyssey
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{
-			return damageClass == Magic || damageClass == Summon;
+			return damageClass == Magic;
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -33,7 +33,7 @@ namespace ArcaneOdyssey
 
 		public override bool GetPrefixInheritance(DamageClass damageClass)
 		{
-			return false;
+			return damageClass == Magic;
 		}
 	}
 
@@ -239,5 +239,43 @@ namespace ArcaneOdyssey
 		}
 
 		public override bool GetPrefixInheritance(DamageClass damageClass) => damageClass.CountsAsClass(MeleeNoSpeed);
+	}
+
+	public class Warlock : Conjurer
+	{
+		public new static readonly string InternalName = typeof(Warlock).Name;
+	}
+
+	public class Juggernaut : Knight
+	{
+		public new static readonly string InternalName = typeof(Juggernaut).Name;
+	}
+
+	public class Paladin : AODamageClass
+	{
+		public static readonly string InternalName = typeof(Paladin).Name;
+
+		public override bool GetEffectInheritance(DamageClass damageClass)
+		{
+			return damageClass == Magic;
+		}
+
+		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
+		{
+			if (damageClass.Name == Oracle.InternalName)
+			{
+				return HalfInheritance;
+			}
+			if (damageClass == Magic)
+			{
+				return HalfInheritance;
+			}
+			return base.GetModifierInheritance(damageClass);
+		}
+
+		public override bool GetPrefixInheritance(DamageClass damageClass)
+		{
+			return damageClass == Magic;
+		}
 	}
 }

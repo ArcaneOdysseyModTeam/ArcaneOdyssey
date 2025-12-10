@@ -197,7 +197,7 @@ namespace ArcaneOdyssey
 				Vector2 location = position + (dimensions * .25f);
 				location.X -= texture2.Width() * .35f;
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
 
 				if (second is FightingStyleBarred fs && item.ModItem.Type != second.Type)
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
@@ -394,7 +394,7 @@ namespace ArcaneOdyssey
 						scale += Imbue.AOScrollSize.MultiToPercent();
 					}
 					if (item.CanHaveSecondImbue(Imbue, out var second))
-						scale += second.AOScrollSize.MultiToPercent();
+						scale += second.AOImbueSize.MultiToPercent();
 				}
 			}
 		}
