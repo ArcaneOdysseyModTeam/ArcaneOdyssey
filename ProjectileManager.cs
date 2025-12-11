@@ -21,12 +21,12 @@ namespace ArcaneOdyssey
 	{
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
-			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.SecondImbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.SecondImbue is PoisonMagic or PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is PoisonMagic or PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
 				lightColor = projectile.GetAlpha(Color.DarkRed);
 			}
 
-			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is AshMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.SecondImbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.SecondImbue is AshMagic) && projectile.type == ProjectileID.SporeCloud)
+			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is AshMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is AshMagic) && projectile.type == ProjectileID.SporeCloud)
 			{
 				lightColor = projectile.GetAlpha(Color.DarkRed);
 			}
@@ -240,9 +240,9 @@ namespace ArcaneOdyssey
 					Imbue = SteamImbue.Create(Imbue);
 				}
 
-				if (Imbue is not null && Imbue.SecondImbue is not null && Imbue.Cold.HasValue && Imbue.SecondImbue.Cold.HasValue && (Imbue.Cold.Value != Imbue.SecondImbue.Cold.Value))
+				if (Imbue is not null && Imbue.Imbue is not null && Imbue.Cold.HasValue && Imbue.Imbue.Cold.HasValue && (Imbue.Cold.Value != Imbue.Imbue.Cold.Value))
 				{
-					Imbue.SecondImbue = SteamImbue.Create(Imbue);
+					Imbue.Imbue = SteamImbue.Create(Imbue);
 				}
 
 				if (Imbue is not null && Imbue.PreEffects(projectile))

@@ -18,9 +18,9 @@ using ArcaneOdyssey.Content.Items.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class Imbuable : AOBaseItem
+	public abstract class Imbuable : AOBaseItem, IImbuable
 	{
-		public Imbuable SecondImbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
+		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
@@ -123,7 +123,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				var name = "";
 				if (player.Imbue() is SteamImbue steam)
 				{
-					name = steam.SecondImbue.Name;
+					name = steam.Imbue.Name;
 				}
 				else if (player.Imbue() is not null)
 					name = player.Imbue().Name;

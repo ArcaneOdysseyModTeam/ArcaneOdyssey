@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public Imbuable Imbue
 		{
-			get => Projectile.ArcaneOdyssey().Imbue;
+			get => Projectile.ArcaneOdyssey()?.Imbue;
 			set => Projectile.ArcaneOdyssey().Imbue = value;
 		}
 

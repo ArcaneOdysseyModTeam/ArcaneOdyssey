@@ -102,7 +102,7 @@ namespace ArcaneOdyssey
 			}
 			else
 			{
-				return damageClass.Imbued(steam.SecondImbue);
+				return damageClass.Imbued(steam.Imbue);
 			}
 
 			return damageClass;
@@ -332,7 +332,7 @@ namespace ArcaneOdyssey
 			{
 				if (imbue is SteamImbue steam)
 				{
-					return CanHaveImbue(item, steam.SecondImbue);
+					return CanHaveImbue(item, steam.Imbue);
 				}
 				if (item.ModItem is MagicScroll)
 				{
@@ -372,7 +372,7 @@ namespace ArcaneOdyssey
 
 		public static bool CanHaveSecondImbue(this Entity entity, Imbuable imbue)
 		{
-			if (imbue.SecondImbue is not null)
+			if (imbue?.Imbue is not null && imbue is not SteamImbue)
 			{
 				if (entity is Projectile projectile)
 				{
@@ -388,17 +388,17 @@ namespace ArcaneOdyssey
 
 		public static bool CanHaveSecondImbue(this Entity entity, Imbuable imbue, out Imbuable secondimbue)
 		{
-			secondimbue = imbue?.SecondImbue;
-			if (imbue is not null && imbue is not SteamImbue && imbue.SecondImbue is not null) 
+			secondimbue = null;
+			if (imbue?.Imbue is not null && imbue is not SteamImbue)
 			{
+				secondimbue = imbue.Imbue;
 				if (entity is Projectile projectile)
 				{
-					return projectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile || projectile.ArcaneOdyssey().OriginWeaponType != WeaponType.Normal;
+					return projectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile || projectile.ArcaneOdyssey()?.OriginWeaponType != WeaponType.Normal;
 				}
 				if (entity is Item item)
 				{
-					if (item.TryArcaneOdyssey(out var AOItem))
-						return AOItem.WeaponsType != WeaponType.Normal || AOItem.BenifitsFromScrollStats;
+					return (item.ArcaneOdyssey()?.WeaponsType != WeaponType.Normal) || (item.ArcaneOdyssey()?.BenifitsFromScrollStats == true);
 				}
 			}
 			return false;
@@ -544,9 +544,9 @@ namespace ArcaneOdyssey
 
 		public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
 		{
-			if (player is not null && player.active && player.TryArcaneOdyssey(out var playah))
+			if (player is not null && player.active)
 			{
-				playah.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
+				player.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
 			}
 			npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
 		}
@@ -556,7 +556,7 @@ namespace ArcaneOdyssey
 			var type = imbue.GetType();
 			if (imbue is SteamImbue steam)
 			{
-				type = steam.SecondImbue.GetType();
+				type = steam.Imbue.GetType();
 			}
 			return player.HasTypeInInventory(type);
 		}
@@ -653,7 +653,8 @@ namespace ArcaneOdyssey
 		public static bool TryGetOwner(this Entity entity, out AOPlayer player)
 		{
 			var e = entity.TryGetOwner(out Player playr);
-			if (playr.TryArcaneOdyssey(out player))
+			player = playr?.ArcaneOdyssey();
+			if (e && playr.ArcaneOdyssey() is not null)
 			{
 				return e;
 			}
@@ -884,16 +885,42 @@ namespace ArcaneOdyssey
 		#endregion
 
 		#region ArcaneOdyssey()
-		public static AOPlayer ArcaneOdyssey(this Player player) => player.GetModPlayer<AOPlayer>();
-		public static AOPlayer ArcaneOdyssey(this ModPlayer player) => player.Player.GetModPlayer<AOPlayer>();
-		public static bool TryArcaneOdyssey(this Player player, out AOPlayer playah) => player.TryGetModPlayer(out playah);
-		public static bool TryArcaneOdyssey(this ModPlayer player, out AOPlayer playah) => player.Player.TryGetModPlayer(out playah);
-		public static ArcaneNPC ArcaneOdyssey(this NPC npc) => npc.GetGlobalNPC<ArcaneNPC>();
-		public static AOProjectile ArcaneOdyssey(this Projectile projectile) => projectile.GetGlobalProjectile<AOProjectile>();
-		public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile.Projectile.GetGlobalProjectile<AOProjectile>();
-		public static AOItem ArcaneOdyssey(this Item item) => item.GetGlobalItem<AOItem>();
 
-		public static IImbuable AnyArcaneOdyssey(this Entity entity)
+		public static AOPlayer ArcaneOdyssey(this Player player)
+		{
+			if (player is not null && player.active && player.TryGetModPlayer<AOPlayer>(out var playah))
+				return playah;
+			return null;
+		}
+
+		public static AOPlayer ArcaneOdyssey(this ModPlayer player) => player?.Player?.ArcaneOdyssey();
+
+		public static ArcaneNPC ArcaneOdyssey(this NPC npc)
+		{
+			if (npc is not null && npc.active && npc.TryGetGlobalNPC<ArcaneNPC>(out var npcc))
+				return npcc;
+			return null;
+		}
+
+		public static AOProjectile ArcaneOdyssey(this Projectile projectile)
+		{
+			if (projectile is not null && projectile.active && projectile.TryGetGlobalProjectile<AOProjectile>(out var proj))
+				return proj;
+			return null;
+		}
+
+		public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile?.Projectile?.ArcaneOdyssey();
+
+		public static AOItem ArcaneOdyssey(this Item item)
+		{
+			if (item is not null && !item.IsAir && item.active && item.TryGetGlobalItem<AOItem>(out var item1))
+				return item1;
+			return null;
+        }
+
+        public static AOItem ArcaneOdyssey(this ModItem item) => item?.Item?.ArcaneOdyssey();
+
+        public static IImbuable AnyArcaneOdyssey(this Entity entity)
 		{
 			if (entity is Projectile projectile)
 			{
@@ -902,18 +929,15 @@ namespace ArcaneOdyssey
 					return proj;
 				}
 				else
-					return projectile.GetGlobalProjectile<AOProjectile>();
+					return projectile.ArcaneOdyssey();
 			}
 			if (entity is Player player)
-				return player.GetModPlayer<AOPlayer>();
+				return player.ArcaneOdyssey();
 			if (entity is Item item)
-				return item.GetGlobalItem<AOItem>();
+				return item.ArcaneOdyssey();
 			return null;
 		}
 
-		public static AOItem ArcaneOdyssey(this ModItem item) => item.Item.GetGlobalItem<AOItem>();
-		public static bool TryArcaneOdyssey(this Item item, out AOItem result) => item.TryGetGlobalItem(out result);
-		public static bool TryArcaneOdyssey(this ModItem item, out AOItem result) => item.Item.TryGetGlobalItem(out result);
 		#endregion
 	}
 

@@ -188,7 +188,7 @@ namespace ArcaneOdyssey
 
 				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
 				
-				if (Imbue is FightingStyleBarred fs && item.ModItem.Type != Imbue.Type)
+				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 			}
 			if (item.CanHaveSecondImbue(Imbue, out var second) && ModContent.RequestIfExists<Texture2D>(second.Texture, out var texture2))
@@ -199,7 +199,7 @@ namespace ArcaneOdyssey
 
 				spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
 
-				if (second is FightingStyleBarred fs && item.ModItem.Type != second.Type)
+				if (second is FightingStyleBarred fs && item.ModItem?.Type != second.Type)
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 			}
 		}

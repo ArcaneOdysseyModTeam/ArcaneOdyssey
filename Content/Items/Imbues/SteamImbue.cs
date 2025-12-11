@@ -16,9 +16,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public static SteamImbue Create(Imbuable imbue)
 		{
 			SteamImbue steam = (SteamImbue)new Item(ModContent.ItemType<SteamImbue>()).ModItem;
-			steam.SecondImbue = imbue;
+			steam.Imbue = imbue;
 			if (imbue is null)
-				steam.SecondImbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
+				steam.Imbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
 			return steam;
 		}
 
@@ -70,8 +70,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override ModItem Clone(Item newEntity)
 		{
 			var clone = (SteamImbue)base.Clone(newEntity);
-			SecondImbue ??= (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
-			clone.SecondImbue = SecondImbue;
+			Imbue ??= (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
+			clone.Imbue = Imbue;
 			return clone;
 		}
 	}
