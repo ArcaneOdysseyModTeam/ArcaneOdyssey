@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {

@@ -1,9 +1,7 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using Microsoft.Xna.Framework;
@@ -187,7 +185,7 @@ namespace ArcaneOdyssey
 				Vector2 location = position + (dimensions * .25f);
 
 				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
-				
+
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
 			}
@@ -209,7 +207,7 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (!CanBeAffected)
 				return;
-			if (Imbue is not null) 
+			if (Imbue is not null)
 			{
 				if (!item.DamageType.Name.Contains("NoSpeed"))
 				{

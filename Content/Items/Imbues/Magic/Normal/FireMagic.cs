@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-        public override Color ImbueColour => new(252, 107, 3);
+		public override Color ImbueColour => new(252, 107, 3);
 		public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1.11f;
@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.85f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.OnFire, 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.OnFire, 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -51,10 +51,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<AOScalding>(),1.1f),
 				new(ModContent.BuffType<SearedEffect>(),1.1f)
 
-            ]
+			]
 			);
 
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -95,6 +95,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		
+
 	}
 }

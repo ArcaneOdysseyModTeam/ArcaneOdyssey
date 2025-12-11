@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
 {
 	public class EnergyBlast : BlastSpell
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 3;
 		}

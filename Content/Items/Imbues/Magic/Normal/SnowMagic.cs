@@ -11,11 +11,11 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class SnowMagic : AOMagic
-    {
-        public override float DashResist => 1.05f;
-        public override bool? Cold => true;
-        public override SoundStyle? ImbueSound => SoundID.Dig;
-		public override Color ImbueColour => new(255,255,255,255);
+	{
+		public override float DashResist => 1.05f;
+		public override bool? Cold => true;
+		public override SoundStyle? ImbueSound => SoundID.Dig;
+		public override Color ImbueColour => new(255, 255, 255, 255);
 		public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.11f;
@@ -23,8 +23,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.925f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SnowyEffect>(), 60*10)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()),new(ModContent.BuffType<FreezingEffect>(),ModContent.BuffType<AOFrozen>())];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SnowyEffect>(), 60 * 10)];
+		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.OnFire,
@@ -51,11 +51,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<SearedEffect>(),0.8f)
 			]
 			);
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
-			for (int n = 0; n<3; n++)
+			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.Snow,projectile.velocity.X*2f,projectile.velocity.Y*2f,0,default,3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Snow, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
 		}

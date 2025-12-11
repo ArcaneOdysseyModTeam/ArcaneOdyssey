@@ -1,12 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -283,7 +279,7 @@ namespace ArcaneOdyssey
 						modifiers = CalculateImbueDamage(imbue, target, modifiers);
 					}
 					if (modifiers.GetDamage(damage.Round()) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
-					{ 
+					{
 						target.HitNPC(modifiers.GetDamage(damage.Round()), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
 						target.immune[player.whoAmI] = 20;
 					}
@@ -298,12 +294,12 @@ namespace ArcaneOdyssey
 			if (projectile is not null && projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 			{
 				return (
-						projectile.DamageType.CountsAsClass(DamageClass.Melee) 
+						projectile.DamageType.CountsAsClass(DamageClass.Melee)
 						|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
 						|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique
-					) 
-					&& projectile.owner != 255 
-					&& !projectile.hostile 
+					)
+					&& projectile.owner != 255
+					&& !projectile.hostile
 					&& !projectile.npcProj;
 			}
 			return false;
@@ -642,8 +638,8 @@ namespace ArcaneOdyssey
 
 		public static ItemType GetItemType(this Item item)
 		{
-			if (item.ModItem is AOBaseItem based && based.ItemCategory.HasValue) 
-			{ 
+			if (item.ModItem is AOBaseItem based && based.ItemCategory.HasValue)
+			{
 				return based.ItemCategory.Value;
 			}
 			if (item.vanity)
@@ -785,7 +781,7 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public static float FlipFloat(this float input) => MathHelper.Clamp(2f - input, .1f, 2);
 
-		public static float MultiToPercent(this float multiplier) => multiplier-1f; // wow simplest function on the earth
+		public static float MultiToPercent(this float multiplier) => multiplier - 1f; // wow simplest function on the earth
 
 		public static Vector2 SafeDirectionTo(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
 		{
@@ -923,7 +919,7 @@ namespace ArcaneOdyssey
 					text += LocalizedName.Value;
 				}
 			}
-			if (Description is not null) 
+			if (Description is not null)
 			{
 				if (Name is not null)
 					text += $": {LocalizedDescription.Value}";

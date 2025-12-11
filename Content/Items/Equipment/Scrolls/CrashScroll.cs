@@ -8,7 +8,6 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
@@ -27,9 +26,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void ModifyWeaponCrit(Player player, ref float crit) => crit = 0;
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            base.UpdateAccessory(player, hideVisual);
-            if (Item.Imbue() is not null)
+		{
+			base.UpdateAccessory(player, hideVisual);
+			if (Item.Imbue() is not null)
 			{
 				player.ArcaneOdyssey()?.SetDash(new Crash());
 			}

@@ -328,7 +328,7 @@ namespace ArcaneOdyssey
 
 		public void DashStrike()
 		{
-			if (CurrentDash is not null && dashing) 
+			if (CurrentDash is not null && dashing)
 			{
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
@@ -365,7 +365,7 @@ namespace ArcaneOdyssey
 					modifiers.FinalDamage += .3f;
 				}
 
-				foreach (var debuff in Imbue.ImbueDebuffs) 
+				foreach (var debuff in Imbue.ImbueDebuffs)
 				{
 					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(CurrentDash.Damage) > (target.lifeMax / debuff.debuffPercent))
 					{

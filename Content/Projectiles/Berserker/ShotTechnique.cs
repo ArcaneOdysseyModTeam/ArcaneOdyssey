@@ -32,28 +32,28 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			Projectile.localAI[0]++;
 		}
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-        {
-            width = height /= 2;
-            fallThrough = true;
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
-        }
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			width = height /= 2;
+			fallThrough = true;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
 
-        public override bool PreKill(int timeLeft)
-        {
-            if (!Main.dedServ)
-            {
-                for (float i = 0; i < DustCount; i++)
-                {
-                    var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-                    var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue is null ? default : Imbue.GetColor(), 1.5f);
-                    dust2.noLight = true;
-                    dust2.noGravity = true;
-                    Imbue?.ExplosionEffects(Projectile);
-                }
-                AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
-            }
-            return base.PreKill(timeLeft);
-        }
+		public override bool PreKill(int timeLeft)
+		{
+			if (!Main.dedServ)
+			{
+				for (float i = 0; i < DustCount; i++)
+				{
+					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue is null ? default : Imbue.GetColor(), 1.5f);
+					dust2.noLight = true;
+					dust2.noGravity = true;
+					Imbue?.ExplosionEffects(Projectile);
+				}
+				AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
+			}
+			return base.PreKill(timeLeft);
+		}
 	}
 }

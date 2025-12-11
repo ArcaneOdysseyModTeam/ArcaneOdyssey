@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -19,8 +18,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			base.UpdateAccessory(player, hideVisual);
 			if (Item.TryGetImbue(out _))
-                player.ArcaneOdyssey().SetDash(new Reflex());
-        }
+				player.ArcaneOdyssey().SetDash(new Reflex());
+		}
 
 		public override void AddRecipes()
 		{

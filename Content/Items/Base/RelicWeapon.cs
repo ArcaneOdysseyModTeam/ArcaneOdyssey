@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public virtual int AOValue => 0;
 
-        public override float DashResist => 1.2f;
+		public override float DashResist => 1.2f;
 
 		public virtual bool NoUseGraphic => true;
 

@@ -2,7 +2,6 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -76,7 +75,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 					Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f);
 					dust.noGravity = true;
 				}
-			} 
+			}
 			else
 			{
 				Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f);
@@ -94,7 +93,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[rainbowStep % 3], 2f);
 				dust.noGravity = true;
 				rainbowStep++;
-				Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0,default, 1.2f);
+				Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0, default, 1.2f);
 			}
 			SoundEngine.PlaySound(ImbueSound, entity.position, null);
 			if (entity is Projectile projectile && projectile.owner == Main.myPlayer && projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<PrismLinger>()] < 3)
@@ -122,7 +121,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				rainbowStep++;
 			}
 		}
-		
+
 		public override void AddRecipes()
 		{
 			CreateLostRecipe(typeof(LightMagic), typeof(GlassMagic), typeof(CrystalMagic));

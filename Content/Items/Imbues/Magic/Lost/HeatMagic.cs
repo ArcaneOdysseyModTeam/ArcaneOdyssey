@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueDamage => .85f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
-		
+
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-		public override void AddRecipes() 
+		public override void AddRecipes()
 		{
 			CreateLostRecipe(typeof(FireMagic), typeof(PlasmaMagic), typeof(ExplosionMagic), typeof(MagmaMagic), typeof(WindMagic), typeof(AshMagic));
 		}

@@ -19,9 +19,9 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override LocalizedText DisplayName => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(Acrimony)}.DisplayName");
 		public override LocalizedText Tooltip => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(Acrimony)}.Tooltip");
-        public override string Texture => (GetType().Namespace + "." + nameof(Acrimony)).Replace('.', '/');
+		public override string Texture => (GetType().Namespace + "." + nameof(Acrimony)).Replace('.', '/');
 
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
 			Lighting.AddLight(Item.Center, 3, 3, 3);
 			Texture2D texture = TextureAssets.Item[Item.type].Value;

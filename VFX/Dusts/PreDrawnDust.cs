@@ -9,7 +9,6 @@ namespace ArcaneOdyssey.VFX.Dusts
 	{
 		public virtual int Rows => 1;
 		public virtual int Columns => 1;
-		public virtual float RotationDivision => 1f;
 
 		public override void OnSpawn(Dust dust)
 		{

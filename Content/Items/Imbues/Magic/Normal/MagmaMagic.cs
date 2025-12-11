@@ -11,11 +11,11 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MagmaMagic : AOMagic
-    {
-        public override float DashResist => 1.2f;
-        public override bool? Cold => false;
-        public override bool CanBeWet => false;
-        public override Color ImbueColour => new(255, 50, 0);
+	{
+		public override float DashResist => 1.2f;
+		public override bool? Cold => false;
+		public override bool CanBeWet => false;
+		public override Color ImbueColour => new(255, 50, 0);
 		public override float AOImbueSpeed => 0.85f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 0.975f;
@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 0.9f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.OnFire3, 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.OnFire3, 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Chilled, // freezing
@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<SearedEffect>(),1.1f)
 			]
 			);
-			
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -65,11 +65,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				spawnedDust.noGravity = true;
 			}
 		}
-		public override void LingeringEffects(Entity projectile) 
+		public override void LingeringEffects(Entity projectile)
 		{
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.InfernoFork, 0f, 0f, 0, default, 1.2f);
-			Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),1,1,DustID.SolarFlare,0f,0f,0,default,1.2f);
-			Lighting.AddLight(projectile.position,1f,0.19f,0f);
+			Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 1, 1, DustID.SolarFlare, 0f, 0f, 0, default, 1.2f);
+			Lighting.AddLight(projectile.position, 1f, 0.19f, 0f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{

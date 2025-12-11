@@ -12,19 +12,19 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class AshMagic : AOMagic
-    {
-        public override bool? Cold => false;
-        public override bool CanBeWet => false;
-        public override Color ImbueColour =>  new(235,40,0,0);
-        public override float AOImbueSpeed => 0.975f;
+	{
+		public override bool? Cold => false;
+		public override bool CanBeWet => false;
+		public override Color ImbueColour => new(235, 40, 0, 0);
+		public override float AOImbueSpeed => 0.975f;
 		public override float AOImbueSize => 1.22f;
 		public override float AOImbueDamage => 0.95f;
 		public override float AOScrollSpeed => 0.95f;
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => 0.875f;
-        public override SoundStyle? ImbueSound => SoundID.Dig;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(), 60*10,33)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()),new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()),new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()),new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>()),new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>())];
+		public override SoundStyle? ImbueSound => SoundID.Dig;
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(), 60 * 10, 33)];
+		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()), new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()), new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
@@ -97,13 +97,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 
 		}
 
-        public override bool PreEffects(Entity projectile)
-        {
+		public override bool PreEffects(Entity projectile)
+		{
 			if (projectile is Projectile proj)
 				return base.PreEffects(projectile) && proj.type != ProjectileID.SporeCloud;
 			return base.PreEffects(projectile);
-        }
+		}
 
-        
+
 	}
 }

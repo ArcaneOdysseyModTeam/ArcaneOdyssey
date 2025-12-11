@@ -16,7 +16,7 @@ namespace ArcaneOdyssey
 	{
 		public override void PostSetupContent()
 		{
-			AddFargosStuff(); 
+			AddFargosStuff();
 			AddShieldSlots();
 			MiscCalamitysStuff();
 			AddBossChecklist();
@@ -56,7 +56,7 @@ namespace ArcaneOdyssey
 
 			string[] descs = [Mod.CustomLocalization("CodebreakerDialogOption.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description4").Value];
 			string[] descs2 = [Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription1").Value, Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription2").Value, Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription3").Value, Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription4").Value];
-			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Name").Value, 
+			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Name").Value,
 				string.Join(' ', descs),
 				() => !ArcaneOdysseyMod.DevMode);
 			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Name").Value,

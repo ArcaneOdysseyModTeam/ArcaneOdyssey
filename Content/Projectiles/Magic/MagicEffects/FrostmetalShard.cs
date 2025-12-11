@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 			Projectile.friendly = true;
 			Projectile.stopsDealingDamageAfterPenetrateHits = true;
 			Projectile.timeLeft = 120;
-            Projectile.DamageType = ModContent.GetInstance<Conjurer>();
+			Projectile.DamageType = ModContent.GetInstance<Conjurer>();
 			randomRotationOffset = Main.rand.NextFloat(MathHelper.TwoPi);
 		}
 

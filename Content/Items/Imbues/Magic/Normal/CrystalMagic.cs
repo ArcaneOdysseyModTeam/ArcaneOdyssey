@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class CrystalMagic : AOMagic
 	{
-        public override float DashResist => 1.3f;
+		public override float DashResist => 1.3f;
 		public override Color ImbueColour => new(255, 0, 0);
 		public override float AOImbueSpeed => 0.95f;
 		public override float AOImbueSize => 1.11f;
@@ -20,12 +20,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 1.05f;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<Crystallized>(), 60*5)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<Crystallized>(), 60 * 5)];
 		public override CombinedDebuff[] CombinedDebuffs => [];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
-			], 
+			],
 			[
 				new(ModContent.BuffType<FreezingEffect>(),1.01f),
 				new(ModContent.BuffType<AOBleed>(),1.01f),
@@ -35,13 +35,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			]
 			);
 
-        
+
 
 		public override void SpawningEffects(Entity projectile)
 		{
-            for (int n = 0; n < 10; n++)
+			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.GemRuby,projectile.velocity.X*0.4f,projectile.velocity.Y*0.4f,0,default,1f);
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.GemRuby, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1f);
 			}
 		}
 

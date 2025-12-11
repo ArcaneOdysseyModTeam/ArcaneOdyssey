@@ -28,14 +28,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			}
 		}
 
-        public override void ModifyDamageHitbox(ref Rectangle hitbox)
-        {
-            if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic)
-            {
-                hitbox.Height = hitbox.Width = (int)(imbue.AOScrollSize * 200 * Projectile.ai[0]);
-            }
-        }
+		public override void ModifyDamageHitbox(ref Rectangle hitbox)
+		{
+			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is AOMagic)
+			{
+				hitbox.Height = hitbox.Width = (int)(imbue.AOScrollSize * 200 * Projectile.ai[0]);
+			}
+		}
 
-        public override bool PreDraw(ref Color lightColor) => false;
+		public override bool PreDraw(ref Color lightColor) => false;
 	}
 }

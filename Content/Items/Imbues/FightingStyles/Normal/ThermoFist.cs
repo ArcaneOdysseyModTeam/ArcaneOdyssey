@@ -59,13 +59,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override void SpawningEffects(Entity projectile)
 		{
 			BarValue += BarMax / 40f; // nerfed lmao
-			if (projectile.TryGetOwner(out AOPlayer owner)) 
+			if (projectile.TryGetOwner(out AOPlayer owner))
 			{
 				owner.SetCooldown(new Cooldown(Name, DisplayName, 60));
 			}
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 10)), 1); n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, (float)Math.Max(Math.Round((float)BarValue/50f),1));
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, (float)Math.Max(Math.Round((float)BarValue / 50f), 1));
 			}
 		}
 
@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				spawnedDust.noLight = true;
 			}
 		}
-		
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			if (projectile.TryGetOwner(out AOPlayer owner))
@@ -90,7 +90,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				Dust.NewDust(projectile.Center, 0, 0, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue * (BarMax * .286f)), 1));
 			}
 		}
-		
+
 		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 30; n++)
@@ -99,7 +99,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Hellstone, 10).Register();

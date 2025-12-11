@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void SetStaticDefaults()
 		{
-            base.SetStaticDefaults();
+			base.SetStaticDefaults();
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
@@ -41,12 +41,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override bool AltFunctionUse(Player player) => true;
 
-        public override Vector2? HoldoutOffset()
-        {
-            return new();
-        }
+		public override Vector2? HoldoutOffset()
+		{
+			return new();
+		}
 
-        public override void OnConsumeAmmo(Item ammo, Player player)
+		public override void OnConsumeAmmo(Item ammo, Player player)
 		{
 			if (player.AltUse())
 			{

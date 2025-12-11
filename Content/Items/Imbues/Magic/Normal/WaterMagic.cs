@@ -10,10 +10,10 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WaterMagic : AOMagic
-    {
-        public override float DashSpeed => 1.2f; // burst
-        public override bool? Cold => true;
-        public override Color ImbueColour => new(0, 30, 255);
+	{
+		public override float DashSpeed => 1.2f; // burst
+		public override bool? Cold => true;
+		public override Color ImbueColour => new(0, 30, 255);
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1.22f;
 		public override float AOImbueDamage => 0.975f;
@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => 0.9f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-        public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60 * 10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.OnFire,
@@ -49,19 +49,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			]
 		);
 
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
-            for (int n = 0; n < 3; n++)
+			for (int n = 0; n < 3; n++)
 
-            {
-                Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
-                spawnedDust.noGravity = true;
-            }
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
+				spawnedDust.noGravity = true;
+			}
 		}
 
-		public override void LingeringEffects(Entity projectile) 
+		public override void LingeringEffects(Entity projectile)
 		{
-            Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, 0f, 0f, 0, default, 1.2f);
+			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, 0f, 0f, 0, default, 1.2f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{

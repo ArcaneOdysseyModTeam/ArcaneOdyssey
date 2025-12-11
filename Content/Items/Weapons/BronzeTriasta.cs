@@ -76,11 +76,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			for (int i = 0; i < 20; i++)
 			{
-				Dust.NewDust(player.MountedCenter, player.width, player.height, DustID.HeatRay, player.ArcaneOdyssey().DashVelocity.X/10f, player.ArcaneOdyssey().DashVelocity.Y/10f, Scale: 2);
+				Dust.NewDust(player.MountedCenter, player.width, player.height, DustID.HeatRay, player.ArcaneOdyssey().DashVelocity.X / 10f, player.ArcaneOdyssey().DashVelocity.Y / 10f, Scale: 2);
 			}
-        }
+		}
 
-        public override int DisplayedCooldownID => ModContent.BuffType<EtherealFlashCooldown>();
+		public override int DisplayedCooldownID => ModContent.BuffType<EtherealFlashCooldown>();
 	}
 
 	public class EtherealFlashCooldown : DisplayedCooldown

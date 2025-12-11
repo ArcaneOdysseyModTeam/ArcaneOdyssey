@@ -36,9 +36,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Wraith, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
 				spawnedDust.noGravity = true;
-                Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.VampireHeal, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, Scale: 3f)];
-                spawnedDust2.noGravity = true;
-            }
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.VampireHeal, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, Scale: 3f)];
+				spawnedDust2.noGravity = true;
+			}
 		}
 
 		public override void LingeringEffects(Entity projectile)
@@ -75,9 +75,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-        public override void AddRecipes()
-        {
-            CreateLostRecipe(typeof(ShadowMagic));
-        }
+		public override void AddRecipes()
+		{
+			CreateLostRecipe(typeof(ShadowMagic));
+		}
 	}
 }

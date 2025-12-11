@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				if (!dash.OnCooldown(player))
 					player.ArcaneOdyssey().StartDash(dash, -2);
 			}
-			if (!Main.dedServ) 
+			if (!Main.dedServ)
 			{
 				// Particles from swinging
 				Dust.NewDust(player.MountedCenter + new Vector2(player.direction * 3f * (Imbue?.AOImbueSize ?? 1f), 0f), 3, 3, DustID.Water, (player.direction * 30f) * (0.8f - Main.rand.NextFloat()) * (Imbue?.AOImbueSize ?? 1f), 30f * (0.5f - Main.rand.NextFloat()) * (Imbue?.AOImbueSpeed ?? 1f), 255, default, 1.3f);
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int DashMax => 60;
 		public override bool AnyDirection => false;
 		public override bool Immune => false;
-		public override int Cooldown => 60*3;
+		public override int Cooldown => 60 * 3;
 		public override bool OnHit(Player player, Entity target)
 		{
 			return false;
@@ -77,7 +77,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void DashEffect(Player player)
 		{
 			player.statDefense += 20;
-			if (player.ArcaneOdyssey().DashLeft%5 == 0)
+			if (player.ArcaneOdyssey().DashLeft % 5 == 0)
 			{
 				player.direction *= -1;
 			}
@@ -102,7 +102,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int DisplayedCooldownID => ModContent.BuffType<RisingTideCooldown>();
 	}
 
-	public class RisingTideCooldown : DisplayedCooldown 
+	public class RisingTideCooldown : DisplayedCooldown
 	{
 		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(SunkenSword);
 	}

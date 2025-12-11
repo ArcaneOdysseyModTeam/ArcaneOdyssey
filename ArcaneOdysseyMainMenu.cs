@@ -33,18 +33,18 @@ namespace ArcaneOdyssey
 
 			public void Draw(bool dark)
 			{
-				Main.spriteBatch.Draw(Texture.Value, position, !dark ? new Color(255f, 255f, 255f, 255f/10f) : Color.Black);
+				Main.spriteBatch.Draw(Texture.Value, position, !dark ? new Color(255f, 255f, 255f, 255f / 10f) : Color.Black);
 			}
 
-            public Raindrop()
-            {
-                depth = Main.rand.NextFloat(1, .25f);
-                maxlife = 120;//(int)Math.Round(100f * depth);
-                velocity = new Vector2(0, 20) * depth;
-                maxlife = (int)Math.Round(100f * depth);
-                velocity = new Vector2(0, 20) * depth;
-                position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0 - Texture.Height());
-            }
+			public Raindrop()
+			{
+				depth = Main.rand.NextFloat(1, .25f);
+				maxlife = 120;//(int)Math.Round(100f * depth);
+				velocity = new Vector2(0, 20) * depth;
+				maxlife = (int)Math.Round(100f * depth);
+				velocity = new Vector2(0, 20) * depth;
+				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0 - Texture.Height());
+			}
 		}
 
 		public static List<Raindrop> Raindrops = [];
@@ -74,7 +74,7 @@ namespace ArcaneOdyssey
 			{
 				mus = ExternalModSupport.GetMusic("DarkSea", MusicID.OtherworldlyNight);
 			}
-            return mus;
+			return mus;
 		}
 
 		/// <summary>
@@ -133,7 +133,7 @@ namespace ArcaneOdyssey
 			spriteBatch.End();
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
-			spriteBatch.Draw(Logo.Value, new(Main.screenWidth/2f, 125f), null, thecolour, 0, Logo.Value.Size()/2f, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Logo.Value, new(Main.screenWidth / 2f, 125f), null, thecolour, 0, Logo.Value.Size() / 2f, 1f, SpriteEffects.None, 0f);
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 			return false;

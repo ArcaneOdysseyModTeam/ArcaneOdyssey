@@ -10,19 +10,19 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class ExplosionMagic : AOMagic
-    {
-        public override float DashSpeed => 1.2f; // burst
-        public override bool? Cold => false;
-        public override Color ImbueColour => new(235, 146, 52);
+	{
+		public override float DashSpeed => 1.2f; // burst
+		public override bool? Cold => false;
+		public override Color ImbueColour => new(235, 146, 52);
 		public override float AOImbueSpeed => 0.925f;
-        public override bool CanBeWet => false;
-        public override float AOImbueSize => 1.3f;
+		public override bool CanBeWet => false;
+		public override float AOImbueSize => 1.3f;
 		public override float AOImbueDamage => 1f;
 		public override float AOScrollSpeed => 0.85f;
 		public override float AOScrollSize => 1.3f;
 		public override float AOScrollDamage => 0.925f;
-        public override SoundStyle? ImbueSound => SoundID.Item14;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60*10)];
+		public override SoundStyle? ImbueSound => SoundID.Item14;
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<FreezingEffect>(),
@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -92,6 +92,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-        
+
 	}
 }

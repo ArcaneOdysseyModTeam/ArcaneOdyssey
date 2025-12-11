@@ -302,11 +302,11 @@ namespace ArcaneOdyssey
 			{
 				//if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
 				//{
-				//    DownedBosses.downedEnragedEmpress = true;
-				//    if (Main.dedServ)
-				//    {
-				//        NetMessage.SendData(MessageID.WorldData);
-				//    }
+				//	DownedBosses.downedEnragedEmpress = true;
+				//	if (Main.dedServ)
+				//	{
+				//		NetMessage.SendData(MessageID.WorldData);
+				//	}
 				//}
 			}
 

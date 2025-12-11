@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override string LocalizationCategory => "Magic." + ImbuableTier;
 
 		public void CreateLostRecipe(params Type[] imbues)
-        {
+		{
 			if (imbues.Length > 1)
 			{
 				List<int> types = [];
@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
-        public void CreateAncientRecipe(params Type[] imbues)
+		public void CreateAncientRecipe(params Type[] imbues)
 		{
 			//if (imbues.Length > 1)
 			//{
@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (magicToUse is AOMagic)
 			{
-				SoundEngine.PlaySound(SoundID.Item84 with { Pitch=magicToUse.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, player.Center);
+				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = magicToUse.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, player.Center);
 				if (item.ModItem is AOMagic)
 				{
 					return Main.projectile[Projectile.NewProjectile(player.GetSource_FromThis(), player.MountedCenter.X, player.MountedCenter.Y, 0f, 0f, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 1, 0, magicToUse.Type)];

@@ -19,10 +19,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 1.13f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 1.3f;
-		public override Color ImbueColour => new(50,255,255);
+		public override Color ImbueColour => new(50, 255, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.GemSapphire,projectile.velocity.X*0.4f,projectile.velocity.Y*0.4f,0,default,1f);
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.GemSapphire, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1f);
 			}
 		}
 
@@ -67,10 +67,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
 
-        
-		
-		public override void AddRecipes() {
-			CreateLostRecipe(typeof(CrystalMagic), typeof(EarthMagic),typeof(MetalMagic),typeof(SandMagic),typeof(GlassMagic),typeof(MagmaMagic),typeof(WoodMagic));
+
+
+		public override void AddRecipes()
+		{
+			CreateLostRecipe(typeof(CrystalMagic), typeof(EarthMagic), typeof(MetalMagic), typeof(SandMagic), typeof(GlassMagic), typeof(MagmaMagic), typeof(WoodMagic));
 		}
 	}
 }

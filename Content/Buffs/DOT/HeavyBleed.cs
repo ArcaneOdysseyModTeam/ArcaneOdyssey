@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 	{
 		private int frameNum = 0;
 		private int totalTicks = 0;
-		public override void Update(NPC npc, ref int buffIndex) 
+		public override void Update(NPC npc, ref int buffIndex)
 		{
 			totalTicks++;
 			frameNum++;
@@ -27,8 +27,8 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			npc.ArcaneOdyssey().heavyBleeding = true;
 			if (npc.buffTime[buffIndex] == 1)
 			{
-                totalTicks = 0;
-                frameNum = 0;
+				totalTicks = 0;
+				frameNum = 0;
 				npc.HitNPC(totalTicks / 30, Main.rand.NextBool().ToDirectionInt());
 			}
 		}

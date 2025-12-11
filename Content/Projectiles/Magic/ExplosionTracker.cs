@@ -13,16 +13,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 	{
 		private bool wascharging;
 		public const float defaultMax = 3f;
-        public const float defaultMin = 0.6f;
-        public float charge = 1f;
+		public const float defaultMin = 0.6f;
+		public float charge = 1f;
 		public bool isPlacedExplosion = Main.mouseRight;
 		public Vector2 ensuredPosition = Main.MouseWorld;
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.tileCollide = false;
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-        }
+		}
 		public override void AI()
 		{
 			if (Projectile.position != Projectile.oldPosition)
@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				playah.chargingSpell = wascharging = true;
 				Projectile.position = playah.myCircle.Center;
 				ensuredPosition = Projectile.position;
-				charge += 1/60f;
+				charge += 1 / 60f;
 				if (!isPlacedExplosion)
 				{
 					ensuredPosition = player.Center;
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					charge = 1f;
 					Projectile.ai[1]++;
 				}
-				if (Vector2.Distance(player.Center, Main.MouseWorld) > 400) 
+				if (Vector2.Distance(player.Center, Main.MouseWorld) > 400)
 				{
 					Projectile.Center = player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400;
 					ensuredPosition = Projectile.Center;
@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var explosionProjectile = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1 - Imbue.AOScrollSize) * new Vector2(100, 100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * (charge * (charge/2))), Projectile.knockBack, Projectile.owner, 1)];
+					var explosionProjectile = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), ensuredPosition + ((1 - Imbue.AOScrollSize) * new Vector2(100, 100)), Vector2.Zero, ModContent.ProjectileType<ExplosionSpell>(), (int)Math.Round(25 * (charge * (charge / 2))), Projectile.knockBack, Projectile.owner, 1)];
 					if (!isPlacedExplosion)
 					{
 						explosionProjectile.ai[0] = 1.2f; //size mult

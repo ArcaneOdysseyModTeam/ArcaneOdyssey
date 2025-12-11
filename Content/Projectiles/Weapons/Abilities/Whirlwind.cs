@@ -15,9 +15,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.width = Projectile.height = 144;
+		{
+			base.SetDefaults();
+			Projectile.width = Projectile.height = 144;
 			Projectile.friendly = true;
 			Projectile.timeLeft = MaxTime;
 			Projectile.DamageType = TrueMeleeNoSpeed();
@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			player.itemRotation = player.MountedCenter.DirectionTo(Projectile.Center).ToRotation() - MathHelper.Pi + (MathHelper.Pi / (AfterimageCount / .5f));
 			//if (player.direction == -1)
 			//{
-			//    player.itemRotation += MathHelper.Pi;
+			//	player.itemRotation += MathHelper.Pi;
 			//}
 			//player.direction = ((Projectile.Center.X > 0).ToDirectionInt());
 			//Projectile.alpha = (255 / AfterimageCount * 2).Round();

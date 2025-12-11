@@ -234,7 +234,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				var acrimonygroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>()));
 				var anybasicgroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", new(() => Mod.CustomLocalization("AnyBasicImbue").Value, [.. BasicImbues]));
-				
+
 				Recipe.Create(ModContent.ItemType<PoseidonSpirit>())
 					.AddRecipeGroup(anybasicgroup)
 					.AddRecipeGroup(acrimonygroup)
@@ -254,13 +254,16 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
-		public string ModifyTooltipsPrefix { get
+		public string ModifyTooltipsPrefix
+		{
+			get
 			{
 				if (this is AOMagic) { return "Magic"; }
 				if (this is FightingStyle) { return "FS"; }
 				if (this is RelicWeapon) { return "Relic"; }
 				else { return null; }
-			} }
+			}
+		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

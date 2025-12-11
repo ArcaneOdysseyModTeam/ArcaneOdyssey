@@ -38,16 +38,16 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				type = ProjectileID.BulletHighVelocity;
 			}
-        }
+		}
 
-        public override Vector2? HoldoutOffset()
-        {
-            return new(-11, 0);
-        }
+		public override Vector2? HoldoutOffset()
+		{
+			return new(-11, 0);
+		}
 
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient(ItemID.Musket).AddIngredient<BronzeBar>(10).Register();
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient(ItemID.Musket).AddIngredient<BronzeBar>(10).Register();
 		}
 	}
 }

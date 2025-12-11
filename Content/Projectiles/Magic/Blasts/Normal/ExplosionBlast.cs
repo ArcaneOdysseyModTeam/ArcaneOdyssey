@@ -5,7 +5,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Normal
 {
 	public class ExplosionBlast : BlastSpell
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			Main.projFrames[Type] = 7;
 		}
 	}

@@ -33,8 +33,8 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 						break;
 				}
 			}
-			if (npc.HasBuff(BuffID.Confused)) 
-            {
+			if (npc.HasBuff(BuffID.Confused))
+			{
 				npc.DelBuff(buffIndex);
 				buffIndex--;
 			}

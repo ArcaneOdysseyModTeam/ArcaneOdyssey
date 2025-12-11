@@ -18,8 +18,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            base.UpdateAccessory(player, hideVisual);
+		{
+			base.UpdateAccessory(player, hideVisual);
 			if (Item.Imbue() is not null)
 			{
 				player.GetJumpState<LeapAirStep>().Enable();

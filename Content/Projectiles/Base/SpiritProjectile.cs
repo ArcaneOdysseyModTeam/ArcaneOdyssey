@@ -1,18 +1,16 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class SpiritProjectile : AOPlayerProjectile
-    {
-        public override AODebuffRequirement? Debuff => null;
+	{
+		public override AODebuffRequirement? Debuff => null;
 
-
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.DamageType = ModContent.GetInstance<Oracle>();
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.DamageType = ModContent.GetInstance<Oracle>();
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

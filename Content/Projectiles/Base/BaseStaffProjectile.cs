@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.ai[1] = 0f;
 				EffectBeforeSpin(player);
 			}
-			
+
 			else
 			{
 				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / (25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed ?? 1f)));

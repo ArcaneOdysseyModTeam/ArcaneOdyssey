@@ -17,12 +17,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 			Projectile.width = Projectile.height = 200;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
+			Projectile.tileCollide = false;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.timeLeft = 120;
 			Projectile.localNPCHitCooldown = Projectile.timeLeft / 3;
 			Projectile.Center = Projectile.position;
-            Projectile.DamageType = DamageClass.Magic;
+			Projectile.DamageType = DamageClass.Magic;
 		}
 
 		public override void AI()

@@ -25,22 +25,22 @@ namespace ArcaneOdyssey
 		public bool CanDrop(DropAttemptInfo info) => !NPC.downedEmpressOfLight;
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstEmpressKillDescription", () => "First Empress of Light Defeated").Value;
-    }
+	}
 
-    public class FirstEvanderKill : IItemDropRuleCondition
-    {
-        public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEvander;
-        public bool CanShowItemDropInUI() => true;
-        public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
-    }
-    public class NotFirstEvanderKill : IItemDropRuleCondition
-    {
-        public bool CanDrop(DropAttemptInfo info) => DownedBosses.downedEvander;
-        public bool CanShowItemDropInUI() => true;
-        public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.NotFirstEvanderKillDescription", () => "Following Evanders Defeated").Value;
-    }
+	public class FirstEvanderKill : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEvander;
+		public bool CanShowItemDropInUI() => true;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
+	}
+	public class NotFirstEvanderKill : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => DownedBosses.downedEvander;
+		public bool CanShowItemDropInUI() => true;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.NotFirstEvanderKillDescription", () => "Following Evanders Defeated").Value;
+	}
 
-    public class FirstDayEmpressKill : IItemDropRuleCondition
+	public class FirstDayEmpressKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEnragedEmpress;
 		public bool CanShowItemDropInUI() => true;
@@ -50,43 +50,43 @@ namespace ArcaneOdyssey
 	public class NoShowNoConditon : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info)
-        {
-            if (info.npc is not null)
-            {
-                return !info.npc.SpawnedFromStatue;
-            }
-            return true;
-        }
+		{
+			if (info.npc is not null)
+			{
+				return !info.npc.SpawnedFromStatue;
+			}
+			return true;
+		}
 		public bool CanShowItemDropInUI() => false;
 		public string GetConditionDescription() => "";
-    }
+	}
 
-    public class HecateDropMultiHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
-    {
-        public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
-        {
-            ItemDropAttemptResult result = default;
-            if (info.rng.Next(chanceDenominator) < chanceNumerator)
-            {
-                if (!(itemId <= 0 || itemId >= ItemLoader.ItemCount))
-                {
-                    if (Main.dedServ)
-                    {
-                        var item = Item.NewItem(info.npc.GetSource_Loot(), info.npc.Center, itemId, 1, true, -1);
-                        Main.timeItemSlotCannotBeReusedFor[item] = 60 * 60 * 5;
-                        foreach (var player in Main.ActivePlayers)
-                            NetMessage.SendData(MessageID.InstancedItem, player.whoAmI, -1, null, item);
-                        Main.item[item].active = false;
-                    }
-                    else
-                        CommonCode.DropItem(info, itemId, 1);
-                }
-                result.State = ItemDropAttemptResultState.Success;
-                return result;
-            }
+	public class HecateDropMultiHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
+	{
+		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			ItemDropAttemptResult result = default;
+			if (info.rng.Next(chanceDenominator) < chanceNumerator)
+			{
+				if (!(itemId <= 0 || itemId >= ItemLoader.ItemCount))
+				{
+					if (Main.dedServ)
+					{
+						var item = Item.NewItem(info.npc.GetSource_Loot(), info.npc.Center, itemId, 1, true, -1);
+						Main.timeItemSlotCannotBeReusedFor[item] = 60 * 60 * 5;
+						foreach (var player in Main.ActivePlayers)
+							NetMessage.SendData(MessageID.InstancedItem, player.whoAmI, -1, null, item);
+						Main.item[item].active = false;
+					}
+					else
+						CommonCode.DropItem(info, itemId, 1);
+				}
+				result.State = ItemDropAttemptResultState.Success;
+				return result;
+			}
 
-            result.State = ItemDropAttemptResultState.FailedRandomRoll;
-            return result;
-        }
-    }
+			result.State = ItemDropAttemptResultState.FailedRandomRoll;
+			return result;
+		}
+	}
 }

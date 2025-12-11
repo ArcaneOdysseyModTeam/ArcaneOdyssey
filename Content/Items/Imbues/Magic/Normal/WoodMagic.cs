@@ -10,17 +10,17 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WoodMagic : AOMagic
-    {
-        public override float DashResist => 1.3f;
-        public override SoundStyle? ImbueSound => SoundID.Dig;
-        public override Color ImbueColour => new(61,33,0,255);
+	{
+		public override float DashResist => 1.3f;
+		public override SoundStyle? ImbueSound => SoundID.Dig;
+		public override Color ImbueColour => new(61, 33, 0, 255);
 		public override float AOImbueSpeed => 0.9f;
 		public override float AOImbueSize => 1.162f;
 		public override float AOImbueDamage => 1.025f;
 		public override float AOScrollSpeed => 0.8f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 0.95f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
@@ -36,17 +36,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<SearedEffect>(),1.1f)
 			]
 			);
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
-			for(int n = 0; n<3; n++)
+			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.Pearlwood,projectile.velocity.X*0.2f,projectile.velocity.Y*0.2f,0,default,1.5f);
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.Pearlwood, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1.5f);
 			}
 		}
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Pearlwood, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1f);
-			Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.GrassBlades,projectile.velocity.X*0.2f,projectile.velocity.Y*0.2f,0,default,1.5f);
+			Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.GrassBlades, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1.5f);
 		}
 		public override void ExplosionEffects(Entity projectile)
 		{

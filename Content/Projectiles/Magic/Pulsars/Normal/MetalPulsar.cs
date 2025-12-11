@@ -5,8 +5,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal
 {
 	public class MetalPulsar : PulsarSpell
 	{
-		public override void SetStaticDefaults() 
-        {
+		public override void SetStaticDefaults()
+		{
 			Main.projFrames[Type] = 4;
 		}
 	}

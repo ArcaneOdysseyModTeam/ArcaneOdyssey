@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Tiles.MusicBoxes
 	{
 		public override void EmitParticles(int i, int j, Tile tile, short tileFrameX, short tileFrameY, Color tileLight, bool visible)
 		{
-            WorldGen.KillTile(i, j);
+			WorldGen.KillTile(i, j);
 		}
 	}
 }

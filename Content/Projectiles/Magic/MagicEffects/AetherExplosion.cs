@@ -30,12 +30,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
 			{
 				Count++;
 				//if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-					BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .2f, 2f);
+				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .2f, 2f);
 			}
 			else
 			{
 				Projectile.active = false;
-			}    
+			}
 		}
 
 		public override void SetStaticDefaults()

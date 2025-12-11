@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -81,7 +80,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override int DisplayedCooldownID => ModContent.BuffType<PiercingStrikesCooldown>();
 	}
 
-	public class PiercingStrikesCooldown : DisplayedCooldown 
+	public class PiercingStrikesCooldown : DisplayedCooldown
 	{
 		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + $"/{nameof(BronzeRapierProjectile)}";
 	}

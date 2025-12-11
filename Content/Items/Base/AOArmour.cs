@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual SetBonusHelper? Set => null;
 
-		public virtual void ArmorSetEffects(Player player) {}
+		public virtual void ArmorSetEffects(Player player) { }
 
 		public virtual bool? Arcanium => null;
 
@@ -138,7 +138,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social")))
 				return;
 			tooltips.Reverse();
-			var index = tooltips.IndexOf(tooltips.Find(e => e.Name.StartsWith("Tooltip") || e.Name == "Defense"|| e.Name == "Equipable" || e.Name == "FavoriteDesc" || e.Name == "ItemName")) - 1;
+			var index = tooltips.IndexOf(tooltips.Find(e => e.Name.StartsWith("Tooltip") || e.Name == "Defense" || e.Name == "Equipable" || e.Name == "FavoriteDesc" || e.Name == "ItemName")) - 1;
 			if (index < 0)
 				index = 0;
 			int lasttooltip = 0;
@@ -170,7 +170,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (AOPierce > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat()/5]).Value));
+				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat() / 5]).Value));
 			}
 			tooltips.Reverse();
 		}

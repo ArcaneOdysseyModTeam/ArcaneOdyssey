@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.ExplosivePowder,15).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.ExplosivePowder, 15).Register();
 		}
 	}
 }

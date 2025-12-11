@@ -1,12 +1,7 @@
-﻿using ArcaneOdyssey.Content.Buffs.DOT;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Buffs.Stuns;
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.VFX.Dusts;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics

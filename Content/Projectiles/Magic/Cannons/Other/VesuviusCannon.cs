@@ -10,9 +10,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Other
 			Main.projFrames[Type] = 4;
 		}
 
-        public override void Rotate()
-        {
-            Projectile.rotation += 0.1f * Projectile.direction;
-        }
+		public override void Rotate()
+		{
+			Projectile.rotation += 0.1f * Projectile.direction;
+		}
 	}
 }

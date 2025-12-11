@@ -11,9 +11,9 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class PlasmaMagic : AOMagic
-    {
-        public override float DashSpeed => 1.2f; // burst
-        public override bool? Cold => false;
+	{
+		public override float DashSpeed => 1.2f; // burst
+		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(255, 100, 255, 255);
 		public override bool CanBeWet => false;

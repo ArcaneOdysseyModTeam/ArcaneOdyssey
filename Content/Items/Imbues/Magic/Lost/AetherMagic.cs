@@ -59,19 +59,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.YellowStarDust, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 3f)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,DustID.YellowTorch,projectile.velocity.X*0.2f,projectile.velocity.Y*0.2f,0,default,3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.YellowTorch, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 3f)];
 				spawnedDust2.noGravity = true;
 			}
 		}
 
 		public override void LingeringEffects(Entity projectile)
 		{
-			if (!Main.dedServ) 
-			{ 
+			if (!Main.dedServ)
+			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.YellowStarDust, 0f, 0f, 0, default, 1f);
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.YellowTorch, 0f, 0f, 0, default, 2f)];
 				spawnedDust.noGravity = true;
-				Lighting.AddLight(projectile.position, 2, 2, 0); 
+				Lighting.AddLight(projectile.position, 2, 2, 0);
 			}
 		}
 
@@ -117,9 +117,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			return base.PreEffects(entity);
 		}
 
-		public override void AddRecipes() 
+		public override void AddRecipes()
 		{
-			CreateLostRecipe(typeof(LightMagic), typeof(PlasmaMagic),typeof(ExplosionMagic),typeof(AshMagic),typeof(FireMagic));
+			CreateLostRecipe(typeof(LightMagic), typeof(PlasmaMagic), typeof(ExplosionMagic), typeof(AshMagic), typeof(FireMagic));
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace ArcaneOdyssey
 		public static ModKeybind Vanish { get; set; }
 
 		public override void Load()
-		{    
+		{
 			CycleItemImbue = KeybindLoader.RegisterKeybind(Mod, "CycleItemImbue", "G");
 			DashBind = KeybindLoader.RegisterKeybind(Mod, "DashBind", "F");
 			Vanish = KeybindLoader.RegisterKeybind(Mod, "Vanish", "V");

@@ -5,8 +5,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal
 {
 	public class LightCannon : CannonSpell
 	{
-		public override void SetStaticDefaults() 
-        {
+		public override void SetStaticDefaults()
+		{
 			Main.projFrames[Type] = 3;
 		}
 	}

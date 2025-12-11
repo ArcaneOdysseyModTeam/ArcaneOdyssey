@@ -34,20 +34,20 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			CreateRecipe().AddIngredient<BronzeBar>(12).AddIngredient<OldGreatsword>().AddTile(TileID.Anvils).Register();
 		}
 
-        public bool EveryOther = true;
+		public bool EveryOther = true;
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-            if (EveryOther)
-            {
-                float anglediv = 9;
-                var angle1 = velocity.ToRotation() + MathHelper.Pi / anglediv;
-                var angle2 = velocity.ToRotation() - MathHelper.Pi / anglediv;
-                Projectile.NewProjectile(source, position, angle1.ToRotationVector2() * velocity.Length(), type, damage, knockback, player.whoAmI);
-                Projectile.NewProjectile(source, position, angle2.ToRotationVector2() * velocity.Length(), type, damage, knockback, player.whoAmI);
-                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-            }
-            EveryOther = !EveryOther;
-            return false;
+			if (EveryOther)
+			{
+				float anglediv = 9;
+				var angle1 = velocity.ToRotation() + MathHelper.Pi / anglediv;
+				var angle2 = velocity.ToRotation() - MathHelper.Pi / anglediv;
+				Projectile.NewProjectile(source, position, angle1.ToRotationVector2() * velocity.Length(), type, damage, knockback, player.whoAmI);
+				Projectile.NewProjectile(source, position, angle2.ToRotationVector2() * velocity.Length(), type, damage, knockback, player.whoAmI);
+				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+			}
+			EveryOther = !EveryOther;
+			return false;
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 		public override bool? Cold => false;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.Item91;
-		public override Color ImbueColour => new Color(0, 255, 0, 255);
+		public override Color ImbueColour => new(0, 255, 0, 255);
 		public override bool CanBeWet => false;
 		public override float AOImbueSpeed => 1.5f;
 		public override float AOImbueSize => 1.2f;

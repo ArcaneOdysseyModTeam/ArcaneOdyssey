@@ -2,7 +2,5 @@
 
 namespace ArcaneOdyssey.Content.Buffs.Stuns
 {
-	public class AOPetrified : Stun
-	{
-	}
+	public class AOPetrified : Stun { }
 }

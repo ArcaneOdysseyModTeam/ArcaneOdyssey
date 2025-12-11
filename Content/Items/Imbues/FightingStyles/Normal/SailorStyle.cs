@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override void SpawningEffects(Entity projectile)
 		{
 			BarValue -= BarMax / 100f;
-			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++) 
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
 				spawnedDust.noGravity = true;
@@ -77,7 +77,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override void ExplosionEffects(Entity projectile)
 		{
-			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++) 
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
 				spawnedDust.noGravity = true;

@@ -27,8 +27,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override SynergyEffects Effects => new(
 			[
-				
-			], 
+
+			],
 			[
 				new(ModContent.BuffType<SandyEffect>(), .9f),
 				new(ModContent.BuffType<Crystallized>(), 1.1f),

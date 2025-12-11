@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Pulsar", "Blast");
 		public override string LocalizationCategory => "Magic.Spells.Pulsars";
 		public override float AOSize => .5f;
-        public override float AOSpeed => .25f;
+		public override float AOSpeed => .25f;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				if (Projectile.localAI[0] > 30)
 				{
 					Projectile.localAI[0] = 0;
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity/4, ModContent.ProjectileType<ExplosionSpell>(), 40, 0f, Projectile.owner, 1.3f);
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity / 4, ModContent.ProjectileType<ExplosionSpell>(), 40, 0f, Projectile.owner, 1.3f);
 					proj.Center = Projectile.Center;
 				}
 				else

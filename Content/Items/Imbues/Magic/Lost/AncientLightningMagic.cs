@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
-		public override Color ImbueColour => new(255,0,0,255);
+		public override Color ImbueColour => new(255, 0, 0, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float AOImbueSpeed => 1.4f;
 		public override float AOImbueSize => 1.1f;
@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.TheDestroyer, new Vector2(0f, 0f), 255, Color.Red, 1.2f);
 				spawnedDust.noGravity = true;
 			}
-			Lighting.AddLight(projectile.position,2,0,0);
+			Lighting.AddLight(projectile.position, 2, 0, 0);
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, 0f, 0f, 0, default, .7f);
 		}
 
@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
 		}
-		
+
 		public override void AddRecipes()
 		{
 			CreateLostRecipe(typeof(LightningMagic));

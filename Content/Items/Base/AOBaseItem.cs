@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public abstract AORarities AORarity { get; }
 
-        public virtual ItemType? ItemCategory => null;
+		public virtual ItemType? ItemCategory => null;
 
 		public virtual bool ShowItemTypeTooltip => true;
 
@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (AORarity != AORarities.Special)
 				Item.rare = (int)AORarity;
-			if (AORarity == AORarities.Special) 
+			if (AORarity == AORarities.Special)
 			{
 				Item.rare = ModContent.RarityType<HotPinkRare>();
 			}

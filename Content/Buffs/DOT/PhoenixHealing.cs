@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 
 				if (!ArcaneOdysseyClientConfig.Instance.AlternatePhoenixEffectVFX)
 				{
-                    offsetpoint += (npc.Center.DirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
+					offsetpoint += (npc.Center.DirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
 				}
 				else
 					offsetpoint += (npc.Center.DirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress * Main.rand.NextFloat().FlipFloat();

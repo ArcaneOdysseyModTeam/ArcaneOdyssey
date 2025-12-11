@@ -12,9 +12,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public const int DustCount = 30;
 
 		public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.width = Projectile.height = 64;
+		{
+			base.SetDefaults();
+			Projectile.width = Projectile.height = 64;
 			Projectile.friendly = true;
 			Projectile.extraUpdates = 2;
 			Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
-				Projectile.velocity /= Projectile.extraUpdates+1;
+				Projectile.velocity /= Projectile.extraUpdates + 1;
 			}
 			Projectile.rotation += (MathHelper.Pi / 60) / Projectile.extraUpdates + 1;
 
@@ -37,8 +37,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				for (float i = 0; i < DustCount; i++)
 				{
-					var centre1 = ((MathHelper.PiOver4 / DustCount * i) + Projectile.rotation).ToRotationVector2() * (Projectile.width/3);
-					var dust1 = Dust.NewDustPerfect(centre1 + Projectile.Center, dust, -(centre1/15), 0, Scale: .75f);
+					var centre1 = ((MathHelper.PiOver4 / DustCount * i) + Projectile.rotation).ToRotationVector2() * (Projectile.width / 3);
+					var dust1 = Dust.NewDustPerfect(centre1 + Projectile.Center, dust, -(centre1 / 15), 0, Scale: .75f);
 					dust1.noLight = true;
 					dust1.noGravity = true;
 					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width / 2);
@@ -52,22 +52,22 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 		}
 
-        public override bool PreKill(int timeLeft)
-        {
-            if (!Main.dedServ)
-            {
-                for (float i = 0; i < DustCount; i++)
-                {
-                    var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-                    var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue is null ? default : Imbue.GetColor(), 1.5f);
-                    dust2.noLight = true;
-                    dust2.noGravity = true;
-                    Imbue?.ExplosionEffects(Projectile);
-                }
-                AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
-            }
-            return base.PreKill(timeLeft);
-        }
+		public override bool PreKill(int timeLeft)
+		{
+			if (!Main.dedServ)
+			{
+				for (float i = 0; i < DustCount; i++)
+				{
+					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue is null ? default : Imbue.GetColor(), 1.5f);
+					dust2.noLight = true;
+					dust2.noGravity = true;
+					Imbue?.ExplosionEffects(Projectile);
+				}
+				AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
+			}
+			return base.PreKill(timeLeft);
+		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{

@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.SnowflakeIce, 0f, 0f, 1, default, 1f);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
-			}   
+			}
 		}
 	}
 }

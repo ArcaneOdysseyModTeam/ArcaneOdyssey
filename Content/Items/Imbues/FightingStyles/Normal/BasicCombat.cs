@@ -16,8 +16,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override float AOScrollDamage => .925f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1f;
-		
-		public override void SpawningEffects(Entity projectile) 
+
+		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{

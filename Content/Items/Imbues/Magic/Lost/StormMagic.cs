@@ -8,6 +8,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueDamage => 1f;
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;
-		
+
 	}
 }

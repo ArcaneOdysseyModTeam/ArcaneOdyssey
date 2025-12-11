@@ -9,12 +9,12 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class MagicCircle2 : AOPlayerProjectile
 	{
-        public override bool? CanDamage() => false;
+		public override bool? CanDamage() => false;
 
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.height = Projectile.width = 64;
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.height = Projectile.width = 64;
 			Projectile.tileCollide = false;
 		}
 
@@ -112,8 +112,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 		}
 
 		public override void OnKill(int timeLeft)
-        {
-            aoPlayerOwner.myCircle = null;
+		{
+			aoPlayerOwner.myCircle = null;
 			Main.player[Projectile.owner].channel = false;
 		}
 	}

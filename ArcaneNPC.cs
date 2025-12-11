@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Armour.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.NPCS;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;

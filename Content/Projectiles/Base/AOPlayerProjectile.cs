@@ -19,9 +19,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public AOPlayer aoPlayerOwner = null;
 		public bool IsSpell => this is MagicSpell;
 
-		public float BaseScale 
-		{  
-			get 
+		public float BaseScale
+		{
+			get
 			{
 				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
 					return Projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
 
-		public virtual AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 60*5);
+		public virtual AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 60 * 5);
 		public virtual SoundStyle? DebuffApplySound => null;
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

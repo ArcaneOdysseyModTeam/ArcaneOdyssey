@@ -1,18 +1,14 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.UI.ModBrowser;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -30,7 +26,7 @@ namespace ArcaneOdyssey
 			{
 				lightColor = projectile.GetAlpha(Color.DarkRed);
 			}
-			return true; 
+			return true;
 		}
 	}
 
@@ -104,26 +100,32 @@ namespace ArcaneOdyssey
 		public WeaponType OriginWeaponType;
 
 		private bool _canImbue = true;
-		public bool CanBeAffected { get
+		public bool CanBeAffected
+		{
+			get
 			{
 				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj)
 				{
 					return proj.CanHaveImbue;
 				}
 				return _canImbue;
-			} set => _canImbue = value;
+			}
+			set => _canImbue = value;
 		}
 
 
 		private bool? _cold = null;
-		public bool? Cold { get 
+		public bool? Cold
+		{
+			get
 			{
 				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj && proj.Cold.HasValue)
 				{
 					return proj.Cold.Value;
 				}
 				return _cold;
-			} set => _cold = value;
+			}
+			set => _cold = value;
 		}
 
 		public override bool PreKill(Projectile projectile, int timeLeft)

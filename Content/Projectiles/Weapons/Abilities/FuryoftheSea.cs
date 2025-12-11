@@ -17,27 +17,27 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override AODebuffRequirement? Debuff => new(BuffID.Wet, 600);
 		public override SoundStyle? DebuffApplySound => SoundID.Splash;
 		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
-		
+
 
 		public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.width = 114;
+		{
+			base.SetDefaults();
+			Projectile.width = 114;
 			Projectile.height = 96;
-            Projectile.AverageDimensions();
+			Projectile.AverageDimensions();
 			Projectile.alpha = (int)(225 * .75f);
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.knockBack = 4.5f;
 			Projectile.timeLeft = 60;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
-            Projectile.ownerHitCheck = true;
-            Projectile.ignoreWater = true;
+			Projectile.ownerHitCheck = true;
+			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
 		}
 
-		public override void SetStaticDefaults() 
-        {
+		public override void SetStaticDefaults()
+		{
 			Main.projFrames[Type] = 6;
 		}
 
@@ -72,11 +72,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					Dust.NewDust(Projectile.position + new Vector2(Projectile.width / 2f, Projectile.height / 2f), 1, 1, DustID.Water, 50f * (0.5f - rnd.NextSingle()), 50f * (0.7f - rnd.NextSingle()), 1, default, 1.3f);
 				}
 				//Spiral Dust
-				float waveVal = (float)Math.Sin(Main.GameUpdateCount)*50f;
+				float waveVal = (float)Math.Sin(Main.GameUpdateCount) * 50f;
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(Projectile.position + (baseVec.RotatedBy(Projectile.velocity.ToRotation())) + new Vector2(Projectile.width / 2f, Projectile.height / 2f), DustID.Water_Jungle, new Vector2(0f, 0f), 255, default, 3f);
 				spawnedDust.noGravity = true;
-				float waveVal2 = (float)Math.Cos(Main.GameUpdateCount)*50f;
+				float waveVal2 = (float)Math.Cos(Main.GameUpdateCount) * 50f;
 				Vector2 baseVec2 = new(0f, waveVal2);
 				Dust spawnedDust2 = Dust.NewDustPerfect(Projectile.position + (baseVec2.RotatedBy(Projectile.velocity.ToRotation())) + new Vector2(Projectile.width / 2f, Projectile.height / 2f), DustID.Water_Jungle, new Vector2(0f, 0f), 255, default, 3f);
 				spawnedDust2.noGravity = true;

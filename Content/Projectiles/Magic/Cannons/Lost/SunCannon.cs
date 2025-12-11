@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost
 {
 	public class SunCannon : CannonSpell
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 4;
 		}

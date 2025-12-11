@@ -182,7 +182,7 @@ namespace ArcaneOdyssey
 			if (damageClass == Ranged)
 			{
 				return MostInheritance;
-			}    
+			}
 			if (damageClass.Name == Oracle.InternalName)
 			{
 				return QuarterInheritance;

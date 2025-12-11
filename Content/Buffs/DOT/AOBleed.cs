@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 	public class AOBleed : AODebuff
 	{
 		private int frameNum = 0;
-		public override void Update(NPC npc, ref int buffIndex) 
+		public override void Update(NPC npc, ref int buffIndex)
 		{
 			frameNum++;
 			if (frameNum > 20)

@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -21,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
-	
+
 		public override void UpdateInventory(Player player)
 		{
 			if (Item.TryGetImbue(out var imbue))

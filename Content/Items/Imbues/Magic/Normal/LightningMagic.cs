@@ -12,10 +12,10 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class LightningMagic : AOMagic
-    {
-        public override float DashSpeed => 1.5f; // instant
-        public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
-        public override Color ImbueColour => new(255, 140, 255, 255);
+	{
+		public override float DashSpeed => 1.5f; // instant
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
+		public override Color ImbueColour => new(255, 140, 255, 255);
 		public override float AOImbueSpeed => 1.2f;
 		public override float AOImbueSize => .95f;
 		public override float AOImbueDamage => .95f;
@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.CrystalPulse, new Vector2(0f, 0f), 255, default, 1.2f);
 				spawnedDust.noGravity = true;
 			}
-			Lighting.AddLight(projectile.position,2,1,2);
+			Lighting.AddLight(projectile.position, 2, 1, 2);
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, 0f, 0f, 0, default, 0.3f);
 		}
 		public override void ExplosionEffects(Entity projectile)
@@ -78,13 +78,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				Dust.NewDust(projectile.Center, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1.2f);
 			}
 		}
-        public override void KillEffects(Entity projectile)
-        {
-            for (int n = 0; n < 10; n++)
-            {
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 1.2f);
-            }
-            SoundEngine.PlaySound(ImbueSound, projectile.position, null);
-        }
+		public override void KillEffects(Entity projectile)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 1.2f);
+			}
+			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+		}
 	}
 }

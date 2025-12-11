@@ -11,8 +11,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Normal
 			Projectile.alpha = (int)(225 * .3f);
 		}
 
-		public override void SetStaticDefaults() 
-        {
+		public override void SetStaticDefaults()
+		{
 			Main.projFrames[Type] = 4;
 		}
 	}

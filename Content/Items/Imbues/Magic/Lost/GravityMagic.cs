@@ -24,8 +24,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60*10)];
-		
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
@@ -47,11 +47,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile) 
+		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X+projectile.width*Main.rand.NextFloat(),projectile.position.Y+projectile.height*Main.rand.NextFloat()),0,0,ModContent.DustType<GravityDust>(),projectile.velocity.X*0.5f,projectile.velocity.Y*0.5f,0,default,2f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, ModContent.DustType<GravityDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 0, default, 2f)];
 				spawnedDust.noGravity = true;
 			}
 		}
