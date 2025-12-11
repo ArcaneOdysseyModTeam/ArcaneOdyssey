@@ -277,10 +277,10 @@ namespace ArcaneOdyssey
 			{
 				if (target.Hitbox.Distance(origin) <= range)
 				{
-					var modifiers = new DashDamageHelper();
+					ModDamageHelper modifiers = new();
 					if (imbue is not null)
 					{
-						CalculateImbueDamage(imbue, target, ref modifiers);
+						modifiers = CalculateImbueDamage(imbue, target, modifiers);
 					}
 					if (modifiers.GetDamage(damage.Round()) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
 					{ 
@@ -404,7 +404,7 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-		public static void CalculateImbueDamage(Imbuable imbue, NPC target, ref DashDamageHelper modifiers)
+		public static ModDamageHelper CalculateImbueDamage(Imbuable imbue, NPC target, ModDamageHelper modifiers)
 		{
 			if (imbue is not null)
 			{
@@ -455,59 +455,12 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
+			return modifiers;
 		}
 
-		public static void CalculateImbueDamage(Imbuable imbue, NPC target, ref NPC.HitModifiers modifiers)
+		public static NPC.HitModifiers CalculateImbueDamage(Imbuable imbue, NPC target, NPC.HitModifiers modifiers)
 		{
-			if (imbue is not null)
-			{
-				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
-				{
-					modifiers.FinalDamage += .3f;
-				}
-
-				if (imbue.CombinedDebuffs is not null)
-				{
-					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
-					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
-					}
-				}
-
-				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
-				{
-					if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-				}
-
-				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-				{
-					foreach (int buffid in imbue.Effects.clearBuffs)
-					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
-						{
-							target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
-						}
-						if (target.HasBuff(buffid))
-						{
-							target.DelBuff(target.FindBuffIndex(buffid));
-						}
-					}
-				}
-			}
+			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
 		}
 
 		public static int FromAODefense(this int val) => (int)Math.Round(val / 18f);
@@ -916,11 +869,11 @@ namespace ArcaneOdyssey
 			if (item is not null && !item.IsAir && item.active && item.TryGetGlobalItem<AOItem>(out var item1))
 				return item1;
 			return null;
-        }
+		}
 
-        public static AOItem ArcaneOdyssey(this ModItem item) => item?.Item?.ArcaneOdyssey();
+		public static AOItem ArcaneOdyssey(this ModItem item) => item?.Item?.ArcaneOdyssey();
 
-        public static IImbuable AnyArcaneOdyssey(this Entity entity)
+		public static IImbuable AnyArcaneOdyssey(this Entity entity)
 		{
 			if (entity is Projectile projectile)
 			{
@@ -1204,5 +1157,22 @@ namespace ArcaneOdyssey
 	public interface IImbuable
 	{
 		public Imbuable Imbue { get; set; }
+	}
+
+	/// <summary>
+	/// used so i can copy paste code
+	/// </summary>
+	public struct ModDamageHelper(StatModifier statModifier = default)
+	{
+		public StatModifier FinalDamage = statModifier;
+		public int GetDamage(int damage)
+		{
+			return FinalDamage.ApplyTo(damage).Round();
+		}
+
+		public static ModDamageHelper FromHitModifiers(NPC.HitModifiers hitModifiers)
+		{
+			return new ModDamageHelper(hitModifiers.FinalDamage);
+		}
 	}
 }

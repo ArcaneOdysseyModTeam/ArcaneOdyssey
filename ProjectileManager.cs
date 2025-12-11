@@ -191,9 +191,9 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-			CalculateImbueDamage(Imbue, target, ref modifiers);
+			modifiers = CalculateImbueDamage(Imbue, target, modifiers);
 			if (projectile.CanHaveSecondImbue(Imbue, out var second))
-				CalculateImbueDamage(second, target, ref modifiers);
+				modifiers = CalculateImbueDamage(second, target, modifiers);
 
 		}
 

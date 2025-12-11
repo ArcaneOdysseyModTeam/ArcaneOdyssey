@@ -10,11 +10,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Pulsar", "Blast");
 		public override string LocalizationCategory => "Magic.Spells.Pulsars";
 		public override float AOSize => .5f;
+        public override float AOSpeed => .25f;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.velocity /= 4;
 		}
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{

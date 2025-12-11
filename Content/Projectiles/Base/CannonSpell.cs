@@ -11,15 +11,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public int TileTimer = 0;
 
 		public override float AOSize => 2f;
+        public override float AOSpeed => .33f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
 			Projectile.penetrate = -1;
-			Projectile.ownerHitCheck = true;
 			Projectile.timeLeft = 3 * 60;
-			Projectile.velocity /= 3;
 		}
 
 		public override void AI()

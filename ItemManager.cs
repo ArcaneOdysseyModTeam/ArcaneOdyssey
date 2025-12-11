@@ -593,9 +593,9 @@ namespace ArcaneOdyssey
 				{
 					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage / 2f);
 				}
-				CalculateImbueDamage(Imbue, target, ref modifiers);
+				modifiers = CalculateImbueDamage(Imbue, target, modifiers);
 				if (item.CanHaveSecondImbue(Imbue, out var second))
-					CalculateImbueDamage(second, target, ref modifiers);
+					modifiers = CalculateImbueDamage(second, target, modifiers);
 			}
 		}
 	}

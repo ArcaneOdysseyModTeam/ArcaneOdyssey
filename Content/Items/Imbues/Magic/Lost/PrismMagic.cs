@@ -66,11 +66,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0, default, 0.5f);
 			if (entity is Projectile projectile)
 			{
-				if (projectile.type == ModContent.ProjectileType<BeamSpell>())
+				if (projectile.extraUpdates > 0)
 				{
 					Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[projectile.numUpdates % 3], 1.4f);
 					dust.noGravity = true;
-				} else
+				}
+				else
 				{
 					Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f);
 					dust.noGravity = true;

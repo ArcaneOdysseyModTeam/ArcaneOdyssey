@@ -60,11 +60,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		}
 		public override bool AnyDirection => true;
 		public override int Cooldown => 180;
-		public BronzeRapierProjectile projectile;
+		public Projectile projectile;
 
 		public override void OnStart(Player player)
 		{
-			projectile.Projectile.velocity = player.ArcaneOdyssey().DashVelocity;
+			projectile.velocity = player.ArcaneOdyssey().DashVelocity;
 			player.PlayerItem().useStyle = ItemUseStyleID.Rapier;
 		}
 		public override void DashEffect(Player player)
@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void OnEnd(Player player)
 		{
-			projectile.Projectile.Kill();
+			projectile.Kill();
 			player.velocity *= .75f;
 		}
 

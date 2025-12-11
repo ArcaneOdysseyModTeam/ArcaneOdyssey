@@ -354,7 +354,7 @@ namespace ArcaneOdyssey
 
 		public int CalculateDashDamage(NPC target)
 		{
-			var modifiers = new DashDamageHelper();
+			var modifiers = new ModDamageHelper();
 			if (Imbue is not null)
 			{
 				if (CurrentDash.UseScrollImbue)
@@ -423,18 +423,6 @@ namespace ArcaneOdyssey
 				}
 			}
 			return knockback * CurrentDash.Knockback;
-		}
-	}
-
-	/// <summary>
-	/// used so i can copy paste code
-	/// </summary>
-	public struct DashDamageHelper()
-	{
-		public StatModifier FinalDamage = new();
-		public int GetDamage(int damage)
-		{
-			return FinalDamage.ApplyTo(damage).Round();
 		}
 	}
 }
