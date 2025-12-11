@@ -136,22 +136,19 @@ namespace ArcaneOdyssey
 			if (npc.type == NPCID.CultistBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.HallowBoss)
 			{
-				LeadingConditionRule leadingConditionRule = new(new FirstEmpressKill());
+				LeadingConditionRule leadingConditionRule = new(new FirstDayEmpressKill());
 				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
-				//LeadingConditionRule leadingConditionRule1 = new(new FirstDayEmpressKill());
-				//leadingConditionRule1.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
-				//npcLoot.Add(leadingConditionRule1);
 			}
 			if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
+				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.MoonLordCore)

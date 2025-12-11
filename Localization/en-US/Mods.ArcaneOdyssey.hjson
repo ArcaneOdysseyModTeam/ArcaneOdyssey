@@ -92,7 +92,7 @@ NPCs: {
 		Help: {
 			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
 			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
-			EarlyMagic2: Magic spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
+			EarlyMagic2: Some spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
 			EarlyMagic3: You can imbue your items with your magic or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
 			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but technique scrolls are needed to use your full power. Try crafting paper at a sawmill with gel and wood.
 			EarlyFighting2: Some techniques allow you to launch yourself in a direction, depending on the type you can [{Keybind1} or {Keybind2}].
@@ -155,11 +155,11 @@ MagicTierLines: {
 
 FSTierLines: {
 	Normal: "[c/700013:~ Fighting Style ~]"
-	Lost: "[c/7ebcc2:~ Lost Fighting Style ~]"
+	Ancient: "[c/7ebcc2:~ Lost Fighting Style ~]"
 	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
 }
 
-RelicTierLines.Normal: "[c/2277ff:~ Relic ~]"
+RelicTierLines.Normal: "[c/2277ff:~ Relic Weapon ~]"
 
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"

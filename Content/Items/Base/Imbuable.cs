@@ -230,16 +230,27 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 			}
 
-			if (this is BasicCombat)
+			if (this is EaglePatrimony)
 			{
-				RecipeGroup group = new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>());
-				RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", group);
-				var goru = new RecipeGroup(() => Mod.CustomLocalization("AnyBasicImbue").Value, [..BasicImbues]);
-				RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", goru);
-				Recipe recipe = Recipe.Create(ModContent.ItemType<PoseidonSpirit>());
-				recipe.AddRecipeGroup(goru);
-				recipe.AddRecipeGroup(group);
-				recipe.DisableDecraft().Register();
+				var acrimonygroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>()));
+				var anybasicgroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", new(() => Mod.CustomLocalization("AnyBasicImbue").Value, [.. BasicImbues]));
+				
+				Recipe.Create(ModContent.ItemType<PoseidonSpirit>())
+					.AddRecipeGroup(anybasicgroup)
+					.AddRecipeGroup(acrimonygroup)
+					.DisableDecraft()
+					.Register();
+
+				CreateRecipe()
+					.AddIngredient<PoseidonChoice>()
+					.DisableDecraft()
+					.Register();
+
+				Recipe.Create(ModContent.ItemType<PoseidonChoice>())
+					.AddIngredient(Type)
+					.AddRecipeGroup(acrimonygroup)
+					.DisableDecraft()
+					.Register();
 			}
 		}
 

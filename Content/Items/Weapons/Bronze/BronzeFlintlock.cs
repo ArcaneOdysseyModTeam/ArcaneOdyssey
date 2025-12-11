@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override int AOValue => 60;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override float AODamage => .5f;
-        public override float AOSpeed => base.AOSpeed;
+		public override float AOSpeed => base.AOSpeed;
 		public override SoundStyle UseSound => SoundID.Item11;
 
 		public override WeaponAbility? Ability => new(Mod, "Multi Shot", "Shoots a spread of bullets", Color.Orange);
@@ -34,10 +34,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.shoot = ProjectileID.Bullet;
 		}
 
-        public override Vector2? HoldoutOffset()
-        {
-            return new(-2, 0);
-        }
+		public override Vector2? HoldoutOffset()
+		{
+			return new(-2, 0);
+		}
 
 		public override bool AltFunctionUse(Player player) => true;
 
@@ -49,10 +49,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 				{
 					var offset = MathHelper.TwoPi / 16f;
 					var velo = (velocity.ToRotation() - offset + (offset * 2 * Main.rand.NextFloat())).ToRotationVector2() * velocity.Length();
-                    Projectile.NewProjectile(source, position, velo, type, damage / 4, knockback / 4, player.whoAmI);
-                }
-                return false;
-            }
+					Projectile.NewProjectile(source, position, velo, type, damage / 4, knockback / 4, player.whoAmI);
+				}
+				return false;
+			}
 			return true;
 		}
 

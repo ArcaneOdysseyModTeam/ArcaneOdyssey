@@ -25,31 +25,30 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public void CreateLostRecipe(params Type[] imbues)
         {
-            // LOSTMAGICS
-            //if (imbues.Length > 1)
-            //{
-            //	List<int> types = [];
-            //	foreach (var type in imbues)
-            //	{
-            //		types.Add(Mod.Find<ModItem>(type.Name).Type);
-            //	}
-            //	var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
-            //	RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
-            //	var rec = Recipe.Create(Type);
-            //	rec.AddRecipeGroup(group);
-            //	rec.AddIngredient<HecateShard>();
-            //	rec.DisableDecraft();
-            //	rec.Register();
-            //}
-            //else if (imbues.Length == 1)
-            //{
-            //	var rec = CreateRecipe();
-            //	rec.AddIngredient(Mod.Find<ModItem>(imbues[0].Name).Type);
-            //	rec.AddIngredient<HecateShard>();
-            //	rec.DisableDecraft();
-            //	rec.Register();
-            //}
-        }
+			if (imbues.Length > 1)
+			{
+				List<int> types = [];
+				foreach (var type in imbues)
+				{
+					types.Add(Mod.Find<ModItem>(type.Name).Type);
+				}
+				var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+				RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
+				var rec = Recipe.Create(Type);
+				rec.AddRecipeGroup(group);
+				rec.AddIngredient<HecateShard>();
+				rec.DisableDecraft();
+				rec.Register();
+			}
+			else if (imbues.Length == 1)
+			{
+				var rec = CreateRecipe();
+				rec.AddIngredient(Mod.Find<ModItem>(imbues[0].Name).Type);
+				rec.AddIngredient<HecateShard>();
+				rec.DisableDecraft();
+				rec.Register();
+			}
+		}
 
         public void CreateAncientRecipe(params Type[] imbues)
 		{
