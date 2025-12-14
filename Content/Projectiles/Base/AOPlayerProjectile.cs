@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual bool? Cold => null;
 		public AOPlayer aoPlayerOwner = null;
 		public bool IsSpell => this is MagicSpell;
-
+		private float baseScale;
 		public float BaseScale
 		{
 			get
@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set
 			{
 				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-					Projectile.ArcaneOdyssey().BaseScale = value;
+					baseScale = value;
 				else
 					Projectile.scale = value;
 			}
