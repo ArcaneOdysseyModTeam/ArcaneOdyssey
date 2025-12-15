@@ -17,21 +17,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 		public AOPlayer aoPlayerOwner = null;
-		public bool IsSpell => this is MagicSpell;
-		private float baseScale;
+		public bool IsSpellType => this is MagicSpell or StrengthTechnique or SpiritProjectile;
 		public float BaseScale
 		{
 			get
 			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
+				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
 					return Projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
 				else
 					return Projectile.scale;
 			}
 			set
 			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-					baseScale = value;
+				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
+					Projectile.ArcaneOdyssey().BaseScale = value;
 				else
 					Projectile.scale = value;
 			}
@@ -46,6 +45,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			BaseScale = AOSize;
+			Projectile.damage = (Projectile.damage * AODamage).Round();
 		}
 
 		public virtual float AOSpeed => 1f;

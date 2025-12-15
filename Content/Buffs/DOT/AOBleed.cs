@@ -10,6 +10,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 {
 	public class AOBleed : AODebuff
 	{
+		public override string Texture => $"Terraria/Images/Buff_{BuffID.Bleeding}";
 		private int frameNum = 0;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
