@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				var dash = new SeismicSlash();
 				if (!dash.OnCooldown(player))
 				{
-					player.ArcaneOdyssey().StartDash(dash, 2);
+					player.ArcaneOdyssey().StartDash(dash, 2, Imbue);
 				}
 			}
 			return null;
@@ -53,6 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class SeismicSlash : DashSystem
 	{
+		public override bool? UseScrollImbueStats => true;
 		public override bool AnyDirection => true;
 		public override int Damage => 50;
 		public override int Cooldown => 300;
@@ -68,11 +69,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			if (player.itemAnimation < 8 || player.itemTime < 8)
 				player.itemAnimation = player.itemTime = 7;
-
-			if (player.TryGetImbue(out var imbue))
-			{
-				imbue.LingeringEffects(player);
-			}
 		}
 
 		public override bool ExtraCheck(Player player) => !player.wet;
@@ -80,11 +76,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-			if (player.TryGetImbue(out var imbue))
-			{
-				for (int i = 0; i < 15; i++)
-					imbue.ExplosionEffects(player);
-			}
 		}
 
 		public override void NaturalEnd(Player player)

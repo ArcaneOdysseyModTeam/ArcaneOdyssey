@@ -52,13 +52,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 	public class PiercingStrikes : DashSystem
 	{
+		public override bool? UseScrollImbueStats => false;
 		public override int DashMax => 20;
 		public override float DashSpeed => 12;
 		public override bool Immune => true;
-		public override bool OnHit(Player player, Entity target)
-		{
-			return false;
-		}
+		public override bool OnHit(Player player, Entity target) => false;
 		public override bool AnyDirection => true;
 		public override int Cooldown => 180;
 		public Projectile projectile;

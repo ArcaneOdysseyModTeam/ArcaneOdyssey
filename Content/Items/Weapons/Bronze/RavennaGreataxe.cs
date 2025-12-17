@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 				var dash = new Devastate();
 				if (!dash.OnCooldown(player))
 				{
-					player.ArcaneOdyssey().StartDash(dash, 2);
+					player.ArcaneOdyssey().StartDash(dash, 2, Imbue);
 				}
 			}
 			return null;
@@ -57,6 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 	public class Devastate : DashSystem
 	{
+		public override bool? UseScrollImbueStats => false;
 		public override bool AnyDirection => true;
 		public override int Damage => 50;
 		public override int Cooldown => 300;
@@ -65,10 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override DamageClass DamageType => TrueMelee();
 		public override float Knockback => 5;
 		public override bool Immune => true;
-		public override bool OnHit(Player player, Entity target)
-		{
-			return false;
-		}
+		public override bool OnHit(Player player, Entity target) => false;
 
 		public override int DisplayedCooldownID => ModContent.BuffType<DevastateCooldown>();
 
@@ -76,27 +74,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.itemAnimation < 8 || player.itemTime < 8)
 				player.itemAnimation = player.itemTime = 7;
-
-			if (player.TryGetImbue(out var imbue))
-			{
-				imbue.LingeringEffects(player);
-			}
 		}
 
-		public override bool ExtraCheck(Player player)
-		{
-			return !player.wet;
-		}
+		public override bool ExtraCheck(Player player) => !player.wet;
 
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			SimulateAOE(100, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
-			if (player.TryGetImbue(out var imbue))
-			{
-				for (int i = 0; i < 20; i++)
-					imbue.ExplosionEffects(player);
-			}
 			if (!Main.dedServ)
 			{
 				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.PlayerItem()), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());

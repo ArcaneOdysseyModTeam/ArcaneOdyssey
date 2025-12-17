@@ -47,17 +47,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override DamageClass DamageType => TrueMeleeNoSpeed();
 		public override int Cooldown => CrashScroll.Cooldown;
 
+		public override bool? UseScrollImbueStats => true;
+
 		public override bool AnyDirection => true;
 
 		public override int Damage => 50;
-
-		public override void DashEffect(Player player)
-		{
-			if (player.TryGetImbue(out var imbue))
-			{
-				imbue.LingeringEffects(player);
-			}
-		}
 
 		public override bool OnHit(Player player, Entity target)
 		{
@@ -70,11 +64,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			player.velocity = Vector2.Zero;
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
-			if (player.TryGetImbue(out var imbue))
-			{
-				for (int i = 0; i < 10; i++)
-					imbue.ExplosionEffects(player);
-			}
 		}
 
 		public override float DashSpeed => 15;
@@ -89,14 +78,13 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>());
 			gore.Centre(player.MountedCenter + player.velocity);
-			player.ArcaneOdyssey().StartDash(new Smash(), 2);
+			player.ArcaneOdyssey()?.StartDash(new Smash(), 2);
 		}
 
 		public override void OnStart(Player player)
 		{
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
-				player.ArcaneOdyssey().DashVelocity *= imbue.AOScrollSpeed;
 				if (imbue is ThermoFist thermo)
 				{
 					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
@@ -114,6 +102,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 	public class Smash : DashSystem
 	{
 		public override DamageClass DamageType => TrueMeleeNoSpeed();
+		public override bool? UseScrollImbueStats => true;
 		public override bool AnyDirection => true;
 
 		public override int Damage => 50;
@@ -159,19 +148,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			SimulateAOE(Player.defaultHeight * 2, Damage, player.Bottom, Knockback, player, DamageType);
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
-			if (player.TryGetImbue(out var imbue))
-			{
-				for (int i = 0; i < 20; i++)
-					imbue.ExplosionEffects(player);
-			}
-		}
-
-		public override void DashEffect(Player player)
-		{
-			if (player.TryGetImbue(out var imbue))
-			{
-				imbue.LingeringEffects(player);
-			}
 		}
 	}
 

@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			if (player.AltUse() && !DashSystem.OnCooldown(typeof(EtherealFlash), player))
 			{
-				player.ArcaneOdyssey().StartDash(new EtherealFlash());
+				player.ArcaneOdyssey().StartDash(new EtherealFlash(), imbue: Imbue, imbueAffectsSpeed: true);
 			}
 		}
 
@@ -55,6 +55,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class EtherealFlash : DashSystem
 	{
+		public override bool? UseScrollImbueStats => false;
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 3;
@@ -69,7 +70,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			SimulateAOE(150, 70, player.MountedCenter, 4.5f, player.PlayerItem(), TrueMeleeNoSpeed());
 			player.velocity = Vector2.Zero;
-			player.PlayerItem()?.Imbue()?.KillEffects(player);
 		}
 
 		public override void DashEffect(Player player)

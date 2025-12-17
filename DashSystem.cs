@@ -204,10 +204,32 @@ namespace ArcaneOdyssey
 					}
 					DashVelocity = standard * dashToUse.DashSpeed * (imbueAffectsSpeed ? (Imbue is not null ? (CurrentDash.UseScrollImbueStats.HasValue ? (CurrentDash.UseScrollImbueStats.Value ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed) : 1f) : 1f) : 1f);
 				}
+				if (imbueAffectsSpeed && imbue is not null && CurrentDash.UseScrollImbueStats.HasValue)
+				{
+					float mult;
+					if (CurrentDash.UseScrollImbueStats.Value)
+					{
+						mult = imbue.AOScrollSpeed;
+						if (Player.CanHaveSecondImbue(imbue, out var second))
+						{
+							mult += second.AOScrollSpeed.MultiToPercent();
+						}
+					}
+					else
+					{
+						mult = imbue.AOImbueSpeed;
+						if (Player.CanHaveSecondImbue(imbue, out var second))
+						{
+							mult += second.AOImbueSpeed.MultiToPercent();
+						}
+					}
+					DashVelocity *= mult;
+				}
 				Player.ConsumeAllExtraJumps();
 				DashLeft = dashToUse.DashMax;
 				dashToUse.OnStart(Player);
-				Player.velocity = DashVelocity;
+				if (dashToUse.AnyDirection)
+					Player.velocity = DashVelocity;
 				dashing = true;
 				if (dashToUse.Immune)
 				{
@@ -273,13 +295,13 @@ namespace ArcaneOdyssey
 					{
 						if (dash.AnyDirection && AOKeybinds.DashBind.JustPressed)
 						{
-							StartDash(dash);
+							StartDash(dash, imbue: Imbue, imbueAffectsSpeed: true);
 						}
 						else if (!dash.AnyDirection)
 						{
 							if (DashDir.HasValue)
 							{
-								StartDash(dash, DashDir.Value);
+								StartDash(dash, DashDir.Value, Imbue, true);
 							}
 						}
 					}
@@ -295,7 +317,7 @@ namespace ArcaneOdyssey
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
-					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame))
+					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame && CurrentDash.AnyDirection))
 					{
 						if (!Player.mount.Active)
 							Player.wingTime = storedWingTime;
@@ -308,12 +330,20 @@ namespace ArcaneOdyssey
 						}
 						for (int i = 0; i < (DashLeft + 300) / 30; i++)
 						{
-							Imbue?.ExplosionEffects(Player);
+							CurrentDash.Imbue?.ExplosionEffects(Player);
+							if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && Player.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
+							{
+								second.ExplosionEffects(Player);
+							}
 						}
 						return;
 					}
 
-					Imbue?.LingeringEffects(Player);
+					CurrentDash.Imbue?.LingeringEffects(Player);
+					if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && Player.CanHaveSecondImbue(CurrentDash.Imbue, out var second1))
+					{
+						second1.LingeringEffects(Player);
+					}
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
 					{
@@ -366,50 +396,33 @@ namespace ArcaneOdyssey
 			var modifiers = new ModDamageHelper();
 			if (CurrentDash.Imbue is not null)
 			{
-				if (CurrentDash.UseScrollImbueStats)
-					modifiers.FinalDamage += Imbue.AOScrollDamage.MultiToPercent();
-				else modifiers.FinalDamage += Imbue.AOImbueDamage.MultiToPercent();
-				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				modifiers = CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
+				if (CurrentDash.UseScrollImbueStats.HasValue)
 				{
-					modifiers.FinalDamage += .3f;
-				}
-
-				foreach (var debuff in Imbue.ImbueDebuffs)
-				{
-					if ((debuff.debuffPercent == 0) || modifiers.GetDamage(CurrentDash.Damage) > (target.lifeMax / debuff.debuffPercent))
+					if (CurrentDash.UseScrollImbueStats.Value)
 					{
-						target.AddBuff(debuff.debuffID, debuff.debuffDuration);
+						modifiers.FinalDamage += CurrentDash.Imbue.AOScrollDamage.MultiToPercent();
+					}
+					else
+					{
+						modifiers.FinalDamage += CurrentDash.Imbue.AOImbueDamage.MultiToPercent();
 					}
 				}
 
-				if (Imbue.CombinedDebuffs is not null)
+				if (Player.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
 				{
-					foreach (CombinedDebuff buffkeys in Imbue.CombinedDebuffs)
+					if (CurrentDash.UseScrollImbueStats.HasValue)
 					{
-						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+						if (CurrentDash.UseScrollImbueStats.Value)
 						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
+							modifiers.FinalDamage += second.AOScrollDamage.MultiToPercent();
+						}
+						else
+						{
+							modifiers.FinalDamage += second.AOImbueDamage.MultiToPercent();
 						}
 					}
-				}
-
-				foreach (MagicBuffMultiplier multiplier in Imbue.Effects.magicBuffMultipliers)
-				{
-					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
-				}
-
-				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
-				{
-					foreach (int buffid in Imbue.Effects.clearBuffs)
-					{
-						if (target.HasBuff(buffid))
-						{
-							target.DelBuff(target.FindBuffIndex(buffid));
-						}
-					}
+					modifiers = CalculateImbueDamage(second, target, modifiers);
 				}
 			}
 
@@ -419,19 +432,23 @@ namespace ArcaneOdyssey
 		public float CalculateDashKnockback()
 		{
 			var knockback = 1f;
+			var extrakbmulti = 1f;
 			if (Imbue is not null)
 			{
-				var extrakbmulti = Imbue.KBMulti;
-				if (CurrentDash.UseScrollImbueStats)
+				extrakbmulti = Imbue.KBMulti;
+				if (CurrentDash.UseScrollImbueStats.HasValue)
 				{
-					knockback += Imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
-				}
-				else
-				{
-					knockback += Imbue.AOImbueSize.MultiToPercent() * extrakbmulti;
+					if (CurrentDash.UseScrollImbueStats.Value)
+					{
+						knockback += Imbue.AOScrollSize.MultiToPercent();
+					}
+					else
+					{
+						knockback += Imbue.AOImbueSize.MultiToPercent();
+					}
 				}
 			}
-			return knockback * CurrentDash.Knockback;
+			return knockback * CurrentDash.Knockback * extrakbmulti;
 		}
 	}
 }

@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			var shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
 			var dash = new PiercingStrikes { projectile = shot };
-			player.ArcaneOdyssey().StartDash(dash);
+			player.ArcaneOdyssey().StartDash(dash, imbue: Imbue, imbueAffectsSpeed: true);
 			return false;
 		}
 

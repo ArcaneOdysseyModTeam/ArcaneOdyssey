@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			base.UpdateAccessory(player, hideVisual);
 			if (Imbue is not null)
-				player.ArcaneOdyssey().SetDash(new Reflex());
+				player.ArcaneOdyssey()?.SetDash(new Reflex());
 		}
 
 		public override void AddRecipes()
@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 	public class Reflex : DashSystem
 	{
+		public override bool? UseScrollImbueStats => true;
 		public override int Cooldown => 30;
 
 		public override bool AnyDirection => false;
@@ -43,21 +44,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			if (player.TryGetImbue(out Imbuable imbue))
 			{
 				SoundEngine.PlaySound(imbue.ImbueSound, player.MountedCenter);
-				player.ArcaneOdyssey().DashVelocity *= imbue.DashSpeed;
 			}
 		}
-
-		public static float CalculateResistanceMulti(Player player) => player.Imbue()?.DashResist ?? 1f;
 
 		public override bool OnHit(Player player, Entity target) => true;
 
 		public override void DashEffect(Player player)
 		{
-			if (player.TryGetImbue(out Imbuable imbue))
-			{
-				imbue.LingeringEffects(player);
-				player.statDefense *= CalculateResistanceMulti(player);
-			}
+			player.statDefense *= Imbue?.DashResist ?? 1f;
 		}
 
 		public override float DashSpeed => 6;

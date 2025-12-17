@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			{
 				var dash = new RisingTide();
 				if (!dash.OnCooldown(player))
-					player.ArcaneOdyssey().StartDash(dash, -2);
+					player.ArcaneOdyssey().StartDash(dash, -2, Imbue, true);
 			}
 			if (!Main.dedServ)
 			{
@@ -64,7 +64,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class RisingTide : DashSystem
 	{
-		public override float DashSpeed => 10;
+		public override bool? UseScrollImbueStats => false;
+		public override float DashSpeed => 15;
 		public override int DashMax => 60;
 		public override bool AnyDirection => false;
 		public override bool Immune => false;
