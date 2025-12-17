@@ -68,7 +68,7 @@ Lost: {
 
 	CloudMagic: {
 		DisplayName: Cloud Magic
-		Tooltip: ""
+		Tooltip: Allows the user to form large, fluffy clouds that obscure vision and confuse foes
 	}
 
 	DarknessMagic: {
