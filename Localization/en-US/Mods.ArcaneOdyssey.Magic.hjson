@@ -113,7 +113,7 @@ Lost: {
 
 	StormMagic: {
 		DisplayName: Storm Magic
-		Tooltip: ""
+		Tooltip: Allows the user to unleash stormy clouds that confuse and zap foes
 	}
 }
 
