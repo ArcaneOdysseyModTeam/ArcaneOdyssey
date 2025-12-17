@@ -64,9 +64,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOImbueSpeed => .9f;
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;
-		public virtual float AOScrollSpeed => AOImbueSpeed < 1f ? AOImbueSpeed + .1f : AOImbueSpeed - .1f;
-		public virtual float AOScrollSize => AOImbueSize < 1f ? AOImbueSize + .1f : AOImbueSize - .1f;
-		public virtual float AOScrollDamage => AOImbueDamage < 1f ? AOImbueDamage + .1f : AOImbueDamage - .1f;
+		public virtual float AOScrollSpeed => AOImbueSpeed <= 1f ? AOImbueSpeed + .1f : AOImbueSpeed - .1f;
+		public virtual float AOScrollSize => AOImbueSize <= 1f ? AOImbueSize + .1f : AOImbueSize - .1f;
+		public virtual float AOScrollDamage => AOImbueDamage <= 1f ? AOImbueDamage + .1f : AOImbueDamage - .1f;
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
 		public virtual AODebuffRequirement[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);

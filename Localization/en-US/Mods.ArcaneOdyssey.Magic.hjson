@@ -63,7 +63,7 @@ Lost: {
 
 	BlizzardMagic: {
 		DisplayName: Blizzard Magic
-		Tooltip: ""
+		Tooltip: Allows the user to call on the northern winters, engulfing foes with chilling snow
 	}
 
 	CloudMagic: {
