@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.GemSapphire, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GemSapphire, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1f);
 			}
 		}
 

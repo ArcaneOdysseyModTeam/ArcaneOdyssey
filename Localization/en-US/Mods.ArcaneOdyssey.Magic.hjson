@@ -88,7 +88,7 @@ Lost: {
 
 	LunarMagic: {
 		DisplayName: Lunar Magic
-		Tooltip: ""
+		Tooltip: Allows the user to create water, enhanced by the blinding moon
 	}
 
 	PhoenixMagic: {
