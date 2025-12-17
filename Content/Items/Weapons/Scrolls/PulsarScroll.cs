@@ -7,8 +7,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class PulsarScroll : MagicScroll
+	public class PulsarScroll : Scroll
 	{
+		public override bool CanHaveMagic => true;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

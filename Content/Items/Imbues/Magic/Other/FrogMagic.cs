@@ -8,6 +8,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 {
 	public class FrogMagic : AOMagic
 	{
+		public override string Texture => $"Terraria/Images/Item_{ItemID.Frog}";
 		public override bool? Cold => true;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
 		public override SoundStyle? ImbueSound => SoundID.Frog;
@@ -32,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
 
 		public override void KillEffects(Entity projectile)
 		{
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 	}
 }

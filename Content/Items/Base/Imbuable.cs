@@ -14,7 +14,7 @@ using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Other;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Relics;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -86,13 +86,22 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual float KBMulti => 1f;
 
+		public virtual string AttackPrefix => Name.Replace("Magic");
+
 		public int GetSkill(string skill, int fallback = ProjectileID.EnchantedBeam)
 		{
-			if (Mod.TryFind<ModProjectile>(Name.Replace("Magic") + $"{skill}", out var proj))
+			if (Mod.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
 			{
 				return proj.Type;
 			}
 			return fallback;
+		}
+
+		public Projectile CreateChargingEffect(Item item, Player player)
+		{
+			if (this is AOMagic)
+				return AOMagic.CreateMagicCircle(item, player, this);
+			return null;
 		}
 
 		public virtual void SpawningEffects(Entity entity) { }
@@ -260,7 +269,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				if (this is AOMagic) { return "Magic"; }
 				if (this is FightingStyle) { return "FS"; }
-				if (this is RelicWeapon) { return "Relic"; }
+				if (this is RelicImbue) { return "Relic"; }
 				else { return null; }
 			}
 		}

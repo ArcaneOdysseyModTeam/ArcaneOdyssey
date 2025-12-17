@@ -80,7 +80,7 @@ NPCs: {
 		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy.
 
 		Chat: {
-			Intro: Hello, {PlayerName}.
+			Intro: Hello, {0}.
 			Grave: That grave. It once belonged to a good friend of ours, Tucker.
 			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
 			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he is as immortal as I.
@@ -90,20 +90,21 @@ NPCs: {
 		}
 
 		Help: {
+			Relics: Relics are quite interesting. They function as an imbue, as well as a weapon that can channel magic.
 			Early1: Those with a strong sense of justice or an affinity for magic are granted Poseidon's Spirit. Slaying extremely powerful magic users may cause some of their power to be released, creating one of these.
 			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
 			EarlyMagic2: Some spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
 			EarlyMagic3: You can imbue your items with your magic or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
 			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but technique scrolls are needed to use your full power. Try crafting paper at a sawmill with gel and wood.
-			EarlyFighting2: Some techniques allow you to launch yourself in a direction, depending on the type you can [{Keybind1} or {Keybind2}].
+			EarlyFighting2: Some techniques allow you to launch yourself in a direction, depending on the type you can [{0} or {1}].
 			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
+			StackImbues: With multiple imbues, you can stack them on eachother to allow scrolls or special items to use both imbues at the same time. For example, a Relic can be imbued into a Magic, or a Magic can be imbued into a Fighting Style.
 			PreHard1: It's said there's some abomination deep, deep underground that contains a large amount of magic power. It might be benificial to obtain this power.
 			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
 			EarlyHard1: Killing that beast should have granted you some of it's power in the form of a sigil. You should use that if you haven't already.
 			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			BronzeTip: Bronze can be created using {0} and {1} and some sort of chaotic material.
-			PlantTip: I can feel it, the jungle is hiding something, something ancient and powerful. Something that might well change fate, a piece of a god.
+			BronzeTip: Bronze can be created using {0} and {1} and some sort of chaotic material.=
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
 			SunkenWeapon: Although made of Arcanium metal, that sword in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
@@ -112,7 +113,6 @@ NPCs: {
 			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
 			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing drink while using it.
 			WeaponSkills: Some weapons have special skills, make good use of them.
-			SpiritWeapon: Relic weapons are items that were blessed by gods and granted power. Only those with Relics may harness Spirit Energy.
 			ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
 		}
 
@@ -159,7 +159,7 @@ FSTierLines: {
 	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
 }
 
-RelicTierLines.Normal: "[c/2277ff:~ Relic Weapon ~]"
+RelicTierLines.Normal: "[c/2277ff:~ Relic? ~]"
 
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
@@ -213,6 +213,7 @@ Projectiles: {
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
 	Whirlwind.DisplayName: Whirlwind
+	Astrapikis.DisplayName: Astrapikis
 }
 
 DamageClasses: {
@@ -226,8 +227,6 @@ DamageClasses: {
 	Knight: knight damage
 	KnightNoSpeed: knight damage
 	RangedKnight: ranged knight damage
-	TrueKnight: true knight damage
-	TrueKnightNoSpeed: true knight damage
 	Juggernaut: juggernaut damage
 	Paladin: paladin damage
 	Warlock: warlock damage
@@ -302,6 +301,11 @@ WeaponAbilities: {
 	RisingTide: {
 		DisplayName: Rising Tide
 		Description: Launch yourself upwards
+	}
+
+	Astrapikis: {
+		DisplayName: Astrapikis
+		Description: Release a slash of spirit energy
 	}
 }
 

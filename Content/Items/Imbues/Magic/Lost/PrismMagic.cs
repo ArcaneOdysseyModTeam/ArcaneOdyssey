@@ -95,7 +95,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				rainbowStep++;
 				Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0, default, 1.2f);
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.position, null);
+			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
 			if (entity is Projectile projectile && projectile.owner == Main.myPlayer && projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<PrismLinger>()] < 3)
 				Projectile.NewProjectile(entity.GetSource_FromThis(), entity.Center, Vector2.Zero, ModContent.ProjectileType<PrismLinger>(), projectile.damage / 6, 0, projectile.owner);
 		}

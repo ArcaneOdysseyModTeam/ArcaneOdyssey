@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Relics;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using System;
 using System.Collections.Generic;
@@ -73,7 +72,6 @@ namespace ArcaneOdyssey
 			{
 				List<Item> items = [
 						new Item(ModContent.ItemType<PoseidonChoice>()),
-						new Item(ModContent.ItemType<EaglePatrimony>()),
 						new Item(ModContent.ItemType<StarterAcrimony>())
 					];
 				return items;
@@ -129,6 +127,6 @@ namespace ArcaneOdyssey
 			HandleDashDetection();
 		}
 
-		public float SizeMulti => AOSizeStat / 300f;
+		public float SizeMulti => AOSizeStat / 275f;
 	}
 }

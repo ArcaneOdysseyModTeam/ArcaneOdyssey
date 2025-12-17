@@ -8,8 +8,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class BeamScroll : MagicScroll
+	public class BeamScroll : Scroll
 	{
+		public override bool CanHaveMagic => true;
 		public override int AOValue => 1000;
 
 		public override void SetDefaults()

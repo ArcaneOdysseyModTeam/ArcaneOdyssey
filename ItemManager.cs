@@ -94,6 +94,14 @@ namespace ArcaneOdyssey
 				}
 			}
 
+			if (item.ModItem is RelicImbue relic)
+			{
+				if (relic.Ability.HasValue)
+				{
+					tooltips.Add(relic.Ability.Value.GenerateTooltip());
+				}
+			}
+
 			if (item.ArcaneOdyssey().WeaponsType == WeaponType.Arcanium)
 			{
 				tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
@@ -132,7 +140,7 @@ namespace ArcaneOdyssey
 			set => _weaponsType = value;
 		}
 
-		public bool BenifitsFromScrollStats => thisItem.ModItem is AnyScroll || WeaponsType == WeaponType.Arcanium || WeaponsType == WeaponType.Strength;
+		public bool BenifitsFromScrollStats => thisItem.ModItem is Scroll || WeaponsType == WeaponType.Arcanium || WeaponsType == WeaponType.Strength;
 
 		private bool _canImbue = true;
 		public bool CanBeAffected
@@ -187,18 +195,22 @@ namespace ArcaneOdyssey
 				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
-			}
-			if (item.CanHaveSecondImbue(Imbue, out var second) && ModContent.RequestIfExists<Texture2D>(second.Texture, out var texture2))
-			{
-				Vector2 dimensions = new(frame.Width, frame.Height);
-				Vector2 location = position + (dimensions * .25f);
-				location.X -= texture2.Width() * .35f;
+				{
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location with { X = location.X - (dimensions.X * .05f) }, fs.DisplayColor, 0, Vector2.Zero, .5f, SpriteEffects.None, 1f);
+				}
 
-				spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
+				if (item.CanHaveSecondImbue(Imbue, out var second) && ModContent.RequestIfExists<Texture2D>(second.Texture, out var texture2))
+				{
+					location.X -= texture2.Width() * .35f;
 
-				if (second is FightingStyleBarred fs && item.ModItem?.Type != second.Type)
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(Color.White));
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
+
+					if (second is FightingStyleBarred fs2 && item.ModItem?.Type != second.Type)
+					{
+						fs = fs2;
+						spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location with { X = location.X - (dimensions.X * .05f) }, fs.DisplayColor, 0, Vector2.Zero, .5f, SpriteEffects.None, 1f);
+					}
+				}
 			}
 		}
 
@@ -276,9 +288,9 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (!CanBeAffected)
 				return;
-			if (item.ModItem is MagicScroll)
+			if (item.ModItem is Scroll)
 			{
-				damage += ((item.damage + (BossesKilled * 2f)) / item.damage) - 1; // now it actually shows up on the scrolls damage, although it means nothing to a scroll
+				damage += ((item.damage + (BossesKilled * 2f)) / item.damage) - 1;
 			}
 			if (Imbue is not null)
 			{

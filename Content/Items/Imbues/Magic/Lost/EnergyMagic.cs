@@ -92,7 +92,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.IchorTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2.5f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 
 		public override void AddRecipes()

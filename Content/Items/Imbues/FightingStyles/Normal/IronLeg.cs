@@ -80,7 +80,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, 1f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 		public override void AddRecipes()
 		{
@@ -92,7 +92,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public override void FrameEffects()
 		{
-			if (Player.ArcaneOdyssey().Imbue is IronLeg || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().Imbue is IronLeg)
+			if (Player?.ArcaneOdyssey()?.Imbue is IronLeg || Player?.PlayerItem()?.type != ItemID.None && Player?.PlayerItem()?.ArcaneOdyssey()?.Imbue is IronLeg)
 			{
 				Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
 			}

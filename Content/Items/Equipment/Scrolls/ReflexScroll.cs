@@ -6,8 +6,12 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class ReflexScroll : AnyScroll
+	public class ReflexScroll : Scroll
 	{
+		public override bool CanHaveRelic => true;
+		public override bool CanHaveFS => true;
+		public override bool CanHaveMagic => true;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -17,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			if (Item.TryGetImbue(out _))
+			if (Imbue is not null)
 				player.ArcaneOdyssey().SetDash(new Reflex());
 		}
 

@@ -11,13 +11,13 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 	public class SunkenBoots : AOArmour
 	{
 		public override AOItemTiers ArmourTier => AOItemTiers.Good;
-		public override int AODefense => 204;
-		public override int AOSize => 23;
-		public override int AOAttkSpd => 23;
+		public override int AODefense => 145;
+		public override int AOSize => AOAttkSpd;
+		public override int AOAttkSpd => 16;
 		public override AORarities AORarity => AORarities.Rare;
 
 		public override int AOAgility => 30;
-		public override int AOValue => 1350;
+		public override int AOValue => 675;
 		public override SetBonusHelper? Set => new(Mod, "Aquatic Rebuttal", "Enemies that strike you are soaked", ["SunkenHelm", "SunkenChest"], Color.Aqua);
 
 		public override void ArmorSetEffects(Player player)

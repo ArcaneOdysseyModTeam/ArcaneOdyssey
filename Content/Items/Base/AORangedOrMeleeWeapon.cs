@@ -38,6 +38,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (Ability.HasValue)
 				Ability.Value.GenerateTooltip();
+			if (WeaponsType == WeaponType.Strength)
+				ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}
 
 		public override void SetDefaults()

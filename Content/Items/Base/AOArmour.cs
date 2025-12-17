@@ -14,17 +14,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override string LocalizationCategory => Item.accessory ? "Items.Accessories" : "Items.Armour";
 
 		/// <summary>
-		/// At max item level btw
+		/// Base value
 		/// </summary>
 		public virtual int AODefense => 0;
 
 		/// <summary>
-		/// At max item level btw
+		/// Base value
 		/// </summary>
 		public virtual int AOAgility => 0;
 
 		/// <summary>
-		/// At max item level btw
+		/// Base value
 		/// </summary>
 		public virtual int AOAttkSpd => 0;
 
@@ -34,23 +34,19 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual int AOValue => 0;
 
 		/// <summary>
-		/// At max item level btw
+		/// Base value
 		/// </summary>
 		public virtual int AOSize => 0;
 
 		/// <summary>
-		/// At max item level btw
+		/// Base value
 		/// </summary>
 		public virtual int AOPierce => 0;
 
 		/// <summary>
-		/// At max item level btw
+		/// Base value
 		/// </summary>
 		public virtual int AOPower => 0;
-
-		/// <summary>
-		/// Without enchantments ect
-		/// </summary>
 
 		public virtual int MinionSlots => 0;
 
@@ -181,15 +177,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				if ((Arcanium.Value && imbue is AOMagic) || ((!Arcanium.Value) && imbue is FightingStyle))
 				{
-					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence;
+					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence.FromAODefense();
 				}
 			}
 			player.moveSpeed += GetArmourAgilityStat() / 100f;
-			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
+			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 50f;
 			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
 			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
 			player.GetArmorPenetration(DamageClass.Generic) += GetArmourPierceStat() / 5;
-			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 300;
+			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275;
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += MaxMana;
 		}

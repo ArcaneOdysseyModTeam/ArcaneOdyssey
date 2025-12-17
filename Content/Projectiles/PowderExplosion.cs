@@ -8,6 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class PowderExplosion : ModProjectile
 	{
+		public override string Texture => Mod.Name + "/Backgrounds/Blank";
 		public bool hasExploded = false;
 		public override void SetDefaults()
 		{
@@ -49,9 +50,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 			}
 		}
-		public override bool PreDraw(ref Color lightColor)
-		{
-			return false;
-		}
+		public override bool PreDraw(ref Color lightColor) => false;
 	}
 }

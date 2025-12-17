@@ -27,35 +27,35 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				
 			],
 			[
-				new(ModContent.BuffType<FreezingEffect>(),1.01f),
-				new(ModContent.BuffType<AOBleed>(),1.01f),
-				new(BuffID.Venom,1.01f),
-				new(BuffID.OnFire3,1.075f),
-				new(ModContent.BuffType<SandyEffect>(),1.125f)
+				new(ModContent.BuffType<FreezingEffect>(), 1.01f),
+				new(ModContent.BuffType<AOBleed>(), 1.01f),
+				new(BuffID.Venom, 1.01f),
+				new(BuffID.OnFire3, 1.075f),
+				new(ModContent.BuffType<SandyEffect>(), 1.125f)
 			]
 			);
-
 
 
 		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.GemRuby, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1f);
+				Dust.NewDust(new Vector2(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), 0, 0, DustID.GemRuby, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f);
 			}
 		}
 
 		public override void LingeringEffects(Entity projectile)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SilverFlame, 0f, 0f, 0, default, 1f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GemRuby)];
 			spawnedDust.noGravity = true;
 			spawnedDust.noLight = true;
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(projectile.Center, 0, 0, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f);
+				Dust.NewDust(projectile.Center, 0, 0, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), Scale: 3f);
 			}
 		}
 
@@ -63,9 +63,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GemRuby, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, 1f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GemRuby, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f));
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 	}
 }

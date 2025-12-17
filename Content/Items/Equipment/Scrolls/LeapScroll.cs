@@ -9,8 +9,10 @@ using ArcaneOdyssey.Content.Projectiles;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class LeapScroll : MagicScroll
+	public class LeapScroll : Scroll
 	{
+		public override bool CanHaveRelic => true;
+		public override bool CanHaveMagic => true;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -20,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			if (Item.Imbue() is not null)
+			if (Imbue is not null)
 			{
 				player.GetJumpState<LeapAirStep>().Enable();
 			}

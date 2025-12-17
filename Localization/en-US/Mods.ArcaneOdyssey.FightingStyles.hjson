@@ -56,23 +56,6 @@ Developer: {
 	}
 }
 
-Scrolls: {
-	CrashScroll: {
-		DisplayName: Crash Scroll
-		Tooltip: ""
-	}
-
-	ShotScroll: {
-		DisplayName: Shot Scroll
-		Tooltip: ""
-	}
-
-	SmashScroll: {
-		DisplayName: Smash Scroll
-		Tooltip: ""
-	}
-}
-
 Techniques: {
 	ShockwaveSmash.DisplayName: Smash Technique
 	ShotTechnique.DisplayName: Shot Technique

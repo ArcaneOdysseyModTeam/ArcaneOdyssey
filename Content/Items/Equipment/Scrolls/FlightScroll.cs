@@ -8,33 +8,40 @@ using ArcaneOdyssey.Content.Items.Materials;
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	[AutoloadEquip(EquipType.Wings)]
-	public class FlightScroll : MagicScroll
+	public class FlightScroll : Scroll
 	{
+		public override bool CanHaveMagic => true;
+		public override bool CanHaveRelic => true;
+
 		public override int AOValue => 1000;
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
-			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
+			if (Imbue is not null)
 			{
-				constantAscend *= imbue.AOScrollSpeed;
-				ascentWhenRising *= imbue.AOScrollSpeed;
-				maxCanAscendMultiplier *= imbue.AOScrollSpeed;
-				maxAscentMultiplier *= imbue.AOScrollSpeed;
+				constantAscend *= Imbue.AOScrollSpeed;
+				ascentWhenRising *= Imbue.AOScrollSpeed;
+				maxCanAscendMultiplier *= Imbue.AOScrollSpeed;
+				maxAscentMultiplier *= Imbue.AOScrollSpeed;
 			}
 		}
 
 		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
 		{
-			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
+			if (Imbue is not null)
 			{
-				speed *= imbue.AOScrollSpeed;
-				acceleration *= imbue.AOScrollSpeed;
+				speed *= Imbue.AOScrollSpeed;
+				acceleration *= Imbue.AOScrollSpeed;
+			}
+			else
+			{
+				speed = 0;
 			}
 		}
 
 		public override void SetStaticDefaults()
 		{
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, hasHoldDownHoverFeatures: true);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180);
 		}
 
 		public override void SetDefaults()
@@ -45,22 +52,22 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void UpdateEquip(Player player)
 		{
-			if (player.Imbue() is AOMagic)
+			if (Imbue is not null)
 			{
 				player.noFallDmg = true;
 			}
 			else
 			{
-				player.slowFall = false;
 				player.wingTime = 0;
+				player.equippedWings = null;
 			}
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)
 		{
-			if (player.TryGetImbue(out var imbue) && inUse && imbue is AOMagic)
+			if (inUse && Imbue is not null)
 			{
-				imbue.LingeringEffects(player);
+				Imbue.LingeringEffects(player);
 			}
 
 			return base.WingUpdate(player, inUse);

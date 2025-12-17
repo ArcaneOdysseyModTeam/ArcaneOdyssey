@@ -14,8 +14,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		private int frameNum = 0;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			frameNum++;
-			if (frameNum > 20)
+			if (++frameNum > 20)
 			{
 				frameNum = 0;
 				for (int dustCountInt = 0; dustCountInt < 10; dustCountInt++)
@@ -24,12 +23,6 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 				}
 			}
 			npc.ArcaneOdyssey().bleeding = true;
-		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
-		{
-			drawParams.Texture = TextureAssets.Buff[BuffID.Bleeding].Value;
-			return true;
 		}
 	}
 }

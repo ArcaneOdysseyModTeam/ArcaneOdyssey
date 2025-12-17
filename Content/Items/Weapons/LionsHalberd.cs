@@ -20,12 +20,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override WeaponAbility? Ability => new(Mod, "Seismic Slash", "Slam into the ground, then upearth and launch a rock towards your cursor", Color.Gold);
 
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -36,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.useTurn = true;
 		}
 
-		public override bool AltFunctionUse(Player player) => Imbue is FightingStyle;
+		public override bool AltFunctionUse(Player player) => Imbue is not null;
 
 		public override bool? UseItem(Player player)
 		{

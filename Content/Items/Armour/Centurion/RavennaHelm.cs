@@ -9,11 +9,11 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 	public class RavennaHelm : AOArmour
 	{
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
-		public override int AODefense => 188;
-		public override int AOSize => AODefense / 20;
-		public override int AOAttkSpd => AODefense / 20;
+		public override int AODefense => 144;
+		public override int AOSize => AODefense / 17;
+		public override int AOAttkSpd => AODefense / 17;
 		public override AORarities AORarity => AORarities.Uncommon;
-		public override int AOValue => 83;
+		public override int AOValue => 55;
 
 		public override void SetDefaults()
 		{

@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.GemSapphire, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, 1f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 
 

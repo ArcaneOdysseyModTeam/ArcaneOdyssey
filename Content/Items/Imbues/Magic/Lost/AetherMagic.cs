@@ -99,7 +99,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.YellowTorch, 28f * (Main.rand.NextFloat() - 0.5f), 28f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 				spawnedDust2.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.position, null);
+			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
 			if (entity is Projectile projectile)
 			{
 				if (projectile.owner == Main.myPlayer && AetherExplosion.Count < 3)

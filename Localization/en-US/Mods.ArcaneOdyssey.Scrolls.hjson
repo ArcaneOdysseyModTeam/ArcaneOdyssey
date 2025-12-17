@@ -1,0 +1,59 @@
+FlightScroll: {
+	DisplayName: Flight Scroll
+	Tooltip: Channels your imbue to fly
+}
+
+HoverScroll: {
+	DisplayName: Hover Scroll
+	Tooltip: Channels your magic to hover in the air
+}
+
+LeapScroll: {
+	DisplayName: Leap Scroll
+	Tooltip: Channels your magic to launch yourself upwards
+}
+
+BeamScroll: {
+	DisplayName: Beam Scroll
+	Tooltip: Channels your magic into a beam
+}
+
+BlastScroll: {
+	DisplayName: Blast Scroll
+	Tooltip: Channels your imbue into basic projectiles
+}
+
+CannonScroll: {
+	DisplayName: Cannon Scroll
+	Tooltip: Channels your magic into a large basic projectile
+}
+
+ExplosionScroll: {
+	DisplayName: Explosion Scroll
+	Tooltip: Channels your magic into an explosion that you can direct
+}
+
+PulsarScroll: {
+	DisplayName: Pulsar Scroll
+	Tooltip: Channels your magic into an unstable projectile
+}
+
+CrashScroll: {
+	DisplayName: Crash Scroll
+	Tooltip: Channels your fighting style to dash, use {DASHBIND}
+}
+
+ShotScroll: {
+	DisplayName: Shot Scroll
+	Tooltip: Channels your fighting style to shoot a quick air blast
+}
+
+SmashScroll: {
+	DisplayName: Smash Scroll
+	Tooltip: Channels your fighting style to unleash a shockwave of air
+}
+
+ReflexScroll: {
+	DisplayName: Reflex Scroll
+	Tooltip: Channels your imbue to dash, some imbues have special effects
+}

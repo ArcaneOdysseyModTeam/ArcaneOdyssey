@@ -10,10 +10,10 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 	{
 		public override AOItemTiers ArmourTier => AOItemTiers.Good;
 		public override int AODefense => 204;
-		public override int AOSize => 23;
-		public override int AOAttkSpd => 23;
+		public override int AOSize => AOAttkSpd;
+		public override int AOAttkSpd => 16;
 		public override AORarities AORarity => AORarities.Rare;
-		public override int AOValue => 1350;
+		public override int AOValue => 675;
 
 		public override int AOPower => 7;
 		public override int MaxMana => 40;

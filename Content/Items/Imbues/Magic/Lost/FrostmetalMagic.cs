@@ -116,7 +116,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Ice, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f));
 				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), Scale: 2f);
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.position, null);
+			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
 		}
 
 		public override void AddRecipes()

@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.BubbleBurst_White, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 				spawnedDust.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 		public override void AddRecipes()
 		{
@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public override void FrameEffects()
 		{
-			if (Player.ArcaneOdyssey().Imbue is Boxing || Player.PlayerItem().type != ItemID.None && Player.PlayerItem().ArcaneOdyssey().Imbue is Boxing)
+			if (Player?.ArcaneOdyssey()?.Imbue is Boxing || Player?.PlayerItem()?.type != ItemID.None && Player?.PlayerItem()?.ArcaneOdyssey()?.Imbue is Boxing)
 			{
 				Player.handon = EquipLoader.GetEquipSlot(Mod, typeof(Boxing).Name, EquipType.HandsOn);
 				Player.handoff = EquipLoader.GetEquipSlot(Mod, typeof(Boxing).Name, EquipType.HandsOff);

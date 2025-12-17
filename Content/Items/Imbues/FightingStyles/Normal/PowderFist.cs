@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				Projectile proj = Projectile.NewProjectileDirect(Main.projectile[projectile.whoAmI].GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, Main.projectile[projectile.whoAmI].owner, 0, Main.projectile[projectile.whoAmI].damage / 2f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.position, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 		public override void AddRecipes()
 		{

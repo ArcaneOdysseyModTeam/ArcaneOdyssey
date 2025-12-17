@@ -6,16 +6,21 @@ using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Relics
+namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class EaglePatrimony : RelicWeapon
+	public class EaglePatrimony : RelicImbue
 	{
-		public override Color ImbueColour => Color.LightBlue;
+		public override Color ImbueColour => Color.DarkCyan;
 		public override AORarities AORarity => AORarities.Special;
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
+
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
+
+		public override WeaponAbility? Ability => new(Mod, "Astrapikis", "Release a slash of spirit energy", ImbueColour);
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -42,43 +47,43 @@ namespace ArcaneOdyssey.Content.Items.Relics
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.width = Item.height = 40;
-			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
-			Item.shootSpeed = 15;
+			Item.shoot = ModContent.ProjectileType<Astrapikis>();
+			Item.shootSpeed = 1f;
 			Item.UseSound = SoundID.Item84 with { Pitch = .75f };
-			Item.damage = 13;
-			Item.useAnimation = Item.useTime = 30;
+			Item.damage = 20;
 			Item.knockBack = 3.75f;
 		}
 
 		public override void LingeringEffects(Entity entity)
 		{
-			Dust.NewDustDirect(entity.position, entity.width, entity.height, ModContent.DustType<SpiritTentacle>()).noGravity = true;
+			for (float i = 0; i < 5; i++)
+			{
+				Dust.NewDustDirect(entity.position, entity.width, entity.height, DustID.IcyMerman, entity.velocity.X / 2, entity.velocity.Y / 2).noGravity = true;
+			}
+			if (Main.GameUpdateCount % 2 == 0)
+				Dust.NewDustDirect(entity.position, entity.width, entity.height, ModContent.DustType<SpiritTentacle>()).noGravity = true;
 		}
+
+		public const int DustCount = 50;
 
 		public override void KillEffects(Entity entity)
 		{
-			if (!Main.dedServ)
+			for (float i = 0; i < DustCount; i++)
 			{
-				for (float i = 0; i < SpiritBlast.DustCount; i++)
-				{
-					var centre = (MathHelper.TwoPi / SpiritBlast.DustCount * i).ToRotationVector2() * (entity.width + entity.height);
-					var dust = Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (13 + (Main.rand.NextFloat() * 2)));
-					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / SpiritBlast.DustCount * i).ToRotationVector2() * (entity.width + entity.height);
-					dust = Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (14 + (Main.rand.NextFloat() * 2)));
-					dust.noGravity = true;
-					centre = (MathHelper.TwoPi / SpiritBlast.DustCount * i).ToRotationVector2() * (entity.width + entity.height);
-					dust = Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (15 + (Main.rand.NextFloat() * 2)));
-					dust.noGravity = true;
-				}
+				var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (entity.width + entity.height);
+				if (i % 2 == 0)
+					Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (8 + (Main.rand.NextFloat() * 2))).noGravity = true;
+				Dust.NewDustPerfect(entity.Center, DustID.IcyMerman, centre / (13 + (Main.rand.NextFloat() * 2))).noGravity = true;
+				Dust.NewDustPerfect(entity.Center, DustID.IcyMerman, centre / (14 + (Main.rand.NextFloat() * 2))).noGravity = true;
+				Dust.NewDustPerfect(entity.Center, DustID.IcyMerman, centre / (15 + (Main.rand.NextFloat() * 2))).noGravity = true;
 			}
+			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
 		}
 
 		public override void SpawningEffects(Entity projectile)

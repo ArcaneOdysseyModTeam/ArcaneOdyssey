@@ -152,6 +152,8 @@ namespace ArcaneOdyssey.Content.NPCS
 			helpOptions[value] = condition;
 		}
 
+		public static Player Player => Main.LocalPlayer;
+
 		public string GetChatHelpButton()
 		{
 			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
@@ -160,9 +162,15 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 
 			List<string> options = [];
+
+			void AddOption(string value)
+			{
+				options.Add(this.GetLocalizedValue($"Help.{value}"));
+			}
+
 			if (false) // add conditions later
 			{
-				options.Add(this.GetLocalizedValue("Help.DarkSeaWarning"));
+				AddOption("DarkSeaWarning");
 			}
 
 			foreach (string key in helpOptions.Keys)
@@ -175,21 +183,21 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			if (BossesKilled < 3)
 			{
-				options.Add(this.GetLocalizedValue("Help.SpiritWeapon"));
-				options.Add(this.GetLocalizedValue("Help.Early1"));
-				options.Add(this.GetLocalizedValue("Help.WorldofMagic"));
-				options.Add(this.GetLocalizedValue("Help.WeaponSkills"));
-				if (Main.LocalPlayer.HasTypeInInventory(typeof(AOMagic)))
+				AddOption("Relics");
+				AddOption("Early1");
+				AddOption("WorldofMagic");
+				AddOption("WeaponSkills");
+				if (Player.HasTypeInInventory(typeof(AOMagic)))
 				{
-					options.Add(this.GetLocalizedValue("Help.EarlyMagic1"));
-					options.Add(this.GetLocalizedValue("Help.EarlyMagic2"));
-					options.Add(this.GetLocalizedValue("Help.EarlyMagic3"));
+					AddOption("EarlyMagic1");
+					AddOption("EarlyMagic2");
+					AddOption("EarlyMagic3");
 				}
-				if (Main.LocalPlayer.HasTypeInInventory(typeof(FightingStyle)))
+				if (Player.HasTypeInInventory(typeof(FightingStyle)))
 				{
-					options.Add(this.GetLocalizedValue("Help.SailorStyle"));
-					options.Add(this.GetLocalizedValue("Help.EarlyFighting1"));
-					options.Add(this.GetLocalizedValue("Help.EarlyMagic3"));
+					AddOption("SailorStyle");
+					AddOption("EarlyFighting1");
+					AddOption("EarlyMagic3");
 					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
 					if (ModLoader.HasMod("CalamityMod"))
 					{
@@ -203,9 +211,7 @@ namespace ArcaneOdyssey.Content.NPCS
 						}
 					}
 					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
-					options.Add(this.GetLocalizedValue("Help.EarlyFighting2").
-						Replace("{Keybind1}", doubletapdash).
-						Replace("{Keybind2}", Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));
+					options.Add(Mod.CustomLocalization(this.GetLocalizationKey("Help.EarlyFighting2"), doubletapdash, Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind).Value);
 				}
 			}
 
@@ -216,49 +222,49 @@ namespace ArcaneOdyssey.Content.NPCS
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
 			{
-				options.Add(this.GetLocalizedValue("Help.EarlyHard1"));
-				options.Add(this.GetLocalizedValue("Help.EarlyHard2"));
+				AddOption("EarlyHard1");
+				AddOption("EarlyHard2");
 			}
 
 			if (Main.hardMode && !DownedBosses.downedEvander)
 			{
-				options.Add(this.GetLocalizedValue("Help.EvanderWarning"));
+				AddOption("EvanderWarning");
 			}
 
-			if (Main.LocalPlayer.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
+			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
 			{
-				options.Add(this.GetLocalizedValue("Help.HasStrengthWeapon"));
+				AddOption("HasStrengthWeapon");
 			}
 
-			if (Main.LocalPlayer.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Artisinal)
+			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Artisinal)
 			{
-				options.Add(this.GetLocalizedValue("Help.ArtisinalWeapon"));
+				AddOption("ArtisinalWeapon");
 			}
 
 			if (Main.hardMode && NPC.downedPirates)
 			{
-				options.Add(this.GetLocalizedValue("Help.CannonFist"));
+				AddOption("CannonFist");
 			}
 
 			if (!Main.hardMode)
 			{
-				options.Add(this.GetLocalizedValue("Help.PreHard1"));
-				options.Add(this.GetLocalizedValue("Help.PreHard2"));
+				AddOption("PreHard1");
+				AddOption("PreHard2");
 			}
 
-			if (Main.LocalPlayer.HasTypeInInventory(typeof(SunkenSword)) || Main.LocalPlayer.HasTypeInInventory(typeof(SunkenStaff)))
+			if (Player.GetAllImbues().Count > 1)
 			{
-				options.Add(this.GetLocalizedValue("Help.SunkenWeapon"));
+				AddOption("StackImbues");
+			}
+
+			if (Player.HasTypeInInventory(typeof(SunkenSword)) || Player.HasTypeInInventory(typeof(SunkenStaff)))
+			{
+				AddOption("SunkenWeapon");
 			}
 
 			if (!NPC.downedAncientCultist && NPC.downedGolemBoss)
 			{
-				options.Add(this.GetLocalizedValue("Help.CultistTip"));
-			}
-
-			if (!NPC.downedPlantBoss && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-			{
-				options.Add(this.GetLocalizedValue("Help.PlantTip"));
+				AddOption("CultistTip");
 			}
 
 			options.RemoveAll(e => e == LastHelp);
@@ -281,24 +287,30 @@ namespace ArcaneOdyssey.Content.NPCS
 				return this.GetLocalizedValue("DyingText");
 			}
 			List<string> options = [];
-			options.Add(this.GetLocalizedValue("Chat.Water"));
+
+			void AddOption(string value)
+			{
+				options.Add(this.GetLocalizedValue($"Chat.{value}"));
+			}
+
+			AddOption("Water");
 			if (BossesKilled == 0)
 			{
-				options.Add(this.GetLocalizedValue("Chat.Intro").Replace("{PlayerName}", Main.LocalPlayer.name));
-				options.Add(this.GetLocalizedValue("Chat.Grave"));
+				options.Add(Mod.CustomLocalization(this.GetLocalizationKey("Chat.Intro"), Player.name).Value);
+				AddOption("Grave");
 
 			}
 			else
-				options.Add(this.GetLocalizedValue("Chat.Hello"));
-			options.Add(this.GetLocalizedValue("Chat.AskHelp"));
+				AddOption("Hello");
+			AddOption("AskHelp");
 			if (BossesKilled > 0 && !NPC.downedBoss3)
 			{
-				options.Add(this.GetLocalizedValue("Chat.OldManTalk"));
+				AddOption("OldManTalk");
 			}
 
-			if (Main.LocalPlayer.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
+			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
 			{
-				options.Add(this.GetLocalizedValue("Chat.StrongWarrior"));
+				AddOption("StrongWarrior");
 			}
 
 			options.RemoveAll(e => e == LastDialogue);

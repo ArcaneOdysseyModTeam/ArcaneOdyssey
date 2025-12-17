@@ -7,7 +7,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 {
 	public class EmptyScroll : AOBaseItem
 	{
-		public virtual int AOValue => 15;
 		public override AORarities AORarity => AORarities.Uncommon;
 
 		public override void SetDefaults()
@@ -15,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			base.SetDefaults();
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = GalleonToCopper(AOValue);
+			Item.value = GalleonToCopper(15);
 		}
 
 		public override void AddRecipes()

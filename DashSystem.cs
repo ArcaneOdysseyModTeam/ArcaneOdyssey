@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using System;
@@ -9,8 +10,10 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {
-	public abstract class DashSystem
+	public abstract class DashSystem : IImbuable
 	{
+		public Imbuable Imbue { get; set; }
+
 		public string Name => GetType().Name;
 
 		public static Mod Mod => ArcaneOdysseyMod.Instance;
@@ -109,7 +112,7 @@ namespace ArcaneOdyssey
 		/// The speed of the dash per tick
 		/// </summary>
 		public abstract float DashSpeed { get; }
-		public virtual bool UseScrollImbue => true;
+		public virtual bool? UseScrollImbueStats => null;
 
 
 		/// <summary>
@@ -174,7 +177,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
 		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
-		public void StartDash(DashSystem dashToUse, int direction = 0)
+		public void StartDash(DashSystem dashToUse, int direction = 0, Imbuable imbue = null, bool imbueAffectsSpeed = false)
 		{
 			if (dashToUse.ExtraCheck(Player))
 			{
@@ -183,11 +186,12 @@ namespace ArcaneOdyssey
 				Player.noFallDmg = true;
 				Player.timeSinceLastDashStarted = 0;
 				CurrentDash = dashToUse;
+				CurrentDash.Imbue = imbue;
 				collisions = 0;
 				ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
 				if (dashToUse.AnyDirection && direction == 0)
 				{
-					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
+					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed * (imbueAffectsSpeed ? (Imbue is not null ? (CurrentDash.UseScrollImbueStats.HasValue ? (CurrentDash.UseScrollImbueStats.Value ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed) : 1f) : 1f) : 1f);
 				}
 				else
 				{
@@ -198,7 +202,7 @@ namespace ArcaneOdyssey
 					{
 						standard = Vector2.UnitY * (direction / 2f);
 					}
-					DashVelocity = standard * dashToUse.DashSpeed;
+					DashVelocity = standard * dashToUse.DashSpeed * (imbueAffectsSpeed ? (Imbue is not null ? (CurrentDash.UseScrollImbueStats.HasValue ? (CurrentDash.UseScrollImbueStats.Value ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed) : 1f) : 1f) : 1f);
 				}
 				Player.ConsumeAllExtraJumps();
 				DashLeft = dashToUse.DashMax;
@@ -302,9 +306,14 @@ namespace ArcaneOdyssey
 						{
 							CurrentDash.NaturalEnd(Player);
 						}
+						for (int i = 0; i < (DashLeft + 300) / 30; i++)
+						{
+							Imbue?.ExplosionEffects(Player);
+						}
 						return;
 					}
 
+					Imbue?.LingeringEffects(Player);
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
 					{
@@ -344,7 +353,7 @@ namespace ArcaneOdyssey
 
 						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI && !npc.friendly && npc.immune[Player.whoAmI] <= 0)
 						{
-							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, false, CalculateDashKnockback(), CurrentDash.DamageType, true);
+							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, false, CalculateDashKnockback(), CurrentDash.DamageType.Imbued(Imbue), true);
 							npc.immune[Player.whoAmI] = 5;
 						}
 					}
@@ -355,9 +364,9 @@ namespace ArcaneOdyssey
 		public int CalculateDashDamage(NPC target)
 		{
 			var modifiers = new ModDamageHelper();
-			if (Imbue is not null)
+			if (CurrentDash.Imbue is not null)
 			{
-				if (CurrentDash.UseScrollImbue)
+				if (CurrentDash.UseScrollImbueStats)
 					modifiers.FinalDamage += Imbue.AOScrollDamage.MultiToPercent();
 				else modifiers.FinalDamage += Imbue.AOImbueDamage.MultiToPercent();
 				if (Imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
@@ -413,7 +422,7 @@ namespace ArcaneOdyssey
 			if (Imbue is not null)
 			{
 				var extrakbmulti = Imbue.KBMulti;
-				if (CurrentDash.UseScrollImbue)
+				if (CurrentDash.UseScrollImbueStats)
 				{
 					knockback += Imbue.AOScrollSize.MultiToPercent() * extrakbmulti;
 				}

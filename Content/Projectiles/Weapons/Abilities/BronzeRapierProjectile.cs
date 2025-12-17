@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Items.Weapons.Bronze;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -9,6 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class BronzeRapierProjectile : AOPlayerProjectile
 	{
+		public override string Texture => typeof(BronzeRapier).FullName.Replace('.', '/');
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;
 		public override float AODamage => 1.05f;

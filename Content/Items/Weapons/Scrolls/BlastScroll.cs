@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,8 +9,10 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class BlastScroll : MagicScroll
+	public class BlastScroll : Scroll
 	{
+		public override bool CanHaveMagic => true;
+		public override bool CanHaveRelic => true;
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
@@ -24,7 +27,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.mana = 15;
 			Item.channel = true;
 			Item.DamageType = DamageClass.Magic;
-			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
+			Item.shoot = ModContent.ProjectileType<SpiritBlast>(); // does not actually shoot usually
+			Item.shootSpeed = 7f;
 		}
 
 		public override void AddRecipes()
@@ -32,14 +36,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.WandofSparking).Register();
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return CanUseItem(player);
-		}
+		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().Imbue);
+			if (Imbue?.CreateChargingEffect(Item, player) is null && player.ownedProjectileCounts[type] < 1)
+			{
+				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+			}
 			return false;
 		}
 	}

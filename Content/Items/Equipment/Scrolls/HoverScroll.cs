@@ -9,8 +9,9 @@ using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class HoverScroll : MagicScroll
+	public class HoverScroll : Scroll
 	{
+		public override bool CanHaveMagic => true;
 		public override int AOValue => 1000;
 		public override void SetDefaults()
 		{

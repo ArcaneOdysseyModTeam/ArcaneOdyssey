@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment
 		public AORarities AORarity = AORarities.Common;
 		public override void SetDefaults()
 		{
-			Item.width = Item.height = 60;
+			Item.width = Item.height = 30;
 			Item.mountType = ModContent.MountType<Rowboat>();
 			Item.value = 1000;
 		}

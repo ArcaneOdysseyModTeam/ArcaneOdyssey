@@ -23,7 +23,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-			ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}
 
 		public override void SetDefaults()
@@ -44,8 +43,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		/// <returns></returns>
 		public override bool AltFunctionUse(Player player)
 		{
-			return Imbue is FightingStyle && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<ColossalCleaveCooldown>());
+			return Imbue is not null && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<ColossalCleaveCooldown>());
 		}
+
+		public override bool CanShoot(Player player) => player.AltUse();
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
