@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			BarValue -= BarMax / 100f;
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, LerpValue)];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -72,14 +72,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override void LingeringEffects(Entity projectile)
 		{
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, 0f, 0f, 0, default, (float)Math.Min(Math.Max((float)BarValue / (BarMax / 3), 1), 2.2f));
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, 0f, 0f, 0, default, LerpValue * 2.2f);
 		}
 
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, (float)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, LerpValue)];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, LerpValue * 3f)];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);

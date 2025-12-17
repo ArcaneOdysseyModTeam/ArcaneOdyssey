@@ -248,12 +248,13 @@ namespace ArcaneOdyssey
 		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool modifyimbuestats = true)
 		{
 			if (source is null) return;
+			if (!source.active) return;
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
 			if (imbue is not null)
 			{
 				if (modifyimbuestats)
 				{
-					if ((source is Projectile proj && proj.ModProjectile is MagicSpell) || (source is Item item && item.ArcaneOdyssey().BenifitsFromScrollStats))
+					if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true)
 					{
 						range *= imbue.AOScrollSize;
 						knockback *= imbue.AOScrollSize;
@@ -385,7 +386,7 @@ namespace ArcaneOdyssey
 				}
 				if (entity is Item item)
 				{
-					return item.ArcaneOdyssey().BenifitsFromScrollStats;
+					return item.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
 				}
 				if (entity is Player)
 					return true;
@@ -401,11 +402,11 @@ namespace ArcaneOdyssey
 				secondimbue = imbue.Imbue;
 				if (entity is Projectile projectile)
 				{
-					return projectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile || projectile.ArcaneOdyssey()?.OriginWeaponType != WeaponType.Normal;
+					return projectile.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
 				}
 				if (entity is Item item)
 				{
-					return (item.ArcaneOdyssey()?.WeaponsType != WeaponType.Normal) || (item.ArcaneOdyssey()?.BenifitsFromScrollStats == true);
+					return item.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
 				}
 				if (entity is Player)
 					return true;
@@ -802,7 +803,7 @@ namespace ArcaneOdyssey
 		#region Player Inventory Helpers
 		public static bool HasTypeInInventory(this Player player, Type type)
 		{
-            List<Item> no = [..player.inventory, player.trashItem];
+			List<Item> no = [..player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{
@@ -886,13 +887,16 @@ namespace ArcaneOdyssey
 				{
 					return proj;
 				}
-				else
-					return projectile.ArcaneOdyssey();
+				return projectile.ArcaneOdyssey();
 			}
 			if (entity is Player player)
 				return player.ArcaneOdyssey();
 			if (entity is Item item)
+			{
+				if (item.ModItem is AORangedOrMeleeWeapon weap)
+					return weap;
 				return item.ArcaneOdyssey();
+			}
 			return null;
 		}
 
@@ -1153,6 +1157,7 @@ namespace ArcaneOdyssey
 
 	public interface IImbuable
 	{
+		public bool? BenifitsFromScrollStats => null;
 		public Imbuable Imbue { get; set; }
 	}
 

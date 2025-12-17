@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			base.UpdateAccessory(player, hideVisual);
 			if (Imbue is not null)
-				player.ArcaneOdyssey()?.SetDash(new Reflex());
+				player.ArcaneOdyssey()?.SetDash(new Reflex(Item));
 		}
 
 		public override void AddRecipes()
@@ -32,9 +32,9 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 	}
 
-	public class Reflex : DashSystem
+	public class Reflex(Entity source) : DashSystem(source)
 	{
-		public override bool? UseScrollImbueStats => true;
+		
 		public override int Cooldown => 30;
 
 		public override bool AnyDirection => false;

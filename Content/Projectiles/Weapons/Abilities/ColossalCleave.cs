@@ -57,15 +57,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 			}
 
-			if (Projectile.localAI[0] >= 30 && !Main.dedServ)
+			if (++Projectile.localAI[0] >= 30 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
-				for (int i = 1; i < 20; i++)
+				for (int i = 0; i < 10; i++)
 				{
 					Imbue?.ExplosionEffects(Projectile);
+					Imbue?.Imbue?.ExplosionEffects(Projectile);
 				}
 			}
-			Projectile.localAI[0]++;
 
 			if (Projectile.timeLeft <= 30)
 			{

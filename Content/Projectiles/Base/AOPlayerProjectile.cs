@@ -42,6 +42,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().Imbue = value;
 		}
 
+		public bool? BenifitsFromScrollStats
+		{
+			get => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
+		}
+
 		public override void SetDefaults()
 		{
 			BaseScale = AOSize;

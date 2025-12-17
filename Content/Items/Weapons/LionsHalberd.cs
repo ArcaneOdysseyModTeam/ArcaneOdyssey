@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			if (player.AltUse())
 			{
-				var dash = new SeismicSlash();
+				var dash = new SeismicSlash(Item);
 				if (!dash.OnCooldown(player))
 				{
 					player.ArcaneOdyssey().StartDash(dash, 2, Imbue);
@@ -51,9 +51,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		}
 	}
 
-	public class SeismicSlash : DashSystem
+	public class SeismicSlash(Entity source) : DashSystem(source)
 	{
-		public override bool? UseScrollImbueStats => true;
+		
 		public override bool AnyDirection => true;
 		public override int Damage => 50;
 		public override int Cooldown => 300;

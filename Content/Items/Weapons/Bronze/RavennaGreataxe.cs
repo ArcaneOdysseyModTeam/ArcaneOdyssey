@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.AltUse())
 			{
-				var dash = new Devastate();
+				var dash = new Devastate(Item);
 				if (!dash.OnCooldown(player))
 				{
 					player.ArcaneOdyssey().StartDash(dash, 2, Imbue);
@@ -55,9 +55,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		}
 	}
 
-	public class Devastate : DashSystem
+	public class Devastate(Entity source) : DashSystem(source)
 	{
-		public override bool? UseScrollImbueStats => false;
+		
 		public override bool AnyDirection => true;
 		public override int Damage => 50;
 		public override int Cooldown => 300;

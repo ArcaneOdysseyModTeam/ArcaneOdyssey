@@ -43,22 +43,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		public override void AI()
 		{
 			if (Projectile.timeLeft == TimeLeftMax)
+			{
+				Projectile.netUpdate = true;
 				for (int i = 0; i < 30; i++)
+				{
 					Imbue?.ExplosionEffects(Entity);
+					Imbue?.Imbue?.ExplosionEffects(Projectile);
+				}
+			}
+
 			Projectile.Opacity = Projectile.timeLeft / (float)TimeLeftMax;
 			if (Projectile.timeLeft % 10 == 0)
+			{
 				Imbue?.ExplosionEffects(Projectile);
-		}
-
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			AOUtils.SimulateAOE(Projectile.width * 1.25f, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
-			Imbue?.ExplosionEffects(Projectile);
+				Imbue?.Imbue?.ExplosionEffects(Projectile);
+			}
 		}
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = (Imbue?.ImbueColour ?? Color.LightBlue);
+			lightColor = Imbue.GetColor();
 			return base.PreDraw(ref lightColor);
 		}
 	}

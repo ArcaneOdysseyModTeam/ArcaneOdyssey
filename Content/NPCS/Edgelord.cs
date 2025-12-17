@@ -14,6 +14,7 @@ using Terraria.Audio;
 using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Weapons;
+using Terraria.Localization;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -211,13 +212,13 @@ namespace ArcaneOdyssey.Content.NPCS
 						}
 					}
 					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
-					options.Add(Mod.CustomLocalization(this.GetLocalizationKey("Help.EarlyFighting2"), doubletapdash, Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind).Value);
+					options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.EarlyFighting2"), doubletapdash, Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));
 				}
 			}
 
 			if (NPC.downedBoss2 && !Main.hardMode)
 			{
-				options.Add(Mod.CustomLocalization(this.GetLocalizationKey("Help.BronzeTip"), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Copper), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Gold)).Value);
+				options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.BronzeTip"), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Copper), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Gold)));
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)

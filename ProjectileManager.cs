@@ -32,6 +32,20 @@ namespace ArcaneOdyssey
 
 	public class AOProjectile : GlobalProjectile, IImbuable
 	{
+		public bool? BenifitsFromScrollStats 
+		{ 
+			get
+			{
+				if (OriginWeaponType != WeaponType.Normal)
+					return true;
+				if (thisProjectile is not null)
+				{
+					return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile;
+				}
+				return null;
+			} 
+		}
+
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
 			thisProjectile = projectile;
@@ -42,7 +56,7 @@ namespace ArcaneOdyssey
 			float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
 			if (Imbue is not null)
 			{
-				mult += (projectile.ModProjectile is MagicSpell or StrengthTechnique or SpiritProjectile ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
+				mult += (BenifitsFromScrollStats.GetValueOrDefault() ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
 				if (projectile.CanHaveSecondImbue(Imbue, out var second))
 				{
 					mult += second.AOImbueSize.MultiToPercent();

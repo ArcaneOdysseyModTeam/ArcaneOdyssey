@@ -70,14 +70,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			var shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-			var dash = new PiercingStrikes { projectile = shot };
+			var dash = new PiercingStrikes(Item) { projectile = shot };
 			player.ArcaneOdyssey().StartDash(dash, imbue: Imbue, imbueAffectsSpeed: true);
 			return false;
 		}
 
 		public override bool AltFunctionUse(Player player)
 		{
-			return !new PiercingStrikes().OnCooldown(player);
+			return !new PiercingStrikes(Item).OnCooldown(player);
 		}
 	}
 }

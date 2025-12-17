@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.timeLeft = 120;
+			Projectile.timeLeft = 60;
 			Projectile.width = Projectile.height = 16;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;

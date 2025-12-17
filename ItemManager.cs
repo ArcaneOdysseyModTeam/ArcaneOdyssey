@@ -140,7 +140,15 @@ namespace ArcaneOdyssey
 			set => _weaponsType = value;
 		}
 
-		public bool BenifitsFromScrollStats => thisItem.ModItem is Scroll || WeaponsType == WeaponType.Arcanium || WeaponsType == WeaponType.Strength;
+		public bool? BenifitsFromScrollStats
+		{
+			get 
+			{ 
+				if (thisItem is not null)
+					return thisItem.ModItem is Scroll || WeaponsType != WeaponType.Normal;
+				return null;
+			}
+		}
 
 		private bool _canImbue = true;
 		public bool CanBeAffected
@@ -196,7 +204,7 @@ namespace ArcaneOdyssey
 
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 				{
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location with { X = location.X - (dimensions.X * .05f) }, fs.DisplayColor, 0, Vector2.Zero, .5f, SpriteEffects.None, 1f);
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(fs.DisplayColor));
 				}
 
 				if (item.CanHaveSecondImbue(Imbue, out var second) && ModContent.RequestIfExists<Texture2D>(second.Texture, out var texture2))
@@ -208,7 +216,7 @@ namespace ArcaneOdyssey
 					if (second is FightingStyleBarred fs2 && item.ModItem?.Type != second.Type)
 					{
 						fs = fs2;
-						spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location with { X = location.X - (dimensions.X * .05f) }, fs.DisplayColor, 0, Vector2.Zero, .5f, SpriteEffects.None, 1f);
+						spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position with { Y = position.Y + 10 } - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(fs.DisplayColor));
 					}
 				}
 			}
@@ -223,7 +231,7 @@ namespace ArcaneOdyssey
 			{
 				if (!item.DamageType.Name.Contains("NoSpeed"))
 				{
-					if (BenifitsFromScrollStats)
+					if (BenifitsFromScrollStats.GetValueOrDefault())
 					{
 						velocity *= Imbue.AOScrollSpeed;
 					}
@@ -244,7 +252,7 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is not null)
 			{
-				if (BenifitsFromScrollStats)
+				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
 					crit *= Imbue.AOScrollDamage;
 				}
@@ -266,16 +274,16 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is not null)
 			{
-				if (BenifitsFromScrollStats)
+				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
 					knockback += Imbue.AOScrollSize.MultiToPercent();
 				}
 				else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					knockback += Imbue.AOImbueSize.MultiToPercent();
-					if (item.CanHaveSecondImbue(Imbue, out var second))
-						knockback *= second.AOImbueSize.MultiToPercent();
 				}
+				if (item.CanHaveSecondImbue(Imbue, out var second))
+					knockback *= second.AOImbueSize.MultiToPercent();
 				var extraknockbackmulti = Imbue.KBMulti;
 				if (item.CanHaveSecondImbue(Imbue, out var second1))
 					extraknockbackmulti += second1.KBMulti.MultiToPercent();
@@ -294,7 +302,7 @@ namespace ArcaneOdyssey
 			}
 			if (Imbue is not null)
 			{
-				if (BenifitsFromScrollStats)
+				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
 					damage += Imbue.AOScrollDamage.MultiToPercent();
 				}
@@ -395,7 +403,7 @@ namespace ArcaneOdyssey
 				scale += player.ArcaneOdyssey().SizeMulti;
 				if (Imbue is not null)
 				{
-					if (!BenifitsFromScrollStats)
+					if (!BenifitsFromScrollStats.GetValueOrDefault())
 					{
 						scale += Imbue.AOImbueSize.MultiToPercent();
 					}
@@ -416,9 +424,9 @@ namespace ArcaneOdyssey
 			{
 				if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
 				{
-					if (BenifitsFromScrollStats)
+					if (BenifitsFromScrollStats.GetValueOrDefault())
 					{
-						return Imbue.AOScrollSpeed;
+						return Imbue.AOScrollSpeed + (item.CanHaveSecondImbue(Imbue, out var second) ? second.AOImbueSpeed.MultiToPercent() : 0f);
 					}
 
 					if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)

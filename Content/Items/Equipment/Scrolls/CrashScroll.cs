@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			base.UpdateAccessory(player, hideVisual);
 			if (Item.Imbue() is not null)
 			{
-				player.ArcaneOdyssey()?.SetDash(new Crash());
+				player.ArcaneOdyssey()?.SetDash(new Crash(Item));
 			}
 		}
 
@@ -42,12 +42,12 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 	}
 
-	public class Crash : DashSystem
+	public class Crash(Entity source) : DashSystem(source)
 	{
 		public override DamageClass DamageType => TrueMeleeNoSpeed();
 		public override int Cooldown => CrashScroll.Cooldown;
 
-		public override bool? UseScrollImbueStats => true;
+		
 
 		public override bool AnyDirection => true;
 
@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>());
 			gore.Centre(player.MountedCenter + player.velocity);
-			player.ArcaneOdyssey()?.StartDash(new Smash(), 2);
+			player.ArcaneOdyssey()?.StartDash(new Smash(source), 2);
 		}
 
 		public override void OnStart(Player player)
@@ -99,10 +99,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override int DisplayedCooldownID => ModContent.BuffType<CrashCooldown>();
 	}
 
-	public class Smash : DashSystem
+	public class Smash(Entity source) : DashSystem(source)
 	{
 		public override DamageClass DamageType => TrueMeleeNoSpeed();
-		public override bool? UseScrollImbueStats => true;
+		
 		public override bool AnyDirection => true;
 
 		public override int Damage => 50;

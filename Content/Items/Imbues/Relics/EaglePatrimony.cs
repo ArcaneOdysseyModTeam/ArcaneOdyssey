@@ -76,7 +76,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		{
 			for (float i = 0; i < DustCount; i++)
 			{
-				var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (entity.width + entity.height);
+				var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * ((entity.width + entity.height) / 2);
 				if (i % 2 == 0)
 					Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (8 + (Main.rand.NextFloat() * 2))).noGravity = true;
 				Dust.NewDustPerfect(entity.Center, DustID.IcyMerman, centre / (13 + (Main.rand.NextFloat() * 2))).noGravity = true;

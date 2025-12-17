@@ -10,8 +10,9 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {
-	public abstract class DashSystem : IImbuable
+	public abstract class DashSystem(Entity source) : IImbuable
 	{
+		public Entity source = source;
 		public Imbuable Imbue { get; set; }
 
 		public string Name => GetType().Name;
@@ -112,7 +113,7 @@ namespace ArcaneOdyssey
 		/// The speed of the dash per tick
 		/// </summary>
 		public abstract float DashSpeed { get; }
-		public virtual bool? UseScrollImbueStats => null;
+		public bool? UseScrollImbueStats => source.AnyArcaneOdyssey()?.BenifitsFromScrollStats;
 
 
 		/// <summary>
@@ -210,7 +211,7 @@ namespace ArcaneOdyssey
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
 						mult = imbue.AOScrollSpeed;
-						if (Player.CanHaveSecondImbue(imbue, out var second))
+						if (CurrentDash.source.CanHaveSecondImbue(imbue, out var second))
 						{
 							mult += second.AOScrollSpeed.MultiToPercent();
 						}
@@ -218,7 +219,7 @@ namespace ArcaneOdyssey
 					else
 					{
 						mult = imbue.AOImbueSpeed;
-						if (Player.CanHaveSecondImbue(imbue, out var second))
+						if (CurrentDash.source.CanHaveSecondImbue(imbue, out var second))
 						{
 							mult += second.AOImbueSpeed.MultiToPercent();
 						}
@@ -330,17 +331,20 @@ namespace ArcaneOdyssey
 						}
 						for (int i = 0; i < (DashLeft + 300) / 30; i++)
 						{
-							CurrentDash.Imbue?.ExplosionEffects(Player);
-							if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && Player.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
+							if (CurrentDash.UseScrollImbueStats.HasValue && CurrentDash.Imbue is not null)
 							{
-								second.ExplosionEffects(Player);
+								CurrentDash.Imbue.ExplosionEffects(Player);
+								if (CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
+								{
+									second.ExplosionEffects(Player);
+								}
 							}
 						}
 						return;
 					}
 
 					CurrentDash.Imbue?.LingeringEffects(Player);
-					if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && Player.CanHaveSecondImbue(CurrentDash.Imbue, out var second1))
+					if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second1))
 					{
 						second1.LingeringEffects(Player);
 					}
@@ -407,22 +411,12 @@ namespace ArcaneOdyssey
 					{
 						modifiers.FinalDamage += CurrentDash.Imbue.AOImbueDamage.MultiToPercent();
 					}
-				}
 
-				if (Player.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
-				{
-					if (CurrentDash.UseScrollImbueStats.HasValue)
+					if (CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
 					{
-						if (CurrentDash.UseScrollImbueStats.Value)
-						{
-							modifiers.FinalDamage += second.AOScrollDamage.MultiToPercent();
-						}
-						else
-						{
-							modifiers.FinalDamage += second.AOImbueDamage.MultiToPercent();
-						}
+						modifiers.FinalDamage += second.AOImbueDamage.MultiToPercent();
+						modifiers = CalculateImbueDamage(second, target, modifiers);
 					}
-					modifiers = CalculateImbueDamage(second, target, modifiers);
 				}
 			}
 
@@ -446,6 +440,9 @@ namespace ArcaneOdyssey
 					{
 						knockback += Imbue.AOImbueSize.MultiToPercent();
 					}
+
+					if (CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
+						knockback += second.AOImbueSize.MultiToPercent();
 				}
 			}
 			return knockback * CurrentDash.Knockback * extrakbmulti;
