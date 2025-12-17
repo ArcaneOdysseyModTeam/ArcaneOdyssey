@@ -5,12 +5,12 @@ Armour: {
 	}
 
 	SunkenChest: {
-		DisplayName: Sunken Chest
+		DisplayName: Sunken Breastplate
 		Tooltip: It seems to constantly produce water
 	}
 
 	SunkenHelm: {
-		DisplayName: Sunken Helm
+		DisplayName: Sunken Helmet
 		Tooltip: It seems to constantly produce water
 	}
 
@@ -20,12 +20,12 @@ Armour: {
 	}
 
 	RavennaChest: {
-		DisplayName: Ravenna Chest
+		DisplayName: Ravenna Breastplate
 		Tooltip: ""
 	}
 
 	RavennaHelm: {
-		DisplayName: Ravenna Helm
+		DisplayName: Ravenna Helmet
 		Tooltip: ""
 	}
 }
@@ -56,7 +56,7 @@ VesuvianSigil: {
 
 WoodenPaddle: {
 	DisplayName: Wooden Paddle
-	Tooltip: A wooden paddle for a rowboat, it seems to contain trace magic
+	Tooltip: Summons a rowboat that enhances fishing skill
 }
 
 Acrimony: {
@@ -77,11 +77,6 @@ HecateShard: {
 Paper: {
 	DisplayName: Paper
 	Tooltip: Organic parchment suitable for conducting magic
-}
-
-PoseidonChoice: {
-	DisplayName: Poseidon's Spirit
-	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
 PoseidonSpirit: {
@@ -112,17 +107,12 @@ HeadlessHead: {
 }
 
 HeadlessHeadWithWig: {
-	DisplayName: Headless Head With Wig
+	DisplayName: Headless Head with Wig
 	Tooltip: ""
 }
 
 EvanderTrophy: {
 	DisplayName: Evander Trophy
-	Tooltip: ""
-}
-
-SteamImbue: {
-	DisplayName: Steam Imbue
 	Tooltip: ""
 }
 

@@ -159,7 +159,7 @@ FSTierLines: {
 	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
 }
 
-RelicTierLines.Normal: "[c/2277ff:~ Relic? ~]"
+RelicTierLines.Normal: "[c/2277ff:~ Relic ~]"
 
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
