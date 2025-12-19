@@ -28,65 +28,13 @@ Armour: {
 		DisplayName: Ravenna Helmet
 		Tooltip: ""
 	}
-}
 
-ElfPetItem: {
-	DisplayName: Aether's Heart
-	Tooltip: ThyGoodBoy's pet
-}
-
-ReflexScroll: {
-	DisplayName: Reflex Scroll
-	Tooltip:
-		'''
-		Allows the user to dash, speed changes with the imbue
-		Some imbues grant resistance while dashing
-		'''
-}
-
-KindraBlade: {
-	DisplayName: Kindra Blade
-	Tooltip: Guard Boi's vanity
-}
-
-VesuvianSigil: {
-	DisplayName: Vesuvian Sigil
-	Tooltip: RedBirb1508's vanity
-}
-
-WoodenPaddle: {
-	DisplayName: Wooden Paddle
-	Tooltip: Summons a rowboat that enhances fishing skill
-}
-
-Acrimony: {
-	DisplayName: Prometheus's Acrimony
-	Tooltip: ""
-}
-
-AncientHecateOrb: {
-	DisplayName: Hecate Orb
-	Tooltip: An orb formed of the essence of the goddess hecate... the world is really not ready to unleash this
-}
-
-HecateShard: {
-	DisplayName: Hecate Shard
-	Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic], coming soon
-}
-
-Paper: {
-	DisplayName: Paper
-	Tooltip: Organic parchment suitable for conducting magic
-}
-
-PoseidonSpirit: {
-	DisplayName: Poseidon's Spirit
-	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
-}
-
-EaglePatrimony: {
-	DisplayName: Eagle Patrimony
-	Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
+	Vanity: {
+		HeadlessHeadWithWig: {
+			DisplayName: Headless Head With Wig
+			Tooltip: ""
+		}
+	}
 }
 
 Accessories: {
@@ -99,21 +47,42 @@ Accessories: {
 		DisplayName: Mountainbreaker Gauntlet
 		Tooltip: ""
 	}
+
+	Vanity: {
+		KindraBlade: {
+			DisplayName: Kindra's Blade
+			Tooltip: Guard Boi's vanity
+		}
+
+		VesuvianSigil: {
+			DisplayName: Vesuvian Sigil
+			Tooltip: RedBirb1508's vanity
+		}
+	}
 }
 
-HeadlessHead: {
-	DisplayName: Headless Head
+Pets: {
+	ElfPetItem: {
+		DisplayName: Aether's Heart
+		Tooltip: ThyGoodBoy's pet
+	}
+}
+
+Mounts: {
+	WoodenPaddle: {
+		DisplayName: Magic Paddle
+		Tooltip: Summons a rowboat that enhances fishing skill
+	}
+}
+
+Acrimony: {
+	DisplayName: Prometheus's Acrimony
 	Tooltip: ""
 }
 
-HeadlessHeadWithWig: {
-	DisplayName: Headless Head with Wig
-	Tooltip: ""
-}
-
-EvanderTrophy: {
-	DisplayName: Evander Trophy
-	Tooltip: ""
+AncientHecateOrb: {
+	DisplayName: Hecate Orb
+	Tooltip: An orb formed of the essence of the goddess hecate... the world is really not ready to unleash this
 }
 
 BronzeBar: {
@@ -124,6 +93,26 @@ BronzeBar: {
 EmptyScroll: {
 	DisplayName: Empty Scroll
 	Tooltip: ""
+}
+
+HecateShard: {
+	DisplayName: Hecate Shard
+	Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+}
+
+Paper: {
+	DisplayName: Paper
+	Tooltip: Organic parchment suitable for conducting non-standard energy
+}
+
+EvanderTrophy: {
+	DisplayName: Evander Trophy
+	Tooltip: ""
+}
+
+PoseidonSpirit: {
+	DisplayName: Poseidon's Spirit
+	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
 }
 
 SunkenScrap: {

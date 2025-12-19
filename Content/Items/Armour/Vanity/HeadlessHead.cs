@@ -6,8 +6,9 @@ using ArcaneOdyssey.Content.Items.Base;
 namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class HeadlessHead : AOBaseItem
+	public class HeadlessHead : AOBaseItem, ILocalizedModType
 	{
+		public override string LocalizationCategory => base.LocalizationCategory + ".Armour.Vanity";
 		public override AORarities AORarity => AORarities.Special;
 
 		public override void SetStaticDefaults()

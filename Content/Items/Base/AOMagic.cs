@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
 	{
-		public override string LocalizationCategory => "Magic." + ImbuableTier;
+		public override string LocalizationCategory => base.LocalizationCategory + ".Magic." + ImbuableTier;
 
 		public void CreateLostRecipe(params Type[] imbues)
 		{

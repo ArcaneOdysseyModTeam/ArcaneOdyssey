@@ -1,9 +1,9 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Other
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Developer
 {
-	public class VesuviusCannon : CannonSpell
+	public class VesuviusPulsar : PulsarSpell
 	{
 		public override void SetStaticDefaults()
 		{

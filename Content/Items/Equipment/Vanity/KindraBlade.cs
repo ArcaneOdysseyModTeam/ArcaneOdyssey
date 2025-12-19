@@ -5,8 +5,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Vanity
 {
-	public class KindraBlade : AOBaseItem
+	public class KindraBlade : AOBaseItem, ILocalizedModType
 	{
+		public override string LocalizationCategory => base.LocalizationCategory + ".Accessories.Vanity";
 		public override AORarities AORarity => AORarities.Special;
 
 		public override void Load()

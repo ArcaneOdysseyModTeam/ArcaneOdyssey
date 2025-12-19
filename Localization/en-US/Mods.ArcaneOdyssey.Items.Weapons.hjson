@@ -59,12 +59,12 @@ ColossalGreatsword: {
 }
 
 CommodoreKaiSabre: {
-	DisplayName: Commodore Kai Sabre
+	DisplayName: Commodore Kai's Sabre
 	Tooltip: ""
 }
 
 LionsHalberd: {
-	DisplayName: Lions Halberd
+	DisplayName: Lion's Halberd
 	Tooltip: ""
 }
 

@@ -102,3 +102,8 @@ ElectrifiedToxins: {
 	DisplayName: Electrified Toxins
 	Description: Poison oozes out of your electrical wounds
 }
+
+CloudyEffect: {
+	DisplayName: Cloudy Effect
+	Description: Clouds block your vision
+}

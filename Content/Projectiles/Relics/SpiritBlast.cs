@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.timeLeft = 5 * 60;
+			Projectile.timeLeft = 2 * 60;
 		}
 
 		public override void AI()
@@ -21,6 +21,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
+			}
+
+			if (!Main.dedServ)
+			{
+				for (float i = 0; i < 5; i++)
+				{
+					Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.IcyMerman, Projectile.velocity.X / 2, Projectile.velocity.Y / 2).noGravity = true;
+				}
 			}
 		}
 

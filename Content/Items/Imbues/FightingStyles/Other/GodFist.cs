@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Other
+namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Developer
 {
 	public class GodFist : FightingStyle
 	{

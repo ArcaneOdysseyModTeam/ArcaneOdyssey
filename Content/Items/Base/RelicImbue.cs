@@ -4,9 +4,17 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class RelicImbue : Imbuable
+	public abstract class RelicImbue : Imbuable, ILocalizedModType
 	{
+		public override string LocalizationCategory => base.LocalizationCategory + ".Relics";
 		public virtual int AOValue => 0;
+
+		public override float AOImbueDamage => 1f;
+		public override float AOImbueSize => 1f;
+		public override float AOImbueSpeed => 1f;
+		public override float AOScrollDamage => 1f;
+		public override float AOScrollSize => 1f;
+		public override float AOScrollSpeed => 1f;
 
 		public override float DashResist => 1.2f;
 

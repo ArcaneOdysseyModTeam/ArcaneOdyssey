@@ -16,9 +16,39 @@ Lost: {
 		Tooltip: Allows the user to create devastating bolts of red chaotic lightning
 	}
 
+	BlizzardMagic: {
+		DisplayName: Blizzard Magic
+		Tooltip: Allows the user to call on the northern winters, engulfing foes with chilling snow
+	}
+
+	CloudMagic: {
+		DisplayName: Cloud Magic
+		Tooltip: Allows the user to form large, fluffy clouds that obscure vision and confuse foes
+	}
+
+	DarknessMagic: {
+		DisplayName: Darkness Magic
+		Tooltip: Allows the user to call upon the dark abyss, engulfing all who cross it in pitch night
+	}
+
+	DiamondMagic: {
+		DisplayName: Diamond Magic
+		Tooltip: Allows the user to mainfest hard, sharp diamonds which cut enemies and never break
+	}
+
+	EnergyMagic: {
+		DisplayName: Energy Magic
+		Tooltip: Allows the user to harness pure magical energy, sapping mana from struck enemies
+	}
+
 	FlareMagic: {
 		DisplayName: Flare Magic
 		Tooltip: Allows the user to unleash chaotic, hellish flames to enact your wrath
+	}
+
+	FrostmetalMagic: {
+		DisplayName: Frostmetal Magic
+		Tooltip: Allows the user to materialize frigid cold metal that slashes and freezes
 	}
 
 	GravityMagic: {
@@ -29,6 +59,26 @@ Lost: {
 	HeatMagic: {
 		DisplayName: Heat Magic
 		Tooltip: Allows the user to create scalding hot air that burns all
+	}
+
+	LunarMagic: {
+		DisplayName: Lunar Magic
+		Tooltip: Allows the user to create water, enhanced by the blinding moon
+	}
+
+	OilMagic: {
+		DisplayName: Oil Magic
+		Tooltip: Allows the user to create flammable crude oil and to coat targets in it
+	}
+
+	PhoenixMagic: {
+		DisplayName: Phoenix Magic
+		Tooltip: Allows the user to call upon the power of the flaming phoenix, harming foes and healing allies
+	}
+
+	PlantMagic: {
+		DisplayName: Plant Magic
+		Tooltip: ""
 	}
 
 	PoisonLightningMagic: {
@@ -46,14 +96,9 @@ Lost: {
 		Tooltip: Allows the user to manifest dark purple flames which burn even through water
 	}
 
-	DiamondMagic: {
-		DisplayName: Diamond Magic
-		Tooltip: Allows the user to mainfest hard, sharp diamonds which cut enemies and never break
-	}
-
-	OilMagic: {
-		DisplayName: Oil Magic
-		Tooltip: Allows the user to create flammable crude oil and to coat targets in it
+	SlashMagic: {
+		DisplayName: Slash Magic
+		Tooltip: ""
 	}
 
 	SoundMagic: {
@@ -61,49 +106,9 @@ Lost: {
 		Tooltip: Allows the user to unleash deafeningly loud attacks that rattle the skulls of enemies
 	}
 
-	BlizzardMagic: {
-		DisplayName: Blizzard Magic
-		Tooltip: Allows the user to call on the northern winters, engulfing foes with chilling snow
-	}
-
-	CloudMagic: {
-		DisplayName: Cloud Magic
-		Tooltip: Allows the user to form large, fluffy clouds that obscure vision and confuse foes
-	}
-
-	DarknessMagic: {
-		DisplayName: Darkness Magic
-		Tooltip: Allows the user to call upon the dark abyss, engulfing all who cross it in pitch night
-	}
-
-	EnergyMagic: {
-		DisplayName: Energy Magic
-		Tooltip: Allows the user to harness pure magical energy, sapping mana from struck enemies
-	}
-
-	FrostmetalMagic: {
-		DisplayName: Frostmetal Magic
-		Tooltip: Allows the user to materialize frigid cold metal that slashes and freezes
-	}
-
-	LunarMagic: {
-		DisplayName: Lunar Magic
-		Tooltip: Allows the user to create water, enhanced by the blinding moon
-	}
-
-	PhoenixMagic: {
-		DisplayName: Phoenix Magic
-		Tooltip: Allows the user to call upon the power of the flaming phoenix, harming foes and healing allies
-	}
-
-	PlantMagic: {
-		DisplayName: Plant Magic
-		Tooltip: ""
-	}
-
-	SlashMagic: {
-		DisplayName: Slash Magic
-		Tooltip: ""
+	StormMagic: {
+		DisplayName: Storm Magic
+		Tooltip: Allows the user to unleash stormy clouds that confuse and zap foes
 	}
 
 	SunMagic: {
@@ -111,9 +116,9 @@ Lost: {
 		Tooltip: ""
 	}
 
-	StormMagic: {
-		DisplayName: Storm Magic
-		Tooltip: Allows the user to unleash stormy clouds that confuse and zap foes
+	ThreadMagic: {
+		DisplayName: Thread Magic
+		Tooltip: Allows the user to summon arachnoid webs that tangle opponents
 	}
 }
 
@@ -220,11 +225,6 @@ Normal: {
 }
 
 Developer: {
-	SteamImbue: {
-		DisplayName: Steam
-		Tooltip: Created when something hot is imbued with something cold, as well as the other way around
-	}
-
 	FrogMagic: {
 		DisplayName: Frog Magic
 		Tooltip:

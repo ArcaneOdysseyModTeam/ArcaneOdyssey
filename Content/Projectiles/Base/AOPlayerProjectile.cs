@@ -50,7 +50,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			BaseScale = AOSize;
-			Projectile.damage = (Projectile.damage * AODamage).Round();
 		}
 
 		public virtual float AOSpeed => 1f;

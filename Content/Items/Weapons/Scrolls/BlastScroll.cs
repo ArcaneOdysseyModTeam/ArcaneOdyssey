@@ -36,11 +36,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.WandofSparking).Register();
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public override bool AltFunctionUse(Player player) => Imbue is AOMagic;
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (Imbue?.CreateChargingEffect(Item, player) is null && player.ownedProjectileCounts[type] < 1)
+			if (Imbue?.CreateChargingEffect(Item, player) is null && player.ownedProjectileCounts[type] < 3)
 			{
 				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
 			}

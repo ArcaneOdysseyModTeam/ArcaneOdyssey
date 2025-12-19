@@ -56,7 +56,7 @@ Developer: {
 	}
 }
 
-Techniques: {
+Projectiles: {
 	ShockwaveSmash.DisplayName: Smash Technique
 	ShotTechnique.DisplayName: Shot Technique
 }

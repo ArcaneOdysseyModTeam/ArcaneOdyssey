@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
+namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 {
 	public class VesuviusMagic : AOMagic
 	{

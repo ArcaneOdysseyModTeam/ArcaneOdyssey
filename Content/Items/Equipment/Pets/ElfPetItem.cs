@@ -8,8 +8,9 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Pets
 {
-	public class ElfPetItem : AOBaseItem
+	public class ElfPetItem : AOBaseItem, ILocalizedModType
 	{
+		public override string LocalizationCategory => base.LocalizationCategory + ".Pets";
 		public override AORarities AORarity => AORarities.Special;
 
 		public override void SetDefaults()

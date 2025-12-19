@@ -60,9 +60,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			else Item.color = Color.Transparent;
 		}
 
-		public override bool CanUseItem(Player player)
-		{
-			return Imbue is not null;
-		}
+		public override bool CanUseItem(Player player) => Imbue is not null;
 	}
 }

@@ -12,14 +12,15 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Other;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
 using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class Imbuable : AOBaseItem, IImbuable
+	public abstract class Imbuable : AOBaseItem, IImbuable, ILocalizedModType
 	{
+		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 		public override void SetStaticDefaults()
 		{
@@ -90,7 +91,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public int GetSkill(string skill, int fallback = ProjectileID.EnchantedBeam)
 		{
-			if (Mod.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
+			if (ModContent.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
 			{
 				return proj.Type;
 			}

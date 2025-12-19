@@ -1,0 +1,16 @@
+Relics: {
+	EaglePatrimony: {
+		DisplayName: Eagle Patrimony
+		Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
+	}
+
+	Projectiles: {
+		Astrapikis.DisplayName: Astrapikis
+		SpiritBlast.DisplayName: Spirit Blast
+	}
+}
+
+SteamImbue: {
+	DisplayName: Steam Imbue
+	Tooltip: Created when something hot is imbued with something cold, as well as the other way around
+}

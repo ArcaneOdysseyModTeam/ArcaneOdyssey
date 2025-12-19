@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Other
+namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 {
 	public class FrogMagic : AOMagic
 	{

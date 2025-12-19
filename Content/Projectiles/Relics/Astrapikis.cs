@@ -23,7 +23,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.localNPCHitCooldown = Projectile.timeLeft / 2;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;
-			Projectile.friendly = true;
 			Projectile.height = 234;
 			Projectile.width = 74;
 			Projectile.AverageDimensions();

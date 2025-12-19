@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	public abstract class PulsarSpell : MagicSpell, ILocalizedModType
 	{
 		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Pulsar", "Blast");
-		public override string LocalizationCategory => "Magic.Spells.Pulsars";
+		public override string LocalizationCategory => base.LocalizationCategory + ".Pulsars." + Tier;
 		public override float AOSize => .5f;
 		public override float AOSpeed => .25f;
 		public override void SetDefaults()

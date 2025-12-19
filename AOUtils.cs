@@ -226,6 +226,10 @@ namespace ArcaneOdyssey
 
 		public static bool IsLocked(this Chest chest) => Chest.IsLocked(chest.x, chest.y);
 
+		/// <summary>
+		/// Call after setting the width + height of the projectile
+		/// </summary>
+		/// <param name="projectile"></param>
 		public static void AverageDimensions(this Entity projectile)
 		{
 			projectile.width = projectile.height = (projectile.width + projectile.height) / 2;
@@ -557,57 +561,59 @@ namespace ArcaneOdyssey
 		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
 
 
-		private static bool checklistfailed = true; // do not spam console
-		private static int GetBossKillCount()
+		private static bool checklistfailed = true; // do not spam console if set to true
+
+		/// <summary>
+		/// Includes minibosses
+		/// </summary>
+		public static int BossesKilled
 		{
-			int count = 0;
-			List<bool> conditions = [];
-			if (checklistfailed || !ModLoader.TryGetMod("BossChecklist", out var checklist))
+			get
 			{
-				conditions.AddRange([DownedBosses.downedEvander, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
-				if (ModLoader.TryGetMod("CalamityMod", out var cal))
+				int count = 0;
+				List<bool> conditions = [];
+				if (checklistfailed || !ModLoader.TryGetMod("BossChecklist", out var checklist))
 				{
-					string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
-					foreach (var boss in extrBosses)
+					conditions.AddRange([DownedBosses.downedEvander, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
+					if (ModLoader.TryGetMod("CalamityMod", out var cal))
 					{
-						conditions.Add((bool)cal.Call("GetBossDowned", boss));
-					}
-				}
-			}
-			else
-			{
-				var raw = checklist.Call("GetBossInfoDictionary", ModInstance);
-				if (raw is Dictionary<string, Dictionary<string, object>> data)
-				{
-					foreach (var boss in data)
-					{
-						bool isbossormini = (bool)boss.Value["isBoss"] || (bool)boss.Value["isMiniboss"];
-						if (isbossormini)
+						string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
+						foreach (var boss in extrBosses)
 						{
-							var func = (Func<bool>)boss.Value["downed"];
-							conditions.Add(func.Invoke());
+							conditions.Add((bool)cal.Call("GetBossDowned", boss));
 						}
 					}
 				}
 				else
 				{
-					checklistfailed = true;
-					return GetBossKillCount();
+					var raw = checklist.Call("GetBossInfoDictionary", ModInstance);
+					if (raw is Dictionary<string, Dictionary<string, object>> data)
+					{
+						foreach (var boss in data)
+						{
+							bool isbossormini = (bool)boss.Value["isBoss"] || (bool)boss.Value["isMiniboss"];
+							if (isbossormini)
+							{
+								var func = (Func<bool>)boss.Value["downed"];
+								conditions.Add(func.Invoke());
+							}
+						}
+					}
+					else
+					{
+						checklistfailed = true;
+						return BossesKilled;
+					}
 				}
+				foreach (bool killed in conditions)
+				{
+					if (killed)
+						count++;
+				}
+				//checklistfailed = false;
+				return count;
 			}
-			foreach (bool killed in conditions)
-			{
-				if (killed)
-					count++;
-			} 
-			//checklistfailed = false;
-			return count;
 		}
-
-		/// <summary>
-		/// includes mini bosses
-		/// </summary>
-		public static int BossesKilled => GetBossKillCount();
 
 		public static bool TryGetOwner(this Entity entity, out AOPlayer player)
 		{
@@ -745,9 +751,6 @@ namespace ArcaneOdyssey
 				_ => AORarities.Mythical,
 			};
 		}
-		#endregion
-
-		#region structs and enums
 		#endregion
 
 		#region Random Math Functions

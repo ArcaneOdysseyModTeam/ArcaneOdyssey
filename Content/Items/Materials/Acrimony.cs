@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
@@ -16,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.value = GalleonToCopper(AOValue);
+			Item.value = AOUtils.GalleonToCopper(AOValue);
 			Item.width = Item.height = 64;
 		}
 
