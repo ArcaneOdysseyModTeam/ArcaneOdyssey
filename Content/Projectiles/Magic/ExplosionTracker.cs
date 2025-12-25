@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
 	public class ExplosionTracker : AOPlayerProjectile
 	{
+		public override string Texture => Mod.Name + "/Backgrounds/Blank";
 		private bool wascharging;
 		public const float defaultMax = 3f;
 		public const float defaultMin = 0.6f;

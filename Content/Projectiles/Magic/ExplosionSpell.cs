@@ -7,6 +7,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
 	public class ExplosionSpell : MagicSpell
 	{
+		public override string Texture => Mod.Name + "/Backgrounds/Blank";
 		// ai[0] will be damage multiplier
 		public override void SetDefaults()
 		{
