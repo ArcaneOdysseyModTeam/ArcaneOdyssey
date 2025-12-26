@@ -139,7 +139,7 @@ NPCs: {
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
 		DeathMessage: Evander, the Mountainbreaker has been defeated!
-		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world. Spawning decreased reduced after being defeated.
+		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world.
 	}
 
 	DebuffDummy.DisplayName: Debuff Dummy
