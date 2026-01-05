@@ -12,16 +12,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			get
 			{
-				var split = Texture.Split('/');
-				string tier = "Any";
+				var split = GetType().FullName.Split('.');
 				foreach (var item in split)
 				{
 					if (item == AOImbuableTier.Normal.ToString() || item == AOImbuableTier.Lost.ToString() || item == AOImbuableTier.Ancient.ToString() || item == AOImbuableTier.Developer.ToString())
 					{
-						tier = item;
+						return item;
 					}
 				}
-				return tier;
+				return "Any";
 			}
 		}
 

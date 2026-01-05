@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
@@ -9,27 +7,28 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
-	public class VanishingStyle : FightingStyle // make barred later
+	public class VanishingStyle : FightingStyleBarred
 	{
-		//public override float DashSpeed => BarValue > (BarMax / 2) ? 1.5f : 1.2f; // instant?
-		public override float DashSpeed => 1.2f;
+		public static bool HasYou => ModLoader.HasMod("YouBoss");
 
 		public override Color ImbueColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item64;
+		public override Color DisplayColor => Color.White;
+		public override float MinImbueSpeed => !HasYou ? 1.1f : 1.5f;
 
-		public override float AOImbueDamage => 0.9f;
-		public override float AOImbueSpeed => 1.2f;
-		public override float AOImbueSize => 1.056f;
-		public override float AOScrollDamage => .8f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1.2f;
+		public override AOImbuableTier ImbuableTier => !HasYou ? base.ImbuableTier : AOImbuableTier.Ancient;
 
-		public override SynergyEffects Effects => new(
-			[],
-			[
-				new(ModContent.BuffType<FreezingEffect>(),1.15f)
-			]
-		);
+		public override float MinImbueDamage => !HasYou ? .85f : 1f;
+		public override float MinImbueSize => !HasYou ? 1.056f : 1.2f;
+		public override float MinScrollSize => !HasYou ? 1.0f : 1.125f;
+		public override float MaxScrollSpeed => MinScrollSpeed;
+		public override float MaxScrollDamage => MinScrollDamage;
+		public override float MaxScrollSize => MinScrollSize;
+		public override float MinScrollSpeed => MinImbueSpeed;
+		public override float MinScrollDamage => MinImbueDamage;
+		public override float MaxImbueSpeed => MinImbueSpeed;
+		public override float MaxImbueDamage => MinImbueDamage;
+		public override float MaxImbueSize => MinImbueSize;
 
 		public override void SpawningEffects(Entity projectile)
 		{
@@ -67,43 +66,43 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.SoulofNight, 5).Register();
+			if (!HasYou)
+				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.SoulofNight, 5).Register();
+			else
+				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ModLoader.GetMod("YouBoss").Find<ModItem>("FirstFractal")).Register();
 		}
 
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		public override void UpdateInventory(Player player)
 		{
-			base.ModifyTooltips(tooltips);
-			var tooltip1 = tooltips.Find(e => e.Text.Contains("{VANISH}"));
-			if (tooltip1 is not null && AOKeybinds.Vanish.GetAssignedKeys().Count > 0)
+			if (player.GetModPlayer<ThermoFallOff>().resetBar)
 			{
-				var index = tooltips.IndexOf(tooltip1);
-				tooltip1.Text = tooltip1.Text.Replace("{VANISH}", AOKeybinds.Vanish.GetAssignedKeys()[0]);
-				tooltips[index] = tooltip1;
+				BarValue = BarMin;
+				player.GetModPlayer<ThermoFallOff>().resetBar = false;
 			}
-			else if (tooltip1 is not null)
-			{
-				var index = tooltips.IndexOf(tooltip1);
-				tooltip1.Text = tooltip1.Text.Replace("{VANISH}", Mod.CustomLocalization("RandomWords.Unbound").Value);
-				tooltips[index] = tooltip1;
-			}
+			if (!player.ArcaneOdyssey().OnCooldown(Name))
+				BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
+			base.UpdateInventory(player);
+		}
+
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			BarValue = BarMin;
 		}
 	}
 
 	public class VanishingPlayer : ModPlayer
 	{
-		public override void PreUpdate()
+		public const float BarMax = FightingStyleBarred.BarMax;
+		public const float BarMin = FightingStyleBarred.BarMin;
+		public override void PostUpdate()
 		{
-			if (Player.ArcaneOdyssey().Imbue is VanishingStyle && (!Player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<VanishCooldown>())) && AOKeybinds.Vanish.JustPressed) // add more conditions later
+			if (Player.ArcaneOdyssey()?.Imbue is VanishingStyle vanish && vanish.GetThisImbue(Player))
 			{
-				Player.ArcaneOdyssey().SetCooldown(new VanishCooldown());
-				Player.AddBuff(BuffID.Invisibility, 60 * 5);
+				if (vanish.BarValue > BarMin)
+					Player.AddBuff(BuffID.Invisibility, 2);
+				if (!Player.ArcaneOdyssey().OnCooldown(vanish.Name))
+					vanish.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 			}
 		}
-	}
-
-	public class VanishCooldown : DisplayedCooldown
-	{
-		public override int CooldownLength => 20 * 60;
-		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(VanishingStyle);
 	}
 }

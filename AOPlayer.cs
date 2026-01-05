@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
@@ -39,6 +40,14 @@ namespace ArcaneOdyssey
 				if (imbue is EnergyMagic)
 				{
 					Player.statMana = Math.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
+				}
+				if (imbue is VanishingStyle vanish)
+				{
+					Player.ArcaneOdyssey().SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
+					if (npc.boss)
+						vanish.BarValue += damagedone / (npc.lifeMax / 15f) * FightingStyleBarred.BarMax;
+					else
+						vanish.BarValue += damagedone / (npc.lifeMax * 3f) * FightingStyleBarred.BarMax;
 				}
 				foreach (var buff in imbue.ImbueDebuffs)
 				{

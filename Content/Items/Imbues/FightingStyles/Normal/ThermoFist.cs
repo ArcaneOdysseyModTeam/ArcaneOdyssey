@@ -128,13 +128,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public const float BarMax = FightingStyleBarred.BarMax;
 		public const float BarMin = FightingStyleBarred.BarMin;
 
-		public override void UpdateInventory(Item item, Player player)
-		{
-			if (item.Imbue() is ThermoFist thermo)
-			{
-			}
-		}
-
 		public override void UseAnimation(Item item, Player player)
 		{
 			if (item.Imbue() is ThermoFist thermo)

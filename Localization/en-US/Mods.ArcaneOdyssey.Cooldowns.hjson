@@ -3,11 +3,6 @@ CrashCooldown: {
 	Description: Crash is on cooldown
 }
 
-VanishCooldown: {
-	DisplayName: Vanish Cooldown
-	Description: Vanish is on cooldown
-}
-
 DevastateCooldown: {
 	DisplayName: Devastate Cooldown
 	Description: Devastate is on cooldown
