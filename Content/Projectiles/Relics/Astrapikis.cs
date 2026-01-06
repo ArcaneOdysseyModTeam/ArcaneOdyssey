@@ -10,17 +10,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 	public class Astrapikis : SpiritProjectile
 	{
 		public override string Texture => typeof(ColossalCleave).FullName.Replace('.', '/');
-		public override float AOSize => .5f;
+		public override float AOSize => .75f;
 		public override float AOSpeed => 0.1f;
 
-		public const int TimeLeftMax = 60 * 3;
+		public const int TimeLeftMax = 60;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.timeLeft = TimeLeftMax;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = Projectile.timeLeft / 2;
+			Projectile.localNPCHitCooldown = TimeLeftMax / 2;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;
 			Projectile.height = 234;
