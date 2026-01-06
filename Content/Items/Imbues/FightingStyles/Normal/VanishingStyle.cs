@@ -98,8 +98,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (Player.ArcaneOdyssey()?.Imbue is VanishingStyle vanish && vanish.GetThisImbue(Player))
 			{
-				if (vanish.BarValue > BarMin)
-					Player.AddBuff(BuffID.Invisibility, 2);
+				Player.opacityForAnimation = vanish.LerpValue.FlipFloat() - 1f;
 				if (!Player.ArcaneOdyssey().OnCooldown(vanish.Name))
 					vanish.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 			}

@@ -110,6 +110,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			if (player.GetModPlayer<ThermoFallOff>().resetBar)
 			{
 				BarValue = BarMin;
+				player.opacityForAnimation = 1f;
 				player.GetModPlayer<ThermoFallOff>().resetBar = false;
 			}
 			if (!player.ArcaneOdyssey().OnCooldown(Name))

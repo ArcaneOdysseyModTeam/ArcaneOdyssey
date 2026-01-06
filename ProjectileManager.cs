@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Base;
@@ -199,7 +200,7 @@ namespace ArcaneOdyssey
 									target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
 									break;
 								default:
-									if (player.ArcaneOdyssey().gel.HasValue)
+									if (player.ArcaneOdyssey()?.gel.HasValue == true)
 										target.AddBuff(player.ArcaneOdyssey().gel.Value, 60 * Main.rand.Next(5, 10));
 									break;
 							}
@@ -210,7 +211,6 @@ namespace ArcaneOdyssey
 			modifiers = CalculateImbueDamage(Imbue, target, modifiers);
 			if (projectile.CanHaveSecondImbue(Imbue, out var second))
 				modifiers = CalculateImbueDamage(second, target, modifiers);
-
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -296,6 +296,12 @@ namespace ArcaneOdyssey
 				if (projectile.CanHaveSecondImbue(Imbue, out var second) && second.PreEffects(projectile))
 					second.LingeringEffects(projectile);
 			}
+		}
+
+		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (Imbue is VanishingStyle && hit.Crit)
+				projectile.CritChance = projectile.OriginalCritChance;
 		}
 	}
 }
