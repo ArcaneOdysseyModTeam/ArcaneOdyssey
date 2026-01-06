@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 {
 	public class StarterAcrimony : AOBaseItem
 	{
-		public override AORarities AORarity => AORarities.Arcane;
+		public override AORarities AORarity => AORarities.Legendary;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

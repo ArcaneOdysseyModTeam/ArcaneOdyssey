@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					AOImbuableTier.Normal => AORarities.Rare,
 					AOImbuableTier.Lost => AORarities.Mystic,
-					AOImbuableTier.Ancient => AORarities.Arcane,
+					AOImbuableTier.Ancient => AORarities.Legendary,
 					AOImbuableTier.Primordial => AORarities.Mythical,
 					_ => AORarities.Special,
 				};

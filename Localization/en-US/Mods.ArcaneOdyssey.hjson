@@ -111,7 +111,8 @@ NPCs: {
 			EvanderWarning: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
 			HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
 			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
-			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing drink while using it.
+			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing item while using it.
+			VanishingStyle: Vanishing Style is a much more advanced fighting style. You must deal damage to gain focus which increases your stealth, and while your focus is fading, unleash a critical strike!
 			WeaponSkills: Some weapons have special skills, make good use of them.
 			ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
 		}
@@ -172,15 +173,21 @@ ArmourAutoTooltip: {
 }
 
 CodebreakerDialogOption: {
-	Name: The Dark Sea
-	Description1: This planet is abundant with magic, to a scale of which has never been recorded even among auric dragons and true gods.
-	Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
-	Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world - Xeroc, who has been unaccounted for - Yharon, who still needs much more time to revive.
-	Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
-	DemiDescription1: While observing you, I have learned many things about the past of this planet. The amount of energy needed to create the "fracture" far exceeds what any current living being can output, barring the traitor almighty.
-	DemiDescription2: A majority of the world has been devastated by this "fracture". This was long before my creation. Of course, I had no issue finding the source of the great mana storm.
-	DemiDescription3: Attempts to approach the Dark Sea Epicentre have been unsuccessful, as I lose control of my machines due to the interferance and magical corruption.
-	DemiDescription4: As a demigod, I regret to convey that you possess more knowledge about methods to approach such a place than I.
+	DarkSea: {
+		Name: The Dark Sea
+		Description1: This planet is abundant with magic, to a scale of which has never been recorded even among auric dragons and true gods.
+		Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
+		Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world - Xeroc, who has been unaccounted for - Yharon, who still needs much more time to revive.
+		Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
+	}
+	
+	Epicentre: {
+		Name: Dark Sea Origins
+		Description1: While observing you, I have learned many things about the past of this planet. The amount of energy needed to create the "fracture" far exceeds what any current living being can output, barring the traitor almighty.
+		Description2: A majority of the world has been devastated by this "fracture", and it continues to expand. Of course, I had no issue finding the source of the great mana storm. This is known as the Epicentre.
+		Description3: Attempts to approach the Dark Sea Epicentre have been unsuccessful, as I lose control of my machines due to the interference and magical corruption.
+		Description4: As a "legacy", I regret to convey that you possess more knowledge about methods to approach such a place than I.
+	}
 }
 
 Projectiles: {

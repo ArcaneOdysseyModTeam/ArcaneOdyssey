@@ -54,14 +54,14 @@ namespace ArcaneOdyssey
 			if (!HasCalamity)
 				return;
 
-			string[] descs = [Mod.CustomLocalization("CodebreakerDialogOption.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.Description4").Value];
-			string[] descs2 = [Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription1").Value, Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription2").Value, Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription3").Value, Mod.CustomLocalization("CodebreakerDialogOption.DemiDescription4").Value];
-			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Name").Value,
+			string[] descs = [Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description4").Value];
+			string[] descs2 = [Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description4").Value];
+			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Name").Value,
 				string.Join(' ', descs),
-				() => !ArcaneOdysseyMod.DevMode);
-			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Name").Value,
+				() => true);
+			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Name").Value,
 				string.Join(' ', descs2),
-				() => ArcaneOdysseyMod.DevMode);
+				() => true);
 		}
 
 		public static void DeclareMiniboss(int type)

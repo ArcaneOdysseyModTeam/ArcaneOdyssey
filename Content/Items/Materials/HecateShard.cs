@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 	public class HecateShard : AOBaseItem
 	{
 		public int AOValue = 20000;
-		public override AORarities AORarity => AORarities.Arcane;
+		public override AORarities AORarity => AORarities.Legendary;
 
 		public override void SetDefaults()
 		{

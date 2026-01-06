@@ -729,7 +729,7 @@ namespace ArcaneOdyssey
 
 			if (item.expert || item.rare == ItemRarityID.Expert)
 			{
-				return AORarities.Arcane;
+				return AORarities.Legendary;
 			}
 			if (item.master || item.rare == ItemRarityID.Master)
 			{
@@ -746,8 +746,8 @@ namespace ArcaneOdyssey
 				ItemRarityID.Pink => AORarities.Rare,
 				ItemRarityID.LightPurple => AORarities.Mystic,
 				ItemRarityID.Lime => AORarities.Mystic,
-				ItemRarityID.Yellow => AORarities.Arcane,
-				ItemRarityID.Cyan => AORarities.Arcane,
+				ItemRarityID.Yellow => AORarities.Legendary,
+				ItemRarityID.Cyan => AORarities.Legendary,
 				_ => AORarities.Mythical,
 			};
 		}
@@ -1044,7 +1044,7 @@ namespace ArcaneOdyssey
 		Uncommon = ItemRarityID.Green,
 		Rare = ItemRarityID.LightRed,
 		Mystic = ItemRarityID.LightPurple,
-		Arcane = ItemRarityID.Yellow,
+		Legendary = ItemRarityID.Yellow,
 		Mythical = ItemRarityID.Red,
 		Special
 	}

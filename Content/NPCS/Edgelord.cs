@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.DeathSound = SoundID.NPCDeath52;
 			NPC.knockBackResist = 0;
 			AnimationType = NPCID.Guide;
-			ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, false, false, true, true);
+			ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, false, false, true, true, false);
 		}
 
 		public override void SetStaticDefaults()
@@ -68,9 +68,10 @@ namespace ArcaneOdyssey.Content.NPCS
 				NPC.life += 5;
 			}
 		}
+
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (!(projectile.Imbue() is AOMagic || (projectile.DamageType.CountsAsClass(DamageClass.Magic) && projectile.hostile)))
+			if (!(projectile.Imbue() is AOMagic or RelicImbue || (projectile.DamageType.CountsAsClass(DamageClass.Magic) && projectile.hostile)))
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life += 5;
@@ -89,6 +90,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (!Main.dedServ)
+			{
 				for (int n = 0; n < 10; n++)
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1f)];
@@ -96,6 +98,7 @@ namespace ArcaneOdyssey.Content.NPCS
 					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 0, default, 1.6f)];
 					spawnedDust2.noGravity = true;
 				}
+			}
 		}
 
 		public override void OnKill()
@@ -196,6 +199,8 @@ namespace ArcaneOdyssey.Content.NPCS
 				}
 				if (Player.HasTypeInInventory(typeof(FightingStyle)))
 				{
+					if (Main.hardMode)
+						AddOption("VanishingStyle");
 					AddOption("SailorStyle");
 					AddOption("EarlyFighting1");
 					AddOption("EarlyMagic3");

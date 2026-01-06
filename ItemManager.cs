@@ -266,6 +266,7 @@ namespace ArcaneOdyssey
 			if (Imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
 				if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
 					crit = 100;
+
 		}
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
