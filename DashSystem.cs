@@ -171,6 +171,25 @@ namespace ArcaneOdyssey
 		private int? DashDir;
 		private float storedWingTime;
 
+		public float DashLerp
+		{
+			get
+			{
+				if (CurrentDash is not null) 
+				{
+					if (DashLeft >= CurrentDash.DashMax / 2f)
+					{
+						return DashLeft / (CurrentDash.DashMax / 2) - 1f;
+					}
+					else
+					{
+						return 1f - (DashLeft / (CurrentDash.DashMax / 2));
+					}
+				}
+				return 0f;
+			}
+		}
+
 		public bool FirstFrame => CurrentDash is not null && DashLeft == CurrentDash.DashMax;
 
 		/// <summary>

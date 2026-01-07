@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1f;
 
-		public override float DashResist => 1.2f;
+		public override float? DashResist => 1.2f;
 
 		public virtual bool NoUseGraphic => true;
 

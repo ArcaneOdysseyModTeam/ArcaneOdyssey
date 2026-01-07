@@ -41,10 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override bool AltFunctionUse(Player player) => true;
 
-		public override Vector2? HoldoutOffset()
-		{
-			return new();
-		}
+		public override Vector2? HoldoutOffset() => new();
 
 		public override void OnConsumeAmmo(Item ammo, Player player)
 		{

@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class DiamondMagic : AOMagic
 	{
-		public override float DashResist => 1.6f;
+		public override float? DashResist => 1.6f;
 		public override float AOImbueSpeed => 1.13f;
 		public override float AOImbueSize => 1.11f;
 		public override float AOImbueDamage => 1.3f;

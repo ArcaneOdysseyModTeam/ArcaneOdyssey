@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -34,16 +36,21 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 	public class Reflex(Entity source) : DashSystem(source)
 	{
-		
+		private float invisbase;
+
 		public override int Cooldown => 30;
 
 		public override bool AnyDirection => false;
 
 		public override void OnStart(Player player)
 		{
-			if (player.TryGetImbue(out Imbuable imbue))
+			if (Imbue is not null)
 			{
-				SoundEngine.PlaySound(imbue.ImbueSound, player.MountedCenter);
+				SoundEngine.PlaySound(Imbue.ImbueSound, player.MountedCenter);
+				if (Imbue is VanishingStyle)
+				{
+					invisbase = player.opacityForAnimation;
+				}
 			}
 		}
 
@@ -51,7 +58,16 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void DashEffect(Player player)
 		{
-			player.statDefense *= Imbue?.DashResist ?? 1f;
+			if (Imbue?.DashResist.HasValue == true)
+				player.statDefense *= Imbue.DashResist.Value;
+
+			if (Imbue is VanishingStyle)
+				player.opacityForAnimation = MathHelper.Lerp(invisbase, 0f, player.ArcaneOdyssey().DashLerp);
+		}
+
+		public override void OnEnd(Player player)
+		{
+			player.opacityForAnimation = 1f;
 		}
 
 		public override float DashSpeed => 6;

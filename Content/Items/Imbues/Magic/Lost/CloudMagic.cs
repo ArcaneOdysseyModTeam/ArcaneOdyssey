@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float DashSpeed => 1.2f; // burst
-		public override float DashResist => 1.1f;
+		public override float? DashResist => 1.1f;
 		public override float KBMulti => 1.25f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 255, 255);

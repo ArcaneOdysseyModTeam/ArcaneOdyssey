@@ -61,10 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int DashMax => 3;
 		public override bool AnyDirection => true;
 		public override int Cooldown => 60 * 3;
-		public override bool OnHit(Player player, Entity target)
-		{
-			return true;
-		}
+		public override bool OnHit(Player player, Entity target) => true;
 
 		public override void OnEnd(Player player)
 		{
@@ -85,6 +82,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class EtherealFlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(BronzeTriasta);
+		public override string ExtraIconTexture => typeof(BronzeTriasta).FullName.Replace('.', '/');
 	}
 }

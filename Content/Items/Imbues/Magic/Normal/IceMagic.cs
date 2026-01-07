@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class IceMagic : AOMagic
 	{
-		public override float DashResist => 1.3f;
+		public override float? DashResist => 1.3f;
 		public override bool? Cold => true;
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 		public override Color ImbueColour => new(30, 200, 255, 255);

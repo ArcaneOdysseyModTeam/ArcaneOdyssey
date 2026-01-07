@@ -59,6 +59,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	public class ColossalCleaveCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 * 3;
-		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(ColossalGreatsword);
+		public override string ExtraIconTexture => typeof(ColossalGreatsword).FullName.Replace('.', '/');
 	}
 }

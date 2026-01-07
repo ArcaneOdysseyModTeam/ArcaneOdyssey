@@ -56,8 +56,6 @@ Blasts: {
 		WindBlast.DisplayName: Wind Blast
 		WoodBlast.DisplayName: Wood Blast
 	}
-
-	Any.IonBlast.DisplayName: Ion Blast
 }
 
 Cannons: {

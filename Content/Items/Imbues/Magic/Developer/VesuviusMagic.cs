@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 		public override float AOScrollSize => 3f;
 		public override float AOScrollDamage => 2f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
-		public override float DashResist => 1.3f;
+		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(), 10 * 60), new(BuffID.OnFire3, 10 * 60)];
 		public override SynergyEffects Effects => new(

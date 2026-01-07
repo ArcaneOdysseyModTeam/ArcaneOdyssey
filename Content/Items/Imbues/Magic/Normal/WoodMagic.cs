@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WoodMagic : AOMagic
 	{
-		public override float DashResist => 1.3f;
+		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(61, 33, 0, 255);
 		public override float AOImbueSpeed => 0.9f;

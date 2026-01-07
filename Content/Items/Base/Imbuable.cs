@@ -56,8 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
-
-		public virtual float DashResist => 1f;
+		public virtual float? DashResist => null;
 		public virtual float DashSpeed => 1f;
 
 		public override bool ShowItemTypeTooltip => false;

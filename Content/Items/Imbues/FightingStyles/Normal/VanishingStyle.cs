@@ -94,7 +94,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public const float BarMax = FightingStyleBarred.BarMax;
 		public const float BarMin = FightingStyleBarred.BarMin;
-		public override void PostUpdate()
+		public override void PreUpdate()
 		{
 			if (Player.ArcaneOdyssey()?.Imbue is VanishingStyle vanish && vanish.GetThisImbue(Player))
 			{
