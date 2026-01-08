@@ -37,6 +37,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(false)]
 		public bool AlternatePhoenixEffectVFX { get; set; }
 
+		[DefaultValue(true)]
+		public bool ItemTypeTooltips { get; set; }
+
 		public static ArcaneOdysseyClientConfig Instance;
 	}
 }

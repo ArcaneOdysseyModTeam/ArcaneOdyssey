@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				for (int i = 0; i < 30; i++)
 				{
 					Imbue?.ExplosionEffects(Entity);
-					Imbue?.Imbue?.ExplosionEffects(Projectile);
+					SecondImbue?.ExplosionEffects(Projectile);
 				}
 			}
 
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Projectile.timeLeft % 10 == 0)
 			{
 				Imbue?.ExplosionEffects(Projectile);
-				Imbue?.Imbue?.ExplosionEffects(Projectile);
+				SecondImbue?.ExplosionEffects(Projectile);
 			}
 		}
 

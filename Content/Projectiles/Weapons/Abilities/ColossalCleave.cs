@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				for (int i = 0; i < 10; i++)
 				{
 					Imbue?.ExplosionEffects(Projectile);
-					Imbue?.Imbue?.ExplosionEffects(Projectile);
+					SecondImbue?.ExplosionEffects(Projectile);
 				}
 			}
 

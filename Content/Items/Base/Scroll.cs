@@ -13,11 +13,27 @@ namespace ArcaneOdyssey.Content.Items.Base
 			get
 			{
 				return Item?.ArcaneOdyssey()?.Imbue;
-			} set
+			}
+			set
 			{
 				if (Item?.ArcaneOdyssey() is not null)
 				{
 					Item.ArcaneOdyssey().Imbue = value;
+				}
+			}
+		}
+
+		public Imbuable SecondImbue
+		{
+			get
+			{
+				return Item?.ArcaneOdyssey()?.SecondImbue;
+			}
+			set
+			{
+				if (Item?.ArcaneOdyssey() is not null)
+				{
+					Item.ArcaneOdyssey().SecondImbue = value;
 				}
 			}
 		}
@@ -53,6 +69,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			Imbue = player.Imbue();
+			SecondImbue = Imbue?.Imbue;
 			if (Imbue is not null && Item.CanHaveImbue(Imbue))
 			{
 				Item.color = Imbue.GetColor(Color.Transparent) with { A = (byte)(Imbue.GetColor(Color.Transparent).A * .75f) };

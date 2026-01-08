@@ -42,6 +42,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().Imbue = value;
 		}
 
+		public Imbuable SecondImbue
+		{
+			get => Projectile.ArcaneOdyssey()?.SecondImbue;
+			set => Projectile.ArcaneOdyssey().SecondImbue = value;
+		}
+
 		public bool? BenifitsFromScrollStats
 		{
 			get => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;

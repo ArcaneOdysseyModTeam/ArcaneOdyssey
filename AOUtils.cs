@@ -179,18 +179,17 @@ namespace ArcaneOdyssey
 		public static StatInheritanceData QuickInheritance(float num) => new(num, num, num, num, num); // makes me hungry
 		public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
 
-		public static readonly Vector2 DefaultDustDimensions = new(10, 10);
 		public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
 		{
 			Vector2 dimensions = new(dust.frame.Width, dust.frame.Height);
 			if (newPos.HasValue)
 			{
-				dust.position = newPos.Value - (dimensions / 2f * dust.scale);
+				dust.position = newPos.Value - (dimensions * dust.scale / 2f);
 				return dust.position;
 			}
 			else
 			{
-				return dust.position + (dimensions / 2f * dust.scale);
+				return dust.position + (dimensions * dust.scale / 2f);
 			}
 		}
 
@@ -249,16 +248,16 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
-		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool modifyimbuestats = true)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass)
 		{
 			if (source is null) return;
 			if (!source.active) return;
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
 			if (imbue is not null)
 			{
-				if (modifyimbuestats)
+				if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.HasValue)
 				{
-					if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true)
+					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
 					{
 						range *= imbue.AOScrollSize;
 						knockback *= imbue.AOScrollSize;
@@ -271,19 +270,17 @@ namespace ArcaneOdyssey
 						damage *= imbue.AOImbueDamage;
 					}
 				}
-
-
 			}
 
 			foreach (NPC target in Main.ActiveNPCs)
 			{
 				if (target.Hitbox.Distance(origin) <= range)
 				{
-					ModDamageHelper modifiers = new();
+					ModDamageHelper modifiers = new(null);
 					if (imbue is not null)
 					{
 						modifiers = CalculateImbueDamage(imbue, target, modifiers);
-						if (CanHaveSecondImbue(source, imbue, out var second))
+						if (source.HasSecondImbue(out var second))
 						{
 							modifiers = CalculateImbueDamage(second, target, modifiers);
 						}
@@ -295,6 +292,24 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
+		}
+
+		public static bool HasSecondImbue(this Entity entity, out Imbuable second)
+		{
+			second = null;
+			if (entity is Item item)
+			{
+				second = item.ArcaneOdyssey()?.SecondImbue;
+			}
+			if (entity is Projectile projectile)
+			{
+				second = projectile.ArcaneOdyssey()?.SecondImbue;
+			}
+			if (entity is Player player)
+			{
+				second = player.ArcaneOdyssey()?.CurrentDash?.SecondImbue;
+			}	
+			return second is not null;
 		}
 
 		public static string Replace(this string text, string toRemove) => text.Replace(toRemove, null);
@@ -386,7 +401,7 @@ namespace ArcaneOdyssey
 			{
 				if (entity is Projectile projectile)
 				{
-					return projectile.ModProjectile is not StrengthTechnique or MagicSpell or SpiritProjectile;
+					return projectile.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
 				}
 				if (entity is Item item)
 				{
@@ -1167,9 +1182,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// used so i can copy paste code
 	/// </summary>
-	public struct ModDamageHelper(StatModifier statModifier = default)
+	public struct ModDamageHelper(StatModifier? statModifier)
 	{
-		public StatModifier FinalDamage = statModifier;
+		public StatModifier FinalDamage = statModifier.GetValueOrDefault(new(1, 1));
 		public int GetDamage(int damage)
 		{
 			return FinalDamage.ApplyTo(damage).Round();

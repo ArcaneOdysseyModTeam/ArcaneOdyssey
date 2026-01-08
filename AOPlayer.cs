@@ -45,7 +45,7 @@ namespace ArcaneOdyssey
 				{
 					if (!(npc.CountsAsACritter || npc.friendly || Main.npcCatchable[npc.type]))
 					{
-						Player.ArcaneOdyssey().SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
+						Player.ArcaneOdyssey()?.SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
 						if (npc.boss)
 							vanish.BarValue += damagedone / (npc.lifeMax / 5f) * FightingStyleBarred.BarMax;
 						else

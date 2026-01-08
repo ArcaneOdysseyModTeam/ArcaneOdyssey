@@ -16,6 +16,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual WeaponType WeaponsType => WeaponType.Normal;
 
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
+		public Imbuable SecondImbue { get => Item.ArcaneOdyssey()?.SecondImbue; set => Item.ArcaneOdyssey().SecondImbue = value; }
+
 		public bool? BenifitsFromScrollStats => Item.ArcaneOdyssey()?.BenifitsFromScrollStats;
 
 		public virtual bool CanBeAffected => true;

@@ -66,23 +66,26 @@ namespace ArcaneOdyssey
 				return;
 			}
 
-			if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			if (ArcaneOdysseyClientConfig.Instance.ItemTypeTooltips)
 			{
-				if (item.ModItem is Imbuable and not BasicCombat || item.GetItemType() == ItemType.Material)
+				if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 				{
-					tooltips.RemoveAll(e => e.Name == "Material");
-				}
-				if (item.GetItemType() == ItemType.Vanity)
-				{
-					tooltips.RemoveAll(e => e.Name == "Vanity");
-				}
+					if (item.ModItem is Imbuable and not BasicCombat || item.GetItemType() == ItemType.Material)
+					{
+						tooltips.RemoveAll(e => e.Name == "Material");
+					}
+					if (item.GetItemType() == ItemType.Vanity)
+					{
+						tooltips.RemoveAll(e => e.Name == "Vanity");
+					}
 
-				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
-				{
-					var line = item.GetItemRare().ToString();
-					line += " ";
-					line += item.GetItemType().ToString().ToLower();
-					tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
+					if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
+					{
+						var line = item.GetItemRare().ToString();
+						line += " ";
+						line += item.GetItemType().ToString().ToLower();
+						tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
+					}
 				}
 			}
 
@@ -122,7 +125,10 @@ namespace ArcaneOdyssey
 		public override bool InstancePerEntity => true;
 
 		public Item thisItem = null;
+
 		public Imbuable Imbue { get; set; }
+		public Imbuable SecondImbue { get; set; }
+
 		private int imbueIndex = 0;
 		public bool specificImbue = false;
 
@@ -143,9 +149,10 @@ namespace ArcaneOdyssey
 		public bool? BenifitsFromScrollStats
 		{
 			get 
-			{ 
-				if (thisItem is not null)
-					return thisItem.ModItem is Scroll || WeaponsType != WeaponType.Normal;
+			{
+				if (thisItem.CanHaveImbue(Imbue))
+					if (thisItem is not null)
+						return thisItem.ModItem is Scroll || WeaponsType != WeaponType.Normal;
 				return null;
 			}
 		}
@@ -207,13 +214,13 @@ namespace ArcaneOdyssey
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(fs.DisplayColor));
 				}
 
-				if (item.CanHaveSecondImbue(Imbue, out var second) && ModContent.RequestIfExists<Texture2D>(second.Texture, out var texture2))
+				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.Texture, out var texture2))
 				{
 					location.X -= texture2.Width() * .35f;
 
 					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, dimensions / 2, .35f, SpriteEffects.None, 1f);
 
-					if (second is FightingStyleBarred fs2 && item.ModItem?.Type != second.Type)
+					if (SecondImbue is FightingStyleBarred fs2 && item.ModItem?.Type != SecondImbue.Type)
 					{
 						fs = fs2;
 						spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position with { Y = position.Y + 10 } - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(fs.DisplayColor));
@@ -239,8 +246,8 @@ namespace ArcaneOdyssey
 					{
 						velocity *= Imbue.AOImbueSpeed;
 					}
-					if (item.CanHaveSecondImbue(Imbue, out var secondimbue))
-						velocity *= secondimbue.AOImbueSpeed;
+					if (SecondImbue is not null)
+						velocity *= SecondImbue.AOImbueSpeed;
 				}
 			}
 		}
@@ -259,8 +266,8 @@ namespace ArcaneOdyssey
 				else
 				{
 					crit *= Imbue.AOImbueDamage;
-					if (item.CanHaveSecondImbue(Imbue, out var second))
-						crit *= second.AOImbueDamage;
+					if (SecondImbue is not null)
+						crit *= SecondImbue.AOImbueDamage;
 				}
 			}
 			if (Imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
@@ -284,11 +291,11 @@ namespace ArcaneOdyssey
 				{
 					knockback += Imbue.AOImbueSize.MultiToPercent();
 				}
-				if (item.CanHaveSecondImbue(Imbue, out var second))
-					knockback *= second.AOImbueSize.MultiToPercent();
+				if (SecondImbue is not null)
+					knockback *= SecondImbue.AOImbueSize.MultiToPercent();
 				var extraknockbackmulti = Imbue.KBMulti;
-				if (item.CanHaveSecondImbue(Imbue, out var second1))
-					extraknockbackmulti += second1.KBMulti.MultiToPercent();
+				if (SecondImbue is not null)
+					extraknockbackmulti += SecondImbue.KBMulti.MultiToPercent();
 				knockback *= extraknockbackmulti;
 			}
 		}
@@ -312,8 +319,8 @@ namespace ArcaneOdyssey
 				{
 					damage += Imbue.AOImbueDamage.MultiToPercent();
 				}
-				if (item.CanHaveSecondImbue(Imbue, out var second))
-					damage += second.AOImbueDamage.MultiToPercent();
+				if (SecondImbue is not null)
+					damage += SecondImbue.AOImbueDamage.MultiToPercent();
 			}
 		}
 
@@ -413,8 +420,8 @@ namespace ArcaneOdyssey
 					{
 						scale += Imbue.AOScrollSize.MultiToPercent();
 					}
-					if (item.CanHaveSecondImbue(Imbue, out var second))
-						scale += second.AOImbueSize.MultiToPercent();
+					if (SecondImbue is not null)
+						scale += SecondImbue.AOImbueSize.MultiToPercent();
 				}
 			}
 		}
@@ -428,12 +435,12 @@ namespace ArcaneOdyssey
 				{
 					if (BenifitsFromScrollStats.GetValueOrDefault())
 					{
-						return Imbue.AOScrollSpeed + (item.CanHaveSecondImbue(Imbue, out var second) ? second.AOImbueSpeed.MultiToPercent() : 0f);
+						return Imbue.AOScrollSpeed + (SecondImbue?.AOImbueSpeed.MultiToPercent() ?? 0f);
 					}
 
 					if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return Imbue.AOImbueSpeed + (item.CanHaveSecondImbue(Imbue, out var second) ? second.AOImbueSpeed.MultiToPercent() : 0f);
+						return Imbue.AOImbueSpeed + (SecondImbue?.AOImbueSpeed.MultiToPercent() ?? 0f);
 					}
 				}
 			}
@@ -476,15 +483,22 @@ namespace ArcaneOdyssey
 				if (!specificImbue || item.accessory)
 				{
 					if (item.CanHaveImbue(player.Imbue()))
+					{
 						Imbue = player.Imbue();
+						if (item.CanHaveSecondImbue(Imbue, out var second))
+							SecondImbue = second;
+					}
 					else
+					{
 						Imbue = null;
+						SecondImbue = null;
+					}
 				}
 
 				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
 				{
 					specificImbue = true;
-					player.ArcaneOdyssey().SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
+					player.ArcaneOdyssey()?.SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
 					if (options.Count > 1)
 					{
 						specificImbue = true;
@@ -493,6 +507,8 @@ namespace ArcaneOdyssey
 							imbueIndex = 0;
 						}
 						Imbue = options[imbueIndex];
+						if (item.CanHaveSecondImbue(Imbue, out var second))
+							SecondImbue = second;
 						justchangedspecificimbue = true;
 						if (Imbue?.Type == player.Imbue()?.Type)
 						{
@@ -512,9 +528,16 @@ namespace ArcaneOdyssey
 					specificImbue = true;
 					//justchangedspecificimbue = true;
 					if (item.CanHaveImbue(player.Imbue()))
+					{
 						Imbue = player.Imbue();
+						if (item.CanHaveSecondImbue(Imbue, out var second))
+							SecondImbue = second;
+					}
 					else
+					{
 						Imbue = null;
+						SecondImbue = null;
+					}
 					settodefault = true;
 					imbueIndex = -1;
 				}
@@ -522,15 +545,23 @@ namespace ArcaneOdyssey
 			else
 			{
 				Imbue = null;
+				SecondImbue = null;
 				specificImbue = false;
 			}
 
 			if (!specificImbue || item.accessory)
 			{
 				if (item.CanHaveImbue(player.Imbue()))
+				{
 					Imbue = player.Imbue();
+					if (item.CanHaveSecondImbue(Imbue, out var second))
+						SecondImbue = second;
+				}
 				else
+				{
 					Imbue = null;
+					SecondImbue = null;
+				}
 			}
 
 			if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
@@ -551,6 +582,7 @@ namespace ArcaneOdyssey
 		{
 			thisItem = item;
 			Imbue = null;
+			SecondImbue = null;
 			specificImbue = false;
 		}
 
@@ -614,8 +646,7 @@ namespace ArcaneOdyssey
 					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage / 2f);
 				}
 				modifiers = CalculateImbueDamage(Imbue, target, modifiers);
-				if (item.CanHaveSecondImbue(Imbue, out var second))
-					modifiers = CalculateImbueDamage(second, target, modifiers);
+				modifiers = CalculateImbueDamage(SecondImbue, target, modifiers);
 			}
 		}
 	}

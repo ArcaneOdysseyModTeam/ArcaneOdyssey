@@ -65,6 +65,11 @@ Configs: {
 			Label: "[i:ArcaneOdyssey/PhoenixMagic] Alternate Phoenix Flames Effect"
 			Tooltip: Toggles an alternate look for the Phoenix Magic debuff's effect, resembling a bird
 		}
+
+		ItemTypeTooltips: {
+			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
+			Tooltip: Toggles whether to show the rarity and type of items in their tooltips
+		}
 	}
 }
 

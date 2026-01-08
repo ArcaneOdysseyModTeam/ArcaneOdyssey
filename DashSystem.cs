@@ -14,6 +14,7 @@ namespace ArcaneOdyssey
 	{
 		public Entity source = source;
 		public Imbuable Imbue { get; set; }
+		public Imbuable SecondImbue { get; set; }
 
 		public string Name => GetType().Name;
 
@@ -207,6 +208,8 @@ namespace ArcaneOdyssey
 				Player.timeSinceLastDashStarted = 0;
 				CurrentDash = dashToUse;
 				CurrentDash.Imbue = imbue;
+				if (CurrentDash.source.CanHaveSecondImbue(imbue, out var second))
+					CurrentDash.SecondImbue = second;
 				collisions = 0;
 				ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
 				if (dashToUse.AnyDirection && direction == 0)
@@ -230,17 +233,17 @@ namespace ArcaneOdyssey
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
 						mult = imbue.AOScrollSpeed;
-						if (CurrentDash.source.CanHaveSecondImbue(imbue, out var second))
+						if (CurrentDash.SecondImbue is not null)
 						{
-							mult += second.AOScrollSpeed.MultiToPercent();
+							mult += CurrentDash.SecondImbue.AOScrollSpeed.MultiToPercent();
 						}
 					}
 					else
 					{
 						mult = imbue.AOImbueSpeed;
-						if (CurrentDash.source.CanHaveSecondImbue(imbue, out var second))
+						if (CurrentDash.SecondImbue is not null)
 						{
-							mult += second.AOImbueSpeed.MultiToPercent();
+							mult += CurrentDash.SecondImbue.AOImbueSpeed.MultiToPercent();
 						}
 					}
 					DashVelocity *= mult;
@@ -353,19 +356,16 @@ namespace ArcaneOdyssey
 							if (CurrentDash.UseScrollImbueStats.HasValue && CurrentDash.Imbue is not null)
 							{
 								CurrentDash.Imbue.ExplosionEffects(Player);
-								if (CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
-								{
-									second.ExplosionEffects(Player);
-								}
+								CurrentDash.SecondImbue?.ExplosionEffects(Player);
 							}
 						}
 						return;
 					}
 
 					CurrentDash.Imbue?.LingeringEffects(Player);
-					if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second1))
+					if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && CurrentDash.SecondImbue is not null)
 					{
-						second1.LingeringEffects(Player);
+						CurrentDash.SecondImbue.LingeringEffects(Player);
 					}
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
@@ -416,7 +416,7 @@ namespace ArcaneOdyssey
 
 		public int CalculateDashDamage(NPC target)
 		{
-			var modifiers = new ModDamageHelper();
+			var modifiers = new ModDamageHelper(null);
 			if (CurrentDash.Imbue is not null)
 			{
 				modifiers = CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
@@ -425,16 +425,22 @@ namespace ArcaneOdyssey
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
 						modifiers.FinalDamage += CurrentDash.Imbue.AOScrollDamage.MultiToPercent();
+
+						if (CurrentDash.SecondImbue is not null)
+						{
+							modifiers.FinalDamage += CurrentDash.SecondImbue.AOScrollDamage.MultiToPercent();
+							modifiers = CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
+						}
 					}
 					else
 					{
 						modifiers.FinalDamage += CurrentDash.Imbue.AOImbueDamage.MultiToPercent();
-					}
 
-					if (CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
-					{
-						modifiers.FinalDamage += second.AOImbueDamage.MultiToPercent();
-						modifiers = CalculateImbueDamage(second, target, modifiers);
+						if (CurrentDash.SecondImbue is not null)
+						{
+							modifiers.FinalDamage += CurrentDash.SecondImbue.AOImbueDamage.MultiToPercent();
+							modifiers = CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
+						}
 					}
 				}
 			}
@@ -460,8 +466,8 @@ namespace ArcaneOdyssey
 						knockback += Imbue.AOImbueSize.MultiToPercent();
 					}
 
-					if (CurrentDash.source.CanHaveSecondImbue(CurrentDash.Imbue, out var second))
-						knockback += second.AOImbueSize.MultiToPercent();
+					if (CurrentDash.SecondImbue is not null)
+						knockback += CurrentDash.SecondImbue.AOImbueSize.MultiToPercent();
 				}
 			}
 			return knockback * CurrentDash.Knockback * extrakbmulti;

@@ -31,7 +31,6 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 				}
 				npc.HitNPC(50, Main.rand.NextBool().ToDirectionInt(), ModContent.GetInstance<AncientLightningMagic>(), damageType: DamageClass.Magic, damageVariation: true);
 			}
-
 			npc.DelBuff(buffIndex);
 			buffIndex--;
 		}
