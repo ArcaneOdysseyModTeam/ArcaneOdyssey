@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 	{
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveMagic => true;
+		public override bool CanHaveFS => true;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -22,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			if (Imbue is not null)
+			if (HasCorrectImbue)
 			{
 				player.GetJumpState<LeapAirStep>().Enable();
 			}
@@ -43,7 +44,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 		public override void ShowVisuals(Player player)
 		{
-			player.Imbue().LingeringEffects(player);
+			player.Imbue()?.LingeringEffects(player);
+			player.Imbue()?.Imbue?.LingeringEffects(player);
 		}
 
 		public override float GetDurationMultiplier(Player player) => player.Imbue().AOScrollSize * 2;
@@ -70,7 +72,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			{
 				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
 				for (int i = 0; i < 5; i++)
-					player.Imbue().ExplosionEffects(proj);
+				{
+					player.Imbue()?.ExplosionEffects(proj);
+					player.Imbue()?.Imbue?.ExplosionEffects(proj);
+				}
 
 
 				SoundEngine.PlaySound(player.Imbue().ImbueSound, proj.Center);

@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			if (Imbue is not null)
+			if (HasCorrectImbue)
 				player.ArcaneOdyssey()?.SetDash(new Reflex(Item));
 		}
 
@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			player.opacityForAnimation = 1f;
 		}
 
-		public override float DashSpeed => 6;
+		public override float DashSpeed => 12;
 
 		public override int DashMax => 30;
 

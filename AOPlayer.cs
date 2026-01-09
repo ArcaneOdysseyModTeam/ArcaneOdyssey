@@ -45,11 +45,14 @@ namespace ArcaneOdyssey
 				{
 					if (!(npc.CountsAsACritter || npc.friendly || Main.npcCatchable[npc.type]))
 					{
-						Player.ArcaneOdyssey()?.SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
-						if (npc.boss)
-							vanish.BarValue += damagedone / (npc.lifeMax / 5f) * FightingStyleBarred.BarMax;
-						else
-							vanish.BarValue += damagedone / (npc.lifeMax * 1f) * FightingStyleBarred.BarMax;
+						if (npc.boss || !AOUtils.BossAlive())
+						{
+							Player.ArcaneOdyssey()?.SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
+							if (npc.boss)
+								vanish.BarValue += damagedone / (npc.lifeMax / 10f) * FightingStyleBarred.BarMax;
+							else
+								vanish.BarValue += damagedone / (npc.lifeMax * 2f) * FightingStyleBarred.BarMax;
+						}
 					}
 				}
 				foreach (var buff in imbue.ImbueDebuffs)

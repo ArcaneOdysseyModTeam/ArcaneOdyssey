@@ -832,6 +832,21 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
+		public static bool HasTypeInInventory(this Player player, Type type, out Item item)
+		{
+			List<Item> no = [.. player.inventory, player.trashItem];
+			item = null;
+			no.RemoveAll(e => e.ModItem is null);
+			foreach (var items in no)
+			{
+				if (items.ModItem.GetType().Name == type.Name || items.ModItem.GetType().IsSubclassOf(type))
+				{
+					item = items;
+					return true;
+				}
+			}
+			return false;
+		}
 
 		public static Item PlayerItem(this Player player)
 		{

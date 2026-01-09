@@ -92,25 +92,6 @@ namespace ArcaneOdyssey
 		public virtual bool ExtraCheck(Player player) => true;
 
 		/// <summary>
-		/// Whether the dash is on cooldown
-		/// </summary>
-		/// <param name="dashType"></param>
-		/// <param name="player"></param>
-		/// <returns></returns>
-		public static bool OnCooldown(Type dashType, Player player)
-		{
-			var dash = Activator.CreateInstance(dashType) as DashSystem;
-			if (dash.DisplayedCooldownID != -1)
-			{
-				return player.ArcaneOdyssey().OnCooldown(dash.DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
-			}
-			if (dash.AnyDirection)
-				return (player.ArcaneOdyssey().OnCooldown(dashType.Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
-			else
-				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
-		}
-
-		/// <summary>
 		/// The speed of the dash per tick
 		/// </summary>
 		public abstract float DashSpeed { get; }

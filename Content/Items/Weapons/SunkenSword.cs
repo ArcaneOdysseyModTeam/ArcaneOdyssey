@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 	public class RisingTide(Entity source) : DashSystem(source)
 	{
 		
-		public override float DashSpeed => 15;
+		public override float DashSpeed => 23;
 		public override int DashMax => 60;
 		public override bool AnyDirection => false;
 		public override bool Immune => false;
@@ -105,7 +105,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class RisingTideCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(SunkenSword);
+		public override string ExtraIconTexture => typeof(SunkenSword).FullName.Replace('.', '/');
 	}
 }
 

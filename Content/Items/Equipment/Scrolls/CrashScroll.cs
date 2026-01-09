@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			if (Item.Imbue() is not null)
+			if (HasCorrectImbue)
 			{
 				player.ArcaneOdyssey()?.SetDash(new Crash(Item));
 			}
@@ -78,18 +78,18 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("Dash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>());
 			gore.Centre(player.MountedCenter + player.velocity);
-			player.ArcaneOdyssey()?.StartDash(new Smash(source), 2);
+			player.ArcaneOdyssey()?.StartDash(new Smash(source) { Imbue = Imbue, SecondImbue = SecondImbue }, 2);
 		}
 
 		public override void OnStart(Player player)
 		{
-			if (player.TryGetImbue(out Imbuable imbue))
+			if (Imbue is not null)
 			{
-				if (imbue is ThermoFist thermo)
+				if (Imbue is ThermoFist thermo)
 				{
 					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
 				}
-				if (imbue is SailorStyle sailor)
+				if (Imbue is SailorStyle sailor)
 				{
 					sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
 				}

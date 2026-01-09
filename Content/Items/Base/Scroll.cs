@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-			if (Imbue is not null)
+			if (HasCorrectImbue)
 			{
 				Item.color = Imbue.GetColor(Color.Transparent) with { A = (byte)(Imbue.GetColor(Color.Transparent).A * .75f) };
 			}
@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			Imbue = player.Imbue();
 			SecondImbue = Imbue?.Imbue;
-			if (Imbue is not null && Item.CanHaveImbue(Imbue))
+			if (HasCorrectImbue)
 			{
 				Item.color = Imbue.GetColor(Color.Transparent) with { A = (byte)(Imbue.GetColor(Color.Transparent).A * .75f) };
 			}
@@ -78,5 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		public override bool CanUseItem(Player player) => Imbue is not null;
+
+		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue);
 	}
 }

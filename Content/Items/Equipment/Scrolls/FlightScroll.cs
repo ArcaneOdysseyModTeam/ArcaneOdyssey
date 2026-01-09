@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
-			if (Imbue is not null)
+			if (HasCorrectImbue)
 			{
 				constantAscend *= Imbue.AOScrollSpeed;
 				ascentWhenRising *= Imbue.AOScrollSpeed;
@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
 		{
-			if (Imbue is not null)
+			if (HasCorrectImbue)
 			{
 				speed *= Imbue.AOScrollSpeed;
 				acceleration *= Imbue.AOScrollSpeed;
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void UpdateEquip(Player player)
 		{
-			if (Imbue is not null)
+			if (HasCorrectImbue)
 			{
 				player.noFallDmg = true;
 			}
@@ -65,12 +65,12 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override bool WingUpdate(Player player, bool inUse)
 		{
-			if (inUse && Imbue is not null)
+			if (inUse && HasCorrectImbue)
 			{
 				Imbue.LingeringEffects(player);
 			}
 
-			return base.WingUpdate(player, inUse);
+			return false;
 		}
 
 		public override void AddRecipes()

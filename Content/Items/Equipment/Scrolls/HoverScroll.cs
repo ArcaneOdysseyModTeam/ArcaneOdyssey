@@ -21,17 +21,17 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void UpdateEquip(Player player)
 		{
-			if (player.TryGetImbue(out var imbue) && imbue is AOMagic)
+			if (HasCorrectImbue)
 			{
 				player.carpet = true;
 				player.GetModPlayer<HoverPlayer>().hasHoverEquipped = true;
 				if (player.carpetTime > 0 && player.controlJump)
 				{
-					player.moveSpeed += imbue.AOScrollSpeed.MultiToPercent();
-					imbue.LingeringEffects(player);
+					player.moveSpeed += Imbue.AOScrollSpeed.MultiToPercent();
+					Imbue.LingeringEffects(player);
 				}
 				else
-					player.carpetTime = (player.carpetTime * imbue.AOScrollDamage).Round();
+					player.carpetTime = (player.carpetTime * Imbue.AOScrollDamage).Round();
 			}
 		}
 
