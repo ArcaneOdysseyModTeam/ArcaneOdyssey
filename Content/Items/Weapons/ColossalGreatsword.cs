@@ -29,35 +29,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			base.SetDefaults();
 			Item.width = 86;
-			Item.shootSpeed = 5 * AOSpeed;
+			Item.shootSpeed = 5;
 			Item.height = 86;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 			Item.shoot = ModContent.ProjectileType<ColossalCleave>();
 		}
 
-		/// <summary>
-		/// only shoots projectile on alt fire
-		/// </summary>
-		/// <param name="player">the FUCKING PLAYER</param>
-		/// <returns></returns>
-		public override bool AltFunctionUse(Player player)
-		{
-			return Imbue is not null && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<ColossalCleaveCooldown>());
-		}
+		public override bool AltFunctionUse(Player player) => Imbue is not null;
 
-		public override bool CanShoot(Player player) => player.AltUse();
-
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			player.ArcaneOdyssey().SetCooldown(new ColossalCleaveCooldown());
-			return true;
-		}
-	}
-
-	public class ColossalCleaveCooldown : DisplayedCooldown
-	{
-		public override int CooldownLength => 60 * 3;
-		public override string ExtraIconTexture => typeof(ColossalGreatsword).FullName.Replace('.', '/');
+		public override bool CanShoot(Player player) => player.AltUse() && player.ownedProjectileCounts[Item.shoot] < 1;
 	}
 }

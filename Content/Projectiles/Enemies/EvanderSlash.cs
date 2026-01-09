@@ -40,6 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 			if (++Projectile.frameCounter > 6)
 			{
+				Projectile.frameCounter = 0;
 				if (++Projectile.frame >= Main.projFrames[Projectile.type])
 				{
 					Projectile.frame = 0;
