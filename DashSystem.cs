@@ -161,11 +161,11 @@ namespace ArcaneOdyssey
 				{
 					if (DashLeft >= CurrentDash.DashMax / 2f)
 					{
-						return DashLeft / (CurrentDash.DashMax / 2) - 1f;
+						return DashLeft / (CurrentDash.DashMax / 2f) - 1f;
 					}
 					else
 					{
-						return 1f - (DashLeft / (CurrentDash.DashMax / 2));
+						return 1f - (DashLeft / (CurrentDash.DashMax / 2f));
 					}
 				}
 				return 0f;

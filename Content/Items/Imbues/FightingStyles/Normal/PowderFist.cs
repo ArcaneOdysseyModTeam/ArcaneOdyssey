@@ -74,9 +74,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ash, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 4f)];
 				spawnedDust2.noGravity = true;
 			}
-			if (projectile is Projectile)
+			if (projectile is Projectile proj)
 			{
-				Projectile proj = Projectile.NewProjectileDirect(Main.projectile[projectile.whoAmI].GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, Main.projectile[projectile.whoAmI].owner, 0, Main.projectile[projectile.whoAmI].damage / 2f);
+				Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, proj.owner, 0, proj.damage / 2f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}

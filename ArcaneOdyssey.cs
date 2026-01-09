@@ -165,7 +165,7 @@ namespace ArcaneOdyssey
 				Chest chest = Main.chest[chestIndex];
 				if (chest != null)
 				{
-					if (Main.rand.NextBool(6000))
+					if (Main.rand.NextBool(100))
 					{
 						for (int i = 0; i < Chest.maxItems; i++)
 						{
