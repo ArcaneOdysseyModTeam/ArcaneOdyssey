@@ -163,7 +163,7 @@ namespace ArcaneOdyssey
 				npcLoot.Add(leadingConditionRule);
 			}
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
-			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 6000));
+			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 1000));
 			npcLoot.Add(AcrimonyCondition);
 		}
 	}
