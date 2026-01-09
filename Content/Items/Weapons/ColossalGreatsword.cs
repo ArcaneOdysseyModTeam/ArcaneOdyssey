@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			base.SetDefaults();
 			Item.width = 86;
-			Item.shootSpeed = 5;
+			Item.shootSpeed = 5 * AOSpeed;
 			Item.height = 86;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
@@ -51,8 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			player.ArcaneOdyssey().SetCooldown(new ColossalCleaveCooldown());
-			Projectile.NewProjectile(source, position, Vector2.UnitX * velocity.Length() * player.direction, type, damage, knockback, player.whoAmI);
-			return false;
+			return true;
 		}
 	}
 

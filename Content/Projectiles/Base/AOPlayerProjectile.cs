@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 		public AOPlayer aoPlayerOwner = null;
-		public bool IsSpellType => this is MagicSpell or StrengthTechnique or SpiritProjectile;
+
 		public float BaseScale
 		{
 			get
@@ -60,7 +60,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
-		public virtual float AODamage => 1f;
 
 		public virtual AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 60 * 5);
 		public virtual SoundStyle? DebuffApplySound => null;

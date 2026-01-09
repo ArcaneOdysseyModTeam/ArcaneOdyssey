@@ -9,11 +9,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class Astrapikis : SpiritProjectile
 	{
-		public override string Texture => typeof(ColossalCleave).FullName.Replace('.', '/');
+		public override string Texture => Mod.Name + "/Assets/BasicSlash";
 		public override float AOSize => .75f;
 		public override float AOSpeed => 0.1f;
 
-		public const int TimeLeftMax = 60;
+		public const int TimeLeftMax = 90;
 
 		public override void SetDefaults()
 		{

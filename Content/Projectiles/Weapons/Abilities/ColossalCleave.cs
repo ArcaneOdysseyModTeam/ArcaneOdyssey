@@ -13,10 +13,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public override float AOSpeed => .65f;
 		public override float AOSize => 1.2f;
-		public override float AODamage => 1.15f;
 		public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
 
-		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Main.projFrames[Type] = 3;
+		}
 
 		public override void SetDefaults()
 		{
@@ -25,28 +28,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.timeLeft = 60 * 3;
 			Projectile.friendly = true;
-			Projectile.height = 234;
-			Projectile.width = 74;
+			Projectile.height = Projectile.width = 234;
 			Projectile.knockBack = 4.5f;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			ProjectileID.Sets.TrailingMode[Type] = 0;
-		}
-
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
-			{
-				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				Color colour = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, Imbue is not null ? Color.Lerp(Imbue.GetColor(colour), colour, .5f) : colour, Projectile.rotation, Sprite.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-			}
-			return false;
 		}
 
 		public override void AI()
@@ -55,6 +38,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
+			}
+
+			if (++Projectile.frameCounter > 6)
+			{
+				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				{
+					Projectile.frame = 0;
+				}
 			}
 
 			if (++Projectile.localAI[0] >= 30 && !Main.dedServ)
@@ -69,7 +60,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 			if (Projectile.timeLeft <= 30)
 			{
-				Projectile.ai[1]++;
+				Projectile.ai[1] = 1;
 			}
 
 			if (Projectile.ai[1] != 0)
@@ -93,8 +84,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			Projectile.velocity = Vector2.Zero;
 			Projectile.timeLeft = 30;
-			Projectile.ai[1]++;
+			Projectile.ai[1] = 1;
+			Projectile.ai[2] = 1;
 			return false;
+		}
+
+		public override bool? CanDamage()
+		{
+			return Projectile.ai[2] == 0;
 		}
 	}
 }

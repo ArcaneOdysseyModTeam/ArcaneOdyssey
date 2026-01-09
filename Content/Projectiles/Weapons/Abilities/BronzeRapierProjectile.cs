@@ -13,7 +13,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override string Texture => typeof(BronzeRapier).FullName.Replace('.', '/');
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;
-		public override float AODamage => 1.05f;
 
 		public override void SetDefaults()
 		{

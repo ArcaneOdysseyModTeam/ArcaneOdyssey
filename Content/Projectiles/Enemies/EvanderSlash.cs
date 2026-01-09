@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -8,15 +9,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
 	public class EvanderSlash : ModProjectile
 	{
-		//public override float AOSpeed => .65f;
-		//public override float AOSize => 1.2f;
-		//public override float AODamage => 1.15f;
-		//public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
-
-		//public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
+		public override string Texture => typeof(ColossalCleave).FullName.Replace('.', '/');
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.penetrate = -1;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.damage = 25;
@@ -34,17 +31,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft < 30)
+			Projectile.localAI[0]++;
+			if (Projectile.ai[0] == 0)
 			{
-				Projectile.alpha = 255 / Projectile.timeLeft;
-				Projectile.ai[0] += .075f;
-			}
-			else
-			{
-				Projectile.rotation = Projectile.velocity.ToRotation();
+				Projectile.ai[0] = 1;
+				Projectile.netUpdate = true;
 			}
 
-			if (Projectile.timeLeft % 6 == 0)
+			if (++Projectile.frameCounter > 6)
 			{
 				if (++Projectile.frame >= Main.projFrames[Projectile.type])
 				{
@@ -52,17 +46,31 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				}
 			}
 
-			if (Projectile.localAI[0] > 20 && !Main.dedServ)
+			if (++Projectile.localAI[0] >= 30 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
 				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
-				for (int n = 0; n < 3; n++)
+				for (int n = 0; n < 10; n++)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.Center, 1, 1, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 255 / 2, default, 3f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 255 / 2, default, 3f)];
 					spawnedDust.noGravity = true;
 				}
 			}
-			Projectile.localAI[0]++;
+
+			if (Projectile.timeLeft <= 30)
+			{
+				Projectile.ai[1] = 1;
+			}
+
+			if (Projectile.ai[1] != 0)
+			{
+				Projectile.alpha += 255 / 30;
+				Projectile.ai[2] += .075f;
+			}
+			else
+			{
+				Projectile.rotation = Projectile.velocity.ToRotation();
+			}
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -72,21 +80,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			return true;
 		}
 
-		public override bool? CanDamage()
-		{
-			return Projectile.ai[0] < 1;
-		}
-
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Projectile.velocity = Vector2.Zero;
 			Projectile.timeLeft = 30;
-			Projectile.ai[0] = 1;
 			return false;
 		}
+
+		public override bool? CanDamage()
+		{
+			return Projectile.ai[2] < 1;
+		}
+
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
-			Projectile.ai[0] = 1;
+			Projectile.ai[2] = 1;
 		}
 	}
 }
