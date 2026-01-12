@@ -34,7 +34,7 @@ ExplosionScroll: {
 }
 
 PulsarScroll: {
-	DisplayName: Pulsar Spel
+	DisplayName: Pulsar Spell
 	Tooltip: Channels your magic into an unstable projectile
 }
 
