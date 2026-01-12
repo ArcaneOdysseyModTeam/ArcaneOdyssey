@@ -90,7 +90,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public int GetSkill(string skill, int fallback = ProjectileID.EnchantedBeam)
 		{
-			if (ModContent.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
+			if (Mod.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
 			{
 				return proj.Type;
 			}

@@ -53,8 +53,8 @@ namespace ArcaneOdyssey
 			if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0 || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
 				return;
 			Player player = Main.player[projectile.owner];
-			Vector2 dim = projectile.ArcaneOdyssey().OriginalDimensions.GetValueOrDefault(projectile.Size);
-			float mult = projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
+			Vector2 dim = OriginalDimensions.GetValueOrDefault(projectile.Size);
+			float mult = BaseScale.GetValueOrDefault(1f);
 			if (Imbue is not null)
 			{
 				mult += (BenifitsFromScrollStats.GetValueOrDefault() ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();

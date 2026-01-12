@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Main.projFrames[Projectile.type] = 4;
 		}
 
-		public override float AOSize => .5f;
+		public override float AOSize => .15f;
 
 		public override void SetDefaults()
 		{
@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center - (dir * 30f), dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, Projectile.damage, 4.5f * Imbue.AOScrollSize * Imbue.KBMulti * charge, Projectile.owner);
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, Projectile.damage, 4.5f * Imbue.AOScrollSize * Imbue.KBMulti * charge, Projectile.owner);
 					if (proj.ModProjectile is BlastSpell or BeamSpell)
 					{
 						proj.ArcaneOdyssey().BaseScale = charge / 2;
