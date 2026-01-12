@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -15,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float DashSpeed => 1.5f; // instant
 		public override float KBMulti => 1.25f;
-		public override SoundStyle? ImbueSound => SoundID.Dig;
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => Color.Gray;
 		public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.265f;
@@ -59,6 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.BubbleBurst_White, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, Color.DimGray, 4f)];
 				spawnedDust.noGravity = true;
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f);
 			}
 		}
 
@@ -66,6 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.BubbleBurst_White, 0f, 0f, 0, Color.DimGray, 1.5f)];
 			spawnedDust.noGravity = true;
+			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, 0f, 0f, 0, default, 0.75f);
 		}
 
 		public override void ExplosionEffects(Entity projectile)
@@ -74,6 +77,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.DimGray, 4f)];
 				spawnedDust.noGravity = true;
+				Dust.NewDust(projectile.Center, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize));
 			}
 		}
 
@@ -83,9 +87,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.BubbleBurst_White, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Color.DimGray, 4f)];
 				spawnedDust.noGravity = true;
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 1.2f);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
 
+		public override void AddRecipes()
+		{
+			CreateLostRecipe(typeof(LightningMagic), typeof(WindMagic));
+		}
 	}
 }

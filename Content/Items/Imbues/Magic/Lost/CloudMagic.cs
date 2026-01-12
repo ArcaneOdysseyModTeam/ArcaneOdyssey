@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -81,6 +82,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+		}
+
+		public override void AddRecipes()
+		{
+			CreateLostRecipe(typeof(WindMagic));
 		}
 	}
 }

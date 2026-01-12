@@ -4,7 +4,7 @@ FlightScroll: {
 }
 
 HoverScroll: {
-	DisplayName: Hover Scroll
+	DisplayName: Hover Spell
 	Tooltip: Channels your magic to hover in the air
 }
 
@@ -14,7 +14,7 @@ LeapScroll: {
 }
 
 BeamScroll: {
-	DisplayName: Beam Scroll
+	DisplayName: Beam Spell
 	Tooltip: Channels your magic into a beam
 }
 
@@ -24,32 +24,32 @@ BlastScroll: {
 }
 
 CannonScroll: {
-	DisplayName: Cannon Scroll
+	DisplayName: Cannon Spell
 	Tooltip: Channels your magic into a large basic projectile
 }
 
 ExplosionScroll: {
-	DisplayName: Explosion Scroll
+	DisplayName: Explosion Spell
 	Tooltip: Channels your magic into an explosion that you can direct
 }
 
 PulsarScroll: {
-	DisplayName: Pulsar Scroll
+	DisplayName: Pulsar Spel
 	Tooltip: Channels your magic into an unstable projectile
 }
 
 CrashScroll: {
-	DisplayName: Crash Scroll
+	DisplayName: Crash Technique
 	Tooltip: Channels your fighting style to dash, use {DASHBIND}
 }
 
 ShotScroll: {
-	DisplayName: Shot Scroll
+	DisplayName: Shot Technique
 	Tooltip: Channels your fighting style to shoot a quick air blast
 }
 
 SmashScroll: {
-	DisplayName: Smash Scroll
+	DisplayName: Smash Technique
 	Tooltip: Channels your fighting style to unleash a shockwave of air
 }
 

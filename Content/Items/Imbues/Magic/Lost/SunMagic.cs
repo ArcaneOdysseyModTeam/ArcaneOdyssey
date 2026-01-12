@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -9,6 +10,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => 1f;
 		public override float AOImbueSize => 1f;
 
-
+		public override void AddRecipes()
+		{
+			CreateLostRecipe(typeof(FireMagic), typeof(PlasmaMagic));
+		}
 	}
 }
