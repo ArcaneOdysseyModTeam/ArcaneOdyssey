@@ -16,7 +16,30 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
-		public AOPlayer aoPlayerOwner = null;
+
+		public AOPlayer AOPlayerOwner
+		{
+			get
+			{
+				return Owner?.ArcaneOdyssey();
+			}
+		}
+
+		public Player Owner
+		{
+			get
+			{
+				if (Projectile.owner != 255)
+				{
+					return Main.player[Projectile.owner];
+				}
+				return null;
+			}
+			//set
+			//{
+			//	Owner = value;
+			//}
+		}
 
 		public float BaseScale
 		{

@@ -20,7 +20,9 @@ namespace ArcaneOdyssey
 		public List<Cooldown> Cooldowns = [];
 
 		public int? gel = null;
-		public bool SoftFrozen => chargingSpell || Player.ownedProjectileCounts[ModContent.ProjectileType<Whirlwind>()] > 0;
+
+		public bool WhirlwindActive = false;
+		public bool SoftFrozen => chargingSpell || WhirlwindActive;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;

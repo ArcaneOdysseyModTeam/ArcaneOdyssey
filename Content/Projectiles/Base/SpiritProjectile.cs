@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+			Owner.MinionAttackTargetNPC = target.whoAmI;
 		}
 	}
 }

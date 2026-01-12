@@ -33,17 +33,16 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
-			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			var dir = Main.myPlayer == Projectile.owner ? aoPlayerOwner.Player.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
+			var dir = Main.myPlayer == Projectile.owner ? Owner.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
-				if (aoPlayerOwner.Player.channel)
+				if (Owner.channel)
 				{
 					charge = .75f;
 				}
-				aoPlayerOwner.Player.ChangeDir((dir.X > 0f).ToDirectionInt());
+				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
 
 			if (Imbue is RelicImbue)
@@ -56,28 +55,28 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Projectile.netUpdate = true;
 			}
 
-			if (aoPlayerOwner.Player.channel && !MarkedForDeath)
+			if (Owner.channel && !MarkedForDeath)
 			{
 				if (Projectile.ai[2] != 0)
 				{
-					aoPlayerOwner.chargingSpell = true;
-					aoPlayerOwner.Player.heldProj = Projectile.whoAmI;
-					aoPlayerOwner.Player.itemAnimation = aoPlayerOwner.Player.itemTime = 2;
-					aoPlayerOwner.Player.itemRotation = dir.ToRotation();
-					if (aoPlayerOwner.Player.direction != 1)
+					AOPlayerOwner.chargingSpell = true;
+					Owner.heldProj = Projectile.whoAmI;
+					Owner.itemAnimation = Owner.itemTime = 2;
+					Owner.itemRotation = dir.ToRotation();
+					if (Owner.direction != 1)
 					{
-						aoPlayerOwner.Player.itemRotation += MathHelper.Pi;
+						Owner.itemRotation += MathHelper.Pi;
 					}
 					if (Main.myPlayer == Projectile.owner)
 						charge += 1f / 60f;
 				}
 				Projectile.ai[2] = 1;
-				aoPlayerOwner.Player.ChangeDir((dir.X > 0f).ToDirectionInt());
+				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
-				Projectile.Center = aoPlayerOwner.Player.MountedCenter + (dir * 20f);
+				Projectile.Center = Owner.MountedCenter + (dir * 20f);
 				if (charge >= 3f)
 				{
-					aoPlayerOwner.Player.channel = false;
+					Owner.channel = false;
 					MarkedForDeath = true;
 				}
 			}

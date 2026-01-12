@@ -51,8 +51,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 		public override void AI()
 		{
 			Projectile.active = true;
-			Player player = Main.player[Projectile.owner];
-			var modPlayer = player.GetModPlayer<ThyPlayer>();
+			Player Owner = Main.player[Projectile.owner];
+			var modPlayer = Owner.GetModPlayer<ThyPlayer>();
 			if (modPlayer.elfPet)
 			{
 				Projectile.timeLeft = 2;
@@ -60,8 +60,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 			if (Projectile.ai[0] > 0)
 			{
 				wasThereABoss = false;
-				targetPosition = player.Center + new Vector2(player.direction * -38f, -30f);
-				if (Projectile.Center.X > player.Center.X)
+				targetPosition = Owner.Center + new Vector2(Owner.direction * -38f, -30f);
+				if (Projectile.Center.X > Owner.Center.X)
 				{
 					Projectile.spriteDirection = -1;
 				}
@@ -105,8 +105,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 			}
 			else
 			{
-				targetPosition = player.Center + new Vector2(player.direction * 60f, 7f);
-				Projectile.spriteDirection = player.direction;
+				targetPosition = Owner.Center + new Vector2(Owner.direction * 60f, 7f);
+				Projectile.spriteDirection = Owner.direction;
 				//Get frame
 				if (Projectile.frame < 4)
 				{

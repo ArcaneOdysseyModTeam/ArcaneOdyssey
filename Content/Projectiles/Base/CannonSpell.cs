@@ -30,7 +30,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.ai[2] = 1f;
 				Projectile.netUpdate = true;
 			}
-			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Animate();
 			Rotate();
 			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))

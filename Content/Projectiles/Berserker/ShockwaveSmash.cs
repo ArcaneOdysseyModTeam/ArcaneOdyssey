@@ -35,8 +35,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			{
 				Projectile.netUpdate = true;
 				Projectile.velocity.Normalize();
-				aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-				Projectile.Center = aoPlayerOwner.Player.Center + (Projectile.velocity * 30);
+				Projectile.Center = Owner.Center + (Projectile.velocity * 30);
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.ai[0] = 1;
 			}

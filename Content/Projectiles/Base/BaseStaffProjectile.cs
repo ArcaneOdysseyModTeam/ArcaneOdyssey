@@ -27,15 +27,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			aoPlayerOwner ??= player.ArcaneOdyssey();
-			player.heldProj = Projectile.whoAmI;
-			Projectile.Center = player.RotatedRelativePoint(player.MountedCenter, true);
+			Owner.heldProj = Projectile.whoAmI;
+			Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter, true);
 			Projectile.direction = 1;
 
 			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed.FlipFloat() ?? 1f);
-			Vector2 expectedDirection = player.SafeDirectionTo(Main.MouseWorld);
-			player.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
+			Vector2 expectedDirection = Owner.SafeDirectionTo(Main.MouseWorld);
+			Owner.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
 
 
 			if (Projectile.ai[0] == 0f)
@@ -44,17 +42,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.ai[0] = 1f;
 			}
 
-			if (player.dead || !player.channel)
+			if (Owner.dead || !Owner.channel)
 			{
 				Projectile.Kill();
-				player.reuseDelay = 2;
+				Owner.reuseDelay = 2;
 				return;
 			}
 
 			if (Projectile.ai[1] >= 600 || Projectile.ai[1] <= -600)
 			{
 				Projectile.ai[1] = 0f;
-				EffectBeforeSpin(player);
+				EffectBeforeSpin(Owner);
 			}
 
 			else
@@ -62,9 +60,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / (25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed ?? 1f)));
 			}
 
-			Projectile.rotation += MathHelper.TwoPi * 2f / spintime * player.direction;
-			player.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
-			player.itemTime = player.itemAnimation = 2;
+			Projectile.rotation += MathHelper.TwoPi * 2f / spintime * Owner.direction;
+			Owner.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
+			Owner.itemTime = Owner.itemAnimation = 2;
 		}
 
 		public virtual void EffectBeforeSpin(Player player) { }

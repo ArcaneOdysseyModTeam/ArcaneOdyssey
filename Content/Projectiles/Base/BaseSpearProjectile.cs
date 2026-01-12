@@ -62,9 +62,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				}
 			}
 
-			Player player = Main.player[Projectile.owner];
-			aoPlayerOwner ??= player.ArcaneOdyssey();
-			player.ChangeDir(Projectile.direction);
+			Owner.ChangeDir(Projectile.direction);
 
 			if (Projectile.ai[2] != 0) // throwing
 			{
@@ -78,11 +76,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 			else
 			{
-				player.heldProj = Projectile.whoAmI;
-				player.itemTime = player.itemAnimation;
-				Projectile.Center = player.Center + (Projectile.velocity * Projectile.ai[1]);
+				Owner.heldProj = Projectile.whoAmI;
+				Owner.itemTime = Owner.itemAnimation;
+				Projectile.Center = Owner.Center + (Projectile.velocity * Projectile.ai[1]);
 
-				if (player.itemAnimation < player.itemAnimationMax / 2)
+				if (Owner.itemAnimation < Owner.itemAnimationMax / 2)
 				{
 					Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
 					if (Projectile.localAI[0] == 0f)
@@ -98,10 +96,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				}
 
 				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
-				if (player.itemAnimation <= 2)
+				if (Owner.itemAnimation <= 2)
 				{
 					Projectile.Kill();
-					player.reuseDelay = 2;
+					Owner.reuseDelay = 2;
 				}
 			}
 		}

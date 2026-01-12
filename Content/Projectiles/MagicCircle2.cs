@@ -22,45 +22,43 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
-			Player player = Main.player[Projectile.owner];
-			aoPlayerOwner ??= player.ArcaneOdyssey();
 
 			if (Imbue is RelicImbue)
 			{
 				Imbue.LingeringEffects(Projectile);
 			}
 
-			Projectile.ai[0] += (player.channel || Main.mouseRight) && !player.dead && Imbue is not null ? 0 : 1;
+			Projectile.ai[0] += (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
-				aoPlayerOwner.chargingSpell = true;
-				aoPlayerOwner.myCircle = Projectile;
+				AOPlayerOwner.chargingSpell = true;
+				AOPlayerOwner.myCircle = Projectile;
 				if (Projectile.ai[1] != 2)
 				{
-					Projectile.Center = player.MountedCenter;
+					Projectile.Center = Owner.MountedCenter;
 				}
 				else
 				{
-					player.itemAnimation = player.itemTime = 2;
+					Owner.itemAnimation = Owner.itemTime = 2;
 					if (Main.myPlayer == Projectile.owner)
 					{
-						player.itemRotation = player.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
-						if (player.direction != 1)
+						Owner.itemRotation = Owner.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
+						if (Owner.direction != 1)
 						{
-							player.itemRotation += MathHelper.Pi;
+							Owner.itemRotation += MathHelper.Pi;
 						}
-						if (Vector2.Distance(Main.MouseWorld, player.position) < 400)
+						if (Vector2.Distance(Main.MouseWorld, Owner.position) < 400)
 						{
 							Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
 						}
 						else
-							Projectile.Center = Projectile.Center.MoveTowards(player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
+							Projectile.Center = Projectile.Center.MoveTowards(Owner.Center + Owner.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
 					}
 				}
 			}
 			else
 			{
-				aoPlayerOwner.chargingSpell = false;
+				AOPlayerOwner.chargingSpell = false;
 			}
 
 			if (Imbue is not null)
@@ -116,10 +114,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
-			if (aoPlayerOwner.myCircle is not null)
+			if (AOPlayerOwner.myCircle is not null)
 			{
-				aoPlayerOwner.myCircle = null;
-				Main.player[Projectile.owner].channel = false;
+				AOPlayerOwner.myCircle = null;
+				Owner.channel = false;
 			}
 		}
 	}

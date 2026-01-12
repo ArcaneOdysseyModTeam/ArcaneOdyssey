@@ -55,7 +55,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					Projectile.frame = 0;
 				}
 			}
-			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (!Main.dedServ)

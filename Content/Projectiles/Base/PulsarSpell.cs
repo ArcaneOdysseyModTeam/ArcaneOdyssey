@@ -26,7 +26,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-
 			if (Main.myPlayer == Projectile.owner && Imbue is not null)
 			{
 				if (Projectile.localAI[0] > 30)
@@ -45,7 +44,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.ai[2] = 1f;
 				Projectile.netUpdate = true;
 			}
-			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
 			Animate();
 			Rotate();
 			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))

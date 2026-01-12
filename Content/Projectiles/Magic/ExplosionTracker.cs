@@ -28,9 +28,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
-			Player player = Main.player[Projectile.owner];
-			player.direction = ((Main.MouseWorld - player.position).X > 0).ToDirectionInt();
-			AOPlayer playah = player.ArcaneOdyssey();
+			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
+			AOPlayer playah = Owner.ArcaneOdyssey();
 			if (charge < defaultMax && playah.myCircle is not null && playah.myCircle.ai[0] < 1)
 			{
 				if (Projectile.ai[1] == 0)
@@ -44,7 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				charge += 1 / 60f;
 				if (!isPlacedExplosion)
 				{
-					ensuredPosition = player.Center;
+					ensuredPosition = Owner.Center;
 				}
 			}
 			else
@@ -56,23 +55,23 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					charge = 1f;
 					Projectile.ai[1]++;
 				}
-				if (Vector2.Distance(player.Center, Main.MouseWorld) > 400)
+				if (Vector2.Distance(Owner.Center, Main.MouseWorld) > 400)
 				{
-					Projectile.Center = player.Center + player.Center.DirectionTo(Main.MouseWorld) * 400;
+					Projectile.Center = Owner.Center + Owner.Center.DirectionTo(Main.MouseWorld) * 400;
 					ensuredPosition = Projectile.Center;
 				}
-				player.channel = false;
+				Owner.channel = false;
 				if (playah.myCircle is not null && playah.myCircle.ArcaneOdyssey().Imbue.Name == Imbue.Name)
 				{
 					playah.myCircle.ai[0]++;
 					playah.myCircle = null;
 				}
-				player.itemAnimation = 0;
-				player.itemTime = 0;
-				player.reuseDelay = 60;
+				Owner.itemAnimation = 0;
+				Owner.itemTime = 0;
+				Owner.reuseDelay = 60;
 				if (!isPlacedExplosion)
 				{
-					ensuredPosition = player.Center;
+					ensuredPosition = Owner.Center;
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
