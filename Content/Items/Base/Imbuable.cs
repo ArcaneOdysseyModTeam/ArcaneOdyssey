@@ -22,6 +22,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
+
+		internal Dictionary<string, int> Skills = [];
+
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
@@ -67,6 +70,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOScrollSpeed => AOImbueSpeed <= 1f ? AOImbueSpeed + .1f : AOImbueSpeed - .1f;
 		public virtual float AOScrollSize => AOImbueSize <= 1f ? AOImbueSize + .1f : AOImbueSize - .1f;
 		public virtual float AOScrollDamage => AOImbueDamage <= 1f ? AOImbueDamage + .1f : AOImbueDamage - .1f;
+
+		/// <summary>
+		/// For magics, you may return any value
+		/// <para>For fighting stypes, Ancient is actually Lost Fighting Styles</para>
+		/// </summary>
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
 		public virtual AODebuffRequirement[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);
@@ -90,9 +98,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public int GetSkill(string skill, int fallback = ProjectileID.EnchantedBeam)
 		{
-			if (Mod.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
+			if (Skills.TryGetValue(skill, out var skillint))
 			{
-				return proj.Type;
+				return skillint;
+			}
+			else
+			{
+				if (Mod.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
+				{
+					Skills.Add(skill, proj.Type);
+					return proj.Type;
+				}
 			}
 			return fallback;
 		}

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.Content.Items.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -33,7 +34,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			aoPlayerOwner ??= Main.player[Projectile.owner].ArcaneOdyssey();
-			Imbue ??= aoPlayerOwner.Imbue;
 			var dir = Main.myPlayer == Projectile.owner ? aoPlayerOwner.Player.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
@@ -44,6 +44,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 					charge = .75f;
 				}
 				aoPlayerOwner.Player.ChangeDir((dir.X > 0f).ToDirectionInt());
+			}
+
+			if (Imbue is RelicImbue)
+			{
+				Imbue.LingeringEffects(Projectile);
 			}
 
 			if (Projectile.position != Projectile.oldPosition || Projectile.rotation != Projectile.oldRot[0])
@@ -137,11 +142,13 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Imbue is not null)
+			if (Imbue is AOMagic)
 			{
 				lightColor = Imbue.GetColor();
+				return base.PreDraw(ref lightColor);
 			}
-			return base.PreDraw(ref lightColor);
+			else
+				return false;
 		}
 	}
 }
