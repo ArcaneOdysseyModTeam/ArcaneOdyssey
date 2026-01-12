@@ -105,17 +105,22 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Imbue is not null)
+			if (Imbue is AOMagic)
 			{
 				lightColor = Imbue.GetColor();
+				return base.PreDraw(ref lightColor);
 			}
-			return base.PreDraw(ref lightColor);
+			else
+				return false;
 		}
 
 		public override void OnKill(int timeLeft)
 		{
-			aoPlayerOwner.myCircle = null;
-			Main.player[Projectile.owner].channel = false;
+			if (aoPlayerOwner.myCircle is not null)
+			{
+				aoPlayerOwner.myCircle = null;
+				Main.player[Projectile.owner].channel = false;
+			}
 		}
 	}
 }
