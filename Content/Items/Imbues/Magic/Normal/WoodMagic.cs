@@ -21,10 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 0.95f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				
-			],
+		public override SynergyEffects Effects => new([],
 			[
 				new(BuffID.OnFire,1.1f),
 				new(ModContent.BuffType<CharredEffect>(),1.1f),
@@ -36,6 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<SearedEffect>(),1.1f)
 			]
 			);
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -43,10 +41,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Pearlwood, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1.5f);
 			}
 		}
+
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Pearlwood, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1f);
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
