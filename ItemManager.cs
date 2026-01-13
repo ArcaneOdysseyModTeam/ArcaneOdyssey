@@ -202,7 +202,7 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (Imbue is null || !CanBeAffected)
 				return;
-			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture))
+			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
 				Vector2 dimensions = new(frame.Width, frame.Height);
 				Vector2 location = position + (dimensions * .25f);
@@ -214,7 +214,7 @@ namespace ArcaneOdyssey
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColor(fs.DisplayColor));
 				}
 
-				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
+				if (SecondImbue is not null && SecondImbue.Type != Imbue.Type && SecondImbue.Type != item.type && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
 				{
 					location.X -= texture2.Width() * .35f;
 

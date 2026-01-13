@@ -326,17 +326,17 @@ RandomWords: {
 }
 
 DamageClasses: {
-	Conjurer: conjurer
-	ConjurerNoSpeed: conjurer
-	Juggernaut: juggernaut
-	Knight: knight
-	KnightNoSpeed: knight
-	Oracle: oracle
-	Paladin: paladin
-	RangedConjurer: ranged conjurer
-	RangedKnight: ranged knight
-	RangedWarlord: ranged warlord
-	Warlock: warlock
-	Warlord: warlord
-	WarlordNoSpeed: warlord
+	Conjurer: conjurer damage
+	ConjurerNoSpeed: conjurer damage
+	Juggernaut: juggernaut damage
+	Knight: knight damage
+	KnightNoSpeed: knight damage
+	Oracle: oracle damage
+	Paladin: paladin damage
+	RangedConjurer: ranged conjurer damage
+	RangedKnight: ranged knight damage
+	RangedWarlord: ranged warlord damage
+	Warlock: warlock damage
+	Warlord: warlord damage
+	WarlordNoSpeed: warlord damage
 }

@@ -90,11 +90,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				{
 					SecondImbue?.ExplosionEffects(Projectile);
 				}
-				SoundEngine.PlaySound(Imbue.ImbueSound, ensuredPosition, null);
+				SoundEngine.PlaySound(Imbue?.ImbueSound, ensuredPosition, null);
 				Kill();
 			}
 			// Outline vfx
-			if (Main.myPlayer == Projectile.owner)
+			if (Main.myPlayer == Projectile.owner && Imbue is not null)
 			{
 				for (int n = 0; n < 360; n += 4)
 				{

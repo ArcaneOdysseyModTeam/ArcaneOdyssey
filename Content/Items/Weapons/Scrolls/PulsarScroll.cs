@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 60;
+			Item.damage = 40;
 			Item.DamageType = DamageClass.Magic;
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 50;
@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().Imbue);
+			AOMagic.CreateMagicCircle(Item, player, Imbue);
 			return false;
 		}
 	}

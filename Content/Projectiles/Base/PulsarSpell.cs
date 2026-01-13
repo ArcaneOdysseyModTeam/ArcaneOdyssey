@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					{
 						SecondImbue?.ExplosionEffects(Projectile);
 					}
-					AOUtils.SimulateAOE(130, 40, Projectile.Center, 0f, Projectile, DamageClass.Magic);
+					AOUtils.SimulateAOE(130, Projectile.damage, Projectile.Center, 0f, Projectile, DamageClass.Magic, false);
 				}
 				else
 				{
@@ -74,6 +74,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				}
 			}
 		}
+
+		public override bool? CanDamage() => false;
 
 		public virtual void Rotate()
 		{

@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.damage = 20;
 			Item.channel = true;
 			Item.mana = 30;
+			Item.knockBack = 0f;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
@@ -30,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, Item.ArcaneOdyssey().Imbue);
+			AOMagic.CreateMagicCircle(Item, player, Imbue);
 			return false;
 		}
 	}

@@ -68,9 +68,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void OnEnd(Player player)
 		{
 			player.opacityForAnimation = 1f;
+			player.velocity *= .75f;
 		}
 
-		public override float DashSpeed => 12;
+		public override float DashSpeed => 15;
 
 		public override int DashMax => 30;
 

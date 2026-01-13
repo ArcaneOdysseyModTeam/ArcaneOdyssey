@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
-
+			
 			if (Imbue is RelicImbue)
 			{
 				Imbue.LingeringEffects(Projectile);
@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, Projectile.damage, 4.5f * Imbue.AOScrollSize * Imbue.KBMulti * charge, Projectile.owner);
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, Projectile.damage, Projectile.knockBack * charge, Projectile.owner);
 					if (proj.ModProjectile is BlastSpell or BeamSpell)
 					{
 						proj.ArcaneOdyssey().BaseScale = charge / 2;
