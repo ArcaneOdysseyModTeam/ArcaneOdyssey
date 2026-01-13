@@ -23,6 +23,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
+		public virtual string ImbueUISprite => Texture;
+
 		internal Dictionary<string, int> Skills = [];
 
 		public override void SetStaticDefaults()
