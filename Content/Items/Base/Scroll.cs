@@ -68,7 +68,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			Imbue = player.Imbue();
+			if (Item.CanHaveImbue(player.Imbue()))
+			{
+				Imbue = player.Imbue();
+			}
+			else
+			{
+				Imbue = null;
+			}
 			SecondImbue = Imbue?.Imbue;
 			if (HasCorrectImbue)
 			{

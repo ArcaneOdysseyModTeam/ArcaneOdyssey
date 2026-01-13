@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -56,13 +57,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale * OriginalDir);
 			if (Projectile.timeLeft > MaxTime)
 			{
-				Owner.itemTime = Owner.itemAnimation = 5;
+				Owner.itemTime = Owner.itemAnimation = 2;
 				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? MathHelper.Pi : 0f);
 				AOPlayerOwner.WhirlwindActive = true;
 			}
 			else
 			{
-				Projectile.Opacity = Projectile.timeLeft / (float)MaxTime;
+				Projectile.Opacity = (Projectile.timeLeft - 1) / (float)MaxTime;
 				AOPlayerOwner.WhirlwindActive = false;
 			}
 		}
@@ -81,11 +82,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.oldRot[k], Sprite.Size() / 2, Projectile.scale, rotaitoneoffset, 0);
 			}
 			return false;
-		}
-
-		public override void OnKill(int timeLeft)
-		{
-			Owner.itemAnimation = Owner.itemTime = 0;
 		}
 	}
 

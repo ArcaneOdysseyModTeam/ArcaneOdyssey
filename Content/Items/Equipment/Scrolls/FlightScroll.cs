@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
@@ -65,9 +66,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override bool WingUpdate(Player player, bool inUse)
 		{
-			if (inUse && HasCorrectImbue)
+			if (inUse)
 			{
-				Imbue.LingeringEffects(player);
+				player.Imbue()?.LingeringEffects(player);
+				player.Imbue()?.Imbue?.LingeringEffects(player);
 			}
 
 			return false;
