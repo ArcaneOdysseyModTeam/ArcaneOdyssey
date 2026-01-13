@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var damage = (25 * (charge * (charge / 2)) * (isPlacedExplosion ? 1f : 1.2f)).Round();
+					var damage = 25 * (charge * (charge / 2)) * (isPlacedExplosion ? 1f : 1.2f);
 					AOUtils.SimulateAOE(size * 100, damage, ensuredPosition, Projectile.knockBack, Projectile, DamageClass.Magic);
 				}
 				for (int i = 0; i < 10 * charge * size; i++)

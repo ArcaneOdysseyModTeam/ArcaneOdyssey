@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Imbue.LingeringEffects(Projectile);
 			}
 
-			if (Projectile.position != Projectile.oldPosition || Projectile.rotation != Projectile.oldRot[0])
+			if (Projectile.position != Projectile.oldPosition)
 			{
 				Projectile.netUpdate = true;
 			}

@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					dust2.noGravity = true;
 					Imbue?.ExplosionEffects(Projectile);
 				}
-				AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
+				AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
 			}
 			return base.PreKill(timeLeft);
 		}

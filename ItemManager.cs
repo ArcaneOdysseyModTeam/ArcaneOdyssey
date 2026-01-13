@@ -654,12 +654,12 @@ namespace ArcaneOdyssey
 
 			if (Imbue is not null)
 			{
-				if (Imbue is PowderFist)
-				{
-					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, player.whoAmI, 0, item.damage / 2f);
-				}
 				modifiers = CalculateImbueDamage(Imbue, target, modifiers);
 				modifiers = CalculateImbueDamage(SecondImbue, target, modifiers);
+				if (Imbue is PowderFist)
+				{
+					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), modifiers.GetDamage(item.damage, false) / 2, 3f, player.whoAmI);
+				}
 			}
 		}
 	}

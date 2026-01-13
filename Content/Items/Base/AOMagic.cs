@@ -92,8 +92,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (item.ModItem is ExplosionScroll)
 				{
-					var proj = Projectile.NewProjectileDirect(player.GetSource_FromThis(), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
-					proj.ArcaneOdyssey().Imbue = magicToUse;
+					var proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
 					return proj;
 				}
 				else if (item.ModItem is BlastScroll)
@@ -140,6 +139,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					var proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
 					proj.rotation = MathHelper.PiOver2;
+					proj.netUpdate = true;
 					((MagicCircle1)proj.ModProjectile).MarkedForDeath = true;
 					return proj;
 				}

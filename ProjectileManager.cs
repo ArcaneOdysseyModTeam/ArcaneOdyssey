@@ -240,6 +240,7 @@ namespace ArcaneOdyssey
 					{
 						Imbue ??= relic;
 						SecondImbue ??= relic.Imbue;
+						Cold = relic.Cold;
 					}
 					else if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{

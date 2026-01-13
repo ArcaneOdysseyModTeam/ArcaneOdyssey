@@ -30,6 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				new(ModContent.BuffType<Crystallized>(),1.1f)
 			]
 		);
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -42,6 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				spawnedDust2.noGravity = true;
 			}
 		}
+
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Pixie, 0f, 0f, 0, default, 1.6f)];
@@ -51,6 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ash, 0f, 0f, 0, default, 2f)];
 			spawnedDust2.noGravity = true;
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -63,6 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				spawnedDust3.noGravity = true;
 			}
 		}
+
 		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)
@@ -76,10 +80,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			}
 			if (projectile is Projectile proj)
 			{
-				Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), 0, 3f, proj.owner, 0, proj.damage / 2f);
+				Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), proj.damage / 2, 3f, proj.owner);
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
 		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.ExplosivePowder, 15).Register();

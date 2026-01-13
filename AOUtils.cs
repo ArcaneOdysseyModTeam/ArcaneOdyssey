@@ -248,7 +248,7 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
-		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true)
 		{
 			if (source is null) return;
 			if (!source.active) return;
@@ -259,12 +259,20 @@ namespace ArcaneOdyssey
 				{
 					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
 					{
+						if (updatedamage)
+						{
+							damage *= imbue.AOScrollDamage;
+						}
 						range *= imbue.AOScrollSize;
 						knockback *= imbue.AOScrollSize;
 						if (source is Projectile projectile)
 						{
 							if (projectile.ArcaneOdyssey().SecondImbue is not null)
 							{
+								if (updatedamage)
+								{
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+								}
 								range *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
 								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
 							}
@@ -272,12 +280,20 @@ namespace ArcaneOdyssey
 					}
 					else
 					{
+						if (updatedamage)
+						{
+							damage *= imbue.AOImbueDamage;
+						}
 						range *= imbue.AOImbueSize;
 						knockback *= imbue.AOImbueSize;
 						if (source is Projectile projectile)
 						{
 							if (projectile.ArcaneOdyssey().SecondImbue is not null)
 							{
+								if (updatedamage)
+								{
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+								}
 								range *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
 								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
 							}
@@ -299,9 +315,9 @@ namespace ArcaneOdyssey
 							modifiers = CalculateImbueDamage(second, target, modifiers);
 						}
 					}
-					if (modifiers.GetDamage(damage.Round()) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
+					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
 					{
-						target.HitNPC(modifiers.GetDamage(damage.Round()), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
+						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
 						target.immune[player.whoAmI] = 20;
 					}
 				}

@@ -3,17 +3,16 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public class PowderExplosion : ModProjectile
+	public class PowderExplosion : AOPlayerProjectile
 	{
 		public override string Texture => Mod.Name + "/Backgrounds/Blank";
 		public bool hasExploded = false;
 		public override void SetDefaults()
 		{
-			Projectile.ai[0] = 0;
-			Projectile.damage = 0;
 			Projectile.height = Projectile.width = 100;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
@@ -25,22 +24,16 @@ namespace ArcaneOdyssey.Content.Projectiles
 		}
 		public override void AI()
 		{
-			Projectile.ai[0] += 1;
-			if (Projectile.ai[0] >= 60)
+			if (++Projectile.ai[0] >= 60)
 			{
 				if (!hasExploded)
 				{
-					float AOScrollSize = 1f;
-					Projectile.damage = (int)Projectile.ai[1];
-					SoundEngine.PlaySound(SoundID.Item14, Projectile.position, null);
-					for (int n = 0; n < 8; n++)
+					SoundEngine.PlaySound(SoundID.Item14, Projectile.Center, null);
+					for (int n = 0; n < 10; n++)
 					{
-						Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
-						spawnedDust.noGravity = true;
-						Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
-						spawnedDust2.noGravity = true;
-						Dust spawnedDust3 = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 4f)];
-						spawnedDust3.noGravity = true;
+						Imbue?.ExplosionEffects(Projectile);
+						Imbue?.ExplosionEffects(Projectile);
+						SecondImbue?.ExplosionEffects(Projectile);
 					}
 				}
 				hasExploded = true;
@@ -50,6 +43,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 			}
 		}
+
+		public override bool? CanDamage() => Projectile.ai[0] >= 60;
+
 		public override bool PreDraw(ref Color lightColor) => false;
 	}
 }
