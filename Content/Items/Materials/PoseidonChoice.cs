@@ -26,13 +26,12 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override void SetStaticDefaults()
 		{
-			ItemID.Sets.CanGetPrefixes[Type] = false;
-			ItemID.Sets.ItemNoGravity[Item.type] = true;
+			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
-			Texture2D texture = TextureAssets.Item[Item.type].Value;
+			Texture2D texture = TextureAssets.Item[Type].Value;
 			Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None);
 			return false;
 		}

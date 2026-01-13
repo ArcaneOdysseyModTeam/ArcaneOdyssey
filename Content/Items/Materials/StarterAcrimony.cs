@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = Item.height = 64;
+			Item.width = Item.height = 32;
 		}
 
 		public override LocalizedText DisplayName => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(Acrimony)}.DisplayName");
@@ -24,9 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
 			Lighting.AddLight(Item.Center, 3, 3, 3);
-			Texture2D texture = TextureAssets.Item[Item.type].Value;
-			Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None);
-			return false;
+			return true;
 		}
 	}
 }

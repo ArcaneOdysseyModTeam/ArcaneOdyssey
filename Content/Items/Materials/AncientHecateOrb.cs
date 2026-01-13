@@ -21,16 +21,14 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		}
 		public override void SetStaticDefaults()
 		{
-			ItemID.Sets.CanGetPrefixes[Type] = false;
-			ItemID.Sets.ShimmerTransformToItem[Type] = Type;
-			ItemID.Sets.ItemNoGravity[Item.type] = true;
+			base.SetStaticDefaults();
+			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
 			Lighting.AddLight(Item.Center, 2, 0, 2);
-			Texture2D texture = TextureAssets.Item[Item.type].Value;
-			Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None);
-			return false;
+			scale = .8f;
+			return true;
 		}
 	}
 }
