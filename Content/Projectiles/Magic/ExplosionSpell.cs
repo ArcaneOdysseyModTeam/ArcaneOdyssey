@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					Projectile.ai[1]++;
 				}
 				Projectile.position = AOPlayerOwner.myCircle.Center;
-				ensuredPosition = Projectile.position;
+				ensuredPosition = AOPlayerOwner.myCircle.Center;
 				charge += 1 / 60f;
 				if (!isPlacedExplosion)
 				{
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					charge = 1f;
 					Projectile.ai[1]++;
 				}
-				if (Vector2.Distance(Owner.Center, Main.MouseWorld) > 400)
+				if (Vector2.Distance(Owner.Center, Projectile.Center) > 400)
 				{
 					Projectile.Center = Owner.Center + Owner.Center.DirectionTo(Main.MouseWorld) * 400;
 					ensuredPosition = Projectile.Center;
