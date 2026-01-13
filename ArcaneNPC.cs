@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Vanity;
+﻿using System;
+using ArcaneOdyssey.Content.Items.Armour.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using Terraria;
@@ -23,6 +24,7 @@ namespace ArcaneOdyssey
 		public bool bleeding = false;
 		public bool heavyBleeding = false;
 		public bool scalding = false;
+		public bool vesuvianBurn = false;
 		public bool seared = false;
 		public bool elecToxins = false;
 		public bool phoenixDrain = false;
@@ -64,6 +66,7 @@ namespace ArcaneOdyssey
 				StunDuration = 1;
 			}
 			bleeding = false;
+			vesuvianBurn = false;
 			heavyBleeding = false;
 			scalding = false;
 			seared = false;
@@ -106,6 +109,13 @@ namespace ArcaneOdyssey
 					npc.lifeRegen -= 5 * lesserPhoenixDrain;
 				else
 					npc.lifeRegen -= 14;
+			}
+			if (vesuvianBurn)
+			{
+				int npcCurrentlife;
+				int npcMaxLife;
+				npc.GetLifeStats(out npcCurrentlife, out npcMaxLife);
+				npc.lifeRegen = -1*(int)MathF.Ceiling(npcCurrentlife * 0.2f);
 			}
 		}
 	}

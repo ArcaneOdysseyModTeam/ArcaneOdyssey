@@ -107,3 +107,8 @@ CloudyEffect: {
 	DisplayName: Cloudy Effect
 	Description: Clouds block your vision
 }
+
+VesuvianBurn: {
+	Description: You are covered in vesuvian magma, burning you severely
+	DisplayName: Vesuvian Burn
+}
