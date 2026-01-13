@@ -44,6 +44,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			burnCount += BurnStack(ModContent.BuffType<CharredEffect>());
 			burnCount += BurnStack(ModContent.BuffType<SearedEffect>());
 			burnCount += BurnStack(ModContent.BuffType<PhoenixHealing>());
+			burnCount += BurnStack(ModContent.BuffType<VesuvianBurn>());
 			return burnCount;
 		}
 	}
