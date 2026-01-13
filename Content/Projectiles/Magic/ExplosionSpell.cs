@@ -45,6 +45,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				if (!isPlacedExplosion)
 				{
 					ensuredPosition = Owner.Center;
+				} else
+				{
+					ensuredPosition = AOPlayerOwner.myCircle.Center;
 				}
 			}
 			else
