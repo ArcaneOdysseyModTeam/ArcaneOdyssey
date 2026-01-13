@@ -1,7 +1,10 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System.Drawing;
+using System.Security.Policy;
 using Terraria;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -31,8 +34,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				if (Projectile.localAI[0] > 30)
 				{
 					Projectile.localAI[0] = 0;
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity / 4, ModContent.ProjectileType<ExplosionSpell>(), 40, 0f, Projectile.owner, 1.3f);
-					proj.Center = Projectile.Center;
+					for (int i = 0; i < 30; i++)
+					{
+						Imbue?.ExplosionEffects(Projectile);
+					}
+					for (int i = 0; i < 15; i++)
+					{
+						SecondImbue?.ExplosionEffects(Projectile);
+					}
+					AOUtils.SimulateAOE(130, 40, Projectile.Center, 0f, Projectile, DamageClass.Magic);
 				}
 				else
 				{

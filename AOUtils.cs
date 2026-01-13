@@ -261,13 +261,27 @@ namespace ArcaneOdyssey
 					{
 						range *= imbue.AOScrollSize;
 						knockback *= imbue.AOScrollSize;
-						damage *= imbue.AOScrollDamage;
+						if (source is Projectile projectile)
+						{
+							if (projectile.ArcaneOdyssey().SecondImbue is not null)
+							{
+								range *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
+								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
+							}
+						}
 					}
 					else
 					{
 						range *= imbue.AOImbueSize;
 						knockback *= imbue.AOImbueSize;
-						damage *= imbue.AOImbueDamage;
+						if (source is Projectile projectile)
+						{
+							if (projectile.ArcaneOdyssey().SecondImbue is not null)
+							{
+								range *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+							}
+						}
 					}
 				}
 			}

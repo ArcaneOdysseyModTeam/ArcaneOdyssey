@@ -61,7 +61,7 @@ namespace ArcaneOdyssey
 		public string GetConditionDescription() => "";
 	}
 
-	public class HecateDropMultiHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
+	public class MultiDropHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
 	{
 		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
 		{

@@ -112,9 +112,7 @@ namespace ArcaneOdyssey
 			}
 			if (vesuvianBurn)
 			{
-				int npcCurrentlife;
-				int npcMaxLife;
-				npc.GetLifeStats(out npcCurrentlife, out npcMaxLife);
+				npc.GetLifeStats(out int npcCurrentlife, out _);
 				npc.lifeRegen = -1*(int)MathF.Ceiling(npcCurrentlife * 0.2f);
 			}
 		}
@@ -139,31 +137,31 @@ namespace ArcaneOdyssey
 			if (npc.type == NPCID.WallofFlesh)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.IsPreHardmode());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<PoseidonSpirit>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.CultistBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.HallowBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstDayEmpressKill());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<HecateShard>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<HecateShard>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.Plantera)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<PoseidonSpirit>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<PoseidonSpirit>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.MoonLordCore)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstMoonLordKill());
-				leadingConditionRule.OnSuccess(new HecateDropMultiHelper(ModContent.ItemType<AncientHecateOrb>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<AncientHecateOrb>()));
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.HeadlessHorseman)

@@ -216,11 +216,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionTracker or MagicCircle2);
+						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
 					}
 					else if (projectile.ModProjectile is AOPlayerProjectile)
 					{
-						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionTracker or MagicCircle2);
+						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
 					}
 				}
 			}

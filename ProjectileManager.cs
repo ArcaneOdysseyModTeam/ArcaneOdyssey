@@ -149,7 +149,7 @@ namespace ArcaneOdyssey
 			thisProjectile = projectile;
 			if (CanBeAffected && !Main.dedServ)
 			{
-				if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+				if (projectile.ModProjectile is not ExplosionSpell)
 				{
 					if (Imbue is not null && Imbue.PreEffects(projectile))
 					{
@@ -264,7 +264,7 @@ namespace ArcaneOdyssey
 					Imbue.Imbue = SteamImbue.Create(Imbue);
 				}
 
-				if (projectile.ModProjectile is not ExplosionSpell && projectile.ModProjectile is not ExplosionTracker)
+				if (projectile.ModProjectile is not ExplosionSpell)
 				{
 					if (Imbue is not null && Imbue.PreEffects(projectile))
 					{

@@ -15,14 +15,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useAnimation = Item.useTime = (ExplosionTracker.defaultMax - ExplosionTracker.defaultMin).Round();
+			Item.useAnimation = Item.useTime = (ExplosionSpell.defaultMax - ExplosionSpell.defaultMin).Round();
 			Item.damage = 50;
 			Item.reuseDelay = 60;
 			Item.channel = true;
 			Item.DamageType = DamageClass.Magic;
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 100;
-			Item.shoot = ModContent.ProjectileType<ExplosionTracker>();
+			Item.shoot = ModContent.ProjectileType<ExplosionSpell>();
 		}
 
 		public override void AddRecipes()
