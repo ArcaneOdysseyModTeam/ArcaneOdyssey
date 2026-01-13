@@ -42,13 +42,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Projectile.position = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;
 				charge += 1 / 60f;
-				if (!isPlacedExplosion)
-				{
-					ensuredPosition = Owner.Center;
-				} else
-				{
-					ensuredPosition = AOPlayerOwner.myCircle.Center;
-				}
+				//if (!isPlacedExplosion)
+				//{
+				//	ensuredPosition = Owner.Center;
+				//} else
+				//{
+				//	ensuredPosition = AOPlayerOwner.myCircle.Center;
+				//}
 			}
 			else
 			{
@@ -59,11 +59,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					charge = 1f;
 					Projectile.ai[1]++;
 				}
-				if (Vector2.Distance(Owner.Center, Projectile.Center) > 400)
-				{
-					Projectile.Center = Owner.Center + Owner.Center.DirectionTo(Main.MouseWorld) * 400;
-					ensuredPosition = Projectile.Center;
-				}
 				Owner.channel = false;
 				if (AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.Imbue().Name == Imbue.Name)
 				{
@@ -73,10 +68,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Owner.itemAnimation = 0;
 				Owner.itemTime = 0;
 				Owner.reuseDelay = 60;
-				if (!isPlacedExplosion)
-				{
-					ensuredPosition = Owner.Center;
-				}
+				//if (!isPlacedExplosion)
+				//{
+				//	ensuredPosition = Owner.Center;
+				//}
 				if (Main.myPlayer == Projectile.owner)
 				{
 					var damage = 25 * (charge * (charge / 2)) * (isPlacedExplosion ? 1f : 1.2f);
