@@ -56,10 +56,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 					}
 				}
 			}
-			else
-			{
-				AOPlayerOwner.chargingSpell = false;
-			}
 
 			if (Imbue is not null)
 			{

@@ -68,8 +68,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (TileTimer <= 0)
 			{
-				for (var i = 0; i < 10; i++)
-					Imbue?.KillEffects(Projectile);
+				Imbue?.KillEffects(Projectile);
 			}
 			if (TileTimer < 60 && TileTimer > 0)
 			{

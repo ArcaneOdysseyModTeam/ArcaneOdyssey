@@ -11,7 +11,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 	public class ExplosionSpell : MagicSpell
 	{
 		public override string Texture => Mod.Name + "/Backgrounds/Blank";
-		private bool wascharging;
 		public const float defaultMax = 3f;
 		public const float defaultMin = 0.6f;
 		public float charge = 1f;
@@ -52,8 +51,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			}
 			else
 			{
-				if (wascharging)
-					AOPlayerOwner.chargingSpell = false;
 				if (Projectile.ai[1] == 0)
 				{
 					charge = 1f;
@@ -74,7 +71,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				//}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var damage = 25 * (charge * (charge / 2)) * (isPlacedExplosion ? 1f : 1.2f);
+					var damage = 25 * (charge * (charge / 2)) * size;
 					AOUtils.SimulateAOE(size * 100, damage, ensuredPosition, Projectile.knockBack, Projectile, DamageClass.Magic);
 				}
 				for (int i = 0; i < 10 * charge * size; i++)

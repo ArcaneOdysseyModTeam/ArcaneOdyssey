@@ -5,7 +5,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Projectiles;
+using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {

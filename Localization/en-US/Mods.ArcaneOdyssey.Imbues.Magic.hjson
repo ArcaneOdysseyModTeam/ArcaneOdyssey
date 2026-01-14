@@ -118,7 +118,7 @@ Lost: {
 
 	ThreadMagic: {
 		DisplayName: Thread Magic
-		Tooltip: Allows the user to summon arachnoid webs that tangle opponents
+		Tooltip: Allows the user to summon arachnoid webs that tangle opponents with every strike
 	}
 }
 

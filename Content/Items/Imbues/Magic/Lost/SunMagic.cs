@@ -75,6 +75,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -85,6 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 		}
+
 		public override void KillEffects(Entity projectile)
 		{
 			for (int n = 0; n < 10; n++)

@@ -112,3 +112,8 @@ VesuvianBurn: {
 	Description: You are covered in vesuvian magma, burning you severely
 	DisplayName: Vesuvian Burn
 }
+
+Tangled: {
+	DisplayName: Tangled
+	Description: Mods.ArcaneOdyssey.Buffs.Tangled.Description
+}

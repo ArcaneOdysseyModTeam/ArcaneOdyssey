@@ -4,14 +4,12 @@ using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 
-namespace ArcaneOdyssey.Content.Projectiles
+namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 {
 	public class PowderExplosion : AOPlayerProjectile
 	{
 		public override string Texture => Mod.Name + "/Backgrounds/Blank";
-		public bool hasExploded = false;
 
 		public override void SetDefaults()
 		{
@@ -23,28 +21,24 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.DamageType = DamageClass.Melee;
-			hasExploded = false;
 		}
 
 		public override void AI()
 		{
 			if (++Projectile.ai[0] >= 60)
 			{
-				if (!hasExploded)
+				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center, null);
+				for (int n = 0; n < 10; n++)
 				{
-					SoundEngine.PlaySound(SoundID.Item14, Projectile.Center, null);
-					for (int n = 0; n < 10; n++)
-					{
-						Imbue?.ExplosionEffects(Projectile);
-						Imbue?.ExplosionEffects(Projectile);
-						SecondImbue?.ExplosionEffects(Projectile);
-					}
+					Imbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile);
+					SecondImbue?.ExplosionEffects(Projectile);
 				}
-				hasExploded = true;
-				if (Projectile.ai[0] >= 120)
+				if (Main.myPlayer == Projectile.owner)
 				{
 					Projectile.Kill();
 				}
+				
 			}
 		}
 

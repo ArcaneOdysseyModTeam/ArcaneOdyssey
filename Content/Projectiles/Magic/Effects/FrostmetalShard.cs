@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 {
 	public class FrostmetalShard : AOPlayerProjectile
 	{

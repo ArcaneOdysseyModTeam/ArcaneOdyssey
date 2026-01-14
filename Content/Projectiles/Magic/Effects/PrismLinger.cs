@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic.MagicEffects
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 {
 	public class PrismLinger : AOPlayerProjectile
 	{
