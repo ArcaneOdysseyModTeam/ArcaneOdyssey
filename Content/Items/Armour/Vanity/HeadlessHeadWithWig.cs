@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 		{
 			CreateRecipe().AddIngredient<HeadlessHead>().AddIngredient(ItemID.FamiliarWig).Register();
 		}
+
 		public override bool CanEquipAccessory(Player player, int slot, bool modded)
 		{
 			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);

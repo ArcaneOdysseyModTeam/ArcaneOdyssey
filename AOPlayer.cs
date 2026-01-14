@@ -88,7 +88,7 @@ namespace ArcaneOdyssey
 			if (!mediumCoreDeath)
 			{
 				List<Item> items = [
-						new Item(ModContent.ItemType<PoseidonChoice>()),
+						new Item(ModContent.ItemType<StarterPoseidon>()),
 						new Item(ModContent.ItemType<StarterAcrimony>())
 					];
 				return items;

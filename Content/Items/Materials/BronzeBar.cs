@@ -40,6 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			RecipeGroup.RegisterGroup("AnyGoldOre", goldgroup);
 			CreateRecipe(10).AddRecipeGroup(coppergroup, 4).AddRecipeGroup(goldgroup, 4).
 				AddIngredient(ItemID.TissueSample, 1).AddTile(TileID.Furnaces).Register();
+			CreateRecipe(10).AddRecipeGroup(coppergroup, 4).AddRecipeGroup(goldgroup, 4).
+				AddIngredient(ItemID.ShadowScale, 1).AddTile(TileID.Furnaces).Register();
 		}
 	}
 }

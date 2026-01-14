@@ -250,7 +250,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					if (!poseidonGroupNum.HasValue)
 					{
-						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<PoseidonChoice>(), ModContent.ItemType<PoseidonSpirit>());
+						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<StarterPoseidon>(), ModContent.ItemType<PoseidonSpirit>());
 						poseidonGroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
 					}
 					CreateRecipe().AddRecipeGroup(poseidonGroupNum.Value).DisableDecraft().Register();
@@ -269,11 +269,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 					.Register();
 
 				CreateRecipe()
-					.AddIngredient<PoseidonChoice>()
+					.AddIngredient<StarterPoseidon>()
 					.DisableDecraft()
 					.Register();
 
-				Recipe.Create(ModContent.ItemType<PoseidonChoice>())
+				Recipe.Create(ModContent.ItemType<StarterPoseidon>())
 					.AddIngredient(Type)
 					.AddRecipeGroup(acrimonygroup)
 					.DisableDecraft()

@@ -9,8 +9,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	[LegacyName("HecateOrb")]
-	public class PoseidonChoice : AOBaseItem
+	[LegacyName("HecateOrb", "PoseidonChoice")]
+	public class StarterPoseidon : AOBaseItem
 	{
 		public override AORarities AORarity => AORarities.Mythical;
 

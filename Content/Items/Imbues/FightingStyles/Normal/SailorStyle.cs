@@ -96,15 +96,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override void AddRecipes()
 		{
 			var rec = CreateRecipe().AddIngredient<BasicCombat>();
+			bool usecoral = true;
 			if (ExternalModSupport.HasCalamity)
 			{
+				usecoral = false;
 				rec.AddIngredient(ExternalModSupport.Calamity.Find<ModItem>("SeaRemains"), 5);
 			}
 			if (ExternalModSupport.HasThorium)
 			{
+				usecoral = false;
 				rec.AddIngredient(ExternalModSupport.Thorium.Find<ModItem>("DepthScale"), 5);
 			}
-			else
+			if (usecoral)
 			{
 				rec.AddIngredient(ItemID.Coral, 15);
 			}

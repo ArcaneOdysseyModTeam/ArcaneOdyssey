@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient(ItemID.Musket).AddIngredient<BronzeBar>(10).Register();
+			CreateRecipe().AddIngredient(ItemID.Musket).AddIngredient<BronzeBar>(10).AddTile(TileID.Anvils).Register();
 		}
 	}
 }
