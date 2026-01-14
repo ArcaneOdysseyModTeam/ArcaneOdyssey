@@ -113,7 +113,7 @@ Lost: {
 
 	SunMagic: {
 		DisplayName: Sun Magic
-		Tooltip: ""
+		Tooltip: Allows the user to command the fires of the sun, allowing them to manifest powerful solar flares
 	}
 
 	ThreadMagic: {
