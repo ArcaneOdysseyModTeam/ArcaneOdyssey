@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public static int TrueMaxTime => MaxTime * 2;
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
-		public override float AOSize => 1.25f;
+		public override float AOSize => 1.5f;
 
 		public override void SetStaticDefaults()
 		{
@@ -55,12 +55,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				RotationOrigin = Owner.MountedCenter;
 				OriginalDir = Owner.direction;
 			}
-			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed.FlipFloat() ?? 1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
+			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed ?? 1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
 			Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale * OriginalDir);
 			if (Projectile.timeLeft > MaxTime)
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
-				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? MathHelper.Pi : 0f);
+				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
 				AOPlayerOwner.WhirlwindActive = true;
 			}
 			else

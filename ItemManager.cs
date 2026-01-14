@@ -658,7 +658,7 @@ namespace ArcaneOdyssey
 				modifiers = CalculateImbueDamage(SecondImbue, target, modifiers);
 				if (Imbue is PowderFist)
 				{
-					Projectile.NewProjectile(item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), modifiers.GetDamage(item.damage, false) / 2, 3f, player.whoAmI);
+					Projectile.NewProjectile(item.GetSource_ItemUse(player), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), modifiers.GetDamage(item.damage, false) / 2, 3f, player.whoAmI);
 				}
 			}
 		}

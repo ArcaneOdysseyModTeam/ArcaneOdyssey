@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -11,6 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 	{
 		public override string Texture => Mod.Name + "/Backgrounds/Blank";
 		public bool hasExploded = false;
+
 		public override void SetDefaults()
 		{
 			Projectile.height = Projectile.width = 100;
@@ -20,8 +22,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
+			Projectile.DamageType = DamageClass.Melee;
 			hasExploded = false;
 		}
+
 		public override void AI()
 		{
 			if (++Projectile.ai[0] >= 60)

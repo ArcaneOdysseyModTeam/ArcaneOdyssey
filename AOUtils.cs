@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
@@ -346,16 +347,23 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Projectile projectile)
 		{
-			if (projectile is not null && projectile.active && (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
+			if (projectile is not null && projectile.active)
 			{
-				return (
-						projectile.DamageType.CountsAsClass(DamageClass.Melee)
-						|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
-						|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique
-					)
-					&& projectile.owner != 255
-					&& !projectile.hostile
-					&& !projectile.npcProj;
+				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2)
+				{
+					return true;
+				}
+				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
+				{
+					return (
+							projectile.DamageType.CountsAsClass(DamageClass.Melee)
+							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
+							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique
+						)
+						&& projectile.owner != 255
+						&& !projectile.hostile
+						&& !projectile.npcProj;
+				}
 			}
 			return false;
 		}
