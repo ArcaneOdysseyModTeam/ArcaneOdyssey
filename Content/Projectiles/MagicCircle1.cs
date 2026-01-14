@@ -30,6 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		}
 
 		internal bool MarkedForDeath = false;
+		internal bool originallyAltFire = false;
 
 		public override void AI()
 		{
@@ -92,6 +93,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 						proj.ArcaneOdyssey().BaseScale = charge / 2;
 						proj.damage = (Projectile.damage * (charge * charge)).Round();
 					}
+					if (proj.ModProjectile is PulsarSpell && originallyAltFire)
+					{
+						proj.ai[1] = 1;
+					}
 					proj.netUpdate = true;
 					Projectile.ai[1] = 1;
 				}
@@ -130,9 +135,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 			if (Projectile.frameCounter++ > 5)
 			{
-				Projectile.frame++;
 				Projectile.frameCounter = 0;
-				if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Projectile.type])
 				{
 					Projectile.frame = 0;
 				}
