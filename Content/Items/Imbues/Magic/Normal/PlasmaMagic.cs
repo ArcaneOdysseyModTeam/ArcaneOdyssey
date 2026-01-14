@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class PlasmaMagic : AOMagic
 	{
-		public override float DashSpeed => 1.2f; // burst
+		public override float DashSpeed => 1.5f; // instant
 		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(255, 100, 255, 255);
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOImbueSpeed => 1.125f;
 		public override float AOImbueSize => 0.948f;
 		public override float AOImbueDamage => 0.9f;
-		public override float AOScrollSpeed => 1.25f;
+		public override float AOScrollSpeed => 1.2f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 0.825f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.ShadowFlame, 60 * 10)];
