@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override Color ImbueColour => Color.ForestGreen;
+		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Poisoned, 60 * 10),];
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.2f;

@@ -78,7 +78,7 @@ Lost: {
 
 	PlantMagic: {
 		DisplayName: Plant Magic
-		Tooltip: ""
+		Tooltip: Allows the user to manifest plants, which hit hard and poison enemies
 	}
 
 	PoisonLightningMagic: {
@@ -98,7 +98,7 @@ Lost: {
 
 	SlashMagic: {
 		DisplayName: Slash Magic
-		Tooltip: ""
+		Tooltip: Allows the user to manifest razorlike blades which slash everything that gets in their way
 	}
 
 	SoundMagic: {
