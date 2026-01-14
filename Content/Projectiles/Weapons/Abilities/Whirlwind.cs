@@ -17,6 +17,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public static int TrueMaxTime => MaxTime * 2;
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
+		public override float AOSize => 1.25f;
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

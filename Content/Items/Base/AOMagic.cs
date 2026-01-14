@@ -126,6 +126,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					circleprojectile.rotation = player.SafeDirectionTo(Main.MouseWorld).ToRotation();
 					Vector2 circleVec = circleprojectile.rotation.ToRotationVector2() * 30f;
 					circleprojectile.position += circleVec;
+					((MagicCircle1)circleprojectile.ModProjectile).originallyAltFire = player.AltUse();
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Pulsar");
 					circleprojectile.ArcaneOdyssey().Imbue = magicToUse;
 					circleprojectile.ArcaneOdyssey().SecondImbue = magicToUse.Imbue;

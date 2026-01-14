@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System;
 using System.Drawing;
 using System.Security.Policy;
 using Terraria;
@@ -29,25 +30,31 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-			if (Main.myPlayer == Projectile.owner && Imbue is not null)
+			if (Projectile.ai[0] == 0)
 			{
-				if (Projectile.localAI[0] > 30)
+				Projectile.netUpdate = true;
+				Projectile.ai[0] = 1;
+			}
+			var frequency = Projectile.ai[1] == 0 ? 1f : 2f;
+			if (Imbue is not null)
+			{
+				Projectile.localAI[0] += Imbue.AOScrollSpeed * frequency;
+			}
+			if (SecondImbue is not null)
+			{
+				Projectile.localAI[0] += MathHelper.Clamp(SecondImbue.AOScrollSpeed.MultiToPercent() * frequency, 0, 3);
+			}
+			if (Projectile.localAI[0] >= 30)
+			{
+				Projectile.localAI[0] = 0;
+				for (int i = 0; i < 15; i++)
 				{
-					Projectile.localAI[0] = 0;
-					for (int i = 0; i < 30; i++)
-					{
-						Imbue?.ExplosionEffects(Projectile);
-					}
-					for (int i = 0; i < 15; i++)
-					{
-						SecondImbue?.ExplosionEffects(Projectile);
-					}
-					AOUtils.SimulateAOE(130, Projectile.damage, Projectile.Center, 0f, Projectile, DamageClass.Magic, false);
+					Imbue?.ExplosionEffects(Projectile);
+					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile);
 				}
-				else
-				{
-					Projectile.localAI[0] += Imbue.AOScrollSpeed;
-				}
+				if (Main.myPlayer == Projectile.owner)
+					AOUtils.SimulateAOE(130, Projectile.damage / frequency, Projectile.Center, 0f, Projectile, DamageClass.Magic, false);
 			}
 			if (Projectile.ai[2] == 0f)
 			{
