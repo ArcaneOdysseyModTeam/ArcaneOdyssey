@@ -48,5 +48,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			}
 			return true;
 		}
+
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+		{
+			if (player.ArcaneOdyssey().WhirlwindActive)
+				damage *= 0;
+		}
 	}
 }
