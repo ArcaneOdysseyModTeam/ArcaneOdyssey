@@ -222,6 +222,11 @@ Normal: {
 		DisplayName: Wood Magic
 		Tooltip: Allows the user to slam foes with solid wood and bark, becoming even stronger when exposed to heat
 	}
+
+	SunMagic: {
+		DisplayName: Sun Magic
+		Tooltip: ""
+	}
 }
 
 Developer: {
