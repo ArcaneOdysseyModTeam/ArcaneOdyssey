@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -14,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueSize => .8f;
 		public override Color ImbueColour => Color.White;
-
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override void LingeringEffects(Entity entity)
 		{
 			Dust.NewDust(entity.position, entity.width, entity.height, ModContent.DustType<SlashDust>());
