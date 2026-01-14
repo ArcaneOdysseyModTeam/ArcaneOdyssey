@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class SunMagic : AOMagic
 	{
+		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
