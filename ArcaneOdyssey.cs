@@ -139,7 +139,7 @@ namespace ArcaneOdyssey
 					int y = WorldGen.genRand.Next(top, bottom + 1);
 					if (Framing.GetTileSafely(x, y).TileType != tile)
 					{
-						WorldGen.PlaceObject(x, y, tile, false, 2, 0, -1, Utils.NextBool(WorldGen.genRand, 2) ? 1 : -1);
+						WorldGen.PlaceObject(x, y, tile, false, 2, 0, -1, WorldGen.genRand.NextBool(2) ? 1 : -1);
 					}
 					Tile tile1 = Framing.GetTileSafely(x, y); // maybe use later for something
 					success = tile1.TileType == tile;
@@ -167,7 +167,7 @@ namespace ArcaneOdyssey
 				Chest chest = Main.chest[chestIndex];
 				if (chest != null)
 				{
-					if (Main.rand.NextBool(100))
+					if (WorldGen.genRand.NextBool(100))
 					{
 						for (int i = 0; i < Chest.maxItems; i++)
 						{
@@ -182,19 +182,19 @@ namespace ArcaneOdyssey
 					int[] oldItems = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>(),];
 					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && !chest.IsLocked()) // cavern chests probably
 					{
-						if (Main.rand.Next(Enumerable.Range(0, oldItems.Length).ToArray()) != 0)
+						if (WorldGen.genRand.Next(Enumerable.Range(0, oldItems.Length).ToArray()) != 0)
 						{
 							for (int i = 0; i < Chest.maxItems; i++)
 							{
 								if (chest.item[i] != null && chest.item[i].IsAir)
 								{
-									chest.item[i].SetDefaults(Main.rand.Next(oldItems));
+									chest.item[i].SetDefaults(WorldGen.genRand.Next(oldItems));
 									break;
 								}
 							}
 						}
 
-						if (Main.rand.NextBool(10))
+						if (WorldGen.genRand.NextBool(10))
 						{
 							for (int i = 0; i < Chest.maxItems; i++)
 							{
@@ -215,7 +215,7 @@ namespace ArcaneOdyssey
 					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
 					{
 
-						if (Main.rand.NextBool(5))
+						if (WorldGen.genRand.NextBool(5))
 						{
 							for (int i = 0; i < Chest.maxItems; i++)
 							{
