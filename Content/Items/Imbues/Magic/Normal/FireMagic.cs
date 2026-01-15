@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			],
 			[
 				new(ModContent.BuffType<AOBleed>(),1.15f),
+				new(ModContent.BuffType<Singed>(), 1.1f),
 				new(ModContent.BuffType<CharredEffect>(),1.01f),
 				new(BuffID.Venom,1.05f),
 				new(ModContent.BuffType<Crystallized>(),0.85f),

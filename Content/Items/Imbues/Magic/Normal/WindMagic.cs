@@ -39,6 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<Crystallized>(),0.9f),
 				new(BuffID.OnFire,0.9f),
 				new(ModContent.BuffType<CharredEffect>(),1.125f),
+				new(ModContent.BuffType<Singed>(), .9f),
 				new(ModContent.BuffType<FreezingEffect>(),1.1f),
 				new(BuffID.Poisoned,0.9f),
 				new(ModContent.BuffType<SandyEffect>(),0.9f),

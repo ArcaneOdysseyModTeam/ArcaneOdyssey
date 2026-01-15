@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			[
 				new(BuffID.OnFire,1.1f),
 				new(ModContent.BuffType<CharredEffect>(),1.1f),
+				new(ModContent.BuffType<Singed>(), 1.1f),
 				new(BuffID.Venom,1.05f),
 				new(BuffID.OnFire3,1.05f),
 				new(ModContent.BuffType<SandyEffect>(),1.1f),

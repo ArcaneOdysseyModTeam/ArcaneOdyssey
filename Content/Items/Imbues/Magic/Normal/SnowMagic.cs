@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				BuffID.OnFire3,
 				BuffID.ShadowFlame,
 				ModContent.BuffType<AOScalding>(),
+				ModContent.BuffType<Singed>(),
 				ModContent.BuffType<SearedEffect>()
 			],
 			[
@@ -48,6 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(BuffID.OnFire3,0.9f),
 				new(BuffID.ShadowFlame,0.8f),
 				new(BuffID.Wet,1.1f),
+				new(ModContent.BuffType<Singed>(), 0.8f),
 				new(ModContent.BuffType<SearedEffect>(),0.8f)
 			]
 			);

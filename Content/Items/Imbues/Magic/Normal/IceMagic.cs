@@ -50,7 +50,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(BuffID.ShadowFlame, 0.8f),
 				new(ModContent.BuffType<SnowyEffect>(), 1.1f),
 				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),0.8f)
+				new(ModContent.BuffType<SearedEffect>(),0.8f),
+				new(ModContent.BuffType<Singed>(), 0.85f)
 			]
 			);
 		public override void SpawningEffects(Entity projectile)

@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollDamage => 0.875f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(), 60 * 10, 33)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()), new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()), new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>())];
+		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()), new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()), new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<Singed>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				BuffID.Wet,
@@ -34,12 +34,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				BuffID.OnFire3,
 				ModContent.BuffType<CharredEffect>(),
 				BuffID.ShadowFlame,
+				ModContent.BuffType<Singed>(),
 				ModContent.BuffType<AOScalding>()
 			],
 			[
 				new(ModContent.BuffType<AOBleed>(),1.1f),
 				new(BuffID.OnFire,1.02f),
 				new(BuffID.Venom,1.075f),
+				new(ModContent.BuffType<Singed>(), 1.2f),
 				new(BuffID.Slimed,1.075f),
 				new(BuffID.Oiled,1.075f),
 				new(BuffID.OnFire3,1.075f),

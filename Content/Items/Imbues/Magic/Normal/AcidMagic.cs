@@ -35,6 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(BuffID.OnFire3,1.05f),
 				new(BuffID.Poisoned,1.05f),
 				new(BuffID.ShadowFlame,1.1f),
+				new(ModContent.BuffType<Singed>(), 1.1f),
 				new(BuffID.Wet,0.9f),
 				new(BuffID.Oiled,1.05f),
 				new(ModContent.BuffType<Crystallized>(),0.9f),

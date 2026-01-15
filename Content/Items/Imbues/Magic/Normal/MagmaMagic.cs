@@ -43,6 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(BuffID.Venom, 1.1f), // venom acid
 				new(BuffID.Burning, 1.075f),
 				new(BuffID.Poisoned, 1.05f),
+				new(ModContent.BuffType<Singed>(), 1.1f),
 				new(BuffID.Slimed,1.075f),
 				new(BuffID.Oiled,1.075f),
 				new(ModContent.BuffType<FreezingEffect>(), .95f),

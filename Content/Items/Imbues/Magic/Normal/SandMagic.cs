@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(BuffID.OnFire3,1.075f),
 				new(BuffID.Wet,0.8f),
 				new(BuffID.Oiled,0.9f),
+				new(ModContent.BuffType<Singed>(), 1.1f),
 				new(ModContent.BuffType<AOScalding>(),1.125f)
 			]
 			);

@@ -41,6 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				BuffID.OnFire3,
 				BuffID.Venom,
 				BuffID.ShadowFlame,
+				ModContent.BuffType<Singed>(),
 				ModContent.BuffType<AOScalding>(),
 				ModContent.BuffType<AOPetrified>()
 			],
@@ -51,6 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				new(ModContent.BuffType<AOBleed>(),1.05f),
 				new(ModContent.BuffType<CharredEffect>(),0.9f),
 				new(BuffID.OnFire3,0.9f),
+				new(ModContent.BuffType<Singed>(), 0.8f),
 				new(BuffID.Venom,0.9f),
 				new(ModContent.BuffType<SearedEffect>(),0.85f),
 				new(BuffID.ShadowFlame,0.85f),
