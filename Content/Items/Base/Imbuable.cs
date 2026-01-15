@@ -261,7 +261,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (this is EaglePatrimony)
 			{
 				var acrimonygroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>()));
-				var anybasicgroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", new(() => Mod.CustomLocalization("AnyBasicImbue").Value, [.. BasicImbues]));
+				var anybasicgroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", new(() => Mod.CoolCustomLocalization("AnyBasicImbue", "Any Worthy Item").Value, [.. BasicImbues]));
 
 				Recipe.Create(ModContent.ItemType<PoseidonSpirit>())
 					.AddRecipeGroup(anybasicgroup)

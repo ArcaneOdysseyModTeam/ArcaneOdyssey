@@ -148,6 +148,12 @@ namespace ArcaneOdyssey
 		public static Imbuable Imbue(this Item item) => item?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this ModItem item) => item?.ArcaneOdyssey()?.Imbue;
 
+		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int alpha = 0, Color colour = default, float scale = 1f)
+		{
+			velocity ??= Vector2.Zero;
+			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, alpha, colour, scale);
+		}
+
 		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
 
 		public static int Round(this float num) => (int)Math.Round(num);
