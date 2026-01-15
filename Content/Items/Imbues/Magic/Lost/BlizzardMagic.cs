@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 255, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOImbueSpeed => 1.05f;
+		public override float AOImbueSpeed => .925f;
 		public override float AOImbueSize => 1.15f;
-		public override float AOImbueDamage => 1.1f;
+		public override float AOImbueDamage => 1f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SnowyEffect>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
 		public override SynergyEffects Effects => new(
