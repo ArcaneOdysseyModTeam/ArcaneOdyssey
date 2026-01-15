@@ -115,5 +115,10 @@ VesuvianBurn: {
 
 Tangled: {
 	DisplayName: Tangled
-	Description: Mods.ArcaneOdyssey.Buffs.Tangled.Description
+	Description: Sticky webs restrict your movement
+}
+
+Singed: {
+	DisplayName: Singed
+	Description: Layers of flame burn your flesh
 }

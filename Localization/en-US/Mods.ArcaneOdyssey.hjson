@@ -78,6 +78,11 @@ Configs: {
 			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
 			Tooltip: Toggles whether to show the rarity and type of items in their tooltips
 		}
+
+		MissingDebuffSprites: {
+			Label: "[i:ArcaneOdyssey/OilMagic] Add Missing Buff Sprites"
+			Tooltip: Some vanilla buffs are used by the mod but lack sprites, this toggle fixes that
+		}
 	}
 }
 

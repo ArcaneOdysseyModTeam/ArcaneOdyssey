@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void SpawningEffects(Entity entity)
 		{
-			for (float i = 0; i < 5, i++)
+			for (float i = 0; i < 5; i++)
 			{
 				Dust.NewDust(entity.position, entity.width, entity.height, ModContent.DustType<SlashDust>(), entity.velocity.X / 2, entity.velocity.Y / 2, Scale: .5f);
 			}
