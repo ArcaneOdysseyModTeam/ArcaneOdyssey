@@ -107,22 +107,22 @@ namespace ArcaneOdyssey.Content.Projectiles
 				float tempLightColorR = 0f;
 				float tempLightColorG = 0f;
 				float tempLightColorB = 0f;
-				if (Imbue.GetColor().R != 0f)
+				if (Imbue.GetColour().R != 0f)
 				{
-					tempLightColorR = 3f / Imbue.GetColor().R;
+					tempLightColorR = 3f / Imbue.GetColour().R;
 				}
-				if (Imbue.GetColor().G != 0f)
+				if (Imbue.GetColour().G != 0f)
 				{
-					tempLightColorG = 3f / Imbue.GetColor().G;
+					tempLightColorG = 3f / Imbue.GetColour().G;
 				}
-				if (Imbue.GetColor().B != 0f)
+				if (Imbue.GetColour().B != 0f)
 				{
-					tempLightColorB = 3f / Imbue.GetColor().B;
+					tempLightColorB = 3f / Imbue.GetColour().B;
 				}
 				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
 				if (Projectile.localAI[0]++ > 5)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColor(), 1f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColour(), 1f)];
 					spawnedDust.noGravity = true;
 					Projectile.localAI[0] = 0;
 				}
@@ -147,7 +147,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (Imbue is AOMagic)
 			{
-				lightColor = Imbue.GetColor();
+				lightColor = Imbue.GetColour();
 				return base.PreDraw(ref lightColor);
 			}
 			else

@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (HasCorrectImbue)
 			{
-				Item.color = Imbue.GetColor(Color.Transparent) with { A = (byte)(Imbue.GetColor(Color.Transparent).A * .75f) };
+				Item.color = Imbue.GetColour(Color.Transparent) with { A = (byte)(Imbue.GetColour(Color.Transparent).A * .75f) };
 			}
 			else Item.color = Color.Transparent;
 		}
@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			SecondImbue = Imbue?.Imbue;
 			if (HasCorrectImbue)
 			{
-				Item.color = Imbue.GetColor(Color.Transparent) with { A = (byte)(Imbue.GetColor(Color.Transparent).A * .75f) };
+				Item.color = Imbue.GetColour(Color.Transparent) with { A = (byte)(Imbue.GetColour(Color.Transparent).A * .75f) };
 			}
 			else Item.color = Color.Transparent;
 		}

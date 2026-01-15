@@ -60,7 +60,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (Imbue is not null)
 			{
-				lightColor = Color.Lerp(lightColor, Imbue.GetColor(lightColor), .5f);
+				lightColor = Color.Lerp(lightColor, Imbue.GetColour(lightColor), .5f);
 			}
 			return true;
 		}

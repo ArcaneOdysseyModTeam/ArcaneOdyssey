@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class KatanaSlash : AOPlayerProjectile
 	{
-		public Color color = default;
+		public Color Colour => Imbue?.GetColour(Color.Red) ?? Color.Red;
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
@@ -33,8 +33,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.netUpdate = true;
-				Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 300);
-				Projectile.rotation = MathHelper.Pi * 4 / Main.rand.Next(50);
+				var distance = 300f;
+				if (Imbue is not null)
+					distance *= Imbue.AOImbueSpeed;
+				Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, distance);
+				Projectile.rotation = MathHelper.TwoPi / Main.rand.NextFloat();
 				Projectile.ai[0] = 1;
 			}
 
@@ -55,8 +58,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override void PostDraw(Color lightColor)
 		{
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Color.Lerp(lightColor, color, .5f), Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .95f, SpriteEffects.None);
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), color, Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .90f, SpriteEffects.None);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Projectile.GetAlpha(Color.Lerp(lightColor, Colour, .5f)), Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .95f, SpriteEffects.None);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), Projectile.GetAlpha(Colour), Projectile.rotation, Projectile.GetDrawOriginCentre(), Projectile.scale * .90f, SpriteEffects.None);
 		}
 	}
 }

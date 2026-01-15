@@ -8,6 +8,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -191,7 +192,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return null;
 		}
 
-		public Color GetColor(Color? colour = null)
+		public Color GetColour(Color? colour = null)
 		{
 			if (this is FightingStyleBarred bar)
 			{
@@ -297,16 +298,16 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (!Main.keyState.IsKeyDown(Keys.LeftShift))
 			{
-				tooltips.Add(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", AOScrollDamage).Value));
-				tooltips.Add(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", AOScrollSpeed).Value));
-				tooltips.Add(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", AOScrollSize).Value));
+				tooltips.Add(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
 				tooltips.Add(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else
 			{
-				tooltips.Add(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", AOImbueDamage).Value));
-				tooltips.Add(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", AOImbueSpeed).Value));
-				tooltips.Add(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", AOImbueSize).Value));
+				tooltips.Add(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
 				tooltips.Add(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
 

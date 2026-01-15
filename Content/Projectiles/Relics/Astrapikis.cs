@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue.GetColor();
+			lightColor = Imbue.GetColour();
 			return base.PreDraw(ref lightColor);
 		}
 	}
