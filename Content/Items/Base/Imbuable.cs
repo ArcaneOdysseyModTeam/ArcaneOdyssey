@@ -70,9 +70,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOImbueSpeed => .9f;
 		public virtual float AOImbueSize => .9f;
 		public virtual float AOImbueDamage => .9f;
-		public virtual float AOScrollSpeed => AOImbueSpeed <= 1f ? AOImbueSpeed + (AOImbueSpeed * .1f) : AOImbueSpeed * AOImbueSpeed;
-		public virtual float AOScrollSize => AOImbueSize <= 1f ? AOImbueSize + (AOImbueSize * .1f) : AOImbueSize * AOImbueSize;
-		public virtual float AOScrollDamage => AOImbueDamage <= 1f ? AOImbueDamage + (AOImbueDamage * .1f) : AOImbueDamage * AOImbueDamage;
+		public virtual float AOScrollSpeed => AOImbueSpeed <= 1f ? AOImbueSpeed * 1.1f : AOImbueSpeed * AOImbueSpeed;
+		public virtual float AOScrollSize => AOImbueSize <= 1f ? AOImbueSize * 1.1f : AOImbueSize * AOImbueSize;
+		public virtual float AOScrollDamage => AOImbueDamage <= 1f ? AOImbueDamage * 1.1f : AOImbueDamage * AOImbueDamage;
 
 		/// <summary>
 		/// For magics, you may return any value

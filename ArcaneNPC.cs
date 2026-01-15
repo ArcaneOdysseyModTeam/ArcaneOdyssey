@@ -26,6 +26,7 @@ namespace ArcaneOdyssey
 		public bool scalding = false;
 		public bool vesuvianBurn = false;
 		public bool seared = false;
+		public bool singed = false;
 		public bool elecToxins = false;
 		public bool phoenixDrain = false;
 		public int lesserPhoenixDrain = 0;
@@ -69,6 +70,7 @@ namespace ArcaneOdyssey
 			vesuvianBurn = false;
 			heavyBleeding = false;
 			scalding = false;
+			singed = false;
 			seared = false;
 			elecToxins = false;
 			phoenixDrain = false;
@@ -98,6 +100,10 @@ namespace ArcaneOdyssey
 			if (seared)
 			{
 				npc.lifeRegen -= 15;
+			}
+			if (singed)
+			{
+				npc.lifeRegen -= 50;
 			}
 			if (elecToxins)
 			{

@@ -2,9 +2,6 @@
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Buffs.Base;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
