@@ -68,12 +68,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool ShowItemTypeTooltip => false;
 
-		public virtual float AOImbueSpeed => AOScrollSpeed <= 1f ? AOScrollSpeed * 1.1f : AOScrollSpeed * .85f;
-		public virtual float AOImbueSize => AOScrollSize <= 1f ? AOScrollSize * 1.1f : AOScrollSize * .85f;
-		public virtual float AOImbueDamage => AOScrollDamage <= 1f ? AOScrollDamage * 1.1f : AOScrollDamage * .85f;
-		public virtual float AOScrollSpeed => AOImbueSpeed <= 1f ? AOImbueSpeed * 1.1f : AOImbueSpeed * AOImbueSpeed;
-		public virtual float AOScrollSize => AOImbueSize <= 1f ? AOImbueSize * 1.1f : AOImbueSize * AOImbueSize;
-		public virtual float AOScrollDamage => AOImbueDamage <= 1f ? AOImbueDamage * 1.1f : AOImbueDamage * AOImbueDamage;
+		public virtual float AOImbueSpeed => MathF.Round(AOScrollSpeed <= 1f ? AOScrollSpeed * 1.1f : AOScrollSpeed * .85f, 3);
+		public virtual float AOImbueSize => MathF.Round(AOScrollSize <= 1f ? AOScrollSize * 1.1f : AOScrollSize * .85f, 3);
+		public virtual float AOImbueDamage => MathF.Round(AOScrollDamage <= 1f ? AOScrollDamage * 1.1f : AOScrollDamage * .85f, 3);
+		public virtual float AOScrollSpeed => MathF.Round(AOImbueSpeed <= 1f ? AOImbueSpeed * 1.1f : AOImbueSpeed * AOImbueSpeed, 3);
+		public virtual float AOScrollSize => MathF.Round(AOImbueSize <= 1f ? AOImbueSize * 1.1f : AOImbueSize * AOImbueSize, 3);
+		public virtual float AOScrollDamage => MathF.Round(AOImbueDamage <= 1f ? AOImbueDamage * 1.1f : AOImbueDamage * AOImbueDamage, 3);
 
 		/// <summary>
 		/// For magics, you may return any value
