@@ -233,7 +233,11 @@ namespace ArcaneOdyssey
 				DashLeft = dashToUse.DashMax;
 				dashToUse.OnStart(Player);
 				if (dashToUse.AnyDirection)
+				{
+					Player.StopExtraJumpInProgress();
+					Player.blockExtraJumps = true;
 					Player.velocity = DashVelocity;
+				}
 				dashing = true;
 				if (dashToUse.Immune)
 				{
@@ -352,12 +356,12 @@ namespace ArcaneOdyssey
 					if (CurrentDash.AnyDirection)
 					{
 						Player.velocity = DashVelocity;
+						Player.blockExtraJumps = true;
 					}
 					else if (FirstFrame)
 					{
 						Player.velocity += DashVelocity;
 					}
-					Player.ConsumeAllExtraJumps();
 					DashLeft--;
 				}
 			}
