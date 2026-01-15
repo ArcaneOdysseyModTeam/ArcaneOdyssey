@@ -13,6 +13,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
 		public override SoundStyle? ImbueSound => SoundID.Frog;
 		public override Color ImbueColour => new(0, 180, 0);
+		public override float AOImbueSpeed => 1f;
+		public override float AOImbueDamage => 1f;
+		public override float AOImbueSize => 1f;
 
 		public override void SpawningEffects(Entity projectile)
 		{

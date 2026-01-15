@@ -9,9 +9,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override string LocalizationCategory => base.LocalizationCategory + ".Relics";
 		public virtual int AOValue => 0;
 
-		public override float AOImbueDamage => 1f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueSpeed => 1f;
+		public override float AOImbueDamage => AOScrollDamage;
+		public override float AOImbueSize => AOScrollSize;
+		public override float AOImbueSpeed => AOScrollSpeed;
 		public override float AOScrollDamage => 1f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1f;
