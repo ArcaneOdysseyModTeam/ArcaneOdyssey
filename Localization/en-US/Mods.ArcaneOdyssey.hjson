@@ -21,6 +21,14 @@ ImbueStuff: {
 	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Only conducts Magic]"
 	StrengthIndicator: "[c/700013:Strength Weapon - Does not conduct Magic or Spirit Energy]"
 	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
+	ScrollDamage: Scroll Damage: {0}x
+	ScrollSpeed: Scroll Speed: {0}x
+	ScrollSize: Scroll Size: {0}x
+	StartShifting: Hold SHIFT to view Imbue stats
+	ImbueDamage: Imbue Damage: {0}x
+	ImbueSpeed: Imbue Speed: {0}x
+	ImbueSize: Imbue Size: {0}x
+	StopShifting: Stop holding SHIFT to view Scroll stats
 }
 
 Configs: {

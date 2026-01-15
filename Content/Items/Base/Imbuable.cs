@@ -1,8 +1,13 @@
-﻿using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -10,11 +15,7 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
 using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -294,6 +295,21 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			if (!Main.keyState.IsKeyDown(Keys.LeftShift))
+			{
+				tooltips.Add(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", AOScrollDamage).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", AOScrollSpeed).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", AOScrollSize).Value));
+				tooltips.Add(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
+			}
+			else
+			{
+				tooltips.Add(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", AOImbueDamage).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", AOImbueSpeed).Value));
+				tooltips.Add(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", AOImbueSize).Value));
+				tooltips.Add(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
+			}
+
 			if (this is not FrogMagic && ModifyTooltipsPrefix is not null)
 				tooltips.Add(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
