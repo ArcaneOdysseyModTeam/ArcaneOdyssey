@@ -467,7 +467,7 @@ namespace ArcaneOdyssey
 				{
 					return projectile.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
 				}
-				if (entity is Item item)
+				if (entity is Item item && item.ModItem is not Imbuable)
 				{
 					return item.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
 				}

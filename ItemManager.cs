@@ -190,6 +190,7 @@ namespace ArcaneOdyssey
 		{
 			var clone = (AOItem)base.Clone(from, to);
 			clone.Imbue = Imbue;
+			clone.SecondImbue = SecondImbue;
 			clone._cold = _cold;
 			clone._weaponsType = _weaponsType;
 			clone.thisItem = to;
