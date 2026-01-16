@@ -19,6 +19,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.White;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SoundStyle? ImbueSound => SoundID.Item71;
+		public override SynergyEffects Effects => new(
+			[ // these are debuffs cleared on hit
+				ModContent.BuffType<FreezingEffect>()
+			],
+			[
+				new(BuffID.Venom,1.05f),
+				new(ModContent.BuffType<Crystallized>(),1.05f),
+				new(ModContent.BuffType<FreezingEffect>(),1.02f),
+				new(BuffID.OnFire3,1.05f),
+				new(ModContent.BuffType<SandyEffect>(),1.1f)
+
+			]
+			);
 
 		public override void LingeringEffects(Entity entity)
 		{
