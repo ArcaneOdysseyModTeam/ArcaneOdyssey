@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Buffs.Base;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Helpers;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
@@ -45,6 +46,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			burnCount += BurnStack(ModContent.BuffType<SearedEffect>());
 			burnCount += BurnStack(ModContent.BuffType<PhoenixHealing>());
 			burnCount += BurnStack(ModContent.BuffType<VesuvianBurn>());
+			burnCount += BurnStack(ModContent.BuffType<ProminenceDebuff>());
 			return burnCount;
 		}
 	}
