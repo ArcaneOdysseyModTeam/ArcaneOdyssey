@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			{
 				Count++;
 				//if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .5f, 3f);
+				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
 			}
 			else
 			{
