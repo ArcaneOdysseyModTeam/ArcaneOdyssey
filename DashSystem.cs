@@ -189,6 +189,7 @@ namespace ArcaneOdyssey
 				Player.noFallDmg = true;
 				Player.timeSinceLastDashStarted = 0;
 				CurrentDash = dashToUse;
+				CurrentDashDir = direction;
 				CurrentDash.Imbue = imbue;
 				if (CurrentDash.source.TryGetSecondImbue(imbue, out var second))
 					CurrentDash.SecondImbue = second;
@@ -204,7 +205,7 @@ namespace ArcaneOdyssey
 					//standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
 					if (direction == 2 || direction == -2)
 					{
-						standard = Vector2.UnitY * (direction / 2f);
+						standard = Vector2.UnitY * (direction / 2f) * Player.gravDir;
 					}
 					DashVelocity = standard * dashToUse.DashSpeed * (imbueAffectsSpeed ? (Imbue is not null ? (CurrentDash.UseScrollImbueStats.HasValue ? (CurrentDash.UseScrollImbueStats.Value ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed) : 1f) : 1f) : 1f);
 				}
@@ -293,7 +294,7 @@ namespace ArcaneOdyssey
 		}
 
 		public const int DashBoxExtraBoost = 8;
-		public int CurrendDashDir;
+		public int CurrentDashDir;
 
 		public override void PreUpdateMovement()
 		{
@@ -330,9 +331,9 @@ namespace ArcaneOdyssey
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
-					Point upwardTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(DashDir.Value, -1f, 1f) * Player.width / 2 + 2, Player.gravDir * -Player.height / 2f + Player.gravDir * 2f)).ToTileCoordinates();
-					Point aheadTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(DashDir.Value, -1f, 1f) * Player.width / 2 + 2, 0f)).ToTileCoordinates();
-					if (WorldGen.SolidOrSlopedTile(upwardTilePoint.X, upwardTilePoint.Y) || WorldGen.SolidOrSlopedTile(aheadTilePoint.X, aheadTilePoint.Y))
+					Point upwardTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, Player.gravDir * -Player.height / 2f + Player.gravDir * 2f)).ToTileCoordinates();
+					Point aheadTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, 0f)).ToTileCoordinates();
+					if (WorldGen.SolidOrSlopedTile(upwardTilePoint.X, upwardTilePoint.Y) || WorldGen.SolidOrSlopedTile(aheadTilePoint.X, aheadTilePoint.Y) || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame && CurrentDash.AnyDirection))
 					{
 						DashLeft = 0;
 						Player.velocity /= 2f;
@@ -374,7 +375,7 @@ namespace ArcaneOdyssey
 					}
 					else if (FirstFrame)
 					{
-						Player.velocity = Vector2.Clamp(Player.velocity + DashVelocity, DashVelocity.SafeNormalize(Vector2.Zero) * (-MaxDashSpeed), DashVelocity.SafeNormalize(Vector2.Zero) * MaxDashSpeed);
+						Player.velocity = Vector2.Clamp(Player.velocity + DashVelocity, (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * (-MaxDashSpeed), (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * MaxDashSpeed);
 					}
 					DashLeft--;
 				}
