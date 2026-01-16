@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria;
 using Terraria.ModLoader;
