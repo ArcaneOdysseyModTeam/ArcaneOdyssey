@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.height = Projectile.width = 64;
 			Projectile.penetrate = -1;
 			Projectile.timeLeft = 3 * 60;
+			Projectile.ignoreWater = true;
 		}
 
 		public override void AI()
