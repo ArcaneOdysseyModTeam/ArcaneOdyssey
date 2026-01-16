@@ -20,7 +20,7 @@ namespace ArcaneOdyssey
 		{
 			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is PoisonMagic or PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
 			{
-				lightColor = projectile.GetAlpha(Color.DarkRed);
+				lightColor = projectile.GetAlpha(Color.Purple);
 			}
 
 			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is AshMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is AshMagic) && projectile.type == ProjectileID.SporeCloud)
