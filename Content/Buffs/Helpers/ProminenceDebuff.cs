@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
             if (counter > 120)
             {
                 counter = 0;
-                Projectile.NewProjectile(npc.GetSource_FromThis(),npc.position.X,npc.position.Y,(Main.rand.NextFloat()-0.5f)*5f,(Main.rand.NextFloat()-0.5f)*5f,ModContent.ProjectileType<ProminenceProjectile>(),20,0,-1);
+                Projectile.NewProjectile(npc.GetSource_FromThis(),npc.Center.X,npc.Center.Y,(Main.rand.NextFloat()-0.5f)*5f,(Main.rand.NextFloat()-0.5f)*5f,ModContent.ProjectileType<ProminenceProjectile>(),20,0,-1);
             }
             if (!Main.dedServ)
             {
