@@ -47,6 +47,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			burnCount += BurnStack(ModContent.BuffType<PhoenixHealing>());
 			burnCount += BurnStack(ModContent.BuffType<VesuvianBurn>());
 			burnCount += BurnStack(ModContent.BuffType<ProminenceDebuff>());
+			burnCount += BurnStack(ModContent.BuffType<Singed>());
 			return burnCount;
 		}
 	}
