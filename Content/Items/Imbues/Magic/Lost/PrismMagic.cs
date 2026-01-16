@@ -1,3 +1,4 @@
+using System;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
@@ -67,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				if (projectile.extraUpdates > 0)
 				{
-					Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[projectile.numUpdates % 3], 1.4f);
+					Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Math.Abs(projectile.numUpdates) % 3], 1.4f);
 					dust.noGravity = true;
 				}
 				else
