@@ -293,6 +293,7 @@ namespace ArcaneOdyssey
 		}
 
 		public const int DashBoxExtraBoost = 8;
+		public int CurrendDashDir;
 
 		public override void PreUpdateMovement()
 		{
@@ -329,7 +330,15 @@ namespace ArcaneOdyssey
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
-					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0 || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame && CurrentDash.AnyDirection))
+					Point upwardTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(DashDir.Value, -1f, 1f) * Player.width / 2 + 2, Player.gravDir * -Player.height / 2f + Player.gravDir * 2f)).ToTileCoordinates();
+					Point aheadTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(DashDir.Value, -1f, 1f) * Player.width / 2 + 2, 0f)).ToTileCoordinates();
+					if (WorldGen.SolidOrSlopedTile(upwardTilePoint.X, upwardTilePoint.Y) || WorldGen.SolidOrSlopedTile(aheadTilePoint.X, aheadTilePoint.Y))
+					{
+						DashLeft = 0;
+						Player.velocity /= 2f;
+					}
+
+					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0)
 					{
 						if (!Player.mount.Active)
 							Player.wingTime = storedWingTime;
@@ -376,7 +385,10 @@ namespace ArcaneOdyssey
 				dashing = false;
 			}
 			Player.eocDash = DashLeft;
+			DashStrikeCooldown--;
 		}
+
+		internal int DashStrikeCooldown = 0;
 
 		public void DashStrike()
 		{
@@ -385,8 +397,9 @@ namespace ArcaneOdyssey
 				var hitbox = new Rectangle((int)(Player.position.X + (Player.velocity.X * 0.5f) - (DashBoxExtraBoost / 2f)), (int)(Player.position.Y + (Player.velocity.Y * 0.5f) - (DashBoxExtraBoost / 2f)), Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost);
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
-					if (hitbox.Intersects(npc.getRect()) && (npc.noTileCollide || Player.CanHit(npc)))
+					if (DashStrikeCooldown <= 0 && hitbox.Intersects(npc.getRect()) && (npc.noTileCollide || Player.CanHit(npc)))
 					{
+						DashStrikeCooldown = 10;
 						collisions++;
 						if (CurrentDash.OnHit(Player, npc))
 						{
@@ -394,6 +407,9 @@ namespace ArcaneOdyssey
 							CurrentDash.SetCooldown(Player);
 							dashing = false;
 						}
+
+						if (CurrentDash.Immune)
+							Player.GiveImmuneTimeForCollisionAttack(12);
 
 						if (CurrentDash.Damage > 0)
 						{
