@@ -122,3 +122,8 @@ Singed: {
 	DisplayName: Singed
 	Description: Layers of flame burn your flesh
 }
+
+ProminenceDebuff: {
+	DisplayName: Prominence Debuff
+	Description: You are releasing solar flares
+}

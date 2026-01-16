@@ -237,6 +237,7 @@ Projectiles: {
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
 	Whirlwind.DisplayName: Whirlwind
+	ProminenceProjectile.DisplayName: Prominence Projectile
 }
 
 WeaponAbilities: {

@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using Terraria;
 using static ArcaneOdyssey.AOUtils;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
@@ -16,6 +17,10 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			{
 				stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				npc.ArcaneOdyssey().singedstacks = stack;
+			}
+			if(!Main.dedServ)
+			{
+				Dust newDust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
 			}
 		}
 

@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Buffs.Helpers;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -25,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.3f;
 		public override float AOScrollDamage => 1.2f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.OnFire3, 60 * 10)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<ProminenceDebuff>(), 60 * 10)];
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
