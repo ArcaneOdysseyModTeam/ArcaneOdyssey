@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 					waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)proj.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
 				}
 				Vector2 baseVec = new(0f, waveVal);
-				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.CrystalPulse, new Vector2(0f, 0f), 255, default, 1.2f);
+				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + (projectile.Size / 2f), DustID.CrystalPulse, new Vector2(0f, 0f), 255, default, 1.2f);
 				spawnedDust.noGravity = true;
 			}
 			Lighting.AddLight(projectile.position, 2, 1, 2);

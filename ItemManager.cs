@@ -491,7 +491,7 @@ namespace ArcaneOdyssey
 					if (item.CanHaveImbue(player.Imbue()))
 					{
 						Imbue = player.Imbue();
-						if (item.CanHaveSecondImbue(Imbue, out var second))
+						if (item.TryGetSecondImbue(Imbue, out var second))
 							SecondImbue = second;
 						else
 							SecondImbue = null;
@@ -515,7 +515,7 @@ namespace ArcaneOdyssey
 							imbueIndex = 0;
 						}
 						Imbue = options[imbueIndex];
-						if (item.CanHaveSecondImbue(Imbue, out var second))
+						if (item.TryGetSecondImbue(Imbue, out var second))
 							SecondImbue = second;
 						else
 							SecondImbue = null;
@@ -540,7 +540,7 @@ namespace ArcaneOdyssey
 					if (item.CanHaveImbue(player.Imbue()))
 					{
 						Imbue = player.Imbue();
-						if (item.CanHaveSecondImbue(Imbue, out var second))
+						if (item.TryGetSecondImbue(Imbue, out var second))
 							SecondImbue = second;
 						else
 							SecondImbue = null;
@@ -566,7 +566,7 @@ namespace ArcaneOdyssey
 				if (item.CanHaveImbue(player.Imbue()))
 				{
 					Imbue = player.Imbue();
-					if (item.CanHaveSecondImbue(Imbue, out var second))
+					if (item.TryGetSecondImbue(Imbue, out var second))
 						SecondImbue = second;
 					else
 						SecondImbue = null;

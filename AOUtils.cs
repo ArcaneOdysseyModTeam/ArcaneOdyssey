@@ -37,7 +37,7 @@ namespace ArcaneOdyssey
 						}
 					}
 
-					if (damageClass == DamageClass.Magic && imbue is AOMagic && item.CanHaveSecondImbue(imbue, out var second))
+					if (damageClass == DamageClass.Magic && imbue is AOMagic && item.TryGetSecondImbue(imbue, out var second))
 					{
 						if (second is RelicImbue)
 						{
@@ -45,7 +45,7 @@ namespace ArcaneOdyssey
 						}
 					}
 
-					if (damageClass == DamageClass.Melee && imbue is FightingStyle && item.CanHaveSecondImbue(imbue, out var second1))
+					if (damageClass == DamageClass.Melee && imbue is FightingStyle && item.TryGetSecondImbue(imbue, out var second1))
 					{
 						if (second1 is AOMagic)
 						{
@@ -439,40 +439,42 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-		public static bool CanHaveSecondImbue(this Entity entity, Imbuable imbue)
-		{
-			if (imbue?.Imbue is not null && imbue is not SteamImbue)
-			{
-				if (entity is Projectile projectile)
-				{
-					return projectile.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
-				}
-				if (entity is Item item)
-				{
-					return item.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
-				}
-				if (entity is Player)
-					return true;
-			}
-			return false;
-		}
-
-		public static bool CanHaveSecondImbue(this Entity entity, Imbuable imbue, out Imbuable secondimbue)
+		public static bool TryGetSecondImbue(this Entity entity, Imbuable imbue, out Imbuable secondimbue)
 		{
 			secondimbue = null;
-			if (imbue?.Imbue is not null && imbue is not SteamImbue)
+			if (imbue is not SteamImbue)
 			{
-				secondimbue = imbue.Imbue;
 				if (entity is Projectile projectile)
 				{
-					return projectile.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
+					if (projectile.ArcaneOdyssey()?.SecondImbue is not null)
+					{
+						secondimbue = projectile.ArcaneOdyssey()?.SecondImbue;
+						return true;
+					}
+					if (imbue?.Imbue is not null)
+					{
+						secondimbue = imbue.Imbue;
+						return projectile.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
+					}
 				}
 				if (entity is Item item && item.ModItem is not Imbuable)
 				{
-					return item.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
+					if (item.ArcaneOdyssey()?.SecondImbue is not null)
+					{
+						secondimbue = item.ArcaneOdyssey()?.SecondImbue;
+						return true;
+					}
+					if (imbue?.Imbue is not null)
+					{
+						secondimbue = imbue.Imbue;
+						return item.ArcaneOdyssey()?.BenifitsFromScrollStats.GetValueOrDefault() == true;
+					}
 				}
 				if (entity is Player)
+				{
+					secondimbue = imbue.Imbue;
 					return true;
+				}
 			}
 			return false;
 		}
@@ -570,7 +572,14 @@ namespace ArcaneOdyssey
 		public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
 		{
 			player?.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
-			npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
+			if (player is not null)
+			{
+				player.ApplyDamageToNPC(npc, damage, knockBack, hitDirection, crit, damageType, damageVariation);
+			}
+			else
+			{
+				npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
+			}
 		}
 
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player)

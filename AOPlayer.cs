@@ -33,6 +33,9 @@ namespace ArcaneOdyssey
 
 		public List<ImbueDebuffHelper> DebuffHelpers = [];
 
+		public float MaxRunSpeed => Math.Max(Player.accRunSpeed, Player.maxRunSpeed);
+		public float MaxDashSpeed => MaxRunSpeed * 2;
+
 		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
 			if (useplayerimbue)

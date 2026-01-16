@@ -111,26 +111,6 @@ namespace ArcaneOdyssey
 			return null;
 		}
 
-		public static void SetCalamityDash(string ID, Player player, bool force = false)
-		{
-			//if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
-			//{
-			//	if (calamity.TryFind("CalamityPlayer", out ModPlayer modPlayer))
-			//	{
-			//		foreach (ModPlayer pleyer in player.ModPlayers)
-			//		{
-			//			if (pleyer.GetType().Name == "CalamityPlayer")
-			//			{
-			//				var dashid = modPlayer.GetType().GetProperty("DashID");
-			//				if (force || (dashid.GetValue(pleyer) is not null && (string)dashid.GetValue(pleyer) == "Default Dash"))
-			//					dashid.SetValue(pleyer, ID);
-			//				return;
-			//			}
-			//		}
-			//	}
-			//}
-		}
-
 		private void AddFargosStuff()
 		{
 			if (HasFargos)

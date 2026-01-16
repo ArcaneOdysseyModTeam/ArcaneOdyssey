@@ -49,6 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				new(ModContent.BuffType<SearedEffect>(),0.8f)
 			]
 			);
+
 		public override void SpawningEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)
@@ -57,10 +58,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 			}
 		}
+
 		public override void LingeringEffects(Entity projectile)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Snow, 0f, 0f, 0, default, 1f)];
 		}
+
 		public override void ExplosionEffects(Entity projectile)
 		{
 			for (int n = 0; n < 3; n++)

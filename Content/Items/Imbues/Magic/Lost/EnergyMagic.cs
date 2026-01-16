@@ -46,8 +46,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void SpawningEffects(Entity projectile)
 		{
-			if (Main.dedServ)
-				return;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.IchorTorch, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1.2f);
@@ -56,8 +54,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void LingeringEffects(Entity projectile)
 		{// WAHT IS  THIS IM SO CONFUSED
-			if (Main.dedServ)
-				return;
 			if (projectile.velocity != Vector2.Zero)
 			{
 				float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
@@ -66,7 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 					waveVal = 10f * MathF.Abs(((float)(Main.GameUpdateCount + proj.numUpdates)) % 5 % 10f - 2.5f) - 12.5f;
 				}
 				Vector2 baseVec = new(0f, waveVal);
-				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + new Vector2(projectile.width / 2f, projectile.height / 2f), DustID.SolarFlare, new Vector2(0f, 0f), 255, Color.Yellow, 1.2f);
+				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + (projectile.Size / 2f), DustID.SolarFlare, new Vector2(0f, 0f), 255, Color.Yellow, 1.2f);
 				spawnedDust.noGravity = true;
 			}
 			Lighting.AddLight(projectile.position, 2, 0, 0);
@@ -75,8 +71,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Entity projectile)
 		{
-			if (Main.dedServ)
-				return;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Firework_Yellow, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Yellow, 2.3f);
@@ -86,8 +80,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void KillEffects(Entity projectile)
 		{
-			if (Main.dedServ)
-				return;
 			for (int n = 0; n < 10; n++)
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.IchorTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2.5f);

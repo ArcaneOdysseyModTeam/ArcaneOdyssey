@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
+using MonoMod.Cil;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -189,10 +190,9 @@ namespace ArcaneOdyssey
 				Player.timeSinceLastDashStarted = 0;
 				CurrentDash = dashToUse;
 				CurrentDash.Imbue = imbue;
-				if (CurrentDash.source.CanHaveSecondImbue(imbue, out var second))
+				if (CurrentDash.source.TryGetSecondImbue(imbue, out var second))
 					CurrentDash.SecondImbue = second;
 				collisions = 0;
-				ExternalModSupport.SetCalamityDash(dashToUse.Name, Player, dashToUse.AnyDirection);
 				if (dashToUse.AnyDirection && direction == 0)
 				{
 					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed * (imbueAffectsSpeed ? (Imbue is not null ? (CurrentDash.UseScrollImbueStats.HasValue ? (CurrentDash.UseScrollImbueStats.Value ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed) : 1f) : 1f) : 1f);
@@ -272,18 +272,27 @@ namespace ArcaneOdyssey
 			}
 			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind().JustPressed)
 			{
-				if (Player.controlRight || Player.direction == 1)
+				if (Player.controlRight && !Player.controlLeft)
 				{
 					DashDir = 1;
 				}
-				else if (Player.controlLeft || Player.direction == -1)
+				else if (Player.controlLeft && !Player.controlRight)
 				{
 					DashDir = -1;
 				}
-				else DashDir = Player.direction;
+				else
+				{
+					if (MathF.Abs(Player.velocity.X) > 0f)
+						DashDir = Player.velocity.X > 0f ? 1 : -1;
+					else
+						DashDir = Player.direction;
+				}
+				
 			}
 			else DashDir = null;
 		}
+
+		public const int DashBoxExtraBoost = 8;
 
 		public override void PreUpdateMovement()
 		{
@@ -291,8 +300,6 @@ namespace ArcaneOdyssey
 			dashing |= Player.solarDashing || Player.eocDash > 0;
 			dashing &= !(Immobile || SoftFrozen);
 			DashSystem[] dashes = [Dash, Dash2];
-			if (Dash2 is not null)
-				ExternalModSupport.SetCalamityDash(Dash2.Name, Player);
 			foreach (DashSystem dash in dashes)
 			{
 				if (dash is not null)
@@ -319,9 +326,6 @@ namespace ArcaneOdyssey
 			{
 				if (dashing)
 				{
-					ExternalModSupport.SetCalamityDash(CurrentDash.Name, Player, CurrentDash.AnyDirection);
-					Player.noFallDmg = true;
-
 					if (DashVelocity.X != 0)
 						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
 
@@ -355,12 +359,13 @@ namespace ArcaneOdyssey
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
 					{
+						Player.noFallDmg = true;
 						Player.velocity = DashVelocity;
 						Player.blockExtraJumps = true;
 					}
 					else if (FirstFrame)
 					{
-						Player.velocity += DashVelocity;
+						Player.velocity = Vector2.Clamp(Player.velocity + DashVelocity, DashVelocity.SafeNormalize(Vector2.Zero) * (-MaxDashSpeed), DashVelocity.SafeNormalize(Vector2.Zero) * MaxDashSpeed);
 					}
 					DashLeft--;
 				}
@@ -375,24 +380,25 @@ namespace ArcaneOdyssey
 
 		public void DashStrike()
 		{
-			if (CurrentDash is not null && dashing)
+			if (Main.myPlayer == Player.whoAmI && CurrentDash is not null && dashing)
 			{
+				var hitbox = new Rectangle((int)(Player.position.X + (Player.velocity.X * 0.5f) - (DashBoxExtraBoost / 2f)), (int)(Player.position.Y + (Player.velocity.Y * 0.5f) - (DashBoxExtraBoost / 2f)), Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost);
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
-					if (npc.Hitbox.Intersects(Player.Hitbox))
+					if (hitbox.Intersects(npc.getRect()) && (npc.noTileCollide || Player.CanHit(npc)))
 					{
 						collisions++;
-						if ((!npc.friendly) && CurrentDash.OnHit(Player, npc))
+						if (CurrentDash.OnHit(Player, npc))
 						{
 							CurrentDash.OnEnd(Player);
 							CurrentDash.SetCooldown(Player);
 							dashing = false;
 						}
 
-						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI && !npc.friendly && npc.immune[Player.whoAmI] <= 0)
+						if (CurrentDash.Damage > 0)
 						{
-							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, false, CalculateDashKnockback(), CurrentDash.DamageType.Imbued(Imbue), true);
-							npc.immune[Player.whoAmI] = 5;
+							var damagetype = CurrentDash.DamageType.Imbued(Imbue);
+							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.Next(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);
 						}
 					}
 				}
@@ -402,7 +408,11 @@ namespace ArcaneOdyssey
 		public int CalculateDashDamage(NPC target)
 		{
 			var modifiers = new ModDamageHelper(null);
-			if (CurrentDash.Imbue is not null)
+			if (CurrentDash is null)
+				return 0;
+			modifiers.FinalDamage += Player.GetDamage(CurrentDash.DamageType).Additive.MultiToPercent();
+			modifiers.FinalDamage *= Player.GetDamage(CurrentDash.DamageType).Multiplicative;
+			if (CurrentDash?.Imbue is not null)
 			{
 				modifiers = CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
 				if (CurrentDash.UseScrollImbueStats.HasValue)
@@ -435,11 +445,12 @@ namespace ArcaneOdyssey
 
 		public float CalculateDashKnockback()
 		{
-			var knockback = 1f;
-			var extrakbmulti = 1f;
+			if (CurrentDash is null)
+				return 0;
+			var knockback = Player.GetKnockback(CurrentDash.DamageType);
 			if (Imbue is not null)
 			{
-				extrakbmulti = Imbue.KBMulti;
+				knockback *= Imbue.KBMulti;
 				if (CurrentDash.UseScrollImbueStats.HasValue)
 				{
 					if (CurrentDash.UseScrollImbueStats.Value)
@@ -455,7 +466,7 @@ namespace ArcaneOdyssey
 						knockback += CurrentDash.SecondImbue.AOImbueSize.MultiToPercent();
 				}
 			}
-			return knockback * CurrentDash.Knockback * extrakbmulti;
+			return knockback.ApplyTo(CurrentDash.Knockback);
 		}
 	}
 }

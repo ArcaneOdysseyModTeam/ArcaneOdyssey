@@ -253,7 +253,7 @@ namespace ArcaneOdyssey
 				else if (source is EntitySource_Parent { Entity: Player player })
 				{
 					Imbue ??= player.ArcaneOdyssey().Imbue;
-					if (player.CanHaveSecondImbue(Imbue, out var second))
+					if (player.TryGetSecondImbue(Imbue, out var second))
 						SecondImbue ??= second;
 				}
 
