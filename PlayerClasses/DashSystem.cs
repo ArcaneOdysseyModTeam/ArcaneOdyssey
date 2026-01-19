@@ -1,8 +1,5 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
-using MonoMod.Cil;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -228,20 +225,18 @@ namespace ArcaneOdyssey.PlayerClasses
 						}
 					}
 				}
-				Player.ConsumeAllExtraJumps();
 				DashLeft = dashToUse.DashMax;
 				dashToUse.OnStart(Player);
 				if (dashToUse.AnyDirection)
 				{
+					Player.ConsumeAllExtraJumps();
 					Player.StopExtraJumpInProgress();
 					Player.blockExtraJumps = true;
 					Player.velocity = DashVelocity;
 				}
+				else
+					Player.velocity = Vector2.Clamp(Player.velocity + DashVelocity, (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * (-MaxDashSpeed), (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * MaxDashSpeed);
 				dashing = true;
-				if (dashToUse.Immune)
-				{
-					Player.immuneTime = dashToUse.DashMax;
-				}
 			}
 		}
 
@@ -369,10 +364,6 @@ namespace ArcaneOdyssey.PlayerClasses
 						Player.noFallDmg = true;
 						Player.velocity = DashVelocity;
 						Player.blockExtraJumps = true;
-					}
-					else if (FirstFrame)
-					{
-						Player.velocity = Vector2.Clamp(Player.velocity + DashVelocity, (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * (-MaxDashSpeed), (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * MaxDashSpeed);
 					}
 					DashLeft--;
 				}

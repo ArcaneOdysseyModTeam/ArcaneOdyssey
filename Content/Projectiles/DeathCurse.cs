@@ -22,10 +22,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
-			offsett = null;
+			offset = null;
 		}
 
-		private float? offsett = null;
+		private float? offset = null;
 
 		public override void AI()
 		{
@@ -51,9 +51,9 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.localAI[0] > 50)
 			{
 				Projectile.velocity.Y += -23f / 30f;
-				if (!offsett.HasValue)
-					offsett = Main.rand.NextFloat() - 0.5f;
-				Projectile.velocity.X += offsett.Value * (13f / 15f);
+				if (!offset.HasValue)
+					offset = Main.rand.NextFloat() - 0.5f;
+				Projectile.velocity.X += offset.Value * (13f / 15f);
 			}
 			else
 			{

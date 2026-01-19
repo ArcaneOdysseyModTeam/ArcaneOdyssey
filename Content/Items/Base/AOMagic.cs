@@ -11,8 +11,6 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Mono.Cecil.Cil;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {

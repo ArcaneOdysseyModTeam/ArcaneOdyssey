@@ -4,7 +4,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {

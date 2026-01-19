@@ -1,6 +1,4 @@
 ﻿using Terraria;
-using Microsoft.Xna.Framework;
-using System;
 
 
 namespace ArcaneOdyssey.VFX.Dusts

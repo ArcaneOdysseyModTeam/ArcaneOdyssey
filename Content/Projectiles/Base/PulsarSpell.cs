@@ -1,11 +1,6 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Magic;
-using Microsoft.Xna.Framework;
-using System;
-using System.Drawing;
-using System.Security.Policy;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
