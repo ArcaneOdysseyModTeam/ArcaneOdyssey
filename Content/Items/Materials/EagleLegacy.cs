@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Materials
 {
 	[LegacyName("HecateOrb", "PoseidonChoice")]
-	public class StarterPoseidon : AOBaseItem
+	public class EagleLegacy : AOBaseItem
 	{
 		public override AORarities AORarity => AORarities.Mythical;
 
@@ -20,7 +20,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.width = Item.height = 64;
 		}
 
-		public override LocalizedText DisplayName => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.DisplayName");
 		public override LocalizedText Tooltip => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.Tooltip");
 		public override string Texture => (GetType().Namespace + "." + nameof(PoseidonSpirit)).Replace('.', '/');
 

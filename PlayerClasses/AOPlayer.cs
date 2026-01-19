@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			if (!mediumCoreDeath)
 			{
 				List<Item> items = [
-						new Item(ModContent.ItemType<StarterPoseidon>()),
+						new Item(ModContent.ItemType<EagleLegacy>()),
 						new Item(ModContent.ItemType<StarterAcrimony>())
 					];
 				return items;

@@ -179,7 +179,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static StatInheritanceData WarlordInheritance => new(1.1f, 1.2f, .8f, 1f, 1.4f);
+		public static StatInheritanceData WarlordInheritance => new(1.1f, 1.1f, 1f, 1f, 1.2f);
 		public static StatInheritanceData MostInheritance => QuickInheritance(.9f);
 		public static StatInheritanceData ThreeQuartersInheritance => QuickInheritance(.75f);
 		public static StatInheritanceData QuarterInheritance => QuickInheritance(.25f);

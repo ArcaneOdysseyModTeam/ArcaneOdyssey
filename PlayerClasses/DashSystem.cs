@@ -253,6 +253,7 @@ namespace ArcaneOdyssey.PlayerClasses
 				dashing = true;
 			}
 		}
+
 		public float MaxDashSpeed => CurrentDash.DashSpeed * 1.2f;
 
 		public void HandleDashDetection()

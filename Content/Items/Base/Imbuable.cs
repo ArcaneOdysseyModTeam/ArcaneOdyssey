@@ -208,7 +208,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <returns></returns>
 		public virtual bool PreEffects(Entity entity)
 		{
-			if ((entity.velocity.X < 2 && entity.velocity.X > -2 && entity.velocity.Y < 2 && entity.velocity.Y > -2) || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
+			if (Main.dedServ || (entity.velocity.X < 2 && entity.velocity.X > -2 && entity.velocity.Y < 2 && entity.velocity.Y > -2) || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
 			{
 				return false;
 			}
@@ -218,11 +218,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
 					}
 					else if (projectile.ModProjectile is AOPlayerProjectile)
 					{
-						return !Main.dedServ && projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
 					}
 				}
 			}
@@ -252,7 +252,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					if (!poseidonGroupNum.HasValue)
 					{
-						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<StarterPoseidon>(), ModContent.ItemType<PoseidonSpirit>());
+						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<EagleLegacy>(), ModContent.ItemType<PoseidonSpirit>());
 						poseidonGroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
 					}
 					CreateRecipe().AddRecipeGroup(poseidonGroupNum.Value).DisableDecraft().Register();
@@ -271,11 +271,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 					.Register();
 
 				CreateRecipe()
-					.AddIngredient<StarterPoseidon>()
+					.AddIngredient<EagleLegacy>()
 					.DisableDecraft()
 					.Register();
 
-				Recipe.Create(ModContent.ItemType<StarterPoseidon>())
+				Recipe.Create(ModContent.ItemType<EagleLegacy>())
 					.AddIngredient(Type)
 					.AddRecipeGroup(acrimonygroup)
 					.DisableDecraft()

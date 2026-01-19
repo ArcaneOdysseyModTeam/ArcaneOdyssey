@@ -107,7 +107,7 @@ HecateShard: {
 
 Paper: {
 	DisplayName: Paper
-	Tooltip: Organic parchment suitable for conducting non-standard energy
+	Tooltip: Organic parchment suitable for conducting mystic energy, but cannot store it
 }
 
 EvanderTrophy: {
@@ -123,4 +123,8 @@ PoseidonSpirit: {
 SunkenScrap: {
 	DisplayName: Sunken Scrap
 	Tooltip: ""
+}
+
+EagleLegacy: {
+	DisplayName: Eagle's Legacy
 }
