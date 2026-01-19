@@ -25,7 +25,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 			offsett = null;
 		}
 
-		private float offset = 0;
 		private float? offsett = null;
 
 		public override void AI()
