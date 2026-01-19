@@ -200,7 +200,18 @@ namespace ArcaneOdyssey.PlayerClasses
 					var standard = Vector2.UnitX * direction;
 					if (direction == 2 || direction == -2)
 					{
+						if (Math.Sign(Player.velocity.Y) * 2 != direction)
+						{
+							Player.velocity.Y /= 4;
+						}
 						standard = Vector2.UnitY * MathHelper.Clamp(direction, -1f, 1f) * Player.gravDir;
+					}
+					else
+					{
+						if (Math.Sign(Player.velocity.X) != direction)
+						{
+							Player.velocity.X = 0f;
+						}
 					}
 					DashVelocity = standard * dashToUse.DashSpeed;
 				}
