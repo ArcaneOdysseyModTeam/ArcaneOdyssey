@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using Terraria;

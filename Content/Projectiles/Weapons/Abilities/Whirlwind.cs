@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

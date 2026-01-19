@@ -9,9 +9,9 @@ namespace ArcaneOdyssey
 		public override LocalizedText DisplayName => Language.GetOrRegister(Mod.GetLocalizationKey($"DamageClasses.{Name}"), () => Mod.CustomLocalization($"DamageClasses.{Name}").Value);
 	}
 
-	public class Oracle : AODamageClass
+	public class OracleDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(Oracle).Name;
+		public static readonly string InternalName = typeof(OracleDamage).Name;
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{
@@ -183,7 +183,7 @@ namespace ArcaneOdyssey
 			{
 				return MostInheritance;
 			}
-			if (damageClass.Name == Oracle.InternalName)
+			if (damageClass.Name == OracleDamage.InternalName)
 			{
 				return QuarterInheritance;
 			}
@@ -207,7 +207,7 @@ namespace ArcaneOdyssey
 			{
 				return MostInheritance;
 			}
-			if (damageClass.Name == Oracle.InternalName)
+			if (damageClass.Name == OracleDamage.InternalName)
 			{
 				return QuarterInheritance;
 			}
@@ -231,7 +231,7 @@ namespace ArcaneOdyssey
 			{
 				return MostInheritance with { attackSpeedInheritance = 1f };
 			}
-			if (damageClass.Name == Oracle.InternalName)
+			if (damageClass.Name == OracleDamage.InternalName)
 			{
 				return QuarterInheritance with { attackSpeedInheritance = 1f };
 			}
@@ -262,7 +262,7 @@ namespace ArcaneOdyssey
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{
-			if (damageClass.Name == Oracle.InternalName)
+			if (damageClass.Name == OracleDamage.InternalName)
 			{
 				return HalfInheritance;
 			}

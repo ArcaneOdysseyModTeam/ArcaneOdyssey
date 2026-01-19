@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using Terraria.Audio;
+using ArcaneOdyssey.PlayerClasses;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {

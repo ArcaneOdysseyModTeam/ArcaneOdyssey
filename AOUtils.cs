@@ -13,6 +13,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using ArcaneOdyssey.PlayerClasses;
 
 namespace ArcaneOdyssey
 {
@@ -127,7 +128,7 @@ namespace ArcaneOdyssey
 				{
 					if (item.ModItem is RelicImbue)
 					{
-						return ModContent.GetInstance<Oracle>();
+						return ModContent.GetInstance<OracleDamage>();
 					}
 					if (item.ModItem is Scroll)
 					{
@@ -325,7 +326,6 @@ namespace ArcaneOdyssey
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
 					{
 						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
-						target.immune[player.whoAmI] = 20;
 					}
 				}
 			}
@@ -571,10 +571,17 @@ namespace ArcaneOdyssey
 
 		public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
 		{
+			if (npc.dontTakeDamage || npc.friendly)
+				return;
 			player?.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
 			if (player is not null)
 			{
-				player.ApplyDamageToNPC(npc, damage, knockBack, hitDirection, crit, damageType, damageVariation);
+				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
+					return;
+				if (npc.immune[player.whoAmI] > 0)
+					return;
+				if (npc.noTileCollide || player.CanHit(npc))
+					player.ApplyDamageToNPC(npc, damage, knockBack, hitDirection, crit, damageType, damageVariation);
 			}
 			else
 			{

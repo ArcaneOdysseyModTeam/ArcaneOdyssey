@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.PlayerClasses
 {
 	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{

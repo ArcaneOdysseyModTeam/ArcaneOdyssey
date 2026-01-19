@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = ModContent.GetInstance<Oracle>();
+			Projectile.DamageType = ModContent.GetInstance<OracleDamage>();
 			Projectile.friendly = true;
 		}
 

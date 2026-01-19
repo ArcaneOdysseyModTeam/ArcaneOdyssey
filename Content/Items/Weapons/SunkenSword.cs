@@ -8,6 +8,7 @@ using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using Terraria.ModLoader;
+using ArcaneOdyssey.PlayerClasses;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {

@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
+using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using Terraria;

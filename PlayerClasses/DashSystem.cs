@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.PlayerClasses
 {
 	public abstract class DashSystem(Entity source) : IImbuable
 	{
@@ -151,7 +151,7 @@ namespace ArcaneOdyssey
 		public Vector2 DashVelocity;
 		public bool dashing;
 		public int collisions;
-		private int? DashDir;
+		private int DashDir = 0;
 		private float storedWingTime;
 
 		public float DashLerp
@@ -205,30 +205,28 @@ namespace ArcaneOdyssey
 					//standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
 					if (direction == 2 || direction == -2)
 					{
-						standard = Vector2.UnitY * (direction / 2f) * Player.gravDir;
+						standard = Vector2.UnitY * MathHelper.Clamp(direction, -1f, 1f) * Player.gravDir;
 					}
-					DashVelocity = standard * dashToUse.DashSpeed * (imbueAffectsSpeed ? (Imbue is not null ? (CurrentDash.UseScrollImbueStats.HasValue ? (CurrentDash.UseScrollImbueStats.Value ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed) : 1f) : 1f) : 1f);
+					DashVelocity = standard * dashToUse.DashSpeed;
 				}
 				if (imbueAffectsSpeed && imbue is not null && CurrentDash.UseScrollImbueStats.HasValue)
 				{
-					float mult;
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
-						mult = imbue.AOScrollSpeed;
+						DashVelocity *= imbue.AOScrollSpeed;
 						if (CurrentDash.SecondImbue is not null)
 						{
-							mult += CurrentDash.SecondImbue.AOScrollSpeed.MultiToPercent();
+							DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed.MultiToPercent();
 						}
 					}
 					else
 					{
-						mult = imbue.AOImbueSpeed;
+						DashVelocity *= imbue.AOImbueSpeed;
 						if (CurrentDash.SecondImbue is not null)
 						{
-							mult += CurrentDash.SecondImbue.AOImbueSpeed.MultiToPercent();
+							DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed.MultiToPercent();
 						}
 					}
-					DashVelocity *= mult;
 				}
 				Player.ConsumeAllExtraJumps();
 				DashLeft = dashToUse.DashMax;
@@ -254,7 +252,7 @@ namespace ArcaneOdyssey
 				Dash = null;
 				Dash2 = null;
 				CurrentDash = null;
-				DashDir = null;
+				DashDir = 0;
 			}
 			if (Player.whoAmI == Main.myPlayer && ExternalModSupport.CanDoubleTapDash())
 			{
@@ -268,7 +266,7 @@ namespace ArcaneOdyssey
 				}
 				else
 				{
-					DashDir = null;
+					DashDir = 0;
 				}
 			}
 			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind().JustPressed)
@@ -283,14 +281,13 @@ namespace ArcaneOdyssey
 				}
 				else
 				{
-					if (MathF.Abs(Player.velocity.X) > 0f)
-						DashDir = Player.velocity.X > 0f ? 1 : -1;
-					else
+					if (MathF.Abs(Player.velocity.X) <= .01f)
 						DashDir = Player.direction;
+					else
+						DashDir = Math.Sign(Player.velocity.X);
 				}
-				
 			}
-			else DashDir = null;
+			else DashDir = 0;
 		}
 
 		public const int DashBoxExtraBoost = 8;
@@ -316,9 +313,9 @@ namespace ArcaneOdyssey
 						}
 						else if (!dash.AnyDirection)
 						{
-							if (DashDir.HasValue)
+							if (DashDir != 0)
 							{
-								StartDash(dash, DashDir.Value, Imbue, true);
+								StartDash(dash, DashDir, Imbue, true);
 							}
 						}
 					}
@@ -329,7 +326,7 @@ namespace ArcaneOdyssey
 				if (dashing)
 				{
 					if (DashVelocity.X != 0)
-						Player.direction = (DashVelocity.X > 0).ToDirectionInt();
+						Player.ChangeDir(Math.Sign(DashVelocity.X));
 
 					Point upwardTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, Player.gravDir * -Player.height / 2f + Player.gravDir * 2f)).ToTileCoordinates();
 					Point aheadTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, 0f)).ToTileCoordinates();

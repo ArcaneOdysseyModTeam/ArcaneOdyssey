@@ -2,13 +2,12 @@
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.PlayerClasses
 {
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
@@ -19,8 +18,6 @@ namespace ArcaneOdyssey
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 
-		public int? gel = null;
-
 		public bool WhirlwindActive = false;
 		public bool SoftFrozen => chargingSpell || WhirlwindActive;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
@@ -29,7 +26,6 @@ namespace ArcaneOdyssey
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
-		public int pheonixHealing;
 
 		public List<ImbueDebuffHelper> DebuffHelpers = [];
 
@@ -79,11 +75,6 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-		}
-
-		public override void NaturalLifeRegen(ref float regen)
-		{
-			regen *= 1f + (pheonixHealing / 5f);
 		}
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)

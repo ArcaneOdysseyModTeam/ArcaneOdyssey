@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			if (item.Imbue() is not AOMagic)
+			if (item.Imbue() is not AOMagic or RelicImbue)
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life += 5;
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (!(projectile.Imbue() is AOMagic or RelicImbue || (projectile.DamageType.CountsAsClass(DamageClass.Magic) && projectile.hostile)))
+			if (!(projectile.Imbue() is AOMagic or RelicImbue || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass<OracleDamage>()) && projectile.hostile)))
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life += 5;
