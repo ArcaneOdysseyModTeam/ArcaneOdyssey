@@ -92,6 +92,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class SeismicSlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + '/' + nameof(LionsHalberd);
+		public override string ExtraIconTexture => typeof(LionsHalberd).FullName.Replace('.', '/');
 	}
 }

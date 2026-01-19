@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void OnEnd(Player player)
 		{
 			projectile.Kill();
-			player.velocity *= .75f;
+			player.velocity *= .65f;
 		}
 
 		public override int DisplayedCooldownID => ModContent.BuffType<PiercingStrikesCooldown>();
@@ -81,6 +81,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 	public class PiercingStrikesCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetType().Namespace.Replace('.', '/') + $"/{nameof(BronzeRapierProjectile)}";
+		public override string ExtraIconTexture => typeof(BronzeRapier).FullName.Replace('.', '/');
 	}
 }
