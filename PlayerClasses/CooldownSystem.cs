@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				if (ModContent.RequestIfExists<Texture2D>(ExtraIconTexture, out var tex))
 				{
-					spriteBatch.Draw(tex.Value, drawParams.MouseRectangle with { Height = drawParams.MouseRectangle.Height - (drawParams.MouseRectangle.Height / 32 * 4), Width = drawParams.MouseRectangle.Width - (drawParams.MouseRectangle.Width / 32 * 4), X = drawParams.MouseRectangle.X + (drawParams.MouseRectangle.Width / 32 * 2), Y = drawParams.MouseRectangle.Y + (drawParams.MouseRectangle.Height / 32 * 2) }, drawParams.DrawColor);
+					spriteBatch.Draw(tex.Value, drawParams.MouseRectangle with { Height = (drawParams.MouseRectangle.Height - (drawParams.MouseRectangle.Height / 32f * 4f)).Round(), Width = (drawParams.MouseRectangle.Width - (drawParams.MouseRectangle.Width / 32f * 4f)).Round(), X = (drawParams.MouseRectangle.X + (drawParams.MouseRectangle.Width / 32f * 2f)).Round(), Y = (drawParams.MouseRectangle.Y + (drawParams.MouseRectangle.Height / 32f * 2f)).Round() }, drawParams.DrawColor);
 				}
 			}
 		}
