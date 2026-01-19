@@ -40,9 +40,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Magic+Melee damage class
 	/// </summary>
-	public class Conjurer : AODamageClass
+	public class ConjurerDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(Conjurer).Name;
+		public static readonly string InternalName = typeof(ConjurerDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -64,9 +64,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Magic+MeleeNoSpeed damage class
 	/// </summary>
-	public class ConjurerNoSpeed : AODamageClass
+	public class ConjurerNoSpeedDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(ConjurerNoSpeed).Name;
+		public static readonly string InternalName = typeof(ConjurerNoSpeedDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -88,9 +88,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Fighting Style+Melee damage class
 	/// </summary>
-	public class Warlord : AODamageClass
+	public class WarlordDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(Warlord).Name;
+		public static readonly string InternalName = typeof(WarlordDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -108,9 +108,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Fighting Style+MeleeNoSpeed damage class
 	/// </summary>
-	public class WarlordNoSpeed : AODamageClass
+	public class WarlordNoSpeedDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(WarlordNoSpeed).Name;
+		public static readonly string InternalName = typeof(WarlordNoSpeedDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -128,9 +128,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Magic+Ranged damage class
 	/// </summary>
-	public class RangedConjurer : AODamageClass
+	public class RangedConjurerDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(RangedConjurer).Name;
+		public static readonly string InternalName = typeof(RangedConjurerDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass == Ranged;
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -152,9 +152,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Spirit+Ranged damage class
 	/// </summary>
-	public class RangedWarlord : AODamageClass
+	public class RangedWarlordDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(RangedWarlord).Name;
+		public static readonly string InternalName = typeof(RangedWarlordDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass == Ranged;
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -172,9 +172,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Spirit+Ranged damage class
 	/// </summary>
-	public class RangedKnight : AODamageClass
+	public class RangedKnightDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(RangedKnight).Name;
+		public static readonly string InternalName = typeof(RangedKnightDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass == Ranged;
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -196,9 +196,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Spirit+Melee damage class
 	/// </summary>
-	public class Knight : AODamageClass
+	public class KnightDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(Knight).Name;
+		public static readonly string InternalName = typeof(KnightDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -220,9 +220,9 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Spirit+MeleeNoSpeed damage class
 	/// </summary>
-	public class KnightNoSpeed : AODamageClass
+	public class KnightNoSpeedDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(ConjurerNoSpeed).Name;
+		public static readonly string InternalName = typeof(ConjurerNoSpeedDamage).Name;
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -241,19 +241,19 @@ namespace ArcaneOdyssey
 		public override bool GetPrefixInheritance(DamageClass damageClass) => damageClass.CountsAsClass(MeleeNoSpeed);
 	}
 
-	public class Warlock : Conjurer
+	public class WarlockDamage : ConjurerDamage
 	{
-		public new static readonly string InternalName = typeof(Warlock).Name;
+		public new static readonly string InternalName = typeof(WarlockDamage).Name;
 	}
 
-	public class Juggernaut : Knight
+	public class JuggernautDamage : KnightDamage
 	{
-		public new static readonly string InternalName = typeof(Juggernaut).Name;
+		public new static readonly string InternalName = typeof(JuggernautDamage).Name;
 	}
 
-	public class Paladin : AODamageClass
+	public class PaladinDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(Paladin).Name;
+		public static readonly string InternalName = typeof(PaladinDamage).Name;
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{

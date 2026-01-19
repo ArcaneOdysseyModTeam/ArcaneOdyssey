@@ -105,8 +105,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				{
 					var angle = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 7f;
 					angle.Y *= 0.35f;
-					var proj = Projectile.NewProjectileDirect(entity.GetSource_FromThis(), entity.Center, angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
-					proj.frame = i;
+					if (Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<FrostmetalShard>()] < 3)
+					{
+						var proj = Projectile.NewProjectileDirect(entity.GetSource_FromThis(), entity.Center, angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
+						proj.frame = i;
+					}
 				}
 			}
 			for (int n = 0; n < 15; n++)

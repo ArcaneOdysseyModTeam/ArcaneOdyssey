@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -308,6 +309,10 @@ namespace ArcaneOdyssey
 		{
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
+			if (projectile.TryGetOwner(out var owner))
+			{
+				owner.Heal(Math.Clamp(projectile.originalDamage / 4, 1, 20));
+			}
 		}
 	}
 }

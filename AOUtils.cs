@@ -34,7 +34,7 @@ namespace ArcaneOdyssey
 					{
 						if (imbue is AOMagic)
 						{
-							return ModContent.GetInstance<Paladin>();
+							return ModContent.GetInstance<PaladinDamage>();
 						}
 					}
 
@@ -42,7 +42,7 @@ namespace ArcaneOdyssey
 					{
 						if (second is RelicImbue)
 						{
-							return ModContent.GetInstance<Paladin>();
+							return ModContent.GetInstance<PaladinDamage>();
 						}
 					}
 
@@ -50,52 +50,52 @@ namespace ArcaneOdyssey
 					{
 						if (second1 is AOMagic)
 						{
-							return ModContent.GetInstance<Warlock>();
+							return ModContent.GetInstance<WarlockDamage>();
 						}
 
 						if (second1 is RelicImbue)
 						{
-							return ModContent.GetInstance<Juggernaut>();
+							return ModContent.GetInstance<JuggernautDamage>();
 						}
 					}
 				}
 
 				if (damageClass == DamageClass.Melee && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<Conjurer>();
+					return ModContent.GetInstance<ConjurerDamage>();
 				}
 				if (damageClass == DamageClass.MeleeNoSpeed && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<ConjurerNoSpeed>();
+					return ModContent.GetInstance<ConjurerNoSpeedDamage>();
 				}
 				if (damageClass == DamageClass.Melee && imbue is RelicImbue)
 				{
-					return ModContent.GetInstance<Knight>();
+					return ModContent.GetInstance<KnightDamage>();
 				}
 				if (damageClass == DamageClass.MeleeNoSpeed && imbue is RelicImbue)
 				{
-					return ModContent.GetInstance<KnightNoSpeed>();
+					return ModContent.GetInstance<KnightNoSpeedDamage>();
 				}
 				if (damageClass == DamageClass.Melee && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<Warlord>();
+					return ModContent.GetInstance<WarlordDamage>();
 				}
 				if (damageClass == DamageClass.MeleeNoSpeed && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<WarlordNoSpeed>();
+					return ModContent.GetInstance<WarlordNoSpeedDamage>();
 				}
 
 				if (damageClass == DamageClass.Ranged && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<RangedConjurer>();
+					return ModContent.GetInstance<RangedConjurerDamage>();
 				}
 				if (damageClass == DamageClass.Ranged && imbue is RelicImbue)
 				{
-					return ModContent.GetInstance<RangedKnight>();
+					return ModContent.GetInstance<RangedKnightDamage>();
 				}
 				if (damageClass == DamageClass.Ranged && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<RangedWarlord>();
+					return ModContent.GetInstance<RangedWarlordDamage>();
 				}
 			}
 			else
@@ -108,21 +108,21 @@ namespace ArcaneOdyssey
 
 		public static DamageClass UnImbued(this DamageClass damageClass, Item item = null)
 		{
-			if (damageClass.Name == Warlock.InternalName || damageClass.Name == Juggernaut.InternalName || damageClass.Name == Conjurer.InternalName || damageClass.Name == Warlord.InternalName || damageClass.Name == Knight.InternalName)
+			if (damageClass.Name == WarlockDamage.InternalName || damageClass.Name == JuggernautDamage.InternalName || damageClass.Name == ConjurerDamage.InternalName || damageClass.Name == WarlordDamage.InternalName || damageClass.Name == KnightDamage.InternalName)
 			{
 				return DamageClass.Melee;
 			}
-			if (damageClass.Name == ConjurerNoSpeed.InternalName || damageClass.Name == WarlordNoSpeed.InternalName || damageClass.Name == KnightNoSpeed.InternalName)
+			if (damageClass.Name == ConjurerNoSpeedDamage.InternalName || damageClass.Name == WarlordNoSpeedDamage.InternalName || damageClass.Name == KnightNoSpeedDamage.InternalName)
 			{
 				return DamageClass.MeleeNoSpeed;
 			}
 
-			if (damageClass.Name == RangedWarlord.InternalName || damageClass.Name == RangedConjurer.InternalName || damageClass.Name == RangedKnight.InternalName)
+			if (damageClass.Name == RangedWarlordDamage.InternalName || damageClass.Name == RangedConjurerDamage.InternalName || damageClass.Name == RangedKnightDamage.InternalName)
 			{
 				return DamageClass.Ranged;
 			}
 
-			if (damageClass.Name == Paladin.InternalName)
+			if (damageClass.Name == PaladinDamage.InternalName)
 			{
 				if (item is not null)
 				{
@@ -368,7 +368,8 @@ namespace ArcaneOdyssey
 						)
 						&& projectile.owner != 255
 						&& !projectile.hostile
-						&& !projectile.npcProj;
+						&& !projectile.npcProj
+						&& !projectile.trap;
 				}
 			}
 			return false;
@@ -576,6 +577,8 @@ namespace ArcaneOdyssey
 			player?.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
 			if (player is not null)
 			{
+				if (imbue is RelicImbue)
+					player.Heal(Math.Clamp(damage / 4, 1, 20));
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
 				if (npc.immune[player.whoAmI] > 0)

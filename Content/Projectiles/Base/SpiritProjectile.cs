@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
@@ -18,6 +19,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Owner.MinionAttackTargetNPC = target.whoAmI;
+			if (Projectile.TryGetOwner(out var owner))
+			{
+				owner.Heal(Math.Clamp(Projectile.originalDamage / 4, 1, 20));
+			}
 		}
 	}
 }
