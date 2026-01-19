@@ -90,6 +90,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	public class WhirlwindCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 + Whirlwind.MaxTime;
-		public override string ExtraIconTexture => typeof(RavennaSword).FullName.Replace('.', '/');
+		public override string ExtraIconTexture => typeof(RavennaSword).Texture();
 	}
 }

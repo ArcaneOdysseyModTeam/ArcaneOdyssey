@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class BronzeTridentProjectile : BaseSpearProjectile
 	{
-		public override string Texture => typeof(BronzeTrident).FullName.Replace('.', '/');
+		public override string Texture => typeof(BronzeTrident).Texture();
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 	}
 }

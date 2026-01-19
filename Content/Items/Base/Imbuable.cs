@@ -226,6 +226,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 					}
 				}
 			}
+			if (entity is Player)
+				return true;
 			return false;
 		}
 

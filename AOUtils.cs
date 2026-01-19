@@ -159,6 +159,8 @@ namespace ArcaneOdyssey
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
+		public static string Texture(this Type type) => type.FullName.Replace('.', '/');
+
 		public static void Kill(this Entity entity)
 		{
 			if (entity is Projectile projectile)
@@ -179,7 +181,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static StatInheritanceData WarlordInheritance => new(1.1f, 1.1f, 1f, 1f, 1.2f);
+		public static StatInheritanceData WarlordInheritance => QuickInheritance(1.1f);
 		public static StatInheritanceData MostInheritance => QuickInheritance(.9f);
 		public static StatInheritanceData ThreeQuartersInheritance => QuickInheritance(.75f);
 		public static StatInheritanceData QuarterInheritance => QuickInheritance(.25f);

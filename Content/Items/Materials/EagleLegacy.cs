@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		}
 
 		public override LocalizedText Tooltip => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.Tooltip");
-		public override string Texture => (GetType().Namespace + "." + nameof(PoseidonSpirit)).Replace('.', '/');
+		public override string Texture => typeof(PoseidonSpirit).Texture();
 
 		public override void SetStaticDefaults()
 		{

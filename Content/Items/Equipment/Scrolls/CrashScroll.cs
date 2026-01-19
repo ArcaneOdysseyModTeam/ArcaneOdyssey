@@ -154,6 +154,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 	public class CrashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(CrashScroll).FullName.Replace('.', '/');
+		public override string ExtraIconTexture => typeof(CrashScroll).Texture();
 	}
 }

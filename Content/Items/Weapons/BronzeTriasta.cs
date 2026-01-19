@@ -83,6 +83,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class EtherealFlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(BronzeTriasta).FullName.Replace('.', '/');
+		public override string ExtraIconTexture => typeof(BronzeTriasta).Texture();
 	}
 }

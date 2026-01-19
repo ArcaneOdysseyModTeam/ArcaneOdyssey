@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
 	public class EvanderSlash : ModProjectile
 	{
-		public override string Texture => typeof(ColossalCleave).FullName.Replace('.', '/');
+		public override string Texture => typeof(ColossalCleave).Texture();
 
 		public override void SetDefaults()
 		{

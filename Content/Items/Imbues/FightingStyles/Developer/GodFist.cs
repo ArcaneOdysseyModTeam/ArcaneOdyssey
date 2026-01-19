@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Developer
 {
 	public class GodFist : FightingStyle
 	{
-		public override string Texture => typeof(SailorStyle).FullName.Replace('.', '/');
+		public override string Texture => typeof(SailorStyle).Texture();
 		public override float DashSpeed => 1.5f;
 		public override float AOImbueDamage => 3f;
 		public override float AOImbueSize => 5f;
