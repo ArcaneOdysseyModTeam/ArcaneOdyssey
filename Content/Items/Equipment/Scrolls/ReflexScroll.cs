@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using ArcaneOdyssey.PlayerClasses;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {

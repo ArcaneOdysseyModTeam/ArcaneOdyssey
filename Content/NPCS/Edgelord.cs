@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (!(projectile.Imbue() is AOMagic or RelicImbue || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass<OracleDamage>()) && projectile.hostile)))
 			{
 				modifiers.FinalDamage *= 0;
-				NPC.life += 5;
+				NPC.life = Math.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
 			}
 		}
 
@@ -120,7 +120,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"NPCs.{Name}.DeathCurse").ToNetworkText(), Color.DarkCyan);
 			}
 			if (ServerOrSingleplayer)
-				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f), 0f, -10f, ModContent.ProjectileType<DeathCurse>(), 700, 0f, -1, default);
+				Projectile.NewProjectile(NPC.GetSource_Death(), NPC.position + (NPC.Size / 2f), new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);
 			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet)
 			{
 				ExplodeMorden();
@@ -302,7 +302,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			AddOption("Water");
 			if (BossesKilled == 0)
 			{
-				options.Add(Mod.CustomLocalization(this.GetLocalizationKey("Chat.Intro"), Player.name).Value);
+				options.Add(Language.GetTextValue(this.GetLocalizationKey("Chat.Intro"), Player.name));
 				AddOption("Grave");
 
 			}

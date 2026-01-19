@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.PlayerClasses;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 

@@ -570,6 +570,13 @@ namespace ArcaneOdyssey
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 
+		public static Rectangle ScreenRect => new(Main.screenPosition.X.Round(), Main.screenPosition.Y.Round(), Main.screenWidth, Main.screenHeight);
+
+		public static bool OnScreen(this Entity entity)
+		{
+			return entity.Hitbox.Intersects(ScreenRect);
+		}
+
 		public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
 		{
 			if (npc.dontTakeDamage || npc.friendly)

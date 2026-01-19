@@ -22,7 +22,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
+			offsett = null;
 		}
+
+		private float offset = 0;
+		private float? offsett = null;
 
 		public override void AI()
 		{
@@ -33,32 +37,29 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, 0, default, 2.6f);
 				spawnedDust2.noGravity = true;
 			}
-			if (Projectile.Bottom.Y < 0 || Projectile.localAI[0] > 1000)
+			if (Projectile.Bottom.Y < 0 || Projectile.localAI[0] > 1000 || !Projectile.OnScreen())
 			{
 				Projectile.Kill();
 			}
-			if (Projectile.frameCounter > 2)
+			if (Projectile.frameCounter++ > 2)
 			{
-				Projectile.frame++;
 				Projectile.frameCounter = 0;
-				if (Projectile.frame + 1 >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Projectile.type])
 				{
 					Projectile.frame = 0;
 				}
 			}
 			if (Projectile.localAI[0] > 50)
 			{
-				Projectile.velocity.Y = -23f;
-				if (Projectile.localAI[0] < 52)
-				{
-					Projectile.velocity.X = (Main.rand.NextFloat() - 0.5f) * 13f;
-				}
+				Projectile.velocity.Y += -23f / 30f;
+				if (!offsett.HasValue)
+					offsett = Main.rand.NextFloat() - 0.5f;
+				Projectile.velocity.X += offsett.Value * (13f / 15f);
 			}
 			else
 			{
-				Projectile.velocity.Y *= 0.8f;
+				Projectile.velocity *= 0.8f;
 			}
-			Projectile.frameCounter++;
 			Projectile.localAI[0]++;
 		}
 	}

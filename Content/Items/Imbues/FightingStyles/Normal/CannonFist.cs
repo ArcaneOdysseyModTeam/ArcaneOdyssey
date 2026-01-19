@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
