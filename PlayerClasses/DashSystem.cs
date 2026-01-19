@@ -193,13 +193,11 @@ namespace ArcaneOdyssey.PlayerClasses
 				collisions = 0;
 				if (dashToUse.AnyDirection && direction == 0)
 				{
-					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed * (imbueAffectsSpeed ? (Imbue is not null ? (CurrentDash.UseScrollImbueStats.HasValue ? (CurrentDash.UseScrollImbueStats.Value ? Imbue.AOScrollSpeed : Imbue.AOImbueSpeed) : 1f) : 1f) : 1f);
+					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
 				}
 				else
 				{
 					var standard = Vector2.UnitX * direction;
-					//if (Player.velocity.Y < 0)
-					//standard.Y = -((Player.velocity.Y / 4f).Clamp(0, 20));
 					if (direction == 2 || direction == -2)
 					{
 						standard = Vector2.UnitY * MathHelper.Clamp(direction, -1f, 1f) * Player.gravDir;
@@ -227,18 +225,24 @@ namespace ArcaneOdyssey.PlayerClasses
 				}
 				DashLeft = dashToUse.DashMax;
 				dashToUse.OnStart(Player);
+				Player.velocity += DashVelocity;
 				if (dashToUse.AnyDirection)
 				{
-					Player.ConsumeAllExtraJumps();
+					//Player.ConsumeAllExtraJumps();
 					Player.StopExtraJumpInProgress();
 					Player.blockExtraJumps = true;
-					Player.velocity = DashVelocity;
+					Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
+					Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
 				}
 				else
-					Player.velocity = Vector2.Clamp(Player.velocity + DashVelocity, (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * (-MaxDashSpeed), (Player.velocity + DashVelocity).SafeNormalize(Vector2.Zero) * MaxDashSpeed);
+				{
+					Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -MaxDashSpeed, MaxDashSpeed);
+					Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -MaxDashSpeed, MaxDashSpeed);
+				}
 				dashing = true;
 			}
 		}
+		public float MaxDashSpeed => CurrentDash.DashSpeed * 1.2f;
 
 		public void HandleDashDetection()
 		{
@@ -362,7 +366,9 @@ namespace ArcaneOdyssey.PlayerClasses
 					if (CurrentDash.AnyDirection)
 					{
 						Player.noFallDmg = true;
-						Player.velocity = DashVelocity;
+						Player.velocity += DashVelocity;
+						Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
+						Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
 						Player.blockExtraJumps = true;
 					}
 					DashLeft--;
