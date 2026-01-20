@@ -18,12 +18,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override WeaponAbility? Ability => new(Mod, "Colossal Cleave", "Unleash a large slash that pierces enemies", Color.PaleVioletRed);
 
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

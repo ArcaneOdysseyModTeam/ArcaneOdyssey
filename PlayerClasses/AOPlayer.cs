@@ -103,7 +103,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public void FreezeMovement()
 		{
-			if (Player.velocity.Y < 1 && Player.velocity.Y > -1)
+			if (Math.Abs(Player.velocity.Y) < 1f)
 			{
 				groundedCounter++;
 			}

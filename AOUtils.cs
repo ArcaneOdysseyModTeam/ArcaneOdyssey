@@ -265,8 +265,7 @@ namespace ArcaneOdyssey
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
 			if (imbue is not null)
 			{
-				if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.HasValue)
-				{
+				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true) {
 					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
 					{
 						if (updatedamage)
@@ -325,7 +324,7 @@ namespace ArcaneOdyssey
 							modifiers = CalculateImbueDamage(second, target, modifiers);
 						}
 					}
-					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI && !target.friendly && target.immune[player.whoAmI] <= 0)
+					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
 					{
 						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
 					}
@@ -583,21 +582,23 @@ namespace ArcaneOdyssey
 		{
 			if (npc.dontTakeDamage || npc.friendly)
 				return;
-			player?.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false, damageVariation);
 			if (player is not null)
 			{
 				if (imbue is RelicImbue)
 					player.Heal(Math.Clamp(damage / 4, 1, 20));
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
-				if (npc.immune[player.whoAmI] > 0)
+				if (npc.immune[player.whoAmI] > 0 || player.whoAmI != Main.myPlayer)
 					return;
 				if (npc.noTileCollide || player.CanHit(npc))
+				{
 					player.ApplyDamageToNPC(npc, damage, knockBack, hitDirection, crit, damageType, damageVariation);
+					player.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
+				}
 			}
 			else
 			{
-				npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType, damageVariation);
+				npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType);
 			}
 		}
 

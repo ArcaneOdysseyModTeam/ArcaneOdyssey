@@ -466,9 +466,10 @@ namespace ArcaneOdyssey
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
 
-			if (Imbue?.Imbue != SecondImbue)
+			if (SecondImbue is not null)
 			{
-				SecondImbue = Imbue?.Imbue;
+				if (Imbue?.Imbue != SecondImbue)
+					SecondImbue = Imbue?.Imbue;
 			}
 
 			if (Imbue is not null && !Imbue.PlayerHasImbue(player))

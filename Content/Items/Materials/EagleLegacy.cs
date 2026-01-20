@@ -20,9 +20,6 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.width = Item.height = 64;
 		}
 
-		public override LocalizedText Tooltip => Mod.CustomLocalization($"{LocalizationCategory}.{nameof(PoseidonSpirit)}.Tooltip");
-		public override string Texture => typeof(PoseidonSpirit).Texture();
-
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.ItemNoGravity[Type] = true;

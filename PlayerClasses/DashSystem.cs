@@ -149,7 +149,6 @@ namespace ArcaneOdyssey.PlayerClasses
 		public bool dashing;
 		public int collisions;
 		private int DashDir = 0;
-		private float storedWingTime;
 
 		public float DashLerp
 		{
@@ -182,14 +181,15 @@ namespace ArcaneOdyssey.PlayerClasses
 			if (dashToUse.ExtraCheck(Player))
 			{
 				dashToUse.SetCooldown(Player);
-				storedWingTime = Player.wingTime;
-				Player.noFallDmg = true;
 				Player.timeSinceLastDashStarted = 0;
 				CurrentDash = dashToUse;
 				CurrentDashDir = direction;
-				CurrentDash.Imbue = imbue;
-				if (CurrentDash.source.TryGetSecondImbue(imbue, out var second))
-					CurrentDash.SecondImbue = second;
+				if (CurrentDash.UseScrollImbueStats.HasValue)
+				{
+					CurrentDash.Imbue = imbue;
+					if (CurrentDash.source.TryGetSecondImbue(imbue, out var second))
+						CurrentDash.SecondImbue = second;
+				}
 				collisions = 0;
 				if (dashToUse.AnyDirection && direction == 0)
 				{
@@ -198,7 +198,7 @@ namespace ArcaneOdyssey.PlayerClasses
 				else
 				{
 					var standard = Vector2.UnitX * direction;
-					if (direction == 2 || direction == -2)
+					if (Math.Abs(direction) == 2)
 					{
 						if (Math.Sign(Player.velocity.Y) * 2 != direction)
 						{
@@ -215,22 +215,22 @@ namespace ArcaneOdyssey.PlayerClasses
 					}
 					DashVelocity = standard * dashToUse.DashSpeed;
 				}
-				if (imbueAffectsSpeed && imbue is not null && CurrentDash.UseScrollImbueStats.HasValue)
+				if (imbueAffectsSpeed && Imbue is not null)
 				{
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
-						DashVelocity *= imbue.AOScrollSpeed;
+						DashVelocity *= Imbue.AOScrollSpeed;
 						if (CurrentDash.SecondImbue is not null)
 						{
-							DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed.MultiToPercent();
+							DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed;
 						}
 					}
 					else
 					{
-						DashVelocity *= imbue.AOImbueSpeed;
+						DashVelocity *= Imbue.AOImbueSpeed;
 						if (CurrentDash.SecondImbue is not null)
 						{
-							DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed.MultiToPercent();
+							DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed;
 						}
 					}
 				}
@@ -239,7 +239,6 @@ namespace ArcaneOdyssey.PlayerClasses
 				Player.velocity += DashVelocity;
 				if (dashToUse.AnyDirection)
 				{
-					//Player.ConsumeAllExtraJumps();
 					Player.StopExtraJumpInProgress();
 					Player.blockExtraJumps = true;
 					Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
@@ -349,8 +348,6 @@ namespace ArcaneOdyssey.PlayerClasses
 
 					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0)
 					{
-						if (!Player.mount.Active)
-							Player.wingTime = storedWingTime;
 						CurrentDash.SetCooldown(Player);
 						CurrentDash.OnEnd(Player);
 						dashing = false;
@@ -360,7 +357,7 @@ namespace ArcaneOdyssey.PlayerClasses
 						}
 						for (int i = 0; i < (DashLeft + 300) / 30; i++)
 						{
-							if (CurrentDash.UseScrollImbueStats.HasValue && CurrentDash.Imbue is not null)
+							if (CurrentDash.Imbue is not null)
 							{
 								CurrentDash.Imbue.ExplosionEffects(Player);
 								CurrentDash.SecondImbue?.ExplosionEffects(Player);
@@ -370,10 +367,8 @@ namespace ArcaneOdyssey.PlayerClasses
 					}
 
 					CurrentDash.Imbue?.LingeringEffects(Player);
-					if (CurrentDash.UseScrollImbueStats.GetValueOrDefault() && CurrentDash.SecondImbue is not null)
-					{
-						CurrentDash.SecondImbue.LingeringEffects(Player);
-					}
+					CurrentDash.SecondImbue?.LingeringEffects(Player);
+
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
 					{

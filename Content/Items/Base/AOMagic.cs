@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					types.Add(Mod.Find<ModItem>(type.Name).Type);
 				}
-				var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+				var group = new RecipeGroup(() => Mod.CustomLocalization("RandomWords.AnyMaterial", DisplayName.Value).Value, [.. types]);
 				RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
 				var rec = Recipe.Create(Type);
 				rec.AddRecipeGroup(group);
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			//	{
 			//		types.Add(Mod.Find<ModItem>(type.Name).Type);
 			//	}
-			//	var group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + DisplayName.Value + " " + Mod.CustomLocalization("RandomWords.Material").Value, [.. types]);
+			//	var group = new RecipeGroup(() => Mod.CustomLocalization("RandomWords.AnyMaterial", DisplayName.Value).Value, [.. types]);
 			//	RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
 			//	var rec = Recipe.Create(Type);
 			//	rec.AddRecipeGroup(group);

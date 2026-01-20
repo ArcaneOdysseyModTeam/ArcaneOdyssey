@@ -309,7 +309,7 @@ namespace ArcaneOdyssey
 		{
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
-			if (projectile.TryGetOwner(out var owner))
+			if (Imbue is RelicImbue && projectile.TryGetOwner(out var owner))
 			{
 				owner.Heal(Math.Clamp(projectile.originalDamage / 4, 1, 20));
 			}

@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System.Transactions;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -26,6 +27,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.timeLeft = 60 * 3;
 			Projectile.friendly = true;
+			Projectile.localNPCHitCooldown = 20;
+			Projectile.usesLocalNPCImmunity = true;
 			Projectile.height = Projectile.width = 234;
 			Projectile.knockBack = 4.5f;
 		}
@@ -54,6 +57,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				{
 					Imbue?.ExplosionEffects(Projectile);
 					SecondImbue?.ExplosionEffects(Projectile);
+					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				}
 			}
 

@@ -207,23 +207,23 @@ namespace ArcaneOdyssey.Content.NPCS
 					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
 					if (ModLoader.HasMod("CalamityMod"))
 					{
-						doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
+						doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
 					}
 					else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
 					{
 						if ((bool)fargos.Call("DoubleTapDashDisabled"))
 						{
-							doubletapdash = Mod.CustomLocalization("RandomWords.Press").Value + " " + ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
+							doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
 						}
 					}
 					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
-					options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.EarlyFighting2"), doubletapdash, Mod.CustomLocalization("RandomWords.Press").Value + " " + dashbind));
+					options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.EarlyFighting2"), doubletapdash, Mod.CustomLocalization("RandomWords.Press", dashbind).Value));
 				}
 			}
 
 			if (NPC.downedBoss2 && !Main.hardMode)
 			{
-				options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.BronzeTip"), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Copper), Lang.GetItemNameValue(WorldGen.SavedOreTiers.Gold)));
+				AddOption("BronzeTip");
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)

@@ -116,14 +116,14 @@ namespace ArcaneOdyssey
 			if (HasFargos)
 			{
 				// stat sheet
-				Func<string> SizeText = () => $"Attack size multiplier: {1 + Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x";
+				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", $"{1 + Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x").Value;
 				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
 
 				// current imbue lol
-				Func<string> imbueText = () => $"Current Imbue: {(Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName : Mod.CustomLocalization("RandomWords.None"))}";
+				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<EagleLegacy>(), imbueText);
 
-				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.Edgelord");
+				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}
 		}
 

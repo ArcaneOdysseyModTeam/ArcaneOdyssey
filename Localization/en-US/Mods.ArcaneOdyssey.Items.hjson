@@ -117,7 +117,7 @@ EvanderTrophy: {
 
 PoseidonSpirit: {
 	DisplayName: Poseidon's Spirit
-	Tooltip: A sigil of ancient power, which can be focused upon to grant power to those who are worthy
+	Tooltip: A sigil of ancient power granted as a reward from the gods, which can be focused upon to grant power or knowledge to those who are worthy
 }
 
 SunkenScrap: {
@@ -127,4 +127,5 @@ SunkenScrap: {
 
 EagleLegacy: {
 	DisplayName: Eagle's Legacy
+	Tooltip: Represents your latent potential, and can be focused upon to grant power
 }
