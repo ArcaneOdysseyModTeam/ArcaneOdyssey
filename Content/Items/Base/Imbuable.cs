@@ -236,7 +236,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.useStyle = ItemUseStyleID.RaiseLamp;
 			Item.width = Item.height = 52;
 			Item.useAnimation = Item.useTime = 60;
 			Item.noUseGraphic = true;
