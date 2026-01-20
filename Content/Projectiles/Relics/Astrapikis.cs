@@ -34,8 +34,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.height = 234;
 			Projectile.width = 74;
 			Projectile.AverageDimensions();
-			Projectile.knockBack = 4.5f;
-			Projectile.alpha = 255 / 2;
 		}
 
 		public override void OnSpawn(IEntitySource source)
@@ -68,11 +66,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue.GetColour();
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				var colour2 = Projectile.GetAlpha(Imbue.GetColour()) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (.05f * k), SpriteEffects.None, 0);
 			}
 			return false;

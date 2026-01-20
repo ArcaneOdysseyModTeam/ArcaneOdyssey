@@ -585,7 +585,7 @@ namespace ArcaneOdyssey
 			if (player is not null)
 			{
 				if (imbue is RelicImbue)
-					player.Heal(Math.Clamp(damage / 4, 1, 20));
+					player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
 				if (npc.immune[player.whoAmI] > 0 || player.whoAmI != Main.myPlayer)

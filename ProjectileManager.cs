@@ -307,11 +307,14 @@ namespace ArcaneOdyssey
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{
+			thisProjectile = projectile;
+			if (!CanBeAffected)
+				return;
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
 			if (Imbue is RelicImbue && projectile.TryGetOwner(out var owner))
 			{
-				owner.Heal(Math.Clamp(projectile.originalDamage / 4, 1, 20));
+				owner.ArcaneOdyssey()?.TrySpiritLifesteal(projectile.originalDamage);
 			}
 		}
 	}

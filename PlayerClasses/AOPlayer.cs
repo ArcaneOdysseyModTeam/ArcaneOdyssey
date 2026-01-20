@@ -89,6 +89,16 @@ namespace ArcaneOdyssey.PlayerClasses
 			return [];
 		}
 
+		public void TrySpiritLifesteal(int damage, bool cooldown = true)
+		{
+			if (!(cooldown && OnCooldown("SpiritLifesteal")))
+			{
+				if (cooldown)
+					SetCooldown(new Cooldown("SpiritLifesteal", Mod, 60));
+				Player.Heal(Math.Clamp(damage / 5, 1, 20));
+			}
+		}
+
 		public override void PostUpdate()
 		{
 			if (chargingSpell)

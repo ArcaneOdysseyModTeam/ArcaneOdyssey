@@ -605,9 +605,12 @@ namespace ArcaneOdyssey
 
 		public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
+			thisItem = item;
+			if (!CanBeAffected)
+				return;
 			if (Imbue is RelicImbue)
 			{
-				player.Heal(Math.Clamp(item.OriginalDamage / 4, 1, 20));
+				player.ArcaneOdyssey()?.TrySpiritLifesteal(item.OriginalDamage);
 			}
 		}
 

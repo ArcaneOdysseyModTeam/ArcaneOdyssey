@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Owner.MinionAttackTargetNPC = target.whoAmI;
 			if (Projectile.TryGetOwner(out var owner))
 			{
-				owner.Heal(Math.Clamp(Projectile.originalDamage / 4, 1, 20));
+				owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Clamp(Projectile.originalDamage / 5, 1, 20), false);
 			}
 		}
 	}
