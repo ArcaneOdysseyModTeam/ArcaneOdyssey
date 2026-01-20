@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public override float DashSpeed => 1.2f;
 		public override bool? Cold => false;
+		public override bool CanBeWet => false;
 		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
@@ -82,7 +83,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				Projectile.NewProjectile(proj.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), proj.damage / 2, 3f, proj.owner);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
 
 		public override void AddRecipes()

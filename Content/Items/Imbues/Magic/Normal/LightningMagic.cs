@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 1.2f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
 	}
 }

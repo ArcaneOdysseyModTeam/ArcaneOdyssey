@@ -8,6 +8,7 @@ using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -600,6 +601,14 @@ namespace ArcaneOdyssey
 			Imbue = null;
 			SecondImbue = null;
 			specificImbue = false;
+		}
+
+		public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (Imbue is RelicImbue)
+			{
+				player.Heal(Math.Clamp(item.OriginalDamage / 4, 1, 20));
+			}
 		}
 
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)

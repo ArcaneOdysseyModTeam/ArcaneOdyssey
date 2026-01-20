@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 
 		public override void KillEffects(Entity projectile)
 		{
-			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
 	}
 }

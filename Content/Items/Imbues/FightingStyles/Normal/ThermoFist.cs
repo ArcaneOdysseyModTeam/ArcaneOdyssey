@@ -18,6 +18,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.Orange;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 
+		public override bool CanBeWet => false;
+
 		public override float MaxImbueSpeed => 1.3f;
 		public override float MaxImbueDamage => .85f;
 		public override float MaxImbueSize => .833f;
@@ -98,7 +100,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			{
 				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, LerpValue * 2f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
 
 		public override void AddRecipes()

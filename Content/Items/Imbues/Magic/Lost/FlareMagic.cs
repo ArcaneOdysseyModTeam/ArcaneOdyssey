@@ -1,11 +1,14 @@
 using ArcaneOdyssey.Content.Buffs.DOT;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.VFX.Dusts;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -13,6 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => new(255, 0, 0);
+		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override float AOScrollSpeed => 1f;
@@ -52,6 +56,43 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 			]
 			);
+
+		public override void SpawningEffects(Entity projectile)
+		{
+			for (int n = 0; n < 2; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), projectile.velocity.X * 2f, projectile.velocity.Y * 2f, Alpha: (255 * .75f).Round())];
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void LingeringEffects(Entity projectile)
+		{
+			for (int n = 0; n < 2; n++)
+			{
+				var spawnedDust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), Alpha: (255 * .75f).Round());
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void ExplosionEffects(Entity projectile)
+		{
+			for (int n = 0; n < 6; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, ModContent.DustType<FlareDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), Alpha: (255 * .75f).Round())];
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void KillEffects(Entity projectile)
+		{
+			for (int n = 0; n < 20; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), Alpha: (255 * .75f).Round())];
+				spawnedDust.noGravity = true;
+			}
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+		}
 
 		public override void AddRecipes()
 		{

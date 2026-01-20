@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
 	public class EaglePatrimony : RelicImbue
 	{
-		public override Color ImbueColour => Color.DarkCyan;
+		public override Color ImbueColour => new(0, 183, 255);
 		public override AORarities AORarity => AORarities.Special;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 

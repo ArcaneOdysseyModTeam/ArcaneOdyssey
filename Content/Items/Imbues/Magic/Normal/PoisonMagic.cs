@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				if (n / 2 >= 10)
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), new(1.25f * (Main.rand.NextFloat() - 0.5f), 1.25f * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BossesKilled, 0f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
 	}
 }

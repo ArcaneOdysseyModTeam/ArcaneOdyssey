@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SnowflakeIce, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
 					spawnedDust.noGravity = true;
-					SoundEngine.PlaySound(SoundID.Item27, Projectile.position, null);
+					SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 					Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2f);
 					Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, 1f);
 				}

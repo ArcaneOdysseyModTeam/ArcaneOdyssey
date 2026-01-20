@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.UltraBrightTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, new Color(0, 0, 255, 0), 3f)];
 				spawnedDust.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
 	}
 }

@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<HeatDust>(), 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), newColor: Color.White, Alpha: (255 * .75f).Round())];
 				spawnedDust.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center, null);
+			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
 
 		public override void AddRecipes()

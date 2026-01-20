@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 		{
 			if (++Projectile.ai[0] >= 60)
 			{
-				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center, null);
+				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 				for (int n = 0; n < 10; n++)
 				{
 					Imbue?.ExplosionEffects(Projectile);
