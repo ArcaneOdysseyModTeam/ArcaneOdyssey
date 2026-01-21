@@ -54,8 +54,7 @@ namespace ArcaneOdyssey
 			if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0 || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
 				return;
 			Player player = Main.player[projectile.owner];
-			Vector2 dim = OriginalDimensions.GetValueOrDefault(projectile.Size);
-			float mult = BaseScale.GetValueOrDefault(1f);
+			float mult = BaseScale.GetValueOrDefault(projectile.scale);
 			if (Imbue is not null)
 			{
 				mult += (BenifitsFromScrollStats.GetValueOrDefault() ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
@@ -67,16 +66,14 @@ namespace ArcaneOdyssey
 			mult += player.ArcaneOdyssey().SizeMulti;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				hitbox.Width = (int)(dim.X * mult);
-				hitbox.Height = (int)(dim.Y * mult);
+				var dim = OriginalDimensions.GetValueOrDefault(projectile.Hitbox);
+				var diffX = ((hitbox.Width - (dim.Width * mult)) / 2f).Round();
+				var diffY = ((hitbox.Height - (dim.Height * mult)) / 2f).Round();
+				hitbox.Width = (dim.Width * mult).Round();
+				hitbox.Height = (dim.Height * mult).Round();
+				hitbox.X += diffX;
+				hitbox.Y += diffY;
 				projectile.scale = mult;
-				if (projectile.ModProjectile is BaseStaffProjectile)
-				{
-					hitbox.Width = (int)(dim.X * mult * 1.5f);
-					hitbox.Height = (int)(dim.Y * mult * 1.5f);
-					hitbox.X -= hitbox.Width / 3;
-					hitbox.Y -= hitbox.Height / 3;
-				}
 			}
 		}
 
@@ -109,7 +106,8 @@ namespace ArcaneOdyssey
 					thisProjectile.scale = value.GetValueOrDefault(1f);
 			}
 		}
-		public Vector2? OriginalDimensions = null;
+
+		public Rectangle? OriginalDimensions = null;
 		public Imbuable Imbue { get; set; }
 		public Imbuable SecondImbue { get; set; }
 		public Projectile thisProjectile = null;
@@ -219,7 +217,7 @@ namespace ArcaneOdyssey
 			thisProjectile = projectile;
 			if (!CanBeAffected)
 				return;
-			OriginalDimensions ??= projectile.Size;
+			OriginalDimensions ??= projectile.Hitbox;
 			BaseScale ??= projectile.scale;
 
 			if (projectile.ModProjectile is AOPlayerProjectile proj1 && !projectile.DamageType.CountsAsClass<MeleeNoSpeedDamageClass>())
@@ -286,7 +284,7 @@ namespace ArcaneOdyssey
 			thisProjectile = projectile;
 			if (CanBeAffected)
 			{
-				OriginalDimensions ??= projectile.Size;
+				OriginalDimensions ??= projectile.Hitbox;
 				BaseScale ??= projectile.scale;
 			}
 			return true;

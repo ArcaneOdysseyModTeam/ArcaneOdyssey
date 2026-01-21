@@ -171,6 +171,8 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public bool FirstFrame => CurrentDash is not null && DashLeft == CurrentDash.DashMax;
 
+		private float dashmaxmult = 1f;
+
 		/// <summary>
 		/// Starts a dash, does not check for cooldowns but will use ExtraCheck
 		/// </summary>
@@ -215,22 +217,27 @@ namespace ArcaneOdyssey.PlayerClasses
 					}
 					DashVelocity = standard * dashToUse.DashSpeed;
 				}
-				if (imbueAffectsSpeed && Imbue is not null)
+				dashmaxmult = 1f;
+				if (imbueAffectsSpeed && CurrentDash.Imbue is not null)
 				{
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
-						DashVelocity *= Imbue.AOScrollSpeed;
+						DashVelocity *= CurrentDash.Imbue.AOScrollSpeed;
+						dashmaxmult *= CurrentDash.Imbue.AOScrollSpeed;
 						if (CurrentDash.SecondImbue is not null)
 						{
 							DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed;
+							dashmaxmult *= CurrentDash.SecondImbue.AOScrollSpeed;
 						}
 					}
 					else
 					{
-						DashVelocity *= Imbue.AOImbueSpeed;
+						DashVelocity *= CurrentDash.Imbue.AOImbueSpeed;
+						dashmaxmult *= CurrentDash.Imbue.AOImbueSpeed;
 						if (CurrentDash.SecondImbue is not null)
 						{
 							DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed;
+							dashmaxmult *= CurrentDash.SecondImbue.AOImbueSpeed;
 						}
 					}
 				}
@@ -241,8 +248,8 @@ namespace ArcaneOdyssey.PlayerClasses
 				{
 					Player.StopExtraJumpInProgress();
 					Player.blockExtraJumps = true;
-					Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
-					Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
+					Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);
+					Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);
 				}
 				else
 				{
@@ -253,7 +260,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			}
 		}
 
-		public float MaxDashSpeed => CurrentDash.DashSpeed * 1.2f;
+		public float MaxDashSpeed => CurrentDash.DashSpeed * (CurrentDash.Imbue is not null ? CurrentDash.Imbue.DashSpeed : 1.2f);
 
 		public void HandleDashDetection()
 		{
@@ -319,13 +326,13 @@ namespace ArcaneOdyssey.PlayerClasses
 					{
 						if (dash.AnyDirection && AOKeybinds.DashBind.JustPressed)
 						{
-							StartDash(dash, imbue: Imbue, imbueAffectsSpeed: true);
+							StartDash(dash, 0, Imbue, true);
 						}
 						else if (!dash.AnyDirection)
 						{
 							if (DashDir != 0)
 							{
-								StartDash(dash, DashDir, Imbue, true);
+								StartDash(dash, DashDir, Imbue);
 							}
 						}
 					}
@@ -374,9 +381,12 @@ namespace ArcaneOdyssey.PlayerClasses
 					{
 						Player.noFallDmg = true;
 						Player.velocity += DashVelocity;
-						Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
-						Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -CurrentDash.DashSpeed, CurrentDash.DashSpeed);
+						Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);
+						Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);
 						Player.blockExtraJumps = true;
+						Player.controlLeft = false;
+						Player.controlRight = false;
+						Player.controlJump = false;
 					}
 					DashLeft--;
 				}

@@ -38,6 +38,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 	public class Reflex(Entity source) : DashSystem(source)
 	{
 		private float invisbase;
+		private bool ground;
 
 		public override int Cooldown => 30;
 
@@ -45,8 +46,10 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void OnStart(Player player)
 		{
-			if (Imbue is not null)
+			ground = player.ArcaneOdyssey().Grounded;
+			if (!ground && Imbue is not null)
 			{
+				player.ArcaneOdyssey().DashVelocity *= Imbue.DashSpeed;
 				SoundEngine.PlaySound(Imbue.ImbueSound, player.MountedCenter);
 				if (Imbue is VanishingStyle)
 				{
@@ -61,16 +64,25 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void DashEffect(Player player)
 		{
-			if (Imbue?.DashResist.HasValue == true)
-				player.statDefense *= Imbue.DashResist.Value;
+			if (ground)
+				player.statDefense *= 1.75f;
+			else
+			{
+				if (Imbue?.DashResist.HasValue == true)
+					player.statDefense *= Imbue.DashResist.Value;
 
-			if (Imbue is VanishingStyle)
-				player.opacityForAnimation = MathHelper.Lerp(invisbase, 0f, player.ArcaneOdyssey().DashLerp);
+				if (Imbue is VanishingStyle)
+					player.opacityForAnimation = MathHelper.Lerp(invisbase, 0f, player.ArcaneOdyssey().DashLerp);
+			}
 		}
 
 		public override void OnEnd(Player player)
 		{
-			player.opacityForAnimation = 1f;
+			if (!ground)
+			{
+				SoundEngine.PlaySound(Imbue?.ImbueSound, player.MountedCenter);
+				player.opacityForAnimation = 1f;
+			}
 		}
 
 		public override float DashSpeed => 15;

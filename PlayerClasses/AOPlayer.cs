@@ -23,6 +23,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
+		public bool Grounded => groundedCounter > 15;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
@@ -123,13 +124,13 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				if (FirstFrozenFrame)
 				{
-					CanMoveOnGround = groundedCounter > 10;
+					CanMoveOnGround = Grounded;
 				}
 				if (!CanMoveOnGround)
 				{
 					Player.gravity = 0f;
-					Player.velocity.X *= 0;
-					Player.velocity.Y *= 0;
+					Player.velocity.X *= .001f;
+					Player.velocity.Y *= .001f;
 				}
 				timeSinceSoftFrozen++;
 			}
