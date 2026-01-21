@@ -12,10 +12,10 @@ namespace ArcaneOdyssey.VFX.Dusts
 
 		public override void OnSpawn(Dust dust)
 		{
-			dust.Centre(dust.position);
 			if (dust.color == default)
 				dust.color = Color.White;
 			dust.frame = new Rectangle(Texture2D.Width() / Columns * Main.rand.Next(Columns), Texture2D.Height() / Rows * Main.rand.Next(Rows), Texture2D.Width() / Columns, Texture2D.Height() / Rows);
+			dust.Centre(dust.position);
 		}
 
 		public override bool PreDraw(Dust dust)
