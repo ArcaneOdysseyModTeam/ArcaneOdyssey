@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 		public override int AOValue => 675;
 
 		public override int AOPower => 7;
-		public override int MaxMana => 40;
+		public override int AOMaxMana => 40;
 
 		public override void AddRecipes()
 		{

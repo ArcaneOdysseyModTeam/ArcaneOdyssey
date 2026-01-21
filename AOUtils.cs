@@ -19,6 +19,37 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		internal static List<string> options = ["FavoriteDesc", "NoTransfer", "SocialDesc", "Damage", "CritChance", "Speed", "NoSpeedScaling", "SpecialSpeedScaling", "Knockback", "FishingPower", "NeedsBait", "BaitPower", "Equipable", "WandConsumes", "Quest", "Vanity", "Defense", "PickPower", "AxePower", "HammerPower", "TileBoost", "HealLife", "HealMana", "UseMana", "Placeable", "Ammo", "Consumable", "Material", "Tooltip"]; //, "EtherianManaWarning", "WellFedExpert", "BuffTime", "OneDropLogo", "PrefixDamage", "PrefixSpeed", "PrefixCritChance", "PrefixUseMana", "PrefixSize", "PrefixShootSpeed", "PrefixKnockback", "PrefixAccDefense", "PrefixAccMaxMana", "PrefixAccCritChance", "PrefixAccDamage", "PrefixAccMoveSpeed", "PrefixAccMeleeSpeed"];
+
+		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd)
+		{
+			tooltips.Reverse();
+			options.Reverse();
+
+			bool found = false;
+			foreach (var option in options)
+			{
+				var index = tooltips.FindIndex((TooltipLine e) => e.Name.StartsWith(option) || e.Name == option);
+				if (index != -1)
+				{
+					tooltips.Insert(index, toAdd);
+					options.Reverse();
+					options.Add(toAdd.Name);
+					found = true;
+					break;
+				}
+			}
+
+			tooltips.Reverse();
+
+			if (!found)
+			{
+				tooltips.Add(toAdd);
+				options.Reverse();
+				options.Add(toAdd.Name);
+			}
+		}
+
 		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue = null, Item item = null)
 		{
 			if (imbue is null)

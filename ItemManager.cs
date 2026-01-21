@@ -95,7 +95,7 @@ namespace ArcaneOdyssey
 			{
 				if (weapon.Ability.HasValue)
 				{
-					tooltips.Add(weapon.Ability.Value.GenerateTooltip());
+					tooltips.AddTooltip(weapon.Ability.Value.GenerateTooltip());
 				}
 			}
 
@@ -103,21 +103,21 @@ namespace ArcaneOdyssey
 			{
 				if (relic.Ability.HasValue)
 				{
-					tooltips.Add(relic.Ability.Value.GenerateTooltip());
+					tooltips.AddTooltip(relic.Ability.Value.GenerateTooltip());
 				}
 			}
 
 			if (item.ArcaneOdyssey().WeaponsType == WeaponType.Arcanium)
 			{
-				tooltips.Add(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+				tooltips.AddTooltip(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
 			}
 			if (item.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
 			{
-				tooltips.Add(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+				tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
 			}
 			if (item.ArcaneOdyssey().WeaponsType == WeaponType.Artisinal)
 			{
-				tooltips.Add(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
+				tooltips.AddTooltip(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
 			}
 		}
 	}

@@ -48,9 +48,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual int AOPower => 0;
 
-		public virtual int MinionSlots => 0;
+		public virtual int AOMinionSlots => 0;
 
-		public virtual int MaxMana => 0;
+		public virtual int AOMaxMana => 0;
 
 		/// <summary>
 		/// Should only be set on boots
@@ -133,42 +133,35 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social")))
 				return;
-			tooltips.Reverse();
-			var index = tooltips.IndexOf(tooltips.Find(e => e.Name.StartsWith("Tooltip") || e.Name == "Defense" || e.Name == "Equipable" || e.Name == "FavoriteDesc" || e.Name == "ItemName")) - 1;
-			if (index < 0)
-				index = 0;
-			int lasttooltip = 0;
-			if (tooltips.Contains(tooltips.Find(e => e.Name.StartsWith("Tooltip"))))
-				lasttooltip = Convert.ToInt32(tooltips.Find(e => e.Name.StartsWith("Tooltip")).Name.Replace("Tooltip", null));
-			if (MaxMana > 0)
+
+			if (AOMaxMana > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Mana", [MaxMana]).Value));
+				tooltips.AddTooltip(new(Mod, "AOMaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [AOMaxMana]).Value));
 			}
-			if (MinionSlots > 0)
+			if (AOMinionSlots > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Minions", [MinionSlots]).Value));
+				tooltips.AddTooltip(new(Mod, "AOMinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", [AOMinionSlots]).Value));
 			}
 			if (AOAgility > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(GetArmourAgilityStat() / 10f)]).Value));
+				tooltips.AddTooltip(new(Mod, "AOAgility", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(GetArmourAgilityStat() / 10f)]).Value));
 			}
 			if (AOSize > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(GetArmourSizeStat() / 3f)]).Value));
+				tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(GetArmourSizeStat() / 3f)]).Value));
 			}
 			if (AOPower > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
+				tooltips.AddTooltip(new(Mod, "AOPower", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
 			}
 			if (AOAttkSpd > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(GetArmourAttkSpeedStat() / 3f)]).Value));
+				tooltips.AddTooltip(new(Mod, "AOAttkSpd", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(GetArmourAttkSpeedStat() / 3f)]).Value));
 			}
 			if (AOPierce > 0)
 			{
-				tooltips.Insert(index, new(Mod, "Tooltip" + ++lasttooltip, Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat() / 5]).Value));
+				tooltips.AddTooltip(new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat() / 5]).Value));
 			}
-			tooltips.Reverse();
 		}
 
 		public override void UpdateEquip(Player player)
@@ -186,8 +179,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
 			player.GetArmorPenetration(DamageClass.Generic) += GetArmourPierceStat() / 5;
 			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275;
-			player.maxMinions += MinionSlots;
-			player.statManaMax2 += MaxMana;
+			player.maxMinions += AOMinionSlots;
+			player.statManaMax2 += AOMaxMana;
 		}
 	}
 }
