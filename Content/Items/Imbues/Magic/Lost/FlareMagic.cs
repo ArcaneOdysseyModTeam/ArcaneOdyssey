@@ -63,6 +63,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), projectile.velocity.X * 2f, projectile.velocity.Y * 2f, Alpha: (255 * .75f).Round())];
 				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 3f)];
+				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -72,6 +74,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				var spawnedDust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), Alpha: (255 * .75f).Round());
 				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1.4f)];
+				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -81,6 +85,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, ModContent.DustType<FlareDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), Alpha: (255 * .75f).Round())];
 				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.PinkFairy, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, Color.Red, 0.8f)];
+				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -90,6 +96,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), Alpha: (255 * .75f).Round())];
 				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 3f)];
+				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, projectile.Center);
 		}
