@@ -69,6 +69,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			SimulateAOE(150, 70, player.MountedCenter, 4.5f, player.PlayerItem(), TrueMeleeNoSpeed());
 			player.velocity *= .01f;
 		}
+		
+		public override void OnStart(Player player)
+		{
+			SoundEngine.PlaySound(SoundID.Item67);
+		}
 
 		public override void DashEffect(Player player)
 		{
