@@ -19,7 +19,54 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
-		internal static List<string> options = ["FavoriteDesc", "NoTransfer", "SocialDesc", "Damage", "CritChance", "Speed", "NoSpeedScaling", "SpecialSpeedScaling", "Knockback", "FishingPower", "NeedsBait", "BaitPower", "Equipable", "WandConsumes", "Quest", "Vanity", "Defense", "PickPower", "AxePower", "HammerPower", "TileBoost", "HealLife", "HealMana", "UseMana", "Placeable", "Ammo", "Consumable", "Material", "Tooltip"]; //, "EtherianManaWarning", "WellFedExpert", "BuffTime", "OneDropLogo", "PrefixDamage", "PrefixSpeed", "PrefixCritChance", "PrefixUseMana", "PrefixSize", "PrefixShootSpeed", "PrefixKnockback", "PrefixAccDefense", "PrefixAccMaxMana", "PrefixAccCritChance", "PrefixAccDamage", "PrefixAccMoveSpeed", "PrefixAccMeleeSpeed"];
+		internal static List<string> options = [
+			"FavoriteDesc", 
+			"NoTransfer",
+			"SocialDesc",
+			"Damage",
+			"CritChance",
+			"Speed",
+			"NoSpeedScaling",
+			"SpecialSpeedScaling",
+			"Knockback",
+			"FishingPower",
+			"NeedsBait",
+			"BaitPower",
+			"Equipable",
+			"WandConsumes",
+			"Quest",
+			"Vanity",
+			"Defense",
+			"PickPower",
+			"AxePower",
+			"HammerPower",
+			"TileBoost",
+			"HealLife",
+			"HealMana",
+			"UseMana",
+			"Placeable",
+			"Ammo",
+			"Consumable",
+			"Material",
+			"Tooltip",
+			//"EtherianManaWarning",
+			//"WellFedExpert",
+			//"BuffTime",
+			//"OneDropLogo",
+			//"PrefixDamage",
+			//"PrefixSpeed",
+			//"PrefixCritChance",
+			//"PrefixUseMana",
+			//"PrefixSize",
+			//"PrefixShootSpeed",
+			//"PrefixKnockback",
+			//"PrefixAccDefense",
+			//"PrefixAccMaxMana",
+			//"PrefixAccCritChance",
+			//"PrefixAccDamage",
+			//"PrefixAccMoveSpeed",
+			//"PrefixAccMeleeSpeed",
+		];
 
 		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd)
 		{
@@ -34,7 +81,8 @@ namespace ArcaneOdyssey
 				{
 					tooltips.Insert(index, toAdd);
 					options.Reverse();
-					options.Add(toAdd.Name);
+					if (!options.Contains(toAdd.Name))
+						options.Add(toAdd.Name);
 					found = true;
 					break;
 				}
@@ -46,7 +94,8 @@ namespace ArcaneOdyssey
 			{
 				tooltips.Add(toAdd);
 				options.Reverse();
-				options.Add(toAdd.Name);
+				if (!options.Contains(toAdd.Name))
+					options.Add(toAdd.Name);
 			}
 		}
 

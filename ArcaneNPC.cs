@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Armour.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -119,15 +120,7 @@ namespace ArcaneOdyssey
 			if (vesuvianBurn)
 			{
 				npc.GetLifeStats(out int npcCurrentlife, out _);
-				npc.lifeRegen = -1*(int)MathF.Ceiling(npcCurrentlife * 0.4f);
-				if (npc.lifeRegen > -10)
-				{
-					npc.lifeRegen = -10;
-				} 
-				if (npc.lifeRegen < -10000)
-				{
-					npc.lifeRegen = -10000;
-				}
+				npc.lifeRegen -= Math.Clamp(-1 * (int)MathF.Ceiling(npcCurrentlife * 0.4f), -10, -10000);
 			}
 		}
 	}

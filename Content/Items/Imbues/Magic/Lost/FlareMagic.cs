@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	public class FlareMagic : AOMagic
 	{
 		public override float DashSpeed => 1.2f; // burst
-		public override Color ImbueColour => new(255, 0, 0);
+		public override Color ImbueColour => Color.OrangeRed;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;

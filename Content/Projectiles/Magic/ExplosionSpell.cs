@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					charge = defaultMin;
 					Projectile.ai[1]++;
 				}
-				Projectile.position = AOPlayerOwner.myCircle.Center;
+				Projectile.Center = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;
 				charge += 1 / 60f;
 				//if (!isPlacedExplosion)

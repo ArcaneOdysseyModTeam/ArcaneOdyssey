@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		{
 			if (npc.HasBuff(Type))
 			{
-				stack = Math.Clamp(GetAOBuffStack(npc, buffIndex), 0, 20); // stacks disappear over time
+				stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				npc.ArcaneOdyssey().singedstacks = stack;
 			}
 			if (!Main.dedServ)
@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		{
 			if (npc.HasBuff(Type))
 			{
-				npc.buffTime[buffIndex] += time;
+				npc.buffTime[buffIndex] = Math.Clamp(npc.buffTime[buffIndex] + time, 0, 20 * 5 * 60);
 				return true;
 			}
 			else return false;
