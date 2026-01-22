@@ -11,6 +11,7 @@ using ReLogic.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameInput;
@@ -519,6 +520,7 @@ namespace ArcaneOdyssey
 							imbueIndex = 0;
 						}
 						Imbue = options[imbueIndex];
+						SoundEngine.PlaySound(Imbue?.ImbueSound, player.MountedCenter);
 						if (item.TryGetSecondImbue(Imbue, out var second))
 							SecondImbue = second;
 						else
