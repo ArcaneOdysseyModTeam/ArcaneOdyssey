@@ -9,12 +9,12 @@ namespace ArcaneOdyssey
 		public override LocalizedText DisplayName => Language.GetOrRegister(Mod.GetLocalizationKey($"DamageClasses.{Name}"), () => Mod.CustomLocalization($"DamageClasses.{Name}").Value);
 	}
 
-	public class SavantDamage : GenericDamageClass
+	public class SavantDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(SavantDamage).Name;
 		public static SavantDamage Instance => ModContent.GetInstance<SavantDamage>();
 
-		public override bool GetEffectInheritance(DamageClass damageClass) => true;
+		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass is VanillaDamageClass;
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{

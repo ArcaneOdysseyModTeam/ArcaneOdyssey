@@ -190,7 +190,7 @@ namespace ArcaneOdyssey
 
 		public static DamageClass UnImbued(this DamageClass damageClass, Item item = null)
 		{
-			if (damageClass.Name == WarlockDamage.InternalName || damageClass.Name == JuggernautDamage.InternalName || damageClass.Name == ConjurerDamage.InternalName || damageClass.Name == WarlordDamage.InternalName || damageClass.Name == KnightDamage.InternalName)
+			if (damageClass.Name == WarlockDamage.InternalName || damageClass.Name == SavantDamage.InternalName || damageClass.Name == JuggernautDamage.InternalName || damageClass.Name == ConjurerDamage.InternalName || damageClass.Name == WarlordDamage.InternalName || damageClass.Name == KnightDamage.InternalName)
 			{
 				return DamageClass.Melee;
 			}

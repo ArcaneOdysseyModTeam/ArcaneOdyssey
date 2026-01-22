@@ -359,4 +359,5 @@ DamageClasses: {
 	WarlockDamage: warlock damage
 	WarlordDamage: warlord damage
 	WarlordNoSpeedDamage: warlord damage
+	SavantDamage: savant damage
 }
