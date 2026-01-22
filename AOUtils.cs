@@ -99,13 +99,8 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue = null, Item item = null)
+		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue, Item item = null)
 		{
-			if (imbue is null)
-			{
-				return damageClass.UnImbued();
-			}
-
 			if (imbue is not SteamImbue steam)
 			{
 				if (item is not null)
@@ -114,7 +109,7 @@ namespace ArcaneOdyssey
 					{
 						if (imbue is AOMagic)
 						{
-							return ModContent.GetInstance<PaladinDamage>();
+							return PaladinDamage.Instance;
 						}
 					}
 
@@ -122,60 +117,67 @@ namespace ArcaneOdyssey
 					{
 						if (second is RelicImbue)
 						{
-							return ModContent.GetInstance<PaladinDamage>();
+							return PaladinDamage.Instance;
 						}
 					}
 
 					if (damageClass == DamageClass.Melee && imbue is FightingStyle && item.TryGetSecondImbue(imbue, out var second1))
 					{
-						if (second1 is AOMagic)
+						if (item.ModItem is Scroll)
 						{
-							return ModContent.GetInstance<WarlockDamage>();
-						}
+							if (second1 is AOMagic)
+							{
+								return WarlockDamage.Instance;
+							}
 
-						if (second1 is RelicImbue)
+							if (second1 is RelicImbue)
+							{
+								return JuggernautDamage.Instance;
+							}
+						}
+						else
 						{
-							return ModContent.GetInstance<JuggernautDamage>();
+							return SavantDamage.Instance;
 						}
 					}
 				}
 
 				if (damageClass == DamageClass.Melee && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<ConjurerDamage>();
+					return ConjurerDamage.Instance;
 				}
 				if (damageClass == DamageClass.MeleeNoSpeed && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<ConjurerNoSpeedDamage>();
+					return ConjurerNoSpeedDamage.Instance;
 				}
 				if (damageClass == DamageClass.Melee && imbue is RelicImbue)
 				{
-					return ModContent.GetInstance<KnightDamage>();
+					return KnightDamage.Instance;
 				}
 				if (damageClass == DamageClass.MeleeNoSpeed && imbue is RelicImbue)
 				{
-					return ModContent.GetInstance<KnightNoSpeedDamage>();
+					return KnightNoSpeedDamage.Instance;
 				}
 				if (damageClass == DamageClass.Melee && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<WarlordDamage>();
+					return WarlordDamage.Instance;
 				}
 				if (damageClass == DamageClass.MeleeNoSpeed && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<WarlordNoSpeedDamage>();
+					return WarlordNoSpeedDamage.Instance;
 				}
 
 				if (damageClass == DamageClass.Ranged && imbue is AOMagic)
 				{
-					return ModContent.GetInstance<RangedConjurerDamage>();
+					return RangedConjurerDamage.Instance;
 				}
 				if (damageClass == DamageClass.Ranged && imbue is RelicImbue)
 				{
-					return ModContent.GetInstance<RangedKnightDamage>();
+					return RangedKnightDamage.Instance;
 				}
 				if (damageClass == DamageClass.Ranged && imbue is FightingStyle)
 				{
-					return ModContent.GetInstance<RangedWarlordDamage>();
+					return RangedWarlordDamage.Instance;
 				}
 			}
 			else
@@ -208,7 +210,7 @@ namespace ArcaneOdyssey
 				{
 					if (item.ModItem is RelicImbue)
 					{
-						return ModContent.GetInstance<OracleDamage>();
+						return OracleDamage.Instance;
 					}
 					if (item.ModItem is Scroll)
 					{

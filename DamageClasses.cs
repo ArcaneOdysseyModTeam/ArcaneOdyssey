@@ -9,9 +9,28 @@ namespace ArcaneOdyssey
 		public override LocalizedText DisplayName => Language.GetOrRegister(Mod.GetLocalizationKey($"DamageClasses.{Name}"), () => Mod.CustomLocalization($"DamageClasses.{Name}").Value);
 	}
 
+	public class SavantDamage : GenericDamageClass
+	{
+		public static readonly string InternalName = typeof(SavantDamage).Name;
+		public static SavantDamage Instance => ModContent.GetInstance<SavantDamage>();
+
+		public override bool GetEffectInheritance(DamageClass damageClass) => true;
+
+		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
+		{
+			if (damageClass == Melee || damageClass == Ranged || damageClass == Magic || damageClass == Summon)
+				return QuickInheritance(.2f);
+			if (damageClass == Generic)
+				return StatInheritanceData.Full;
+
+			return StatInheritanceData.None;
+		}
+	}
+
 	public class OracleDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(OracleDamage).Name;
+		public static OracleDamage Instance => ModContent.GetInstance<OracleDamage>();
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{
@@ -43,6 +62,7 @@ namespace ArcaneOdyssey
 	public class ConjurerDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(ConjurerDamage).Name;
+		public static ConjurerDamage Instance => ModContent.GetInstance<ConjurerDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -67,6 +87,7 @@ namespace ArcaneOdyssey
 	public class ConjurerNoSpeedDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(ConjurerNoSpeedDamage).Name;
+		public static ConjurerNoSpeedDamage Instance => ModContent.GetInstance<ConjurerNoSpeedDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -91,6 +112,7 @@ namespace ArcaneOdyssey
 	public class WarlordDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(WarlordDamage).Name;
+		public static WarlordDamage Instance => ModContent.GetInstance<WarlordDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -111,6 +133,7 @@ namespace ArcaneOdyssey
 	public class WarlordNoSpeedDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(WarlordNoSpeedDamage).Name;
+		public static WarlordNoSpeedDamage Instance => ModContent.GetInstance<WarlordNoSpeedDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -131,6 +154,7 @@ namespace ArcaneOdyssey
 	public class RangedConjurerDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(RangedConjurerDamage).Name;
+		public static RangedConjurerDamage Instance => ModContent.GetInstance<RangedConjurerDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass == Ranged;
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -155,6 +179,7 @@ namespace ArcaneOdyssey
 	public class RangedWarlordDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(RangedWarlordDamage).Name;
+		public static RangedWarlordDamage Instance => ModContent.GetInstance<RangedWarlordDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass == Ranged;
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -175,6 +200,7 @@ namespace ArcaneOdyssey
 	public class RangedKnightDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(RangedKnightDamage).Name;
+		public static RangedKnightDamage Instance => ModContent.GetInstance<RangedKnightDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass == Ranged;
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -199,6 +225,7 @@ namespace ArcaneOdyssey
 	public class KnightDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(KnightDamage).Name;
+		public static KnightDamage Instance => ModContent.GetInstance<KnightDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -223,6 +250,7 @@ namespace ArcaneOdyssey
 	public class KnightNoSpeedDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(ConjurerNoSpeedDamage).Name;
+		public static ConjurerNoSpeedDamage Instance => ModContent.GetInstance<ConjurerNoSpeedDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
@@ -244,16 +272,19 @@ namespace ArcaneOdyssey
 	public class WarlockDamage : ConjurerDamage
 	{
 		public new static readonly string InternalName = typeof(WarlockDamage).Name;
+		public new static WarlockDamage Instance => ModContent.GetInstance<WarlockDamage>();
 	}
 
 	public class JuggernautDamage : KnightDamage
 	{
 		public new static readonly string InternalName = typeof(JuggernautDamage).Name;
+		public new static JuggernautDamage Instance => ModContent.GetInstance<JuggernautDamage>();
 	}
 
 	public class PaladinDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(PaladinDamage).Name;
+		public static PaladinDamage Instance => ModContent.GetInstance<PaladinDamage>();
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{

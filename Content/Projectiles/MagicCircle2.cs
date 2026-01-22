@@ -1,8 +1,9 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
-using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -10,15 +11,23 @@ namespace ArcaneOdyssey.Content.Projectiles
 	{
 		public override bool? CanDamage() => false;
 
+		public bool playedsound = false;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
 			Projectile.tileCollide = false;
+			playedsound = false;
 		}
 
 		public override void AI()
 		{
+			if (!playedsound)
+			{
+				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = Imbue.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
+				playedsound = true;
+			}
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
 

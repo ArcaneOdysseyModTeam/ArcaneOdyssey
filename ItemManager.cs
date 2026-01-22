@@ -660,9 +660,9 @@ namespace ArcaneOdyssey
 				}
 			}
 
-			if (player.ArcaneOdyssey().bloodDisease.HasValue)
+			if (player.ArcaneOdyssey().BloodDisease != 0)
 			{
-				target.AddBuff(player.ArcaneOdyssey().bloodDisease.Value, 60 * Main.rand.Next(4, 10));
+				target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
 			}
 
 			if (item.ModItem is AORangedOrMeleeWeapon weap)

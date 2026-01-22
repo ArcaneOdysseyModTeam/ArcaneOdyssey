@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 	{
 		public override Color ImbueColour => new(0, 183, 255);
 		public override AORarities AORarity => AORarities.Special;
-		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 
@@ -55,7 +55,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.width = Item.height = 40;
 			Item.shoot = ModContent.ProjectileType<Astrapikis>();
 			Item.shootSpeed = 1f;
-			Item.UseSound = SoundID.Item84 with { Pitch = .75f };
 			Item.damage = 20;
 			Item.knockBack = 3.75f;
 		}

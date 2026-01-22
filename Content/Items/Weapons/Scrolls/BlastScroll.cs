@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			base.SetDefaults();
 			Item.useTime = Item.useAnimation = 67;
 			Item.damage = 20;
-			Item.DamageType = ModContent.GetInstance<OracleDamage>();
+			Item.DamageType = OracleDamage.Instance;
 			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
 			Item.shootSpeed = 7f;
 		}

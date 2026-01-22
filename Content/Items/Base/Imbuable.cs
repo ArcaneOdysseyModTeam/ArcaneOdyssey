@@ -241,6 +241,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.noUseGraphic = true;
 			Item.alpha = (255 * MathHelper.Clamp(ItemInvisibility, 0f, 1f)).Round();
 			Item.noMelee = true;
+			Item.UseSound = ImbueSound;
 		}
 
 		internal static List<int> BasicImbues = [];

@@ -1,8 +1,9 @@
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Items.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
@@ -34,10 +35,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
-			Projectile.scale = AOSize * charge;
+			Projectile.scale = AOSize * charge * Imbue.AOScrollSize;
 			var dir = Main.myPlayer == Projectile.owner ? Owner.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
+				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = Imbue.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());

@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = ModContent.GetInstance<OracleDamage>();
+			Item.DamageType = OracleDamage.Instance;
 			Item.noUseGraphic = NoUseGraphic;
 			Item.noMelee = true;
 			Item.value = GalleonToCopper(AOValue);

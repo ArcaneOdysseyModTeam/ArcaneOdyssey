@@ -207,9 +207,9 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				if (player.ArcaneOdyssey().bloodDisease.HasValue)
+				if (player.ArcaneOdyssey().BloodDisease != 0)
 				{
-					target.AddBuff(player.ArcaneOdyssey().bloodDisease.Value, 60 * Main.rand.Next(5, 10));
+					target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(5, 10));
 				}
 			}
 			modifiers = CalculateImbueDamage(Imbue, target, modifiers);

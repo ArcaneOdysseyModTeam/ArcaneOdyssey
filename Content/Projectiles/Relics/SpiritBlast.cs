@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
@@ -20,6 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
+				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				Projectile.netUpdate = true;
 			}
 

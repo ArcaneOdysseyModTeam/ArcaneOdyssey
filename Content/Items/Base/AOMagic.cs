@@ -105,7 +105,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (magicToUse is AOMagic && Main.myPlayer == player.whoAmI)
 			{
-				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = magicToUse.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, player.Center);
 				var rot = player.SafeDirectionTo(Main.MouseWorld);
 				if (item.ModItem is AOMagic)
 				{
