@@ -9,6 +9,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		// ai 2 is first frame bool
 
 		public override string LocalizationCategory => base.LocalizationCategory + ".Blasts." + Tier;
+
+		public override float AOSize => .1f;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

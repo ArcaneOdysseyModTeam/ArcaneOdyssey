@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -85,6 +86,16 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		public override bool CanUseItem(Player player) => Imbue is not null;
+
+		public void AddRecipe(params int[] ingredients)
+		{
+			var rec = CreateRecipe().AddIngredient<EmptyScroll>();
+			foreach (var i in ingredients)
+			{
+				rec.AddIngredient(i);
+			}
+			rec.Register();
+		}
 
 		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue);
 	}

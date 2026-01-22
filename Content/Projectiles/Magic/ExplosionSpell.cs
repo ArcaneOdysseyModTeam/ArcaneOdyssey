@@ -11,8 +11,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 	public class ExplosionSpell : MagicSpell
 	{
 		public override string Texture => Mod.Name + "/Backgrounds/Blank";
-		public const float defaultMax = 3f;
-		public const float defaultMin = 0.6f;
 		public float charge = 1f;
 		public bool isPlacedExplosion = Main.mouseRight;
 		public Vector2 ensuredPosition = Main.MouseWorld;
@@ -21,6 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			base.SetDefaults();
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
+			charge = 1f;
 		}
 
 		public override bool? CanDamage() => false;
@@ -31,16 +30,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Projectile.netUpdate = true;
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
 			var size = isPlacedExplosion ? 1f : 1.2f;
-			if (charge < defaultMax && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
+			if (charge < 1.5f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
 			{
-				if (Projectile.ai[1] == 0)
-				{
-					charge = defaultMin;
-					Projectile.ai[1]++;
-				}
 				Projectile.Center = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;
-				charge += 1 / 60f;
+				charge += 1 / 120f;
 				//if (!isPlacedExplosion)
 				//{
 				//	ensuredPosition = Owner.Center;
@@ -51,34 +45,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			}
 			else
 			{
-				if (Projectile.ai[1] == 0)
-				{
-					charge = 1f;
-					Projectile.ai[1]++;
-				}
 				Owner.channel = false;
 				if (AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.Imbue().Name == Imbue.Name)
 				{
 					AOPlayerOwner.myCircle.ai[0]++;
 					AOPlayerOwner.myCircle = null;
 				}
-				Owner.itemAnimation = 0;
-				Owner.itemTime = 0;
-				Owner.reuseDelay = 60;
 				//if (!isPlacedExplosion)
 				//{
 				//	ensuredPosition = Owner.Center;
 				//}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var damage = 25 * (charge * (charge / 2)) * size;
-					AOUtils.SimulateAOE(size * 100, damage, ensuredPosition, Projectile.knockBack, Projectile, DamageClass.Magic);
+					var damage = 50 * charge * size;
+					AOUtils.SimulateAOE(size * 100f, damage, ensuredPosition, Projectile.knockBack, Projectile, DamageClass.Magic);
 				}
 				for (int i = 0; i < 10 * charge * size; i++)
 				{
 					Imbue?.ExplosionEffects(Projectile);
 				}
-				for (int i = 0; i < 5 * charge * size; i++)
+				for (int i = 0; i < 10 * charge * size; i++)
 				{
 					SecondImbue?.ExplosionEffects(Projectile);
 				}

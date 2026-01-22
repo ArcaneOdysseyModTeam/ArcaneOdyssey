@@ -15,7 +15,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useAnimation = Item.useTime = (ExplosionSpell.defaultMax - ExplosionSpell.defaultMin).Round();
 			Item.damage = 50;
 			Item.reuseDelay = 60;
 			Item.channel = true;

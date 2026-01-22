@@ -4,12 +4,11 @@ using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
-using System;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
@@ -21,6 +20,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
 	{
+		public override void SetStaticDefaults()
+		{
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+			base.SetStaticDefaults();
+		}
+
 		public override string LocalizationCategory => base.LocalizationCategory + ".Magic." + ImbuableTier;
 
 		public void CreateLostRecipe(params Type[] imbues)
@@ -49,6 +54,25 @@ namespace ArcaneOdyssey.Content.Items.Base
 				rec.Register();
 			}
 		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.DamageType = DamageClass.Magic;
+			Item.shoot = GetSkill("Blast");
+			Item.damage = (20 * AOScrollDamage).Round();
+			Item.mana = 15;
+			Item.shootSpeed = 7f * AOScrollSpeed;
+		}
+
+		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		{
+			if (!player.AltUse())
+				mult *= 0;
+		}
+
+		public override bool AltFunctionUse(Player player) => true;
+		public override bool CanShoot(Player player) => player.AltUse();
 
 		public void CreateAncientRecipe(params Type[] imbues)
 		{

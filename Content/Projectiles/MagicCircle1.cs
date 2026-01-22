@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Items.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles
@@ -27,6 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 0;
+			charge = 1f;
 		}
 
 		internal bool MarkedForDeath = false;
@@ -39,17 +39,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
-				if (Owner.channel)
-				{
-					charge = .75f;
-				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
 			
-			if (Imbue is RelicImbue)
-			{
-				Imbue.LingeringEffects(Projectile);
-			}
+			SecondImbue?.LingeringEffects(Projectile);
+
 
 			if (Projectile.position != Projectile.oldPosition)
 			{
@@ -62,20 +56,21 @@ namespace ArcaneOdyssey.Content.Projectiles
 				{
 					AOPlayerOwner.chargingSpell = true;
 					Owner.heldProj = Projectile.whoAmI;
-					Owner.itemAnimation = Owner.itemTime = 2;
+					Owner.itemAnimation = Owner.PlayerItem().useAnimation;
+					Owner.itemTime = Owner.PlayerItem().useTime;
 					Owner.itemRotation = dir.ToRotation();
 					if (Owner.direction != 1)
 					{
 						Owner.itemRotation += MathHelper.Pi;
 					}
 					if (Main.myPlayer == Projectile.owner)
-						charge += 1f / 60f;
+						charge += 1f / 120f;
 				}
 				Projectile.ai[2] = 1;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.MountedCenter + (dir * 20f);
-				if (charge >= 3f)
+				if (charge >= 1.5f)
 				{
 					Owner.channel = false;
 					MarkedForDeath = true;
@@ -87,12 +82,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
-					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, Projectile.damage, Projectile.knockBack * charge, Projectile.owner);
-					if (proj.ModProjectile is BlastSpell or BeamSpell)
-					{
-						proj.ArcaneOdyssey().BaseScale = charge / 2;
-						proj.damage = (Projectile.damage * (charge * charge)).Round();
-					}
+					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner);
 					if (proj.ModProjectile is PulsarSpell && originallyAltFire)
 					{
 						proj.ai[1] = 1;

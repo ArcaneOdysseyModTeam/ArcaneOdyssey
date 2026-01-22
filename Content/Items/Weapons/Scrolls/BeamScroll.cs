@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 20;
+			Item.damage = 100;
 			Item.channel = true;
 			Item.mana = 30;
 			Item.knockBack = 0f;

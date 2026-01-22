@@ -19,8 +19,8 @@ BeamScroll: {
 }
 
 BlastScroll: {
-	DisplayName: Blast Scroll
-	Tooltip: Channels your imbue into basic projectiles
+	DisplayName: Blast Rite
+	Tooltip: Channels your spirit energy into a blast
 }
 
 CannonScroll: {

@@ -22,10 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
 
-			if (Imbue is RelicImbue)
-			{
-				Imbue.LingeringEffects(Projectile);
-			}
+			SecondImbue?.LingeringEffects(Projectile);
 
 			Projectile.ai[0] += (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)
@@ -38,7 +35,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 				else
 				{
-					Owner.itemAnimation = Owner.itemTime = 2;
+					Owner.itemAnimation = Owner.PlayerItem().useAnimation;
+					Owner.itemTime = Owner.PlayerItem().useTime;
 					if (Main.myPlayer == Projectile.owner)
 					{
 						Owner.itemRotation = Owner.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();

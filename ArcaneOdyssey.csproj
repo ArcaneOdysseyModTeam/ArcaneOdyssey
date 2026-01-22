@@ -25,6 +25,11 @@
 	<ItemGroup>
 		<Folder Include="Assets\" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="SubworldLibrary">
+	    <HintPath>..\references\SubworldLibrary.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 
 	<!-- References -->
 

@@ -102,8 +102,6 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public override void PostUpdate()
 		{
-			if (chargingSpell)
-				Player.statDefense *= .75f;
 			chargingSpell = false;
 			DashStrike();
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))

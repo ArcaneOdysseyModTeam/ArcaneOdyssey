@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
@@ -236,11 +235,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useStyle = ItemUseStyleID.RaiseLamp;
+			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.width = Item.height = 52;
-			Item.useAnimation = Item.useTime = 60;
+			Item.useAnimation = Item.useTime = (60 * AOScrollSpeed.FlipFloat()).Round();
 			Item.noUseGraphic = true;
 			Item.alpha = (255 * MathHelper.Clamp(ItemInvisibility, 0f, 1f)).Round();
+			Item.noMelee = true;
 		}
 
 		internal static List<int> BasicImbues = [];
@@ -298,12 +298,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (!Main.keyState.IsKeyDown(Keys.LeftShift))
+			if (this is RelicImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
 			{
 				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
+				if (this is not RelicImbue)
+					tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else
 			{
