@@ -120,7 +120,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public Projectile CreateChargingEffect(Item item, Player player)
 		{
 			if (this is AOMagic)
-				return AOMagic.CreateMagicCircle(item, player, this);
+				return AOMagic.CreateMagicCircle(item, player, this, item.damage);
 			return null;
 		}
 

@@ -103,10 +103,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		/// <summary>
 		/// Kills the projectile.
 		/// </summary>
-		public void Kill()
-		{
-			Projectile.Kill();
-		}
+		public void Kill() => Projectile.Kill();
 
 		public override bool PreDraw(ref Color lightColor)
 		{
