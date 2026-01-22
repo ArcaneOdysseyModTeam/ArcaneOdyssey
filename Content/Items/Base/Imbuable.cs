@@ -237,7 +237,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			base.SetDefaults();
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.width = Item.height = 52;
-			Item.useAnimation = Item.useTime = (60 * AOScrollSpeed.FlipFloat()).Round();
+			Item.useAnimation = Item.useTime = (30 * AOScrollSpeed.FlipFloat()).Round();
 			Item.noUseGraphic = true;
 			Item.alpha = (255 * MathHelper.Clamp(ItemInvisibility, 0f, 1f)).Round();
 			Item.noMelee = true;

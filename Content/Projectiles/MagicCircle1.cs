@@ -18,14 +18,14 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Main.projFrames[Projectile.type] = 4;
 		}
 
-		public override float AOSize => .15f;
+		public override float AOSize => .5f;
 
 		public override void SetDefaults()
 		{
-			base.SetDefaults();
+			Projectile.scale = AOSize;
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
-			Projectile.alpha = 0;
+			Projectile.Opacity = .75f;
 			charge = 1f;
 		}
 
@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
+			Projectile.scale = AOSize * charge;
 			var dir = Main.myPlayer == Projectile.owner ? Owner.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
@@ -52,6 +53,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 			if (Owner.channel && !MarkedForDeath)
 			{
+				Projectile.Opacity = .75f * charge;
 				if (Projectile.ai[2] != 0)
 				{
 					AOPlayerOwner.chargingSpell = true;

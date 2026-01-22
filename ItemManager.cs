@@ -243,13 +243,15 @@ namespace ArcaneOdyssey
 					if (BenifitsFromScrollStats.GetValueOrDefault())
 					{
 						velocity *= Imbue.AOScrollSpeed;
+						if (SecondImbue is not null)
+							velocity *= SecondImbue.AOScrollSpeed;
 					}
 					else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
 						velocity *= Imbue.AOImbueSpeed;
+						if (SecondImbue is not null)
+							velocity *= SecondImbue.AOImbueSpeed;
 					}
-					if (SecondImbue is not null)
-						velocity *= SecondImbue.AOImbueSpeed;
 				}
 			}
 		}
@@ -656,6 +658,11 @@ namespace ArcaneOdyssey
 						}
 					}
 				}
+			}
+
+			if (player.ArcaneOdyssey().bloodDisease.HasValue)
+			{
+				target.AddBuff(player.ArcaneOdyssey().bloodDisease.Value, 60 * Main.rand.Next(4, 10));
 			}
 
 			if (item.ModItem is AORangedOrMeleeWeapon weap)

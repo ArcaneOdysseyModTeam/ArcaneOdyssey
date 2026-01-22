@@ -10,13 +10,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override string LocalizationCategory => base.LocalizationCategory + ".Blasts." + Tier;
 
-		public override float AOSize => .1f;
+		public override float AOSize => .4f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.timeLeft = 5 * 60;
+			Projectile.timeLeft = 90;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

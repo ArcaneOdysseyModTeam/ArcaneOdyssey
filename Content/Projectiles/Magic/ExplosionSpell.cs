@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public override void AI()
 		{
+			AOPlayerOwner.myCircle.scale = AOPlayerOwner.myCircle.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f) * charge; 
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -61,17 +62,16 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = GetSkill("Blast");
 			Item.damage = (20 * AOScrollDamage).Round();
-			Item.mana = 15;
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}
 
-		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (!player.AltUse())
-				mult *= 0;
+			CreateMagicCircle(Item, player, this, damage);
+			return false;
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public override bool AltFunctionUse(Player player) => player.CheckMana(20, true);
 		public override bool CanShoot(Player player) => player.AltUse();
 
 		public void CreateAncientRecipe(params Type[] imbues)
@@ -109,18 +109,19 @@ namespace ArcaneOdyssey.Content.Items.Base
 				var rot = player.SafeDirectionTo(Main.MouseWorld);
 				if (item.ModItem is AOMagic)
 				{
-					return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 1);
+					if (!player.AltUse())
+						return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 1);
+					else
+					{
+						Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), damage, item.knockBack, player.whoAmI);
+						circleprojectile.rotation = rot.ToRotation();
+						((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
+						return circleprojectile;
+					}
 				}
 				else if (item.ModItem is ExplosionScroll)
 				{
 					return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
-				}
-				else if (item.ModItem is BlastScroll)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = rot.ToRotation();
-					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
-					return circleprojectile;
 				}
 				else if (item.ModItem is CannonScroll)
 				{

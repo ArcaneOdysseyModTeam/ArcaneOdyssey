@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
@@ -122,6 +123,26 @@ namespace ArcaneOdyssey
 				// current imbue lol
 				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<EagleLegacy>(), imbueText);
+
+				string GetDiseaseName()
+				{
+					var text = Mod.CustomLocalization("RandomWords.None").Value;
+					if (Main.LocalPlayer.ArcaneOdyssey().bloodDisease.HasValue)
+					{
+						var modbuff = ModContent.GetModBuff(Main.LocalPlayer.ArcaneOdyssey().bloodDisease.Value);
+
+						if (modbuff is null)
+						{
+							text = Lang.GetBuffName(Main.LocalPlayer.ArcaneOdyssey().bloodDisease.Value);
+						}
+						else
+							text = modbuff.DisplayName.Value;
+					}
+					return text;
+				}
+
+				Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", GetDiseaseName()).Value;
+				Fargos.Call("AddStat", ModContent.ItemType<AcidMagic>(), blood);
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}

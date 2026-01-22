@@ -50,7 +50,7 @@ namespace ArcaneOdyssey
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
 			thisProjectile = projectile;
-			if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || projectile.damage <= 0 || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
+			if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || (projectile.damage <= 0 && projectile.ModProjectile is not AOPlayerProjectile) || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
 				return;
 			Player player = Main.player[projectile.owner];
 			float mult = BaseScale.GetValueOrDefault(projectile.scale);
@@ -166,7 +166,7 @@ namespace ArcaneOdyssey
 			if (!CanBeAffected)
 				return;
 
-			if (projectile.TryGetOwner(out var player))
+			if (projectile.TryGetOwner(out Player player))
 			{
 				if (player.meleeEnchant != 0 && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
 				{
@@ -205,6 +205,11 @@ namespace ArcaneOdyssey
 							}
 						}
 					}
+				}
+
+				if (player.ArcaneOdyssey().bloodDisease.HasValue)
+				{
+					target.AddBuff(player.ArcaneOdyssey().bloodDisease.Value, 60 * Main.rand.Next(5, 10));
 				}
 			}
 			modifiers = CalculateImbueDamage(Imbue, target, modifiers);

@@ -342,6 +342,7 @@ RandomWords: {
 FargosSheet: {
 	CurrentImbue: Current Imbue: {0}
 	SizeMulti: Attack Size Multiplier: {0}
+	BloodDisease: Blood Disease: {0}
 }
 
 DamageClasses: {
