@@ -134,15 +134,15 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			if (dash.AnyDirection)
 			{
-				Dash = dash;
+				OmniDash = dash;
 			}
-			else Dash2 = dash;
+			else SideDash = dash;
 		}
 
 		private DashSystem _dash;
-		public DashSystem Dash { get => _dash; set => _dash = !dashing ? value : _dash; }
+		public DashSystem OmniDash { get => _dash; set => _dash = !dashing ? value : _dash; }
 		private DashSystem _dash2;
-		public DashSystem Dash2 { get => _dash2; set => _dash2 = !dashing ? value : _dash2; }
+		public DashSystem SideDash { get => _dash2; set => _dash2 = !dashing ? value : _dash2; }
 		public DashSystem CurrentDash;
 		public int DashLeft;
 		public Vector2 DashVelocity;
@@ -266,10 +266,9 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			if (!dashing)
 			{
-				Dash = null;
-				Dash2 = null;
+				OmniDash = null;
+				SideDash = null;
 				CurrentDash = null;
-				DashDir = 0;
 			}
 			if (Player.whoAmI == Main.myPlayer && ExternalModSupport.CanDoubleTapDash())
 			{
@@ -315,7 +314,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
 			dashing &= !(Immobile || SoftFrozen);
-			DashSystem[] dashes = [Dash, Dash2];
+			DashSystem[] dashes = [OmniDash, SideDash];
 			foreach (DashSystem dash in dashes)
 			{
 				if (dash is not null)

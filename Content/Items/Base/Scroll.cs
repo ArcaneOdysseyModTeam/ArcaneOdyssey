@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -60,9 +61,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-			if (HasCorrectImbue)
+			if (HasCorrectImbue && this is not BlastScroll)
 			{
-				Item.color = Imbue.GetColour(Color.Transparent) with { A = (byte)(Imbue.GetColour(Color.Transparent).A * .75f) };
+				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}
 			else Item.color = Color.Transparent;
 		}
@@ -81,7 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			SecondImbue = Imbue?.Imbue;
 			if (HasCorrectImbue)
 			{
-				Item.color = Imbue.GetColour(Color.Transparent) with { A = (byte)(Imbue.GetColour(Color.Transparent).A * .75f) };
+				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}
 			else Item.color = Color.Transparent;
 			Item.DamageType = Item.DamageType.Imbued(Imbue, Item);

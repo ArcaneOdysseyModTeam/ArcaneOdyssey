@@ -141,6 +141,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <param name="intensity">The multiplier on the explosion size</param>
 		public virtual void ExplosionEffects(Vector2 position, float intensity = 1f) { }
 
+		/// <summary>
+		/// Draws a solid box out of dust for walls ect
+		/// <para>I am not making this lol</para>
+		/// </summary>
+		/// <param name="area">The box</param>
+		public virtual void BoxEffects(Rectangle area, float rotation = 0f) { }
+
 
 		public virtual void BeamEffects(Vector2 origin, float rangemulti = 1f, float widthmulti = 1f) { }
 
