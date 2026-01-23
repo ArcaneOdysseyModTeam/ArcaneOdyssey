@@ -142,6 +142,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual void ExplosionEffects(Vector2 position, float intensity = 1f) { }
 
 
+		public virtual void BeamEffects(Vector2 origin, float rangemulti = 1f, float widthmulti = 1f) { }
+
+
 		private bool FirstFrame = true;
 
 		public override bool CanUseItem(Player player)

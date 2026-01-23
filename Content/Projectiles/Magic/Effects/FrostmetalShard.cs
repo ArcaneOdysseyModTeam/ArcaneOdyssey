@@ -36,10 +36,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			{
 				for (int n = 0; n < 5; n++)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SnowflakeIce, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SnowflakeIce, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), Scale: 3f)];
 					spawnedDust.noGravity = true;
 					SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
-					Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f);
+					Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), Scale: 2f);
 					Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), Scale: 1f);
 				}
 			}
