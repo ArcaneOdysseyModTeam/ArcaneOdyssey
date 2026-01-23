@@ -119,7 +119,7 @@ namespace ArcaneOdyssey
 			if (vesuvianBurn)
 			{
 				npc.GetLifeStats(out int npcCurrentlife, out _);
-				npc.lifeRegen -= Math.Clamp(-1 * (int)MathF.Ceiling(npcCurrentlife * 0.4f), 10, 10000);
+				npc.lifeRegen -= Math.Clamp((int)MathF.Ceiling(npcCurrentlife * 0.4f), 10, 10000);
 			}
 		}
 	}
