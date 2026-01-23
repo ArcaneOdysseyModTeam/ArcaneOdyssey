@@ -142,7 +142,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
-			gel = null;
+			gel = 0;
 			pheonixHealing = 0;
 			HandleDashDetection();
 		}

@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.PlayerClasses
 {
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public int? gel = null;
+		public int gel = 0;
 
 		public string bloodDisease = null;
 

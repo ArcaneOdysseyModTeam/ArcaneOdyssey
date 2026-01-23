@@ -7,27 +7,21 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public class MagicCircle1 : AOPlayerProjectile
+	public class BasicCharger : AOPlayerProjectile
 	{
+		public override string Texture => Mod.Name + "/Backgrounds/Blank";
 		public int ChargingProjectile;
 		public float charge = 1f;
 
 		public override bool? CanDamage() => false;
 
-		public override void SetStaticDefaults()
-		{
-			Main.projFrames[Projectile.type] = 4;
-		}
-
-		public override float AOSize => .5f;
-
 		public override void SetDefaults()
 		{
 			Projectile.scale = AOSize;
-			Projectile.height = Projectile.width = 128;
+			Projectile.height = Projectile.width = 20;
 			Projectile.tileCollide = false;
-			Projectile.Opacity = .75f;
 			charge = 1f;
+			MarkedForDeath = false;
 		}
 
 		internal bool MarkedForDeath = false;
@@ -36,15 +30,15 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			Projectile.scale = AOSize * charge * Imbue.AOScrollSize;
-			var dir = Main.myPlayer == Projectile.owner ? Owner.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
+			var dir = Owner.MountedCenter.DirectionTo(Main.MouseWorld);
+			Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			if (Projectile.ai[0] == 0)
 			{
-				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = Imbue.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
-				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
-			
+
+			Imbue?.LingeringEffects(Projectile.Hitbox);
 			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 
 
@@ -55,7 +49,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 			if (Owner.channel && !MarkedForDeath)
 			{
-				Projectile.Opacity = .75f * charge;
 				AOPlayerOwner.chargingSpell = true;
 				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemAnimation = Owner.PlayerItem().useAnimation;
@@ -67,9 +60,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				}
 				if (Main.myPlayer == Projectile.owner)
 					charge += 1f / 120f;
-				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
-				Projectile.rotation = dir.ToRotation();
-				Projectile.Center = Owner.MountedCenter + (dir * 20f);
+				Projectile.Center = Owner.HandPosition.GetValueOrDefault(Owner.MountedCenter + (dir * 10f));
 				if (charge >= 1.5f)
 				{
 					Owner.channel = false;
@@ -79,7 +70,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 			else
 			{
 				Projectile.alpha += (255f / 60f).Round();
-				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
 					var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10 * Imbue.AOScrollSpeed, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner);
@@ -90,36 +80,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 					proj.netUpdate = true;
 					Projectile.ai[1] = 1;
 				}
-			}
-
-			if (Imbue is not null && !Main.dedServ)
-			{
-				float tempLightColorR = 0f;
-				float tempLightColorG = 0f;
-				float tempLightColorB = 0f;
-				if (Imbue.GetColour().R != 0f)
-				{
-					tempLightColorR = 3f / Imbue.GetColour().R;
-				}
-				if (Imbue.GetColour().G != 0f)
-				{
-					tempLightColorG = 3f / Imbue.GetColour().G;
-				}
-				if (Imbue.GetColour().B != 0f)
-				{
-					tempLightColorB = 3f / Imbue.GetColour().B;
-				}
-				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
-				if (Projectile.localAI[0]++ > 5)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColour(), 1f)];
-					spawnedDust.noGravity = true;
-					Projectile.localAI[0] = 0;
-				}
-			}
-
-			if (Projectile.alpha >= 255)
-			{
 				Kill();
 			}
 
@@ -133,15 +93,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 			}
 		}
 
-		public override bool PreDraw(ref Color lightColor)
-		{
-			if (Imbue is AOMagic)
-			{
-				lightColor = Imbue.GetColour();
-				return base.PreDraw(ref lightColor);
-			}
-			else
-				return false;
-		}
+		public override bool PreDraw(ref Color lightColor) => false;
 	}
 }

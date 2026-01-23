@@ -666,8 +666,8 @@ namespace ArcaneOdyssey
 								target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
 								break;
 							default:
-								if (player.ArcaneOdyssey().gel.HasValue)
-									target.AddBuff(player.ArcaneOdyssey().gel.Value, 60 * Main.rand.Next(5, 10));
+								if (player.ArcaneOdyssey().gel != 0)
+									target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
 								break;
 						}
 					}

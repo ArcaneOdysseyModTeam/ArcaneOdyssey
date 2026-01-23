@@ -446,7 +446,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile is not null && projectile.active)
 			{
-				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2)
+				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2 or BasicCharger)
 				{
 					return true;
 				}
