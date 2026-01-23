@@ -104,7 +104,7 @@ namespace ArcaneOdyssey
 
 		public static float RelativeScale(this Rectangle rect, int scale = 64)
 		{
-			return (rect.Width + rect.Height) / 2f / scale;
+			return MathHelper.Clamp(((rect.Width + rect.Height) / 2f / scale), .45f, 2.5f);
 		}
 
 		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue, Item item = null)
@@ -970,7 +970,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="input">Input</param>
 		/// <returns></returns>
-		public static float FlipFloat(this float input) => MathHelper.Clamp(2f - input, .1f, 2);
+		public static float FlipFloat(this float input) => MathHelper.Clamp(2f - input, .1f, 2f);
 
 		public static float MultiToPercent(this float multiplier) => multiplier - 1f; // wow simplest function on the earth
 

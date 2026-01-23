@@ -26,11 +26,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public override void AI()
 		{
-			AOPlayerOwner.myCircle.scale = AOPlayerOwner.myCircle.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f) * charge * Imbue.AOScrollSize; 
+			var size = isPlacedExplosion ? 1f : 1.2f;
+			AOPlayerOwner.myCircle.scale = AOPlayerOwner.myCircle.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f) * charge * Imbue.AOScrollSize * (size * (3f / 4f));
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
-			var size = isPlacedExplosion ? 1f : 1.2f;
 			if (charge < 1.5f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
 			{
 				Projectile.Center = AOPlayerOwner.myCircle.Center;
@@ -59,12 +59,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				if (Main.myPlayer == Projectile.owner)
 				{
 					var damage = 50 * charge * size;
-					AOUtils.SimulateAOE(size * 100f, damage, ensuredPosition, Projectile.knockBack, Projectile, DamageClass.Magic);
+					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, DamageClass.Magic);
 				}
-				for (int i = 0; i < 10 * charge * size; i++)
+				for (int i = 0; i < 30; i++)
 				{
-					Imbue?.ExplosionEffects(Projectile.Center);
-					SecondImbue?.ExplosionEffects(Projectile.Center);
+					Imbue?.ExplosionEffects(Projectile.Center, size * charge);
+					SecondImbue?.ExplosionEffects(Projectile.Center, size * charge);
 				}
 				SoundEngine.PlaySound(Imbue?.ImbueSound, ensuredPosition, null);
 				Kill();
@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			{
 				for (int n = 0; n < 360; n += 4)
 				{
-					Vector2 currentDustPos = (new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f)))) * ((Imbue.AOScrollSize * 109) * size);
+					Vector2 currentDustPos = (new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f)))) * ((Imbue.AOScrollSize * 109) * size * charge);
 					//currentDustPos.X = Utils.Clamp(currentDustPos.X, -1 * (Imbue.AOScrollSize * 100 * size), (Imbue.AOScrollSize * 100 * size));
 					//currentDustPos.Y = Utils.Clamp(currentDustPos.Y, -1 * (Imbue.AOScrollSize * 100 * size), (Imbue.AOScrollSize * 100 * size));
 					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.GetColour(), 1f);

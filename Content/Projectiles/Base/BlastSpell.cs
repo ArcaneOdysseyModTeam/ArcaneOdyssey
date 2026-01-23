@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.timeLeft = 90;
+			Projectile.timeLeft = 40;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

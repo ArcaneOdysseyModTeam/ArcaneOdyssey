@@ -28,12 +28,24 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			base.SetDefaults();
 			Item.shoot = ProjectileID.CannonballFriendly;
 			Item.DamageType = DamageClass.Melee;
-			Item.shootSpeed = 10f * AOScrollSpeed;
+			Item.shootSpeed = 6f * AOScrollSpeed;
+			Item.damage = (10 * AOScrollDamage).Round();
+			Item.knockBack = 2f;
 		}
 
 		public override bool AltFunctionUse(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
 		public override bool CanShoot(Player player) => player.AltUse();
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			if (player.ConsumeItem(ItemID.Cannonball))
+			{
+				velocity *= 2;
+				damage *= 2;
+				knockback *= 2;
+			}
+		}
 
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SynergyEffects Effects => new(

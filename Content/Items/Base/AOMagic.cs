@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = GetSkill("Blast");
-			Item.damage = (20 * AOScrollDamage).Round();
+			Item.damage = (10 * AOScrollDamage).Round();
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}
 
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return false;
 		}
 
-		public override bool AltFunctionUse(Player player) => player.CheckMana(20, true);
+		public override bool AltFunctionUse(Player player) => player.CheckMana((25 * AOScrollSpeed.FlipFloat()).Round(), true);
 		public override bool CanShoot(Player player) => player.AltUse();
 
 		public void CreateAncientRecipe(params Type[] imbues)
@@ -114,7 +114,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 					{
 						Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), damage, item.knockBack, player.whoAmI);
 						circleprojectile.rotation = rot.ToRotation();
-						((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
+						if (magicToUse.DashSpeed < 1.5f)
+						{
+							((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
+						}
+						else
+							((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<LesserBeam>();
 						return circleprojectile;
 					}
 				}
