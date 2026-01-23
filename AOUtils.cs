@@ -14,11 +14,14 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdysseyMusic;
 
 namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		public static int GetMusic(string name) => MusicLoader.GetMusicSlot(ArcaneOdysseyMusicMod.Instance, "Music/" + name);
+
 		internal static List<string> options = [
 			"FavoriteDesc", 
 			"NoTransfer",

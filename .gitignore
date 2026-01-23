@@ -5,3 +5,4 @@
 *.kra
 *.kra~
 *.user
+/compile_temp

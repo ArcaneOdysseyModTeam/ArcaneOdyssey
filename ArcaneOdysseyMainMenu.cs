@@ -61,20 +61,21 @@ namespace ArcaneOdyssey
 
 		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Backgrounds/Blank");
 
-		public override int Music => GetMusic();
-
-		private int GetMusic()
+		public override int Music
 		{
-			int mus;
-			if (!AltMenu)
+			get
 			{
-				mus = ExternalModSupport.GetMusic("TitleTheme", MusicID.OtherworldlyRain);
+				int mus;
+				if (!AltMenu)
+				{
+					mus = AOUtils.GetMusic("TitleTheme");
+				}
+				else
+				{
+					mus = AOUtils.GetMusic("DarkSea");
+				}
+				return mus;
 			}
-			else
-			{
-				mus = ExternalModSupport.GetMusic("DarkSea", MusicID.OtherworldlyNight);
-			}
-			return mus;
 		}
 
 		/// <summary>

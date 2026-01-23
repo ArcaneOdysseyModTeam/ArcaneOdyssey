@@ -26,6 +26,9 @@
 		<Folder Include="Assets\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Reference Include="ArcaneOdysseyMusic">
+	    <HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
+	  </Reference>
 	  <Reference Include="SubworldLibrary">
 	    <HintPath>..\references\SubworldLibrary.dll</HintPath>
 	  </Reference>

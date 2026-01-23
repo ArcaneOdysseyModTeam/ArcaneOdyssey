@@ -42,15 +42,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static int GetMusic(string name, int fallback = 0)
-		{
-			if (HasMusicMod)
-			{
-				return (int)MusicMod.Call(name);
-			}
-			else return fallback;
-		}
-
 		public void MiscCalamitysStuff()
 		{
 			if (!HasCalamity)
