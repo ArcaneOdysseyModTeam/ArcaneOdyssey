@@ -48,51 +48,51 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 		);
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water_GlowingMushroom, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Water_GlowingMushroom, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust1 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedsWingsRun, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 3f)];
+				Dust spawnedDust1 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedsWingsRun, direction.X * 0.2f, direction.Y * 0.2f, Scale: 3f * area.RelativeScale())];
 				spawnedDust1.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.MushroomTorch, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.MushroomTorch, direction.X * 0.2f, direction.Y * 0.2f, Scale: 3f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water_GlowingMushroom, 0f, 0f, 0, default, 1.2f);
-			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedsWingsRun, 0f, 0f, 0, default, 1f);
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.MushroomTorch, 0f, 0f, 0, default, 2f)];
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Water_GlowingMushroom, Scale: 1.2f * area.RelativeScale());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedsWingsRun, Scale: area.RelativeScale());
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.MushroomTorch, Scale: 2f * area.RelativeScale())];
 			spawnedDust2.noGravity = true;
 		}
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Water_GlowingMushroom, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water_GlowingMushroom, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust1 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust1 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust1.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Water_GlowingMushroom, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Water_GlowingMushroom, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust1 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedsWingsRun, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust1 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedsWingsRun, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust1.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedsWingsRun, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedsWingsRun, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void AddRecipes()

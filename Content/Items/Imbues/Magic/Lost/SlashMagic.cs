@@ -34,36 +34,36 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void LingeringEffects(Entity entity)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust.NewDust(entity.position, entity.width, entity.height, ModContent.DustType<SlashDust>());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SlashDust>(), Scale: area.RelativeScale());
 		}
 
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 0, 0, ModContent.DustType<SlashDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SlashDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}
 
-		public override void KillEffects(Entity entity)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (float i = 0; i < 70; i++)
 			{
-				var centre = (MathHelper.TwoPi / 25 * i).ToRotationVector2() * ((entity.width + entity.height) / 2);
+				var centre = (MathHelper.TwoPi / 25 * i).ToRotationVector2() * ((area.Width + area.Height) / 2);
 				if (i % 2 == 0)
-					AOUtils.NewDustImperfect(entity.Center, ModContent.DustType<SlashDust>(), centre / (8 + (Main.rand.NextFloat() * 2)), scale: .7f).noGravity = true;
+					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SlashDust>(), centre / (8 + (Main.rand.NextFloat() * 2)), scale: .7f * area.RelativeScale()).noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
-		public override void SpawningEffects(Entity entity)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (float i = 0; i < 5; i++)
 			{
-				Dust.NewDust(entity.position, entity.width, entity.height, ModContent.DustType<SlashDust>(), entity.velocity.X / 2, entity.velocity.Y / 2, Scale: .5f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SlashDust>(), direction.X / 2f, direction.Y / 2f, Scale: .5f * area.RelativeScale());
 			}
 		}
 

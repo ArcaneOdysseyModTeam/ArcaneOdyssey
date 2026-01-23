@@ -37,21 +37,21 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 
 		public const int DustCount = 30;
-		public override void KillEffects(Entity entity)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			if (!Main.dedServ)
 			{
 				for (float i = 0; i < DustCount; i++)
 				{
-					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * entity.width;
-					var dust = Dust.NewDustPerfect(entity.Center, DustID.MushroomTorch, centre / 14);
+					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * ((area.Width + area.Height) / 2f);
+					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre * area.RelativeScale() / 14f, Scale: area.RelativeScale());
 					dust.noGravity = true;
 				}
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
-		public override void ExplosionEffects(Entity entity)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (float e = 13; e < 18; e++)
 			{
@@ -59,32 +59,32 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				{
 					for (float i = 0; i < DustCount; i++)
 					{
-						var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (entity.width * 1.2f);
-						var dust = Dust.NewDustPerfect(entity.Center, DustID.MushroomTorch, centre / e);
+						var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (15f * AOScrollSize * intensity);
+						var dust = Dust.NewDustPerfect(position, DustID.MushroomTorch, centre / e);
 						dust.noGravity = true;
 					}
 				}
 			}
 		}
 
-		public override void LingeringEffects(Entity entity)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			if (!Main.dedServ)
 			{
 				for (float i = 0; i < DustCount; i++)
 				{
-					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * entity.width;
-					var dust = Dust.NewDustPerfect(entity.Center, DustID.MushroomTorch, centre / (DustCount * .75f));
+					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * ((area.Width + area.Height) / 2f);
+					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre / (DustCount * .75f), Scale: area.RelativeScale());
 					dust.noGravity = true;
 				}
 			}
 		}
 
-		public override void SpawningEffects(Entity entity)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			if (!Main.dedServ)
 			{
-				SoundEngine.PlaySound(ImbueSound, entity.Center);
+				SoundEngine.PlaySound(ImbueSound, area.Center());
 			}
 		}
 

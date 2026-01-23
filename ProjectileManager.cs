@@ -151,10 +151,10 @@ namespace ArcaneOdyssey
 				{
 					if (Imbue is not null && Imbue.PreEffects(projectile))
 					{
-						Imbue.KillEffects(projectile);
+						Imbue.KillEffects(projectile.Hitbox);
 					}
 					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-						SecondImbue.KillEffects(projectile);
+						SecondImbue.KillEffects(projectile.Hitbox);
 				}
 			}
 			return true;
@@ -274,10 +274,10 @@ namespace ArcaneOdyssey
 				{
 					if (Imbue is not null && Imbue.PreEffects(projectile))
 					{
-						Imbue.SpawningEffects(projectile);
+						Imbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
 					}
 					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-						SecondImbue.SpawningEffects(projectile);
+						SecondImbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
 				}
 				projectile.DamageType = projectile.DamageType.Imbued(Imbue);
 			}
@@ -301,10 +301,10 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is not null && Imbue.PreEffects(projectile))
 			{
-				Imbue.LingeringEffects(projectile);
+				Imbue.LingeringEffects(projectile.Hitbox);
 			}
 			if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-				SecondImbue.LingeringEffects(projectile);
+				SecondImbue.LingeringEffects(projectile.Hitbox);
 		}
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)

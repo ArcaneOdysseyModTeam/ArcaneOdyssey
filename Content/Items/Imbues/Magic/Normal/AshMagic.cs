@@ -55,55 +55,58 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ash, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ash, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 2f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, direction.X * 2f, direction.Y * 2f, Scale: 2f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			_ = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, 0f, 0f, 0, default, 1f);
-			Dust spawnedDust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Ash, 0f, 0f, 0, default, 2f);
+			_ = Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, Scale: 1f * area.RelativeScale());
+			Dust spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.Ash, Scale: 2f * area.RelativeScale());
 			spawnedDust.noGravity = true;
 		}
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.RedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1f)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 2f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}
 
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Ash, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f);
+				Dust spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.Ash, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale());
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.RedTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2f);
+				Dust spawnedDust2 = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale());
 				spawnedDust2.noGravity = true;
 			}
-			for (int n = 0; n < 10; n++)
+			if (source is Projectile projectile)
 			{
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), new(1.23f * (Main.rand.NextFloat() - 0.5f), 1.23f * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
+				for (int n = 0; n < 10; n++)
+				{
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
+				}
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 
 		}
 
-		public override bool PreEffects(Entity projectile)
+		public override bool PreEffects(Entity entity = null)
 		{
-			if (projectile is Projectile proj)
-				return base.PreEffects(projectile) && proj.type != ProjectileID.SporeCloud;
-			return base.PreEffects(projectile);
+			if (entity is Projectile projectile)
+				return base.PreEffects(projectile) && projectile.type != ProjectileID.SporeCloud;
+			return base.PreEffects(entity);
 		}
 
 

@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
 			
-			SecondImbue?.LingeringEffects(Projectile);
+			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 
 
 			if (Projectile.position != Projectile.oldPosition)
@@ -116,7 +116,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
 				if (Projectile.localAI[0]++ > 5)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColour(), 1f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), (8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColour(), 1f)];
 					spawnedDust.noGravity = true;
 					Projectile.localAI[0] = 0;
 				}

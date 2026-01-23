@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (TileTimer <= 0)
 			{
-				Imbue?.KillEffects(Projectile);
+				Imbue?.KillEffects(Projectile.Hitbox);
 			}
 			if (TileTimer < 60 && TileTimer > 0)
 			{

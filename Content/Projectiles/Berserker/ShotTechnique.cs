@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue is null ? default : Imbue.GetColour(), 1.5f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
-					Imbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
 				}
 				AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
 			}

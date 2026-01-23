@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.LightYellow;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float AOScrollSpeed => 1.275f;
-		public override float AOScrollSize => 1.25f;
+		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => .75f;
 
 		public override SynergyEffects Effects => new(
@@ -44,47 +44,44 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.IchorTorch, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1.2f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IchorTorch, direction.X * 0.2f, direction.Y * 0.2f, Scale: 1.2f * area.RelativeScale());
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
-		{// WAHT IS  THIS IM SO CONFUSED
-			if (projectile.velocity != Vector2.Zero)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		{
+			float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
+			if (source is Projectile projectile && projectile.extraUpdates > 0)
 			{
-				float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
-				if (projectile is Projectile proj && proj.extraUpdates > 0)
-				{
-					waveVal = 10f * MathF.Abs(((float)(Main.GameUpdateCount + proj.numUpdates)) % 5 % 10f - 2.5f) - 12.5f;
-				}
-				Vector2 baseVec = new(0f, waveVal);
-				Dust spawnedDust = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + (projectile.Size / 2f), DustID.SolarFlare, new Vector2(0f, 0f), 255, Color.Yellow, 1.2f);
-				spawnedDust.noGravity = true;
+				waveVal = 10f * MathF.Abs(((float)(Main.GameUpdateCount + projectile.numUpdates)) % 5 % 10f - 2.5f) - 12.5f;
 			}
-			Lighting.AddLight(projectile.position, 2, 0, 0);
-			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.IchorTorch, 0f, 0f, 0, default, .7f);
+			Vector2 baseVec = new(0f, waveVal);
+			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.SolarFlare, Scale: 1.2f * area.RelativeScale());
+			spawnedDust.noGravity = true;
+			Lighting.AddLight(area.Center(), 2, 0, 0);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IchorTorch, Scale: .7f * area.RelativeScale());
 		}
 
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Firework_Yellow, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Yellow, 2.3f);
+				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.Firework_Yellow, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2.3f * intensity);
 				dust.noGravity = true;
 			}
 		}
 
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.IchorTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 2.5f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IchorTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void AddRecipes()

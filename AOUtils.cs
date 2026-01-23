@@ -99,6 +99,11 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static float RelativeScale(this Rectangle rect, int scale = 64)
+		{
+			return (rect.Width + rect.Height) / 2f / scale;
+		}
+
 		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue, Item item = null)
 		{
 			if (imbue is not SteamImbue steam)

@@ -45,63 +45,63 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void SpawningEffects(Entity entity)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			if (Main.dedServ)
 				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
 			for (int n = 0; n < 3; n++)
 			{
-				Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[rainbowStep % 3], 1f);
+				Dust dust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), 0, rainbowColors[rainbowStep % 3], area.RelativeScale());
 				dust.noGravity = true;
 				rainbowStep++;
-				Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0, default, 1f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Glass, Scale: area.RelativeScale());
 			}
 		}
 
-		public override void LingeringEffects(Entity entity)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			if (Main.dedServ)
 				return;
-			Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0, default, 0.5f);
-			if (entity is Projectile projectile)
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Glass, Scale: 0.5f * area.RelativeScale());
+			if (source is Projectile projectile)
 			{
 				if (projectile.extraUpdates > 0)
 				{
-					Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Math.Abs(projectile.numUpdates+Main.GameUpdateCount)/*Prevents issues with -1 updates, and also makes sure all colors are shown*/ % 3], 1.4f);
+					Dust dust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), 0, rainbowColors[Math.Abs(projectile.numUpdates+Main.GameUpdateCount)/*Prevents issues with -1 updates, and also makes sure all colors are shown*/ % 3], 1.4f * area.RelativeScale());
 					dust.noGravity = true;
 				}
 				else
 				{
-					Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f);
+					Dust dust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f * area.RelativeScale());
 					dust.noGravity = true;
 				}
 			}
 			else
 			{
-				Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f);
+				Dust dust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), 0, rainbowColors[Main.GameUpdateCount % 3], 1.4f * area.RelativeScale());
 				dust.noGravity = true;
 			}
 		}
 
-		public override void KillEffects(Entity entity)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			if (Main.dedServ)
 				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
 			for (int n = 0; n < 10; n++)
 			{
-				Dust dust = Dust.NewDustDirect(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, 0, rainbowColors[rainbowStep % 3], 2f);
+				Dust dust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), 0, rainbowColors[rainbowStep % 3], 2f * area.RelativeScale());
 				dust.noGravity = true;
 				rainbowStep++;
-				Dust.NewDust(entity.position, entity.Hitbox.Width, entity.Hitbox.Height, DustID.Glass, 0f, 0f, 0, default, 1.2f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Glass, Scale: 1.2f * area.RelativeScale());
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
-			if (entity is Projectile projectile && projectile.owner == Main.myPlayer && projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<PrismLinger>()] < 3)
-				Projectile.NewProjectile(entity.GetSource_FromThis(), entity.Center, Vector2.Zero, ModContent.ProjectileType<PrismLinger>(), projectile.damage / 6, 0, projectile.owner);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
+			if (source is Projectile projectile && projectile.owner == Main.myPlayer && projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<PrismLinger>()] < 3)
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<PrismLinger>(), projectile.damage / 6, 0, projectile.owner);
 		}
 
-		public override bool PreEffects(Entity entity)
+		public override bool PreEffects(Entity entity = null)
 		{
 			if (entity is Projectile projectile)
 				if (projectile.ModProjectile is PrismLinger)
@@ -109,15 +109,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			return base.PreEffects(entity);
 		}
 
-		public override void ExplosionEffects(Entity entity)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			if (Main.dedServ)
 				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
-			Dust.NewDust(entity.Center, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 0.9f);
+			Dust.NewDust(position, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 0.9f * intensity);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust dust = Dust.NewDustDirect(entity.Center, 0, 0, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, rainbowColors[rainbowStep % 3], 1.3f);
+				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, rainbowColors[rainbowStep % 3], 1.3f * intensity);
 				dust.noGravity = true;
 				rainbowStep++;
 			}

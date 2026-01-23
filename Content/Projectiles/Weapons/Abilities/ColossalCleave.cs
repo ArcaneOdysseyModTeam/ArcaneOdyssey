@@ -54,8 +54,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.localAI[0] = 0;
 				for (int i = 0; i < 10; i++)
 				{
-					Imbue?.ExplosionEffects(Projectile);
-					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					SecondImbue?.ExplosionEffects(Projectile.Center);
 					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				}
 			}

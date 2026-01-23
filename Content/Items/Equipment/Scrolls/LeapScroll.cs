@@ -44,8 +44,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		}
 		public override void ShowVisuals(Player player)
 		{
-			player.Imbue()?.LingeringEffects(player);
-			player.Imbue()?.Imbue?.LingeringEffects(player);
+			player.Imbue()?.LingeringEffects(player.Hitbox);
+			player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox);
 		}
 
 		public override float GetDurationMultiplier(Player player) => player.Imbue().AOScrollSize * 2;
@@ -73,13 +73,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
 				for (int i = 0; i < 5; i++)
 				{
-					player.Imbue()?.ExplosionEffects(proj);
-					player.Imbue()?.Imbue?.ExplosionEffects(proj);
+					player.Imbue()?.ExplosionEffects(proj.Center, proj.scale);
+					player.Imbue()?.Imbue?.ExplosionEffects(proj.Center, proj.scale);
 				}
-
-
-				SoundEngine.PlaySound(player.Imbue().ImbueSound, proj.Center);
 			}
+			SoundEngine.PlaySound(player.Imbue().ImbueSound, player.Bottom);
 			playSound = !player.Imbue().ImbueSound.HasValue;
 			Projectile.NewProjectile(player.GetSource_FromThis(), player.position, Vector2.Zero, ModContent.ProjectileType<LeapFix>(), 0, 0, player.whoAmI, player.direction);
 			// vfx here

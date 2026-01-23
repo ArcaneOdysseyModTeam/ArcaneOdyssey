@@ -53,38 +53,38 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.UltraBrightTorch, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, new Color(0, 0, 255, 0), 2.5f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, direction.X * 2f, direction.Y * 2f, 0, new Color(0, 0, 255, 0), 2.5f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0, 0, 255, 0), 1.2f);
-			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f);
-			Lighting.AddLight(projectile.position, 1f, 0.19f, 0f);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0, 0, 255, 0), 1.2f);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f);
+			Lighting.AddLight(area.Center(), 1f, 0.19f, 0f);
 		}
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(projectile.Center, 0, 0, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, new Color(0, 0, 255, 0), 2f);
-				Dust.NewDust(projectile.Center, 0, 0, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Blue, 2f);
+				Dust.NewDust(position, 0, 0, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, new Color(0, 0, 255, 0), 2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, Color.Blue, 2f * intensity);
 			}
 		}
 
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.UltraBrightTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, new Color(0, 0, 255, 0), 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, new Color(0, 0, 255, 0), 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 	}
 }

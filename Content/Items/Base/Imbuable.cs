@@ -119,20 +119,27 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public Projectile CreateChargingEffect(Item item, Player player)
 		{
 			if (this is AOMagic)
-				return AOMagic.CreateMagicCircle(item, player, this);
+				return AOMagic.CreateMagicCircle(item, player, this, item.damage);
 			return null;
 		}
 
-		public virtual void SpawningEffects(Entity entity) { }
+		public virtual void SpawningEffects(Rectangle area, Vector2 direction) { }
 
-		public virtual void LingeringEffects(Entity entity) { }
+		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
 
-		public virtual void KillEffects(Entity entity) { }
+		/// <summary>
+		/// Called after a projectile is killed usually
+		/// </summary>
+		/// <param name="area">The area the dust spawns in</param>
+		/// <param name="doextraeffects">Whether to do extra effects, usually spawning projectiles</param>
+		public virtual void KillEffects(Rectangle area, Entity source = null) { }
 
 		/// <summary>
 		/// Used for explosions and pulsar stuff ect
 		/// </summary>
-		public virtual void ExplosionEffects(Entity entity) { }
+		/// <param name="position">The centre of the explosion</param>
+		/// <param name="intensity">The multiplier on the explosion size</param>
+		public virtual void ExplosionEffects(Vector2 position, float intensity = 1f) { }
 
 
 		private bool FirstFrame = true;
@@ -205,9 +212,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		/// <param name="entity">The entity to check</param>
 		/// <returns></returns>
-		public virtual bool PreEffects(Entity entity)
+		public virtual bool PreEffects(Entity entity = null)
 		{
-			if (Main.dedServ || (entity.velocity.X < 2 && entity.velocity.X > -2 && entity.velocity.Y < 2 && entity.velocity.Y > -2) || entity.velocity == entity.velocity.SafeNormalize(entity.velocity))
+			if (entity is null)
+				return true;
+			if (Main.dedServ || (Math.Abs(entity.velocity.X) < 2 && Math.Abs(entity.velocity.Y) < 2) || entity.velocity == entity.velocity.SafeNormalize(Vector2.Zero))
 			{
 				return false;
 			}

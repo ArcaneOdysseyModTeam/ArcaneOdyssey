@@ -44,9 +44,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.localAI[0] = 0;
 				for (int i = 0; i < 15; i++)
 				{
-					Imbue?.ExplosionEffects(Projectile);
-					SecondImbue?.ExplosionEffects(Projectile);
-					Imbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					SecondImbue?.ExplosionEffects(Projectile.Center);
+					Imbue?.ExplosionEffects(Projectile.Center);
 				}
 				if (Main.myPlayer == Projectile.owner)
 					AOUtils.SimulateAOE(130, Projectile.damage / frequency, Projectile.Center, 0f, Projectile, DamageClass.Magic, false);

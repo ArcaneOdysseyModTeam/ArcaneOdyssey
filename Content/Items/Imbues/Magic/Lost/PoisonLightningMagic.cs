@@ -51,53 +51,50 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Cloud, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, Color.Purple, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, direction.X * 0.4f, direction.Y * 0.4f, 0, Color.Purple, 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 0, default, 1.2f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, direction.X * 0.2f, direction.Y * 0.2f, Scale: 1.2f * area.RelativeScale());
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Cloud, 0f, 0f, 0, Color.Purple, 2f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 0f, 0f, 0, Color.Purple, 2f)];
 			spawnedDust.noGravity = true;
-			if (projectile.velocity != Vector2.Zero)
+			float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
+			if (source is Projectile projectile && projectile.extraUpdates > 0)
 			{
-				float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
-				if (projectile is Projectile proj && proj.extraUpdates > 0)
-				{
-					waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)proj.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
-				}
-				Vector2 baseVec = new(0f, waveVal);
-				Dust spawnedDust2 = Dust.NewDustPerfect(projectile.position + baseVec.RotatedBy(projectile.velocity.ToRotation()) + (projectile.Size / 2f), DustID.CrystalPulse, new Vector2(0f, 0f), 255, default, 1.2f);
-				spawnedDust2.noGravity = true;
+				waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)projectile.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
 			}
-			Lighting.AddLight(projectile.position, 2, 1, 2);
+			Vector2 baseVec = new(0f, waveVal);
+			Dust spawnedDust2 = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Scale: 1.2f * area.RelativeScale());
+			spawnedDust2.noGravity = true;
+			Lighting.AddLight(area.Center(), 2, 1, 2);
 		}
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, Color.Purple, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, Color.Purple, 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(projectile.Center, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 1.2f);
+				Dust.NewDust(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 1.2f * intensity);
 			}
 		}
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Cloud, 5f * (Main.rand.NextFloat() - 0.5f), 5f * (Main.rand.NextFloat() - 0.5f), 0, Color.Purple, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, Color.Purple, 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.WitherLightning, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 1.2f);
-				if (n / 2 >= 10)
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(projectile.position.X + projectile.width * Main.rand.NextFloat(), projectile.position.Y + projectile.height * Main.rand.NextFloat()), new(1.25f * (Main.rand.NextFloat() - 0.5f), 1.25f * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BossesKilled, 0f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 1.2f * area.RelativeScale());
+				if (source is Projectile projectile && n / 2 >= 10)
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BossesKilled, 0f);
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void AddRecipes()

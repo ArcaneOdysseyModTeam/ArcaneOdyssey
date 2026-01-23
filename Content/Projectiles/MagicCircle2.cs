@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
 
-			SecondImbue?.LingeringEffects(Projectile);
+			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 
 			Projectile.ai[0] += (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)
@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 				if (Projectile.localAI[0] > 5 && !Main.dedServ)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), (8f * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColour(), 1f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), (8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), 0, Imbue.GetColour(), 1f)];
 					spawnedDust.noGravity = true;
 					Projectile.localAI[0] = 0;
 				}

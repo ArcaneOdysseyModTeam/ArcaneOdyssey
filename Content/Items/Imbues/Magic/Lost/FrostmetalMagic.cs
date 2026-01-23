@@ -52,42 +52,42 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			if (Main.dedServ)
 				return;
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Mercury, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, Scale: 2f);
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SnowflakeIce, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f)];
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Mercury, direction.X * 0.4f, direction.Y * 0.4f, Scale: 2f * area.RelativeScale());
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SnowflakeIce, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ice, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ice, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale());
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			if (Main.dedServ)
 				return;
-			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.SilverFlame, Scale: 2f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SilverFlame, Scale: 2f * area.RelativeScale())];
 			spawnedDust.noGravity = true;
-			Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ice);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ice, Scale: area.RelativeScale());
 		}
 
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			if (Main.dedServ)
 				return;
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity))];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(projectile.Center, 0, 0, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize));
-				Dust.NewDust(projectile.Center, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), Scale: 2f);
+				Dust.NewDust(position, 0, 0, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity);
+				Dust.NewDust(position, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2f * intensity);
 			}
 		}
 
-		public override bool PreEffects(Entity entity)
+		public override bool PreEffects(Entity entity = null)
 		{
 			if (entity is Projectile projectile)
 				if (projectile.ModProjectile is FrostmetalShard)
@@ -95,11 +95,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			return base.PreEffects(entity);
 		}
 
-		public override void KillEffects(Entity entity)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			if (Main.dedServ)
 				return;
-			if (entity is Projectile projectile && Main.myPlayer == projectile.owner)
+			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
 			{
 				for (int i = 0; i < 3; i++)
 				{
@@ -107,19 +107,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 					angle.Y *= 0.35f;
 					if (Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<FrostmetalShard>()] < 3)
 					{
-						var proj = Projectile.NewProjectileDirect(entity.GetSource_FromThis(), entity.Center, angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
+						var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), area.Center(), angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
 						proj.frame = i;
 					}
 				}
 			}
 			for (int n = 0; n < 15; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.SnowflakeIce, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SnowflakeIce, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Ice, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f));
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.Mercury, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), Scale: 2f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ice, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Mercury, 2f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale());
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void AddRecipes()

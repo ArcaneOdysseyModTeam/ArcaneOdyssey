@@ -54,44 +54,44 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void LingeringEffects(Entity entity)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			if (!Main.dedServ)
 			{
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.BlueTorch, Scale: 1.5f);
-				Dust.NewDust(entity.position, entity.width, entity.height, DustID.YellowTorch, Scale: 1.5f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueTorch, Scale: 1.5f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowTorch, Scale: 1.5f * area.RelativeScale());
 			}
 		}
-		public override void SpawningEffects(Entity entity)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.BlueTorch, entity.velocity.X * 2f, entity.velocity.Y * 2f, 0, default, 4f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueTorch, direction.X * 2f, direction.Y * 2f, Scale: 4f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(entity.position, entity.width, entity.height, DustID.YellowTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 4f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 4f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 		}
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, default, 5.5f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), Scale: 5.5f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, default, 5.5f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), Scale: 5.5f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.BlueTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 5.5f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 5.5f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.YellowTorch, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 5.5f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 5.5f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void AddRecipes()

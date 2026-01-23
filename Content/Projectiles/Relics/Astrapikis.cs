@@ -51,16 +51,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				Projectile.netUpdate = true;
 				for (int i = 0; i < 30; i++)
 				{
-					Imbue?.ExplosionEffects(Entity);
-					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					SecondImbue?.ExplosionEffects(Projectile.Center);
 				}
 			}
 
 			Projectile.Opacity = Projectile.timeLeft / (float)TimeLeftMax;
 			if (Projectile.timeLeft % 10 == 0)
 			{
-				Imbue?.ExplosionEffects(Projectile);
-				SecondImbue?.ExplosionEffects(Projectile);
+				Imbue?.ExplosionEffects(Projectile.Center);
+				SecondImbue?.ExplosionEffects(Projectile.Center);
 			}
 		}
 

@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				if (player.carpetTime > 0 && player.controlJump)
 				{
 					player.moveSpeed += Imbue.AOScrollSpeed.MultiToPercent();
-					Imbue.LingeringEffects(player);
+					Imbue.LingeringEffects(player.Hitbox);
 				}
 				else
 					player.carpetTime = (player.carpetTime * Imbue.AOScrollDamage).Round();

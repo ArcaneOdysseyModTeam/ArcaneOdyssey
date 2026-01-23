@@ -67,8 +67,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		{
 			if (inUse)
 			{
-				player.Imbue()?.LingeringEffects(player);
-				player.Imbue()?.Imbue?.LingeringEffects(player);
+				player.Imbue()?.LingeringEffects(player.Hitbox);
+				player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox);
 			}
 
 			return false;

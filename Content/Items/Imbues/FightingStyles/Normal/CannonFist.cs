@@ -23,6 +23,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1f;
 
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.shoot = ProjectileID.CannonballFriendly;
+			Item.DamageType = DamageClass.Melee;
+			Item.shootSpeed = 10f * AOScrollSpeed;
+		}
+
+		public override bool AltFunctionUse(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
+
+		public override bool CanShoot(Player player) => player.AltUse();
+
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[],
@@ -30,44 +42,49 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				new(ModContent.BuffType<Crystallized>(),1.1f)
 			]
 		);
-		public override void SpawningEffects(Entity projectile)
+
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ash, projectile.velocity.X * 2f, projectile.velocity.Y * 2f, 0, default, 4f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ash, direction.X * 2f, direction.Y * 2f, Scale: 4f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
-		public override void LingeringEffects(Entity projectile)
+
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ash, 0f, 0f, 0, default, 2f)];
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ash, Scale: 2f * area.RelativeScale())];
 			spawnedDust.noGravity = true;
 		}
-		public override void ExplosionEffects(Entity projectile)
+
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
-				Dust spawnedDust3 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, 4f)];
+				Dust spawnedDust3 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 4f * intensity)];
 				spawnedDust3.noGravity = true;
 			}
 		}
-		public override void KillEffects(Entity projectile)
+
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Pixie, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Pixie, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust3 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Pixie, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 3f)];
+				Dust spawnedDust3 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Pixie, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust3.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Ash, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, default, 4f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ash, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 4f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb, 15).Register();
@@ -81,19 +98,22 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			if (source is not EntitySource_Parent { Entity: NPC })
 			{
 				var player = Main.player[projectile.owner].ArcaneOdyssey();
-				if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist cfist)
+				if (Main.myPlayer == player.Player.whoAmI)
 				{
-					if (!player.OnCooldown(cfist.Name))
+					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist cfist)
 					{
-						if (!projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
+						if (!player.OnCooldown(cfist.Name))
 						{
-							if (player.Player.ConsumeItem(ItemID.Cannonball))
+							if (!projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
 							{
-								Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
+								if (player.Player.ConsumeItem(ItemID.Cannonball))
+								{
+									Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
+								}
+								else
+									Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
+								player.SetCooldown(new Cooldown(cfist.Name, Mod, 60));
 							}
-							else
-								Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
-							player.SetCooldown(new Cooldown(cfist.Name, Mod, 60));
 						}
 					}
 				}
@@ -105,17 +125,20 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	{
 		public override void UseAnimation(Item item, Player player)
 		{
-			if (item.Imbue() is CannonFist cfist && item.ArcaneOdyssey().WeaponsType == WeaponType.Arcanium)
+			if (Main.myPlayer == player.whoAmI)
 			{
-				if (!player.ArcaneOdyssey().OnCooldown(cfist.Name))
+				if (item.Imbue() is CannonFist cfist && item.ArcaneOdyssey().WeaponsType == WeaponType.Arcanium)
 				{
-					if (player.ConsumeItem(ItemID.Cannonball))
+					if (!player.ArcaneOdyssey().OnCooldown(cfist.Name))
 					{
-						Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (item.damage * .5f).Round(), item.knockBack * .5f, player.whoAmI);
+						if (player.ConsumeItem(ItemID.Cannonball))
+						{
+							Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (item.damage * .5f).Round(), item.knockBack * .5f, player.whoAmI);
+						}
+						else
+							Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (item.damage * .25f).Round(), item.knockBack * .25f, player.whoAmI);
+						player.ArcaneOdyssey().SetCooldown(new Cooldown(cfist.Name, Mod, 60));
 					}
-					else
-						Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (item.damage * .25f).Round(), item.knockBack * .25f, player.whoAmI);
-					player.ArcaneOdyssey().SetCooldown(new Cooldown(cfist.Name, Mod, 60));
 				}
 			}
 		}

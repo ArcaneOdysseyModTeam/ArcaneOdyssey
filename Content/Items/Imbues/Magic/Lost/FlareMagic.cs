@@ -57,49 +57,49 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			]
 			);
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 2; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), projectile.velocity.X * 2f, projectile.velocity.Y * 2f, Alpha: (255 * .75f).Round())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<FlareDust>(), direction.X * 2f, direction.Y * 2f, Alpha: (255 * .75f).Round(), Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, direction.X * 0.4f, direction.Y * 0.4f, Scale: 3f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (int n = 0; n < 2; n++)
 			{
-				var spawnedDust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), Alpha: (255 * .75f).Round());
+				var spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<FlareDust>(), Alpha: (255 * .75f).Round(), Scale: area.RelativeScale());
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 1.4f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, direction.GetValueOrDefault().X * 0.4f, direction.GetValueOrDefault().Y * 0.4f, Scale: 1.4f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 		}
 
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 6; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, ModContent.DustType<FlareDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize), Alpha: (255 * .75f).Round())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<FlareDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * AOScrollSize), Alpha: (255 * .75f).Round(), Scale: intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.PinkFairy, (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * AOScrollSize), 0, Color.Red, 0.8f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.PinkFairy, (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), 0, Color.Red, 0.8f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}
 
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 20; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<FlareDust>(), 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), Alpha: (255 * .75f).Round())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<FlareDust>(), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Alpha: (255 * .75f).Round(), Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.RedTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, 3f)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, Scale: 3f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void AddRecipes()

@@ -366,15 +366,15 @@ namespace ArcaneOdyssey.PlayerClasses
 						{
 							if (CurrentDash.Imbue is not null)
 							{
-								CurrentDash.Imbue.ExplosionEffects(Player);
-								CurrentDash.SecondImbue?.ExplosionEffects(Player);
+								CurrentDash.Imbue.ExplosionEffects(Player.MountedCenter);
+								CurrentDash.SecondImbue?.ExplosionEffects(Player.MountedCenter);
 							}
 						}
 						return;
 					}
 
-					CurrentDash.Imbue?.LingeringEffects(Player);
-					CurrentDash.SecondImbue?.LingeringEffects(Player);
+					CurrentDash.Imbue?.LingeringEffects(Player.Hitbox);
+					CurrentDash.SecondImbue?.LingeringEffects(Player.Hitbox);
 
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)

@@ -127,6 +127,7 @@ namespace ArcaneOdyssey
 		public override bool InstancePerEntity => true;
 
 		public Item thisItem = null;
+		public Player owner = null;
 
 		public Imbuable Imbue { get; set; }
 		public Imbuable SecondImbue { get; set; }
@@ -235,6 +236,7 @@ namespace ArcaneOdyssey
 		public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			thisItem = item;
+			owner = player;
 			if (!CanBeAffected)
 				return;
 			if (Imbue is not null)
@@ -260,6 +262,7 @@ namespace ArcaneOdyssey
 		public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
 		{
 			thisItem = item;
+			owner = player;
 			if (!CanBeAffected)
 				return;
 			if (Imbue is not null)
@@ -284,6 +287,7 @@ namespace ArcaneOdyssey
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
 		{
 			thisItem = item;
+			owner = player;
 			if (!CanBeAffected)
 				return;
 			if (Imbue is not null)
@@ -308,6 +312,7 @@ namespace ArcaneOdyssey
 		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
 		{
 			thisItem = item;
+			owner = player;
 			if (!CanBeAffected)
 				return;
 			if (item.ModItem is Scroll)
@@ -332,6 +337,7 @@ namespace ArcaneOdyssey
 		public override void SetDefaults(Item item)
 		{
 			thisItem = item;
+			owner = null;
 			if (ArcaneOdysseyMod.excludedItems.Contains(item.type))
 			{
 				CanBeAffected = false;
@@ -410,6 +416,7 @@ namespace ArcaneOdyssey
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
 			thisItem = item;
+			owner = player;
 			if (item.noMelee || !CanBeAffected)
 				return;
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
@@ -434,6 +441,7 @@ namespace ArcaneOdyssey
 		public override float UseSpeedMultiplier(Item item, Player player)
 		{
 			thisItem = item;
+			owner = player;
 			if (CanBeAffected)
 			{
 				if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
@@ -455,6 +463,7 @@ namespace ArcaneOdyssey
 		public override void UpdateInventory(Item item, Player player)
 		{
 			thisItem = item;
+			owner = player;
 			if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
 				Cold = null;
@@ -600,6 +609,7 @@ namespace ArcaneOdyssey
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
+			owner = null;
 			thisItem = item;
 			Imbue = null;
 			SecondImbue = null;
@@ -608,6 +618,7 @@ namespace ArcaneOdyssey
 
 		public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
+			owner = player;
 			thisItem = item;
 			if (!CanBeAffected)
 				return;
@@ -620,6 +631,7 @@ namespace ArcaneOdyssey
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
 			thisItem = item;
+			owner = player;
 			if (!CanBeAffected)
 				return;
 

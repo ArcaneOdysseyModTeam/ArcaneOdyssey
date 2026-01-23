@@ -59,48 +59,42 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			]
 		);
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			BarValue += BarMax / 40f; // nerfed lmao
-			if (projectile.TryGetOwner(out AOPlayer owner))
-			{
-				owner.SetCooldown(new Cooldown(Name, DisplayName, 60));
-			}
+			Item.ArcaneOdyssey()?.owner?.ArcaneOdyssey()?.SetCooldown(new Cooldown(Name, DisplayName, 60));
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 10)), 1); n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 0, default, LerpValue);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CrimsonTorch, direction.X * 0.4f, direction.Y * 0.4f, Scale: LerpValue * area.RelativeScale());
 			}
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, 0f, 0f, 0, default, LerpValue * 2f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CrimsonTorch, Scale: LerpValue * 2f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 				spawnedDust.noLight = true;
 			}
 		}
 
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			if (projectile.TryGetOwner(out AOPlayer owner))
-			{
-				owner.SetCooldown(new Cooldown(Name, DisplayName, 60));
-			}
+			Item.ArcaneOdyssey()?.owner?.ArcaneOdyssey()?.SetCooldown(new Cooldown(Name, DisplayName, 60));
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
-				Dust.NewDust(projectile.Center, 0, 0, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), 0, default, LerpValue * 3f);
+				Dust.NewDust(position, 0, 0, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: LerpValue * 3f * intensity);
 			}
 		}
 
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonTorch, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), 0, default, LerpValue * 2f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CrimsonTorch, 2f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 2f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: LerpValue * 2f * area.RelativeScale());
 			}
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void AddRecipes()

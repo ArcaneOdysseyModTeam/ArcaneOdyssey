@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
 			{
-				fs.ExplosionEffects(Projectile);
+				fs.ExplosionEffects(Projectile.Center);
 			}
 		}
 

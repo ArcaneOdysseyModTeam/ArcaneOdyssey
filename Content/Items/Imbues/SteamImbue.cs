@@ -31,6 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
 
 		public override Color ImbueColour => Color.LightGray;
+		public override SoundStyle? ImbueSound => SoundID.LiquidsWaterLava;
 
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
 
@@ -47,24 +48,27 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 			new(ModContent.BuffType<SandyEffect>(), .8f),
 			]);
 
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Smoke, 5f * Main.rand.NextFloat() - 0.5f, 5f * Main.rand.NextFloat() - 0.5f, (255 * .75f).Round(), default, 3f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Smoke, 5f * area.RelativeScale() * Main.rand.NextFloat() - 0.5f, 5f * area.RelativeScale() * Main.rand.NextFloat() - 0.5f, (255 * .75f).Round(), default, 3f * area.RelativeScale());
 			}
 		}
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
-			KillEffects(projectile);
-			SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.position);
+			for (int n = 0; n < 30; n++)
+			{
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Smoke, 5f * area.RelativeScale() * Main.rand.NextFloat() - 0.5f, 5f * area.RelativeScale() * Main.rand.NextFloat() - 0.5f, (255 * .75f).Round(), default, 3f * area.RelativeScale());
+			}
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
-		public override void LingeringEffects(Entity projectile)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (int n = 0; n < 2; n++)
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Smoke, 0f, 0f, (255 * .75f).Round(), default, 2f);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Smoke, 0f, 0f, (255 * .75f).Round(), default, 2f * area.RelativeScale());
 		}
 
 		public override ModItem Clone(Item newEntity)

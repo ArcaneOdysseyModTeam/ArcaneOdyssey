@@ -59,46 +59,46 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.knockBack = 3.75f;
 		}
 
-		public override void LingeringEffects(Entity entity)
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (float i = 0; i < 5; i++)
 			{
-				Dust.NewDustDirect(entity.position, entity.width, entity.height, DustID.IcyMerman, entity.velocity.X / 2, entity.velocity.Y / 2).noGravity = true;
+				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.IcyMerman, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
 			}
 			if (Main.GameUpdateCount % 2 == 0)
-				Dust.NewDustDirect(entity.position, entity.width, entity.height, ModContent.DustType<SpiritTentacle>()).noGravity = true;
+				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritTentacle>()).noGravity = true;
 		}
 
 		public const int DustCount = 50;
 
-		public override void KillEffects(Entity entity)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (float i = 0; i < DustCount; i++)
 			{
-				var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * ((entity.width + entity.height) / 2);
+				var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * ((area.Width + area.Height) / 2);
 				if (i % 2 == 0)
-					Dust.NewDustPerfect(entity.Center, ModContent.DustType<SpiritTentacle>(), centre / (8 + (Main.rand.NextFloat() * 2))).noGravity = true;
-				Dust.NewDustPerfect(entity.Center, DustID.IcyMerman, centre / (13 + (Main.rand.NextFloat() * 2))).noGravity = true;
-				Dust.NewDustPerfect(entity.Center, DustID.IcyMerman, centre / (14 + (Main.rand.NextFloat() * 2))).noGravity = true;
-				Dust.NewDustPerfect(entity.Center, DustID.IcyMerman, centre / (15 + (Main.rand.NextFloat() * 2))).noGravity = true;
+					Dust.NewDustPerfect(area.Center(), ModContent.DustType<SpiritTentacle>(), centre * area.RelativeScale() / (8 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				Dust.NewDustPerfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				Dust.NewDustPerfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				Dust.NewDustPerfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, entity.Center, null);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<SpiritTentacle>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritTentacle>(), direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
 
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2f, projectile.position.Y + projectile.height / 2f), 0, 0, ModContent.DustType<SpiritTentacle>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritTentacle>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

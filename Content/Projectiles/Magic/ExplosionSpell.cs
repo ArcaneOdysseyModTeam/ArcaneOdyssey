@@ -63,11 +63,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 				for (int i = 0; i < 10 * charge * size; i++)
 				{
-					Imbue?.ExplosionEffects(Projectile);
-				}
-				for (int i = 0; i < 10 * charge * size; i++)
-				{
-					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					SecondImbue?.ExplosionEffects(Projectile.Center);
 				}
 				SoundEngine.PlaySound(Imbue?.ImbueSound, ensuredPosition, null);
 				Kill();

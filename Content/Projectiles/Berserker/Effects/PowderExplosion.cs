@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 
 		public override void SetDefaults()
 		{
-			Projectile.height = Projectile.width = 100;
+			Projectile.height = Projectile.width = 50;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
@@ -30,9 +30,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 				for (int n = 0; n < 10; n++)
 				{
-					Imbue?.ExplosionEffects(Projectile);
-					Imbue?.ExplosionEffects(Projectile);
-					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					SecondImbue?.ExplosionEffects(Projectile.Center);
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{

@@ -17,26 +17,24 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 		public override float AOImbueDamage => 1f;
 		public override float AOImbueSize => 1f;
 
-		public override void SpawningEffects(Entity projectile)
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
-			NPC npc = NPC.NewNPCDirect(null, projectile.Center, NPCID.Frog);
-			npc.velocity = projectile.velocity;
-			projectile.Kill();
+			NPC npc = NPC.NewNPCDirect(null, area.Center(), NPCID.Frog);
+			npc.velocity = direction;
 		}
 
-		public override void ExplosionEffects(Entity projectile)
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				NPC npc = NPC.NewNPCDirect(null, projectile.Center, NPCID.Frog);
-				npc.velocity = new Vector2((Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f);
-				projectile.Kill();
+				NPC npc = NPC.NewNPCDirect(null, position, NPCID.Frog);
+				npc.velocity = new Vector2((Main.rand.NextFloat() - 0.5f) * 10f * intensity, (Main.rand.NextFloat() - 0.5f) * 10f * intensity);
 			}
 		}
 
-		public override void KillEffects(Entity projectile)
+		public override void KillEffects(Rectangle area, Entity source = null)
 		{
-			SoundEngine.PlaySound(ImbueSound, projectile.Center);
+			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 	}
 }
