@@ -21,6 +21,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
 
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
+
 		public override WeaponAbility? Ability => new(Mod, "Astrapikis", "Release a slash of spirit energy", ImbueColour);
 
 		public override SynergyEffects Effects => new(

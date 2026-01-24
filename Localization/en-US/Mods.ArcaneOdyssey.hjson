@@ -326,6 +326,11 @@ WeaponAbilities: {
 		DisplayName: Thakrousi
 		Description: Surround yourself in spirit energy and leap forward, then release the energy in a large area
 	}
+
+	Aithiraki: {
+		DisplayName: Aithiraki
+		Description: Summon a minion made of spirit energy
+	}
 }
 
 Achievements: {

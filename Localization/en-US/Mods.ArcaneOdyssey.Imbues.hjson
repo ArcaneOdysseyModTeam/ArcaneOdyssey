@@ -12,17 +12,38 @@ Relics: {
 
 	EmberStaff: {
 		DisplayName: Ember Staff
-		Tooltip: ""
+		Tooltip:
+			'''
+			A staff made out of the remains of a greathammer
+			It was blessed by Hephaestus - the god of fire and blacksmithing
+			'''
 	}
 
 	NyxStaff: {
-		DisplayName: Nyx Staff
-		Tooltip: ""
+		DisplayName: Staff of Night
+		Tooltip:
+			'''
+			An aged staff made of some kind of purple stone
+			It was blessed by Nyx - the goddess of night
+			'''
 	}
 
 	TidestoneBand: {
 		DisplayName: Tidestone Band
-		Tooltip: ""
+		Tooltip:
+			'''
+			An armband made out of some kind of blue stone
+			It was blessed by Poseidon - the god of the sea
+			'''
+	}
+
+	CrystalOrb: {
+		DisplayName: Crystal Orb
+		Tooltip:
+			'''
+			An orb made of seemingly unbreakable crystal
+			It was blessed by Aether - the god of light
+			'''
 	}
 }
 
