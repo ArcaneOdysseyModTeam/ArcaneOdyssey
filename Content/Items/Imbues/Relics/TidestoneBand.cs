@@ -113,8 +113,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			SoundEngine.PlaySound(SoundID.Splash);
 			for (int i = 0; i < 20; i++)
 			{
-				Imbue?.ExplosionEffects(player.MountedCenter);
-				SecondImbue?.ExplosionEffects(player.MountedCenter);
+				Imbue?.ExplosionEffects(player.MountedCenter, 2f);
+				SecondImbue?.ExplosionEffects(player.MountedCenter, 2f);
 			}
 		}
 

@@ -7,14 +7,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 	public class Floganymai : SpiritProjectile
 	{
 		public override string Texture => Mod.Name + "/Backgrounds/Blank";
-		private bool settled = false;
-		private Vector2 ogpos;
 		private int pulses;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			pulses = 0;
-			settled = false;
 			Projectile.extraUpdates = 100;
 			Projectile.timeLeft = 1000000;
 			Projectile.height = 2;
@@ -27,7 +24,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		{
 			if (Projectile.ai[0] == 0)
 			{
-				ogpos = Projectile.position;
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
 				Projectile.velocity = Vector2.UnitY;

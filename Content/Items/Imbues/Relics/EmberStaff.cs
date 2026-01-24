@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			position = Main.MouseWorld;
 		}
 
-		public override WeaponAbility? Ability => new(Mod, "Floganymai", "Release a pillar of spirit energy a short distance away from you, exploding several times");
+		public override WeaponAbility? Ability => new(Mod, "Floganymai", "Release a pillar of spirit energy a short distance away from you, exploding several times", ImbueColour);
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
