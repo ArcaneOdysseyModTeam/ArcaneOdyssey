@@ -104,7 +104,7 @@ namespace ArcaneOdyssey
 
 		public static float RelativeScale(this Rectangle rect, int scale = 64)
 		{
-			return MathHelper.Clamp(((rect.Width + rect.Height) / 2f / scale), .45f, 2.5f);
+			return MathHelper.Clamp(((rect.Width + rect.Height) / 2f / scale), .5f, 2.5f);
 		}
 
 		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue, Item item = null)
@@ -422,6 +422,92 @@ namespace ArcaneOdyssey
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
 					{
 						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
+					}
+				}
+			}
+		}
+
+		public static void SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true)
+		{
+			if (source is null) return;
+			if (!source.active) return;
+			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
+			if (imbue is not null)
+			{
+				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true)
+				{
+					float mult = 1f;
+					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
+					{
+						if (updatedamage)
+						{
+							damage *= imbue.AOScrollDamage;
+						}
+						mult *= imbue.AOScrollSize;
+						knockback *= imbue.AOScrollSize;
+						if (source is Projectile projectile)
+						{
+							if (projectile.ArcaneOdyssey().SecondImbue is not null)
+							{
+								if (updatedamage)
+								{
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+								}
+								mult *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
+								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
+							}
+						}
+					}
+					else
+					{
+						if (updatedamage)
+						{
+							damage *= imbue.AOImbueDamage;
+						}
+						mult *= imbue.AOImbueSize;
+						knockback *= imbue.AOImbueSize;
+						if (source is Projectile projectile)
+						{
+							if (projectile.ArcaneOdyssey().SecondImbue is not null)
+							{
+								if (updatedamage)
+								{
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+								}
+								mult *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+							}
+						}
+					}
+					var diffX = ((hitbox.Width - (hitbox.Width * mult)) / 2f).Round();
+					var diffY = ((hitbox.Height - (hitbox.Height * mult)) / 2f).Round();
+					hitbox.Width = (hitbox.Width * mult).Round();
+					hitbox.Height = (hitbox.Height * mult).Round();
+					hitbox.X += diffX;
+					hitbox.Y += diffY;
+				}
+			}
+
+			foreach (NPC target in Main.ActiveNPCs)
+			{
+				if (target.Hitbox.Intersects(hitbox))
+				{
+					ModDamageHelper modifiers = new(null);
+					if (imbue is not null)
+					{
+						modifiers = CalculateImbueDamage(imbue, target, modifiers);
+						if (source.HasSecondImbue(out var second))
+						{
+							modifiers = CalculateImbueDamage(second, target, modifiers);
+						}
+						else if (source is Item item && item.ModItem is Imbuable imbue2)
+						{
+							modifiers = CalculateImbueDamage(imbue2.Imbue, target, modifiers);
+						}
+					}
+					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
+					{
+						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - hitbox.Center()).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
 					}
 				}
 			}

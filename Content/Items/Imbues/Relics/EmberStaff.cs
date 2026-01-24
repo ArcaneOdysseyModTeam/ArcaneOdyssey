@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -43,8 +44,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			]
 			);
 
-		public override bool NoUseGraphic => false;
-
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -56,7 +55,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.SetDefaults();
 			Item.width = Item.height = 56;
 			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.shoot = ModContent.ProjectileType<Floganymai>();
+			Item.damage = (120 * AOScrollDamage).Round();
+			Item.shootSpeed = 1f;
+			Item.noUseGraphic = false;
 		}
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			position = Main.MouseWorld;
+		}
+
+		public override WeaponAbility? Ability => new(Mod, "Floganymai", "Release a pillar of spirit energy a short distance away from you, exploding several times");
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

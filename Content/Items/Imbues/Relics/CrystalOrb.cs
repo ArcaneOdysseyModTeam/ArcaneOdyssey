@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.noUseGraphic = false;
 			Item.holdStyle = ItemHoldStyleID.HoldGolfClub;
 			Item.scale = .25f;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = ItemUseStyleID.Shoot;
 		}
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)

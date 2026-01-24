@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.PlayerClasses;
-using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

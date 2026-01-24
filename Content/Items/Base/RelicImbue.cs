@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.VFX.Dusts;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -18,15 +17,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override float? DashResist => 1.2f;
 
-		public virtual bool NoUseGraphic => true;
-
 		public override string AttackPrefix => "Spirit";
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.DamageType = OracleDamage.Instance;
-			Item.noUseGraphic = NoUseGraphic;
 			Item.noMelee = true;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}

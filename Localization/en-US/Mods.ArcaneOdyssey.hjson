@@ -331,6 +331,11 @@ WeaponAbilities: {
 		DisplayName: Aithiraki
 		Description: Summon a minion made of spirit energy
 	}
+
+	Floganymai: {
+		DisplayName: Floganymai
+		Description: Release a pillar of spirit energy a short distance away from you, exploding several times
+	}
 }
 
 Achievements: {

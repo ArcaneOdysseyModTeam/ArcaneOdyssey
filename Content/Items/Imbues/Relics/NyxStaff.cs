@@ -19,8 +19,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 1.1f;
 
-		public override bool NoUseGraphic => false;
-
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
@@ -45,6 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.width = Item.height = 46;
 			Item.shoot = ModContent.ProjectileType<Nichtetheis>();
+			Item.noUseGraphic = false;
 			Item.damage = (30 * AOScrollDamage).Round();
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}

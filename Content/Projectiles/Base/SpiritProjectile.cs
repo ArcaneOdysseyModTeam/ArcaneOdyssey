@@ -1,6 +1,5 @@
 ﻿using System;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
