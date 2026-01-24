@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -44,11 +45,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			]
 			);
 
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -58,35 +54,31 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.damage = 20;
 			Item.knockBack = 3.75f;
 		}
+		public override float AOScrollDamage => 1f;
+		public override float AOScrollSize => 1f;
+		public override float AOScrollSpeed => 1f;
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			for (float i = 0; i < 5; i++)
-			{
-				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.IcyMerman, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
-			}
+			base.LingeringEffects(area, direction, source);
 			if (Main.GameUpdateCount % 2 == 0)
 				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritTentacle>()).noGravity = true;
 		}
 
-		public const int DustCount = 50;
-
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
-			for (float i = 0; i < DustCount; i++)
+			base.KillEffects(area, source);
+			for (float i = 0; i < 50; i++)
 			{
-				var centre = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * ((area.Width + area.Height) / 2);
+				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 60 * area.RelativeScale();
 				if (i % 2 == 0)
-					Dust.NewDustPerfect(area.Center(), ModContent.DustType<SpiritTentacle>(), centre * area.RelativeScale() / (8 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
-				Dust.NewDustPerfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
-				Dust.NewDustPerfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
-				Dust.NewDustPerfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritTentacle>(), centre * area.RelativeScale() / (8 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
 			}
-			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
+			base.SpawningEffects(area, direction);
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritTentacle>(), direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
@@ -96,9 +88,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
+			base.ExplosionEffects(position, intensity);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritTentacle>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritTentacle>(), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize * intensity), Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

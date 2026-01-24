@@ -15,6 +15,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 {
 	public class BronzeTriasta : AORangedOrMeleeWeapon
 	{
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.Spears[Type] = true;
+		}
 		public override float AODamage => 0.9f;
 		public override float AOSize => 1.1f;
 		public override float AOSpeed => 1.1f;

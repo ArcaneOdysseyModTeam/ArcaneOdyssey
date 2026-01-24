@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				var centre = (MathHelper.TwoPi / 25 * i).ToRotationVector2() * ((area.Width + area.Height) / 2);
 				if (i % 2 == 0)
-					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SlashDust>(), centre / (8 + (Main.rand.NextFloat() * 2)), scale: .7f * area.RelativeScale()).noGravity = true;
+					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SlashDust>(), centre / (8 + (Main.rand.NextFloat() * 2)), Scale: .7f * area.RelativeScale()).noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

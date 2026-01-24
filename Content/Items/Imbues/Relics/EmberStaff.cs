@@ -1,0 +1,103 @@
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Content.Items.Imbues.Relics
+{
+	public class EmberStaff : RelicImbue
+	{
+		public override int AOValue => 700;
+		public override bool? Cold => false;
+		public override bool CanBeWet => false;
+		public override SoundStyle? ImbueSound => SoundID.Item20;
+		public override Color ImbueColour => new(252, 107, 3);
+		public override float AOScrollDamage => .95f;
+		public override float AOScrollSize => 1.1f;
+		public override float AOScrollSpeed => 1f;
+		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
+		public override SynergyEffects Effects => new([],
+			[
+				new(ModContent.BuffType<AOBleed>(),1.15f),
+				new(ModContent.BuffType<Singed>(), 1.1f),
+				new(ModContent.BuffType<CharredEffect>(),1.01f),
+				new(BuffID.Venom,1.05f),
+				new(ModContent.BuffType<Crystallized>(),0.85f),
+				new(ModContent.BuffType<FreezingEffect>(),0.99f),
+				new(ModContent.BuffType<SnowyEffect>(),0.99f),
+				new(BuffID.Wet,0.99f),
+				new(BuffID.OnFire3,1.05f),
+				new(BuffID.Poisoned,1.05f),
+				new(BuffID.ShadowFlame,1.1f),
+				new(BuffID.Slimed,1.075f),
+				new(BuffID.Oiled,1.075f),
+				new(ModContent.BuffType<SandyEffect>(),0.98f),
+				new(ModContent.BuffType<AOScalding>(),1.1f),
+				new(ModContent.BuffType<SearedEffect>(),1.1f)
+
+			]
+			);
+
+		public override bool NoUseGraphic => false;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Item.staff[Type] = true;
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = Item.height = 56;
+			Item.useStyle = ItemUseStyleID.Shoot;
+		}
+
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		{
+			base.LingeringEffects(area, direction, source);
+			for (float i = 0; i < 5; i++)
+			{
+				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.Lava, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
+			}
+		}
+
+		public override void KillEffects(Rectangle area, Entity source = null)
+		{
+			base.KillEffects(area, source);
+			for (float i = 0; i < 50; i++)
+			{
+				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 60 * area.RelativeScale();
+				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+			}
+			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		{
+			base.SpawningEffects(area, direction);
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Lava, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		{
+			base.ExplosionEffects(position, intensity);
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Lava, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
+				spawnedDust.noGravity = true;
+			}
+		}
+	}
+}

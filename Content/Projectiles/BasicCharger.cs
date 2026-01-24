@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.scale = AOSize;
+			//Projectile.scale = AOSize;
 			Projectile.height = Projectile.width = 20;
 			Projectile.tileCollide = false;
 			charge = 1f;
@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void AI()
 		{
-			Projectile.scale = AOSize * charge * Imbue.AOScrollSize;
+			//Projectile.scale = AOSize * charge * Imbue.AOScrollSize;
 			var dir = Owner.MountedCenter.DirectionTo(Main.MouseWorld);
 			Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			if (Projectile.ai[0] == 0)

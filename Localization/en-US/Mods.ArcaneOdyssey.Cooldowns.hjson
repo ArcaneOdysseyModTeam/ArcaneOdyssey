@@ -37,3 +37,8 @@ EtherealFlashCooldown: {
 	DisplayName: Ethereal Flash Cooldown
 	Description: Ethereal Flash is on cooldown
 }
+
+ThakrousiCooldown: {
+	DisplayName: Thakrousi Cooldown
+	Description: Thakrousi is on cooldown
+}

@@ -20,6 +20,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override int AOValue => 50;
 		public override WeaponAbility? Ability => new(Mod, "Trident Throw", "Throw your weapon, leaving yourself unarmed", Color.Orange);
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.Spears[Type] = true;
+		}
+
 
 		public override void SetDefaults()
 		{

@@ -238,6 +238,7 @@ Projectiles: {
 	PiercingGale.DisplayName: Piercing Gale
 	Whirlwind.DisplayName: Whirlwind
 	ProminenceProjectile.DisplayName: Prominence Projectile
+	BasicCharger.DisplayName: Basic Charger
 }
 
 WeaponAbilities: {
@@ -314,6 +315,16 @@ WeaponAbilities: {
 	Astrapikis: {
 		DisplayName: Astrapikis
 		Description: Release a slash of spirit energy
+	}
+
+	Nichtetheis: {
+		DisplayName: Nichtetheis
+		Description: Fire a beam of spirit energy that disorients anyone it hits
+	}
+
+	Thakrousi: {
+		DisplayName: Thakrousi
+		Description: Surround yourself in spirit energy and leap forward, then release the energy in a large area
 	}
 }
 

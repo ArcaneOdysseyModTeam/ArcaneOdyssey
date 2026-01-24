@@ -186,11 +186,15 @@ namespace ArcaneOdyssey.PlayerClasses
 				Player.timeSinceLastDashStarted = 0;
 				CurrentDash = dashToUse;
 				CurrentDashDir = direction;
-				if (CurrentDash.UseScrollImbueStats.HasValue)
+				if (CurrentDash.UseScrollImbueStats.HasValue || (CurrentDash.source is Item item1 && item1.ModItem is Imbuable))
 				{
 					CurrentDash.Imbue = imbue;
 					if (CurrentDash.source.TryGetSecondImbue(imbue, out var second))
 						CurrentDash.SecondImbue = second;
+					else if (CurrentDash.source is Item item && item.ModItem is Imbuable imbue2)
+					{
+						CurrentDash.SecondImbue = imbue2.Imbue;
+					}
 				}
 				collisions = 0;
 				if (dashToUse.AnyDirection && direction == 0)

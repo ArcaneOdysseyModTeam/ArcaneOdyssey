@@ -7,6 +7,22 @@ Relics: {
 	Projectiles: {
 		Astrapikis.DisplayName: Astrapikis
 		SpiritBlast.DisplayName: Spirit Blast
+		Nichtetheis.DisplayName: Nichtetheis
+	}
+
+	EmberStaff: {
+		DisplayName: Ember Staff
+		Tooltip: ""
+	}
+
+	NyxStaff: {
+		DisplayName: Nyx Staff
+		Tooltip: ""
+	}
+
+	TidestoneBand: {
+		DisplayName: Tidestone Band
+		Tooltip: ""
 	}
 }
 

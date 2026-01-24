@@ -239,10 +239,10 @@ namespace ArcaneOdyssey
 		public static Imbuable Imbue(this Item item) => item?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this ModItem item) => item?.ArcaneOdyssey()?.Imbue;
 
-		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int alpha = 0, Color colour = default, float scale = 1f)
+		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int Alpha = 0, Color newColor = default, float Scale = 1f)
 		{
 			velocity ??= Vector2.Zero;
-			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, alpha, colour, scale);
+			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, Alpha, newColor, Scale);
 		}
 
 		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
@@ -355,7 +355,8 @@ namespace ArcaneOdyssey
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
 			if (imbue is not null)
 			{
-				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true) {
+				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true) 
+				{
 					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
 					{
 						if (updatedamage)
@@ -412,6 +413,10 @@ namespace ArcaneOdyssey
 						if (source.HasSecondImbue(out var second))
 						{
 							modifiers = CalculateImbueDamage(second, target, modifiers);
+						}
+						else if (source is Item item && item.ModItem is Imbuable imbue2)
+						{
+							modifiers = CalculateImbueDamage(imbue2.Imbue, target, modifiers);
 						}
 					}
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
@@ -818,6 +823,13 @@ namespace ArcaneOdyssey
 			if (entity is Player player1)
 			{
 				player = player1;
+			}
+			if (entity is Item item)
+			{
+				if (item.ArcaneOdyssey()?.owner is not null)
+				{
+					player = item.ArcaneOdyssey().owner;
+				}
 			}
 			return player is not null && player.active;
 		}
