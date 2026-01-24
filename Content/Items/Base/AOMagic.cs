@@ -107,7 +107,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				var rot = player.SafeDirectionTo(Main.MouseWorld);
 				if (item.ModItem is AOMagic)
 				{
-					if (!player.AltUse())
+					if (player.PlayerItem()?.ModItem?.Type != magicToUse.Type || !player.AltUse())
 						return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 1);
 					else
 					{
