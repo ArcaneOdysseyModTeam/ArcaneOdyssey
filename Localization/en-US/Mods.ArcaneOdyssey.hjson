@@ -239,6 +239,7 @@ Projectiles: {
 	Whirlwind.DisplayName: Whirlwind
 	ProminenceProjectile.DisplayName: Prominence Projectile
 	BasicCharger.DisplayName: Basic Charger
+	TwinCrescent.DisplayName: Twin Crescent
 }
 
 WeaponAbilities: {
@@ -335,6 +336,11 @@ WeaponAbilities: {
 	Floganymai: {
 		DisplayName: Floganymai
 		Description: Release a pillar of spirit energy a short distance away from you, exploding several times
+	}
+
+	TwinCrescents: {
+		DisplayName: Twin Crescents
+		Description: Slash both blades one after the other, sending two flying slashes towards the target
 	}
 }
 

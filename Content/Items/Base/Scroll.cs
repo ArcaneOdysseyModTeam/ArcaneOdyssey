@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-			if (HasCorrectImbue && this is not BlastScroll)
+			if (HasCorrectImbue)
 			{
 				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}

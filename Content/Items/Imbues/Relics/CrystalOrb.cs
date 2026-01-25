@@ -16,6 +16,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 0.9f;
 		public override WeaponAbility? Ability => new(Mod, "Aithiraki", "Summon a minion made of spirit energy", ImbueColour);
+
+		public override string ImbueUISprite => Texture + "_Imbue";
+
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
@@ -29,10 +32,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = Item.height = 56;
+			Item.width = Item.height = 32;
 			Item.noUseGraphic = false;
 			Item.holdStyle = ItemHoldStyleID.HoldGolfClub;
-			Item.scale = .25f;
+			Item.scale = .5f;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 

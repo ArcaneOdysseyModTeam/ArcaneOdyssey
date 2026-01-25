@@ -334,6 +334,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
 
+			if (this is RelicImbue relic)
+			{
+				if (relic.Ability.HasValue)
+				{
+					tooltips.AddTooltip(relic.Ability.Value.GenerateTooltip());
+				}
+			}
+
 			if (ModifyTooltipsPrefix is not null)
 				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}

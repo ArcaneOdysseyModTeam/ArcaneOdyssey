@@ -97,3 +97,8 @@ StormCaller: {
 	DisplayName: Storm Caller
 	Tooltip: ""
 }
+
+ScimitarofStorm: {
+	DisplayName: Scimitars of Storm
+	Tooltip: ""
+}
