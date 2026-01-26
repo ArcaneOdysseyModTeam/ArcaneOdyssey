@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			get
 			{
-				if (Projectile.owner != 255)
+				if (Projectile.owner != 255 && Main.player[Projectile.owner]?.active == true)
 				{
 					return Main.player[Projectile.owner];
 				}

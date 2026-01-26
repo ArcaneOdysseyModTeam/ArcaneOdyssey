@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,11 +26,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useTime = Item.useAnimation / 2;
+			Item.useTime = (Item.useAnimation / 2) + 1;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.noUseGraphic = true;
-			Item.DamageType = DamageClass.MeleeNoSpeed;
-			Item.shoot = ModContent.ProjectileType<ScimitarofStormProjectile>();
+			Item.DamageType = DamageClass.Melee;
+			Item.shoot = ModContent.ProjectileType<TwinCrescent>();
+			Item.shootSpeed = 7f;
 		}
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -39,9 +41,18 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override WeaponAbility? Ability => new(Mod, "Twin Crescents", "Slash both blades one after the other, sending two flying slashes towards the target", Color.Gold);
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			return base.Shoot(player, source, position, velocity, type, damage, knockback);
+			spriteBatch.Draw(Sprite, position, frame, drawColor, 0, origin, scale, SpriteEffects.FlipHorizontally, 0f);
+		}
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+		{
+			Main.GetItemDrawFrame(Type, out var itemTexture, out var itemFrame);
+			Vector2 drawOrigin = itemFrame.Size() / 2f;
+			Vector2 drawPosition = Item.Bottom - Main.screenPosition - new Vector2(0, drawOrigin.Y);
+			spriteBatch.Draw(itemTexture, drawPosition, itemFrame, lightColor, rotation, drawOrigin, scale, SpriteEffects.FlipHorizontally, 0f);
 		}
 	}
 }

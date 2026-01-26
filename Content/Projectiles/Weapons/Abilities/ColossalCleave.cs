@@ -56,7 +56,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				{
 					Imbue?.ExplosionEffects(Projectile.Center);
 					SecondImbue?.ExplosionEffects(Projectile.Center);
-					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+				}
+				if (Imbue is not null)
+				{
+					SoundEngine.PlaySound(Imbue.ImbueSound, Projectile.Center);
+				}
+				else
+				{
+					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 				}
 			}
 

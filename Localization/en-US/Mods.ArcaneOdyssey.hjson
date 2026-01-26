@@ -239,7 +239,7 @@ Projectiles: {
 	ProminenceProjectile.DisplayName: Prominence
 	BasicCharger.DisplayName: Attack Charger
 	TwinCrescent.DisplayName: Twin Crescent
-	ScimitarofStormProjectile.DisplayName: Scimitar of Storm
+	NobleThunderspearProjectile.DisplayName: Noble Thunderspear Projectile
 }
 
 WeaponAbilities: {
@@ -341,6 +341,11 @@ WeaponAbilities: {
 	TwinCrescents: {
 		DisplayName: Twin Crescents
 		Description: Slash both blades one after the other, sending two flying slashes towards the target
+	}
+
+	SparrowThrust: {
+		DisplayName: Sparrow Thrust
+		Description: Use the blade and length of the spear to deliver a powerful thrust
 	}
 }
 

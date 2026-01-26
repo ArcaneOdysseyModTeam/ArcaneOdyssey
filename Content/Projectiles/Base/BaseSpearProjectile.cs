@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
 		}
@@ -23,13 +24,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 60;
-			Projectile.knockBack = 4.5f;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.ignoreWater = true;
-			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -51,7 +50,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
-				if (Projectile.ai[2] != 0) // throwing
+				if (Projectile.ai[2] == 2) // throwing
 				{
 					Projectile.velocity *= 3 / (Projectile.extraUpdates + 1f);
 					Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
@@ -64,7 +63,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			Owner.ChangeDir(Projectile.direction);
 
-			if (Projectile.ai[2] != 0) // throwing
+			if (Projectile.ai[2] == 2) // throwing
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
 				Projectile.timeLeft = 2;
@@ -78,7 +77,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemTime = Owner.itemAnimation;
-				Projectile.Center = Owner.Center + (Projectile.velocity * Projectile.ai[1]);
+				Projectile.Center = Owner.MountedCenter + (Projectile.velocity * Projectile.ai[1]);
 
 				if (Owner.itemAnimation < Owner.itemAnimationMax / 2)
 				{

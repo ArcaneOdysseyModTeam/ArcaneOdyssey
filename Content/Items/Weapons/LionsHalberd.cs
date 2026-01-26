@@ -45,11 +45,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			}
 			return null;
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<RavennaGreataxe>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
-		}
 	}
 
 	public class SeismicSlash(Entity source) : DashSystem(source)

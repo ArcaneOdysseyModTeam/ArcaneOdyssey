@@ -102,3 +102,8 @@ ScimitarofStorm: {
 	DisplayName: Scimitars of Storm
 	Tooltip: ""
 }
+
+NobleThunderspear: {
+	DisplayName: Noble Thunderspear
+	Tooltip: ""
+}

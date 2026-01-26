@@ -71,6 +71,23 @@ namespace ArcaneOdyssey
 			//"PrefixAccMeleeSpeed",
 		];
 
+		public static string GetBuffName(int id)
+		{
+			var modbuff = ModContent.GetModBuff(id);
+			if (modbuff is not null)
+			{
+				return modbuff.DisplayName.Value;
+			}
+			else
+			{
+				if (BuffID.Search.ContainsId(id))
+				{
+					return Lang.GetBuffName(id);
+				}
+			}
+			return ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.None").Value;
+		}
+
 		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd)
 		{
 			tooltips.Reverse();

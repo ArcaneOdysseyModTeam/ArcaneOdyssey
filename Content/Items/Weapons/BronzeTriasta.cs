@@ -52,11 +52,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				player.ArcaneOdyssey().StartDash(new EtherealFlash(Item), imbue: Imbue, imbueAffectsSpeed: true);
 			}
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<BronzeTrident>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
-		}
 	}
 
 	public class EtherealFlash(Entity source) : DashSystem(source)
