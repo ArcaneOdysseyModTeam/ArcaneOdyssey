@@ -224,8 +224,7 @@ Projectiles: {
 	OldTridentProjectile.DisplayName: Old Trident
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
-	BronzeTriastaProjectile.DisplayName: Bronze Triasta
-	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
+	BronzeTriastaProjectile.DisplayName: Triasta of Bronze
 	SeismicSlashRock.DisplayName: Seismic Slash Rock
 	BronzeRapierProjectile.DisplayName: Bronze Rapier
 	PrismLinger.DisplayName: Prism Magic Shards
@@ -237,9 +236,10 @@ Projectiles: {
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
 	Whirlwind.DisplayName: Whirlwind
-	ProminenceProjectile.DisplayName: Prominence Projectile
-	BasicCharger.DisplayName: Basic Charger
+	ProminenceProjectile.DisplayName: Prominence
+	BasicCharger.DisplayName: Attack Charger
 	TwinCrescent.DisplayName: Twin Crescent
+	ScimitarofStormProjectile.DisplayName: Scimitar of Storm
 }
 
 WeaponAbilities: {
