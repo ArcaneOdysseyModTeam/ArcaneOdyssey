@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public override string Texture => Mod.Name + "/Assets/BasicSlash";
 		public override float AOSize => .15f;
+		public Color Colour => Imbue?.GetColour(Color.Gold) ?? Color.Gold;
 
 		public override void SetStaticDefaults()
 		{
@@ -48,7 +49,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Imbue?.GetColour() ?? Color.Gold) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				var colour2 = Projectile.GetAlpha(Colour * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length));
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 			}
 			return false;

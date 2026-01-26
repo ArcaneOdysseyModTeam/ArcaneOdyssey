@@ -18,8 +18,8 @@ namespace ArcaneOdyssey.PlayerClasses
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 
-		public bool WhirlwindActive = false;
-		public bool SoftFrozen => chargingSpell || WhirlwindActive;
+		public bool HeavySkillActive = false;
+		public bool SoftFrozen => chargingSpell || HeavySkillActive;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
@@ -144,6 +144,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			AOSizeStat = 0;
 			gel = 0;
 			pheonixHealing = 0;
+			HeavySkillActive = false;
 			HandleDashDetection();
 		}
 

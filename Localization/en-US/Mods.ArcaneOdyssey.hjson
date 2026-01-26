@@ -240,6 +240,7 @@ Projectiles: {
 	BasicCharger.DisplayName: Attack Charger
 	TwinCrescent.DisplayName: Twin Crescent
 	NobleThunderspearProjectile.DisplayName: Noble Thunderspear Projectile
+	SparrowThrust.DisplayName: Sparrow Thrust
 }
 
 WeaponAbilities: {

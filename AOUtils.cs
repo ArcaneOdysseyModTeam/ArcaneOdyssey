@@ -738,6 +738,31 @@ namespace ArcaneOdyssey
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
 		}
 
+		public static Projectile ShootProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, int player, Imbuable imbue = null, Imbuable secondimbue = null, bool usescrollstats = false, float ai0 = 0, float ai1 = 0, float ai2 = 0)
+		{
+			if (imbue is not null)
+			{
+				if (usescrollstats)
+				{
+					velocity *= imbue.AOScrollSpeed;
+					if (secondimbue is not null)
+					{
+						velocity *= secondimbue.AOScrollSpeed;
+					}
+				}
+				else
+				{
+					velocity *= imbue.AOImbueSpeed;
+					if (secondimbue is not null)
+					{
+						velocity *= secondimbue.AOImbueSpeed;
+					}
+				}
+			}
+
+			return Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player, ai0, ai1, ai2);
+		}
+
 		public static int FromAODefense(this int val) => (int)Math.Round(val / 15f);
 
 		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);

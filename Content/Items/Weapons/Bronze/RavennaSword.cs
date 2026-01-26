@@ -43,7 +43,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown());
 				var proj = Projectile.NewProjectileDirect(new EntitySource_ItemUse(player, Item), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
-				((Whirlwind)proj.ModProjectile).colour = proj.Imbue()?.GetColour(Color.Orange) ?? Color.Orange;
 				SoundEngine.PlaySound(Item.UseSound, player.Center);
 			}
 			return true;
@@ -51,7 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			if (player.ArcaneOdyssey().WhirlwindActive)
+			if (player.ArcaneOdyssey().HeavySkillActive)
 				damage *= 0;
 		}
 	}

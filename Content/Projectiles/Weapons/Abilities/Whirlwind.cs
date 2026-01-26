@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class Whirlwind : AOPlayerProjectile
 	{
-		public Color colour = Color.White;
+		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
 		public static int MaxTime => 20;
 		public static int TrueMaxTime => MaxTime * 2;
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
@@ -57,16 +57,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed ?? 1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
 			Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale * OriginalDir);
-			if (Projectile.timeLeft > MaxTime)
+			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
 				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
-				AOPlayerOwner.WhirlwindActive = true;
+				AOPlayerOwner.HeavySkillActive = true;
 			}
 			else
 			{
-				Projectile.Opacity = (Projectile.timeLeft - 1) / (float)MaxTime;
-				AOPlayerOwner.WhirlwindActive = false;
+				Projectile.Opacity = (Projectile.timeLeft - 1f) / (TrueMaxTime - MaxTime);
 			}
 		}
 
@@ -75,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Imbue?.GetColour(colour) ?? colour) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				var colour2 = Projectile.GetAlpha(Colour * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length));
 				var rotaitoneoffset = SpriteEffects.None;
 				if (OriginalDir == -1)
 				{
