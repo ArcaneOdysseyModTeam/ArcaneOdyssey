@@ -23,6 +23,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 			Projectile.width = 72;
 		}
 
+		public override void AI()
+		{
+			base.AI();
+			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 3)
+				AOPlayerOwner.HeavySkillActive = true;
+		}
+
 		public override void EffectBeforeReelBack()
 		{
 			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 3)

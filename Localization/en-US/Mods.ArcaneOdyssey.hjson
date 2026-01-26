@@ -239,7 +239,7 @@ Projectiles: {
 	ProminenceProjectile.DisplayName: Prominence
 	BasicCharger.DisplayName: Attack Charger
 	TwinCrescent.DisplayName: Twin Crescent
-	NobleThunderspearProjectile.DisplayName: Noble Thunderspear Projectile
+	NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 	SparrowThrust.DisplayName: Sparrow Thrust
 }
 

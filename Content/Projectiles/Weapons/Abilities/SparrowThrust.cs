@@ -36,7 +36,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
 			{
-				AOPlayerOwner.HeavySkillActive = true;
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				oldvelo = Projectile.velocity;
 			}
