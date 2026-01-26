@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		public List<Cooldown> Cooldowns = [];
 
 		public bool HeavySkillActive = false;
+		internal int HeavySkillCounter;
 		public bool SoftFrozen => chargingSpell || HeavySkillActive;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
@@ -104,6 +105,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			chargingSpell = false;
 			DashStrike();
+			HeavySkillActive = false;
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
 				Imbue = null;
@@ -144,7 +146,6 @@ namespace ArcaneOdyssey.PlayerClasses
 			AOSizeStat = 0;
 			gel = 0;
 			pheonixHealing = 0;
-			HeavySkillActive = false;
 			HandleDashDetection();
 		}
 

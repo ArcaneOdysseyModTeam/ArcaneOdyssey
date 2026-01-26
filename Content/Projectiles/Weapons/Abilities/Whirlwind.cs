@@ -62,10 +62,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Owner.itemTime = Owner.itemAnimation = 2;
 				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
 				AOPlayerOwner.HeavySkillActive = true;
+				Owner.PlayerItem().noMelee = true;
 			}
 			else
 			{
 				Projectile.Opacity = (Projectile.timeLeft - 1f) / (TrueMaxTime - MaxTime);
+				Owner.PlayerItem().noMelee = false;
 			}
 		}
 

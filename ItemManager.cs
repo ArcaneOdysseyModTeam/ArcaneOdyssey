@@ -262,6 +262,8 @@ namespace ArcaneOdyssey
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
 					crit *= Imbue.AOScrollDamage;
+					if (SecondImbue is not null)
+						crit *= SecondImbue.AOScrollDamage;
 				}
 				else
 				{
@@ -287,13 +289,15 @@ namespace ArcaneOdyssey
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
 					knockback += Imbue.AOScrollSize.MultiToPercent();
+					if (SecondImbue is not null)
+						knockback *= SecondImbue.AOScrollSize.MultiToPercent();
 				}
 				else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					knockback += Imbue.AOImbueSize.MultiToPercent();
+					if (SecondImbue is not null)
+						knockback *= SecondImbue.AOImbueSize.MultiToPercent();
 				}
-				if (SecondImbue is not null)
-					knockback *= SecondImbue.AOImbueSize.MultiToPercent();
 				var extraknockbackmulti = Imbue.KBMulti;
 				if (SecondImbue is not null)
 					extraknockbackmulti += SecondImbue.KBMulti.MultiToPercent();
@@ -316,13 +320,15 @@ namespace ArcaneOdyssey
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
 					damage += Imbue.AOScrollDamage.MultiToPercent();
+					if (SecondImbue is not null)
+						damage += SecondImbue.AOScrollDamage.MultiToPercent();
 				}
 				else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					damage += Imbue.AOImbueDamage.MultiToPercent();
+					if (SecondImbue is not null)
+						damage += SecondImbue.AOImbueDamage.MultiToPercent();
 				}
-				if (SecondImbue is not null)
-					damage += SecondImbue.AOImbueDamage.MultiToPercent();
 			}
 		}
 
@@ -419,13 +425,15 @@ namespace ArcaneOdyssey
 					if (!BenifitsFromScrollStats.GetValueOrDefault())
 					{
 						scale += Imbue.AOImbueSize.MultiToPercent();
+						if (SecondImbue is not null)
+							scale += SecondImbue.AOImbueSize.MultiToPercent();
 					}
 					else
 					{
 						scale += Imbue.AOScrollSize.MultiToPercent();
+						if (SecondImbue is not null)
+							scale += SecondImbue.AOScrollSize.MultiToPercent();
 					}
-					if (SecondImbue is not null)
-						scale += SecondImbue.AOImbueSize.MultiToPercent();
 				}
 			}
 		}
@@ -440,12 +448,12 @@ namespace ArcaneOdyssey
 				{
 					if (BenifitsFromScrollStats.GetValueOrDefault())
 					{
-						return Imbue.AOScrollSpeed + (SecondImbue?.AOImbueSpeed.MultiToPercent() ?? 0f);
+						return Imbue.AOScrollSpeed * (SecondImbue?.AOScrollSpeed ?? 1f);
 					}
 
 					if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return Imbue.AOImbueSpeed + (SecondImbue?.AOImbueSpeed.MultiToPercent() ?? 0f);
+						return Imbue.AOImbueSpeed * (SecondImbue?.AOImbueSpeed ?? 1f);
 					}
 				}
 			}

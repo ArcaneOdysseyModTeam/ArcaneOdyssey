@@ -4,6 +4,8 @@ using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,8 +15,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ArcaneOdyssey.PlayerClasses;
-using ArcaneOdysseyMusic;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey
 {
@@ -73,16 +74,19 @@ namespace ArcaneOdyssey
 
 		public static string GetBuffName(int id)
 		{
-			var modbuff = ModContent.GetModBuff(id);
-			if (modbuff is not null)
-			{
-				return modbuff.DisplayName.Value;
-			}
-			else
+			if (!(id <= 0 || id >= BuffLoader.BuffCount))
 			{
 				if (BuffID.Search.ContainsId(id))
 				{
 					return Lang.GetBuffName(id);
+				}
+				else
+				{
+					var modbuff = ModContent.GetModBuff(id);
+					if (modbuff is not null)
+					{
+						return modbuff.DisplayName.Value;
+					} 
 				}
 			}
 			return ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.None").Value;
