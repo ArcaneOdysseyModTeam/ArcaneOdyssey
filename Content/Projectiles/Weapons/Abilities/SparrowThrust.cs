@@ -48,12 +48,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			var kmax = (Imbue?.AOImbueSpeed ?? 1f);
-			var realkmax = 10 * kmax.Round();
+			var kmax = Imbue?.AOImbueSpeed ?? 1f;
+			var realkmax = (10f * kmax).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{
 				Vector2 drawPos = Projectile.Center - (oldvelo * k * (7f * kmax.FlipFloat())) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Colour * ((realkmax - k) / (float)realkmax));
+				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
 				var rotaitoneoffset = SpriteEffects.None;
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (.05f * k), rotaitoneoffset, 0);
 			}
