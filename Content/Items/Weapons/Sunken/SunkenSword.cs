@@ -10,7 +10,7 @@ using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using Terraria.ModLoader;
 using ArcaneOdyssey.PlayerClasses;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 {
 	public class SunkenSword : AORangedOrMeleeWeapon
 	{

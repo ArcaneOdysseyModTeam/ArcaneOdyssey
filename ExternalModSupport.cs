@@ -23,21 +23,12 @@ namespace ArcaneOdyssey
 			AddBossChecklist();
 		}
 
-		internal static bool hasYapped = false;
-		public override void PreUpdateWorld()
-		{
-			if (!(hasYapped || HasMusicMod || ArcaneOdysseyMod.DevMode))
-			{
-				hasYapped = true;
-				Main.NewText("You are missing the Arcane Odyssey Music Mod (ArcaneOdysseyMusic). For the full experience, enable this mod.", Color.Teal);
-			}
-		}
-
 		public static void RegisterDebuff(ModBuff buff)
 		{
 			if (HasCalamity)
 			{
-				Calamity.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
+				var call = (NPC e) => e.HasBuff(buff.Type);
+				Calamity.Call("RegisterDebuff", buff.Texture, call);
 			}
 		}
 
@@ -124,8 +115,6 @@ namespace ArcaneOdyssey
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
 		public static Mod Calamity => ModLoader.GetMod("CalamityMod");
-		public static bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
-		public static Mod MusicMod => ModLoader.GetMod("ArcaneOdysseyMusic");
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => ModLoader.GetMod("Fargowiltas");
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");

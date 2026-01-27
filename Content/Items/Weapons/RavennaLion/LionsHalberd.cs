@@ -1,5 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
@@ -8,7 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 {
 	public class LionsHalberd : AORangedOrMeleeWeapon
 	{

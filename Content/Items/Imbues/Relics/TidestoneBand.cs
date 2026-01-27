@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.Content.Buffs.DOT;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;

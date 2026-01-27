@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 {
 	public class StormCaller : AORangedOrMeleeWeapon
 	{

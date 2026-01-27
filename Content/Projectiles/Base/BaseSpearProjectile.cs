@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {

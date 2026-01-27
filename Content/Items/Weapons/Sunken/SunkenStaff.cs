@@ -8,7 +8,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using Terraria.Audio;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 {
 	public class SunkenStaff : AORangedOrMeleeWeapon
 	{

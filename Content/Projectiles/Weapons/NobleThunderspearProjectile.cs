@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Weapons;
+﻿using ArcaneOdyssey.Content.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;

@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

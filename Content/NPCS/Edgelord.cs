@@ -13,8 +13,8 @@ using Terraria.Chat;
 using Terraria.Audio;
 using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons;
 using Terraria.Localization;
+using ArcaneOdyssey.Content.Items.Weapons.Sunken;
 
 namespace ArcaneOdyssey.Content.NPCS
 {

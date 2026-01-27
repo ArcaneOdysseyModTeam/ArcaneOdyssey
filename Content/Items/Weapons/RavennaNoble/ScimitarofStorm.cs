@@ -2,13 +2,11 @@
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Weapons
+namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 {
 	public class ScimitarofStorm : AORangedOrMeleeWeapon
 	{

@@ -249,6 +249,12 @@ namespace ArcaneOdyssey
 	public class DownedBosses : ModSystem
 	{
 		public static bool downedEvander;
+		public static bool downedDusk;
+		public static bool downedLaelus;
+		public static bool downedCrone;
+		public static bool downedDelamere;
+
+
 		public static bool downedEnragedEmpress;
 		public static bool downedWorldEater;
 		public static bool downedBrain;
@@ -256,8 +262,11 @@ namespace ArcaneOdyssey
 		public static void ResetDefaults()
 		{
 			downedEvander = false;
-			ExternalModSupport.hasYapped = false;
 			downedEnragedEmpress = false;
+			downedDusk = false;
+			downedLaelus = false;
+			downedCrone = false;
+			downedDelamere = false;
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();
@@ -271,6 +280,14 @@ namespace ArcaneOdyssey
 				downed.Add("Evander");
 			if (downedEnragedEmpress)
 				downed.Add("EnragedEoL");
+			if (downedDelamere)
+				downed.Add("Delamere");
+			if (downedDusk)
+				downed.Add("Dusk");
+			if (downedCrone)
+				downed.Add("Crone");
+			if (downedLaelus)
+				downed.Add("Laelus");
 
 			tag["downed"] = downed;
 		}
@@ -279,6 +296,10 @@ namespace ArcaneOdyssey
 		{
 			var downed = tag.GetList<string>("downed");
 			downedEvander = downed.Contains("Evander");
+			downedDusk = downed.Contains("Dusk");
+			downedCrone = downed.Contains("Crone");
+			downedLaelus = downed.Contains("Laelus");
+			downedDelamere = downed.Contains("Delamere");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
 		}
 	}

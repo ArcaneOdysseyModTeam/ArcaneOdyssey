@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using ArcaneOdyssey.PlayerClasses;

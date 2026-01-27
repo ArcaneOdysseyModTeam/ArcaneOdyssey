@@ -15,7 +15,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey
 {
@@ -90,6 +89,33 @@ namespace ArcaneOdyssey
 				}
 			}
 			return ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.None").Value;
+		}
+
+		public static void Shuffle<T>(this IList<T> list)
+		{
+			int n = list.Count;
+			while (n > 1)
+			{
+				n--;
+				int k = Main.rand.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
+		}
+
+		public static IList<T> ShuffledList<T>(IList<T> list)
+		{
+			int n = list.Count;
+			while (n > 1)
+			{
+				n--;
+				int k = Main.rand.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
+			return list;
 		}
 
 		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd)
