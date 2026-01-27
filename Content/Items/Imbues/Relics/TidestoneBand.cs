@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSpeed => 1f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
-		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<WaterMagic>();
+		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<WaterMagic>();
 
 		public override void SetDefaults()
 		{

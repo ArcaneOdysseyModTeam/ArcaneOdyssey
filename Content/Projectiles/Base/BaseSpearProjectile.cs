@@ -35,12 +35,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			fallThrough = true;
 			width = height /= 4;
-			return Projectile.ai[2] != 0; // do not kill projectile on tile collide unless thrown
+			return Projectile.ai[2] == 2; // do not kill projectile on tile collide unless thrown
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (Projectile.ai[2] != 0)
+			if (Projectile.ai[2] == 2)
 				Projectile.Kill();
 		}
 

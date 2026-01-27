@@ -19,8 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = 70;
-			Projectile.width = 72;
+			Projectile.height = Projectile.width = 70;
 		}
 
 		public override void AI()

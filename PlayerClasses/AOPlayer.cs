@@ -27,6 +27,8 @@ namespace ArcaneOdyssey.PlayerClasses
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
+		public bool evil = false;
+
 
 		public List<ImbueDebuffHelper> DebuffHelpers = [];
 

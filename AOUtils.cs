@@ -128,6 +128,11 @@ namespace ArcaneOdyssey
 			return ModContent.GetInstance<T>().Effects;
 		}
 
+		public static SynergyEffects CopyDamageSynergiesFromImbue<T>() where T : Imbuable
+		{
+			return ModContent.GetInstance<T>().Effects with { clearBuffs = [] };
+		}
+
 		public static float RelativeScale(this Rectangle rect, int scale = 64)
 		{
 			return MathHelper.Clamp(((rect.Width + rect.Height) / 2f / scale), .5f, 2.5f);

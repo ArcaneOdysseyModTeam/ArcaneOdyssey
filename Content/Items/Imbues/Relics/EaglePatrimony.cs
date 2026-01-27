@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 		public override WeaponAbility? Ability => new(Mod, "Astrapikis", "Release a slash of spirit energy", ImbueColour);
 
-		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<LightningMagic>();
+		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightningMagic>();
 
 		public override void SetDefaults()
 		{

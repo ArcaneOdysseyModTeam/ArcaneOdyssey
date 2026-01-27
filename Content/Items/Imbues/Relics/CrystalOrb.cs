@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override WeaponAbility? Ability => new(Mod, "Aithiraki", "Summon a minion made of spirit energy", ImbueColour);
 
 		public override string ImbueUISprite => Texture + "_Imbue";
-		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<LightMagic>();
+		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightMagic>();
 
 		public override void SetDefaults()
 		{

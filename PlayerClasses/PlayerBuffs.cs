@@ -73,11 +73,14 @@ namespace ArcaneOdyssey.PlayerClasses
 				bloodDisease = Disease;
 			else
 				bloodDisease = null;
+
+			evil = tag.GetBool("aomentality");
 		}
 
 		public override void SaveData(TagCompound tag)
 		{
 			tag.Add("aodisease", bloodDisease ?? "null");
+			tag.Add("aomentality", evil);
 		}
 	}
 }

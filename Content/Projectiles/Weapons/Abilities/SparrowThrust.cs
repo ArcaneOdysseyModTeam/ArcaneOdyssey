@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.timeLeft = TrueMaxTime;
 			Projectile.extraUpdates = 100;
 			Projectile.DamageType = DamageClass.Melee;
+			Projectile.ownerHitCheck = true;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;
@@ -56,7 +57,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					}
 				}
 				Projectile.velocity = Vector2.Zero;
-				//Projectile.Opacity = (Projectile.timeLeft - 1f) / (TrueMaxTime - MaxTime);
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				Vector2 drawPos = Projectile.Center - (oldvelo * k * 7f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, (Sprite.Height / Main.projFrames[Type]) * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - (.075f * k), SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, (Sprite.Height / Main.projFrames[Type]) * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - ((Projectile.scale * .075f) * k), SpriteEffects.None, 0);
 			}
 			return false;
 		}

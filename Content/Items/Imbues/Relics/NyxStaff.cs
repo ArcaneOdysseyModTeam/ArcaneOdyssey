@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 1.1f;
 
-		public override SynergyEffects Effects => CopySynergiesFromImbue<ShadowMagic>();
+		public override SynergyEffects Effects => CopyDamageSynergiesFromImbue<ShadowMagic>();
 
 		public override void SetStaticDefaults()
 		{
