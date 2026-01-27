@@ -19,7 +19,6 @@ namespace ArcaneOdyssey.PlayerClasses
 		public List<Cooldown> Cooldowns = [];
 
 		public bool HeavySkillActive = false;
-		internal int HeavySkillCounter;
 		public bool SoftFrozen => chargingSpell || HeavySkillActive;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;

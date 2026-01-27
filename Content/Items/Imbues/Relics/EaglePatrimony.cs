@@ -1,7 +1,6 @@
-﻿using ArcaneOdyssey.Content.Buffs.DOT;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Buffs.Stuns;
+﻿using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
@@ -24,27 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 		public override WeaponAbility? Ability => new(Mod, "Astrapikis", "Release a slash of spirit energy", ImbueColour);
 
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				//ModContent.BuffType<AOPetrified>(), // petrified
-				//ModContent.BuffType<CharredEffect>(),
-				//ModContent.BuffType<SandyEffect>(),
-				//ModContent.BuffType<AOBleed>(),
-				//ModContent.BuffType<AOFrozen>()
-			],
-			[
-				new(BuffID.Chilled, 1.2f), // frozen
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(BuffID.Burning, 1.15f), // scalding
-				new(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new(BuffID.Venom, 1.075f), // venom acid
-				new(BuffID.Wet, 1.05f), // 
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Oiled,0.96f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
-			]
-			);
+		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<LightningMagic>();
 
 		public override void SetDefaults()
 		{

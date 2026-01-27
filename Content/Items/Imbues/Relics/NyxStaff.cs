@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -19,16 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 1.1f;
 
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				
-			],
-			[
-				new(BuffID.Confused,1.2f),
-				new(ModContent.BuffType<Crystallized>(),0.7f),
-				new(ModContent.BuffType<BlindedEffect>(),0.7f),
-			]
-			);
+		public override SynergyEffects Effects => CopySynergiesFromImbue<ShadowMagic>();
 
 		public override void SetStaticDefaults()
 		{

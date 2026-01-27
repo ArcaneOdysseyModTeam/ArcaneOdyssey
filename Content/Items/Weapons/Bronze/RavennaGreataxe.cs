@@ -94,6 +94,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 	public class DevastateCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(RavennaGreataxe).Texture();
+		public override string ExtraIconTexture => GetTexture<RavennaGreataxe>();
 	}
 }

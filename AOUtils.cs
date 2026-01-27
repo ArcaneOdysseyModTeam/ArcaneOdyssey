@@ -123,6 +123,11 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static SynergyEffects CopySynergiesFromImbue<T>() where T : Imbuable
+		{
+			return ModContent.GetInstance<T>().Effects;
+		}
+
 		public static float RelativeScale(this Rectangle rect, int scale = 64)
 		{
 			return MathHelper.Clamp(((rect.Width + rect.Height) / 2f / scale), .5f, 2.5f);
@@ -270,7 +275,10 @@ namespace ArcaneOdyssey
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
-		public static string Texture(this Type type) => type.FullName.Replace('.', '/');
+		public static string GetTexture<T>() where T : ModType
+		{
+			return typeof(T).FullName.Replace('.', '/');
+		}
 
 		public static void Kill(this Entity entity)
 		{

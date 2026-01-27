@@ -58,6 +58,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class SparrowThrustCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(NobleThunderspear).Texture();
+		public override string ExtraIconTexture => AOUtils.GetTexture<NobleThunderspear>();
 	}
 }

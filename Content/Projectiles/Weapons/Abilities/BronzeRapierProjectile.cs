@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class BronzeRapierProjectile : AOPlayerProjectile
 	{
-		public override string Texture => typeof(BronzeRapier).Texture();
+		public override string Texture => GetTexture<BronzeRapier>();
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;
 
@@ -81,6 +81,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 	public class PiercingStrikesCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(BronzeRapier).Texture();
+		public override string ExtraIconTexture => GetTexture<BronzeRapier>();
 	}
 }

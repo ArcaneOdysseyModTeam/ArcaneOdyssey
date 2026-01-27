@@ -1,10 +1,9 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
@@ -18,16 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override WeaponAbility? Ability => new(Mod, "Aithiraki", "Summon a minion made of spirit energy", ImbueColour);
 
 		public override string ImbueUISprite => Texture + "_Imbue";
-
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				
-			],
-			[
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<DrainedEffect>(),0.8f)
-			]
-			);
+		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<LightMagic>();
 
 		public override void SetDefaults()
 		{

@@ -14,10 +14,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public static int TrueMaxTime => MaxTime + (100 * 60);
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Main.projFrames[Type] = 10;
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 150;
+			Projectile.width = Projectile.height = 186;
 			Projectile.friendly = true;
 			Projectile.timeLeft = TrueMaxTime;
 			Projectile.extraUpdates = 100;
@@ -41,21 +47,27 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 			else
 			{
+				if (++Projectile.frameCounter > ((TrueMaxTime - MaxTime) / 10f))
+				{
+					Projectile.frameCounter = 0;
+					if (++Projectile.frame > Main.projFrames[Type])
+					{
+						Projectile.frame = 0;
+					}
+				}
 				Projectile.velocity = Vector2.Zero;
-				Projectile.Opacity = (Projectile.timeLeft - 1f) / (TrueMaxTime - MaxTime);
+				//Projectile.Opacity = (Projectile.timeLeft - 1f) / (TrueMaxTime - MaxTime);
 			}
 		}
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			var kmax = Imbue?.AOImbueSpeed ?? 1f;
-			var realkmax = (10f * kmax).Round();
-			for (int k = realkmax; k >= 0; k--)
+			var realkmax = 9;
+			for (int k = realkmax; k >= 0; k--) 
 			{
-				Vector2 drawPos = Projectile.Center - (oldvelo * k * (7f * kmax.FlipFloat())) + new Vector2(0f, Projectile.gfxOffY);
+				Vector2 drawPos = Projectile.Center - (oldvelo * k * 7f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
-				var rotaitoneoffset = SpriteEffects.None;
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (.05f * k), rotaitoneoffset, 0);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, (Sprite.Height / Main.projFrames[Type]) * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - (.075f * k), SpriteEffects.None, 0);
 			}
 			return false;
 		}

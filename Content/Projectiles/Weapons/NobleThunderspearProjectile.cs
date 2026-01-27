@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 {
 	public class NobleThunderspearProjectile : BaseSpearProjectile
 	{
-		public override string Texture => typeof(NobleThunderspear).Texture();
+		public override string Texture => AOUtils.GetTexture<NobleThunderspear>();
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 
 		public override float AOSize => .85f;

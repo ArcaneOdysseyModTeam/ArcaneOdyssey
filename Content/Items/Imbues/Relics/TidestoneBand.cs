@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -17,23 +18,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1f;
 		public override float AOScrollSpeed => 1f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-		public override SynergyEffects Effects => new([],
-			[
-				new(ModContent.BuffType<Crystallized>(),0.85f),
-				new(ModContent.BuffType<AOBleed>(),1.05f),
-				new(BuffID.OnFire,0.8f),
-				new(ModContent.BuffType<CharredEffect>(),0.9f),
-				new(BuffID.Venom,0.9f),
-				new(ModContent.BuffType<FreezingEffect>(),1.075f),
-				new(BuffID.OnFire3,0.9f),
-				new(BuffID.Oiled,0.98f),
-				new(ModContent.BuffType<SandyEffect>(),0.8f),
-				new(BuffID.ShadowFlame,0.7f),
-				new(ModContent.BuffType<SnowyEffect>(),1.1f),
-				new(ModContent.BuffType<SearedEffect>(),0.7f),
-				new(ModContent.BuffType<Singed>(), 0.8f),
-			]
-		);
+
+		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<WaterMagic>();
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -124,6 +111,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 	public class ThakrousiCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(TidestoneBand).Texture();
+		public override string ExtraIconTexture => AOUtils.GetTexture<TidestoneBand>();
 	}
 }

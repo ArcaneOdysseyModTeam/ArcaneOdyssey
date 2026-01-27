@@ -87,6 +87,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class SeismicSlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(LionsHalberd).Texture();
+		public override string ExtraIconTexture => AOUtils.GetTexture<LionsHalberd>();
 	}
 }
