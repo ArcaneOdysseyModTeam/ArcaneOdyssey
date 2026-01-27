@@ -18,10 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Owner.MinionAttackTargetNPC = target.whoAmI;
-			if (Projectile.TryGetOwner(out var owner))
-			{
-				owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Clamp(Projectile.originalDamage / 5, 1, 20), false);
-			}
+			AOPlayerOwner?.TrySpiritLifesteal(Math.Clamp(Projectile.originalDamage / 5, 1, 20), false);
 		}
 	}
 }

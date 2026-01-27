@@ -17,15 +17,6 @@ namespace ArcaneOdyssey.Content.NPCS
 {
 	public class Evander : AOMiniboss
 	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			Main.npcFrameCount[Type] = 27;
-			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-			ExternalModSupport.DeclareMiniboss(Type);
-		}
-
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public override int MeleeProjectile => ModContent.ProjectileType<EvanderMelee>();

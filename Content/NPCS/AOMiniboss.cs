@@ -18,6 +18,10 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override void SetStaticDefaults()
 		{
 			MinibossSpawning.AllMinibosses.Add(this);
+			Main.npcFrameCount[Type] = 27;
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = MovespeedMulti };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+			ExternalModSupport.DeclareMiniboss(Type);
 		}
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
@@ -87,7 +91,7 @@ namespace ArcaneOdyssey.Content.NPCS
 						NPC.frameCounter = 0;
 					}
 				}
-				if (Math.Abs(NPC.velocity.X) > 8f)
+				if (Math.Abs(NPC.velocity.X) > 8f * MovespeedMulti)
 				{
 					NPC.velocity.X *= 0.8f;
 				}

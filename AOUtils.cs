@@ -94,9 +94,8 @@ namespace ArcaneOdyssey
 		public static void Shuffle<T>(this IList<T> list)
 		{
 			int n = list.Count;
-			while (n > 1)
+			while (n-- > 1)
 			{
-				n--;
 				int k = Main.rand.Next(n + 1);
 				T value = list[k];
 				list[k] = list[n];
@@ -107,9 +106,8 @@ namespace ArcaneOdyssey
 		public static IList<T> ShuffledList<T>(IList<T> list)
 		{
 			int n = list.Count;
-			while (n > 1)
+			while (n-- > 1)
 			{
-				n--;
 				int k = Main.rand.Next(n + 1);
 				T value = list[k];
 				list[k] = list[n];
@@ -147,6 +145,17 @@ namespace ArcaneOdyssey
 				if (!options.Contains(toAdd.Name))
 					options.Add(toAdd.Name);
 			}
+		}
+
+		public static Rectangle ScaleRectangle(Rectangle rect, float scale)
+		{
+			var diffX = ((rect.Width - (rect.Width * scale)) / 2f).Round();
+			var diffY = ((rect.Height - (rect.Height * scale)) / 2f).Round();
+			rect.Width = (rect.Width * scale).Round();
+			rect.Height = (rect.Height * scale).Round();
+			rect.X += diffX;
+			rect.Y += diffY;
+			return rect;
 		}
 
 		public static SynergyEffects CopySynergiesFromImbue<T>() where T : Imbuable

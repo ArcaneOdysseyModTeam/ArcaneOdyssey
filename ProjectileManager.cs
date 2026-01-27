@@ -65,13 +65,7 @@ namespace ArcaneOdyssey
 			mult += player.ArcaneOdyssey().SizeMulti;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				var dim = OriginalDimensions.GetValueOrDefault(projectile.Hitbox);
-				var diffX = ((hitbox.Width - (dim.Width * mult)) / 2f).Round();
-				var diffY = ((hitbox.Height - (dim.Height * mult)) / 2f).Round();
-				hitbox.Width = (dim.Width * mult).Round();
-				hitbox.Height = (dim.Height * mult).Round();
-				hitbox.X += diffX;
-				hitbox.Y += diffY;
+				hitbox = ScaleRectangle(OriginalDimensions.GetValueOrDefault(projectile.Hitbox), mult);
 				projectile.scale = mult;
 			}
 		}
