@@ -1,0 +1,108 @@
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Projectiles.Relics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Content.Projectiles.Enemies
+{
+	public class DuskHound : ModProjectile
+	{
+		public override string Texture => AOUtils.GetTexture<SpiritHound>();
+
+		public int TileTimer = 0;
+		public int penetrations = 2;
+
+		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
+
+		public override void SetDefaults()
+		{
+			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.hostile = true;
+			Projectile.height = 84;
+			Projectile.width = 104;
+			Projectile.AverageDimensions();
+			Projectile.timeLeft = 3 * 60;
+			Projectile.ignoreWater = true;
+			Projectile.Opacity = .75f;
+		}
+
+		public override void AI()
+		{
+			Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+			Projectile.spriteDirection = Projectile.direction;
+			if (TileTimer > 0)
+				TileTimer--;
+			if (Projectile.ai[2] == 0f)
+			{
+				Projectile.ai[2] = 1f;
+				Projectile.netUpdate = true;
+			}
+			if (penetrations == 0)
+			{
+				Projectile.Kill();
+			}
+
+			Projectile.rotation = Projectile.velocity.ToRotation();
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			width /= 4;
+			height /= 4;
+			fallThrough = true;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
+
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
+		{
+			penetrations--;
+		}
+
+		public override bool PreKill(int timeLeft)
+		{
+			Imbue?.KillEffects(Projectile.Hitbox, Projectile);
+			return base.PreKill(timeLeft);
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			if (TileTimer <= 0)
+			{
+				penetrations--;
+				Imbue?.KillEffects(Projectile.Hitbox);
+			}
+			if (TileTimer < 60 && TileTimer > 0)
+			{
+				return true;
+			}
+			Projectile.velocity = Projectile.oldVelocity;
+			Projectile.position = Projectile.oldPosition;
+			TileTimer = 65;
+			return false;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Imbue?.GetColour() ?? Color.White;
+			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
+			{
+				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				return false;
+			}
+			return true;
+		}
+
+		public override void PostDraw(Color lightColor)
+		{
+			if (ModContent.RequestIfExists<Texture2D>(GlowTexture, out var tex))
+			{
+				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			}
+		}
+	}
+}

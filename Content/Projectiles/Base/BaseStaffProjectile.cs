@@ -19,6 +19,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.knockBack = 4.5f;
 			Projectile.height = Projectile.width = 120;
 			Projectile.friendly = true;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 20;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;

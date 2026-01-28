@@ -34,7 +34,6 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.DeathSound = SoundID.NPCDeath52;
 			NPC.knockBackResist = 0;
 			AnimationType = NPCID.Guide;
-			ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, false, false, true, true, false);
 		}
 
 		public override void SetStaticDefaults()

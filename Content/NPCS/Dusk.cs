@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.BossTrophies;
-using ArcaneOdyssey.Content.Items.Equipment.Accessories;
-using ArcaneOdyssey.Content.Items.Weapons;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
@@ -11,32 +9,34 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
-	public class Evander : AOMiniboss
+	public class Dusk : AOMiniboss
 	{
-		public override int AOHealth => 5000;
-		public override int MeleeProjectile => ModContent.ProjectileType<EvanderMelee>();
-		public override int RangedProjectile => ModContent.ProjectileType<EvanderSlash>();
+		public override int MeleeProjectile => ModContent.ProjectileType<DuskHound>();
+		public override int RangedProjectile => ModContent.ProjectileType<DuskHound>();
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			NPC.lifeMax = 5000;
-			NPC.damage = 75;
-			NPC.defense = 20;
+			NPC.damage = 65;
+			NPC.defense = 15;
 			NPC.width = 20;
 			NPC.height = 44;
 			//Sprite height 96
 			//Sprite width 76
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.value = Item.buyPrice(gold: 10);
+			NPC.value = Item.buyPrice(gold: 5);
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
 		}
 
-		public override bool Downed { get => DownedBosses.downedEvander; set => DownedBosses.downedEvander = value; }
+		public override float ShootSpeed => 7f * .9f;
 
-		public override bool ExtraConditions => Main.hardMode;
+		public override bool Downed { get => DownedBosses.downedDusk; set => DownedBosses.downedDusk = value; }
+
+		public override bool ExtraConditions => NPC.downedBoss2 && !Main.dayTime;
+
+		public override int AOHealth => 1700;
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
@@ -64,10 +64,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ColossalGreatsword>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderCape>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderGauntlet>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderTrophy>(), 10));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NyxStaff>(), 4));
 		}
 	}
 }

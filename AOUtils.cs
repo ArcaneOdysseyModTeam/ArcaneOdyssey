@@ -148,13 +148,17 @@ namespace ArcaneOdyssey
 		}
 
 
-		public static void ScaleRectangle(this Rectangle rect, float scale)
+		public static void ScaleRectangle(ref Rectangle rect, float scale, bool adjustX = true, bool adjustY = true)
 		{
 			var diffX = ((rect.Width - (rect.Width * scale)) / 2f).Round();
 			var diffY = ((rect.Height - (rect.Height * scale)) / 2f).Round();
 			rect.Width = (rect.Width * scale).Round();
 			rect.Height = (rect.Height * scale).Round();
+			if (!adjustX)
+				rect.X += diffX;
 			rect.X += diffX;
+			if (!adjustY)
+				rect.Y += diffY;
 			rect.Y += diffY;
 		}
 
@@ -440,7 +444,7 @@ namespace ArcaneOdyssey
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOScrollDamage;
 								}
 								range *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
 								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
@@ -496,16 +500,16 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static void SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true)
+		public static Rectangle SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, bool adjustY = true, bool adjustX = true)
 		{
-			if (source is null) return;
-			if (!source.active) return;
+			if (source is null) return hitbox;
+			if (!source.active) return hitbox;
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
+			float mult = 1f;
 			if (imbue is not null)
 			{
 				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true)
 				{
-					float mult = 1f;
 					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
 					{
 						if (updatedamage)
@@ -548,9 +552,14 @@ namespace ArcaneOdyssey
 							}
 						}
 					}
-					hitbox.ScaleRectangle(mult);
 				}
 			}
+
+			if (source.TryGetOwner(out AOPlayer player1))
+			{
+				mult *= 1f + player1.SizeMulti;
+			}
+			ScaleRectangle(ref hitbox, mult, adjustX, adjustY);
 
 			foreach (NPC target in Main.ActiveNPCs)
 			{
@@ -575,6 +584,7 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
+			return hitbox;
 		}
 
 		public static bool HasSecondImbue(this Entity entity, out Imbuable second)

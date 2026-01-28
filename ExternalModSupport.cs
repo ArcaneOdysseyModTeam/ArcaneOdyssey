@@ -4,7 +4,6 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.NPCS;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -151,33 +150,6 @@ namespace ArcaneOdyssey
 			}
 
 			EvanderStuff();
-		}
-
-		public struct DebuffVulnurablilities(bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null)
-		{
-			public bool? sick = sick;
-			public bool? hot = hot;
-			public bool? electric = electric;
-			public bool? water = water;
-			public bool? cold = cold;
-
-			public readonly void ApplyDebuffVulnurablility(NPC NPC)
-			{
-				if (HasCalamity)
-				{
-					if (sick.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "sick", sick.Value);
-					if (electric.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "electric", electric.Value);
-					if (water.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "water", water.Value);
-					if (hot.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "hot", hot.Value);
-					if (cold.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "cold", cold.Value);
-				}
-			}
-			public static void SetDebuffVulnurablility(NPC NPC, bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null) => new DebuffVulnurablilities(sick, hot, electric, water, cold).ApplyDebuffVulnurablility(NPC);
 		}
 	}
 }

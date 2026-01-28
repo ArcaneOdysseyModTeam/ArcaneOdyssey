@@ -46,8 +46,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			{
 				Projectile.ai[1] = 0;
 				Rectangle rect = new(Projectile.Hitbox.X, Projectile.Hitbox.Y - 500, Projectile.width, 500);
-				AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false);
-				for (int i = 0; i <= 10; i++)
+				rect = AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false, false);
+				var amountmulti = 1f;
+				if (Imbue is not null)
+					amountmulti *= Imbue.AOScrollSize;
+				if (SecondImbue is not null)
+					amountmulti *= SecondImbue.AOScrollSize;
+				for (int i = 0; i <= 10f * amountmulti; i++)
 				{
 					Imbue?.LingeringEffects(rect);
 					SecondImbue?.LingeringEffects(rect);

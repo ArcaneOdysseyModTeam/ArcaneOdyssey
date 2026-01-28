@@ -162,6 +162,12 @@ NPCs: {
 	}
 
 	DebuffDummy.DisplayName: Debuff Dummy
+
+	Dusk: {
+		DisplayName: Dusk, the Dark Oracle
+		DeathMessage: Dusk, the Dark Oracle has been defeated!
+		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer forests of the world.
+	}
 }
 
 MagicTierLines: {
@@ -241,6 +247,7 @@ Projectiles: {
 	TwinCrescent.DisplayName: Twin Crescent
 	NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 	SparrowThrust.DisplayName: Sparrow Thrust
+	DuskHound.DisplayName: Spirit Hound
 }
 
 WeaponAbilities: {

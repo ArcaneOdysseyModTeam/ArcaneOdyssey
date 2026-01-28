@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override void EffectBeforeSpin(Player player)
 		{
 			if (Projectile.owner == Main.myPlayer)
-				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 17.5f * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage, 0f, Projectile.owner, Imbue, SecondImbue);
+				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 17.5f * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, SecondImbue);
 		}
 	}
 }

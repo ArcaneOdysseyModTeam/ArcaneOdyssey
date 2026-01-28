@@ -1,9 +1,7 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Enemies;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Transactions;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
@@ -15,11 +13,13 @@ namespace ArcaneOdyssey.Content.NPCS
 	[AutoloadBossHead]
 	public abstract class AOMiniboss : ModNPC
 	{
+		public abstract int AOHealth { get; }
+
 		public override void SetStaticDefaults()
 		{
 			MinibossSpawning.AllMinibosses.Add(this);
 			Main.npcFrameCount[Type] = 27;
-			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = MovespeedMulti };
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			ExternalModSupport.DeclareMiniboss(Type);
 		}
@@ -38,14 +38,11 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public virtual float MovespeedMulti => 1f;
 
-		public virtual ExternalModSupport.DebuffVulnurablilities? DebuffVulnurablilities => null;
-
 		public override void SetDefaults()
 		{
 			NPC.aiStyle = NPCAIStyleID.FaceClosestPlayer;
-			if (DebuffVulnurablilities.HasValue)
-				DebuffVulnurablilities.Value.ApplyDebuffVulnurablility(NPC);
 			NPC.knockBackResist = 0f;
+			NPC.lifeMax = AOHealth / 2;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -73,7 +70,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				NPC.TargetClosest();
 				if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
 				{ // Limit chasing distance
-					NPC.velocity.X += NPC.direction * 0.2f * MovespeedMulti;
+					NPC.velocity.X += NPC.direction * 0.2f;
 					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
 					{ // Attack meelee or stop
 						NPC.velocity.X = 0f;
@@ -93,7 +90,7 @@ namespace ArcaneOdyssey.Content.NPCS
 						NPC.frameCounter = 0;
 					}
 				}
-				if (Math.Abs(NPC.velocity.X) > 8f * MovespeedMulti)
+				if (Math.Abs(NPC.velocity.X) > 8f)
 				{
 					NPC.velocity.X *= 0.8f;
 				}
@@ -135,7 +132,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				else if (NPC.HasValidTarget && NPC.ai[1] == 15 && Main.netMode != NetmodeID.MultiplayerClient)
 				{
 					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, RangedProjectile, NPC.damage / 2, 4.5f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, RangedProjectile, NPC.damage, 4.5f);
 				}
 			}
 			else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
