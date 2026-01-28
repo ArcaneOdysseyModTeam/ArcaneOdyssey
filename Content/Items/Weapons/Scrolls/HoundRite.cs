@@ -1,12 +1,11 @@
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class BlastScroll : Scroll
+	public class HoundRite : Scroll
 	{
 		public override bool CanHaveRelic => true;
 
@@ -16,13 +15,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.useTime = Item.useAnimation = 67;
 			Item.damage = 20;
 			Item.DamageType = OracleDamage.Instance;
-			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
+			Item.shoot = ModContent.ProjectileType<SpiritHound>();
 			Item.shootSpeed = 7f;
 		}
 
 		public override void AddRecipes()
 		{
-			AddRecipe(ItemID.WandofSparking);
+			AddRecipe(ItemID.WandofFrosting);
 		}
 	}
 }
