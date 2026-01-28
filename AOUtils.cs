@@ -147,7 +147,8 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static Rectangle ScaleRectangle(Rectangle rect, float scale)
+
+		public static void ScaleRectangle(this Rectangle rect, float scale)
 		{
 			var diffX = ((rect.Width - (rect.Width * scale)) / 2f).Round();
 			var diffY = ((rect.Height - (rect.Height * scale)) / 2f).Round();
@@ -155,7 +156,6 @@ namespace ArcaneOdyssey
 			rect.Height = (rect.Height * scale).Round();
 			rect.X += diffX;
 			rect.Y += diffY;
-			return rect;
 		}
 
 		public static SynergyEffects CopySynergiesFromImbue<T>() where T : Imbuable
@@ -520,7 +520,7 @@ namespace ArcaneOdyssey
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOScrollDamage;
 								}
 								mult *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
 								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
@@ -548,12 +548,7 @@ namespace ArcaneOdyssey
 							}
 						}
 					}
-					var diffX = ((hitbox.Width - (hitbox.Width * mult)) / 2f).Round();
-					var diffY = ((hitbox.Height - (hitbox.Height * mult)) / 2f).Round();
-					hitbox.Width = (hitbox.Width * mult).Round();
-					hitbox.Height = (hitbox.Height * mult).Round();
-					hitbox.X += diffX;
-					hitbox.Y += diffY;
+					hitbox.ScaleRectangle(mult);
 				}
 			}
 
@@ -937,7 +932,7 @@ namespace ArcaneOdyssey
 				List<bool> conditions = [];
 				if (checklistfailed || !ModLoader.TryGetMod("BossChecklist", out var checklist))
 				{
-					conditions.AddRange([DownedBosses.downedEvander, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
+					conditions.AddRange([DownedBosses.downedEvander, DownedBosses.downedLaelus, DownedBosses.downedCrone, DownedBosses.downedDelamere, DownedBosses.downedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
 					if (ModLoader.TryGetMod("CalamityMod", out var cal))
 					{
 						string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");

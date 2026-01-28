@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	public class TwinCrescent : AOPlayerProjectile
 	{
 		public override string Texture => Mod.Name + "/Assets/BasicSlash";
-		public override float AOSize => .15f;
+		public override float AOSize => .25f;
 		public Color Colour => Imbue?.GetColour(Color.Gold) ?? Color.Gold;
 
 		public override void SetStaticDefaults()

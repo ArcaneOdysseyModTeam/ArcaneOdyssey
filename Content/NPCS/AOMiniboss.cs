@@ -26,6 +26,8 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
+
 		public abstract int RangedProjectile { get; }
 
 		public abstract int MeleeProjectile { get; }
@@ -59,7 +61,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			boundingBox = NPC.Hitbox;
 		}
 
-		public virtual bool? DayBoss => null;
+		public abstract bool ExtraConditions { get; }
 
 		private bool canJump = false;
 
@@ -254,26 +256,9 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				foreach (var miniboss in AOUtils.ShuffledList(AllMinibosses))
 				{
-					bool extracheck;
-					if (miniboss.DayBoss.HasValue)
-					{
-						if (miniboss.DayBoss.Value)
-						{
-							extracheck = Main.dayTime;
-						}
-						else
-						{
-							extracheck = !Main.dayTime;
-						}
-					}
-					else
-					{
-						extracheck = true;
-					}
-
 					foreach (var player in Main.ActivePlayers)
 					{
-						if (extracheck && player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!AOMinibossOrBossAlive()) && Main.rand.NextBool(miniboss.Downed ? 600 * 60 : 300 * 60))
+						if (miniboss.ExtraConditions && player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!AOMinibossOrBossAlive()) && Main.rand.NextBool(miniboss.Downed ? 600 * 60 : 300 * 60))
 						{
 							NPC.SpawnOnPlayer(player.whoAmI, miniboss.Type);
 						}

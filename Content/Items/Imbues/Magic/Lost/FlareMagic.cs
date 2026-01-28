@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<FlareDust>(), direction.X * 2f, direction.Y * 2f, Alpha: (255 * .75f).Round(), Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, direction.X * 0.4f, direction.Y * 0.4f, Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, direction.X * 0.4f, direction.Y * 0.4f, Scale: 2f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 		}
@@ -74,9 +74,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				var spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<FlareDust>(), Alpha: (255 * .75f).Round(), Scale: area.RelativeScale());
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, direction.GetValueOrDefault().X * 0.4f, direction.GetValueOrDefault().Y * 0.4f, Scale: 1.4f * area.RelativeScale())];
-				spawnedDust2.noGravity = true;
 			}
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, direction.GetValueOrDefault().X * 0.2f, direction.GetValueOrDefault().Y * 0.2f, Scale: .05f * area.RelativeScale())];
+			spawnedDust2.noGravity = true;
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)

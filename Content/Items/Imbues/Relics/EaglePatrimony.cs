@@ -48,11 +48,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			base.KillEffects(area, source);
-			for (float i = 0; i < 50; i++)
+			for (float i = 0; i < 25; i++)
 			{
-				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 60 * area.RelativeScale();
+				var centre = (MathHelper.TwoPi / 25 * i).ToRotationVector2() * 15 * area.RelativeScale();
 				if (i % 2 == 0)
-					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritTentacle>(), centre * area.RelativeScale() / (8 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritTentacle>(), centre * area.RelativeScale() / (8 + (Main.rand.NextFloat() * 2)), Scale: .75f * area.RelativeScale()).noGravity = true;
 			}
 		}
 

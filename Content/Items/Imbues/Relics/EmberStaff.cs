@@ -51,10 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			base.LingeringEffects(area, direction, source);
-			for (float i = 0; i < 5; i++)
-			{
-				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.Lava, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
-			}
+			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.InfernoFork, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
@@ -62,10 +59,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.KillEffects(area, source);
 			for (float i = 0; i < 50; i++)
 			{
-				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 60 * area.RelativeScale();
-				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
-				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
-				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 20 * area.RelativeScale();
+				AOUtils.NewDustImperfect(area.Center(), DustID.InfernoFork, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.InfernoFork, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.InfernoFork, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
@@ -75,7 +72,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.SpawningEffects(area, direction);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Lava, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.InfernoFork, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -85,7 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.ExplosionEffects(position, intensity);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Lava, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.InfernoFork, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

@@ -56,16 +56,30 @@ namespace ArcaneOdyssey
 			float mult = BaseScale.GetValueOrDefault(projectile.scale);
 			if (Imbue is not null)
 			{
-				mult += (BenifitsFromScrollStats.GetValueOrDefault() ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
-				if (SecondImbue is not null)
+				if (BenifitsFromScrollStats.HasValue)
 				{
-					mult += SecondImbue.AOImbueSize.MultiToPercent();
+					if (BenifitsFromScrollStats.Value)
+					{
+						mult *= Imbue.AOScrollSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOScrollSize;
+						}
+					}
+					else
+					{
+						mult *= Imbue.AOImbueSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOImbueSize;
+						}
+					}
 				}
 			}
-			mult += player.ArcaneOdyssey().SizeMulti;
+			mult *= 1f + player.ArcaneOdyssey().SizeMulti;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				hitbox = ScaleRectangle(OriginalDimensions.GetValueOrDefault(projectile.Hitbox), mult);
+				hitbox.ScaleRectangle(mult);
 				projectile.scale = mult;
 			}
 		}

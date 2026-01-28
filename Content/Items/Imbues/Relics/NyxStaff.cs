@@ -53,9 +53,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			base.KillEffects(area, source);
-			for (float i = 0; i < 40; i++)
+			for (float i = 0; i < 30; i++)
 			{
-				var centre = (MathHelper.TwoPi / 40 * i).ToRotationVector2() * 60 * area.RelativeScale();
+				var centre = (MathHelper.TwoPi / 30 * i).ToRotationVector2() * 20 * area.RelativeScale();
 				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: Color.Purple, Scale: area.RelativeScale()).noGravity = true;
 				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), newColor: Color.Purple, Scale: area.RelativeScale()).noGravity = true;
 				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), newColor: Color.Purple, Scale: area.RelativeScale()).noGravity = true;

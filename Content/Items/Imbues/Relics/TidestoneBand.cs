@@ -40,43 +40,26 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			base.LingeringEffects(area, direction, source);
-			for (float i = 0; i < 2; i++)
-			{
-				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.IcyMerman, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, newColor: Color.LightBlue, Scale: area.RelativeScale()).noGravity = true;
-			}
+			base.LingeringEffects(area, direction, source);
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			base.KillEffects(area, source);
-			for (float i = 0; i < 25; i++)
-			{
-				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 60 * area.RelativeScale();
-				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: Color.LightBlue, Scale: area.RelativeScale()).noGravity = true;
-				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), newColor: Color.LightBlue, Scale: area.RelativeScale()).noGravity = true;
-				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), newColor: Color.LightBlue, Scale: area.RelativeScale()).noGravity = true;
-			}
+			base.KillEffects(area, source);
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			base.SpawningEffects(area, direction);
-			for (int n = 0; n < 3; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IcyMerman, direction.X * 0.5f, direction.Y * 0.5f, newColor: Color.LightBlue, Scale: area.RelativeScale())];
-				spawnedDust.noGravity = true;
-			}
+			base.SpawningEffects(area, direction);
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			base.ExplosionEffects(position, intensity);
-			for (int n = 0; n < 3; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.IcyMerman, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), newColor: Color.LightBlue, Scale: intensity)];
-				spawnedDust.noGravity = true;
-			}
+			base.ExplosionEffects(position, intensity);
 		}
 	}
 

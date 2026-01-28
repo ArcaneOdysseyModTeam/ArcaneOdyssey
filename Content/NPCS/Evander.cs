@@ -17,8 +17,6 @@ namespace ArcaneOdyssey.Content.NPCS
 {
 	public class Evander : AOMiniboss
 	{
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
-
 		public override int MeleeProjectile => ModContent.ProjectileType<EvanderMelee>();
 		public override int RangedProjectile => ModContent.ProjectileType<EvanderSlash>();
 
@@ -42,6 +40,8 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override ExternalModSupport.DebuffVulnurablilities? DebuffVulnurablilities => new(true, null, true, false, false);
 
 		public override bool Downed { get => DownedBosses.downedEvander; set => DownedBosses.downedEvander = value; }
+
+		public override bool ExtraConditions => Main.hardMode;
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{

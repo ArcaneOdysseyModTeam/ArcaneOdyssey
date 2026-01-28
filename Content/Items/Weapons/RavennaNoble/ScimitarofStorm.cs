@@ -31,6 +31,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 			Item.shootSpeed = 7f;
 		}
 
+		public override bool CanShoot(Player player) => swings == 1;
+
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			damage /= 2;
@@ -43,6 +45,16 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			spriteBatch.Draw(Sprite, position, frame, drawColor, 0, origin, scale, SpriteEffects.FlipHorizontally, 0f);
+		}
+
+		public int swings = 0;
+
+		public override void UseAnimation(Player player)
+		{
+			if (++swings > 2)
+			{
+				swings = 0;
+			}
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
