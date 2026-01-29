@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -22,10 +23,12 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			Item.accessory = true;
 			Item.damage = 50;
 			Item.DamageType = TrueMeleeNoSpeed();
-			Item.useTime = Cooldown;
 		}
 
-		public override void ModifyWeaponCrit(Player player, ref float crit) => crit = 0;
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.RemoveAll((TooltipLine line) => line.Name == "Speed");
+		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

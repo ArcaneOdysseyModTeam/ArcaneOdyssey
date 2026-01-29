@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.extraUpdates = 100;
 			Projectile.timeLeft = 1000000;
 			Projectile.height = 2;
-			Projectile.width = 300;
+			Projectile.width = 200;
 		}
 
 		public override bool? CanDamage() => false;
@@ -45,7 +45,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Main.myPlayer == Projectile.owner && Projectile.ai[1] >= 60)
 			{
 				Projectile.ai[1] = 0;
-				Rectangle rect = new(Projectile.Hitbox.X, Projectile.Hitbox.Y - 500, Projectile.width, 500);
+				var height = 250;
+				Rectangle rect = new(Projectile.Hitbox.X, Projectile.Hitbox.Y - height, Projectile.width, height);
 				rect = AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false, false);
 				var amountmulti = 1f;
 				if (Imbue is not null)

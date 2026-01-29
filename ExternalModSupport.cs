@@ -133,7 +133,7 @@ namespace ArcaneOdyssey
 				Func<bool> downed = () => DownedBosses.downedEvander;
 				int bossType = ModContent.NPCType<Evander>();
 				int trophy = ModContent.ItemType<EvanderTrophy>();
-				LocalizedText spawnInfo = Mod.CustomLocalization("NPCs.Evander.SpawnInfo");
+				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
 				"LogBoss",
@@ -149,7 +149,31 @@ namespace ArcaneOdyssey
 				});
 			}
 
+			void DuskStuff()
+			{
+				string internalName = nameof(Dusk);
+				float weight = 3.1f; // right after eow
+				Func<bool> downed = () => DownedBosses.downedDusk;
+				int bossType = ModContent.NPCType<Dusk>();
+				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+
+				bossChecklist.Call(
+				"LogBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					//["collectibles"] = new List<int> { trophy },
+					["spawnInfo"] = spawnInfo
+				});
+			}
+
 			EvanderStuff();
+			DuskStuff();
 		}
 	}
 }
