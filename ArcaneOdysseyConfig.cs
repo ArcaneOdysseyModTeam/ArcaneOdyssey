@@ -21,6 +21,9 @@ namespace ArcaneOdyssey
 		[ReloadRequired]
 		public bool ProjectileSizes { get; set; }
 
+		[DefaultValue(true)]
+		public bool PredictiveArray { get; set; }
+
 		public static ArcaneOdysseyConfig Instance;
 	}
 

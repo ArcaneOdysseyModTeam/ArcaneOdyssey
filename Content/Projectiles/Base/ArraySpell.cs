@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.ai[2] = 1;
 				Projectile.netUpdate = true;
 				originalVelocity = Projectile.velocity;
-				Projectile.velocity.Normalize();
+				Projectile.velocity = Vector2.Zero;
 			}
 			Animate();
 			Rotate();
@@ -66,18 +66,25 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Hovering)
 			{
-				//Projectile.scale = Imbue.AOScrollSize;
-				//if (SecondImbue is not null)
-				//	Projectile.scale *= SecondImbue.AOScrollSize;
+				Projectile.scale = Imbue.AOScrollSize;
+				if (SecondImbue is not null)
+					Projectile.scale *= SecondImbue.AOScrollSize;
 				Projectile.Center = Owner.Center - new Vector2(0, Player.defaultHeight * Projectile.scale);
-				//Projectile.scale *= BaseScale;
-				target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * 40);
+				Projectile.scale *= BaseScale;
+				target = Projectile.FindTargetWithLineOfSight(Main.screenWidth / 2f);
 				if (target != -1)
 				{
 					var targetnpc = Main.npc[target];
-					bool canhit = Collision.CanHit(Projectile.position, Projectile.width, Projectile.height, targetnpc.position, targetnpc.width, targetnpc.height);
-					float idkwahtimedoijngbutitsworking = canhit ? 40f : 20f;
-					Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + targetnpc.velocity * idkwahtimedoijngbutitsworking).ToRotation();
+					if (ArcaneOdysseyConfig.Instance.PredictiveArray)
+					{
+						bool canhit = Collision.CanHit(Projectile.position, Projectile.width, Projectile.height, targetnpc.position, targetnpc.width, targetnpc.height);
+						float idkwahtimedoijngbutitsworking = canhit ? 40f : 20f;
+						Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + targetnpc.velocity * idkwahtimedoijngbutitsworking).ToRotation();
+					}
+					else
+					{
+						Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center).ToRotation();
+					}
 				}
 				else
 				{

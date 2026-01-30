@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		public override float AODamage => 1.05f;
 		public override float AOSize => .85f;
 
+		public int noUseCounter = 0;
 
 		public override void SetDefaults()
 		{
@@ -51,7 +52,21 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 		public override void UseAnimation(Player player)
 		{
+			noUseCounter = 0;
 			if (++swings > 2)
+			{
+				swings = 0;
+			}
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			if (!Main.mouseLeft)
+			{
+				noUseCounter++;
+			}
+
+			if (noUseCounter > 60 || player.PlayerItem().type != Type)
 			{
 				swings = 0;
 			}

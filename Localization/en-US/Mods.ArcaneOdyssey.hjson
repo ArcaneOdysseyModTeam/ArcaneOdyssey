@@ -55,6 +55,11 @@ Configs: {
 			Label: "[i:ArcaneOdyssey/ColossalGreatsword] Projectile Sizes"
 			Tooltip: Toggles projectiles having their size affected by the mod
 		}
+
+		PredictiveArray: {
+			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
+			Tooltip: Whether to have the Array spell predict enemy movements to aim
+		}
 	}
 
 	ArcaneOdysseyClientConfig: {
