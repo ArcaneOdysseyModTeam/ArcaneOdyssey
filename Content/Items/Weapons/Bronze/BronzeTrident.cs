@@ -38,7 +38,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.width = Item.height = 60;
 		}
 
-		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool CanUseItem(Player player)
+		{
+			if (!player.AltUse())
+				Item.useStyle = ItemUseStyleID.Shoot;
+			return player.ownedProjectileCounts[Item.shoot] < 1;
+		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -46,7 +51,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			return false;
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public override bool AltFunctionUse(Player player)
+		{
+			Item.useStyle = ItemUseStyleID.Swing;
+			return true;
+		}
 
 		public override void AddRecipes()
 		{

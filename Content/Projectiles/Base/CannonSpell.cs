@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public int TileTimer = 0;
 
 		public override float AOSize => 2f;
-		public override float AOSpeed => .33f;
+		public override float AOSpeed => .5f;
 
 		public override void SetDefaults()
 		{

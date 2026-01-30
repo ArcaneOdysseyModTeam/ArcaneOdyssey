@@ -9,7 +9,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class ShockwaveSmash : StrengthTechnique
 	{
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetDefaults()
 		{

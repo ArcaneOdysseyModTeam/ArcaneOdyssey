@@ -45,6 +45,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+
+		}
+
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (TileTimer <= 0)

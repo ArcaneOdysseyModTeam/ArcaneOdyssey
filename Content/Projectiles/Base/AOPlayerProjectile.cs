@@ -18,6 +18,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 
+		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+
 		public AOPlayer AOPlayerOwner
 		{
 			get
@@ -50,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					}
 				}
 			}
-		
+
 			return multiplier;
 		}
 
@@ -135,7 +137,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			//GlowTexture
 			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
@@ -149,8 +150,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (ModContent.RequestIfExists<Texture2D>(GlowTexture, out var tex))
 			{
-				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				if (tex.Height() == Sprite.Height)
+				{
+					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				}
+				else
+				{
+					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
+				}
 			}
 		}
 	}

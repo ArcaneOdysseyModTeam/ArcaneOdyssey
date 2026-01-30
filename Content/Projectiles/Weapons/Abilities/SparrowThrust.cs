@@ -11,7 +11,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public Color Colour => Imbue?.GetColour(Color.MediumPurple) ?? Color.MediumPurple;
 		public static int MaxTime => 60;
 		public static int TrueMaxTime => MaxTime + (100 * 60);
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetStaticDefaults()
 		{

@@ -42,7 +42,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			fallThrough = true;
 			return true;
 		}
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

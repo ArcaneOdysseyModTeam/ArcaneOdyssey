@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -16,8 +17,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 64;
-			Projectile.timeLeft = 40 + (60 * 3);
+			Projectile.height = 75;
+			Projectile.width = 100;
+			Projectile.timeLeft = 90 + (60 * 3);
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -119,6 +121,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			Projectile.spriteDirection = Projectile.direction;
 			Projectile.rotation = Projectile.velocity.ToRotation();
+		}
+
+		public override void PostDraw(Color lightColor)
+		{
+			base.PostDraw(lightColor); 
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(50, 20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(-50, 20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 		}
 	}
 }

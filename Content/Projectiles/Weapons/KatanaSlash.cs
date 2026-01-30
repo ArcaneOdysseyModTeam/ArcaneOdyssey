@@ -10,8 +10,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 	{
 		public Color Colour => Imbue?.GetColour(Color.Red) ?? Color.Red;
 
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
