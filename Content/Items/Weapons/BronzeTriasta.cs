@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class EtherealFlash(Entity source) : DashSystem(source)
 	{
-		
+	
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 3;
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			SimulateAOE(150, 70, player.MountedCenter, 4.5f, player.PlayerItem(), TrueMeleeNoSpeed());
 			player.velocity *= .01f;
 		}
-		
+	
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(SoundID.Item67);

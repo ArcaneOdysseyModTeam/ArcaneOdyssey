@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Oiled, 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 				new(BuffID.OnFire,1.15f),

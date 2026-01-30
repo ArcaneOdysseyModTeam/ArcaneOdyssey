@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 
 	public class RisingTide(Entity source) : DashSystem(source)
 	{
-		
+	
 		public override float DashSpeed => 23;
 		public override int DashMax => 60;
 		public override bool AnyDirection => false;
@@ -108,5 +108,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 	{
 		public override string ExtraIconTexture => GetTexture<SunkenSword>();
 	}
-}
 
+}

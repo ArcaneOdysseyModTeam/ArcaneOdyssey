@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		//public override AODebuff ImbueDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 				new(ModContent.BuffType<AOBleed>(),1.075f),

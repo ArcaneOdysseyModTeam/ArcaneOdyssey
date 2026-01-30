@@ -62,3 +62,8 @@ HoundRite: {
 	DisplayName: Hound Rite
 	Tooltip: Channels your spirit energy into a hound-shaped blast that pierces once
 }
+
+ArrayScroll: {
+	DisplayName: Array Scroll
+	Tooltip: Channels your magic into a blast that aims towards your target
+}

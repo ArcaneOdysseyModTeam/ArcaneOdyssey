@@ -54,6 +54,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public virtual void Rotate()
 		{
+			Projectile.spriteDirection = Projectile.direction;
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 

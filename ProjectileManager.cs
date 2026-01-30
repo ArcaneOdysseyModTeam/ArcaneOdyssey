@@ -37,11 +37,22 @@ namespace ArcaneOdyssey
 		{ 
 			get
 			{
+				if (OriginWeaponType == WeaponType.Artisinal)
+					return null;
 				if (OriginWeaponType != WeaponType.Normal)
 					return true;
+				else
+					return false;
 				if (thisProjectile is not null)
 				{
 					return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile;
+				}
+				else
+				{
+					if (thisProjectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					{
+						return false;
+					}
 				}
 				return null;
 			} 
@@ -159,10 +170,10 @@ namespace ArcaneOdyssey
 				{
 					if (Imbue is not null && Imbue.PreEffects(projectile))
 					{
-						Imbue.KillEffects(projectile.Hitbox);
+						Imbue.KillEffects(projectile.Hitbox, projectile);
 					}
 					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-						SecondImbue.KillEffects(projectile.Hitbox);
+						SecondImbue.KillEffects(projectile.Hitbox, projectile);
 				}
 			}
 			return true;
@@ -309,10 +320,10 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is not null && Imbue.PreEffects(projectile))
 			{
-				Imbue.LingeringEffects(projectile.Hitbox);
+				Imbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 			}
 			if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-				SecondImbue.LingeringEffects(projectile.Hitbox);
+				SecondImbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 		}
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)

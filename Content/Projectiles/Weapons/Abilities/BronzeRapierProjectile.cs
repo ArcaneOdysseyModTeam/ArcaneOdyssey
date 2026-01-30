@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 	public class PiercingStrikes(Entity source) : DashSystem(source)
 	{
-		
+	
 		public override int DashMax => 20;
 		public override float DashSpeed => 12;
 		public override bool Immune => true;

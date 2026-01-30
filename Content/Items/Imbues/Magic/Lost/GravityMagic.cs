@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 				new(BuffID.OnFire,0.9f),

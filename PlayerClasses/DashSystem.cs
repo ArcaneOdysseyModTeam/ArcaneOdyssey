@@ -224,24 +224,27 @@ namespace ArcaneOdyssey.PlayerClasses
 				dashmaxmult = 1f;
 				if (imbueAffectsSpeed && CurrentDash.Imbue is not null)
 				{
-					if (CurrentDash.UseScrollImbueStats.Value)
+					if (CurrentDash.UseScrollImbueStats.HasValue)
 					{
-						DashVelocity *= CurrentDash.Imbue.AOScrollSpeed;
-						dashmaxmult *= CurrentDash.Imbue.AOScrollSpeed;
-						if (CurrentDash.SecondImbue is not null)
+						if (CurrentDash.UseScrollImbueStats.Value)
 						{
-							DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed;
-							dashmaxmult *= CurrentDash.SecondImbue.AOScrollSpeed;
+							DashVelocity *= CurrentDash.Imbue.AOScrollSpeed;
+							dashmaxmult *= CurrentDash.Imbue.AOScrollSpeed;
+							if (CurrentDash.SecondImbue is not null)
+							{
+								DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed;
+								dashmaxmult *= CurrentDash.SecondImbue.AOScrollSpeed;
+							}
 						}
-					}
-					else
-					{
-						DashVelocity *= CurrentDash.Imbue.AOImbueSpeed;
-						dashmaxmult *= CurrentDash.Imbue.AOImbueSpeed;
-						if (CurrentDash.SecondImbue is not null)
+						else
 						{
-							DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed;
-							dashmaxmult *= CurrentDash.SecondImbue.AOImbueSpeed;
+							DashVelocity *= CurrentDash.Imbue.AOImbueSpeed;
+							dashmaxmult *= CurrentDash.Imbue.AOImbueSpeed;
+							if (CurrentDash.SecondImbue is not null)
+							{
+								DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed;
+								dashmaxmult *= CurrentDash.SecondImbue.AOImbueSpeed;
+							}
 						}
 					}
 				}

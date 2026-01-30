@@ -27,7 +27,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
 			Projectile.Opacity = .75f;
-			charge = 1f;
 		}
 
 		internal bool MarkedForDeath = false;
@@ -44,7 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Projectile.netUpdate = true;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
-			
+		
 			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 
 

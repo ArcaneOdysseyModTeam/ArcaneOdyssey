@@ -146,8 +146,14 @@ namespace ArcaneOdyssey
 			get 
 			{
 				if (thisItem.CanHaveImbue(Imbue))
+				{
 					if (thisItem is not null)
+					{
+						if (WeaponsType == WeaponType.Artisinal)
+							return null;
 						return thisItem.ModItem is Scroll || WeaponsType != WeaponType.Normal;
+					}
+				}
 				return null;
 			}
 		}

@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Cursed, 10 * 60), new(ModContent.BuffType<Trauma>(), 10 * 60)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 

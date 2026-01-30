@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override CombinedDebuff[] CombinedDebuffs => [];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 				new(ModContent.BuffType<FreezingEffect>(), 1.01f),

@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<BlindedEffect>(), 60 * 5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 				new(ModContent.BuffType<Crystallized>(),1.075f),

@@ -26,6 +26,34 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 		}
 
+		public float MultipliedByImbueSpeed(float multiplier)
+		{
+			if (Imbue is not null)
+			{
+				if (BenifitsFromScrollStats.HasValue)
+				{
+					if (BenifitsFromScrollStats.Value)
+					{
+						multiplier *= Imbue.AOScrollSpeed;
+						if (SecondImbue is not null)
+						{
+							multiplier *= SecondImbue.AOScrollSpeed;
+						}
+					}
+					else
+					{
+						multiplier *= Imbue.AOImbueSpeed;
+						if (SecondImbue is not null)
+						{
+							multiplier *= SecondImbue.AOImbueSpeed;
+						}
+					}
+				}
+			}
+		
+			return multiplier;
+		}
+
 		public Player Owner
 		{
 			get
@@ -72,10 +100,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().SecondImbue = value;
 		}
 
-		public bool? BenifitsFromScrollStats
-		{
-			get => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
-		}
+		public bool? BenifitsFromScrollStats => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
 
 		public override void SetDefaults()
 		{
