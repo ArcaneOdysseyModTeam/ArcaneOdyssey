@@ -27,7 +27,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="ArcaneOdysseyMusic">
-	    <HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
+	    <HintPath>..\!Miami\ArcaneOdysseyMusic.dll</HintPath>
 	  </Reference>
 	  <Reference Include="SubworldLibrary">
 	    <HintPath>..\references\SubworldLibrary.dll</HintPath>
