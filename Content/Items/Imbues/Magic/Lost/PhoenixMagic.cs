@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class PhoenixMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;

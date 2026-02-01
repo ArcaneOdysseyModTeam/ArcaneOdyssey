@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class CrystalMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float? DashResist => 1.3f;
 		public override Color ImbueColour => new(255, 0, 0);
 		public override float AOImbueSpeed => 0.95f;

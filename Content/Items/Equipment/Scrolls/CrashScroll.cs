@@ -51,11 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override DamageClass DamageType => TrueMeleeNoSpeed();
 		public override int Cooldown => CrashScroll.Cooldown;
 
-	
-
 		public override bool AnyDirection => true;
-
-		public override int Damage => 50;
 
 		public override bool OnHit(Player player, Entity target)
 		{
@@ -108,8 +104,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override DamageClass DamageType => TrueMeleeNoSpeed();
 	
 		public override bool AnyDirection => true;
-
-		public override int Damage => 50;
 		public override int Cooldown => 0;
 
 		public override float DashSpeed => 10;
@@ -149,7 +143,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
 			gore.Centre(player.Bottom);
 
-			SimulateAOE(Player.defaultHeight * 2, Damage, player.Bottom, Knockback, player, DamageType);
+			SimulateAOE(Player.defaultHeight * 3, Damage, player.Bottom, Knockback, player, DamageType);
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 		}

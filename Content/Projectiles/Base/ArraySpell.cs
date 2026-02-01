@@ -14,12 +14,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override float AOSize => .6f;
 
+		public const int ShootDelay = 60 * 3;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = 75;
 			Projectile.width = 100;
-			Projectile.timeLeft = 90 + (60 * 3);
+			Projectile.timeLeft = 90 + ShootDelay;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -93,7 +95,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld);
 				}
 
-				if (++Projectile.ai[1] > (60 * 3))
+				if (++Projectile.ai[1] > ShootDelay)
 				{
 					Hovering = false;
 					Projectile.velocity = Projectile.rotation.ToRotationVector2() * originalVelocity.Length();
@@ -123,12 +125,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 
-		public override void PostDraw(Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
-			base.PostDraw(lightColor); 
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(50, 20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(-50, 20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

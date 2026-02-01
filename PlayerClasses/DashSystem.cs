@@ -24,9 +24,23 @@ namespace ArcaneOdyssey.PlayerClasses
 		public abstract bool Immune { get; }
 
 		/// <summary>
-		/// Damage of the dash, keep at 0 to deal no damage
+		/// Damage of the dash, set to 0 to disable damage
 		/// </summary>
-		public virtual int Damage => 0;
+		public virtual int Damage
+		{
+			get
+			{
+				if (source is Projectile projectile)
+				{
+					return projectile.damage;
+				}
+				if (source is Item item)
+				{
+					return item.damage;
+				}
+				return 0;
+			}
+		}
 
 		public virtual DamageClass DamageType => DamageClass.Default;
 
@@ -320,7 +334,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
-			dashing &= !(Immobile || SoftFrozen);
+			dashing &= !(Immobile || HeavySkillActive);
 			DashSystem[] dashes = [OmniDash, SideDash];
 			foreach (DashSystem dash in dashes)
 			{
@@ -441,38 +455,11 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public int CalculateDashDamage(NPC target)
 		{
-			var modifiers = new ModDamageHelper(null);
 			if (CurrentDash is null)
 				return 0;
-			modifiers.FinalDamage += Player.GetDamage(CurrentDash.DamageType).Additive.MultiToPercent();
-			modifiers.FinalDamage *= Player.GetDamage(CurrentDash.DamageType).Multiplicative;
-			if (CurrentDash?.Imbue is not null)
-			{
-				modifiers = CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
-				if (CurrentDash.UseScrollImbueStats.HasValue)
-				{
-					if (CurrentDash.UseScrollImbueStats.Value)
-					{
-						modifiers.FinalDamage += CurrentDash.Imbue.AOScrollDamage.MultiToPercent();
-
-						if (CurrentDash.SecondImbue is not null)
-						{
-							modifiers.FinalDamage += CurrentDash.SecondImbue.AOScrollDamage.MultiToPercent();
-							modifiers = CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
-						}
-					}
-					else
-					{
-						modifiers.FinalDamage += CurrentDash.Imbue.AOImbueDamage.MultiToPercent();
-
-						if (CurrentDash.SecondImbue is not null)
-						{
-							modifiers.FinalDamage += CurrentDash.SecondImbue.AOImbueDamage.MultiToPercent();
-							modifiers = CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
-						}
-					}
-				}
-			}
+			var modifiers = new ModDamageHelper(null);
+			modifiers = CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
+			modifiers = CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
 
 			return modifiers.GetDamage(CurrentDash.Damage);
 		}

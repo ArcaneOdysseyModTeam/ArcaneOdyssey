@@ -35,7 +35,7 @@ ExplosionScroll: {
 
 PulsarScroll: {
 	DisplayName: Pulsar Spell
-	Tooltip: Channels your magic into an unstable projectile
+	Tooltip: Channels your magic into a blast that explodes multiple times midair
 }
 
 CrashScroll: {
@@ -64,6 +64,11 @@ HoundRite: {
 }
 
 ArrayScroll: {
-	DisplayName: Array Scroll
+	DisplayName: Array Spell
 	Tooltip: Channels your magic into a blast that aims towards your target
+}
+
+AnnihilationScroll: {
+	DisplayName: Annihilation Spell
+	Tooltip: Channels your magic into a sphere of unstable energy that explodes multiple times on contact with terrain
 }

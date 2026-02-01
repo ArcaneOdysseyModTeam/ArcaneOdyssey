@@ -177,11 +177,17 @@ NPCs: {
 }
 
 MagicTierLines: {
-	Normal: "[c/2277ff:~ Standard Magic ~]"
+	Normal: "[c/2277ff:~ Base Magic ~]"
 	Lost: "[c/0044ff:~ Lost Magic ~]"
 	Ancient: "[c/7ebcc2:~ Ancient Magic ~]"
 	Primordial: "[c/ffc2c2:~ Primordial Magic ~]"
 	Developer: "[c/ff0000:~ Developer Magic ~]"
+}
+
+SpecialTierLines: {
+	Normal: "[c/2277ff:~ Lesser Lost Magic ~]"
+	Lost: "[c/0044ff:~ Lost Spirit Mutation ~]"
+	Ancient: "[c/7ebcc2:~ Ancient Spirit Mutatation ~]"
 }
 
 FSTierLines: {

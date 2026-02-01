@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.NPCS;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
 		public const string InternalName = "ArcaneOdyssey";
+
+		internal static List<string> NoticeQueue = [];
 
 		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
 
@@ -301,6 +304,15 @@ namespace ArcaneOdyssey
 			downedLaelus = downed.Contains("Laelus");
 			downedDelamere = downed.Contains("Delamere");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
+		}
+
+		public override void PostUpdateWorld()
+		{
+			foreach (string message in ArcaneOdysseyMod.NoticeQueue)
+			{
+				Main.NewText(message, Color.Yellow);
+			}
+			ArcaneOdysseyMod.NoticeQueue = [];
 		}
 	}
 

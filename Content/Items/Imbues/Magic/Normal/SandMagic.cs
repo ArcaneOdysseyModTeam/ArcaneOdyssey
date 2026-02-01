@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class SandMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float? DashResist => 1.1f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 60, 255);

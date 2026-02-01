@@ -162,6 +162,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Array");
 					return circleprojectile;
 				}
+				else if (item.ModItem is AnnihilationScroll)
+				{
+					var proj = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
+					proj.rotation = MathHelper.PiOver2;
+					((MagicCircle1)proj.ModProjectile).MarkedForDeath = true;
+					return proj;
+				}
 			}
 			return null;
 		}

@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MetalMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float? DashResist => 1.5f;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
 		public override Color ImbueColour => new(100, 100, 100);

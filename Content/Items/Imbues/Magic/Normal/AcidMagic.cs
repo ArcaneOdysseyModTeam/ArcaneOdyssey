@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class AcidMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => new(245, 0, 240);
 		public override float AOImbueSpeed => 0.925f;

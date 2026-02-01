@@ -23,6 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		{
 			base.SetDefaults();
 			Item.width = Item.height = 56;
+			Item.damage = (20 * AOImbueDamage).Round();
 		}
 		public override bool? Cold => true;
 		public override Color ImbueColour => new(0, 30, 255);
@@ -35,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			}
 			return true;
 		}
+
 		public override WeaponAbility? Ability => new(Mod, "Thakrousi", "Surround yourself in spirit energy and leap forward, then release the energy in a large area", ImbueColour);
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
@@ -76,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 		public override void OnEnd(Player player)
 		{
-			AOUtils.SimulateAOE(150, 20, player.MountedCenter, 4.5f, source, OracleDamage.Instance);
+			AOUtils.SimulateAOE(150, Damage, player.MountedCenter, Knockback, source, DamageType);
 			player.velocity *= .01f;
 			SoundEngine.PlaySound(SoundID.Splash);
 			for (int i = 0; i < 20; i++)

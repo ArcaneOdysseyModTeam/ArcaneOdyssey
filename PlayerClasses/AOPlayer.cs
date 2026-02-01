@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,14 +13,13 @@ namespace ArcaneOdyssey.PlayerClasses
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public Imbuable Imbue { get; set; }
-		public bool chargingSpell = false;
 		public int AOSizeStat = 0;
 		public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 
-		public bool HeavySkillActive = false;
-		public bool SoftFrozen => chargingSpell || HeavySkillActive;
+		[DefaultValue(false)]
+		public bool HeavySkillActive { get; set; }
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
@@ -104,9 +104,8 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public override void PostUpdate()
 		{
-			chargingSpell = false;
-			DashStrike();
 			HeavySkillActive = false;
+			DashStrike();
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
 				Imbue = null;
@@ -121,7 +120,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			}
 			else
 				groundedCounter = 0;
-			if (SoftFrozen)
+			if (HeavySkillActive)
 			{
 				if (FirstFrozenFrame)
 				{

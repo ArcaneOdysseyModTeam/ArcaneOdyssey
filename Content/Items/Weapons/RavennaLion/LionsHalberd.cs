@@ -50,7 +50,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 	{
 	
 		public override bool AnyDirection => true;
-		public override int Damage => 50;
 		public override int Cooldown => 300;
 		public override float DashSpeed => 20;
 		public override int DashMax => 600;

@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 				if (this is AOMagic or BasicCombat)
 				{
 					BasicImbues.Add(Type);
+				}
+			}
+
+			if (this is AOMagic)
+			{
+				if (!ModContent.RequestIfExists<Texture2D>(GetTexture<AnnihilationSpell>().Replace("AnnihilationSpell", $"Annihilations/{ImbuableTier}/{AttackPrefix}Annihilation"), out _))
+				{
+					ArcaneOdysseyMod.NoticeQueue.Add(DisplayName.Value + " is missing Annihilation sprite.");
 				}
 			}
 		}
@@ -113,6 +122,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					return proj.Type;
 				}
 			}
+			Main.NewText(DisplayName.Value + " is missing " + skill + " skill.", Color.Red);
 			return fallback;
 		}
 
@@ -222,30 +232,34 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		/// <param name="entity">The entity to check</param>
 		/// <returns></returns>
-		public virtual bool PreEffects(Entity entity = null)
+		public virtual bool PreEffects(Entity entity)
 		{
-			if (entity is null)
-				return true;
-			if (Main.dedServ || (Math.Abs(entity.velocity.X) < 2 && Math.Abs(entity.velocity.Y) < 2) || entity.velocity == entity.velocity.SafeNormalize(Vector2.Zero))
+			if (Main.dedServ || entity.velocity == entity.velocity.SafeNormalize(Vector2.One))
 			{
 				return false;
 			}
 			if (entity is Projectile projectile)
 			{
+				if (entity.TryGetOwner(out Player player) && player.heldProj == entity.whoAmI)
+				{ 
+					return false;
+				}
 				if (ImbueClassCheck(projectile))
 				{
 					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or BasicCharger or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
 					}
 					else if (projectile.ModProjectile is AOPlayerProjectile)
 					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or BasicCharger or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
 					}
 				}
 			}
 			if (entity is Player)
+			{
 				return true;
+			}
 			return false;
 		}
 
@@ -305,14 +319,32 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
+		public virtual bool Special => false;
+
 		public string ModifyTooltipsPrefix
 		{
 			get
 			{
-				if (this is AOMagic) { return "Magic"; }
-				if (this is FightingStyle) { return "FS"; }
-				if (this is RelicImbue) { return "Relic"; }
-				else { return null; }
+				if (this is AOMagic)
+				{
+					if (Special && ArcaneOdysseyMod.DevMode) // eventually i want to add some way to get lore, like athenas wisdom. if we have the knowledge it will be added here...
+					{
+						return "Special";
+					}
+					return "Magic"; 
+				}
+
+				if (this is FightingStyle) 
+				{
+					return "FS"; 
+				}
+
+				if (this is RelicImbue) 
+				{ 
+					return "Relic"; 
+				}
+
+				return null;
 			}
 		}
 

@@ -1,7 +1,11 @@
 Ancient: {
 	IonMagic: {
 		DisplayName: Ion Magic
-		Tooltip: Allows the user to create and control scorching plasma that ionizes everything in its way, causing all forms of burning to be much more vile
+		Tooltip:
+			'''
+			Allows the user to create and control scorching plasma that ionizes everything in its way, causing all forms of burning to be much more vile
+			Dedicated to Gammaboy45
+			'''
 	}
 }
 
@@ -78,7 +82,7 @@ Lost: {
 
 	PlantMagic: {
 		DisplayName: Plant Magic
-		Tooltip: Allows the user to manifest plants, which hit hard and poison enemies
+		Tooltip: Allows the user to manifest plants, which hit soft yet poison enemies
 	}
 
 	PoisonLightningMagic: {
@@ -88,12 +92,20 @@ Lost: {
 
 	PrismMagic: {
 		DisplayName: Prism Magic
-		Tooltip: Allows the user to form vibrant prisms of glass that shatter into a brilliant display of reflective shards and blinding lights
+		Tooltip:
+			'''
+			Allows the user to form vibrant prisms of glass that shatter into a brilliant display of reflective shards and blinding lights
+			Dedicated to KT_australis
+			'''
 	}
 
 	ShadowflameMagic: {
 		DisplayName: Shadowflame Magic
-		Tooltip: Allows the user to manifest dark purple flames which burn even through water
+		Tooltip:
+			'''
+			Allows the user to manifest dark purple flames which burn even through water
+			Dedicated to rambunctious_scallywag
+			'''
 	}
 
 	SlashMagic: {
@@ -118,7 +130,11 @@ Lost: {
 
 	ThreadMagic: {
 		DisplayName: Thread Magic
-		Tooltip: Allows the user to summon arachnoid webs that tangle opponents with every strike
+		Tooltip:
+			'''
+			Allows the user to summon arachnoid webs that tangle opponents with every strike
+			Dedicated to JannisCreep1
+			'''
 	}
 }
 
@@ -239,7 +255,7 @@ Developer: {
 		Tooltip:
 			'''
 			Allows the user to command the magma and energy of the most powerful volcanoes, allowing lethal and scorching attacks that leave nothing but blue sulfuric lava in their wake
-			Redbirb1508's Magic
+			Dedicated to Redbirb1508
 			'''
 	}
 
@@ -248,7 +264,7 @@ Developer: {
 		Tooltip:
 			'''
 			Those who rain gently and persistently have an infinitely greater impact than those who act like thunder
-			Guard Boi's Magic
+			Dedicated to Guard Boi
 			'''
 	}
 }

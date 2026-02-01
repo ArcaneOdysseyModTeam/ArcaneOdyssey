@@ -235,3 +235,5 @@ Arrays: {
 		WoodArray.DisplayName: Wood Array
 	}
 }
+
+AnnihilationSpell.DisplayName: Annihilation Spell

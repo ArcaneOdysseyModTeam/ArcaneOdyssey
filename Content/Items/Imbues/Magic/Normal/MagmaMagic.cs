@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MagmaMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float? DashResist => 1.2f;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;

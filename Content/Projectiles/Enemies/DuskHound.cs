@@ -48,11 +48,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-
-		}
-
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			width /= 4;
@@ -64,6 +59,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			penetrations--;
+			if (penetrations == 2)
+			{
+				Imbue?.KillEffects(Projectile.Hitbox);
+			}
 		}
 
 		public override bool PreKill(int timeLeft)

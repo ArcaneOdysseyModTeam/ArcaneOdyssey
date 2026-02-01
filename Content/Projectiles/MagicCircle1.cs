@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Owner.channel && !MarkedForDeath)
 			{
 				Projectile.Opacity = .75f * charge;
-				AOPlayerOwner.chargingSpell = true;
+				AOPlayerOwner.HeavySkillActive = true;
 				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemAnimation = Owner.PlayerItem().useAnimation;
 				Owner.itemTime = Owner.PlayerItem().useTime;

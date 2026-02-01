@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.ai[0] += (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
-				AOPlayerOwner.chargingSpell = true;
+				AOPlayerOwner.HeavySkillActive = true;
 				AOPlayerOwner.myCircle = Projectile;
 				if (Projectile.ai[1] != 2)
 				{

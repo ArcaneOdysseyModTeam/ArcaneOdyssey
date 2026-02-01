@@ -315,7 +315,7 @@ namespace ArcaneOdyssey
 			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, Alpha, newColor, Scale);
 		}
 
-		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
+		public static EntitySource_ItemUse GetSource_ItemUse(this Entity item, Player player, string context = null) => new(player, item as Item, context);
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
@@ -611,7 +611,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile is not null && projectile.active)
 			{
-				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2 or BasicCharger)
+				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2)
 				{
 					return true;
 				}
@@ -789,12 +789,19 @@ namespace ArcaneOdyssey
 			}
 			return modifiers;
 		}
-
+		
 		public static NPC.HitModifiers CalculateImbueDamage(Imbuable imbue, NPC target, NPC.HitModifiers modifiers)
 		{
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
 		}
 
+		/// <summary>
+		/// <inheritdoc cref="Projectile.NewProjectile(IEntitySource, float, float, float, float, int, int, float, int, float, float, float)"/>
+		/// </summary>
+		/// <param name="imbue">The first imbue to add to the projectile</param>
+		/// <param name="secondimbue">The second imbue to add to the projectile</param>
+		/// <param name="usescrollstats">Whether to multiply projectile speed by scroll or imbue stats</param>
+		/// <returns></returns>
 		public static Projectile ShootProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, int player, Imbuable imbue = null, Imbuable secondimbue = null, bool usescrollstats = false, float ai0 = 0, float ai1 = 0, float ai2 = 0)
 		{
 			if (imbue is not null)
