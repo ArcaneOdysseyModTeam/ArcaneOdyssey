@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -29,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			width = Projectile.width / 4;
 			height = Projectile.height / 4;
-			fallThrough = true;
+			fallThrough = false;
 			return true;
 		}
 
@@ -75,6 +76,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			{
 				case AnnihilationState.Hovering:
 					Projectile.Opacity = 1f - ((Projectile.timeLeft - FlightTime) / (float)ChargeTime);
+					Owner.ChangeDir(Math.Sign(Main.MouseWorld.X - Owner.position.X));
 					Projectile.scale = Imbue.AOScrollSize;
 					if (SecondImbue is not null)
 						Projectile.scale *= SecondImbue.AOScrollSize;
@@ -90,13 +92,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					}
 					return;
 
+				case AnnihilationState.Moving:
+					Projectile.rotation += (MathHelper.TwoPi / 120f) * Imbue.AOScrollSpeed * Math.Sign(Projectile.velocity.X);
+					return;
+
 
 				case AnnihilationState.Exploding:
 					Projectile.Opacity = Projectile.timeLeft / (float)ExplodingTime;
 					if (++Projectile.ai[1] >= (ExplodingTime / 7))
 					{
 						Projectile.ai[1] = 0;
-						AOUtils.SimulateAOE(Projectile.width * 8, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
+						AOUtils.SimulateAOE(Projectile.width * 6, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
 						for (int i = 0; i < 30; i++)
 						{
 							Imbue?.ExplosionEffects(Projectile.Center, 3f);

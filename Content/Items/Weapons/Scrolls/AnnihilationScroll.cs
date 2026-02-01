@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 120;
+			Item.damage = 60;
 			Item.mana = 200;
 			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
@@ -57,7 +57,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 
 		public override void OnEnd(Player player)
 		{
-			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.DirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			int damage = 0;
+			if (source is Item item)
+			{
+				damage = item.damage;
+			}
+			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.DirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 	}
 }
