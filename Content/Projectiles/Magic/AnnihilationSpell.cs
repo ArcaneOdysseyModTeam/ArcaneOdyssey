@@ -1,9 +1,12 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Developer;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
@@ -17,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public const int FlightTime = 60 * 10;
 		public const int ChargeTime = 60;
-		public const int ExplodingTime = 60 * 6;
+		public int ExplodingTime => ApplyImbueSpeed(60 * 8, true).Round();
 
 		public override void SetDefaults()
 		{
@@ -36,19 +39,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public AnnihilationState State
 		{
-			get
-			{
-				return (AnnihilationState)Projectile.ai[0];
-			}
-
-			set
-			{
-				Projectile.ai[0] = (int)value;
-			}
+			get => (AnnihilationState)Projectile.ai[0]; 
+			set => Projectile.ai[0] = (int)value; 
 		}
 
 
 		internal Vector2 originalVelocity;
+
+		public override void PostAI()
+		{
+			if (Imbue is SoundMagic) // manually do sound magic
+			{
+				var DustCount = 30;
+				for (float i = 0; i < DustCount; i++)
+				{
+					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (64 * Projectile.scale);
+					var dust = Dust.NewDustPerfect(Projectile.Center, DustID.MushroomTorch, centre / (DustCount * .75f), Scale: Projectile.scale);
+					dust.noGravity = true;
+				}
+			}
+		}
 
 		public override void AI()
 		{
@@ -131,11 +141,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			get
 			{
-				if (Imbue is not null)
+				if (Imbue is not null or SoundMagic)
 				{
-					if (ModContent.HasAsset(AOUtils.GetTexture<AnnihilationSpell>().Replace(Name, $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation")))
+					if (Imbue is VesuviusMagic)
 					{
-						return AOUtils.GetTexture<AnnihilationSpell>().Replace(Name, $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
+						return AOUtils.GetTexture<VesuviusBlast>();
+					}
+
+					var asset = AOUtils.GetTexture<AnnihilationSpell>().Replace(Name, $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
+					if (ModContent.HasAsset(asset))
+					{
+						return asset;
 					}
 					else
 					{

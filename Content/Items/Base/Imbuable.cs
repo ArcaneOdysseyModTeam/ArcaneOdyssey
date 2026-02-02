@@ -159,6 +159,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual void BoxEffects(Rectangle area, float rotation = 0f) { }
 
 
+		/// <summary>
+		/// For surge, ray ect
+		/// </summary>
+		/// <param name="origin">Where to shoot out dust from</param>
+		/// <param name="rangemulti">The length of the beam</param>
+		/// <param name="widthmulti">The width of the beam</param>
 		public virtual void BeamEffects(Vector2 origin, float rangemulti = 1f, float widthmulti = 1f) { }
 
 

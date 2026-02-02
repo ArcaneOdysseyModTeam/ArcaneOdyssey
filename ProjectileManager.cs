@@ -33,6 +33,46 @@ namespace ArcaneOdyssey
 
 	public class AOProjectile : GlobalProjectile, IImbuable
 	{
+		public float ApplyScrollSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOScrollSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOScrollSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
+
+		public float ApplyImbueSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOImbueSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOImbueSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
+
 		public bool? BenifitsFromScrollStats 
 		{ 
 			get
