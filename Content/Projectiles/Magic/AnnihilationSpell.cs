@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public override float AOSpeed => .3f;
 
 		public const int FlightTime = 60 * 10;
-		public const int ChargeTime = 60;
+		public const int ChargeTime = 90;
 		public int ExplodingTime => ApplyImbueSpeed(60 * 8, true).Round();
 
 		public override void SetDefaults()
@@ -60,6 +60,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			}
 		}
 
+		public void StartExploding()
+		{
+			Projectile.timeLeft = ExplodingTime;
+			Projectile.velocity = Vector2.Zero;
+			State = AnnihilationState.Exploding;
+		}
+
 		public override void AI()
 		{
 			if (Projectile.ai[2] == 0)
@@ -69,6 +76,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				originalVelocity = Projectile.velocity;
 				Projectile.velocity = Vector2.Zero;
 			}
+
 			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
 			{
 				Kill();
@@ -77,9 +85,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 			if (Projectile.wet && State == AnnihilationState.Moving)
 			{
-				Projectile.timeLeft = ExplodingTime;
-				Projectile.velocity = Vector2.Zero;
-				State = AnnihilationState.Exploding;
+				StartExploding();
 			}
 
 			switch (State)
@@ -103,9 +109,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					return;
 
 				case AnnihilationState.Moving:
-					Projectile.rotation += (MathHelper.TwoPi / 120f) * Imbue.AOScrollSpeed * Math.Sign(Projectile.velocity.X);
+					Projectile.rotation += ApplyScrollSpeed(MathHelper.Pi / 60f) * Math.Sign(Projectile.velocity.X);
 					return;
-
 
 				case AnnihilationState.Exploding:
 					Projectile.Opacity = Projectile.timeLeft / (float)ExplodingTime;
@@ -130,9 +135,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			if (State == AnnihilationState.Moving)
 			{
-				Projectile.timeLeft = ExplodingTime;
-				Projectile.velocity = Vector2.Zero;
-				State = AnnihilationState.Exploding;
+				StartExploding();
 			}
 			return false;
 		}

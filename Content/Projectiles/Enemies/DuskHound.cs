@@ -47,9 +47,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				Imbue?.KillEffects(Projectile.Hitbox);
 			}
 
-			if (Projectile.ai[2] == 0f)
+			if (Projectile.ai[2] == 0)
 			{
-				Projectile.ai[2] = 1f;
+				Projectile.ai[2] = 1;
 				Projectile.netUpdate = true;
 			}
 
