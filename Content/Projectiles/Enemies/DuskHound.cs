@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
 
+		public const int TimeLeftMax = 60 * 5;
 		public override void SetDefaults()
 		{
 			Projectile.DamageType = OracleDamage.Instance;
@@ -24,7 +25,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.height = 84;
 			Projectile.width = 104;
 			Projectile.AverageDimensions();
-			Projectile.timeLeft = 3 * 60;
+			Projectile.timeLeft = TimeLeftMax;
 			Projectile.ignoreWater = true;
 			Projectile.Opacity = .75f;
 		}
@@ -32,14 +33,24 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		public override void AI()
 		{
 			Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+
 			Projectile.spriteDirection = Projectile.direction;
+
 			if (TileTimer > 0)
 				TileTimer--;
+
+			if (Projectile.timeLeft == (TimeLeftMax / 2))
+			{
+				penetrations--;
+				Imbue?.KillEffects(Projectile.Hitbox);
+			}
+
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;
 				Projectile.netUpdate = true;
 			}
+
 			if (penetrations == 0)
 			{
 				Projectile.Kill();

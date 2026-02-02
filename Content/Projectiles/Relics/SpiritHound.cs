@@ -9,6 +9,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		public int TileTimer = 0;
 		public override float AOSpeed => .9f;
 
+		public const int TimeLeftMax = 60 * 5;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -18,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.penetrate = 2;
 			Projectile.localNPCHitCooldown = 60;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.timeLeft = 3 * 60;
+			Projectile.timeLeft = TimeLeftMax;
 			Projectile.ignoreWater = true;
 			Projectile.Opacity = .75f;
 		}
@@ -26,8 +28,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		public override void AI()
 		{
 			Projectile.spriteDirection = Projectile.direction;
+
 			if (TileTimer > 0)
 				TileTimer--;
+
+			if (Projectile.timeLeft == (TimeLeftMax / 2))
+			{
+				Projectile.penetrate--;
+				Imbue?.KillEffects(Projectile.Hitbox);
+			}
+
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;
