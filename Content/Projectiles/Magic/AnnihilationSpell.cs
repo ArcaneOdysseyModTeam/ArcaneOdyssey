@@ -58,6 +58,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					dust.noGravity = true;
 				}
 			}
+			if (Imbue is SlashMagic)
+				Imbue.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 2f));
 		}
 
 		public void StartExploding()
@@ -144,7 +146,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			get
 			{
-				if (Imbue is not null or SoundMagic)
+				if (Imbue is not (null or SoundMagic or SlashMagic))
 				{
 					if (Imbue is VesuviusMagic)
 					{

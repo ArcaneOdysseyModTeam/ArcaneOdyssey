@@ -147,7 +147,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-
 		public static void ScaleRectangle(ref Rectangle rect, float scale, bool adjustX = true, bool adjustY = true)
 		{
 			var diffX = ((rect.Width - (rect.Width * scale)) / 2f).Round();
@@ -160,6 +159,21 @@ namespace ArcaneOdyssey
 			if (!adjustY)
 				rect.Y += diffY;
 			rect.Y += diffY;
+		}
+
+		public static Rectangle ScaleRectangleNotRef(Rectangle rectangle, float scale, bool adjustX = true, bool adjustY = true)
+		{
+			var diffX = ((rectangle.Width - (rectangle.Width * scale)) / 2f).Round();
+			var diffY = ((rectangle.Height - (rectangle.Height * scale)) / 2f).Round();
+			rectangle.Width = (rectangle.Width * scale).Round();
+			rectangle.Height = (rectangle.Height * scale).Round();
+			if (!adjustX)
+				rectangle.X += diffX;
+			rectangle.X += diffX;
+			if (!adjustY)
+				rectangle.Y += diffY;
+			rectangle.Y += diffY;
+			return rectangle;
 		}
 
 		public static SynergyEffects CopySynergiesFromImbue<T>() where T : Imbuable

@@ -253,7 +253,7 @@ namespace ArcaneOdyssey
 
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 				{
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColour(fs.DisplayColor));
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position with { Y = position.Y - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%").Y) } - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColour(fs.DisplayColor));
 				}
 
 				if (SecondImbue is not null && SecondImbue.Type != Imbue.Type && SecondImbue.Type != item.type && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
@@ -264,8 +264,7 @@ namespace ArcaneOdyssey
 
 					if (SecondImbue is FightingStyleBarred fs2 && item.ModItem?.Type != SecondImbue.Type)
 					{
-						fs = fs2;
-						spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position with { Y = position.Y + 10 } - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColour(fs.DisplayColor));
+						spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs2.BarValue.Round()}%", position with { Y = position.Y + (FontAssets.ItemStack.Value.MeasureString($"{fs2.BarValue.Round()}%").Y) } - (FontAssets.ItemStack.Value.MeasureString($"{fs2.BarValue.Round()}%") / 2), fs2.GetColour(fs2.DisplayColor));
 					}
 				}
 			}

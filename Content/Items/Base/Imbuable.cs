@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
@@ -25,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
-		public virtual string ImbueUISprite => Texture;
+		public string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
 
 		internal Dictionary<string, int> Skills = [];
 
@@ -42,9 +44,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 			}
 
-			if (this is AOMagic)
+			if (this is AOMagic and not (SoundMagic or SlashMagic or VesuviusMagic))
 			{
-				if (!ModContent.RequestIfExists<Texture2D>(GetTexture<AnnihilationSpell>().Replace("AnnihilationSpell", $"Annihilations/{ImbuableTier}/{AttackPrefix}Annihilation"), out _))
+				var texture = GetTexture<AnnihilationSpell>().Replace("AnnihilationSpell", $"Annihilations/{ImbuableTier}/{AttackPrefix}Annihilation");
+				if (!ModContent.HasAsset(texture))
 				{
 					ArcaneOdysseyMod.NoticeQueue.Add(DisplayName.Value + " is missing Annihilation sprite.");
 				}
