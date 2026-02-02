@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.scale = Imbue.AOScrollSize;
 				if (SecondImbue is not null)
 					Projectile.scale *= SecondImbue.AOScrollSize;
-				Projectile.Center = Owner.Center - new Vector2(0, Player.defaultHeight * Projectile.scale);
+				Projectile.Center = Owner.Center - new Vector2(0, (Player.defaultHeight * .75f) * Projectile.scale);
 				Projectile.scale *= BaseScale;
 				target = Projectile.FindTargetWithLineOfSight(Main.screenWidth / 2f);
 				if (target != -1)
@@ -128,9 +128,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(50, 20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(-50, 20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-			return base.PreDraw(ref lightColor);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(20, 0) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(-20, 0) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(50, -20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - (new Vector2(-50, -20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			return false;
 		}
 	}
 }
