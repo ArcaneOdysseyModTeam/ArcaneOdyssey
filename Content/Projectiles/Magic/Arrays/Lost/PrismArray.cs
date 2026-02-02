@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Arrays.Lost
 		}
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Type] = 8;
+			Main.projFrames[Type] = 7;
 		}
 	}
 }

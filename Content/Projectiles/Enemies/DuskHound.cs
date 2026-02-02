@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -13,7 +14,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		public override string Texture => AOUtils.GetTexture<SpiritHound>();
 
 		public int TileTimer = 0;
-		public int penetrations = 2;
+
+		public int Penetrations { get => (int)Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
 		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
 
@@ -41,7 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 			if (Projectile.timeLeft == (TimeLeftMax / 2))
 			{
-				penetrations--;
+				Penetrations++;
 				Imbue?.KillEffects(Projectile.Hitbox);
 			}
 
@@ -51,7 +53,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				Projectile.netUpdate = true;
 			}
 
-			if (penetrations == 0)
+			if (Penetrations == 2)
 			{
 				Projectile.Kill();
 			}
@@ -69,10 +71,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
-			penetrations--;
-			if (penetrations == 2)
+			if (Penetrations++ == 0)
 			{
 				Imbue?.KillEffects(Projectile.Hitbox);
+				Projectile.timeLeft -= TimeLeftMax / 2;
 			}
 		}
 
@@ -86,7 +88,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		{
 			if (TileTimer <= 0)
 			{
-				penetrations--;
+				Penetrations++;
 				Imbue?.KillEffects(Projectile.Hitbox);
 			}
 			if (TileTimer < 60 && TileTimer > 0)
