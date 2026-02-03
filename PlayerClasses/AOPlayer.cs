@@ -34,6 +34,8 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public float MaxRunSpeed => Math.Max(Player.accRunSpeed, Player.maxRunSpeed);
 
+		public float MaxPossibleSpeed => Math.Max(MaxRunSpeed, CurrentDash?.DashSpeed ?? MaxRunSpeed);
+
 		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
 			if (useplayerimbue)
