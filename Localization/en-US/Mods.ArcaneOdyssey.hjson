@@ -260,6 +260,7 @@ Projectiles: {
 	NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 	SparrowThrust.DisplayName: Sparrow Thrust
 	DuskHound.DisplayName: Spirit Hound
+	LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
 }
 
 WeaponAbilities: {
@@ -366,6 +367,11 @@ WeaponAbilities: {
 	SparrowThrust: {
 		DisplayName: Sparrow Thrust
 		Description: Use the blade and length of the spear to deliver a powerful thrust
+	}
+
+	RagingImpact: {
+		DisplayName: Raging Impact
+		Description: Colliding with a target at high speed creates a shockwave that damages enemies
 	}
 }
 

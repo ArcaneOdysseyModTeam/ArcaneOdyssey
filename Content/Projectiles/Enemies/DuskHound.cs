@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		{
 			if (Penetrations++ == 0)
 			{
-				Imbue?.KillEffects(Projectile.Hitbox);
+				Imbue?.KillEffects(AOUtils.ScaleRectangleNotRef(target.Hitbox, 4f));
 				Projectile.timeLeft -= TimeLeftMax / 2;
 			}
 		}

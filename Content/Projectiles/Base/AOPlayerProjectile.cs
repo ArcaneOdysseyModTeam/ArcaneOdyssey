@@ -60,41 +60,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
-		public AOPlayer AOPlayerOwner
-		{
-			get
-			{
-				return Owner?.ArcaneOdyssey();
-			}
-		}
-
-		public float MultipliedByImbueSpeed(float multiplier)
-		{
-			if (Imbue is not null)
-			{
-				if (BenifitsFromScrollStats.HasValue)
-				{
-					if (BenifitsFromScrollStats.Value)
-					{
-						multiplier *= Imbue.AOScrollSpeed;
-						if (SecondImbue is not null)
-						{
-							multiplier *= SecondImbue.AOScrollSpeed;
-						}
-					}
-					else
-					{
-						multiplier *= Imbue.AOImbueSpeed;
-						if (SecondImbue is not null)
-						{
-							multiplier *= SecondImbue.AOImbueSpeed;
-						}
-					}
-				}
-			}
-
-			return multiplier;
-		}
+		public AOPlayer AOPlayerOwner => Owner?.ArcaneOdyssey();
 
 		public Player Owner
 		{
@@ -106,10 +72,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				}
 				return null;
 			}
-			//set
-			//{
-			//	Owner = value;
-			//}
 		}
 
 		public float BaseScale

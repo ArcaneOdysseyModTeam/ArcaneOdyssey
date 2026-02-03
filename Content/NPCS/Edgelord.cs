@@ -190,13 +190,13 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("Early1");
 				AddOption("WorldofMagic");
 				AddOption("WeaponSkills");
-				if (Player.HasTypeInInventory(typeof(AOMagic)))
+				if (Player.HasTypeInInventory<AOMagic>())
 				{
 					AddOption("EarlyMagic1");
 					AddOption("EarlyMagic2");
 					AddOption("EarlyMagic3");
 				}
-				if (Player.HasTypeInInventory(typeof(FightingStyle)))
+				if (Player.HasTypeInInventory<FightingStyle>())
 				{
 					if (Main.hardMode)
 						AddOption("VanishingStyle");
@@ -262,7 +262,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("StackImbues");
 			}
 
-			if (Player.HasTypeInInventory(typeof(SunkenSword)) || Player.HasTypeInInventory(typeof(SunkenStaff)))
+			if (Player.HasTypeInInventory<SunkenSword>() || Player.HasTypeInInventory<SunkenStaff>())
 			{
 				AddOption("SunkenWeapon");
 			}

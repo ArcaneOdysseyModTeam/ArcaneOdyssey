@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 				Projectile.velocity.Normalize();
 			}
-			Projectile.Center = Owner.HandPosition.GetValueOrDefault(Owner.MountedCenter) + (Projectile.velocity * 18);
+			Projectile.Center = Owner.HandPosition.GetValueOrDefault(Owner.RotatedRelativePoint(Owner.MountedCenter)) + (Projectile.velocity * 18);
 			//Projectile.Center = Projectile.Center with { Y = Projectile.Center.Y - 8f };
 			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 			Owner.heldProj = Projectile.whoAmI;

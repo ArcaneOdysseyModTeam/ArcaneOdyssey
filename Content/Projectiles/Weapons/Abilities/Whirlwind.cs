@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
 				Projectile.velocity = Vector2.Zero;
-				RotationOrigin = Owner.MountedCenter;
+				RotationOrigin = Owner.RotatedRelativePoint(Owner.MountedCenter);
 				OriginalDir = Owner.direction;
 			}
 			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed ?? 1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));

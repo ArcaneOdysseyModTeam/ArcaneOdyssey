@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 		public override bool AltFunctionUse(Player player)
 		{
-			if (!player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<ThakrousiCooldown>()))
+			if (!player.ArcaneOdyssey().OnCooldown<ThakrousiCooldown>())
 			{
 				player.ArcaneOdyssey().StartDash(new Thakrousi(Item), imbue: this);
 			}

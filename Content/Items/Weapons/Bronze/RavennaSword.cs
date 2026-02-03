@@ -39,9 +39,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override bool AltFunctionUse(Player player)
 		{
-			if (player.ownedProjectileCounts[Item.shoot] < 1 && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<WhirlwindCooldown>()))
+			if (player.ownedProjectileCounts[Item.shoot] < 1 && !player.ArcaneOdyssey().OnCooldown<WhirlwindCooldown>())
 			{
-				player.ArcaneOdyssey().SetCooldown(new WhirlwindCooldown());
+				player.ArcaneOdyssey().SetCooldown<WhirlwindCooldown>();
 				var proj = Projectile.NewProjectileDirect(new EntitySource_ItemUse(player, Item), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
 				SoundEngine.PlaySound(Item.UseSound, player.Center);
 			}

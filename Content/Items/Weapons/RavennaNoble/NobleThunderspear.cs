@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
-		public override bool AltFunctionUse(Player player) => !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<SparrowThrustCooldown>());
+		public override bool AltFunctionUse(Player player) => !player.ArcaneOdyssey().OnCooldown<SparrowThrustCooldown>();
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

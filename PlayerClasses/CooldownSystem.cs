@@ -136,6 +136,12 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public bool OnCooldown(int ID) => Player.HasBuff(ID) && !ArcaneOdysseyMod.DevMode;
 
+
+		public bool OnCooldown<T>() where T : DisplayedCooldown
+		{
+			return Player.HasBuff<T>() && !ArcaneOdysseyMod.DevMode;
+		}
+
 		public Cooldown GetCooldown(string ID)
 		{
 			return Cooldowns.Find(e => e.ID == ID);
@@ -161,6 +167,15 @@ namespace ArcaneOdyssey.PlayerClasses
 		public void SetCooldown(int cooldown, int length)
 		{
 			Player.AddBuff(cooldown, length);
+		}
+
+		public void SetCooldown<T>(int length = -1) where T : DisplayedCooldown
+		{
+			if (length == -1)
+			{
+				length = ModContent.GetInstance<T>().CooldownLength;
+			}
+			Player.AddBuff(ModContent.BuffType<T>(), length);
 		}
 	}
 }

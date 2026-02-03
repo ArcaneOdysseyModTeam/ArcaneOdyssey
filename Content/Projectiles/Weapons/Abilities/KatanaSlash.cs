@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons
+namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class KatanaSlash : AOPlayerProjectile
 	{

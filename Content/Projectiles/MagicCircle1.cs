@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override void AI()
 		{
 			Projectile.scale = AOSize * charge * Imbue.AOScrollSize;
-			var dir = Main.myPlayer == Projectile.owner ? Owner.MountedCenter.DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
+			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
 				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = Imbue.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 					charge += 1f / 120f;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
-				Projectile.Center = Owner.MountedCenter + (dir * 20f);
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
 				if (charge >= 1.5f)
 				{
 					Owner.channel = false;

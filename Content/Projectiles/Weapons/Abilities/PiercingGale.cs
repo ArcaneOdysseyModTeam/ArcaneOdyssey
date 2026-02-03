@@ -53,6 +53,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 		}
 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false, target.whoAmI);
+		}
+
 		public override bool PreKill(int timeLeft)
 		{
 			if (!Main.dedServ)
@@ -65,8 +70,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					dust2.noGravity = true;
 					Imbue?.ExplosionEffects(Projectile.Center);
 				}
-				if (Main.myPlayer == Projectile.owner)
-					AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
 			}
 			return base.PreKill(timeLeft);
 		}

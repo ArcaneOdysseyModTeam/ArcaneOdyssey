@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-			if (Projectile.ai[0] == 0f)
+			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemTime = Owner.itemAnimation;
-				Projectile.Center = Owner.MountedCenter + (Projectile.velocity * Projectile.ai[1]);
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.ai[1]);
 
 				if (Owner.itemAnimation < Owner.itemAnimationMax / 2)
 				{
@@ -96,10 +96,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				}
 
 				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
-				if (Owner.itemAnimation <= 2)
+				if (Owner.ItemAnimationEndingOrEnded)
 				{
 					Projectile.Kill();
-					Owner.reuseDelay = 2;
 				}
 			}
 		}

@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		{
 			if (Projectile.penetrate == Projectile.maxPenetrate)
 			{
-				Imbue?.KillEffects(Projectile.Hitbox);
+				Imbue?.KillEffects(AOUtils.ScaleRectangleNotRef(target.Hitbox, 4f));
 				Projectile.timeLeft -= TimeLeftMax / 2;
 			}
 		}

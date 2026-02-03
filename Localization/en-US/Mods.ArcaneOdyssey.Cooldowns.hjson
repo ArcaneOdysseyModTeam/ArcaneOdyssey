@@ -47,3 +47,8 @@ SparrowThrustCooldown: {
 	DisplayName: Sparrow Thrust Cooldown
 	Description: Sparrow Thrust is on cooldown
 }
+
+RagingImpact: {
+	DisplayName: Raging Impact
+	Description: Raging Impact is on cooldown
+}

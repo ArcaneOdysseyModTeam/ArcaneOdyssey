@@ -1,5 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

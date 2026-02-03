@@ -107,3 +107,8 @@ NobleThunderspear: {
 	DisplayName: Noble Thunderspear
 	Tooltip: ""
 }
+
+LanceofLoyalty: {
+	DisplayName: Lance of Loyalty
+	Tooltip: ""
+}

@@ -435,7 +435,7 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
-		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, int ignoredNPC = -1)
 		{
 			if (source is null) return;
 			if (!source.active) return;
@@ -491,6 +491,8 @@ namespace ArcaneOdyssey
 
 			foreach (NPC target in Main.ActiveNPCs)
 			{
+				if (target.whoAmI == ignoredNPC)
+					continue;
 				if (target.Hitbox.Distance(origin) <= range)
 				{
 					ModDamageHelper modifiers = new(null);
@@ -514,7 +516,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static Rectangle SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, bool adjustY = true, bool adjustX = true)
+		public static Rectangle SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, bool adjustY = true, bool adjustX = true, int ignoredNPC = -1)
 		{
 			if (source is null) return hitbox;
 			if (!source.active) return hitbox;
@@ -577,6 +579,8 @@ namespace ArcaneOdyssey
 
 			foreach (NPC target in Main.ActiveNPCs)
 			{
+				if (target.whoAmI == ignoredNPC)
+					continue;
 				if (target.Hitbox.Intersects(hitbox))
 				{
 					ModDamageHelper modifiers = new(null);
@@ -594,6 +598,28 @@ namespace ArcaneOdyssey
 					}
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
 					{
+						if (source.TryGetOwner(out AOPlayer player2))
+						{
+							if (source is Item item && item.ModItem is RelicImbue)
+							{
+								player2.TrySpiritLifesteal(item.OriginalDamage, false);
+							}
+							else if (source is Projectile projectile)
+							{
+								if (projectile.ModProjectile is SpiritProjectile)
+								{
+									player2.TrySpiritLifesteal(projectile.originalDamage, false);
+								}
+								else
+								{
+									var proj = projectile.ArcaneOdyssey();
+									if (proj.Imbue is RelicImbue || proj.SecondImbue is RelicImbue)
+									{
+										player2.TrySpiritLifesteal(projectile.originalDamage);
+									}
+								}
+							}
+						} 
 						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - hitbox.Center()).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
 					}
 				}
@@ -1200,9 +1226,39 @@ namespace ArcaneOdyssey
 		#endregion
 
 		#region Player Inventory Helpers
-		public static bool HasTypeInInventory(this Player player, Type type)
+		public static bool HasTypeInInventory<T>(this Player player) where T : ModItem
 		{
 			List<Item> no = [..player.inventory, player.trashItem];
+			no.RemoveAll(e => e.ModItem is null);
+			foreach (var item in no)
+			{
+				if (item.ModItem.GetType().Name == typeof(T).Name || item.ModItem.GetType().IsSubclassOf(typeof(T)))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool HasTypeInInventory<T>(this Player player, out T item) where T : ModItem
+		{
+			List<Item> no = [.. player.inventory, player.trashItem];
+			item = null;
+			no.RemoveAll(e => e.ModItem is null);
+			foreach (var items in no)
+			{
+				if (items.ModItem.GetType().Name == typeof(T).Name || items.ModItem.GetType().IsSubclassOf(typeof(T)))
+				{
+					item = (T)items.ModItem;
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool HasTypeInInventory(this Player player, Type type) 
+		{ 
+			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{
@@ -1213,7 +1269,8 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
-		public static bool HasTypeInInventory(this Player player, Type type, out Item item)
+
+		public static bool HasTypeInInventory(this Player player, Type type, out ModItem item)
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
 			item = null;
@@ -1222,7 +1279,7 @@ namespace ArcaneOdyssey
 			{
 				if (items.ModItem.GetType().Name == type.Name || items.ModItem.GetType().IsSubclassOf(type))
 				{
-					item = items;
+					item = items.ModItem;
 					return true;
 				}
 			}
@@ -1509,12 +1566,17 @@ namespace ArcaneOdyssey
 	/// </summary>
 	/// <param name="debuffid">Terraria.ID.BuffID</param>
 	/// <param name="duration">Duration, in ticks (60/second)</param>
-	/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
-	public struct AODebuffRequirement(int debuffid, int duration, int debuffRequiement = 0)
+	/// <param name="debuffRequirement">Damage% requirement to activate debuff</param>
+	public struct AODebuffRequirement(int debuffid, int duration, int debuffRequirement = 0)
 	{
-		public float debuffPercent = debuffRequiement / 100f;
+		public float debuffPercent = debuffRequirement / 100f;
 		public int debuffID = debuffid;
 		public int debuffDuration = duration;
+
+		public static AODebuffRequirement Create<T>(int duration, int debuffRequirement = 0) where T : ModBuff
+		{
+			return new(ModContent.BuffType<T>(), duration, debuffRequirement);
+		}
 	}
 
 	public struct ImbueDebuffHelper(Imbuable imbue, int damagedone, NPC npc, int buffID)
@@ -1556,6 +1618,11 @@ namespace ArcaneOdyssey
 		public int requirement = requirement;
 		public int result = result;
 		public int duration = duration;
+
+		public static CombinedDebuff Create<T>(int result, int duration = 60) where T : ModBuff
+		{
+			return new(ModContent.BuffType<T>(), result, duration);
+		}
 	}
 
 	/// <summary>

@@ -102,13 +102,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				if (!Player.ArcaneOdyssey().OnCooldown(vanish.Name))
 					vanish.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 			}
-			else if (Player.HasTypeInInventory(typeof(VanishingStyle), out var vanish1))
+			else if (Player.HasTypeInInventory<VanishingStyle>(out var vanish1))
 			{
-				if (((VanishingStyle)vanish1.ModItem).GetThisImbue(Player))
+				if (vanish1.GetThisImbue(Player))
 				{
-					Player.opacityForAnimation = ((VanishingStyle)vanish1.ModItem).LerpValue.FlipFloat() - 1f;
-					if (!Player.ArcaneOdyssey().OnCooldown(((VanishingStyle)vanish1.ModItem).Name))
-						((VanishingStyle)vanish1.ModItem).BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
+					Player.opacityForAnimation = vanish1.LerpValue.FlipFloat() - 1f;
+					if (!Player.ArcaneOdyssey().OnCooldown(vanish1.Name))
+						vanish1.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 				}
 			}
 		}

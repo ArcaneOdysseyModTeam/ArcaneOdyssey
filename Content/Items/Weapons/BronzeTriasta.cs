@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void UseAnimation(Player player)
 		{
-			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<EtherealFlashCooldown>()))
+			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown<EtherealFlashCooldown>())
 			{
 				player.ArcaneOdyssey().StartDash(new EtherealFlash(Item), imbue: Imbue, imbueAffectsSpeed: true);
 			}
