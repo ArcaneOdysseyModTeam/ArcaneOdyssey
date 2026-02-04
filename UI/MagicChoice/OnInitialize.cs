@@ -76,50 +76,59 @@ public partial class MagicChoiceUIState : UIState
 		Wind,
 		Wood,
 	}
+	public static int? MagicTypeToID(MagicTypes type) => type switch
+	{
+		MagicTypes.ReturnToMonke => ModContent.ItemType<BasicCombat>(),
+		MagicTypes.MonkLife => ModContent.ItemType<EaglePatrimony>(),
+
+		MagicTypes.Acid => ModContent.ItemType<AcidMagic>(),
+		MagicTypes.Ash => ModContent.ItemType<AshMagic>(),
+
+		MagicTypes.Crystal => ModContent.ItemType<CrystalMagic>(),
+
+		MagicTypes.Earth => ModContent.ItemType<EarthMagic>(),
+		MagicTypes.Explosion => ModContent.ItemType<ExplosionMagic>(),
+
+		MagicTypes.Fire => ModContent.ItemType<FireMagic>(),
+
+		MagicTypes.Glass => ModContent.ItemType<GlassMagic>(),
+
+		MagicTypes.Ice => ModContent.ItemType<IceMagic>(),
+
+		MagicTypes.Light => ModContent.ItemType<LightMagic>(),
+		MagicTypes.Lighting => ModContent.ItemType<LightningMagic>(),
+
+		MagicTypes.Magma => ModContent.ItemType<MagmaMagic>(),
+		MagicTypes.Metal => ModContent.ItemType<MetalMagic>(),
+
+		MagicTypes.Plasma => ModContent.ItemType<PlasmaMagic>(),
+		MagicTypes.Poison => ModContent.ItemType<PoisonMagic>(),
+
+		MagicTypes.Sand => ModContent.ItemType<SandMagic>(),
+		MagicTypes.Shadow => ModContent.ItemType<ShadowMagic>(),
+		MagicTypes.Snow => ModContent.ItemType<SnowMagic>(),
+
+		MagicTypes.Water => ModContent.ItemType<WaterMagic>(),
+		MagicTypes.Wind => ModContent.ItemType<WindMagic>(),
+		MagicTypes.Wood => ModContent.ItemType<WoodMagic>(),
+
+		MagicTypes.None or _ => null,
+	};
 	public static Asset<Texture2D> MagicTypeToMagicTexture(MagicTypes type)
 	{
 		if (type is MagicTypes.None) return TextureAssets.MagicPixel;
-		int? id = type switch
-		{
-			MagicTypes.ReturnToMonke => ModContent.ItemType<BasicCombat>(),
-			MagicTypes.MonkLife => ModContent.ItemType<EaglePatrimony>(),
-
-			MagicTypes.Acid => ModContent.ItemType<AcidMagic>(),
-			MagicTypes.Ash => ModContent.ItemType<AshMagic>(),
-
-			MagicTypes.Crystal => ModContent.ItemType<CrystalMagic>(),
-
-			MagicTypes.Earth => ModContent.ItemType<EarthMagic>(),
-			MagicTypes.Explosion => ModContent.ItemType<ExplosionMagic>(),
-
-			MagicTypes.Fire => ModContent.ItemType<FireMagic>(),
-
-			MagicTypes.Glass => ModContent.ItemType<GlassMagic>(),
-
-			MagicTypes.Ice => ModContent.ItemType<IceMagic>(),
-
-			MagicTypes.Light => ModContent.ItemType<LightMagic>(),
-			MagicTypes.Lighting => ModContent.ItemType<LightningMagic>(),
-
-			MagicTypes.Magma => ModContent.ItemType<MagmaMagic>(),
-			MagicTypes.Metal => ModContent.ItemType<MetalMagic>(),
-
-			MagicTypes.Plasma => ModContent.ItemType<PlasmaMagic>(),
-			MagicTypes.Poison => ModContent.ItemType<PoisonMagic>(),
-
-			MagicTypes.Sand => ModContent.ItemType<SandMagic>(),
-			MagicTypes.Shadow => ModContent.ItemType<ShadowMagic>(),
-			MagicTypes.Snow => ModContent.ItemType<SnowMagic>(),
-
-			MagicTypes.Water => ModContent.ItemType<WaterMagic>(),
-			MagicTypes.Wind => ModContent.ItemType<WindMagic>(),
-			MagicTypes.Wood => ModContent.ItemType<WoodMagic>(),
-
-			MagicTypes.None or _ => null,
-		};
-		if (id is not null) return Terraria.GameContent.TextureAssets.Item[(int)id];
+		int? id = MagicTypeToID(type);
+		if (id is not null) return TextureAssets.Item[(int)id];
 
 		Main.NewText($"{nameof(MagicTypes)} {type} is not supported in {nameof(MagicTypeToMagicTexture)}", new Color(255, 0, 255));
+		return null;
+	}
+	public static Item MagicTypeToItem(MagicTypes type)
+	{
+		int? id = MagicTypeToID(type);
+		if (id is not null) return ContentSamples.ItemsByType[(int)id];
+
+		Main.NewText($"{nameof(MagicTypes)} {type} is not supported in {nameof(MagicTypeToItem)}", new Color(255, 0, 255));
 		return null;
 	}
 
@@ -130,7 +139,15 @@ public partial class MagicChoiceUIState : UIState
 	public UIPanel main = new();
 
 	// Spoky (2026 January 25): Wanted to use TexturePath but it is not static therefore no can do, and given close button won't change texture (atleast not for now)
-	public UIImageButton CloseButton = new(ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/CloseButton"));
+	public UIImageButton CloseButton = new(ButtonTextures.Neutral), ChooseButton = new(ButtonTextures.Neutral);
+	protected UIText CloseText = new("Close", 1, true), ChooseText = new("Choose", 1, true);
+
+	public static class ButtonTextures 
+	{
+		public static readonly Asset<Texture2D> Neutral = ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/Button/Neutral"),
+			Good = ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/Button/Good");
+	}
+
 
 	/// <summary>
 	/// <para>Contains a bunch of <see cref="Product"/> in a grid, depending on how many elements this has and <see cref="ProductsPerRow"/></para>
@@ -147,13 +164,14 @@ public partial class MagicChoiceUIState : UIState
 	/// The name of the selected <see cref="Product"/>
 	/// </summary>
 	protected UIImage ProductTitle = new(ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/Product/Name"));
+
 	protected UIText TitleText = new("No magic selected");
 	#endregion
 
 	/// <summary>
 	/// Used to easily modify the grid for <see cref="TheShop"/>
 	/// </summary>
-	public const int ProductsPerRow = 5, HowManyAreWeDoing = 4 * ProductsPerRow + 2, TotalRows = (HowManyAreWeDoing / ProductsPerRow) + (ProductsPerRow % HowManyAreWeDoing > 0 ? +1 : 0);
+	public const int ProductsPerRow = 11, HowManyAreWeDoing = 2 * ProductsPerRow, TotalRows = (HowManyAreWeDoing / ProductsPerRow) + (HowManyAreWeDoing % ProductsPerRow > 0 ? +1 : 0);
 	public const int separation = 4;
 	#region Initialize thingies to make ui panels ready for cheeseburger production
 	public override void OnInitialize()
@@ -161,23 +179,72 @@ public partial class MagicChoiceUIState : UIState
 		#region Main Panel
 		main.SetPadding(0);
 		main.BackgroundColor = new(73, 94, 171);
-		main.HAlign = 0.5f; main.VAlign = 0.5f;
-		main.Width.Set(400, 0f);
-		main.Height.Set(((64 + separation) * TotalRows) + 32 + 4 + 4, 0f);
-		Main.NewText($"(64 + {separation}) * {TotalRows} = {(64 + separation) * TotalRows} \n" +
-			$"first: {HowManyAreWeDoing / ProductsPerRow}, second: {(ProductsPerRow % HowManyAreWeDoing > 0 ? +1 : 0)}");
+		main.HAlign = 0.5f; main.VAlign = 0.2f;
+
+		main.Width.Set((64 + separation) * ProductsPerRow + separation, 0f);
+		main.Height.Set(((64 + separation) * TotalRows) + separation, 0f);
+
+		//main.Left.Set(((64 + separation) * ProductsPerRow + separation) / -2, 0f);
+		//Main.NewText($"(64 + {separation}) * {TotalRows} = {(64 + separation) * TotalRows} \n" +
+		//	$"first: {HowManyAreWeDoing / ProductsPerRow}, second: {(HowManyAreWeDoing % ProductsPerRow > 0 ? +1 : 0)} ({HowManyAreWeDoing % ProductsPerRow})");
 
 		Append(main);
 		#endregion
 
 		#region Close Button
-		CloseButton.Width.Set(32f, 0f);
-		CloseButton.Height.Set(32f, 0f);
-		CloseButton.Left.Set(4f, 0f);
-		CloseButton.Top.Set(main.Height.Pixels - CloseButton.Height.Pixels - 4f, 0f);
+		CloseButton.Width.Set(256, 0f);
+		CloseButton.Height.Set(64, 0f);
+
+		CloseButton.VAlign = 0.8f;
+		CloseButton.HAlign = 0.5f;
+
+		float offset = main.Width.Pixels / 2f;
+		CloseButton.Left.Set(offset - (CloseButton.Width.Pixels / 2), 0f);
+
 		CloseButton.OnLeftClick += CloseButton_OnLeftClick;
 
-		main.Append(CloseButton);
+		Append(CloseButton);
+
+		CloseText.Width.Set(CloseButton.Width.Pixels - separation * 2, 0f);
+		CloseText.Height.Set(CloseButton.Height.Pixels - separation * 2, 0f);
+
+		CloseText.IgnoresMouseInteraction = true;
+
+		CloseText.HAlign = 0.5f;
+
+		// Spoky (2026 February 03): VAlign for close text doesn't seem to work, but this does? ? ?
+		// Spoky (2026 February 03): Alright nevermind, can't be bothered to make it perfectly centered
+		CloseText.Top.Set(0, 0.33f);
+
+		CloseButton.Append(CloseText);
+		#endregion
+
+		#region Close Button
+		ChooseButton.Width.Set(256, 0f);
+		ChooseButton.Height.Set(64, 0f);
+
+		ChooseButton.VAlign = 0.8f;
+		ChooseButton.HAlign = 0.5f;
+
+		ChooseButton.Left.Set(offset - (ChooseButton.Width.Pixels / 2), 0f);
+		ChooseButton.Top.Set(-(ChooseButton.Height.Pixels + separation), 0f);
+
+		ChooseButton.OnLeftClick += ChosenButton_OnLeftClick;
+
+		Append(ChooseButton);
+
+		ChooseText.Width.Set(ChooseButton.Width.Pixels - separation * 2, 0f);
+		ChooseText.Height.Set(ChooseButton.Height.Pixels - separation * 2, 0f);
+
+		ChooseText.IgnoresMouseInteraction = true;
+
+		ChooseText.HAlign = 0.5f;
+
+		// Spoky (2026 February 03): VAlign for close text doesn't seem to work, but this does? ? ?
+		// Spoky (2026 February 03): Alright nevermind, can't be bothered to make it perfectly centered
+		ChooseText.Top.Set(0, 0.33f);
+
+		ChooseButton.Append(ChooseText);
 		#endregion
 
 		#region Getting stock for the shop

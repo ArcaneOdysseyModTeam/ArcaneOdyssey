@@ -50,6 +50,8 @@ namespace ArcaneOdyssey.UI.MagicChoice
 			_MagicChoice?.Update(gameTime);
 		}
 
+		public bool CanShowUI() => _prevTime is not null && _MagicChoice?.CurrentState is not null;
+
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
@@ -60,8 +62,7 @@ namespace ArcaneOdyssey.UI.MagicChoice
 				"ArcaneOdysseyMod: MagicChoiceUIState",
 				delegate
 				{
-					if (_prevTime is not null && _MagicChoice?.CurrentState is not null)
-						_MagicChoice.Draw(Main.spriteBatch, _prevTime);
+					if (CanShowUI()) _MagicChoice.Draw(Main.spriteBatch, _prevTime);
 					return true;
 				},
 				InterfaceScaleType.UI)

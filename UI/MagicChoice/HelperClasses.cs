@@ -67,8 +67,8 @@ public partial class MagicChoiceUIState : UIState
 				Product quoi = MainUI.TheShop[^1];
 
 				BackGround.Left.Set(((separation + quoi.BackGround.Width.Pixels) * ProductsPerRow) + separation * 2, 0f);
-				Main.NewText($"sep: {separation}; width: {quoi.BackGround.Width.Pixels}; row: {ProductsPerRow}\n" +
-					$"Hmm: {(separation + quoi.BackGround.Width.Pixels) * ProductsPerRow}");
+				//Main.NewText($"sep: {separation}; width: {quoi.BackGround.Width.Pixels}; row: {ProductsPerRow}\n" +
+				//	$"Hmm: {(separation + quoi.BackGround.Width.Pixels) * ProductsPerRow}");
 				BackGround.Top.Set(quoi.BackGround.Top.Pixels - (separation + quoi.BackGround.Height.Pixels) * 3, 0f);
 			}
 			else Main.NewText($"Last Thingie is null");

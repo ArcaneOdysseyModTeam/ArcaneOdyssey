@@ -17,7 +17,7 @@ public partial class MagicChoiceUIState : UIState
 		if (Main.gameMenu || Main.dedServ) YoungMan_KillYourself();
 
 		// Spoky (2026 Jan 28): Made an oopise, thought I could just set Main.LocalPlayer.mouseInterface to = main.IsMouseHovering, but that breaks every other UI 
-		if (main.IsMouseHovering) Main.LocalPlayer.mouseInterface = true;
+		if (main.IsMouseHovering || CloseButton.IsMouseHovering || ChooseButton.IsMouseHovering) Main.LocalPlayer.mouseInterface = true;
 
 	}
 }
