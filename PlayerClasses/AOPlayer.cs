@@ -153,6 +153,6 @@ namespace ArcaneOdyssey.PlayerClasses
 		}
 
 		public float SizeMulti => 1f + (AOSizeStat / 275f);
-		public float CooldownDurationMulti => (1f + (AOHasteStat / 250f)).FlipFloat();
+		public float CooldownDurationMulti => (1f + (AOHasteStat / 200f)).FlipFloat();
 	}
 }

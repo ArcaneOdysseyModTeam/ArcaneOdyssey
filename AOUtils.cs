@@ -1092,6 +1092,10 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Weapon;
 			}
+			if (item.consumable)
+			{
+				return ItemType.Consumable;
+			}
 			if (item.material)
 			{
 				return ItemType.Material;
@@ -1488,7 +1492,8 @@ namespace ArcaneOdyssey
 		Armour,
 		Weapon,
 		Tool,
-		Vanity
+		Vanity,
+		Consumable
 	}
 
 	/// <summary>

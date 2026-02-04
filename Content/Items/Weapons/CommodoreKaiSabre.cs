@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AODamage => .925f;
 		public override int AOValue => 200;
 		public override AORarities AORarity => AORarities.Uncommon;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 
 		public override void SetDefaults()
 		{

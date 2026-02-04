@@ -42,7 +42,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 		public override WeaponAbility? Ability => new(Mod, "Twin Crescents", "Slash both blades one after the other, sending two flying slashes towards the target", Color.Gold);
 
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			spriteBatch.Draw(Sprite, position, frame, drawColor, 0, origin, scale, SpriteEffects.FlipHorizontally, 0f);

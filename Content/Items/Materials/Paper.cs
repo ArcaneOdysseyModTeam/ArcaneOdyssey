@@ -10,6 +10,12 @@ namespace ArcaneOdyssey.Content.Items.Materials
 		public int AOValue = 1;
 		public override AORarities AORarity => AORarities.Common;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Item.ResearchUnlockCount = 25;
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

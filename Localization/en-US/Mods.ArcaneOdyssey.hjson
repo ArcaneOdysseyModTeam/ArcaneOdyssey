@@ -395,6 +395,8 @@ RandomWords: {
 	AnyMaterial: Any {0} Material
 	Help: Help
 	Press: Press {0}
+	WeaponGel: "Weapon Gel: {0}"
+	GelTooltip: "Melee attacks inflict {0}"
 }
 
 FargosSheet: {
