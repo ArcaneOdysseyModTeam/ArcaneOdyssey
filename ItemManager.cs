@@ -374,6 +374,8 @@ namespace ArcaneOdyssey
 
 		public override void SetDefaults(Item item)
 		{
+			if (!item.active || item.IsAir || item.Name == "")
+				return;
 			thisItem = item;
 			owner = null;
 			if (ArcaneOdysseyMod.excludedItems.Contains(item.type))
@@ -381,8 +383,6 @@ namespace ArcaneOdyssey
 				CanBeAffected = false;
 				return;
 			}
-			WeaponsType = (WeaponType)ArcaneOdysseyMod.weaponTypes[item.type];
-			Cold = ArcaneOdysseyMod.itemTemperatures[item.type];
 			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
 				switch (item.type)

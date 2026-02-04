@@ -34,10 +34,6 @@ namespace ArcaneOdyssey
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
 
-		internal static int[] alternateBuffs = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
-		internal static bool?[] itemTemperatures = ItemID.Sets.Factory.CreateCustomSet<bool?>(null);
-		internal static int[] weaponTypes = ItemID.Sets.Factory.CreateIntSet();
-
 		internal static List<int> excludedItems = [];
 
 		internal static List<int> excludedProjectiles = [];
@@ -53,34 +49,6 @@ namespace ArcaneOdyssey
 				case "BlacklistItem":
 				case "ExcludeItem":
 					excludedItems.Add((int)args[1]);
-					break;
-				case "GetPlayerImbue":
-					Imbuable imbue1 = Main.player[(int)args[1]].ArcaneOdyssey()?.Imbue;
-					return imbue1;
-					break;
-				case "GetItemImbue":
-					Imbuable imbue = ((Item)args[1]).ArcaneOdyssey()?.Imbue;
-					return imbue;
-					break;
-				case "RegisterItemTemperature":
-				case "SetItemTemperature":
-				case "AddItemTemperature":
-					itemTemperatures[(int)args[1]] = (bool?)args[2];
-					break;
-				case "GetItemTemperature":
-					var item1 = args[1] as Item;
-					return item1.ArcaneOdyssey()?.Cold;
-					break;
-				case "AddWeaponType":
-				case "RegisterWeaponType":
-				case "SetWeaponType":
-					var item2 = (int)args[1];
-					var type = (int)args[2];
-					weaponTypes[item2] = type;
-					break;
-				case "GetWeaponType":
-					var item3 = (int)args[1];
-					return weaponTypes[item3];
 					break;
 				case "AddMordenDialogue":
 					Edgelord.AddHelpOption((string)args[1], (Func<bool>)args[2]);

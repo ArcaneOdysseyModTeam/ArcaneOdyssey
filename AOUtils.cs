@@ -789,10 +789,6 @@ namespace ArcaneOdyssey
 				{
 					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
 					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
 						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
 							target.AddBuff(buffkeys.result, buffkeys.duration);
@@ -802,10 +798,6 @@ namespace ArcaneOdyssey
 
 				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
 				{
-					if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
 					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
 						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
@@ -816,10 +808,6 @@ namespace ArcaneOdyssey
 				{
 					foreach (int buffid in imbue.Effects.clearBuffs)
 					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
-						{
-							target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
-						}
 						if (target.HasBuff(buffid))
 						{
 							target.DelBuff(target.FindBuffIndex(buffid));
@@ -1519,7 +1507,7 @@ namespace ArcaneOdyssey
 
 	public enum WeaponType
 	{
-		Normal = -1,
+		Normal,
 		Arcanium,
 		Strength,
 		Artisinal

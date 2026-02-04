@@ -7,6 +7,7 @@ using ArcaneOdyssey.Content.NPCS;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -105,8 +106,8 @@ namespace ArcaneOdyssey
 				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<EagleLegacy>(), imbueText);
 
-				Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
-				Fargos.Call("AddStat", ModContent.ItemType<AcidMagic>(), blood);
+				Func<string> blood = () => (ArcaneOdysseyMod.DevMode ? Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value : "Coming soon...");
+				Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}
