@@ -20,7 +20,7 @@ ImbueStuff: {
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
 	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Only conducts Magic]"
-	StrengthIndicator: "[c/700013:Strength Weapon - Does not conduct Magic or Spirit Energy]"
+	StrengthIndicator: "[c/700013:Strength Weapon - Too heavy to be used fully without a Fighting Style]"
 	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
 	ScrollDamage: Scroll Damage: {0}x
 	ScrollSpeed: Scroll Speed: {0}x
@@ -400,6 +400,7 @@ RandomWords: {
 FargosSheet: {
 	CurrentImbue: Current Imbue: {0}
 	SizeMulti: Attack Size Multiplier: {0}
+	CooldownMulti: Ability Cooldown Multiplier: {0}
 	BloodDisease: Blood Disease: {0}
 }
 

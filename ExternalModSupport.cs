@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
+using ArcaneOdyssey.Content.Items.Weapons.Sunken;
 using ArcaneOdyssey.Content.NPCS;
 using System;
 using System.Collections.Generic;
@@ -101,6 +102,8 @@ namespace ArcaneOdyssey
 				// stat sheet
 				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", $"{Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x").Value;
 				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
+				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", $"{Math.Round(Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti, 3)}x").Value;
+				Fargos.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
 
 				// current imbue lol
 				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
@@ -108,6 +111,8 @@ namespace ArcaneOdyssey
 
 				Func<string> blood = () => (ArcaneOdysseyMod.DevMode ? Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value : "Coming soon...");
 				Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
+
+				
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}
