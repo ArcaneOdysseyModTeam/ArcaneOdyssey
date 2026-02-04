@@ -459,7 +459,7 @@ namespace ArcaneOdyssey
 				return;
 			if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
-				scale += player.ArcaneOdyssey().SizeMulti;
+				scale *= player.ArcaneOdyssey().SizeMulti;
 				if (Imbue is not null)
 				{
 					if (!BenifitsFromScrollStats.GetValueOrDefault())

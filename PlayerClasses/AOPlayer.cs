@@ -146,11 +146,13 @@ namespace ArcaneOdyssey.PlayerClasses
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
+			AOHasteStat = 0;
 			gel = 0;
 			pheonixHealing = 0;
 			HandleDashDetection();
 		}
 
-		public float SizeMulti => AOSizeStat / 275f;
+		public float SizeMulti => 1f + (AOSizeStat / 275f);
+		public float CooldownDurationMulti => (1f + (AOHasteStat / 250f)).FlipFloat();
 	}
 }

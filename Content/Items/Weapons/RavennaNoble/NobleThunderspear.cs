@@ -58,6 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 	public class SparrowThrustCooldown : DisplayedCooldown
 	{
+		public override int CooldownLength => 60 * 5;
 		public override string ExtraIconTexture => AOUtils.GetTexture<NobleThunderspear>();
 	}
 }

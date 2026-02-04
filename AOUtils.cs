@@ -573,7 +573,7 @@ namespace ArcaneOdyssey
 
 			if (source.TryGetOwner(out AOPlayer player1))
 			{
-				mult *= 1f + player1.SizeMulti;
+				mult *= player1.SizeMulti;
 			}
 			ScaleRectangle(ref hitbox, mult, adjustX, adjustY);
 
@@ -1451,7 +1451,7 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce)
+	public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce, int haste)
 	{
 		public int Size = size;
 		public int Attkspeed = attkspeed;
@@ -1459,18 +1459,20 @@ namespace ArcaneOdyssey
 		public int Pierce = pierce;
 		public int Defence = defence;
 		public int Agility = agility;
+		public int Haste = haste;
 
 		public readonly ImbueArmourStats Corrected(Imbuable imbue)
 		{
 			if (imbue is FightingStyleBarred barred)
 			{
 				return new ImbueArmourStats(
-					MathHelper.Lerp(0, Size, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Attkspeed, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Power, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Defence, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Agility, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Pierce, barred.LerpValue).Round()
+					MathHelper.Lerp(Size / 4f, Size, barred.LerpValue).Round(),
+					MathHelper.Lerp(Attkspeed / 4f, Attkspeed, barred.LerpValue).Round(),
+					MathHelper.Lerp(Power / 4f, Power, barred.LerpValue).Round(),
+					MathHelper.Lerp(Defence / 4f, Defence, barred.LerpValue).Round(),
+					MathHelper.Lerp(Agility / 4f, Agility, barred.LerpValue).Round(),
+					MathHelper.Lerp(Pierce / 4f, Pierce, barred.LerpValue).Round(),
+					MathHelper.Lerp(Haste / 4f, Haste, barred.LerpValue).Round()
 					);
 			}
 			return this;

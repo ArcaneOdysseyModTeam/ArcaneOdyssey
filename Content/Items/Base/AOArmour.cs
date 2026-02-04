@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	public abstract class AOArmour : AOBaseItem, ILocalizedModType
 	{
 		public override string LocalizationCategory => Item.accessory ? "Items.Accessories" : "Items.Armour";
+		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		/// <summary>
 		/// Base value
@@ -48,9 +49,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual int AOPower => 0;
 
+		/// <summary>
+		/// Base value
+		/// </summary>
+		public virtual int Haste => 0;
+
 		public virtual int AOMinionSlots => 0;
 
 		public virtual int AOMaxMana => 0;
+
 
 		/// <summary>
 		/// Should only be set on boots
@@ -76,40 +83,48 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public int GetArmourSizeStat()
 		{
 			int val = AOSize;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Size * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Size * (int)ArmourTier;
+			return val;
+		}
+
+		public int GetArmourHasteStat()
+		{
+			int val = Haste;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Haste * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourAgilityStat()
 		{
 			int val = AOAgility;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Agility * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Agility * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourPierceStat()
 		{
 			int val = AOPierce;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Pierce * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Pierce * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourPowerStat()
 		{
 			int val = AOPower;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Power * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Power * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourAttkSpeedStat()
 		{
 			int val = AOAttkSpd;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Attkspeed * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Attkspeed * (int)ArmourTier;
 			return val;
 		}
 
@@ -177,10 +192,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 50f;
 			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
 			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
+			player.ArcaneOdyssey().AOHasteStat += GetArmourHasteStat();
 			player.GetArmorPenetration(DamageClass.Generic) += GetArmourPierceStat() / 5;
 			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275;
 			player.maxMinions += AOMinionSlots;
 			player.statManaMax2 += AOMaxMana;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			Set?.GenerateTooltip();
+			base.SetStaticDefaults();
 		}
 	}
 }

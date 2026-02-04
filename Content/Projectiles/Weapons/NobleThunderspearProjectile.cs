@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		{
 			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 3)
 			{
-				AOPlayerOwner.SetCooldown(ModContent.BuffType<SparrowThrustCooldown>(), 60 * 5);
+				AOPlayerOwner.SetCooldown<SparrowThrustCooldown>();
 				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 
 				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Projectile.rotation - MathHelper.PiOver4).ToRotationVector2() * 7.5f, ModContent.ProjectileType<SparrowThrust>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue);

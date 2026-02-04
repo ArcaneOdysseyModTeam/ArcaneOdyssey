@@ -99,7 +99,7 @@ namespace ArcaneOdyssey
 			if (HasFargos)
 			{
 				// stat sheet
-				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", $"{1 + Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x").Value;
+				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", $"{Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x").Value;
 				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
 
 				// current imbue lol

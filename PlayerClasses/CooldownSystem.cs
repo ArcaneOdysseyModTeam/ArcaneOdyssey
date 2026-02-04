@@ -88,6 +88,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
+		public int AOHasteStat;
 		private List<Cooldown> toremove = [];
 		private Dictionary<int, Cooldown> tochange = [];
 		public override void PreUpdate()
@@ -159,14 +160,9 @@ namespace ArcaneOdyssey.PlayerClasses
 			}
 		}
 
-		public void SetCooldown(DisplayedCooldown cooldown)
-		{
-			Player.AddBuff(cooldown.TypeID, cooldown.CooldownLength);
-		}
-
 		public void SetCooldown(int cooldown, int length)
 		{
-			Player.AddBuff(cooldown, length);
+			Player.AddBuff(cooldown, (length * CooldownDurationMulti).Round());
 		}
 
 		public void SetCooldown<T>(int length = -1) where T : DisplayedCooldown
@@ -175,7 +171,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				length = ModContent.GetInstance<T>().CooldownLength;
 			}
-			Player.AddBuff(ModContent.BuffType<T>(), length);
+			SetCooldown(ModContent.BuffType<T>(), length);
 		}
 	}
 }
