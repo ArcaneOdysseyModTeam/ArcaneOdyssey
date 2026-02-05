@@ -129,3 +129,8 @@ EagleLegacy: {
 	DisplayName: Eagle's Legacy
 	Tooltip: Represents your latent potential, and can be focused upon to grant power
 }
+
+TideGelPotion: {
+	DisplayName: Tide Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Wet
+}

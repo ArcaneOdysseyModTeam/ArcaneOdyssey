@@ -395,8 +395,8 @@ RandomWords: {
 	AnyMaterial: Any {0} Material
 	Help: Help
 	Press: Press {0}
-	WeaponGel: "Weapon Gel: {0}"
-	GelTooltip: "Melee attacks inflict {0}"
+	WeaponGel: Weapon Gel: {0}
+	GelTooltip: Melee attacks inflict {0}
 }
 
 FargosSheet: {
@@ -421,4 +421,16 @@ DamageClasses: {
 	WarlordDamage: warlord damage
 	WarlordNoSpeedDamage: warlord damage
 	SavantDamage: savant damage
+}
+
+ArmourSetTooltips: {
+	RavennaBulwark: {
+		DisplayName: Ravenna Bulwark
+		Description: Allows you to brace, slowing your movement in exchange for a defence bonus
+	}
+
+	AquaticRebuttal: {
+		DisplayName: Aquatic Rebuttal
+		Description: Enemies that strike you are soaked
+	}
 }

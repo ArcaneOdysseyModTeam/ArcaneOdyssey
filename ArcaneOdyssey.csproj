@@ -24,8 +24,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Assets\" />
-		<Folder Include="Content\Buffs\Gels\" />
-		<Folder Include="Content\Items\Potions\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="ArcaneOdysseyMusic">
