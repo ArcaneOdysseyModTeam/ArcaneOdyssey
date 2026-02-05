@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -45,10 +46,41 @@ public partial class MagicChoiceUIState : UIState
 	{
 		bool changed = false;
 		foreach (var p in TheShop) if (p.BackGround.IsMouseHovering)
+		{
+			ProductSpotLight.ChangeType(p.CurrentType);
+			var item = MagicTypeToItem(p.CurrentType);
+			SpotTitle.SetText(item.Name, 1, true);
+			if (item.ModItem is AOMagic magic)
 			{
-				ProductSpotLight.ChangeType(p.CurrentType);
-				changed = true;
+				SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
+					$"Speed: {magic.AOScrollSize} \n" +
+					$"Damage: {magic.AOScrollDamage} ");
 			}
-		if (!changed && ProductSpotLight.CurrentType is not MagicTypes.None) ProductSpotLight.ChangeType(MagicTypes.None);
+			else if (item.ModItem is FightingStyle fight)
+			{
+				SpotStats.SetText($"Size: {fight.AOScrollSize} \n" +
+					$"Speed: {fight.AOScrollSize} \n" +
+					$"Damage: {fight.AOScrollDamage} ");
+			}
+			else if (item.ModItem is RelicImbue relic)
+			{
+				SpotStats.SetText($"Size: {relic.AOScrollSize} \n" +
+					$"Speed: {relic.AOScrollSize} \n" +
+					$"Damage: {relic.AOScrollDamage} ");
+			}
+			else
+			{
+				SpotStats.SetText($"Error with {item.Name}");
+			}
+
+			changed = true;
+			break;
+		}
+		if (!changed && ProductSpotLight.CurrentType is not MagicTypes.None)
+		{
+			ProductSpotLight.ChangeType(MagicTypes.None);
+			SpotTitle.SetText("");
+			SpotStats.SetText("");
+		}
 	}
 }

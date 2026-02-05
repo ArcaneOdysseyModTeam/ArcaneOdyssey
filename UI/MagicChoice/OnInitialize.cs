@@ -76,6 +76,8 @@ public partial class MagicChoiceUIState : UIState
 		Wind,
 		Wood,
 	}
+
+
 	public static int? MagicTypeToID(MagicTypes type) => type switch
 	{
 		MagicTypes.ReturnToMonke => ModContent.ItemType<BasicCombat>(),
@@ -165,7 +167,11 @@ public partial class MagicChoiceUIState : UIState
 	/// </summary>
 	protected UIImage ProductTitle = new(ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/Product/Name"));
 
-	protected UIText TitleText = new("No magic selected");
+	/// <summary>
+	/// Random <see cref="UIText"/>s that give stats for <see cref="ProductSpotLight"/>
+	/// </summary>
+	protected UIText SpotTitle = new("", 1, true), SpotStats = new("");
+
 	#endregion
 
 	/// <summary>
@@ -179,12 +185,13 @@ public partial class MagicChoiceUIState : UIState
 		#region Main Panel
 		main.SetPadding(0);
 		main.BackgroundColor = new(73, 94, 171);
-		main.HAlign = 0.5f; main.VAlign = 0.2f;
 
 		main.Width.Set((64 + separation) * ProductsPerRow + separation, 0f);
 		main.Height.Set(((64 + separation) * TotalRows) + separation, 0f);
 
-		//main.Left.Set(((64 + separation) * ProductsPerRow + separation) / -2, 0f);
+		main.HAlign = 0.5f; main.VAlign = 0.2f;
+
+		//main.Left.Set(((64 + separation) * ProductsPerRow + separation) / -4, 0f);
 		//Main.NewText($"(64 + {separation}) * {TotalRows} = {(64 + separation) * TotalRows} \n" +
 		//	$"first: {HowManyAreWeDoing / ProductsPerRow}, second: {(HowManyAreWeDoing % ProductsPerRow > 0 ? +1 : 0)} ({HowManyAreWeDoing % ProductsPerRow})");
 
@@ -196,10 +203,10 @@ public partial class MagicChoiceUIState : UIState
 		CloseButton.Height.Set(64, 0f);
 
 		CloseButton.VAlign = 0.8f;
-		CloseButton.HAlign = 0.5f;
+		CloseButton.HAlign = 0.7f;
 
-		float offset = main.Width.Pixels / 2f;
-		CloseButton.Left.Set(offset - (CloseButton.Width.Pixels / 2), 0f);
+		//float offset = main.Width.Pixels / 2f;
+		//CloseButton.Left.Set(offset - (CloseButton.Width.Pixels / 2), 0f);
 
 		CloseButton.OnLeftClick += CloseButton_OnLeftClick;
 
@@ -210,7 +217,7 @@ public partial class MagicChoiceUIState : UIState
 
 		CloseText.IgnoresMouseInteraction = true;
 
-		CloseText.HAlign = 0.5f;
+		CloseText.HAlign = 0.8f;
 
 		// Spoky (2026 February 03): VAlign for close text doesn't seem to work, but this does? ? ?
 		// Spoky (2026 February 03): Alright nevermind, can't be bothered to make it perfectly centered
@@ -219,14 +226,14 @@ public partial class MagicChoiceUIState : UIState
 		CloseButton.Append(CloseText);
 		#endregion
 
-		#region Close Button
+		#region Choose Button
 		ChooseButton.Width.Set(256, 0f);
 		ChooseButton.Height.Set(64, 0f);
 
 		ChooseButton.VAlign = 0.8f;
-		ChooseButton.HAlign = 0.5f;
+		ChooseButton.HAlign = 0.7f;
 
-		ChooseButton.Left.Set(offset - (ChooseButton.Width.Pixels / 2), 0f);
+		//ChooseButton.Left.Set(offset - (ChooseButton.Width.Pixels / 2), 0f);
 		ChooseButton.Top.Set(-(ChooseButton.Height.Pixels + separation), 0f);
 
 		ChooseButton.OnLeftClick += ChosenButton_OnLeftClick;
@@ -284,25 +291,26 @@ public partial class MagicChoiceUIState : UIState
 
 		#region Showing the coolest product
 		ProductSpotLight = new(this, MagicTypes.None);
-		main.Append(ProductSpotLight.BackGround);
-		main.Append(ProductSpotLight.Icon);
+		//Append(ProductSpotLight.BackGround);
+		Append(ProductSpotLight.Icon);
 		#endregion
 
-		#region
-		ProductTitle.Width.Set(ProductSpotLight.BackGround.Width.Pixels, 0f);
-		ProductTitle.Height.Set(ProductSpotLight.BackGround.Height.Pixels, 0f);
+		#region Title and stats of the coolest product
+		SpotTitle.HAlign = ProductSpotLight.Icon.HAlign;
+		SpotTitle.VAlign = ProductSpotLight.Icon.VAlign;
 
-		ProductTitle.Left.Set(TheShop[ProductsPerRow - 1].BackGround.Left.Pixels + TheShop[ProductsPerRow - 1].BackGround.Width.Pixels + separation * 2, 0f);
-		ProductTitle.Top.Set(TheShop[ProductsPerRow - 1].BackGround.Top.Pixels, 0f);
+		SpotTitle.Top.Set(-(ProductSpotLight.Icon.Height.Pixels), 0f);
+		SpotTitle.Left.Set(-(SpotTitle.Width.Pixels) / 2, 0f);
 
-		main.Append(ProductTitle);
+		Append(SpotTitle);
 
-		TitleText.Width.Set(ProductSpotLight.Icon.Width.Pixels, 0f);
-		TitleText.Height.Set(TheShop[0].BackGround.Height.Pixels, 0f);
+		SpotStats.HAlign = ProductSpotLight.Icon.HAlign;
+		SpotStats.VAlign = ProductSpotLight.Icon.VAlign;
 
-		TitleText.Left.Set(separation * 2, 0f);
+		SpotStats.Top.Set((ProductSpotLight.Icon.Height.Pixels), 0f);
+		SpotStats.Left.Set((SpotStats.Width.Pixels) / 2, 0f);
 
-		ProductTitle.Append(TitleText);
+		Append(SpotStats);
 		#endregion
 	}
 	#endregion

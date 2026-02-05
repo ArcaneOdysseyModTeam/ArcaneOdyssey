@@ -54,38 +54,21 @@ public partial class MagicChoiceUIState : UIState
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType { protected set; get; }
 
-		public UIImage BackGround;
 		public UIImage Icon;
 
-		protected void SetSizes()
-		{
-			BackGround.Width.Set(264, 0f);
-			BackGround.Height.Set(264, 0f);
-
-			if (MainUI.TheShop is not null && MainUI.TheShop.Count > 0)
-			{
-				Product quoi = MainUI.TheShop[^1];
-
-				BackGround.Left.Set(((separation + quoi.BackGround.Width.Pixels) * ProductsPerRow) + separation * 2, 0f);
-				//Main.NewText($"sep: {separation}; width: {quoi.BackGround.Width.Pixels}; row: {ProductsPerRow}\n" +
-				//	$"Hmm: {(separation + quoi.BackGround.Width.Pixels) * ProductsPerRow}");
-				BackGround.Top.Set(quoi.BackGround.Top.Pixels - (separation + quoi.BackGround.Height.Pixels) * 3, 0f);
-			}
-			else Main.NewText($"Last Thingie is null");
-
-			SetIconSizes();
-		}
 		protected void SetIconSizes()
 		{
 			
-			Icon.Width.Set(264 - (separation * 4), 0f);
-			Icon.Height.Set(264 - (separation * 4), 0f);
+			Icon.Width.Set(128, 0f);
+			Icon.Height.Set(128, 0f);
 
-			if (MainUI.TheShop is not null && MainUI.TheShop.Count > 0)
-			{
-				Icon.Left.Set(BackGround.Left.Pixels + separation, 0f);
-				Icon.Top.Set(BackGround.Top.Pixels + separation, 0f);
-			}
+			Icon.IgnoresMouseInteraction = true;
+
+			Icon.VAlign = 0.5f;
+			Icon.HAlign = 0.3f;
+
+			//float offset = MainUI.main.Width.Pixels / 2f;
+			//Icon.Left.Set(-offset + separation, 0f);
 
 			Icon.ScaleToFit = true;
 			Icon.IgnoresMouseInteraction = true;
@@ -95,9 +78,6 @@ public partial class MagicChoiceUIState : UIState
 		{
 			TexturePath = $"{mainUI.TexturePath}Product/";
 			MainUI = mainUI;
-
-
-			BackGround = new(ModContent.Request<Texture2D>($"{TexturePath}ThickBoi"));
 
 			Asset<Texture2D> texture = MagicTypeToMagicTexture(CurrentType);
 			if (texture is null)
@@ -110,7 +90,7 @@ public partial class MagicChoiceUIState : UIState
 			{
 				ScaleToFit = true
 			};
-			SetSizes();
+			SetIconSizes();
 			ChangeType(type);
 
 			// Spoky (2026 January 28): Made it so it turns invisible if it is indeed nothing (so it doesn't show up for one frame)
