@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -20,6 +22,8 @@ public partial class MagicChoiceUIState : UIState
 	/// </summary>
 	protected class Product
 	{
+		protected MagicChoiceUIState MainUI;
+
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType;
 
@@ -28,6 +32,7 @@ public partial class MagicChoiceUIState : UIState
 
 		public Product(MagicChoiceUIState mainUI, MagicTypes type)
 		{
+			MainUI = mainUI;
 			TexturePath = $"{mainUI.TexturePath}Product/";
 			CurrentType = type;
 
@@ -46,6 +51,31 @@ public partial class MagicChoiceUIState : UIState
 				ScaleToFit = true
 			};
 		}
+
+		public void Update()
+		{
+			if (CurrentType == MainUI.ProductSpotLight.CurrentType)
+			{
+				BackGround.Color = Color.White;
+				return;
+			}
+
+			Color color = new(80, 80, 80, 80);
+
+			if (BackGround.IsMouseHovering)
+			{
+				color = new(160, 160, 160, 160);
+				if (!HasPlayedSound)
+				{
+					SoundEngine.PlaySound(SoundID.MenuTick, Main.LocalPlayer.position);
+					HasPlayedSound = true;
+				}
+			}
+			else HasPlayedSound = false;
+
+			BackGround.Color = color;
+		}
+		public bool HasPlayedSound = false;
 	}
 
 	protected class DisplayProduct

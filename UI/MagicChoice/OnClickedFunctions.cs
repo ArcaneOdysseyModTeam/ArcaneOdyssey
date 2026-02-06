@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +17,11 @@ namespace ArcaneOdyssey.UI.MagicChoice;
 
 public partial class MagicChoiceUIState : UIState
 {
-	private void CloseButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement) => YoungMan_KillYourself();
+	private void CloseButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
+	{
+		SoundEngine.PlaySound(SoundID.MenuClose, Main.LocalPlayer.position);
+		YoungMan_KillYourself();
+	}
 	private void ChosenButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
 	{
 		if (ProductSpotLight.CurrentType is not MagicTypes.None)
@@ -30,15 +35,18 @@ public partial class MagicChoiceUIState : UIState
 				if (player.GetItem(player.whoAmI, MagicTypeToItem(ProductSpotLight.CurrentType), GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
 					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
 				player.inventory[index].TurnToAir();
+				SoundEngine.PlaySound(SoundID.Unlock, player.position);
 				YoungMan_KillYourself();
 			}
 			else
 			{
+				SoundEngine.PlaySound(SoundID.Tink, player.position);
 				Main.NewText($"Did you drop the acrimony? Pick it up before choosing an option");
 			}
 		}
 		else
 		{
+			SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.position);
 			Main.NewText($"Choose an option first");
 		}
 	}
@@ -47,14 +55,34 @@ public partial class MagicChoiceUIState : UIState
 		bool changed = false;
 		foreach (var p in TheShop) if (p.BackGround.IsMouseHovering)
 		{
+			SoundEngine.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
+
 			ProductSpotLight.ChangeType(p.CurrentType);
-			var item = MagicTypeToItem(p.CurrentType);
+			var item = MagicTypeToItem(p.CurrentType).Clone();
+
 			SpotTitle.SetText(item.Name, 1, true);
 			if (item.ModItem is AOMagic magic)
 			{
+				string prefix = magic.ImbueDebuffs.Length switch {
+					> 1 => "Status Effects:",
+					1 => "Status Effect:",
+					_ => "",
+				},
+				text = "";
+				if (magic.ImbueDebuffs.Length > 1)
+				{
+					for (int i = 0; i < magic.ImbueDebuffs.Length; i++)
+					{
+						string imbue = Lang.GetBuffName(magic.ImbueDebuffs[i].debuffID);
+						text += i < magic.ImbueDebuffs.Length - 1 ? $"{imbue}, " : $"{imbue}";
+					}
+				}
+				else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
+
 				SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
 					$"Speed: {magic.AOScrollSize} \n" +
-					$"Damage: {magic.AOScrollDamage} ");
+					$"Damage: {magic.AOScrollDamage} \n" +
+					$"{prefix} {text}");
 			}
 			else if (item.ModItem is FightingStyle fight)
 			{
