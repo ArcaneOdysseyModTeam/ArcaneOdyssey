@@ -63,6 +63,7 @@ public partial class MagicChoiceUIState : UIState
 			SpotTitle.SetText(item.Name, 1, true);
 			if (item.ModItem is AOMagic magic)
 			{
+				// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
 				string prefix = magic.ImbueDebuffs.Length switch {
 					> 1 => "Status Effects:",
 					1 => "Status Effect:",
