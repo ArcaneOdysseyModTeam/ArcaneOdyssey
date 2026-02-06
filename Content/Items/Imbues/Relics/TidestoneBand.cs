@@ -12,9 +12,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 	public class TidestoneBand : RelicImbue
 	{
 		public override int AOValue => 500;
-		public override float AOScrollDamage => 1f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<WaterMagic>();
@@ -26,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.damage = (20 * AOImbueDamage).Round();
 		}
 		public override bool? Cold => true;
-		public override Color ImbueColour => new(0, 30, 255);
+		public override Color ImbueColour => new(0, 183, 255);
 
 		public override bool AltFunctionUse(Player player)
 		{

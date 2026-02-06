@@ -6,14 +6,30 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class RelicImbue : Imbuable, ILocalizedModType
+	public class RelicImbue : Imbuable, ILocalizedModType
 	{
+		public override string Texture
+		{
+			get
+			{
+				if (Name == nameof(RelicImbue))
+					return Mod.Name + "/Assets/SpiritEnergy";
+				return base.Texture;
+			}
+		}
+
+		public override Color ImbueColour => new(0, 183, 255);
+
 		public override string LocalizationCategory => base.LocalizationCategory + ".Relics";
 		public virtual int AOValue => 0;
 
 		public override float AOImbueDamage => AOScrollDamage;
 		public override float AOImbueSize => AOScrollSize;
 		public override float AOImbueSpeed => AOScrollSpeed;
+
+		public override float AOScrollSpeed => 1f;
+		public override float AOScrollDamage => 1f;
+		public override float AOScrollSize => 1f;
 
 		public override float? DashResist => 1.2f;
 
@@ -26,15 +42,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.noMelee = true;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
-
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			if (Ability.HasValue)
-				Ability.Value.GenerateTooltip();
-		}
-
-		public virtual WeaponAbility? Ability => null;
 
 		public override bool AltFunctionUse(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 

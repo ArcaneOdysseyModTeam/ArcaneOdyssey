@@ -34,9 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.damage = 20;
 			Item.knockBack = 3.75f;
 		}
-		public override float AOScrollDamage => 1f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

@@ -47,9 +47,14 @@ Relics: {
 			It was blessed by Aether - the god of light
 			'''
 	}
+
+	RelicImbue: {
+		DisplayName: Divine Spirit Energy
+		Tooltip: ""
+	}
 }
 
 SteamImbue: {
 	DisplayName: Steam Imbue
-	Tooltip: Created when something hot is imbued with something cold, as well as the other way around
+	Tooltip: Created when something hot is imbued with something cold, or vice versa
 }

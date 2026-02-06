@@ -25,6 +25,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class Imbuable : AOBaseItem, IImbuable, ILocalizedModType
 	{
+		public virtual WeaponAbility? Ability => null;
+
 		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
@@ -34,6 +36,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetStaticDefaults()
 		{
+			if (Ability.HasValue)
+				Ability.Value.GenerateTooltip();
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			if (this is AOMagic)
 				ItemID.Sets.ItemNoGravity[Type] = true;
@@ -171,16 +175,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <param name="widthmulti">The width of the beam</param>
 		public virtual void BeamEffects(Vector2 origin, float rangemulti = 1f, float widthmulti = 1f) { }
 
-
-		private bool FirstFrame = true;
-
-		public override bool CanUseItem(Player player)
-		{
-			FirstFrame = true;
-			return true;
-		}
-
-		public override bool? UseItem(Player player)
+		public override void UseAnimation(Player player)
 		{
 			if (!player.AltUse() && Main.myPlayer == player.whoAmI)
 			{
@@ -192,13 +187,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (player.Imbue() is not null)
 					name = player.Imbue().Name;
-				if (FirstFrame && Name != name && this is AOMagic && player == Main.LocalPlayer)
+				if (Name != name && this is AOMagic && player == Main.LocalPlayer)
 				{
 					AOMagic.CreateMagicCircle(Item, player, this);
 				}
-				if (Name != name && FirstFrame)
+				if (Name != name)
 				{
-					FirstFrame = false;
 					player.ArcaneOdyssey().Imbue = this;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
 					if (Main.netMode == NetmodeID.SinglePlayer)
@@ -210,9 +204,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
 					}
 				}
-				else if (FirstFrame)
+				else
 				{
-					FirstFrame = false;
 					player.ArcaneOdyssey().Imbue = null;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
 					if (Main.netMode == NetmodeID.SinglePlayer)
@@ -225,7 +218,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 					}
 				}
 			}
-			return null;
 		}
 
 		public Color GetColour(Color? colour = null)
@@ -376,12 +368,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
 
-			if (this is RelicImbue relic)
+			if (Ability.HasValue)
 			{
-				if (relic.Ability.HasValue)
-				{
-					tooltips.AddTooltip(relic.Ability.Value.GenerateTooltip());
-				}
+				tooltips.AddTooltip(Ability.Value.GenerateTooltip());
 			}
 
 			if (ModifyTooltipsPrefix is not null)
