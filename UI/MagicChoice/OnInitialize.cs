@@ -128,7 +128,7 @@ public partial class MagicChoiceUIState : UIState
 	public static Item MagicTypeToItem(MagicTypes type)
 	{
 		int? id = MagicTypeToID(type);
-		if (id is not null) return ContentSamples.ItemsByType[(int)id];
+		if (id is not null) return ContentSamples.ItemsByType[(int)id].Clone();
 
 		Main.NewText($"{nameof(MagicTypes)} {type} is not supported in {nameof(MagicTypeToItem)}", new Color(255, 0, 255));
 		return null;
