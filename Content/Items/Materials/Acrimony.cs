@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.UI.MagicChoice;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,6 +24,32 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			base.SetDefaults();
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 			Item.width = Item.height = 32;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useAnimation = 20;
+			Item.useTime = 20;
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			try
+			{
+				//Main.NewText($"Can use item {!ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI()}");
+				return !ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI();
+			}
+			catch (Exception ex) 
+			{
+				Main.NewText($"Error in {nameof(CanUseItem)}: \n{ex}", new Color(255, 0, 255));
+				return false; 
+			}
+		}
+
+		public override bool? UseItem(Player player)
+		{
+			// Spoky (2026 Jan 25): Expected for errors to have an error message but it appears we don't have said luxury, therefore gotta get errors, manually
+			try { ModContent.GetInstance<MagicChoiceUISystem>().ShowUI(); }
+			// Spoky (2026 Jan 25): By the way, I like putting exceptions in purple
+			catch (Exception ex) { Main.NewText($"Error in {nameof(UseItem)}: \n{ex}", new Color(255, 0, 255)); }
+			return true;
 		}
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
