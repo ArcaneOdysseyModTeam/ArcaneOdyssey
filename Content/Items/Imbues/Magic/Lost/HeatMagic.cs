@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override Color ImbueColour => new(255, 0, 0);
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
-		public override float AOImbueSpeed => 1.3f;
-		public override float AOImbueSize => 1.2f;
-		public override float AOImbueDamage => .85f;
+		public override float AOScrollSpeed => 1.3f;
+		public override float AOScrollSize => 1.2f;
+		public override float AOScrollDamage => .85f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
 

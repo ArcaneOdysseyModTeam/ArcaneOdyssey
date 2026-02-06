@@ -16,12 +16,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public const int ShootDelay = 60 * 3;
 
+		public const int ShootTime = 90;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = 75;
 			Projectile.width = 100;
-			Projectile.timeLeft = 90 + ShootDelay;
+			Projectile.timeLeft = ShootTime + ShootDelay;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -75,7 +77,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.scale *= SecondImbue.AOScrollSize;
 				Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, (Player.defaultHeight * .75f) * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * .92f);
 				Projectile.scale *= BaseScale;
-				target = Projectile.FindTargetWithLineOfSight(Main.screenWidth / 2f);
+				target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * ShootTime);
 				if (target != -1)
 				{
 					var targetnpc = Main.npc[target];

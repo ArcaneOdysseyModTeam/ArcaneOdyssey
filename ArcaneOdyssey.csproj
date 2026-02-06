@@ -26,12 +26,14 @@
 		<Folder Include="Assets\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\ArcaneOdysseyMusic\ArcaneOdysseyMusic.csproj" />
+		<Reference Include="ArcaneOdysseyMusic">
+			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Reference Include="SubworldLibrary">
-	    <HintPath>..\references\SubworldLibrary.dll</HintPath>
-	  </Reference>
+		<Reference Include="SubworldLibrary">
+			<HintPath>..\references\SubworldLibrary.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<!-- References -->

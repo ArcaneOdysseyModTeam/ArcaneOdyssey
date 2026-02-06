@@ -106,6 +106,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					{
 						Projectile.ai[1] = 0;
 						State = AnnihilationState.Moving;
+						SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 						Projectile.velocity = originalVelocity.Length() * Projectile.SafeDirectionTo(Main.MouseWorld, Projectile.Center + originalVelocity);
 					}
 					return;

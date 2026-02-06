@@ -14,9 +14,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	public class SlashMagic : AOMagic
 	{
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOImbueDamage => 1.2f;
-		public override float AOImbueSpeed => 1.1f;
-		public override float AOImbueSize => .8f;
+		public override float AOScrollDamage => 1.2f;
+		public override float AOScrollSpeed => 1.1f;
+		public override float AOScrollSize => .8f;
 		public override Color ImbueColour => Color.White;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SoundStyle? ImbueSound => SoundID.Item71;

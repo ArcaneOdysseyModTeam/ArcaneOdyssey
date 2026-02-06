@@ -20,9 +20,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(0, 204, 255); // lerp between yellow and blue later
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOImbueDamage => .95f;
-		public override float AOImbueSpeed => 1.2f;
-		public override float AOImbueSize => 1.3f;
+		public override float AOScrollDamage => .95f;
+		public override float AOScrollSpeed => 1.2f;
+		public override float AOScrollSize => 1.3f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<PhoenixHealing>(), 60 * 10),];
 
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
@@ -77,9 +77,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), Scale: 5.5f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), Scale: 2f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), Scale: 5.5f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), Scale: 2f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

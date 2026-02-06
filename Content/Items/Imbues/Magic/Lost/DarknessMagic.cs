@@ -15,9 +15,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Black;
-		public override float AOImbueSpeed => 1.3f;
-		public override float AOImbueSize => 1.3f;
-		public override float AOImbueDamage => 1.3f;
+		public override float AOScrollSpeed => 1.2f;
+		public override float AOScrollSize => 1.3f;
+		public override float AOScrollDamage => .85f;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<DrainedEffect>(), (60 * 7.5f).Round())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

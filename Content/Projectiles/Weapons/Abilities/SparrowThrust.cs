@@ -43,6 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				oldvelo = Projectile.velocity;
+				Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 1f - (.75f * ((Projectile.timeLeft - (TrueMaxTime - MaxTime)) / (float)MaxTime))), Projectile.velocity, Projectile);
 			}
 			else
 			{
