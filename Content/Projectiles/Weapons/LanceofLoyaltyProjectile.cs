@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Weapons.RavennaLion;
-using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.PlayerClasses;
 using Terraria;
 using Terraria.Audio;

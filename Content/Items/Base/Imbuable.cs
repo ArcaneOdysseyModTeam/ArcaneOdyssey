@@ -7,8 +7,8 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -257,11 +257,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2 or SparrowThrust);
 					}
 					else if (projectile.ModProjectile is AOPlayerProjectile)
 					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2 or SparrowThrust);
 					}
 				}
 			}
