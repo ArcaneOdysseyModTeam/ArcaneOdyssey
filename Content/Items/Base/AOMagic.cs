@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return false;
 		}
 
-		public override bool AltFunctionUse(Player player) => player.CheckMana((25 * AOScrollSpeed.FlipFloat()).Round(), true);
+		public override bool AltFunctionUse(Player player) => player.CheckMana((25 * AOScrollSpeed).Round(), true);
 		public override bool CanShoot(Player player) => player.AltUse();
 
 		public void CreateAncientRecipe(params Type[] imbues)

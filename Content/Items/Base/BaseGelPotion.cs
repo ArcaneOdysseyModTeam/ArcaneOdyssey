@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base

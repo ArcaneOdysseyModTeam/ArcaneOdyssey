@@ -134,3 +134,13 @@ TideGelPotion: {
 	DisplayName: Tide Gel
 	Tooltip: Melee and Whip attacks inflict enemies with Wet
 }
+
+BleedGelPotion: {
+	DisplayName: Bleed Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Bleeding
+}
+
+DesertGelPotion: {
+	DisplayName: Desert Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Sandy
+}

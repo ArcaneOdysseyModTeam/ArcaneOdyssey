@@ -99,16 +99,16 @@ namespace ArcaneOdyssey
 			if (HasFargos)
 			{
 				// stat sheet
-				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", $"{Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x").Value;
+				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().SizeMulti - 100f, 1)).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
-				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", $"{Math.Round(Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti, 3)}x").Value;
+				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1)).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
 
 				// current imbue lol
 				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<EagleLegacy>(), imbueText);
 
-				Func<string> blood = () => (ArcaneOdysseyMod.DevMode ? Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value : "Coming soon...");
+				Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
 				Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
 				

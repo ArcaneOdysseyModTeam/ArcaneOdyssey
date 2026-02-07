@@ -75,7 +75,7 @@ namespace ArcaneOdyssey
 		{
 			if (!(id <= 0 || id >= BuffLoader.BuffCount))
 			{
-				if (BuffID.Search.ContainsId(id))
+				if (id < BuffID.Count)
 				{
 					return Lang.GetBuffName(id);
 				}
@@ -85,7 +85,7 @@ namespace ArcaneOdyssey
 					if (modbuff is not null)
 					{
 						return modbuff.DisplayName.Value;
-					} 
+					}
 				}
 			}
 			return ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.None").Value;
@@ -313,8 +313,6 @@ namespace ArcaneOdyssey
 
 			return damageClass;
 		}
-
-		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this ModPlayer player) => player?.ArcaneOdyssey()?.Imbue;

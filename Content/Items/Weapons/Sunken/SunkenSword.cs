@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 
 		public override void DashEffect(Player player)
 		{
-			player.statDefense += 20;
+			player.statDefense *= 1.15f;
 			if (player.ArcaneOdyssey().DashLeft % 5 == 0)
 			{
 				player.direction *= -1;
@@ -93,10 +93,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 				// Adds dust
 				for (int dustCountInt = 0; dustCountInt < 50; dustCountInt++)
 				{
-					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt, 255, new Color(255, 255, 255, 255), 1.3f);
-					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + (3.14)))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt, 255, new Color(255, 255, 255, 255), 1.3f);
-					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt, 255, new Color(255, 255, 255, 255), 1f);
-					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + (3.14)))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt, 255, new Color(255, 255, 255, 255), 1f);
+					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1.3f);
+					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + (3.14)))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1.3f);
+					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1f);
+					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + (3.14)))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1f);
 				}
 			}
 		}
