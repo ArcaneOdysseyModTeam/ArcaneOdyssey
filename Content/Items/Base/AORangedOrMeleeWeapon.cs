@@ -79,8 +79,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetStaticDefaults()
 		{
-			if (Ability.HasValue)
-				Ability.Value.GenerateTooltip();
+			_ = Ability?.ToolTip;
 			if (WeaponsType == WeaponType.Strength)
 				ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}

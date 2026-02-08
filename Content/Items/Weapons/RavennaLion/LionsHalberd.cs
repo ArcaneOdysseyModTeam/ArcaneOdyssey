@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponType WeaponsType => WeaponType.Strength;
-		public override WeaponAbility? Ability => new(Mod, "Seismic Slash", "Slam into the ground, then upearth and launch a rock towards your cursor", Color.Gold);
+		public override WeaponAbility? Ability => new(this, Color.Gold);
 
 		public override void SetDefaults()
 		{

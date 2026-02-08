@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.2f;
 		public override SoundStyle UseSound => SoundID.Item11;
 
-		public override WeaponAbility? Ability => new(Mod, "Piercing Shot", "Converts Musket Balls to High Velocity Bullets", Color.Orange);
+		public override WeaponAbility? Ability => new(this, Color.Orange);
 
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override void SetDefaults()

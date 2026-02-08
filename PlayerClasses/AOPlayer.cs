@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Armour.Centurion;
+using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
@@ -6,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.PlayerClasses
@@ -35,6 +38,14 @@ namespace ArcaneOdyssey.PlayerClasses
 		public float MaxRunSpeed => Math.Max(Player.accRunSpeed, Player.maxRunSpeed);
 
 		public float MaxPossibleSpeed => Math.Max(MaxRunSpeed, CurrentDash?.DashSpeed ?? MaxRunSpeed);
+
+		public override void FrameEffects()
+		{
+			if (Player.armor[1].type == ModContent.ItemType<EliusChest>() && Player.back == -1)
+			{
+				Player.back = EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Back);
+			}
+		}
 
 		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{

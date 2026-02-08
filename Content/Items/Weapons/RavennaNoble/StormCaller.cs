@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Rare;
 		public override SoundStyle UseSound => SoundID.Item5;
-		public override WeaponAbility? Ability => new(Mod, "Storm of Arrows", "Allows arrows to fall from the sky above the cursor", Color.MediumPurple);
+		public override WeaponAbility? Ability => new(this, Color.MediumPurple);
 
 		public override void SetStaticDefaults()
 		{
@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		{
 			if (player.AltUse())
 			{
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < 4; i++)
 				{
 					player.ConsumeItem(ammo.type);
 				}

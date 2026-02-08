@@ -95,7 +95,7 @@ namespace ArcaneOdyssey
 			{
 				if (weapon.Ability.HasValue)
 				{
-					tooltips.AddTooltip(weapon.Ability.Value.GenerateTooltip());
+					tooltips.AddTooltip(weapon.Ability.Value.ToolTip);
 				}
 			}
 

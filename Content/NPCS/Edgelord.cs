@@ -262,7 +262,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("StackImbues");
 			}
 
-			if (Player.HasTypeInInventory<SunkenSword>() || Player.HasTypeInInventory<SunkenStaff>())
+			if (Player.PlayerItem()?.ModItem is SunkenSword || Player.PlayerItem()?.ModItem is SunkenStaff)
 			{
 				AddOption("SunkenWeapon");
 			}

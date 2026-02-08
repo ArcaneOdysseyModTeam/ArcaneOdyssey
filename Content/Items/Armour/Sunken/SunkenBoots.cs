@@ -16,9 +16,8 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 		public override int AOAttkSpd => 16;
 		public override AORarities AORarity => AORarities.Rare;
 
-		public override int AOAgility => 30;
 		public override int AOValue => 675;
-		public override SetBonusHelper? Set => new(Mod, "Aquatic Rebuttal", "Enemies that strike you are soaked", ["SunkenHelm", "SunkenChest"], Color.Aqua);
+		public override SetBonusHelper? Set => new(this, Color.Aqua, "SunkenHelm", "SunkenChest");
 
 		public override void ArmorSetEffects(Player player)
 		{

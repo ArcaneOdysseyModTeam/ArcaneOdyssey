@@ -1364,46 +1364,19 @@ namespace ArcaneOdyssey
 		#endregion
 	}
 
-	public struct WeaponAbility(Mod mod, string name = null, string description = null, Color? color = null)
+	public struct WeaponAbility(ModItem moditem, Color color)
 	{
-		public static string Key(Mod mod, string name)
+		public static string Key(ModItem item, string suffix)
 		{
-			return $"Mods.{mod.Name}.WeaponAbilities." + name.Replace(" ", null);
+			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Ability.{suffix}";
 		}
 
-		public string Name = name;
-		public string Description = description;
-		public Color? Colour = color;
-		public Mod mod = mod;
-		public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
-		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
+		public Color Colour = color;
+		public ModItem ModItem = moditem;
+		public LocalizedText LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
+		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
 
-
-		public readonly TooltipLine GenerateTooltip()
-		{
-			string text = "";
-			if (Name is not null)
-			{
-				if (Colour.HasValue)
-				{
-					text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
-				}
-				else
-				{
-					text += LocalizedName.Value;
-				}
-			}
-			if (Description is not null)
-			{
-				if (Name is not null)
-					text += $": {LocalizedDescription.Value}";
-				else if (Colour.HasValue)
-					text += $"[c/{Colour.Value.Hex3()}:{LocalizedDescription.Value}";
-				else
-					text += LocalizedDescription.Value;
-			}
-			return new TooltipLine(mod, "AOAbility", text);
-		}
+		public readonly TooltipLine ToolTip => new(ModItem.Mod, "AOAbility", $"[c/{Colour.Hex3()}:{LocalizedName.Value}]: {LocalizedDescription.Value}");
 	}
 
 	public enum DashType
@@ -1416,41 +1389,23 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Helper struct for set bonuses
 	/// </summary>
-	/// <param name="mod">This mod</param>
-	/// <param name="name">The name of the set bonus</param>
-	/// <param name="description">The description of this set bonus</param>
+	/// <param name="moditem">This moditem</param>
 	/// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
 	/// <param name="colour">The colour of this set</param>
-	public struct SetBonusHelper(Mod mod, string name, string description, string[] otherItems, Color? colour = null)
+	public struct SetBonusHelper(ModItem moditem, Color colour, params string[] otherItems)
 	{
-		public Mod Mod = mod;
-		public string Name = name;
-		public string Description = description;
-		public Color? Colour = colour;
+		private Color Colour = colour;
 		public string[] OtherItems = otherItems;
 
-		public static string Key(Mod mod, string name)
+		public static string Key(ModItem item, string suffix)
 		{
-			return $"Mods.{mod.Name}.ArmourSetTooltips." + name.Replace(" ", null);
+			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Set.{suffix}";
 		}
 
-		public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
-		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
+		public LocalizedText LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
+		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
 
-		public readonly string GenerateTooltip()
-		{
-			string text = "";
-			if (Colour.HasValue)
-			{
-				text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
-			}
-			else
-			{
-				text += LocalizedName.Value;
-			}
-			text += $" - {LocalizedDescription.Value}";
-			return text;
-		}
+		public readonly string Tooptip => $"[c/{Colour.Hex3()}:{LocalizedName.Value}] - {LocalizedDescription.Value}";
 	}
 
 	public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce, int haste)

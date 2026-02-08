@@ -16,8 +16,6 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 
 		public override int AOValue => 1350;
 
-		public override int AOMinionSlots => 2;
-
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<SunkenScrap>(5).AddTile(TileID.MythrilAnvil).Register();

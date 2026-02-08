@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override WeaponAbility? Ability => new(Mod, "Whirlwind", "Spin your weapon around quickly, dealing damage to surrounding enemies and holding yourself in place", Color.Orange);
+		public override WeaponAbility? Ability => new(this, Color.Orange);
 
 		public override void SetDefaults()
 		{

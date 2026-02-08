@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		public override string Texture => AOUtils.GetTexture<LionsHalberd>();
 		public override int AOValue => 200;
 		public override WeaponType WeaponsType => WeaponType.Strength;
-		public override WeaponAbility? Ability => new(Mod, "Raging Impact", "Colliding with a target at high speed creates a shockwave that damages enemies", Color.Gold);
+		public override WeaponAbility? Ability => new(this, Color.Gold);
 
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override WeaponAbility? Ability => new(Mod, "Mountain Wind", "Swing your blade and unleash three tornados that spread out", Color.Orange);
+		public override WeaponAbility? Ability => new(this, Color.Orange);
 
 		public override void SetDefaults()
 		{

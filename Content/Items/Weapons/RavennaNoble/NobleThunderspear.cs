@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 		public override float AOSize => .85f;
 
-		public override WeaponAbility? Ability => new(Mod, "Sparrow Thrust", "Use the blade and length of the spear to deliver a powerful thrust", Color.MediumPurple);
+		public override WeaponAbility? Ability => new(this, Color.MediumPurple);
 
 		public override void SetStaticDefaults()
 		{

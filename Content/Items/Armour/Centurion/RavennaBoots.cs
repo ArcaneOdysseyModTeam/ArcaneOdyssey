@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 		public override AORarities AORarity => AORarities.Common;
 		public override int AOValue => 30;
 
-		public override SetBonusHelper? Set => new(Mod, "Ravenna Bulwark", "Allows you to brace, slowing your movement in exchange for a defence bonus", ["RavennaHelm", "RavennaChest"], Color.Orange);
+		public override SetBonusHelper? Set => new(this, Color.Orange, "RavennaHelm", "RavennaChest");
 
 		public override void ArmorSetEffects(Player player)
 		{
@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 			if (bracing)
 			{
 				Player.moveSpeed -= .5f;
-				Player.statDefense *= 1.2f;
+				Player.statDefense *= 1.25f;
 			}
 		}
 

@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 			knockback /= 2;
 		}
 
-		public override WeaponAbility? Ability => new(Mod, "Twin Crescents", "Slash both blades one after the other, sending two flying slashes towards the target", Color.Gold);
+		public override WeaponAbility? Ability => new(this, Color.Gold);
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

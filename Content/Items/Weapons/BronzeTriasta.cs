@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AOSpeed => 1.1f;
 		public override int AOValue => 350;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override WeaponAbility? Ability => new(Mod, "Ethereal Flash", "Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target", Color.Gold);
+		public override WeaponAbility? Ability => new(this, Color.Gold);
 		public override AORarities AORarity => AORarities.Rare;
 		public override bool? Cold => false;
 		public override AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<CharredEffect>(), 10 * 60);

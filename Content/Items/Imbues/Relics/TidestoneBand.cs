@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			return true;
 		}
 
-		public override WeaponAbility? Ability => new(Mod, "Thakrousi", "Surround yourself in spirit energy and leap forward, then release the energy in a large area", ImbueColour);
+		public override WeaponAbility? Ability => new(this, ImbueColour);
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

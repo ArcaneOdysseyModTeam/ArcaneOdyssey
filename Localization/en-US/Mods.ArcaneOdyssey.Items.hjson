@@ -2,6 +2,11 @@ Armour: {
 	SunkenBoots: {
 		DisplayName: Sunken Boots
 		Tooltip: It seems to constantly produce water
+
+		Set: {
+			DisplayName: Aquatic Rebuttal
+			Description: Enemies that strike you are soaked
+		}
 	}
 
 	SunkenChest: {
@@ -15,17 +20,22 @@ Armour: {
 	}
 
 	RavennaBoots: {
-		DisplayName: Ravenna Boots
+		DisplayName: Ravenna Soldier Boots
 		Tooltip: ""
+
+		Set: {
+			DisplayName: Ravenna Bulwark
+			Description: Allows you to brace, slowing your movement in exchange for a defence bonus
+		}
 	}
 
 	RavennaChest: {
-		DisplayName: Ravenna Breastplate
+		DisplayName: Ravenna Centurion Breastplate
 		Tooltip: ""
 	}
 
 	RavennaHelm: {
-		DisplayName: Ravenna Helmet
+		DisplayName: Ravenna Centurion Helmet
 		Tooltip: ""
 	}
 
@@ -39,6 +49,26 @@ Armour: {
 			DisplayName: Headless Head
 			Tooltip: ""
 		}
+	}
+
+	EliusBoots: {
+		DisplayName: Ravenna Noble Boots
+		Tooltip: ""
+
+		Set: {
+			DisplayName: Mods.ArcaneOdyssey.Items.Armour.EliusBoots.Set.DisplayName
+			Description: Mods.ArcaneOdyssey.Items.Armour.EliusBoots.Set.Description
+		}
+	}
+
+	EliusChest: {
+		DisplayName: Ravenna Noble Armour
+		Tooltip: ""
+	}
+
+	EliusHelm: {
+		DisplayName: Ravenna Noble Shroud
+		Tooltip: ""
 	}
 }
 

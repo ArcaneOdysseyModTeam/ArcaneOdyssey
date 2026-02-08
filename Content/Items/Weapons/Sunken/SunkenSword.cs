@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 		public override int AOValue => 900;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override WeaponAbility? Ability => new(Mod, "Rising Tide", "Launch yourself upwards", Color.Aqua);
+		public override WeaponAbility? Ability => new(this, Color.Aqua);
 		public override SoundStyle UseSound => SoundID.SplashWeak;
 		public override AODebuffRequirement? WeaponDebuff => new(BuffID.Wet, 60 * 5);
 

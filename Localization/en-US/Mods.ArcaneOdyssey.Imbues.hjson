@@ -2,6 +2,11 @@ Relics: {
 	EaglePatrimony: {
 		DisplayName: Eagle Patrimony
 		Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
+
+		Ability: {
+			DisplayName: Astrapikis
+			Description: Release a slash of spirit energy
+		}
 	}
 
 	Projectiles: {
@@ -19,6 +24,11 @@ Relics: {
 			A staff made out of the remains of a greathammer
 			It was blessed by Hephaestus - the god of fire and blacksmithing
 			'''
+
+		Ability: {
+			DisplayName: Floganymai
+			Description: Release a pillar of spirit energy a short distance away from you, exploding several times
+		}
 	}
 
 	NyxStaff: {
@@ -28,6 +38,11 @@ Relics: {
 			An aged staff made of some kind of purple stone
 			It was blessed by Nyx - the goddess of night
 			'''
+
+		Ability: {
+			DisplayName: Nichtetheis
+			Description: Fire a beam of spirit energy that disorients anyone it hits
+		}
 	}
 
 	TidestoneBand: {
@@ -37,6 +52,11 @@ Relics: {
 			An armband made out of some kind of blue stone
 			It was blessed by Poseidon - the god of the sea
 			'''
+
+		Ability: {
+			DisplayName: Thakrousi
+			Description: Surround yourself in spirit energy and leap forward, then release the energy in a large area
+		}
 	}
 
 	CrystalOrb: {
@@ -46,11 +66,20 @@ Relics: {
 			An orb made of seemingly unbreakable crystal
 			It was blessed by Aether - the god of light
 			'''
+
+		Ability: {
+			DisplayName: Aithiraki
+			Description: Summon a minion made of spirit energy
+		}
 	}
 
 	RelicImbue: {
 		DisplayName: Divine Spirit Energy
-		Tooltip: ""
+		Tooltip:
+			'''
+			Represents your ability to wield spirit energy without a relic, as a legacy
+			Can be used like an imbue, but provides no benifits besides the ability to use rites
+			'''
 	}
 }
 

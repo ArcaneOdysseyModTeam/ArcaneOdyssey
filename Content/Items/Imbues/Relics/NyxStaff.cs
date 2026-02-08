@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}
 
-		public override WeaponAbility? Ability => new(Mod, "Nichtetheis", "Fire a beam of spirit energy that disorients anyone it hits", ImbueColour);
+		public override WeaponAbility? Ability => new(this, ImbueColour);
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

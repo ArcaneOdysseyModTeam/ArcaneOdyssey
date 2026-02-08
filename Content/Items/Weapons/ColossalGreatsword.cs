@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponType WeaponsType => WeaponType.Strength;
-		public override WeaponAbility? Ability => new(Mod, "Colossal Cleave", "Unleash a large slash that pierces enemies", Color.PaleVioletRed);
+		public override WeaponAbility? Ability => new(this, Color.PaleVioletRed);
 
 		public override void SetDefaults()
 		{

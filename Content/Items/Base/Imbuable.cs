@@ -36,8 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetStaticDefaults()
 		{
-			if (Ability.HasValue)
-				Ability.Value.GenerateTooltip();
+			_ = Ability?.ToolTip;
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			if (this is AOMagic)
 				ItemID.Sets.ItemNoGravity[Type] = true;
@@ -352,6 +351,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			if (Name == nameof(RelicImbue))
+				return;
 			if (this is RelicImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
 			{
 				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
@@ -370,7 +371,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 			if (Ability.HasValue)
 			{
-				tooltips.AddTooltip(Ability.Value.GenerateTooltip());
+				tooltips.AddTooltip(Ability.Value.ToolTip);
 			}
 
 			if (ModifyTooltipsPrefix is not null)
