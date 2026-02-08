@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
+using static ArcaneOdyssey.UI.MagicChoice.MagicChoiceUIState;
 
 namespace ArcaneOdyssey.UI.MagicChoice
 {
@@ -18,9 +19,12 @@ namespace ArcaneOdyssey.UI.MagicChoice
 		private GameTime _prevTime;
 
 		#region Show/Hide
-		public void ShowUI()
+		public void ShowSwapUI(ModItem whom)
 		{
-			magicChoice = new();
+			magicChoice = new()
+			{
+				TheGuyThatFellOff = whom,
+			};
 			_MagicChoice = new();
 			_MagicChoice?.SetState(magicChoice);
 			magicChoice.Activate();

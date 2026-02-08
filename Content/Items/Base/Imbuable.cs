@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.UI.MagicChoice;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -337,5 +338,45 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (ModifyTooltipsPrefix is not null)
 				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
+
+		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)
+		public override void RightClick(Player player)
+		{
+			// Spoky (2026 Jan 25): Expected for errors to have an error message but it appears we don't have said luxury, therefore gotta get errors, manually
+			// Spoky (2026 Fec 08): Moved to Imbuable
+			try { ModContent.GetInstance<MagicChoiceUISystem>().ShowSwapUI(this); }
+			// Spoky (2026 Jan 25): By the way, I like putting exceptions in purple
+			catch (Exception ex) { Main.NewText($"Error in {nameof(UseItem)}: \n{ex}", new Color(255, 0, 255)); }
+		}
+		public override bool CanRightClick()
+		{
+			try
+			{
+				Player player = Main.LocalPlayer;
+
+				//																			Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
+				if (!(this is EaglePatrimony || ((this is AOMagic or FightingStyle) /*&& ImbuableTier is AOImbuableTier.Normal*/)))
+				{
+					//Main.NewText($"Item is not swappable");
+					return false;
+				}
+
+				if (!player.HasItem(ModContent.ItemType<StarterAcrimony>()) && !player.HasItem(ModContent.ItemType<Acrimony>()))
+				{
+					//Main.NewText($"Doesn't have acrimony");
+					return false;
+				}
+
+				//Main.NewText($"Can use item {!ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI()}");
+				return !ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI();
+			}
+			catch (Exception ex)
+			{
+				Main.NewText($"Error in {nameof(CanUseItem)}: \n{ex}", new Color(255, 0, 255));
+				return false;
+			}
+		}
+		public override bool ConsumeItem(Player player) => false;
+		#endregion
 	}
 }

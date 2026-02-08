@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -27,21 +28,30 @@ public partial class MagicChoiceUIState : UIState
 		if (ProductSpotLight.CurrentType is not MagicTypes.None)
 		{
 			Player player = Main.LocalPlayer;
+			int acrIndex = player.FindItem(ModContent.ItemType<StarterAcrimony>()), imbuIndex = player.FindItem(TheGuyThatFellOff.Type);
+			if (acrIndex < 0) acrIndex = player.FindItem(ModContent.ItemType<Acrimony>());
 
-			int index = player.FindItem(ModContent.ItemType<Acrimony>());
+			//Main.NewText($"Player still has imbueable {player.HasItem(TheGuyThatFellOff.Type)} [i:{TheGuyThatFellOff.Type}], \n" +
+			//	$"Index: {imbuIndex}, Acrindex: {acrIndex}");
 
-			if (index >= 0)
+			if (acrIndex >= 0 && imbuIndex >= 0)
 			{
+				player.inventory[acrIndex].TurnToAir();
+				player.inventory[imbuIndex].TurnToAir();
 				if (player.GetItem(player.whoAmI, MagicTypeToItem(ProductSpotLight.CurrentType), GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
 					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
-				player.inventory[index].TurnToAir();
 				SoundEngine.PlaySound(SoundID.Unlock, player.position);
 				YoungMan_KillYourself();
 			}
-			else
+			else if (acrIndex <= 0)
 			{
 				SoundEngine.PlaySound(SoundID.Tink, player.position);
 				Main.NewText($"Did you drop the acrimony? Pick it up before choosing an option");
+			}
+			else if (imbuIndex <= 0)
+			{
+				SoundEngine.PlaySound(SoundID.Tink, player.position);
+				Main.NewText($"Have you already managed to lose your [i:{TheGuyThatFellOff.Type}]{TheGuyThatFellOff.Item.Name}, I'm actually impressed! At your incompetence");
 			}
 		}
 		else
@@ -59,6 +69,7 @@ public partial class MagicChoiceUIState : UIState
 
 			ProductSpotLight.ChangeType(p.CurrentType);
 			var item = MagicTypeToItem(p.CurrentType).Clone();
+			bool error = false;
 
 			SpotTitle.SetText(item.Name, 1, true);
 			if (item.ModItem is AOMagic magic)
@@ -99,8 +110,11 @@ public partial class MagicChoiceUIState : UIState
 			}
 			else
 			{
+				error = true;
 				SpotStats.SetText($"Error with {item.Name}");
 			}
+
+			HeFellOff.SetText(Language.GetTextValue($"{LocalizationPath}BetrayalAmogstUs", TheGuyThatFellOff.Item.Name, SpotTitle.Text));
 
 			changed = true;
 			break;

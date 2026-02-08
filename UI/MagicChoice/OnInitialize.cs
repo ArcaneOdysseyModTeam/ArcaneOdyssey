@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
@@ -14,6 +15,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -24,7 +26,8 @@ namespace ArcaneOdyssey.UI.MagicChoice;
 /// </summary>
 public partial class MagicChoiceUIState : UIState
 {
-	protected readonly string TexturePath = $"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/";
+	protected readonly string TexturePath = $"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/",
+		LocalizationPath = $"Mods.ArcaneOdyssey.UI.BaseMagicChange.";
 
 	public enum MagicTypes
 	{
@@ -76,7 +79,6 @@ public partial class MagicChoiceUIState : UIState
 		Wind,
 		Wood,
 	}
-
 
 	public static int? MagicTypeToID(MagicTypes type) => type switch
 	{
@@ -138,13 +140,13 @@ public partial class MagicChoiceUIState : UIState
 	/// <summary>
 	/// The, uh, main, panel where everything will go towards to
 	/// </summary>
-	public UIPanel main = new();
+	protected UIPanel main = new();
 
 	// Spoky (2026 January 25): Wanted to use TexturePath but it is not static therefore no can do, and given close button won't change texture (atleast not for now)
-	public UIImageButton CloseButton = new(ButtonTextures.Neutral), ChooseButton = new(ButtonTextures.Neutral);
+	protected UIImageButton CloseButton = new(ButtonTextures.Neutral), ChooseButton = new(ButtonTextures.Neutral);
 	protected UIText CloseText = new("Close", 1, true), ChooseText = new("Choose", 1, true);
 
-	public static class ButtonTextures 
+	protected static class ButtonTextures 
 	{
 		public static readonly Asset<Texture2D> Neutral = ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/Button/Neutral"),
 			Good = ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/MagicChoice/Textures/Button/Good");
@@ -172,17 +174,32 @@ public partial class MagicChoiceUIState : UIState
 	/// </summary>
 	protected UIText SpotTitle = new("", 1, true), SpotStats = new("");
 
+	/// <summary>
+	/// The <see cref="UIText"/> that will state which imbuable is being swapped
+	/// </summary>
+	protected UIText HeFellOff = new("");
+	public ModItem TheGuyThatFellOff;
 	#endregion
 
 	/// <summary>
 	/// Used to easily modify the grid for <see cref="TheShop"/>
 	/// </summary>
-	public const int ProductsPerRow = 11, HowManyAreWeDoing = 2 * ProductsPerRow, TotalRows = (HowManyAreWeDoing / ProductsPerRow) + (HowManyAreWeDoing % ProductsPerRow > 0 ? +1 : 0);
+	protected const int ProductsPerRow = 11, HowManyAreWeDoing = 2 * ProductsPerRow, TotalRows = (HowManyAreWeDoing / ProductsPerRow) + (HowManyAreWeDoing % ProductsPerRow > 0 ? +1 : 0);
 	public const int separation = 4;
 	#region Initialize thingies to make ui panels ready for cheeseburger production
+	public override void OnActivate()
+	{
+		HeFellOff.SetText(Language.GetTextValue($"{LocalizationPath}AnnouncingHeWhoFellOff", TheGuyThatFellOff.Item.Name));
+
+		HeFellOff.HAlign = 0.5f;
+
+		HeFellOff.Top.Set(-(separation * 10), 0f);
+
+		main.Append(HeFellOff);
+	}
 	public override void OnInitialize()
 	{
-		#region Main Panel
+		#region Main Panel that contains the products
 		main.SetPadding(0);
 		main.BackgroundColor = new(73, 94, 171);
 
@@ -191,11 +208,11 @@ public partial class MagicChoiceUIState : UIState
 
 		main.HAlign = 0.5f; main.VAlign = 0.2f;
 
+		Append(main);
+
 		//main.Left.Set(((64 + separation) * ProductsPerRow + separation) / -4, 0f);
 		//Main.NewText($"(64 + {separation}) * {TotalRows} = {(64 + separation) * TotalRows} \n" +
 		//	$"first: {HowManyAreWeDoing / ProductsPerRow}, second: {(HowManyAreWeDoing % ProductsPerRow > 0 ? +1 : 0)} ({HowManyAreWeDoing % ProductsPerRow})");
-
-		Append(main);
 		#endregion
 
 		#region Close Button
