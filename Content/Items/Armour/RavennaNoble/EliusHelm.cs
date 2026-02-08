@@ -12,8 +12,14 @@ namespace ArcaneOdyssey.Content.Items.Armour.RavennaNoble
 			base.SetStaticDefaults();
 			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
 			ArmorIDs.Head.Sets.DrawFullHair[equipSlotHead] = true;
-
 		}
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = 16;
+			Item.height = 8;
+		}
+
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Rare;
 		public override int AOValue => 80;

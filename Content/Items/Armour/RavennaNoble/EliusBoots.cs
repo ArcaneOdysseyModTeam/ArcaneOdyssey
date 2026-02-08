@@ -19,6 +19,11 @@ namespace ArcaneOdyssey.Content.Items.Armour.RavennaNoble
 
 		public override SetBonusHelper? Set => new(this, Color.MediumPurple, "EliusHelm", "EliusChest");
 
-
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = 26;
+			Item.height = 16;
+		}
 	}
 }

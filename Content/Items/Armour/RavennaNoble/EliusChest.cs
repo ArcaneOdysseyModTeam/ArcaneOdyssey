@@ -17,6 +17,13 @@ namespace ArcaneOdyssey.Content.Items.Armour.RavennaNoble
 			}
 		}
 
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = 38;
+			Item.height = 34;
+		}
+
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
 
 		public override AORarities AORarity => AORarities.Rare;
