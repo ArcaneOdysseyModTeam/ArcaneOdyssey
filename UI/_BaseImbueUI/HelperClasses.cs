@@ -1,4 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.UI.MagicChangeOLD;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -8,21 +14,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace ArcaneOdyssey.UI.MagicChoice;
+namespace ArcaneOdyssey.UI._BaseImbueUI;
 
-public partial class MagicChoiceUIState : UIState
+public abstract partial class BaseImbueUI : UIState
 {
 	/// <summary>
 	/// A <see cref="Product"/> is a bunch of ui stuff to represent an option for the player to select, kind of like a product, hmm.
 	/// </summary>
 	protected class Product
 	{
-		protected MagicChoiceUIState MainUI;
+		protected BaseImbueUI MainUI;
 
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType;
@@ -30,7 +38,7 @@ public partial class MagicChoiceUIState : UIState
 		public UIImage BackGround;
 		public UIImage Icon;
 
-		public Product(MagicChoiceUIState mainUI, MagicTypes type)
+		public Product(BaseImbueUI mainUI, MagicTypes type)
 		{
 			MainUI = mainUI;
 			TexturePath = $"{mainUI.TexturePath}Product/";
@@ -80,7 +88,7 @@ public partial class MagicChoiceUIState : UIState
 
 	protected class DisplayProduct
 	{
-		public MagicChoiceUIState MainUI;
+		public BaseImbueUI MainUI;
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType { protected set; get; }
 
@@ -88,7 +96,7 @@ public partial class MagicChoiceUIState : UIState
 
 		protected void SetIconSizes()
 		{
-			
+
 			Icon.Width.Set(128, 0f);
 			Icon.Height.Set(128, 0f);
 
@@ -104,7 +112,7 @@ public partial class MagicChoiceUIState : UIState
 			Icon.IgnoresMouseInteraction = true;
 		}
 
-		public DisplayProduct(MagicChoiceUIState mainUI, MagicTypes type)
+		public DisplayProduct(BaseImbueUI mainUI, MagicTypes type)
 		{
 			TexturePath = $"{mainUI.TexturePath}Product/";
 			MainUI = mainUI;
@@ -136,5 +144,4 @@ public partial class MagicChoiceUIState : UIState
 			SetIconSizes();
 		}
 	}
-
 }

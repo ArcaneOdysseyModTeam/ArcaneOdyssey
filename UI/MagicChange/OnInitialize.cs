@@ -19,7 +19,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace ArcaneOdyssey.UI.MagicChoice;
+namespace ArcaneOdyssey.UI.MagicChangeOLD;
 
 /// <summary>
 /// The <see cref="UIState"/> that will appear when the player uses the item <see cref="Acrimony"/>. Made so the player can choose what magic or instead, return to monke (fighting style); however, if you are reading this in 2693 when there are more than 6 spirit weapons, the player can choose to opt for the eagle patrimony to entail their spirit focused journey

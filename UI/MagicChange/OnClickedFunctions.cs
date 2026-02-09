@@ -14,7 +14,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace ArcaneOdyssey.UI.MagicChoice;
+namespace ArcaneOdyssey.UI.MagicChangeOLD;
 
 public partial class MagicChoiceUIState : UIState
 {
@@ -69,7 +69,6 @@ public partial class MagicChoiceUIState : UIState
 
 			ProductSpotLight.ChangeType(p.CurrentType);
 			var item = MagicTypeToItem(p.CurrentType).Clone();
-			bool error = false;
 
 			SpotTitle.SetText(item.Name, 1, true);
 			if (item.ModItem is AOMagic magic)
@@ -110,7 +109,6 @@ public partial class MagicChoiceUIState : UIState
 			}
 			else
 			{
-				error = true;
 				SpotStats.SetText($"Error with {item.Name}");
 			}
 

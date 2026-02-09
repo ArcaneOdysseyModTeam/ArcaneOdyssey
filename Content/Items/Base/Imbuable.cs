@@ -5,7 +5,7 @@ using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using ArcaneOdyssey.UI.MagicChoice;
+using ArcaneOdyssey.UI.MagicChangeOLD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -354,7 +354,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				Player player = Main.LocalPlayer;
 
-				//																			Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
+				//														Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
 				if (!(this is EaglePatrimony || ((this is AOMagic or FightingStyle) /*&& ImbuableTier is AOImbuableTier.Normal*/)))
 				{
 					//Main.NewText($"Item is not swappable");

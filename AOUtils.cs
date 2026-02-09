@@ -1028,6 +1028,34 @@ namespace ArcaneOdyssey
 			};
 		}
 		#endregion
+		#region Enum Methods
+		public static T ParseEnum<T>(string value)
+		{
+			return (T)Enum.Parse(typeof(T), value, true);
+		}
+
+		/// <summary>
+		/// Gets a <see cref="List{T}"/> containing all posible values from an <see cref="Enum"/>
+		/// </summary>
+		/// <typeparam name="T">The <see cref="Enum"/> to get a list from</typeparam>
+		/// <returns></returns>
+		public static List<T> GetEnumValues<T>() where T : Enum
+		{
+			List<T> list = [];
+			foreach (object o in Enum.GetValues(typeof(T))) list.Add(ParseEnum<T>(o.ToString()));
+			return list;
+		}
+		/// <summary> 
+		/// <inheritdoc cref="GetEnumValues{T}()"/> minus all <typeparamref name="T"/> in <paramref name="exceptions"/>
+		/// </summary>
+		public static List<T> GetEnumValues<T>(List<T> exceptions) where T : Enum
+		{
+			List<T> list = [];
+			foreach (object o in Enum.GetValues(typeof(T))) list.Add(ParseEnum<T>(o.ToString()));
+			foreach (var e in exceptions) list.Remove(e);
+			return list;
+		}
+		#endregion
 
 		#region Random Math Functions
 		public static int GetAOBuffStack(NPC npc, int index)

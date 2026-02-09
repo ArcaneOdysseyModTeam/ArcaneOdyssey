@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.UI.MagicChoice;
+using ArcaneOdyssey.UI.MagicChangeOLD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace ArcaneOdyssey.UI.MagicChoice;
+namespace ArcaneOdyssey.UI.MagicChangeOLD;
 
 public partial class MagicChoiceUIState : UIState
 {
