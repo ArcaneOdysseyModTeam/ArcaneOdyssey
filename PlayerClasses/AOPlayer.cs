@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Centurion;
-using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
+﻿using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
@@ -8,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.PlayerClasses

@@ -83,9 +83,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					var targetnpc = Main.npc[target];
 					if (ArcaneOdysseyConfig.Instance.PredictiveArray)
 					{
-						bool canhit = Collision.CanHit(Projectile.position, Projectile.width, Projectile.height, targetnpc.position, targetnpc.width, targetnpc.height);
-						float idkwahtimedoijngbutitsworking = canhit ? 40f : 20f;
-						Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + targetnpc.velocity * idkwahtimedoijngbutitsworking).ToRotation();
+						Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * 40f)).ToRotation();
 					}
 					else
 					{

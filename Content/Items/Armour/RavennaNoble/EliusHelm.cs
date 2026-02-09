@@ -24,9 +24,6 @@ namespace ArcaneOdyssey.Content.Items.Armour.RavennaNoble
 		public override AORarities AORarity => AORarities.Rare;
 		public override int AOValue => 80;
 
-
-		public override int AODefense => 45;
-
 		public override int AOAgility => 9;
 		public override int AOPower => 7;
 	}

@@ -1390,7 +1390,7 @@ namespace ArcaneOdyssey
 	/// Helper struct for set bonuses
 	/// </summary>
 	/// <param name="moditem">This moditem</param>
-	/// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
+	/// <param name="otherItems">The internal names of the other two items in this set, head then boots</param>
 	/// <param name="colour">The colour of this set</param>
 	public struct SetBonusHelper(ModItem moditem, Color colour, params string[] otherItems)
 	{
@@ -1408,7 +1408,7 @@ namespace ArcaneOdyssey
 		public readonly string Tooptip => $"[c/{Colour.Hex3()}:{LocalizedName.Value}] - {LocalizedDescription.Value}";
 	}
 
-	public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce, int haste)
+	public struct ImbueArmourStats(int size = 0, int attkspeed = 0, int power = 0, int defence = 0, int agility = 0, int pierce = 0, int haste = 0)
 	{
 		public int Size = size;
 		public int Attkspeed = attkspeed;
@@ -1435,6 +1435,7 @@ namespace ArcaneOdyssey
 			return this;
 		}
 	}
+
 	public enum ItemType
 	{
 		Block,
@@ -1452,7 +1453,6 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Arcane Odyssey rarities, converted to RarityID
 	/// </summary>
-
 	public enum AORarities
 	{
 		Unknown = ItemRarityID.Gray,

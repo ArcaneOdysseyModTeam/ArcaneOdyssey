@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,10 +17,34 @@ namespace ArcaneOdyssey.Content.Items.Armour.Sunken
 		public override AORarities AORarity => AORarities.Rare;
 
 		public override int AOValue => 1350;
+		public override SetBonusHelper? Set => new(this, Color.Aqua, "SunkenHelm", "SunkenBoots");
+
+		public override void ArmorSetEffects(Player player)
+		{
+			player.GetModPlayer<SunkenPlayer>().sunkenSetBonus = true;
+		}
 
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<SunkenScrap>(5).AddTile(TileID.MythrilAnvil).Register();
+		}
+	}
+
+	public class SunkenPlayer : ModPlayer
+	{
+		public bool sunkenSetBonus = false;
+
+		public override void ResetEffects()
+		{
+			sunkenSetBonus = false;
+		}
+
+		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+		{
+			if (sunkenSetBonus)
+			{
+				npc.AddBuff(BuffID.Wet, 60 * 10);
+			}
 		}
 	}
 }

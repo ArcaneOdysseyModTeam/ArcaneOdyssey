@@ -60,7 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 
 		/// <summary>
-		/// Should only be set on boots
+		/// Should only be set on chest
 		/// </summary>
 		public virtual SetBonusHelper? Set => null;
 
@@ -130,9 +130,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			if (head.ModItem is not null && body.ModItem is not null && Set.HasValue)
+			if (Set.HasValue && head.ModItem is not null && head.ModItem.Mod.Name == Mod.Name && legs.ModItem is not null && legs.ModItem.Mod.Name == Mod.Name)
 			{
-				return head.ModItem.Name == Set.Value.OtherItems[0] && body.ModItem.Name == Set.Value.OtherItems[1];
+				return head.ModItem.Name == Set.Value.OtherItems[0] && legs.ModItem.Name == Set.Value.OtherItems[1];
 			}
 			return false;
 		}
@@ -188,7 +188,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence.FromAODefense();
 				}
 			}
-			player.moveSpeed += GetArmourAgilityStat() / 100f;
+			player.moveSpeed += GetArmourAgilityStat() / 75f;
 			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 50f;
 			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
 			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();

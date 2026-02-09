@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,13 +25,19 @@ namespace ArcaneOdyssey.Content.Items.Armour.RavennaNoble
 			Item.height = 34;
 		}
 
+		public override SetBonusHelper? Set => new(this, Color.MediumPurple, "EliusHelm", "EliusBoots");
+
+		public override void ArmorSetEffects(Player player)
+		{
+			player.moveSpeed += .25f;
+			player.jumpSpeedBoost += 2.5f;
+		}
+
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
 
 		public override AORarities AORarity => AORarities.Rare;
 
 		public override int AOPower => 10;
-
-		public override int AODefense => 90;
 
 		public override int AOAgility => 12;
 

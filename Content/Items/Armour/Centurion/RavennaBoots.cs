@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,54 +34,9 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 		public override AORarities AORarity => AORarities.Common;
 		public override int AOValue => 30;
 
-		public override SetBonusHelper? Set => new(this, Color.Orange, "RavennaHelm", "RavennaChest");
-
-		public override void ArmorSetEffects(Player player)
-		{
-			player.GetModPlayer<CenturionPlayer>().bronzeSetBonus = true;
-		}
-
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BronzeBar>(15).AddTile(TileID.Anvils).Register();
-		}
-	}
-
-	public class CenturionPlayer : ModPlayer
-	{
-		public bool bronzeSetBonus = false;
-		public bool bracing = false;
-
-		public override void ResetEffects()
-		{
-			if (!bronzeSetBonus)
-				bracing = false;
-			bronzeSetBonus = false;
-		}
-
-		public override void ArmorSetBonusActivated()
-		{
-			if (bronzeSetBonus)
-			{
-				bracing = !bracing;
-			}
-		}
-
-		public override void PostUpdateRunSpeeds()
-		{
-			if (bracing)
-			{
-				Player.moveSpeed -= .5f;
-				Player.statDefense *= 1.25f;
-			}
-		}
-
-		public override void FrameEffects()
-		{
-			if (bracing)
-			{
-				Player.shield = EquipLoader.GetEquipSlot(Mod, typeof(RavennaBoots).Name, EquipType.Shield);
-			}
 		}
 	}
 }
