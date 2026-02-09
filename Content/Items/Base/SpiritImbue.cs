@@ -6,13 +6,14 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public class RelicImbue : Imbuable, ILocalizedModType
+	[LegacyName("RelicImbue")]
+	public class SpiritImbue : Imbuable, ILocalizedModType
 	{
 		public override string Texture
 		{
 			get
 			{
-				if (Name == nameof(RelicImbue))
+				if (Name == nameof(SpiritImbue))
 					return Mod.Name + "/Assets/SpiritEnergy";
 				return base.Texture;
 			}

@@ -197,7 +197,7 @@ namespace ArcaneOdyssey
 			{
 				if (item is not null)
 				{
-					if (item.ModItem is RelicImbue)
+					if (item.ModItem is SpiritImbue)
 					{
 						if (imbue is AOMagic)
 						{
@@ -207,7 +207,7 @@ namespace ArcaneOdyssey
 
 					if (damageClass == DamageClass.Magic && imbue is AOMagic && item.TryGetSecondImbue(imbue, out var second))
 					{
-						if (second is RelicImbue)
+						if (second is SpiritImbue)
 						{
 							return PaladinDamage.Instance;
 						}
@@ -222,7 +222,7 @@ namespace ArcaneOdyssey
 								return WarlockDamage.Instance;
 							}
 
-							if (second1 is RelicImbue)
+							if (second1 is SpiritImbue)
 							{
 								return JuggernautDamage.Instance;
 							}
@@ -242,11 +242,11 @@ namespace ArcaneOdyssey
 				{
 					return ConjurerNoSpeedDamage.Instance;
 				}
-				if (damageClass == DamageClass.Melee && imbue is RelicImbue)
+				if (damageClass == DamageClass.Melee && imbue is SpiritImbue)
 				{
 					return KnightDamage.Instance;
 				}
-				if (damageClass == DamageClass.MeleeNoSpeed && imbue is RelicImbue)
+				if (damageClass == DamageClass.MeleeNoSpeed && imbue is SpiritImbue)
 				{
 					return KnightNoSpeedDamage.Instance;
 				}
@@ -263,7 +263,7 @@ namespace ArcaneOdyssey
 				{
 					return RangedConjurerDamage.Instance;
 				}
-				if (damageClass == DamageClass.Ranged && imbue is RelicImbue)
+				if (damageClass == DamageClass.Ranged && imbue is SpiritImbue)
 				{
 					return RangedKnightDamage.Instance;
 				}
@@ -300,7 +300,7 @@ namespace ArcaneOdyssey
 			{
 				if (item is not null)
 				{
-					if (item.ModItem is RelicImbue)
+					if (item.ModItem is SpiritImbue)
 					{
 						return OracleDamage.Instance;
 					}
@@ -598,7 +598,7 @@ namespace ArcaneOdyssey
 					{
 						if (source.TryGetOwner(out AOPlayer player2))
 						{
-							if (source is Item item && item.ModItem is RelicImbue)
+							if (source is Item item && item.ModItem is SpiritImbue)
 							{
 								player2.TrySpiritLifesteal(item.OriginalDamage, false);
 							}
@@ -611,7 +611,7 @@ namespace ArcaneOdyssey
 								else
 								{
 									var proj = projectile.ArcaneOdyssey();
-									if (proj.Imbue is RelicImbue || proj.SecondImbue is RelicImbue)
+									if (proj.Imbue is SpiritImbue || proj.SecondImbue is SpiritImbue)
 									{
 										player2.TrySpiritLifesteal(projectile.originalDamage);
 									}
@@ -704,13 +704,13 @@ namespace ArcaneOdyssey
 					{
 						return true;
 					}
-					if (scroll.CanHaveRelic && imbue is RelicImbue)
+					if (scroll.CanHaveRelic && imbue is SpiritImbue)
 					{
 						return true;
 					}
 					return false;
 				}
-				if (item.ModItem is RelicImbue)
+				if (item.ModItem is SpiritImbue)
 				{
 					return imbue is AOMagic;
 				}
@@ -720,9 +720,9 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is AOMagic)
 				{
-					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is RelicImbue or FightingStyle);
+					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is SpiritImbue or FightingStyle);
 				}
-				if (imbue is RelicImbue)
+				if (imbue is SpiritImbue)
 				{
 					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || item.ModItem is AOMagic or FightingStyle);
 				}
@@ -897,7 +897,7 @@ namespace ArcaneOdyssey
 				return;
 			if (player is not null)
 			{
-				if (imbue is RelicImbue)
+				if (imbue is SpiritImbue)
 					player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;

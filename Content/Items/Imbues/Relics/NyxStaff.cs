@@ -10,7 +10,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class NyxStaff : RelicImbue
+	public class NyxStaff : SpiritImbue
 	{
 		public override int AOValue => 700;
 		public override SoundStyle? ImbueSound => SoundID.Item8;

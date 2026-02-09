@@ -662,7 +662,7 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (!CanBeAffected)
 				return;
-			if (Imbue is RelicImbue)
+			if (Imbue is SpiritImbue)
 			{
 				player.ArcaneOdyssey()?.TrySpiritLifesteal(item.OriginalDamage);
 			}

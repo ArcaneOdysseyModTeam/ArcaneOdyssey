@@ -373,7 +373,7 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
-			if (Imbue is RelicImbue && projectile.TryGetOwner(out var owner))
+			if (Imbue is SpiritImbue && projectile.TryGetOwner(out var owner))
 			{
 				owner.ArcaneOdyssey()?.TrySpiritLifesteal(projectile.originalDamage, projectile.ModProjectile is not SpiritProjectile);
 			}

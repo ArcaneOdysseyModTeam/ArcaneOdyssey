@@ -340,7 +340,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					return "FS"; 
 				}
 
-				if (this is RelicImbue) 
+				if (this is SpiritImbue) 
 				{ 
 					return "Relic"; 
 				}
@@ -351,14 +351,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (Name == nameof(RelicImbue))
+			if (Name == nameof(SpiritImbue))
 				return;
-			if (this is RelicImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
+			if (this is SpiritImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
 			{
 				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
-				if (this is not RelicImbue)
+				if (this is not SpiritImbue)
 					tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else

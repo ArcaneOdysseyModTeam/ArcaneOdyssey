@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class EaglePatrimony : RelicImbue
+	public class EaglePatrimony : SpiritImbue
 	{
 		public override Color ImbueColour => new(0, 183, 255);
 		public override AORarities AORarity => AORarities.Special;

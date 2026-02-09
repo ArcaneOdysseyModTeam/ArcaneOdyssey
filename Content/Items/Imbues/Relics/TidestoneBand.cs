@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class TidestoneBand : RelicImbue
+	public class TidestoneBand : SpiritImbue
 	{
 		public override int AOValue => 500;
 		public override SoundStyle? ImbueSound => SoundID.Splash;

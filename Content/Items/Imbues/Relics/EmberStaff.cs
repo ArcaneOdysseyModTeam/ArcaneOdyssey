@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class EmberStaff : RelicImbue
+	public class EmberStaff : SpiritImbue
 	{
 		public override int AOValue => 700;
 		public override bool? Cold => false;
