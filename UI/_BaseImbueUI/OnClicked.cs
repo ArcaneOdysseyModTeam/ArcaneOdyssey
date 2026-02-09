@@ -67,17 +67,11 @@ public abstract partial class BaseImbueUI : UIState
 					$"Damage: {magic.AOScrollDamage} \n" +
 					$"{prefix} {text}");
 			}
-			else if (item.ModItem is FightingStyle fight)
+			else if (item.ModItem is Imbuable other)
 			{
-				SpotStats.SetText($"Size: {fight.AOScrollSize} \n" +
-					$"Speed: {fight.AOScrollSize} \n" +
-					$"Damage: {fight.AOScrollDamage} ");
-			}
-			else if (item.ModItem is SpiritImbue relic)
-			{
-				SpotStats.SetText($"Size: {relic.AOScrollSize} \n" +
-					$"Speed: {relic.AOScrollSize} \n" +
-					$"Damage: {relic.AOScrollDamage} ");
+				SpotStats.SetText($"Size: {other.AOScrollSize} \n" +
+					$"Speed: {other.AOScrollSpeed} \n" +
+					$"Damage: {other.AOScrollDamage} ");
 			}
 			else
 			{
