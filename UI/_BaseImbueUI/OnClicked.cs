@@ -73,7 +73,7 @@ public abstract partial class BaseImbueUI : UIState
 					$"Speed: {fight.AOScrollSize} \n" +
 					$"Damage: {fight.AOScrollDamage} ");
 			}
-			else if (item.ModItem is RelicImbue relic)
+			else if (item.ModItem is SpiritImbue relic)
 			{
 				SpotStats.SetText($"Size: {relic.AOScrollSize} \n" +
 					$"Speed: {relic.AOScrollSize} \n" +
