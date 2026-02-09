@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return false;
 		}
 
-		public override bool AltFunctionUse(Player player) => player.CheckMana((25 * AOScrollSpeed.FlipFloat()).Round(), true);
+		public override bool AltFunctionUse(Player player) => player.CheckMana((25 * AOScrollSpeed).Round(), true);
 		public override bool CanShoot(Player player) => player.AltUse();
 
 		public void CreateAncientRecipe(params Type[] imbues)
@@ -149,6 +149,20 @@ namespace ArcaneOdyssey.Content.Items.Base
 					return circleprojectile;
 				}
 				else if (item.ModItem is LeapScroll)
+				{
+					var proj = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
+					proj.rotation = MathHelper.PiOver2;
+					((MagicCircle1)proj.ModProjectile).MarkedForDeath = true;
+					return proj;
+				}
+				else if (item.ModItem is ArrayScroll)
+				{
+					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter - (Vector2.UnitY * 30), Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), damage, item.knockBack, player.whoAmI);
+					circleprojectile.rotation = MathHelper.PiOver2;
+					((MagicCircle1)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Array");
+					return circleprojectile;
+				}
+				else if (item.ModItem is AnnihilationScroll)
 				{
 					var proj = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Bottom, Vector2.Zero, ModContent.ProjectileType<MagicCircle1>(), 0, 0, player.whoAmI);
 					proj.rotation = MathHelper.PiOver2;

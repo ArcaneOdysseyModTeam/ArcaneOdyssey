@@ -11,11 +11,6 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 	{
 		private int stack = 1;
 
-		public override void SetStaticDefaults()
-		{
-			ArcaneOdysseyMod.alternateBuffs[Type] = BuffID.Midas;
-		}
-
 		public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
 		{
 			tip = Mod.CustomLocalization(LocalizationCategory.Replace($"Mods.{Mod.Name}.") + ".Description", [stack]).Value;

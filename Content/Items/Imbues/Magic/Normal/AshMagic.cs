@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class AshMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(235, 40, 0, 0);

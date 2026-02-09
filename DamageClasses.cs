@@ -1,4 +1,5 @@
-﻿using Terraria.Localization;
+﻿using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
@@ -34,26 +35,22 @@ namespace ArcaneOdyssey
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{
-			return damageClass == Magic;
+			return damageClass == Summon;
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{
 			if (damageClass == Summon)
 			{
-				return MostInheritance;
-			}
-			if (damageClass == Magic)
-			{
-				return QuarterInheritance;
+				return StatInheritanceData.Full;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
 
-		public override bool GetPrefixInheritance(DamageClass damageClass)
-		{
-			return damageClass == Magic;
-		}
+		public override bool UseStandardCritCalcs => false;
+
+		public override bool ShowStatTooltipLine(Player player, string lineName) => lineName != "CritChance" && lineName != "Speed";
+		public override bool GetPrefixInheritance(DamageClass damageClass) => damageClass == Magic;
 	}
 
 	/// <summary>

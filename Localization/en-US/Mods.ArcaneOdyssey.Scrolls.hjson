@@ -25,7 +25,7 @@ BlastScroll: {
 
 CannonScroll: {
 	DisplayName: Cannon Spell
-	Tooltip: Channels your magic into a large basic projectile
+	Tooltip: Channels your magic into a large blast that pierces
 }
 
 ExplosionScroll: {
@@ -35,7 +35,7 @@ ExplosionScroll: {
 
 PulsarScroll: {
 	DisplayName: Pulsar Spell
-	Tooltip: Channels your magic into an unstable projectile
+	Tooltip: Channels your magic into a blast that explodes multiple times midair
 }
 
 CrashScroll: {
@@ -56,4 +56,19 @@ SmashScroll: {
 ReflexScroll: {
 	DisplayName: Reflex Scroll
 	Tooltip: Channels your imbue to dash, some imbues have special effects
+}
+
+HoundRite: {
+	DisplayName: Hound Rite
+	Tooltip: Channels your spirit energy into a hound-shaped blast that pierces once
+}
+
+ArrayScroll: {
+	DisplayName: Array Spell
+	Tooltip: Channels your magic into a blast that aims towards your target
+}
+
+AnnihilationScroll: {
+	DisplayName: Annihilation Spell
+	Tooltip: Channels your magic into a sphere of unstable energy that explodes multiple times on contact with terrain
 }

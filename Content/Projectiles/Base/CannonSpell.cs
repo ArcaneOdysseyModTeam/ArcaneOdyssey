@@ -6,12 +6,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class CannonSpell : MagicSpell, ILocalizedModType
 	{
-		public override string Texture => GetType().Texture().Replace("Cannon", "Blast");
+		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Cannon", "Blast");
 		public override string LocalizationCategory => base.LocalizationCategory + ".Cannons." + Tier;
 		public int TileTimer = 0;
 
 		public override float AOSize => 2f;
-		public override float AOSpeed => .33f;
+		public override float AOSpeed => .5f;
 
 		public override void SetDefaults()
 		{
@@ -54,6 +54,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public virtual void Rotate()
 		{
+			Projectile.spriteDirection = Projectile.direction;
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 

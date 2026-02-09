@@ -1,7 +1,6 @@
-﻿using ArcaneOdyssey.Content.Buffs.DOT;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Buffs.Stuns;
+﻿using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
@@ -12,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class EaglePatrimony : RelicImbue
+	public class EaglePatrimony : SpiritImbue
 	{
 		public override Color ImbueColour => new(0, 183, 255);
 		public override AORarities AORarity => AORarities.Special;
@@ -22,29 +21,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
 
-		public override WeaponAbility? Ability => new(Mod, "Astrapikis", "Release a slash of spirit energy", ImbueColour);
+		public override WeaponAbility? Ability => new(this, ImbueColour);
 
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				//ModContent.BuffType<AOPetrified>(), // petrified
-				//ModContent.BuffType<CharredEffect>(),
-				//ModContent.BuffType<SandyEffect>(),
-				//ModContent.BuffType<AOBleed>(),
-				//ModContent.BuffType<AOFrozen>()
-			],
-			[
-				new(BuffID.Chilled, 1.2f), // frozen
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(BuffID.Burning, 1.15f), // scalding
-				new(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new(BuffID.Venom, 1.075f), // venom acid
-				new(BuffID.Wet, 1.05f), // 
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Oiled,0.96f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
-			]
-			);
+		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightningMagic>();
 
 		public override void SetDefaults()
 		{
@@ -55,9 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.damage = 20;
 			Item.knockBack = 3.75f;
 		}
-		public override float AOScrollDamage => 1f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
@@ -69,11 +45,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			base.KillEffects(area, source);
-			for (float i = 0; i < 50; i++)
+			for (float i = 0; i < 25; i++)
 			{
-				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 60 * area.RelativeScale();
+				var centre = (MathHelper.TwoPi / 25 * i).ToRotationVector2() * 15 * area.RelativeScale();
 				if (i % 2 == 0)
-					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritTentacle>(), centre * area.RelativeScale() / (8 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+					AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritTentacle>(), centre * area.RelativeScale() / (8 + (Main.rand.NextFloat() * 2)), Scale: .75f * area.RelativeScale()).noGravity = true;
 			}
 		}
 

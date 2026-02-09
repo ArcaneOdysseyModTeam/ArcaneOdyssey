@@ -42,3 +42,13 @@ ThakrousiCooldown: {
 	DisplayName: Thakrousi Cooldown
 	Description: Thakrousi is on cooldown
 }
+
+SparrowThrustCooldown: {
+	DisplayName: Sparrow Thrust Cooldown
+	Description: Sparrow Thrust is on cooldown
+}
+
+RagingImpact: {
+	DisplayName: Raging Impact
+	Description: Raging Impact is on cooldown
+}

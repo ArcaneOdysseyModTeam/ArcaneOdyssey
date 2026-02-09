@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -10,7 +10,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class NyxStaff : RelicImbue
+	public class NyxStaff : SpiritImbue
 	{
 		public override int AOValue => 700;
 		public override SoundStyle? ImbueSound => SoundID.Item8;
@@ -19,16 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 1.1f;
 
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				
-			],
-			[
-				new(BuffID.Confused,1.2f),
-				new(ModContent.BuffType<Crystallized>(),0.7f),
-				new(ModContent.BuffType<BlindedEffect>(),0.7f),
-			]
-			);
+		public override SynergyEffects Effects => CopyDamageSynergiesFromImbue<ShadowMagic>();
 
 		public override void SetStaticDefaults()
 		{
@@ -48,7 +39,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}
 
-		public override WeaponAbility? Ability => new(Mod, "Nichtetheis", "Fire a beam of spirit energy that disorients anyone it hits", ImbueColour);
+		public override WeaponAbility? Ability => new(this, ImbueColour);
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
@@ -62,9 +53,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			base.KillEffects(area, source);
-			for (float i = 0; i < 40; i++)
+			for (float i = 0; i < 30; i++)
 			{
-				var centre = (MathHelper.TwoPi / 40 * i).ToRotationVector2() * 60 * area.RelativeScale();
+				var centre = (MathHelper.TwoPi / 30 * i).ToRotationVector2() * 20 * area.RelativeScale();
 				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: Color.Purple, Scale: area.RelativeScale()).noGravity = true;
 				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), newColor: Color.Purple, Scale: area.RelativeScale()).noGravity = true;
 				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), newColor: Color.Purple, Scale: area.RelativeScale()).noGravity = true;

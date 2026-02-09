@@ -1,5 +1,4 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -15,13 +14,19 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.friendly = true;
 		}
 
+		public override bool PreAI()
+		{
+			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
+			{
+				Kill();
+				return false;
+			}
+			return true;
+		}
+
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Owner.MinionAttackTargetNPC = target.whoAmI;
-			if (Projectile.TryGetOwner(out var owner))
-			{
-				owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Clamp(Projectile.originalDamage / 5, 1, 20), false);
-			}
 		}
 	}
 }

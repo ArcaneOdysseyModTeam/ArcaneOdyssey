@@ -1,10 +1,14 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.Content.Projectiles.Relics;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using ArcaneOdyssey.UI.MagicChangeOLD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -22,15 +26,18 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class Imbuable : AOBaseItem, IImbuable, ILocalizedModType
 	{
+		public virtual WeaponAbility? Ability => null;
+
 		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
-		public virtual string ImbueUISprite => Texture;
+		public string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
 
 		internal Dictionary<string, int> Skills = [];
 
 		public override void SetStaticDefaults()
 		{
+			_ = Ability?.ToolTip;
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			if (this is AOMagic)
 				ItemID.Sets.ItemNoGravity[Type] = true;
@@ -39,6 +46,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 				if (this is AOMagic or BasicCombat)
 				{
 					BasicImbues.Add(Type);
+				}
+			}
+
+			if (this is AOMagic and not (SoundMagic or SlashMagic or VesuviusMagic))
+			{
+				var texture = GetTexture<AnnihilationSpell>().Replace("AnnihilationSpell", $"Annihilations/{ImbuableTier}/{AttackPrefix}Annihilation");
+				if (!ModContent.HasAsset(texture))
+				{
+					ArcaneOdysseyMod.NoticeQueue.Add(DisplayName.Value + " is missing Annihilation sprite.");
 				}
 			}
 		}
@@ -114,6 +130,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					return proj.Type;
 				}
 			}
+			Main.NewText(DisplayName.Value + " is missing " + skill + " skill.", Color.Red);
 			return fallback;
 		}
 
@@ -150,18 +167,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual void BoxEffects(Rectangle area, float rotation = 0f) { }
 
 
+		/// <summary>
+		/// For surge, ray ect
+		/// </summary>
+		/// <param name="origin">Where to shoot out dust from</param>
+		/// <param name="rangemulti">The length of the beam</param>
+		/// <param name="widthmulti">The width of the beam</param>
 		public virtual void BeamEffects(Vector2 origin, float rangemulti = 1f, float widthmulti = 1f) { }
 
-
-		private bool FirstFrame = true;
-
-		public override bool CanUseItem(Player player)
-		{
-			FirstFrame = true;
-			return true;
-		}
-
-		public override bool? UseItem(Player player)
+		public override void UseAnimation(Player player)
 		{
 			if (!player.AltUse() && Main.myPlayer == player.whoAmI)
 			{
@@ -173,13 +187,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (player.Imbue() is not null)
 					name = player.Imbue().Name;
-				if (FirstFrame && Name != name && this is AOMagic && player == Main.LocalPlayer)
+				if (Name != name && this is AOMagic && player == Main.LocalPlayer)
 				{
 					AOMagic.CreateMagicCircle(Item, player, this);
 				}
-				if (Name != name && FirstFrame)
+				if (Name != name)
 				{
-					FirstFrame = false;
 					player.ArcaneOdyssey().Imbue = this;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
 					if (Main.netMode == NetmodeID.SinglePlayer)
@@ -191,9 +204,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
 					}
 				}
-				else if (FirstFrame)
+				else
 				{
-					FirstFrame = false;
 					player.ArcaneOdyssey().Imbue = null;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
 					if (Main.netMode == NetmodeID.SinglePlayer)
@@ -206,7 +218,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 					}
 				}
 			}
-			return null;
 		}
 
 		public Color GetColour(Color? colour = null)
@@ -223,30 +234,34 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		/// <param name="entity">The entity to check</param>
 		/// <returns></returns>
-		public virtual bool PreEffects(Entity entity = null)
+		public virtual bool PreEffects(Entity entity)
 		{
-			if (entity is null)
-				return true;
-			if (Main.dedServ || (Math.Abs(entity.velocity.X) < 2 && Math.Abs(entity.velocity.Y) < 2) || entity.velocity == entity.velocity.SafeNormalize(Vector2.Zero))
+			if (Main.dedServ || entity.velocity == entity.velocity.SafeNormalize(Vector2.One))
 			{
 				return false;
 			}
 			if (entity is Projectile projectile)
 			{
+				if (entity.TryGetOwner(out Player player) && player.heldProj == entity.whoAmI)
+				{ 
+					return false;
+				}
 				if (ImbueClassCheck(projectile))
 				{
 					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or BasicCharger or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2 or SparrowThrust or Floganymai);
 					}
 					else if (projectile.ModProjectile is AOPlayerProjectile)
 					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or BasicCharger or MagicCircle2);
+						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2 or SparrowThrust or Floganymai);
 					}
 				}
 			}
 			if (entity is Player)
+			{
 				return true;
+			}
 			return false;
 		}
 
@@ -306,25 +321,45 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
+		public virtual bool Special => false;
+
 		public string ModifyTooltipsPrefix
 		{
 			get
 			{
-				if (this is AOMagic) { return "Magic"; }
-				if (this is FightingStyle) { return "FS"; }
-				if (this is RelicImbue) { return "Relic"; }
-				else { return null; }
+				if (this is AOMagic)
+				{
+					if (Special && ArcaneOdysseyMod.DevMode) // eventually i want to add some way to get lore, like athenas wisdom. if we have the knowledge it will be added here...
+					{
+						return "Special";
+					}
+					return "Magic"; 
+				}
+
+				if (this is FightingStyle) 
+				{
+					return "FS"; 
+				}
+
+				if (this is SpiritImbue) 
+				{ 
+					return "Relic"; 
+				}
+
+				return null;
 			}
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (this is RelicImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
+			if (Name == nameof(SpiritImbue))
+				return;
+			if (this is SpiritImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
 			{
 				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
-				if (this is not RelicImbue)
+				if (this is not SpiritImbue)
 					tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else
@@ -333,6 +368,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
+			}
+
+			if (Ability.HasValue)
+			{
+				tooltips.AddTooltip(Ability.Value.ToolTip);
 			}
 
 			if (ModifyTooltipsPrefix is not null)

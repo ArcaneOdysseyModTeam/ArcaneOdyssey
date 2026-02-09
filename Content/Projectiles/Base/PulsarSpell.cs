@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class PulsarSpell : MagicSpell, ILocalizedModType
 	{
-		public override string Texture => GetType().Texture().Replace("Pulsar", "Blast");
+		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Pulsar", "Blast");
 		public override string LocalizationCategory => base.LocalizationCategory + ".Pulsars." + Tier;
 		public override float AOSize => .5f;
 		public override float AOSpeed => .25f;
@@ -81,6 +81,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public virtual void Rotate()
 		{
+			Projectile.spriteDirection = Projectile.direction;
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 	}

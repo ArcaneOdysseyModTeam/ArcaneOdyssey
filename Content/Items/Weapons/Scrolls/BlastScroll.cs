@@ -24,7 +24,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		{
 			AddRecipe(ItemID.WandofSparking);
 		}
-
-		public override bool CanShoot(Player player) => Imbue is RelicImbue;
 	}
 }

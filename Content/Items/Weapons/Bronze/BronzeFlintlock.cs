@@ -13,11 +13,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 	{
 		public override int AOValue => 60;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override float AODamage => .5f;
-		public override float AOSpeed => base.AOSpeed;
 		public override SoundStyle UseSound => SoundID.Item11;
 
-		public override WeaponAbility? Ability => new(Mod, "Multi Shot", "Shoots a spread of bullets", Color.Orange);
+		public override WeaponAbility? Ability => new(this, Color.Orange);
 
 		public override AORarities AORarity => AORarities.Uncommon;
 

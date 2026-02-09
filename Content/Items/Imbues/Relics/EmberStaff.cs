@@ -1,7 +1,7 @@
-﻿using ArcaneOdyssey.Content.Buffs.DOT;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class EmberStaff : RelicImbue
+	public class EmberStaff : SpiritImbue
 	{
 		public override int AOValue => 700;
 		public override bool? Cold => false;
@@ -22,27 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 1f;
 		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
-		public override SynergyEffects Effects => new([],
-			[
-				new(ModContent.BuffType<AOBleed>(),1.15f),
-				new(ModContent.BuffType<Singed>(), 1.1f),
-				new(ModContent.BuffType<CharredEffect>(),1.01f),
-				new(BuffID.Venom,1.05f),
-				new(ModContent.BuffType<Crystallized>(),0.85f),
-				new(ModContent.BuffType<FreezingEffect>(),0.99f),
-				new(ModContent.BuffType<SnowyEffect>(),0.99f),
-				new(BuffID.Wet,0.99f),
-				new(BuffID.OnFire3,1.05f),
-				new(BuffID.Poisoned,1.05f),
-				new(BuffID.ShadowFlame,1.1f),
-				new(BuffID.Slimed,1.075f),
-				new(BuffID.Oiled,1.075f),
-				new(ModContent.BuffType<SandyEffect>(),0.98f),
-				new(ModContent.BuffType<AOScalding>(),1.1f),
-				new(ModContent.BuffType<SearedEffect>(),1.1f)
-
-			]
-			);
+		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<FireMagic>();
 
 		public override void SetStaticDefaults()
 		{
@@ -66,15 +46,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			position = Main.MouseWorld;
 		}
 
-		public override WeaponAbility? Ability => new(Mod, "Floganymai", "Release a pillar of spirit energy a short distance away from you, exploding several times", ImbueColour);
+		public override WeaponAbility? Ability => new(this, ImbueColour);
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			base.LingeringEffects(area, direction, source);
-			for (float i = 0; i < 5; i++)
-			{
-				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.Lava, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
-			}
+			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.InfernoFork, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, newColor: Color.Red, Scale: area.RelativeScale()).noGravity = true;
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
@@ -82,10 +59,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.KillEffects(area, source);
 			for (float i = 0; i < 50; i++)
 			{
-				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 60 * area.RelativeScale();
-				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
-				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
-				AOUtils.NewDustImperfect(area.Center(), DustID.Lava, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				var centre = (MathHelper.TwoPi / 50 * i).ToRotationVector2() * 20 * area.RelativeScale();
+				AOUtils.NewDustImperfect(area.Center(), DustID.InfernoFork, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: Color.Red, Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.InfernoFork, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), newColor: Color.Red, Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.InfernoFork, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), newColor: Color.Red, Scale: area.RelativeScale()).noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
@@ -95,7 +72,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.SpawningEffects(area, direction);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Lava, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.InfernoFork, direction.X * 0.5f, direction.Y * 0.5f, newColor: Color.Red, Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -105,7 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.ExplosionEffects(position, intensity);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Lava, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.InfernoFork, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), newColor: Color.Red, Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

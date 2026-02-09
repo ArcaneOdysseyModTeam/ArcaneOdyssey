@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class PlasmaMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float DashSpeed => 1.5f; // instant
 		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item91;

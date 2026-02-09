@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class BronzeRapierProjectile : AOPlayerProjectile
 	{
-		public override string Texture => typeof(BronzeRapier).Texture();
+		public override string Texture => GetTexture<BronzeRapier>();
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;
 
@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.netUpdate = true;
 				Projectile.velocity.Normalize();
 			}
-			Projectile.Center = Owner.HandPosition.GetValueOrDefault(Owner.MountedCenter) + (Projectile.velocity * 18);
+			Projectile.Center = Owner.HandPosition.GetValueOrDefault(Owner.RotatedRelativePoint(Owner.MountedCenter)) + (Projectile.velocity * 18);
 			//Projectile.Center = Projectile.Center with { Y = Projectile.Center.Y - 8f };
 			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 			Owner.heldProj = Projectile.whoAmI;
@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 	public class PiercingStrikes(Entity source) : DashSystem(source)
 	{
-		
+	
 		public override int DashMax => 20;
 		public override float DashSpeed => 12;
 		public override bool Immune => true;
@@ -81,6 +81,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 	public class PiercingStrikesCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(BronzeRapier).Texture();
+		public override string ExtraIconTexture => GetTexture<BronzeRapier>();
 	}
 }

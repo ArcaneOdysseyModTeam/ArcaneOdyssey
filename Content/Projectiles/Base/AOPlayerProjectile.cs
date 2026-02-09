@@ -15,31 +15,63 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// </summary>
 	public abstract class AOPlayerProjectile : ModProjectile, IImbuable
 	{
+		public float ApplyScrollSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOScrollSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOScrollSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
+
+		public float ApplyImbueSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOImbueSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOImbueSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
+
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 
-		public AOPlayer AOPlayerOwner
-		{
-			get
-			{
-				return Owner?.ArcaneOdyssey();
-			}
-		}
+		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
+
+		public AOPlayer AOPlayerOwner => Owner?.ArcaneOdyssey();
 
 		public Player Owner
 		{
 			get
 			{
-				if (Projectile.owner != 255)
+				if (Projectile.owner != 255 && Main.player[Projectile.owner]?.active == true)
 				{
 					return Main.player[Projectile.owner];
 				}
 				return null;
 			}
-			//set
-			//{
-			//	Owner = value;
-			//}
 		}
 
 		public float BaseScale
@@ -72,10 +104,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().SecondImbue = value;
 		}
 
-		public bool? BenifitsFromScrollStats
-		{
-			get => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
-		}
+		public bool? BenifitsFromScrollStats => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
 
 		public override void SetDefaults()
 		{
@@ -112,10 +141,28 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
 			{
-				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, SpriteEffects.None);
+				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				return false;
 			}
 			return true;
+		}
+
+		public override void PostDraw(Color lightColor)
+		{
+			if (ModContent.RequestIfExists<Texture2D>(GlowTexture, out var tex))
+			{
+				if (tex.Height() == Sprite.Height)
+				{
+					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				}
+				else
+				{
+					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
+				}
+			}
 		}
 	}
 }

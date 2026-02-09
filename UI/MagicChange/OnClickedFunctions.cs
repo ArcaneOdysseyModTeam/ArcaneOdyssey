@@ -1,14 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -91,21 +84,21 @@ public partial class MagicChoiceUIState : UIState
 				else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
 
 				SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
-					$"Speed: {magic.AOScrollSize} \n" +
+					$"Speed: {magic.AOScrollSpeed} \n" +
 					$"Damage: {magic.AOScrollDamage} \n" +
 					$"{prefix} {text}");
 			}
-			else if (item.ModItem is FightingStyle fight)
+			else if (item.ModItem is FightingStyleBarred fight)
 			{
-				SpotStats.SetText($"Size: {fight.AOScrollSize} \n" +
-					$"Speed: {fight.AOScrollSize} \n" +
-					$"Damage: {fight.AOScrollDamage} ");
+				SpotStats.SetText($"Size: {fight.MinScrollSize} - {fight.MaxScrollSize} \n" +
+					$"Speed: {fight.MinScrollSpeed} - {fight.MaxScrollSpeed} \n" +
+					$"Damage: {fight.MinScrollDamage} - {fight.MaxScrollDamage} ");
 			}
-			else if (item.ModItem is RelicImbue relic)
+			else if (item.ModItem is Imbuable other)
 			{
-				SpotStats.SetText($"Size: {relic.AOScrollSize} \n" +
-					$"Speed: {relic.AOScrollSize} \n" +
-					$"Damage: {relic.AOScrollDamage} ");
+				SpotStats.SetText($"Size: {other.AOScrollSize} \n" +
+					$"Speed: {other.AOScrollSpeed} \n" +
+					$"Damage: {other.AOScrollDamage} ");
 			}
 			else
 			{

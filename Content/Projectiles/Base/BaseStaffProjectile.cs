@@ -7,6 +7,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
+		public override AODebuffRequirement? Debuff => null;
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
@@ -19,6 +21,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.knockBack = 4.5f;
 			Projectile.height = Projectile.width = 120;
 			Projectile.friendly = true;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 20;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
@@ -28,7 +32,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void AI()
 		{
 			Owner.heldProj = Projectile.whoAmI;
-			Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter, true);
+			Projectile.Center = Owner.RotatedRelativePoint(Owner.RotatedRelativePoint(Owner.MountedCenter), true);
 			Projectile.direction = 1;
 
 			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed.FlipFloat() ?? 1f);

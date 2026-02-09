@@ -4,6 +4,8 @@ using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,8 +15,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ArcaneOdyssey.PlayerClasses;
-using ArcaneOdysseyMusic;
 
 namespace ArcaneOdyssey
 {
@@ -71,6 +71,51 @@ namespace ArcaneOdyssey
 			//"PrefixAccMeleeSpeed",
 		];
 
+		public static string GetBuffName(int id)
+		{
+			if (!(id <= 0 || id >= BuffLoader.BuffCount))
+			{
+				if (id < BuffID.Count)
+				{
+					return Lang.GetBuffName(id);
+				}
+				else
+				{
+					var modbuff = ModContent.GetModBuff(id);
+					if (modbuff is not null)
+					{
+						return modbuff.DisplayName.Value;
+					}
+				}
+			}
+			return ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.None").Value;
+		}
+
+		public static void Shuffle<T>(this IList<T> list)
+		{
+			int n = list.Count;
+			while (n-- > 1)
+			{
+				int k = Main.rand.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
+		}
+
+		public static IList<T> ShuffledList<T>(IList<T> list)
+		{
+			int n = list.Count;
+			while (n-- > 1)
+			{
+				int k = Main.rand.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
+			return list;
+		}
+
 		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd)
 		{
 			tooltips.Reverse();
@@ -102,6 +147,45 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static void ScaleRectangle(ref Rectangle rect, float scale, bool adjustX = true, bool adjustY = true)
+		{
+			var diffX = ((rect.Width - (rect.Width * scale)) / 2f).Round();
+			var diffY = ((rect.Height - (rect.Height * scale)) / 2f).Round();
+			rect.Width = (rect.Width * scale).Round();
+			rect.Height = (rect.Height * scale).Round();
+			if (!adjustX)
+				rect.X += diffX;
+			rect.X += diffX;
+			if (!adjustY)
+				rect.Y += diffY;
+			rect.Y += diffY;
+		}
+
+		public static Rectangle ScaleRectangleNotRef(Rectangle rectangle, float scale, bool adjustX = true, bool adjustY = true)
+		{
+			var diffX = ((rectangle.Width - (rectangle.Width * scale)) / 2f).Round();
+			var diffY = ((rectangle.Height - (rectangle.Height * scale)) / 2f).Round();
+			rectangle.Width = (rectangle.Width * scale).Round();
+			rectangle.Height = (rectangle.Height * scale).Round();
+			if (!adjustX)
+				rectangle.X += diffX;
+			rectangle.X += diffX;
+			if (!adjustY)
+				rectangle.Y += diffY;
+			rectangle.Y += diffY;
+			return rectangle;
+		}
+
+		public static SynergyEffects CopySynergiesFromImbue<T>() where T : Imbuable
+		{
+			return ModContent.GetInstance<T>().Effects;
+		}
+
+		public static SynergyEffects CopyDamageSynergiesFromImbue<T>() where T : Imbuable
+		{
+			return ModContent.GetInstance<T>().Effects with { clearBuffs = [] };
+		}
+
 		public static float RelativeScale(this Rectangle rect, int scale = 64)
 		{
 			return MathHelper.Clamp(((rect.Width + rect.Height) / 2f / scale), .5f, 2.5f);
@@ -113,7 +197,7 @@ namespace ArcaneOdyssey
 			{
 				if (item is not null)
 				{
-					if (item.ModItem is RelicImbue)
+					if (item.ModItem is SpiritImbue)
 					{
 						if (imbue is AOMagic)
 						{
@@ -123,7 +207,7 @@ namespace ArcaneOdyssey
 
 					if (damageClass == DamageClass.Magic && imbue is AOMagic && item.TryGetSecondImbue(imbue, out var second))
 					{
-						if (second is RelicImbue)
+						if (second is SpiritImbue)
 						{
 							return PaladinDamage.Instance;
 						}
@@ -138,7 +222,7 @@ namespace ArcaneOdyssey
 								return WarlockDamage.Instance;
 							}
 
-							if (second1 is RelicImbue)
+							if (second1 is SpiritImbue)
 							{
 								return JuggernautDamage.Instance;
 							}
@@ -158,11 +242,11 @@ namespace ArcaneOdyssey
 				{
 					return ConjurerNoSpeedDamage.Instance;
 				}
-				if (damageClass == DamageClass.Melee && imbue is RelicImbue)
+				if (damageClass == DamageClass.Melee && imbue is SpiritImbue)
 				{
 					return KnightDamage.Instance;
 				}
-				if (damageClass == DamageClass.MeleeNoSpeed && imbue is RelicImbue)
+				if (damageClass == DamageClass.MeleeNoSpeed && imbue is SpiritImbue)
 				{
 					return KnightNoSpeedDamage.Instance;
 				}
@@ -179,7 +263,7 @@ namespace ArcaneOdyssey
 				{
 					return RangedConjurerDamage.Instance;
 				}
-				if (damageClass == DamageClass.Ranged && imbue is RelicImbue)
+				if (damageClass == DamageClass.Ranged && imbue is SpiritImbue)
 				{
 					return RangedKnightDamage.Instance;
 				}
@@ -216,7 +300,7 @@ namespace ArcaneOdyssey
 			{
 				if (item is not null)
 				{
-					if (item.ModItem is RelicImbue)
+					if (item.ModItem is SpiritImbue)
 					{
 						return OracleDamage.Instance;
 					}
@@ -229,8 +313,6 @@ namespace ArcaneOdyssey
 
 			return damageClass;
 		}
-
-		public static Vector2 GetDrawOriginCentre(this Entity entity) => new(entity.width / 2, entity.height / 2);
 
 		public static Imbuable Imbue(this Player player) => player?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this ModPlayer player) => player?.ArcaneOdyssey()?.Imbue;
@@ -245,11 +327,14 @@ namespace ArcaneOdyssey
 			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, Alpha, newColor, Scale);
 		}
 
-		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
+		public static EntitySource_ItemUse GetSource_ItemUse(this Entity item, Player player, string context = null) => new(player, item as Item, context);
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
-		public static string Texture(this Type type) => type.FullName.Replace('.', '/');
+		public static string GetTexture<T>() where T : ModType
+		{
+			return typeof(T).FullName.Replace('.', '/');
+		}
 
 		public static void Kill(this Entity entity)
 		{
@@ -348,7 +433,7 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
-		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, int ignoredNPC = -1)
 		{
 			if (source is null) return;
 			if (!source.active) return;
@@ -371,7 +456,7 @@ namespace ArcaneOdyssey
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOScrollDamage;
 								}
 								range *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
 								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
@@ -404,6 +489,8 @@ namespace ArcaneOdyssey
 
 			foreach (NPC target in Main.ActiveNPCs)
 			{
+				if (target.whoAmI == ignoredNPC)
+					continue;
 				if (target.Hitbox.Distance(origin) <= range)
 				{
 					ModDamageHelper modifiers = new(null);
@@ -427,16 +514,16 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static void SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true)
+		public static Rectangle SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, bool adjustY = true, bool adjustX = true, int ignoredNPC = -1)
 		{
-			if (source is null) return;
-			if (!source.active) return;
+			if (source is null) return hitbox;
+			if (!source.active) return hitbox;
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
+			float mult = 1f;
 			if (imbue is not null)
 			{
 				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true)
 				{
-					float mult = 1f;
 					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
 					{
 						if (updatedamage)
@@ -451,7 +538,7 @@ namespace ArcaneOdyssey
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOScrollDamage;
 								}
 								mult *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
 								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
@@ -479,17 +566,19 @@ namespace ArcaneOdyssey
 							}
 						}
 					}
-					var diffX = ((hitbox.Width - (hitbox.Width * mult)) / 2f).Round();
-					var diffY = ((hitbox.Height - (hitbox.Height * mult)) / 2f).Round();
-					hitbox.Width = (hitbox.Width * mult).Round();
-					hitbox.Height = (hitbox.Height * mult).Round();
-					hitbox.X += diffX;
-					hitbox.Y += diffY;
 				}
 			}
 
+			if (source.TryGetOwner(out AOPlayer player1))
+			{
+				mult *= player1.SizeMulti;
+			}
+			ScaleRectangle(ref hitbox, mult, adjustX, adjustY);
+
 			foreach (NPC target in Main.ActiveNPCs)
 			{
+				if (target.whoAmI == ignoredNPC)
+					continue;
 				if (target.Hitbox.Intersects(hitbox))
 				{
 					ModDamageHelper modifiers = new(null);
@@ -507,10 +596,33 @@ namespace ArcaneOdyssey
 					}
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
 					{
+						if (source.TryGetOwner(out AOPlayer player2))
+						{
+							if (source is Item item && item.ModItem is SpiritImbue)
+							{
+								player2.TrySpiritLifesteal(item.OriginalDamage, false);
+							}
+							else if (source is Projectile projectile)
+							{
+								if (projectile.ModProjectile is SpiritProjectile)
+								{
+									player2.TrySpiritLifesteal(projectile.originalDamage, false);
+								}
+								else
+								{
+									var proj = projectile.ArcaneOdyssey();
+									if (proj.Imbue is SpiritImbue || proj.SecondImbue is SpiritImbue)
+									{
+										player2.TrySpiritLifesteal(projectile.originalDamage);
+									}
+								}
+							}
+						} 
 						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - hitbox.Center()).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
 					}
 				}
 			}
+			return hitbox;
 		}
 
 		public static bool HasSecondImbue(this Entity entity, out Imbuable second)
@@ -537,7 +649,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile is not null && projectile.active)
 			{
-				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2 or BasicCharger)
+				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2)
 				{
 					return true;
 				}
@@ -592,13 +704,13 @@ namespace ArcaneOdyssey
 					{
 						return true;
 					}
-					if (scroll.CanHaveRelic && imbue is RelicImbue)
+					if (scroll.CanHaveRelic && imbue is SpiritImbue)
 					{
 						return true;
 					}
 					return false;
 				}
-				if (item.ModItem is RelicImbue)
+				if (item.ModItem is SpiritImbue)
 				{
 					return imbue is AOMagic;
 				}
@@ -608,9 +720,9 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is AOMagic)
 				{
-					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is RelicImbue or FightingStyle);
+					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is SpiritImbue or FightingStyle);
 				}
-				if (imbue is RelicImbue)
+				if (imbue is SpiritImbue)
 				{
 					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || item.ModItem is AOMagic or FightingStyle);
 				}
@@ -675,10 +787,6 @@ namespace ArcaneOdyssey
 				{
 					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
 					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement]) || (ArcaneOdysseyMod.alternateBuffs[buffkeys.requirement] == BuffID.Wet && target.wet))
-						{
-							target.AddBuff(buffkeys.result, buffkeys.duration);
-						}
 						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
 							target.AddBuff(buffkeys.result, buffkeys.duration);
@@ -688,10 +796,6 @@ namespace ArcaneOdyssey
 
 				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
 				{
-					if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[multiplier.buffID]) || (ArcaneOdysseyMod.alternateBuffs[multiplier.buffID] == BuffID.Wet && target.wet))
-					{
-						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
-					}
 					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
 						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
@@ -702,10 +806,6 @@ namespace ArcaneOdyssey
 				{
 					foreach (int buffid in imbue.Effects.clearBuffs)
 					{
-						if (target.HasBuff(ArcaneOdysseyMod.alternateBuffs[buffid]))
-						{
-							target.DelBuff(target.FindBuffIndex(ArcaneOdysseyMod.alternateBuffs[buffid]));
-						}
 						if (target.HasBuff(buffid))
 						{
 							target.DelBuff(target.FindBuffIndex(buffid));
@@ -715,10 +815,42 @@ namespace ArcaneOdyssey
 			}
 			return modifiers;
 		}
-
+		
 		public static NPC.HitModifiers CalculateImbueDamage(Imbuable imbue, NPC target, NPC.HitModifiers modifiers)
 		{
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
+		}
+
+		/// <summary>
+		/// <inheritdoc cref="Projectile.NewProjectile(IEntitySource, float, float, float, float, int, int, float, int, float, float, float)"/>
+		/// </summary>
+		/// <param name="imbue">The first imbue to add to the projectile</param>
+		/// <param name="secondimbue">The second imbue to add to the projectile</param>
+		/// <param name="usescrollstats">Whether to multiply projectile speed by scroll or imbue stats</param>
+		/// <returns></returns>
+		public static Projectile ShootProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, int player, Imbuable imbue = null, Imbuable secondimbue = null, bool usescrollstats = false, float ai0 = 0, float ai1 = 0, float ai2 = 0)
+		{
+			if (imbue is not null)
+			{
+				if (usescrollstats)
+				{
+					velocity *= imbue.AOScrollSpeed;
+					if (secondimbue is not null)
+					{
+						velocity *= secondimbue.AOScrollSpeed;
+					}
+				}
+				else
+				{
+					velocity *= imbue.AOImbueSpeed;
+					if (secondimbue is not null)
+					{
+						velocity *= secondimbue.AOImbueSpeed;
+					}
+				}
+			}
+
+			return Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player, ai0, ai1, ai2);
 		}
 
 		public static int FromAODefense(this int val) => (int)Math.Round(val / 15f);
@@ -765,7 +897,7 @@ namespace ArcaneOdyssey
 				return;
 			if (player is not null)
 			{
-				if (imbue is RelicImbue)
+				if (imbue is SpiritImbue)
 					player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
@@ -843,7 +975,7 @@ namespace ArcaneOdyssey
 				List<bool> conditions = [];
 				if (checklistfailed || !ModLoader.TryGetMod("BossChecklist", out var checklist))
 				{
-					conditions.AddRange([DownedBosses.downedEvander, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
+					conditions.AddRange([DownedBosses.downedEvander, DownedBosses.downedLaelus, DownedBosses.downedCrone, DownedBosses.downedDelamere, DownedBosses.downedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
 					if (ModLoader.TryGetMod("CalamityMod", out var cal))
 					{
 						string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
@@ -957,6 +1089,10 @@ namespace ArcaneOdyssey
 			if (item.damage > 0 && item.useStyle != ItemUseStyleID.None)
 			{
 				return ItemType.Weapon;
+			}
+			if (item.consumable)
+			{
+				return ItemType.Consumable;
 			}
 			if (item.material)
 			{
@@ -1108,9 +1244,39 @@ namespace ArcaneOdyssey
 		#endregion
 
 		#region Player Inventory Helpers
-		public static bool HasTypeInInventory(this Player player, Type type)
+		public static bool HasTypeInInventory<T>(this Player player) where T : ModItem
 		{
 			List<Item> no = [..player.inventory, player.trashItem];
+			no.RemoveAll(e => e.ModItem is null);
+			foreach (var item in no)
+			{
+				if (item.ModItem.GetType().Name == typeof(T).Name || item.ModItem.GetType().IsSubclassOf(typeof(T)))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool HasTypeInInventory<T>(this Player player, out T item) where T : ModItem
+		{
+			List<Item> no = [.. player.inventory, player.trashItem];
+			item = null;
+			no.RemoveAll(e => e.ModItem is null);
+			foreach (var items in no)
+			{
+				if (items.ModItem.GetType().Name == typeof(T).Name || items.ModItem.GetType().IsSubclassOf(typeof(T)))
+				{
+					item = (T)items.ModItem;
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool HasTypeInInventory(this Player player, Type type) 
+		{ 
+			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{
@@ -1121,7 +1287,8 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
-		public static bool HasTypeInInventory(this Player player, Type type, out Item item)
+
+		public static bool HasTypeInInventory(this Player player, Type type, out ModItem item)
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
 			item = null;
@@ -1130,7 +1297,7 @@ namespace ArcaneOdyssey
 			{
 				if (items.ModItem.GetType().Name == type.Name || items.ModItem.GetType().IsSubclassOf(type))
 				{
-					item = items;
+					item = items.ModItem;
 					return true;
 				}
 			}
@@ -1225,46 +1392,19 @@ namespace ArcaneOdyssey
 		#endregion
 	}
 
-	public struct WeaponAbility(Mod mod, string name = null, string description = null, Color? color = null)
+	public struct WeaponAbility(ModItem moditem, Color color)
 	{
-		public static string Key(Mod mod, string name)
+		public static string Key(ModItem item, string suffix)
 		{
-			return $"Mods.{mod.Name}.WeaponAbilities." + name.Replace(" ", null);
+			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Ability.{suffix}";
 		}
 
-		public string Name = name;
-		public string Description = description;
-		public Color? Colour = color;
-		public Mod mod = mod;
-		public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
-		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
+		public Color Colour = color;
+		public ModItem ModItem = moditem;
+		public LocalizedText LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
+		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
 
-
-		public readonly TooltipLine GenerateTooltip()
-		{
-			string text = "";
-			if (Name is not null)
-			{
-				if (Colour.HasValue)
-				{
-					text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
-				}
-				else
-				{
-					text += LocalizedName.Value;
-				}
-			}
-			if (Description is not null)
-			{
-				if (Name is not null)
-					text += $": {LocalizedDescription.Value}";
-				else if (Colour.HasValue)
-					text += $"[c/{Colour.Value.Hex3()}:{LocalizedDescription.Value}";
-				else
-					text += LocalizedDescription.Value;
-			}
-			return new TooltipLine(mod, "AOAbility", text);
-		}
+		public readonly TooltipLine ToolTip => new(ModItem.Mod, "AOAbility", $"[c/{Colour.Hex3()}:{LocalizedName.Value}]: {LocalizedDescription.Value}");
 	}
 
 	public enum DashType
@@ -1277,44 +1417,26 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Helper struct for set bonuses
 	/// </summary>
-	/// <param name="mod">This mod</param>
-	/// <param name="name">The name of the set bonus</param>
-	/// <param name="description">The description of this set bonus</param>
-	/// <param name="otherItems">The internal names of the other two items in this set, head then body</param>
+	/// <param name="moditem">This moditem</param>
+	/// <param name="otherItems">The internal names of the other two items in this set, head then boots</param>
 	/// <param name="colour">The colour of this set</param>
-	public struct SetBonusHelper(Mod mod, string name, string description, string[] otherItems, Color? colour = null)
+	public struct SetBonusHelper(ModItem moditem, Color colour, params string[] otherItems)
 	{
-		public Mod Mod = mod;
-		public string Name = name;
-		public string Description = description;
-		public Color? Colour = colour;
+		private Color Colour = colour;
 		public string[] OtherItems = otherItems;
 
-		public static string Key(Mod mod, string name)
+		public static string Key(ModItem item, string suffix)
 		{
-			return $"Mods.{mod.Name}.ArmourSetTooltips." + name.Replace(" ", null);
+			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Set.{suffix}";
 		}
 
-		public LocalizedText LocalizedName = Language.GetOrRegister(Key(mod, name) + ".DisplayName", () => name);
-		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(mod, name) + ".Description", () => description);
+		public LocalizedText LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
+		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
 
-		public readonly string GenerateTooltip()
-		{
-			string text = "";
-			if (Colour.HasValue)
-			{
-				text += $"[c/{Colour.Value.Hex3()}:{LocalizedName.Value}]";
-			}
-			else
-			{
-				text += LocalizedName.Value;
-			}
-			text += $" - {LocalizedDescription.Value}";
-			return text;
-		}
+		public readonly string Tooptip => $"[c/{Colour.Hex3()}:{LocalizedName.Value}] - {LocalizedDescription.Value}";
 	}
 
-	public struct ImbueArmourStats(int size, int attkspeed, int power, int defence, int agility, int pierce)
+	public struct ImbueArmourStats(int size = 0, int attkspeed = 0, int power = 0, int defence = 0, int agility = 0, int pierce = 0, int haste = 0)
 	{
 		public int Size = size;
 		public int Attkspeed = attkspeed;
@@ -1322,23 +1444,26 @@ namespace ArcaneOdyssey
 		public int Pierce = pierce;
 		public int Defence = defence;
 		public int Agility = agility;
+		public int Haste = haste;
 
 		public readonly ImbueArmourStats Corrected(Imbuable imbue)
 		{
 			if (imbue is FightingStyleBarred barred)
 			{
 				return new ImbueArmourStats(
-					MathHelper.Lerp(0, Size, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Attkspeed, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Power, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Defence, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Agility, barred.LerpValue).Round(),
-					MathHelper.Lerp(0, Pierce, barred.LerpValue).Round()
+					MathHelper.Lerp(Size / 4f, Size, barred.LerpValue).Round(),
+					MathHelper.Lerp(Attkspeed / 4f, Attkspeed, barred.LerpValue).Round(),
+					MathHelper.Lerp(Power / 4f, Power, barred.LerpValue).Round(),
+					MathHelper.Lerp(Defence / 4f, Defence, barred.LerpValue).Round(),
+					MathHelper.Lerp(Agility / 4f, Agility, barred.LerpValue).Round(),
+					MathHelper.Lerp(Pierce / 4f, Pierce, barred.LerpValue).Round(),
+					MathHelper.Lerp(Haste / 4f, Haste, barred.LerpValue).Round()
 					);
 			}
 			return this;
 		}
 	}
+
 	public enum ItemType
 	{
 		Block,
@@ -1349,13 +1474,13 @@ namespace ArcaneOdyssey
 		Armour,
 		Weapon,
 		Tool,
-		Vanity
+		Vanity,
+		Consumable
 	}
 
 	/// <summary>
 	/// Arcane Odyssey rarities, converted to RarityID
 	/// </summary>
-
 	public enum AORarities
 	{
 		Unknown = ItemRarityID.Gray,
@@ -1370,7 +1495,7 @@ namespace ArcaneOdyssey
 
 	public enum WeaponType
 	{
-		Normal = -1,
+		Normal,
 		Arcanium,
 		Strength,
 		Artisinal
@@ -1417,12 +1542,17 @@ namespace ArcaneOdyssey
 	/// </summary>
 	/// <param name="debuffid">Terraria.ID.BuffID</param>
 	/// <param name="duration">Duration, in ticks (60/second)</param>
-	/// <param name="debuffRequiement">Damage% requirement to activate debuff</param>
-	public struct AODebuffRequirement(int debuffid, int duration, int debuffRequiement = 0)
+	/// <param name="debuffRequirement">Damage% requirement to activate debuff</param>
+	public struct AODebuffRequirement(int debuffid, int duration, int debuffRequirement = 0)
 	{
-		public float debuffPercent = debuffRequiement / 100f;
+		public float debuffPercent = debuffRequirement / 100f;
 		public int debuffID = debuffid;
 		public int debuffDuration = duration;
+
+		public static AODebuffRequirement Create<T>(int duration, int debuffRequirement = 0) where T : ModBuff
+		{
+			return new(ModContent.BuffType<T>(), duration, debuffRequirement);
+		}
 	}
 
 	public struct ImbueDebuffHelper(Imbuable imbue, int damagedone, NPC npc, int buffID)
@@ -1464,6 +1594,11 @@ namespace ArcaneOdyssey
 		public int requirement = requirement;
 		public int result = result;
 		public int duration = duration;
+
+		public static CombinedDebuff Create<T>(int result, int duration = 60) where T : ModBuff
+		{
+			return new(ModContent.BuffType<T>(), result, duration);
+		}
 	}
 
 	/// <summary>

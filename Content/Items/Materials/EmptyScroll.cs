@@ -17,6 +17,12 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.value = GalleonToCopper(15);
 		}
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Item.ResearchUnlockCount = 5;
+		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<Paper>(10).AddTile(TileID.Bookcases).Register();

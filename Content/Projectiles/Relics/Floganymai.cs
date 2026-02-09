@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.extraUpdates = 100;
 			Projectile.timeLeft = 1000000;
 			Projectile.height = 2;
-			Projectile.width = 300;
+			Projectile.width = 200;
 		}
 
 		public override bool? CanDamage() => false;
@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				Imbue?.LingeringEffects(Projectile.Hitbox with { Width = Projectile.Hitbox.Height, X = Projectile.Hitbox.X + (Projectile.Hitbox.Width / 2) } );
 				SecondImbue?.LingeringEffects(Projectile.Hitbox with { Width = Projectile.Hitbox.Height, X = Projectile.Hitbox.X + (Projectile.Hitbox.Width / 2) });
 			}
-			else if (Main.GameUpdateCount % 25 == 0)
+			else if ((Projectile.numUpdates == 0))
 			{
 				Imbue?.LingeringEffects(Projectile.Hitbox);
 				SecondImbue?.LingeringEffects(Projectile.Hitbox);
@@ -45,9 +45,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Main.myPlayer == Projectile.owner && Projectile.ai[1] >= 60)
 			{
 				Projectile.ai[1] = 0;
-				Rectangle rect = new(Projectile.Hitbox.X, Projectile.Hitbox.Y - 500, Projectile.width, 500);
-				AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false);
-				for (int i = 0; i <= 10; i++)
+				var height = 250;
+				Rectangle rect = new(Projectile.Hitbox.X, Projectile.Hitbox.Y - height, Projectile.width, height);
+				rect = AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false, false);
+				var amountmulti = 1f;
+				if (Imbue is not null)
+					amountmulti *= Imbue.AOScrollSize;
+				if (SecondImbue is not null)
+					amountmulti *= SecondImbue.AOScrollSize;
+				for (int i = 0; i <= 10f * amountmulti; i++)
 				{
 					Imbue?.LingeringEffects(rect);
 					SecondImbue?.LingeringEffects(rect);
@@ -58,7 +64,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 					Kill();
 				}
 			}
-			
+		
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

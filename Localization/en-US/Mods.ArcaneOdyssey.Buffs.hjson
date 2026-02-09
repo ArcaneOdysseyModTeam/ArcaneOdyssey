@@ -39,8 +39,8 @@ AOBleed: {
 }
 
 SandyEffect: {
-	Description: You are covered in sand
 	DisplayName: Sandy
+	Description: You are covered in sand
 }
 
 Trauma: {
@@ -74,13 +74,13 @@ IonizedEffect: {
 }
 
 SearedEffect: {
-	DisplayName: Seared Effect
+	DisplayName: Seared
 	Description: Your skin is seared red by heat
 }
 
 ElfPetBuff: {
-	Description: Aether is now following you around, boosting your morale and determination
 	DisplayName: Aether The Elf
+	Description: Aether is now following you around, boosting your morale and determination
 }
 
 AncientLightingChain: {
@@ -90,7 +90,7 @@ AncientLightingChain: {
 
 PhoenixHealing: {
 	DisplayName: Flames of the Phoenix
-	Description: Nearby enemies are sapping your life regeneration
+	Description: Nearby foes are sapping life regeneration
 }
 
 HeavyBleed: {
@@ -104,13 +104,13 @@ ElectrifiedToxins: {
 }
 
 CloudyEffect: {
-	DisplayName: Cloudy Effect
+	DisplayName: Cloudy
 	Description: Clouds block your vision
 }
 
 VesuvianBurn: {
-	Description: You are covered in vesuvian magma, burning you severely
 	DisplayName: Vesuvian Burn
+	Description: You are covered in vesuvian magma, burning you severely
 }
 
 Tangled: {
@@ -124,6 +124,6 @@ Singed: {
 }
 
 ProminenceDebuff: {
-	DisplayName: Prominence Debuff
+	DisplayName: Prominence
 	Description: You are releasing solar flares
 }

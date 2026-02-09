@@ -7,6 +7,11 @@ Armour: {
 	SunkenChest: {
 		DisplayName: Sunken Breastplate
 		Tooltip: It seems to constantly produce water
+
+		Set: {
+			DisplayName: Aquatic Rebuttal
+			Description: Enemies that strike you are soaked
+		}
 	}
 
 	SunkenHelm: {
@@ -15,17 +20,22 @@ Armour: {
 	}
 
 	RavennaBoots: {
-		DisplayName: Ravenna Boots
+		DisplayName: Ravenna Soldier Boots
 		Tooltip: ""
 	}
 
 	RavennaChest: {
-		DisplayName: Ravenna Breastplate
+		DisplayName: Ravenna Centurion Breastplate
 		Tooltip: ""
+
+		Set: {
+			DisplayName: Ravenna Bulwark
+			Description: Allows you to brace, slowing your movement in exchange for a defence bonus
+		}
 	}
 
 	RavennaHelm: {
-		DisplayName: Ravenna Helmet
+		DisplayName: Ravenna Centurion Helmet
 		Tooltip: ""
 	}
 
@@ -39,6 +49,26 @@ Armour: {
 			DisplayName: Headless Head
 			Tooltip: ""
 		}
+	}
+
+	EliusBoots: {
+		DisplayName: Ravenna Noble Boots
+		Tooltip: ""
+	}
+
+	EliusChest: {
+		DisplayName: Ravenna Noble Armour
+		Tooltip: ""
+
+		Set: {
+			DisplayName: Lightning Speed
+			Description: Higher jumps and 25% increased movement speed
+		}
+	}
+
+	EliusHelm: {
+		DisplayName: Ravenna Noble Shroud
+		Tooltip: ""
 	}
 }
 
@@ -128,4 +158,19 @@ SunkenScrap: {
 EagleLegacy: {
 	DisplayName: Eagle's Legacy
 	Tooltip: Represents your latent potential, and can be focused upon to grant power
+}
+
+TideGelPotion: {
+	DisplayName: Tide Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Wet
+}
+
+BleedGelPotion: {
+	DisplayName: Bleed Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Bleeding
+}
+
+DesertGelPotion: {
+	DisplayName: Desert Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Sandy
 }

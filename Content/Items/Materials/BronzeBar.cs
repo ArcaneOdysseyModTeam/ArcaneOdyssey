@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 	{
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Item.ResearchUnlockCount = 25;
 		}
 

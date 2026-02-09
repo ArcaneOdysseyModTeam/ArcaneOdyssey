@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -61,7 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateInventory(Player player)
 		{
-			if (HasCorrectImbue && this is not BlastScroll)
+			if (HasCorrectImbue)
 			{
 				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}

@@ -5,17 +5,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class Whirlwind : AOPlayerProjectile
 	{
-		public Color colour = Color.White;
+		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
 		public static int MaxTime => 20;
 		public static int TrueMaxTime => MaxTime * 2;
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override float AOSize => 1.5f;
 
@@ -52,21 +50,22 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
 				Projectile.velocity = Vector2.Zero;
-				RotationOrigin = Owner.MountedCenter;
+				RotationOrigin = Owner.RotatedRelativePoint(Owner.MountedCenter);
 				OriginalDir = Owner.direction;
 			}
 			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed ?? 1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
 			Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale * OriginalDir);
-			if (Projectile.timeLeft > MaxTime)
+			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
 				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
-				AOPlayerOwner.WhirlwindActive = true;
+				AOPlayerOwner.HeavySkillActive = true;
+				Owner.PlayerItem().noMelee = true;
 			}
 			else
 			{
-				Projectile.Opacity = (Projectile.timeLeft - 1) / (float)MaxTime;
-				AOPlayerOwner.WhirlwindActive = false;
+				Projectile.Opacity = (Projectile.timeLeft - 1f) / (TrueMaxTime - MaxTime);
+				Owner.PlayerItem().noMelee = false;
 			}
 		}
 
@@ -75,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Imbue?.GetColour(colour) ?? colour) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				var colour2 = Projectile.GetAlpha(Colour * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length));
 				var rotaitoneoffset = SpriteEffects.None;
 				if (OriginalDir == -1)
 				{
@@ -90,6 +89,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	public class WhirlwindCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 + Whirlwind.MaxTime;
-		public override string ExtraIconTexture => typeof(RavennaSword).Texture();
+		public override string ExtraIconTexture => GetTexture<RavennaSword>();
 	}
 }

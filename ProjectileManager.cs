@@ -33,15 +33,66 @@ namespace ArcaneOdyssey
 
 	public class AOProjectile : GlobalProjectile, IImbuable
 	{
+		public float ApplyScrollSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOScrollSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOScrollSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
+
+		public float ApplyImbueSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOImbueSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOImbueSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
+
 		public bool? BenifitsFromScrollStats 
 		{ 
 			get
 			{
+				if (OriginWeaponType == WeaponType.Artisinal)
+					return null;
 				if (OriginWeaponType != WeaponType.Normal)
 					return true;
+				else
+					return false;
 				if (thisProjectile is not null)
 				{
 					return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile;
+				}
+				else
+				{
+					if (thisProjectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					{
+						return false;
+					}
 				}
 				return null;
 			} 
@@ -56,22 +107,30 @@ namespace ArcaneOdyssey
 			float mult = BaseScale.GetValueOrDefault(projectile.scale);
 			if (Imbue is not null)
 			{
-				mult += (BenifitsFromScrollStats.GetValueOrDefault() ? Imbue.AOScrollSize : Imbue.AOImbueSize).MultiToPercent();
-				if (SecondImbue is not null)
+				if (BenifitsFromScrollStats.HasValue)
 				{
-					mult += SecondImbue.AOImbueSize.MultiToPercent();
+					if (BenifitsFromScrollStats.Value)
+					{
+						mult *= Imbue.AOScrollSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOScrollSize;
+						}
+					}
+					else
+					{
+						mult *= Imbue.AOImbueSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOImbueSize;
+						}
+					}
 				}
 			}
-			mult += player.ArcaneOdyssey().SizeMulti;
+			mult *= player.ArcaneOdyssey().SizeMulti;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				var dim = OriginalDimensions.GetValueOrDefault(projectile.Hitbox);
-				var diffX = ((hitbox.Width - (dim.Width * mult)) / 2f).Round();
-				var diffY = ((hitbox.Height - (dim.Height * mult)) / 2f).Round();
-				hitbox.Width = (dim.Width * mult).Round();
-				hitbox.Height = (dim.Height * mult).Round();
-				hitbox.X += diffX;
-				hitbox.Y += diffY;
+				ScaleRectangle(ref hitbox, mult);
 				projectile.scale = mult;
 			}
 		}
@@ -151,10 +210,10 @@ namespace ArcaneOdyssey
 				{
 					if (Imbue is not null && Imbue.PreEffects(projectile))
 					{
-						Imbue.KillEffects(projectile.Hitbox);
+						Imbue.KillEffects(projectile.Hitbox, projectile);
 					}
 					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-						SecondImbue.KillEffects(projectile.Hitbox);
+						SecondImbue.KillEffects(projectile.Hitbox, projectile);
 				}
 			}
 			return true;
@@ -301,10 +360,10 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is not null && Imbue.PreEffects(projectile))
 			{
-				Imbue.LingeringEffects(projectile.Hitbox);
+				Imbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 			}
 			if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-				SecondImbue.LingeringEffects(projectile.Hitbox);
+				SecondImbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 		}
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
@@ -314,9 +373,9 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
-			if (Imbue is RelicImbue && projectile.TryGetOwner(out var owner))
+			if (Imbue is SpiritImbue && projectile.TryGetOwner(out var owner))
 			{
-				owner.ArcaneOdyssey()?.TrySpiritLifesteal(projectile.originalDamage);
+				owner.ArcaneOdyssey()?.TrySpiritLifesteal(projectile.originalDamage, projectile.ModProjectile is not SpiritProjectile);
 			}
 		}
 	}

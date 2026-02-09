@@ -15,7 +15,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		public override float AOSize => .75f;
 
 		public const int TimeLeftMax = 90;
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetStaticDefaults()
 		{

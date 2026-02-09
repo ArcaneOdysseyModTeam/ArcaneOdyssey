@@ -7,10 +7,10 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 {
 	public class ProminenceProjectile : ModProjectile
-    {
-        private Vector2 originPos;
-        private int timeAlive;
-        public override void SetStaticDefaults()
+	    {
+	        private Vector2 originPos;
+	        private int timeAlive;
+	        public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 3;
 		}
@@ -24,32 +24,32 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
-            Projectile.timeLeft = 6 * 60;
+	            Projectile.timeLeft = 6 * 60;
             
 		}
 		public override void OnSpawn(IEntitySource source)
 		{
 			originPos = Projectile.position;
-            timeAlive = 0;
+	            timeAlive = 0;
 		}
 		public override void AI()
 		{
-            timeAlive++;
-            if (timeAlive == 29)
-            {
-                Projectile.velocity += new Vector2(Main.rand.NextFloat()*0.5f,Main.rand.NextFloat()*0.5f) * 10;
-            }
-            if (timeAlive > 30)
-            {
-            Projectile.velocity += (originPos - Projectile.position).SafeNormalize(Vector2.Zero) * 0.4f;
-            }
+	            timeAlive++;
+	            if (timeAlive == 29)
+	            {
+	                Projectile.velocity += new Vector2(Main.rand.NextFloat()*0.5f,Main.rand.NextFloat()*0.5f) * 10;
+	            }
+	            if (timeAlive > 30)
+	            {
+	            Projectile.velocity += (originPos - Projectile.position).SafeNormalize(Vector2.Zero) * 0.4f;
+	            }
 			Animate();
-            Lighting.AddLight(Projectile.position,2, 1, 0);
-            Dust.NewDust(Projectile.position,1,1,DustID.Torch,0,0,0,default,1);
+	            Lighting.AddLight(Projectile.position,2, 1, 0);
+	            Dust.NewDust(Projectile.position,1,1,DustID.Torch,0,0,0,default,1);
 		}
-        private void Animate()
-        {
-            if (Projectile.frameCounter++ > 5)
+	        private void Animate()
+	        {
+	            if (Projectile.frameCounter++ > 5)
 			{
 				Projectile.frameCounter = 0;
 				if (++Projectile.frame >= Main.projFrames[Projectile.type])
@@ -57,10 +57,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 					Projectile.frame = 0;
 				}
 			}
-        }
+	        }
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			target.AddBuff(BuffID.OnFire3,120);
 		}
-    }
+	    }
 }

@@ -1,8 +1,8 @@
-using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.NPCS;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -27,13 +27,11 @@ namespace ArcaneOdyssey
 		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
 		public const string InternalName = "ArcaneOdyssey";
 
+		internal static List<string> NoticeQueue = [];
+
 		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
-
-		internal static int[] alternateBuffs = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
-		internal static bool?[] itemTemperatures = ItemID.Sets.Factory.CreateCustomSet<bool?>(null);
-		internal static int[] weaponTypes = ItemID.Sets.Factory.CreateIntSet();
 
 		internal static List<int> excludedItems = [];
 
@@ -50,34 +48,6 @@ namespace ArcaneOdyssey
 				case "BlacklistItem":
 				case "ExcludeItem":
 					excludedItems.Add((int)args[1]);
-					break;
-				case "GetPlayerImbue":
-					Imbuable imbue1 = Main.player[(int)args[1]].ArcaneOdyssey()?.Imbue;
-					return imbue1;
-					break;
-				case "GetItemImbue":
-					Imbuable imbue = ((Item)args[1]).ArcaneOdyssey()?.Imbue;
-					return imbue;
-					break;
-				case "RegisterItemTemperature":
-				case "SetItemTemperature":
-				case "AddItemTemperature":
-					itemTemperatures[(int)args[1]] = (bool?)args[2];
-					break;
-				case "GetItemTemperature":
-					var item1 = args[1] as Item;
-					return item1.ArcaneOdyssey()?.Cold;
-					break;
-				case "AddWeaponType":
-				case "RegisterWeaponType":
-				case "SetWeaponType":
-					var item2 = (int)args[1];
-					var type = (int)args[2];
-					weaponTypes[item2] = type;
-					break;
-				case "GetWeaponType":
-					var item3 = (int)args[1];
-					return weaponTypes[item3];
 					break;
 				case "AddMordenDialogue":
 					Edgelord.AddHelpOption((string)args[1], (Func<bool>)args[2]);
@@ -249,6 +219,12 @@ namespace ArcaneOdyssey
 	public class DownedBosses : ModSystem
 	{
 		public static bool downedEvander;
+		public static bool downedDusk;
+		public static bool downedLaelus;
+		public static bool downedCrone;
+		public static bool downedDelamere;
+
+
 		public static bool downedEnragedEmpress;
 		public static bool downedWorldEater;
 		public static bool downedBrain;
@@ -256,8 +232,11 @@ namespace ArcaneOdyssey
 		public static void ResetDefaults()
 		{
 			downedEvander = false;
-			ExternalModSupport.hasYapped = false;
 			downedEnragedEmpress = false;
+			downedDusk = false;
+			downedLaelus = false;
+			downedCrone = false;
+			downedDelamere = false;
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();
@@ -271,6 +250,14 @@ namespace ArcaneOdyssey
 				downed.Add("Evander");
 			if (downedEnragedEmpress)
 				downed.Add("EnragedEoL");
+			if (downedDelamere)
+				downed.Add("Delamere");
+			if (downedDusk)
+				downed.Add("Dusk");
+			if (downedCrone)
+				downed.Add("Crone");
+			if (downedLaelus)
+				downed.Add("Laelus");
 
 			tag["downed"] = downed;
 		}
@@ -279,7 +266,20 @@ namespace ArcaneOdyssey
 		{
 			var downed = tag.GetList<string>("downed");
 			downedEvander = downed.Contains("Evander");
+			downedDusk = downed.Contains("Dusk");
+			downedCrone = downed.Contains("Crone");
+			downedLaelus = downed.Contains("Laelus");
+			downedDelamere = downed.Contains("Delamere");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
+		}
+
+		public override void PostUpdateWorld()
+		{
+			foreach (string message in ArcaneOdysseyMod.NoticeQueue)
+			{
+				Main.NewText(message, Color.Yellow);
+			}
+			ArcaneOdysseyMod.NoticeQueue = [];
 		}
 	}
 

@@ -54,9 +54,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				Projectile.localAI[0] = 0;
 				for (int i = 0; i < 10; i++)
 				{
-					Imbue?.ExplosionEffects(Projectile.Center);
+					Imbue?.ExplosionEffects(Projectile.Center, 3f);
 					SecondImbue?.ExplosionEffects(Projectile.Center);
-					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+				}
+				if (Imbue is not null)
+				{
+					SoundEngine.PlaySound(Imbue.ImbueSound, Projectile.Center);
+				}
+				else
+				{
+					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 				}
 			}
 

@@ -13,8 +13,8 @@ using Terraria.Chat;
 using Terraria.Audio;
 using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons;
 using Terraria.Localization;
+using ArcaneOdyssey.Content.Items.Weapons.Sunken;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -34,7 +34,6 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.DeathSound = SoundID.NPCDeath52;
 			NPC.knockBackResist = 0;
 			AnimationType = NPCID.Guide;
-			ExternalModSupport.DebuffVulnurablilities.SetDebuffVulnurablility(NPC, false, false, true, true, false);
 		}
 
 		public override void SetStaticDefaults()
@@ -62,7 +61,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			if (item.Imbue() is not AOMagic or RelicImbue)
+			if (item.Imbue() is not AOMagic or SpiritImbue)
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life += 5;
@@ -71,7 +70,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (!(projectile.Imbue() is AOMagic or RelicImbue || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass<OracleDamage>()) && projectile.hostile)))
+			if (!(projectile.Imbue() is AOMagic or SpiritImbue || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass<OracleDamage>()) && projectile.hostile)))
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life = Math.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
@@ -191,13 +190,13 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("Early1");
 				AddOption("WorldofMagic");
 				AddOption("WeaponSkills");
-				if (Player.HasTypeInInventory(typeof(AOMagic)))
+				if (Player.HasTypeInInventory<AOMagic>())
 				{
 					AddOption("EarlyMagic1");
 					AddOption("EarlyMagic2");
 					AddOption("EarlyMagic3");
 				}
-				if (Player.HasTypeInInventory(typeof(FightingStyle)))
+				if (Player.HasTypeInInventory<FightingStyle>())
 				{
 					if (Main.hardMode)
 						AddOption("VanishingStyle");
@@ -263,7 +262,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("StackImbues");
 			}
 
-			if (Player.HasTypeInInventory(typeof(SunkenSword)) || Player.HasTypeInInventory(typeof(SunkenStaff)))
+			if (Player.PlayerItem()?.ModItem is SunkenSword || Player.PlayerItem()?.ModItem is SunkenStaff)
 			{
 				AddOption("SunkenWeapon");
 			}

@@ -30,9 +30,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
-			if (Projectile.ai[2] == 0f)
+			if (Projectile.ai[2] == 0)
 			{
-				Projectile.ai[2] = 1f;
+				Projectile.ai[2] = 1;
 				Projectile.netUpdate = true;
 			}
 			Animate();
@@ -58,6 +58,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public virtual void Rotate()
 		{
+			Projectile.spriteDirection = Projectile.direction;
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 	}

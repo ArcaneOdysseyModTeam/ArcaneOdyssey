@@ -24,7 +24,13 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.friendly = false;
 			NPC.trapImmune = false;
 			NPC.lavaImmune = false;
-			NPC.aiStyle = 0;
+		}
+
+		public override void AI()
+		{
+			NPC.TargetClosest();
+			if (NPC.HasValidTarget)
+				NPC.rotation = NPC.Center.DirectionTo(Main.player[NPC.target].MountedCenter).ToRotation();
 		}
 	}
 }

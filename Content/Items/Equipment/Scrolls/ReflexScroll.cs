@@ -40,6 +40,8 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		private float invisbase;
 		private bool ground;
 
+		public override int Damage => 0;
+
 		public override int Cooldown => 30;
 
 		public override bool AnyDirection => false;

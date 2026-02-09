@@ -9,6 +9,7 @@ WorldGen: {
 Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
 	Evander: A famous bounty hunter, who hunts the bounty placed on you.
+	Dusk: An assassin with a decently high bounty. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
 }
 
 MenuStyle: Odyssey Style
@@ -19,7 +20,7 @@ ImbueStuff: {
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
 	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Only conducts Magic]"
-	StrengthIndicator: "[c/700013:Strength Weapon - Does not conduct Magic or Spirit Energy]"
+	StrengthIndicator: "[c/700013:Strength Weapon - Too heavy to be used fully without a Fighting Style]"
 	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
 	ScrollDamage: Scroll Damage: {0}x
 	ScrollSpeed: Scroll Speed: {0}x
@@ -53,6 +54,11 @@ Configs: {
 		ProjectileSizes: {
 			Label: "[i:ArcaneOdyssey/ColossalGreatsword] Projectile Sizes"
 			Tooltip: Toggles projectiles having their size affected by the mod
+		}
+
+		PredictiveArray: {
+			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
+			Tooltip: Whether to have the Array spell predict enemy movements to aim
 		}
 	}
 
@@ -162,14 +168,26 @@ NPCs: {
 	}
 
 	DebuffDummy.DisplayName: Debuff Dummy
+
+	Dusk: {
+		DisplayName: Dusk, the Dark Oracle
+		DeathMessage: Dusk, the Dark Oracle has been defeated!
+		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer forests of the world.
+	}
 }
 
 MagicTierLines: {
-	Normal: "[c/2277ff:~ Standard Magic ~]"
+	Normal: "[c/2277ff:~ Base Magic ~]"
 	Lost: "[c/0044ff:~ Lost Magic ~]"
 	Ancient: "[c/7ebcc2:~ Ancient Magic ~]"
 	Primordial: "[c/ffc2c2:~ Primordial Magic ~]"
 	Developer: "[c/ff0000:~ Developer Magic ~]"
+}
+
+SpecialTierLines: {
+	Normal: "[c/2277ff:~ Lesser Lost Magic ~]"
+	Lost: "[c/0044ff:~ Lost Spirit Mutation ~]"
+	Ancient: "[c/7ebcc2:~ Ancient Spirit Mutatation ~]"
 }
 
 FSTierLines: {
@@ -224,8 +242,7 @@ Projectiles: {
 	OldTridentProjectile.DisplayName: Old Trident
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
-	BronzeTriastaProjectile.DisplayName: Bronze Triasta
-	CalvusExplosion.DisplayName: Apocalypse Bringer Aftershock
+	BronzeTriastaProjectile.DisplayName: Triasta of Bronze
 	SeismicSlashRock.DisplayName: Seismic Slash Rock
 	BronzeRapierProjectile.DisplayName: Bronze Rapier
 	PrismLinger.DisplayName: Prism Magic Shards
@@ -237,105 +254,13 @@ Projectiles: {
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
 	Whirlwind.DisplayName: Whirlwind
-	ProminenceProjectile.DisplayName: Prominence Projectile
-	BasicCharger.DisplayName: Basic Charger
-}
-
-WeaponAbilities: {
-	MultiShot: {
-		DisplayName: Multi Shot
-		Description: Shoots a spread of bullets
-	}
-
-	PiercingShot: {
-		DisplayName: Piercing Shot
-		Description: Converts Musket Balls to High Velocity Bullets
-	}
-
-	PiercingStrike: {
-		DisplayName: Piercing Strike
-		Description: Launch yourself towards the cursor, stabbing through any who cross your path
-	}
-
-	PiercingGale: {
-		DisplayName: Piercing Gale
-		Description: Shoots blasts of air that shred enemies
-	}
-
-	TridentThrow: {
-		DisplayName: Trident Throw
-		Description: Throw your weapon, leaving yourself unarmed
-	}
-
-	Devastate: {
-		DisplayName: Devastate
-		Description: Use the weight of your weapon to slam downwards
-	}
-
-	MountainWind: {
-		DisplayName: Mountain Wind
-		Description: Swing your blade and unleash three tornados that spread out
-	}
-
-	Whirlwind: {
-		DisplayName: Whirlwind
-		Description: Spin your weapon around quickly, dealing damage to surrounding enemies and holding yourself in place
-	}
-
-	EtherealFlash: {
-		DisplayName: Ethereal Flash
-		Description: Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target
-	}
-
-	ColossalCleave: {
-		DisplayName: Colossal Cleave
-		Description: Unleash a large slash that pierces enemies
-	}
-
-	SeismicSlash: {
-		DisplayName: Seismic Slash
-		Description: Slam into the ground, then upearth and launch a rock towards your cursor
-	}
-
-	StormofArrows: {
-		DisplayName: Storm of Arrows
-		Description: Allows arrows to fall from the sky above the cursor
-	}
-
-	FuryoftheSea: {
-		DisplayName: Fury of the Sea
-		Description: Shoots blasts of water that pierce enemies
-	}
-
-	RisingTide: {
-		DisplayName: Rising Tide
-		Description: Launch yourself upwards
-	}
-
-	Astrapikis: {
-		DisplayName: Astrapikis
-		Description: Release a slash of spirit energy
-	}
-
-	Nichtetheis: {
-		DisplayName: Nichtetheis
-		Description: Fire a beam of spirit energy that disorients anyone it hits
-	}
-
-	Thakrousi: {
-		DisplayName: Thakrousi
-		Description: Surround yourself in spirit energy and leap forward, then release the energy in a large area
-	}
-
-	Aithiraki: {
-		DisplayName: Aithiraki
-		Description: Summon a minion made of spirit energy
-	}
-
-	Floganymai: {
-		DisplayName: Floganymai
-		Description: Release a pillar of spirit energy a short distance away from you, exploding several times
-	}
+	ProminenceProjectile.DisplayName: Prominence
+	BasicCharger.DisplayName: Attack Charger
+	TwinCrescent.DisplayName: Twin Crescent
+	NobleThunderspearProjectile.DisplayName: Noble Thunderspear
+	SparrowThrust.DisplayName: Sparrow Thrust
+	DuskHound.DisplayName: Spirit Hound
+	LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
 }
 
 Achievements: {
@@ -358,11 +283,14 @@ RandomWords: {
 	AnyMaterial: Any {0} Material
 	Help: Help
 	Press: Press {0}
+	WeaponGel: Weapon Gel: {0}
+	GelTooltip: Melee attacks inflict {0}
 }
 
 FargosSheet: {
 	CurrentImbue: Current Imbue: {0}
-	SizeMulti: Attack Size Multiplier: {0}
+	SizeMulti: Attack Size: {0}%
+	CooldownMulti: Ability Haste: {0}%
 	BloodDisease: Blood Disease: {0}
 }
 

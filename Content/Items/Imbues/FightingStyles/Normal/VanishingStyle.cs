@@ -32,9 +32,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
-			for (int n = 0; n < 3; n++)
+			for (int n = 0; n < 2; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Wraith, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Wraith, direction.X * 2f, direction.Y * 2f, Scale: 1.5f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Wraith, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Wraith, 4f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 4f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 1.5f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
@@ -102,13 +102,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				if (!Player.ArcaneOdyssey().OnCooldown(vanish.Name))
 					vanish.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 			}
-			else if (Player.HasTypeInInventory(typeof(VanishingStyle), out var vanish1))
+			else if (Player.HasTypeInInventory<VanishingStyle>(out var vanish1))
 			{
-				if (((VanishingStyle)vanish1.ModItem).GetThisImbue(Player))
+				if (vanish1.GetThisImbue(Player))
 				{
-					Player.opacityForAnimation = ((VanishingStyle)vanish1.ModItem).LerpValue.FlipFloat() - 1f;
-					if (!Player.ArcaneOdyssey().OnCooldown(((VanishingStyle)vanish1.ModItem).Name))
-						((VanishingStyle)vanish1.ModItem).BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
+					Player.opacityForAnimation = vanish1.LerpValue.FlipFloat() - 1f;
+					if (!Player.ArcaneOdyssey().OnCooldown(vanish1.Name))
+						vanish1.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 				}
 			}
 		}

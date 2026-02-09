@@ -1,13 +1,13 @@
 ﻿using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
+using ArcaneOdyssey.Content.Items.Weapons.Sunken;
 using ArcaneOdyssey.Content.NPCS;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -23,21 +23,12 @@ namespace ArcaneOdyssey
 			AddBossChecklist();
 		}
 
-		internal static bool hasYapped = false;
-		public override void PreUpdateWorld()
-		{
-			if (!(hasYapped || HasMusicMod || ArcaneOdysseyMod.DevMode))
-			{
-				hasYapped = true;
-				Main.NewText("You are missing the Arcane Odyssey Music Mod (ArcaneOdysseyMusic). For the full experience, enable this mod.", Color.Teal);
-			}
-		}
-
 		public static void RegisterDebuff(ModBuff buff)
 		{
 			if (HasCalamity)
 			{
-				Calamity.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
+				var call = (NPC e) => e.HasBuff(buff.Type);
+				Calamity.Call("RegisterDebuff", buff.Texture, call);
 			}
 		}
 
@@ -108,15 +99,19 @@ namespace ArcaneOdyssey
 			if (HasFargos)
 			{
 				// stat sheet
-				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", $"{1 + Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x").Value;
+				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().SizeMulti - 100f, 1)).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
+				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1)).Value;
+				Fargos.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
 
 				// current imbue lol
 				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<EagleLegacy>(), imbueText);
 
 				Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
-				Fargos.Call("AddStat", ModContent.ItemType<AcidMagic>(), blood);
+				Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
+
+				
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}
@@ -124,8 +119,6 @@ namespace ArcaneOdyssey
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
 		public static Mod Calamity => ModLoader.GetMod("CalamityMod");
-		public static bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
-		public static Mod MusicMod => ModLoader.GetMod("ArcaneOdysseyMusic");
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => ModLoader.GetMod("Fargowiltas");
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
@@ -145,7 +138,7 @@ namespace ArcaneOdyssey
 				Func<bool> downed = () => DownedBosses.downedEvander;
 				int bossType = ModContent.NPCType<Evander>();
 				int trophy = ModContent.ItemType<EvanderTrophy>();
-				LocalizedText spawnInfo = Mod.CustomLocalization("NPCs.Evander.SpawnInfo");
+				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
 				"LogBoss",
@@ -161,34 +154,31 @@ namespace ArcaneOdyssey
 				});
 			}
 
-			EvanderStuff();
-		}
-
-		public struct DebuffVulnurablilities(bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null)
-		{
-			public bool? sick = sick;
-			public bool? hot = hot;
-			public bool? electric = electric;
-			public bool? water = water;
-			public bool? cold = cold;
-
-			public readonly void ApplyDebuffVulnurablility(NPC NPC)
+			void DuskStuff()
 			{
-				if (HasCalamity)
+				string internalName = nameof(Dusk);
+				float weight = 3.1f; // right after eow
+				Func<bool> downed = () => DownedBosses.downedDusk;
+				int bossType = ModContent.NPCType<Dusk>();
+				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+
+				bossChecklist.Call(
+				"LogBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
 				{
-					if (sick.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "sick", sick.Value);
-					if (electric.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "electric", electric.Value);
-					if (water.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "water", water.Value);
-					if (hot.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "hot", hot.Value);
-					if (cold.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "cold", cold.Value);
-				}
+					//["collectibles"] = new List<int> { trophy },
+					["spawnInfo"] = spawnInfo
+				});
 			}
-			public static void SetDebuffVulnurablility(NPC NPC, bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null) => new DebuffVulnurablilities(sick, hot, electric, water, cold).ApplyDebuffVulnurablility(NPC);
+
+			EvanderStuff();
+			DuskStuff();
 		}
 	}
 }

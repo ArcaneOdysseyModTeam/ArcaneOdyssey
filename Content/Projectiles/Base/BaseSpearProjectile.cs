@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -15,6 +14,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
 		}
@@ -23,35 +23,35 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 60;
-			Projectile.knockBack = 4.5f;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.ignoreWater = true;
-			Projectile.damage = (int)WeaponDamage(AOWeaponTier);
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			fallThrough = true;
 			width = height /= 4;
-			return Projectile.ai[2] != 0; // do not kill projectile on tile collide unless thrown
+			return Projectile.ai[2] == 2; // do not kill projectile on tile collide unless thrown
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (Projectile.ai[2] != 0)
+			if (Projectile.ai[2] == 2)
 				Projectile.Kill();
 		}
 
 		public override void AI()
 		{
-			if (Projectile.ai[0] == 0f)
+			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
 				Projectile.netUpdate = true;
-				if (Projectile.ai[2] != 0) // throwing
+				if (Projectile.ai[2] == 2) // throwing
 				{
 					Projectile.velocity *= 3 / (Projectile.extraUpdates + 1f);
 					Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			Owner.ChangeDir(Projectile.direction);
 
-			if (Projectile.ai[2] != 0) // throwing
+			if (Projectile.ai[2] == 2) // throwing
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
 				Projectile.timeLeft = 2;
@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemTime = Owner.itemAnimation;
-				Projectile.Center = Owner.Center + (Projectile.velocity * Projectile.ai[1]);
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.ai[1]);
 
 				if (Owner.itemAnimation < Owner.itemAnimationMax / 2)
 				{
@@ -96,10 +96,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				}
 
 				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
-				if (Owner.itemAnimation <= 2)
+				if (Owner.ItemAnimationEndingOrEnded)
 				{
 					Projectile.Kill();
-					Owner.reuseDelay = 2;
 				}
 			}
 		}

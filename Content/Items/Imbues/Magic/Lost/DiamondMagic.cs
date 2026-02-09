@@ -13,19 +13,16 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	public class DiamondMagic : AOMagic
 	{
 		public override float? DashResist => 1.6f;
-		public override float AOImbueSpeed => 1.13f;
-		public override float AOImbueSize => 1.11f;
-		public override float AOImbueDamage => 1.3f;
-		public override float AOScrollSpeed => 1.13f;
-		public override float AOScrollSize => 1.15f;
-		public override float AOScrollDamage => 1.3f;
+		public override float AOScrollSpeed => .65f;
+		public override float AOScrollSize => 1.2f;
+		public override float AOScrollDamage => 1.2f;
 		public override Color ImbueColour => new(50, 255, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 				new(ModContent.BuffType<FreezingEffect>(),1.01f),

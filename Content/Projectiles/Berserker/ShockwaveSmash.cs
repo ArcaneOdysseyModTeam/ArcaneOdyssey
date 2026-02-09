@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -9,7 +8,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class ShockwaveSmash : StrengthTechnique
 	{
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetDefaults()
 		{

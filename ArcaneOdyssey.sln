@@ -4,8 +4,6 @@ VisualStudioVersion = 18.3.11426.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcaneOdyssey", "ArcaneOdyssey.csproj", "{3D79BA7F-CE18-C86B-67F4-5BD702E45ACF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcaneOdysseyMusic", "..\ArcaneOdysseyMusic\ArcaneOdysseyMusic.csproj", "{C8FD68B1-21F9-C9AD-D848-C34F65388FE3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,10 +14,6 @@ Global
 		{3D79BA7F-CE18-C86B-67F4-5BD702E45ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D79BA7F-CE18-C86B-67F4-5BD702E45ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D79BA7F-CE18-C86B-67F4-5BD702E45ACF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8FD68B1-21F9-C9AD-D848-C34F65388FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8FD68B1-21F9-C9AD-D848-C34F65388FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8FD68B1-21F9-C9AD-D848-C34F65388FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8FD68B1-21F9-C9AD-D848-C34F65388FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

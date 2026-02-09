@@ -177,3 +177,63 @@ Pulsars: {
 }
 
 LesserBeam.DisplayName: Lesser Beam
+
+Arrays: {
+	Ancient.IonArray.DisplayName: Ion Array
+
+	Developer: {
+		JerminusArray.DisplayName: Jerminus Array
+		VesuviusArray.DisplayName: Vesuvius Array
+	}
+
+	Lost: {
+		AetherArray.DisplayName: Aether Array
+		AncientLightningArray.DisplayName: Ancient Lightning Array
+		BlizzardArray.DisplayName: Blizzard Array
+		CloudArray.DisplayName: Cloud Array
+		DarknessArray.DisplayName: Darkness Array
+		DiamondArray.DisplayName: Diamond Array
+		EnergyArray.DisplayName: Energy Array
+		FlareArray.DisplayName: Flare Array
+		FrostmetalArray.DisplayName: Frostmetal Array
+		GravityArray.DisplayName: Gravity Array
+		HeatArray.DisplayName: Heat Array
+		LunarArray.DisplayName: Lunar Array
+		OilArray.DisplayName: Oil Array
+		PhoenixArray.DisplayName: Phoenix Array
+		PlantArray.DisplayName: Plant Array
+		PoisonLightningArray.DisplayName: Poison Lightning Array
+		PrismArray.DisplayName: Prism Array
+		ShadowflameArray.DisplayName: Shadowflame Array
+		SlashArray.DisplayName: Slash Array
+		SoundArray.DisplayName: Sound Array
+		StormArray.DisplayName: Storm Array
+		SunArray.DisplayName: Sun Array
+		ThreadArray.DisplayName: Thread Array
+	}
+
+	Normal: {
+		AcidArray.DisplayName: Acid Array
+		AshArray.DisplayName: Ash Array
+		CrystalArray.DisplayName: Crystal Array
+		EarthArray.DisplayName: Earth Array
+		ExplosionArray.DisplayName: Explosion Array
+		FireArray.DisplayName: Fire Array
+		GlassArray.DisplayName: Glass Array
+		IceArray.DisplayName: Ice Array
+		LightArray.DisplayName: Light Array
+		LightningArray.DisplayName: Lightning Array
+		MagmaArray.DisplayName: Magma Array
+		MetalArray.DisplayName: Metal Array
+		PlasmaArray.DisplayName: Plasma Array
+		PoisonArray.DisplayName: Poison Array
+		SandArray.DisplayName: Sand Array
+		ShadowArray.DisplayName: Shadow Array
+		SnowArray.DisplayName: Snow Array
+		WaterArray.DisplayName: Water Array
+		WindArray.DisplayName: Wind Array
+		WoodArray.DisplayName: Wood Array
+	}
+}
+
+AnnihilationSpell.DisplayName: Annihilation Spell

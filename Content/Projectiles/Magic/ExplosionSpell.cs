@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			if (Projectile.position != Projectile.oldPosition)
 				Projectile.netUpdate = true;
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
-			if (charge < 1.5f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
+			if (charge < 1.75f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
 			{
 				Projectile.Center = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;

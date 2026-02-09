@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.025f;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override WeaponAbility? Ability => new(Mod, "Devastate", "Use the weight of your weapon to slam downwards", Color.Orange);
+		public override WeaponAbility? Ability => new(this, Color.Orange);
 
 		public override void SetDefaults()
 		{
@@ -58,9 +58,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 	public class Devastate(Entity source) : DashSystem(source)
 	{
-		
+	
 		public override bool AnyDirection => true;
-		public override int Damage => 50;
 		public override int Cooldown => 300;
 		public override float DashSpeed => 15;
 		public override int DashMax => 600;
@@ -94,6 +93,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 	public class DevastateCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(RavennaGreataxe).Texture();
+		public override string ExtraIconTexture => GetTexture<RavennaGreataxe>();
 	}
 }

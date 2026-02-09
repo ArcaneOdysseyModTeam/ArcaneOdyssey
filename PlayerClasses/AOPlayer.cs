@@ -1,9 +1,11 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,14 +14,13 @@ namespace ArcaneOdyssey.PlayerClasses
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public Imbuable Imbue { get; set; }
-		public bool chargingSpell = false;
 		public int AOSizeStat = 0;
 		public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 
-		public bool WhirlwindActive = false;
-		public bool SoftFrozen => chargingSpell || WhirlwindActive;
+		[DefaultValue(false)]
+		public bool HeavySkillActive { get; set; }
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
@@ -27,10 +28,22 @@ namespace ArcaneOdyssey.PlayerClasses
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
+		public bool evil = false;
+
 
 		public List<ImbueDebuffHelper> DebuffHelpers = [];
 
 		public float MaxRunSpeed => Math.Max(Player.accRunSpeed, Player.maxRunSpeed);
+
+		public float MaxPossibleSpeed => Math.Max(MaxRunSpeed, CurrentDash?.DashSpeed ?? MaxRunSpeed);
+
+		public override void FrameEffects()
+		{
+			if (Player.armor[1].type == ModContent.ItemType<EliusChest>() && Player.back == -1)
+			{
+				Player.back = EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Back);
+			}
+		}
 
 		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
@@ -102,7 +115,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public override void PostUpdate()
 		{
-			chargingSpell = false;
+			HeavySkillActive = false;
 			DashStrike();
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
@@ -118,7 +131,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			}
 			else
 				groundedCounter = 0;
-			if (SoftFrozen)
+			if (HeavySkillActive)
 			{
 				if (FirstFrozenFrame)
 				{
@@ -142,11 +155,13 @@ namespace ArcaneOdyssey.PlayerClasses
 		public override void ResetEffects()
 		{
 			AOSizeStat = 0;
+			AOHasteStat = 0;
 			gel = 0;
 			pheonixHealing = 0;
 			HandleDashDetection();
 		}
 
-		public float SizeMulti => AOSizeStat / 275f;
+		public float SizeMulti => 1f + (AOSizeStat / 275f);
+		public float CooldownDurationMulti => (1f + (AOHasteStat / 200f)).FlipFloat();
 	}
 }

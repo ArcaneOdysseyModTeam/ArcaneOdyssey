@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class PoisonMagic : AOMagic
 	{
+		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item17;
 		public override Color ImbueColour => new(105, 0, 105, 255);
@@ -24,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		//public override AODebuff ImbueDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				
+			
 			],
 			[
 				new(ModContent.BuffType<AOBleed>(),1.075f),

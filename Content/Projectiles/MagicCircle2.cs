@@ -36,11 +36,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 			Projectile.ai[0] += (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)
 			{
-				AOPlayerOwner.chargingSpell = true;
+				AOPlayerOwner.HeavySkillActive = true;
 				AOPlayerOwner.myCircle = Projectile;
 				if (Projectile.ai[1] != 2)
 				{
-					Projectile.Center = Owner.MountedCenter;
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter);
 				}
 				else
 				{
@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 					Owner.itemTime = Owner.PlayerItem().useTime;
 					if (Main.myPlayer == Projectile.owner)
 					{
-						Owner.itemRotation = Owner.MountedCenter.DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
+						Owner.itemRotation = Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();
 						if (Owner.direction != 1)
 						{
 							Owner.itemRotation += MathHelper.Pi;

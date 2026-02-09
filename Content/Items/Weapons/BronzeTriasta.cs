@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
 using ArcaneOdyssey.PlayerClasses;
@@ -25,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AOSpeed => 1.1f;
 		public override int AOValue => 350;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override WeaponAbility? Ability => new(Mod, "Ethereal Flash", "Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target", Color.Gold);
+		public override WeaponAbility? Ability => new(this, Color.Gold);
 		public override AORarities AORarity => AORarities.Rare;
 		public override bool? Cold => false;
 		public override AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<CharredEffect>(), 10 * 60);
@@ -47,21 +46,15 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void UseAnimation(Player player)
 		{
-			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<EtherealFlashCooldown>()))
+			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown<EtherealFlashCooldown>())
 			{
 				player.ArcaneOdyssey().StartDash(new EtherealFlash(Item), imbue: Imbue, imbueAffectsSpeed: true);
 			}
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<BronzeTrident>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
 		}
 	}
 
 	public class EtherealFlash(Entity source) : DashSystem(source)
 	{
-		
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 3;
@@ -71,10 +64,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void OnEnd(Player player)
 		{
-			SimulateAOE(150, 70, player.MountedCenter, 4.5f, player.PlayerItem(), TrueMeleeNoSpeed());
 			player.velocity *= .01f;
 		}
-		
+	
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(SoundID.Item67);
@@ -93,6 +85,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class EtherealFlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(BronzeTriasta).Texture();
+		public override string ExtraIconTexture => GetTexture<BronzeTriasta>();
 	}
 }

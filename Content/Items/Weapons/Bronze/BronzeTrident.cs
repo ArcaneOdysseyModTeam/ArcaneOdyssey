@@ -18,14 +18,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => 1;
 		public override float AOSpeed => .95f;
 		public override int AOValue => 50;
-		public override WeaponAbility? Ability => new(Mod, "Trident Throw", "Throw your weapon, leaving yourself unarmed", Color.Orange);
+		public override WeaponAbility? Ability => new(this, Color.Orange);
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.Spears[Type] = true;
 		}
-
 
 		public override void SetDefaults()
 		{
@@ -41,18 +40,21 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override bool CanUseItem(Player player)
 		{
+			if (!player.AltUse())
+				Item.useStyle = ItemUseStyleID.Shoot;
 			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: player.AltUse() ? 1 : 0);
+			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: player.altFunctionUse);
 			return false;
 		}
 
 		public override bool AltFunctionUse(Player player)
 		{
-			return CanUseItem(player);
+			Item.useStyle = ItemUseStyleID.Swing;
+			return true;
 		}
 
 		public override void AddRecipes()

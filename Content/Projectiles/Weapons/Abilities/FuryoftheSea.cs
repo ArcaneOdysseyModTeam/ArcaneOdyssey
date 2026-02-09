@@ -26,11 +26,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.AverageDimensions();
 			Projectile.alpha = (int)(225 * .75f);
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.knockBack = 4.5f;
 			Projectile.timeLeft = 60;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
-			Projectile.ownerHitCheck = true;
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
 		}
