@@ -6,10 +6,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using ArcaneOdyssey.Content.Projectiles.Relics;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using ArcaneOdyssey.UI;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
