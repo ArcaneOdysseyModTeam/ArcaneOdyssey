@@ -3,7 +3,7 @@ using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
-
+using ArcaneOdyssey.UI._BaseImbueUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -20,13 +20,9 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace ArcaneOdyssey.UI._BaseImbueUI;
+namespace ArcaneOdyssey.UI.ImbueChange;
 
-public abstract partial class BaseImbueUI : UIState
+public partial class ImbueChangeUI : BaseImbueUI
 {
-
-	/// <summary>
-	/// Makes this <see cref="BaseImbueUI"/> commit sudoku
-	/// </summary>
-	protected abstract void YoungMan_KillYourself();
+	protected override void YoungMan_KillYourself() => ModContent.GetInstance<ImbueAnythingUISystem>().HideTheImbueChange();
 }

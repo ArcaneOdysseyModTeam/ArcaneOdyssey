@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.UI.ImbueAcquiring;
-using ArcaneOdyssey.UI.MagicChangeOLD;
+using ArcaneOdyssey.UI.ImbueChange;
+
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,21 +10,20 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using static ArcaneOdyssey.UI.MagicChangeOLD.MagicChoiceUIState;
 
 namespace ArcaneOdyssey.UI;
 
 [Autoload(Side = ModSide.Client)]
-public class ImbueChangeUISystem : ModSystem
+public class ImbueAnythingUISystem : ModSystem
 {
 	private UserInterface _ImbueAcquire;
 	internal ImbueAcquireUI imbueAcquireUI;
 
-	private UserInterface _MagicChoice;
-	internal MagicChoiceUIState magicChoice;
+	private UserInterface _ImbueChange;
+	internal ImbueChangeUI imbueChangeUI;
+
 	private GameTime _prevTime;
 
-	#region Show/Hide
 	#region Show
 	public void ShowAcquireUI()
 	{
@@ -34,28 +34,27 @@ public class ImbueChangeUISystem : ModSystem
 	}
 	public void ShowSwapUI(ModItem whom)
 	{
-		magicChoice = new()
+		imbueChangeUI = new()
 		{
 			TheGuyThatFellOff = whom,
 		};
-		_MagicChoice = new();
-		_MagicChoice?.SetState(magicChoice);
-		magicChoice.Activate();
+		_ImbueChange = new();
+		_ImbueChange?.SetState(imbueChangeUI);
+		imbueChangeUI.Activate();
 	}
 	#endregion
 
 	#region Hide
-	public void HideTheUI()
-	{
-		_MagicChoice?.SetState(null);
-		magicChoice.Deactivate();
-	}
 	public void HideTheImbueAcquire()
 	{
 		_ImbueAcquire?.SetState(null);
 		imbueAcquireUI.Deactivate();
 	}
-	#endregion
+	public void HideTheImbueChange()
+	{
+		_ImbueChange?.SetState(null);
+		imbueChangeUI.Deactivate();
+	}
 	#endregion
 
 	#region Load/Unload
@@ -67,8 +66,8 @@ public class ImbueChangeUISystem : ModSystem
 		imbueAcquireUI = new();
 		imbueAcquireUI.Initialize();
 
-		magicChoice = new();
-		magicChoice.Initialize();
+		imbueChangeUI = new();
+		imbueChangeUI.Initialize();
 	}
 	#endregion
 
@@ -76,11 +75,11 @@ public class ImbueChangeUISystem : ModSystem
 	{
 		_prevTime = gameTime;
 		_ImbueAcquire?.Update(gameTime);
-		_MagicChoice?.Update(gameTime);
+		_ImbueChange?.Update(gameTime);
 	}
 
 	public bool CanShowImbueAcquire() => _prevTime is not null && _ImbueAcquire?.CurrentState is not null;
-	public bool CanShowUI() => _prevTime is not null && _MagicChoice?.CurrentState is not null;
+	public bool CanShowImbueChange() => _prevTime is not null && _ImbueChange?.CurrentState is not null;
 
 	public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 	{
@@ -99,13 +98,13 @@ public class ImbueChangeUISystem : ModSystem
 			));
 
 		layers.Insert(index, new LegacyGameInterfaceLayer(
-			"ArcaneOdysseyMod: MagicChoiceUIState",
+			"ArcaneOdysseyMod: ImbueChangeUI",
 			delegate
 			{
-				if (CanShowUI()) _MagicChoice.Draw(Main.spriteBatch, _prevTime);
+				if (CanShowImbueChange()) _ImbueChange.Draw(Main.spriteBatch, _prevTime);
 				return true;
 			},
-			InterfaceScaleType.UI)
-			);
+			InterfaceScaleType.UI
+			));
 	}
 }

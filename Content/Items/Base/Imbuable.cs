@@ -9,7 +9,8 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
-using ArcaneOdyssey.UI.MagicChangeOLD;
+using ArcaneOdyssey.UI;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -380,14 +381,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)
-		public override void RightClick(Player player)
-		{
-			// Spoky (2026 Jan 25): Expected for errors to have an error message but it appears we don't have said luxury, therefore gotta get errors, manually
-			// Spoky (2026 Fec 08): Moved to Imbuable
-			try { ModContent.GetInstance<MagicChoiceUISystem>().ShowSwapUI(this); }
-			// Spoky (2026 Jan 25): By the way, I like putting exceptions in purple
-			catch (Exception ex) { Main.NewText($"Error in {nameof(UseItem)}: \n{ex}", new Color(255, 0, 255)); }
-		}
 		public override bool CanRightClick()
 		{
 			try
@@ -408,7 +401,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 
 				//Main.NewText($"Can use item {!ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI()}");
-				return !ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI();
+
+				var instance = ModContent.GetInstance<ImbueAnythingUISystem>();
+
+				if (!instance.CanShowImbueChange()) instance.ShowSwapUI(this);
+				return false;
 			}
 			catch (Exception ex)
 			{

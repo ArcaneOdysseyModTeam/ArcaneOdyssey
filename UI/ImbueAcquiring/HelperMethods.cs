@@ -4,7 +4,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.UI._BaseImbueUI;
-using ArcaneOdyssey.UI.MagicChangeOLD;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -25,5 +25,5 @@ namespace ArcaneOdyssey.UI.ImbueAcquiring;
 
 public partial class ImbueAcquireUI : BaseImbueUI
 {
-	protected override void YoungMan_KillYourself() => ModContent.GetInstance<ImbueChangeUISystem>().HideTheImbueAcquire();
+	protected override void YoungMan_KillYourself() => ModContent.GetInstance<ImbueAnythingUISystem>().HideTheImbueAcquire();
 }

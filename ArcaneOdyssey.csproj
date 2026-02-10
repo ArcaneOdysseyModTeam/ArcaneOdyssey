@@ -26,6 +26,9 @@
 		<Folder Include="Assets\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\ArcaneOdysseyMusic\ArcaneOdysseyMusic.csproj" />
+	</ItemGroup>
+	<ItemGroup>
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
