@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.UI.MagicChangeOLD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	[LegacyName("DarkSeaMusicBox", "TitleMusicBox")] // removed items are added here
+	[LegacyName("DarkSeaMusicBox", "TitleMusicBox", "StarterAcrimony")] // removed items are added here
 	public class Acrimony : AOBaseItem
 	{
 		public int AOValue = 10000;
