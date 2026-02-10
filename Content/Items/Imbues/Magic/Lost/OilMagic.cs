@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		}
 		public override void AddRecipes()
 		{
-			CreateLostRecipe(typeof(WaterMagic), typeof(EarthMagic), typeof(WoodMagic),typeof(AcidMagic));
+			CreateLostRecipe(typeof(WaterMagic), typeof(EarthMagic), typeof(WoodMagic), typeof(AcidMagic));
 		}
 	}
 }

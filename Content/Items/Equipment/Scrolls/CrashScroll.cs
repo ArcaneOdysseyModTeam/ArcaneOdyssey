@@ -102,7 +102,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 	public class Smash(Entity source) : DashSystem(source)
 	{
 		public override DamageClass DamageType => TrueMeleeNoSpeed();
-	
+
 		public override bool AnyDirection => true;
 		public override int Cooldown => 0;
 

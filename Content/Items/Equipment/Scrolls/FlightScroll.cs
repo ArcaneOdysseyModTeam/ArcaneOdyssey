@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void SetStaticDefaults()
 		{
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(150);
 		}
 
 		public override void SetDefaults()
@@ -56,11 +56,16 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			{
 				player.noFallDmg = true;
 			}
-			else
+			else if (!player.mount.Active)
 			{
 				player.wingTime = 0;
 				player.equippedWings = null;
 			}
+		}
+
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			return player.Imbue() is not FightingStyle or null;
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)

@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class TidestoneBand : SpiritImbue
+	public class TidestoneBand : SpiritEnergy
 	{
 		public override int AOValue => 500;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
@@ -25,13 +24,16 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override bool? Cold => true;
 		public override Color ImbueColour => new(0, 183, 255);
 
-		public override bool AltFunctionUse(Player player)
+		public override void UseAnimation(Player player)
 		{
-			if (!player.ArcaneOdyssey().OnCooldown<ThakrousiCooldown>())
+			base.UseAnimation(player);
+			if (!player.AltUse())
 			{
-				player.ArcaneOdyssey().StartDash(new Thakrousi(Item), imbue: this);
+				if (!player.ArcaneOdyssey().OnCooldown<ThakrousiCooldown>())
+				{
+					player.ArcaneOdyssey().StartDash(new Thakrousi(Item), imbue: this);
+				}
 			}
-			return true;
 		}
 
 		public override WeaponAbility? Ability => new(this, ImbueColour);

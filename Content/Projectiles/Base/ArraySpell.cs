@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,20 +20,42 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public const int ShootTime = 90;
 
+		public override bool CanHaveImbueVFX => false;
+
+
+		public Rectangle Proj1 => new(Projectile.Center.X.Round(), Projectile.position.Y.Round() - (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
+		public Rectangle Proj2 => new(Proj1.X - (64 * Projectile.scale).Round(), Projectile.position.Y.Round() - (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
+		public Rectangle Proj3 => new(Proj1.X + (64 * Projectile.scale).Round(), Projectile.position.Y.Round() + (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
+		public Rectangle Proj4 => new(Proj2.X - (64 * Projectile.scale).Round(), Projectile.position.Y.Round() + (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
+
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = 75;
-			Projectile.width = 100;
+			Projectile.height = Proj1.Height + 40;
+			Projectile.width = Proj1.Width + Proj2.Width + Proj3.Width + Proj4.Width;
 			Projectile.timeLeft = ShootTime + ShootDelay;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			width = Projectile.width / 4;
-			height = Projectile.height / 4;
+			width = Proj1.Height / 4;
+			height = Proj1.Width / 4;
 			fallThrough = true;
 			return true;
+		}
+
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		{
+			if (targetHitbox.Intersects(Proj1))
+				return true;
+			if (targetHitbox.Intersects(Proj2))
+				return true;
+			if (targetHitbox.Intersects(Proj3))
+				return true;
+			if (targetHitbox.Intersects(Proj4))
+				return true;
+			return false;
 		}
 
 		public bool Hovering
@@ -72,11 +96,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Hovering)
 			{
+				if (Imbue is not PhoenixMagic)
+					Projectile.spriteDirection = Owner.direction;
 				Projectile.scale = Imbue.AOScrollSize;
 				if (SecondImbue is not null)
 					Projectile.scale *= SecondImbue.AOScrollSize;
-				Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, (Player.defaultHeight * .75f) * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * .92f);
-				Projectile.scale *= BaseScale;
+				Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, (Player.defaultHeight * .75f) * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
+				Projectile.scale *= AOSize;
 				target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * ShootTime);
 				if (target != -1)
 				{
@@ -101,6 +127,30 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.velocity = Projectile.rotation.ToRotationVector2() * originalVelocity.Length();
 				}
 			}
+			if (!Hovering || Imbue is SoundMagic)
+			{
+				Imbue?.LingeringEffects(Proj1, Projectile.velocity, Projectile);
+				Imbue?.LingeringEffects(Proj2, Projectile.velocity, Projectile);
+				Imbue?.LingeringEffects(Proj3, Projectile.velocity, Projectile);
+				Imbue?.LingeringEffects(Proj4, Projectile.velocity, Projectile);
+				SecondImbue?.LingeringEffects(Proj1, Projectile.velocity, Projectile);
+				SecondImbue?.LingeringEffects(Proj2, Projectile.velocity, Projectile);
+				SecondImbue?.LingeringEffects(Proj3, Projectile.velocity, Projectile);
+				SecondImbue?.LingeringEffects(Proj4, Projectile.velocity, Projectile);
+			}
+		}
+
+		public override bool PreKill(int timeLeft)
+		{
+			Imbue?.KillEffects(Proj1, Projectile);
+			Imbue?.KillEffects(Proj2, Projectile);
+			Imbue?.KillEffects(Proj3, Projectile);
+			Imbue?.KillEffects(Proj4, Projectile);
+			SecondImbue?.KillEffects(Proj1, Projectile);
+			SecondImbue?.KillEffects(Proj2, Projectile);
+			SecondImbue?.KillEffects(Proj3, Projectile);
+			SecondImbue?.KillEffects(Proj4, Projectile);
+			return base.PreKill(timeLeft);
 		}
 
 		public override bool? CanDamage() => !Hovering;
@@ -128,10 +178,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-			Main.EntitySpriteDraw(Sprite, VisualCentre - (new Vector2(20, 0) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-			Main.EntitySpriteDraw(Sprite, VisualCentre - (new Vector2(-20, 0) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-			Main.EntitySpriteDraw(Sprite, VisualCentre - (new Vector2(50, -20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-			Main.EntitySpriteDraw(Sprite, VisualCentre - (new Vector2(-50, -20) * Projectile.scale) - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Proj1.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Proj2.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Proj3.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Proj4.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;
 		}
 	}

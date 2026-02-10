@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			//Item.useAnimation = 20;
 			//Item.useTime = 20;
 		}
-		
+
 		// Spoky (2026 Fev 08): Removed this function from acrimony to the magics (fighting style and/or eagle patrimony); If you read this then it meas I forgot to delete this
 		//public override bool CanUseItem(Player player)
 		//{

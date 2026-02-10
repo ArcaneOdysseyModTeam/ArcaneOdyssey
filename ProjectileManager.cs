@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
@@ -73,8 +74,8 @@ namespace ArcaneOdyssey
 			return value;
 		}
 
-		public bool? BenifitsFromScrollStats 
-		{ 
+		public bool? BenifitsFromScrollStats
+		{
 			get
 			{
 				if (OriginWeaponType == WeaponType.Artisinal)
@@ -95,7 +96,7 @@ namespace ArcaneOdyssey
 					}
 				}
 				return null;
-			} 
+			}
 		}
 
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
@@ -373,7 +374,7 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
-			if (Imbue is SpiritImbue && projectile.TryGetOwner(out var owner))
+			if (Imbue is SpiritEnergy && projectile.TryGetOwner(out var owner))
 			{
 				owner.ArcaneOdyssey()?.TrySpiritLifesteal(projectile.originalDamage, projectile.ModProjectile is not SpiritProjectile);
 			}

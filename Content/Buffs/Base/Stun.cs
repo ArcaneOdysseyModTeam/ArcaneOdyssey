@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 		public virtual bool LiterallyCheating => false;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			if (!npc.boss && npc.ArcaneOdyssey().StunCD <= 0 || LiterallyCheating) 
+			if (!npc.boss && npc.ArcaneOdyssey().StunCD <= 0 || LiterallyCheating)
 			{
 				npc.ArcaneOdyssey().AOStunned = true;
 			}

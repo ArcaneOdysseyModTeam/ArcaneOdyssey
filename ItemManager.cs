@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
 using ArcaneOdyssey.PlayerClasses;
@@ -183,7 +184,7 @@ namespace ArcaneOdyssey
 
 		public bool? BenifitsFromScrollStats
 		{
-			get 
+			get
 			{
 				if (thisItem.CanHaveImbue(Imbue))
 				{
@@ -662,7 +663,7 @@ namespace ArcaneOdyssey
 			thisItem = item;
 			if (!CanBeAffected)
 				return;
-			if (Imbue is SpiritImbue)
+			if (Imbue is SpiritEnergy)
 			{
 				player.ArcaneOdyssey()?.TrySpiritLifesteal(item.OriginalDamage);
 			}

@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.PlayerClasses;
@@ -23,7 +24,7 @@ namespace ArcaneOdyssey
 		public static int GetMusic(string name) => MusicLoader.GetMusicSlot(ArcaneOdysseyMusicMod.Instance, "Music/" + name);
 
 		internal static List<string> options = [
-			"FavoriteDesc", 
+			"FavoriteDesc",
 			"NoTransfer",
 			"SocialDesc",
 			"Damage",
@@ -199,7 +200,7 @@ namespace ArcaneOdyssey
 			{
 				if (item is not null)
 				{
-					if (item.ModItem is SpiritImbue)
+					if (item.ModItem is SpiritEnergy)
 					{
 						if (imbue is AOMagic)
 						{
@@ -209,7 +210,7 @@ namespace ArcaneOdyssey
 
 					if (damageClass == DamageClass.Magic && imbue is AOMagic && item.TryGetSecondImbue(imbue, out var second))
 					{
-						if (second is SpiritImbue)
+						if (second is SpiritEnergy)
 						{
 							return PaladinDamage.Instance;
 						}
@@ -224,7 +225,7 @@ namespace ArcaneOdyssey
 								return WarlockDamage.Instance;
 							}
 
-							if (second1 is SpiritImbue)
+							if (second1 is SpiritEnergy)
 							{
 								return JuggernautDamage.Instance;
 							}
@@ -244,11 +245,11 @@ namespace ArcaneOdyssey
 				{
 					return ConjurerNoSpeedDamage.Instance;
 				}
-				if (damageClass == DamageClass.Melee && imbue is SpiritImbue)
+				if (damageClass == DamageClass.Melee && imbue is SpiritEnergy)
 				{
 					return KnightDamage.Instance;
 				}
-				if (damageClass == DamageClass.MeleeNoSpeed && imbue is SpiritImbue)
+				if (damageClass == DamageClass.MeleeNoSpeed && imbue is SpiritEnergy)
 				{
 					return KnightNoSpeedDamage.Instance;
 				}
@@ -265,7 +266,7 @@ namespace ArcaneOdyssey
 				{
 					return RangedConjurerDamage.Instance;
 				}
-				if (damageClass == DamageClass.Ranged && imbue is SpiritImbue)
+				if (damageClass == DamageClass.Ranged && imbue is SpiritEnergy)
 				{
 					return RangedKnightDamage.Instance;
 				}
@@ -304,7 +305,7 @@ namespace ArcaneOdyssey
 			{
 				if (item is not null)
 				{
-					if (item.ModItem is SpiritImbue)
+					if (item.ModItem is SpiritEnergy)
 					{
 						return OracleDamage.Instance;
 					}
@@ -426,7 +427,7 @@ namespace ArcaneOdyssey
 		public static List<Imbuable> GetAllImbues(this Player owner)
 		{
 			List<Imbuable> imbues = [];
-			Item[] items = [..owner.inventory, owner.trashItem];
+			Item[] items = [.. owner.inventory, owner.trashItem];
 			foreach (Item item in items)
 			{
 				if (item.ModItem is Imbuable imbuable)
@@ -444,7 +445,7 @@ namespace ArcaneOdyssey
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
 			if (imbue is not null)
 			{
-				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true) 
+				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true)
 				{
 					if (source.AnyArcaneOdyssey().BenifitsFromScrollStats.Value)
 					{
@@ -602,7 +603,7 @@ namespace ArcaneOdyssey
 					{
 						if (source.TryGetOwner(out AOPlayer player2))
 						{
-							if (source is Item item && item.ModItem is SpiritImbue)
+							if (source is Item item && item.ModItem is SpiritEnergy)
 							{
 								player2.TrySpiritLifesteal(item.OriginalDamage, false);
 							}
@@ -615,13 +616,13 @@ namespace ArcaneOdyssey
 								else
 								{
 									var proj = projectile.ArcaneOdyssey();
-									if (proj.Imbue is SpiritImbue || proj.SecondImbue is SpiritImbue)
+									if (proj.Imbue is SpiritEnergy || proj.SecondImbue is SpiritEnergy)
 									{
 										player2.TrySpiritLifesteal(projectile.originalDamage);
 									}
 								}
 							}
-						} 
+						}
 						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - hitbox.Center()).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
 					}
 				}
@@ -643,7 +644,7 @@ namespace ArcaneOdyssey
 			if (entity is Player player)
 			{
 				second = player.ArcaneOdyssey()?.CurrentDash?.SecondImbue;
-			}	
+			}
 			return second is not null;
 		}
 
@@ -704,13 +705,13 @@ namespace ArcaneOdyssey
 					{
 						return true;
 					}
-					if (scroll.CanHaveRelic && imbue is SpiritImbue)
+					if (scroll.CanHaveRelic && imbue is SpiritEnergy)
 					{
 						return true;
 					}
 					return false;
 				}
-				if (item.ModItem is SpiritImbue)
+				if (item.ModItem is SpiritEnergy)
 				{
 					return imbue is AOMagic;
 				}
@@ -720,9 +721,9 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is AOMagic)
 				{
-					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is SpiritImbue or FightingStyle);
+					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is SpiritEnergy or FightingStyle);
 				}
-				if (imbue is SpiritImbue)
+				if (imbue is SpiritEnergy)
 				{
 					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || item.ModItem is AOMagic or FightingStyle);
 				}
@@ -815,7 +816,7 @@ namespace ArcaneOdyssey
 			}
 			return modifiers;
 		}
-		
+
 		public static NPC.HitModifiers CalculateImbueDamage(Imbuable imbue, NPC target, NPC.HitModifiers modifiers)
 		{
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
@@ -897,7 +898,7 @@ namespace ArcaneOdyssey
 				return;
 			if (player is not null)
 			{
-				if (imbue is SpiritImbue)
+				if (imbue is SpiritEnergy)
 					player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
@@ -1246,7 +1247,7 @@ namespace ArcaneOdyssey
 		#region Player Inventory Helpers
 		public static bool HasTypeInInventory<T>(this Player player) where T : ModItem
 		{
-			List<Item> no = [..player.inventory, player.trashItem];
+			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{
@@ -1260,7 +1261,7 @@ namespace ArcaneOdyssey
 
 		public static bool HasTypeInInventory<T>(this Player player, out T item) where T : ModItem
 		{
-			List<Item> no = [.. player.inventory, player.trashItem];
+			List<Item> no = [.. player.inventory, player.trashItem, .. player.ArcaneOdyssey().equippedImbues];
 			item = null;
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var items in no)
@@ -1274,9 +1275,9 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-		public static bool HasTypeInInventory(this Player player, Type type) 
-		{ 
-			List<Item> no = [.. player.inventory, player.trashItem];
+		public static bool HasTypeInInventory(this Player player, Type type)
+		{
+			List<Item> no = [.. player.inventory, player.trashItem, .. player.ArcaneOdyssey().equippedImbues];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{

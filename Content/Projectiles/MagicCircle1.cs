@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Projectile.netUpdate = true;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
-		
+
 			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 
 

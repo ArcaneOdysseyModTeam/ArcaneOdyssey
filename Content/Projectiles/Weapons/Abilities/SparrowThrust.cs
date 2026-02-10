@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override bool PreDraw(ref Color lightColor)
 		{
 			var realkmax = 9;
-			for (int k = realkmax; k >= 0; k--) 
+			for (int k = realkmax; k >= 0; k--)
 			{
 				Vector2 drawPos = VisualCentre - (oldvelo * k * 7f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));

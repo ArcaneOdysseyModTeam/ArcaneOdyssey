@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Arrays.Lost
 {
 	public class EnergyArray : ArraySpell
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 3;
 		}

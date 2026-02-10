@@ -111,7 +111,7 @@ namespace ArcaneOdyssey
 				Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
 				Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
-				
+
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}

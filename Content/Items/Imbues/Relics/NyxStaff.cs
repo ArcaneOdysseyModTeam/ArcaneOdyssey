@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -10,7 +9,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class NyxStaff : SpiritImbue
+	public class NyxStaff : SpiritEnergy
 	{
 		public override int AOValue => 700;
 		public override SoundStyle? ImbueSound => SoundID.Item8;
@@ -25,13 +24,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		{
 			base.SetStaticDefaults();
 			Item.staff[Type] = true;
-			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.autoReuse = true;
 			Item.width = Item.height = 46;
 			Item.shoot = ModContent.ProjectileType<Nichtetheis>();
 			Item.noUseGraphic = false;

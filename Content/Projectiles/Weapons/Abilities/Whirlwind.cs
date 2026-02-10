@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 				if (OriginalDir == -1)
 				{
 					rotaitoneoffset = SpriteEffects.FlipHorizontally;
-				}	
+				}
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.oldRot[k], Sprite.Size() / 2, Projectile.scale, rotaitoneoffset, 0);
 			}
 			return false;

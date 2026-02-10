@@ -63,12 +63,12 @@ public abstract partial class BaseImbueUI : UIState
 	{
 		bool changed = false;
 		foreach (Product p in TheShop) if (p.BackGround.IsMouseHovering || p.Icon.IsMouseHovering)
-		{
-			OptionChosen(p);
+			{
+				OptionChosen(p);
 
-			changed = true;
-			break;
-		}
+				changed = true;
+				break;
+			}
 		if (!changed && ProductSpotLight.CurrentType is not MagicTypes.None)
 		{
 			ProductSpotLight.ChangeType(MagicTypes.None);

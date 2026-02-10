@@ -15,6 +15,7 @@ using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
 using Terraria.Localization;
 using ArcaneOdyssey.Content.Items.Weapons.Sunken;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -61,7 +62,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			if (item.Imbue() is not AOMagic or SpiritImbue)
+			if (item.Imbue() is not AOMagic or SpiritEnergy)
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life += 5;
@@ -70,7 +71,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (!(projectile.Imbue() is AOMagic or SpiritImbue || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass(DamageClass.Summon)) && projectile.hostile)))
+			if (!(projectile.Imbue() is AOMagic or SpiritEnergy || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass(DamageClass.Summon)) && projectile.hostile)))
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life = Math.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);

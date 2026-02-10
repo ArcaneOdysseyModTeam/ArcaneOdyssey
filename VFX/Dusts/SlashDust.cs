@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.VFX.Dusts
 		public override int Rows => 4;
 		public override int Columns => 4;
 
-	
+
 		public override bool MidUpdate(Dust dust)
 		{
 			dust.noGravity = true;

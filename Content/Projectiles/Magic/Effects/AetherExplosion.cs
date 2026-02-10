@@ -9,6 +9,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 	public class AetherExplosion : AOPlayerProjectile
 	{
 		internal static int Count = 0;
+
+		public override float AOSize => .4f;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -17,11 +20,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
-			Projectile.Center = Projectile.position;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 40;
 		}
+
 		public override AODebuffRequirement? Debuff => null;
 
 		public override void OnSpawn(IEntitySource source)
@@ -29,12 +32,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
 				Count++;
-				//if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
 				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
 			}
 			else
 			{
-				Projectile.active = false;
+				Kill();
 			}
 		}
 

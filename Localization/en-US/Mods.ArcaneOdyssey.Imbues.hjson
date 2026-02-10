@@ -75,7 +75,7 @@ Relics: {
 		}
 	}
 
-	SpiritImbue: {
+	SpiritEnergy: {
 		DisplayName: Divine Spirit Energy
 		Tooltip:
 			'''

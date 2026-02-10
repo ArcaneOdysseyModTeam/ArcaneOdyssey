@@ -168,7 +168,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			get
 			{
-				if (CurrentDash is not null) 
+				if (CurrentDash is not null)
 				{
 					if (DashLeft >= CurrentDash.DashMax / 2f)
 					{

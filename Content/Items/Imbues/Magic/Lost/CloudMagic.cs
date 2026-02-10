@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => .9f;
 		public override float AOImbueSize => 1.3f;
 		public override float AOImbueDamage => .8f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CloudyEffect>(), 5*60)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CloudyEffect>(), 5 * 60)];
 
 		public override SynergyEffects Effects => new(
 			[
@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void AddRecipes()
 		{
-			CreateLostRecipe(typeof(WindMagic),typeof(WaterMagic),typeof(SnowMagic));
+			CreateLostRecipe(typeof(WindMagic), typeof(WaterMagic), typeof(SnowMagic));
 		}
 	}
 }

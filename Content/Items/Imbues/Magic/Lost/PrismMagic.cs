@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				if (projectile.extraUpdates > 0)
 				{
-					Dust dust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), 0, rainbowColors[Math.Abs(projectile.numUpdates+Main.GameUpdateCount)/*Prevents issues with -1 updates, and also makes sure all colors are shown*/ % 3], 1.4f * area.RelativeScale());
+					Dust dust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), (Main.rand.NextFloat() - 0.5f) * 3f * area.RelativeScale(), 0, rainbowColors[Math.Abs(projectile.numUpdates + Main.GameUpdateCount)/*Prevents issues with -1 updates, and also makes sure all colors are shown*/ % 3], 1.4f * area.RelativeScale());
 					dust.noGravity = true;
 				}
 				else

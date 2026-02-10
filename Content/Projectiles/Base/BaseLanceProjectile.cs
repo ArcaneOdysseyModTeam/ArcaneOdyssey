@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Owner.itemTime = Owner.itemAnimation;
 			Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.ai[1]);
 
-			
+
 
 			if (Owner.itemAnimation > Owner.itemAnimationMax / 2)
 			{
@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
 				Projectile.Opacity = MathHelper.Lerp(0, 1f, (Owner.itemAnimation / (float)Owner.itemAnimationMax));
-			}	
+			}
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 

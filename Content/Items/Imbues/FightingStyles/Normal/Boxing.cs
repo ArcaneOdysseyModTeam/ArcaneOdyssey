@@ -1,4 +1,4 @@
-﻿	using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using Terraria;
 using Terraria.ID;

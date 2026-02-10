@@ -112,7 +112,11 @@ Mounts: {
 
 Acrimony: {
 	DisplayName: Prometheus's Acrimony
-	Tooltip: ""
+	Tooltip:
+		'''
+		Can be used to reset your imbues
+		Right click on one in your inventory
+		'''
 }
 
 AncientHecateOrb: {

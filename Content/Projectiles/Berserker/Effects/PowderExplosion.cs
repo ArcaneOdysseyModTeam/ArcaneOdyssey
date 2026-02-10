@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 				{
 					Projectile.Kill();
 				}
-			
+
 			}
 		}
 

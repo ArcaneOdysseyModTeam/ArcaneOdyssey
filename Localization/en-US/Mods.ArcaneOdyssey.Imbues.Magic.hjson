@@ -77,7 +77,7 @@ Lost: {
 
 	PhoenixMagic: {
 		DisplayName: Phoenix Magic
-		Tooltip: Allows the user to call upon the power of the flaming phoenix, harming foes and healing allies
+		Tooltip: Allows the user to call upon the power of the flaming phoenix, healing allies and soaring the skies
 	}
 
 	PlantMagic: {

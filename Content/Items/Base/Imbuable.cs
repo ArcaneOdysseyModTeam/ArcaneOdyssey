@@ -23,6 +23,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class Imbuable : AOBaseItem, IImbuable, ILocalizedModType
 	{
+		public override void UpdateEquip(Player player)
+		{
+			player.ArcaneOdyssey().equippedImbues.Add(Item);
+		}
+
 		public virtual WeaponAbility? Ability => null;
 
 		public override string LocalizationCategory => "Imbues";
@@ -36,7 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			_ = Ability?.ToolTip;
 			ItemID.Sets.CanGetPrefixes[Type] = false;
-			if (this is AOMagic || Type == ModContent.ItemType<SpiritImbue>())
+			if (this is AOMagic || Type == ModContent.ItemType<SpiritEnergy>())
 				ItemID.Sets.ItemNoGravity[Type] = true;
 
 			if (this is AOMagic and not (SoundMagic or SlashMagic or VesuviusMagic))
@@ -167,7 +172,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UseAnimation(Player player)
 		{
-			if (!player.AltUse() && Main.myPlayer == player.whoAmI)
+			if (player.AltUse() && Main.myPlayer == player.whoAmI)
 			{
 				player.GetModPlayer<ThermoFallOff>().resetBar = true;
 				var name = "";
@@ -177,7 +182,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (player.Imbue() is not null)
 					name = player.Imbue().Name;
-				if (Name != name && this is AOMagic && player == Main.LocalPlayer)
+				if (Name != name)
 				{
 					AOMagic.CreateMagicCircle(Item, player, this);
 				}
@@ -263,6 +268,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.UseSound = ImbueSound;
 		}
 
+		public override bool AltFunctionUse(Player player) => true;
+
 		internal static List<int> BasicImbues => [];
 
 		public virtual bool Special => false;
@@ -277,17 +284,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 					{
 						return "Special";
 					}
-					return "Magic"; 
+					return "Magic";
 				}
 
-				if (this is FightingStyle) 
+				if (this is FightingStyle)
 				{
-					return "FS"; 
+					return "FS";
 				}
 
-				if (this is SpiritImbue) 
-				{ 
-					return "Relic"; 
+				if (this is SpiritEnergy)
+				{
+					return "Relic";
 				}
 
 				return null;
@@ -296,14 +303,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (Type == ModContent.ItemType<SpiritImbue>())
+			if (Type == ModContent.ItemType<SpiritEnergy>())
 				return;
-			if (this is SpiritImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
+			if (this is SpiritEnergy || !Main.keyState.IsKeyDown(Keys.LeftShift))
 			{
 				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
 				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
-				if (this is not SpiritImbue)
+				if (this is not SpiritEnergy)
 					tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else
@@ -332,7 +339,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				Player player = Main.LocalPlayer;
 
 				//														Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
-				if (!(Type == ModContent.ItemType<SpiritImbue>() || this is EaglePatrimony or AOMagic or FightingStyle /*&& ImbuableTier is AOImbuableTier.Normal*/))
+				if (!(Type == ModContent.ItemType<SpiritEnergy>() || this is EaglePatrimony or AOMagic or FightingStyle /*&& ImbuableTier is AOImbuableTier.Normal*/))
 				{
 					//Main.NewText($"Item is not swappable");
 					return false;

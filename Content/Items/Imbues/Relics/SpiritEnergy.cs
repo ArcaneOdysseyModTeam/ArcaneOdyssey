@@ -1,24 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Base
+namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
 	[LegacyName("RelicImbue")]
-	public class SpiritImbue : Imbuable, ILocalizedModType
+	public class SpiritEnergy : Imbuable, ILocalizedModType
 	{
-		public override string Texture
-		{
-			get
-			{
-				if (Type == ModContent.ItemType<SpiritImbue>())
-					return Mod.Name + "/Assets/SpiritEnergy";
-				return base.Texture;
-			}
-		}
-
 		public override Color ImbueColour => new(0, 183, 255);
 
 		public override string LocalizationCategory => base.LocalizationCategory + ".Relics";
@@ -44,9 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
 
-		public override bool AltFunctionUse(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
-
-		public override bool CanShoot(Player player) => player.AltUse();
+		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1 && !player.AltUse();
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

@@ -18,15 +18,18 @@ namespace ArcaneOdyssey.PlayerClasses
 		public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
-
-		[DefaultValue(false)]
-		public bool HeavySkillActive { get; set; }
+		public bool HeavySkillActive = false;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
 		public bool Grounded => groundedCounter > 15;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
+
+		/// <summary>
+		/// Imbues in equipment slots
+		/// </summary>
+		public List<Item> equippedImbues = [];
 
 		public bool evil = false;
 
@@ -158,6 +161,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			AOHasteStat = 0;
 			gel = 0;
 			pheonixHealing = 0;
+			equippedImbues = [];
 			HandleDashDetection();
 		}
 

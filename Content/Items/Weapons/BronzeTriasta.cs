@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			player.velocity *= .01f;
 		}
-	
+
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(SoundID.Item67);

@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -7,7 +6,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class CrystalOrb : SpiritImbue
+	public class CrystalOrb : SpiritEnergy
 	{
 		public override Color ImbueColour => new(255, 255, 0, 255);
 		public override SoundStyle? ImbueSound => SoundID.Item9;

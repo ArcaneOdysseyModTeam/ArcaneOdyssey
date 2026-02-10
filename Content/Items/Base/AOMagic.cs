@@ -20,12 +20,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
 	{
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-			base.SetStaticDefaults();
-		}
-
 		public override string LocalizationCategory => base.LocalizationCategory + ".Magic." + ImbuableTier;
 
 		public void CreateLostRecipe(params Type[] imbues)
@@ -58,10 +52,18 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
+			Item.mana = (10 * AOScrollSpeed.FlipFloat()).Round();
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = GetSkill("Blast");
+			Item.autoReuse = true;
 			Item.damage = (10 * AOScrollDamage).Round();
 			Item.shootSpeed = 7f * AOScrollSpeed;
+		}
+
+		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		{
+			if (player.AltUse())
+				mult *= 0;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -69,9 +71,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			CreateMagicCircle(Item, player, this, damage);
 			return false;
 		}
-
-		public override bool AltFunctionUse(Player player) => player.CheckMana((25 * AOScrollSpeed).Round(), true);
-		public override bool CanShoot(Player player) => player.AltUse();
 
 		public void CreateAncientRecipe(params Type[] imbues)
 		{
@@ -107,7 +106,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				var rot = player.SafeDirectionTo(Main.MouseWorld);
 				if (item.ModItem is AOMagic)
 				{
-					if (player.PlayerItem()?.ModItem?.Type != magicToUse.Type || !player.AltUse())
+					if (player.PlayerItem()?.ModItem?.Type != magicToUse.Type || player.AltUse())
 						return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 1);
 					else
 					{

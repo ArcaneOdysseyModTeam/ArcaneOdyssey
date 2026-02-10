@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Stuns;
-using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class EaglePatrimony : SpiritImbue
+	public class EaglePatrimony : SpiritEnergy
 	{
 		public override Color ImbueColour => new(0, 183, 255);
 		public override AORarities AORarity => AORarities.Special;

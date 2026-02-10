@@ -39,8 +39,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public AnnihilationState State
 		{
-			get => (AnnihilationState)Projectile.ai[0]; 
-			set => Projectile.ai[0] = (int)value; 
+			get => (AnnihilationState)Projectile.ai[0];
+			set => Projectile.ai[0] = (int)value;
 		}
 
 

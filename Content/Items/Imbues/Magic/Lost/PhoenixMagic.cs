@@ -6,13 +6,48 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
+	[AutoloadEquip(EquipType.Wings)]
 	public class PhoenixMagic : AOMagic
 	{
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 10f);
+		}
+
+		public override void UpdateEquip(Player player)
+		{
+			base.UpdateEquip(player);
+			player.noFallDmg = true;
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.accessory = true;
+		}
+
+		public static float AscentWhenFalling => 0.75f;
+		public static float AscentWhenRising => 0.15f;
+		public static float MaxCanAscendMultiplier => 1f;
+		public static float MaxAscentMultiplier => 1.805f;
+		public static float ConstantAscend => 0.125f;
+
+		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+		{
+			ascentWhenFalling = AscentWhenFalling;
+			ascentWhenRising = AscentWhenRising;
+			maxCanAscendMultiplier = MaxCanAscendMultiplier;
+			maxAscentMultiplier = MaxAscentMultiplier;
+			constantAscend = ConstantAscend;
+		}
+
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
@@ -97,7 +132,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void AddRecipes()
 		{
-			CreateLostRecipe(typeof(FireMagic), typeof(PlasmaMagic),typeof(AshMagic),typeof(MagmaMagic),typeof(ExplosionMagic));
+			CreateLostRecipe(typeof(FireMagic), typeof(PlasmaMagic), typeof(AshMagic), typeof(MagmaMagic), typeof(ExplosionMagic));
 		}
 	}
 }

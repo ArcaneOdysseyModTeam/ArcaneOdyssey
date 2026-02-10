@@ -33,9 +33,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			Item.knockBack = 2f;
 		}
 
-		public override bool AltFunctionUse(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
-
-		public override bool CanShoot(Player player) => player.AltUse();
+		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
