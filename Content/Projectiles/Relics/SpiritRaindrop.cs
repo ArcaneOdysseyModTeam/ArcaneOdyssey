@@ -6,6 +6,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class SpiritRaindrop : SpiritProjectile
 	{
+		public override bool CanHaveImbueVFX => false;
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
 		public override float AOSize => .15f;
 		public override void SetDefaults()
@@ -24,6 +25,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 		public override void AI()
 		{
+			Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+			SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
