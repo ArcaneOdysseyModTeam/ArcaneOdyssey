@@ -12,6 +12,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
+	[AutoloadBossHead]
 	public class Evander : AOMiniboss
 	{
 		public override int AOHealth => 5000;

@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class SpiritRaincloud : SpiritProjectile
 	{
-		public override float AOSize => .5f;
+		public override float AOSize => 1.5f;
 
 		public override bool? CanDamage() => false;
 
@@ -49,6 +49,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Projectile.frameCounter++ > 5)
 			{
 				Projectile.frameCounter = 0;
+				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+				SoundEngine.PlaySound(SecondImbue?.ImbueSound, Projectile.Center);
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;

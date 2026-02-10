@@ -14,9 +14,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 64;
+			Projectile.height = Projectile.width = 750;
 			Projectile.timeLeft = 90;
-			Projectile.scale = .15f;
+			Projectile.scale = .25f;
 			Projectile.Opacity = .25f;
 			Projectile.hostile = true;
 		}
@@ -30,20 +30,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Main.projFrames[Type] = 4;
 		}
 
-		public override bool PreKill(int timeLeft)
-		{
-			Imbue?.KillEffects(Projectile.Hitbox, Projectile);
-			return base.PreKill(timeLeft);
-		}
-
 		public override void AI()
 		{
-			Imbue.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+			Imbue.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, (64f / Projectile.width) * .25f), Projectile.velocity, Projectile);
 
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				Projectile.netUpdate = true;
 			}
 
@@ -75,6 +68,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				return false;
 			}
 			return true;
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			width = height = 1;
+			fallThrough = false;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 	}
 }

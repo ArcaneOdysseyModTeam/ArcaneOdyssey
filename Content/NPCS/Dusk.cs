@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
+	[AutoloadBossHead]
 	public class Dusk : AOMiniboss
 	{
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>()];

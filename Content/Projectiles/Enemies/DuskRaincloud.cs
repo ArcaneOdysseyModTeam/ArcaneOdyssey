@@ -25,14 +25,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.timeLeft = MaxTimeLeft;
-			Projectile.scale = .5f;
-			Projectile.Opacity = .25f;
-		}
-
-		public override bool PreKill(int timeLeft)
-		{
-			Imbue?.KillEffects(Projectile.Hitbox, Projectile);
-			return base.PreKill(timeLeft);
+			Projectile.scale = 1.5f;
 		}
 
 		public override void SetStaticDefaults()
@@ -62,6 +55,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			if (Projectile.frameCounter++ > 5)
 			{
 				Projectile.frameCounter = 0;
+				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
