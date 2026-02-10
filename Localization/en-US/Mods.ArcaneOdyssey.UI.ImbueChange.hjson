@@ -1,8 +1,10 @@
-AnnouncingHeWhoFellOff: Swapping {0}
-BetrayalAmogstUs: Swapping {0} to {1}
-
 Titles: {
 	ImbueAcquire: Choose your first step in your journey, or dare I say . . . ODYSSEY?
 	IfOneIsSoGoodWhyNotTwo: Advance forth to acquire the second step in this World full of Magic.
 	AndThisIsToGoEvenFurtherBeyond: At long last, the end is near, complete your Adventure of Arcane nature.
+}
+
+SwappingImbue: {
+	AnnouncingHeWhoFellOff: Swapping {0}
+	BetrayalAmogstUs: Swapping {0} to {1}
 }

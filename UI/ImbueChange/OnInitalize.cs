@@ -3,7 +3,7 @@ using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
-
+using ArcaneOdyssey.UI._BaseImbueUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -20,13 +20,18 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace ArcaneOdyssey.UI._BaseImbueUI;
+using static ArcaneOdyssey.AOUtils;
 
-public abstract partial class BaseImbueUI : UIState
+namespace ArcaneOdyssey.UI.ImbueChange;
+
+/// <summary>
+/// The UI that opens when the player uses a <see cref="Acrimony"/> or a <see cref="StarterAcrimony"/>; this to 
+/// </summary>
+public partial class ImbueChangeUI : BaseImbueUI
 {
+	protected override List<MagicTypes> WhoAreWeDoing => GetEnumValues([MagicTypes.None]);
 
-	/// <summary>
-	/// Makes this <see cref="BaseImbueUI"/> commit sudoku
-	/// </summary>
-	protected abstract void YoungMan_KillYourself();
+	protected override string GetTitle() => Language.GetTextValue($"{LocalizationPath}SwappingImbue.AnnouncingHeWhoFellOff", TheGuyThatFellOff.Item.Name);
+
+	public ModItem TheGuyThatFellOff;
 }

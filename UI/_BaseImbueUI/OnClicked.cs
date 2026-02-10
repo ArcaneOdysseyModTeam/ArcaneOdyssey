@@ -31,52 +31,57 @@ public abstract partial class BaseImbueUI : UIState
 		YoungMan_KillYourself();
 	}
 	protected abstract void ChosenButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement);
+
+	protected virtual void OptionChosen(Product p)
+	{
+		SoundEngine.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
+
+		ProductSpotLight.ChangeType(p.CurrentType);
+		var item = MagicTypeToItem(p.CurrentType).Clone();
+
+		SpotTitle.SetText(item.Name, 1, true);
+		if (item.ModItem is AOMagic magic)
+		{
+			// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
+			string prefix = magic.ImbueDebuffs.Length switch
+			{
+				> 1 => "Status Effects:",
+				1 => "Status Effect:",
+				_ => "",
+			},
+			text = "";
+			if (magic.ImbueDebuffs.Length > 1)
+			{
+				for (int i = 0; i < magic.ImbueDebuffs.Length; i++)
+				{
+					string imbue = Lang.GetBuffName(magic.ImbueDebuffs[i].debuffID);
+					text += i < magic.ImbueDebuffs.Length - 1 ? $"{imbue}, " : $"{imbue}";
+				}
+			}
+			else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
+
+			SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
+				$"Speed: {magic.AOScrollSpeed} \n" +
+				$"Damage: {magic.AOScrollDamage} \n" +
+				$"{prefix} {text}");
+		}
+		else if (item.ModItem is Imbuable other)
+		{
+			SpotStats.SetText($"Size: {other.AOScrollSize} \n" +
+				$"Speed: {other.AOScrollSpeed} \n" +
+				$"Damage: {other.AOScrollDamage} ");
+		}
+		else
+		{
+			SpotStats.SetText($"Error with {item.Name}");
+		}
+	}
 	protected virtual void OptionSelected(UIMouseEvent evt, UIElement listeningElement)
 	{
 		bool changed = false;
-		foreach (var p in TheShop) if (p.BackGround.IsMouseHovering || p.Icon.IsMouseHovering)
+		foreach (Product p in TheShop) if (p.BackGround.IsMouseHovering || p.Icon.IsMouseHovering)
 		{
-			SoundEngine.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
-
-			ProductSpotLight.ChangeType(p.CurrentType);
-			var item = MagicTypeToItem(p.CurrentType).Clone();
-
-			SpotTitle.SetText(item.Name, 1, true);
-			if (item.ModItem is AOMagic magic)
-			{
-				// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
-				string prefix = magic.ImbueDebuffs.Length switch
-				{
-					> 1 => "Status Effects:",
-					1 => "Status Effect:",
-					_ => "",
-				},
-				text = "";
-				if (magic.ImbueDebuffs.Length > 1)
-				{
-					for (int i = 0; i < magic.ImbueDebuffs.Length; i++)
-					{
-						string imbue = Lang.GetBuffName(magic.ImbueDebuffs[i].debuffID);
-						text += i < magic.ImbueDebuffs.Length - 1 ? $"{imbue}, " : $"{imbue}";
-					}
-				}
-				else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
-
-				SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
-					$"Speed: {magic.AOScrollSize} \n" +
-					$"Damage: {magic.AOScrollDamage} \n" +
-					$"{prefix} {text}");
-			}
-			else if (item.ModItem is Imbuable other)
-			{
-				SpotStats.SetText($"Size: {other.AOScrollSize} \n" +
-					$"Speed: {other.AOScrollSpeed} \n" +
-					$"Damage: {other.AOScrollDamage} ");
-			}
-			else
-			{
-				SpotStats.SetText($"Error with {item.Name}");
-			}
+			OptionChosen(p);
 
 			changed = true;
 			break;

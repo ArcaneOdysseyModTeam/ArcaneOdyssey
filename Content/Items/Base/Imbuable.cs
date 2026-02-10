@@ -6,7 +6,10 @@ using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using ArcaneOdyssey.UI.MagicChangeOLD;
+using ArcaneOdyssey.Content.Projectiles.Relics;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using ArcaneOdyssey.UI;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -353,7 +356,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 
 				//Main.NewText($"Can use item {!ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI()}");
-				return !ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI();
+
+				var instance = ModContent.GetInstance<ImbueAnythingUISystem>();
+
+				if (!instance.CanShowImbueChange()) instance.ShowSwapUI(this);
+				return false;
 			}
 			catch (Exception ex)
 			{
