@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		public override bool? CanDamage() => false;
 
 		public bool playedsound = false;
+		public override bool CanHaveImbueVFX => false;
 
 		public override void SetDefaults()
 		{
@@ -25,7 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (!playedsound)
 			{
-				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = Imbue.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = (Imbue?.AOScrollSpeed ?? 0).MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				playedsound = true;
 			}
 			if (Projectile.position != Projectile.oldPosition)

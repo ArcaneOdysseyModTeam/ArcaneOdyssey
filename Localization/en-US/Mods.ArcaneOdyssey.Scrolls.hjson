@@ -72,3 +72,8 @@ AnnihilationScroll: {
 	DisplayName: Annihilation Spell
 	Tooltip: Channels your magic into a sphere of unstable energy that explodes multiple times on contact with terrain
 }
+
+RainRite: {
+	DisplayName: Rain Rite
+	Tooltip: ""
+}

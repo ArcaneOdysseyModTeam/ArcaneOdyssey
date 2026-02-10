@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 8;
+			Main.projFrames[Type] = 8;
 		}
 		public override void SetDefaults()
 		{
@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.frameCounter++ > 2)
 			{
 				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}

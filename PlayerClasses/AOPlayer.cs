@@ -95,8 +95,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			if (!mediumCoreDeath)
 			{
 				List<Item> items = [
-						new Item(ModContent.ItemType<EagleLegacy>()),
-						new Item(ModContent.ItemType<StarterAcrimony>())
+						new Item(ModContent.ItemType<EagleLegacy>())
 					];
 				return items;
 			}
@@ -127,7 +126,8 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			if (Math.Abs(Player.velocity.Y) < 1f)
 			{
-				groundedCounter++;
+				if (groundedCounter < 200)
+					groundedCounter++;
 			}
 			else
 				groundedCounter = 0;

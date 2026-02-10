@@ -157,23 +157,23 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				tooltips.AddTooltip(new(Mod, "MinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", MinionSlots).Value));
 			}
-			if (AOAgility > 0)
+			if (GetArmourAgilityStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOAgility", Mod.CustomLocalization("ArmourAutoTooltip.Agility", Math.Round(GetArmourAgilityStat() / 10f)).Value));
+				tooltips.AddTooltip(new(Mod, "AOAgility", Mod.CustomLocalization("ArmourAutoTooltip.Agility", Math.Round(GetArmourAgilityStat() / 5f)).Value));
 			}
-			if (AOSize > 0)
+			if (GetArmourSizeStat() > 0)
 			{
 				tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / 3f)).Value));
 			}
-			if (AOPower > 0)
+			if (GetArmourPowerStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOPower", Mod.CustomLocalization("ArmourAutoTooltip.Power", AOPower).Value));
+				tooltips.AddTooltip(new(Mod, "AOPower", Mod.CustomLocalization("ArmourAutoTooltip.Power", GetArmourPowerStat(), (GetArmourPowerStat() / 4f).Round()).Value));
 			}
-			if (AOAttkSpd > 0)
+			if (GetArmourAttkSpeedStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOAttkSpd", Mod.CustomLocalization("ArmourAutoTooltip.Speed", Math.Round(GetArmourAttkSpeedStat() / 3f)).Value));
+				tooltips.AddTooltip(new(Mod, "AOAttkSpd", Mod.CustomLocalization("ArmourAutoTooltip.Speed", Math.Round(GetArmourAttkSpeedStat() / 2.75f)).Value));
 			}
-			if (AOPierce > 0)
+			if (GetArmourPierceStat() > 0)
 			{
 				tooltips.AddTooltip(new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", GetArmourPierceStat() / 5).Value));
 			}
@@ -188,13 +188,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence.FromAODefense();
 				}
 			}
-			player.moveSpeed += GetArmourAgilityStat() / 75f;
-			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 50f;
-			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
+			player.moveSpeed += GetArmourAgilityStat() / 50f;
+			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
+			player.GetCritChance(DamageClass.Generic) += (GetArmourPowerStat() / 4f).Round();
 			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
 			player.ArcaneOdyssey().AOHasteStat += GetArmourHasteStat();
 			player.GetArmorPenetration(DamageClass.Generic) += GetArmourPierceStat() / 5;
-			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275;
+			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275f;
 			player.maxMinions += MinionSlots;
 			player.statManaMax2 += AOMaxMana;
 		}

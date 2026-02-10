@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 	        private int timeAlive;
 	        public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 3;
+			Main.projFrames[Type] = 3;
 		}
 		public override void SetDefaults()
 		{
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 	            if (Projectile.frameCounter++ > 5)
 			{
 				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}

@@ -60,6 +60,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Projectile.penetrate == Projectile.maxPenetrate)
 			{
 				Imbue?.KillEffects(AOUtils.ScaleRectangleNotRef(target.Hitbox, 4f));
+				SecondImbue?.KillEffects(AOUtils.ScaleRectangleNotRef(target.Hitbox, 3f));
 				Projectile.timeLeft -= TimeLeftMax / 2;
 			}
 		}
@@ -70,6 +71,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			{
 				Projectile.penetrate--;
 				Imbue?.KillEffects(Projectile.Hitbox);
+				SecondImbue?.KillEffects(Projectile.Hitbox);
 			}
 			if (TileTimer < 60 && TileTimer > 0)
 			{
@@ -79,12 +81,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.position = Projectile.oldPosition;
 			TileTimer = 65;
 			return false;
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			lightColor = Imbue?.GetColour() ?? Color.White;
-			return base.PreDraw(ref lightColor);
 		}
 	}
 }

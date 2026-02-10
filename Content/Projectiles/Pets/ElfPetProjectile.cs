@@ -14,8 +14,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 		private bool haveICelebrated = false;
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 13;
-			Main.projPet[Projectile.type] = true;
+			Main.projFrames[Type] = 13;
+			Main.projPet[Type] = true;
 		}
 		public override void SetDefaults()
 		{
@@ -92,11 +92,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 								int[] confettis = [DustID.Confetti_Blue, DustID.Confetti_Green, DustID.Confetti_Pink, DustID.Confetti_Yellow];
 								Dust.NewDust(Projectile.Center + new Vector2(0f, -25f), 1, 1, confettis[(int)Math.Round(Main.rand.NextFloat() * 3f)], 0, 0);
 							}
-							if (ArcaneOdysseyClientConfig.Instance.ElfPetSoundEffects)
-							{
-								//Audio here
-								Main.NewText("Elf yippee sound effect would be here");
-							}
+							//Audio here
+							Main.NewText("Elf yippee sound effect would be here");
 							haveICelebrated = true;
 
 						}

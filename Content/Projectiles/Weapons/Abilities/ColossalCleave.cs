@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			if (++Projectile.frameCounter > 6)
 			{
 				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}

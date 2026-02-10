@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -27,6 +28,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Owner.MinionAttackTargetNPC = target.whoAmI;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Imbue?.GetColour() ?? Color.White;
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

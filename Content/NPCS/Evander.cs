@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -14,8 +15,8 @@ namespace ArcaneOdyssey.Content.NPCS
 	public class Evander : AOMiniboss
 	{
 		public override int AOHealth => 5000;
-		public override int MeleeProjectile => ModContent.ProjectileType<EvanderMelee>();
-		public override int RangedProjectile => ModContent.ProjectileType<EvanderSlash>();
+		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<EvanderMelee>()];
+		public override List<int> RangedProjectiles => [ModContent.ProjectileType<EvanderSlash>()];
 
 		public override void SetDefaults()
 		{

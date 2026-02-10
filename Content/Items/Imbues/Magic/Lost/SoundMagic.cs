@@ -41,10 +41,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			if (!Main.dedServ)
 			{
-				for (float i = 0; i < DustCount; i++)
+				for (float i = 0; i < (DustCount * 2); i++)
 				{
-					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * ((area.Width + area.Height) / 2f);
-					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre * area.RelativeScale() / 14f, Scale: area.RelativeScale());
+					var centre = (MathHelper.TwoPi / (DustCount * 2) * (i + Main.rand.NextFloat())).ToRotationVector2() * (64 * area.RelativeScale() * 2.5f);
+					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre / ((DustCount * 2) * .75f), Scale: area.RelativeScale());
 					dust.noGravity = true;
 				}
 			}
@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			{
 				for (float i = 0; i < DustCount; i++)
 				{
-					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * ((area.Width + area.Height) / 2f);
+					var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (64 * area.RelativeScale());
 					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre / (DustCount * .75f), Scale: area.RelativeScale());
 					dust.noGravity = true;
 				}

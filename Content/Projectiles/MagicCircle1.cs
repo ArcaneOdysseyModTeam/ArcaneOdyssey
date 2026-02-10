@@ -16,8 +16,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 4;
+			Main.projFrames[Type] = 4;
 		}
+
+		public override bool CanHaveImbueVFX => false;
 
 		public override float AOSize => .5f;
 
@@ -125,7 +127,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 			if (Projectile.frameCounter++ > 5)
 			{
 				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}

@@ -1,17 +1,18 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
-	public class SpiritBlast : SpiritProjectile
+	public class SpiritRaindrop : SpiritProjectile
 	{
+		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
+		public override float AOSize => .15f;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.timeLeft = 2 * 60;
+			Projectile.timeLeft = 90;
 			Projectile.Opacity = .25f;
 		}
 
@@ -39,14 +40,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 					Projectile.frame = 0;
 				}
 			}
-		}
 
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-		{
-			width = Projectile.width / 4;
-			height = Projectile.height / 4;
-			fallThrough = true;
-			return true;
+			Projectile.velocity.X *= .95f;
+
+			Projectile.velocity.Y += 0.13f;
+			if (Projectile.velocity.Y > 16f)
+			{
+				Projectile.velocity.Y = 16f;
+			}
 		}
 	}
 }

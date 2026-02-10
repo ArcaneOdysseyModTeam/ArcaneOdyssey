@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
@@ -193,6 +194,8 @@ namespace ArcaneOdyssey
 
 		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue, Item item = null)
 		{
+			if (!ArcaneOdysseyConfig.Instance.DamageTypes)
+				return damageClass;
 			if (imbue is not SteamImbue steam)
 			{
 				if (item is not null)
@@ -282,6 +285,8 @@ namespace ArcaneOdyssey
 
 		public static DamageClass UnImbued(this DamageClass damageClass, Item item = null)
 		{
+			if (!ArcaneOdysseyConfig.Instance.DamageTypes)
+				return damageClass;
 			if (damageClass.Name == WarlockDamage.InternalName || damageClass.Name == SavantDamage.InternalName || damageClass.Name == JuggernautDamage.InternalName || damageClass.Name == ConjurerDamage.InternalName || damageClass.Name == WarlordDamage.InternalName || damageClass.Name == KnightDamage.InternalName)
 			{
 				return DamageClass.Melee;
@@ -649,16 +654,12 @@ namespace ArcaneOdyssey
 		{
 			if (projectile is not null && projectile.active)
 			{
-				if (projectile.ModProjectile is MagicCircle1 or MagicCircle2)
-				{
-					return true;
-				}
 				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 				{
 					return (
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
-							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique
+							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or MagicCircle1 or MagicCircle2
 						)
 						&& projectile.owner != 255
 						&& !projectile.hostile

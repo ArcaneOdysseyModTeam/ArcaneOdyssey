@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (!(projectile.Imbue() is AOMagic or SpiritImbue || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass<OracleDamage>()) && projectile.hostile)))
+			if (!(projectile.Imbue() is AOMagic or SpiritImbue || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass(DamageClass.Summon)) && projectile.hostile)))
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life = Math.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);

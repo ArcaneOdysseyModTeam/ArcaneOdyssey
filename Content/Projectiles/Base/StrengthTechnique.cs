@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -10,6 +11,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Imbue?.GetColour(lightColor) ?? lightColor;
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

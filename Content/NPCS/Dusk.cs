@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -11,8 +12,8 @@ namespace ArcaneOdyssey.Content.NPCS
 {
 	public class Dusk : AOMiniboss
 	{
-		public override int MeleeProjectile => ModContent.ProjectileType<DuskHound>();
-		public override int RangedProjectile => ModContent.ProjectileType<DuskHound>();
+		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>()];
+		public override List<int> RangedProjectiles => [ModContent.ProjectileType<DuskHound>()];
 
 		public override void SetDefaults()
 		{

@@ -60,6 +60,11 @@ Configs: {
 			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
 			Tooltip: Whether to have the Array spell predict enemy movements to aim
 		}
+
+		DamageTypes: {
+			Label: "[i:ArcaneOdyssey/SpiritImbue] Custom Damage Types"
+			Tooltip: Whether to have custom damage classes, such as "conjurer damage"
+		}
 	}
 
 	ArcaneOdysseyClientConfig: {
@@ -201,7 +206,7 @@ RelicTierLines.Normal: "[c/2277ff:~ Relic ~]"
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
 	Speed: "{0}% increased attack speed"
-	Power: "{0}% increased damage and critical strike chance"
+	Power: "{0}% increased damage and {1}% increased critical strike chance"
 	Minions: Increases your max number of minions by {0}
 	Mana: Increases maximum mana by {0}
 	Size: "{0}% increased attack size"
@@ -243,7 +248,7 @@ Projectiles: {
 	SunkenStaffProjectile.DisplayName: Sunken Staff
 	WoodenStaffProjectile.DisplayName: Wooden Staff
 	BronzeTriastaProjectile.DisplayName: Triasta of Bronze
-	SeismicSlashRock.DisplayName: Seismic Slash Rock
+	SeismicSlashRock.DisplayName: Seismic Slash
 	BronzeRapierProjectile.DisplayName: Bronze Rapier
 	PrismLinger.DisplayName: Prism Magic Shards
 	DeathCurse.DisplayName: Death Curse
@@ -254,13 +259,14 @@ Projectiles: {
 	MountainWind.DisplayName: Mountain Wind
 	PiercingGale.DisplayName: Piercing Gale
 	Whirlwind.DisplayName: Whirlwind
-	ProminenceProjectile.DisplayName: Prominence
-	BasicCharger.DisplayName: Attack Charger
+	ProminenceProjectile.DisplayName: Prominent Sun
 	TwinCrescent.DisplayName: Twin Crescent
 	NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 	SparrowThrust.DisplayName: Sparrow Thrust
 	DuskHound.DisplayName: Spirit Hound
 	LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
+	DuskRaincloud.DisplayName: Spirit Raincloud
+	DuskRaindrop.DisplayName: Spirit Raindrop
 }
 
 Achievements: {

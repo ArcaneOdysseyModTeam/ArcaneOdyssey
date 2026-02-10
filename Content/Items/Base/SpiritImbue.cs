@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			get
 			{
-				if (Name == nameof(SpiritImbue))
+				if (Type == ModContent.ItemType<SpiritImbue>())
 					return Mod.Name + "/Assets/SpiritEnergy";
 				return base.Texture;
 			}

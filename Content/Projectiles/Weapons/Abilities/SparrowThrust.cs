@@ -8,6 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class SparrowThrust : AOPlayerProjectile
 	{
+		public override bool CanHaveImbueVFX => false;
 		public Color Colour => Imbue?.GetColour(Color.MediumPurple) ?? Color.MediumPurple;
 		public static int MaxTime => 60;
 		public static int TrueMaxTime => MaxTime + (100 * 60);
@@ -47,6 +48,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 			else
 			{
+				if (Projectile.ai[0] == 0)
+				{
+					for (int i = 0; i < 3; i++)
+					{
+						Imbue?.ExplosionEffects(Vector2.Lerp(Projectile.Center, Owner.MountedCenter, .5f));
+					}
+					Projectile.ai[0] = 1;
+				}
 				if (++Projectile.frameCounter > ((TrueMaxTime - MaxTime) / 10f))
 				{
 					Projectile.frameCounter = 0;
@@ -64,7 +73,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			var realkmax = 9;
 			for (int k = realkmax; k >= 0; k--) 
 			{
-				Vector2 drawPos = Projectile.Center - (oldvelo * k * 7f) + new Vector2(0f, Projectile.gfxOffY);
+				Vector2 drawPos = VisualCentre - (oldvelo * k * 7f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, (Sprite.Height / Main.projFrames[Type]) * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - ((Projectile.scale * .075f) * k), SpriteEffects.None, 0);
 			}

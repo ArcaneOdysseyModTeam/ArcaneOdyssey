@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -20,6 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			Projectile.tileCollide = false;
 			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.localNPCHitCooldown = -1;
+			Projectile.Opacity = .5f;
 		}
 
 		public override void SetStaticDefaults()
@@ -52,15 +52,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			{
 				fs.ExplosionEffects(Projectile.Center);
 			}
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			if (Imbue is not null)
-			{
-				lightColor = Color.Lerp(lightColor, Imbue.GetColour(lightColor), .5f);
-			}
-			return true;
 		}
 	}
 }

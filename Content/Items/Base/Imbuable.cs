@@ -4,11 +4,8 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using ArcaneOdyssey.Content.Projectiles.Relics;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using ArcaneOdyssey.UI.MagicChangeOLD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -39,15 +36,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			_ = Ability?.ToolTip;
 			ItemID.Sets.CanGetPrefixes[Type] = false;
-			if (this is AOMagic)
+			if (this is AOMagic || Type == ModContent.ItemType<SpiritImbue>())
 				ItemID.Sets.ItemNoGravity[Type] = true;
-			if (ImbuableTier == AOImbuableTier.Normal)
-			{
-				if (this is AOMagic or BasicCombat)
-				{
-					BasicImbues.Add(Type);
-				}
-			}
 
 			if (this is AOMagic and not (SoundMagic or SlashMagic or VesuviusMagic))
 			{
@@ -242,21 +232,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (entity is Projectile projectile)
 			{
-				if (entity.TryGetOwner(out Player player) && player.heldProj == entity.whoAmI)
-				{ 
+				if (projectile.ModProjectile is AOPlayerProjectile proj && (!proj.CanHaveImbueVFX))
+				{
 					return false;
 				}
-				if (ImbueClassCheck(projectile))
+				if (entity.TryGetOwner(out Player player) && player.heldProj == entity.whoAmI)
 				{
-					if (projectile.ModProjectile is null || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2 or SparrowThrust or Floganymai);
-					}
-					else if (projectile.ModProjectile is AOPlayerProjectile)
-					{
-						return projectile.ModProjectile is not (MagicCircle1 or ExplosionSpell or MagicCircle2 or SparrowThrust or Floganymai);
-					}
+					return false;
 				}
+				return ImbueClassCheck(projectile);
 			}
 			if (entity is Player)
 			{
@@ -279,47 +263,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.UseSound = ImbueSound;
 		}
 
-		internal static List<int> BasicImbues = [];
-		internal static int? poseidonGroupNum = null;
-
-		public override void AddRecipes()
-		{
-			if (ImbuableTier == AOImbuableTier.Normal)
-			{
-				if (this is AOMagic or BasicCombat)
-				{
-					if (!poseidonGroupNum.HasValue)
-					{
-						RecipeGroup group = new(() => ModContent.GetInstance<PoseidonSpirit>().DisplayName.Value, ModContent.ItemType<EagleLegacy>(), ModContent.ItemType<PoseidonSpirit>());
-						poseidonGroupNum = RecipeGroup.RegisterGroup($"{Mod.Name}:PoseidonSpiritGroup", group);
-					}
-					CreateRecipe().AddRecipeGroup(poseidonGroupNum.Value).DisableDecraft().Register();
-				}
-			}
-
-			if (this is EaglePatrimony)
-			{
-				var acrimonygroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AcrimonyGroup", new(() => ModContent.GetInstance<Acrimony>().DisplayName.Value, ModContent.ItemType<Acrimony>(), ModContent.ItemType<StarterAcrimony>()));
-				var anybasicgroup = RecipeGroup.RegisterGroup($"{Mod.Name}:AnyBasicImbue", new(() => Mod.CoolCustomLocalization("AnyBasicImbue", "Any Worthy Item").Value, [.. BasicImbues]));
-
-				Recipe.Create(ModContent.ItemType<PoseidonSpirit>())
-					.AddRecipeGroup(anybasicgroup)
-					.AddRecipeGroup(acrimonygroup)
-					.DisableDecraft()
-					.Register();
-
-				CreateRecipe()
-					.AddIngredient<EagleLegacy>()
-					.DisableDecraft()
-					.Register();
-
-				Recipe.Create(ModContent.ItemType<EagleLegacy>())
-					.AddIngredient(Type)
-					.AddRecipeGroup(acrimonygroup)
-					.DisableDecraft()
-					.Register();
-			}
-		}
+		internal static List<int> BasicImbues => [];
 
 		public virtual bool Special => false;
 
@@ -352,7 +296,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (Name == nameof(SpiritImbue))
+			if (Type == ModContent.ItemType<SpiritImbue>())
 				return;
 			if (this is SpiritImbue || !Main.keyState.IsKeyDown(Keys.LeftShift))
 			{
@@ -388,6 +332,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			// Spoky (2026 Jan 25): By the way, I like putting exceptions in purple
 			catch (Exception ex) { Main.NewText($"Error in {nameof(UseItem)}: \n{ex}", new Color(255, 0, 255)); }
 		}
+
 		public override bool CanRightClick()
 		{
 			try
@@ -395,13 +340,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 				Player player = Main.LocalPlayer;
 
 				//														Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
-				if (!(this is EaglePatrimony || ((this is AOMagic or FightingStyle) /*&& ImbuableTier is AOImbuableTier.Normal*/)))
+				if (!(Type == ModContent.ItemType<SpiritImbue>() || this is EaglePatrimony or AOMagic or FightingStyle /*&& ImbuableTier is AOImbuableTier.Normal*/))
 				{
 					//Main.NewText($"Item is not swappable");
 					return false;
 				}
 
-				if (!player.HasItem(ModContent.ItemType<StarterAcrimony>()) && !player.HasItem(ModContent.ItemType<Acrimony>()))
+				if (!player.HasTypeInInventory<Acrimony>())
 				{
 					//Main.NewText($"Doesn't have acrimony");
 					return false;

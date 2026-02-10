@@ -86,12 +86,12 @@ Accessories: {
 	Vanity: {
 		KindraBlade: {
 			DisplayName: Kindra's Blade
-			Tooltip: Guard Boi's vanity
+			Tooltip: Dedicated to Guard Boi
 		}
 
 		VesuvianSigil: {
 			DisplayName: Vesuvian Sigil
-			Tooltip: RedBirb1508's vanity
+			Tooltip: Dedicated to RedBirb1508
 		}
 	}
 }
@@ -99,7 +99,7 @@ Accessories: {
 Pets: {
 	ElfPetItem: {
 		DisplayName: Aether's Heart
-		Tooltip: ThyGoodBoy's pet
+		Tooltip: Dedicated to ThyGoodBoy
 	}
 }
 
@@ -173,4 +173,9 @@ BleedGelPotion: {
 DesertGelPotion: {
 	DisplayName: Desert Gel
 	Tooltip: Melee and Whip attacks inflict enemies with Sandy
+}
+
+ArcticGelPotion: {
+	DisplayName: Arctic Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Snowy
 }

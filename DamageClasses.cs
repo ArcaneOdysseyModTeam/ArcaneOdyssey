@@ -31,7 +31,7 @@ namespace ArcaneOdyssey
 	public class OracleDamage : AODamageClass
 	{
 		public static readonly string InternalName = typeof(OracleDamage).Name;
-		public static OracleDamage Instance => ModContent.GetInstance<OracleDamage>();
+		public static DamageClass Instance => ArcaneOdysseyConfig.Instance.DamageTypes ? ModContent.GetInstance<OracleDamage>() : Summon;
 
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{

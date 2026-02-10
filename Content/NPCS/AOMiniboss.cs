@@ -26,11 +26,13 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => canMelee;
 
-		public abstract int RangedProjectile { get; }
+		public bool canMelee = false;
 
-		public abstract int MeleeProjectile { get; }
+		public abstract List<int> RangedProjectiles { get; }
+
+		public abstract List<int> MeleeProjectiles { get; }
 
 		public abstract bool Downed { get; set; }
 
@@ -103,7 +105,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				// Jump if there's a block
 				if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
 				{
-					NPC.velocity.Y = -5f;
+					NPC.velocity.Y = -7f;
 				}
 				else if (tileUnderIsFlat)
 				{
@@ -132,7 +134,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				else if (NPC.HasValidTarget && NPC.ai[1] == 15 && Main.netMode != NetmodeID.MultiplayerClient)
 				{
 					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, RangedProjectile, NPC.damage, 4.5f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, Main.rand.Next(RangedProjectiles), NPC.damage, 4.5f);
 				}
 			}
 			else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
@@ -147,7 +149,16 @@ namespace ArcaneOdyssey.Content.NPCS
 				}
 				else if (NPC.ai[1] == 10 && Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, MeleeProjectile, NPC.damage, 4.5f);
+					List<int> melee = [.. MeleeProjectiles];
+					List<int> activetypes = [];
+					foreach (var a in Main.ActiveProjectiles)
+					{
+						activetypes.Add(a.type);
+					}
+					melee.RemoveAll(activetypes.Contains);
+					canMelee = !(melee.Count > 0);
+					if (!canMelee)
+						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, Main.rand.Next(melee), NPC.damage, 4.5f);
 				}
 			}
 		}

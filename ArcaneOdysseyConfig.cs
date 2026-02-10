@@ -24,6 +24,10 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool PredictiveArray { get; set; }
 
+		[DefaultValue(true)]
+		[ReloadRequired]
+		public bool DamageTypes { get; set; }
+
 		public override void OnLoaded()
 		{
 			if (!AffectsOtherMods)
@@ -45,9 +49,6 @@ namespace ArcaneOdyssey
 
 		[DefaultValue(true)]
 		public bool GenerateTucker { get; set; }
-
-		[DefaultValue(true)]
-		public bool ElfPetSoundEffects { get; set; }
 
 		[DefaultValue(false)]
 		public bool AlternatePhoenixEffectVFX { get; set; }

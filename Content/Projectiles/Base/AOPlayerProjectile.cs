@@ -15,6 +15,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// </summary>
 	public abstract class AOPlayerProjectile : ModProjectile, IImbuable
 	{
+		public virtual bool CanHaveImbueVFX => true;
+
 		public float ApplyScrollSpeed(float value, bool flipfloat = false)
 		{
 			if (Imbue is not null)
@@ -62,6 +64,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public AOPlayer AOPlayerOwner => Owner?.ArcaneOdyssey();
 
+		public Vector2 VisualCentre => Projectile.VisualPosition + (Projectile.Size / 2f);
+
 		public Player Owner
 		{
 			get
@@ -108,6 +112,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void SetDefaults()
 		{
+			Projectile.scale = AOSize;
 			BaseScale = AOSize;
 		}
 
@@ -142,7 +147,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				return false;
 			}
 			return true;
@@ -155,12 +160,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				if (tex.Height() == Sprite.Height)
 				{
 					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				}
 				else
 				{
 					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
+					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
 				}
 			}
 		}

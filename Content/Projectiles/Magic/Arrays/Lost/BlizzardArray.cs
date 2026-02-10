@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Arrays.Lost
 
 			if (ModContent.RequestIfExists<Texture2D>(Texture + "_Overlay", out var texture))
 			{
-				Main.EntitySpriteDraw(texture.Value, Projectile.Center - (Projectile.velocity.SafeNormalize(Vector2.Zero) * (Projectile.Size / 2f * Projectile.scale)) - Main.screenPosition, new(0, texture.Width() * overlayFrame, texture.Width(), texture.Width()), lightColor, Projectile.velocity.ToRotation(), new(texture.Width() / 2f), Projectile.scale * .9f, SpriteEffects.None);
+				Main.EntitySpriteDraw(texture.Value, VisualCentre - (Projectile.velocity.SafeNormalize(Vector2.Zero) * (Projectile.Size / 2f * Projectile.scale)) - Main.screenPosition, new(0, texture.Width() * overlayFrame, texture.Width(), texture.Width()), lightColor, Projectile.velocity.ToRotation(), new(texture.Width() / 2f), Projectile.scale * .9f, SpriteEffects.None);
 			}
 			return base.PreDraw(ref lightColor);
 		}
