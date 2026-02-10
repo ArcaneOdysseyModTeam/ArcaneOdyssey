@@ -23,8 +23,7 @@ public partial class ImbueChangeUI : BaseImbueUI
 		if (ProductSpotLight.CurrentType is not MagicTypes.None)
 		{
 			Player player = Main.LocalPlayer;
-			int acrIndex = player.FindItem(ModContent.ItemType<StarterAcrimony>()), imbuIndex = player.FindItem(TheGuyThatFellOff.Type);
-			if (acrIndex < 0) acrIndex = player.FindItem(ModContent.ItemType<Acrimony>());
+			int acrIndex = player.FindItem(ModContent.ItemType<Acrimony>()), imbuIndex = player.FindItem(TheGuyThatFellOff.Type);
 
 			//Main.NewText($"Player still has imbueable {player.HasItem(TheGuyThatFellOff.Type)} [i:{TheGuyThatFellOff.Type}], \n" +
 			//	$"Index: {imbuIndex}, Acrindex: {acrIndex}");
