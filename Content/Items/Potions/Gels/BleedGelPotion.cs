@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Gels;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Potions.Gels
@@ -10,5 +11,14 @@ namespace ArcaneOdyssey.Content.Items.Potions.Gels
 		public override int GelID => ModContent.BuffType<BleedGel>();
 
 		public override Color LiquidColour => Color.Red;
+
+		public override void AddRecipes()
+		{
+			CreateRecipe().
+				AddIngredient(ItemID.BottledWater).
+				AddIngredient(ItemID.Cactus, 20).
+				AddTile(TileID.ImbuingStation).
+				Register();
+		}
 	}
 }
