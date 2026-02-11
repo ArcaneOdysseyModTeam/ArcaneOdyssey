@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 			base.SetDefaults();
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
+			Item.width = Item.height = 60;
 			Item.StopAnimationOnHurt = true;
 			Item.channel = true;
 			Item.DamageType = AOUtils.TrueMeleeNoSpeed();

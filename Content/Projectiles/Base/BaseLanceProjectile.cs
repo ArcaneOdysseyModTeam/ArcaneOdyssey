@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.ignoreWater = true;
 			Projectile.ownerHitCheck = true;
-			Projectile.width = Projectile.height = 100;
+			Projectile.width = Projectile.height = 90;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 255;
 		}
@@ -78,6 +78,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			modifiers.Knockback *= Owner.velocity.Length() / 7f;
 			modifiers.SourceDamage *= 0.1f + Owner.velocity.Length() / 7f * 0.9f;
+		}
+
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		{
+			float rotationFactor = Projectile.rotation + MathHelper.PiOver4;
+			float scaleFactor = 95f;
+			float widthMultiplier = 23f;
+			float collisionPoint = 0f;
+
+			Rectangle lanceHitboxBounds = AOUtils.ScaleRectangleNotRef(new(0, 0, 300, 300), Projectile.scale);
+
+			lanceHitboxBounds.X = (int)Projectile.position.X - lanceHitboxBounds.Width / 2;
+			lanceHitboxBounds.Y = (int)Projectile.position.Y - lanceHitboxBounds.Height / 2;
+			Vector2 hitLineEnd = Projectile.Center + rotationFactor.ToRotationVector2() * scaleFactor;
+
+			if (lanceHitboxBounds.Intersects(targetHitbox) && Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, hitLineEnd, widthMultiplier * Projectile.scale, ref collisionPoint))
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 }
