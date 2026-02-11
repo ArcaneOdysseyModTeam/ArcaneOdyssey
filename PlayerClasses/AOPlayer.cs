@@ -93,6 +93,9 @@ namespace ArcaneOdyssey.PlayerClasses
 			}
 		}
 
+
+		internal IList<string> allChosenImbues = [];
+
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
 			if (!mediumCoreDeath)
