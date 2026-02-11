@@ -1,5 +1,7 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -8,7 +10,19 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 {
 	public class AetherExplosion : AOPlayerProjectile
 	{
-		internal static int Count = 0;
+		private static int _count = 0;
+
+		internal static int Count 
+		{ 
+			get
+			{
+				return _count;
+			}
+			set
+			{
+				_count = Math.Clamp(value, 0, 10);
+			} 
+		}
 
 		public override float AOSize => .4f;
 
@@ -33,6 +47,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			{
 				Count++;
 				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
+			}
+			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherMagic)
+			{
+				BaseScale = Projectile.ai[0];
 			}
 			else
 			{

@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.PlayerClasses;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override float AOSize => 1.25f;
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (Imbue is not null && Owner.velocity.Length() > AOPlayerOwner.MaxRunSpeed && !AOPlayerOwner.OnCooldown<RagingImpact>())
+			if (Imbue is not null && Math.Abs(Owner.velocity.X) > (AOPlayerOwner.MaxRunSpeed * 1.1f) && !AOPlayerOwner.OnCooldown<RagingImpact>())
 			{
 				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, target.Center);
 				AOPlayerOwner.SetCooldown<RagingImpact>();
@@ -27,7 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 	public class RagingImpact : DisplayedCooldown
 	{
-		public override int CooldownLength => 90;
+		public override int CooldownLength => 180;
 		public override string ExtraIconTexture => AOUtils.GetTexture<LanceofLoyaltyProjectile>();
 	}
 }

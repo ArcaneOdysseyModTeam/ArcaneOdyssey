@@ -246,8 +246,8 @@ namespace ArcaneOdyssey
 	/// </summary>
 	public class KnightNoSpeedDamage : AODamageClass
 	{
-		public static readonly string InternalName = typeof(ConjurerNoSpeedDamage).Name;
-		public static ConjurerNoSpeedDamage Instance => ModContent.GetInstance<ConjurerNoSpeedDamage>();
+		public static readonly string InternalName = typeof(KnightNoSpeedDamage).Name;
+		public static KnightNoSpeedDamage Instance => ModContent.GetInstance<KnightNoSpeedDamage>();
 		public override bool GetEffectInheritance(DamageClass damageClass) => damageClass.CountsAsClass(Melee);
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)

@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = GetSkill("Blast");
 			Item.autoReuse = true;
-			Item.damage = (10 * AOScrollDamage).Round();
+			Item.damage = 10;
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}
 

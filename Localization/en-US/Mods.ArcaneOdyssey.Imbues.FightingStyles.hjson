@@ -59,4 +59,5 @@ Developer: {
 Projectiles: {
 	ShockwaveSmash.DisplayName: Smash Technique
 	ShotTechnique.DisplayName: Shot Technique
+	BasicStrike.DisplayName: Basic Strike
 }

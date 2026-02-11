@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Ash, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 4f)];
 				spawnedDust2.noGravity = true;
 			}
-			if (source is Projectile projectile)
+			if (source is Projectile projectile && projectile.ModProjectile is not PowderExplosion)
 			{
 				Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), projectile.damage / 2, 3f, projectile.owner);
 			}

@@ -8,6 +8,7 @@ using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -66,32 +67,26 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			if (!Main.dedServ)
-			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowStarDust, Scale: area.RelativeScale());
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowTorch, Scale: 2f * area.RelativeScale())];
-				spawnedDust.noGravity = true;
-				Lighting.AddLight(area.Center(), 2, 2, 0);
-			}
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowStarDust, Scale: area.RelativeScale());
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowTorch, Scale: 2f * area.RelativeScale())];
+			spawnedDust.noGravity = true;
+			Lighting.AddLight(area.Center(), 2, 2, 0);
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			if (Main.dedServ)
-				return;
-			for (int n = 0; n < 3; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), Scale: 3f * intensity)];
-				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowTorch, (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), Scale: 3f * intensity)];
-				spawnedDust2.noGravity = true;
-			}
+			//for (int n = 0; n < 3; n++)
+			//{
+			//	Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), Scale: 3f * intensity)];
+			//	spawnedDust.noGravity = true;
+			//	Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowTorch, (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), Scale: 3f * intensity)];
+			//	spawnedDust2.noGravity = true;
+			//}
+			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), 0, 0, ai0: 2f * intensity);
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
-			if (Main.dedServ)
-				return;
 			for (int n = 0; n < 10; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowStarDust, 28f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 28f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
@@ -100,7 +95,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-			if (source is Projectile projectile)
+			if (source is Projectile projectile && projectile.ModProjectile is not AetherExplosion)
 			{
 				if (projectile.owner == Main.myPlayer && AetherExplosion.Count < 3)
 				{

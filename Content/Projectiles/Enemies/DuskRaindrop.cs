@@ -11,14 +11,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
 	public class DuskRaindrop : ModProjectile
 	{
+		public override bool? CanDamage() => false;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 750;
+			Projectile.height = Projectile.width = 64;
 			Projectile.timeLeft = 90;
 			Projectile.scale = .25f;
 			Projectile.Opacity = .25f;
-			Projectile.hostile = true;
 		}
 
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();

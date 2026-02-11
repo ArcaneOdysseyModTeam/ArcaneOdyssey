@@ -7,15 +7,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class ShockwaveSmash : StrengthTechnique
 	{
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.width = Projectile.height = 100;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.friendly = true;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
+			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.localNPCHitCooldown = -1;

@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			base.SetDefaults();
 			Item.shoot = ProjectileID.CannonballFriendly;
 			Item.shootSpeed = 8f * AOScrollSpeed;
-			Item.damage = (10 * AOScrollDamage).Round();
+			Item.damage = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2f;
 		}

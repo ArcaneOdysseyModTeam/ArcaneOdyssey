@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 	public class DuskRaincloud : ModProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<SpiritRaincloud>();
-		public override bool? CanDamage() => false;
+
 
 		public const int MaxTimeLeft = SpiritRaincloud.MaxTimeLeft;
 
@@ -32,6 +32,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		{
 			base.SetStaticDefaults();
 			Main.projFrames[Type] = 7;
+		}
+
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		{
+			Rectangle fakebox = AOUtils.ScaleRectangleNotRef(new(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700), Imbue.AOScrollSize, true, true);
+			return targetHitbox.Intersects(fakebox);
 		}
 
 		public override void AI()

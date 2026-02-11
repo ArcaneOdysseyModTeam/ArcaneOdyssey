@@ -10,7 +10,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 {
 	public class LanceofLoyalty : AORangedOrMeleeWeapon
 	{
-		public override string Texture => AOUtils.GetTexture<LionsHalberd>();
 		public override int AOValue => 200;
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override WeaponAbility? Ability => new(this, Color.Gold);

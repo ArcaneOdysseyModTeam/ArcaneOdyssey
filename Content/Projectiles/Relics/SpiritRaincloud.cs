@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using Mono.Cecil.Cil;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
@@ -10,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 	{
 		public override float AOSize => 1.5f;
 
-		public override bool? CanDamage() => false;
+		public override bool? CanDamage() => Projectile.timeLeft <= (MaxTimeLeft - 60);
 
 		public const int MaxTimeLeft = (60 * 10) + 60;
 
@@ -21,6 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.DamageType = OracleDamage.Instance;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
+			Projectile.penetrate = -1;
 			Projectile.timeLeft = MaxTimeLeft;
 		}
 
@@ -28,6 +30,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		{
 			base.SetStaticDefaults();
 			Main.projFrames[Type] = 7;
+		}
+
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		{
+			Rectangle fakebox = AOUtils.ScaleRectangleNotRef(new(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700), Imbue.AOScrollSize * (SecondImbue?.AOScrollSize ?? 1f), true, true);
+			return targetHitbox.Intersects(fakebox);
 		}
 
 		public override void AI()

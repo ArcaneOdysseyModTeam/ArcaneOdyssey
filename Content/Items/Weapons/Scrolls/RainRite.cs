@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			velocity = -Vector2.UnitY * 5f;
+			damage /= 10;
 		}
 
 		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;

@@ -25,7 +25,7 @@ BlastScroll: {
 
 CannonScroll: {
 	DisplayName: Cannon Spell
-	Tooltip: Channels your magic into a large blast that pierces
+	Tooltip: Channels your magic into a large blast that pierces enemies and terrain
 }
 
 ExplosionScroll: {
@@ -40,7 +40,11 @@ PulsarScroll: {
 
 CrashScroll: {
 	DisplayName: Crash Technique
-	Tooltip: Channels your fighting style to dash, use {DASHBIND}
+	Tooltip:
+		'''
+		Channels your fighting style to dash
+		Use {AODASHBIND}
+		'''
 }
 
 ShotScroll: {
@@ -55,7 +59,11 @@ SmashScroll: {
 
 ReflexScroll: {
 	DisplayName: Reflex Scroll
-	Tooltip: Channels your imbue to dash, some imbues have special effects
+	Tooltip:
+		'''
+		Channels your imbue to dash
+		Some imbues have special effects
+		'''
 }
 
 HoundRite: {
@@ -75,5 +83,5 @@ AnnihilationScroll: {
 
 RainRite: {
 	DisplayName: Rain Rite
-	Tooltip: ""
+	Tooltip: Channels your spirit energy into a cloud that rains down projectiles
 }

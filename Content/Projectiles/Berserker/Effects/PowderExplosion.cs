@@ -38,11 +38,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 				{
 					Projectile.Kill();
 				}
-
 			}
 		}
 
-		public override bool? CanDamage() => Projectile.ai[0] >= 60;
+		public override bool? CanDamage() => Projectile.ai[0] >= 59;
 
 		public override bool PreDraw(ref Color lightColor) => false;
 	}

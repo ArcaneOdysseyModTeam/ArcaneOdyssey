@@ -59,10 +59,10 @@ namespace ArcaneOdyssey
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			var dashline = tooltips.Find(e => e.Text.Contains("{DASHBIND}"));
+			var dashline = tooltips.Find(e => e.Text.Contains("{AODASHBIND}"));
 			if (dashline is not null)
 			{
-				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{DASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
+				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{AODASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
 			}
 			if ((item.ModItem is not null && item.ModItem.Name == "UnloadedItem") || !item.ArcaneOdyssey().CanBeAffected)
 			{
@@ -272,7 +272,17 @@ namespace ArcaneOdyssey
 			owner = player;
 			if (!CanBeAffected)
 				return;
-			if (Imbue is not null)
+
+			if (item.ModItem is Imbuable imbue)
+			{
+				if (!item.DamageType.Name.Contains("NoSpeed"))
+				{
+					velocity *= imbue.AOScrollSpeed;
+					if (imbue.Imbue is not null)
+						velocity *= imbue.Imbue.AOScrollSpeed;
+				}
+			}
+			else if (Imbue is not null)
 			{
 				if (!item.DamageType.Name.Contains("NoSpeed"))
 				{
@@ -298,7 +308,17 @@ namespace ArcaneOdyssey
 			owner = player;
 			if (!CanBeAffected)
 				return;
-			if (Imbue is not null)
+
+			if (item.ModItem is Imbuable imbue)
+			{
+				crit *= imbue.AOScrollDamage;
+				if (imbue.Imbue is not null)
+					crit *= imbue.Imbue.AOScrollDamage;
+				if (imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
+					if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
+						crit = 100;
+			}
+			else if (Imbue is not null)
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
@@ -312,11 +332,11 @@ namespace ArcaneOdyssey
 					if (SecondImbue is not null)
 						crit *= SecondImbue.AOImbueDamage;
 				}
-			}
-			if (Imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
-				if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
-					crit = 100;
 
+				if (Imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
+					if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
+						crit = 100;
+			}
 		}
 
 		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
@@ -325,7 +345,18 @@ namespace ArcaneOdyssey
 			owner = player;
 			if (!CanBeAffected)
 				return;
-			if (Imbue is not null)
+
+			if (item.ModItem is Imbuable imbue)
+			{
+				knockback += imbue.AOScrollSize.MultiToPercent();
+				if (imbue.Imbue is not null)
+					knockback *= imbue.Imbue.AOScrollSize.MultiToPercent();
+				var extraknockbackmulti = imbue.KBMulti;
+				if (imbue.Imbue is not null)
+					extraknockbackmulti += imbue.Imbue.KBMulti.MultiToPercent();
+				knockback *= extraknockbackmulti;
+			}
+			else if (Imbue is not null)
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
@@ -356,7 +387,14 @@ namespace ArcaneOdyssey
 			{
 				damage += ((item.damage + (BossesKilled * 2f)) / item.damage) - 1;
 			}
-			if (Imbue is not null)
+			
+			if (item.ModItem is Imbuable imbue)
+			{
+				damage += imbue.AOScrollDamage.MultiToPercent();
+				if (imbue.Imbue is not null)
+					damage += imbue.Imbue.AOScrollDamage.MultiToPercent();
+			}
+			else if (Imbue is not null)
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
@@ -485,16 +523,23 @@ namespace ArcaneOdyssey
 			owner = player;
 			if (CanBeAffected)
 			{
-				if (Imbue is not null && !item.DamageType.Name.Contains("NoSpeed") && CanBeAffected)
+				if (item.ModItem is Imbuable imbue)
 				{
-					if (BenifitsFromScrollStats.GetValueOrDefault())
+					return imbue.AOScrollSpeed * (imbue.Imbue?.AOScrollSpeed ?? 1f);
+				}
+				if (!item.DamageType.Name.Contains("NoSpeed"))
+				{
+					if (Imbue is not null)
 					{
-						return Imbue.AOScrollSpeed * (SecondImbue?.AOScrollSpeed ?? 1f);
-					}
+						if (BenifitsFromScrollStats.GetValueOrDefault())
+						{
+							return Imbue.AOScrollSpeed * (SecondImbue?.AOScrollSpeed ?? 1f);
+						}
 
-					if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-					{
-						return Imbue.AOImbueSpeed * (SecondImbue?.AOImbueSpeed ?? 1f);
+						if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+						{
+							return Imbue.AOImbueSpeed * (SecondImbue?.AOImbueSpeed ?? 1f);
+						}
 					}
 				}
 			}

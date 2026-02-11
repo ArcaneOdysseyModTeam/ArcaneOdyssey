@@ -10,10 +10,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		public override bool CanHaveImbueVFX => false;
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
 		public override float AOSize => .25f;
+
+		public override bool? CanDamage() => false;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 750;
+			Projectile.height = Projectile.width = 64;
 			Projectile.timeLeft = 90;
 			Projectile.Opacity = .25f;
 		}

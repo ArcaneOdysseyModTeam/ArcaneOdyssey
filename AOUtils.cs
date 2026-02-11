@@ -162,18 +162,44 @@ namespace ArcaneOdyssey
 			rect.Y += diffY;
 		}
 
-		public static Rectangle ScaleRectangleNotRef(Rectangle rectangle, float scale, bool adjustX = true, bool adjustY = true)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="rectangle"></param>
+		/// <param name="scale"></param>
+		/// <param name="adjustX">null adjusts equally, true shifts down false shifts up</param>
+		/// <param name="adjustY">null adjusts equally, true shifts down false shifts up</param>
+		/// <returns></returns>
+		public static Rectangle ScaleRectangleNotRef(Rectangle rectangle, float scale, bool? adjustX = null, bool? adjustY = null)
 		{
 			var diffX = ((rectangle.Width - (rectangle.Width * scale)) / 2f).Round();
 			var diffY = ((rectangle.Height - (rectangle.Height * scale)) / 2f).Round();
 			rectangle.Width = (rectangle.Width * scale).Round();
 			rectangle.Height = (rectangle.Height * scale).Round();
-			if (!adjustX)
-				rectangle.X += diffX;
 			rectangle.X += diffX;
-			if (!adjustY)
-				rectangle.Y += diffY;
 			rectangle.Y += diffY;
+			if (adjustY.HasValue)
+			{
+				if (adjustY.Value)
+				{
+					rectangle.Y -= diffY * 2;
+				}
+				else
+				{
+					rectangle.Y += diffY;
+				}	
+			}
+			if (adjustX.HasValue)
+			{
+				if (adjustX.Value)
+				{
+					rectangle.X -= diffX * 2;
+				}
+				else
+				{
+					rectangle.X += diffX;
+				}
+			}
 			return rectangle;
 		}
 
@@ -205,6 +231,27 @@ namespace ArcaneOdyssey
 						if (imbue is AOMagic)
 						{
 							return PaladinDamage.Instance;
+						}
+					}
+
+					if (item.ModItem is AOMagic)
+					{
+						if (imbue is SpiritEnergy)
+						{
+							return PaladinDamage.Instance;
+						}
+					}
+
+					if (item.ModItem is FightingStyle)
+					{
+						if (imbue is SpiritEnergy)
+						{
+							return JuggernautDamage.Instance;
+						}
+
+						if (imbue is AOMagic)
+						{
+							return WarlockDamage.Instance;
 						}
 					}
 
@@ -438,7 +485,7 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
-		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, int ignoredNPC = -1)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, params int[] ignoredNPCs)
 		{
 			if (source is null) return;
 			if (!source.active) return;
@@ -494,7 +541,7 @@ namespace ArcaneOdyssey
 
 			foreach (NPC target in Main.ActiveNPCs)
 			{
-				if (target.whoAmI == ignoredNPC)
+				if (ignoredNPCs.Contains(target.whoAmI))
 					continue;
 				if (target.Hitbox.Distance(origin) <= range)
 				{
