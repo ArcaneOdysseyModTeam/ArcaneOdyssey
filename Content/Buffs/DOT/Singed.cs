@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		{
 			if (npc.HasBuff(Type))
 			{
-				npc.buffTime[buffIndex] = Math.Clamp(npc.buffTime[buffIndex] + time, 0, 20 * 5 * 60);
+				npc.buffTime[buffIndex] = Utils.Clamp(npc.buffTime[buffIndex] + time, 0, 20 * 5 * 60);
 				return true;
 			}
 			else return false;

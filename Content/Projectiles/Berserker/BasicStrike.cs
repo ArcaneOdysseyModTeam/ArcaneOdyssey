@@ -34,8 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				Imbue?.SpawningEffects(Projectile.Hitbox, Projectile.velocity);
 				Projectile.Center = Owner.Center + (Projectile.velocity * 10);
 				Projectile.rotation = Projectile.velocity.ToRotation();
-				var gore = Gore.NewGorePerfect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.GoreType<Impact>(), Imbue.AOScrollSize * (SecondImbue?.AOScrollSize ?? 1f));
-				gore.Centre(Projectile.Center);
+				AOUtils.SpawnGore(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.GoreType<Impact>(), Imbue.AOScrollSize * (SecondImbue?.AOScrollSize ?? 1f));
 			}
 		}
 	}

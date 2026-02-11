@@ -5,7 +5,6 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -56,7 +55,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				if (imbue is EnergyMagic)
 				{
-					Player.statMana = Math.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
+					Player.statMana = Utils.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
 				}
 				if (imbue is VanishingStyle vanish)
 				{
@@ -114,7 +113,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				if (cooldown)
 					SetCooldown(new Cooldown("SpiritLifesteal", Mod, 60));
-				Player.Heal(Math.Clamp(damage / 5, 1, 20));
+				Player.Heal(Utils.Clamp(damage / 5, 1, 20));
 			}
 		}
 

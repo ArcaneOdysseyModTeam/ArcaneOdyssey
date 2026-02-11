@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			}
 			set
 			{
-				_count = Math.Clamp(value, 0, 10);
+				_count = Utils.Clamp(value, 0, 10);
 			} 
 		}
 

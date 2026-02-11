@@ -127,3 +127,8 @@ ProminenceDebuff: {
 	DisplayName: Prominence
 	Description: You are releasing solar flares
 }
+
+SpiritMinionBuff: {
+	DisplayName: Aithiraki
+	Description: Spirit Blast!
+}

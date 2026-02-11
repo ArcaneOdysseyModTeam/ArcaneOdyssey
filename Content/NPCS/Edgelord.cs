@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (!(projectile.Imbue() is AOMagic or SpiritEnergy || ((projectile.DamageType.CountsAsClass(DamageClass.Magic) || projectile.DamageType.CountsAsClass(DamageClass.Summon)) && projectile.hostile)))
 			{
 				modifiers.FinalDamage *= 0;
-				NPC.life = Math.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
+				NPC.life = Utils.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
 			}
 		}
 

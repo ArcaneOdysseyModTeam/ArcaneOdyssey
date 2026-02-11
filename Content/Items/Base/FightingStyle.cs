@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Berserker;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 

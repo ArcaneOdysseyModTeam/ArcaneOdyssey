@@ -8,7 +8,6 @@ using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
-using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {

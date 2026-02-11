@@ -57,6 +57,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
+			base.OnHitNPC(target, hit, damageDone);
 			if (Projectile.penetrate == Projectile.maxPenetrate)
 			{
 				Imbue?.KillEffects(AOUtils.ScaleRectangleNotRef(target.Hitbox, 4f));

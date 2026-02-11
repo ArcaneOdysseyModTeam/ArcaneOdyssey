@@ -1,0 +1,31 @@
+﻿using ArcaneOdyssey.Content.Projectiles.Relics;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Content.Buffs.Minions
+{
+	public class SpiritMinionBuff : ModBuff
+	{
+		public override string Texture => $"Terraria/Images/Buff_{BuffID.Webbed}";
+		public override void SetStaticDefaults()
+		{
+			Main.buffNoSave[Type] = true;
+			Main.buffNoTimeDisplay[Type] = true;
+			Main.pvpBuff[Type] = true;
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<SpiritMinion>()] > 0)
+			{
+				player.buffTime[buffIndex] = 3600;
+			}
+			else
+			{
+				player.DelBuff(buffIndex);
+				buffIndex--;
+			}
+		}
+	}
+}

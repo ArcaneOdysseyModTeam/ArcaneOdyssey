@@ -21,6 +21,16 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		/// <summary>
+		/// Spawns gore, centred to the <paramref name="centre"/>
+		/// </summary>
+		public static Gore SpawnGore(IEntitySource source, Vector2 centre, Vector2 velocity, int type, float scale = 1f)
+		{
+			var gore = Gore.NewGorePerfect(source, centre, velocity, type, scale);
+			gore.Centre(centre);
+			return gore;
+		}
+
 		public static int GetMusic(string name) => MusicLoader.GetMusicSlot(ArcaneOdysseyMusicMod.Instance, "Music/" + name);
 
 		internal static List<string> options = [
@@ -396,11 +406,11 @@ namespace ArcaneOdyssey
 			}
 			if (entity is Item item)
 			{
-				item.active = false;
+				item.TurnToAir();
 			}
 			if (entity is Player player)
 			{
-				player.statLife = 0;
+				player.KillMe(PlayerDeathReason.ByOther(entity.whoAmI), 99999999, player.direction);
 			}
 			if (entity is NPC npc)
 			{
@@ -566,6 +576,76 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static NPC GetMinionTarget(this Vector2 origin, float maxDistanceToCheck, Player owner, bool ignoreTiles = true, bool checksRange = false)
+		{
+			if (owner is null || !owner.whoAmI.WithinBounds(Main.maxPlayers) || !owner.MinionAttackTargetNPC.WithinBounds(Main.maxNPCs))
+				return ClosestNPCAt(origin, maxDistanceToCheck, ignoreTiles);
+			NPC npc = Main.npc[owner.MinionAttackTargetNPC];
+			bool canHit = true;
+			if (!ignoreTiles)
+				canHit = Collision.CanHit(origin, 1, 1, npc.Center, 1, 1);
+			float extraDistance = (npc.width / 2) + (npc.height / 2);
+			bool distCheck = Vector2.Distance(origin, npc.Center) < (maxDistanceToCheck + extraDistance) || !checksRange;
+			if (owner.HasMinionAttackTargetNPC && canHit && distCheck)
+			{
+				return npc;
+			}
+			return ClosestNPCAt(origin, maxDistanceToCheck, ignoreTiles);
+		}
+
+		public static NPC ClosestNPCAt(this Vector2 origin, float maxDistanceToCheck, bool ignoreTiles = true, bool bossPriority = false)
+		{
+			NPC closestTarget = null;
+			if (bossPriority)
+			{
+				bool bossFound = false;
+				for (int index = 0; index < Main.npc.Length; index++)
+				{
+					if (bossFound && !(Main.npc[index].boss || Main.npc[index].type == NPCID.WallofFleshEye))
+						continue;
+
+					if (Main.npc[index].CanBeChasedBy(null, false))
+					{
+						float extraDistance = (Main.npc[index].width / 2) + (Main.npc[index].height / 2);
+
+						bool canHit = true;
+						if (extraDistance < maxDistanceToCheck && !ignoreTiles)
+							canHit = Collision.CanHit(origin, 1, 1, Main.npc[index].Center, 1, 1);
+
+						if (Vector2.Distance(origin, Main.npc[index].Center) < maxDistanceToCheck && canHit)
+						{
+							if (Main.npc[index].boss || Main.npc[index].type == NPCID.WallofFleshEye)
+								bossFound = true;
+
+							maxDistanceToCheck = Vector2.Distance(origin, Main.npc[index].Center);
+							closestTarget = Main.npc[index];
+						}
+					}
+				}
+			}
+			else
+			{
+				for (int index = 0; index < Main.npc.Length; index++)
+				{
+					if (Main.npc[index].CanBeChasedBy(null, false))
+					{
+						float extraDistance = (Main.npc[index].width / 2) + (Main.npc[index].height / 2);
+
+						bool canHit = true;
+						if (extraDistance < maxDistanceToCheck && !ignoreTiles)
+							canHit = Collision.CanHit(origin, 1, 1, Main.npc[index].Center, 1, 1);
+
+						if (Vector2.Distance(origin, Main.npc[index].Center) < maxDistanceToCheck && canHit)
+						{
+							maxDistanceToCheck = Vector2.Distance(origin, Main.npc[index].Center);
+							closestTarget = Main.npc[index];
+						}
+					}
+				}
+			}
+			return closestTarget;
+		}
+
 		public static Rectangle SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, bool adjustY = true, bool adjustX = true, int ignoredNPC = -1)
 		{
 			if (source is null) return hitbox;
@@ -695,6 +775,14 @@ namespace ArcaneOdyssey
 			return second is not null;
 		}
 
+		public static Tile GetTile(int x, int y)
+		{
+			if (!WorldGen.InWorld(x, y))
+				return new Tile();
+
+			return Main.tile[x, y];
+		}
+
 		public static string Replace(this string text, string toRemove) => text.Replace(toRemove, null);
 
 		public static bool ImbueClassCheck(Projectile projectile)
@@ -781,6 +869,7 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
+		public static bool IsTileSolidGround(this Tile tile) => tile != null && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
 
 		public static bool TryGetSecondImbue(this Entity entity, Imbuable imbue, out Imbuable secondimbue)
 		{
@@ -821,6 +910,8 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
+
+		public static bool WithinBounds(this int index, int cap) => index >= 0 && index < cap;
 
 		public static ModDamageHelper CalculateImbueDamage(Imbuable imbue, NPC target, ModDamageHelper modifiers)
 		{

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Mono.Cecil.Cil;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
