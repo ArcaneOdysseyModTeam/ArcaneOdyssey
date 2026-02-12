@@ -144,17 +144,19 @@ namespace ArcaneOdyssey.PlayerClasses
 
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public void SetDash(DashSystem dash)
+		public void SetDash(DashSystem dash, int dir = 0)
 		{
 			if (dash.AnyDirection)
 			{
 				OmniDash = dash;
+				OmniDashDir = dir;
 			}
 			else SideDash = dash;
 		}
 
 		private DashSystem _dash;
 		public DashSystem OmniDash { get => _dash; set => _dash = !dashing ? value : _dash; }
+		public int OmniDashDir = 0;
 		private DashSystem _dash2;
 		public DashSystem SideDash { get => _dash2; set => _dash2 = !dashing ? value : _dash2; }
 		public DashSystem CurrentDash;
@@ -318,6 +320,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			if (!dashing)
 			{
 				OmniDash = null;
+				OmniDashDir = 0;
 				SideDash = null;
 				CurrentDash = null;
 			}
@@ -376,7 +379,7 @@ namespace ArcaneOdyssey.PlayerClasses
 					{
 						if (dash.AnyDirection && AOKeybinds.DashBind.JustPressed)
 						{
-							StartDash(dash, 0, Imbue, true);
+							StartDash(dash, OmniDashDir, Imbue, true);
 						}
 						else if (!dash.AnyDirection)
 						{
@@ -406,8 +409,8 @@ namespace ArcaneOdyssey.PlayerClasses
 					if (Player.mount.Active || Player.setSolar || (!CurrentDash.ExtraCheck(Player)) || DashLeft <= 0)
 					{
 						CurrentDash.SetCooldown(Player);
-						CurrentDash.OnEnd(Player);
 						dashing = false;
+						CurrentDash.OnEnd(Player);
 						if (collisions == 0)
 						{
 							CurrentDash.NaturalEnd(Player);

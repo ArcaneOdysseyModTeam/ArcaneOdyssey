@@ -52,3 +52,8 @@ RagingImpact: {
 	DisplayName: Raging Impact
 	Description: Raging Impact is on cooldown
 }
+
+WalkCooldown: {
+	DisplayName: Spirit Walk Cooldown
+	Description: Spirit Walk is on cooldown
+}
