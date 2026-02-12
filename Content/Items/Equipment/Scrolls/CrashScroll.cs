@@ -27,6 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
 			tooltips.RemoveAll((TooltipLine line) => line.Name == "Speed");
 		}
 
@@ -37,12 +38,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			{
 				player.ArcaneOdyssey()?.SetDash(new Crash(Item));
 			}
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ClimbingClaws).Register();
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ShoeSpikes).Register();
 		}
 	}
 

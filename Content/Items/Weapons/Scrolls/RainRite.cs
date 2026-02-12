@@ -29,11 +29,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		}
 
 		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
-
-		public override void AddRecipes()
-		{
-			AddRecipe(ItemID.CrimsonRod);
-			AddRecipe(ItemID.Vilethorn);
-		}
 	}
 }

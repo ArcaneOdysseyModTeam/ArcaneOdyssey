@@ -1778,4 +1778,11 @@ namespace ArcaneOdyssey
 			return new ModDamageHelper(hitModifiers.FinalDamage);
 		}
 	}
+
+	public enum ScrollTier
+	{
+		Common,
+		Rare,
+		Lost
+	}
 }

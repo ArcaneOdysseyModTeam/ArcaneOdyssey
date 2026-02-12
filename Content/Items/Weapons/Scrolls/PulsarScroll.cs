@@ -9,6 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
 	public class PulsarScroll : Scroll
 	{
+		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveMagic => true;
 		public override void SetDefaults()
 		{

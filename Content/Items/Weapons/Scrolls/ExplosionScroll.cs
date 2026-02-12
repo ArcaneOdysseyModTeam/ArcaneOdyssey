@@ -1,5 +1,4 @@
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -22,11 +21,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 100;
 			Item.shoot = ModContent.ProjectileType<ExplosionSpell>();
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.Dynamite, 32).Register();
 		}
 
 		public override bool AltFunctionUse(Player player) => true;

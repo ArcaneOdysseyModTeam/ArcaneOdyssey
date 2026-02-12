@@ -161,18 +161,6 @@ namespace ArcaneOdyssey
 								}
 							}
 						}
-
-						if (WorldGen.genRand.NextBool(10))
-						{
-							for (int i = 0; i < Chest.maxItems; i++)
-							{
-								if (chest.item[i] != null && chest.item[i].IsAir)
-								{
-									chest.item[i].SetDefaults(ModContent.ItemType<CannonScroll>());
-									break;
-								}
-							}
-						}
 					}
 
 					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon chests probably
@@ -183,17 +171,6 @@ namespace ArcaneOdyssey
 					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
 					{
 
-						if (WorldGen.genRand.NextBool(5))
-						{
-							for (int i = 0; i < Chest.maxItems; i++)
-							{
-								if (chest.item[i] != null && chest.item[i].IsAir)
-								{
-									chest.item[i].SetDefaults(ModContent.ItemType<PulsarScroll>());
-									break;
-								}
-							}
-						}
 					}
 				}
 			}
@@ -207,7 +184,9 @@ namespace ArcaneOdyssey
 		public override void SetStaticDefaults()
 		{
 			if (ArcaneOdysseyClientConfig.Instance.MissingDebuffSprites)
+			{
 				TextureAssets.Buff[BuffID.Oiled] = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/OiledDebuff");
+			}
 		}
 
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)

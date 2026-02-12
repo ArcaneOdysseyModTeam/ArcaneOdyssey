@@ -28,12 +28,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				player.GetJumpState<LeapAirStep>().Enable();
 			}
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.ShinyRedBalloon).Register();
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.PinkGel, 5).Register();
-		}
 	}
 
 	public class LeapAirStep : ExtraJump

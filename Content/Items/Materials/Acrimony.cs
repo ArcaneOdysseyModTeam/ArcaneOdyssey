@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Materials
 {
-	[LegacyName("DarkSeaMusicBox", "TitleMusicBox", "StarterAcrimony")] // removed items are added here
+	[LegacyName("DarkSeaMusicBox", "TitleMusicBox", "StarterAcrimony", "Paper", "EmptyScroll")] // removed items are added here
 	public class Acrimony : AOBaseItem
 	{
 		public int AOValue = 10000;

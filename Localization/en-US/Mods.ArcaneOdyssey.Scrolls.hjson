@@ -88,7 +88,7 @@ RainRite: {
 
 WalkRite: {
 	DisplayName: Walk Rite
-	Tooltip: 
+	Tooltip:
 		'''
 		Channels your spirit energy into three repeated dashes
 		Press {AODASHBIND} to activate

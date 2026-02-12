@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Silk, 10).AddIngredient<Paper>(5).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Silk, 15).Register();
 		}
 	}
 

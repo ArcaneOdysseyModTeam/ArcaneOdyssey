@@ -143,6 +143,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			player.DisplayDollUpdate();
 			player.UpdateSocialShadow();
 			player.Center = Projectile.Center;
+			player.itemRotation = MathHelper.PiOver2;
 			player.position.Y -= 5;
 			player.direction = (Projectile.velocity.X > 0f) ? 1 : -1;
 			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);

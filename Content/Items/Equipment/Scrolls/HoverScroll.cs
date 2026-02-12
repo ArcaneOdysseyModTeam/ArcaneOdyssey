@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	public class HoverScroll : Scroll
 	{
+		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveMagic => true;
 		public override int AOValue => 1000;
 		public override void SetDefaults()
@@ -33,13 +34,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				else
 					player.carpetTime = (player.carpetTime * Imbue.AOScrollDamage).Round();
 			}
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.FlyingCarpet).Register();
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.SandstorminaBottle).Register();
-			CreateRecipe().AddIngredient<EmptyScroll>().AddRecipeGroup(RecipeGroupID.SandstormBalloons).Register();
 		}
 
 		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)

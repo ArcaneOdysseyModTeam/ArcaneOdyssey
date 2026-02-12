@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
 	public class AnnihilationScroll : Scroll
 	{
+		public override ScrollTier Tier => ScrollTier.Lost;
 		public override bool CanHaveMagic => true;
 		public override int AOValue => 2000;
 
@@ -22,11 +23,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
-		}
-
-		public override void AddRecipes()
-		{
-			AddRecipe(ItemID.NimbusRod);
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

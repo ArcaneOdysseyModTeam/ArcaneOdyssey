@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,7 +9,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class Scroll : AOBaseItem, IImbuable, ILocalizedModType
 	{
+		public override bool ShowItemTypeTooltip => false;
 		public override string LocalizationCategory => "Scrolls";
+
+		public virtual ScrollTier Tier => ScrollTier.Common;
+
 		public Imbuable Imbue
 		{
 			get
@@ -89,14 +94,43 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool CanUseItem(Player player) => Imbue is not null;
 
-		public void AddRecipe(params int[] ingredients)
+		public string GetTierFormatting()
 		{
-			var rec = CreateRecipe().AddIngredient<EmptyScroll>();
-			foreach (var i in ingredients)
+			if (CanHaveFS && CanHaveMagic && CanHaveRelic)
 			{
-				rec.AddIngredient(i);
+				return Mod.CustomLocalization("ScrollTiers.Scroll").Value;
 			}
-			rec.Register();
+			var text = "";
+			if (CanHaveFS)
+			{
+				text += Mod.CustomLocalization("ScrollTiers.Technique");
+			}
+			if (CanHaveMagic)
+			{
+				if (!string.IsNullOrEmpty(text))
+				{
+					text += "/";
+				}
+				text += Mod.CustomLocalization("ScrollTiers.Spell");
+			}
+			if (CanHaveRelic)
+			{
+				if (!string.IsNullOrEmpty(text))
+				{
+					text += "/";
+				}
+				text += Mod.CustomLocalization("ScrollTiers.Rite");
+			}
+
+
+			text += " " + Mod.CustomLocalization("ScrollTiers.Scroll");
+			return text;
+		}
+
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.AddTooltip(new(Mod, "ScrollTier", Mod.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
 		}
 
 		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue);

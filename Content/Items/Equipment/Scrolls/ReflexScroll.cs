@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	public class ReflexScroll : Scroll
 	{
+		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveFS => true;
 		public override bool CanHaveMagic => true;
@@ -26,12 +27,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			base.UpdateAccessory(player, hideVisual);
 			if (HasCorrectImbue)
 				player.ArcaneOdyssey()?.SetDash(new Reflex(Item));
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.EoCShield).Register();
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.CobaltShield).Register();
 		}
 	}
 

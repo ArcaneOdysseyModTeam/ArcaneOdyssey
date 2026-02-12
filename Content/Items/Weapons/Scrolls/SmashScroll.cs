@@ -19,10 +19,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.DamageType = DamageClass.Melee;
 			Item.shootSpeed = 5;
 		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<EmptyScroll>().AddIngredient(ItemID.BatBat).Register();
-		}
 	}
 }

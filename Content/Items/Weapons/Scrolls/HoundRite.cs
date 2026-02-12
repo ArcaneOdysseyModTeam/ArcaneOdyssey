@@ -7,6 +7,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
 	public class HoundRite : Scroll
 	{
+		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveRelic => true;
 
 		public override void SetDefaults()
@@ -17,11 +18,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.DamageType = OracleDamage.Instance;
 			Item.shoot = ModContent.ProjectileType<SpiritHound>();
 			Item.shootSpeed = 7f;
-		}
-
-		public override void AddRecipes()
-		{
-			AddRecipe(ItemID.WandofFrosting);
 		}
 	}
 }

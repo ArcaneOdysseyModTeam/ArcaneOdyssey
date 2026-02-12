@@ -19,10 +19,5 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
 			Item.shootSpeed = 7f;
 		}
-
-		public override void AddRecipes()
-		{
-			AddRecipe(ItemID.WandofSparking);
-		}
 	}
 }

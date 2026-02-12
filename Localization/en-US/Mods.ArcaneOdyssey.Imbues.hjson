@@ -58,7 +58,7 @@ Relics: {
 
 		Ability: {
 			DisplayName: Thakrousi
-			Description: Surround yourself in spirit energy and leap forward, then release the energy in a large area
+			Description: Surround yourself in spirit energy and leap forward
 		}
 	}
 
@@ -72,7 +72,7 @@ Relics: {
 
 		Ability: {
 			DisplayName: Aithiraki
-			Description: Summon a minion made of spirit energy
+			Description: Summon a clone made of spirit energy
 		}
 	}
 

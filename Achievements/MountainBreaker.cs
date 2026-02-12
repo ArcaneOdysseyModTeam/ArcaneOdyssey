@@ -2,11 +2,10 @@
 using Terraria.Achievements;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.Achievements
 {
 	public class MountainBreaker : ModAchievement
 	{
-		public override string TextureName => Mod.Name + "/Assets/" + Name;
 		public override void SetStaticDefaults()
 		{
 			Achievement.SetCategory(AchievementCategory.Slayer);

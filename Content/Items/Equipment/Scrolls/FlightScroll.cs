@@ -10,6 +10,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 	[AutoloadEquip(EquipType.Wings)]
 	public class FlightScroll : Scroll
 	{
+		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveMagic => true;
 		public override bool CanHaveRelic => true;
 
@@ -77,11 +78,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			}
 
 			return false;
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient(ItemID.SoulofFlight, 20).AddIngredient<EmptyScroll>().Register();
 		}
 	}
 }

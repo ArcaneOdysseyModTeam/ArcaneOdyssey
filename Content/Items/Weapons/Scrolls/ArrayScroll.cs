@@ -9,6 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
 	public class ArrayScroll : Scroll
 	{
+		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveMagic => true;
 		public override int AOValue => 1200;
 
@@ -20,11 +21,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
-		}
-
-		public override void AddRecipes()
-		{
-			AddRecipe(ItemID.SkyFracture);
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

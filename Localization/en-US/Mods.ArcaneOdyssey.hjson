@@ -316,3 +316,13 @@ DamageClasses: {
 	WarlordNoSpeedDamage: warlord damage
 	SavantDamage: savant damage
 }
+
+ScrollTiers: {
+	Common: "[c/2277ff:Common {0}]"
+	Rare: "[c/0044ff:Rare {0}]"
+	Lost: "[c/7ebcc2:Lost {0}]"
+	Spell: spell
+	Rite: rite
+	Technique: technique
+	Scroll: scroll
+}
