@@ -71,10 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 		public override bool AnyDirection => false;
 		public override bool Immune => false;
 		public override int Cooldown => 60 * 3;
-		public override bool OnHit(Player player, Entity target)
-		{
-			return false;
-		}
+		public override bool OnHit(Player player, Entity target) => false;
 
 		public override void DashEffect(Player player)
 		{

@@ -191,7 +191,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		/// Starts a dash, does not check for cooldowns but will use ExtraCheck
 		/// </summary>
 		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
-		/// <param name="direction">The direction of the normal dash, -1 or 1 for horizontal and -2 or 2 for vertical</param>
+		/// <param name="direction">The direction of the normal dash, leave 0 for any direction<para>-1 is left, 1 is right</para><para>-2 is up, 2 is down</para><para>-3 is left up diagonal, 3 is right up diagonal</para><para>-4 is left down diagonal, 4 is right down diagonal</para></param>
 		public void StartDash(DashSystem dashToUse, int direction = 0, Imbuable imbue = null, bool imbueAffectsSpeed = false)
 		{
 			if (dashToUse.ExtraCheck(Player))
@@ -211,20 +211,49 @@ namespace ArcaneOdyssey.PlayerClasses
 					}
 				}
 				collisions = 0;
-				if (dashToUse.AnyDirection && direction == 0)
+				if (direction == 0)
 				{
 					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
 				}
 				else
 				{
-					var standard = Vector2.UnitX * direction;
+					Vector2 standard;
+					direction *= Math.Sign(Player.gravDir);
 					if (Math.Abs(direction) == 2)
 					{
-						if (Math.Sign(Player.velocity.Y) * 2 != direction)
+						if (Math.Sign(Player.velocity.Y) != Math.Sign(direction))
 						{
 							Player.velocity.Y /= 4;
 						}
-						standard = Vector2.UnitY * MathHelper.Clamp(direction, -1f, 1f) * Player.gravDir;
+						standard = Vector2.UnitY * Math.Sign(direction);
+					}
+					else if (Math.Abs(direction) == 3)
+					{
+						if ((Player.velocity.Y * Math.Abs(direction)) > 0)
+						{
+							Player.velocity.Y /= 4;
+						}
+						if (Math.Sign(Player.velocity.X) != Math.Sign(direction))
+						{
+							Player.velocity.X = 0f;
+						}
+						standard = Vector2.One * .707f;
+						standard.X *= Math.Sign(direction);
+						standard.Y *= -Player.gravDir;
+					}
+					else if (Math.Abs(direction) == 4)
+					{
+						if ((Player.velocity.Y * Math.Abs(direction)) < 0)
+						{
+							Player.velocity.Y /= 4;
+						}
+						if (Math.Sign(Player.velocity.X) != Math.Sign(direction))
+						{
+							Player.velocity.X = 0f;
+						}
+						standard = Vector2.One * .707f;
+						standard.X *= Math.Sign(direction);
+						standard.Y *= Player.gravDir;
 					}
 					else
 					{
@@ -232,6 +261,7 @@ namespace ArcaneOdyssey.PlayerClasses
 						{
 							Player.velocity.X = 0f;
 						}
+						standard = Vector2.UnitX * direction;
 					}
 					DashVelocity = standard * dashToUse.DashSpeed;
 				}
@@ -393,8 +423,8 @@ namespace ArcaneOdyssey.PlayerClasses
 						return;
 					}
 
-					CurrentDash.Imbue?.LingeringEffects(Player.Hitbox);
-					CurrentDash.SecondImbue?.LingeringEffects(Player.Hitbox);
+					CurrentDash.Imbue?.LingeringEffects(ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
+					CurrentDash.SecondImbue?.LingeringEffects(ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
 
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
