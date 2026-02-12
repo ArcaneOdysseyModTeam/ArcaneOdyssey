@@ -18,5 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.shootSpeed = 2f;
 			Item.knockBack = 10f;
 		}
+
+		public override bool CanShoot(Player player) => !player.AltUse();
 	}
 }
