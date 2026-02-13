@@ -831,6 +831,10 @@ namespace ArcaneOdyssey
 				{
 					return CanHaveImbue(item, steam.Imbue);
 				}
+				if (imbue is null)
+				{
+					return true;
+				}
 				if (item.ModItem is Scroll scroll)
 				{
 					if (scroll.CanHaveMagic && imbue is AOMagic)
@@ -849,7 +853,7 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is SpiritEnergy)
 				{
-					return imbue is AOMagic or null;
+					return imbue is AOMagic;
 				}
 				if (imbue is FightingStyle)
 				{
@@ -862,10 +866,6 @@ namespace ArcaneOdyssey
 				if (imbue is SpiritEnergy)
 				{
 					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || item.ModItem is AOMagic or FightingStyle);
-				}
-				if (imbue is null)
-				{
-					return true;
 				}
 			}
 			return false;

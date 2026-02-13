@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 10f);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 12f, 12f);
 		}
 
 		public override void UpdateEquip(Player player)
@@ -46,6 +46,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			maxCanAscendMultiplier = MaxCanAscendMultiplier;
 			maxAscentMultiplier = MaxAscentMultiplier;
 			constantAscend = ConstantAscend;
+
+			if (player.TryingToHoverDown && player.controlJump && player.wingTime > 0f && !player.merman)
+			{
+				player.wingTime += 0.5f;
+				player.velocity.Y *= 0.8f;
+				if (player.velocity.Y > -2f && player.velocity.Y < 1f)
+					player.velocity.Y = 0.001f;
+				ascentWhenFalling *= 0f;
+				ascentWhenRising *= 0f;
+				constantAscend *= 0f;
+			}
 		}
 
 		public override bool Special => true;

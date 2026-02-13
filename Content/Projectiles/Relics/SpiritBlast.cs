@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
 			Projectile.timeLeft = 2 * 60;
-			Projectile.Opacity = .25f;
+			Projectile.Opacity = .95f;
 		}
 
 		public override void SetStaticDefaults()

@@ -318,11 +318,10 @@ DamageClasses: {
 }
 
 ScrollTiers: {
-	Common: "[c/2277ff:Common {0}]"
-	Rare: "[c/0044ff:Rare {0}]"
-	Lost: "[c/7ebcc2:Lost {0}]"
+	Common: "[c/2277ff:Common {0} scroll]"
+	Rare: "[c/0044ff:Rare {0} scroll]"
+	Lost: "[c/7ebcc2:Lost {0} scroll]"
 	Spell: spell
 	Rite: rite
 	Technique: technique
-	Scroll: scroll
 }

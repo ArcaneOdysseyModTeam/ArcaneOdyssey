@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 						HealEffect(player, npc);
 				}
 			}
-			if (noPlayerFound)
+			if (noPlayerFound && !Main.dedServ)
 			{
 				if (Main.GameUpdateCount % 4 == 0)
 				{

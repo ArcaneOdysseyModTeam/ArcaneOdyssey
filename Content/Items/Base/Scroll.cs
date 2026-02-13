@@ -96,10 +96,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public string GetTierFormatting()
 		{
-			if (CanHaveFS && CanHaveMagic && CanHaveRelic)
-			{
-				return Mod.CustomLocalization("ScrollTiers.Scroll").Value;
-			}
 			var text = "";
 			if (CanHaveFS)
 			{
@@ -121,9 +117,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				text += Mod.CustomLocalization("ScrollTiers.Rite");
 			}
-
-
-			text += " " + Mod.CustomLocalization("ScrollTiers.Scroll");
 			return text;
 		}
 
@@ -133,6 +126,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			tooltips.AddTooltip(new(Mod, "ScrollTier", Mod.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
 		}
 
-		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue);
+		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue) && Imbue is not null;
 	}
 }
