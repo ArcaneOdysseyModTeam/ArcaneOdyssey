@@ -55,9 +55,9 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public int pheonixHealing;
 
-		public override void NaturalLifeRegen(ref float regen)
+		public override void UpdateLifeRegen()
 		{
-			regen *= 1f + (pheonixHealing / 5f);
+			Player.lifeRegen += pheonixHealing * 7;
 		}
 
 		public override void ModifyMaxStats(out StatModifier health, out StatModifier mana)

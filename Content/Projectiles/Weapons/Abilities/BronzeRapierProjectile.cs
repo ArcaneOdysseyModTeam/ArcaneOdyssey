@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		}
 	}
 
-	public class PiercingStrikes(Entity source) : DashSystem(source)
+	public class PiercingStrikes(Entity source, Projectile projectile) : DashSystem(source)
 	{
 
 		public override int DashMax => 20;
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override bool OnHit(Player player, Entity target) => false;
 		public override bool AnyDirection => true;
 		public override int Cooldown => 180;
-		public Projectile projectile;
+		public Projectile projectile = projectile;
 
 		public override void OnStart(Player player)
 		{

@@ -9,6 +9,7 @@ using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -559,7 +560,7 @@ namespace ArcaneOdyssey
 				return;
 			if (Main.myPlayer != player.whoAmI)
 				return;
-			List<Imbuable> options = [null, .. player.GetAllImbues()];
+			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().EquippedImbues.Select(e => (Imbuable)ModContent.GetModItem(e))];
 			options.RemoveAll(e => !item.CanHaveImbue(e));
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
@@ -586,7 +587,7 @@ namespace ArcaneOdyssey
 
 			if (options.Count > 0 && ImbueClassCheck(item))
 			{
-				if (!specificImbue || item.accessory)
+				if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
 				{
 					if (item.CanHaveImbue(player.Imbue()))
 					{
@@ -603,12 +604,12 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				if (!item.accessory && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
+				if ((!item.accessory || item.ModItem is Imbuable) && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
 				{
-					specificImbue = true;
-					player.ArcaneOdyssey()?.SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
 					if (options.Count > 1)
 					{
+						specificImbue = true;
+						player.ArcaneOdyssey()?.SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
 						specificImbue = true;
 						if (++imbueIndex >= options.Count)
 						{
@@ -634,26 +635,26 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				if (options.Count < 2 && (Imbue != player.Imbue()))
-				{
-					specificImbue = true;
-					//justchangedspecificimbue = true;
-					if (item.CanHaveImbue(player.Imbue()))
-					{
-						Imbue = player.Imbue();
-						if (item.TryGetSecondImbue(Imbue, out var second))
-							SecondImbue = second;
-						else
-							SecondImbue = null;
-					}
-					else
-					{
-						Imbue = null;
-						SecondImbue = null;
-					}
-					settodefault = true;
-					imbueIndex = -1;
-				}
+				//if (options.Count < 2 && (Imbue != player.Imbue()))
+				//{
+				//	specificImbue = true;
+				//	//justchangedspecificimbue = true;
+				//	if (item.CanHaveImbue(player.Imbue()))
+				//	{
+				//		Imbue = player.Imbue();
+				//		if (item.TryGetSecondImbue(Imbue, out var second))
+				//			SecondImbue = second;
+				//		else
+				//			SecondImbue = null;
+				//	}
+				//	else
+				//	{
+				//		Imbue = null;
+				//		SecondImbue = null;
+				//	}
+				//	settodefault = true;
+				//	imbueIndex = -1;
+				//}
 			}
 			else
 			{
@@ -662,7 +663,7 @@ namespace ArcaneOdyssey
 				specificImbue = false;
 			}
 
-			if (!specificImbue || item.accessory)
+			if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
 			{
 				if (item.CanHaveImbue(player.Imbue()))
 				{
@@ -710,7 +711,7 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is SpiritEnergy)
 			{
-				player.ArcaneOdyssey()?.TrySpiritLifesteal(item.OriginalDamage);
+				player.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage));
 			}
 		}
 

@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles;
@@ -732,20 +733,20 @@ namespace ArcaneOdyssey
 						{
 							if (source is Item item && item.ModItem is SpiritEnergy)
 							{
-								player2.TrySpiritLifesteal(item.OriginalDamage, false);
+								player2.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage), false);
 							}
 							else if (source is Projectile projectile)
 							{
 								if (projectile.ModProjectile is SpiritProjectile)
 								{
-									player2.TrySpiritLifesteal(projectile.originalDamage, false);
+									player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), false);
 								}
 								else
 								{
 									var proj = projectile.ArcaneOdyssey();
 									if (proj.Imbue is SpiritEnergy || proj.SecondImbue is SpiritEnergy)
 									{
-										player2.TrySpiritLifesteal(projectile.originalDamage);
+										player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage));
 									}
 								}
 							}
@@ -848,7 +849,7 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is SpiritEnergy)
 				{
-					return imbue is AOMagic;
+					return imbue is AOMagic or null;
 				}
 				if (imbue is FightingStyle)
 				{
@@ -1399,8 +1400,13 @@ namespace ArcaneOdyssey
 
 		public static bool HasTypeInInventory<T>(this Player player, out T item) where T : ModItem
 		{
-			List<Item> no = [.. player.inventory, player.trashItem, .. player.ArcaneOdyssey().equippedImbues];
 			item = null;
+			if (player.ArcaneOdyssey().EquippedImbues.Contains(ModContent.ItemType<T>()))
+			{
+				item = ModContent.GetInstance<T>();
+				return true;
+			}
+			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var items in no)
 			{
@@ -1413,13 +1419,22 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-		public static bool HasTypeInInventory(this Player player, Type type)
+		public static bool HasTypeInInventory(this Player player, Type type, Mod mod = null)
 		{
-			List<Item> no = [.. player.inventory, player.trashItem, .. player.ArcaneOdyssey().equippedImbues];
-			no.RemoveAll(e => e.ModItem is null);
-			foreach (var item in no)
+			mod ??= ArcaneOdysseyMod.Instance;
+			if (type.Name == nameof(PhoenixMagic))
 			{
-				if (item.ModItem.GetType().Name == type.Name || item.ModItem.GetType().IsSubclassOf(type))
+
+			}
+			if (mod.TryFind<ModItem>(type.Name, out var moditem) && player.ArcaneOdyssey().EquippedImbues.Contains(moditem.Type)) 
+			{
+				return true; 
+			}
+			List<Item> no = [.. player.inventory, player.trashItem];
+			no.RemoveAll(e => e.ModItem is null);
+			foreach (var items in no)
+			{
+				if (items.ModItem.GetType().Name == type.Name || items.ModItem.GetType().IsSubclassOf(type))
 				{
 					return true;
 				}

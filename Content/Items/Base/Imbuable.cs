@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public override void UpdateEquip(Player player)
 		{
-			player.ArcaneOdyssey().equippedImbues.Add(Item);
+			player.ArcaneOdyssey()?.AddEquippedImbue(Item);
 		}
 
 		public virtual WeaponAbility? Ability => null;

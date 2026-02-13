@@ -7,6 +7,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -376,7 +377,7 @@ namespace ArcaneOdyssey
 				projectile.CritChance = projectile.OriginalCritChance;
 			if (Imbue is SpiritEnergy && projectile.TryGetOwner(out var owner))
 			{
-				owner.ArcaneOdyssey()?.TrySpiritLifesteal(projectile.originalDamage, projectile.ModProjectile is not SpiritProjectile);
+				owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
 			}
 		}
 	}

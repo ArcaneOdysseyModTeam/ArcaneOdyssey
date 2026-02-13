@@ -5,6 +5,8 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -28,7 +30,22 @@ namespace ArcaneOdyssey.PlayerClasses
 		/// <summary>
 		/// Imbues in equipment slots
 		/// </summary>
-		public List<Item> equippedImbues = [];
+		public List<int> EquippedImbues = [];
+		public List<int> EquippedImbuesTimers = [];
+
+		public void AddEquippedImbue(Item imbue)
+		{
+			var index = EquippedImbues.IndexOf(imbue.type);
+			if (index != -1)
+			{
+				EquippedImbuesTimers[index] = 3;
+			}
+			else
+			{
+				EquippedImbues.Add(imbue.type);
+				EquippedImbuesTimers.Add(3);
+			}
+		}
 
 		public bool evil = false;
 
@@ -119,6 +136,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public override void PostUpdate()
 		{
+			pheonixHealing = 0;
 			HeavySkillActive = false;
 			DashStrike();
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
@@ -162,8 +180,27 @@ namespace ArcaneOdyssey.PlayerClasses
 			AOSizeStat = 0;
 			AOHasteStat = 0;
 			gel = 0;
-			pheonixHealing = 0;
-			equippedImbues = [];
+			List<int> queue = [];
+			foreach (int type in EquippedImbues)
+			{
+				var index = EquippedImbues.IndexOf(type);
+				if (index >= 0)
+				{
+					if (EquippedImbuesTimers[index] <= 0)
+					{
+						queue.Add(index);
+					}
+					else
+					{
+						EquippedImbuesTimers[index]--;
+					}	
+				}
+			}
+			foreach (var i in queue)
+			{
+				EquippedImbues.RemoveAt(i);
+				EquippedImbuesTimers.RemoveAt(i);
+			}
 			HandleDashDetection();
 		}
 
