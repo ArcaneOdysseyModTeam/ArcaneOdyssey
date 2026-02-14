@@ -38,6 +38,10 @@ public abstract partial class BaseImbueUI : UIState
 		/// Gives spirit weapon, probably eagle patrimony
 		/// </summary>
 		MonkLife,
+		/// <summary>
+		/// Gives <see cref="SpiritEnergy"/>
+		/// </summary>
+		HeHasAcceptedChristInHisHeart,
 
 		Acid,
 		Ash,
@@ -77,7 +81,9 @@ public abstract partial class BaseImbueUI : UIState
 	public static int? MagicTypeToID(MagicTypes type) => type switch
 	{
 		MagicTypes.ReturnToMonke => ModContent.ItemType<BasicCombat>(),
+
 		MagicTypes.MonkLife => ModContent.ItemType<EaglePatrimony>(),
+		MagicTypes.HeHasAcceptedChristInHisHeart => ModContent.ItemType<SpiritEnergy>(),
 
 		MagicTypes.Acid => ModContent.ItemType<AcidMagic>(),
 		MagicTypes.Ash => ModContent.ItemType<AshMagic>(),

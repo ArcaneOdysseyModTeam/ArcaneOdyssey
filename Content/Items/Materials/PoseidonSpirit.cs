@@ -1,35 +1,64 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Items.Materials
+namespace ArcaneOdyssey.Content.Items.Materials;
+
+public class PoseidonSpirit : AOBaseItem
 {
-	public class PoseidonSpirit : AOBaseItem
+	public int AOValue = 10000;
+	public override AORarities AORarity => AORarities.Mythical;
+
+	public override void SetDefaults()
 	{
-		public int AOValue = 10000;
-		public override AORarities AORarity => AORarities.Mythical;
+		base.SetDefaults();
+		Item.value = GalleonToCopper(AOValue);
+		Item.width = Item.height = 64;
+		Item.useStyle = ItemUseStyleID.HoldUp;
+		Item.useAnimation = 20;
+		Item.useTime = 20;
+	}
 
-		public override void SetDefaults()
+	public override void SetStaticDefaults()
+	{
+		ItemID.Sets.ItemNoGravity[Type] = true;
+	}
+
+	public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+	{
+		Texture2D texture = TextureAssets.Item[Type].Value;
+		Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None);
+		return false;
+	}
+
+	#region UI system
+	public override bool CanUseItem(Player player)
+	{
+		try
 		{
-			base.SetDefaults();
-			Item.value = GalleonToCopper(AOValue);
-			Item.width = Item.height = 64;
+			//Main.NewText($"Can use item {!ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire()}");
+			return !ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire();
 		}
-
-		public override void SetStaticDefaults()
+		catch (Exception ex)
 		{
-			ItemID.Sets.ItemNoGravity[Type] = true;
-		}
-
-		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-		{
-			Texture2D texture = TextureAssets.Item[Type].Value;
-			Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None);
+			Main.NewText($"Error in {nameof(CanUseItem)}: \n{ex}", new Color(255, 0, 255));
 			return false;
 		}
 	}
+	public override bool? UseItem(Player player)
+	{
+		// Spoky (2026 Jan 25): Expected for errors to have an error message but it appears we don't have said luxury, therefore gotta get errors, manually
+		try { ModContent.GetInstance<ImbueAnythingUISystem>().ShowAcquireSequelUI(); }
+		// Spoky (2026 Jan 25): By the way, I like putting exceptions in purple
+		catch (Exception ex) { Main.NewText($"Error in {nameof(UseItem)}: \n{ex}", new Color(255, 0, 255)); }
+		return true;
+	}
+	#endregion
 }

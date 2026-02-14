@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.UI.ImbueChange;
 /// </summary>
 public partial class ImbueChangeUI : BaseImbueUI
 {
-	protected override List<MagicTypes> WhoAreWeDoing => GetEnumValues([MagicTypes.None]);
+	protected override List<MagicTypes> WhoAreWeDoing => GetEnumValues([MagicTypes.None, MagicTypes.HeHasAcceptedChristInHisHeart]);
 
 	protected override string GetTitle() => Language.GetTextValue($"{LocalizationPath}SwappingImbue.AnnouncingHeWhoFellOff", TheGuyThatFellOff.Item.Name);
 
