@@ -53,6 +53,11 @@ Lost: {
 	EnergyMagic: {
 		DisplayName: Energy Magic
 		Tooltip: Allows the user to harness pure magical energy, sapping mana from struck enemies
+
+		Ability: {
+			DisplayName: Siphon
+			Description: Mana is restored on all hits
+		}
 	}
 
 	FlareMagic: {

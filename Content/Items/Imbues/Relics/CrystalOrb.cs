@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 0.9f;
 		public override int AOValue => 700;
-		public override WeaponAbility? Ability => new(this, ImbueColour);
+		public override WeaponAbility? Ability => new(this);
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightMagic>();
 
 		public override void SetDefaults()

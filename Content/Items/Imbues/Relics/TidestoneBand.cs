@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			}
 		}
 
-		public override WeaponAbility? Ability => new(this, ImbueColour);
+		public override WeaponAbility? Ability => new(this);
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
