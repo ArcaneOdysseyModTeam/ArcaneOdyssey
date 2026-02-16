@@ -1,10 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using ArcaneOdyssey.PlayerClasses;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls

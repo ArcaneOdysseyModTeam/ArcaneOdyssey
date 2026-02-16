@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Materials;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal

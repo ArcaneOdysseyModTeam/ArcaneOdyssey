@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
@@ -384,6 +385,11 @@ namespace ArcaneOdyssey
 		public static Imbuable Imbue(this Item item) => item?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this ModItem item) => item?.ArcaneOdyssey()?.Imbue;
 
+		public static Imbuable SecondImbue(this Projectile projectile) => projectile?.ArcaneOdyssey()?.SecondImbue;
+		public static Imbuable SecondImbue(this ModProjectile projectile) => projectile?.ArcaneOdyssey()?.SecondImbue;
+		public static Imbuable SecondImbue(this Item item) => item?.ArcaneOdyssey()?.SecondImbue;
+		public static Imbuable SecondImbue(this ModItem item) => item?.ArcaneOdyssey()?.SecondImbue;
+
 		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int Alpha = 0, Color newColor = default, float Scale = 1f)
 		{
 			velocity ??= Vector2.Zero;
@@ -515,14 +521,14 @@ namespace ArcaneOdyssey
 						knockback *= imbue.AOScrollSize;
 						if (source is Projectile projectile)
 						{
-							if (projectile.ArcaneOdyssey().SecondImbue is not null)
+							if (projectile.SecondImbue() is not null)
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOScrollDamage;
+									damage *= projectile.SecondImbue().AOScrollDamage;
 								}
-								range *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
-								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
+								range *= projectile.SecondImbue().AOScrollSize;
+								knockback *= projectile.SecondImbue().AOScrollSize;
 							}
 						}
 					}
@@ -536,14 +542,14 @@ namespace ArcaneOdyssey
 						knockback *= imbue.AOImbueSize;
 						if (source is Projectile projectile)
 						{
-							if (projectile.ArcaneOdyssey().SecondImbue is not null)
+							if (projectile.SecondImbue() is not null)
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+									damage *= projectile.SecondImbue().AOImbueDamage;
 								}
-								range *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
-								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+								range *= projectile.SecondImbue().AOImbueSize;
+								knockback *= projectile.SecondImbue().AOImbueSize;
 							}
 						}
 					}
@@ -734,9 +740,17 @@ namespace ArcaneOdyssey
 							if (source is Item item && item.ModItem is SpiritEnergy)
 							{
 								player2.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage), false);
+								if (Main.netMode == NetmodeID.SinglePlayer && (item.Imbue() is DeathMagic || item.SecondImbue() is DeathMagic) && (target.lifeMax < player.statLifeMax2))
+								{
+									target.StrikeInstantKill();
+								}
 							}
 							else if (source is Projectile projectile)
 							{
+								if (Main.netMode == NetmodeID.SinglePlayer && (projectile.Imbue() is DeathMagic || projectile.SecondImbue() is DeathMagic) && (target.lifeMax < player.statLifeMax2))
+								{
+									target.StrikeInstantKill();
+								}
 								if (projectile.ModProjectile is SpiritProjectile)
 								{
 									player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), false);

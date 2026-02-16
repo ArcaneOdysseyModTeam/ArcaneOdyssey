@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.UI._BaseImbueUI;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.UI.ImbueAcquiringSequel;

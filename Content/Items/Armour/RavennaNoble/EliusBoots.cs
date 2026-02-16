@@ -16,8 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.RavennaNoble
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = 26;
-			Item.height = 16;
+			Item.width = Item.height = 30;
 		}
 	}
 }

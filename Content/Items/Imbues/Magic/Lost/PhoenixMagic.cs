@@ -27,6 +27,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			player.noFallDmg = true;
 		}
 
+		public override WeaponAbility? Ability => new(this, ImbueColour);
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -52,7 +54,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				player.wingTime += 0.5f;
 				player.velocity.Y *= 0.8f;
 				if (player.velocity.Y > -2f && player.velocity.Y < 1f)
-					player.velocity.Y = 0.001f;
+					player.velocity.Y = 0.00001f;
 				ascentWhenFalling *= 0f;
 				ascentWhenRising *= 0f;
 				constantAscend *= 0f;

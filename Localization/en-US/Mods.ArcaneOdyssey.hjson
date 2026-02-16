@@ -192,7 +192,7 @@ MagicTierLines: {
 SpecialTierLines: {
 	Normal: "[c/2277ff:~ Lesser Lost Magic ~]"
 	Lost: "[c/0044ff:~ Lost Spirit Mutation ~]"
-	Ancient: "[c/7ebcc2:~ Ancient Spirit Mutatation ~]"
+	Ancient: "[c/7ebcc2:~ Ancient Spirit Mutation ~]"
 }
 
 FSTierLines: {

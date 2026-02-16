@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

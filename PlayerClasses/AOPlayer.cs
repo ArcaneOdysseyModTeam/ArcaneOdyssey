@@ -5,8 +5,6 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reflection;
 using Terraria;
 using Terraria.ModLoader;
 

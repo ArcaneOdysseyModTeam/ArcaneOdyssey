@@ -1,7 +1,10 @@
 BeamSpell.DisplayName: Beam Spell
 
 Blasts: {
-	Ancient.IonBlast.DisplayName: Ion Blast
+	Ancient: {
+		IonBlast.DisplayName: Ion Blast
+		DeathBlast.DisplayName: Death Blast
+	}
 
 	Developer: {
 		JerminusBlast.DisplayName: Jerminus Blast
@@ -59,7 +62,10 @@ Blasts: {
 }
 
 Cannons: {
-	Ancient.IonCannon.DisplayName: Ion Cannon
+	Ancient: {
+		IonCannon.DisplayName: Ion Cannon
+		DeathCannon.DisplayName: Death Cannon
+	}
 
 	Developer: {
 		JerminusCannon.DisplayName: Jerminus Cannon
@@ -119,7 +125,10 @@ Cannons: {
 ExplosionSpell.DisplayName: Explosion Spell
 
 Pulsars: {
-	Ancient.IonPulsar.DisplayName: Ion Pulsar
+	Ancient: {
+		IonPulsar.DisplayName: Ion Pulsar
+		DeathPulsar.DisplayName: Death Pulsar
+	}
 
 	Developer: {
 		JerminusPulsar.DisplayName: Jerminus Pulsar
@@ -179,7 +188,10 @@ Pulsars: {
 LesserBeam.DisplayName: Lesser Beam
 
 Arrays: {
-	Ancient.IonArray.DisplayName: Ion Array
+	Ancient: {
+		IonArray.DisplayName: Ion Array
+		DeathArray.DisplayName: Death Array
+	}
 
 	Developer: {
 		JerminusArray.DisplayName: Jerminus Array

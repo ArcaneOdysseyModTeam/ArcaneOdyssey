@@ -7,6 +7,16 @@ Ancient: {
 			Dedicated to Gammaboy45
 			'''
 	}
+
+	DeathMagic: {
+		DisplayName: Death Magic
+		Tooltip: Allows the user to manifest the aura of death, annihilating weaker foes and withering all
+
+		Ability: {
+			DisplayName: Absolute Death
+			Description: Enemies with a lower max health than yours are instantly killed
+		}
+	}
 }
 
 Lost: {
@@ -78,6 +88,11 @@ Lost: {
 	PhoenixMagic: {
 		DisplayName: Phoenix Magic
 		Tooltip: Allows the user to call upon the power of the flaming phoenix, healing allies and soaring the skies
+
+		Ability: {
+			DisplayName: Eternal Wings
+			Description: Magic can be equipped as wings
+		}
 	}
 
 	PlantMagic: {

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
 using ArcaneOdyssey.Content.Projectiles;
@@ -8,17 +9,37 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-
-	/// <summary>
-	/// Imbue values are applied as multipliers to imbued projectiles,
-	/// Magic values are applied as multipliers to projectiles created using spell scrolls
-	/// </summary>
 	public abstract class AOMagic : Imbuable, ILocalizedModType
 	{
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ItemNoGravity[Type] = true;
+
+			if (this is not (SoundMagic or SlashMagic))
+			{
+				var texture = AOUtils.GetTexture<AnnihilationSpell>().Replace("AnnihilationSpell", $"Annihilations/{ImbuableTier}/{AttackPrefix}Annihilation");
+				if (!ModContent.HasAsset(texture))
+				{
+					ArcaneOdysseyMod.NoticeQueue.Add(DisplayName.Value + " is missing Annihilation sprite.");
+				}
+			}
+		}
+
+		public virtual void RegisterMutations() { }
+
+		public void RegisterMutation<T>() where T : AOMagic
+		{
+			Mutations.Add(ModContent.ItemType<T>());
+		}
+
+		public List<int> Mutations = [];
+
 		public override string LocalizationCategory => base.LocalizationCategory + ".Magic." + ImbuableTier;
 
 		public void CreateLostRecipe(params Type[] imbues)

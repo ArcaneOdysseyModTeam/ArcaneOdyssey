@@ -1,7 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Developer;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Developer;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -149,11 +147,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			{
 				if (Imbue is not (null or SoundMagic or SlashMagic))
 				{
-					if (Imbue is VesuviusMagic)
-					{
-						return AOUtils.GetTexture<VesuviusBlast>();
-					}
-
 					var asset = AOUtils.GetTexture<AnnihilationSpell>().Replace(Name, $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
 					if (ModContent.HasAsset(asset))
 					{
