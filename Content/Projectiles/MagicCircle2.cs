@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 					tempLightColorB = 3f / Imbue.GetColour().B;
 				}
 
-				Lighting.AddLight(Projectile.position, tempLightColorR, tempLightColorG, tempLightColorB);
+				Lighting.AddLight(Projectile.Center, tempLightColorR, tempLightColorG, tempLightColorB);
 
 				if (Projectile.localAI[0] > 5 && !Main.dedServ)
 				{

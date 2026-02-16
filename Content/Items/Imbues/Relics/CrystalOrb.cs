@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Minions;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
+using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -57,7 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			base.LingeringEffects(area, direction, source);
-			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.YellowStarDust, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
+			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
@@ -67,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			for (float i = 0; i < amount; i++)
 			{
 				var centre = (MathHelper.TwoPi / amount * i).ToRotationVector2() * 20 * area.RelativeScale();
-				AOUtils.NewDustImperfect(area.Center(), DustID.YellowStarDust, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritDust>(), centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Alpha: 255 / 4, Scale: area.RelativeScale()).noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
@@ -77,7 +78,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.SpawningEffects(area, direction);
 			for (int n = 0; n < 2; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowStarDust, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.X * 0.5f, direction.Y * 0.5f, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -87,7 +88,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.ExplosionEffects(position, intensity);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Alpha: 255 / 4, newColor: ImbueColour, Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

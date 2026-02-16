@@ -12,7 +12,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
 	public class EaglePatrimony : SpiritEnergy
 	{
-		public override Color ImbueColour => new(0, 183, 255);
 		public override AORarities AORarity => AORarities.Special;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 

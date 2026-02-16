@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -7,13 +8,15 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	[LegacyName("RelicImbue")]
 	public class SpiritEnergy : Imbuable, ILocalizedModType
 	{
-		public override Color ImbueColour => new(0, 183, 255);
+		public override Color ImbueColour => SpiritColor;
+		public static Color SpiritColor => new(0, 183, 255);
 
 		public override string LocalizationCategory => base.LocalizationCategory + ".Relics";
 		public virtual int AOValue => 0;
+
+		public override SoundStyle? ImbueSound => SoundID.NPCDeath6;
 
 		public override float AOImbueDamage => AOScrollDamage;
 		public override float AOImbueSize => AOScrollSize;
@@ -41,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		{
 			for (float i = 0; i < 5; i++)
 			{
-				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.IcyMerman, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale()).noGravity = true;
+				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColor).noGravity = true;
 			}
 		}
 
@@ -51,7 +54,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			for (float i = 0; i < amount; i++)
 			{
 				var centre = (MathHelper.TwoPi / amount * i).ToRotationVector2() * 20 * area.RelativeScale();
-				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColor).noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
@@ -60,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IcyMerman, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IcyMerman, direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColor)];
 				spawnedDust.noGravity = true;
 			}
 		}
@@ -69,7 +72,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.IcyMerman, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.IcyMerman, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity, Alpha: 255 / 4, newColor: SpiritColor)];
 				spawnedDust.noGravity = true;
 			}
 		}

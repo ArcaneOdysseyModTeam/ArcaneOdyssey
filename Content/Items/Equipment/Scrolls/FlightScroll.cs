@@ -24,6 +24,14 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				maxCanAscendMultiplier *= Imbue.AOScrollSpeed;
 				maxAscentMultiplier *= Imbue.AOScrollSpeed;
 			}
+			else
+			{
+				ascentWhenFalling *= 0f;
+				ascentWhenRising *= 0f;
+				constantAscend *= 0f;
+				player.velocity.Y = player.maxFallSpeed;
+				player.wingTime *= 0f;
+			}
 		}
 
 		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
@@ -32,10 +40,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			{
 				speed *= Imbue.AOScrollSpeed;
 				acceleration *= Imbue.AOScrollSpeed;
-			}
-			else
-			{
-				speed = 0;
 			}
 		}
 

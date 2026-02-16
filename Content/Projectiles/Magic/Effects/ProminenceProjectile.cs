@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 				Projectile.velocity += (originPos - Projectile.position).SafeNormalize(Vector2.Zero) * 0.4f;
 			}
 			Animate();
-			Lighting.AddLight(Projectile.position, 2, 1, 0);
+			Lighting.AddLight(Projectile.Center, 2, 1, 0);
 			Dust.NewDust(Projectile.position, 1, 1, DustID.Torch, 0, 0, 0, default, 1);
 		}
 		private void Animate()

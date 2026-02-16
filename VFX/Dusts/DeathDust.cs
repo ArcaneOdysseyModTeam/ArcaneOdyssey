@@ -1,8 +1,8 @@
 using System;
 using Terraria;
-using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 
 namespace ArcaneOdyssey.VFX.Dusts
 {
@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.VFX.Dusts
 			dust.rotation += 0.2f;
 			dust.noGravity = true;
 			dust.position += new Vector2((float)Math.Cos(dust.rotation), (float)Math.Sin(dust.rotation));
-			Lighting.AddLight(dust.Centre(), TorchID.Blue);
+			Lighting.AddLight(dust.Centre(), ModContent.GetInstance<DeathMagic>().ImbueColour.ToVector3());
 			return true;
 		}
 	}

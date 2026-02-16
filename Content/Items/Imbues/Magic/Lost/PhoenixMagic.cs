@@ -61,6 +61,16 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 		}
 
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			base.UpdateAccessory(player, hideVisual);
+			if (!hideVisual)
+			{
+				Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
+				Lighting.AddLight(spawnPos, ImbueColour.ToVector3());
+			}
+		}
+
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
