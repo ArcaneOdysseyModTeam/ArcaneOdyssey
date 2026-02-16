@@ -66,10 +66,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SlashDust>(), direction.X / 2f, direction.Y / 2f, Alpha: 60, Scale: .5f * area.RelativeScale());
 			}
 		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(MetalMagic), typeof(GlassMagic), typeof(WoodMagic), typeof(WindMagic));
-		}
 	}
 }

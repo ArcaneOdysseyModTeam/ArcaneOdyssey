@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -10,6 +11,11 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class ShadowMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<DarknessMagic>();
+			RegisterMutation<ShadowflameMagic>();
+		}
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Black;

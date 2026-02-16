@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
@@ -14,6 +15,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class FlareMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<IonMagic>();
+		}
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.OrangeRed;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
@@ -100,11 +105,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(FireMagic));
 		}
 	}
 }

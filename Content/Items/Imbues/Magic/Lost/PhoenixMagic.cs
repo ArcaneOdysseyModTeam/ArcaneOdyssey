@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			player.noFallDmg = true;
 		}
 
-		public override WeaponAbility? Ability => new(this, ImbueColour);
+		public override WeaponAbility? Ability => new(this);
 
 		public override void SetDefaults()
 		{
@@ -151,11 +151,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(FireMagic), typeof(PlasmaMagic), typeof(AshMagic), typeof(MagmaMagic), typeof(ExplosionMagic));
 		}
 	}
 }

@@ -1,18 +1,23 @@
-using ArcaneOdyssey.Content.Items.Base;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using Terraria.Audio;
-using Terraria;
-using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class AetherMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<IonMagic>();
+		}
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => new(255, 255, 0);
@@ -109,11 +114,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				if (projectile.ModProjectile is AetherExplosion)
 					return false;
 			return base.PreEffects(entity);
-		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(LightMagic), typeof(PlasmaMagic), typeof(ExplosionMagic), typeof(AshMagic), typeof(FireMagic));
 		}
 	}
 }

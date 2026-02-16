@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
+			RegisterMutations();
 			ItemID.Sets.ItemNoGravity[Type] = true;
 
 			if (this is not (SoundMagic or SlashMagic))
@@ -40,33 +41,28 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public List<int> Mutations = [];
 
+		public override void Load()
+		{
+			Mutations = [];
+		}
+
+		public override void Unload()
+		{
+			Mutations = [];
+		}
+
 		public override string LocalizationCategory => base.LocalizationCategory + ".Magic." + ImbuableTier;
 
-		public void CreateLostRecipe(params Type[] imbues)
+		/// <summary>
+		/// Remove later
+		/// </summary>
+		public override void AddRecipes()
 		{
-			if (imbues.Length > 1)
+			if (ImbuableTier != AOImbuableTier.Normal) return;
+			foreach (var mutation in Mutations)
 			{
-				List<int> types = [];
-				foreach (var type in imbues)
-				{
-					types.Add(Mod.Find<ModItem>(type.Name).Type);
-				}
-				var group = new RecipeGroup(() => Mod.CustomLocalization("RandomWords.AnyMaterial", DisplayName.Value).Value, [.. types]);
-				RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
-				var rec = Recipe.Create(Type);
-				rec.AddRecipeGroup(group);
-				rec.AddIngredient<HecateShard>();
-				rec.DisableDecraft();
-				rec.Register();
-			}
-			else if (imbues.Length == 1)
-			{
-				var rec = CreateRecipe();
-				rec.AddIngredient(Mod.Find<ModItem>(imbues[0].Name).Type);
-				rec.AddIngredient<HecateShard>();
-				rec.DisableDecraft();
-				rec.Register();
-			}
+				Recipe.Create(mutation).AddIngredient(Type).AddIngredient<HecateShard>().DisableDecraft().Register();
+			}	
 		}
 
 		public override void SetDefaults()
@@ -90,33 +86,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			CreateMagicCircle(Item, player, this, damage);
 			return false;
-		}
-
-		public void CreateAncientRecipe(params Type[] imbues)
-		{
-			//if (imbues.Length > 1)
-			//{
-			//	List<int> types = [];
-			//	foreach (var type in imbues)
-			//	{
-			//		types.Add(Mod.Find<ModItem>(type.Name).Type);
-			//	}
-			//	var group = new RecipeGroup(() => Mod.CustomLocalization("RandomWords.AnyMaterial", DisplayName.Value).Value, [.. types]);
-			//	RecipeGroup.RegisterGroup(Mod.Name + ":" + Name + "Material", group);
-			//	var rec = Recipe.Create(Type);
-			//	rec.AddRecipeGroup(group);
-			//	rec.AddIngredient<AncientHecateOrb>();
-			//	rec.DisableDecraft();
-			//	rec.Register();
-			//}
-			//else if (imbues.Length == 1)
-			//{
-			//	var rec = CreateRecipe();
-			//	rec.AddIngredient(Mod.Find<ModItem>(imbues[0].Name).Type);
-			//	rec.AddIngredient<AncientHecateOrb>();
-			//	rec.DisableDecraft();
-			//	rec.Register();
-			//}
 		}
 
 		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse, int damage = 0)

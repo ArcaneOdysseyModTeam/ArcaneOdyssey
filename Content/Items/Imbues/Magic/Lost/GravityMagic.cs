@@ -80,10 +80,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(EarthMagic), typeof(WindMagic), typeof(MagmaMagic), typeof(SandMagic));
-		}
 	}
 }

@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -10,6 +11,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class LightMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<AetherMagic>();
+			RegisterMutation<EnergyMagic>();
+			RegisterMutation<LunarMagic>();
+			RegisterMutation<PrismMagic>();
+		}
+
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => new(255, 255, 0, 255);

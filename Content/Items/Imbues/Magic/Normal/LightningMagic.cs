@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -13,6 +14,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class LightningMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<AncientLightningMagic>();
+			RegisterMutation<EnergyMagic>();
+			RegisterMutation<PoisonLightningMagic>();
+			RegisterMutation<SoundMagic>();
+			RegisterMutation<StormMagic>();
+		}
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(255, 140, 255, 255);

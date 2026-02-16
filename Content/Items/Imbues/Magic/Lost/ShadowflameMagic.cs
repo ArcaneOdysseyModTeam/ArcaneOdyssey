@@ -1,19 +1,26 @@
-using ArcaneOdyssey.Content.Items.Base;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
-using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
-using Terraria;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class ShadowflameMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<DeathMagic>();
+			RegisterMutation<IonMagic>();
+		}
+		
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
@@ -101,11 +108,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(ShadowMagic), typeof(FireMagic), typeof(PlasmaMagic), typeof(MagmaMagic), typeof(ExplosionMagic), typeof(AshMagic));
 		}
 	}
 }

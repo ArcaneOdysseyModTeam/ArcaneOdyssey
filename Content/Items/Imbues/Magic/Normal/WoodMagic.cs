@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -11,6 +12,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WoodMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<OilMagic>();
+			RegisterMutation<PlantMagic>();
+			RegisterMutation<SlashMagic>();
+			RegisterMutation<ThreadMagic>();
+		}
 		public override bool Special => true;
 		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;

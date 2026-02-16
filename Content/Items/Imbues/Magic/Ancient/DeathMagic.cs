@@ -64,10 +64,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
-
-		public override void AddRecipes()
-		{
-			CreateAncientRecipe(typeof(DarknessMagic), typeof(ShadowflameMagic), typeof(StormMagic), typeof(SlashMagic));
-		}
 	}
 }

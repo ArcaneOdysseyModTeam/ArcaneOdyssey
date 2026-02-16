@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -11,6 +12,13 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class EarthMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<DiamondMagic>();
+			RegisterMutation<GravityMagic>();
+			RegisterMutation<OilMagic>();
+			RegisterMutation<PlantMagic>();
+		}
 		public override float? DashResist => 1.4f;
 		public override Color ImbueColour => new(69, 42, 1);
 		public override float AOImbueSpeed => 0.85f;

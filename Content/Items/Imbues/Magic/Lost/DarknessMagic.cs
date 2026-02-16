@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -11,6 +12,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class DarknessMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<DeathMagic>();
+		}
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item8;
@@ -73,11 +78,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(ShadowMagic));
 		}
 	}
 }

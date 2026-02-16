@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -12,6 +13,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MagmaMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<DiamondMagic>();
+			RegisterMutation<GravityMagic>();
+			RegisterMutation<HeatMagic>();
+			RegisterMutation<ShadowflameMagic>();
+			RegisterMutation<SunMagic>();
+			RegisterMutation<PhoenixMagic>();
+		}
 		public override bool Special => true;
 		public override float? DashResist => 1.2f;
 		public override bool? Cold => false;

@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -11,6 +12,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class ExplosionMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<AetherMagic>();
+			RegisterMutation<HeatMagic>();
+			RegisterMutation<PhoenixMagic>();
+			RegisterMutation<SunMagic>();
+			RegisterMutation<ShadowflameMagic>();
+		}
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;

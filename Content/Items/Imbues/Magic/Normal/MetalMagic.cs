@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -11,6 +12,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MetalMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<DiamondMagic>();
+			RegisterMutation<FrostmetalMagic>();
+			RegisterMutation<SlashMagic>();
+		}
 		public override bool Special => true;
 		public override float? DashResist => 1.5f;
 		public override SoundStyle? ImbueSound => SoundID.Item99;

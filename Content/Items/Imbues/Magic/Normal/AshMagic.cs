@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -13,6 +14,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class AshMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<AetherMagic>();
+			RegisterMutation<HeatMagic>();
+			RegisterMutation<ShadowflameMagic>();
+			RegisterMutation<PhoenixMagic>();
+			RegisterMutation<SunMagic>();
+		}
 		public override bool Special => true;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;

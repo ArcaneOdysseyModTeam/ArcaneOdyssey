@@ -22,6 +22,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => .75f;
 
+		public override WeaponAbility? Ability => new(this);
+
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ModContent.BuffType<AOPetrified>(), // petrified
@@ -82,11 +84,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IchorTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(LightningMagic), typeof(PlasmaMagic), typeof(LightMagic));
 		}
 	}
 }

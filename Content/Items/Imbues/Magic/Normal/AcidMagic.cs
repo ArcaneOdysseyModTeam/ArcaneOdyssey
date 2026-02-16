@@ -1,16 +1,21 @@
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using Terraria;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class AcidMagic : AOMagic
 	{
+		public override void RegisterMutations()
+		{
+			RegisterMutation<OilMagic>();
+		}
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => new(245, 0, 240);

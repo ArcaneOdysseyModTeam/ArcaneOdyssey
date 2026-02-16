@@ -1560,17 +1560,33 @@ namespace ArcaneOdyssey
 		#endregion
 	}
 
-	public struct WeaponAbility(ModItem moditem, Color color)
+	public struct WeaponAbility
 	{
 		public static string Key(ModItem item, string suffix)
 		{
 			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Ability.{suffix}";
 		}
 
-		public Color Colour = color;
-		public ModItem ModItem = moditem;
-		public LocalizedText LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
-		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
+		public Color Colour;
+		public ModItem ModItem;
+		public LocalizedText LocalizedName;
+		public LocalizedText LocalizedDescription;
+
+		public WeaponAbility(AORangedOrMeleeWeapon moditem, Color color)
+		{
+			Colour = color;
+			ModItem = moditem;
+			LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
+			LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
+		}
+
+		public WeaponAbility(Imbuable moditem)
+		{
+			Colour = moditem.ImbueColour;
+			ModItem = moditem;
+			LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
+			LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
+		}
 
 		public readonly TooltipLine ToolTip => new(ModItem.Mod, "AOAbility", $"[c/{Colour.Hex3()}:{LocalizedName.Value}]: {LocalizedDescription.Value}");
 	}

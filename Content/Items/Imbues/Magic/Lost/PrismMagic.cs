@@ -122,10 +122,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				rainbowStep++;
 			}
 		}
-
-		public override void AddRecipes()
-		{
-			CreateLostRecipe(typeof(LightMagic), typeof(GlassMagic), typeof(CrystalMagic));
-		}
 	}
 }
