@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 55;
+			Item.damage = 55 / 4;
 			Item.mana = 100;
 			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
@@ -29,6 +29,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			return false;
 		}
 
-		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Imbue.GetSkill("Array")] < 1;
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Imbue.GetSkill("Array")] < 1;
 	}
 }

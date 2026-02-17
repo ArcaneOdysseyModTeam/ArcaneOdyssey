@@ -35,6 +35,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 			Item.shootSpeed = BaseLanceProjectile.Speed;
 		}
 
-		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 	}
 }

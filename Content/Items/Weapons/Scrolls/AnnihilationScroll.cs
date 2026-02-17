@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			return false;
 		}
 
-		public override bool CanShoot(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1;
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1;
 	}
 
 	public class Annihilation(Entity source) : DashSystem(source)

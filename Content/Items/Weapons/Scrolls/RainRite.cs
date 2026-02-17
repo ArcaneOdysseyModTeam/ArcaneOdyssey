@@ -27,6 +27,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 			damage /= 10;
 		}
 
-		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
 	}
 }

@@ -78,7 +78,6 @@ namespace ArcaneOdyssey.Content.NPCS
 						NPC.velocity.X = 0f;
 						if (NPC.ai[1] >= 60)
 						{
-
 							NPC.ai[0] = 2;
 							NPC.frameCounter = 0;
 							NPC.ai[1] = 0;
