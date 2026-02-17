@@ -30,7 +30,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			var size = isPlacedExplosion ? 1f : 1.2f;
 			AOPlayerOwner.myCircle.scale = AOPlayerOwner.myCircle.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f) * charge * Imbue.AOScrollSize * (size * (3f / 4f));
 			if (Projectile.position != Projectile.oldPosition)
-				Projectile.netUpdate = true;
+			{
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
+			}
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
 			if (charge < 1.75f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
 			{

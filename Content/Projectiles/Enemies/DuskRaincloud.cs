@@ -47,7 +47,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			{
 				Projectile.ai[0] = 1;
 				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0; ;
+				}
 				Projectile.velocity = -Vector2.UnitY * 5;
 			}
 

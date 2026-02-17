@@ -48,7 +48,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				Projectile.velocity = Vector2.Zero;
 				RotationOrigin = Owner.RotatedRelativePoint(Owner.MountedCenter);
 				OriginalDir = Owner.direction;

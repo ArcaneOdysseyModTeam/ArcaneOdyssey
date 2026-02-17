@@ -42,17 +42,23 @@ namespace ArcaneOdyssey.Content.Projectiles
 			{
 				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = Imbue.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
 
 			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 
 
-			if (Projectile.position != Projectile.oldPosition)
+			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
 			{
 				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
 			}
+			
 
 			if (Owner.channel && !MarkedForDeath)
 			{
@@ -88,7 +94,6 @@ namespace ArcaneOdyssey.Content.Projectiles
 					{
 						proj.ai[1] = 1;
 					}
-					proj.netUpdate = true;
 					Projectile.ai[1] = 1;
 				}
 			}

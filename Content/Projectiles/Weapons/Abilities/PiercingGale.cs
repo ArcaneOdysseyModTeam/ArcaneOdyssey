@@ -27,7 +27,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				Projectile.velocity /= Projectile.extraUpdates + 1;
 			}
 			Projectile.rotation += (MathHelper.Pi / 60) / Projectile.extraUpdates + 1;

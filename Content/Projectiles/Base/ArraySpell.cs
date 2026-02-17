@@ -97,6 +97,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			return false;
 		}
 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (Projectile.owner == Main.myPlayer)
+			{
+				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
+			}
+		}
+
 		public bool Hovering
 		{
 			get => Projectile.ai[0] == 0;
@@ -121,7 +130,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				originalVelocity = Projectile.velocity;
 				Projectile.velocity = Vector2.Zero;
 			}
@@ -145,8 +158,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * ShootTime);
 				if (target != -1)
 				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
+					if (Projectile.owner == Main.myPlayer)
+					{
+						Projectile.netUpdate = true;
+						Projectile.netSpam = 0;
+					}
 					var targetnpc = Main.npc[target];
 					if (ArcaneOdysseyConfig.Instance.PredictiveArray)
 					{

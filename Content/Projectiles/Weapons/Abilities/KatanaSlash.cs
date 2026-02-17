@@ -28,12 +28,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			if (Projectile.ai[0] == 0)
 			{
-				Projectile.netUpdate = true;
-				var distance = 300f;
-				if (Imbue is not null)
-					distance *= Imbue.AOImbueSpeed;
-				Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, distance);
-				Projectile.rotation = MathHelper.TwoPi / Main.rand.NextFloat();
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+					var distance = 300f;
+					if (Imbue is not null)
+						distance *= Imbue.AOImbueSpeed;
+					Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, distance);
+					Projectile.rotation = MathHelper.TwoPi / Main.rand.NextFloat();
+				}
 				Projectile.ai[0] = 1;
 			}
 

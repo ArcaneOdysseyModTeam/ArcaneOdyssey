@@ -27,7 +27,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			{
 				Projectile.ai[0] = 1;
 				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 			}
 
 			Projectile.rotation = Projectile.velocity.ToRotation();

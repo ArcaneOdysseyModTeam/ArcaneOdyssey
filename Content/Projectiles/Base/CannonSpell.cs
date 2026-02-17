@@ -29,7 +29,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0; ;
+				}
 			}
 			Animate();
 			Rotate();

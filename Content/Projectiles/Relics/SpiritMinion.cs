@@ -87,13 +87,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				AttackTimer++;
 				if (AttackTimer == 1)
 				{
-					Projectile.netUpdate = true;
+					if (Main.myPlayer == Projectile.owner)
+					{
+						Projectile.netUpdate = true;
+						Projectile.netSpam = 0;
+					}
 				}
 
 				if (AttackTimer >= 30)
 				{
 					AttackTimer = 0;
-					Projectile.netUpdate = true;
+					if (Main.myPlayer == Projectile.owner)
+					{
+						Projectile.netUpdate = true;
+						Projectile.netSpam = 0;
+					}
 				}
 
 				if (MathHelper.Distance(potentialTarget.Center.X, Projectile.Center.X) > 30f)
@@ -108,7 +116,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			else if (potentialTarget is null && AttackTimer != 0)
 			{
 				AttackTimer = 0;
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 			}
 		}
 
@@ -213,13 +225,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 					StuckWalkThroughWallsTimer += 10f;
 
-					Projectile.netUpdate = true;
+					if (Main.myPlayer == Projectile.owner)
+					{
+						Projectile.netUpdate = true;
+						Projectile.netSpam = 0;
+					}
 				}
 				else if (tilesSearchedAhead > 0)
 				{
 					Projectile.velocity.X = 7f;
 					Projectile.velocity.Y = -(5f + tilesSearchedAhead * 2f);
-					Projectile.netUpdate = true;
+					if (Main.myPlayer == Projectile.owner)
+					{
+						Projectile.netUpdate = true;
+						Projectile.netSpam = 0;
+					}
 				}
 				else
 				{

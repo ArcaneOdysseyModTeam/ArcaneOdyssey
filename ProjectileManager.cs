@@ -9,10 +9,12 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
@@ -36,6 +38,35 @@ namespace ArcaneOdyssey
 
 	public class AOProjectile : GlobalProjectile, IImbuable
 	{
+		public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
+		{
+			binaryWriter.Write(Imbue?.Type ?? 0);
+			binaryWriter.Write(SecondImbue?.Type ?? 0);
+		}
+
+		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
+		{
+			int read = binaryReader.Read();
+			if (read != 0)
+			{
+				Imbue = (Imbuable)ModContent.GetModItem(read);
+			}
+			else
+			{
+				Imbue = null;
+			}	
+
+			int read2 = binaryReader.Read();
+			if (read2 != 0)
+			{
+				SecondImbue = (Imbuable)ModContent.GetModItem(read2);
+			}
+			else
+			{
+				SecondImbue = null;
+			}
+		}
+
 		public float ApplyScrollSpeed(float value, bool flipfloat = false)
 		{
 			if (Imbue is not null)
@@ -168,7 +199,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public Rectangle? OriginalDimensions = null;
 		public Imbuable Imbue { get; set; }
 		public Imbuable SecondImbue { get; set; }
 		public Projectile thisProjectile = null;
@@ -283,7 +313,13 @@ namespace ArcaneOdyssey
 			thisProjectile = projectile;
 			if (!CanBeAffected)
 				return;
-			OriginalDimensions ??= projectile.Hitbox;
+
+			if (projectile.owner == Main.myPlayer)
+			{
+				projectile.netUpdate = true;
+				projectile.netSpam = 0;
+			}
+
 			BaseScale ??= projectile.scale;
 
 			if (projectile.ModProjectile is AOPlayerProjectile proj1 && !projectile.DamageType.CountsAsClass<MeleeNoSpeedDamageClass>())
@@ -350,7 +386,6 @@ namespace ArcaneOdyssey
 			thisProjectile = projectile;
 			if (CanBeAffected)
 			{
-				OriginalDimensions ??= projectile.Hitbox;
 				BaseScale ??= projectile.scale;
 			}
 			return true;

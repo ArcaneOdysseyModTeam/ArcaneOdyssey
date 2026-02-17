@@ -129,6 +129,24 @@ namespace ArcaneOdyssey
 			return list;
 		}
 
+		public static bool? ToNullableBool(this int value)
+		{
+			if (value == 2)
+			{
+				return null;
+			}
+			return value == 1;
+		}
+
+		public static int ToInt32(this bool? value)
+		{
+			if (value.HasValue)
+			{
+				return value.Value.ToInt();
+			}
+			return 2;
+		}
+
 		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd)
 		{
 			tooltips.Reverse();
@@ -1004,7 +1022,10 @@ namespace ArcaneOdyssey
 				}
 			}
 
-			return Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player, ai0, ai1, ai2);
+			var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player, ai0, ai1, ai2);
+			projectile.netUpdate = true;
+			projectile.netSpam = 0;
+			return projectile;
 		}
 
 		public static int FromAODefense(this int val) => (int)Math.Round(val / 15f);

@@ -26,7 +26,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				Projectile.velocity = Vector2.UnitY;
 			}
 
@@ -43,18 +47,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 			Projectile.ai[1] += 1f / Projectile.extraUpdates;
 
-			if (Main.myPlayer == Projectile.owner && Projectile.ai[1] >= 60)
+			if (Projectile.ai[1] >= 60)
 			{
 				Projectile.ai[1] = 0;
 				var height = 250;
+
 				Rectangle rect = new(Projectile.Hitbox.X, Projectile.Hitbox.Y - height, Projectile.width, height);
-				rect = AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false, false);
-				var amountmulti = 1f;
-				if (Imbue is not null)
-					amountmulti *= Imbue.AOScrollSize;
-				if (SecondImbue is not null)
-					amountmulti *= SecondImbue.AOScrollSize;
-				for (int i = 0; i <= 10f * amountmulti; i++)
+				if (Main.myPlayer == Projectile.owner)
+				{
+					rect = AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false, false);
+				}
+				for (int i = 0; i <= 10; i++)
 				{
 					Imbue?.LingeringEffects(rect);
 					SecondImbue?.LingeringEffects(rect);

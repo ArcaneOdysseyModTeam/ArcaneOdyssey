@@ -39,7 +39,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0; ;
+				}
 				Projectile.velocity.Normalize();
 			}
 			Projectile.Center = Owner.HandPosition.GetValueOrDefault(Owner.RotatedRelativePoint(Owner.MountedCenter)) + (Projectile.velocity * 18);

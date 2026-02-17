@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -72,8 +73,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
-				Projectile.netUpdate = true;
-				originalVelocity = Projectile.velocity;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+					originalVelocity = Projectile.velocity;
+				}
 				Projectile.velocity = Vector2.Zero;
 			}
 
@@ -105,7 +110,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 						Projectile.ai[1] = 0;
 						State = AnnihilationState.Moving;
 						SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
-						Projectile.velocity = originalVelocity.Length() * Projectile.SafeDirectionTo(Main.MouseWorld, Projectile.Center + originalVelocity);
+						if (Projectile.owner == Main.myPlayer)
+						{
+							Projectile.velocity = originalVelocity.Length() * Projectile.SafeDirectionTo(Main.MouseWorld, Projectile.Center + originalVelocity);
+							Projectile.netUpdate = true;
+							Projectile.netSpam = 0;
+						}
 					}
 					return;
 

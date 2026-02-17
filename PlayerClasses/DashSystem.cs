@@ -457,7 +457,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public void DashStrike()
 		{
-			if (Main.myPlayer == Player.whoAmI && CurrentDash is not null && dashing)
+			if (CurrentDash is not null && dashing)
 			{
 				var hitbox = new Rectangle((int)(Player.position.X + (Player.velocity.X * 0.5f) - (DashBoxExtraBoost / 2f)), (int)(Player.position.Y + (Player.velocity.Y * 0.5f) - (DashBoxExtraBoost / 2f)), Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost);
 				foreach (NPC npc in Main.ActiveNPCs)
@@ -476,7 +476,7 @@ namespace ArcaneOdyssey.PlayerClasses
 						if (CurrentDash.Immune)
 							Player.GiveImmuneTimeForCollisionAttack(12);
 
-						if (CurrentDash.Damage > 0)
+						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI)
 						{
 							var damagetype = CurrentDash.DamageType.Imbued(Imbue, (CurrentDash.source is Item item ? item : null));
 							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.Next(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);

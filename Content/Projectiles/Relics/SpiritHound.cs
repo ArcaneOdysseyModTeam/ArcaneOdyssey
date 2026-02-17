@@ -41,7 +41,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 			}
 
 			Projectile.rotation = Projectile.velocity.ToRotation();

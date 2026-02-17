@@ -50,7 +50,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				if (Projectile.ai[2] == 2) // throwing
 				{
 					Projectile.velocity *= 3 / (Projectile.extraUpdates + 1f);
@@ -85,7 +89,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
 					if (Projectile.localAI[0] == 0f)
 					{
-						Projectile.netUpdate = true;
+						if (Projectile.owner == Main.myPlayer)
+						{
+							Projectile.netUpdate = true;
+							Projectile.netSpam = 0;
+						}
 						Projectile.localAI[0] = 1f;
 						EffectBeforeReelBack();
 					}

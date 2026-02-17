@@ -29,8 +29,11 @@ namespace ArcaneOdyssey.Content.Projectiles
 				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = (Imbue?.AOScrollSpeed ?? 0).MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				playedsound = true;
 			}
-			if (Projectile.position != Projectile.oldPosition)
+			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
+			{
 				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
+			}
 
 			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 

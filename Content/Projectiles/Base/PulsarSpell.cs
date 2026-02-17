@@ -27,7 +27,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (Projectile.ai[0] == 0)
 			{
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				Projectile.ai[0] = 1;
 			}
 			var frequency = Projectile.ai[1] == 0 ? 1f : 2f;
@@ -54,7 +58,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;
-				Projectile.netUpdate = true;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 			}
 			Animate();
 			Rotate();
