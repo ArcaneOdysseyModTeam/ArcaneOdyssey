@@ -28,14 +28,13 @@ Normal: {
 		Tooltip: A fighting style that involves covering the fists in gunpowder, allowing the user to deliver devastating explosive punches and kicks
 	}
 
-	SailorFist: {
-		DisplayName: Sailor Fist
-		Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
-	}
-
 	ThermoFist: {
 		DisplayName: Thermo Fist
-		Tooltip: A fighting style that focuses on building up adrenaline and heat to deliver fast, burning-hot strikes
+		Tooltip: 
+			'''
+			A fighting style that focuses on building up adrenaline and heat to deliver fast, burning-hot strikes
+			Attacking improves strength
+			'''
 	}
 
 	VanishingStyle: {
@@ -45,7 +44,11 @@ Normal: {
 
 	SailorStyle: {
 		DisplayName: Sailor Style
-		Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
+		Tooltip: 
+			'''
+			A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
+			Drinking healing potions or submerging in water improves strength
+			'''
 	}
 }
 
