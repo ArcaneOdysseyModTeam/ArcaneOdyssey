@@ -32,6 +32,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public Rectangle Proj4 => new(Proj2.X - (64 * Projectile.scale).Round(), Projectile.position.Y.Round() + (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
 		public bool Proj4Active = true;
 
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.SourceDamage /= 4;
+		}
+
 
 		public override void SetDefaults()
 		{

@@ -160,12 +160,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				if (tex.Height() == Sprite.Height)
 				{
 					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				}
 				else
 				{
 					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Imbue?.GetColour(Color.White) ?? Color.White, Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
+					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Projectile.GetAlpha(Color.White), Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
 				}
 			}
 		}

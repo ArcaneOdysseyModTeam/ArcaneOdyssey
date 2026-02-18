@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 					}
 					if (Projectile.frame == 3)
 					{
-						if (!haveICelebrated)
+						if (!haveICelebrated && !Main.dedServ)
 						{
 							// Confetti
 							for (int n = 0; n < 20; n++)
@@ -97,7 +97,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 							//Audio here
 							SoundEngine.PlaySound(ElfYippeeSound, Projectile.Center);
 							haveICelebrated = true;
-
 						}
 					}
 				}

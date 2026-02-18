@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {

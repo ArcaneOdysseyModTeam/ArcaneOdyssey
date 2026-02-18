@@ -7,7 +7,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {

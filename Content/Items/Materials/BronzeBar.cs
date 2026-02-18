@@ -35,14 +35,14 @@ namespace ArcaneOdyssey.Content.Items.Materials
 
 		public override void AddRecipes()
 		{
-			RecipeGroup coppergroup = new(() => Language.GetTextValue("LegacyMisc.37") + new Item(ItemID.CopperOre).Name, ItemID.CopperOre, ItemID.TinOre);
-			RecipeGroup.RegisterGroup("AnyCopperOre", coppergroup);
-			RecipeGroup goldgroup = new(() => Language.GetTextValue("LegacyMisc.37") + new Item(ItemID.GoldOre).Name, ItemID.GoldOre, ItemID.PlatinumOre);
-			RecipeGroup.RegisterGroup("AnyGoldOre", goldgroup);
-			CreateRecipe(10).AddRecipeGroup(coppergroup, 4).AddRecipeGroup(goldgroup, 4).
-				AddIngredient(ItemID.TissueSample, 1).AddTile(TileID.Furnaces).Register();
-			CreateRecipe(10).AddRecipeGroup(coppergroup, 4).AddRecipeGroup(goldgroup, 4).
-				AddIngredient(ItemID.ShadowScale, 1).AddTile(TileID.Furnaces).Register();
+			RecipeGroup coppergroup = new(() => Language.GetTextValue("LegacyMisc.37") + Lang.GetItemNameValue(ItemID.CopperOre), ItemID.CopperOre, ItemID.TinOre);
+			var cop = RecipeGroup.RegisterGroup("AnyCopperOre", coppergroup);
+			RecipeGroup goldgroup = new(() => Language.GetTextValue("LegacyMisc.37") + Lang.GetItemNameValue(ItemID.GoldOre), ItemID.GoldOre, ItemID.PlatinumOre);
+			var gold = RecipeGroup.RegisterGroup("AnyGoldOre", goldgroup);
+			RecipeGroup evilgroup = new(() => Language.GetTextValue("LegacyMisc.37") + Lang.GetItemNameValue(ItemID.ShadowScale), ItemID.ShadowScale, ItemID.TissueSample);
+			var evil = RecipeGroup.RegisterGroup("AnyShadowScale", evilgroup);
+			CreateRecipe(10).AddRecipeGroup(cop, 4).AddRecipeGroup(gold, 4).
+				AddRecipeGroup(evil).AddTile(TileID.Hellforge).Register();
 		}
 	}
 }

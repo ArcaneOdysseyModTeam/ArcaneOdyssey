@@ -27,7 +27,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			return true;
 		}
 
-
 		public override void AI()
 		{
 			if (Projectile.ai[2] == 0)

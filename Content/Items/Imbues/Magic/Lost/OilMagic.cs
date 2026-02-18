@@ -1,6 +1,5 @@
 using ArcaneOdyssey.Content.Items.Base;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;

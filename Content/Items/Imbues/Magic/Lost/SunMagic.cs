@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Buffs.Helpers;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost

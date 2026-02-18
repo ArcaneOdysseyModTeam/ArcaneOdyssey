@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 55 / 4;
+			Item.damage = 55;
 			Item.mana = 100;
 			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
