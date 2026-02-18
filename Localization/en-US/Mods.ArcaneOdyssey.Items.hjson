@@ -184,7 +184,37 @@ ArcticGelPotion: {
 	Tooltip: Melee and Whip attacks inflict enemies with Snowy
 }
 
+FrostGelPotion: {
+	DisplayName: Frost Gel
+	Tooltip: Melee and Whip attacks inflict enemies with Freezing
+}
+
 BronzeBrick: {
 	DisplayName: Bronze Brick
+	Tooltip: ""
+}
+
+BronzeBrickWallItem: {
+	DisplayName: Bronze Brick Wall
+	Tooltip: ""
+}
+
+BronzeColumn: {
+	DisplayName: Bronze Column
+	Tooltip: ""
+}
+
+BronzeColumnWallItem: {
+	DisplayName: Bronze Column Wall
+	Tooltip: ""
+}
+
+BronzeSlab: {
+	DisplayName: Bronze Slab
+	Tooltip: ""
+}
+
+BronzeSlabWallItem: {
+	DisplayName: Bronze Slab Wall
 	Tooltip: ""
 }

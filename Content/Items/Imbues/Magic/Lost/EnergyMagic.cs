@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => .75f;
 
-		public override WeaponAbility? Ability => new(this);
+		
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

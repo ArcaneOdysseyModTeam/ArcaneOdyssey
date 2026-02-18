@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
-using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
@@ -29,8 +28,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			player.ArcaneOdyssey()?.AddEquippedImbue(Item);
 		}
 
-		public virtual WeaponAbility? Ability => null;
-
 		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
@@ -40,7 +37,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetStaticDefaults()
 		{
-			_ = Ability?.ToolTip;
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 		}
 
@@ -311,9 +307,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
 
-			if (Ability.HasValue)
+			if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName"))
 			{
-				tooltips.AddTooltip(Ability.Value.ToolTip);
+				var ability = Language.GetTextValue($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") + "]";
+
+				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+				{
+					ability += $" - {Language.GetTextValue($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description")}";
+				}
+
+				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{ability}");
+				tooltips.AddTooltip(tooltip);
 			}
 
 			if (ModifyTooltipsPrefix is not null)

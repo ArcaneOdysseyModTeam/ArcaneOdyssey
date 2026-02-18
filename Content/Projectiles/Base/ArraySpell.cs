@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
+			base.ModifyHitNPC(target, ref modifiers);
 			modifiers.SourceDamage /= 4;
 		}
 

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
 using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues;
@@ -100,17 +101,17 @@ namespace ArcaneOdyssey
 				}
 			}
 
-			if (item.ArcaneOdyssey().WeaponsType == WeaponType.Arcanium)
+			switch (item.ArcaneOdyssey().WeaponsType)
 			{
-				tooltips.AddTooltip(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
-			}
-			if (item.ArcaneOdyssey().WeaponsType == WeaponType.Strength)
-			{
-				tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
-			}
-			if (item.ArcaneOdyssey().WeaponsType == WeaponType.Artisinal)
-			{
-				tooltips.AddTooltip(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
+				case WeaponType.Artisinal:
+					tooltips.AddTooltip(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
+					return;
+				case WeaponType.Arcanium:
+					tooltips.AddTooltip(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+					return;
+				case WeaponType.Strength:
+					tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+					return;
 			}
 		}
 	}

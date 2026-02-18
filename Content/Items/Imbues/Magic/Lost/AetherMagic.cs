@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		{
 			RegisterMutation<IonMagic>();
 		}
+		
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => new(255, 255, 0);

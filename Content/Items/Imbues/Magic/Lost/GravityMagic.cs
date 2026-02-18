@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class GravityMagic : AOMagic
 	{
+		
 		public override float DashSpeed => 1.2f; // burst
 		public override float KBMulti => 3f;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit52;

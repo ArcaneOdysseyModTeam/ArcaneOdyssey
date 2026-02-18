@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueSpeed => .85f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<Tangled>(), 60)];
+		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<Tangled>(), 60 * 5)];
 
 		public override SynergyEffects Effects => new([],
 			[

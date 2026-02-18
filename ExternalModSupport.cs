@@ -1,6 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.BossTrophies;
+﻿using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Items.Weapons.Sunken;
 using ArcaneOdyssey.Content.NPCS;

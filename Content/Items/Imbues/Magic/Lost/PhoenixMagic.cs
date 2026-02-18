@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			player.noFallDmg = true;
 		}
 
-		public override WeaponAbility? Ability => new(this);
+		
 
 		public override void SetDefaults()
 		{
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			if (!hideVisual)
 			{
 				Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
-				Lighting.AddLight(spawnPos, ImbueColour.ToVector3());
+				Lighting.AddLight(spawnPos, ImbueColour.ToVector3() * 1.5f);
 			}
 		}
 

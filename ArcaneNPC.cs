@@ -1,4 +1,5 @@
 ﻿using System;
+using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Armour.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;

@@ -1,8 +1,8 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
+﻿using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Materials;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -177,6 +177,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			AOSizeStat = 0;
 			AOHasteStat = 0;
+			insanity = null;
 			gel = 0;
 			List<int> queue = [];
 			foreach (int type in EquippedImbues)

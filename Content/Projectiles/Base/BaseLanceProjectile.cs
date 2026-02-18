@@ -80,6 +80,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
+			base.ModifyHitNPC(target, ref modifiers);
 			modifiers.Knockback *= Owner.velocity.Length() / 7f;
 			modifiers.SourceDamage *= 0.1f + Owner.velocity.Length() / 7f * 0.9f;
 		}

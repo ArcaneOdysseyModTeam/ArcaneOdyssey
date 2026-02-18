@@ -8,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Materials
+namespace ArcaneOdyssey.Content.Items
 {
 	[LegacyName("HecateOrb", "PoseidonChoice")]
 	public class EagleLegacy : AOBaseItem
@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.width = Item.height = 64;
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.useAnimation = 20;
+			Item.noUseGraphic = true;
 			Item.useTime = 20;
 		}
 

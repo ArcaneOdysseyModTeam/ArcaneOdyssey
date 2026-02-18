@@ -78,11 +78,8 @@ Relics: {
 
 	SpiritEnergy: {
 		DisplayName: Divine Spirit Energy
-		Tooltip:
-			'''
-			Represents your ability to wield spirit energy without a relic, as a legacy
-			Can be used like an imbue, but provides no benifits besides the ability to use rites
-			'''
+		Tooltip: Represents your ability to wield spirit energy without a relic, as a legacy
+		Ability.DisplayName: Can be used like an imbue, but provides no benifits besides the ability to use rites
 	}
 }
 

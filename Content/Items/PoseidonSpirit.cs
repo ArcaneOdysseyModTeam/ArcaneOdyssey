@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ArcaneOdyssey.AOUtils;
 
-namespace ArcaneOdyssey.Content.Items.Materials;
+namespace ArcaneOdyssey.Content.Items;
 
 public class PoseidonSpirit : AOBaseItem
 {
@@ -24,6 +24,7 @@ public class PoseidonSpirit : AOBaseItem
 		Item.useStyle = ItemUseStyleID.HoldUp;
 		Item.useAnimation = 20;
 		Item.useTime = 20;
+		Item.noUseGraphic = true;
 	}
 
 	public override void SetStaticDefaults()
