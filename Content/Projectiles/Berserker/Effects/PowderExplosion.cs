@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 {
 	public class PowderExplosion : AOPlayerProjectile
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 
 		public override void SetDefaults()
 		{

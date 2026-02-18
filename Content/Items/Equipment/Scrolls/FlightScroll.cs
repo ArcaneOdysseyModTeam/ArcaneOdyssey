@@ -41,6 +41,11 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 				speed *= Imbue.AOScrollSpeed;
 				acceleration *= Imbue.AOScrollSpeed;
 			}
+			else
+			{
+				speed *= 0;
+				acceleration *= 0;
+			}
 		}
 
 		public override void SetStaticDefaults()

@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Arrays.Lost
 {
 	public class SoundArray : ArraySpell
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		public override bool PreDraw(ref Color lightColor) => false;
 	}
 }

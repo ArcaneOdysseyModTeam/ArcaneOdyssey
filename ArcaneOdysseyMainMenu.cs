@@ -56,9 +56,9 @@ namespace ArcaneOdyssey
 
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/TitleLogo");
 
-		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Backgrounds/Blank");
+		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>(AOUtils.BlankTexture);
 
-		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Backgrounds/Blank");
+		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>(AOUtils.BlankTexture);
 
 		public override int Music
 		{
@@ -157,9 +157,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Backgrounds/Blank");
-		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Backgrounds/Blank");
-		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Backgrounds/Blank");
+		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot(AOUtils.BlankTexture);
+		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot(AOUtils.BlankTexture);
+		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot(AOUtils.BlankTexture);
 		public override bool PreDrawCloseBackground(SpriteBatch spriteBatch) => false;
 	}
 }

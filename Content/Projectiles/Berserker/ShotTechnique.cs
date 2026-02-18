@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class ShotTechnique : StrengthTechnique
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		public const int DustCount = 20;
 		public override void SetDefaults()
 		{

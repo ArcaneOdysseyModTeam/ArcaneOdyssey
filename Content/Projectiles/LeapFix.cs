@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Content.Projectiles
 {
 	public class LeapFix : ModProjectile
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		public override void AI()
 		{
 			Main.player[Projectile.owner].direction = (int)Projectile.ai[0];

@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			ProjectileID.Sets.MinionSacrificable[Type] = true;
 		}
 
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 
 		public override void SetDefaults()
 		{

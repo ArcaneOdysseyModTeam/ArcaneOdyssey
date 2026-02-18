@@ -9,7 +9,7 @@ using static ArcaneOdyssey.AOUtils;
 namespace ArcaneOdyssey.UI.ImbueChange;
 
 /// <summary>
-/// The UI that opens when the player uses a <see cref="Acrimony"/> or a <see cref="StarterAcrimony"/>; this to 
+/// The UI that opens when the player uses a <see cref="Acrimony"/>
 /// </summary>
 public partial class ImbueChangeUI : BaseImbueUI
 {

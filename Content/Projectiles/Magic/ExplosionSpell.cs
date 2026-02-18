@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 	public class ExplosionSpell : MagicSpell
 	{
 		public override bool CanHaveImbueVFX => false;
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		public float charge = 1f;
 		public bool isPlacedExplosion = Main.mouseRight;
 		public Vector2 ensuredPosition = Main.MouseWorld;

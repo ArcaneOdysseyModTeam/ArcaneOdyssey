@@ -166,7 +166,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 						Main.NewText(Imbue.DisplayName.Value + " is missing " + DisplayName.Value + " sprite.", Color.Red);
 					}
 				}
-				return Mod.Name + "/Backgrounds/Blank";
+				return AOUtils.BlankTexture;
 			}
 		}
 	}

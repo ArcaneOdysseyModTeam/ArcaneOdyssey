@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 	public class PrismLinger : AOPlayerProjectile
 	{
 		public override bool PreDraw(ref Color lightColor) => false;
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 
 		public override void SetDefaults()
 		{

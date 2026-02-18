@@ -33,6 +33,8 @@ namespace ArcaneOdyssey
 			return gore;
 		}
 
+		public const string BlankTexture = ArcaneOdysseyMod.InternalName + "/Backgrounds/Blank";
+
 		public static int GetMusic(string name) => MusicLoader.GetMusicSlot(ArcaneOdysseyMusicMod.Instance, "Music/" + name);
 
 		internal static List<string> options = [

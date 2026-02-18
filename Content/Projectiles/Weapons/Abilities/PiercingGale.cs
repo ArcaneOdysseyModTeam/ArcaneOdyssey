@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class PiercingGale : AOPlayerProjectile
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		public override AODebuffRequirement? Debuff => null;
 		public const int DustCount = 30;
 

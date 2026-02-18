@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		//public AOWeaponTiers AOWeaponTier = AOWeaponTiers.Good;
 
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()
 		{
 			Projectile.penetrate = -1;

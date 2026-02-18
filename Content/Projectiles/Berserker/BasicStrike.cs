@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class BasicStrike : StrengthTechnique
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 
 		public override bool CanHaveImbueVFX => false;
 

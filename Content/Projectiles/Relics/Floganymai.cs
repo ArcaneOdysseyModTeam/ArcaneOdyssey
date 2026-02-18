@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 	public class Floganymai : SpiritProjectile
 	{
 		public override bool CanHaveImbueVFX => false;
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		private int pulses;
 		public override void SetDefaults()
 		{
