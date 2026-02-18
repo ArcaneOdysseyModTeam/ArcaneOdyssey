@@ -105,22 +105,24 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		{
 			if (source is not EntitySource_Parent { Entity: NPC })
 			{
-				var player = Main.player[projectile.owner].ArcaneOdyssey();
-				if (Main.myPlayer == player.Player.whoAmI)
+				if (projectile.TryGetOwner(out Player player))
 				{
-					if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist cfist)
+					if (Main.myPlayer == player.whoAmI)
 					{
-						if (!player.OnCooldown(cfist.Name))
+						if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist cfist)
 						{
-							if (!projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
+							if (!player.ArcaneOdyssey().OnCooldown(cfist.Name))
 							{
-								if (player.Player.ConsumeItem(ItemID.Cannonball))
+								if (!projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
 								{
-									Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.Player.whoAmI);
+									if (player.ConsumeItem(ItemID.Cannonball))
+									{
+										Projectile.NewProjectile(source, player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.whoAmI);
+									}
+									else
+										Projectile.NewProjectile(source, player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.whoAmI);
+									player.ArcaneOdyssey().SetCooldown(new Cooldown(cfist.Name, Mod, 60));
 								}
-								else
-									Projectile.NewProjectile(source, player.Player.MountedCenter, player.Player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.Player.whoAmI);
-								player.SetCooldown(new Cooldown(cfist.Name, Mod, 60));
 							}
 						}
 					}

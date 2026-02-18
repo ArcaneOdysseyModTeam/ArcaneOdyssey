@@ -1267,7 +1267,7 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Weapon;
 			}
-			if (item.consumable)
+			if (item.consumable && item.createTile == -1 && item.createWall == -1)
 			{
 				return ItemType.Consumable;
 			}
@@ -1275,7 +1275,7 @@ namespace ArcaneOdyssey
 			{
 				return ItemType.Material;
 			}
-			if (item.createTile != -1)
+			if (item.createTile != -1 || item.createWall != -1)
 			{
 				return ItemType.Block;
 			}

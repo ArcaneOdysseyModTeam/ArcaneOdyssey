@@ -30,11 +30,6 @@
 			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="SubworldLibrary">
-			<HintPath>..\references\SubworldLibrary.dll</HintPath>
-		</Reference>
-	</ItemGroup>
 
 	<!-- References -->
 

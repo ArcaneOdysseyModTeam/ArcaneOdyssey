@@ -74,24 +74,21 @@ namespace ArcaneOdyssey
 
 			if (ArcaneOdysseyClientConfig.Instance.ItemTypeTooltips)
 			{
-				if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+				if (item.ModItem is Imbuable and not BasicCombat || item.GetItemType() == ItemType.Material)
 				{
-					if (item.ModItem is Imbuable and not BasicCombat || item.GetItemType() == ItemType.Material)
-					{
-						tooltips.RemoveAll(e => e.Name == "Material");
-					}
-					if (item.GetItemType() == ItemType.Vanity)
-					{
-						tooltips.RemoveAll(e => e.Name == "Vanity");
-					}
+					tooltips.RemoveAll(e => e.Name == "Material");
+				}
+				if (item.GetItemType() == ItemType.Vanity)
+				{
+					tooltips.RemoveAll(e => e.Name == "Vanity");
+				}
 
-					if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
-					{
-						var line = item.GetItemRare().ToString();
-						line += " ";
-						line += item.GetItemType().ToString().ToLower();
-						tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
-					}
+				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
+				{
+					var line = item.GetItemRare().ToString();
+					line += " ";
+					line += item.GetItemType().ToString().ToLower();
+					tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
 				}
 			}
 

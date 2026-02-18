@@ -183,3 +183,8 @@ ArcticGelPotion: {
 	DisplayName: Arctic Gel
 	Tooltip: Melee and Whip attacks inflict enemies with Snowy
 }
+
+BronzeBrick: {
+	DisplayName: Bronze Brick
+	Tooltip: ""
+}
