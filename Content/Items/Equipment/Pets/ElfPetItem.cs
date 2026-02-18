@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Buffs.Pets;
 using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Items.Base;
 using Terraria.ID;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Pets
 {
@@ -39,6 +40,21 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Pets
 		public override void ResetEffects()
 		{
 			elfPet = false;
+			if (!Player.dead)
+				madeDeathSound = false;
+		}
+
+		public bool madeDeathSound;
+
+		public static readonly SoundStyle ElfDeathSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/ElfPetDeath");
+
+		public override void UpdateDead()
+		{
+			if (!madeDeathSound && elfPet)
+			{
+				madeDeathSound = true;
+				SoundEngine.PlaySound(ElfDeathSound);
+			}
 		}
 	}
 }

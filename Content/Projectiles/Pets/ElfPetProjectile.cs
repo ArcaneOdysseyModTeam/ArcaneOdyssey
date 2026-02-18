@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items.Equipment.Pets;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Projectiles.Pets
@@ -12,6 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 		private bool wasThereABoss = false;
 		private bool isThereABoss = false;
 		private bool haveICelebrated = false;
+		public static readonly SoundStyle ElfYippeeSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/ElfPetYippee");
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 13;
@@ -93,7 +95,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 								Dust.NewDust(Projectile.Center + new Vector2(0f, -25f), 1, 1, confettis[(int)Math.Round(Main.rand.NextFloat() * 3f)], 0, 0);
 							}
 							//Audio here
-							Main.NewText("Elf yippee sound effect would be here");
+							SoundEngine.PlaySound(ElfYippeeSound, Projectile.Center);
 							haveICelebrated = true;
 
 						}
