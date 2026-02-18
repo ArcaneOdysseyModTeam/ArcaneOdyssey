@@ -30,5 +30,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.friendly = true;
 		}
+
+		public override bool PreAI()
+		{
+			if (Main.myPlayer == Projectile.owner && (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet)))
+			{
+				Kill();
+				return false;
+			}
+			return true;
+		}
 	}
 }

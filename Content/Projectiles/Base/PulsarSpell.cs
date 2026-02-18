@@ -66,11 +66,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 			Animate();
 			Rotate();
-			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
-			{
-				Kill();
-				return;
-			}
 		}
 
 		public virtual void Animate()

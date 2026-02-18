@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.DrawLayers
 				return;
 			Texture2D texture = phoenixWingsTex.Value;
 			Vector2 pos = new((int)(drawInfo.Center.X - Main.screenPosition.X - 6f * drawPlayer.direction), (int)(drawInfo.Center.Y - Main.screenPosition.Y - drawPlayer.height / 2f));
-			DrawData d = new(texture, pos, texture.Frame(1, 4, 0, drawInfo.drawPlayer.wingFrame), Color.White, 0f, new(texture.Width / 2, texture.Height / 18), 1f, drawInfo.playerEffect, 0) { shader = drawInfo.drawPlayer.cWings };
+			DrawData d = new(texture, pos, texture.Frame(1, 4, 0, drawInfo.drawPlayer.wingFrame), Color.White * drawPlayer.opacityForAnimation, 0f, new(texture.Width / 2, texture.Height / 18), 1f, drawInfo.playerEffect, 0) { shader = drawInfo.drawPlayer.cWings };
 			drawInfo.DrawDataCache.Add(d);
 		}
 	}

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
@@ -17,6 +18,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			lightColor = Imbue?.GetColour(lightColor) ?? lightColor;
 			return base.PreDraw(ref lightColor);
+		}
+
+		public override bool PreAI()
+		{
+			if (Main.myPlayer == Projectile.owner && (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet)))
+			{
+				Kill();
+				return false;
+			}
+			return true;
 		}
 	}
 }

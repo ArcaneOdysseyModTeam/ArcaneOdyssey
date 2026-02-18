@@ -55,6 +55,22 @@ namespace ArcaneOdyssey
 			return null;
 		}
 
+		public override void Load()
+		{
+			excludedItems.Clear();
+			excludedProjectiles.Clear();
+			staticLocalizer.Clear();
+			NoticeQueue.Clear();
+		}
+
+		public override void Unload()
+		{
+			excludedItems.Clear();
+			excludedProjectiles.Clear();
+			staticLocalizer.Clear();
+			NoticeQueue.Clear();
+		}
+
 		public override void PostSetupContent()
 		{
 			// generate localization

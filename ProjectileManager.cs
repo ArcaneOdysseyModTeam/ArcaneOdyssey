@@ -23,50 +23,24 @@ namespace ArcaneOdyssey
 	{
 		public override bool PreDraw(Projectile projectile, ref Color lightColor)
 		{
-			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is PoisonMagic or PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+			if (Main.myPlayer == projectile.owner)
 			{
-				lightColor = projectile.GetAlpha(Color.Purple);
-			}
+				if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is PoisonMagic or PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
+				{
+					lightColor = projectile.GetAlpha(Color.Purple);
+				}
 
-			if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is AshMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is AshMagic) && projectile.type == ProjectileID.SporeCloud)
-			{
-				lightColor = projectile.GetAlpha(Color.DarkRed);
+				if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is AshMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is AshMagic) && projectile.type == ProjectileID.SporeCloud)
+				{
+					lightColor = projectile.GetAlpha(Color.DarkRed);
+				}
 			}
-			return true;
+			return base.PreDraw(projectile, ref lightColor);
 		}
 	}
 
 	public class AOProjectile : GlobalProjectile, IImbuable
 	{
-		public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
-		{
-			binaryWriter.Write(Imbue?.Type ?? 0);
-			binaryWriter.Write(SecondImbue?.Type ?? 0);
-		}
-
-		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
-		{
-			int read = binaryReader.Read();
-			if (read != 0)
-			{
-				Imbue = (Imbuable)ModContent.GetModItem(read);
-			}
-			else
-			{
-				Imbue = null;
-			}	
-
-			int read2 = binaryReader.Read();
-			if (read2 != 0)
-			{
-				SecondImbue = (Imbuable)ModContent.GetModItem(read2);
-			}
-			else
-			{
-				SecondImbue = null;
-			}
-		}
-
 		public float ApplyScrollSpeed(float value, bool flipfloat = false)
 		{
 			if (Imbue is not null)
@@ -135,7 +109,7 @@ namespace ArcaneOdyssey
 		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
 		{
 			thisProjectile = projectile;
-			if (projectile.hostile || projectile.npcProj || projectile.owner == 255 || (projectile.damage <= 0 && projectile.ModProjectile is not AOPlayerProjectile) || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
+			if (projectile.hostile || projectile.npcProj || Main.myPlayer != projectile.owner || projectile.owner == 255 || (projectile.damage <= 0 && projectile.ModProjectile is not AOPlayerProjectile) || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
 				return;
 			Player player = Main.player[projectile.owner];
 			float mult = BaseScale.GetValueOrDefault(projectile.scale);
@@ -313,12 +287,6 @@ namespace ArcaneOdyssey
 			thisProjectile = projectile;
 			if (!CanBeAffected)
 				return;
-
-			if (projectile.owner == Main.myPlayer)
-			{
-				projectile.netUpdate = true;
-				projectile.netSpam = 0;
-			}
 
 			BaseScale ??= projectile.scale;
 

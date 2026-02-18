@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Equipment.Pets;
 using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
@@ -31,15 +32,15 @@ namespace ArcaneOdyssey
 		{
 			if (item.type == ItemID.OceanCrateHard)
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 12));
 			}
 			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])
 			{
 				LeadingConditionRule leadingConditionRule1 = new(new Conditions.TenthAnniversaryIsUp());
-				leadingConditionRule1.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 8), true);
+				leadingConditionRule1.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
 				itemLoot.Add(leadingConditionRule1);
 				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
-				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
+				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 32), true);
 				itemLoot.Add(leadingConditionRule2);
 				//LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
 				//leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
@@ -47,15 +48,15 @@ namespace ArcaneOdyssey
 				//LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
 				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
 				//itemLoot.Add(leadingConditionRule4);
-				//LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
-				//leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 8), true);
-				//itemLoot.Add(leadingConditionRule5);
-				//LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
-				//leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
-				//itemLoot.Add(leadingConditionRule6);
+				LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
+				leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
+				itemLoot.Add(leadingConditionRule5);
+				LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
+				leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 32), true);
+				itemLoot.Add(leadingConditionRule6);
 			}
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
-			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 1000));
+			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 500));
 			itemLoot.Add(AcrimonyCondition);
 		}
 

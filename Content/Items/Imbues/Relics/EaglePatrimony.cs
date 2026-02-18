@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			base.SetDefaults();
 			Item.width = Item.height = 40;
 			Item.shoot = ModContent.ProjectileType<Astrapikis>();
-			Item.shootSpeed = 1f;
+			Item.shootSpeed = .9f;
 			Item.damage = 20;
 			Item.knockBack = 3.75f;
 		}

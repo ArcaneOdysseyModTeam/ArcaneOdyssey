@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-			SimulateAOE(100, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
+			SimulateAOE(300, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
 			if (!Main.dedServ)
 			{
 				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.PlayerItem()), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());

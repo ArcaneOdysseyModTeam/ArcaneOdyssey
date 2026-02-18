@@ -140,48 +140,52 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 			Animate();
 			Rotate();
-			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
-			{
-				Kill();
-				return;
-			}
 
 			if (Hovering)
 			{
+				if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				if (Imbue is not PhoenixMagic)
 					Projectile.spriteDirection = Owner.direction;
-				Projectile.scale = Imbue.AOScrollSize;
-				if (SecondImbue is not null)
-					Projectile.scale *= SecondImbue.AOScrollSize;
-				Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, (Player.defaultHeight * .75f) * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
-				Projectile.scale *= AOSize;
-				target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * ShootTime);
-				if (target != -1)
+				if (Main.myPlayer == Projectile.owner)
 				{
-					if (Projectile.owner == Main.myPlayer)
-					{
-						Projectile.netUpdate = true;
-						Projectile.netSpam = 0;
-					}
-					var targetnpc = Main.npc[target];
-					if (ArcaneOdysseyConfig.Instance.PredictiveArray)
-					{
-						Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * 40f)).ToRotation();
-					}
-					else
-					{
-						Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center).ToRotation();
-					}
-				}
-				else if (Projectile.owner == Main.myPlayer)
-				{
-					Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld);
-				}
+					Projectile.scale = Imbue.AOScrollSize;
+					if (SecondImbue is not null)
+						Projectile.scale *= SecondImbue.AOScrollSize;
+					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, (Player.defaultHeight * .75f) * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
+					Projectile.scale *= AOSize;
 
-				if (++Projectile.ai[1] > ShootDelay)
-				{
-					Hovering = false;
-					Projectile.velocity = Projectile.rotation.ToRotationVector2() * originalVelocity.Length();
+					target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * ShootTime);
+					if (target != -1)
+					{
+						var targetnpc = Main.npc[target];
+						if (ArcaneOdysseyConfig.Instance.PredictiveArray)
+						{
+							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * 40f)).ToRotation();
+						}
+						else
+						{
+							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center).ToRotation();
+						}
+					}
+					else if (Projectile.owner == Main.myPlayer)
+					{
+						Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld);
+					}
+
+					if (++Projectile.ai[1] > ShootDelay)
+					{
+						Hovering = false;
+						Projectile.velocity = Projectile.rotation.ToRotationVector2() * originalVelocity.Length();
+						if (Main.myPlayer == Projectile.owner)
+						{
+							Projectile.netUpdate = true;
+							Projectile.netSpam = 0;
+						}
+					}
 				}
 			}
 			if (!Hovering || Imbue is SoundMagic)
