@@ -240,8 +240,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return false;
 		}
 
-		public virtual float ItemInvisibility => 0f;
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -249,7 +247,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.width = Item.height = 52;
 			Item.useAnimation = Item.useTime = 30;
 			Item.noUseGraphic = true;
-			Item.alpha = (255 * MathHelper.Clamp(ItemInvisibility, 0f, 1f)).Round();
 			Item.noMelee = true;
 			Item.UseSound = ImbueSound;
 		}
@@ -313,7 +310,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
 				{
-					ability += $" - {Language.GetTextValue($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description")}";
+					ability += $": {Language.GetTextValue($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description")}";
 				}
 
 				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{ability}");
