@@ -36,6 +36,11 @@ namespace ArcaneOdyssey
 
 		internal static List<int> excludedProjectiles = [];
 
+		/// <param name="args">
+		/// BlacklistProjectile/ExcludeProjectile (<seealso cref="int"/>)
+		/// <para>BlacklistItem/ExcludeItem (<seealso cref="int"/>)</para>
+		/// <para>AddMordenDialogue (<seealso cref="string"/>, <seealso cref="Func{bool}"/>)</para>
+		/// </param>
 		public override object Call(params object[] args)
 		{
 			switch (args[0])

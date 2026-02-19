@@ -144,41 +144,41 @@ namespace ArcaneOdyssey
 			if (npc.type == NPCID.WallofFlesh)
 			{
 				LeadingConditionRule leadingConditionRule = new(new Conditions.IsPreHardmode());
-				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<PoseidonSpirit>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper<PoseidonSpirit>());
 				npcLoot.Add(leadingConditionRule);
 			}
-			if (npc.type == NPCID.CultistBoss)
+			if (npc.type == NPCID.Golem)
 			{
-				LeadingConditionRule leadingConditionRule = new(new FirstCultistKill());
-				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<HecateShard>()));
+				LeadingConditionRule leadingConditionRule = new(new FirstGolemKill());
+				leadingConditionRule.OnSuccess(new MultiDropHelper<HecateShard>());
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.HallowBoss)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstDayEmpressKill());
-				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<HecateShard>()));
-				npcLoot.Add(leadingConditionRule);
-			}
-			if (npc.type == NPCID.Plantera)
-			{
-				LeadingConditionRule leadingConditionRule = new(new Conditions.FirstTimeKillingPlantera());
-				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<PoseidonSpirit>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper<HecateShard>());
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.MoonLordCore)
 			{
 				LeadingConditionRule leadingConditionRule = new(new FirstMoonLordKill());
-				leadingConditionRule.OnSuccess(new MultiDropHelper(ModContent.ItemType<AncientHecateOrb>()));
+				leadingConditionRule.OnSuccess(new MultiDropHelper<AncientHecateOrb>());
 				npcLoot.Add(leadingConditionRule);
 			}
 			if (npc.type == NPCID.HeadlessHorseman)
 			{
 				LeadingConditionRule leadingConditionRule = new(new NoShowNoConditon());
-				leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeadlessHead>(), 30));
+				leadingConditionRule.OnSuccess(AOUtils.Common<HeadlessHead>(30));
+				npcLoot.Add(leadingConditionRule);
+			}
+			if (npc.type == NPCID.SkeletronPrime || npc.type == NPCID.TheDestroyer || npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
+			{
+				LeadingConditionRule leadingConditionRule = new(new DownedAllMechBossesFirstTime());
+				leadingConditionRule.OnSuccess(new MultiDropHelper<PoseidonSpirit>());
 				npcLoot.Add(leadingConditionRule);
 			}
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
-			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 3000));
+			AcrimonyCondition.OnSuccess(AOUtils.Common<Acrimony>(3000));
 			npcLoot.Add(AcrimonyCondition);
 		}
 	}

@@ -9,9 +9,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 	public abstract class Scroll : AOBaseItem, IImbuable, ILocalizedModType
 	{
 		public override bool ShowItemTypeTooltip => false;
-		public override string LocalizationCategory => "Scrolls";
+		public override string LocalizationCategory => "Scrolls." + Tier;
 
-		public virtual ScrollTier Tier => ScrollTier.Common;
+		public abstract ScrollTier Tier { get; }
 
 		public Imbuable Imbue
 		{

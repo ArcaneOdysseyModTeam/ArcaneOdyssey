@@ -12,7 +12,7 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class CrashScroll : Scroll
+	public class CrashScroll : CommonScroll
 	{
 		public override bool CanHaveFS => true;
 		public const int Cooldown = 60 * 5;

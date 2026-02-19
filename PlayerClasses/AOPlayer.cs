@@ -177,29 +177,9 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			AOSizeStat = 0;
 			AOHasteStat = 0;
-			insanity = null;
+			Insanity = 0;
 			gel = 0;
-			List<int> queue = [];
-			foreach (int type in EquippedImbues)
-			{
-				var index = EquippedImbues.IndexOf(type);
-				if (index >= 0)
-				{
-					if (EquippedImbuesTimers[index] <= 0)
-					{
-						queue.Add(index);
-					}
-					else
-					{
-						EquippedImbuesTimers[index]--;
-					}	
-				}
-			}
-			foreach (var i in queue)
-			{
-				EquippedImbues.RemoveAt(i);
-				EquippedImbuesTimers.RemoveAt(i);
-			}
+			ResetAlsoDead();
 			HandleDashDetection();
 		}
 

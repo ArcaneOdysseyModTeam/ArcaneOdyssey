@@ -8,9 +8,8 @@ using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class HoverScroll : Scroll
+	public class HoverScroll : RareScroll
 	{
-		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveMagic => true;
 		public override int AOValue => 1000;
 		public override void SetDefaults()

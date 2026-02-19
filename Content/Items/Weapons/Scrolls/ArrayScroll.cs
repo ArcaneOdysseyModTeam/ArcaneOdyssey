@@ -7,9 +7,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class ArrayScroll : Scroll
+	public class ArrayScroll : RareScroll
 	{
-		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveMagic => true;
 		public override int AOValue => 1200;
 

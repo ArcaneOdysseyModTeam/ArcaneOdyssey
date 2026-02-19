@@ -4,14 +4,14 @@ Ancient: {
 		Tooltip:
 			'''
 			Allows the user to create and control scorching plasma that ionizes everything in its way, causing all forms of burning to be much more vile
-			Dedicated to Gammaboy45
+			Dedicated to [c/1eff00:Gammaboy45]
 			'''
 	}
 
 	DeathMagic: {
 		DisplayName: Death Magic
 		Tooltip: Allows the user to manifest the aura of death, annihilating weaker foes and withering all
-		Ability.DisplayName: Enemies with a lower max health than yours are instantly killed
+		Ability: Enemies with a lower max health than yours are instantly killed
 	}
 }
 
@@ -19,12 +19,13 @@ Lost: {
 	AetherMagic: {
 		DisplayName: Aether Magic
 		Tooltip: Allows the user to manifest bursts of explosive light that char and blind foes
-		Ability.DisplayName: Creates brilliant explosions
+		Ability: Creates brilliant explosions
 	}
 
 	AncientLightningMagic: {
 		DisplayName: Ancient Lightning Magic
 		Tooltip: Allows the user to create devastating bolts of red chaotic lightning
+		Ability: Lightning chains between enemies
 	}
 
 	BlizzardMagic: {
@@ -50,7 +51,7 @@ Lost: {
 	EnergyMagic: {
 		DisplayName: Energy Magic
 		Tooltip: Allows the user to harness pure magical energy, sapping mana from struck enemies
-		Ability.DisplayName: Mana is restored on all hits
+		Ability: Mana is restored on all hits
 	}
 
 	FlareMagic: {
@@ -61,13 +62,13 @@ Lost: {
 	FrostmetalMagic: {
 		DisplayName: Frostmetal Magic
 		Tooltip: Allows the user to materialize frigid cold metal that slashes and freezes
-		Ability.DisplayName: Projectiles explode into hazardous shards
+		Ability: Projectiles explode into hazardous shards
 	}
 
 	GravityMagic: {
 		DisplayName: Gravity Magic
 		Tooltip: Allows the user to command crushing forces that can cause heavy damage to everything that gets in their way
-		Ability.DisplayName: Reverses knockback
+		Ability: Reverses knockback
 	}
 
 	HeatMagic: {
@@ -88,7 +89,7 @@ Lost: {
 	PhoenixMagic: {
 		DisplayName: Phoenix Magic
 		Tooltip: Allows the user to call upon the power of the flaming phoenix, healing allies and soaring the skies
-		Ability.DisplayName: Can be equipped as wings
+		Ability: Can be equipped as wings
 	}
 
 	PlantMagic: {
@@ -99,7 +100,7 @@ Lost: {
 	PoisonLightningMagic: {
 		DisplayName: Poison Lightning Magic
 		Tooltip: Allows the user to create large bolts of poisonous lightning
-		Ability.DisplayName: Creates poison clouds
+		Ability: Creates poison clouds
 	}
 
 	PrismMagic: {
@@ -107,8 +108,9 @@ Lost: {
 		Tooltip:
 			'''
 			Allows the user to form vibrant prisms of glass that shatter into a brilliant display of reflective shards and blinding lights
-			Dedicated to KT_australis
+			Dedicated to [c/00ffff:KT_australis]
 			'''
+		Ability: Creates lingering shard clouds
 	}
 
 	ShadowflameMagic: {
@@ -116,7 +118,7 @@ Lost: {
 		Tooltip:
 			'''
 			Allows the user to manifest dark purple flames which burn even through water
-			Dedicated to rambunctious_scallywag
+			Dedicated to [c/2f5e5e:rambunctious_scallywag]
 			'''
 	}
 
@@ -138,7 +140,7 @@ Lost: {
 	SunMagic: {
 		DisplayName: Sun Magic
 		Tooltip: Allows the user to command the fires of the sun, allowing them to manifest powerful solar flares
-		Ability.DisplayName: Summons mini suns on enemies
+		Ability: Summons mini suns on enemies
 	}
 
 	ThreadMagic: {
@@ -146,7 +148,7 @@ Lost: {
 		Tooltip:
 			'''
 			Allows the user to summon arachnoid webs that tangle opponents with every strike
-			Dedicated to JannisCreep1
+			Dedicated to [c/dd00ff:JannisCreep1]
 			'''
 	}
 }
@@ -180,12 +182,13 @@ Normal: {
 	AshMagic: {
 		DisplayName: Ash Magic
 		Tooltip: Allows the user to shroud the air with smoldering cinders, preserving the most ill-fated as ashen statues
-		Ability.DisplayName: Creates ash clouds
+		Ability: Creates ash clouds
 	}
 
 	CrystalMagic: {
 		DisplayName: Crystal Magic
 		Tooltip: Allows the user to materialize luminous crystals which embed themselves in adversaries and brilliantly shatter after high accumulation
+		Ability: Every few hits deal bonus damage
 	}
 
 	EarthMagic: {
@@ -226,7 +229,7 @@ Normal: {
 	PoisonMagic: {
 		DisplayName: Poison Magic
 		Tooltip: Allows the user to form noxious fumes which inflict chronic poisons and leave lethal clouds of gas
-		Ability.DisplayName: Creates poison clouds
+		Ability: Creates poison clouds
 	}
 
 	SandMagic: {
@@ -261,7 +264,7 @@ Developer: {
 		Tooltip:
 			'''
 			Allows the user to command the magma and energy of the most powerful volcanoes, allowing lethal and scorching attacks that leave nothing but blue sulfuric lava in their wake
-			Dedicated to Redbirb1508
+			Dedicated to [c/ff2b00:RedBirb1508]
 			'''
 	}
 
@@ -270,7 +273,7 @@ Developer: {
 		Tooltip:
 			'''
 			Those who rain gently and persistently have an infinitely greater impact than those who act like thunder
-			Dedicated to Guard Boi
+			Dedicated to [c/ff69b4:Guard Boi]
 			'''
 	}
 }

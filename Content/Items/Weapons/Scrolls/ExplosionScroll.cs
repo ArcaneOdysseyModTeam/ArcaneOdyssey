@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class ExplosionScroll : Scroll
+	public class ExplosionScroll : CommonScroll
 	{
 		public override bool CanHaveMagic => true;
 		public override void SetDefaults()

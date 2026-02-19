@@ -4,9 +4,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class HoundRite : Scroll
+	public class HoundRite : RareScroll
 	{
-		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveRelic => true;
 
 		public override void SetDefaults()

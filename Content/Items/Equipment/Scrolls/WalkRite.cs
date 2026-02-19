@@ -7,9 +7,8 @@ using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class WalkRite : Scroll
+	public class WalkRite : RareScroll
 	{
-		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveRelic => true;
 		public const int Cooldown = 60 * 5;
 		public override void SetDefaults()

@@ -7,7 +7,7 @@ using ArcaneOdyssey.Content.Projectiles;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class LeapScroll : Scroll
+	public class LeapScroll : CommonScroll
 	{
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveMagic => true;

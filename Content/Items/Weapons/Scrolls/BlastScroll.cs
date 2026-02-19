@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class BlastScroll : Scroll
+	public class BlastScroll : CommonScroll
 	{
 		public override bool CanHaveRelic => true;
 

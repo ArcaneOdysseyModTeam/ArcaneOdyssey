@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -106,6 +107,11 @@ namespace ArcaneOdyssey
 			return ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.None").Value;
 		}
 
+		public static IItemDropRule Common<T>(int chanceDenominator = 1, int minimumDropped = 1, int maximumDropped = 1) where T : ModItem
+		{
+			return ItemDropRule.Common(ModContent.ItemType<T>(), chanceDenominator, minimumDropped, maximumDropped);
+		}
+
 		public static void Shuffle<T>(this IList<T> list)
 		{
 			int n = list.Count;
@@ -149,8 +155,13 @@ namespace ArcaneOdyssey
 			return 2;
 		}
 
-		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd)
+		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd, Color? colour = null)
 		{
+			if (colour.HasValue)
+			{
+				toAdd.Text = $"[c/{colour.Value.Hex3()}:{toAdd.Text}]";
+			}
+
 			tooltips.Reverse();
 			options.Reverse();
 
@@ -475,6 +486,17 @@ namespace ArcaneOdyssey
 					return true;
 			}
 			return false;
+		}
+
+		public static bool BothTwinsAlive()
+		{
+			var alivecount = 0;
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
+					alivecount++;
+			}
+			return alivecount == 2;
 		}
 
 		public static DamageClass TrueMelee()
@@ -1456,6 +1478,12 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
+		public static List<T> Sorted<T>(this List<T> self, Comparison<T> comparer)
+		{
+			self.Sort(comparer);
+			return self;
+		}
+
 		public static bool HasTypeInInventory(this Player player, Type type, Mod mod = null)
 		{
 			mod ??= ArcaneOdysseyMod.Instance;
@@ -1757,10 +1785,10 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Imbue status effects
 	/// </summary>
-	public struct SynergyEffects(int[] buffsToClear, MagicBuffMultiplier[] buffMultipliers)
+	public struct SynergyEffects(List<int> buffsToClear, List<MagicBuffMultiplier> buffMultipliers)
 	{
-		public List<int> clearBuffs = [.. buffsToClear];
-		public MagicBuffMultiplier[] magicBuffMultipliers = buffMultipliers;
+		public List<int> clearBuffs = buffsToClear;
+		public List<MagicBuffMultiplier> magicBuffMultipliers = buffMultipliers;
 		public readonly float MultiFromID(int id)
 		{
 			foreach (MagicBuffMultiplier multiplier in magicBuffMultipliers)

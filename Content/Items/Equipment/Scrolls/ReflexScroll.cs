@@ -7,9 +7,8 @@ using ArcaneOdyssey.PlayerClasses;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
-	public class ReflexScroll : Scroll
+	public class ReflexScroll : RareScroll
 	{
-		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveFS => true;
 		public override bool CanHaveMagic => true;

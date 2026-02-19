@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class ShotScroll : Scroll
+	public class ShotScroll : CommonScroll
 	{
 		public override bool CanHaveFS => true;
 		public override void SetDefaults()

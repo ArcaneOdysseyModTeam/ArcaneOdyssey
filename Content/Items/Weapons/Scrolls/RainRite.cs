@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class RainRite : Scroll
+	public class RainRite : CommonScroll
 	{
 		public override bool CanHaveRelic => true;
 

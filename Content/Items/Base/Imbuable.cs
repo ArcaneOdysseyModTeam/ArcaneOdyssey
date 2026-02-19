@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
@@ -231,7 +231,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					return false;
 				}
-				return ImbueClassCheck(projectile);
+				return AOUtils.ImbueClassCheck(projectile);
 			}
 			if (entity is Player)
 			{
@@ -286,39 +286,147 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (Type == ModContent.ItemType<SpiritEnergy>())
-				return;
-			if (this is SpiritEnergy || !Main.keyState.IsKeyDown(Keys.LeftShift))
+			if (this is SpiritEnergy)
 			{
-				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
+				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.RelicDamage", MathF.Round(AOScrollDamage, 3)).Value));
+				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.RelicSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
+				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.RelicSize", MathF.Round(AOScrollSize, 3)).Value));
+			}
+
+			if (!Main.keyState.IsKeyDown(Keys.LeftShift))
+			{
 				if (this is not SpiritEnergy)
-					tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
+				{
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
+				}
+
+				if (ImbueDebuffs.Length > 0)
+				{
+					string req = "";
+					if (ImbueDebuffs[0].debuffPercent > 0)
+					{
+						req = Mod.CustomLocalization("ImbueStuff.Requirement", (ImbueDebuffs[0].debuffPercent * 100f).Round()).Value;
+					}
+					var debufftext = Mod.CustomLocalization("ImbueStuff.Debuffs", AOUtils.GetBuffName(ImbueDebuffs[0].debuffID) + req).Value;
+					foreach (var debuff in ImbueDebuffs)
+					{
+						req = "";
+						if (debuff.debuffID != ImbueDebuffs[0].debuffID)
+						{
+							if (debuff.debuffPercent > 0)
+							{
+								req = Mod.CustomLocalization("ImbueStuff.Requirement", (debuff.debuffPercent * 100f).Round()).Value;
+							}
+							debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, AOUtils.GetBuffName(debuff.debuffID) + req).Value;
+						}
+					}
+					tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
+				}
+				else
+				{
+					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoDebuffs").Value));
+				}
+
+				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else
 			{
-				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
-			}
-
-			if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName"))
-			{
-				var ability = Language.GetTextValue($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") + "]";
-
-				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+				if (this is not SpiritEnergy)
 				{
-					ability += $": {Language.GetTextValue($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description")}";
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
 				}
 
-				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{ability}");
-				tooltips.AddTooltip(tooltip);
+				if (CombinedDebuffs.Length > 0)
+				{
+					var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(CombinedDebuffs[0].requirement), AOUtils.GetBuffName(CombinedDebuffs[0].result));
+					var debufftext = Mod.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
+					foreach (var debuff in CombinedDebuffs)
+					{
+						if (debuff.result != CombinedDebuffs[0].result)
+						{
+							aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(debuff.requirement), AOUtils.GetBuffName(debuff.result));
+							debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
+						}
+					}
+					tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
+				}
+				else
+				{
+					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoCombinedDebuffs").Value));
+				}
+
+				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
 
 			if (ModifyTooltipsPrefix is not null)
 				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
+			
+
+			if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+			{
+				var ability = $"{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName")}]: {Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description")}";
+
+				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{ability}");
+				tooltips.AddTooltip(tooltip);
+			}
+			else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
+			{
+				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
+				tooltips.AddTooltip(tooltip);
+			}
+		}
+
+		private static int SortMultipliers(MagicBuffMultiplier x, MagicBuffMultiplier y)
+		{
+			if (x.multiplier > y.multiplier)
+			{
+				return 1;
+			}
+			if (x.multiplier < y.multiplier)
+			{
+				return -1;
+			}
+			return 0;
+		}
+
+		public string SynergiesText()
+		{
+			var text = Mod.CustomLocalization("ImbueStuff.NoSynergies").Value;
+
+			var syns = Effects.magicBuffMultipliers.Sorted(new Comparison<MagicBuffMultiplier>(SortMultipliers));
+			if (syns.Count > 0)
+			{
+				text = Mod.CustomLocalization("ImbueStuff.SynergiesInfo", DisplayName.Value, AOUtils.GetBuffName(syns[0].buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", syns[0].multiplier).Value).Value;
+
+				foreach (var effect in syns)
+				{
+					if (effect.buffID != syns[0].buffID)
+					{
+						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(effect.buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", effect.multiplier).Value).Value;
+					}
+				}
+			}
+
+			if (Effects.clearBuffs.Count > 0)
+			{
+				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(Effects.clearBuffs[0])).Value;
+
+				foreach (var buff in Effects.clearBuffs)
+				{
+					if (buff != Effects.clearBuffs[0])
+					{
+						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(buff)).Value;
+					}
+				}
+			}
+
+			text = Mod.CustomLocalization("ImbueStuff.SentenceEnd", text).Value;
+
+			return text;
 		}
 
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)
@@ -330,7 +438,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				Player player = Main.LocalPlayer;
 
 				//														Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
-				if (!(Type == ModContent.ItemType<SpiritEnergy>() || this is EaglePatrimony or AOMagic or FightingStyle /*&& ImbuableTier is AOImbuableTier.Normal*/))
+				if (!(Type == ModContent.ItemType<SpiritEnergy>() || this is EaglePatrimony or AOMagic or FightingStyle /*&& ImbuableTier == AOImbuableTier.Normal*/))
 				{
 					//Main.NewText($"Item is not swappable");
 					return false;

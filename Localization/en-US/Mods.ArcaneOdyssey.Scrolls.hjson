@@ -1,96 +1,102 @@
-FlightScroll: {
-	DisplayName: Flight Scroll
-	Tooltip: Channels your imbue to fly
+Common: {
+	CrashScroll: {
+		DisplayName: Crash Technique
+		Tooltip:
+			'''
+			Channels your fighting style to dash
+			Press {AODASHBIND} to activate
+			'''
+	}
+
+	LeapScroll: {
+		DisplayName: Leap Scroll
+		Tooltip: Channels your magic to launch yourself upwards
+	}
+
+	BeamScroll: {
+		DisplayName: Beam Spell
+		Tooltip: Channels your magic into a beam
+	}
+
+	BlastScroll: {
+		DisplayName: Blast Rite
+		Tooltip: Channels your spirit energy into a blast
+	}
+
+	ExplosionScroll: {
+		DisplayName: Explosion Spell
+		Tooltip: Channels your magic into an explosion that you can direct
+	}
+
+	RainRite: {
+		DisplayName: Rain Rite
+		Tooltip: Channels your spirit energy into a cloud that rains down projectiles
+	}
+
+	ShotScroll: {
+		DisplayName: Shot Technique
+		Tooltip: Channels your fighting style to shoot a quick air blast
+	}
+
+	SmashScroll: {
+		DisplayName: Smash Technique
+		Tooltip: Channels your fighting style to unleash a shockwave of air
+	}
 }
 
-HoverScroll: {
-	DisplayName: Hover Spell
-	Tooltip: Channels your magic to hover in the air
+Rare: {
+	FlightScroll: {
+		DisplayName: Flight Scroll
+		Tooltip: Channels your imbue to fly
+	}
+
+	HoverScroll: {
+		DisplayName: Hover Spell
+		Tooltip: Channels your magic to hover in the air
+	}
+
+	ReflexScroll: {
+		DisplayName: Reflex Scroll
+		Tooltip:
+			'''
+			Channels your imbue to dash
+			Some imbues have special effects
+			'''
+	}
+
+	WalkRite: {
+		DisplayName: Walk Rite
+		Tooltip:
+			'''
+			Channels your spirit energy into three repeated dashes
+			Press {AODASHBIND} to activate
+			'''
+	}
+
+	ArrayScroll: {
+		DisplayName: Array Spell
+		Tooltip: Channels your magic into a blast that aims towards your target
+	}
+
+	CannonScroll: {
+		DisplayName: Cannon Spell
+		Tooltip: Channels your magic into a large blast that pierces enemies and terrain
+	}
+
+	HoundRite: {
+		DisplayName: Hound Rite
+		Tooltip: Channels your spirit energy into a hound-shaped blast that pierces once
+	}
+
+	PulsarScroll: {
+		DisplayName: Pulsar Spell
+		Tooltip: Channels your magic into a blast that explodes multiple times midair
+	}
 }
 
-LeapScroll: {
-	DisplayName: Leap Scroll
-	Tooltip: Channels your magic to launch yourself upwards
-}
-
-BeamScroll: {
-	DisplayName: Beam Spell
-	Tooltip: Channels your magic into a beam
-}
-
-BlastScroll: {
-	DisplayName: Blast Rite
-	Tooltip: Channels your spirit energy into a blast
-}
-
-CannonScroll: {
-	DisplayName: Cannon Spell
-	Tooltip: Channels your magic into a large blast that pierces enemies and terrain
-}
-
-ExplosionScroll: {
-	DisplayName: Explosion Spell
-	Tooltip: Channels your magic into an explosion that you can direct
-}
-
-PulsarScroll: {
-	DisplayName: Pulsar Spell
-	Tooltip: Channels your magic into a blast that explodes multiple times midair
-}
-
-CrashScroll: {
-	DisplayName: Crash Technique
-	Tooltip:
-		'''
-		Channels your fighting style to dash
-		Press {AODASHBIND} to activate
-		'''
-}
-
-ShotScroll: {
-	DisplayName: Shot Technique
-	Tooltip: Channels your fighting style to shoot a quick air blast
-}
-
-SmashScroll: {
-	DisplayName: Smash Technique
-	Tooltip: Channels your fighting style to unleash a shockwave of air
-}
-
-ReflexScroll: {
-	DisplayName: Reflex Scroll
-	Tooltip:
-		'''
-		Channels your imbue to dash
-		Some imbues have special effects
-		'''
-}
-
-HoundRite: {
-	DisplayName: Hound Rite
-	Tooltip: Channels your spirit energy into a hound-shaped blast that pierces once
-}
-
-ArrayScroll: {
-	DisplayName: Array Spell
-	Tooltip: Channels your magic into a blast that aims towards your target
-}
-
-AnnihilationScroll: {
-	DisplayName: Annihilation Spell
-	Tooltip: Channels your magic into a sphere of unstable energy that explodes multiple times on contact with terrain
-}
-
-RainRite: {
-	DisplayName: Rain Rite
-	Tooltip: Channels your spirit energy into a cloud that rains down projectiles
-}
-
-WalkRite: {
-	DisplayName: Walk Rite
-	Tooltip:
-		'''
-		Channels your spirit energy into three repeated dashes
-		Press {AODASHBIND} to activate
-		'''
+Lost: {
+	AnnihilationScroll: {
+		DisplayName: Annihilation Spell
+		Tooltip: Channels your magic into a sphere of unstable energy that explodes multiple times on contact with terrain
+	}
 }

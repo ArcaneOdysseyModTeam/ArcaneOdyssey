@@ -22,14 +22,31 @@ ImbueStuff: {
 	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Only conducts Magic]"
 	StrengthIndicator: "[c/700013:Strength Weapon - Too heavy to be used fully without a Fighting Style]"
 	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
-	ScrollDamage: Scroll Damage: {0}x
-	ScrollSpeed: Scroll Speed: {0}x
-	ScrollSize: Scroll Size: {0}x
-	StartShifting: Hold SHIFT to view Imbue stats
-	ImbueDamage: Imbue Damage: {0}x
-	ImbueSpeed: Imbue Speed: {0}x
-	ImbueSize: Imbue Size: {0}x
-	StopShifting: Stop holding SHIFT to view Scroll stats
+	ScrollDamage: Scroll damage: {0}x
+	ScrollSpeed: Scroll speed: {0}x
+	ScrollSize: Scroll size: {0}x
+	RelicDamage: Damage: {0}x
+	RelicSpeed: Speed: {0}x
+	RelicSize: Size: {0}x
+	StartShifting: Hold SHIFT to view alternate stats
+	ImbueDamage: Imbue damage: {0}x
+	ImbueSpeed: Imbue speed: {0}x
+	ImbueSize: Imbue size: {0}x
+	NoDebuffs: No debuffs
+	NoCombinedDebuffs: No combined debuffs
+	StopShifting: Stop holding SHIFT to view alternate stats
+	Debuffs: Inflicts: {0}
+	Combined: Debuff combos: {0}
+	NoSynergies: Your imbue has no synergies
+	HoldAnImbue: You need to hold an imbue for me to tell you about it.
+	SynergiesButton: Synergies
+	SynergiesInfo: "{0}'s synergies: {1}"
+	SynergyMulti: " ({0}x)"
+	SentenceEnd: "{0}."
+	ClearsInfo: "{0}. Clears: {1}"
+	Conjoined: "{0}, {1}"
+	Result: "{0} => {1}"
+	Requirement: " ({0}%)"
 }
 
 Configs: {
@@ -112,28 +129,30 @@ NPCs: {
 			Intro: Hello, {0}.
 			Grave: That grave. It once belonged to a good friend of ours, Tucker.
 			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
-			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he is as immortal as I.
+			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he immortal like me.
 			Hello: Hello again.
+			Pots: If you need help finding new scrolls, just go break some pots or something.
 			Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
 			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior. Talk to me if you need help using it.
 		}
 
 		Help: {
-			Relics: Relics are quite interesting. They function as an imbue, as well as a weapon that can channel magic.
+			Relics: Relics are quite interesting. They function as an imbue, as well as a weapon that can even channel magic.
 			Early1: According to what I've heard, those who do great deeds may be rewarded by what's left of the ancient gods in the form of a blessing, granting you knowledge or power.
-			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to craft spell scrolls. Try crafting magic-conductive paper at a sawmill with gel and wood.
+			Early2: You can imbue your items with your magic, relic, or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
+			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to find spell scrolls.
 			EarlyMagic2: Some spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
-			EarlyMagic3: You can imbue your items with your magic or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
-			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but technique scrolls are needed to use your full power. Try crafting paper at a sawmill with gel and wood.
-			EarlyFighting2: Some techniques allow you dash in a direction, depending on the type you can [{0} or {1}].
+			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but finding technique scrolls are needed to use your full power.
+			Pots: Breaking pots underground can yeild magical scrolls of various tiers.
+			Dash: Some scrolls allow you dash in a direction, depending on the type you can [{0} or {1}].
 			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
 			StackImbues: With multiple imbues, you can stack them on eachother to allow scrolls or special items to use both imbues at the same time. For example, a Relic can be imbued into a Magic, or a Magic can be imbued into a Fighting Style.
 			PreHard1: It's said there's some abomination deep, deep underground that devours magic. If left unchecked, it may bring great agony to these lands...
 			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
-			EarlyHard1: Killing that beast should have granted you a god's blessing in the form of a sigil. You should use that if you haven't already.
+			EarlyHard1: Killing that beast has granted you a god's blessing in the form of a sigil. You should use that if you haven't already.
 			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
 			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			BronzeTip: Bronze can be created using copper/tin and gold/platinum and some sort of chaotic material.
+			BronzeTip: Bronze can be created using copper/tin, gold/platinum, and some sort of chaotic material.
 			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
 			NothingToSay: I don't have anything to say right now.
 			SunkenWeapon: Although made of Arcanium metal, that weapon in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
@@ -141,6 +160,7 @@ NPCs: {
 			HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
 			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
 			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing item while using it.
+			ThermoFist: Thermo Fist collects kinetic energy and triggers your adrenaline to empower yourself. Try attacking while using it.
 			VanishingStyle: Vanishing Style is a much more advanced fighting style. You must deal damage to gain focus which increases your stealth, and while your focus is fading, unleash a critical strike!
 			WeaponSkills: Some weapons have special skills, make good use of them.
 			ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.

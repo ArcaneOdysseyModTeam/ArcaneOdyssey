@@ -7,9 +7,8 @@ using Terraria.DataStructures;
 namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 {
 	[AutoloadEquip(EquipType.Wings)]
-	public class FlightScroll : Scroll
+	public class FlightScroll : RareScroll
 	{
-		public override ScrollTier Tier => ScrollTier.Rare;
 		public override bool CanHaveMagic => true;
 		public override bool CanHaveRelic => true;
 

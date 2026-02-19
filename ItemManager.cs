@@ -23,7 +23,6 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey
 {
@@ -75,7 +74,7 @@ namespace ArcaneOdyssey
 
 			if (ArcaneOdysseyClientConfig.Instance.ItemTypeTooltips)
 			{
-				if (item.ModItem is Imbuable and not BasicCombat || item.GetItemType() == ItemType.Material)
+				if (item.GetItemType() == ItemType.Material)
 				{
 					tooltips.RemoveAll(e => e.Name == "Material");
 				}
@@ -386,7 +385,7 @@ namespace ArcaneOdyssey
 				return;
 			if (item.ModItem is Scroll)
 			{
-				damage += ((item.damage + (BossesKilled * 2f)) / item.damage) - 1;
+				damage += ((item.damage + (AOUtils.BossesKilled * 2f)) / item.damage) - 1;
 			}
 			
 			if (item.ModItem is Imbuable imbue)
@@ -585,7 +584,7 @@ namespace ArcaneOdyssey
 				specificImbue = false;
 			}
 
-			if (options.Count > 0 && ImbueClassCheck(item))
+			if (options.Count > 0 && AOUtils.ImbueClassCheck(item))
 			{
 				if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
 				{
@@ -780,8 +779,8 @@ namespace ArcaneOdyssey
 
 			if (Imbue is not null)
 			{
-				modifiers = CalculateImbueDamage(Imbue, target, modifiers);
-				modifiers = CalculateImbueDamage(SecondImbue, target, modifiers);
+				modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+				modifiers = AOUtils.CalculateImbueDamage(SecondImbue, target, modifiers);
 				if (Imbue is PowderFist)
 				{
 					Projectile.NewProjectile(item.GetSource_ItemUse(player), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), modifiers.GetDamage(item.damage, false) / 2, 3f, player.whoAmI);

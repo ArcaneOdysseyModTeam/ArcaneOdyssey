@@ -16,6 +16,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using Terraria.Localization;
 using ArcaneOdyssey.Content.Items.Weapons.Sunken;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -140,6 +141,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Mod.CustomLocalization("RandomWords.Help").Value;
+			button2 = Mod.CustomLocalization("ImbueStuff.SynergiesButton").Value;
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -147,6 +149,17 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (firstButton)
 			{
 				Main.npcChatText = GetChatHelpButton();
+			}
+			else
+			{
+				if (Main.LocalPlayer.PlayerItem() is not null && !Main.LocalPlayer.PlayerItem().IsAir && Main.LocalPlayer.PlayerItem().active && Main.LocalPlayer.PlayerItem().ModItem is Imbuable imbue)
+				{
+					Main.npcChatText = imbue.SynergiesText();
+				}
+				else
+				{
+					Main.npcChatText = Mod.CustomLocalization("ImbueStuff.HoldAnImbue").Value;
+				}
 			}
 		}
 
@@ -172,11 +185,6 @@ namespace ArcaneOdyssey.Content.NPCS
 				options.Add(this.GetLocalizedValue($"Help.{value}"));
 			}
 
-			if (false) // add conditions later
-			{
-				AddOption("DarkSeaWarning");
-			}
-
 			foreach (string key in helpOptions.Keys)
 			{
 				if (helpOptions[key]())
@@ -185,45 +193,67 @@ namespace ArcaneOdyssey.Content.NPCS
 				}
 			}
 
+			if (false)//(Main.hardMode)
+			{
+				AddOption("DarkSeaWarning");
+			}
+
 			if (BossesKilled < 3)
 			{
 				AddOption("Relics");
 				AddOption("Early1");
+				AddOption("Early2");
 				AddOption("WorldofMagic");
-				AddOption("WeaponSkills");
 				if (Player.HasTypeInInventory<AOMagic>())
 				{
 					AddOption("EarlyMagic1");
 					AddOption("EarlyMagic2");
-					AddOption("EarlyMagic3");
 				}
 				if (Player.HasTypeInInventory<FightingStyle>())
 				{
-					if (Main.hardMode)
-						AddOption("VanishingStyle");
-					AddOption("SailorStyle");
 					AddOption("EarlyFighting1");
-					AddOption("EarlyMagic3");
-					string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
-					if (ModLoader.HasMod("CalamityMod"))
+				}
+			}
+
+			if (Player.HasTypeInInventory<FightingStyle>())
+			{
+				if (!Main.hardMode)
+				{
+					AddOption("SailorStyle");
+					AddOption("ThermoFist");
+				}
+				else
+				{
+					AddOption("VanishingStyle");
+					if (NPC.downedPirates)
+					{
+						AddOption("CannonFist");
+					}
+				}
+			}
+
+			if (Player.HasTypeInInventory<ReflexScroll>() || Player.HasTypeInInventory<WalkRite>())
+			{
+				string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
+				if (ModLoader.HasMod("CalamityMod"))
+				{
+					doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
+				}
+				else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
+				{
+					if ((bool)fargos.Call("DoubleTapDashDisabled"))
 					{
 						doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
 					}
-					else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
-					{
-						if ((bool)fargos.Call("DoubleTapDashDisabled"))
-						{
-							doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
-						}
-					}
-					string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
-					options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.EarlyFighting2"), doubletapdash, Mod.CustomLocalization("RandomWords.Press", dashbind).Value));
 				}
+				string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
+				options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.Dash"), doubletapdash, Mod.CustomLocalization("RandomWords.Press", dashbind).Value));
 			}
 
 			if (NPC.downedBoss2 && !Main.hardMode)
 			{
 				AddOption("BronzeTip");
+				AddOption("WeaponSkills");
 			}
 
 			if (Main.hardMode && !NPC.downedMechBossAny)
@@ -232,7 +262,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("EarlyHard2");
 			}
 
-			if (Main.hardMode && !DownedBosses.downedEvander)
+			if (Main.hardMode && !(DownedBosses.downedEvander || DownedBosses.downedDelamere))
 			{
 				AddOption("EvanderWarning");
 			}
@@ -247,15 +277,15 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("ArtisinalWeapon");
 			}
 
-			if (Main.hardMode && NPC.downedPirates)
-			{
-				AddOption("CannonFist");
-			}
-
 			if (!Main.hardMode)
 			{
 				AddOption("PreHard1");
 				AddOption("PreHard2");
+			}
+
+			if (!(Player.HasTypeInInventory<CommonScroll>() && Player.HasTypeInInventory<RareScroll>() && Player.HasTypeInInventory<LostScroll>()))
+			{
+				AddOption("Pots");
 			}
 
 			if (Player.GetAllImbues().Count > 1)
@@ -276,7 +306,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			options.RemoveAll(e => e == LastHelp);
 
 			if (options.Count == 0)
-				return this.GetLocalizedValue("Help.NothingToSay");
+				AddOption("NothingToSay");
 
 			string chosen = Main.rand.Next(options);
 			LastHelp = chosen;
@@ -317,6 +347,11 @@ namespace ArcaneOdyssey.Content.NPCS
 			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
 			{
 				AddOption("StrongWarrior");
+			}
+			
+			if (!(Player.HasTypeInInventory<CommonScroll>() && Player.HasTypeInInventory<RareScroll>() && Player.HasTypeInInventory<LostScroll>()))
+			{
+				AddOption("Pots");
 			}
 
 			options.RemoveAll(e => e == LastDialogue);

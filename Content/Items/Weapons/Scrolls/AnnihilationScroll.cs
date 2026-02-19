@@ -9,9 +9,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 {
-	public class AnnihilationScroll : Scroll
+	public class AnnihilationScroll : LostScroll
 	{
-		public override ScrollTier Tier => ScrollTier.Lost;
 		public override bool CanHaveMagic => true;
 		public override int AOValue => 2000;
 
