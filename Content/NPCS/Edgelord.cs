@@ -246,7 +246,7 @@ namespace ArcaneOdyssey.Content.NPCS
 						doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
 					}
 				}
-				string dashbind = AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
+				string dashbind = AOKeybinds.DashBind.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
 				options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.Dash"), doubletapdash, Mod.CustomLocalization("RandomWords.Press", dashbind).Value));
 			}
 

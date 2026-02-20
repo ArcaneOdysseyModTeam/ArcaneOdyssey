@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class WaterMagic : AOMagic
 	{
+		public override float Aura => .8f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<CloudMagic>();

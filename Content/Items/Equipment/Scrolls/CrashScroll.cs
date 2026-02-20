@@ -32,7 +32,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			base.UpdateAccessory(player, hideVisual);
 			if (HasCorrectImbue)
 			{
 				player.ArcaneOdyssey()?.SetDash(new Crash(Item));

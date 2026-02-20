@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class LunarMagic : AOMagic
 	{
+		public override float Aura => .8f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => true;

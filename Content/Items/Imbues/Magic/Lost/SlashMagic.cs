@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class SlashMagic : AOMagic
 	{
+		public override float Aura => .5f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float AOScrollDamage => 1.2f;
 		public override float AOScrollSpeed => 1.1f;

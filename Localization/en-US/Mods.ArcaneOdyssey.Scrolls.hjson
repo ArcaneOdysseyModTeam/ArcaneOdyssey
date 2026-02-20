@@ -42,6 +42,11 @@ Common: {
 		DisplayName: Smash Technique
 		Tooltip: Channels your fighting style to unleash a shockwave of air
 	}
+
+	AuraScroll: {
+		DisplayName: Aura Scroll
+		Tooltip: Channels your imbue into yourself, empowering life, attack size, or damage
+	}
 }
 
 Rare: {

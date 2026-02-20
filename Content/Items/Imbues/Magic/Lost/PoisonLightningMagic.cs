@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class PoisonLightningMagic : AOMagic
 	{
+		public override float Aura => .8f;
 		public override float DashSpeed => 1.5f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(105, 0, 105, 255);

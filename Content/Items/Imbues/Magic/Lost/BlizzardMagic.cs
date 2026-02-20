@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class BlizzardMagic : AOMagic
 	{
+		public override float Aura => .9f;
 		public override float? DashResist => 1.075f;
 		public override bool? Cold => true;
 		public override SoundStyle? ImbueSound => SoundID.Dig;

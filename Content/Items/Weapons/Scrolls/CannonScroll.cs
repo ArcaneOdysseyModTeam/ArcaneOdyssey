@@ -10,7 +10,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 	public class CannonScroll : RareScroll
 	{
 		public override bool CanHaveMagic => true;
-		public override int AOValue => 1000;
 
 		public override void SetDefaults()
 		{

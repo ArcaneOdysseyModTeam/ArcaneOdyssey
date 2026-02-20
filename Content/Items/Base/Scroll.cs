@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -47,8 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual bool CanHaveRelic => false;
 		public virtual bool CanHaveFS => false;
 
-		public virtual int AOValue => 100;
-		public override AORarities AORarity => AORarities.Uncommon;
+		public abstract int AOValue { get; }
 
 		public override void SetDefaults()
 		{
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			else Item.color = Color.Transparent;
 		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override void UpdateEquip(Player player)
 		{
 			Item.DamageType = Item.DamageType.UnImbued(Item);
 			if (Item.CanHaveImbue(player.Imbue()))
@@ -82,7 +82,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				Imbue = null;
 			}
-			SecondImbue = Imbue?.Imbue;
+
+			if (this is not AuraScroll)
+			{
+				SecondImbue = Imbue?.Imbue;
+			}
+		
 			if (HasCorrectImbue)
 			{
 				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
@@ -124,6 +129,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			tooltips.AddTooltip(new(Mod, "ScrollTier", Mod.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
 		}
+
+		public virtual bool ExtraConditionsForImbue(Imbuable imbue) => true;
 
 		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue) && Imbue is not null;
 	}

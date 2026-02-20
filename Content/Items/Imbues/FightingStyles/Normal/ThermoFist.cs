@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class ThermoFist : FightingStyleBarred
 	{
+		public override float Aura => .75f;
 		public override bool? Cold => false;
 		public override Color ImbueColour => Color.Orange;
 		public override SoundStyle? ImbueSound => SoundID.Item20;

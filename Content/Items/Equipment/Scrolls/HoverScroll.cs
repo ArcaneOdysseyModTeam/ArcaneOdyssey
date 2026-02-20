@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			Item.accessory = true;
 		}
 
-		public override void UpdateEquip(Player player)
+		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			if (HasCorrectImbue)
 			{

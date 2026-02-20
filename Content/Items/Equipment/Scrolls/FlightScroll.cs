@@ -12,7 +12,6 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override bool CanHaveMagic => true;
 		public override bool CanHaveRelic => true;
 
-		public override int AOValue => 1000;
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
@@ -58,7 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 			Item.accessory = true;
 		}
 
-		public override void UpdateEquip(Player player)
+		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			if (HasCorrectImbue)
 			{

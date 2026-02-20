@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class PrismMagic : AOMagic
 	{
+		public override float Aura => .3f;
 		public override float? DashResist => 1.15f;
 
 		internal static readonly Color[] rainbowColors = [new Color(255, 71, 124), new Color(94, 61, 255), new Color(87, 219, 255), new Color(100, 255, 93)];

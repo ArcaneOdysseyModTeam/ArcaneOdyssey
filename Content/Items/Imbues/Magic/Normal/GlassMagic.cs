@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class GlassMagic : AOMagic
 	{
+		public override float Aura => .2f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<PrismMagic>();

@@ -23,6 +23,20 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// </summary>
 	public abstract class Imbuable : AOBaseItem, IImbuable, ILocalizedModType
 	{
+		public virtual float Aura => .7f;
+
+		public int AuraHP(Player player)
+		{
+			if (this is AOMagic)
+			{
+				return (player.statLifeMax * (.225f * Aura)).Round();
+			}
+			else
+			{
+				return (player.statLifeMax * (.18f * Aura)).Round();
+			}
+		}
+
 		public override void UpdateEquip(Player player)
 		{
 			player.ArcaneOdyssey()?.AddEquippedImbue(Item);

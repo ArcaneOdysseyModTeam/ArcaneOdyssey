@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class HeatMagic : AOMagic
 	{
+		public override float Aura => .6f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<IonMagic>();

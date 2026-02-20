@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class DiamondMagic : AOMagic
 	{
+		public override float Aura => 1.5f;
 		public override float? DashResist => 1.6f;
 		public override float AOScrollSpeed => .65f;
 		public override float AOScrollSize => 1.2f;

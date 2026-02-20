@@ -9,6 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class VanishingStyle : FightingStyleBarred
 	{
+		public override float Aura => 1.25f;
 		public static bool HasYou => ModLoader.HasMod("YouBoss");
 
 		public override Color ImbueColour => Color.Black;

@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class FrostmetalMagic : AOMagic
 	{
+		public override float Aura => 1.3f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override bool? Cold => true;
 		public override float? DashResist => 1.45f;

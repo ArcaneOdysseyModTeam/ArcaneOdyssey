@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
+using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
@@ -192,7 +193,7 @@ namespace ArcaneOdyssey
 					{
 						if (WeaponsType == WeaponType.Artisinal)
 							return null;
-						return thisItem.ModItem is Scroll || WeaponsType != WeaponType.Normal;
+						return thisItem.ModItem is Scroll and not AuraScroll || WeaponsType != WeaponType.Normal;
 					}
 				}
 				return null;

@@ -300,6 +300,7 @@ Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Dash Bind
 	Vanish.DisplayName: Vanish
+	CycleAuraMode.DisplayName: Cycle Aura Mode
 }
 
 RandomWords: {
@@ -311,6 +312,8 @@ RandomWords: {
 	Press: Press {0}
 	WeaponGel: Weapon Gel: {0}
 	GelTooltip: Melee attacks inflict {0}
+	AuraMode: Current mode: {0}, press {1} to cycle
+	ModeCycled: Swapped mode to {0}
 }
 
 FargosSheet: {

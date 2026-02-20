@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
 	public class MetalMagic : AOMagic
 	{
+		public override float Aura => 1.4f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DiamondMagic>();

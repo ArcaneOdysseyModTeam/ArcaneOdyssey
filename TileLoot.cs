@@ -63,6 +63,7 @@ namespace ArcaneOdyssey
 			if (Main.hardMode)
 			{
 				AddOption<ShotScroll>();
+				AddOption<AuraScroll>();
 			}
 
 			return [.. options];

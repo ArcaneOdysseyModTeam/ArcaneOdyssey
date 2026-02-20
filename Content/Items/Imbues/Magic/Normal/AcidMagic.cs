@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			]
 			);
 
-
+		public override float Aura => .8f;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

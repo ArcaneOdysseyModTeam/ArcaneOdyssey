@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class PowderFist : FightingStyle
 	{
+		public override float Aura => .875f;
 		public override float DashSpeed => 1.2f;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;

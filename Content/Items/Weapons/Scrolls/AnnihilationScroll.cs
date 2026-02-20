@@ -12,7 +12,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Scrolls
 	public class AnnihilationScroll : LostScroll
 	{
 		public override bool CanHaveMagic => true;
-		public override int AOValue => 2000;
 
 		public override void SetDefaults()
 		{

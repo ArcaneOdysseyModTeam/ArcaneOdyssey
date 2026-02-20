@@ -8,6 +8,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class PlantMagic : AOMagic
 	{
+		public override float Aura => .8f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override Color ImbueColour => Color.ForestGreen;
 		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Poisoned, 60 * 10),];

@@ -893,15 +893,15 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is Scroll scroll)
 				{
-					if (scroll.CanHaveMagic && imbue is AOMagic)
+					if (scroll.CanHaveMagic && imbue is AOMagic && scroll.ExtraConditionsForImbue(imbue))
 					{
 						return true;
 					}
-					if (scroll.CanHaveFS && imbue is FightingStyle)
+					if (scroll.CanHaveFS && imbue is FightingStyle && scroll.ExtraConditionsForImbue(imbue))
 					{
 						return true;
 					}
-					if (scroll.CanHaveRelic && imbue is SpiritEnergy)
+					if (scroll.CanHaveRelic && imbue is SpiritEnergy && scroll.ExtraConditionsForImbue(imbue))
 					{
 						return true;
 					}

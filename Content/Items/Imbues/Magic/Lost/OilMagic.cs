@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class OilMagic : AOMagic
 	{
+		public override float Aura => .8f;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(20, 20, 20);
