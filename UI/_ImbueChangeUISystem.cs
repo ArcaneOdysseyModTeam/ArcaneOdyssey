@@ -31,6 +31,7 @@ public class ImbueAnythingUISystem : ModSystem
 	public void ShowAcquireUI()
 	{
 		imbueAcquireUI = new();
+		imbueAcquireUI.Initialize();
 		_ImbueAcquire = new();
 		_ImbueAcquire?.SetState(imbueAcquireUI);
 		imbueAcquireUI.Activate();
@@ -38,6 +39,7 @@ public class ImbueAnythingUISystem : ModSystem
 	public void ShowAcquireSequelUI()
 	{
 		imbueAcquireSequelUI = new();
+		imbueAcquireSequelUI.Initialize();
 		_ImbueAcquireSequel = new();
 		_ImbueAcquireSequel?.SetState(imbueAcquireSequelUI);
 		imbueAcquireSequelUI.Activate();
@@ -48,6 +50,7 @@ public class ImbueAnythingUISystem : ModSystem
 		{
 			TheGuyThatFellOff = whom,
 		};
+		imbueChangeUI.Initialize();
 		_ImbueChange = new();
 		_ImbueChange?.SetState(imbueChangeUI);
 		imbueChangeUI.Activate();
@@ -72,20 +75,21 @@ public class ImbueAnythingUISystem : ModSystem
 	}
 	#endregion
 
+	// Spoky (2026 February 20): Turns out load method is unnecessary, cool? If something breaks maybe load method was needed
 	#region Load/Unload
 	public override void Load()
 	{
 		// Spoky (2026 January 24): Main.gameMenu is probably unneccesary but I had some complications with TDate UI with it so I'd rather put the check before doing antyhing
 		if (Main.dedServ || Main.gameMenu) return;
 
-		imbueAcquireUI = new();
-		imbueAcquireUI.Initialize();
+		//imbueAcquireUI = new();
+		//imbueAcquireUI.Initialize();
 
-		imbueAcquireSequelUI = new();
-		imbueAcquireSequelUI.Initialize();
+		//imbueAcquireSequelUI = new();
+		//imbueAcquireSequelUI.Initialize();
 
-		imbueChangeUI = new();
-		imbueChangeUI.Initialize();
+		//imbueChangeUI = new();
+		//imbueChangeUI.Initialize();
 
 	}
 	#endregion
