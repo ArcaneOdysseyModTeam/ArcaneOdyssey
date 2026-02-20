@@ -2,13 +2,12 @@
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
-	public class SpiritExplosion : MagicSpell
+	public class SpiritExplosion : SpiritProjectile
 	{
 		public override bool CanHaveImbueVFX => false;
 		public override string Texture => AOUtils.BlankTexture;

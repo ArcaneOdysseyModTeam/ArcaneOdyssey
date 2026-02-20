@@ -8,8 +8,9 @@ WorldGen: {
 
 Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
-	Evander: A famous bounty hunter, who hunts the bounty placed on you.
-	Dusk: An assassin with a decently high bounty. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
+	Evander: A bounty hunter born and raised in a faraway land, Evander gained the title 'Mountainbreaker' for his great strength. Using his colossal greatsword, he can send enormous slashes at his enemies, and use his overwhelming strength and reach to dominate at both long and close ranges.
+	Dusk: Her true name and history are unknown. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
+	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band, and was using his popularity to amass a small following to help him in his thievery. Despite carrying an old sword, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks with the Tidestone Band.
 }
 
 MenuStyle: Odyssey Style
@@ -199,6 +200,12 @@ NPCs: {
 		DeathMessage: Dusk, the Dark Oracle has been defeated!
 		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer forests of the world.
 	}
+
+	Laelus: {
+		DisplayName: Laelus, the Theif
+		DeathMessage: Laelus, the Theif has been defeated!
+		SpawnInfo: Spawns naturally during the day, in the outer forests of the world.
+	}
 }
 
 MagicTierLines: {
@@ -287,6 +294,8 @@ Projectiles: {
 	LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
 	DuskRaincloud.DisplayName: Spirit Raincloud
 	DuskRaindrop.DisplayName: Spirit Raindrop
+	LaelusBlast.DisplayName: Spirit Blast
+	LaelusExplosion.DisplayName: Spirit Burst
 }
 
 Achievements: {

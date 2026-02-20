@@ -141,7 +141,7 @@ namespace ArcaneOdyssey
 				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
-				"LogBoss",
+				"LogMiniBoss",
 				Mod,
 				internalName,
 				weight,
@@ -164,7 +164,30 @@ namespace ArcaneOdyssey
 				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
-				"LogBoss",
+				"LogMiniBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					//["collectibles"] = new List<int> { trophy },
+					["spawnInfo"] = spawnInfo
+				});
+			}
+
+			void LaelusStuff()
+			{
+				string internalName = nameof(Laelus);
+				float weight = .5f; // right away!
+				Func<bool> downed = () => DownedBosses.downedLaelus;
+				int bossType = ModContent.NPCType<Laelus>();
+				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+
+				bossChecklist.Call(
+				"LogMiniBoss",
 				Mod,
 				internalName,
 				weight,
@@ -179,6 +202,7 @@ namespace ArcaneOdyssey
 
 			EvanderStuff();
 			DuskStuff();
+			LaelusStuff();
 		}
 	}
 }

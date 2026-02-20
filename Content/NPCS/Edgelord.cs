@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Projectiles;
 using Terraria.Chat;
 using Terraria.Audio;
-using Terraria.GameInput;
 using ArcaneOdyssey.Content.Items.Base;
 using Terraria.Localization;
 using ArcaneOdyssey.Content.Items.Weapons.Sunken;

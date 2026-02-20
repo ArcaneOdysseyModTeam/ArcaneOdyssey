@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.DamageType = OracleDamage.Instance;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
+			Projectile.ownerHitCheck = true;
 			Projectile.penetrate = -1;
 			Projectile.timeLeft = MaxTimeLeft;
 		}

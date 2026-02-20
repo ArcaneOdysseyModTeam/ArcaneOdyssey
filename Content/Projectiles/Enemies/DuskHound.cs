@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
@@ -49,6 +50,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
+				Imbue?.SpawningEffects(Projectile.Hitbox, Projectile.velocity);
+				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				if (Projectile.owner == Main.myPlayer)
 				{
 					Projectile.netUpdate = true;

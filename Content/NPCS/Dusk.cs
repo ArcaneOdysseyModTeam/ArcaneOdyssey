@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override float ShootSpeed => 7f * .9f;
 
-		public override bool Downed { get => DownedBosses.downedDusk; set => DownedBosses.downedDusk = value; }
+		public override ref bool Downed => ref DownedBosses.downedDusk;
 
 		public override bool ExtraConditions => NPC.downedBoss2 && !Main.dayTime;
 

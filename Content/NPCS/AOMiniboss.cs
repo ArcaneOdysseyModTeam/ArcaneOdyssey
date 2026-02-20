@@ -28,13 +28,11 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
-		public bool canMelee = false;
-
 		public abstract List<int> RangedProjectiles { get; }
 
 		public abstract List<int> MeleeProjectiles { get; }
 
-		public abstract bool Downed { get; set; }
+		public abstract ref bool Downed { get; }
 
 		public virtual float ShootSpeed => 5f;
 
@@ -155,8 +153,7 @@ namespace ArcaneOdyssey.Content.NPCS
 						activetypes.Add(a.type);
 					}
 					melee.RemoveAll(activetypes.Contains);
-					canMelee = !(melee.Count > 0);
-					if (!canMelee)
+					if (melee.Count > 0)
 						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, Main.rand.Next(melee), NPC.damage, 4.5f);
 				}
 			}

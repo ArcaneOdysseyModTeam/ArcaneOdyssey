@@ -14,13 +14,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.penetrate = -1;
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.damage = 25;
 			Projectile.timeLeft = 60 * 3;
 			Projectile.hostile = true;
 			Projectile.height = Projectile.width = 234;
-			Projectile.knockBack = 4.5f;
 		}
 
 		public override void SetStaticDefaults()

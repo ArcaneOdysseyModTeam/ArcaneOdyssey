@@ -18,6 +18,7 @@ Relics: {
 		SpiritRaincloud.DisplayName: Spirit Raincloud
 		SpiritRaindrop.DisplayName: Spirit Raindrop
 		Minions.SpiritMinion.DisplayName: Aithiraki
+		SpiritExplosion.DisplayName: Spirit Shockwave
 	}
 
 	EmberStaff: {

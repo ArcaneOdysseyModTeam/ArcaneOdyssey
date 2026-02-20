@@ -2,7 +2,6 @@
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Projectiles.Base;
 
