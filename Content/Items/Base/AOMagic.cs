@@ -89,7 +89,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse, int damage = 0)
 		{
-			if (magicToUse is AOMagic && Main.myPlayer == player.whoAmI)
+			if (magicToUse is not null && Main.myPlayer == player.whoAmI)
 			{
 				var rot = player.SafeDirectionTo(Main.MouseWorld);
 				if (item.ModItem is AOMagic)

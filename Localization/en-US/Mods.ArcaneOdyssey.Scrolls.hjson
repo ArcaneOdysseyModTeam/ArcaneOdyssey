@@ -24,8 +24,8 @@ Common: {
 	}
 
 	ExplosionScroll: {
-		DisplayName: Explosion Spell
-		Tooltip: Channels your magic into an explosion that you can direct
+		DisplayName: Explosion Scroll
+		Tooltip: Channels your imbue into an explosion that you can direct
 	}
 
 	RainRite: {

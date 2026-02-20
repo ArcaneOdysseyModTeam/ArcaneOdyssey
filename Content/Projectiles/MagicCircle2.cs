@@ -35,7 +35,10 @@ namespace ArcaneOdyssey.Content.Projectiles
 				Projectile.netSpam = 0;
 			}
 
-			SecondImbue?.LingeringEffects(Projectile.Hitbox);
+			if (Imbue is AOMagic)
+			{
+				SecondImbue?.LingeringEffects(Projectile.Hitbox);
+			}
 
 			Projectile.ai[0] += (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null ? 0 : 1;
 			if (Projectile.ai[0] < 1)

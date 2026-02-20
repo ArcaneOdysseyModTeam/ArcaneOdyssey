@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using ArcaneOdyssey.Content.Projectiles.Base;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic
+namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
-	public class ExplosionSpell : MagicSpell
+	public class SpiritExplosion : MagicSpell
 	{
 		public override bool CanHaveImbueVFX => false;
 		public override string Texture => AOUtils.BlankTexture;
