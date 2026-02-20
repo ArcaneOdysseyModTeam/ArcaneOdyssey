@@ -77,15 +77,6 @@ public abstract partial class BaseImbueUI : UIState
 		Wind,
 		Wood,
 	}
-	/// <summary>
-	/// Defines the type of ui-options this <see cref="BaseImbueUI"/> has
-	/// </summary>
-	public enum ShopTypes
-	{
-		Static,
-		Dynamic,
-	}
-	public virtual ShopTypes ShopType => ShopTypes.Static;
 
 	public static int? MagicTypeToID(MagicTypes type) => type switch
 	{
@@ -343,8 +334,6 @@ public abstract partial class BaseImbueUI : UIState
 		#endregion
 
 		_OnInitializeExtras();
-	}
-	protected void BakerysOpenForBusiness() { 
 	}
 	protected virtual void _OnInitializeExtras() {}
 	#endregion
