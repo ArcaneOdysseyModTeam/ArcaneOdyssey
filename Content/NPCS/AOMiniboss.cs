@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => canMelee;
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public bool canMelee = false;
 
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
 		{
-			boundingBox = NPC.Hitbox;
+			boundingBox = AOUtils.ScaleRectangleNotRef(NPC.Hitbox, 1.5f);
 		}
 
 		public abstract bool ExtraConditions { get; }

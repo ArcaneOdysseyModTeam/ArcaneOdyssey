@@ -23,10 +23,10 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.defense = 15;
 			NPC.width = 20;
 			NPC.height = 44;
-			//Sprite height 96
-			//Sprite width 76
-			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			//Sprite height 46
+			//Sprite width 68
+			NPC.HitSound = SoundID.NPCHit40;
+			NPC.DeathSound = SoundID.NPCDeath42;
 			NPC.value = Item.buyPrice(gold: 5);
 			//NPC.ai[0] state
 			//NPC.ai[1] state time

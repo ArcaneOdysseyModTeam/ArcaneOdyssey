@@ -67,6 +67,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Scrolls
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.AddTooltip(new(Mod, "CycleKeybind", Mod.CustomLocalization("RandomWords.AuraMode", Mode, AOKeybinds.CycleAuraMode.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value));
+			base.ModifyTooltips(tooltips);
 		}
 
 		public override void SaveData(TagCompound tag)

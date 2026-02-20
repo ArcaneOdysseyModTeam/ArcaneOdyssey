@@ -12,7 +12,7 @@ Normal: {
 	CannonFist: {
 		DisplayName: Cannon Fist
 		Tooltip: A fighting style that involves throwing cannonballs with tremendous strength
-		Ability.DisplayName: Can use cannonballs from your inventory to improve strength
+		Ability: Can use cannonballs from your inventory to improve strength
 	}
 
 	IronLeg: {
@@ -28,7 +28,7 @@ Normal: {
 	ThermoFist: {
 		DisplayName: Thermo Fist
 		Tooltip: A fighting style that focuses on building up adrenaline and heat to deliver fast, burning-hot strikes
-		Ability.DisplayName: Attacking improves strength
+		Ability: Attacking improves strength
 	}
 
 	VanishingStyle: {
@@ -39,7 +39,7 @@ Normal: {
 	SailorStyle: {
 		DisplayName: Sailor Style
 		Tooltip: A fighting style that focuses on drinking seawater to absorb its magic pollution, placing the user in an intoxicated, dazed state, while energy and power surges through them
-		Ability.DisplayName: Drinking healing potions or submerging in water improves strength
+		Ability: Drinking healing potions or submerging in water improves strength
 	}
 }
 

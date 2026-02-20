@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.NPCS;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -53,6 +54,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 					Projectile.netSpam = 0; ;
 				}
 				Projectile.velocity = -Vector2.UnitY * 5;
+			}
+
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if (npc.ModNPC is Dusk)
+				{
+					Projectile.Center = Projectile.Center with { X = npc.Center.X };
+				}
 			}
 
 			if (Projectile.timeLeft <= (MaxTimeLeft - 60))
