@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.NPCS;
+using ArcaneOdyssey.Content.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -99,7 +100,7 @@ namespace ArcaneOdyssey
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
+					KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, ModContent.TileType<TuckerGrave>());
 				}));
 			}
 
@@ -127,7 +128,7 @@ namespace ArcaneOdyssey
 					int y = WorldGen.genRand.Next(top, bottom + 1);
 					if (Framing.GetTileSafely(x, y).TileType != tile)
 					{
-						WorldGen.PlaceObject(x, y, tile, false, 2, 0, -1, WorldGen.genRand.NextBool(2) ? 1 : -1);
+						WorldGen.PlaceObject(x, y, tile);
 					}
 					Tile tile1 = Framing.GetTileSafely(x, y); // maybe use later for something
 					success = tile1.TileType == tile;

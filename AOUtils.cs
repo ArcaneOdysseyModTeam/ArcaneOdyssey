@@ -8,6 +8,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.VFX.Rarities;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using System;
@@ -1306,12 +1307,17 @@ namespace ArcaneOdyssey
 
 		public static AORarities GetItemRare(this Item item)
 		{
-			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+			if (ExternalModSupport.HasCalamity)
 			{
-				if (item.rare == calamity.Find<ModRarity>("DarkOrange").Type)
+				if (item.rare == ExternalModSupport.Calamity.Find<ModRarity>("DarkOrange").Type)
 				{
 					return AORarities.Unknown;
 				}
+			}
+
+			if (item.rare == ModContent.RarityType<HotPinkRare>())
+			{
+				return AORarities.Special;
 			}
 
 			if (ModLoader.TryGetMod("NoxusBoss", out var wotg))
@@ -1333,6 +1339,7 @@ namespace ArcaneOdyssey
 					return AORarities.Unknown;
 				}
 			}
+
 			if (item.questItem || item.rare == ItemRarityID.Quest)
 			{
 				return AORarities.Rare;
@@ -1340,12 +1347,14 @@ namespace ArcaneOdyssey
 
 			if (item.expert || item.rare == ItemRarityID.Expert)
 			{
-				return AORarities.Legendary;
+				return AORarities.Mystic;
 			}
+
 			if (item.master || item.rare == ItemRarityID.Master)
 			{
 				return AORarities.Mythical;
 			}
+
 			return item.rare switch
 			{
 				ItemRarityID.Gray => AORarities.Common,

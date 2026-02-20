@@ -80,7 +80,7 @@ Configs: {
 		}
 
 		DamageTypes: {
-			Label: "[i:ArcaneOdyssey/SpiritImbue] Custom Damage Types"
+			Label: "[i:ArcaneOdyssey/SpiritEnergy] Custom Damage Types"
 			Tooltip: Whether to have custom damage classes, such as "conjurer damage"
 		}
 	}
@@ -94,7 +94,7 @@ Configs: {
 		}
 
 		GenerateTucker: {
-			Label: "[i:CrossGraveMarker] Generate Tucker's Grave"
+			Label: "[i:ArcaneOdyssey/TuckerGraveItem] Generate Tucker's Grave"
 			Tooltip: Toggles the generation of Tucker's grave on world creation
 		}
 

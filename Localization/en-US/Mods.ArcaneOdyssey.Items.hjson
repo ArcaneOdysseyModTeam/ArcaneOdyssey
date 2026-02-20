@@ -208,3 +208,8 @@ BronzeSlabWallItem: {
 	DisplayName: Bronze Slab Wall
 	Tooltip: ""
 }
+
+TuckerGraveItem: {
+	DisplayName: Tucker's Grave
+	Tooltip: A memorial for an old friend
+}

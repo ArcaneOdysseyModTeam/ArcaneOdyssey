@@ -13,15 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Blocks
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.createTile = ModContent.TileType<BronzeColumnTile>();
-			Item.width = Item.height = 16;
-			Item.maxStack = Item.CommonMaxStack;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useTurn = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.autoReuse = true;
-			Item.consumable = true;
+			Item.DefaultToPlaceableTile(ModContent.TileType<BronzeColumnTile>());
 		}
 
 		public override void AddRecipes()
