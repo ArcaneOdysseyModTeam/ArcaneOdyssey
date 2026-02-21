@@ -161,7 +161,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.scale = Imbue.AOScrollSize;
 					if (SecondImbue is not null)
 						Projectile.scale *= SecondImbue.AOScrollSize;
-					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, (Player.defaultHeight * .75f) * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
+					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
 					Projectile.scale *= AOSize;
 
 					target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * ShootTime);

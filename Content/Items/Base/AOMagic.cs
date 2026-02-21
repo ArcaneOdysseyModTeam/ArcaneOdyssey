@@ -42,12 +42,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void Load()
 		{
-			Mutations = [];
+			Mutations.Clear();
 		}
 
 		public override void Unload()
 		{
-			Mutations = [];
+			Mutations.Clear();
 		}
 
 		public override string LocalizationCategory => base.LocalizationCategory + ".Magic." + ImbuableTier;

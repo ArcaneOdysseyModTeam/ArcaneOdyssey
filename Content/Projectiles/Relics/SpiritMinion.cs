@@ -54,11 +54,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Vector2 destination;
 			potentialTarget = Projectile.Center.GetMinionTarget(900f, Owner);
 			if (potentialTarget is null)
-				destination = Owner.Center - Vector2.UnitX * (80f + (Projectile.identity * 28f) % 560f) * Owner.direction;
+				destination = Owner.Center - Vector2.UnitX * (80f + Projectile.identity * 28f % 560f) * Owner.direction;
 			else
 			{
-				Vector2 destA = potentialTarget.Center + Vector2.UnitX * (130f + (Projectile.identity * 28f) % 560f);
-				Vector2 destB = potentialTarget.Center - Vector2.UnitX * (130f + (Projectile.identity * 28f) % 560f);
+				Vector2 destA = potentialTarget.Center + Vector2.UnitX * (130f + Projectile.identity * 28f % 560f);
+				Vector2 destB = potentialTarget.Center - Vector2.UnitX * (130f + Projectile.identity * 28f % 560f);
 				if ((Projectile.Center - destA).Length() < (Projectile.Center - destB).Length())
 					destination = destA;
 				else

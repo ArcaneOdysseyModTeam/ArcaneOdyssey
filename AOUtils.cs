@@ -259,7 +259,7 @@ namespace ArcaneOdyssey
 
 		public static float RelativeScale(this Rectangle rect, int scale = 64)
 		{
-			return MathHelper.Clamp(((rect.Width + rect.Height) / 2f / scale), .5f, 2.5f);
+			return MathHelper.Clamp((rect.Width + rect.Height) / 2f / scale, .5f, 2f);
 		}
 
 		public static DamageClass Imbued(this DamageClass damageClass, Imbuable imbue, Item item = null)
@@ -1661,7 +1661,7 @@ namespace ArcaneOdyssey
 		public LocalizedText LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
 		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
 
-		public readonly string Tooptip => $"[c/{Colour.Hex3()}:{LocalizedName.Value}] - {LocalizedDescription.Value}";
+		public readonly string Tooptip => $"[c/{Colour.Hex3()}:{LocalizedName.Value}]: {LocalizedDescription.Value}";
 	}
 
 	public struct ImbueArmourStats(int size = 0, int attkspeed = 0, int power = 0, int defence = 0, int agility = 0, int pierce = 0, int haste = 0)

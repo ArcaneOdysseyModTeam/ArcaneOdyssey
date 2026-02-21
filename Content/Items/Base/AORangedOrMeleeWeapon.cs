@@ -88,7 +88,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			base.SetDefaults();
 			Item.useTime = Item.useAnimation = (27 * AOSpeed.FlipFloat()).Round();
-			Item.knockBack = 4.5f * AOSize;
+			Item.knockBack = 4.5f * (AOSize * AOSize);
 			Item.scale = AOSize;
 			Item.value = GalleonToCopper(AOValue);
 			Item.UseSound = UseSound with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };

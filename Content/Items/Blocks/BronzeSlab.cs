@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Tiles;
+using ArcaneOdyssey.Content.Tiles.Bronze;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

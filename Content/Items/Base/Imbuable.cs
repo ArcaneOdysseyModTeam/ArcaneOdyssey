@@ -266,11 +266,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool AltFunctionUse(Player player) => true;
 
-		internal static List<int> BasicImbues => [];
-
 		public virtual bool Special => false;
 
-		public string ModifyTooltipsPrefix
+		public string TooltipsPrefix
 		{
 			get
 			{
@@ -375,8 +373,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
 
-			if (ModifyTooltipsPrefix is not null)
-				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
+			if (TooltipsPrefix is not null)
+				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
 			
 
 			if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))

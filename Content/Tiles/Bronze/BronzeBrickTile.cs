@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Tiles
+namespace ArcaneOdyssey.Content.Tiles.Bronze
 {
-	public class BronzeColumnTile : ModTile
+	public class BronzeBrickTile : ModTile
 	{
 		public override void SetStaticDefaults()
 		{

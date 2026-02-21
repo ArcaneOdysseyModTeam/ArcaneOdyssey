@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if ((player.ArcaneOdyssey().OnCooldown(Name + "Buff")) || LiterallyCheating)
+			if (player.ArcaneOdyssey().OnCooldown(Name + "Buff") || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
 				player.ArcaneOdyssey().SetCooldown(new Cooldown(Name + "Buff", DisplayName, 60));

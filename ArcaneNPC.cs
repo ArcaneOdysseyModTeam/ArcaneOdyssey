@@ -23,7 +23,6 @@ namespace ArcaneOdyssey
 
 		#region Debuff bools
 		public bool bleeding = false;
-		public bool heavyBleeding = false;
 		public bool scalding = false;
 		public bool vesuvianBurn = false;
 		public bool seared = false;
@@ -69,7 +68,6 @@ namespace ArcaneOdyssey
 			}
 			bleeding = false;
 			vesuvianBurn = false;
-			heavyBleeding = false;
 			scalding = false;
 			singedstacks = 0;
 			seared = false;
@@ -89,10 +87,6 @@ namespace ArcaneOdyssey
 			if (bleeding)
 			{
 				npc.lifeRegen -= 10;
-			}
-			if (heavyBleeding)
-			{
-				npc.lifeRegen -= 20;
 			}
 			if (scalding)
 			{

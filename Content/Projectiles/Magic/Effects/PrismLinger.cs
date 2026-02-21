@@ -22,7 +22,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.timeLeft = 120;
 			Projectile.localNPCHitCooldown = Projectile.timeLeft / 3;
-			Projectile.Center = Projectile.position;
 			Projectile.DamageType = DamageClass.Magic;
 		}
 

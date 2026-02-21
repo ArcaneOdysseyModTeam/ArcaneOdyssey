@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Items.Armour.Masks;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
@@ -67,6 +68,7 @@ namespace ArcaneOdyssey.Content.NPCS
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NyxStaff>(), 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DuskMask>(), 4));
 		}
 	}
 }

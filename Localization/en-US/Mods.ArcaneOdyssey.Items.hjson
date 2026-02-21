@@ -49,6 +49,13 @@ Armour: {
 			DisplayName: Headless Head
 			Tooltip: ""
 		}
+
+		Masks: {
+			DuskMask: {
+				DisplayName: Dark Oracle Mask
+				Tooltip: ""
+			}
+		}
 	}
 
 	EliusBoots: {

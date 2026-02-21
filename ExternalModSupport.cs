@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Armour.Masks;
 using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Weapons;
@@ -160,7 +161,7 @@ namespace ArcaneOdyssey
 				float weight = 3.1f; // right after eow
 				Func<bool> downed = () => DownedBosses.downedDusk;
 				int bossType = ModContent.NPCType<Dusk>();
-				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				int trophy = ModContent.ItemType<DuskMask>();
 				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
@@ -172,7 +173,7 @@ namespace ArcaneOdyssey
 				bossType,
 				new Dictionary<string, object>()
 				{
-					//["collectibles"] = new List<int> { trophy },
+					["collectibles"] = new List<int> { trophy },
 					["spawnInfo"] = spawnInfo
 				});
 			}

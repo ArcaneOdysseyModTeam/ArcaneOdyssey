@@ -319,16 +319,16 @@ public abstract partial class BaseImbueUI : UIState
 		SpotTitle.HAlign = ProductSpotLight.Icon.HAlign;
 		SpotTitle.VAlign = ProductSpotLight.Icon.VAlign;
 
-		SpotTitle.Top.Set(-(ProductSpotLight.Icon.Height.Pixels), 0f);
-		SpotTitle.Left.Set(-(SpotTitle.Width.Pixels) / 2, 0f);
+		SpotTitle.Top.Set(-ProductSpotLight.Icon.Height.Pixels, 0f);
+		SpotTitle.Left.Set(-SpotTitle.Width.Pixels / 2, 0f);
 
 		Append(SpotTitle);
 
 		SpotStats.HAlign = ProductSpotLight.Icon.HAlign;
 		SpotStats.VAlign = ProductSpotLight.Icon.VAlign;
 
-		SpotStats.Top.Set((ProductSpotLight.Icon.Height.Pixels), 0f);
-		SpotStats.Left.Set((SpotStats.Width.Pixels) / 2, 0f);
+		SpotStats.Top.Set(ProductSpotLight.Icon.Height.Pixels, 0f);
+		SpotStats.Left.Set(SpotStats.Width.Pixels / 2, 0f);
 
 		Append(SpotStats);
 		#endregion

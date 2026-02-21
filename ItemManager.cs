@@ -349,9 +349,9 @@ namespace ArcaneOdyssey
 
 			if (item.ModItem is Imbuable imbue)
 			{
-				knockback *= (imbue.AOScrollSize * imbue.AOScrollSize);
+				knockback *= imbue.AOScrollSize * imbue.AOScrollSize;
 				if (imbue.Imbue is not null)
-					knockback *= (imbue.Imbue.AOScrollSize * imbue.Imbue.AOScrollSize);
+					knockback *= imbue.Imbue.AOScrollSize * imbue.Imbue.AOScrollSize;
 				var extraknockbackmulti = imbue.KBMulti;
 				if (imbue.Imbue is not null)
 					extraknockbackmulti += imbue.Imbue.KBMulti.MultiToPercent();
@@ -367,9 +367,9 @@ namespace ArcaneOdyssey
 				}
 				else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					knockback *= (Imbue.AOImbueSize * Imbue.AOImbueSize);
+					knockback *= Imbue.AOImbueSize * Imbue.AOImbueSize;
 					if (SecondImbue is not null)
-						knockback *= (SecondImbue.AOImbueSize * SecondImbue.AOImbueSize);
+						knockback *= SecondImbue.AOImbueSize * SecondImbue.AOImbueSize;
 				}
 				var extraknockbackmulti = Imbue.KBMulti;
 				if (SecondImbue is not null)

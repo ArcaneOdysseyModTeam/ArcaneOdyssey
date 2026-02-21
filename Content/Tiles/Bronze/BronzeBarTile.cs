@@ -7,7 +7,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace ArcaneOdyssey.Content.Tiles
+namespace ArcaneOdyssey.Content.Tiles.Bronze
 {
 	public class BronzeBarTile : ModTile
 	{

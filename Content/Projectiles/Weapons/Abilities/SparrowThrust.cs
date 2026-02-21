@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				if (Projectile.ai[0] == 0)
 				{
-					for (int i = 0; i < 3; i++)
+					for (int i = 0; i < 5; i++)
 					{
 						Imbue?.ExplosionEffects(Vector2.Lerp(Projectile.Center, Owner.MountedCenter, .5f));
 					}
@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				Vector2 drawPos = VisualCentre - (oldvelo * k * 7f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, (Sprite.Height / Main.projFrames[Type]) * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - ((Projectile.scale * .075f) * k), SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - (Projectile.scale * .075f * k), SpriteEffects.None, 0);
 			}
 			return false;
 		}

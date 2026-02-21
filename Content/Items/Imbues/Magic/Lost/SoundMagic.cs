@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				for (float i = 0; i < (DustCount * 2); i++)
 				{
 					var centre = (MathHelper.TwoPi / (DustCount * 2) * (i + Main.rand.NextFloat())).ToRotationVector2() * (64 * area.RelativeScale() * 2.5f);
-					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre / ((DustCount * 2) * .75f), Scale: area.RelativeScale());
+					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre / (DustCount * 2 * .75f), Scale: area.RelativeScale());
 					dust.noGravity = true;
 				}
 			}
