@@ -20,7 +20,7 @@ public class PoseidonSpirit : AOBaseItem
 		base.SetDefaults();
 		Item.value = AOUtils.GalleonToCopper(AOValue);
 		Item.width = Item.height = 64;
-		Item.useStyle = ItemUseStyleID.HoldUp;
+		Item.useStyle = ItemUseStyleID.HiddenAnimation;
 		Item.useAnimation = 20;
 		Item.useTime = 20;
 		Item.noUseGraphic = true;

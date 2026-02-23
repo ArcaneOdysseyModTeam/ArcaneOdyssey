@@ -11,6 +11,8 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public string bloodDisease = null;
 
+		public bool acumen = false;
+
 		public int BloodDisease
 		{
 			get
@@ -78,6 +80,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			DarkSealed = tag.GetInt("darksealedchests");
 			NimbusSealed = tag.GetInt("nimbussealedchests");
 			BronzeSealed = tag.GetInt("bronzesealedchests");
+			acumen = tag.GetBool("acumenconsumed");
 		}
 
 		public override void SaveData(TagCompound tag)
@@ -88,6 +91,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			tag.Add("darksealedchests", DarkSealed);
 			tag.Add("nimbussealedchests", NimbusSealed);
 			tag.Add("bronzesealedchests", BronzeSealed);
+			tag.Add("acumenconsumed", acumen);
 		}
 	}
 }

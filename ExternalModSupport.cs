@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items;
-using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
+﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Content.Items.Weapons;
@@ -8,7 +7,6 @@ using ArcaneOdyssey.Content.NPCS;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -105,14 +103,8 @@ namespace ArcaneOdyssey
 				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1)).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
 
-				// current imbue lol
-				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
-				Fargos.Call("AddStat", ModContent.ItemType<EagleLegacy>(), imbueText);
-
-				Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
-				Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
-
-
+				//Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
+				//Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}

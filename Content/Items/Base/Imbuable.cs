@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public int AuraHP(Player player)
 		{
-			if (this is AOMagic)
+			if (this is not FightingStyle || player.ArcaneOdyssey().acumen)
 			{
 				return (player.statLifeMax * (.225f * Aura)).Round();
 			}

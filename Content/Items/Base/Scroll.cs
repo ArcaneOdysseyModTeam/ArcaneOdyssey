@@ -52,8 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = 32;
-			Item.height = 32;
+			Item.width = Item.height = 32;
 			Item.noMelee = true;
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;

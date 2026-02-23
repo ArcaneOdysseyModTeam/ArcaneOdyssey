@@ -4,24 +4,28 @@ Equipment: {
 			DisplayName: Crash Technique
 			Tooltip:
 				'''
-				Channels your fighting style to dash
+				Dash then slam
 				Press {AODASHBIND} to activate
 				'''
 		}
 
 		AuraScroll: {
 			DisplayName: Aura Scroll
-			Tooltip: Channels your imbue into yourself, empowering life, attack size, or damage
+			Tooltip:
+				'''
+				Empowers life, attack size, or damage
+				Life boost scales with imbue
+				'''
 		}
 
 		HoverScroll: {
 			DisplayName: Hover Spell
-			Tooltip: Channels your magic to hover in the air
+			Tooltip: Hover with magic
 		}
 
 		LeapScroll: {
 			DisplayName: Leap Scroll
-			Tooltip: ""
+			Tooltip: Jump midair with magic
 		}
 	}
 
@@ -44,9 +48,16 @@ Equipment: {
 			DisplayName: Walk Rite
 			Tooltip:
 				'''
-				Channels your spirit energy into three repeated dashes
+				Dash thrice with your spirit energy
 				Press {AODASHBIND} to activate
 				'''
+		}
+	}
+
+	Lost: {
+		AcumenTechnique: {
+			DisplayName: Acumen Technique
+			Tooltip: Empowers your aura scroll effect permanently
 		}
 	}
 }
@@ -55,66 +66,66 @@ Weapons: {
 	Common: {
 		BeamScroll: {
 			DisplayName: Beam Spell
-			Tooltip: Channels your magic into a beam
+			Tooltip: Fires a magic beam
 		}
 
 		BlastScroll: {
 			DisplayName: Blast Rite
-			Tooltip: Channels your spirit energy into a blast
+			Tooltip: Fires a spirit blast
 		}
 
 		ExplosionScroll: {
 			DisplayName: Explosion Scroll
-			Tooltip: Channels your imbue into an explosion that you can direct
+			Tooltip: Creates a controllable magic explosion
 		}
 
 		RainRite: {
 			DisplayName: Rain Rite
-			Tooltip: Channels your spirit energy into a cloud that rains down projectiles
+			Tooltip: Shoots a spirit cloud that rains projectiles
 		}
 
 		ShotScroll: {
 			DisplayName: Shot Technique
-			Tooltip: Channels your fighting style to shoot a quick air blast
+			Tooltip: Shoots a quick blast of air
 		}
 
 		SmashScroll: {
 			DisplayName: Smash Technique
-			Tooltip: Channels your fighting style to unleash a shockwave of air
+			Tooltip: Creates a shockwave of air
 		}
 	}
 
 	Lost: {
 		AnnihilationScroll: {
 			DisplayName: Annihilation Spell
-			Tooltip: Channels your magic into a sphere of unstable energy that explodes multiple times on contact with terrain
+			Tooltip: Fires a massive explosive magic blast
 		}
 	}
 
 	Rare: {
 		ArrayScroll: {
 			DisplayName: Array Spell
-			Tooltip: Channels your magic into a blast that aims towards your target
+			Tooltip: Fires tracking magic blasts
 		}
 
 		CannonScroll: {
 			DisplayName: Cannon Spell
-			Tooltip: Channels your magic into a large blast that pierces enemies and terrain
+			Tooltip: Fires a piercing magic blast
 		}
 
 		HoundRite: {
 			DisplayName: Hound Rite
-			Tooltip: Channels your spirit energy into a hound-shaped blast that pierces once
+			Tooltip: Fires a piercing spirit blast
 		}
 
 		PulsarScroll: {
 			DisplayName: Pulsar Spell
-			Tooltip: Channels your magic into a blast that explodes multiple times midair
+			Tooltip: Fires a rapidly exploding magic blast
 		}
 
 		BarrageSpell: {
 			DisplayName: Barrage Spell
-			Tooltip: ""
+			Tooltip: Fires magic blasts rapidly
 		}
 	}
 }

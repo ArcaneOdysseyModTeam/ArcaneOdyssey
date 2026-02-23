@@ -336,10 +336,10 @@ RandomWords: {
 	AuraMode: Current mode: {0}, press {1} to cycle
 	ModeCycled: Swapped mode to {0}
 	Downed: "{0} has been defeated!"
+	Acumen: Your aura scroll effect has been boosted while using fighting styles
 }
 
 FargosSheet: {
-	CurrentImbue: Current Imbue: {0}
 	SizeMulti: Attack Size: {0}%
 	CooldownMulti: Ability Haste: {0}%
 	BloodDisease: Blood Disease: {0}

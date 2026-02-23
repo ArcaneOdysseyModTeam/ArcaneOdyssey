@@ -56,11 +56,19 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 			if (Mode == AuraMode.Power)
 			{
 				player.GetDamage(DamageClass.Generic) += .15f;
+				if (Imbue is FightingStyle && player.ArcaneOdyssey().acumen)
+				{
+					player.GetDamage(DamageClass.Generic) += .05f;
+				}
 			}
 
 			if (Mode == AuraMode.Destruction)
 			{
-				player.ArcaneOdyssey().AOSizeStat += 50;
+				player.ArcaneOdyssey().AOSizeStat += 35;
+				if (Imbue is FightingStyle && player.ArcaneOdyssey().acumen)
+				{
+					player.ArcaneOdyssey().AOSizeStat += 15;
+				}
 			}
 		}
 

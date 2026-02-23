@@ -95,7 +95,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 				if (item.ModItem is AOMagic)
 				{
 					if (player.PlayerItem()?.ModItem?.Type != magicToUse.Type || player.AltUse())
-						return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI, 1);
+					{
+						Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI);
+						((RotatingMagicCircle)circleprojectile.ModProjectile).MarkedForDeath = true;
+						return circleprojectile;
+					}
 					else
 					{
 						Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);

@@ -1,4 +1,3 @@
-using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -24,7 +23,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 			}
 
 			MarkedForDeath |= (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null;
-			if (MarkedForDeath)
+			if (!MarkedForDeath)
 			{
 				AOPlayerOwner.HeavySkillActive = true;
 				AOPlayerOwner.myCircle = Projectile;
