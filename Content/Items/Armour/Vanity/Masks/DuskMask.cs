@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Armour.Masks
+namespace ArcaneOdyssey.Content.Items.Armour.Vanity.Masks
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class DuskMask : AOBaseItem, ILocalizedModType

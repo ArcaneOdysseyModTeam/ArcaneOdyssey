@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public override float AOSpeed => .65f;
 		public override float AOSize => 1.2f;
-		public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
+		public override SoundStyle? HitSound => SoundID.NPCHit42;
 
 		public override void SetStaticDefaults()
 		{

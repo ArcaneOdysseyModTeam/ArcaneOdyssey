@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Masks;
+﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;

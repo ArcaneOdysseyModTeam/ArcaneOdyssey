@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
 using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
@@ -551,15 +552,19 @@ namespace ArcaneOdyssey
 		{
 			thisItem = item;
 			owner = player;
+
 			if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
 				Cold = null;
 				WeaponsType = WeaponType.Normal;
 			}
+
 			if (!CanBeAffected)
 				return;
+
 			if (Main.myPlayer != player.whoAmI)
 				return;
+
 			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().EquippedImbues.Select(e => (Imbuable)ModContent.GetModItem(e))];
 			options.RemoveAll(e => !item.CanHaveImbue(e));
 			bool justchangedspecificimbue = false;
@@ -634,27 +639,6 @@ namespace ArcaneOdyssey
 						}
 					}
 				}
-
-				//if (options.Count < 2 && (Imbue != player.Imbue()))
-				//{
-				//	specificImbue = true;
-				//	//justchangedspecificimbue = true;
-				//	if (item.CanHaveImbue(player.Imbue()))
-				//	{
-				//		Imbue = player.Imbue();
-				//		if (item.TryGetSecondImbue(Imbue, out var second))
-				//			SecondImbue = second;
-				//		else
-				//			SecondImbue = null;
-				//	}
-				//	else
-				//	{
-				//		Imbue = null;
-				//		SecondImbue = null;
-				//	}
-				//	settodefault = true;
-				//	imbueIndex = -1;
-				//}
 			}
 			else
 			{
@@ -707,6 +691,15 @@ namespace ArcaneOdyssey
 		{
 			owner = player;
 			thisItem = item;
+			if (player.ArcaneOdyssey().BloodDisease != 0)
+			{
+				target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
+			}
+			if (player.meleeEnchant == GelBuff.GelID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
+			{
+				if (player.ArcaneOdyssey().gel != 0)
+					target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
+			}
 			if (!CanBeAffected)
 				return;
 			if (Imbue is SpiritEnergy)
@@ -726,53 +719,9 @@ namespace ArcaneOdyssey
 			if (!CanBeAffected)
 				return;
 
-			if (player.meleeEnchant != 0 && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
-			{
-				// apply early for synergies and stuff, no way to do it for modded imbues
-				foreach (var buff in player.buffType)
-				{
-					if (Main.meleeBuff[buff])
-					{
-						switch (player.meleeEnchant)
-						{
-							case 1:
-								target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10));
-								break;
-							case 2:
-								target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7));
-								break;
-							case 3:
-								target.AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7));
-								break;
-							case 4:
-								target.AddBuff(BuffID.Midas, 120);
-								break;
-							case 5:
-								target.AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20));
-								break;
-							case 6:
-								target.AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4));
-								break;
-							case 8:
-								target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
-								break;
-							default:
-								if (player.ArcaneOdyssey().gel != 0)
-									target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
-								break;
-						}
-					}
-				}
-			}
-
-			if (player.ArcaneOdyssey().BloodDisease != 0)
-			{
-				target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
-			}
-
 			if (item.ModItem is AORangedOrMeleeWeapon weap)
 			{
-				if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
+				if (weap.WeaponDebuff.HasValue)
 				{
 					target.AddBuff(weap.WeaponDebuff.Value.debuffID, weap.WeaponDebuff.Value.debuffDuration);
 				}

@@ -164,12 +164,12 @@ namespace ArcaneOdyssey.Content.NPCS
 			Downed = true;
 			if (!Main.dedServ)
 			{
-				Main.NewText(Mod.CustomLocalization($"NPCs.{Name}.DeathMessage").Value, new Color(175, 75, 255));
+				Main.NewText(Mod.CustomLocalization($"RandomWords.Downed", DisplayName.Value).Value, new Color(175, 75, 255));
 			}
 			else
 			{
 				NetMessage.SendData(MessageID.WorldData);
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"NPCs.{Name}.DeathMessage").ToNetworkText(), new Color(175, 75, 255));
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"RandomWords.Downed", DisplayName.Value).ToNetworkText(), new Color(175, 75, 255));
 			}
 		}
 

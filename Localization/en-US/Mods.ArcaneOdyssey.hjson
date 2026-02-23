@@ -189,7 +189,6 @@ NPCs: {
 
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
-		DeathMessage: Evander, the Mountainbreaker has been defeated!
 		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world.
 	}
 
@@ -197,38 +196,46 @@ NPCs: {
 
 	Dusk: {
 		DisplayName: Dusk, the Dark Oracle
-		DeathMessage: Dusk, the Dark Oracle has been defeated!
 		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer forests of the world.
 	}
 
 	Laelus: {
 		DisplayName: Laelus, the Theif
-		DeathMessage: Laelus, the Theif has been defeated!
 		SpawnInfo: Spawns naturally during the day, in the outer forests of the world.
 	}
 }
 
 MagicTierLines: {
-	Normal: "[c/2277ff:~ Base Magic ~]"
-	Lost: "[c/0044ff:~ Lost Magic ~]"
-	Ancient: "[c/7ebcc2:~ Ancient Magic ~]"
-	Primordial: "[c/ffc2c2:~ Primordial Magic ~]"
-	Developer: "[c/ff0000:~ Developer Magic ~]"
+	Normal: "[c/2277ff:~ Basic magic ~]"
+	Lost: "[c/0044ff:~ Lost magic ~]"
+	Ancient: "[c/7ebcc2:~ Ancient magic ~]"
+	Primordial: "[c/ffc2c2:~ Primordial magic ~]"
+	Developer: "[c/ff0000:~ Developer magic ~]"
 }
 
 SpecialTierLines: {
-	Normal: "[c/2277ff:~ Lesser Lost Magic ~]"
-	Lost: "[c/0044ff:~ Lost Spirit Mutation ~]"
-	Ancient: "[c/7ebcc2:~ Ancient Spirit Mutation ~]"
+	Normal: "[c/2277ff:~ Lesser lost magic ~]"
+	Lost: "[c/0044ff:~ Lost spirit mutation ~]"
+	Ancient: "[c/7ebcc2:~ Ancient spirit mutation ~]"
+	Primordial: "[c/ffc2c2:~ A dragon's power ~]"
+	Developer: "[c/ff0000:~ A god's chaos ~]"
 }
 
 FSTierLines: {
-	Normal: "[c/700013:~ Fighting Style ~]"
-	Ancient: "[c/7ebcc2:~ Lost Fighting Style ~]"
-	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
+	Normal: "[c/2277ff:~ Fighting Style ~]"
+	Lost: "[c/0044ff:~ Lost fighting style ~]"
+	Ancient: "[c/7ebcc2:~ Advanced lost fighting style ~]"
+	Primordial: "[c/ffc2c2:~ Primordial fighing style ~]"
+	Developer: "[c/ff0000:~ Developer fighting style ~]"
 }
 
-RelicTierLines.Normal: "[c/2277ff:~ Relic ~]"
+RelicTierLines: {
+	Normal: "[c/2277ff:~ Relic ~]"
+	Lost: "[c/0044ff:~ Blessed relic ~]"
+	Ancient: "[c/7ebcc2:~ Inhabited relic ~]"
+	Primordial: "[c/ffc2c2:~ Primordial relic ~]"
+	Developer: "[c/ff0000:~ A god's creation ~]"
+}
 
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
@@ -323,6 +330,7 @@ RandomWords: {
 	GelTooltip: Melee attacks inflict {0}
 	AuraMode: Current mode: {0}, press {1} to cycle
 	ModeCycled: Swapped mode to {0}
+	Downed: "{0} has been defeated!"
 }
 
 FargosSheet: {

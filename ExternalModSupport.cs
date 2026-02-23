@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items;
-using ArcaneOdyssey.Content.Items.Armour.Masks;
+using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
 using ArcaneOdyssey.Content.Items.Weapons;

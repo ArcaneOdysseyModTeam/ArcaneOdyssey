@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
@@ -9,7 +10,9 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
+using System.Diagnostics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -230,52 +233,19 @@ namespace ArcaneOdyssey
 			if (!CanBeAffected)
 				return;
 
-			if (projectile.TryGetOwner(out Player player))
+			if (projectile.ModProjectile is AOPlayerProjectile proj)
 			{
-				if (player.meleeEnchant != 0 && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+				if (proj.Debuff.HasValue)
 				{
-					// apply early for synergies and stuff, no way to do it for modded imbues
-					foreach (var buff in player.buffType)
-					{
-						if (Main.meleeBuff[buff])
-						{
-							switch (player.meleeEnchant)
-							{
-								case 1:
-									target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10));
-									break;
-								case 2:
-									target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7));
-									break;
-								case 3:
-									target.AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7));
-									break;
-								case 4:
-									target.AddBuff(BuffID.Midas, 120);
-									break;
-								case 5:
-									target.AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20));
-									break;
-								case 6:
-									target.AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4));
-									break;
-								case 8:
-									target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
-									break;
-								default:
-									if (player.ArcaneOdyssey().gel != 0)
-										target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
-									break;
-							}
-						}
-					}
+					target.AddBuff(proj.Debuff.Value.debuffID, proj.Debuff.Value.debuffDuration);
 				}
 
-				if (player.ArcaneOdyssey().BloodDisease != 0)
+				if (proj.HitSound.HasValue)
 				{
-					target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(5, 10));
+					SoundEngine.PlaySound(proj.HitSound.Value, target.position);
 				}
 			}
+
 			modifiers = CalculateImbueDamage(Imbue, target, modifiers);
 			modifiers = CalculateImbueDamage(SecondImbue, target, modifiers);
 		}
@@ -373,14 +343,35 @@ namespace ArcaneOdyssey
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			thisProjectile = projectile;
+
+			if (projectile.TryGetOwner(out var player))
+			{
+				if (player.meleeEnchant == GelBuff.GelID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+				{
+					if (player.ArcaneOdyssey().gel != 0)
+						target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
+				}
+
+				if (player.ArcaneOdyssey().BloodDisease != 0)
+				{
+					target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
+				}
+			}
+
 			if (!CanBeAffected)
 				return;
+
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
-			if (Imbue is SpiritEnergy && projectile.TryGetOwner(out var owner))
+
+			if (projectile.TryGetOwner(out var owner))
 			{
-				owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
+				if (Imbue is SpiritEnergy)
+				{
+					owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
+				}
 			}
+
 			if (Main.netMode == NetmodeID.SinglePlayer && Imbue is DeathMagic && (target.lifeMax < Main.player[projectile.owner].statLifeMax2))
 			{
 				target.StrikeInstantKill();

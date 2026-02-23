@@ -120,19 +120,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual float AOSize => 1f;
 
 		public virtual AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 60 * 5);
-		public virtual SoundStyle? DebuffApplySound => null;
-
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (Debuff.HasValue && (Debuff.Value.debuffPercent == 0 || modifiers.GetDamage(Projectile.damage, true) > target.lifeMax / Debuff.Value.debuffPercent))
-			{
-				target.AddBuff(Debuff.Value.debuffID, Debuff.Value.debuffDuration);
-				if (DebuffApplySound.HasValue)
-				{
-					SoundEngine.PlaySound(DebuffApplySound.Value, target.position);
-				}
-			}
-		}
+		public virtual SoundStyle? HitSound => null;
 
 		/// <summary>
 		/// Kills the projectile.

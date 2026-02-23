@@ -86,8 +86,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOScrollDamage => AOImbueDamage != 1f ? MathF.Round(AOImbueDamage <= 1f ? AOImbueDamage * 1.1f : AOImbueDamage * AOImbueDamage, 3) : 1f;
 
 		/// <summary>
-		/// For magics, you may return any value
-		/// <para>For fighting stypes, Ancient is actually Lost Fighting Styles</para>
+		/// For magics or fighing styles, you may return any value
+		/// <para>Relics are always Normal for now</para>
 		/// </summary>
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
 		public virtual AODebuffRequirement[] ImbueDebuffs => [];
@@ -139,11 +139,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
 
+		public virtual int[] Dusts => [];
+
 		/// <summary>
 		/// Called after a projectile is killed usually
 		/// </summary>
 		/// <param name="area">The area the dust spawns in</param>
-		/// <param name="doextraeffects">Whether to do extra effects, usually spawning projectiles</param>
 		public virtual void KillEffects(Rectangle area, Entity source = null) { }
 
 		/// <summary>
@@ -158,7 +159,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <para>I am not making this lol</para>
 		/// </summary>
 		/// <param name="area">The box</param>
-		public virtual void BoxEffects(Rectangle area, float rotation = 0f) { }
+		public virtual void BoxEffects(Rectangle area) { }
 
 
 		/// <summary>
@@ -167,7 +168,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <param name="origin">Where to shoot out dust from</param>
 		/// <param name="rangemulti">The length of the beam</param>
 		/// <param name="widthmulti">The width of the beam</param>
-		public virtual void BeamEffects(Vector2 origin, float rangemulti = 1f, float widthmulti = 1f) { }
+		public virtual void BeamEffects(Vector2 origin, float direction, float rangemulti = 1f, float widthmulti = 1f) { }
 
 		public override void UseAnimation(Player player)
 		{

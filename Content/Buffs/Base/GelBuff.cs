@@ -7,6 +7,8 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 {
 	public abstract class GelBuff : ModBuff
 	{
+		public const int GelID = 99;
+
 		public override void SetStaticDefaults()
 		{
 			Main.pvpBuff[Type] = true;
@@ -23,7 +25,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 		public override void Update(Player player, ref int buffIndex)
 		{
 			player.ArcaneOdyssey().gel = DebuffID;
-			player.meleeEnchant = 99;
+			player.meleeEnchant = GelID;
 		}
 	}
 }
