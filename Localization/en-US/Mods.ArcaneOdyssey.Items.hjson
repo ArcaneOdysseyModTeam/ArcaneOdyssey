@@ -1,42 +1,24 @@
 Armour: {
-	SunkenBoots: {
-		DisplayName: Sunken Boots
-		Tooltip: It seems to constantly produce water
-	}
+	Sunken: {
+		SunkenChest: {
+			DisplayName: Sunken Breastplate
+			Tooltip: It seems to constantly produce water
 
-	SunkenChest: {
-		DisplayName: Sunken Breastplate
-		Tooltip: It seems to constantly produce water
-
-		Set: {
-			DisplayName: Aquatic Rebuttal
-			Description: Enemies that strike you are inflicted with Wet
+			Set: {
+				DisplayName: Aquatic Rebuttal
+				Description: Enemies that strike you are inflicted with Wet
+			}
 		}
-	}
 
-	SunkenHelm: {
-		DisplayName: Sunken Helmet
-		Tooltip: It seems to constantly produce water
-	}
-
-	RavennaBoots: {
-		DisplayName: Ravenna Soldier Boots
-		Tooltip: ""
-	}
-
-	RavennaChest: {
-		DisplayName: Ravenna Centurion Breastplate
-		Tooltip: ""
-
-		Set: {
-			DisplayName: Ravenna Bulwark
-			Description: Allows you to brace, slowing your movement in exchange for a defence bonus
+		SunkenBoots: {
+			DisplayName: Sunken Boots
+			Tooltip: It seems to constantly produce water
 		}
-	}
 
-	RavennaHelm: {
-		DisplayName: Ravenna Centurion Helmet
-		Tooltip: ""
+		SunkenHelm: {
+			DisplayName: Sunken Helmet
+			Tooltip: It seems to constantly produce water
+		}
 	}
 
 	Vanity: {
@@ -58,24 +40,48 @@ Armour: {
 		}
 	}
 
-	EliusBoots: {
-		DisplayName: Ravenna Noble Boots
-		Tooltip: ""
-	}
+	Centurion: {
+		RavennaBoots: {
+			DisplayName: Ravenna Soldier Boots
+			Tooltip: ""
+		}
 
-	EliusChest: {
-		DisplayName: Ravenna Noble Armour
-		Tooltip: ""
+		RavennaChest: {
+			DisplayName: Ravenna Centurion Breastplate
+			Tooltip: ""
 
-		Set: {
-			DisplayName: Lightning Speed
-			Description: Higher jumps and 25% increased movement speed
+			Set: {
+				DisplayName: Ravenna Bulwark
+				Description: Allows you to brace, slowing your movement in exchange for a defence bonus
+			}
+		}
+
+		RavennaHelm: {
+			DisplayName: Ravenna Centurion Helmet
+			Tooltip: ""
 		}
 	}
 
-	EliusHelm: {
-		DisplayName: Ravenna Noble Shroud
-		Tooltip: ""
+	RavennaNoble: {
+		EliusBoots: {
+			DisplayName: Ravenna Noble Boots
+			Tooltip: ""
+		}
+
+		EliusChest: {
+			DisplayName: Ravenna Noble Armour
+			Tooltip: ""
+
+			Set: {
+				DisplayName: Lightning Speed
+				Description: Higher jumps and 25% increased movement speed
+			}
+		}
+
+		EliusHelm: {
+			DisplayName: Ravenna Noble Shroud
+			Tooltip: ""
+		}
 	}
 }
 
@@ -103,17 +109,19 @@ Accessories: {
 	}
 }
 
-Pets: {
-	ElfPetItem: {
-		DisplayName: Aether's Heart
-		Tooltip: Dedicated to [c/9b59b6:ThyGoodBoy]
+Equipment: {
+	Pets: {
+		ElfPetItem: {
+			DisplayName: Aether's Heart
+			Tooltip: Dedicated to [c/9b59b6:ThyGoodBoy]
+		}
 	}
-}
 
-Mounts: {
-	WoodenPaddle: {
-		DisplayName: Magic Paddle
-		Tooltip: Summons a rowboat that enhances fishing skill
+	Mounts: {
+		WoodenPaddle: {
+			DisplayName: Magic Paddle
+			Tooltip: Summons a rowboat that enhances fishing skill
+		}
 	}
 }
 
@@ -126,34 +134,9 @@ Acrimony: {
 		'''
 }
 
-AncientHecateOrb: {
-	DisplayName: Hecate Orb
-	Tooltip: An orb formed of the essence of the goddess hecate... the world is really not ready to unleash this
-}
-
-BronzeBar: {
-	DisplayName: Bronze Bar
-	Tooltip: ""
-}
-
-HecateShard: {
-	DisplayName: Hecate Shard
-	Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
-}
-
-EvanderTrophy: {
-	DisplayName: Evander Trophy
-	Tooltip: ""
-}
-
 PoseidonSpirit: {
 	DisplayName: Poseidon's Spirit
 	Tooltip: A sigil of ancient power granted as a reward from the gods, which can be focused upon to grant power or knowledge to those who are worthy
-}
-
-SunkenScrap: {
-	DisplayName: Sunken Scrap
-	Tooltip: ""
 }
 
 EagleLegacy: {
@@ -161,62 +144,97 @@ EagleLegacy: {
 	Tooltip: Represents your latent potential, and can be focused upon to grant power
 }
 
-TideGelPotion: {
-	DisplayName: Tide Gel
-	Tooltip: Melee and Whip attacks inflict enemies with Wet
+Blocks: {
+	BronzeBrick: {
+		DisplayName: Bronze Brick
+		Tooltip: ""
+	}
+
+	BronzeBrickWallItem: {
+		DisplayName: Bronze Brick Wall
+		Tooltip: ""
+	}
+
+	BronzeColumn: {
+		DisplayName: Bronze Column
+		Tooltip: ""
+	}
+
+	BronzeColumnWallItem: {
+		DisplayName: Bronze Column Wall
+		Tooltip: ""
+	}
+
+	BronzeSlab: {
+		DisplayName: Bronze Slab
+		Tooltip: ""
+	}
+
+	BronzeSlabWallItem: {
+		DisplayName: Bronze Slab Wall
+		Tooltip: ""
+	}
+
+	TuckerGraveItem: {
+		DisplayName: Tucker' Grave
+		Tooltip: ""
+	}
 }
 
-BleedGelPotion: {
-	DisplayName: Bleed Gel
-	Tooltip: Melee and Whip attacks inflict enemies with Bleeding
+BossTrophies: {
+	EvanderTrophy: {
+		DisplayName: Evander Trophy
+		Tooltip: ""
+	}
 }
 
-DesertGelPotion: {
-	DisplayName: Desert Gel
-	Tooltip: Melee and Whip attacks inflict enemies with Sandy
+Materials: {
+	AncientHecateOrb: {
+		DisplayName: Hecate Orb
+		Tooltip: ""
+	}
+
+	BronzeBar: {
+		DisplayName: Bronze Bar
+		Tooltip: ""
+	}
+
+	HecateShard: {
+		DisplayName: Hecate Shard
+		Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+	}
+
+	SunkenScrap: {
+		DisplayName: Sunken Scrap
+		Tooltip: ""
+	}
 }
 
-ArcticGelPotion: {
-	DisplayName: Arctic Gel
-	Tooltip: Melee and Whip attacks inflict enemies with Snowy
-}
+Potions: {
+	Gels: {
+		TideGelPotion: {
+			DisplayName: Tide Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Wet
+		}
 
-FrostGelPotion: {
-	DisplayName: Frost Gel
-	Tooltip: Melee and Whip attacks inflict enemies with Freezing
-}
+		BleedGelPotion: {
+			DisplayName: Bleed Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Bleeding
+		}
 
-BronzeBrick: {
-	DisplayName: Bronze Brick
-	Tooltip: ""
-}
+		DesertGelPotion: {
+			DisplayName: Desert Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Sandy
+		}
 
-BronzeBrickWallItem: {
-	DisplayName: Bronze Brick Wall
-	Tooltip: ""
-}
+		ArcticGelPotion: {
+			DisplayName: Arctic Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Snowy
+		}
 
-BronzeColumn: {
-	DisplayName: Bronze Column
-	Tooltip: ""
-}
-
-BronzeColumnWallItem: {
-	DisplayName: Bronze Column Wall
-	Tooltip: ""
-}
-
-BronzeSlab: {
-	DisplayName: Bronze Slab
-	Tooltip: ""
-}
-
-BronzeSlabWallItem: {
-	DisplayName: Bronze Slab Wall
-	Tooltip: ""
-}
-
-TuckerGraveItem: {
-	DisplayName: Tucker's Grave
-	Tooltip: A memorial for an old friend
+		FrostGelPotion: {
+			DisplayName: Frost Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Freezing
+		}
+	}
 }

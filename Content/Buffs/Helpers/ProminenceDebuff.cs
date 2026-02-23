@@ -1,9 +1,9 @@
 using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
 
 namespace ArcaneOdyssey.Content.Buffs.Helpers
 {

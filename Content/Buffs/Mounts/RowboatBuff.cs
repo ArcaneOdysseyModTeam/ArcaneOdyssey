@@ -1,10 +1,11 @@
-﻿using ArcaneOdyssey.Content.Mounts;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Mounts;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.Mounts
 {
-	public class RowboatBuff : ModBuff
+	public class RowboatBuff : AOBaseBuff
 	{
 		public override void SetStaticDefaults()
 		{

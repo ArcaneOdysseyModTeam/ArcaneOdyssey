@@ -1,14 +1,13 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Base;
 
 namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class HeadlessHead : AOBaseItem, ILocalizedModType
+	public class HeadlessHead : AOBaseItem
 	{
-		public override string LocalizationCategory => base.LocalizationCategory + ".Armour.Vanity";
 		public override AORarities AORarity => AORarities.Special;
 
 		public override void SetStaticDefaults()

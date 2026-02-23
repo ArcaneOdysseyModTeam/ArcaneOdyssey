@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
-	public class AnnihilationSpell : MagicSpell, ILocalizedModType
+	public class AnnihilationSpell : MagicSpell
 	{
 		// ai 2 is first frame bool
 

@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		{
 			base.SetDefaults();
 			Item.height = 42;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.height = 42;
 			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Thrust;

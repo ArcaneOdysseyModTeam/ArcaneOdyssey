@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items;
 
@@ -19,7 +18,7 @@ public class PoseidonSpirit : AOBaseItem
 	public override void SetDefaults()
 	{
 		base.SetDefaults();
-		Item.value = GalleonToCopper(AOValue);
+		Item.value = AOUtils.GalleonToCopper(AOValue);
 		Item.width = Item.height = 64;
 		Item.useStyle = ItemUseStyleID.HoldUp;
 		Item.useAnimation = 20;

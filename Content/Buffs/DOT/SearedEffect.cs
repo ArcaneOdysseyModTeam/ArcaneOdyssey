@@ -1,6 +1,6 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using Terraria;
 using Terraria.ID;
-using ArcaneOdyssey.Content.Buffs.Base;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {

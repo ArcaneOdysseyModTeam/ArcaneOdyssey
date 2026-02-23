@@ -4,9 +4,8 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Armour.Vanity.Masks
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class DuskMask : AOBaseItem, ILocalizedModType
+	public class DuskMask : AOBaseItem
 	{
-		public override string LocalizationCategory => base.LocalizationCategory + ".Armour.Vanity.Masks";
 		public override AORarities AORarity => AORarities.Uncommon;
 
 		public override void SetDefaults()

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.height = 40;
 			Item.height = 40;
 			Item.useTurn = true;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.axe = 90 / 5;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override int Cooldown => 300;
 		public override float DashSpeed => 15;
 		public override int DashMax => 600;
-		public override DamageClass DamageType => TrueMelee();
+		public override DamageClass DamageType => AOUtils.TrueMelee();
 		public override float Knockback => 5;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target) => false;
@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-			SimulateAOE(300, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
+			AOUtils.SimulateAOE(300, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
 			if (!Main.dedServ)
 			{
 				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.PlayerItem()), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());
@@ -93,6 +93,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 	public class DevastateCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetTexture<RavennaGreataxe>();
+		public override string ExtraIconTexture => AOUtils.GetTexture<RavennaGreataxe>();
 	}
 }

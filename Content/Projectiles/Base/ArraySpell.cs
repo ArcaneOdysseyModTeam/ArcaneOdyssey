@@ -3,16 +3,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class ArraySpell : MagicSpell, ILocalizedModType
+	public abstract class ArraySpell : MagicSpell
 	{
 		// ai 2 is first frame bool
 		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Array", "Blast");
-
-		public override string LocalizationCategory => base.LocalizationCategory + ".Arrays." + Tier;
 
 		public override float AOSize => .6f;
 

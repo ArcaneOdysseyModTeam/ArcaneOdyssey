@@ -5,8 +5,8 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
-using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Helpers;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Rarities;
 using ArcaneOdysseyMusic;
@@ -1203,7 +1203,7 @@ namespace ArcaneOdyssey
 					else
 					{
 						checklistfailed = true;
-						return BossesKilled;
+						return AOUtils.BossesKilled;
 					}
 				}
 				foreach (bool killed in conditions)

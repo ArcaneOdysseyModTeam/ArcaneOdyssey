@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -17,7 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = TrueMeleeNoSpeed();
+			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.knockBack = 4.5f;
 			Projectile.height = Projectile.width = 120;
 			Projectile.friendly = true;

@@ -1,8 +1,10 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
-using ArcaneOdyssey.Content.Projectiles;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common;
+using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Lost;
+using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare;
+using ArcaneOdyssey.Content.Projectiles.Helpers;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AOMagic : Imbuable, ILocalizedModType
+	public abstract class AOMagic : Imbuable
 	{
 		public override void SetStaticDefaults()
 		{
@@ -49,8 +51,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			Mutations.Clear();
 		}
-
-		public override string LocalizationCategory => base.LocalizationCategory + ".Magic." + ImbuableTier;
 
 		/// <summary>
 		/// Remove later

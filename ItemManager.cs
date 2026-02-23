@@ -1,14 +1,14 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Accessories.Vanity;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
 using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;

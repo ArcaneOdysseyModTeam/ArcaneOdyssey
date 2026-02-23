@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Content.Items.Weapons.Sunken;
+using ArcaneOdyssey.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
-using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
-using Microsoft.Xna.Framework;
-using ArcaneOdyssey.Content.Projectiles;
-using Terraria.Chat;
-using Terraria.Audio;
-using ArcaneOdyssey.Content.Items.Base;
 using Terraria.Localization;
-using ArcaneOdyssey.Content.Items.Weapons.Sunken;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+using Terraria.ModLoader;
+
 
 namespace ArcaneOdyssey.Content.NPCS
 {
@@ -119,7 +119,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			{
 				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"NPCs.{Name}.DeathCurse").ToNetworkText(), Color.DarkCyan);
 			}
-			if (ServerOrSingleplayer)
+			if (AOUtils.ServerOrSingleplayer)
 				Projectile.NewProjectile(NPC.GetSource_Death(), NPC.position + (NPC.Size / 2f), new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);
 			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet)
 			{
@@ -197,7 +197,7 @@ namespace ArcaneOdyssey.Content.NPCS
 				AddOption("DarkSeaWarning");
 			}
 
-			if (BossesKilled < 3)
+			if (AOUtils.BossesKilled < 3)
 			{
 				AddOption("Relics");
 				AddOption("Early1");
@@ -329,7 +329,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			}
 
 			AddOption("Water");
-			if (BossesKilled == 0)
+			if (AOUtils.BossesKilled == 0)
 			{
 				options.Add(Language.GetTextValue(this.GetLocalizationKey("Chat.Intro"), Player.name));
 				AddOption("Grave");
@@ -338,7 +338,7 @@ namespace ArcaneOdyssey.Content.NPCS
 			else
 				AddOption("Hello");
 			AddOption("AskHelp");
-			if (BossesKilled > 0 && !NPC.downedBoss3)
+			if (AOUtils.BossesKilled > 0 && !NPC.downedBoss3)
 			{
 				AddOption("OldManTalk");
 			}

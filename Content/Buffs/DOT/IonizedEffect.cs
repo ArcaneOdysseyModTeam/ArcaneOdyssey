@@ -1,9 +1,9 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Buffs.Helpers;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Buffs.Helpers;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {

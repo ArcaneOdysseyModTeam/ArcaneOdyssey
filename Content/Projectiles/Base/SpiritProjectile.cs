@@ -5,7 +5,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class SpiritProjectile : AOPlayerProjectile, IImbuable
 	{
-		public override string LocalizationCategory => "Imbues.Relics.Projectiles";
 		public override AODebuffRequirement? Debuff => null;
 
 		public override void SetDefaults()

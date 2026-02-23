@@ -1,8 +1,8 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Buffs.Base;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {

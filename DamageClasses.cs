@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey
 {
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{
 			if (damageClass == Melee || damageClass == Ranged || damageClass == Magic || damageClass == Summon)
-				return QuickInheritance(.2f);
+				return AOUtils.QuickInheritance(.2f);
 			if (damageClass == Generic)
 				return StatInheritanceData.Full;
 
@@ -66,11 +66,11 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass.CountsAsClass(Melee))
 			{
-				return MostInheritance;
+				return AOUtils.MostInheritance;
 			}
 			if (damageClass == Magic)
 			{
-				return QuarterInheritance;
+				return AOUtils.QuarterInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -91,11 +91,11 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass.CountsAsClass(Melee))
 			{
-				return MostInheritance with { attackSpeedInheritance = 1f };
+				return AOUtils.MostInheritance with { attackSpeedInheritance = 1f };
 			}
 			if (damageClass == Magic)
 			{
-				return QuarterInheritance with { attackSpeedInheritance = 1f };
+				return AOUtils.QuarterInheritance with { attackSpeedInheritance = 1f };
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -116,7 +116,7 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass.CountsAsClass(Melee))
 			{
-				return WarlordInheritance;
+				return AOUtils.WarlordInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -137,7 +137,7 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass.CountsAsClass(Melee))
 			{
-				return WarlordInheritance with { attackSpeedInheritance = 1f };
+				return AOUtils.WarlordInheritance with { attackSpeedInheritance = 1f };
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -158,11 +158,11 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass == Ranged)
 			{
-				return MostInheritance;
+				return AOUtils.MostInheritance;
 			}
 			if (damageClass == Magic)
 			{
-				return QuarterInheritance;
+				return AOUtils.QuarterInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -183,7 +183,7 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass == Ranged)
 			{
-				return WarlordInheritance;
+				return AOUtils.WarlordInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -204,11 +204,11 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass == Ranged)
 			{
-				return MostInheritance;
+				return AOUtils.MostInheritance;
 			}
 			if (damageClass.Name == OracleDamage.InternalName)
 			{
-				return QuarterInheritance;
+				return AOUtils.QuarterInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -229,11 +229,11 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass.CountsAsClass(Melee))
 			{
-				return MostInheritance;
+				return AOUtils.MostInheritance;
 			}
 			if (damageClass.Name == OracleDamage.InternalName)
 			{
-				return QuarterInheritance;
+				return AOUtils.QuarterInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -254,11 +254,11 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass.CountsAsClass(Melee))
 			{
-				return MostInheritance with { attackSpeedInheritance = 1f };
+				return AOUtils.MostInheritance with { attackSpeedInheritance = 1f };
 			}
 			if (damageClass.Name == OracleDamage.InternalName)
 			{
-				return QuarterInheritance with { attackSpeedInheritance = 1f };
+				return AOUtils.QuarterInheritance with { attackSpeedInheritance = 1f };
 			}
 			return base.GetModifierInheritance(damageClass);
 		}
@@ -292,11 +292,11 @@ namespace ArcaneOdyssey
 		{
 			if (damageClass.Name == OracleDamage.InternalName)
 			{
-				return HalfInheritance;
+				return AOUtils.HalfInheritance;
 			}
 			if (damageClass == Magic)
 			{
-				return HalfInheritance;
+				return AOUtils.HalfInheritance;
 			}
 			return base.GetModifierInheritance(damageClass);
 		}

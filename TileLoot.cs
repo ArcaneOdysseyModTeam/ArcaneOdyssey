@@ -1,5 +1,8 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
+﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common;
+using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Lost;
+using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -58,6 +61,7 @@ namespace ArcaneOdyssey
 			if (NPC.downedBoss2)
 			{
 				AddOption<BeamScroll>();
+				AddOption<HoverScroll>();
 			}
 
 			if (Main.hardMode)
@@ -84,7 +88,6 @@ namespace ArcaneOdyssey
 
 			AddOption<HoundRite>();
 			AddOption<WalkRite>();
-			AddOption<HoverScroll>();
 
 			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
 			{

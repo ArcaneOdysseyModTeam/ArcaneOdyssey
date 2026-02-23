@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.Base
 {
-	public abstract class GelBuff : ModBuff
+	public abstract class GelBuff : AOBaseBuff
 	{
 		public const int GelID = 99;
 

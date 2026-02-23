@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Projectiles.Base;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
 {

@@ -1,17 +1,16 @@
-using Terraria.ModLoader;
-using Terraria;
-using ArcaneOdyssey.Content.Projectiles.Pets;
 using ArcaneOdyssey.Content.Buffs.Pets;
-using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Items.Base;
-using Terraria.ID;
+using ArcaneOdyssey.Content.Projectiles.Pets;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Equipment.Pets
 {
-	public class ElfPetItem : AOBaseItem, ILocalizedModType
+	public class ElfPetItem : AOBaseItem
 	{
-		public override string LocalizationCategory => base.LocalizationCategory + ".Pets";
 		public override AORarities AORarity => AORarities.Special;
 
 		public override void SetDefaults()

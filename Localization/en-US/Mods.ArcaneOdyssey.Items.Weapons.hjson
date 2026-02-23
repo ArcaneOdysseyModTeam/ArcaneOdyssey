@@ -1,100 +1,22 @@
-SunkenStaff: {
-	DisplayName: Sunken Staff
-	Tooltip: It seems to constantly produce water
+Sunken: {
+	SunkenStaff: {
+		DisplayName: Sunken Staff
+		Tooltip: It seems to constantly produce water
 
-	Ability: {
-		DisplayName: Fury of the Sea
-		Description: Shoots blasts of water that pierce enemies
+		Ability: {
+			DisplayName: Fury of the Sea
+			Description: Shoots blasts of water that pierce enemies
+		}
 	}
-}
 
-SunkenSword: {
-	DisplayName: Sunken Sword
-	Tooltip: It seems to constantly produce water
+	SunkenSword: {
+		DisplayName: Sunken Sword
+		Tooltip: It seems to constantly produce water
 
-	Ability: {
-		DisplayName: Rising Tide
-		Description: Launch yourself upwards
-	}
-}
-
-BronzeFlintlock: {
-	DisplayName: Bronze Flintlock
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Multi Shot
-		Description: Shoots a spread of bullets
-	}
-}
-
-BronzeMusket: {
-	DisplayName: Bronze Musket
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Piercing Shot
-		Description: Converts Musket Balls to High Velocity Bullets
-	}
-}
-
-BronzeRapier: {
-	DisplayName: Bronze Rapier
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Piercing Strike
-		Description: Launch yourself towards the cursor, stabbing through any who cross your path
-	}
-}
-
-BronzeStaff: {
-	DisplayName: Bronze Staff
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Piercing Gale
-		Description: Shoots blasts of air that shred enemies
-	}
-}
-
-BronzeTrident: {
-	DisplayName: Bronze Trident
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Trident Throw
-		Description: Throw your weapon, leaving yourself unarmed
-	}
-}
-
-RavennaGreataxe: {
-	DisplayName: Ravenna Greataxe
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Devastate
-		Description: Use the weight of your weapon to slam downwards
-	}
-}
-
-RavennaGreatsword: {
-	DisplayName: Ravenna Greatsword
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Mountain Wind
-		Description: Swing your blade and unleash three tornados that spread out
-	}
-}
-
-RavennaSword: {
-	DisplayName: Ravenna Sword
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Whirlwind
-		Description: Spin your weapon around quickly, dealing damage to surrounding enemies
+		Ability: {
+			DisplayName: Rising Tide
+			Description: Launch yourself upwards
+		}
 	}
 }
 
@@ -105,6 +27,88 @@ BronzeTriasta: {
 	Ability: {
 		DisplayName: Ethereal Flash
 		Description: Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target
+	}
+}
+
+Bronze: {
+	BronzeFlintlock: {
+		DisplayName: Bronze Flintlock
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Multi Shot
+			Description: Shoots a spread of bullets
+		}
+	}
+
+	BronzeMusket: {
+		DisplayName: Bronze Musket
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Piercing Shot
+			Description: Converts Musket Balls to High Velocity Bullets
+		}
+	}
+
+	BronzeRapier: {
+		DisplayName: Bronze Rapier
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Piercing Strike
+			Description: Launch yourself towards the cursor, stabbing through any who cross your path
+		}
+	}
+
+	BronzeStaff: {
+		DisplayName: Bronze Staff
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Piercing Gale
+			Description: Shoots blasts of air that shred enemies
+		}
+	}
+
+	BronzeTrident: {
+		DisplayName: Bronze Trident
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Trident Throw
+			Description: Throw your weapon, leaving yourself unarmed
+		}
+	}
+
+	RavennaGreataxe: {
+		DisplayName: Ravenna Greataxe
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Devastate
+			Description: Use the weight of your weapon to slam downwards
+		}
+	}
+
+	RavennaGreatsword: {
+		DisplayName: Ravenna Greatsword
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Mountain Wind
+			Description: Swing your blade and unleash three tornados that spread out
+		}
+	}
+
+	RavennaSword: {
+		DisplayName: Ravenna Sword
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Whirlwind
+			Description: Spin your weapon around quickly, dealing damage to surrounding enemies
+		}
 	}
 }
 
@@ -123,77 +127,83 @@ CommodoreKaiSabre: {
 	Tooltip: ""
 }
 
-LionsHalberd: {
-	DisplayName: Lion's Halberd
-	Tooltip: ""
+Old: {
+	OldGreataxe: {
+		DisplayName: Old Greataxe
+		Tooltip: ""
+	}
 
-	Ability: {
-		DisplayName: Seismic Slash
-		Description: Slam into the ground, then upearth and launch a rock towards your cursor
+	OldGreatsword: {
+		DisplayName: Old Greatsword
+		Tooltip: ""
+	}
+
+	OldRapier: {
+		DisplayName: Old Rapier
+		Tooltip: ""
+	}
+
+	OldSword: {
+		DisplayName: Old Sword
+		Tooltip: ""
+	}
+
+	WoodenStaff: {
+		DisplayName: Wooden Staff
+		Tooltip: ""
 	}
 }
 
-OldGreataxe: {
-	DisplayName: Old Greataxe
-	Tooltip: ""
-}
+RavennaLion: {
+	LanceofLoyalty: {
+		DisplayName: Lance of Loyalty
+		Tooltip: ""
 
-OldGreatsword: {
-	DisplayName: Old Greatsword
-	Tooltip: ""
-}
+		Ability: {
+			DisplayName: Raging Impact
+			Description: Colliding with a target at high speed creates a shockwave that damages enemies
+		}
+	}
 
-OldRapier: {
-	DisplayName: Old Rapier
-	Tooltip: ""
-}
+	LionsHalberd: {
+		DisplayName: Lion's Halberd
+		Tooltip: ""
 
-OldSword: {
-	DisplayName: Old Sword
-	Tooltip: ""
-}
-
-WoodenStaff: {
-	DisplayName: Wooden Staff
-	Tooltip: ""
-}
-
-StormCaller: {
-	DisplayName: Storm Caller
-	Tooltip: ""
-
-	Ability: {
-		DisplayName: Storm of Arrows
-		Description: Allows arrows to fall from the sky above the cursor
+		Ability: {
+			DisplayName: Seismic Slash
+			Description: Slam into the ground, then upearth and launch a rock towards your cursor
+		}
 	}
 }
 
-ScimitarofStorm: {
-	DisplayName: Scimitars of Storm
-	Tooltip: ""
+RavennaNoble: {
+	StormCaller: {
+		DisplayName: Storm Caller
+		Tooltip: ""
 
-	Ability: {
-		DisplayName: Twin Crescents
-		Description: Slash both blades one after the other, sending two flying slashes towards the target
+		Ability: {
+			DisplayName: Storm of Arrows
+			Description: Allows arrows to fall from the sky above the cursor
+		}
 	}
-}
 
-NobleThunderspear: {
-	DisplayName: Noble Thunderspear
-	Tooltip: ""
+	ScimitarofStorm: {
+		DisplayName: Scimitars of Storm
+		Tooltip: ""
 
-	Ability: {
-		DisplayName: Sparrow Thrust
-		Description: Use the blade and length of the spear to deliver a powerful thrust
+		Ability: {
+			DisplayName: Twin Crescents
+			Description: Slash both blades one after the other, sending two flying slashes towards the target
+		}
 	}
-}
 
-LanceofLoyalty: {
-	DisplayName: Lance of Loyalty
-	Tooltip: ""
+	NobleThunderspear: {
+		DisplayName: Noble Thunderspear
+		Tooltip: ""
 
-	Ability: {
-		DisplayName: Raging Impact
-		Description: Colliding with a target at high speed creates a shockwave that damages enemies
+		Ability: {
+			DisplayName: Sparrow Thrust
+			Description: Use the blade and length of the spear to deliver a powerful thrust
+		}
 	}
 }

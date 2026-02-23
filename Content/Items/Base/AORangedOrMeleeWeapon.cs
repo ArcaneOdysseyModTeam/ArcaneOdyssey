@@ -4,11 +4,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AORangedOrMeleeWeapon : AOBaseItem, ILocalizedModType, IImbuable
+	public abstract class AORangedOrMeleeWeapon : AOBaseItem, IImbuable
 	{
 		public float ApplyScrollSpeed(float value, bool flipfloat = false)
 		{
@@ -51,7 +50,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		public override ItemType? ItemCategory => ItemType.Weapon;
-		public override string LocalizationCategory => "Items.Weapons";
 
 		public virtual WeaponType WeaponsType => WeaponType.Normal;
 
@@ -90,9 +88,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.useTime = Item.useAnimation = (27 * AOSpeed.FlipFloat()).Round();
 			Item.knockBack = 4.5f * (AOSize * AOSize);
 			Item.scale = AOSize;
-			Item.value = GalleonToCopper(AOValue);
+			Item.value = AOUtils.GalleonToCopper(AOValue);
 			Item.UseSound = UseSound with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
-			Item.damage = (int)Math.Round(WeaponDamage(AOWeaponTier) * AODamage);
+			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(AOWeaponTier) * AODamage);
 			Item.DamageType = DamageClass.Melee;
 		}
 	}

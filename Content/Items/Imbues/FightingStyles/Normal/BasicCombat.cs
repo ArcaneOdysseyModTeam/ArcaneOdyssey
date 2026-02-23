@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using Terraria;
-using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {

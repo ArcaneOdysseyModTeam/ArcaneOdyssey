@@ -1,13 +1,14 @@
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
+
 namespace ArcaneOdyssey.Content.Projectiles.Pets
 {
-	public class ElfPetProjectile : ModProjectile
+	public class ElfPetProjectile : AOBaseProjectile
 	{
 		private Vector2 targetPosition;
 		private bool wasThereABoss = false;

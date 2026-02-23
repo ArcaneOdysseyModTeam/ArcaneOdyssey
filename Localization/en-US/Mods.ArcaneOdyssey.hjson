@@ -266,43 +266,48 @@ CodebreakerDialogOption: {
 }
 
 Projectiles: {
-	EvanderMelee.DisplayName: Colossal Greatsword
-	EvanderSlash.DisplayName: Colossal Cleave
-	LeapFix.DisplayName: Leap Spell
-	ExplosionTracker.DisplayName: Explosion Spell
-	MagicCircle1.DisplayName: Magic Circle
-	MagicCircle2.DisplayName: Magic Circle
-	ElfPetProjectile.DisplayName: Aether
-	FuryoftheSea.DisplayName: Fury of the Sea
-	PiercingStrikesProjectile.DisplayName: Bronze Rapier
-	BronzeStaffProjectile.DisplayName: Bronze Staff
-	BronzeTridentProjectile.DisplayName: Bronze Trident
-	KatanaSlash.DisplayName: Slash
-	OldTridentProjectile.DisplayName: Old Trident
-	SunkenStaffProjectile.DisplayName: Sunken Staff
-	WoodenStaffProjectile.DisplayName: Wooden Staff
-	BronzeTriastaProjectile.DisplayName: Triasta of Bronze
-	SeismicSlashRock.DisplayName: Seismic Slash
-	BronzeRapierProjectile.DisplayName: Bronze Rapier
-	PrismLinger.DisplayName: Prism Magic Shards
+	Enemies: {
+		DuskHound.DisplayName: Spirit Hound
+		DuskRaincloud.DisplayName: Spirit Rain
+		DuskRaindrop.DisplayName: Spirit Raindrop
+		EvanderMelee.DisplayName: Colossal Greatsword
+		EvanderSlash.DisplayName: Colossal Cleave
+		LaelusBlast.DisplayName: Spirit Blast
+		LaelusExplosion.DisplayName: Spirit Burst
+	}
+
+	Pets.ElfPetProjectile.DisplayName: Elf Pet Projectile
+
+	Weapons: {
+		Abilities: {
+			BronzeRapierProjectile.DisplayName: Bronze Rapier
+			ColossalCleave.DisplayName: Colossal Cleave
+			FuryoftheSea.DisplayName: Fury of the Sea
+			KatanaSlash.DisplayName: Slash
+			MountainWind.DisplayName: Mountain Wind
+			PiercingGale.DisplayName: Piercing Gale
+			SeismicSlashRock.DisplayName: Seismic Slash
+			SparrowThrust.DisplayName: Sparrow Thrust
+			TwinCrescent.DisplayName: Twin Crescent
+			Whirlwind.DisplayName: Whirlwind
+		}
+
+		BronzeStaffProjectile.DisplayName: Bronze Staff
+		BronzeTriastaProjectile.DisplayName: Bronze Triasta
+		BronzeTridentProjectile.DisplayName: Bronze Trident
+		LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
+		NobleThunderspearProjectile.DisplayName: Noble Thunderspear
+		SunkenStaffProjectile.DisplayName: Sunken Staff
+		WoodenStaffProjectile.DisplayName: Wooden Staff
+	}
+
+	Helpers: {
+		MagicCircle1.DisplayName: Magic Circle
+		MagicCircle2.DisplayName: Magic Circle
+	}
+
 	DeathCurse.DisplayName: Death Curse
-	AetherExplosion.DisplayName: Aether Explosion
-	FrostmetalShard.DisplayName: Frostmetal Shard
-	PowderExplosion.DisplayName: Powder Explosion
-	ColossalCleave.DisplayName: Colossal Cleave
-	MountainWind.DisplayName: Mountain Wind
-	PiercingGale.DisplayName: Piercing Gale
-	Whirlwind.DisplayName: Whirlwind
-	ProminenceProjectile.DisplayName: Prominent Sun
-	TwinCrescent.DisplayName: Twin Crescent
-	NobleThunderspearProjectile.DisplayName: Noble Thunderspear
-	SparrowThrust.DisplayName: Sparrow Thrust
-	DuskHound.DisplayName: Spirit Hound
-	LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
-	DuskRaincloud.DisplayName: Spirit Raincloud
-	DuskRaindrop.DisplayName: Spirit Raindrop
-	LaelusBlast.DisplayName: Spirit Blast
-	LaelusExplosion.DisplayName: Spirit Burst
+	LeapFix.DisplayName: Leap Spell
 }
 
 Achievements: {

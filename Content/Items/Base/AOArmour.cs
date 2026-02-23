@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
 	/// <summary>
 	/// also works as an accessory
 	/// </summary>
-	public abstract class AOArmour : AOBaseItem, ILocalizedModType
+	public abstract class AOArmour : AOBaseItem
 	{
-		public override string LocalizationCategory => Item.accessory ? "Items.Accessories" : "Items.Armour";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		/// <summary>
@@ -141,7 +139,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			base.SetDefaults();
 			Item.defense = AODefense.FromAODefense();
-			Item.value = GalleonToCopper(AOValue);
+			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

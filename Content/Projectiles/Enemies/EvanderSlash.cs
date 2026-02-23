@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
-	public class EvanderSlash : ModProjectile
+	public class EvanderSlash : AOBaseProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<ColossalCleave>();
 

@@ -1,12 +1,13 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
-	public class LaelusExplosion : ModProjectile
+	public class LaelusExplosion : AOBaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()

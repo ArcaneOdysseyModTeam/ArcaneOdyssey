@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -7,10 +7,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class Scroll : AOBaseItem, IImbuable, ILocalizedModType
+	public abstract class Scroll : AOBaseItem, IImbuable
 	{
 		public override bool ShowItemTypeTooltip => false;
-		public override string LocalizationCategory => "Scrolls." + Tier;
 
 		public abstract ScrollTier Tier { get; }
 

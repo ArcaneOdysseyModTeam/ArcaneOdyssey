@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class BlastSpell : MagicSpell, ILocalizedModType
+	public abstract class BlastSpell : MagicSpell
 	{
 		// ai 2 is first frame bool
-
-		public override string LocalizationCategory => base.LocalizationCategory + ".Blasts." + Tier;
 
 		public override float AOSize => .4f;
 

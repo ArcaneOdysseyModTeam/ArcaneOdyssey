@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 	/// <summary>
 	/// nobody will tell its a custom debuff thats the point lol
 	/// </summary>
-	public abstract class Stun : ModBuff
+	public abstract class Stun : AOBaseBuff
 	{
 		/// <summary>
 		/// literally just for custom magics

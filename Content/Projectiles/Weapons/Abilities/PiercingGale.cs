@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities

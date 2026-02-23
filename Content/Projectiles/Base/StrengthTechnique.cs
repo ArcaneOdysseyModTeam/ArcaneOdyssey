@@ -4,9 +4,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class StrengthTechnique : AOPlayerProjectile, ILocalizedModType
+	public abstract class StrengthTechnique : AOPlayerProjectile
 	{
-		public override string LocalizationCategory => "Imbues.FightingStyles.Projectiles";
 		public override AODebuffRequirement? Debuff => null;
 		public override void SetDefaults()
 		{

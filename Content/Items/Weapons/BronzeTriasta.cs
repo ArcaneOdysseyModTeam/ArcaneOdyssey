@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			base.SetDefaults();
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.shootSpeed = BaseSpearProjectile.Speed;
 			Item.noUseGraphic = true;
 			Item.width = Item.height = 52;
@@ -85,6 +85,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class EtherealFlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetTexture<BronzeTriasta>();
+		public override string ExtraIconTexture => AOUtils.GetTexture<BronzeTriasta>();
 	}
 }

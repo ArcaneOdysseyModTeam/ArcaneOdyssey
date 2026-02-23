@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 1.1f;
 
-		public override SynergyEffects Effects => CopyDamageSynergiesFromImbue<ShadowMagic>();
+		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<ShadowMagic>();
 
 		public override void SetStaticDefaults()
 		{
@@ -55,9 +55,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			for (float i = 0; i < 30; i++)
 			{
 				var centre = (MathHelper.TwoPi / 30 * i).ToRotationVector2() * 20 * area.RelativeScale();
-				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
-				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
-				NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Alpha: 255 / 4, Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (14 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), DustID.IcyMerman, centre * area.RelativeScale() / (15 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Alpha: 255 / 4, Scale: area.RelativeScale()).noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

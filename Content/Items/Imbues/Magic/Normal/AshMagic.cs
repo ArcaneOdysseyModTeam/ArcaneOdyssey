@@ -8,7 +8,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -105,7 +104,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			{
 				for (int n = 0; n < 10; n++)
 				{
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + AOUtils.BossesKilled, 0f);
 				}
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

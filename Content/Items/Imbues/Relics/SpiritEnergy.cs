@@ -8,12 +8,11 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 {
-	public class SpiritEnergy : Imbuable, ILocalizedModType
+	public class SpiritEnergy : Imbuable
 	{
 		public override Color ImbueColour => SpiritColor;
 		public static Color SpiritColor => new(0, 183, 255);
 
-		public override string LocalizationCategory => base.LocalizationCategory + ".Relics";
 		public virtual int AOValue => 0;
 
 		public override SoundStyle? ImbueSound => SoundID.NPCDeath6;

@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 	/// <summary>
 	/// basic debuff for things like Snowy
 	/// </summary>
-	public abstract class AODebuff : ModBuff
+	public abstract class AODebuff : AOBaseBuff
 	{
 		public override void SetStaticDefaults()
 		{

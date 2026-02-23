@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.BossTrophies;
-using ArcaneOdyssey.Content.Items.Equipment.Accessories;
+﻿using ArcaneOdyssey.Content.Items.Accessories;
+using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;

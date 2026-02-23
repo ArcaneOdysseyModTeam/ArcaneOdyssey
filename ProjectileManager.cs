@@ -10,13 +10,12 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
-using System.Diagnostics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey
 {
@@ -139,7 +138,7 @@ namespace ArcaneOdyssey
 			mult *= player.ArcaneOdyssey().SizeMulti;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				ScaleRectangle(ref hitbox, mult);
+				AOUtils.ScaleRectangle(ref hitbox, mult);
 				projectile.scale = mult;
 			}
 		}
@@ -246,8 +245,8 @@ namespace ArcaneOdyssey
 				}
 			}
 
-			modifiers = CalculateImbueDamage(Imbue, target, modifiers);
-			modifiers = CalculateImbueDamage(SecondImbue, target, modifiers);
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+			modifiers = AOUtils.CalculateImbueDamage(SecondImbue, target, modifiers);
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -263,7 +262,7 @@ namespace ArcaneOdyssey
 				projectile.velocity *= proj1.AOSpeed;
 			}
 
-			if (ImbueClassCheck(projectile))
+			if (AOUtils.ImbueClassCheck(projectile))
 			{
 				if (source is EntitySource_Parent { Entity: Projectile proj })
 				{

@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.UI.ImbueChange;
 
@@ -42,9 +42,9 @@ public partial class ImbueChangeUI : BaseImbueUI
 			int eagle = ModContent.ItemType<EaglePatrimony>();
 
 			// Spoky (2026 February 20): I keep forgetting the values inside GetEnumValues are the exceptions
-			if (itemID == eagle) return GetEnumValues([MagicTypes.None, MagicTypes.HeHasAcceptedChristInHisHeart]);
-			else if (player.HasItem(eagle)) return GetEnumValues([MagicTypes.None, MagicTypes.MonkLife]);
-			else return GetEnumValues([MagicTypes.None, MagicTypes.HeHasAcceptedChristInHisHeart]);
+			if (itemID == eagle) return AOUtils.GetEnumValues([MagicTypes.None, MagicTypes.HeHasAcceptedChristInHisHeart]);
+			else if (player.HasItem(eagle)) return AOUtils.GetEnumValues([MagicTypes.None, MagicTypes.MonkLife]);
+			else return AOUtils.GetEnumValues([MagicTypes.None, MagicTypes.HeHasAcceptedChristInHisHeart]);
 		}
 	}
 

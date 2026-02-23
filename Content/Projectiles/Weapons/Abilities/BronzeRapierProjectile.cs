@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class BronzeRapierProjectile : AOPlayerProjectile
 	{
-		public override string Texture => GetTexture<BronzeRapier>();
+		public override string Texture => AOUtils.GetTexture<BronzeRapier>();
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;
 
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 46;
 			Projectile.friendly = true;
-			Projectile.DamageType = TrueMeleeNoSpeed();
+			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.penetrate = -1;
 			Projectile.timeLeft = 35;
 			Projectile.tileCollide = false;
@@ -85,6 +85,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 	public class PiercingStrikesCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetTexture<BronzeRapier>();
+		public override string ExtraIconTexture => AOUtils.GetTexture<BronzeRapier>();
 	}
 }

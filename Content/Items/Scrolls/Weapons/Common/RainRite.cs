@@ -1,0 +1,32 @@
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Relics;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
+{
+	public class RainRite : CommonScroll
+	{
+		public override bool CanHaveRelic => true;
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.useTime = Item.useAnimation = 30;
+			Item.damage = 18;
+			Item.knockBack = 0f;
+			Item.DamageType = OracleDamage.Instance;
+			Item.shoot = ModContent.ProjectileType<SpiritRaincloud>();
+			Item.shootSpeed = 1f;
+		}
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			velocity = -Vector2.UnitY * 5f;
+			damage /= 10;
+		}
+
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+	}
+}

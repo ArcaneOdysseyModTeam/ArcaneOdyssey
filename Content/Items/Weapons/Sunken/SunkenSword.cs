@@ -1,14 +1,14 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Weapons.Bronze;
+using ArcaneOdyssey.PlayerClasses;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using System;
-using static ArcaneOdyssey.AOUtils;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using Terraria.ModLoader;
-using ArcaneOdyssey.PlayerClasses;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 {
@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 			Item.width = 50;
 			Item.height = 54;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.autoReuse = true;
 		}
 
@@ -103,7 +103,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 
 	public class RisingTideCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetTexture<SunkenSword>();
+		public override string ExtraIconTexture => AOUtils.GetTexture<SunkenSword>();
 	}
 
 }
