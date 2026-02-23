@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 
@@ -78,24 +79,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 		}
 
-		public float BaseScale
-		{
-			get
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
-					return Projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-				else
-					return Projectile.scale;
-			}
-			set
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
-					Projectile.ArcaneOdyssey().BaseScale = value;
-				else
-					Projectile.scale = value;
-			}
-		}
-
 		public Imbuable Imbue
 		{
 			get => Projectile.ArcaneOdyssey()?.Imbue;
@@ -112,8 +95,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void SetDefaults()
 		{
-			Projectile.scale = AOSize;
-			BaseScale = AOSize;
+			Projectile.scale *= AOSize;
 		}
 
 		public virtual float AOSpeed => 1f;

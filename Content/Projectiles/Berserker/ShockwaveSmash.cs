@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 					Kill();
 				}
 			}
-			BaseScale += .2f / 3;
+			Projectile.scale += .2f / 3;
 
 			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
 			{

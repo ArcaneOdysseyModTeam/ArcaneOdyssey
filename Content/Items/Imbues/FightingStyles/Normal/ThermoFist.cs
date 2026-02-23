@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.Orange;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 
-		public override bool CanBeWet => false;
+		public override float BarValueMulti => 1f;
 
 		public override float MaxImbueSpeed => 1.3f;
 		public override float MaxImbueDamage => .85f;

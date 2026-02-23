@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.CornflowerBlue;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
-
+		public override float BarValueMulti => 1.25f;
 		public override float MaxImbueSpeed => 1f;
 		public override float MaxImbueDamage => .925f;
 		public override float MaxImbueSize => 1.278f;

@@ -482,6 +482,7 @@ namespace ArcaneOdyssey
 				}
 				switch (item.type)
 				{
+					case ItemID.Anchor:
 					case ItemID.BreakerBlade:
 						WeaponsType = WeaponType.Strength;
 						break;

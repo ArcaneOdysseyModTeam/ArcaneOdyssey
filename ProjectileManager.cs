@@ -106,43 +106,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
-		{
-			thisProjectile = projectile;
-			if (projectile.hostile || projectile.npcProj || Main.myPlayer != projectile.owner || projectile.owner == 255 || (projectile.damage <= 0 && projectile.ModProjectile is not AOPlayerProjectile) || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
-				return;
-			Player player = Main.player[projectile.owner];
-			float mult = BaseScale.GetValueOrDefault(projectile.scale);
-			if (Imbue is not null)
-			{
-				if (BenifitsFromScrollStats.HasValue)
-				{
-					if (BenifitsFromScrollStats.Value)
-					{
-						mult *= Imbue.AOScrollSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.AOScrollSize;
-						}
-					}
-					else
-					{
-						mult *= Imbue.AOImbueSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.AOImbueSize;
-						}
-					}
-				}
-			}
-			mult *= player.ArcaneOdyssey().SizeMulti;
-			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-			{
-				AOUtils.ScaleRectangle(ref hitbox, mult);
-				projectile.scale = mult;
-			}
-		}
-
 		public override void SetDefaults(Projectile projectile)
 		{
 			thisProjectile = projectile;
@@ -153,25 +116,6 @@ namespace ArcaneOdyssey
 		}
 
 		public override bool InstancePerEntity => true;
-
-		private float? _basescale = null;
-		public float? BaseScale
-		{
-			get
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-					return _basescale.GetValueOrDefault(1f);
-				else
-					return thisProjectile.scale;
-			}
-			set
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-					_basescale = value;
-				else
-					thisProjectile.scale = value.GetValueOrDefault(1f);
-			}
-		}
 
 		public Imbuable Imbue { get; set; }
 		public Imbuable SecondImbue { get; set; }
@@ -252,10 +196,8 @@ namespace ArcaneOdyssey
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			thisProjectile = projectile;
-			if (!CanBeAffected)
+			if (!CanBeAffected || projectile.hostile || projectile.owner == 255 || !projectile.active || projectile.npcProj || projectile.trap)
 				return;
-
-			BaseScale ??= projectile.scale;
 
 			if (projectile.ModProjectile is AOPlayerProjectile proj1 && !projectile.DamageType.CountsAsClass<MeleeNoSpeedDamageClass>())
 			{
@@ -314,15 +256,42 @@ namespace ArcaneOdyssey
 				}
 				projectile.DamageType = projectile.DamageType.Imbued(Imbue);
 			}
+
+			float mult = 1f;
+
+			if (Imbue is not null)
+			{
+				if (BenifitsFromScrollStats.HasValue)
+				{
+					if (BenifitsFromScrollStats.Value)
+					{
+						mult *= Imbue.AOScrollSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOScrollSize;
+						}
+					}
+					else
+					{
+						mult *= Imbue.AOImbueSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOImbueSize;
+						}
+					}
+				}
+			}
+			mult *= Main.player[projectile.owner].ArcaneOdyssey().SizeMulti;
+			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				projectile.Hitbox = AOUtils.ScaleRectangleNotRef(projectile.Hitbox, mult);
+				projectile.scale *= mult;
+			}
 		}
 
 		public override bool PreAI(Projectile projectile)
 		{
 			thisProjectile = projectile;
-			if (CanBeAffected)
-			{
-				BaseScale ??= projectile.scale;
-			}
 			return true;
 		}
 

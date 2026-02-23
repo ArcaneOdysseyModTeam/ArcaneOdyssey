@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public override void AI()
 		{
 			var size = isPlacedExplosion ? 1f : 1.2f;
-			AOPlayerOwner.myCircle.scale = AOPlayerOwner.myCircle.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f) * charge * Imbue.AOScrollSize * (size * (3f / 4f));
+			AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f));
 			if (Projectile.position != Projectile.oldPosition)
 			{
 				if (Projectile.owner == Main.myPlayer)

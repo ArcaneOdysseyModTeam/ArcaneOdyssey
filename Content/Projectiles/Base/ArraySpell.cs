@@ -167,7 +167,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 						var targetnpc = Main.npc[target];
 						if (ArcaneOdysseyConfig.Instance.PredictiveArray)
 						{
-							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * 40f)).ToRotation();
+							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * ApplyScrollSpeed(40f, true))).ToRotation();
 						}
 						else
 						{

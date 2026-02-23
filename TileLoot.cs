@@ -32,6 +32,22 @@ namespace ArcaneOdyssey
 					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllLostScrollDrops()));
 				}
 			}
+
+			if (ExternalModSupport.HasCalamity && ExternalModSupport.Calamity.TryFind<ModTile>("AbyssalPots", out var tile) && type == tile.Type)
+			{
+				if (Player.GetClosestRollLuck(i, j, 50) == 0)
+				{
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllCommonScrollDrops()));
+				}
+				if (AOUtils.BossesKilled > 0 && Player.GetClosestRollLuck(i, j, 150) == 0)
+				{
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllRareScrollDrops()));
+				}
+				if (Main.hardMode && Player.GetClosestRollLuck(i, j, 300) == 0)
+				{
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllLostScrollDrops()));
+				}
+			}
 		}
 
 		/// <summary>
@@ -64,10 +80,14 @@ namespace ArcaneOdyssey
 				AddOption<HoverScroll>();
 			}
 
+			if (NPC.downedBoss3)
+			{
+				AddOption<AuraScroll>();
+			}
+
 			if (Main.hardMode)
 			{
 				AddOption<ShotScroll>();
-				AddOption<AuraScroll>();
 			}
 
 			return [.. options];
