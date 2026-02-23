@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Equipment.Pets
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.shoot = ModContent.ProjectileType<ElfPetProjectile>();
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.buffType = ModContent.BuffType<ElfPetBuff>();

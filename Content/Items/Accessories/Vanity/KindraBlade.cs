@@ -38,6 +38,7 @@ namespace ArcaneOdyssey.Content.Items.Accessories.Vanity
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = 26;
 			Item.height = 38;
 			Item.accessory = true;
