@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 	public class Boxing : FightingStyle
 	{
 		public override float Aura => 1.25f;
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 2f;
 		public override void SetStaticDefaults()
 		{

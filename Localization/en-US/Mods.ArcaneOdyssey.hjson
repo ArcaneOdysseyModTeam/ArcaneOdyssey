@@ -275,7 +275,7 @@ Projectiles: {
 		LaelusExplosion.DisplayName: Spirit Burst
 	}
 
-	Pets.ElfPetProjectile.DisplayName: Elf Pet Projectile
+	Pets.ElfPetProjectile.DisplayName: Aether
 
 	Weapons: {
 		Abilities: {
@@ -300,14 +300,14 @@ Projectiles: {
 		WoodenStaffProjectile.DisplayName: Wooden Staff
 	}
 
-	Helpers: {
-		MagicCircle1.DisplayName: Magic Circle
-		MagicCircle2.DisplayName: Magic Circle
-		MagicCircle3.DisplayName: Magic Circle3
-	}
-
-	DeathCurse.DisplayName: Death Curse
+	DeathCurse.DisplayName: The Death Curse
 	LeapFix.DisplayName: Leap Spell
+
+	Helpers: {
+		BarrageMagicCircle.DisplayName: Magic Circle
+		BasicMagicCircle.DisplayName: Magic Circle
+		RotatingMagicCircle.DisplayName: Magic Circle
+	}
 }
 
 Achievements: {

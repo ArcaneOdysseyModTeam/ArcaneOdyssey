@@ -58,4 +58,5 @@ Relics: {
 
 SteamImbue: {
 	DisplayName: Steam Imbue
+	Tooltip: ""
 }

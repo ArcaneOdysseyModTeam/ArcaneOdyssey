@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 {
 	public class IonMagic : AOMagic
 	{
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override bool? Cold => false;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.Item91;

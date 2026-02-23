@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Projectiles.Helpers
 {
-	public class MagicCircle1 : BaseMagicCircle
+	public class BasicMagicCircle : BaseMagicCircle
 	{
 		public int ChargingProjectile;
 		public float charge = 1f;

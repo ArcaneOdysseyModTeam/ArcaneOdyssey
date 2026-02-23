@@ -5,9 +5,8 @@ using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Helpers
 {
-	public class MagicCircle2 : BaseMagicCircle
+	public class RotatingMagicCircle : BaseMagicCircle
 	{
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

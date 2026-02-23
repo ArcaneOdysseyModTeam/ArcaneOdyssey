@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	public class StormMagic : AOMagic
 	{
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 1.25f;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => Color.Gray;

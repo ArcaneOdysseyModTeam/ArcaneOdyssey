@@ -5,13 +5,12 @@ using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Helpers
 {
-	public class MagicCircle3 : BaseMagicCircle
+	public class BarrageMagicCircle : BaseMagicCircle
 	{
 		public int ChargingProjectile;
-		public int ManaCost;
 		public float ProjectileSpread = 0;
 
-		public override string Texture => AOUtils.GetTexture<MagicCircle1>();
+		public override string Texture => AOUtils.GetTexture<BasicMagicCircle>();
 
 		public override void SetStaticDefaults()
 		{
@@ -67,9 +66,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 
 				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
 
-				if (Main.myPlayer == Projectile.owner && ChargingProjectile != 0 && Main.GameUpdateCount % ApplyScrollSpeed(30, true).Round() == 0)
+				if (Main.myPlayer == Projectile.owner && ChargingProjectile != 0 && Main.GameUpdateCount % ApplyScrollSpeed(Owner.itemAnimationMax, true).Round() == 0)
 				{
-					if (Owner.CheckMana(ManaCost, true))
+					if (Owner.CheckMana(Owner.GetManaCost(Owner.PlayerItem()), true))
 					{
 						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 					}

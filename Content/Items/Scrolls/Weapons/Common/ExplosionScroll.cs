@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
 			}
 			else
 			{
-				Projectile.NewProjectile(source, player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
+				Projectile.NewProjectile(source, player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
 				Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SpiritExplosion>(), damage, knockback, player.whoAmI);
 			}
 			return false;

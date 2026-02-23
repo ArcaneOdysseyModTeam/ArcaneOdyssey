@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare
 			Item.DamageType = DamageClass.Magic;
 			Item.shootSpeed = 7;
 			Item.channel = true;
+			Item.useTime = Item.useAnimation = 10;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
