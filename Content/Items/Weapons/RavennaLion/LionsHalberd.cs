@@ -2,7 +2,9 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -59,10 +61,30 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 
 		public override bool OnHit(Player player, Entity target) => true;
 
+		public SlotId? sound = null;
+
 		public override void DashEffect(Player player)
 		{
 			if (player.itemAnimation < 8 || player.itemTime < 8)
 				player.itemAnimation = player.itemTime = 7;
+
+			if (player.ArcaneOdyssey().DashLeft < (DashMax - 30))
+			{
+				if (!Main.dedServ)
+				{
+					if (!sound.HasValue)
+					{
+						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = -.25f }, player.Center);
+					}
+					else
+					{
+						if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+						{
+							activeSound.Position = player.Center;
+						}
+					}
+				}
+			}
 		}
 
 		public override bool ExtraCheck(Player player) => !player.wet;
@@ -70,6 +92,16 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
+			if (!Main.dedServ)
+				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
+
+			if (sound.HasValue)
+			{
+				if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+				{
+					activeSound.Stop();
+				}
+			}
 		}
 
 		public override void NaturalEnd(Player player)

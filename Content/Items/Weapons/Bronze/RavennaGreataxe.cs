@@ -4,7 +4,9 @@ using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -74,7 +76,27 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.itemAnimation < 8 || player.itemTime < 8)
 				player.itemAnimation = player.itemTime = 7;
+
+			if (player.ArcaneOdyssey().DashLeft < (DashMax - 30))
+			{
+				if (!Main.dedServ)
+				{
+					if (!sound.HasValue)
+					{
+						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = -.25f }, player.Center);
+					}
+					else
+					{
+						if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+						{
+							activeSound.Position = player.Center;
+						}
+					}
+				}
+			}
 		}
+
+		public SlotId? sound = null;
 
 		public override bool ExtraCheck(Player player) => !player.wet;
 
@@ -86,6 +108,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			{
 				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.PlayerItem()), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());
 				gore1.Centre(player.Top);
+				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
+			}
+			if (sound.HasValue)
+			{
+				if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+				{
+					activeSound.Stop();
+				}
 			}
 			// Vfx
 		}

@@ -338,8 +338,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoDebuffs").Value));
 				}
-
-				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else
 			{
@@ -356,7 +354,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					var debufftext = Mod.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
 					foreach (var debuff in CombinedDebuffs)
 					{
-						if (debuff.result != CombinedDebuffs[0].result)
+						if (debuff.requirement != CombinedDebuffs[0].requirement)
 						{
 							aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(debuff.requirement), AOUtils.GetBuffName(debuff.result));
 							debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
@@ -368,9 +366,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoCombinedDebuffs").Value));
 				}
-
-				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
+			tooltips.AddTooltip(new(Mod, "ShiftNotice", Mod.CustomLocalization("ImbueStuff.ShiftNotice").Value));
 
 			if (TooltipsPrefix is not null)
 				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));

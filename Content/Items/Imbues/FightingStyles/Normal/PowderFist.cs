@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
 using Microsoft.Xna.Framework;
@@ -18,18 +20,38 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
-		public override float AOImbueDamage => 1.085f;
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.056f;
-		public override float AOScrollDamage => 0.7f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
+		public override float AOImbueDamage => Main.rand.NextFloat(0.85f, 1.17f);
+		public override float AOImbueSpeed => .9f;
+		public override float AOImbueSize => Main.rand.NextFloat(1.11f, 1.25f);
+		public override float AOScrollDamage => Main.rand.NextFloat(0.7f, .96f);
+		public override float AOScrollSize => Main.rand.NextFloat(1.05f, 1.19f);
+		public override float AOScrollSpeed => .9f;
+
+		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<SearedEffect>(), ModContent.BuffType<AOPetrified>())];
 
 		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
-			[],
 			[
-				new(ModContent.BuffType<Crystallized>(),1.1f)
+				BuffID.Wet,
+				ModContent.BuffType<FreezingEffect>(),
+				ModContent.BuffType<AOFrozen>(),
+				ModContent.BuffType<AOParalyzed>(),
+				ModContent.BuffType<AOPetrified>(),
+				ModContent.BuffType<AOScalding>(),
+				BuffID.OnFire,
+				ModContent.BuffType<SearedEffect>(),
+			],
+			[
+				new(ModContent.BuffType<AOPetrified>(), 1.1f),
+				new(ModContent.BuffType<AOScalding>(), 1.1f),
+				new(BuffID.OnFire, 1.1f),
+				new(ModContent.BuffType<SearedEffect>(), 1.1f),
+				new(BuffID.Venom, 1.1f),
+				new(ModContent.BuffType<SandyEffect>(), 1.1f),
+				new(BuffID.OnFire3, 1.1f),
+				new(BuffID.Wet, .9f),
+				new(ModContent.BuffType<FreezingEffect>(), .9f),
+				new(ModContent.BuffType<SnowyEffect>(), .8f),
 			]
 		);
 

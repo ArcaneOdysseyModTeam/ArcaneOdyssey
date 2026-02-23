@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -25,18 +26,75 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.DamageType = DamageClass.Melee;
 		}
 
+		public SlotId? sound = null;
+
 		public override void AI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
-			if (++Projectile.frameCounter > 10)
+			if (Projectile.ai[0] == 0)
 			{
+				Projectile.ai[0] = 1;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
+			}
+
+			if (!Main.dedServ)
+			{
+				if (!sound.HasValue)
+				{
+					sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = -.25f }, Projectile.Center);
+				}
+				else
+				{
+					if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+					{
+						activeSound.Position = Projectile.Center;
+						activeSound.Volume = 1f / Owner.ownedProjectileCounts[Type];
+					}
+				}
+			}
+
+			if (++Projectile.frameCounter > 5)
+			{
+				Projectile.frameCounter = 0;
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}
-				SoundEngine.PlaySound(SoundID.Item1 with { Pitch = -.25f }, Projectile.Center);
 			}
+		}
+
+		public override bool PreKill(int timeLeft)
+		{
+			if (!Main.dedServ)
+			{
+				if (sound.HasValue)
+				{
+					if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+					{
+						activeSound.Stop();
+					}
+				}
+
+				SoundEngine.PlaySound(SoundID.Item66, Projectile.Center);
+
+				if (!Main.dedServ && Imbue is null)
+				{
+					for (float i = 0; i < 30; i++)
+					{
+						var centre = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
+						var dust = AOUtils.NewDustImperfect(centre + Projectile.Center, DustID.BubbleBurst_White, centre * (Projectile.width / 10f), 0, Colour, 1.5f);
+						dust.noLight = true;
+						dust.noGravity = true;
+					}
+				}
+			}
+
+			return base.PreKill(timeLeft);
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -45,6 +103,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			height /= 2;
 			fallThrough = true;
 			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
+
+		public Color Colour => Imbue?.GetColour(Color.Gold) ?? Color.White;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Colour;
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

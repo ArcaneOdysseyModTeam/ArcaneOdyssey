@@ -1,33 +1,18 @@
 Relics: {
 	EaglePatrimony: {
 		DisplayName: Eagle Patrimony
-		Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
 
 		Ability: {
 			DisplayName: Astrapikis
 			Description: Release a slash of spirit energy
 		}
-	}
 
-	Projectiles: {
-		Astrapikis.DisplayName: Astrapikis
-		SpiritBlast.DisplayName: Spirit Blast
-		Nichtetheis.DisplayName: Nichtetheis
-		Floganymai.DisplayName: Floganymai
-		SpiritHound.DisplayName: Spirit Hound
-		SpiritRaincloud.DisplayName: Spirit Raincloud
-		SpiritRaindrop.DisplayName: Spirit Raindrop
-		Minions.SpiritMinion.DisplayName: Aithiraki
-		SpiritExplosion.DisplayName: Spirit Shockwave
+		Tooltip: ""
 	}
 
 	EmberStaff: {
 		DisplayName: Ember Staff
-		Tooltip:
-			'''
-			A staff made out of the remains of a greathammer
-			It was blessed by Hephaestus - the god of fire and blacksmithing
-			'''
+		Tooltip: It was blessed by Hephaestus - the god of fire and blacksmithing
 
 		Ability: {
 			DisplayName: Floganymai
@@ -37,11 +22,7 @@ Relics: {
 
 	NyxStaff: {
 		DisplayName: Staff of Night
-		Tooltip:
-			'''
-			An aged staff made of some kind of purple stone
-			It was blessed by Nyx - the goddess of night
-			'''
+		Tooltip: It was blessed by Nyx - the goddess of night
 
 		Ability: {
 			DisplayName: Nichtetheis
@@ -51,11 +32,7 @@ Relics: {
 
 	TidestoneBand: {
 		DisplayName: Tidestone Band
-		Tooltip:
-			'''
-			An armband made out of some kind of blue stone
-			It was blessed by Poseidon - the god of the sea
-			'''
+		Tooltip: It was blessed by Poseidon - the god of the sea
 
 		Ability: {
 			DisplayName: Thakrousi
@@ -65,11 +42,7 @@ Relics: {
 
 	CrystalOrb: {
 		DisplayName: Crystal Orb
-		Tooltip:
-			'''
-			An orb made of seemingly unbreakable crystal
-			It was blessed by Aether - the god of light
-			'''
+		Tooltip: It was blessed by Aether - the god of light
 
 		Ability: {
 			DisplayName: Aithiraki
@@ -79,8 +52,8 @@ Relics: {
 
 	SpiritEnergy: {
 		DisplayName: Divine Spirit Energy
-		Tooltip: Represents your ability to wield spirit energy without a relic, as a legacy
 		Ability: Can be used as an imbue, but provides no benifits besides the ability to use rites and a slight bit of lifesteal
+		Tooltip: ""
 	}
 }
 

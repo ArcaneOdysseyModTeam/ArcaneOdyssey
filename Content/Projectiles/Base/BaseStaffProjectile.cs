@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			base.SetDefaults();
 			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.knockBack = 4.5f;
-			Projectile.height = Projectile.width = 120;
+			Projectile.height = Projectile.width = 175;
 			Projectile.friendly = true;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 20;

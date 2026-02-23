@@ -29,13 +29,12 @@ ImbueStuff: {
 	RelicDamage: Damage: {0}x
 	RelicSpeed: Speed: {0}x
 	RelicSize: Size: {0}x
-	StartShifting: Hold SHIFT to view alternate stats
+	ShiftNotice: SHIFT shows other stats
 	ImbueDamage: Imbue damage: {0}x
 	ImbueSpeed: Imbue speed: {0}x
 	ImbueSize: Imbue size: {0}x
 	NoDebuffs: No debuffs
 	NoCombinedDebuffs: No combined debuffs
-	StopShifting: Stop holding SHIFT to view alternate stats
 	Debuffs: Inflicts: {0}
 	Combined: Debuff combos: {0}
 	NoSynergies: Your imbue has no synergies
@@ -222,7 +221,7 @@ SpecialTierLines: {
 }
 
 FSTierLines: {
-	Normal: "[c/2277ff:~ Fighting Style ~]"
+	Normal: "[c/2277ff:~ Fighting style ~]"
 	Lost: "[c/0044ff:~ Lost fighting style ~]"
 	Ancient: "[c/7ebcc2:~ Advanced lost fighting style ~]"
 	Primordial: "[c/ffc2c2:~ Primordial fighing style ~]"

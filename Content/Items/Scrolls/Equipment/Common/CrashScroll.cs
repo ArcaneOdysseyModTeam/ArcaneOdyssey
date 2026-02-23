@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -139,6 +140,36 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 			AOUtils.SimulateAOE(Player.defaultHeight * 3, Damage, player.Bottom, Knockback, player, DamageType);
 			player.ArcaneOdyssey().timeTillNextMove += 15;
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
+			if (sound.HasValue)
+			{
+				if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+				{
+					activeSound.Stop();
+				}
+			}
+		}
+
+		public SlotId? sound = null;
+
+		public override void DashEffect(Player player)
+		{
+			if (player.ArcaneOdyssey().DashLeft < (DashMax - 30))
+			{
+				if (!Main.dedServ)
+				{
+					if (!sound.HasValue)
+					{
+						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = -.25f }, player.Center);
+					}
+					else
+					{
+						if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+						{
+							activeSound.Position = player.Center;
+						}
+					}
+				}
+			}
 		}
 	}
 

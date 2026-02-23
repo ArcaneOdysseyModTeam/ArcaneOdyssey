@@ -26,7 +26,7 @@ BronzeTriasta: {
 
 	Ability: {
 		DisplayName: Ethereal Flash
-		Description: Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target
+		Description: Leap towards the target
 	}
 }
 
@@ -57,7 +57,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Piercing Strike
-			Description: Launch yourself towards the cursor, stabbing through any who cross your path
+			Description: Launch yourself towards the cursor
 		}
 	}
 
@@ -67,7 +67,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Piercing Gale
-			Description: Shoots blasts of air that shred enemies
+			Description: Shoots blasts of air
 		}
 	}
 
@@ -77,7 +77,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Trident Throw
-			Description: Throw your weapon, leaving yourself unarmed
+			Description: Throw your weapon
 		}
 	}
 
@@ -87,7 +87,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Devastate
-			Description: Use the weight of your weapon to slam downwards
+			Description: Use your weapon to slam downwards
 		}
 	}
 
@@ -97,7 +97,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Mountain Wind
-			Description: Swing your blade and unleash three tornados that spread out
+			Description: Unleash three tornados
 		}
 	}
 
@@ -107,7 +107,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Whirlwind
-			Description: Spin your weapon around quickly, dealing damage to surrounding enemies
+			Description: Spin your weapon around quickly
 		}
 	}
 }
@@ -118,7 +118,7 @@ ColossalGreatsword: {
 
 	Ability: {
 		DisplayName: Colossal Cleave
-		Description: Unleash a large slash that pierces enemies
+		Description: Unleash a large slash
 	}
 }
 
@@ -161,7 +161,7 @@ RavennaLion: {
 
 		Ability: {
 			DisplayName: Raging Impact
-			Description: Colliding with a target at high speed creates a shockwave that damages enemies
+			Description: High speed collisions create a shockwave
 		}
 	}
 
@@ -171,7 +171,7 @@ RavennaLion: {
 
 		Ability: {
 			DisplayName: Seismic Slash
-			Description: Slam into the ground, then upearth and launch a rock towards your cursor
+			Description: Launch a rock from the ground
 		}
 	}
 }
@@ -183,7 +183,7 @@ RavennaNoble: {
 
 		Ability: {
 			DisplayName: Storm of Arrows
-			Description: Allows arrows to fall from the sky above the cursor
+			Description: Arrows can fall from the sky
 		}
 	}
 
@@ -193,7 +193,7 @@ RavennaNoble: {
 
 		Ability: {
 			DisplayName: Twin Crescents
-			Description: Slash both blades one after the other, sending two flying slashes towards the target
+			Description: Sends two flying slashes towards the target
 		}
 	}
 
@@ -203,7 +203,7 @@ RavennaNoble: {
 
 		Ability: {
 			DisplayName: Sparrow Thrust
-			Description: Use the blade and length of the spear to deliver a powerful thrust
+			Description: Deliver a powerful thrust
 		}
 	}
 }

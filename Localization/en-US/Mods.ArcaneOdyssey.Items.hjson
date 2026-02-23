@@ -6,7 +6,7 @@ Armour: {
 
 			Set: {
 				DisplayName: Aquatic Rebuttal
-				Description: Enemies that strike you are inflicted with Wet
+				Description: Enemies that strike you are Wet
 			}
 		}
 
@@ -52,7 +52,7 @@ Armour: {
 
 			Set: {
 				DisplayName: Ravenna Bulwark
-				Description: Allows you to brace, slowing your movement in exchange for a defence bonus
+				Description: Slows your movement for extra defense
 			}
 		}
 
@@ -136,12 +136,12 @@ Acrimony: {
 
 PoseidonSpirit: {
 	DisplayName: Poseidon's Spirit
-	Tooltip: A sigil of ancient power granted as a reward from the gods, which can be focused upon to grant power or knowledge to those who are worthy
+	Tooltip: Can be focused upon to grant power or knowledge
 }
 
 EagleLegacy: {
 	DisplayName: Eagle's Legacy
-	Tooltip: Represents your latent potential, and can be focused upon to grant power
+	Tooltip: Can be focused upon to grant power
 }
 
 Blocks: {
@@ -176,7 +176,7 @@ Blocks: {
 	}
 
 	TuckerGraveItem: {
-		DisplayName: Tucker' Grave
+		DisplayName: Tucker's Grave
 		Tooltip: ""
 	}
 }
@@ -201,7 +201,7 @@ Materials: {
 
 	HecateShard: {
 		DisplayName: Hecate Shard
-		Tooltip: Can be used to mutate a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+		Tooltip: Mutates a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
 	}
 
 	SunkenScrap: {

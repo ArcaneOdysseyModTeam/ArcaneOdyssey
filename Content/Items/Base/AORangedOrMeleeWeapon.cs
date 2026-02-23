@@ -89,7 +89,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.knockBack = 4.5f * (AOSize * AOSize);
 			Item.scale = AOSize;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
-			Item.UseSound = UseSound with { Pitch = AOSpeed.MultiToPercent().Clamp(-1, 1) };
+			Item.UseSound = UseSound with { Pitch = (AOSpeed * AOSpeed).MultiToPercent().Clamp(-1, 1) };
 			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(AOWeaponTier) * AODamage);
 			Item.DamageType = DamageClass.Melee;
 		}
