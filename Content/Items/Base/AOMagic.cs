@@ -109,6 +109,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 						return circleprojectile;
 					}
 				}
+				else if (item.ModItem is BarrageSpell)
+				{
+					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<MagicCircle3>(), damage, item.knockBack, player.whoAmI);
+					circleprojectile.rotation = rot.ToRotation();
+					((MagicCircle3)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
+					((MagicCircle3)circleprojectile.ModProjectile).ProjectileSpread = MathHelper.PiOver4 / 2f;
+					((MagicCircle3)circleprojectile.ModProjectile).ManaCost = item.mana;
+					return circleprojectile;
+				}
 				else if (item.ModItem is ExplosionScroll)
 				{
 					return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<MagicCircle2>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);

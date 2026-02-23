@@ -108,6 +108,7 @@ namespace ArcaneOdyssey
 
 			AddOption<HoundRite>();
 			AddOption<WalkRite>();
+			AddOption<BarrageSpell>();
 
 			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
 			{

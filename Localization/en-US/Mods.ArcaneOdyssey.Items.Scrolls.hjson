@@ -111,5 +111,10 @@ Weapons: {
 			DisplayName: Pulsar Spell
 			Tooltip: Channels your magic into a blast that explodes multiple times midair
 		}
+
+		BarrageSpell: {
+			DisplayName: Barrage Spell
+			Tooltip: ""
+		}
 	}
 }

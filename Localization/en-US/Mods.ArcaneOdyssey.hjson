@@ -20,8 +20,8 @@ ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
-	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Only conducts Magic]"
-	StrengthIndicator: "[c/700013:Strength Weapon - Too heavy to be used fully without a Fighting Style]"
+	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Cannot be used fully without Magic]"
+	StrengthIndicator: "[c/700013:Strength Weapon - Cannot be used fully without a Fighting Style]"
 	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
 	ScrollDamage: Scroll damage: {0}x
 	ScrollSpeed: Scroll speed: {0}x
@@ -303,6 +303,7 @@ Projectiles: {
 	Helpers: {
 		MagicCircle1.DisplayName: Magic Circle
 		MagicCircle2.DisplayName: Magic Circle
+		MagicCircle3.DisplayName: Magic Circle3
 	}
 
 	DeathCurse.DisplayName: Death Curse

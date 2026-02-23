@@ -16,7 +16,7 @@ Relics: {
 
 		Ability: {
 			DisplayName: Floganymai
-			Description: Release a pillar of spirit energy a short distance away from you, exploding several times
+			Description: Release a pillar of spirit energy
 		}
 	}
 
@@ -26,7 +26,7 @@ Relics: {
 
 		Ability: {
 			DisplayName: Nichtetheis
-			Description: Fire a beam of spirit energy that disorients anyone it hits
+			Description: Fire a beam of spirit energy
 		}
 	}
 
@@ -36,7 +36,7 @@ Relics: {
 
 		Ability: {
 			DisplayName: Thakrousi
-			Description: Surround yourself in spirit energy and leap forward
+			Description: Use spirit energy to leap forward
 		}
 	}
 
@@ -46,18 +46,16 @@ Relics: {
 
 		Ability: {
 			DisplayName: Aithiraki
-			Description: Summon a clone made of spirit energy
+			Description: Summon a spirit clone
 		}
 	}
 
 	SpiritEnergy: {
 		DisplayName: Divine Spirit Energy
-		Ability: Can be used as an imbue, but provides no benifits besides the ability to use rites and a slight bit of lifesteal
 		Tooltip: ""
 	}
 }
 
 SteamImbue: {
 	DisplayName: Steam Imbue
-	Tooltip: Created when something hot is imbued with something cold, or vice versa
 }

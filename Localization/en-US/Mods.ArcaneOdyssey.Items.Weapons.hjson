@@ -5,7 +5,7 @@ Sunken: {
 
 		Ability: {
 			DisplayName: Fury of the Sea
-			Description: Shoots blasts of water that pierce enemies
+			Description: Shoots blasts of water
 		}
 	}
 
@@ -87,7 +87,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Devastate
-			Description: Use your weapon to slam downwards
+			Description: Slam downwards
 		}
 	}
 
@@ -107,7 +107,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Whirlwind
-			Description: Spin your weapon around quickly
+			Description: Spin your weapon around
 		}
 	}
 }
@@ -161,7 +161,7 @@ RavennaLion: {
 
 		Ability: {
 			DisplayName: Raging Impact
-			Description: High speed collisions create a shockwave
+			Description: High speed collisions create shockwaves
 		}
 	}
 
@@ -193,7 +193,7 @@ RavennaNoble: {
 
 		Ability: {
 			DisplayName: Twin Crescents
-			Description: Sends two flying slashes towards the target
+			Description: Shoots two flying slashes
 		}
 	}
 

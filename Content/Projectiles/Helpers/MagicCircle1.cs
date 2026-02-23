@@ -2,45 +2,37 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Projectiles.Helpers
 {
-	public class MagicCircle1 : AOPlayerProjectile
+	public class MagicCircle1 : BaseMagicCircle
 	{
 		public int ChargingProjectile;
 		public float charge = 1f;
-
-		public override bool? CanDamage() => false;
 
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 4;
 		}
 
-		public override bool CanHaveImbueVFX => false;
-
 		public override float AOSize => .5f;
 
 		public override void SetDefaults()
 		{
-			Projectile.scale = AOSize;
+			base.SetDefaults();
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
 			Projectile.Opacity = .75f;
 		}
 
-		internal bool MarkedForDeath = false;
 		internal bool originallyAltFire = false;
 
 		public override void AI()
 		{
-			Projectile.scale = AOSize * charge * Imbue.AOScrollSize;
 			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 			if (Projectile.ai[0] == 0)
 			{
-				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = Imbue.AOScrollSpeed.MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				Projectile.ai[0] = 1;
 				if (Main.myPlayer == Projectile.owner)
 				{
@@ -49,8 +41,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
-
-			SecondImbue?.LingeringEffects(Projectile.Hitbox);
 
 
 			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
@@ -85,7 +75,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 			}
 			else
 			{
-				Projectile.alpha += (255f / 60f).Round();
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
@@ -137,17 +126,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 					Projectile.frame = 0;
 				}
 			}
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			if (Imbue is AOMagic)
-			{
-				lightColor = Imbue.GetColour();
-				return base.PreDraw(ref lightColor);
-			}
-			else
-				return false;
 		}
 	}
 }

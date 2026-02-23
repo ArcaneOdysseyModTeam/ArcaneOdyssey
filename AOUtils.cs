@@ -6,7 +6,6 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Helpers;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Rarities;
 using ArcaneOdysseyMusic;
@@ -852,7 +851,7 @@ namespace ArcaneOdyssey
 					return (
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
-							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or MagicCircle1 or MagicCircle2
+							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or BaseMagicCircle
 						)
 						&& projectile.owner != 255
 						&& !projectile.hostile
