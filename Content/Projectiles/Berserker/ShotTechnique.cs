@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 	public class ShotTechnique : StrengthTechnique
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public const int DustCount = 20;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -21,10 +20,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (!Main.dedServ)
 			{
-				for (float i = 0; i < DustCount; i++)
+				for (float i = 0; i < 15; i++)
 				{
-					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width / 2);
-					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, .9f);
+					var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (Projectile.width / 2);
+					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, .9f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
 				}
@@ -42,9 +41,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (!Main.dedServ)
 			{
-				for (float i = 0; i < DustCount; i++)
+				for (float i = 0; i < 15; i++)
 				{
-					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
+					var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (Projectile.width * 2);
 					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, 1.5f);
 					dust2.noLight = true;
 					dust2.noGravity = true;

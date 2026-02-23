@@ -9,6 +9,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override AODebuffRequirement? Debuff => null;
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true;
 		}

@@ -127,5 +127,14 @@ Weapons: {
 			DisplayName: Barrage Spell
 			Tooltip: Fires magic blasts rapidly
 		}
+
+		AxeTechnique: {
+			DisplayName: Axe Technique
+			Tooltip: 
+				'''
+				Cleave through the air and foes
+				Alt fire to ignore trees
+				'''
+		}
 	}
 }

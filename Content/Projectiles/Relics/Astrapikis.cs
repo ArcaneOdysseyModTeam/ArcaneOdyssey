@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class Astrapikis : SpiritProjectile
 	{
-		public override string Texture => Mod.Name + "/Assets/BasicSlash";
+		public override string Texture => AOUtils.SlashTexture;
 		public override float AOSize => .75f;
 
 		public const int TimeLeftMax = 90;
