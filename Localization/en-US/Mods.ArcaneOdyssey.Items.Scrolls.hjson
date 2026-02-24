@@ -105,6 +105,11 @@ Weapons: {
 			DisplayName: Enchantment Spell
 			Tooltip: Buffs all other players
 		}
+
+		CresendoTechnique: {
+			DisplayName: Cresendo Technique
+			Tooltip: Creates a massive shockwave of air
+		}
 	}
 
 	Rare: {
@@ -144,7 +149,7 @@ Weapons: {
 
 		MeteorScroll: {
 			DisplayName: Meteor Scroll
-			Tooltip: ""
+			Tooltip: Calls down a magic meteor
 		}
 	}
 }
