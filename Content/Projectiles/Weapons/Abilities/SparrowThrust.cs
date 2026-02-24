@@ -10,8 +10,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public override bool CanHaveImbueVFX => false;
 		public Color Colour => Imbue?.GetColour(Color.MediumPurple) ?? Color.MediumPurple;
-		public static int MaxTime => 60;
-		public static int TrueMaxTime => MaxTime + (100 * 60);
+		public static int LingerTime => 60;
+		public static int TravelTime => 100 * 60;
 
 		public override void SetStaticDefaults()
 		{
@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			base.SetDefaults();
 			Projectile.width = Projectile.height = 186;
 			Projectile.friendly = true;
-			Projectile.timeLeft = TrueMaxTime;
+			Projectile.timeLeft = LingerTime + TravelTime;
 			Projectile.extraUpdates = 100;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.ignoreWater = true;
@@ -39,11 +39,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
+			if (Projectile.timeLeft > TravelTime)
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				oldvelo = Projectile.velocity;
-				Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 1f - (.75f * ((Projectile.timeLeft - (TrueMaxTime - MaxTime)) / (float)MaxTime))), Projectile.velocity, Projectile);
+				Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 1f - (.75f * ((Projectile.timeLeft - TravelTime) / (float)TravelTime))), Projectile.velocity, Projectile);
 			}
 			else
 			{
@@ -55,12 +55,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					}
 					Projectile.ai[0] = 1;
 				}
-				if (++Projectile.frameCounter > ((TrueMaxTime - MaxTime) / 10f))
+				if (++Projectile.frameCounter > ApplyScrollSpeed(TravelTime / Main.projFrames[Type], true))
 				{
 					Projectile.frameCounter = 0;
-					if (++Projectile.frame > Main.projFrames[Type])
+					if (++Projectile.frame >= Main.projFrames[Type])
 					{
-						Projectile.frame = 0;
+						Kill();
 					}
 				}
 				Projectile.velocity = Vector2.Zero;
@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			var realkmax = 9;
+			var realkmax = ApplyImbueSpeed(9f).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{
 				Vector2 drawPos = VisualCentre - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);

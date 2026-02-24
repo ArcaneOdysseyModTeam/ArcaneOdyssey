@@ -13,8 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override bool CanHaveImbueVFX => false;
 		public Color Colour => Imbue?.GetColour(Color.White) ?? Color.White;
-		public int MaxTime => ApplyImbueSpeed(60, true).Round();
-		public int TrueMaxTime => MaxTime + (100 * 60);
+		public static int LingerTime => 60;
+		public static int TravelTime => 100 * 60;
 
 		public override void SetStaticDefaults()
 		{
@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			base.SetDefaults();
 			Projectile.width = Projectile.height = 186;
-			Projectile.timeLeft = TrueMaxTime;
+			Projectile.timeLeft = LingerTime + TravelTime;
 			Projectile.extraUpdates = 100;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
-			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
+			Projectile.penetrate = -1;
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.usesLocalNPCImmunity = true;
 		}
@@ -40,7 +40,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
+			AOPlayerOwner.HeavySkillActive = true;
+			if (Projectile.timeLeft > TravelTime)
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				oldvelo = Projectile.velocity;
@@ -56,12 +57,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				//	}
 				//	Projectile.ai[0] = 1;
 				//}
-				if (++Projectile.frameCounter > ((TrueMaxTime - MaxTime) / 10f))
+				if (++Projectile.frameCounter > ApplyScrollSpeed(TravelTime / (float)Main.projFrames[Type], true))
 				{
 					Projectile.frameCounter = 0;
-					if (++Projectile.frame > Main.projFrames[Type])
+					if (++Projectile.frame >= Main.projFrames[Type])
 					{
-						Projectile.frame = 0;
+						Kill();
 					}
 				}
 				Projectile.velocity = Vector2.Zero;
@@ -70,7 +71,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			var realkmax = 18;
+			var realkmax = ApplyScrollSpeed(12f).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{
 				Vector2 drawPos = VisualCentre - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);
