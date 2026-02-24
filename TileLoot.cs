@@ -63,6 +63,7 @@ namespace ArcaneOdyssey
 			if (AOUtils.BossesKilled > 0)
 			{
 				AddOption<SmashScroll>();
+				AddOption<BreathtakerTechnique>();
 			}
 
 			if (NPC.downedBoss2)
@@ -74,6 +75,8 @@ namespace ArcaneOdyssey
 			if (NPC.downedBoss3)
 			{
 				AddOption<AuraScroll>();
+				AddOption<JavelinSpell>();
+				AddOption<SelinoTechnique>();
 			}
 
 			if (Main.hardMode)
@@ -142,7 +145,7 @@ namespace ArcaneOdyssey
 
 			AddOption<AnnihilationScroll>();
 			AddOption<AcumenTechnique>();
-			AddOption<CresendoTechnique>();
+			AddOption<CrescendoTechnique>();
 			AddOption<ElementalSpell>();
 			if (Main.netMode != NetmodeID.SinglePlayer)
 			{

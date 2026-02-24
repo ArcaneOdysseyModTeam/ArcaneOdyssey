@@ -9,7 +9,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 {
 	public class JavelinSpell : RareScroll
 	{
-		public override string Texture => AOUtils.GetTexture<ArrayScroll>();
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()

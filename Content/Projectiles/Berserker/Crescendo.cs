@@ -6,7 +6,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
-	public class Cresendo : StrengthTechnique
+	public class Crescendo : StrengthTechnique
 	{		
 		public override string Texture => AOUtils.GetTexture<SparrowThrust>();
 

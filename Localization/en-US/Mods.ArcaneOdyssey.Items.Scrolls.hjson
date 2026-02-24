@@ -55,7 +55,20 @@ Equipment: {
 
 		SelinoTechnique: {
 			DisplayName: Selino Technique
-			Tooltip: Dash thrice, releasing shockwaves
+			Tooltip:
+				'''
+				Dash thrice, releasing shockwaves
+				Press {AODASHBIND} to activate
+				'''
+		}
+
+		BreathtakerTechnique: {
+			DisplayName: Breathtaker Technique
+			Tooltip:
+				'''
+				Dash into an enemy and lower their defense
+				Press {AODASHBIND} to activate
+				'''
 		}
 	}
 
@@ -107,8 +120,8 @@ Usable: {
 			Tooltip: Buffs all other players
 		}
 
-		CresendoTechnique: {
-			DisplayName: Cresendo Technique
+		CrescendoTechnique: {
+			DisplayName: Crescendo Technique
 			Tooltip: Creates a massive shockwave of air
 		}
 

@@ -65,11 +65,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 
 				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
 
-				if (Main.myPlayer == Projectile.owner && ChargingProjectile != 0 && Main.GameUpdateCount % MathHelper.Clamp(ApplyScrollSpeed(Owner.itemAnimationMax, true).Round(), 1, 500) == 0)
+				if (Main.myPlayer == Projectile.owner && Main.GameUpdateCount % MathHelper.Clamp(ApplyScrollSpeed(Owner.itemAnimationMax, true).Round(), 1, 500) == 0)
 				{
 					if (Owner.CheckMana(Owner.GetManaCost(Owner.PlayerItem()), true))
 					{
-						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
+						if (ChargingProjectile != 0)
+						{
+							AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
+						}
 					}
 					else
 					{

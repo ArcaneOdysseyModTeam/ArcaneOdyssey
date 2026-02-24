@@ -62,3 +62,8 @@ SelinoCooldown: {
 	DisplayName: Selino Cooldown
 	Description: Selino is on cooldown
 }
+
+BreathtakerCooldown: {
+	DisplayName: Breathtaker Cooldown
+	Description: Breathtaker is on cooldown
+}

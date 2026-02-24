@@ -6,16 +6,15 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 {
-	public class CresendoTechnique : LostScroll
+	public class CrescendoTechnique : LostScroll
 	{
-		public override string Texture => AOUtils.GetTexture<AnnihilationScroll>();
 		public override bool CanHaveFS => true;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.useTime = Item.useAnimation = 60;
 			Item.damage = 70;
-			Item.shoot = ModContent.ProjectileType<Cresendo>();
+			Item.shoot = ModContent.ProjectileType<Crescendo>();
 			Item.shootSpeed = 7.5f;
 			Item.DamageType = DamageClass.Melee;
 			Item.UseSound = SoundID.DD2_ExplosiveTrapExplode;

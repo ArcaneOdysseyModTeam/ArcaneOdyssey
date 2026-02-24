@@ -21,6 +21,8 @@ namespace ArcaneOdyssey
 		public float ZapCD = 5; // ancient lightning chain
 		public float StunDuration = 1;
 
+		public float DefenseLost = 0;
+
 		#region Debuff bools
 		public bool bleeding = false;
 		public bool scalding = false;
@@ -55,6 +57,11 @@ namespace ArcaneOdyssey
 		{
 			if (projectile.TryGetOwner(out var player))
 				player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, projectile.Imbue(), false);
+		}
+
+		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.ArmorPenetration += DefenseLost;
 		}
 
 		public override void ResetEffects(NPC npc)

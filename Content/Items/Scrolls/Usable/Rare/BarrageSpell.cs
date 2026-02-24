@@ -28,5 +28,10 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 			AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
 			return false;
 		}
+
+		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		{
+			mult = ApplyScrollSpeed(mult, true);
+		}
 	}
 }

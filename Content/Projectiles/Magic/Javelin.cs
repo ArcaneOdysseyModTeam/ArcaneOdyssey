@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
@@ -16,6 +17,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			base.SetDefaults();
 			Projectile.penetrate = 4;
 			Projectile.usesLocalNPCImmunity = true;
+			Projectile.width = 96;
+			Projectile.height = 32;
+			Projectile.AverageDimensions();
 			Projectile.localNPCHitCooldown = (TimeLeft / 4) + 1;
 		}
 
@@ -46,6 +50,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				{
 					charge += 1f / 120f;
 					Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
+					Projectile.spriteDirection = Owner.direction;
 					AOPlayerOwner.HeavySkillActive = true;
 					//Owner.heldProj = Projectile.whoAmI;
 					Owner.itemAnimation = Owner.PlayerItem().useAnimation;
@@ -85,6 +90,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					}
 				}
 			}
+			if (Mode == JavelinMode.Grounded)
+			{
+				if (Projectile.timeLeft % (TimeLeft / 4) == 0)
+					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+			}
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -96,6 +106,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Projectile.timeLeft = TimeLeft;
 				PiercingNPC = target.whoAmI;
 			}
+			SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
