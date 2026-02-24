@@ -157,16 +157,13 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 			{
 				if (!Main.dedServ)
 				{
-					if (!sound.HasValue)
+					if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
 					{
-						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = -.25f }, player.Center);
+						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f }, player.Center);
 					}
 					else
 					{
-						if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
-						{
-							activeSound.Position = player.Center;
-						}
+						activeSound.Position = player.Center;
 					}
 				}
 			}

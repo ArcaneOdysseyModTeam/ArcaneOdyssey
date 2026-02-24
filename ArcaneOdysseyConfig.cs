@@ -18,10 +18,6 @@ namespace ArcaneOdyssey
 		public bool VanillaItemTemperatures { get; set; }
 
 		[DefaultValue(true)]
-		[ReloadRequired]
-		public bool ProjectileSizes { get; set; }
-
-		[DefaultValue(true)]
 		public bool PredictiveArray { get; set; }
 
 		[DefaultValue(true)]
@@ -33,10 +29,6 @@ namespace ArcaneOdyssey
 			if (!AffectsOtherMods)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add("\"[i:Cog] Affect other mods\" config is disabled, items from other mods will not be affected by this mod.");
-			}
-			if (!ProjectileSizes)
-			{
-				ArcaneOdysseyMod.NoticeQueue.Add("\"[i:ArcaneOdyssey/ColossalGreatsword] Projectile Sizes\" config is disabled, projectiles will not have their size affected by imbues or your attack size stat.");
 			}
 		}
 

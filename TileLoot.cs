@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Lost;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Lost;
@@ -114,6 +115,7 @@ namespace ArcaneOdyssey
 
 			if (Main.hardMode)
 			{
+				AddOption<MeteorScroll>();
 				AddOption<FlightScroll>();
 			}
 
@@ -134,6 +136,7 @@ namespace ArcaneOdyssey
 			}
 
 			AddOption<AnnihilationScroll>();
+			AddOption<AcumenTechnique>();
 			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
 				AddOption<EnchantmentSpell>();

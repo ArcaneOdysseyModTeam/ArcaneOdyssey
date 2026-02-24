@@ -44,17 +44,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 			if (!Main.dedServ)
 			{
-				if (!sound.HasValue)
+				if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
 				{
-					sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = -.25f }, Projectile.Center);
+					sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f }, Projectile.Center);
 				}
 				else
 				{
-					if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
-					{
-						activeSound.Position = Projectile.Center;
-						activeSound.Volume = 1f / Owner.ownedProjectileCounts[Type];
-					}
+					activeSound.Position = Projectile.Center;
+					activeSound.Volume = 1f / Owner.ownedProjectileCounts[Type];
 				}
 			}
 

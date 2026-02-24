@@ -71,8 +71,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 					offsetX = Main.MouseWorld.X + (Main.screenWidth / 35f * i);
 					offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
 					pos = new Vector2(offsetX, offsetY);
-					var proj = Projectile.NewProjectileDirect(source, pos, Vector2.UnitY * velocity.Length(), type, damage / 5, knockback / 5f, player.whoAmI);
-					proj.Center = pos;
+					Projectile.NewProjectile(source, pos, Vector2.UnitY * velocity.Length(), type, damage / 5, knockback / 5f, player.whoAmI);
 				}
 				return false;
 			}

@@ -256,3 +256,5 @@ Effects: {
 	PrismLinger.DisplayName: Prism Shard Cloud
 	ProminenceProjectile.DisplayName: Prominent Sun
 }
+
+MeteorSpell.DisplayName: Meteor Spell

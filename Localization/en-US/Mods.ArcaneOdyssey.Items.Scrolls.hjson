@@ -141,5 +141,10 @@ Weapons: {
 				Alt fire to ignore trees
 				'''
 		}
+
+		MeteorScroll: {
+			DisplayName: Meteor Scroll
+			Tooltip: ""
+		}
 	}
 }

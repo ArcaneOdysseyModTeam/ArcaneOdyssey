@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -26,6 +27,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Kill();
 				return false;
+			}
+			if (Imbue is IronLeg)
+			{
+				Owner.position.Y -= .001f;
 			}
 			return true;
 		}
