@@ -100,6 +100,11 @@ Weapons: {
 			DisplayName: Annihilation Spell
 			Tooltip: Fires a massive explosive magic blast
 		}
+
+		EnchantmentSpell: {
+			DisplayName: Enchantment Spell
+			Tooltip: Buffs all other players
+		}
 	}
 
 	Rare: {
@@ -130,7 +135,7 @@ Weapons: {
 
 		AxeTechnique: {
 			DisplayName: Axe Technique
-			Tooltip: 
+			Tooltip:
 				'''
 				Cleave through the air and foes
 				Alt fire to ignore trees

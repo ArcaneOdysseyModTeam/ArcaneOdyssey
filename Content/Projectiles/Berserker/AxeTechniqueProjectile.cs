@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
-			if (CanCutTrees)
+			if (CanCutTrees && Main.myPlayer == Projectile.owner)
 			{
 				var tilecoords = Projectile.Center.ToTileCoordinates();
 				Tile tileAtPosition = AOUtils.GetTile(tilecoords.X, tilecoords.Y);

@@ -1,11 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Lost;
-using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Lost

@@ -15,37 +15,27 @@ namespace ArcaneOdyssey
 
 	public class TileLoot : GlobalTile
 	{
+		private static int commonpity = 0;
+		private static int rarepity = 0;
+		private static int lostpity = 0;
 		public override void Drop(int i, int j, int type)
 		{
-			if (type == TileID.Pots)
+			if (type == TileID.Pots || (ExternalModSupport.HasCalamity && ExternalModSupport.Calamity.TryFind<ModTile>("AbyssalPots", out var tile) && type == tile.Type))
 			{
-				if (Player.GetClosestRollLuck(i, j, 100) == 0)
+				if (Player.GetClosestRollLuck(i, j, 50 - (commonpity++ / 2)) == 0)
 				{
 					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllCommonScrollDrops()));
+					commonpity = 0;
 				}
-				if (AOUtils.BossesKilled > 0 && Player.GetClosestRollLuck(i, j, 300) == 0)
+				if (AOUtils.BossesKilled > 0 && Player.GetClosestRollLuck(i, j, 150 - (rarepity++ / 2)) == 0)
 				{
 					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllRareScrollDrops()));
+					rarepity = 0;
 				}
-				if (Main.hardMode && Player.GetClosestRollLuck(i, j, 600) == 0)
+				if (Main.hardMode && Player.GetClosestRollLuck(i, j, 300 - (lostpity++ / 2)) == 0)
 				{
 					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllLostScrollDrops()));
-				}
-			}
-
-			if (ExternalModSupport.HasCalamity && ExternalModSupport.Calamity.TryFind<ModTile>("AbyssalPots", out var tile) && type == tile.Type)
-			{
-				if (Player.GetClosestRollLuck(i, j, 50) == 0)
-				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllCommonScrollDrops()));
-				}
-				if (AOUtils.BossesKilled > 0 && Player.GetClosestRollLuck(i, j, 150) == 0)
-				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllRareScrollDrops()));
-				}
-				if (Main.hardMode && Player.GetClosestRollLuck(i, j, 300) == 0)
-				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllLostScrollDrops()));
+					lostpity = 0;
 				}
 			}
 		}
@@ -108,6 +98,7 @@ namespace ArcaneOdyssey
 
 			AddOption<HoundRite>();
 			AddOption<WalkRite>();
+			AddOption<AxeTechnique>();
 			AddOption<BarrageSpell>();
 
 			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
@@ -143,6 +134,10 @@ namespace ArcaneOdyssey
 			}
 
 			AddOption<AnnihilationScroll>();
+			if (Main.netMode != NetmodeID.SinglePlayer)
+			{
+				AddOption<EnchantmentSpell>();
+			}
 
 			return [.. options];
 		}

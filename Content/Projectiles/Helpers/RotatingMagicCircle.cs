@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 				Projectile.netSpam = 0;
 			}
 
-			MarkedForDeath |= (Owner.channel || Main.mouseRight) && !Owner.dead && Imbue is not null;
+			MarkedForDeath |= !(Owner.channel || Main.mouseRight) || Owner.dead || Imbue is null;
 			if (!MarkedForDeath)
 			{
 				AOPlayerOwner.HeavySkillActive = true;

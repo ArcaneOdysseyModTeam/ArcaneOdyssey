@@ -125,7 +125,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (item.ModItem is ExplosionScroll)
 				{
-					return Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
+					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
+					//player.ArcaneOdyssey().myCircle = circleprojectile;
+					return circleprojectile;
 				}
 				else if (item.ModItem is CannonScroll)
 				{

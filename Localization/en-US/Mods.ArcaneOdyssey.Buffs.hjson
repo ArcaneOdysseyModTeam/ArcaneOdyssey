@@ -146,3 +146,8 @@ Stuns: {
 		Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
 	}
 }
+
+Enchanted: {
+	DisplayName: Enchanted
+	Description: Damage, attack size, and health have been boosted by an ally
+}

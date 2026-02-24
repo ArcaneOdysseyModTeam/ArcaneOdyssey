@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common;
 using ArcaneOdyssey.Content.Projectiles.Berserker;
 using Terraria;
 using Terraria.ID;
@@ -8,6 +9,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare
 {
 	public class AxeTechnique : RareScroll
 	{
+		public override string Texture => AOUtils.GetTexture<ShotScroll>();
 		public override bool CanHaveFS => true;
 		public override void SetDefaults()
 		{
