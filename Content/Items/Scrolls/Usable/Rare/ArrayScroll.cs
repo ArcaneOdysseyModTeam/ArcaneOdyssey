@@ -5,21 +5,19 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 {
-	public class BarrageSpell : RareScroll
+	public class ArrayScroll : RareScroll
 	{
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 5;
-			Item.mana = 5;
+			Item.damage = 55;
+			Item.mana = 100;
+			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 7;
-			Item.channel = true;
-			Item.useTime = Item.useAnimation = 10;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
 
@@ -28,5 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare
 			AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
 			return false;
 		}
+
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Imbue.GetSkill("Array")] < 1;
 	}
 }

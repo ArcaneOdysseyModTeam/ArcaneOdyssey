@@ -926,6 +926,7 @@ namespace ArcaneOdyssey
 			imbue = player.ArcaneOdyssey()?.Imbue;
 			return imbue is not null;
 		}
+
 		public static bool TryGetImbue(this ModPlayer player, out Imbuable imbue)
 		{
 			imbue = player.Player.ArcaneOdyssey()?.Imbue;

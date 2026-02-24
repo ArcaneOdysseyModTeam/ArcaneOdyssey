@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 
 				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
 
-				if (Main.myPlayer == Projectile.owner && ChargingProjectile != 0 && Main.GameUpdateCount % ApplyScrollSpeed(Owner.itemAnimationMax, true).Round() == 0)
+				if (Main.myPlayer == Projectile.owner && ChargingProjectile != 0 && Main.GameUpdateCount % MathHelper.Clamp(ApplyScrollSpeed(Owner.itemAnimationMax, true).Round(), 1, 500) == 0)
 				{
 					if (Owner.CheckMana(Owner.GetManaCost(Owner.PlayerItem()), true))
 					{

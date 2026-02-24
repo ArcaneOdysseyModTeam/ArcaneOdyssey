@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 {
 	public class PulsarScroll : RareScroll
 	{

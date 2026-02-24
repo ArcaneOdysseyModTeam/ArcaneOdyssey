@@ -57,3 +57,8 @@ WalkCooldown: {
 	DisplayName: Spirit Walk Cooldown
 	Description: Spirit Walk is on cooldown
 }
+
+SelinoCooldown: {
+	DisplayName: Selino Cooldown
+	Description: Selino is on cooldown
+}

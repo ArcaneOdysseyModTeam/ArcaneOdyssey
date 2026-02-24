@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Lost
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 {
 	public class CresendoTechnique : LostScroll
 	{

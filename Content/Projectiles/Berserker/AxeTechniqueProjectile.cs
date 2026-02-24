@@ -69,5 +69,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			}
 			return false;
 		}
+
+		public override bool? CanCutTiles() => CanCutTrees;
 	}
 }

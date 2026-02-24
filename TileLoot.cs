@@ -1,9 +1,9 @@
-﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Lost;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
-using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common;
-using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Lost;
-using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare;
+using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
+using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;
+using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -49,7 +49,7 @@ namespace ArcaneOdyssey
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : ModItem
+			void AddOption<T>() where T : Scroll
 			{
 				options.Add(ModContent.ItemType<T>());
 			}
@@ -92,7 +92,7 @@ namespace ArcaneOdyssey
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : ModItem
+			void AddOption<T>() where T : Scroll
 			{
 				options.Add(ModContent.ItemType<T>());
 			}
@@ -105,6 +105,11 @@ namespace ArcaneOdyssey
 			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
 			{
 				AddOption<ReflexScroll>();
+			}
+
+			if (NPC.downedBoss2)
+			{
+				AddOption<SelinoTechnique>();
 			}
 
 			if (NPC.downedBoss3)
@@ -130,7 +135,7 @@ namespace ArcaneOdyssey
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : ModItem
+			void AddOption<T>() where T : Scroll
 			{
 				options.Add(ModContent.ItemType<T>());
 			}

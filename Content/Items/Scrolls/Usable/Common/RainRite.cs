@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 {
 	public class RainRite : CommonScroll
 	{

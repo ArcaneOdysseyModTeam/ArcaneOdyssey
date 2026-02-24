@@ -52,17 +52,18 @@ Equipment: {
 				Press {AODASHBIND} to activate
 				'''
 		}
+
+		SelinoTechnique: {
+			DisplayName: Selino Technique
+			Tooltip: Dash thrice, releasing shockwaves
+		}
 	}
 
 	Lost: {
-		AcumenTechnique: {
-			DisplayName: Acumen Technique
-			Tooltip: Empowers your aura scroll effect permanently
-		}
 	}
 }
 
-Weapons: {
+Usable: {
 	Common: {
 		BeamScroll: {
 			DisplayName: Beam Spell
@@ -76,7 +77,7 @@ Weapons: {
 
 		ExplosionScroll: {
 			DisplayName: Explosion Scroll
-			Tooltip: Creates a controllable magic explosion
+			Tooltip: Creates a controllable explosion
 		}
 
 		RainRite: {
@@ -114,6 +115,11 @@ Weapons: {
 		ElementalSpell: {
 			DisplayName: Elemental Spell
 			Tooltip: Summons an elemental made of your magic
+		}
+
+		AcumenTechnique: {
+			DisplayName: Acumen Technique
+			Tooltip: Empowers your aura scroll effect permanently
 		}
 	}
 
@@ -155,6 +161,11 @@ Weapons: {
 		MeteorScroll: {
 			DisplayName: Meteor Scroll
 			Tooltip: Calls down a magic meteor
+		}
+
+		JavelinSpell: {
+			DisplayName: Javelin Spell
+			Tooltip: Shoots a projectile that sticks to enemies and tiles
 		}
 	}
 }

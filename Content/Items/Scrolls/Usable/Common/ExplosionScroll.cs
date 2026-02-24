@@ -9,7 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 {
 	public class ExplosionScroll : CommonScroll
 	{
@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
 			Item.damage = 50;
 			Item.reuseDelay = 60;
 			Item.channel = true;
-			Item.DamageType = DamageClass.Magic;
+			Item.DamageType = DamageClass.MagicSummonHybrid;
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 100;
 			Item.shoot = ModContent.ProjectileType<ExplosionSpell>();
@@ -34,9 +34,13 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
 			{
 				Item.DamageType = DamageClass.Summon;
 			}
-			else
+			else if (Imbue is AOMagic)
 			{
 				Item.DamageType = DamageClass.Magic;
+			}
+			else
+			{
+				Item.DamageType = DamageClass.MagicSummonHybrid;
 			}
 		}
 

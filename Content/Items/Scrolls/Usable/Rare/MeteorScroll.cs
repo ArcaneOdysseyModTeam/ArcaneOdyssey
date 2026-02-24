@@ -5,12 +5,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 {
 	public class MeteorScroll : RareScroll
 	{
-		public override string Texture => AOUtils.GetTexture<CannonScroll>();
-
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()

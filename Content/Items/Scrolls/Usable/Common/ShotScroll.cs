@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Berserker;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 {
 	public class ShotScroll : CommonScroll
 	{

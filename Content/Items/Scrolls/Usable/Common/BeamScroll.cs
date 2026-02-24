@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 {
 	public class BeamScroll : CommonScroll
 	{

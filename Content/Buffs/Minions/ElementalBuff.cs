@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using ArcaneOdyssey.Content.Projectiles.Relics.Minions;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,11 +1,10 @@
-using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics;
-using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 {
-	public class BlastScroll : CommonScroll
+	public class HoundRite : RareScroll
 	{
 		public override bool CanHaveRelic => true;
 
@@ -15,7 +14,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
 			Item.useTime = Item.useAnimation = 67;
 			Item.damage = 20;
 			Item.DamageType = DamageClass.Summon;
-			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
+			Item.shoot = ModContent.ProjectileType<SpiritHound>();
 			Item.shootSpeed = 7f;
 		}
 	}

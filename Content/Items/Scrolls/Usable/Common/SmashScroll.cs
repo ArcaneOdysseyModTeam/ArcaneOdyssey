@@ -3,7 +3,7 @@ using ArcaneOdyssey.Content.Projectiles.Berserker;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 {
 	public class SmashScroll : CommonScroll
 	{
@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
 			Item.damage = 50;
 			Item.shoot = ModContent.ProjectileType<ShockwaveSmash>();
 			Item.DamageType = DamageClass.Melee;
-			Item.shootSpeed = 5;
+			Item.shootSpeed = 5f;
 		}
 	}
 }

@@ -61,8 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 				{
 					Owner.itemRotation += MathHelper.Pi;
 				}
-				if (Main.myPlayer == Projectile.owner)
-					charge += 1f / 120f;
+				charge += 1f / 120f;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);

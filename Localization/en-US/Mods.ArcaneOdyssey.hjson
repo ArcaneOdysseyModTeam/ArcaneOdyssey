@@ -337,7 +337,7 @@ RandomWords: {
 	ModeCycled: Swapped mode to {0}
 	Downed: "{0} has been defeated!"
 	Acumen: Your aura scroll effect has been boosted while using fighting styles
-	Enchantment: "{0} has buffed all players!"
+	Enchantment: "{0} has buffed all players! [i:ArcaneOdyssey/EnchantmentSpell]"
 }
 
 FargosSheet: {

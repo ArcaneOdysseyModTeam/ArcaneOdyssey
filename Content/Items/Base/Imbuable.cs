@@ -377,12 +377,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				var ability = $"{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName")}]: {Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description")}";
 
-				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{ability}");
+				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{ability}");
 				tooltips.AddTooltip(tooltip);
 			}
 			else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
 			{
-				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
+				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
 				tooltips.AddTooltip(tooltip);
 			}
 		}

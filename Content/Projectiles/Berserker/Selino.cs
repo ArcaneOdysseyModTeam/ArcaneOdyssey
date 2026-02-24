@@ -4,8 +4,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
-	public class ShockwaveSmash : StrengthTechnique
+	public class Selino : StrengthTechnique
 	{
+		public override string Texture => AOUtils.SlashTexture;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -17,12 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			Projectile.tileCollide = false;
 			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.localNPCHitCooldown = -1;
-			Projectile.Opacity = .5f;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			Main.projFrames[Type] = 6;
+			Projectile.timeLeft = 60;
 		}
 
 		public override void AI()
@@ -40,18 +36,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				Projectile.ai[0] = 1;
 			}
 
-			if (++Projectile.frameCounter > 5)
-			{
-				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Type])
-				{
-					Kill();
-				}
-			}
-			Projectile.scale += .2f / 3;
+			Projectile.alpha += 255 / 60;
 
-			//Imbue?.ExplosionEffects(Projectile.Center, .4f);
-			//SecondImbue?.ExplosionEffects(Projectile.Center, .4f);
+			//Imbue?.ExplosionEffects(Projectile.Center, .8f);
+			//SecondImbue?.ExplosionEffects(Projectile.Center, .8f);
 		}
 	}
 }

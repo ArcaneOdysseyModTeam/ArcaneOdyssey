@@ -1,17 +1,14 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Scrolls.Weapons.Lost;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Lost
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 {
 	public class AcumenTechnique : LostScroll
 	{
-		public override string Texture => AOUtils.GetTexture<AnnihilationScroll>();
-
 		public override bool ExtraConditionsForImbue(Imbuable imbue) => false;
 		public override bool CanHaveFS => true;
 
