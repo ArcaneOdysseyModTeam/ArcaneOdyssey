@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SilverFlame, Scale: area.RelativeScale())];
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SilverFlame, Scale: 2f * area.RelativeScale())];
 			spawnedDust.noGravity = true;
 			spawnedDust.noLight = true;
 		}

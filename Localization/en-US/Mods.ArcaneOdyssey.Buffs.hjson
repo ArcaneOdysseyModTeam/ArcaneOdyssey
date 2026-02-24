@@ -104,6 +104,11 @@ Minions: {
 		DisplayName: Aithiraki
 		Description: Spirit Blast!
 	}
+
+	ElementalBuff: {
+		DisplayName: Elemental
+		Description: An elemental made of your magic fights for you
+	}
 }
 
 Mounts: {

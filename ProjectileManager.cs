@@ -254,7 +254,6 @@ namespace ArcaneOdyssey
 					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
 						SecondImbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
 				}
-				projectile.DamageType = projectile.DamageType.Imbued(Imbue);
 			}
 
 			float mult = 1f;

@@ -71,7 +71,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateEquip(Player player)
 		{
-			Item.DamageType = Item.DamageType.UnImbued(Item);
 			if (Item.CanHaveImbue(player.Imbue()))
 			{
 				Imbue = player.Imbue();
@@ -91,7 +90,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}
 			else Item.color = Color.Transparent;
-			Item.DamageType = Item.DamageType.Imbued(Imbue, Item);
 		}
 
 		public override bool CanUseItem(Player player) => Imbue is not null;

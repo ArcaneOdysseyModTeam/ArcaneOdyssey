@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -10,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.friendly = true;
 		}
 

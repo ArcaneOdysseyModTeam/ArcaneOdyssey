@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		public override void SetDefaults()
 		{
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.hostile = true;
 			Projectile.height = Projectile.width = 64;
 			Projectile.timeLeft = 2 * 60;

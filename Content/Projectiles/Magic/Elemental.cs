@@ -8,9 +8,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
-namespace ArcaneOdyssey.Content.Projectiles.Relics.Minions
+namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
-	public class SpiritMinion : SpiritProjectile
+	public class Elemental : MagicSpell
 	{
 		public ref float AttackTimer => ref Projectile.ai[2];
 		public bool Stuck => StuckWalkThroughWallsTimer >= 40f || Collision.SolidCollision(Projectile.Center, 2, 2);
@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics.Minions
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
+			ProjectileID.Sets.MinionTargettingFeature[Type] = true;
 			Main.projPet[Type] = true;
 			ProjectileID.Sets.MinionSacrificable[Type] = true;
 		}
@@ -92,7 +93,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics.Minions
 					if (Main.myPlayer == Projectile.owner)
 					{
 						Vector2 initialVelocity = Projectile.SafeDirectionTo(potentialTarget.Center + (potentialTarget.velocity * 15f)) * 7f;
-						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, initialVelocity, ModContent.ProjectileType<SpiritBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
+						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, initialVelocity, ModContent.ProjectileType<MinionMinionBeam>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 						Projectile.netUpdate = true;
 						Projectile.netSpam = 0;
 					}
@@ -113,11 +114,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics.Minions
 		{
 			if (Owner.dead || !Owner.active)
 			{
-				Owner.ClearBuff(ModContent.BuffType<SpiritMinionBuff>());
+				Owner.ClearBuff(ModContent.BuffType<ElementalBuff>());
 				return false;
 			}
 
-			if (Owner.HasBuff(ModContent.BuffType<SpiritMinionBuff>()))
+			if (Owner.HasBuff(ModContent.BuffType<ElementalBuff>()))
 			{
 				Projectile.timeLeft = 2;
 			}

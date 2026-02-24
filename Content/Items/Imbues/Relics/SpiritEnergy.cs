@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = OracleDamage.Instance;
+			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}

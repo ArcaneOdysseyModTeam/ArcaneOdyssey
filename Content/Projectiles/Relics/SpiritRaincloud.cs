@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.ownerHitCheck = true;

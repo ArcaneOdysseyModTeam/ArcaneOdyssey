@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()
 		{
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.timeLeft = 25;
 			Projectile.hostile = true;
 			Projectile.height = Projectile.width = 170;

@@ -258,3 +258,5 @@ Effects: {
 }
 
 MeteorSpell.DisplayName: Meteor Spell
+Elemental.DisplayName: Elemental
+MinionMinionBeam.DisplayName: Minion Minion Beam

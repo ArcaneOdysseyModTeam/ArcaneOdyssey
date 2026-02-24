@@ -346,23 +346,6 @@ FargosSheet: {
 	BloodDisease: Blood Disease: {0}
 }
 
-DamageClasses: {
-	ConjurerDamage: conjurer damage
-	ConjurerNoSpeedDamage: conjurer damage
-	JuggernautDamage: juggernaut damage
-	KnightDamage: knight damage
-	KnightNoSpeedDamage: knight damage
-	OracleDamage: oracle damage
-	PaladinDamage: paladin damage
-	RangedConjurerDamage: ranged conjurer damage
-	RangedKnightDamage: ranged knight damage
-	RangedWarlordDamage: ranged warlord damage
-	WarlockDamage: warlock damage
-	WarlordDamage: warlord damage
-	WarlordNoSpeedDamage: warlord damage
-	SavantDamage: savant damage
-}
-
 ScrollTiers: {
 	Common: "[c/2277ff:Common {0} scroll]"
 	Rare: "[c/0044ff:Rare {0} scroll]"

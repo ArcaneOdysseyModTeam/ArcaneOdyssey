@@ -478,7 +478,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI)
 						{
-							var damagetype = CurrentDash.DamageType.Imbued(Imbue, CurrentDash.source is Item item ? item : null);
+							var damagetype = CurrentDash.DamageType;
 							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.Next(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);
 						}
 					}

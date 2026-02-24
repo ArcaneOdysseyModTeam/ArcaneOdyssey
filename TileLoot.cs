@@ -137,6 +137,8 @@ namespace ArcaneOdyssey
 
 			AddOption<AnnihilationScroll>();
 			AddOption<AcumenTechnique>();
+			AddOption<CresendoTechnique>();
+			AddOption<ElementalSpell>();
 			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
 				AddOption<EnchantmentSpell>();

@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Rare
 			base.SetDefaults();
 			Item.useTime = Item.useAnimation = 67;
 			Item.damage = 20;
-			Item.DamageType = OracleDamage.Instance;
+			Item.DamageType = DamageClass.Summon;
 			Item.shoot = ModContent.ProjectileType<SpiritHound>();
 			Item.shootSpeed = 7f;
 		}

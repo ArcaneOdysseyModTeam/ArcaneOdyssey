@@ -20,10 +20,6 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool PredictiveArray { get; set; }
 
-		[DefaultValue(true)]
-		[ReloadRequired]
-		public bool DamageTypes { get; set; }
-
 		public override void OnLoaded()
 		{
 			if (!AffectsOtherMods)

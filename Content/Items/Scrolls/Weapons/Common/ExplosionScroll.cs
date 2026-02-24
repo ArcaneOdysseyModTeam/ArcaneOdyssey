@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
 			base.UpdateInventory(player);
 			if (Imbue is SpiritEnergy)
 			{
-				Item.DamageType = OracleDamage.Instance;
+				Item.DamageType = DamageClass.Summon;
 			}
 			else
 			{

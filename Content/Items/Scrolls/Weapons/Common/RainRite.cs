@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Weapons.Common
 			Item.useTime = Item.useAnimation = 30;
 			Item.damage = 18;
 			Item.knockBack = 0f;
-			Item.DamageType = OracleDamage.Instance;
+			Item.DamageType = DamageClass.Summon;
 			Item.shoot = ModContent.ProjectileType<SpiritRaincloud>();
 			Item.shootSpeed = 1f;
 		}

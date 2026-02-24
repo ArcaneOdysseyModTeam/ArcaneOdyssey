@@ -110,6 +110,11 @@ Weapons: {
 			DisplayName: Cresendo Technique
 			Tooltip: Creates a massive shockwave of air
 		}
+
+		ElementalSpell: {
+			DisplayName: Elemental Spell
+			Tooltip: Summons an elemental made of your magic
+		}
 	}
 
 	Rare: {
