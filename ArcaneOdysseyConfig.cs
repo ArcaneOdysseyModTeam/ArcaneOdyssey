@@ -44,10 +44,6 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool ItemTypeTooltips { get; set; }
 
-		[DefaultValue(true)]
-		[ReloadRequired]
-		public bool MissingDebuffSprites { get; set; }
-
 		public static ArcaneOdysseyClientConfig Instance;
 	}
 }

@@ -1,16 +1,12 @@
-﻿using ArcaneOdyssey.Content.Buffs.Base;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace ArcaneOdyssey.Content.Buffs.Stuns
+namespace ArcaneOdyssey.Content.Buffs.Base
 {
-	/// <summary>
-	/// nobody will tell its a custom debuff thats the point lol
-	/// </summary>
-	public class AOFrozen : Stun
+	public abstract class VanillaClone : AODebuff
 	{
-		public const int VanillaID = BuffID.Frozen;
+		public abstract int VanillaID { get; }
 
 		public override string Texture => $"Terraria/Images/Buff_{VanillaID}";
 

@@ -5,9 +5,9 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-	public class HeavyBleed : AODebuff
+	public class HeavyBleed : VanillaClone
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.Bleeding}";
+		public override int VanillaID => BuffID.Bleeding;
 		private int totalTicks = 0;
 		public override void Update(NPC npc, ref int buffIndex)
 		{

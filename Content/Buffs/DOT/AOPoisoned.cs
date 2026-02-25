@@ -4,9 +4,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-	public class AOPoisoned : AODebuff
+	public class AOPoisoned : VanillaClone
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.Poisoned}";
-		public override int[] Counterparts => [BuffID.Poisoned, ModContent.BuffType<ElectrifiedToxins>()];
+		public override int VanillaID => BuffID.Poisoned;
+		public override int[] Counterparts => [.. base.Counterparts, ModContent.BuffType<ElectrifiedToxins>()];
 	}
 }

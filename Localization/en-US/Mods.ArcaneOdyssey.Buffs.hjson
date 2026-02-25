@@ -4,7 +4,7 @@ DOT: {
 		Description: You are losing blood
 	}
 
-	AOScalding: {
+	Scalding: {
 		DisplayName: Scalding
 		Description: You are covered in a thick cloud of hot steam
 	}
@@ -131,12 +131,12 @@ Stuns: {
 		Description: You can't move
 	}
 
-	AOParalyzed: {
+	Paralyzed: {
 		DisplayName: Paralyzed
 		Description: You can't move
 	}
 
-	AOPetrified: {
+	Petrified: {
 		DisplayName: Petrified
 		Description: You can't move
 	}

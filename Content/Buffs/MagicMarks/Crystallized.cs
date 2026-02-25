@@ -15,6 +15,8 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			tip = Mod.CustomLocalization(LocalizationCategory.Replace($"Mods.{Mod.Name}.") + ".Description", [stack]).Value;
 		}
 
+		public override int[] Counterparts => [BuffID.Midas];
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (npc.HasBuff(Type))

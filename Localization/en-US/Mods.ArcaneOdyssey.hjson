@@ -68,29 +68,14 @@ Configs: {
 			Tooltip: Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
 		}
 
-		ProjectileSizes: {
-			Label: "[i:ArcaneOdyssey/ColossalGreatsword] Projectile Sizes"
-			Tooltip: Toggles projectiles having their size affected by the mod
-		}
-
 		PredictiveArray: {
 			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
 			Tooltip: Whether to have the Array spell predict enemy movements to aim
-		}
-
-		DamageTypes: {
-			Label: "[i:ArcaneOdyssey/SpiritEnergy] Custom Damage Types"
-			Tooltip: Whether to have custom damage classes, such as "conjurer damage"
 		}
 	}
 
 	ArcaneOdysseyClientConfig: {
 		DisplayName: Client Config
-
-		ElfPetSoundEffects: {
-			Label: "[i:ArcaneOdyssey/ElfPetItem] Elf Pet Sound Effects"
-			Tooltip: ""
-		}
 
 		GenerateTucker: {
 			Label: "[i:ArcaneOdyssey/TuckerGraveItem] Generate Tucker's Grave"
@@ -105,11 +90,6 @@ Configs: {
 		ItemTypeTooltips: {
 			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
 			Tooltip: Toggles whether to show the rarity and type of items in their tooltips
-		}
-
-		MissingDebuffSprites: {
-			Label: "[i:ArcaneOdyssey/OilMagic] Add Missing Buff Sprites"
-			Tooltip: Some vanilla buffs are used by the mod but lack sprites, this toggle fixes that
 		}
 	}
 }

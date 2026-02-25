@@ -1649,13 +1649,13 @@ namespace ArcaneOdyssey
 	/// <param name="debuffid">Terraria.ID.BuffID</param>
 	/// <param name="duration">Duration, in ticks (60/second)</param>
 	/// <param name="debuffRequirement">Damage% requirement to activate debuff</param>
-	public struct Debuff(int debuffid, int duration, int debuffRequirement = 0)
+	public struct Debuff(int debuffid, int duration = 600, int debuffRequirement = 0)
 	{
 		public float debuffPercent = debuffRequirement / 100f;
 		public int debuffID = debuffid;
 		public int debuffDuration = duration;
 
-		public static Debuff Create<T>(int duration, int debuffRequirement = 0) where T : ModBuff
+		public static Debuff Create<T>(int duration = 600, int debuffRequirement = 0) where T : ModBuff
 		{
 			return new(ModContent.BuffType<T>(), duration, debuffRequirement);
 		}

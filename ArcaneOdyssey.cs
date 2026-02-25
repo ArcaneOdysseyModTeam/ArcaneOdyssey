@@ -202,14 +202,6 @@ namespace ArcaneOdyssey
 
 	public class AODebuffManager : GlobalBuff
 	{
-		public override void SetStaticDefaults()
-		{
-			if (ArcaneOdysseyClientConfig.Instance.MissingDebuffSprites)
-			{
-				TextureAssets.Buff[BuffID.Oiled] = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/OiledDebuff");
-			}
-		}
-
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
 		{
 			buffName = buffName.Replace("Imbue", "Gel");

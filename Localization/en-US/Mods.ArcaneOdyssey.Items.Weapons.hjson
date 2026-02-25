@@ -207,3 +207,8 @@ RavennaNoble: {
 		}
 	}
 }
+
+Sinbane: {
+	DisplayName: Sinbane
+	Tooltip: Also called the Oathkeeper
+}

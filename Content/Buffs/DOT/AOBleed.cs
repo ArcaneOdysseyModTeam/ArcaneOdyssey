@@ -1,14 +1,13 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-	public class AOBleed : AODebuff
+	public class AOBleed : VanillaClone
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.Bleeding}";
-
-		public override int[] Counterparts => [BuffID.Bleeding];
+		public override int VanillaID => BuffID.Bleeding;
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
@@ -18,5 +17,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			}
 			npc.ArcaneOdyssey().bleeding = true;
 		}
+
+		public override int[] Counterparts => [..base.Counterparts, ModContent.BuffType<HeavyBleed>()];
 	}
 }

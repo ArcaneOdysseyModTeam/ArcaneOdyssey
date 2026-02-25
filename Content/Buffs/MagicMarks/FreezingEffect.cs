@@ -6,6 +6,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class FreezingEffect : AODebuff
 	{
+		public override int[] Counterparts => [BuffID.Chilled];
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (!Main.dedServ)

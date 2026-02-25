@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.PlayerClasses
 {
 	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{
-		public override string Texture => Mod.Name + "/Assets/ProjectileDebuff";
+		public override string Texture => Mod.Name + "/Assets/Debuff";
 		public virtual string ExtraIconTexture => null;
 
 		public override void SetStaticDefaults()

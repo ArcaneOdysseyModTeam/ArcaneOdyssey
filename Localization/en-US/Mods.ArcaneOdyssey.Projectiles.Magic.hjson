@@ -258,6 +258,10 @@ Effects: {
 }
 
 MeteorSpell.DisplayName: Meteor Spell
-Minions.Elemental.DisplayName: Magic Elemental
-Minions.MinionMinionBeam.DisplayName: Beam Spell
+
+Minions: {
+	Elemental.DisplayName: Magic Elemental
+	MinionMinionBeam.DisplayName: Beam Spell
+}
+
 Javelin.DisplayName: Javelin Spell

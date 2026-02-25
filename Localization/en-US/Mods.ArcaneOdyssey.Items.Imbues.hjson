@@ -12,7 +12,7 @@ Relics: {
 
 	EmberStaff: {
 		DisplayName: Ember Staff
-		Tooltip: It was blessed by Hephaestus - the god of fire and blacksmithing
+		Tooltip: Blessed by Hephaestus, the god of fire
 
 		Ability: {
 			DisplayName: Floganymai
@@ -22,7 +22,7 @@ Relics: {
 
 	NyxStaff: {
 		DisplayName: Staff of Night
-		Tooltip: It was blessed by Nyx - the goddess of night
+		Tooltip: Blessed by Nyx, the goddess of night
 
 		Ability: {
 			DisplayName: Nichtetheis
@@ -32,7 +32,7 @@ Relics: {
 
 	TidestoneBand: {
 		DisplayName: Tidestone Band
-		Tooltip: It was blessed by Poseidon - the god of the sea
+		Tooltip: Blessed by Poseidon, the god of the sea
 
 		Ability: {
 			DisplayName: Thakrousi
@@ -42,7 +42,7 @@ Relics: {
 
 	CrystalOrb: {
 		DisplayName: Crystal Orb
-		Tooltip: It was blessed by Aether - the god of light
+		Tooltip: Blessed by Aether, the god of light
 
 		Ability: {
 			DisplayName: Aithiraki

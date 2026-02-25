@@ -8,11 +8,6 @@ DevastateCooldown: {
 	Description: Devastate is on cooldown
 }
 
-ColossalCleaveCooldown: {
-	DisplayName: Colossal Cleave Cooldown
-	Description: Colossal Cleave is on cooldown
-}
-
 RisingTideCooldown: {
 	DisplayName: Rising Tide Cooldown
 	Description: Rising Tide is on cooldown

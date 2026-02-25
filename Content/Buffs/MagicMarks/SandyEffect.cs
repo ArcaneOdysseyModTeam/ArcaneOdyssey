@@ -6,6 +6,8 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class SandyEffect : AODebuff
 	{
+		public override int[] Counterparts => [BuffID.WindPushed];
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (!Main.dedServ)
