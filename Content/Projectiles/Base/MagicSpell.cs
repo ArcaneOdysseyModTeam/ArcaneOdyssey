@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class MagicSpell : AOPlayerProjectile
 	{
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public string Tier
 		{

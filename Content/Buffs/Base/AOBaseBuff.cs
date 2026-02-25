@@ -5,5 +5,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 	public abstract class AOBaseBuff : ModBuff, ILocalizedModType
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.Content.");
+
+		public virtual int[] Counterparts => [];
 	}
 }

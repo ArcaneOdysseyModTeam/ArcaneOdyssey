@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 	public class Nichtetheis : SpiritProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public override AODebuffRequirement? Debuff => new(ModContent.BuffType<DrainedEffect>(), 60 * 5);
+		public override Debuff? ProjectileDebuff => new(ModContent.BuffType<DrainedEffect>(), 60 * 5);
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

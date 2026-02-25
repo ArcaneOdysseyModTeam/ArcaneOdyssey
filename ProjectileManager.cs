@@ -178,9 +178,9 @@ namespace ArcaneOdyssey
 
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
 			{
-				if (proj.Debuff.HasValue)
+				if (proj.ProjectileDebuff.HasValue)
 				{
-					target.AddBuff(proj.Debuff.Value.debuffID, proj.Debuff.Value.debuffDuration);
+					target.AddBuff(proj.ProjectileDebuff.Value.debuffID, proj.ProjectileDebuff.Value.debuffDuration);
 				}
 
 				if (proj.HitSound.HasValue)

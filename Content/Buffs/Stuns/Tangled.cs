@@ -9,6 +9,8 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Webbed}";
 		private int stack = 1;
 
+		public override int[] Counterparts => [BuffID.Webbed];
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (npc.HasBuff(Type))

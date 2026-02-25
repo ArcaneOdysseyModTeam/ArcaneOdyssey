@@ -8,7 +8,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.NPCS
+namespace ArcaneOdyssey.Content.NPCS.Minibosses
 {
 	[AutoloadBossHead]
 	public abstract class AOMiniboss : ModNPC

@@ -32,27 +32,30 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.3f;
 		public override float AOScrollDamage => 0.925f;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<SnowyEffect>(),
-				BuffID.Wet
+				ClearBuff.Create < FreezingEffect >(),
+				ClearBuff.Create<SnowyEffect>(),
+				new(BuffID.Wet)
 			],
 			[
 				new(ModContent.BuffType<AOBleed>(),1.01f),
 				new(BuffID.OnFire,1.125f),
+				Synergy.Create<AOBurning>(1.125f),
 				new(BuffID.Venom,1.075f),
+				Synergy.Create<Corroding>(1.075f),
 				new(ModContent.BuffType<Crystallized>(),1.075f),
 				new(ModContent.BuffType<FreezingEffect>(),1.01f),
 				new(BuffID.OnFire3,1.075f),
+				Synergy.Create<Melting>(1.075f),
 				new(ModContent.BuffType<SnowyEffect>(),0.99f),
 				new(BuffID.ShadowFlame,1.15f),
 				new(BuffID.Wet,0.99f),
 				new(BuffID.Oiled,1.075f),
 				new(ModContent.BuffType<Singed>(), 1.1f),
 				new(ModContent.BuffType<SandyEffect>(),0.99f),
-				new(ModContent.BuffType<AOScalding>(),1.125f),
+				new(ModContent.BuffType<Scalding>(),1.125f),
 				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);

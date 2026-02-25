@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 {
 	public class Elemental : MagicSpell
 	{

@@ -15,9 +15,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override AORarities AORarity => AORarities.Special;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
+		public override Combo[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<Paralyzed>())];
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<Paralyzed>(), 60, 33)];
 
 		
 

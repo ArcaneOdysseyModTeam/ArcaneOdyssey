@@ -32,34 +32,39 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => 0.875f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(), 60 * 10, 33)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()), new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()), new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<Singed>(), ModContent.BuffType<AOPetrified>())];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<Petrified>(), 60 * 10, 33)];
+		public override Combo[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<Petrified>()), Combo.Create<Melting, Petrified>(), new(BuffID.OnFire, ModContent.BuffType<Petrified>()), Combo.Create<AOBurning, Petrified>(), new(BuffID.ShadowFlame, ModContent.BuffType<Petrified>()), new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<Petrified>()), new(ModContent.BuffType<Scalding>(), ModContent.BuffType<Petrified>()), new(ModContent.BuffType<Singed>(), ModContent.BuffType<Petrified>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<FreezingEffect>(),
-				BuffID.OnFire,
-				BuffID.OnFire3,
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.ShadowFlame,
-				ModContent.BuffType<Singed>(),
-				ModContent.BuffType<AOScalding>()
+				new(BuffID.Wet),
+				ClearBuff.Create < SnowyEffect >(),
+				ClearBuff.Create < FreezingEffect >(),
+				new(BuffID.OnFire),
+				ClearBuff.Create < AOBurning >(),
+				new(BuffID.OnFire3),
+				ClearBuff.Create < Melting >(),
+				ClearBuff.Create < CharredEffect >(),
+				new(BuffID.ShadowFlame),
+				ClearBuff.Create < Singed >(),
+				ClearBuff.Create < Scalding >()
 			],
 			[
 				new(ModContent.BuffType<AOBleed>(),1.1f),
 				new(BuffID.OnFire,1.02f),
+				Synergy.Create<AOBurning>(1.02f),
 				new(BuffID.Venom,1.075f),
+				Synergy.Create<Corroding>(1.075f),
 				new(ModContent.BuffType<Singed>(), 1.2f),
 				new(BuffID.Slimed,1.075f),
 				new(BuffID.Oiled,1.075f),
 				new(BuffID.OnFire3,1.075f),
+				Synergy.Create<Melting>(1.075f),
 				new(BuffID.ShadowFlame,1.15f),
 				new(BuffID.Wet,0.995f),
 				new(ModContent.BuffType<FreezingEffect>(),0.99f),
 				new(ModContent.BuffType<CharredEffect>(),1.01f),
 				new(ModContent.BuffType<SandyEffect>(),1.125f),
-				new(ModContent.BuffType<AOScalding>(),1.2f),
+				new(ModContent.BuffType<Scalding>(),1.2f),
 				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);

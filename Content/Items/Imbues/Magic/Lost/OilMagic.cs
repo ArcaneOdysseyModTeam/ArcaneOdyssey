@@ -23,14 +23,16 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollDamage => 1.28f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Oiled, 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [new(BuffID.Oiled, 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
 				new(BuffID.OnFire,1.15f),
+				Synergy.Create<AOBurning>(1.15f),
 				new(BuffID.OnFire3,1.15f),
+				Synergy.Create<Melting>(1.15f),
 				new(BuffID.ShadowFlame,1.15f),
 				new(ModContent.BuffType<AOBleed>(),1.1f),
 				new(ModContent.BuffType<HeavyBleed>(),1.1f),

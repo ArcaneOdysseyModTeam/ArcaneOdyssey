@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override float AOScrollDamage => .95f;
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 1f;
-		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>())];
+		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<FireMagic>();
 
 		public override void SetStaticDefaults()

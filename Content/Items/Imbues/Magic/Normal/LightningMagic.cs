@@ -31,23 +31,25 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.4f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => .875f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<Paralyzed>(), 60, 33)];
+		public override Combo[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<Paralyzed>())];
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ModContent.BuffType<AOPetrified>(), // petrified
-				ModContent.BuffType<CharredEffect>(),
-				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<AOBleed>(),
-				ModContent.BuffType<AOFrozen>()
+				ClearBuff.Create<Petrified>(), // petrified
+				ClearBuff.Create < CharredEffect >(),
+				ClearBuff.Create < SandyEffect >(),
+				ClearBuff.Create < AOBleed >(),
+				ClearBuff.Create < AOFrozen >()
 			],
 			[
 				new(BuffID.Chilled, 1.2f), // frozen
 				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
 				new(BuffID.Burning, 1.15f), // scalding
 				new(BuffID.OnFire3, 1.075f), // melting/hellfire
+				Synergy.Create<Melting>(1.075f),
 				new(BuffID.Venom, 1.075f), // venom acid
+				Synergy.Create<Corroding>(1.075f),
 				new(BuffID.Wet, 1.05f), // 
 				new(BuffID.ShadowFlame,1.15f),
 				new(BuffID.Oiled,0.96f),

@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public const float Speed = 3.7f;
-		public override AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 50 * 5);
+		public override Debuff? ProjectileDebuff => new(ModContent.BuffType<AOBleed>(), 50 * 5);
 
 		public override void SetStaticDefaults()
 		{

@@ -28,8 +28,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 1.05f;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<Crystallized>(), 60 * 5)];
-		public override CombinedDebuff[] CombinedDebuffs => [];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<Crystallized>(), 60 * 5)];
+		public override Combo[] CombinedDebuffs => [];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
@@ -38,7 +38,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(ModContent.BuffType<FreezingEffect>(), 1.01f),
 				new(ModContent.BuffType<AOBleed>(), 1.01f),
 				new(BuffID.Venom, 1.01f),
+				Synergy.Create<Corroding>(1.01f),
 				new(BuffID.OnFire3, 1.075f),
+				Synergy.Create<Melting>(1.075f),
 				new(ModContent.BuffType<SandyEffect>(), 1.125f)
 			]
 			);

@@ -1,6 +1,6 @@
 using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.NPCS;
+using ArcaneOdyssey.Content.NPCS.Town;
 using ArcaneOdyssey.Content.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -21,29 +21,35 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => .925f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 1f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SnowyEffect>(), 60 * 10)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<SnowyEffect>(), 60 * 10)];
+		public override Combo[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.OnFire,
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.Venom,
-				BuffID.Wet,
-				BuffID.Oiled,
-				ModContent.BuffType<FreezingEffect>(),
-				BuffID.OnFire3,
-				BuffID.ShadowFlame,
-				ModContent.BuffType<AOScalding>(),
-				ModContent.BuffType<SearedEffect>()
+				new(BuffID.OnFire),
+				ClearBuff.Create < AOBurning >(),
+				ClearBuff.Create < CharredEffect >(),
+				new(BuffID.Venom),
+				ClearBuff.Create < Corroding >(),
+				new(BuffID.Wet),
+				new(BuffID.Oiled),
+				ClearBuff.Create < FreezingEffect >(),
+				new(BuffID.OnFire3),
+				ClearBuff.Create < Melting >(),
+				new(BuffID.ShadowFlame),
+				ClearBuff.Create < Scalding >(),
+				ClearBuff.Create < SearedEffect >()
 			],
 			[
 				new(ModContent.BuffType<Crystallized>(),0.8f),
 				new(ModContent.BuffType<AOBleed>(),1.05f),
-				new(BuffID.OnFire,0.90f),
+				new(BuffID.OnFire, .9f),
+				Synergy.Create<AOBurning>(.9f),
 				new(ModContent.BuffType<CharredEffect>(),0.8f),
 				new(BuffID.Venom,0.9f),
+				Synergy.Create<Corroding>(.9f),
 				new(ModContent.BuffType<FreezingEffect>(),1.1f),
 				new(BuffID.OnFire3,0.9f),
+				Synergy.Create<Melting>(.9f),
 				new(BuffID.ShadowFlame,0.8f),
 				new(BuffID.Wet,1.1f),
 				new(ModContent.BuffType<SearedEffect>(),0.8f)

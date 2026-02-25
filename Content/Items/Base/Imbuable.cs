@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -88,10 +89,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <para>Relics are always Normal for now</para>
 		/// </summary>
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
-		public virtual AODebuffRequirement[] ImbueDebuffs => [];
+		public virtual Debuff[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);
 		public virtual Color ImbueColour => Color.Transparent;
-		public virtual CombinedDebuff[] CombinedDebuffs => [];
+		public virtual Combo[] CombinedDebuffs => [];
 		public virtual SoundStyle? ImbueSound => null;
 
 		/// <summary>
@@ -369,9 +370,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			tooltips.AddTooltip(new(Mod, "ShiftNotice", Mod.CustomLocalization("ImbueStuff.ShiftNotice").Value));
 
-			if (TooltipsPrefix is not null)
-				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
-			
 
 			if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
 			{
@@ -385,9 +383,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
 				tooltips.AddTooltip(tooltip);
 			}
+
+			if (TooltipsPrefix is not null)
+				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
 
-		private static int SortMultipliers(MagicBuffMultiplier x, MagicBuffMultiplier y)
+		private static int SortMultipliers(Synergy x, Synergy y)
 		{
 			if (x.multiplier > y.multiplier)
 			{
@@ -404,7 +405,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			var text = Mod.CustomLocalization("ImbueStuff.NoSynergies").Value;
 
-			var syns = Effects.magicBuffMultipliers.Sorted(new Comparison<MagicBuffMultiplier>(SortMultipliers));
+			var syns = Effects.magicBuffMultipliers.Sorted(new Comparison<Synergy>(SortMultipliers));
 			if (syns.Count > 0)
 			{
 				text = Mod.CustomLocalization("ImbueStuff.SynergiesInfo", DisplayName.Value, AOUtils.GetBuffName(syns[0].buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", syns[0].multiplier).Value).Value;
@@ -418,15 +419,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 			}
 
-			if (Effects.clearBuffs.Count > 0)
+			if (Effects.clearBuffs.Length > 0)
 			{
-				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(Effects.clearBuffs[0])).Value;
+				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(Effects.clearBuffs[0].id)).Value;
 
 				foreach (var buff in Effects.clearBuffs)
 				{
-					if (buff != Effects.clearBuffs[0])
+					if (buff.id != Effects.clearBuffs[0].id)
 					{
-						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(buff)).Value;
+						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(buff.id)).Value;
 					}
 				}
 			}

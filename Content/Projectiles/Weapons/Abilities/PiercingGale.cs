@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	public class PiercingGale : AOPlayerProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<SparrowThrust>();
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
 
 		public override float AOSize => 1f;

@@ -33,22 +33,23 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.35f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => .825f;
-		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
+		public override Combo[] CombinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
 		public override SynergyEffects Effects => new(
 			[
-				BuffID.OnFire,
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.Venom,
-				ModContent.BuffType<SandyEffect>(),
-				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<AOScalding>(),
-				BuffID.Oiled
+				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create < FreezingEffect >(),
+				ClearBuff.Create < CharredEffect >(),
+				ClearBuff.Create < Corroding >(),
+				ClearBuff.Create < SandyEffect >(),
+				new(BuffID.Wet),
+				ClearBuff.Create < SnowyEffect >(),
+				ClearBuff.Create < Scalding >(),
+				new(BuffID.Oiled)
 			],
 			[
 				new(ModContent.BuffType<Crystallized>(),0.9f),
 				new(BuffID.OnFire,0.9f),
+				Synergy.Create<AOBurning>(.9f),
 				new(ModContent.BuffType<CharredEffect>(),1.125f),
 				new(ModContent.BuffType<Singed>(), .9f),
 				new(ModContent.BuffType<FreezingEffect>(),1.1f),
@@ -57,7 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				new(BuffID.ShadowFlame,1.15f),
 				new(BuffID.Wet,0.9f),
 				new(BuffID.Oiled,0.98f),
-				new(ModContent.BuffType<AOScalding>(),0.9f),
+				new(ModContent.BuffType<Scalding>(),0.9f),
 				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);

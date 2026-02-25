@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 1.2f;
 		public override float AOScrollSize => 1.3f;
 		public override float AOScrollDamage => .85f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<DrainedEffect>(), (60 * 7.5f).Round())];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<DrainedEffect>(), (60 * 7.5f).Round())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			

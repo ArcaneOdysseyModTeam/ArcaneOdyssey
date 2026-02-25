@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override float AOSpeed => .9f;
 		public override float AOSize => 1.25f;
 		public override bool? Cold => true;
-		public override AODebuffRequirement? Debuff => new(BuffID.Wet, 600);
+		public override Debuff? ProjectileDebuff => new(BuffID.Wet, 600);
 		public override SoundStyle? HitSound => SoundID.Splash;
 		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
 

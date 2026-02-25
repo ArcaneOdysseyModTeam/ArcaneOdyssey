@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 			}
 		}
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[],
 			[

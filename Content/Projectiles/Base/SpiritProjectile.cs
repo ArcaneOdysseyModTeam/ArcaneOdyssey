@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class SpiritProjectile : AOPlayerProjectile, IImbuable
 	{
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public override void SetDefaults()
 		{

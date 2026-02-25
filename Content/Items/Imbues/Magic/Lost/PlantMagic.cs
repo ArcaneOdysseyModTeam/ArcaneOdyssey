@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -11,18 +13,21 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float Aura => .8f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override Color ImbueColour => Color.ForestGreen;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Poisoned, 60 * 10),];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOPoisoned>(60 * 10),];
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.2f;
 		public override float AOImbueDamage => .95f;
 		public override SynergyEffects Effects => new([],
 			[
-				new(BuffID.Poisoned, 1.2f),
 				new(BuffID.ShadowFlame,1.15f),
 				new(BuffID.OnFire,1.15f),
+				Synergy.Create<AOBurning>(1.15f),
 				new(BuffID.Venom,1.1f),
+				Synergy.Create<Corroding>(1.1f),
 				new(BuffID.OnFire3,1.1f),
+				Synergy.Create<Melting>(1.1f),
+				Synergy.Create<Tangled>(.9f),
 			]);
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

@@ -33,18 +33,21 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override float MinScrollDamage => .775f;
 		public override float MinScrollSize => .8f;
 		public override Color DisplayColor => Color.PaleVioletRed;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [new(BuffID.Wet, 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[
-				ModContent.BuffType<SearedEffect>(),
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.OnFire,
-				BuffID.OnFire3,
-				BuffID.Venom,
-				BuffID.ShadowFlame,
-				ModContent.BuffType<Singed>(),
-				ModContent.BuffType<AOScalding>(),
-				ModContent.BuffType<AOPetrified>()
+				ClearBuff.Create < SearedEffect >(),
+				ClearBuff.Create<CharredEffect>(),
+				new(BuffID.OnFire),
+				ClearBuff.Create < AOBurning >(),
+				new(BuffID.OnFire3),
+				ClearBuff.Create < Melting >(),
+				new(BuffID.Venom),
+				ClearBuff.Create < Corroding >(),
+				new(BuffID.ShadowFlame),
+				ClearBuff.Create < Singed >(),
+				ClearBuff.Create < Scalding >(),
+				ClearBuff.Create < Petrified >()
 			],
 			[
 				new(ModContent.BuffType<Crystallized>(),1.1f),
@@ -53,12 +56,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 				new(ModContent.BuffType<AOBleed>(),1.05f),
 				new(ModContent.BuffType<CharredEffect>(),0.9f),
 				new(BuffID.OnFire3,0.9f),
+				Synergy.Create<Melting>(.9f),
 				new(ModContent.BuffType<Singed>(), 0.8f),
 				new(BuffID.Venom,0.9f),
+				Synergy.Create<Corroding>(.9f),
 				new(ModContent.BuffType<SearedEffect>(),0.85f),
 				new(BuffID.ShadowFlame,0.85f),
 				new(ModContent.BuffType<SandyEffect>(),0.8f),
-				new(BuffID.OnFire,0.8f)
+				new(BuffID.OnFire,0.8f),
+				Synergy.Create<AOBurning>(.8f),
 			]
 		);
 

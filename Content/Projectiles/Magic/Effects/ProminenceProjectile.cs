@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -7,7 +8,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 {
 	public class ProminenceProjectile : AOPlayerProjectile
 	{
-		public override AODebuffRequirement? Debuff => new(BuffID.OnFire3, 120);
+		public override Debuff? ProjectileDebuff => Debuff.Create<Melting>(120);
 
 		private Vector2 originPos;
 		private int timeAlive = 0;

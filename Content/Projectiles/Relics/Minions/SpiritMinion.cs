@@ -92,7 +92,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics.Minions
 					if (Main.myPlayer == Projectile.owner)
 					{
 						Vector2 initialVelocity = Projectile.SafeDirectionTo(potentialTarget.Center + (potentialTarget.velocity * 15f)) * 7f;
-						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, initialVelocity, ModContent.ProjectileType<SpiritBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
+						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, initialVelocity, ModContent.ProjectileType<MinionBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 						Projectile.netUpdate = true;
 						Projectile.netSpam = 0;
 					}

@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-	public class AOScalding : AODebuff
+	public class Scalding : AODebuff
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
@@ -834,30 +835,54 @@ namespace ArcaneOdyssey
 
 				if (imbue.CombinedDebuffs is not null)
 				{
-					foreach (CombinedDebuff buffkeys in imbue.CombinedDebuffs)
+					foreach (Combo buffkeys in imbue.CombinedDebuffs)
 					{
 						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
 						{
 							target.AddBuff(buffkeys.result, buffkeys.duration);
 						}
+
+						foreach (var alt in buffkeys.alternatives)
+						{
+							if (target.HasBuff(alt) || (alt == BuffID.Wet && target.wet))
+							{
+								target.AddBuff(buffkeys.result, buffkeys.duration);
+							}
+						}
 					}
 				}
 
-				foreach (MagicBuffMultiplier multiplier in imbue.Effects.magicBuffMultipliers)
+				foreach (Synergy multiplier in imbue.Effects.magicBuffMultipliers)
 				{
 					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
 					{
 						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
 					}
+
+					foreach (var alt in multiplier.alternatives)
+					{
+						if (target.HasBuff(alt) || (alt == BuffID.Wet && target.wet))
+						{
+							modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+						}
+					}
 				}
 
 				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 				{
-					foreach (int buffid in imbue.Effects.clearBuffs)
+					foreach (var buff in imbue.Effects.clearBuffs)
 					{
-						if (target.HasBuff(buffid))
+						if (target.HasBuff(buff.id))
 						{
-							target.DelBuff(target.FindBuffIndex(buffid));
+							target.DelBuff(target.FindBuffIndex(buff.id));
+						}
+
+						foreach (var alt in buff.alternatives)
+						{
+							if (target.HasBuff(alt) || (alt == BuffID.Wet && target.wet))
+							{
+								target.DelBuff(target.FindBuffIndex(alt));
+							}
 						}
 					}
 				}
@@ -1624,13 +1649,13 @@ namespace ArcaneOdyssey
 	/// <param name="debuffid">Terraria.ID.BuffID</param>
 	/// <param name="duration">Duration, in ticks (60/second)</param>
 	/// <param name="debuffRequirement">Damage% requirement to activate debuff</param>
-	public struct AODebuffRequirement(int debuffid, int duration, int debuffRequirement = 0)
+	public struct Debuff(int debuffid, int duration, int debuffRequirement = 0)
 	{
 		public float debuffPercent = debuffRequirement / 100f;
 		public int debuffID = debuffid;
 		public int debuffDuration = duration;
 
-		public static AODebuffRequirement Create<T>(int duration, int debuffRequirement = 0) where T : ModBuff
+		public static Debuff Create<T>(int duration, int debuffRequirement = 0) where T : ModBuff
 		{
 			return new(ModContent.BuffType<T>(), duration, debuffRequirement);
 		}
@@ -1647,20 +1672,20 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Imbue status effects
 	/// </summary>
-	public struct SynergyEffects(List<int> buffsToClear, List<MagicBuffMultiplier> buffMultipliers)
+	public struct SynergyEffects(ClearBuff[] buffsToClear, List<Synergy> buffMultipliers)
 	{
-		public List<int> clearBuffs = buffsToClear;
-		public List<MagicBuffMultiplier> magicBuffMultipliers = buffMultipliers;
-		public readonly float MultiFromID(int id)
+		public ClearBuff[] clearBuffs = buffsToClear;
+		public List<Synergy> magicBuffMultipliers = buffMultipliers;
+	}
+
+	public struct ClearBuff(int id, params int[] alternatives)
+	{
+		public int id = id;
+		public int[] alternatives = alternatives;
+
+		public static ClearBuff Create<T>() where T : AOBaseBuff
 		{
-			foreach (MagicBuffMultiplier multiplier in magicBuffMultipliers)
-			{
-				if (multiplier.buffID == id)
-				{
-					return multiplier.multiplier;
-				}
-			}
-			return 1f;
+			return new(ModContent.BuffType<T>(), ModContent.GetInstance<T>().Counterparts);
 		}
 	}
 
@@ -1670,15 +1695,21 @@ namespace ArcaneOdyssey
 	/// <param name="requirement"></param>
 	/// <param name="result"></param>
 	/// <param name="duration"></param>
-	public struct CombinedDebuff(int requirement, int result, int duration = 60)
+	public struct Combo(int requirement, int result, int duration = 60, params int[] alternatives)
 	{
 		public int requirement = requirement;
 		public int result = result;
 		public int duration = duration;
+		public int[] alternatives = alternatives;
 
-		public static CombinedDebuff Create<T>(int result, int duration = 60) where T : ModBuff
+		public static Combo Create<T>(int result, int duration = 60) where T : AOBaseBuff
 		{
-			return new(ModContent.BuffType<T>(), result, duration);
+			return new(ModContent.BuffType<T>(), result, duration, ModContent.GetInstance<T>().Counterparts);
+		}
+
+		public static Combo Create<T, R>(int duration = 60) where T : AOBaseBuff where R : AOBaseBuff
+		{
+			return new(ModContent.BuffType<T>(), ModContent.BuffType<R>(), duration, ModContent.GetInstance<T>().Counterparts);
 		}
 	}
 
@@ -1687,10 +1718,16 @@ namespace ArcaneOdyssey
 	/// </summary>
 	/// <param name="buffid">Terraria.ID.BuffID</param>
 	/// <param name="multi">Damage multipier (ex. 1.25f)</param>
-	public struct MagicBuffMultiplier(int buffid, float multi)
+	public struct Synergy(int buffid, float multi, params int[] alternatives)
 	{
 		public int buffID = buffid;
 		public float multiplier = multi;
+		public int[] alternatives = alternatives;
+
+		public static Synergy Create<T>(float multi) where T : AOBaseBuff
+		{
+			return new(ModContent.BuffType<T>(), multi, ModContent.GetInstance<T>().Counterparts);
+		}
 	}
 
 	public interface IImbuable

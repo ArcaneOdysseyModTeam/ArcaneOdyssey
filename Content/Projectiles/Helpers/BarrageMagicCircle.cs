@@ -63,9 +63,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
 
-				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
+				dir += Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread).ToRotationVector2();
 
-				if (Main.myPlayer == Projectile.owner && Main.GameUpdateCount % MathHelper.Clamp(ApplyScrollSpeed(Owner.itemAnimationMax, true).Round(), 1, 500) == 0)
+				if (Main.myPlayer == Projectile.owner && Main.GameUpdateCount % Owner.itemAnimationMax == 0)
 				{
 					if (Owner.CheckMana(Owner.GetManaCost(Owner.PlayerItem()), true))
 					{

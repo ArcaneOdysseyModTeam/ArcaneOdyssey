@@ -20,35 +20,39 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.265f;
 		public override float AOImbueDamage => .95f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CloudyEffect>(), 3 * 60), new(ModContent.BuffType<AOParalyzed>(), 60, 16)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<CloudyEffect>(), 3 * 60), new(ModContent.BuffType<Paralyzed>(), 60, 16)];
+		public override Combo[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
 
 		public override SynergyEffects Effects => new(
 			[
-				BuffID.OnFire,
-				BuffID.Venom,
-				ModContent.BuffType<SandyEffect>(),
-				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<AOScalding>(),
-				BuffID.Oiled,
-				ModContent.BuffType<AOPetrified>(), // petrified
-				ModContent.BuffType<CharredEffect>(),
-				ModContent.BuffType<AOBleed>(),
+				new(BuffID.OnFire),
+				ClearBuff.Create<AOBurning>(),
+				new(BuffID.Venom),
+				ClearBuff.Create < Corroding >(),
+				ClearBuff.Create < SandyEffect >(),
+				new(BuffID.Wet),
+				ClearBuff.Create < SnowyEffect >(),
+				ClearBuff.Create < FreezingEffect >(),
+				ClearBuff.Create < Scalding >(),
+				new(BuffID.Oiled),
+				ClearBuff.Create < Petrified >(), // petrified
+				ClearBuff.Create < CharredEffect >(),
+				ClearBuff.Create < AOBleed >(),
 			],
 			[
 				new(ModContent.BuffType<CloudyEffect>(), 1.1f),
 				new(ModContent.BuffType<Crystallized>(),0.9f),
 				new(BuffID.OnFire,0.9f),
+				Synergy.Create<AOBurning>(.9f),
 				new(ModContent.BuffType<CharredEffect>(),1.125f),
 				new(ModContent.BuffType<FreezingEffect>(),1.1f),
 				new(BuffID.Poisoned,0.9f),
+				Synergy.Create<AOPoisoned>(.9f),
 				new(ModContent.BuffType<SandyEffect>(),0.9f),
 				new(BuffID.ShadowFlame,1.15f),
 				new(BuffID.Wet,0.9f),
 				new(BuffID.Oiled,0.98f),
-				new(ModContent.BuffType<AOScalding>(),0.9f),
+				new(ModContent.BuffType<Scalding>(),0.9f),
 				new(ModContent.BuffType<SearedEffect>(),1.15f)
 			]
 			);

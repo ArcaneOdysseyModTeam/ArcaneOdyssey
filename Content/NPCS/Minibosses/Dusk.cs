@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
@@ -8,13 +9,13 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.NPCS
+namespace ArcaneOdyssey.Content.NPCS.Minibosses
 {
 	[AutoloadBossHead]
-	public class Laelus : AOMiniboss
+	public class Dusk : AOMiniboss
 	{
-		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<LaelusExplosion>()];
-		public override List<int> RangedProjectiles => [ModContent.ProjectileType<LaelusBlast>()];
+		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>()];
+		public override List<int> RangedProjectiles => [ModContent.ProjectileType<DuskHound>()];
 
 		public override void SetDefaults()
 		{
@@ -25,20 +26,20 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.height = 44;
 			//Sprite height 46
 			//Sprite width 68
-			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.value = Item.buyPrice(gold: 2);
+			NPC.HitSound = SoundID.NPCHit40;
+			NPC.DeathSound = SoundID.NPCDeath42;
+			NPC.value = Item.buyPrice(gold: 5);
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
 		}
 
 		public override float ShootSpeed => 7f * .9f;
 
-		public override ref bool Downed => ref DownedBosses.downedLaelus;
+		public override ref bool Downed => ref DownedBosses.downedDusk;
 
-		public override bool ExtraConditions => Main.dayTime;
+		public override bool ExtraConditions => NPC.downedBoss2 && !Main.dayTime;
 
-		public override int AOHealth => 650;
+		public override int AOHealth => 1700;
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
@@ -66,7 +67,8 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TidestoneBand>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NyxStaff>(), 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DuskMask>(), 4));
 		}
 	}
 }

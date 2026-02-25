@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.alpha = 40;
 		}
 
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public override void OnSpawn(IEntitySource source)
 		{

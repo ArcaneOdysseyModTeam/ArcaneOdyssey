@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Minions;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic;
+using ArcaneOdyssey.Content.Projectiles.Magic.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

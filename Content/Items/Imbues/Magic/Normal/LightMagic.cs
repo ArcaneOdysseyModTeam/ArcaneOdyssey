@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.6f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 0.87f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<BlindedEffect>(), 60 * 5)];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<BlindedEffect>(), 60 * 5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			

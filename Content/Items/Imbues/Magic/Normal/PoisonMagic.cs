@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.75f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Poisoned, 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOPoisoned>(60 * 10)];
 		//public override AODebuff ImbueDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -35,7 +35,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			[
 				new(ModContent.BuffType<AOBleed>(),1.075f),
 				new(BuffID.OnFire,0.99f),
-				new(ModContent.BuffType<AOScalding>(),0.9f)
+				Synergy.Create<AOBurning>(.99f),
+				new(ModContent.BuffType<Scalding>(),0.9f)
 			]
 			);
 

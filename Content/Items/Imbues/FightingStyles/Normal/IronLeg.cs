@@ -40,10 +40,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollSpeed => 0.75f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[
-				ModContent.BuffType<FreezingEffect>()
+				ClearBuff.Create<FreezingEffect>()
 			],
 			[
 				new(ModContent.BuffType<Crystallized>(),1.05f),

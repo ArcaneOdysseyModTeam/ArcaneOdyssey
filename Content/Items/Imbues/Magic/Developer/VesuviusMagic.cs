@@ -22,23 +22,26 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
 		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<VesuvianBurn>(), 10 * 60)];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<VesuvianBurn>(), 10 * 60)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.Chilled, // freezing
-				ModContent.BuffType<AOPetrified>(),
-				BuffID.Wet,
-				ModContent.BuffType<AOBleed>(),
-				BuffID.Venom,
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<SnowyEffect>()
+				new(BuffID.Chilled), // freezing
+				ClearBuff.Create < Petrified >(),
+				new(BuffID.Wet),
+				ClearBuff.Create < AOBleed >(),
+				new(BuffID.Venom),
+				ClearBuff.Create < Corroding >(),
+				ClearBuff.Create < FreezingEffect >(),
+				ClearBuff.Create < SandyEffect >(),
+				ClearBuff.Create < SnowyEffect >()
 			],
 			[
-				new(ModContent.BuffType<AOPetrified>(), 2.2f), // petrified
+				new(ModContent.BuffType<Petrified>(), 2.2f), // petrified
 				new(ModContent.BuffType<AOBleed>(), 2.15f), // bleeding
 				new(BuffID.OnFire, 2.075f),
+				Synergy.Create<AOBurning>(2.075f),
 				new(BuffID.Venom, 2.1f), // venom acid
+				Synergy.Create<Corroding>(2.1f),
 				new(BuffID.Burning, 2.075f),
 				new(BuffID.Poisoned, 2.05f),
 				new(ModContent.BuffType<FreezingEffect>(), 1.95f),
@@ -49,7 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 				new(BuffID.ShadowFlame, 2.1f),
 				new(BuffID.Slimed,2.075f),
 				new(ModContent.BuffType<Crystallized>(),1.95f),
-				new(ModContent.BuffType<AOScalding>(),2.075f)
+				new(ModContent.BuffType<Scalding>(),2.075f)
 			]
 			);
 

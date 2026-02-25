@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Magic
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 {
 	public class MinionMinionBeam : MagicSpell
 	{

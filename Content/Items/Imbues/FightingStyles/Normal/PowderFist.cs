@@ -27,28 +27,32 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override float AOScrollSize => Main.rand.NextFloat(1.05f, 1.19f);
 		public override float AOScrollSpeed => .9f;
 
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<SearedEffect>(), ModContent.BuffType<AOPetrified>())];
+		public override Combo[] CombinedDebuffs => [new(BuffID.OnFire, ModContent.BuffType<Petrified>()), Combo.Create<AOBurning, Petrified>(), new(ModContent.BuffType<Scalding>(), ModContent.BuffType<Petrified>()), new(ModContent.BuffType<SearedEffect>(), ModContent.BuffType<Petrified>())];
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
 		public override SynergyEffects Effects => new(
 			[
-				BuffID.Wet,
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<AOFrozen>(),
-				ModContent.BuffType<AOParalyzed>(),
-				ModContent.BuffType<AOPetrified>(),
-				ModContent.BuffType<AOScalding>(),
-				BuffID.OnFire,
-				ModContent.BuffType<SearedEffect>(),
+				new(BuffID.Wet),
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<AOFrozen>(),
+				ClearBuff.Create < Paralyzed >(),
+				ClearBuff.Create < Petrified >(),
+				ClearBuff.Create < Scalding >(),
+				new(BuffID.OnFire),
+				ClearBuff.Create < AOBurning >(),
+				ClearBuff.Create < SearedEffect >(),
 			],
 			[
-				new(ModContent.BuffType<AOPetrified>(), 1.1f),
-				new(ModContent.BuffType<AOScalding>(), 1.1f),
+				new(ModContent.BuffType<Petrified>(), 1.1f),
+				new(ModContent.BuffType<Scalding>(), 1.1f),
 				new(BuffID.OnFire, 1.1f),
+				Synergy.Create<AOBurning>(1.1f),
 				new(ModContent.BuffType<SearedEffect>(), 1.1f),
 				new(BuffID.Venom, 1.1f),
+				Synergy.Create<Corroding>(1.1f),
 				new(ModContent.BuffType<SandyEffect>(), 1.1f),
 				new(BuffID.OnFire3, 1.1f),
+				Synergy.Create<Melting>(1.1f),
 				new(BuffID.Wet, .9f),
 				new(ModContent.BuffType<FreezingEffect>(), .9f),
 				new(ModContent.BuffType<SnowyEffect>(), .8f),

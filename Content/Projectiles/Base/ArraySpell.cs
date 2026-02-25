@@ -61,6 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			writer.Write(Proj2Active);
 			writer.Write(Proj3Active);
 			writer.Write(Proj4Active);
+			writer.Write(Projectile.rotation);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -69,6 +70,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Proj2Active = reader.ReadBoolean();
 			Proj3Active = reader.ReadBoolean();
 			Proj4Active = reader.ReadBoolean();
+			Projectile.rotation = reader.ReadSingle();
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -126,7 +128,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		}
 
 		public int target = -1;
-		internal Vector2 originalVelocity;
 
 		public override void AI()
 		{
@@ -138,7 +139,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
 				}
-				originalVelocity = Projectile.velocity;
 				Projectile.velocity = Vector2.Zero;
 			}
 			Animate();
@@ -161,7 +161,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
 					Projectile.scale *= AOSize;
 
-					target = Projectile.FindTargetWithLineOfSight(originalVelocity.Length() * ShootTime);
+					target = Projectile.FindTargetWithLineOfSight(ApplyScrollSpeed(10f) * ShootTime);
 					if (target != -1)
 					{
 						var targetnpc = Main.npc[target];
@@ -182,7 +182,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					if (++Projectile.ai[1] > ShootDelay)
 					{
 						Hovering = false;
-						Projectile.velocity = Projectile.rotation.ToRotationVector2() * originalVelocity.Length();
+						Projectile.velocity = Projectile.rotation.ToRotationVector2() * ApplyScrollSpeed(10f);
 						if (Main.myPlayer == Projectile.owner)
 						{
 							Projectile.netUpdate = true;

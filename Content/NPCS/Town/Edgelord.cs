@@ -17,7 +17,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 
 
-namespace ArcaneOdyssey.Content.NPCS
+namespace ArcaneOdyssey.Content.NPCS.Town
 {
 	[AutoloadHead]
 	public class Edgelord : ModNPC

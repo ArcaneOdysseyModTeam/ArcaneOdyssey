@@ -1,5 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Items.Accessories;
+using ArcaneOdyssey.Content.Items.BossTrophies;
+using ArcaneOdyssey.Content.Items.Weapons;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
@@ -9,37 +10,35 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.NPCS
+namespace ArcaneOdyssey.Content.NPCS.Minibosses
 {
 	[AutoloadBossHead]
-	public class Dusk : AOMiniboss
+	public class Evander : AOMiniboss
 	{
-		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>()];
-		public override List<int> RangedProjectiles => [ModContent.ProjectileType<DuskHound>()];
+		public override int AOHealth => 5000;
+		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<EvanderMelee>()];
+		public override List<int> RangedProjectiles => [ModContent.ProjectileType<EvanderSlash>()];
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			NPC.damage = 65;
-			NPC.defense = 15;
+			NPC.lifeMax = 5000;
+			NPC.damage = 75;
+			NPC.defense = 20;
 			NPC.width = 20;
 			NPC.height = 44;
-			//Sprite height 46
-			//Sprite width 68
-			NPC.HitSound = SoundID.NPCHit40;
-			NPC.DeathSound = SoundID.NPCDeath42;
-			NPC.value = Item.buyPrice(gold: 5);
+			//Sprite height 96
+			//Sprite width 76
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.value = Item.buyPrice(gold: 10);
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
 		}
 
-		public override float ShootSpeed => 7f * .9f;
+		public override ref bool Downed => ref DownedBosses.downedEvander;
 
-		public override ref bool Downed => ref DownedBosses.downedDusk;
-
-		public override bool ExtraConditions => NPC.downedBoss2 && !Main.dayTime;
-
-		public override int AOHealth => 1700;
+		public override bool ExtraConditions => Main.hardMode;
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
@@ -67,8 +66,10 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NyxStaff>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DuskMask>(), 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ColossalGreatsword>(), 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderCape>(), 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderGauntlet>(), 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderTrophy>(), 10));
 		}
 	}
 }

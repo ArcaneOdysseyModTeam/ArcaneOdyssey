@@ -8,6 +8,8 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 	{
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Bleeding}";
 
+		public override int[] Counterparts => [BuffID.Bleeding];
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (Main.GameUpdateCount % 2 == 0) 

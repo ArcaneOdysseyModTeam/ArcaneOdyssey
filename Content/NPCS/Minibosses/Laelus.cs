@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Accessories;
-using ArcaneOdyssey.Content.Items.BossTrophies;
-using ArcaneOdyssey.Content.Items.Weapons;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
@@ -10,35 +8,37 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.NPCS
+namespace ArcaneOdyssey.Content.NPCS.Minibosses
 {
 	[AutoloadBossHead]
-	public class Evander : AOMiniboss
+	public class Laelus : AOMiniboss
 	{
-		public override int AOHealth => 5000;
-		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<EvanderMelee>()];
-		public override List<int> RangedProjectiles => [ModContent.ProjectileType<EvanderSlash>()];
+		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<LaelusExplosion>()];
+		public override List<int> RangedProjectiles => [ModContent.ProjectileType<LaelusBlast>()];
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			NPC.lifeMax = 5000;
-			NPC.damage = 75;
-			NPC.defense = 20;
+			NPC.damage = 65;
+			NPC.defense = 15;
 			NPC.width = 20;
 			NPC.height = 44;
-			//Sprite height 96
-			//Sprite width 76
+			//Sprite height 46
+			//Sprite width 68
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.value = Item.buyPrice(gold: 10);
+			NPC.value = Item.buyPrice(gold: 2);
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
 		}
 
-		public override ref bool Downed => ref DownedBosses.downedEvander;
+		public override float ShootSpeed => 7f * .9f;
 
-		public override bool ExtraConditions => Main.hardMode;
+		public override ref bool Downed => ref DownedBosses.downedLaelus;
+
+		public override bool ExtraConditions => Main.dayTime;
+
+		public override int AOHealth => 650;
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
@@ -66,10 +66,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ColossalGreatsword>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderCape>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderGauntlet>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderTrophy>(), 10));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TidestoneBand>()));
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponAbility? Ability => new(this, Color.Aqua);
 		public override SoundStyle UseSound => SoundID.SplashWeak;
-		public override AODebuffRequirement? WeaponDebuff => new(BuffID.Wet, 60 * 5);
+		public override Debuff? WeaponDebuff => new(BuffID.Wet, 60 * 5);
 
 		public override void SetDefaults()
 		{

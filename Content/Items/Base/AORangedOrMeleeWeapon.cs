@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AODamage => 1f;
 		public abstract int AOValue { get; }
 		public abstract AOItemTiers AOWeaponTier { get; }
-		public virtual AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
+		public virtual Debuff? WeaponDebuff => new(ModContent.BuffType<AOBleed>(), 5 * 60);
 		public virtual WeaponAbility? Ability => null;
 		public virtual SoundStyle UseSound => SoundID.Item71;
 
