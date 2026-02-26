@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				Imbue?.LingeringEffects(Projectile.Hitbox with { Width = Projectile.Hitbox.Height, X = Projectile.Hitbox.X + (Projectile.Hitbox.Width / 2) });
 				SecondImbue?.LingeringEffects(Projectile.Hitbox with { Width = Projectile.Hitbox.Height, X = Projectile.Hitbox.X + (Projectile.Hitbox.Width / 2) });
 			}
-			else if ((Projectile.numUpdates == 0))
+			else if (Projectile.numUpdates == 0)
 			{
 				Imbue?.LingeringEffects(Projectile.Hitbox);
 				SecondImbue?.LingeringEffects(Projectile.Hitbox);

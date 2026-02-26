@@ -1,15 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class StrengthTechnique : AOPlayerProjectile, ILocalizedModType
+	public abstract class StrengthTechnique : AOPlayerProjectile
 	{
-		public override string LocalizationCategory => "Imbues.FightingStyles.Projectiles";
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true;
 		}
@@ -26,6 +27,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			{
 				Kill();
 				return false;
+			}
+			if (Imbue is IronLeg)
+			{
+				Owner.position.Y -= .001f;
 			}
 			return true;
 		}

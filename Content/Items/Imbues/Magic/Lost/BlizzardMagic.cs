@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -21,32 +20,32 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => .925f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 1f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SnowyEffect>(), 60 * 10)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<SnowyEffect>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.OnFire,
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.Venom,
-				BuffID.Wet,
-				BuffID.Oiled,
-				ModContent.BuffType<FreezingEffect>(),
-				BuffID.OnFire3,
-				BuffID.ShadowFlame,
-				ModContent.BuffType<AOScalding>(),
-				ModContent.BuffType<SearedEffect>()
+				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<Corroding>(),
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<Flammable>(),
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<Melting>(),
+				ClearBuff.Create<Scorched>(),
+				ClearBuff.Create<Scalding>(),
+				ClearBuff.Create<SearedEffect>()
 			],
 			[
-				new(ModContent.BuffType<Crystallized>(),0.8f),
-				new(ModContent.BuffType<AOBleed>(),1.05f),
-				new(BuffID.OnFire,0.90f),
-				new(ModContent.BuffType<CharredEffect>(),0.8f),
-				new(BuffID.Venom,0.9f),
-				new(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new(BuffID.OnFire3,0.9f),
-				new(BuffID.ShadowFlame,0.8f),
-				new(BuffID.Wet,1.1f),
-				new(ModContent.BuffType<SearedEffect>(),0.8f)
+				Synergy.Create<Crystallized>(0.8f),
+				Synergy.Create<AOBleed>(1.05f),
+				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<CharredEffect>(0.8f),
+				Synergy.Create<Corroding>(.9f),
+				Synergy.Create<FreezingEffect>(1.1f),
+				Synergy.Create<Melting>(.9f),
+				Synergy.Create<Scorched>(0.8f),
+				Synergy.Create<Soaked>(1.1f),
+				Synergy.Create<SearedEffect>(0.8f)
 			]
 			);
 

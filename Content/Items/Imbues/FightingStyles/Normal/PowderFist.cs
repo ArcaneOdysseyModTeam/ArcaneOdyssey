@@ -1,11 +1,13 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using Terraria;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria.Audio;
+using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
@@ -18,18 +20,38 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
-		public override float AOImbueDamage => 1.085f;
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.056f;
-		public override float AOScrollDamage => 0.7f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
+		public override float AOImbueDamage => Main.rand.NextFloat(0.85f, 1.17f);
+		public override float AOImbueSpeed => .9f;
+		public override float AOImbueSize => Main.rand.NextFloat(1.11f, 1.25f);
+		public override float AOScrollDamage => Main.rand.NextFloat(0.7f, .96f);
+		public override float AOScrollSize => Main.rand.NextFloat(1.05f, 1.19f);
+		public override float AOScrollSpeed => .9f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CharredEffect>(), 60 * 10)];
+		public override Combo[] CombinedDebuffs => [Combo.Create<AOBurning, Petrified>(), Combo.Create<AOBurning, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<SearedEffect, Petrified>()];
+
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<CharredEffect>()];
 		public override SynergyEffects Effects => new(
-			[],
 			[
-				new(ModContent.BuffType<Crystallized>(),1.1f)
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<AOFrozen>(),
+				ClearBuff.Create<Paralyzed>(),
+				ClearBuff.Create<Petrified>(),
+				ClearBuff.Create<Scalding>(),
+				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<SearedEffect>(),
+			],
+			[
+				Synergy.Create<Petrified>(1.1f),
+				Synergy.Create<Scalding>(1.1f),
+				Synergy.Create<AOBurning>(1.1f),
+				Synergy.Create<SearedEffect>(1.1f),
+				Synergy.Create<Corroding>(1.1f),
+				Synergy.Create<SandyEffect>(1.1f),
+				Synergy.Create<Melting>(1.1f),
+				Synergy.Create<Soaked>(.9f),
+				Synergy.Create<FreezingEffect>(.9f),
+				Synergy.Create<SnowyEffect>(.8f),
 			]
 		);
 

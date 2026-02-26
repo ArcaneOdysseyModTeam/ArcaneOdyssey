@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -26,15 +25,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.25f;
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollDamage => 0.95f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<DrainedEffect>(), 60 * 5)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<DrainedEffect>(60 * 5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
-				new(BuffID.Confused,1.2f),
-				new(ModContent.BuffType<Crystallized>(),0.7f),
-				new(ModContent.BuffType<BlindedEffect>(),0.7f),
+				Synergy.Create<Crystallized>(0.7f),
+				Synergy.Create<BlindedEffect>(0.7f),
 			]
 			);
 

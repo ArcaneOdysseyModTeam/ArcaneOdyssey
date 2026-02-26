@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
-	public class LaelusBlast : ModProjectile
+	public class LaelusBlast : AOBaseProjectile
 	{
 		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
 
@@ -16,7 +17,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 		public override void SetDefaults()
 		{
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.hostile = true;
 			Projectile.height = Projectile.width = 64;
 			Projectile.timeLeft = 2 * 60;

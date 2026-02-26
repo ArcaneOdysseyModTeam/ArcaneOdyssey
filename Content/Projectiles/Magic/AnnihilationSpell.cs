@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
-	public class AnnihilationSpell : MagicSpell, ILocalizedModType
+	public class AnnihilationSpell : MagicSpell
 	{
 		// ai 2 is first frame bool
 
@@ -97,11 +97,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				case AnnihilationState.Hovering:
 					Projectile.Opacity = 1f - ((Projectile.timeLeft - FlightTime) / (float)ChargeTime);
 					Owner.ChangeDir(Math.Sign(Main.MouseWorld.X - Owner.position.X));
-					Projectile.scale = Imbue.AOScrollSize;
-					if (SecondImbue is not null)
-						Projectile.scale *= SecondImbue.AOScrollSize;
 					Projectile.Center = Owner.Center - new Vector2(0, ((Player.defaultHeight / 2f) + Projectile.width) * Projectile.scale);
-					Projectile.scale *= BaseScale;
 					AOPlayerOwner.HeavySkillActive = true;
 
 					if (++Projectile.ai[1] > ChargeTime)

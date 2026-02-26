@@ -27,5 +27,5 @@ public abstract partial class BaseImbueUI : UIState
 		}
 		#endregion
 	}
-	private int VisualUpdateCounter = 0;
+	//private int VisualUpdateCounter = 0;
 }

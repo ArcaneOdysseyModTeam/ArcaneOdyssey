@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -36,12 +35,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 					Projectile.netSpam = 0;
 				}
 				Projectile.velocity.Normalize();
-				Projectile.Center = Owner.Center + (Projectile.velocity * 30);
+				Projectile.Center = Owner.Center + (Projectile.velocity * 20f);
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.ai[0] = 1;
 			}
 
-			if (++Projectile.frameCounter > 2)
+			if (++Projectile.frameCounter > 5)
 			{
 				Projectile.frameCounter = 0;
 				if (++Projectile.frame >= Main.projFrames[Type])
@@ -49,12 +48,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 					Kill();
 				}
 			}
-			BaseScale += .2f / 3;
+			Projectile.scale += .2f / 3;
 
-			if (Projectile.TryGetImbue(out Imbuable imbue) && imbue is FightingStyle fs)
-			{
-				fs.ExplosionEffects(Projectile.Center);
-			}
+			//Imbue?.ExplosionEffects(Projectile.Center, .4f);
+			//SecondImbue?.ExplosionEffects(Projectile.Center, .4f);
 		}
 	}
 }

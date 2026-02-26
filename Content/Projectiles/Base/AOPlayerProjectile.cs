@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// <summary>
 	/// Projectile created by the player, usually via weapon
 	/// </summary>
-	public abstract class AOPlayerProjectile : ModProjectile, IImbuable
+	public abstract class AOPlayerProjectile : AOBaseProjectile, IImbuable
 	{
 		public virtual bool CanHaveImbueVFX => true;
 
@@ -78,24 +78,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 		}
 
-		public float BaseScale
-		{
-			get
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
-					return Projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-				else
-					return Projectile.scale;
-			}
-			set
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
-					Projectile.ArcaneOdyssey().BaseScale = value;
-				else
-					Projectile.scale = value;
-			}
-		}
-
 		public Imbuable Imbue
 		{
 			get => Projectile.ArcaneOdyssey()?.Imbue;
@@ -112,27 +94,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void SetDefaults()
 		{
-			Projectile.scale = AOSize;
-			BaseScale = AOSize;
+			Projectile.scale *= AOSize;
 		}
 
 		public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 
-		public virtual AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 60 * 5);
-		public virtual SoundStyle? DebuffApplySound => null;
-
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (Debuff.HasValue && (Debuff.Value.debuffPercent == 0 || modifiers.GetDamage(Projectile.damage, true) > target.lifeMax / Debuff.Value.debuffPercent))
-			{
-				target.AddBuff(Debuff.Value.debuffID, Debuff.Value.debuffDuration);
-				if (DebuffApplySound.HasValue)
-				{
-					SoundEngine.PlaySound(DebuffApplySound.Value, target.position);
-				}
-			}
-		}
+		public virtual Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
+		public virtual SoundStyle? HitSound => null;
 
 		/// <summary>
 		/// Kills the projectile.
@@ -144,13 +113,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
-			{
-				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-				Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-				return false;
-			}
-			return true;
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+			Main.EntitySpriteDraw(Sprite, VisualCentre - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			return false;
 		}
 
 		public override void PostDraw(Color lightColor)

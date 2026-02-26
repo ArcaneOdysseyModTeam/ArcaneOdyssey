@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	{
 		public override float AOSpeed => .65f;
 		public override float AOSize => 1.2f;
-		public override SoundStyle? DebuffApplySound => SoundID.NPCHit42;
+		public override SoundStyle? HitSound => SoundID.NPCHit42;
 
 		public override void SetStaticDefaults()
 		{
@@ -105,6 +105,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override bool? CanDamage()
 		{
 			return Projectile.ai[2] == 0;
+		}
+
+		public Color Colour => Imbue?.GetColour(Color.White) ?? Color.White;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Colour;
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

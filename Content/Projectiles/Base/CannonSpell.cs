@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class CannonSpell : MagicSpell, ILocalizedModType
+	public abstract class CannonSpell : MagicSpell
 	{
 		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Cannon", "Blast");
-		public override string LocalizationCategory => base.LocalizationCategory + ".Cannons." + Tier;
 		public int TileTimer = 0;
 
 		public override float AOSize => 2f;

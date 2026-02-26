@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -20,15 +19,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueSpeed => .85f;
 
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<Tangled>(), 60 * 5)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Tangled>(60 * 5)];
 
 		public override SynergyEffects Effects => new([],
 			[
-				new(BuffID.OnFire, .9f), // burning
-				new(ModContent.BuffType<CharredEffect>(), .9f), // charred
-				new(ModContent.BuffType<SearedEffect>(),0.8f),
-				new(BuffID.OnFire3, .95f),
-				new(BuffID.ShadowFlame, 0.8f),
+				Synergy.Create<AOBurning>(.9f),
+				 // burning
+				Synergy.Create<CharredEffect>(.9f), // charred
+				Synergy.Create<SearedEffect>(0.8f),
+				
+				Synergy.Create<Melting>(.95f),
+				Synergy.Create<Scorched>( 0.8f),
 			]);
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

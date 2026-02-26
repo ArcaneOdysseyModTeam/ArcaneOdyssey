@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			else
 			{
 				Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
-				Projectile.Opacity = MathHelper.Lerp(0, 1f, (Owner.itemAnimation / (float)Owner.itemAnimationMax));
+				Projectile.Opacity = MathHelper.Lerp(0, 1f, Owner.itemAnimation / (float)Owner.itemAnimationMax);
 			}
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;

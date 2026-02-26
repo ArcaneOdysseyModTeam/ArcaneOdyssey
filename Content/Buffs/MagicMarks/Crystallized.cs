@@ -1,8 +1,9 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Buffs.Base;
-using Terraria.Audio;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
@@ -14,6 +15,8 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 		{
 			tip = Mod.CustomLocalization(LocalizationCategory.Replace($"Mods.{Mod.Name}.") + ".Description", [stack]).Value;
 		}
+
+		public override List<int> Counterparts => [BuffID.Midas];
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
@@ -31,7 +34,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 					case 4: // ArcaneOdyssey.cs damage calculation uses this stack to increase damage
 						if (!Main.dedServ)
 						{
-							Dust.NewDust(npc.Center, 1, 1, DustID.GemRuby, (0.5f - Main.rand.NextFloat()) * 5f, (0.1f - Main.rand.NextFloat()) * 5f, 1, default, 2f);
+							Dust.NewDust(npc.Center, 0, 0, DustID.GemRuby, (0.5f - Main.rand.NextFloat()) * 5f, (0.1f - Main.rand.NextFloat()) * 5f, 1, default, 2f);
 						}
 						break;
 					default: // if the stack number isnt valid or over 4, just delete the buff

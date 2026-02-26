@@ -22,32 +22,30 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 0.6f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1.2f;
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>())];
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10), new(ModContent.BuffType<FreezingEffect>(), 60 * 10)];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, AOFrozen>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>(), Debuff.Create<FreezingEffect>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.Wet,
-				BuffID.Burning,
-				BuffID.Venom,
-				BuffID.OnFire3,
-				BuffID.ShadowFlame,
-				ModContent.BuffType<CharredEffect>()
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Corroding>(),
+				ClearBuff.Create<Melting>(),
+				ClearBuff.Create<Scorched>(),
+				ClearBuff.Create<CharredEffect>()
 			],
 			[
-				new(BuffID.Venom,1.05f),
-				new(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new(BuffID.OnFire3,1.05f),
-				new(ModContent.BuffType<SandyEffect>(),1.1f),
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(ModContent.BuffType<AOFrozen>(), 1.1f), // frozen
-				new(BuffID.Wet, 1.1f), // (add stunning later!)
-				new(BuffID.OnFire, .9f), // burning
-				new(BuffID.Oiled,1.03f),
-				new(ModContent.BuffType<CharredEffect>(), .9f), // charred
-				new(BuffID.ShadowFlame, 0.8f),
-				new(ModContent.BuffType<SnowyEffect>(), 1.1f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),0.8f)
+				Synergy.Create<Corroding>(1.05f),
+				Synergy.Create<Melting>(1.05f),
+				Synergy.Create<SandyEffect>(1.1f),
+				Synergy.Create<AOFrozen>(1.1f), // frozen
+				Synergy.Create<Soaked>( 1.1f), // (add stunning later!)
+				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<Flammable>(1.03f),
+				Synergy.Create<CharredEffect>(.9f), // charred
+				Synergy.Create<Scorched>( 0.8f),
+				Synergy.Create<SnowyEffect>(1.1f),
+				Synergy.Create<Crystallized>(1.075f),
+				Synergy.Create<SearedEffect>(0.8f)
 
 			]
 			);

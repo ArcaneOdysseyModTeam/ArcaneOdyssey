@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Terraria;
 using Terraria.Audio;
@@ -12,8 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		public override bool? Cold => true;
 		public override float AOSpeed => .9f;
 		public override float AOSize => 1.25f;
-		public override AODebuffRequirement? Debuff => new(BuffID.Wet, 60 * 10);
-		public override SoundStyle? DebuffApplySound => SoundID.Splash;
+		public override Debuff? ProjectileDebuff => Debuff.Create<Soaked>();
+		public override SoundStyle? HitSound => SoundID.Splash;
 
 		public override void PostAI()
 		{

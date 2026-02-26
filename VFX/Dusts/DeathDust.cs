@@ -1,8 +1,8 @@
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 
 namespace ArcaneOdyssey.VFX.Dusts
 {

@@ -41,7 +41,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract float MinScrollDamage { get; }
 		public abstract float MinScrollSize { get; }
 
-		public float LerpValue => MathHelper.Clamp(BarValue * 1.25f / BarMax, 0f, 1f);
+		public abstract float BarValueMulti { get; }
+
+		public float LerpValue => MathHelper.Clamp(BarValue * BarValueMulti / BarMax, 0f, 1f);
 
 
 		public override float AOImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, LerpValue); }

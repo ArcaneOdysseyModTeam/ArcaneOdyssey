@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
+﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -7,10 +7,48 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class Scroll : AOBaseItem, IImbuable, ILocalizedModType
+	public abstract class Scroll : AOBaseItem, IImbuable
 	{
+		public float ApplyScrollSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOScrollSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOScrollSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOScrollSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
+
+		public float ApplyImbueSpeed(float value, bool flipfloat = false)
+		{
+			if (Imbue is not null)
+			{
+				if (!flipfloat)
+				{
+					value *= Imbue.AOImbueSpeed;
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed;
+				}
+				else
+				{
+					value *= Imbue.AOImbueSpeed.FlipFloat();
+					if (SecondImbue is not null)
+						value *= SecondImbue.AOImbueSpeed.FlipFloat();
+				}
+			}
+			return value;
+		}
 		public override bool ShowItemTypeTooltip => false;
-		public override string LocalizationCategory => "Scrolls." + Tier;
 
 		public abstract ScrollTier Tier { get; }
 
@@ -53,8 +91,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = 32;
-			Item.height = 32;
+			Item.width = Item.height = 32;
 			Item.noMelee = true;
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;
@@ -73,7 +110,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void UpdateEquip(Player player)
 		{
-			Item.DamageType = Item.DamageType.UnImbued(Item);
 			if (Item.CanHaveImbue(player.Imbue()))
 			{
 				Imbue = player.Imbue();
@@ -93,7 +129,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}
 			else Item.color = Color.Transparent;
-			Item.DamageType = Item.DamageType.Imbued(Imbue, Item);
 		}
 
 		public override bool CanUseItem(Player player) => Imbue is not null;

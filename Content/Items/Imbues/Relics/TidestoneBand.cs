@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 
 	public class Thakrousi(Entity source) : DashSystem(source)
 	{
-		public override DamageClass DamageType => OracleDamage.Instance;
+		public override DamageClass DamageType => DamageClass.Summon;
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 2;

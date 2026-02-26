@@ -1,11 +1,11 @@
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public class DeathCurse : ModProjectile
+	public class DeathCurse : AOBaseProjectile
 	{
 		public override void SetStaticDefaults()
 		{

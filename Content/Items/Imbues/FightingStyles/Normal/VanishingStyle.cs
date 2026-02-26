@@ -1,9 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using Terraria;
-using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
+using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 
 		public override AOImbuableTier ImbuableTier => !HasYou ? base.ImbuableTier : AOImbuableTier.Ancient;
 
+		public override float BarValueMulti => 1.111f;
 		public override float MinImbueDamage => !HasYou ? .85f : 1f;
 		public override float MinImbueSize => !HasYou ? 1.056f : 1.2f;
 		public override float MinScrollSize => !HasYou ? 1.0f : 1.125f;

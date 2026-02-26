@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -26,28 +25,31 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.05f;
 		public override float AOScrollDamage => 0.875f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Venom, 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Corroding>(60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<SandyEffect>()
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<SnowyEffect>(),
+				ClearBuff.Create<SandyEffect>()
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.075f),
-				new(BuffID.OnFire,1.075f),
-				new(ModContent.BuffType<CharredEffect>(),1.1f),
-				new(ModContent.BuffType<FreezingEffect>(),1.2f),
-				new(BuffID.OnFire3,1.05f),
-				new(BuffID.Poisoned,1.05f),
-				new(BuffID.ShadowFlame,1.1f),
-				new(ModContent.BuffType<Singed>(), 1.1f),
-				new(BuffID.Wet,0.9f),
-				new(BuffID.Oiled,1.05f),
-				new(ModContent.BuffType<Crystallized>(),0.9f),
-				new(ModContent.BuffType<SandyEffect>(),0.99f),
-				new(ModContent.BuffType<AOScalding>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.1f)
+				Synergy.Create<AOBleed>(1.075f),
+				
+				Synergy.Create<AOBurning>(1.075f),
+				Synergy.Create<CharredEffect>(1.1f),
+				Synergy.Create<FreezingEffect>(1.2f),
+				
+				Synergy.Create<Melting>(1.05f),
+				
+				Synergy.Create<AOPoisoned>(1.05f),
+				Synergy.Create<Scorched>(1.1f),
+				Synergy.Create<Singed>(1.1f),
+				Synergy.Create<Soaked>(0.9f),
+				Synergy.Create<Flammable>(1.05f),
+				Synergy.Create<Crystallized>(0.9f),
+				Synergy.Create<SandyEffect>(0.99f),
+				Synergy.Create<Scalding>(1.075f),
+				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
 

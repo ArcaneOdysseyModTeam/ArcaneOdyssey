@@ -1,9 +1,9 @@
 using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
 
 namespace ArcaneOdyssey.Content.Buffs.Helpers
 {
@@ -12,15 +12,14 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 		private int counter = 0;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			counter++;
-			if (counter > 120)
+			if (++counter > 120)
 			{
 				counter = 0;
-				Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, (Main.rand.NextFloat() - 0.5f) * 5f, (Main.rand.NextFloat() - 0.5f) * 5f, ModContent.ProjectileType<ProminenceProjectile>(), (int)MathHelper.Clamp(npc.lifeMax * 0.005f, 17f, 1000f), 0, -1);
+				Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, (Main.rand.NextFloat() - 0.5f) * 5f, (Main.rand.NextFloat() - 0.5f) * 5f, ModContent.ProjectileType<ProminenceProjectile>(), (int)MathHelper.Clamp(npc.lifeMax * 0.005f, 17f, 1000f), 0);
 			}
 			if (!Main.dedServ)
 			{
-				Dust newDust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.Torch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 1f);
+				Dust.NewDust(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.Torch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 1f);
 			}
 		}
 	}

@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -23,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			RegisterMutation<SoundMagic>();
 			RegisterMutation<StormMagic>();
 		}
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 2f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 255, 255);
@@ -33,32 +32,33 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.35f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => .825f;
-		public override CombinedDebuff[] CombinedDebuffs => [new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
+		public override Combo[] CombinedDebuffs => [Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
 		public override SynergyEffects Effects => new(
 			[
-				BuffID.OnFire,
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.Venom,
-				ModContent.BuffType<SandyEffect>(),
-				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<AOScalding>(),
-				BuffID.Oiled
+				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<Corroding>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<SnowyEffect>(),
+				ClearBuff.Create<Scalding>(),
+				ClearBuff.Create<Flammable>()
 			],
 			[
-				new(ModContent.BuffType<Crystallized>(),0.9f),
-				new(BuffID.OnFire,0.9f),
-				new(ModContent.BuffType<CharredEffect>(),1.125f),
-				new(ModContent.BuffType<Singed>(), .9f),
-				new(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new(BuffID.Poisoned,0.9f),
-				new(ModContent.BuffType<SandyEffect>(),0.9f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Wet,0.9f),
-				new(BuffID.Oiled,0.98f),
-				new(ModContent.BuffType<AOScalding>(),0.9f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
+				Synergy.Create<Crystallized>(0.9f),
+				
+				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<CharredEffect>(1.125f),
+				Synergy.Create<Singed>(.9f),
+				Synergy.Create<FreezingEffect>(1.1f),
+				
+				Synergy.Create<SandyEffect>(0.9f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Soaked>(0.9f),
+				Synergy.Create<Flammable>(0.98f),
+				Synergy.Create<Scalding>(0.9f),
+				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

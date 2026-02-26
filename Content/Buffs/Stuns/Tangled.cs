@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
@@ -8,6 +9,8 @@ namespace ArcaneOdyssey.Content.Buffs.Stuns
 	{
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Webbed}";
 		private int stack = 1;
+
+		public override List<int> Counterparts => [BuffID.Webbed];
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{

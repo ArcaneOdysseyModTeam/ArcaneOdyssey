@@ -1,0 +1,62 @@
+Relics: {
+	EaglePatrimony: {
+		DisplayName: Eagle Patrimony
+
+		Ability: {
+			DisplayName: Astrapikis
+			Description: Release a slash of spirit energy
+		}
+
+		Tooltip: ""
+	}
+
+	EmberStaff: {
+		DisplayName: Ember Staff
+		Tooltip: Blessed by Hephaestus, the god of fire
+
+		Ability: {
+			DisplayName: Floganymai
+			Description: Release a pillar of spirit energy
+		}
+	}
+
+	NyxStaff: {
+		DisplayName: Staff of Night
+		Tooltip: Blessed by Nyx, the goddess of night
+
+		Ability: {
+			DisplayName: Nichtetheis
+			Description: Fire a beam of spirit energy
+		}
+	}
+
+	TidestoneBand: {
+		DisplayName: Tidestone Band
+		Tooltip: Blessed by Poseidon, the god of the sea
+
+		Ability: {
+			DisplayName: Thakrousi
+			Description: Use spirit energy to leap forward
+		}
+	}
+
+	CrystalOrb: {
+		DisplayName: Crystal Orb
+		Tooltip: Blessed by Aether, the god of light
+
+		Ability: {
+			DisplayName: Aithiraki
+			Description: Summon a spirit clone
+		}
+	}
+
+	SpiritEnergy: {
+		DisplayName: Divine Spirit Energy
+		Tooltip: ""
+	}
+}
+
+SteamImbue: {
+	DisplayName: Steam Imbue
+	Tooltip: ""
+}

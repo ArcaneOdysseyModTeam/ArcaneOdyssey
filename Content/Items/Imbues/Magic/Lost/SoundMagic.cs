@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -13,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 	{
 		public override float Aura => .4f;
 		public override Color ImbueColour => new(94, 236, 255);
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Roar;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 
@@ -30,9 +29,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 			],
 			[
-				new(ModContent.BuffType<SandyEffect>(), .9f),
-				new(ModContent.BuffType<Crystallized>(), 1.1f),
-				new(ModContent.BuffType<AOFrozen>(), 1.2f),
+				Synergy.Create<SandyEffect>(.9f),
+				Synergy.Create<Crystallized>(1.1f),
+				Synergy.Create<AOFrozen>(1.2f),
 			]);
 
 
@@ -44,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				for (float i = 0; i < (DustCount * 2); i++)
 				{
 					var centre = (MathHelper.TwoPi / (DustCount * 2) * (i + Main.rand.NextFloat())).ToRotationVector2() * (64 * area.RelativeScale() * 2.5f);
-					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre / ((DustCount * 2) * .75f), Scale: area.RelativeScale());
+					var dust = Dust.NewDustPerfect(area.Center(), DustID.MushroomTorch, centre / (DustCount * 2 * .75f), Scale: area.RelativeScale());
 					dust.noGravity = true;
 				}
 			}

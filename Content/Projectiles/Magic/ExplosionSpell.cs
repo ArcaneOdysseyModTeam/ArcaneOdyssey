@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Helpers;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Projectiles.Base;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
@@ -27,7 +28,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public override void AI()
 		{
 			var size = isPlacedExplosion ? 1f : 1.2f;
-			AOPlayerOwner.myCircle.scale = AOPlayerOwner.myCircle.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f) * charge * Imbue.AOScrollSize * (size * (3f / 4f));
+			if (AOPlayerOwner.myCircle is not null)
+				AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f));
 			if (Projectile.position != Projectile.oldPosition)
 			{
 				if (Projectile.owner == Main.myPlayer)
@@ -37,7 +39,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 			}
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
-			if (charge < 1.75f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
+			if (charge < 1.75f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ModProjectile is RotatingMagicCircle circle1 && !circle1.MarkedForDeath)
 			{
 				Projectile.Center = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;
@@ -48,7 +50,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Owner.channel = false;
 				if (AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.Imbue().Name == Imbue.Name)
 				{
-					AOPlayerOwner.myCircle.ai[0]++;
+					if (AOPlayerOwner.myCircle.ModProjectile is RotatingMagicCircle circle)
+					{
+						circle.MarkedForDeath = true;
+					}
 					AOPlayerOwner.myCircle = null;
 				}
 				if (Main.myPlayer == Projectile.owner)
@@ -69,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			{
 				for (int n = 0; n < 360; n += 4)
 				{
-					Vector2 currentDustPos = (new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f)))) * ((Imbue.AOScrollSize * 109) * size * charge);
+					Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * (Imbue.AOScrollSize * 109 * size * charge);
 					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.GetColour(), 1f);
 				}
 			}

@@ -13,15 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Blocks
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.createWall = ModContent.WallType<BronzeColumnWall>();
-			Item.width = Item.height = 24;
-			Item.maxStack = Item.CommonMaxStack;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useTurn = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.autoReuse = true;
-			Item.consumable = true;
+			Item.DefaultToPlaceableWall(ModContent.WallType<BronzeColumnWall>());
 		}
 
 		public override void AddRecipes()

@@ -1,9 +1,9 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Terraria.ObjectData;
 using Terraria.Localization;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace ArcaneOdyssey.Content.Tiles.BossTrophies
 {

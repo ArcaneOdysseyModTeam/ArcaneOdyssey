@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.ownerHitCheck = true;

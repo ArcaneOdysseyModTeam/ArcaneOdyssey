@@ -1,12 +1,12 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Buffs.DOT;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -18,19 +18,20 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => .8f;
 		public override Color ImbueColour => Color.White;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
 		public override SoundStyle? ImbueSound => SoundID.Item71;
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ModContent.BuffType<FreezingEffect>()
+				ClearBuff.Create<FreezingEffect>()
 			],
 			[
-				new(BuffID.Venom,1.05f),
-				new(ModContent.BuffType<Crystallized>(),1.05f),
-				new(ModContent.BuffType<FreezingEffect>(),1.02f),
-				new(BuffID.OnFire3,1.05f),
-				new(ModContent.BuffType<SandyEffect>(),1.1f)
-
+				
+				Synergy.Create<Corroding>(1.05f),
+				Synergy.Create<Crystallized>(1.05f),
+				Synergy.Create<FreezingEffect>(1.02f),
+				
+				Synergy.Create<Melting>(1.05f),
+				Synergy.Create<SandyEffect>(1.1f)
 			]
 			);
 

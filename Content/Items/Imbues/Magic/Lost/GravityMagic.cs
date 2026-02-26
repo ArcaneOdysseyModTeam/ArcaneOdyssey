@@ -1,12 +1,12 @@
-using ArcaneOdyssey.Content.Items.Base;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using ArcaneOdyssey.VFX.Dusts;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.VFX.Dusts;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -24,26 +24,25 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
-				new(BuffID.OnFire,0.9f),
-				new(ModContent.BuffType<CharredEffect>(),1.125f),
-				new(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new(BuffID.Poisoned,0.9f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Wet,0.9f),
-				new(BuffID.Oiled,0.9f),
-				new(ModContent.BuffType<AOScalding>(),0.9f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f),
-				new(ModContent.BuffType<AOBleed>(),1.1f),
-				new(BuffID.Venom,1.075f),
-				new(BuffID.OnFire3,1.075f),
-				new(ModContent.BuffType<SandyEffect>(),1.1f)
+				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<CharredEffect>(1.125f),
+				Synergy.Create<FreezingEffect>(1.1f),
+				Synergy.Create<AOPoisoned>(.9f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Soaked>(0.9f),
+				Synergy.Create<Flammable>(0.9f),
+				Synergy.Create<Scalding>(0.9f),
+				Synergy.Create<SearedEffect>(1.15f),
+				Synergy.Create<AOBleed>(1.1f),
+				Synergy.Create<Corroding>(1.075f),
+				Synergy.Create<Melting>(1.075f),
+				Synergy.Create<SandyEffect>(1.1f)
 			]
 			);
 

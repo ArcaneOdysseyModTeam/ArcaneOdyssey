@@ -1,0 +1,255 @@
+Ancient: {
+	IonMagic: {
+		DisplayName: Ion Magic
+		Tooltip: Dedicated to [c/1eff00:Gammaboy45]
+	}
+
+	DeathMagic: {
+		DisplayName: Death Magic
+		Ability: Enemies with a lower max health than yours are instantly killed
+		Tooltip: ""
+	}
+}
+
+Lost: {
+	AetherMagic: {
+		DisplayName: Aether Magic
+		Ability: Creates brilliant explosions
+		Tooltip: ""
+	}
+
+	AncientLightningMagic: {
+		DisplayName: Ancient Lightning Magic
+		Ability: Lightning chains between enemies
+		Tooltip: ""
+	}
+
+	EnergyMagic: {
+		DisplayName: Energy Magic
+		Ability: Mana is restored on hit
+		Tooltip: ""
+	}
+
+	FrostmetalMagic: {
+		DisplayName: Frostmetal Magic
+		Ability: Projectiles explode into hazardous shards
+		Tooltip: ""
+	}
+
+	GravityMagic: {
+		DisplayName: Gravity Magic
+		Ability: Reverses knockback
+		Tooltip: ""
+	}
+
+	PhoenixMagic: {
+		DisplayName: Phoenix Magic
+		Ability: Can be equipped as wings
+		Tooltip: ""
+	}
+
+	PlantMagic: {
+		DisplayName: Plant Magic
+		Tooltip: ""
+	}
+
+	PoisonLightningMagic: {
+		DisplayName: Poison Lightning Magic
+		Ability: Creates poison clouds
+		Tooltip: ""
+	}
+
+	PrismMagic: {
+		DisplayName: Prism Magic
+		Tooltip: Dedicated to [c/00ffff:KT_australis]
+		Ability: Creates lingering shard clouds
+	}
+
+	ShadowflameMagic: {
+		DisplayName: Shadowflame Magic
+		Tooltip: Dedicated to [c/2f5e5e:rambunctious_scallywag]
+	}
+
+	SunMagic: {
+		DisplayName: Sun Magic
+		Ability: Summons solar flares on enemies
+		Tooltip: ""
+	}
+
+	ThreadMagic: {
+		DisplayName: Thread Magic
+		Tooltip: Dedicated to [c/dd00ff:JannisCreep1]
+	}
+
+	BlizzardMagic: {
+		DisplayName: Blizzard Magic
+		Tooltip: ""
+	}
+
+	CloudMagic: {
+		DisplayName: Cloud Magic
+		Tooltip: ""
+	}
+
+	DarknessMagic: {
+		DisplayName: Darkness Magic
+		Tooltip: ""
+	}
+
+	DiamondMagic: {
+		DisplayName: Diamond Magic
+		Tooltip: ""
+	}
+
+	FlareMagic: {
+		DisplayName: Flare Magic
+		Tooltip: ""
+	}
+
+	HeatMagic: {
+		DisplayName: Heat Magic
+		Tooltip: ""
+	}
+
+	LunarMagic: {
+		DisplayName: Lunar Magic
+		Tooltip: ""
+	}
+
+	OilMagic: {
+		DisplayName: Oil Magic
+		Tooltip: ""
+	}
+
+	SlashMagic: {
+		DisplayName: Slash Magic
+		Tooltip: ""
+	}
+
+	SoundMagic: {
+		DisplayName: Sound Magic
+		Tooltip: ""
+	}
+
+	StormMagic: {
+		DisplayName: Storm Magic
+		Tooltip: ""
+	}
+}
+
+Normal: {
+	AshMagic: {
+		DisplayName: Ash Magic
+		Ability: Creates ash clouds
+		Tooltip: ""
+	}
+
+	CrystalMagic: {
+		DisplayName: Crystal Magic
+		Ability: Every few hits deal bonus damage
+		Tooltip: ""
+	}
+
+	PoisonMagic: {
+		DisplayName: Poison Magic
+		Ability: Creates poison clouds
+		Tooltip: ""
+	}
+
+	AcidMagic: {
+		DisplayName: Acid Magic
+		Tooltip: ""
+	}
+
+	EarthMagic: {
+		DisplayName: Earth Magic
+		Tooltip: ""
+	}
+
+	ExplosionMagic: {
+		DisplayName: Explosion Magic
+		Tooltip: ""
+	}
+
+	FireMagic: {
+		DisplayName: Fire Magic
+		Tooltip: ""
+	}
+
+	GlassMagic: {
+		DisplayName: Glass Magic
+		Tooltip: ""
+	}
+
+	IceMagic: {
+		DisplayName: Ice Magic
+		Tooltip: ""
+	}
+
+	LightMagic: {
+		DisplayName: Light Magic
+		Tooltip: ""
+	}
+
+	LightningMagic: {
+		DisplayName: Lightning Magic
+		Tooltip: ""
+	}
+
+	MagmaMagic: {
+		DisplayName: Magma Magic
+		Tooltip: ""
+	}
+
+	MetalMagic: {
+		DisplayName: Metal Magic
+		Tooltip: ""
+	}
+
+	PlasmaMagic: {
+		DisplayName: Plasma Magic
+		Tooltip: ""
+	}
+
+	SandMagic: {
+		DisplayName: Sand Magic
+		Tooltip: ""
+	}
+
+	ShadowMagic: {
+		DisplayName: Shadow Magic
+		Tooltip: ""
+	}
+
+	SnowMagic: {
+		DisplayName: Snow Magic
+		Tooltip: ""
+	}
+
+	WaterMagic: {
+		DisplayName: Water Magic
+		Tooltip: ""
+	}
+
+	WindMagic: {
+		DisplayName: Wind Magic
+		Tooltip: ""
+	}
+
+	WoodMagic: {
+		DisplayName: Wood Magic
+		Tooltip: ""
+	}
+}
+
+Developer: {
+	VesuviusMagic: {
+		DisplayName: Vesuvius Magic
+		Tooltip: Dedicated to [c/ff2b00:RedBirb1508]
+	}
+
+	JerminusMagic: {
+		DisplayName: Jerminus Magic
+		Tooltip: Dedicated to [c/ff69b4:Guard Boi]
+	}
+}

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -19,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			RegisterMutation<PrismMagic>();
 		}
 
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => new(255, 255, 0, 255);
 		public override float AOImbueSpeed => 1.3f;
@@ -28,14 +27,14 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.6f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => 0.87f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<BlindedEffect>(), 60 * 5)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<BlindedEffect>(60 * 5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<DrainedEffect>(),0.8f)
+				Synergy.Create<Crystallized>(1.075f),
+				Synergy.Create<DrainedEffect>(0.8f)
 			]
 			);
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

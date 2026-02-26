@@ -7,15 +7,14 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class PoisonLightningMagic : AOMagic
 	{
 		public override float Aura => .8f;
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(105, 0, 105, 255);
 		public override float AOImbueSpeed => 1.4f;
@@ -25,30 +24,33 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.9f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<ElectrifiedToxins>(), 60 * 10), new(ModContent.BuffType<AOParalyzed>(), 60, 25)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<ElectrifiedToxins>(), Debuff.Create<Paralyzed>(60, 25)];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ModContent.BuffType<AOPetrified>(), // petrified
-				ModContent.BuffType<CharredEffect>(),
-				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<AOBleed>(),
-				ModContent.BuffType<AOFrozen>()
+				ClearBuff.Create<Petrified>(), // petrified
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<AOFrozen>()
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.075f),
-				new(BuffID.OnFire,0.99f),
-				new(ModContent.BuffType<AOScalding>(),0.9f),
-				new(BuffID.Chilled, 1.2f), // frozen
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(BuffID.Burning, 1.15f), // scalding
-				new(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new(BuffID.Venom, 1.075f), // venom acid
-				new(BuffID.Wet, 1.05f), //
-				new(BuffID.Oiled,0.98f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
+				Synergy.Create<AOBleed>(1.075f),
+				
+				Synergy.Create<AOBurning>(.99f),
+				Synergy.Create<Scalding>(0.9f),
+				Synergy.Create<FreezingEffect>( 1.2f), // frozen
+				Synergy.Create<AOBleed>(1.2f), // bleeding
+				 // scalding
+				 // melting/hellfire
+				Synergy.Create<Melting>(1.075f),
+				 // venom acid
+				Synergy.Create<Corroding>(1.075f),
+				Synergy.Create<Soaked>( 1.05f), //
+				Synergy.Create<Flammable>(0.98f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Crystallized>(1.075f),
+				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
@@ -92,7 +94,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 1.2f * area.RelativeScale());
 				if (source is Projectile projectile && n / 2 >= 10)
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BossesKilled, 0f);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + AOUtils.BossesKilled, 0f);
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

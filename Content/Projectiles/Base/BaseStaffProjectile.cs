@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public override void SetStaticDefaults()
 		{
@@ -17,9 +16,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = TrueMeleeNoSpeed();
+			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.knockBack = 4.5f;
-			Projectile.height = Projectile.width = 120;
+			Projectile.height = Projectile.width = 175;
 			Projectile.friendly = true;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 20;

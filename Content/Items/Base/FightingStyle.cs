@@ -4,10 +4,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class FightingStyle : Imbuable, ILocalizedModType
+	public abstract class FightingStyle : Imbuable
 	{
-		public override string LocalizationCategory => base.LocalizationCategory + ".FightingStyles." + ImbuableTier;
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class TwinCrescent : AOPlayerProjectile
 	{
-		public override string Texture => Mod.Name + "/Assets/BasicSlash";
+		public override string Texture => AOUtils.SlashTexture;
 		public override float AOSize => .25f;
 		public Color Colour => Imbue?.GetColour(Color.Gold) ?? Color.Gold;
 
@@ -33,6 +33,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void AI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation();
+		}
+
+		public override bool PreKill(int timeLeft)
+		{
+			if (!Main.dedServ && Imbue is null)
+			{
+				for (float i = 0; i < 10; i++)
+				{
+					var centre = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
+					var dust = AOUtils.NewDustImperfect(centre + Projectile.Center, DustID.BubbleBurst_White, centre * (Projectile.width / 10f), 0, Colour, 1.5f);
+					dust.noLight = true;
+					dust.noGravity = true;
+				}
+			}
+			return base.PreKill(timeLeft);
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

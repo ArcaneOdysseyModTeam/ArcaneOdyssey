@@ -6,9 +6,8 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class HeadlessHeadWithWig : AOBaseItem, ILocalizedModType
+	public class HeadlessHeadWithWig : AOBaseItem
 	{
-		public override string LocalizationCategory => base.LocalizationCategory + ".Armour.Vanity";
 		public override AORarities AORarity => AORarities.Special;
 		public override void SetStaticDefaults()
 		{
@@ -19,8 +18,8 @@ namespace ArcaneOdyssey.Content.Items.Armour.Vanity
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Item.width = Item.height = 50;
-			Item.accessory = true;
 			Item.vanity = true;
 		}
 

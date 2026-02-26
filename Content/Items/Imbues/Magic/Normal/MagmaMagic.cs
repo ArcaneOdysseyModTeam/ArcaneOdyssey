@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -35,38 +34,40 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 0.9f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.OnFire3, 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Melting>(60 * 10)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.Chilled, // freezing
-				ModContent.BuffType<AOPetrified>(),
-				BuffID.Wet,
-				ModContent.BuffType<AOBleed>(),
-				BuffID.Venom,
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<SnowyEffect>(),
-				BuffID.Oiled
+				ClearBuff.Create<FreezingEffect>(), // freezing
+				ClearBuff.Create<Petrified>(),
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<AOBleed>(),
+				
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<SnowyEffect>(),
+				ClearBuff.Create<Flammable>()
 			],
 			[
-				new(ModContent.BuffType<AOPetrified>(), 1.2f), // petrified
-				new(ModContent.BuffType<AOBleed>(), 1.15f), // bleeding
-				new(BuffID.OnFire, 1.075f),
-				new(BuffID.Venom, 1.1f), // venom acid
-				new(BuffID.Burning, 1.075f),
-				new(BuffID.Poisoned, 1.05f),
-				new(ModContent.BuffType<Singed>(), 1.1f),
-				new(BuffID.Slimed,1.075f),
-				new(BuffID.Oiled,1.075f),
-				new(ModContent.BuffType<FreezingEffect>(), .95f),
-				new(ModContent.BuffType<SnowyEffect>(), .99f),
-				new(ModContent.BuffType<CharredEffect>(), 1.1f),
-				new(ModContent.BuffType<SandyEffect>(), 0.99f),
-				new(BuffID.Wet, .95f),
-				new(BuffID.ShadowFlame, 1.1f),
-				new(ModContent.BuffType<Crystallized>(),0.95f),
-				new(ModContent.BuffType<AOScalding>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.1f)
+				Synergy.Create<Petrified>(1.2f), // petrified
+				Synergy.Create<AOBleed>(1.15f), // bleeding
+				
+				Synergy.Create<AOBurning>(1.075f),
+				 // venom acid
+				Synergy.Create<Corroding>(1.1f),
+				
+				Synergy.Create<AOPoisoned>(1.05f),
+				Synergy.Create<Singed>(1.1f),
+				
+				Synergy.Create<Flammable>(1.075f),
+				Synergy.Create<FreezingEffect>(.95f),
+				Synergy.Create<SnowyEffect>(.99f),
+				Synergy.Create<CharredEffect>(1.1f),
+				Synergy.Create<SandyEffect>(0.99f),
+				Synergy.Create<Soaked>( .95f),
+				Synergy.Create<Scorched>( 1.1f),
+				Synergy.Create<Crystallized>(0.95f),
+				Synergy.Create<Scalding>(1.075f),
+				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
 

@@ -1,25 +1,24 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using ArcaneOdyssey.Content.Buffs.Base;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-	public class AOBleed : AODebuff
+	public class AOBleed : VanillaClone
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.Bleeding}";
-		private int frameNum = 0;
+		public override int VanillaID => BuffID.Bleeding;
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			if (++frameNum > 20)
+			if (Main.GameUpdateCount % 2 == 0) 
 			{
-				frameNum = 0;
-				for (int dustCountInt = 0; dustCountInt < 10; dustCountInt++)
-				{
-					Dust.NewDust(npc.position + new Vector2(npc.width / 2f, npc.height / 2f), 1, 1, DustID.Blood, Alpha: 1);
-				}
+				Dust.NewDust(npc.Center, 0, 0, DustID.Blood, Alpha: 1);
 			}
 			npc.ArcaneOdyssey().bleeding = true;
 		}
+
+		public override List<int> Counterparts => [..base.Counterparts, ModContent.BuffType<HeavyBleed>()];
 	}
 }

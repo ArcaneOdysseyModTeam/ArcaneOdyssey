@@ -1,11 +1,10 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -20,31 +19,31 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSize => 1.25f;
 		public override float AOImbueDamage => 0.95f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Wet, 60 * 7), new(ModContent.BuffType<BlindedEffect>(), 3 * 60)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Soaked>(60 * 7), Debuff.Create<BlindedEffect>(3 * 60)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.OnFire,
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.Venom,
-				BuffID.OnFire3,
-				BuffID.ShadowFlame,
-				BuffID.Oiled,
-				ModContent.BuffType<AOScalding>(),
-				ModContent.BuffType<SearedEffect>()
+				
+				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<Melting>(),
+				ClearBuff.Create<Scorched>(),
+				ClearBuff.Create<Flammable>(),
+				ClearBuff.Create<Scalding>(),
+				ClearBuff.Create<SearedEffect>()
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.05f),
-				new(BuffID.OnFire,0.8f),
-				new(ModContent.BuffType<CharredEffect>(),0.9f),
-				new(ModContent.BuffType<DrainedEffect>(),0.9f),
-				new(BuffID.Venom,0.9f),
-				new(ModContent.BuffType<FreezingEffect>(),1.075f),
-				new(BuffID.OnFire3,0.9f),
-				new(BuffID.Oiled,0.98f),
-				new(ModContent.BuffType<SandyEffect>(),0.8f),
-				new(BuffID.ShadowFlame,0.7f),
-				new(ModContent.BuffType<SnowyEffect>(),1.1f),
-				new(ModContent.BuffType<SearedEffect>(),0.7f)
+				Synergy.Create<AOBleed>(1.05f),
+				Synergy.Create<AOBurning>(.8f),
+				Synergy.Create<CharredEffect>(0.9f),
+				Synergy.Create<DrainedEffect>(0.9f),
+				Synergy.Create<Corroding>(.9f),
+				Synergy.Create<FreezingEffect>(1.075f),
+				Synergy.Create<Melting>(.9f),
+				Synergy.Create<Flammable>(0.98f),
+				Synergy.Create<SandyEffect>(0.8f),
+				Synergy.Create<Scorched>(0.7f),
+				Synergy.Create<SnowyEffect>(1.1f),
+				Synergy.Create<SearedEffect>(0.7f)
 			]
 		);
 

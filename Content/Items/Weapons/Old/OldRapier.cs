@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using Terraria.ID;
 using Terraria;
-using static ArcaneOdyssey.AOUtils;
+using Terraria.ID;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
@@ -17,10 +17,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.height = Item.height = 46;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.useTurn = true;
 		}
 

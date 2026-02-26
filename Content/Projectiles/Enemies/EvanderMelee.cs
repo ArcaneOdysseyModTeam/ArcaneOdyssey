@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
-	public class EvanderMelee : ModProjectile
+	public class EvanderMelee : AOBaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()

@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
-using ArcaneOdyssey.Content.NPCS;
+using ArcaneOdyssey.Content.NPCS.Minibosses;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
-	public class DuskRaincloud : ModProjectile
+	public class DuskRaincloud : AOBaseProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<SpiritRaincloud>();
 
@@ -22,7 +23,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.timeLeft = MaxTimeLeft;

@@ -1,55 +1,58 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ArcaneOdyssey.Content.Buffs.Stuns;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class StormMagic : AOMagic
 	{
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 1.25f;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => Color.Gray;
 		public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.265f;
 		public override float AOImbueDamage => .95f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<CloudyEffect>(), 3 * 60), new(ModContent.BuffType<AOParalyzed>(), 60, 16)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<SnowyEffect>(), ModContent.BuffType<AOFrozen>()), new(ModContent.BuffType<FreezingEffect>(), ModContent.BuffType<AOFrozen>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(3 * 60), Debuff.Create<Paralyzed>(60, 16)];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, AOFrozen>(), Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
 
 		public override SynergyEffects Effects => new(
 			[
-				BuffID.OnFire,
-				BuffID.Venom,
-				ModContent.BuffType<SandyEffect>(),
-				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<FreezingEffect>(),
-				ModContent.BuffType<AOScalding>(),
-				BuffID.Oiled,
-				ModContent.BuffType<AOPetrified>(), // petrified
-				ModContent.BuffType<CharredEffect>(),
-				ModContent.BuffType<AOBleed>(),
+				
+				ClearBuff.Create<AOBurning>(),
+				
+				ClearBuff.Create<Corroding>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<SnowyEffect>(),
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<Scalding>(),
+				ClearBuff.Create<Flammable>(),
+				ClearBuff.Create<Petrified>(), // petrified
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<AOBleed>(),
 			],
 			[
-				new(ModContent.BuffType<CloudyEffect>(), 1.1f),
-				new(ModContent.BuffType<Crystallized>(),0.9f),
-				new(BuffID.OnFire,0.9f),
-				new(ModContent.BuffType<CharredEffect>(),1.125f),
-				new(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new(BuffID.Poisoned,0.9f),
-				new(ModContent.BuffType<SandyEffect>(),0.9f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Wet,0.9f),
-				new(BuffID.Oiled,0.98f),
-				new(ModContent.BuffType<AOScalding>(),0.9f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
+				Synergy.Create<CloudyEffect>(1.1f),
+				Synergy.Create<Crystallized>(0.9f),
+				
+				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<CharredEffect>(1.125f),
+				Synergy.Create<FreezingEffect>(1.1f),
+				
+				Synergy.Create<AOPoisoned>(.9f),
+				Synergy.Create<SandyEffect>(0.9f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Soaked>(0.9f),
+				Synergy.Create<Flammable>(0.98f),
+				Synergy.Create<Scalding>(0.9f),
+				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
 

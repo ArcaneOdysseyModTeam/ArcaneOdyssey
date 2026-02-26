@@ -1,8 +1,8 @@
-﻿using System;
-using ArcaneOdyssey.Content.Items;
+﻿using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Armour.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
+using System;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -21,9 +21,10 @@ namespace ArcaneOdyssey
 		public float ZapCD = 5; // ancient lightning chain
 		public float StunDuration = 1;
 
+		public float DefenseLost = 0;
+
 		#region Debuff bools
 		public bool bleeding = false;
-		public bool heavyBleeding = false;
 		public bool scalding = false;
 		public bool vesuvianBurn = false;
 		public bool seared = false;
@@ -58,6 +59,11 @@ namespace ArcaneOdyssey
 				player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, projectile.Imbue(), false);
 		}
 
+		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.ArmorPenetration += DefenseLost;
+		}
+
 		public override void ResetEffects(NPC npc)
 		{
 			ZapCD -= 1 / 60f;
@@ -69,7 +75,6 @@ namespace ArcaneOdyssey
 			}
 			bleeding = false;
 			vesuvianBurn = false;
-			heavyBleeding = false;
 			scalding = false;
 			singedstacks = 0;
 			seared = false;
@@ -89,10 +94,6 @@ namespace ArcaneOdyssey
 			if (bleeding)
 			{
 				npc.lifeRegen -= 10;
-			}
-			if (heavyBleeding)
-			{
-				npc.lifeRegen -= 20;
 			}
 			if (scalding)
 			{

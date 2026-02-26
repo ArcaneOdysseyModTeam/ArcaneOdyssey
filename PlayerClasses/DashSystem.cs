@@ -4,7 +4,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.PlayerClasses
 {
@@ -426,8 +426,8 @@ namespace ArcaneOdyssey.PlayerClasses
 						return;
 					}
 
-					CurrentDash.Imbue?.LingeringEffects(ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
-					CurrentDash.SecondImbue?.LingeringEffects(ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
+					CurrentDash.Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
+					CurrentDash.SecondImbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
 
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
@@ -478,7 +478,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI)
 						{
-							var damagetype = CurrentDash.DamageType.Imbued(Imbue, (CurrentDash.source is Item item ? item : null));
+							var damagetype = CurrentDash.DamageType;
 							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.Next(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);
 						}
 					}
@@ -491,8 +491,8 @@ namespace ArcaneOdyssey.PlayerClasses
 			if (CurrentDash is null)
 				return 0;
 			var modifiers = new ModDamageHelper(null);
-			modifiers = CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
-			modifiers = CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
+			modifiers = AOUtils.CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
+			modifiers = AOUtils.CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
 
 			return modifiers.GetDamage(CurrentDash.Damage);
 		}

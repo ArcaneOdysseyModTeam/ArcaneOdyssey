@@ -3,10 +3,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class MagicSpell : AOPlayerProjectile, ILocalizedModType
+	public abstract class MagicSpell : AOPlayerProjectile
 	{
-		public override string LocalizationCategory => "Imbues.Magic.Projectiles";
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public string Tier
 		{

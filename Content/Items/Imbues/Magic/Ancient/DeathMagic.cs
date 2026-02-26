@@ -18,17 +18,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1.5f;
-		public override AODebuffRequirement[] ImbueDebuffs => [];
-		public override CombinedDebuff[] CombinedDebuffs => [];
-		
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				
-			],
-			[
-
-			]
-			);
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

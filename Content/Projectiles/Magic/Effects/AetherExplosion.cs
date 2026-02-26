@@ -38,18 +38,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.alpha = 40;
 		}
 
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public override void OnSpawn(IEntitySource source)
 		{
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
 				Count++;
-				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
+				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
+				Projectile.Hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherMagic)
 			{
-				BaseScale = Projectile.ai[0];
+				Projectile.scale = Projectile.ai[0];
+				Projectile.Hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, Projectile.scale);
 			}
 			else
 			{

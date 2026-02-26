@@ -1,0 +1,53 @@
+Normal: {
+	CannonFist: {
+		DisplayName: Cannon Fist
+		Ability: Can use cannonballs from your inventory to improve strength
+		Tooltip: ""
+	}
+
+	ThermoFist: {
+		DisplayName: Thermo Fist
+		Ability: Attacking improves strength
+		Tooltip: ""
+	}
+
+	VanishingStyle: {
+		DisplayName: Vanishing Style
+		Ability: Strike while the bar falls for guaranteed crits
+		Tooltip: ""
+	}
+
+	SailorStyle: {
+		DisplayName: Sailor Style
+		Ability: Drinking healing potions or submerging in water improves strength
+		Tooltip: ""
+	}
+
+	BasicCombat: {
+		DisplayName: Basic Combat
+		Tooltip: ""
+	}
+
+	Boxing: {
+		DisplayName: Boxing
+		Tooltip: ""
+	}
+
+	IronLeg: {
+		DisplayName: Iron Leg
+		Tooltip: ""
+	}
+
+	PowderFist: {
+		DisplayName: Powder Fist
+		Ability: Highly chaotic
+		Tooltip: ""
+	}
+}
+
+Developer: {
+	GodFist: {
+		DisplayName: God Fist
+		Tooltip: ""
+	}
+}

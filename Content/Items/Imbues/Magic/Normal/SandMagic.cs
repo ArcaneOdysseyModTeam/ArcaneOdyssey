@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -29,23 +28,26 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 0.95f;
 		public override float AOScrollSize => 1.1f;
 		public override float AOScrollDamage => 0.975f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<SandyEffect>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<SandyEffect>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.Wet,
-				BuffID.Oiled
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<Flammable>()
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.1f),
-				new(BuffID.OnFire,1.125f),
-				new(ModContent.BuffType<CharredEffect>(),1.01f),
-				new(BuffID.Venom,1.075f),
-				new(ModContent.BuffType<Crystallized>(),0.8f),
-				new(BuffID.OnFire3,1.075f),
-				new(BuffID.Wet,0.8f),
-				new(BuffID.Oiled,0.9f),
-				new(ModContent.BuffType<Singed>(), 1.1f),
-				new(ModContent.BuffType<AOScalding>(),1.125f)
+				Synergy.Create<AOBleed>(1.1f),
+				
+				Synergy.Create<AOBurning>(1.125f),
+				Synergy.Create<CharredEffect>(1.01f),
+				
+				Synergy.Create<Corroding>(1.075f),
+				Synergy.Create<Crystallized>(0.8f),
+				
+				Synergy.Create<Melting>(1.075f),
+				Synergy.Create<Soaked>(0.8f),
+				Synergy.Create<Flammable>(0.9f),
+				Synergy.Create<Singed>(1.1f),
+				Synergy.Create<Scalding>(1.125f)
 			]
 			);
 

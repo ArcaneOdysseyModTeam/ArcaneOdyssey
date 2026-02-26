@@ -1,14 +1,13 @@
 ﻿using ArcaneOdyssey.PlayerClasses;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.Base
 {
 	/// <summary>
 	/// nobody will tell its a custom debuff thats the point lol
 	/// </summary>
-	public abstract class Stun : ModBuff
+	public abstract class Stun : AOBaseBuff
 	{
 		/// <summary>
 		/// literally just for custom magics
@@ -24,6 +23,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.pvpBuff[Type] = true;
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if ((player.ArcaneOdyssey().OnCooldown(Name + "Buff")) || LiterallyCheating)
+			if (player.ArcaneOdyssey().OnCooldown(Name + "Buff") || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
 				player.ArcaneOdyssey().SetCooldown(new Cooldown(Name + "Buff", DisplayName, 60));

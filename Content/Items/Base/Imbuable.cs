@@ -20,13 +20,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 	/// Imbue values are applied as multipliers to imbued projectiles,
 	/// <para>Scroll values are applied as multipliers to projectiles created using spell scrolls</para>
 	/// </summary>
-	public abstract class Imbuable : AOBaseItem, IImbuable, ILocalizedModType
+	public abstract class Imbuable : AOBaseItem, IImbuable
 	{
 		public virtual float Aura => .7f;
 
 		public int AuraHP(Player player)
 		{
-			if (this is AOMagic)
+			if (this is not FightingStyle || player.ArcaneOdyssey().acumen)
 			{
 				return (player.statLifeMax * (.225f * Aura)).Round();
 			}
@@ -40,8 +40,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			player.ArcaneOdyssey()?.AddEquippedImbue(Item);
 		}
-
-		public override string LocalizationCategory => "Imbues";
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		public string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
@@ -86,14 +84,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float AOScrollDamage => AOImbueDamage != 1f ? MathF.Round(AOImbueDamage <= 1f ? AOImbueDamage * 1.1f : AOImbueDamage * AOImbueDamage, 3) : 1f;
 
 		/// <summary>
-		/// For magics, you may return any value
-		/// <para>For fighting stypes, Ancient is actually Lost Fighting Styles</para>
+		/// For magics or fighing styles, you may return any value
+		/// <para>Relics are always Normal for now</para>
 		/// </summary>
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
-		public virtual AODebuffRequirement[] ImbueDebuffs => [];
+		public virtual Debuff[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);
 		public virtual Color ImbueColour => Color.Transparent;
-		public virtual CombinedDebuff[] CombinedDebuffs => [];
+		public virtual Combo[] CombinedDebuffs => [];
 		public virtual SoundStyle? ImbueSound => null;
 
 		/// <summary>
@@ -139,11 +137,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
 
+		public virtual int[] Dusts => [];
+
 		/// <summary>
 		/// Called after a projectile is killed usually
 		/// </summary>
 		/// <param name="area">The area the dust spawns in</param>
-		/// <param name="doextraeffects">Whether to do extra effects, usually spawning projectiles</param>
 		public virtual void KillEffects(Rectangle area, Entity source = null) { }
 
 		/// <summary>
@@ -158,7 +157,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <para>I am not making this lol</para>
 		/// </summary>
 		/// <param name="area">The box</param>
-		public virtual void BoxEffects(Rectangle area, float rotation = 0f) { }
+		public virtual void BoxEffects(Rectangle area) { }
 
 
 		/// <summary>
@@ -167,7 +166,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <param name="origin">Where to shoot out dust from</param>
 		/// <param name="rangemulti">The length of the beam</param>
 		/// <param name="widthmulti">The width of the beam</param>
-		public virtual void BeamEffects(Vector2 origin, float rangemulti = 1f, float widthmulti = 1f) { }
+		public virtual void BeamEffects(Vector2 origin, float direction, float rangemulti = 1f, float widthmulti = 1f) { }
 
 		public override void UseAnimation(Player player)
 		{
@@ -266,11 +265,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool AltFunctionUse(Player player) => true;
 
-		internal static List<int> BasicImbues => [];
-
 		public virtual bool Special => false;
 
-		public string ModifyTooltipsPrefix
+		public string TooltipsPrefix
 		{
 			get
 			{
@@ -341,8 +338,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoDebuffs").Value));
 				}
-
-				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StartShifting").Value));
 			}
 			else
 			{
@@ -359,7 +354,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					var debufftext = Mod.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
 					foreach (var debuff in CombinedDebuffs)
 					{
-						if (debuff.result != CombinedDebuffs[0].result)
+						if (debuff.requirement != CombinedDebuffs[0].requirement)
 						{
 							aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(debuff.requirement), AOUtils.GetBuffName(debuff.result));
 							debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
@@ -371,29 +366,28 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoCombinedDebuffs").Value));
 				}
-
-				tooltips.AddTooltip(new(Mod, "ShiftAONotice", Mod.CustomLocalization("ImbueStuff.StopShifting").Value));
 			}
+			tooltips.AddTooltip(new(Mod, "ShiftNotice", Mod.CustomLocalization("ImbueStuff.ShiftNotice").Value));
 
-			if (ModifyTooltipsPrefix is not null)
-				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{ModifyTooltipsPrefix}TierLines.{ImbuableTier}").Value));
-			
 
 			if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
 			{
 				var ability = $"{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName")}]: {Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description")}";
 
-				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{ability}");
+				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{ability}");
 				tooltips.AddTooltip(tooltip);
 			}
 			else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
 			{
-				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{ImbueColour.Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
+				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
 				tooltips.AddTooltip(tooltip);
 			}
+
+			if (TooltipsPrefix is not null)
+				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
 
-		private static int SortMultipliers(MagicBuffMultiplier x, MagicBuffMultiplier y)
+		private static int SortMultipliers(Synergy x, Synergy y)
 		{
 			if (x.multiplier > y.multiplier)
 			{
@@ -410,7 +404,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			var text = Mod.CustomLocalization("ImbueStuff.NoSynergies").Value;
 
-			var syns = Effects.magicBuffMultipliers.Sorted(new Comparison<MagicBuffMultiplier>(SortMultipliers));
+			var syns = Effects.magicBuffMultipliers.Sorted(new Comparison<Synergy>(SortMultipliers));
 			if (syns.Count > 0)
 			{
 				text = Mod.CustomLocalization("ImbueStuff.SynergiesInfo", DisplayName.Value, AOUtils.GetBuffName(syns[0].buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", syns[0].multiplier).Value).Value;
@@ -424,15 +418,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 			}
 
-			if (Effects.clearBuffs.Count > 0)
+			if (Effects.clearBuffs.Length > 0)
 			{
-				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(Effects.clearBuffs[0])).Value;
+				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(Effects.clearBuffs[0].id)).Value;
 
 				foreach (var buff in Effects.clearBuffs)
 				{
-					if (buff != Effects.clearBuffs[0])
+					if (buff.id != Effects.clearBuffs[0].id)
 					{
-						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(buff)).Value;
+						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(buff.id)).Value;
 					}
 				}
 			}

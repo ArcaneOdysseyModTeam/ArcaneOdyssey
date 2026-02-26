@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			RegisterMutation<SoundMagic>();
 			RegisterMutation<StormMagic>();
 		}
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(255, 140, 255, 255);
 		public override float AOImbueSpeed => 1.2f;
@@ -31,28 +31,30 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1.4f;
 		public override float AOScrollSize => 1f;
 		public override float AOScrollDamage => .875f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOParalyzed>(), 60, 33)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<AOParalyzed>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 33)];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ModContent.BuffType<AOPetrified>(), // petrified
-				ModContent.BuffType<CharredEffect>(),
-				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<AOBleed>(),
-				ModContent.BuffType<AOFrozen>()
+				ClearBuff.Create<Petrified>(), // petrified
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<AOFrozen>()
 			],
 			[
-				new(BuffID.Chilled, 1.2f), // frozen
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(BuffID.Burning, 1.15f), // scalding
-				new(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new(BuffID.Venom, 1.075f), // venom acid
-				new(BuffID.Wet, 1.05f), // 
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Oiled,0.96f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
+				Synergy.Create<FreezingEffect>( 1.2f), // frozen
+				Synergy.Create<AOBleed>(1.2f), // bleeding
+				 // scalding
+				 // melting/hellfire
+				Synergy.Create<Melting>(1.075f),
+				 // venom acid
+				Synergy.Create<Corroding>(1.075f),
+				Synergy.Create<Soaked>( 1.05f), // 
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Flammable>(0.96f),
+				Synergy.Create<Crystallized>(1.075f),
+				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
 

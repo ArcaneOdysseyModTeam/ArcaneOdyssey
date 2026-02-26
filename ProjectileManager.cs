@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
@@ -10,10 +11,11 @@ using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey
 {
@@ -104,43 +106,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
-		{
-			thisProjectile = projectile;
-			if (projectile.hostile || projectile.npcProj || Main.myPlayer != projectile.owner || projectile.owner == 255 || (projectile.damage <= 0 && projectile.ModProjectile is not AOPlayerProjectile) || (!CanBeAffected) || (!ArcaneOdysseyConfig.Instance.ProjectileSizes))
-				return;
-			Player player = Main.player[projectile.owner];
-			float mult = BaseScale.GetValueOrDefault(projectile.scale);
-			if (Imbue is not null)
-			{
-				if (BenifitsFromScrollStats.HasValue)
-				{
-					if (BenifitsFromScrollStats.Value)
-					{
-						mult *= Imbue.AOScrollSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.AOScrollSize;
-						}
-					}
-					else
-					{
-						mult *= Imbue.AOImbueSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.AOImbueSize;
-						}
-					}
-				}
-			}
-			mult *= player.ArcaneOdyssey().SizeMulti;
-			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-			{
-				ScaleRectangle(ref hitbox, mult);
-				projectile.scale = mult;
-			}
-		}
-
 		public override void SetDefaults(Projectile projectile)
 		{
 			thisProjectile = projectile;
@@ -151,25 +116,6 @@ namespace ArcaneOdyssey
 		}
 
 		public override bool InstancePerEntity => true;
-
-		private float? _basescale = null;
-		public float? BaseScale
-		{
-			get
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-					return _basescale.GetValueOrDefault(1f);
-				else
-					return thisProjectile.scale;
-			}
-			set
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-					_basescale = value;
-				else
-					thisProjectile.scale = value.GetValueOrDefault(1f);
-			}
-		}
 
 		public Imbuable Imbue { get; set; }
 		public Imbuable SecondImbue { get; set; }
@@ -230,70 +176,35 @@ namespace ArcaneOdyssey
 			if (!CanBeAffected)
 				return;
 
-			if (projectile.TryGetOwner(out Player player))
+			if (projectile.ModProjectile is AOPlayerProjectile proj)
 			{
-				if (player.meleeEnchant != 0 && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+				if (proj.ProjectileDebuff.HasValue)
 				{
-					// apply early for synergies and stuff, no way to do it for modded imbues
-					foreach (var buff in player.buffType)
-					{
-						if (Main.meleeBuff[buff])
-						{
-							switch (player.meleeEnchant)
-							{
-								case 1:
-									target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10));
-									break;
-								case 2:
-									target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7));
-									break;
-								case 3:
-									target.AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7));
-									break;
-								case 4:
-									target.AddBuff(BuffID.Midas, 120);
-									break;
-								case 5:
-									target.AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20));
-									break;
-								case 6:
-									target.AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4));
-									break;
-								case 8:
-									target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
-									break;
-								default:
-									if (player.ArcaneOdyssey().gel != 0)
-										target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
-									break;
-							}
-						}
-					}
+					target.AddBuff(proj.ProjectileDebuff.Value.debuffID, proj.ProjectileDebuff.Value.debuffDuration);
 				}
 
-				if (player.ArcaneOdyssey().BloodDisease != 0)
+				if (proj.HitSound.HasValue)
 				{
-					target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(5, 10));
+					SoundEngine.PlaySound(proj.HitSound.Value, target.position);
 				}
 			}
-			modifiers = CalculateImbueDamage(Imbue, target, modifiers);
-			modifiers = CalculateImbueDamage(SecondImbue, target, modifiers);
+
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+			modifiers = AOUtils.CalculateImbueDamage(SecondImbue, target, modifiers);
 		}
 
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			thisProjectile = projectile;
-			if (!CanBeAffected)
+			if (!CanBeAffected || projectile.hostile || projectile.owner == 255 || !projectile.active || projectile.npcProj || projectile.trap)
 				return;
-
-			BaseScale ??= projectile.scale;
 
 			if (projectile.ModProjectile is AOPlayerProjectile proj1 && !projectile.DamageType.CountsAsClass<MeleeNoSpeedDamageClass>())
 			{
 				projectile.velocity *= proj1.AOSpeed;
 			}
 
-			if (ImbueClassCheck(projectile))
+			if (AOUtils.ImbueClassCheck(projectile))
 			{
 				if (source is EntitySource_Parent { Entity: Projectile proj })
 				{
@@ -343,17 +254,43 @@ namespace ArcaneOdyssey
 					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
 						SecondImbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
 				}
-				projectile.DamageType = projectile.DamageType.Imbued(Imbue);
+			}
+
+			float mult = 1f;
+
+			if (Imbue is not null)
+			{
+				if (BenifitsFromScrollStats.HasValue)
+				{
+					if (BenifitsFromScrollStats.Value)
+					{
+						mult *= Imbue.AOScrollSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOScrollSize;
+						}
+					}
+					else
+					{
+						mult *= Imbue.AOImbueSize;
+						if (SecondImbue is not null)
+						{
+							mult *= SecondImbue.AOImbueSize;
+						}
+					}
+				}
+			}
+			mult *= Main.player[projectile.owner].ArcaneOdyssey().SizeMulti;
+			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				projectile.Hitbox = AOUtils.ScaleRectangleNotRef(projectile.Hitbox, mult);
+				projectile.scale *= mult;
 			}
 		}
 
 		public override bool PreAI(Projectile projectile)
 		{
 			thisProjectile = projectile;
-			if (CanBeAffected)
-			{
-				BaseScale ??= projectile.scale;
-			}
 			return true;
 		}
 
@@ -373,14 +310,35 @@ namespace ArcaneOdyssey
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			thisProjectile = projectile;
+
+			if (projectile.TryGetOwner(out var player))
+			{
+				if (player.meleeEnchant == GelBuff.GelID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+				{
+					if (player.ArcaneOdyssey().gel != 0)
+						target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
+				}
+
+				if (player.ArcaneOdyssey().BloodDisease != 0)
+				{
+					target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
+				}
+			}
+
 			if (!CanBeAffected)
 				return;
+
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
-			if (Imbue is SpiritEnergy && projectile.TryGetOwner(out var owner))
+
+			if (projectile.TryGetOwner(out var owner))
 			{
-				owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
+				if (Imbue is SpiritEnergy)
+				{
+					owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
+				}
 			}
+
 			if (Main.netMode == NetmodeID.SinglePlayer && Imbue is DeathMagic && (target.lifeMax < Main.player[projectile.owner].statLifeMax2))
 			{
 				target.StrikeInstantKill();

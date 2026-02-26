@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -33,35 +31,40 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => 0.875f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(ModContent.BuffType<AOPetrified>(), 60 * 10, 33)];
-		public override CombinedDebuff[] CombinedDebuffs => [new(BuffID.OnFire3, ModContent.BuffType<AOPetrified>()), new(BuffID.OnFire, ModContent.BuffType<AOPetrified>()), new(BuffID.ShadowFlame, ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<AOScalding>(), ModContent.BuffType<AOPetrified>()), new(ModContent.BuffType<Singed>(), ModContent.BuffType<AOPetrified>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Petrified>(60, 33)];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Melting, Petrified>(), Combo.Create<AOBurning, Petrified>(), Combo.Create<Scorched, Petrified>(), Combo.Create<CharredEffect, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<Singed, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				BuffID.Wet,
-				ModContent.BuffType<SnowyEffect>(),
-				ModContent.BuffType<FreezingEffect>(),
-				BuffID.OnFire,
-				BuffID.OnFire3,
-				ModContent.BuffType<CharredEffect>(),
-				BuffID.ShadowFlame,
-				ModContent.BuffType<Singed>(),
-				ModContent.BuffType<AOScalding>()
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<SnowyEffect>(),
+				ClearBuff.Create<FreezingEffect>(),
+				
+				ClearBuff.Create<AOBurning>(),
+				
+				ClearBuff.Create<Melting>(),
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<Scorched>(),
+				ClearBuff.Create<Singed>(),
+				ClearBuff.Create<Scalding>()
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.1f),
-				new(BuffID.OnFire,1.02f),
-				new(BuffID.Venom,1.075f),
-				new(ModContent.BuffType<Singed>(), 1.2f),
-				new(BuffID.Slimed,1.075f),
-				new(BuffID.Oiled,1.075f),
-				new(BuffID.OnFire3,1.075f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Wet,0.995f),
-				new(ModContent.BuffType<FreezingEffect>(),0.99f),
-				new(ModContent.BuffType<CharredEffect>(),1.01f),
-				new(ModContent.BuffType<SandyEffect>(),1.125f),
-				new(ModContent.BuffType<AOScalding>(),1.2f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
+				Synergy.Create<AOBleed>(1.1f),
+				
+				Synergy.Create<AOBurning>(1.02f),
+				
+				Synergy.Create<Corroding>(1.075f),
+				Synergy.Create<Singed>(1.2f),
+				
+				Synergy.Create<Flammable>(1.075f),
+				
+				Synergy.Create<Melting>(1.075f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Soaked>(0.995f),
+				Synergy.Create<FreezingEffect>(0.99f),
+				Synergy.Create<CharredEffect>(1.01f),
+				Synergy.Create<SandyEffect>(1.125f),
+				Synergy.Create<Scalding>(1.2f),
+				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
 
@@ -105,7 +108,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			{
 				for (int n = 0; n < 10; n++)
 				{
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + BossesKilled, 0f);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + AOUtils.BossesKilled, 0f);
 				}
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

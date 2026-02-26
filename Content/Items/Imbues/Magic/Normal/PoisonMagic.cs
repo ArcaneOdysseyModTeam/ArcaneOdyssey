@@ -5,8 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -26,16 +25,17 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.75f;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Poisoned, 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOPoisoned>()];
 		//public override AODebuff ImbueDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.075f),
-				new(BuffID.OnFire,0.99f),
-				new(ModContent.BuffType<AOScalding>(),0.9f)
+				Synergy.Create<AOBleed>(1.075f),
+				
+				Synergy.Create<AOBurning>(.99f),
+				Synergy.Create<Scalding>(0.9f)
 			]
 			);
 
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, Color.Purple, 3f)];
 				spawnedDust.noGravity = true;
 				if (source is Projectile projectile && n / 2 >= 10)
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + BossesKilled, 0f);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + AOUtils.BossesKilled, 0f);
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Content.Items
 		{
 			base.SetDefaults();
 			Item.width = Item.height = 64;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useStyle = ItemUseStyleID.HiddenAnimation;
 			Item.useAnimation = 20;
 			Item.noUseGraphic = true;
 			Item.useTime = 20;

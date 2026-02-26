@@ -42,10 +42,10 @@ namespace ArcaneOdyssey.PlayerClasses
 				{
 					spriteBatch.Draw(tex.Value, drawParams.MouseRectangle with
 					{
-						Height = (drawParams.MouseRectangle.Height - drawParams.MouseRectangle.Height / 32 * 4),
-						Width = (drawParams.MouseRectangle.Width - drawParams.MouseRectangle.Width / 32 * 4),
-						X = (drawParams.MouseRectangle.X + drawParams.MouseRectangle.Width / 32 * 2),
-						Y = (drawParams.MouseRectangle.Y + drawParams.MouseRectangle.Height / 32 * 2)
+						Height = drawParams.MouseRectangle.Height - drawParams.MouseRectangle.Height / 32 * 4,
+						Width = drawParams.MouseRectangle.Width - drawParams.MouseRectangle.Width / 32 * 4,
+						X = drawParams.MouseRectangle.X + drawParams.MouseRectangle.Width / 32 * 2,
+						Y = drawParams.MouseRectangle.Y + drawParams.MouseRectangle.Height / 32 * 2
 					}, drawParams.DrawColor);
 				}
 			}

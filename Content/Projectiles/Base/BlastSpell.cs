@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class BlastSpell : MagicSpell, ILocalizedModType
+	public abstract class BlastSpell : MagicSpell
 	{
 		// ai 2 is first frame bool
-
-		public override string LocalizationCategory => base.LocalizationCategory + ".Blasts." + Tier;
 
 		public override float AOSize => .4f;
 
@@ -16,7 +13,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
-			Projectile.timeLeft = 40;
+			Projectile.timeLeft = 60;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

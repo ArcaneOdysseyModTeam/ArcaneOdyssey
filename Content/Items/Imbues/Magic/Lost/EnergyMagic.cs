@@ -7,13 +7,12 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
 	public class EnergyMagic : AOMagic
 	{
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => Color.LightYellow;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
@@ -25,23 +24,22 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ModContent.BuffType<AOPetrified>(), // petrified
-				ModContent.BuffType<CharredEffect>(),
-				ModContent.BuffType<SandyEffect>(),
-				ModContent.BuffType<AOBleed>(),
-				ModContent.BuffType<AOFrozen>()
+				ClearBuff.Create<Petrified>(), // petrified
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<AOFrozen>()
 			],
 			[
-				new(BuffID.Chilled, 1.2f), // frozen
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(BuffID.Burning, 1.15f), // scalding
-				new(BuffID.OnFire3, 1.075f), // melting/hellfire
-				new(BuffID.Venom, 1.075f), // venom acid
-				new(BuffID.Wet, 1.05f), // 
-				new(BuffID.Oiled,0.96f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
+				Synergy.Create<FreezingEffect>( 1.2f), // frozen
+				Synergy.Create<AOBleed>(1.2f), // bleeding
+				Synergy.Create<Melting>(1.075f),
+				Synergy.Create<Corroding>(1.075f),
+				Synergy.Create<Soaked>( 1.05f), // 
+				Synergy.Create<Flammable>(0.96f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Crystallized>(1.075f),
+				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
 

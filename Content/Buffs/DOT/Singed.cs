@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using Terraria;
-using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
+
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		{
 			if (npc.HasBuff(Type))
 			{
-				stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
+				stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				npc.ArcaneOdyssey().singedstacks = stack;
 			}
 			if (!Main.dedServ)

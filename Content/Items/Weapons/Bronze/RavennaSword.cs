@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.height = 40;
 			Item.height = 40;
 			Item.useTurn = true;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.useStyle = ItemUseStyleID.Thrust;
 		}
 

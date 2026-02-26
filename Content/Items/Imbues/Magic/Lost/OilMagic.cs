@@ -1,11 +1,10 @@
-using ArcaneOdyssey.Content.Items.Base;
-using Terraria.ModLoader;
-using Terraria.ID;
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using Terraria.Audio;
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -23,21 +22,21 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollDamage => 1.28f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-		public override AODebuffRequirement[] ImbueDebuffs => [new(BuffID.Oiled, 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Flammable>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
-				new(BuffID.OnFire,1.15f),
-				new(BuffID.OnFire3,1.15f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(ModContent.BuffType<AOBleed>(),1.1f),
-				new(ModContent.BuffType<HeavyBleed>(),1.1f),
-				new(ModContent.BuffType<SandyEffect>(),0.96f),
-				new(ModContent.BuffType<SnowyEffect>(),0.96f),
-				new(ModContent.BuffType<CharredEffect>(),1.05f),
-				new(ModContent.BuffType<SearedEffect>(),1.1f)
+				Synergy.Create<AOBurning>(1.15f),
+				Synergy.Create<Melting>(1.15f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<AOBleed>(1.1f),
+				Synergy.Create<HeavyBleed>(1.1f),
+				Synergy.Create<SandyEffect>(0.96f),
+				Synergy.Create<SnowyEffect>(0.96f),
+				Synergy.Create<CharredEffect>(1.05f),
+				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
 

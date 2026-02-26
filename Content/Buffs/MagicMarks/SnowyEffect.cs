@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {

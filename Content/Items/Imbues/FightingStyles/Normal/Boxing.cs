@@ -1,17 +1,17 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using Terraria;
-using Terraria.ID;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
+using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 {
 	public class Boxing : FightingStyle
 	{
 		public override float Aura => 1.25f;
-		public override float DashSpeed => 1.5f; // instant
+		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 2f;
 		public override void SetStaticDefaults()
 		{
@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override SynergyEffects Effects => new(
 			[],
 			[
-				new(ModContent.BuffType<FreezingEffect>(), 1.15f)
+				Synergy.Create<FreezingEffect>(1.15f),
 			]
 		);
 

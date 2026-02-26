@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.width = Projectile.height = 144;
 			Projectile.friendly = true;
 			Projectile.timeLeft = TrueMaxTime;
-			Projectile.DamageType = TrueMeleeNoSpeed();
+			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;
@@ -93,6 +93,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 	public class WhirlwindCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 + Whirlwind.MaxTime;
-		public override string ExtraIconTexture => GetTexture<RavennaSword>();
+		public override string ExtraIconTexture => AOUtils.GetTexture<RavennaSword>();
 	}
 }

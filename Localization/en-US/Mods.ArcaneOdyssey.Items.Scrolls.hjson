@@ -1,0 +1,184 @@
+Equipment: {
+	Common: {
+		CrashScroll: {
+			DisplayName: Crash Technique
+			Tooltip:
+				'''
+				Dash then slam
+				Press {AODASHBIND} to activate
+				'''
+		}
+
+		AuraScroll: {
+			DisplayName: Aura Scroll
+			Tooltip:
+				'''
+				Empowers life, attack size, or damage
+				Life boost scales with imbue
+				'''
+		}
+
+		HoverScroll: {
+			DisplayName: Hover Spell
+			Tooltip: Hover with magic
+		}
+
+		LeapScroll: {
+			DisplayName: Leap Scroll
+			Tooltip: Jump midair with magic
+		}
+	}
+
+	Rare: {
+		FlightScroll: {
+			DisplayName: Flight Scroll
+			Tooltip: Channels your imbue to fly
+		}
+
+		ReflexScroll: {
+			DisplayName: Reflex Scroll
+			Tooltip:
+				'''
+				Channels your imbue to dash
+				Some imbues have special effects
+				'''
+		}
+
+		WalkRite: {
+			DisplayName: Walk Rite
+			Tooltip:
+				'''
+				Dash thrice with your spirit energy
+				Press {AODASHBIND} to activate
+				'''
+		}
+
+		SelinoTechnique: {
+			DisplayName: Selino Technique
+			Tooltip:
+				'''
+				Dash thrice, releasing shockwaves
+				Press {AODASHBIND} to activate
+				'''
+		}
+
+		BreathtakerTechnique: {
+			DisplayName: Breathtaker Technique
+			Tooltip:
+				'''
+				Dash into an enemy and lower their defense
+				Press {AODASHBIND} to activate
+				'''
+		}
+	}
+
+	Lost: {
+	}
+}
+
+Usable: {
+	Common: {
+		BeamScroll: {
+			DisplayName: Beam Spell
+			Tooltip: Fires a magic beam
+		}
+
+		BlastScroll: {
+			DisplayName: Blast Rite
+			Tooltip: Fires a spirit blast
+		}
+
+		ExplosionScroll: {
+			DisplayName: Explosion Scroll
+			Tooltip: Creates a controllable explosion
+		}
+
+		RainRite: {
+			DisplayName: Rain Rite
+			Tooltip: Shoots a spirit cloud that rains projectiles
+		}
+
+		ShotScroll: {
+			DisplayName: Shot Technique
+			Tooltip: Shoots a quick blast of air
+		}
+
+		SmashScroll: {
+			DisplayName: Smash Technique
+			Tooltip: Creates a shockwave of air
+		}
+	}
+
+	Lost: {
+		AnnihilationScroll: {
+			DisplayName: Annihilation Spell
+			Tooltip: Fires a massive explosive magic blast
+		}
+
+		EnchantmentSpell: {
+			DisplayName: Enchantment Spell
+			Tooltip: Buffs all other players
+		}
+
+		CrescendoTechnique: {
+			DisplayName: Crescendo Technique
+			Tooltip: Creates a massive shockwave of air
+		}
+
+		ElementalSpell: {
+			DisplayName: Elemental Spell
+			Tooltip: Summons an elemental made of your magic
+		}
+
+		AcumenTechnique: {
+			DisplayName: Acumen Technique
+			Tooltip: Empowers your aura scroll effect permanently
+		}
+	}
+
+	Rare: {
+		ArrayScroll: {
+			DisplayName: Array Spell
+			Tooltip: Fires tracking magic blasts
+		}
+
+		CannonScroll: {
+			DisplayName: Cannon Spell
+			Tooltip: Fires a piercing magic blast
+		}
+
+		HoundRite: {
+			DisplayName: Hound Rite
+			Tooltip: Fires a piercing spirit blast
+		}
+
+		PulsarScroll: {
+			DisplayName: Pulsar Spell
+			Tooltip: Fires a rapidly exploding magic blast
+		}
+
+		BarrageSpell: {
+			DisplayName: Barrage Spell
+			Tooltip: Fires magic blasts rapidly
+		}
+
+		AxeTechnique: {
+			DisplayName: Axe Technique
+			Tooltip:
+				'''
+				Cleave through the air and foes
+				Alt fire to ignore trees
+				'''
+		}
+
+		MeteorScroll: {
+			DisplayName: Meteor Scroll
+			Tooltip: Calls down a magic meteor
+		}
+
+		JavelinSpell: {
+			DisplayName: Javelin Spell
+			Tooltip: Shoots a projectile that sticks to enemies and tiles
+		}
+	}
+}

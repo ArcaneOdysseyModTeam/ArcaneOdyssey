@@ -4,10 +4,12 @@ using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
@@ -27,7 +29,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.height = 40;
 			Item.height = 40;
 			Item.useTurn = true;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.axe = 90 / 5;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
@@ -63,7 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override int Cooldown => 300;
 		public override float DashSpeed => 15;
 		public override int DashMax => 600;
-		public override DamageClass DamageType => TrueMelee();
+		public override DamageClass DamageType => AOUtils.TrueMelee();
 		public override float Knockback => 5;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target) => false;
@@ -74,18 +76,43 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.itemAnimation < 8 || player.itemTime < 8)
 				player.itemAnimation = player.itemTime = 7;
+
+			if (player.ArcaneOdyssey().DashLeft < (DashMax - 30))
+			{
+				if (!Main.dedServ)
+				{
+					if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+					{
+						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f }, player.Center);
+					}
+					else
+					{
+						activeSound.Position = player.Center;
+					}
+				}
+			}
 		}
+
+		public SlotId? sound = null;
 
 		public override bool ExtraCheck(Player player) => !player.wet;
 
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-			SimulateAOE(300, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
+			AOUtils.SimulateAOE(300, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
 			if (!Main.dedServ)
 			{
 				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.PlayerItem()), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());
 				gore1.Centre(player.Top);
+				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
+			}
+			if (sound.HasValue)
+			{
+				if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+				{
+					activeSound.Stop();
+				}
 			}
 			// Vfx
 		}
@@ -93,6 +120,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 	public class DevastateCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => GetTexture<RavennaGreataxe>();
+		public override string ExtraIconTexture => AOUtils.GetTexture<RavennaGreataxe>();
 	}
 }

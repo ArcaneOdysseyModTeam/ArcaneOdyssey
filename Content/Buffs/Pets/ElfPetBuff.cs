@@ -1,15 +1,17 @@
-using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Items.Equipment.Pets;
 using ArcaneOdyssey.Content.Projectiles.Pets;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Equipment.Pets;
 
 namespace ArcaneOdyssey.Content.Buffs.Pets
 {
-	public class ElfPetBuff : ModBuff
+	public class ElfPetBuff : AOBaseBuff
 	{
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
 		}

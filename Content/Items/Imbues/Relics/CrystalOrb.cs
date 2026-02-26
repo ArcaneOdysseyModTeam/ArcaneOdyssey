@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Minions;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Projectiles.Relics;
+using ArcaneOdyssey.Content.Projectiles.Relics.Minions;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -37,10 +37,10 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			Item.noUseGraphic = false;
 			Item.holdStyle = ItemHoldStyleID.HoldGolfClub;
 			Item.scale = .5f;
-			Item.useStyle = ItemUseStyleID.Swing; 
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.buffType = ModContent.BuffType<SpiritMinionBuff>();
 			Item.shoot = ModContent.ProjectileType<SpiritMinion>();
-			Item.damage = 90;
+			Item.damage = 30;
 		}
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

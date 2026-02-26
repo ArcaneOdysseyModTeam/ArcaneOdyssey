@@ -1,0 +1,149 @@
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+
+namespace ArcaneOdyssey.Content.Projectiles.Magic
+{
+	public class Javelin : MagicSpell
+	{
+		public JavelinMode Mode = JavelinMode.Charging;
+		public int PiercingNPC = -1;
+		public float charge = 1f;
+		public static int TimeLeft => 60 * 4;
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.penetrate = 4;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.width = 96;
+			Projectile.height = 32;
+			Projectile.AverageDimensions();
+			Projectile.localNPCHitCooldown = (TimeLeft / 4) + 1;
+		}
+
+		public override void AI()
+		{
+			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
+
+			if (Projectile.ai[0] == 0)
+			{
+				Projectile.ai[0] = 1;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
+				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
+			}
+
+			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
+			{
+				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
+			}
+
+			if (Mode == JavelinMode.Charging)
+			{
+				if (Owner.channel && charge < 1.5f)
+				{
+					charge += 1f / 120f;
+					Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
+					Projectile.spriteDirection = Owner.direction;
+					AOPlayerOwner.HeavySkillActive = true;
+					//Owner.heldProj = Projectile.whoAmI;
+					Owner.itemAnimation = Owner.PlayerItem().useAnimation;
+					Owner.itemTime = Owner.PlayerItem().useTime;
+					Owner.itemRotation = dir.ToRotation();
+					if (Owner.direction != 1)
+					{
+						Owner.itemRotation += MathHelper.Pi;
+					}
+					Projectile.rotation = dir.ToRotation();
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
+					Projectile.timeLeft = TimeLeft;
+				}
+				else
+				{
+					Projectile.velocity = dir * 20f;
+					Mode = JavelinMode.Flying;
+					Projectile.timeLeft = TimeLeft;
+				}
+			}
+			if (Mode == JavelinMode.Flying)
+			{
+				Projectile.rotation = Projectile.velocity.ToRotation();
+			}
+			if (Mode == JavelinMode.Piercing)
+			{
+				if (PiercingNPC != -1 && Main.npc.IndexInRange(PiercingNPC))
+				{
+					var npc = Main.npc[PiercingNPC];
+					if (npc.active && npc.life > 0)
+					{
+						Projectile.Center = npc.Center;
+					}
+					else
+					{
+						Kill();
+					}
+				}
+			}
+			if (Mode == JavelinMode.Grounded)
+			{
+				if (Projectile.timeLeft % (TimeLeft / 4) == 0)
+					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+			}
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (Mode == JavelinMode.Flying)
+			{
+				Projectile.velocity = Vector2.Zero;
+				Mode = JavelinMode.Piercing;
+				Projectile.timeLeft = TimeLeft;
+				PiercingNPC = target.whoAmI;
+			}
+			SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.SourceDamage *= charge;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+			return base.PreDraw(ref lightColor);
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			width = height /= 4;
+			fallThrough = true;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			if (Mode == JavelinMode.Flying)
+			{
+				Projectile.velocity = Vector2.Zero;
+				Mode = JavelinMode.Grounded;
+				Projectile.timeLeft = TimeLeft;
+			}
+			return false;
+		}
+	}
+
+	public enum JavelinMode
+	{
+		Charging,
+		Flying,
+		Grounded,
+		Piercing
+	}
+}

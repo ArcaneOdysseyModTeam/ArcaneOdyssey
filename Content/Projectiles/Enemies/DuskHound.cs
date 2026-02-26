@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
-	public class DuskHound : ModProjectile
+	public class DuskHound : AOBaseProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<SpiritHound>();
 
@@ -22,7 +23,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 		public const int TimeLeftMax = 60 * 5;
 		public override void SetDefaults()
 		{
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.hostile = true;
 			Projectile.height = 84;
 			Projectile.width = 104;

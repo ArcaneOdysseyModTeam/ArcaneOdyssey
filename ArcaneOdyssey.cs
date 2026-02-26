@@ -1,14 +1,13 @@
 using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.NPCS;
+using ArcaneOdyssey.Content.NPCS.Town;
+using ArcaneOdyssey.Content.Tiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.Localization;
@@ -99,7 +98,7 @@ namespace ArcaneOdyssey
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
+					KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, ModContent.TileType<TuckerGrave>());
 				}));
 			}
 
@@ -127,7 +126,7 @@ namespace ArcaneOdyssey
 					int y = WorldGen.genRand.Next(top, bottom + 1);
 					if (Framing.GetTileSafely(x, y).TileType != tile)
 					{
-						WorldGen.PlaceObject(x, y, tile, false, 2, 0, -1, WorldGen.genRand.NextBool(2) ? 1 : -1);
+						WorldGen.PlaceObject(x, y, tile);
 					}
 					Tile tile1 = Framing.GetTileSafely(x, y); // maybe use later for something
 					success = tile1.TileType == tile;
@@ -201,14 +200,6 @@ namespace ArcaneOdyssey
 
 	public class AODebuffManager : GlobalBuff
 	{
-		public override void SetStaticDefaults()
-		{
-			if (ArcaneOdysseyClientConfig.Instance.MissingDebuffSprites)
-			{
-				TextureAssets.Buff[BuffID.Oiled] = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/OiledDebuff");
-			}
-		}
-
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
 		{
 			buffName = buffName.Replace("Imbue", "Gel");

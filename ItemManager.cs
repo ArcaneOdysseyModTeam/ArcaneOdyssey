@@ -1,13 +1,14 @@
-﻿using ArcaneOdyssey.Content.Items;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Accessories.Vanity;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Equipment.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
 using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
@@ -349,9 +350,9 @@ namespace ArcaneOdyssey
 
 			if (item.ModItem is Imbuable imbue)
 			{
-				knockback *= (imbue.AOScrollSize * imbue.AOScrollSize);
+				knockback *= imbue.AOScrollSize * imbue.AOScrollSize;
 				if (imbue.Imbue is not null)
-					knockback *= (imbue.Imbue.AOScrollSize * imbue.Imbue.AOScrollSize);
+					knockback *= imbue.Imbue.AOScrollSize * imbue.Imbue.AOScrollSize;
 				var extraknockbackmulti = imbue.KBMulti;
 				if (imbue.Imbue is not null)
 					extraknockbackmulti += imbue.Imbue.KBMulti.MultiToPercent();
@@ -367,9 +368,9 @@ namespace ArcaneOdyssey
 				}
 				else if (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					knockback *= (Imbue.AOImbueSize * Imbue.AOImbueSize);
+					knockback *= Imbue.AOImbueSize * Imbue.AOImbueSize;
 					if (SecondImbue is not null)
-						knockback *= (SecondImbue.AOImbueSize * SecondImbue.AOImbueSize);
+						knockback *= SecondImbue.AOImbueSize * SecondImbue.AOImbueSize;
 				}
 				var extraknockbackmulti = Imbue.KBMulti;
 				if (SecondImbue is not null)
@@ -481,6 +482,7 @@ namespace ArcaneOdyssey
 				}
 				switch (item.type)
 				{
+					case ItemID.Anchor:
 					case ItemID.BreakerBlade:
 						WeaponsType = WeaponType.Strength;
 						break;
@@ -551,15 +553,19 @@ namespace ArcaneOdyssey
 		{
 			thisItem = item;
 			owner = player;
+
 			if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
 				Cold = null;
 				WeaponsType = WeaponType.Normal;
 			}
+
 			if (!CanBeAffected)
 				return;
+
 			if (Main.myPlayer != player.whoAmI)
 				return;
+
 			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().EquippedImbues.Select(e => (Imbuable)ModContent.GetModItem(e))];
 			options.RemoveAll(e => !item.CanHaveImbue(e));
 			bool justchangedspecificimbue = false;
@@ -634,27 +640,6 @@ namespace ArcaneOdyssey
 						}
 					}
 				}
-
-				//if (options.Count < 2 && (Imbue != player.Imbue()))
-				//{
-				//	specificImbue = true;
-				//	//justchangedspecificimbue = true;
-				//	if (item.CanHaveImbue(player.Imbue()))
-				//	{
-				//		Imbue = player.Imbue();
-				//		if (item.TryGetSecondImbue(Imbue, out var second))
-				//			SecondImbue = second;
-				//		else
-				//			SecondImbue = null;
-				//	}
-				//	else
-				//	{
-				//		Imbue = null;
-				//		SecondImbue = null;
-				//	}
-				//	settodefault = true;
-				//	imbueIndex = -1;
-				//}
 			}
 			else
 			{
@@ -690,8 +675,6 @@ namespace ArcaneOdyssey
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, Imbue is null ? Mod.CustomLocalization("RandomWords.None") : (!settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value)]);
 				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
-			item.DamageType = item.DamageType.UnImbued(item);
-			item.DamageType = item.DamageType.Imbued(Imbue, item);
 		}
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
@@ -707,6 +690,15 @@ namespace ArcaneOdyssey
 		{
 			owner = player;
 			thisItem = item;
+			if (player.ArcaneOdyssey().BloodDisease != 0)
+			{
+				target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
+			}
+			if (player.meleeEnchant == GelBuff.GelID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
+			{
+				if (player.ArcaneOdyssey().gel != 0)
+					target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
+			}
 			if (!CanBeAffected)
 				return;
 			if (Imbue is SpiritEnergy)
@@ -726,53 +718,9 @@ namespace ArcaneOdyssey
 			if (!CanBeAffected)
 				return;
 
-			if (player.meleeEnchant != 0 && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
-			{
-				// apply early for synergies and stuff, no way to do it for modded imbues
-				foreach (var buff in player.buffType)
-				{
-					if (Main.meleeBuff[buff])
-					{
-						switch (player.meleeEnchant)
-						{
-							case 1:
-								target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10));
-								break;
-							case 2:
-								target.AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7));
-								break;
-							case 3:
-								target.AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7));
-								break;
-							case 4:
-								target.AddBuff(BuffID.Midas, 120);
-								break;
-							case 5:
-								target.AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20));
-								break;
-							case 6:
-								target.AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4));
-								break;
-							case 8:
-								target.AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10));
-								break;
-							default:
-								if (player.ArcaneOdyssey().gel != 0)
-									target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
-								break;
-						}
-					}
-				}
-			}
-
-			if (player.ArcaneOdyssey().BloodDisease != 0)
-			{
-				target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
-			}
-
 			if (item.ModItem is AORangedOrMeleeWeapon weap)
 			{
-				if (weap.WeaponDebuff.HasValue && (weap.WeaponDebuff.Value.debuffPercent == 0 || modifiers.GetDamage(item.damage, true) > (target.lifeMax / weap.WeaponDebuff.Value.debuffPercent)))
+				if (weap.WeaponDebuff.HasValue)
 				{
 					target.AddBuff(weap.WeaponDebuff.Value.debuffID, weap.WeaponDebuff.Value.debuffDuration);
 				}

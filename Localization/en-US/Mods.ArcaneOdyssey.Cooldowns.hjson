@@ -8,11 +8,6 @@ DevastateCooldown: {
 	Description: Devastate is on cooldown
 }
 
-ColossalCleaveCooldown: {
-	DisplayName: Colossal Cleave Cooldown
-	Description: Colossal Cleave is on cooldown
-}
-
 RisingTideCooldown: {
 	DisplayName: Rising Tide Cooldown
 	Description: Rising Tide is on cooldown
@@ -56,4 +51,14 @@ RagingImpact: {
 WalkCooldown: {
 	DisplayName: Spirit Walk Cooldown
 	Description: Spirit Walk is on cooldown
+}
+
+SelinoCooldown: {
+	DisplayName: Selino Cooldown
+	Description: Selino is on cooldown
+}
+
+BreathtakerCooldown: {
+	DisplayName: Breathtaker Cooldown
+	Description: Breathtaker is on cooldown
 }

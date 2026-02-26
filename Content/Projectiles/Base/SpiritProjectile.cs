@@ -1,17 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class SpiritProjectile : AOPlayerProjectile, IImbuable
 	{
-		public override string LocalizationCategory => "Imbues.Relics.Projectiles";
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = OracleDamage.Instance;
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.friendly = true;
 		}
 

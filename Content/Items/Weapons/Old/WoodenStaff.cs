@@ -1,10 +1,10 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
+using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
@@ -16,14 +16,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override int AOValue => 1350;
 		public override AORarities AORarity => AORarities.Common;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
-		public override AODebuffRequirement? WeaponDebuff => null; // dull weapon
+		public override Debuff? WeaponDebuff => null; // dull weapon
 		public override SoundStyle UseSound => SoundID.Item1;
 
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = TrueMeleeNoSpeed();
+			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Item.shoot = ModContent.ProjectileType<WoodenStaffProjectile>();
 			Item.width = Item.height = 60;
 			Item.channel = true;

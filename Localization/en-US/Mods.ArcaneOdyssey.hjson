@@ -20,8 +20,8 @@ ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
-	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Only conducts Magic]"
-	StrengthIndicator: "[c/700013:Strength Weapon - Too heavy to be used fully without a Fighting Style]"
+	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Cannot be used fully without Magic]"
+	StrengthIndicator: "[c/700013:Strength Weapon - Cannot be used fully without a Fighting Style]"
 	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
 	ScrollDamage: Scroll damage: {0}x
 	ScrollSpeed: Scroll speed: {0}x
@@ -29,13 +29,12 @@ ImbueStuff: {
 	RelicDamage: Damage: {0}x
 	RelicSpeed: Speed: {0}x
 	RelicSize: Size: {0}x
-	StartShifting: Hold SHIFT to view alternate stats
+	ShiftNotice: SHIFT shows other stats
 	ImbueDamage: Imbue damage: {0}x
 	ImbueSpeed: Imbue speed: {0}x
 	ImbueSize: Imbue size: {0}x
 	NoDebuffs: No debuffs
 	NoCombinedDebuffs: No combined debuffs
-	StopShifting: Stop holding SHIFT to view alternate stats
 	Debuffs: Inflicts: {0}
 	Combined: Debuff combos: {0}
 	NoSynergies: Your imbue has no synergies
@@ -69,32 +68,17 @@ Configs: {
 			Tooltip: Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
 		}
 
-		ProjectileSizes: {
-			Label: "[i:ArcaneOdyssey/ColossalGreatsword] Projectile Sizes"
-			Tooltip: Toggles projectiles having their size affected by the mod
-		}
-
 		PredictiveArray: {
 			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
 			Tooltip: Whether to have the Array spell predict enemy movements to aim
-		}
-
-		DamageTypes: {
-			Label: "[i:ArcaneOdyssey/SpiritImbue] Custom Damage Types"
-			Tooltip: Whether to have custom damage classes, such as "conjurer damage"
 		}
 	}
 
 	ArcaneOdysseyClientConfig: {
 		DisplayName: Client Config
 
-		ElfPetSoundEffects: {
-			Label: "[i:ArcaneOdyssey/ElfPetItem] Elf Pet Sound Effects"
-			Tooltip: ""
-		}
-
 		GenerateTucker: {
-			Label: "[i:CrossGraveMarker] Generate Tucker's Grave"
+			Label: "[i:ArcaneOdyssey/TuckerGraveItem] Generate Tucker's Grave"
 			Tooltip: Toggles the generation of Tucker's grave on world creation
 		}
 
@@ -106,11 +90,6 @@ Configs: {
 		ItemTypeTooltips: {
 			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
 			Tooltip: Toggles whether to show the rarity and type of items in their tooltips
-		}
-
-		MissingDebuffSprites: {
-			Label: "[i:ArcaneOdyssey/OilMagic] Add Missing Buff Sprites"
-			Tooltip: Some vanilla buffs are used by the mod but lack sprites, this toggle fixes that
 		}
 	}
 }
@@ -189,7 +168,6 @@ NPCs: {
 
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
-		DeathMessage: Evander, the Mountainbreaker has been defeated!
 		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world.
 	}
 
@@ -197,38 +175,46 @@ NPCs: {
 
 	Dusk: {
 		DisplayName: Dusk, the Dark Oracle
-		DeathMessage: Dusk, the Dark Oracle has been defeated!
 		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer forests of the world.
 	}
 
 	Laelus: {
 		DisplayName: Laelus, the Theif
-		DeathMessage: Laelus, the Theif has been defeated!
 		SpawnInfo: Spawns naturally during the day, in the outer forests of the world.
 	}
 }
 
 MagicTierLines: {
-	Normal: "[c/2277ff:~ Base Magic ~]"
-	Lost: "[c/0044ff:~ Lost Magic ~]"
-	Ancient: "[c/7ebcc2:~ Ancient Magic ~]"
-	Primordial: "[c/ffc2c2:~ Primordial Magic ~]"
-	Developer: "[c/ff0000:~ Developer Magic ~]"
+	Normal: "[c/2277ff:~ Basic magic ~]"
+	Lost: "[c/0044ff:~ Lost magic ~]"
+	Ancient: "[c/7ebcc2:~ Ancient magic ~]"
+	Primordial: "[c/ffc2c2:~ Primordial magic ~]"
+	Developer: "[c/ff0000:~ Developer magic ~]"
 }
 
 SpecialTierLines: {
-	Normal: "[c/2277ff:~ Lesser Lost Magic ~]"
-	Lost: "[c/0044ff:~ Lost Spirit Mutation ~]"
-	Ancient: "[c/7ebcc2:~ Ancient Spirit Mutation ~]"
+	Normal: "[c/2277ff:~ Lesser lost magic ~]"
+	Lost: "[c/0044ff:~ Lost spirit mutation ~]"
+	Ancient: "[c/7ebcc2:~ Ancient spirit mutation ~]"
+	Primordial: "[c/ffc2c2:~ A dragon's power ~]"
+	Developer: "[c/ff0000:~ A god's chaos ~]"
 }
 
 FSTierLines: {
-	Normal: "[c/700013:~ Fighting Style ~]"
-	Ancient: "[c/7ebcc2:~ Lost Fighting Style ~]"
-	Developer: "[c/ff0000:~ Developer Fighting Style ~]"
+	Normal: "[c/2277ff:~ Fighting style ~]"
+	Lost: "[c/0044ff:~ Lost fighting style ~]"
+	Ancient: "[c/7ebcc2:~ Advanced lost fighting style ~]"
+	Primordial: "[c/ffc2c2:~ Primordial fighing style ~]"
+	Developer: "[c/ff0000:~ Developer fighting style ~]"
 }
 
-RelicTierLines.Normal: "[c/2277ff:~ Relic ~]"
+RelicTierLines: {
+	Normal: "[c/2277ff:~ Relic ~]"
+	Lost: "[c/0044ff:~ Blessed relic ~]"
+	Ancient: "[c/7ebcc2:~ Inhabited relic ~]"
+	Primordial: "[c/ffc2c2:~ Primordial relic ~]"
+	Developer: "[c/ff0000:~ A god's creation ~]"
+}
 
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
@@ -259,43 +245,49 @@ CodebreakerDialogOption: {
 }
 
 Projectiles: {
-	EvanderMelee.DisplayName: Colossal Greatsword
-	EvanderSlash.DisplayName: Colossal Cleave
+	Enemies: {
+		DuskHound.DisplayName: Spirit Hound
+		DuskRaincloud.DisplayName: Spirit Rain
+		DuskRaindrop.DisplayName: Spirit Raindrop
+		EvanderMelee.DisplayName: Colossal Greatsword
+		EvanderSlash.DisplayName: Colossal Cleave
+		LaelusBlast.DisplayName: Spirit Blast
+		LaelusExplosion.DisplayName: Spirit Burst
+	}
+
+	Pets.ElfPetProjectile.DisplayName: Aether
+
+	Weapons: {
+		Abilities: {
+			BronzeRapierProjectile.DisplayName: Bronze Rapier
+			ColossalCleave.DisplayName: Colossal Cleave
+			FuryoftheSea.DisplayName: Fury of the Sea
+			KatanaSlash.DisplayName: Slash
+			MountainWind.DisplayName: Mountain Wind
+			PiercingGale.DisplayName: Piercing Gale
+			SeismicSlashRock.DisplayName: Seismic Slash
+			SparrowThrust.DisplayName: Sparrow Thrust
+			TwinCrescent.DisplayName: Twin Crescent
+			Whirlwind.DisplayName: Whirlwind
+		}
+
+		BronzeStaffProjectile.DisplayName: Bronze Staff
+		BronzeTriastaProjectile.DisplayName: Bronze Triasta
+		BronzeTridentProjectile.DisplayName: Bronze Trident
+		LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
+		NobleThunderspearProjectile.DisplayName: Noble Thunderspear
+		SunkenStaffProjectile.DisplayName: Sunken Staff
+		WoodenStaffProjectile.DisplayName: Wooden Staff
+	}
+
+	DeathCurse.DisplayName: The Death Curse
 	LeapFix.DisplayName: Leap Spell
-	ExplosionTracker.DisplayName: Explosion Spell
-	MagicCircle1.DisplayName: Magic Circle
-	MagicCircle2.DisplayName: Magic Circle
-	ElfPetProjectile.DisplayName: Aether
-	FuryoftheSea.DisplayName: Fury of the Sea
-	PiercingStrikesProjectile.DisplayName: Bronze Rapier
-	BronzeStaffProjectile.DisplayName: Bronze Staff
-	BronzeTridentProjectile.DisplayName: Bronze Trident
-	KatanaSlash.DisplayName: Slash
-	OldTridentProjectile.DisplayName: Old Trident
-	SunkenStaffProjectile.DisplayName: Sunken Staff
-	WoodenStaffProjectile.DisplayName: Wooden Staff
-	BronzeTriastaProjectile.DisplayName: Triasta of Bronze
-	SeismicSlashRock.DisplayName: Seismic Slash
-	BronzeRapierProjectile.DisplayName: Bronze Rapier
-	PrismLinger.DisplayName: Prism Magic Shards
-	DeathCurse.DisplayName: Death Curse
-	AetherExplosion.DisplayName: Aether Explosion
-	FrostmetalShard.DisplayName: Frostmetal Shard
-	PowderExplosion.DisplayName: Powder Explosion
-	ColossalCleave.DisplayName: Colossal Cleave
-	MountainWind.DisplayName: Mountain Wind
-	PiercingGale.DisplayName: Piercing Gale
-	Whirlwind.DisplayName: Whirlwind
-	ProminenceProjectile.DisplayName: Prominent Sun
-	TwinCrescent.DisplayName: Twin Crescent
-	NobleThunderspearProjectile.DisplayName: Noble Thunderspear
-	SparrowThrust.DisplayName: Sparrow Thrust
-	DuskHound.DisplayName: Spirit Hound
-	LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
-	DuskRaincloud.DisplayName: Spirit Raincloud
-	DuskRaindrop.DisplayName: Spirit Raindrop
-	LaelusBlast.DisplayName: Spirit Blast
-	LaelusExplosion.DisplayName: Spirit Burst
+
+	Helpers: {
+		BarrageMagicCircle.DisplayName: Magic Circle
+		BasicMagicCircle.DisplayName: Magic Circle
+		RotatingMagicCircle.DisplayName: Magic Circle
+	}
 }
 
 Achievements: {
@@ -323,30 +315,15 @@ RandomWords: {
 	GelTooltip: Melee attacks inflict {0}
 	AuraMode: Current mode: {0}, press {1} to cycle
 	ModeCycled: Swapped mode to {0}
+	Downed: "{0} has been defeated!"
+	Acumen: Your aura scroll effect has been boosted while using fighting styles
+	Enchantment: "{0} has buffed all players! [i:ArcaneOdyssey/EnchantmentSpell]"
 }
 
 FargosSheet: {
-	CurrentImbue: Current Imbue: {0}
 	SizeMulti: Attack Size: {0}%
 	CooldownMulti: Ability Haste: {0}%
 	BloodDisease: Blood Disease: {0}
-}
-
-DamageClasses: {
-	ConjurerDamage: conjurer damage
-	ConjurerNoSpeedDamage: conjurer damage
-	JuggernautDamage: juggernaut damage
-	KnightDamage: knight damage
-	KnightNoSpeedDamage: knight damage
-	OracleDamage: oracle damage
-	PaladinDamage: paladin damage
-	RangedConjurerDamage: ranged conjurer damage
-	RangedKnightDamage: ranged knight damage
-	RangedWarlordDamage: ranged warlord damage
-	WarlockDamage: warlock damage
-	WarlordDamage: warlord damage
-	WarlordNoSpeedDamage: warlord damage
-	SavantDamage: savant damage
 }
 
 ScrollTiers: {

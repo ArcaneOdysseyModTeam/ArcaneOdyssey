@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.height = Item.width = 46;
 			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.shoot = ModContent.ProjectileType<BronzeRapierProjectile>();
 			Item.shootSpeed = 1f;
 		}
