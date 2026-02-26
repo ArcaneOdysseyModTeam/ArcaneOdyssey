@@ -9,6 +9,7 @@ namespace ArcaneOdyssey.Content.Buffs.Mounts
 	{
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

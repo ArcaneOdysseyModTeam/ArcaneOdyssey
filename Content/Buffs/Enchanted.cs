@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Buffs
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			Main.persistentBuff[Type] = true;

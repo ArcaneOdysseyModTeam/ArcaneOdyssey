@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Buffs.Pets
 	{
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
 		}

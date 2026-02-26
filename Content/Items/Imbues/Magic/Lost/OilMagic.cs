@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -29,17 +28,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			
 			],
 			[
-				new(BuffID.OnFire,1.15f),
 				Synergy.Create<AOBurning>(1.15f),
-				new(BuffID.OnFire3,1.15f),
 				Synergy.Create<Melting>(1.15f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(ModContent.BuffType<AOBleed>(),1.1f),
-				new(ModContent.BuffType<HeavyBleed>(),1.1f),
-				new(ModContent.BuffType<SandyEffect>(),0.96f),
-				new(ModContent.BuffType<SnowyEffect>(),0.96f),
-				new(ModContent.BuffType<CharredEffect>(),1.05f),
-				new(ModContent.BuffType<SearedEffect>(),1.1f)
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<AOBleed>(1.1f),
+				Synergy.Create<HeavyBleed>(1.1f),
+				Synergy.Create<SandyEffect>(0.96f),
+				Synergy.Create<SnowyEffect>(0.96f),
+				Synergy.Create<CharredEffect>(1.05f),
+				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
 

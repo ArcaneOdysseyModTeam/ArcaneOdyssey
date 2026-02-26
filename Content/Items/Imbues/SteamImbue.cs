@@ -27,8 +27,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 		public override float AOScrollSize => 1.15f;
 		public override float AOImbueSize => 1.1f;
 		public override float AOImbueSpeed => 1;
-		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<Scalding>(), 60 * 10)];
-		public override Combo[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<Petrified>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Scalding>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.LiquidsWaterLava;
@@ -37,18 +37,16 @@ namespace ArcaneOdyssey.Content.Items.Imbues
 
 		public override SynergyEffects Effects => new([], 
 			[
-				new(ModContent.BuffType<AOBleed>(), 1.15f),
-				new(ModContent.BuffType<Petrified>(), 1.1f),
-				new(BuffID.OnFire, 1.1f),
+				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Petrified>(1.1f),
 				Synergy.Create<AOBurning>(1.1f),
-				new(ModContent.BuffType<CharredEffect>(), 1.1f),
-				new(BuffID.Venom, 1.05f),
+				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<Corroding>(1.05f),
-				new(ModContent.BuffType<FreezingEffect>(), .9f),
-				new(BuffID.Wet, .9f),
-				new(ModContent.BuffType<AOFrozen>(), .9f),
-				new(ModContent.BuffType<Crystallized>(), .85f),
-				new(ModContent.BuffType<SandyEffect>(), .8f),
+				Synergy.Create<FreezingEffect>(.9f),
+				Synergy.Create<Soaked>(.9f),
+				Synergy.Create<AOFrozen>(.9f),
+				Synergy.Create<Crystallized>(.85f),
+				Synergy.Create<SandyEffect>(.8f),
 			]
 		);
 

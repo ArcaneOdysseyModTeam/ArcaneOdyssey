@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -33,37 +32,37 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.85f;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBurning>(60 * 10)];
-		public override Combo[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<Petrified>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBurning>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<AOBleed>(),
-				ClearBuff.Create < FreezingEffect >(),
-				ClearBuff.Create < SnowyEffect >(),
-				new(BuffID.Wet),
-				ClearBuff.Create < CharredEffect >(),
-				new(BuffID.Slimed)
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<SnowyEffect>(),
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<Flammable>()
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.15f),
-				new(ModContent.BuffType<Singed>(), 1.1f),
-				new(ModContent.BuffType<CharredEffect>(),1.01f),
-				new(BuffID.Venom,1.05f),
+				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Singed>(1.1f),
+				Synergy.Create<CharredEffect>(1.01f),
+				
 				Synergy.Create<Corroding>(1.05f),
-				new(ModContent.BuffType<Crystallized>(),0.85f),
-				new(ModContent.BuffType<FreezingEffect>(),0.99f),
-				new(ModContent.BuffType<SnowyEffect>(),0.99f),
-				new(BuffID.Wet,0.99f),
-				new(BuffID.OnFire3,1.05f),
+				Synergy.Create<Crystallized>(0.85f),
+				Synergy.Create<FreezingEffect>(0.99f),
+				Synergy.Create<SnowyEffect>(0.99f),
+				Synergy.Create<Soaked>(0.99f),
+				
 				Synergy.Create<Melting>(1.05f),
-				new(BuffID.Poisoned,1.05f),
+				
 				Synergy.Create<AOPoisoned>(1.05f),
-				new(BuffID.ShadowFlame,1.1f),
-				new(BuffID.Slimed,1.075f),
-				new(BuffID.Oiled,1.075f),
-				new(ModContent.BuffType<SandyEffect>(),0.98f),
-				new(ModContent.BuffType<Scalding>(),1.1f),
-				new(ModContent.BuffType<SearedEffect>(),1.1f)
+				Synergy.Create<Scorched>(1.1f),
+				
+				Synergy.Create<Flammable>(1.075f),
+				Synergy.Create<SandyEffect>(0.98f),
+				Synergy.Create<Scalding>(1.1f),
+				Synergy.Create<SearedEffect>(1.1f)
 
 			]
 			);

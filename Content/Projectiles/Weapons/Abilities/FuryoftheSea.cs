@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -13,7 +14,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override float AOSpeed => .9f;
 		public override float AOSize => 1.25f;
 		public override bool? Cold => true;
-		public override Debuff? ProjectileDebuff => new(BuffID.Wet, 600);
+		public override Debuff? ProjectileDebuff => Debuff.Create<Soaked>();
 		public override SoundStyle? HitSound => SoundID.Splash;
 		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
 

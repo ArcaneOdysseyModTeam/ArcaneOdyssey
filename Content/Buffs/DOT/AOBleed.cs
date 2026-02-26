@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +19,6 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			npc.ArcaneOdyssey().bleeding = true;
 		}
 
-		public override int[] Counterparts => [..base.Counterparts, ModContent.BuffType<HeavyBleed>()];
+		public override List<int> Counterparts => [..base.Counterparts, ModContent.BuffType<HeavyBleed>()];
 	}
 }

@@ -1685,7 +1685,7 @@ namespace ArcaneOdyssey
 
 		public static ClearBuff Create<T>() where T : AOBaseBuff
 		{
-			return new(ModContent.BuffType<T>(), ModContent.GetInstance<T>().Counterparts);
+			return new(ModContent.BuffType<T>(), [..ModContent.GetInstance<T>().Counterparts]);
 		}
 	}
 
@@ -1704,12 +1704,12 @@ namespace ArcaneOdyssey
 
 		public static Combo Create<T>(int result, int duration = 60) where T : AOBaseBuff
 		{
-			return new(ModContent.BuffType<T>(), result, duration, ModContent.GetInstance<T>().Counterparts);
+			return new(ModContent.BuffType<T>(), result, duration, [..ModContent.GetInstance<T>().Counterparts]);
 		}
 
 		public static Combo Create<T, R>(int duration = 60) where T : AOBaseBuff where R : AOBaseBuff
 		{
-			return new(ModContent.BuffType<T>(), ModContent.BuffType<R>(), duration, ModContent.GetInstance<T>().Counterparts);
+			return new(ModContent.BuffType<T>(), ModContent.BuffType<R>(), duration, [..ModContent.GetInstance<T>().Counterparts]);
 		}
 	}
 
@@ -1726,7 +1726,7 @@ namespace ArcaneOdyssey
 
 		public static Synergy Create<T>(float multi) where T : AOBaseBuff
 		{
-			return new(ModContent.BuffType<T>(), multi, ModContent.GetInstance<T>().Counterparts);
+			return new(ModContent.BuffType<T>(), multi, [..ModContent.GetInstance<T>().Counterparts]);
 		}
 	}
 

@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
-	public class MagicShadowflame : VanillaClone
+	public class AOShadowflame : VanillaClone
 	{
 		public override int VanillaID => BuffID.ShadowFlame;
 	}

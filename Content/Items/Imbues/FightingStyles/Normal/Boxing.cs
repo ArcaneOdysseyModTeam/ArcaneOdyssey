@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override SynergyEffects Effects => new(
 			[],
 			[
-				new(ModContent.BuffType<FreezingEffect>(), 1.15f)
+				Synergy.Create<FreezingEffect>(1.15f),
 			]
 		);
 

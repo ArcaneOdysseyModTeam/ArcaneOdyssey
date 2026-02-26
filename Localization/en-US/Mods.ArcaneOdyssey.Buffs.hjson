@@ -1,9 +1,4 @@
 DOT: {
-	AOBleed: {
-		DisplayName: Bleeding
-		Description: You are losing blood
-	}
-
 	Scalding: {
 		DisplayName: Scalding
 		Description: You are covered in a thick cloud of hot steam
@@ -42,6 +37,21 @@ DOT: {
 	VesuvianBurn: {
 		DisplayName: Vesuvian Burn
 		Description: You are covered in vesuvian magma, burning you severely
+	}
+
+	Corroding: {
+		DisplayName: Corroding
+		Description: Acid eats away at you
+	}
+
+	Melting: {
+		DisplayName: Melting
+		Description: Your body is covered in magma
+	}
+
+	Scorched: {
+		DisplayName: Scorched
+		Description: Plasma burns your skin
 	}
 }
 

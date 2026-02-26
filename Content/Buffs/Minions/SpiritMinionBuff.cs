@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Buffs.Minions
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Webbed}";
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.pvpBuff[Type] = true;

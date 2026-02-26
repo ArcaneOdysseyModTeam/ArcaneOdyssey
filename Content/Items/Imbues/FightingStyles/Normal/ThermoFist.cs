@@ -36,30 +36,27 @@ namespace ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal
 		public override Color DisplayColor => Color.Blue;
 		public override float DashSpeed => BarValue > (BarMax / 2) ? 1.5f : 1f; // instant?
 
-		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<SearedEffect>(), 60 * 10)];
-		public override Combo[] CombinedDebuffs => [new(ModContent.BuffType<CharredEffect>(), ModContent.BuffType<Petrified>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<SearedEffect>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[
-				new(BuffID.Wet),
+				ClearBuff.Create<Soaked>(),
 				ClearBuff.Create<AOBleed>(),
-				ClearBuff.Create < FreezingEffect >()
+				ClearBuff.Create<FreezingEffect>()
 			],
 			[
-				new(ModContent.BuffType<Crystallized>(),0.85f),
-				new(ModContent.BuffType<SnowyEffect>(),0.95f),
-				new(ModContent.BuffType<FreezingEffect>(),0.95f),
-				new(ModContent.BuffType<AOBleed>(),1.15f),
-				new(ModContent.BuffType<CharredEffect>(),1.1f),
-				new(BuffID.OnFire3,1.075f),
+				Synergy.Create<Crystallized>(0.85f),
+				Synergy.Create<SnowyEffect>(0.95f),
+				Synergy.Create<FreezingEffect>(0.95f),
+				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<Melting>(1.075f),
-				new(BuffID.Venom,1.075f),
 				Synergy.Create<Corroding>(1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.1f),
-				new(BuffID.ShadowFlame,1.1f),
-				new(ModContent.BuffType<SandyEffect>(),0.8f),
-				new(BuffID.OnFire,1.1f),
+				Synergy.Create<SearedEffect>(1.1f),
+				Synergy.Create<Scorched>(1.1f),
+				Synergy.Create<SandyEffect>(0.8f),
 				Synergy.Create<AOBurning>(1.1f),
-				new(ModContent.BuffType<Scalding>(),1.1f),
+				Synergy.Create<Scalding>(1.1f),
 			]
 		);
 

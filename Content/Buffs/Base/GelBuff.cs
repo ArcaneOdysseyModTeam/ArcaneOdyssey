@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.pvpBuff[Type] = true;
 			Main.meleeBuff[Type] = true;
 			Main.persistentBuff[Type] = true;

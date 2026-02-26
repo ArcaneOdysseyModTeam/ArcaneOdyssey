@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -19,20 +18,18 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override Color ImbueColour => new(50, 255, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
-				new(ModContent.BuffType<FreezingEffect>(),1.01f),
-				new(ModContent.BuffType<AOBleed>(),1.01f),
-				new(BuffID.Venom,1.01f),
+				Synergy.Create<FreezingEffect>(1.01f),
+				Synergy.Create<AOBleed>(1.01f),
 				Synergy.Create<Corroding>(1.01f),
-				new(BuffID.OnFire3,1.075f),
 				Synergy.Create<Melting>(1.075f),
-				new(ModContent.BuffType<SandyEffect>(),1.125f),
-				new(ModContent.BuffType<Crystallized>(),1.125f)
+				Synergy.Create<SandyEffect>(1.125f),
+				Synergy.Create<Crystallized>(1.125f)
 			]
 			);
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

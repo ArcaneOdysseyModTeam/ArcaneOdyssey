@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,7 +16,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			tip = Mod.CustomLocalization(LocalizationCategory.Replace($"Mods.{Mod.Name}.") + ".Description", [stack]).Value;
 		}
 
-		public override int[] Counterparts => [BuffID.Midas];
+		public override List<int> Counterparts => [BuffID.Midas];
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{

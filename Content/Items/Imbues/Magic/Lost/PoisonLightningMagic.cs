@@ -7,7 +7,6 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
@@ -25,33 +24,33 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSize => 1.15f;
 		public override float AOScrollDamage => 0.9f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<ElectrifiedToxins>(), 60 * 10), new(ModContent.BuffType<Paralyzed>(), 60, 25)];
-		public override Combo[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<Paralyzed>())];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<ElectrifiedToxins>(), Debuff.Create<Paralyzed>(60, 25)];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<Petrified>(), // petrified
-				ClearBuff.Create < CharredEffect>(),
-				ClearBuff.Create < SandyEffect >(),
-				ClearBuff.Create < AOBleed >(),
-				ClearBuff.Create < AOFrozen >()
+				ClearBuff.Create<CharredEffect>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<AOFrozen>()
 			],
 			[
-				new(ModContent.BuffType<AOBleed>(),1.075f),
-				new(BuffID.OnFire,0.99f),
+				Synergy.Create<AOBleed>(1.075f),
+				
 				Synergy.Create<AOBurning>(.99f),
-				new(ModContent.BuffType<Scalding>(),0.9f),
-				new(BuffID.Chilled, 1.2f), // frozen
-				new(ModContent.BuffType<AOBleed>(), 1.2f), // bleeding
-				new(BuffID.Burning, 1.15f), // scalding
-				new(BuffID.OnFire3, 1.075f), // melting/hellfire
+				Synergy.Create<Scalding>(0.9f),
+				Synergy.Create<FreezingEffect>( 1.2f), // frozen
+				Synergy.Create<AOBleed>(1.2f), // bleeding
+				 // scalding
+				 // melting/hellfire
 				Synergy.Create<Melting>(1.075f),
-				new(BuffID.Venom, 1.075f), // venom acid
+				 // venom acid
 				Synergy.Create<Corroding>(1.075f),
-				new(BuffID.Wet, 1.05f), //
-				new(BuffID.Oiled,0.98f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(ModContent.BuffType<Crystallized>(),1.075f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f)
+				Synergy.Create<Soaked>( 1.05f), //
+				Synergy.Create<Flammable>(0.98f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Crystallized>(1.075f),
+				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

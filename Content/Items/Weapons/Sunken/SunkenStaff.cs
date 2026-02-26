@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Bronze;
@@ -19,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 		public override int AOValue => 1350;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override Debuff? WeaponDebuff => new(BuffID.Wet, 600);
+		public override Debuff? WeaponDebuff => Debuff.Create<Soaked>();
 		public override WeaponAbility? Ability => new(this, Color.Aqua);
 		public override SoundStyle UseSound => SoundID.SplashWeak;
 

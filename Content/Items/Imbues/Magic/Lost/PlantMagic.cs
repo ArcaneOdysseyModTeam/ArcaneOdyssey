@@ -20,12 +20,12 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueDamage => .95f;
 		public override SynergyEffects Effects => new([],
 			[
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.OnFire,1.15f),
+				Synergy.Create<Scorched>(1.15f),
+				
 				Synergy.Create<AOBurning>(1.15f),
-				new(BuffID.Venom,1.1f),
+				
 				Synergy.Create<Corroding>(1.1f),
-				new(BuffID.OnFire3,1.1f),
+				
 				Synergy.Create<Melting>(1.1f),
 				Synergy.Create<Tangled>(.9f),
 			]);

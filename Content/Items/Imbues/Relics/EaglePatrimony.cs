@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Buffs.Stuns;
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
@@ -15,9 +16,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override AORarities AORarity => AORarities.Special;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 
-		public override Combo[] CombinedDebuffs => [new(BuffID.Wet, ModContent.BuffType<Paralyzed>())];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 
-		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<Paralyzed>(), 60, 33)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 33)];
 
 		
 

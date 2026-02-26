@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 {
@@ -30,9 +29,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 
 			],
 			[
-				new(ModContent.BuffType<SandyEffect>(), .9f),
-				new(ModContent.BuffType<Crystallized>(), 1.1f),
-				new(ModContent.BuffType<AOFrozen>(), 1.2f),
+				Synergy.Create<SandyEffect>(.9f),
+				Synergy.Create<Crystallized>(1.1f),
+				Synergy.Create<AOFrozen>(1.2f),
 			]);
 
 

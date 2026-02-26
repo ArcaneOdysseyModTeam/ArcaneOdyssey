@@ -30,23 +30,19 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			
 			],
 			[
-				new(BuffID.OnFire,0.9f),
 				Synergy.Create<AOBurning>(.9f),
-				new(ModContent.BuffType<CharredEffect>(),1.125f),
-				new(ModContent.BuffType<FreezingEffect>(),1.1f),
-				new(BuffID.Poisoned,0.9f),
+				Synergy.Create<CharredEffect>(1.125f),
+				Synergy.Create<FreezingEffect>(1.1f),
 				Synergy.Create<AOPoisoned>(.9f),
-				new(BuffID.ShadowFlame,1.15f),
-				new(BuffID.Wet,0.9f),
-				new(BuffID.Oiled,0.9f),
-				new(ModContent.BuffType<Scalding>(),0.9f),
-				new(ModContent.BuffType<SearedEffect>(),1.15f),
-				new(ModContent.BuffType<AOBleed>(),1.1f),
-				new(BuffID.Venom,1.075f),
+				Synergy.Create<Scorched>(1.15f),
+				Synergy.Create<Soaked>(0.9f),
+				Synergy.Create<Flammable>(0.9f),
+				Synergy.Create<Scalding>(0.9f),
+				Synergy.Create<SearedEffect>(1.15f),
+				Synergy.Create<AOBleed>(1.1f),
 				Synergy.Create<Corroding>(1.075f),
-				new(BuffID.OnFire3,1.075f),
 				Synergy.Create<Melting>(1.075f),
-				new(ModContent.BuffType<SandyEffect>(),1.1f)
+				Synergy.Create<SandyEffect>(1.1f)
 			]
 			);
 

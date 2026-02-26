@@ -1,4 +1,4 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override string Texture => $"Terraria/Images/Buff_{VanillaID}";
 
-		public override int[] Counterparts => [VanillaID];
+		public override List<int> Counterparts => [VanillaID];
 
 		public override LocalizedText Description => Language.GetText($"BuffDescription.{BuffID.Search.GetName(VanillaID)}");
 

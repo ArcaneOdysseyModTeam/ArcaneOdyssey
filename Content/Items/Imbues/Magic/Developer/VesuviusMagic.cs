@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 {
@@ -22,37 +21,32 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Developer
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
 		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<VesuvianBurn>(), 10 * 60)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<VesuvianBurn>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				new(BuffID.Chilled), // freezing
-				ClearBuff.Create < Petrified >(),
-				new(BuffID.Wet),
-				ClearBuff.Create < AOBleed >(),
-				new(BuffID.Venom),
-				ClearBuff.Create < Corroding >(),
-				ClearBuff.Create < FreezingEffect >(),
-				ClearBuff.Create < SandyEffect >(),
-				ClearBuff.Create < SnowyEffect >()
+				ClearBuff.Create<FreezingEffect>(), // freezing
+				ClearBuff.Create<Petrified>(),
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Corroding>(),
+				ClearBuff.Create<FreezingEffect>(),
+				ClearBuff.Create<SandyEffect>(),
+				ClearBuff.Create<SnowyEffect>()
 			],
 			[
-				new(ModContent.BuffType<Petrified>(), 2.2f), // petrified
-				new(ModContent.BuffType<AOBleed>(), 2.15f), // bleeding
-				new(BuffID.OnFire, 2.075f),
+				Synergy.Create<Petrified>(2.2f), // petrified
+				Synergy.Create<AOBleed>(2.15f), // bleeding
 				Synergy.Create<AOBurning>(2.075f),
-				new(BuffID.Venom, 2.1f), // venom acid
 				Synergy.Create<Corroding>(2.1f),
-				new(BuffID.Burning, 2.075f),
-				new(BuffID.Poisoned, 2.05f),
-				new(ModContent.BuffType<FreezingEffect>(), 1.95f),
-				new(ModContent.BuffType<SnowyEffect>(), 1.99f),
-				new(ModContent.BuffType<CharredEffect>(), 2.1f),
-				new(ModContent.BuffType<SandyEffect>(), 1.99f),
-				new(BuffID.Wet, 1.95f),
-				new(BuffID.ShadowFlame, 2.1f),
-				new(BuffID.Slimed,2.075f),
-				new(ModContent.BuffType<Crystallized>(),1.95f),
-				new(ModContent.BuffType<Scalding>(),2.075f)
+				Synergy.Create<FreezingEffect>(1.95f),
+				Synergy.Create<SnowyEffect>(1.99f),
+				Synergy.Create<CharredEffect>(2.1f),
+				Synergy.Create<SandyEffect>(1.99f),
+				Synergy.Create<Soaked>(1.95f),
+				Synergy.Create<Scorched>(2.1f),
+				Synergy.Create<Flammable>(2.075f),
+				Synergy.Create<Crystallized>(1.95f),
+				Synergy.Create<Scalding>(2.075f)
 			]
 			);
 

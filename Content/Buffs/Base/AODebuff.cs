@@ -10,6 +10,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 	{
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

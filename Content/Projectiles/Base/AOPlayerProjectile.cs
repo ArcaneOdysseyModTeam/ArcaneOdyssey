@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 
-		public virtual Debuff? ProjectileDebuff => new(ModContent.BuffType<AOBleed>(), 60 * 5);
+		public virtual Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
 		public virtual SoundStyle? HitSound => null;
 
 		/// <summary>

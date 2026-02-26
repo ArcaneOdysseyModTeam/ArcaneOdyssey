@@ -18,20 +18,20 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => .8f;
 		public override Color ImbueColour => Color.White;
-		public override Debuff[] ImbueDebuffs => [new(ModContent.BuffType<AOBleed>(), 60 * 10)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
 		public override SoundStyle? ImbueSound => SoundID.Item71;
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ClearBuff.Create < FreezingEffect >()
+				ClearBuff.Create<FreezingEffect>()
 			],
 			[
-				new(BuffID.Venom,1.05f),
+				
 				Synergy.Create<Corroding>(1.05f),
-				new(ModContent.BuffType<Crystallized>(),1.05f),
-				new(ModContent.BuffType<FreezingEffect>(),1.02f),
-				new(BuffID.OnFire3,1.05f),
+				Synergy.Create<Crystallized>(1.05f),
+				Synergy.Create<FreezingEffect>(1.02f),
+				
 				Synergy.Create<Melting>(1.05f),
-				new(ModContent.BuffType<SandyEffect>(),1.1f)
+				Synergy.Create<SandyEffect>(1.1f)
 			]
 			);
 

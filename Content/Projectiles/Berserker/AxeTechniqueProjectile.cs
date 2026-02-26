@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.Achievements;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
@@ -15,7 +14,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override float AOSize => .5f;
 
-		public override Debuff? ProjectileDebuff => new(ModContent.BuffType<AOBleed>(), 60 * 2);
+		public override Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
 
 		public Color Colour => Imbue?.GetColour(Color.White) ?? Color.White;
 

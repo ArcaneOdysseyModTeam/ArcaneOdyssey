@@ -26,7 +26,7 @@ Lost: {
 
 	EnergyMagic: {
 		DisplayName: Energy Magic
-		Ability: Mana is restored on all hits
+		Ability: Mana is restored on hit
 		Tooltip: ""
 	}
 
