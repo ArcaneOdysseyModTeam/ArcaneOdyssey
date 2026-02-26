@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
@@ -20,6 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 			Item.useTime = Item.useAnimation = 20;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ModContent.ProjectileType<Javelin>();
+			Item.useStyle = ItemUseStyleID.Swing;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Content.Projectiles.Helpers
+namespace ArcaneOdyssey.Content.Projectiles.Circles
 {
 	public class BasicMagicCircle : BaseMagicCircle
 	{
@@ -54,8 +54,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 				Projectile.Opacity = .75f * charge;
 				AOPlayerOwner.HeavySkillActive = true;
 				Owner.heldProj = Projectile.whoAmI;
-				Owner.itemAnimation = Owner.PlayerItem().useAnimation;
-				Owner.itemTime = Owner.PlayerItem().useTime;
+				Owner.itemAnimation = Owner.itemAnimationMax;
+				Owner.itemTime = Owner.itemTimeMax;
 				Owner.itemRotation = dir.ToRotation();
 				if (Owner.direction != 1)
 				{

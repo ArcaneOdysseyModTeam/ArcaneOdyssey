@@ -4,7 +4,7 @@ using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
-using ArcaneOdyssey.Content.Projectiles.Helpers;
+using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -117,7 +117,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				else if (item.ModItem is JavelinSpell)
 				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
+					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), damage, item.knockBack, player.whoAmI);
 					circleprojectile.rotation = rot.ToRotation();
 					return circleprojectile;
 				}

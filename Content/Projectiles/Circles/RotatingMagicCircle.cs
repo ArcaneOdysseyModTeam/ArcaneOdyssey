@@ -2,7 +2,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Helpers
+namespace ArcaneOdyssey.Content.Projectiles.Circles
 {
 	public class RotatingMagicCircle : BaseMagicCircle
 	{
@@ -33,8 +33,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 				}
 				else
 				{
-					Owner.itemAnimation = Owner.PlayerItem().useAnimation;
-					Owner.itemTime = Owner.PlayerItem().useTime;
+					Owner.itemAnimation = Owner.itemAnimationMax;
+					Owner.itemTime = Owner.itemTimeMax;
 					if (Main.myPlayer == Projectile.owner)
 					{
 						Owner.itemRotation = Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Vector2.Lerp(Projectile.Center, Main.MouseWorld, .5f)).ToRotation();

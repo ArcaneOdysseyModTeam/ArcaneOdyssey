@@ -2,7 +2,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Helpers
+namespace ArcaneOdyssey.Content.Projectiles.Circles
 {
 	public class BarrageMagicCircle : BaseMagicCircle
 	{
@@ -52,8 +52,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Helpers
 			{
 				Projectile.Opacity = 1f;
 				Owner.heldProj = Projectile.whoAmI;
-				Owner.itemAnimation = Owner.PlayerItem().useAnimation;
-				Owner.itemTime = Owner.PlayerItem().useTime;
+				Owner.itemAnimation = Owner.itemAnimationMax;
+				Owner.itemTime = Owner.itemTimeMax;
 				Owner.itemRotation = dir.ToRotation();
 				if (Owner.direction != 1)
 				{

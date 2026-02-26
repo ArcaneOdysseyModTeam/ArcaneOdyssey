@@ -1,6 +1,6 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
-using ArcaneOdyssey.Content.Projectiles.Helpers;
+using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;

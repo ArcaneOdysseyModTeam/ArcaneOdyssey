@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Helpers;
+using ArcaneOdyssey.Content.Projectiles.Circles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

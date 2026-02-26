@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 
@@ -51,23 +52,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					charge += 1f / 120f;
 					Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 					Projectile.spriteDirection = Owner.direction;
+					Owner.heldProj = Projectile.whoAmI;
 					AOPlayerOwner.HeavySkillActive = true;
 					//Owner.heldProj = Projectile.whoAmI;
-					Owner.itemAnimation = Owner.PlayerItem().useAnimation;
-					Owner.itemTime = Owner.PlayerItem().useTime;
+					Owner.itemAnimation = Owner.itemAnimationMax;
+					Owner.itemTime = Owner.itemTimeMax;
 					Owner.itemRotation = dir.ToRotation();
 					if (Owner.direction != 1)
 					{
 						Owner.itemRotation += MathHelper.Pi;
 					}
 					Projectile.rotation = dir.ToRotation();
-					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter);
+					Projectile.position.Y -= 15f;
 					Projectile.timeLeft = TimeLeft;
 				}
 				else
 				{
 					Projectile.velocity = dir * 20f;
 					Mode = JavelinMode.Flying;
+					Owner.channel = false;
 					Projectile.timeLeft = TimeLeft;
 				}
 			}

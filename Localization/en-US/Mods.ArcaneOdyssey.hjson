@@ -283,7 +283,7 @@ Projectiles: {
 	DeathCurse.DisplayName: The Death Curse
 	LeapFix.DisplayName: Leap Spell
 
-	Helpers: {
+	Circles: {
 		BarrageMagicCircle.DisplayName: Magic Circle
 		BasicMagicCircle.DisplayName: Magic Circle
 		RotatingMagicCircle.DisplayName: Magic Circle
