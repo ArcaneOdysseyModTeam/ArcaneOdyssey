@@ -63,7 +63,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
 
-				dir += Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread).ToRotationVector2();
+				//dir += (Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread).ToRotationVector2());
+				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
 
 				if (Main.myPlayer == Projectile.owner && Main.GameUpdateCount % Owner.itemAnimationMax == 0)
 				{
@@ -71,7 +72,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					{
 						if (ChargingProjectile != 0)
 						{
-							AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
+							AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10f, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 						}
 					}
 					else

@@ -129,6 +129,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 					((BarrageMagicCircle)circleprojectile.ModProjectile).ProjectileSpread = MathHelper.PiOver4 / 2f / magicToUse.AOScrollSpeed.FlipFloat();
 					return circleprojectile;
 				}
+				else if (item.ModItem is RaySpell)
+				{
+					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BarrageMagicCircle>(), damage, item.knockBack, player.whoAmI);
+					circleprojectile.rotation = rot.ToRotation();
+					((BarrageMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<MagicRay>();
+					return circleprojectile;
+				}
 				else if (item.ModItem is ExplosionScroll)
 				{
 					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);

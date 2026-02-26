@@ -127,7 +127,7 @@ Usable: {
 
 		ElementalSpell: {
 			DisplayName: Elemental Spell
-			Tooltip: Summons an elemental made of your magic
+			Tooltip: Summons an elemental made of magic
 		}
 
 		AcumenTechnique: {
@@ -179,6 +179,11 @@ Usable: {
 		JavelinSpell: {
 			DisplayName: Javelin Spell
 			Tooltip: Shoots a projectile that sticks to enemies and tiles
+		}
+
+		RaySpell: {
+			DisplayName: Ray Spell
+			Tooltip: Fires a continuously exploding beam of magic
 		}
 	}
 }

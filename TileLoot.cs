@@ -123,6 +123,7 @@ namespace ArcaneOdyssey
 
 			if (Main.hardMode)
 			{
+				AddOption<RaySpell>();
 				AddOption<MeteorScroll>();
 				AddOption<FlightScroll>();
 			}

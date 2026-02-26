@@ -78,6 +78,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			if (Mode == JavelinMode.Flying)
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
+				Projectile.velocity.Y += ApplyScrollSpeed(0.13f, true);
+				if (Projectile.velocity.Y > 16f)
+				{
+					Projectile.velocity.Y = 16f;
+				}
 			}
 			if (Mode == JavelinMode.Piercing)
 			{
