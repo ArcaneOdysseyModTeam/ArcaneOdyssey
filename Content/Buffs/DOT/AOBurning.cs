@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
@@ -8,5 +9,10 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 	{
 		public override int VanillaID => BuffID.OnFire;
 		public override List<int> Counterparts => [BuffID.OnFire];
+
+		public override void Update(NPC npc, ref int buffIndex)
+		{
+			npc.onFire = true;
+		}
 	}
 }
