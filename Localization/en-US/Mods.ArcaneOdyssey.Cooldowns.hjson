@@ -62,3 +62,8 @@ BreathtakerCooldown: {
 	DisplayName: Breathtaker Cooldown
 	Description: Breathtaker is on cooldown
 }
+
+ToweringImpactCooldown: {
+	DisplayName: Towering Impact Cooldown
+	Description: Towering Impact is on cooldown
+}

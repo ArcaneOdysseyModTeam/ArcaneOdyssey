@@ -280,7 +280,7 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-			mult *= Main.player[projectile.owner].ArcaneOdyssey().SizeMulti;
+			mult *= Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
 			if (projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
 				projectile.Hitbox = AOUtils.ScaleRectangleNotRef(projectile.Hitbox, mult);

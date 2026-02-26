@@ -41,17 +41,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.ownedProjectileCounts[Item.shoot] < 1 && !player.ArcaneOdyssey().OnCooldown<WhirlwindCooldown>())
 			{
-				player.ArcaneOdyssey().SetCooldown<WhirlwindCooldown>();
+				player.ArcaneOdyssey()?.SetCooldown<WhirlwindCooldown>();
 				var proj = Projectile.NewProjectileDirect(new EntitySource_ItemUse(player, Item), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
 				SoundEngine.PlaySound(Item.UseSound, player.Center);
 			}
 			return true;
-		}
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			if (player.ArcaneOdyssey().HeavySkillActive)
-				damage *= 0;
 		}
 	}
 }

@@ -50,12 +50,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override bool PreKill(int timeLeft)
 		{
-			if (!Main.dedServ && Imbue is null)
+			if (!Main.dedServ)
 			{
-				for (float i = 0; i < 30; i++)
+				for (float i = 0; i < 60; i++)
 				{
 					var centre = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
-					var dust = AOUtils.NewDustImperfect(centre + Projectile.Center, DustID.BubbleBurst_White, centre * (Projectile.width / 10f), 0, Colour, 1.5f);
+					var dust = AOUtils.NewDustImperfect(centre + Projectile.Center, DustID.BubbleBurst_White, centre * (Projectile.width / 5f), 0, Colour, 2f);
 					dust.noLight = true;
 					dust.noGravity = true;
 				}

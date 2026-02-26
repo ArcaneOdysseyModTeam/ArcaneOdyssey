@@ -211,4 +211,9 @@ RavennaNoble: {
 Sinbane: {
 	DisplayName: Sinbane
 	Tooltip: Also called the Oathkeeper
+
+	Ability: {
+		DisplayName: Towering Impact
+		Description: Release a slash up or down
+	}
 }

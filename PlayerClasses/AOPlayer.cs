@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -18,10 +19,12 @@ namespace ArcaneOdyssey.PlayerClasses
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 		public bool HeavySkillActive = false;
+        public bool ItemHeavySkillActive = false;
+        public bool hasLoadedWorldBefore = false;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
-		public bool Grounded => groundedCounter > 15;
+		public bool Grounded => groundedCounter >= 15;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
@@ -115,11 +118,25 @@ namespace ArcaneOdyssey.PlayerClasses
 			if (!mediumCoreDeath)
 			{
 				List<Item> items = [
-						new Item(ModContent.ItemType<EagleLegacy>())
+						new Item(ModContent.ItemType<EagleLegacy>()),
+						new Item(ModContent.ItemType<TitleMusicBox>())
 					];
 				return items;
 			}
 			return [];
+		}
+
+		public override void PostUpdateMiscEffects()
+		{
+			if (!hasLoadedWorldBefore)
+			{
+				hasLoadedWorldBefore = true;
+				if (Main.myPlayer == Player.whoAmI && AOUtils.BossesKilled < 1 && !(Player.HasTypeInInventory<EagleLegacy>() || Player.HasTypeInInventory<TitleMusicBox>()))
+				{
+					Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<EagleLegacy>(), noBroadcast: true, noGrabDelay: true);
+					Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<TitleMusicBox>(), noBroadcast: true, noGrabDelay: true);
+				}
+			}
 		}
 
 		public void TrySpiritLifesteal(int damage, bool cooldown = true)
@@ -145,9 +162,9 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public void FreezeMovement()
 		{
-			if (Math.Abs(Player.velocity.Y) < 1f)
+			if (Math.Abs(Player.velocity.Y) < 1f && Player.wingTime == Player.wingTimeMax && !Player.controlJump)
 			{
-				if (groundedCounter < 200)
+				if (groundedCounter < 60)
 					groundedCounter++;
 			}
 			else

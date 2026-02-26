@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Buffs.DOT;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -70,7 +69,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.ai[2] == 2) // throwing
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-				Projectile.timeLeft = 2;
 				Projectile.velocity.Y += 0.13f;
 				if (Projectile.velocity.Y > 16f)
 				{

@@ -15,12 +15,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public static int MaxTime => 20;
 		public static int TrueMaxTime => MaxTime * 2;
 
-		public override float AOSize => 1.5f;
+		public override float AOSize => 2.25f;
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailingMode[Type] = 3;
 		}
 
 		public override void SetDefaults()
@@ -34,11 +34,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
-			Projectile.localNPCHitCooldown = -1;
+			Projectile.localNPCHitCooldown = MaxTime;
 			Projectile.usesLocalNPCImmunity = true;
 		}
-
-		public override float AOSpeed => .925f;
 
 		private Vector2 RotationOrigin;
 		private int OriginalDir;
@@ -63,12 +61,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
 				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
-				AOPlayerOwner.HeavySkillActive = true;
+				//AOPlayerOwner.HeavySkillActive = true;
 				Owner.PlayerItem().noMelee = true;
 			}
 			else
 			{
-				Projectile.Opacity = (Projectile.timeLeft - 1f) / (TrueMaxTime - MaxTime);
+				Projectile.Opacity = (Projectile.timeLeft - 1f) / MaxTime;
 				Owner.PlayerItem().noMelee = false;
 			}
 		}

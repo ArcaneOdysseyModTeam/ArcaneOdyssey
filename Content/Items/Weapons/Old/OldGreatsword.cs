@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 	public class OldGreatsword : AORangedOrMeleeWeapon
 	{
 		public override int AOValue => 40;
-		public override float AOSize => 1f;
+		public override float AOSize => 1.1f;
 		public override float AOSpeed => .9f;
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Common;

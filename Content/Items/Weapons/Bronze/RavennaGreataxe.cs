@@ -60,7 +60,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 	public class Devastate(Entity source) : DashSystem(source)
 	{
-
+		public override bool FallThrough => false;
 		public override bool AnyDirection => true;
 		public override int Cooldown => 300;
 		public override float DashSpeed => 15;

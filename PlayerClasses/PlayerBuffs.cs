@@ -81,6 +81,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			NimbusSealed = tag.GetInt("nimbussealedchests");
 			BronzeSealed = tag.GetInt("bronzesealedchests");
 			acumen = tag.GetBool("acumenconsumed");
+			hasLoadedWorldBefore = tag.GetBool("wowiveloadedinbefore");
 		}
 
 		public override void SaveData(TagCompound tag)
@@ -92,6 +93,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			tag.Add("nimbussealedchests", NimbusSealed);
 			tag.Add("bronzesealedchests", BronzeSealed);
 			tag.Add("acumenconsumed", acumen);
+			tag.Add("wowiveloadedinbefore", true);
 		}
 	}
 }

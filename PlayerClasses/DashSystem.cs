@@ -16,7 +16,9 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public string Name => GetType().Name;
 
-		public static Mod Mod => ArcaneOdysseyMod.Instance;
+		public virtual bool FallThrough => true;
+
+		public virtual Mod Mod => ArcaneOdysseyMod.Instance;
 
 		/// <summary>
 		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
@@ -299,6 +301,7 @@ namespace ArcaneOdyssey.PlayerClasses
 				Player.velocity += DashVelocity;
 				if (dashToUse.AnyDirection)
 				{
+					Player.noFallDmg = true;
 					Player.StopExtraJumpInProgress();
 					Player.blockExtraJumps = true;
 					Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);
@@ -367,7 +370,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
-			dashing &= !(Immobile || HeavySkillActive);
+			dashing &= !(Immobile || HeavySkillActive || ItemHeavySkillActive);
 			DashSystem[] dashes = [OmniDash, SideDash];
 			foreach (DashSystem dash in dashes)
 			{
@@ -395,6 +398,18 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				if (dashing)
 				{
+					if (CurrentDash.AnyDirection)
+					{
+						Player.blockExtraJumps = true;
+						Player.controlLeft = false;
+						Player.controlRight = false;
+						Player.controlJump = false;
+					}
+					if (CurrentDash.FallThrough)
+					{
+						Player.controlDown = true;
+						Player.noFallDmg = true;
+					}
 					if (DashVelocity.X != 0)
 						Player.ChangeDir(Math.Sign(DashVelocity.X));
 
@@ -432,7 +447,6 @@ namespace ArcaneOdyssey.PlayerClasses
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.AnyDirection)
 					{
-						Player.noFallDmg = true;
 						Player.velocity += DashVelocity;
 						Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);
 						Player.velocity.X = MathHelper.Clamp(Player.velocity.X, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);

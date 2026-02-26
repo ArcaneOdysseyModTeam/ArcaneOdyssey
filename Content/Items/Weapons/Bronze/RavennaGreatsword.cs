@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 	public class RavennaGreatsword : AORangedOrMeleeWeapon
 	{
 		public override int AOValue => 40;
-		public override float AOSize => 1.05f;
+		public override float AOSize => 1.2f;
 		public override float AOSpeed => .9f;
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Uncommon;
@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			return true;
 		}
 
-		public override bool CanShoot(Player player) => swings == 1 && player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool CanShoot(Player player) => swings == 1;
 
 
 		public int swings = 0;
@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void UseAnimation(Player player)
 		{
 			noUseCounter = 0;
-			if (++swings > 2)
+			if (++swings > 3)
 			{
 				swings = 0;
 			}
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 				noUseCounter++;
 			}
 
-			if (noUseCounter > 60 || player.PlayerItem().type != Type)
+			if (noUseCounter > 120 || player.PlayerItem().type != Type)
 			{
 				swings = 0;
 			}

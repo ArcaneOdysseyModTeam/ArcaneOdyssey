@@ -95,6 +95,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 
 	public class Smash(Entity source) : DashSystem(source)
 	{
+		public override bool FallThrough => false;
 		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 
 		public override bool AnyDirection => true;
