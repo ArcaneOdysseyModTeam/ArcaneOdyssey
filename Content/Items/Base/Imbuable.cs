@@ -443,7 +443,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)
+		public override void RightClick(Player player)
+		{
+			var instance = ModContent.GetInstance<ImbueAnythingUISystem>();
 
+			if (!instance.CanShowImbueChange()) instance.ShowSwapUI(this);
+		}
 		public override bool CanRightClick()
 		{
 			try
@@ -465,10 +470,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 				//Main.NewText($"Can use item {!ModContent.GetInstance<MagicChoiceUISystem>().CanShowUI()}");
 
-				var instance = ModContent.GetInstance<ImbueAnythingUISystem>();
-
-				if (!instance.CanShowImbueChange()) instance.ShowSwapUI(this);
-				return false;
+				return true;
 			}
 			catch (Exception ex)
 			{
