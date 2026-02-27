@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Items.Armour.Vanity;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -21,7 +22,14 @@ namespace ArcaneOdyssey
 		public float ZapCD = 5; // ancient lightning chain
 		public float StunDuration = 1;
 
-		public float DefenseLost = 0;
+		private float _defenseLost = 0;
+
+		public void LowerDefense(int defense, Rectangle? location = null)
+		{
+			_defenseLost += defense;
+			if (location.HasValue)
+				CombatText.NewText(location.Value, Color.Gray, -defense, true);
+		}
 
 		#region Debuff bools
 		public bool bleeding = false;
@@ -61,7 +69,7 @@ namespace ArcaneOdyssey
 
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.ArmorPenetration += DefenseLost;
+			modifiers.ArmorPenetration += _defenseLost;
 		}
 
 		public override void ResetEffects(NPC npc)

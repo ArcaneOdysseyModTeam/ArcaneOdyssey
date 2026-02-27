@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 		public bool HeavySkillActive = false;
-        public bool hasLoadedWorldBefore = false;
+		public bool hasLoadedWorldBefore = false;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
@@ -159,6 +159,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				Imbue = null;
 			}
+			Player.statDefense -= _defenseLost;
 		}
 
 		public void FreezeMovement()

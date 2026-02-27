@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 			Item.channel = true;
 			Item.useTime = Item.useAnimation = 20;
 			Item.DamageType = DamageClass.Magic;
+			Item.InterruptChannelOnHurt = true;
 			Item.shoot = ModContent.ProjectileType<Javelin>();
 			Item.useStyle = ItemUseStyleID.Swing;
 		}

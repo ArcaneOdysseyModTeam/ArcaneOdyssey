@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -7,6 +8,15 @@ namespace ArcaneOdyssey.PlayerClasses
 {
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
+		private int _defenseLost = 0;
+
+		public void LowerDefense(int defense, Rectangle? location = null)
+		{
+			_defenseLost += defense;
+			if (location.HasValue)
+				CombatText.NewText(location.Value, Color.Gray, -defense, true);
+		}
+
 		public int gel = 0;
 
 		public string bloodDisease = null;

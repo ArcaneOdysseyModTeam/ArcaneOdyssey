@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 			base.SetDefaults();
 			Item.damage = 100;
 			Item.channel = true;
+			Item.InterruptChannelOnHurt = true;
 			Item.mana = 30;
 			Item.knockBack = 0f;
 			Item.DamageType = DamageClass.Magic;

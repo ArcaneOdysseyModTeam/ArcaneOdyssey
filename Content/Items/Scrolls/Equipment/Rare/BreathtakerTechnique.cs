@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Berserker;
 using ArcaneOdyssey.PlayerClasses;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -42,23 +44,22 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override int DashMax => 2;
 		public override bool LocksPlayer => true;
 		public override int Cooldown => BreathtakerTechnique.Cooldown;
-		public override bool OnHit(Player player, Entity target)
-		{
-			if (target is NPC npc)
-			{
-				npc.ArcaneOdyssey().DefenseLost += 2;
-			}
-			return true;
-		}
+
+		public override bool OnHit(Player player, Entity target) => true;
 
 		public override void OnEnd(Player player)
 		{
 			player.velocity *= .01f;
 		}
 
+		public override bool ContactDamage => false;
+
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(SoundID.Item67);
+			var proj = Projectile.NewProjectileDirect(source.GetSource_ItemUse(player), player.Center, (player.velocity + player.ArcaneOdyssey().DashVelocity).SafeNormalize(Vector2.Zero), ModContent.ProjectileType<BreathtakerProjectile>(), Damage, Knockback, player.whoAmI);
+			//proj.timeLeft = player.ArcaneOdyssey().DashLeft;
+			// use newprojectile instead of shootprojectile because we actually dont wanna modify the velocity
 		}
 
 		public override int DisplayedCooldownID => ModContent.BuffType<BreathtakerCooldown>();

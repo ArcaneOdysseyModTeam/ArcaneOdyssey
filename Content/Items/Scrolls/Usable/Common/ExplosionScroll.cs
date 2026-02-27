@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 			base.SetDefaults();
 			Item.damage = 50;
 			Item.reuseDelay = 60;
+			Item.InterruptChannelOnHurt = true;
 			Item.channel = true;
 			Item.DamageType = DamageClass.MagicSummonHybrid;
 			Item.UseSound = SoundID.Item84;
