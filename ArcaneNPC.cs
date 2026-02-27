@@ -34,6 +34,12 @@ namespace ArcaneOdyssey
 		#region Debuff bools
 		public bool bleeding = false;
 		public bool scalding = false;
+		public bool burning = false;
+		public bool scorched = false;
+		public bool poisoned = false;
+		public bool shadowflame = false;
+		public bool melting = false;
+		public bool corroding = false;
 		public bool vesuvianBurn = false;
 		public bool seared = false;
 		public int singedstacks = 0;
@@ -88,6 +94,11 @@ namespace ArcaneOdyssey
 			seared = false;
 			elecToxins = false;
 			phoenixDrain = false;
+			melting = false;
+			shadowflame = false;
+			burning = false;
+			scorched = false;
+			corroding = false;
 			lesserPhoenixDrain = 0;
 		}
 
@@ -103,13 +114,37 @@ namespace ArcaneOdyssey
 			{
 				npc.lifeRegen -= 10;
 			}
+			if (poisoned)
+			{
+				npc.lifeRegen -= 12;
+			}
+			if (burning)
+			{
+				npc.lifeRegen -= 8;
+			}
 			if (scalding)
 			{
 				npc.lifeRegen -= 25;
 			}
+			if (corroding) // same dot as melting!
+			{
+				npc.lifeRegen -= 30;
+			}
+			if (melting)
+			{
+				npc.lifeRegen -= 30;
+			}
+			if (shadowflame)
+			{
+				npc.lifeRegen -= 30;
+			}
+			if (scorched)
+			{
+				npc.lifeRegen -= 28;
+			}
 			if (seared)
 			{
-				npc.lifeRegen -= 15;
+				npc.lifeRegen -= 16;
 			}
 			if (singedstacks > 0)
 			{
@@ -122,7 +157,7 @@ namespace ArcaneOdyssey
 			if (phoenixDrain)
 			{
 				if (lesserPhoenixDrain > 0)
-					npc.lifeRegen -= 5 * lesserPhoenixDrain;
+					npc.lifeRegen -= 8 * lesserPhoenixDrain;
 				else
 					npc.lifeRegen -= 14;
 			}

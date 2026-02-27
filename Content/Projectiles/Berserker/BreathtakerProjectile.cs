@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
-using ArcaneOdyssey.Content.Projectiles.Base;
-using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker

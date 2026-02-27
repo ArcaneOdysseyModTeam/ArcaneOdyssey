@@ -10,7 +10,12 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.shadowFlame = true;
+			npc.ArcaneOdyssey().shadowflame = true;
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Shadowflame);
+				dust.velocity *= 0.4f;
+			}
 		}
 	}
 }

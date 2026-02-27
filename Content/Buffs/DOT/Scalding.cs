@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.Center, 0, 0, DustID.SteampunkSteam, 0f, 0f, 1, default, 1f);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.SteampunkSteam);
 				dust.velocity *= 0.4f;
 			}
 			npc.ArcaneOdyssey().scalding = true;

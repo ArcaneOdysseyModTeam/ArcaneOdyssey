@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker
@@ -33,9 +34,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
 				}
-				Projectile.velocity.Normalize();
 				Projectile.Center = Owner.Center + (Projectile.velocity * 20f);
 				Projectile.rotation = Projectile.velocity.ToRotation();
+				Projectile.velocity = Vector2.Zero;
 				Projectile.ai[0] = 1;
 			}
 

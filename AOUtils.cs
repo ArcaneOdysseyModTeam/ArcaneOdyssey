@@ -37,6 +37,8 @@ namespace ArcaneOdyssey
 
 		public const string BlankTexture = ArcaneOdysseyMod.InternalName + "/Backgrounds/Blank";
 		public const string SlashTexture = ArcaneOdysseyMod.InternalName + "/Assets/BasicSlash";
+		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
+		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
 
 		public static int GetMusic(string name) => MusicLoader.GetMusicSlot(ArcaneOdysseyMusicMod.Instance, "Music/" + name);
 
