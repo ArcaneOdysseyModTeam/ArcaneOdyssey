@@ -270,6 +270,7 @@ Projectiles: {
 			TwinCrescent.DisplayName: Twin Crescent
 			Whirlwind.DisplayName: Whirlwind
 			ToweringImpact.DisplayName: Towering Impact
+			DevastateShockwave.DisplayName: Devastate Shockwave
 		}
 
 		BronzeStaffProjectile.DisplayName: Bronze Staff

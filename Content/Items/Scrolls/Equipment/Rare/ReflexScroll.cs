@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		private float invisbase;
 		private bool ground;
 
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 
 		public override int Cooldown => 30;
 

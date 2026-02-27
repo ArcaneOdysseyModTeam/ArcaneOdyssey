@@ -64,8 +64,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 
 		public override int DashMax => 15;
 
-		public override float Knockback => 2f;
-
 		public override bool Immune => true;
 
 		public override void NaturalEnd(Player player)
@@ -104,13 +102,9 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 		public override float DashSpeed => 10;
 
 		public override int DashMax => 600;
-		public override float Knockback => 0;
 		public override bool Immune => true;
 
-		public override bool ExtraCheck(Player player)
-		{
-			return !player.wet;
-		}
+		public override bool ExtraCheck(Player player) => !player.wet;
 
 		public override void OnStart(Player player)
 		{

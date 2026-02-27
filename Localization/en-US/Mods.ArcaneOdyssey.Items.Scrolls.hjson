@@ -70,6 +70,15 @@ Equipment: {
 				Press {AODASHBIND} to activate
 				'''
 		}
+
+		GreatjumpTechnique: {
+			DisplayName: Greatjump Technique
+			Tooltip:
+				'''
+				Kick off the air and launch upwards
+				Press {AODASHBIND} to activate
+				'''
+		}
 	}
 
 	Lost: {

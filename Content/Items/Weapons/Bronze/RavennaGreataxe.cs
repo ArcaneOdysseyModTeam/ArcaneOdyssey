@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using ArcaneOdyssey.PlayerClasses;
-using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
 using Terraria;
@@ -65,9 +65,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override int Cooldown => 300;
 		public override float DashSpeed => 15;
 		public override int DashMax => 600;
-		public override DamageClass DamageType => AOUtils.TrueMelee();
-		public override float Knockback => 5;
 		public override bool Immune => true;
+		public override bool ContactDamage => false;
 		public override bool OnHit(Player player, Entity target) => false;
 
 		public override int DisplayedCooldownID => ModContent.BuffType<DevastateCooldown>();
@@ -100,19 +99,18 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
-			AOUtils.SimulateAOE(300, Damage, player.itemLocation, Knockback, player.PlayerItem(), DamageType);
 			if (!Main.dedServ)
 			{
-				var gore1 = Gore.NewGorePerfect(player.GetSource_ItemUse(player.PlayerItem()), player.Top, Vector2.Zero, ModContent.GoreType<DevastateEffect>());
-				gore1.Centre(player.Top);
-				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
-			}
-			if (sound.HasValue)
-			{
-				if (SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+				if (player.whoAmI == Main.myPlayer)
 				{
-					activeSound.Stop();
+					var proj = AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<DevastateShockwave>(), Damage * 2, Knockback, player.whoAmI, Imbue, SecondImbue);
+					proj.Bottom = player.Bottom;
 				}
+				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.Bottom);
+			}
+			if (sound.HasValue && SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
+			{
+				activeSound.Stop();	
 			}
 			// Vfx
 		}

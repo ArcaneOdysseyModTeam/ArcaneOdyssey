@@ -49,7 +49,7 @@ namespace ArcaneOdyssey
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : Scroll
+			void AddOption<T>() where T : CommonScroll
 			{
 				options.Add(ModContent.ItemType<T>());
 			}
@@ -63,7 +63,6 @@ namespace ArcaneOdyssey
 			if (AOUtils.BossesKilled > 0)
 			{
 				AddOption<SmashScroll>();
-				AddOption<BreathtakerTechnique>();
 			}
 
 			if (NPC.downedBoss2)
@@ -75,8 +74,6 @@ namespace ArcaneOdyssey
 			if (NPC.downedBoss3)
 			{
 				AddOption<AuraScroll>();
-				AddOption<JavelinSpell>();
-				AddOption<SelinoTechnique>();
 			}
 
 			if (Main.hardMode)
@@ -95,7 +92,7 @@ namespace ArcaneOdyssey
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : Scroll
+			void AddOption<T>() where T : RareScroll
 			{
 				options.Add(ModContent.ItemType<T>());
 			}
@@ -104,6 +101,7 @@ namespace ArcaneOdyssey
 			AddOption<WalkRite>();
 			AddOption<AxeTechnique>();
 			AddOption<BarrageSpell>();
+			AddOption<BreathtakerTechnique>();
 
 			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
 			{
@@ -119,6 +117,8 @@ namespace ArcaneOdyssey
 			{
 				AddOption<ArrayScroll>();
 				AddOption<PulsarScroll>();
+				AddOption<JavelinSpell>();
+				AddOption<SelinoTechnique>();
 			}
 
 			if (Main.hardMode)
@@ -126,6 +126,7 @@ namespace ArcaneOdyssey
 				AddOption<RaySpell>();
 				AddOption<MeteorScroll>();
 				AddOption<FlightScroll>();
+				AddOption<GreatjumpTechnique>();
 			}
 
 			return [.. options];
@@ -139,7 +140,7 @@ namespace ArcaneOdyssey
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : Scroll
+			void AddOption<T>() where T : LostScroll
 			{
 				options.Add(ModContent.ItemType<T>());
 			}

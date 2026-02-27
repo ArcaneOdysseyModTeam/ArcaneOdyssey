@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 
 		public override int DashMax => 10;
 
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 
 		public override bool OnHit(Player player, Entity target) => false;
 

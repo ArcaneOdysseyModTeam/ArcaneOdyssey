@@ -67,3 +67,8 @@ ToweringImpactCooldown: {
 	DisplayName: Towering Impact Cooldown
 	Description: Towering Impact is on cooldown
 }
+
+GreatjumpCooldown: {
+	DisplayName: Greatjump Cooldown
+	Description: Greatjump is on cooldown
+}

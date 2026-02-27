@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 	public class Walk1(Entity source) : DashSystem(source)
 	{
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
 
 		public override bool AnyDirection => true;
@@ -45,8 +45,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override int DashMax => 15;
 
-		public override float Knockback => 2f;
-
 		public override bool Immune => true;
 
 		public override int DisplayedCooldownID => ModContent.BuffType<WalkCooldown>();
@@ -54,7 +52,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 	public class Walk2(Entity source) : DashSystem(source)
 	{
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
 
 		public override bool AnyDirection => true;
@@ -71,8 +69,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override int DashMax => 15;
 
-		public override float Knockback => 2f;
-
 		public override bool Immune => true;
 
 		public override int DisplayedCooldownID => ModContent.BuffType<WalkCooldown>();
@@ -80,7 +76,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 	public class Walk3(Entity source) : DashSystem(source)
 	{
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
 
 		public override bool AnyDirection => true;
@@ -95,8 +91,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override float DashSpeed => 15;
 
 		public override int DashMax => 15;
-
-		public override float Knockback => 2f;
 
 		public override bool Immune => true;
 

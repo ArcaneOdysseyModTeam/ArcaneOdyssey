@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
@@ -15,7 +14,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			Projectile.ownerHitCheck = true;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
-			Projectile.DamageType = DamageClass.MeleeNoSpeed;
+			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.Opacity = .5f;
 		}

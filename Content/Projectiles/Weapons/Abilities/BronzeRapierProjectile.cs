@@ -53,20 +53,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		}
 	}
 
-	public class PiercingStrikes(Entity source, Projectile projectile) : DashSystem(source)
+	public class PiercingStrikes(Entity source) : DashSystem(source)
 	{
-
 		public override int DashMax => 20;
 		public override float DashSpeed => 12;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target) => false;
 		public override bool AnyDirection => true;
 		public override int Cooldown => 180;
-		public Projectile projectile = projectile;
 
 		public override void OnStart(Player player)
 		{
-			projectile.velocity = player.ArcaneOdyssey().DashVelocity;
+			source.velocity = player.ArcaneOdyssey().DashVelocity;
 			player.PlayerItem().useStyle = ItemUseStyleID.Rapier;
 		}
 		public override void DashEffect(Player player)
@@ -76,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void OnEnd(Player player)
 		{
-			projectile.Kill();
+			source.Kill();
 			player.velocity *= .65f;
 		}
 

@@ -37,9 +37,9 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override bool CanHaveFS => true;
 	}
 
-	public class Selino1(Item item) : DashSystem(item)
+	public class Selino1(Entity source) : DashSystem(source)
 	{
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
 		public override bool AnyDirection => true;
@@ -48,25 +48,23 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
-			var dash = new Selino2(item);
+			var dash = new Selino2(source);
 			player.ArcaneOdyssey().StartDash(dash, 0, Imbue, true);
-			AOUtils.ShootProjectile(item.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), item.damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 
 		public override float DashSpeed => 8;
 
 		public override int DashMax => 15;
 
-		public override float Knockback => 2f;
-
 		public override bool Immune => true;
 
 		public override int DisplayedCooldownID => ModContent.BuffType<SelinoCooldown>();
 	}
 
-	public class Selino2(Item item) : DashSystem(item)
+	public class Selino2(Entity source) : DashSystem(source)
 	{
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
 		public override bool AnyDirection => true;
@@ -75,25 +73,23 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
-			var dash = new Selino3((Item)source);
+			var dash = new Selino3(source);
 			player.ArcaneOdyssey().StartDash(dash, 0, Imbue, true);
-			AOUtils.ShootProjectile(item.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), item.damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 
 		public override float DashSpeed => 8;
 
 		public override int DashMax => 15;
 
-		public override float Knockback => 2f;
-
 		public override bool Immune => true;
 
 		public override int DisplayedCooldownID => ModContent.BuffType<SelinoCooldown>();
 	}
 
-	public class Selino3(Item item) : DashSystem(item)
+	public class Selino3(Entity source) : DashSystem(source)
 	{
-		public override int Damage => 0;
+		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
 		public override bool AnyDirection => true;
@@ -103,14 +99,14 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override void OnEnd(Player player)
 		{
 			player.velocity *= .25f;
-			AOUtils.ShootProjectile(item.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<Selino>(), item.damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<Selino>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 
 		public override float DashSpeed => 8;
 
 		public override int DashMax => 15;
 
-		public override float Knockback => 10f;
+		public override float Knockback => base.Knockback * 4f;
 
 		public override bool Immune => true;
 

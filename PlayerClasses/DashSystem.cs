@@ -44,12 +44,28 @@ namespace ArcaneOdyssey.PlayerClasses
 			}
 		}
 
+		public virtual bool ContactDamage => Damage > 0;
+
 		public virtual DamageClass DamageType => DamageClass.Default;
 
 		/// <summary>
 		/// Knockback of the dash
 		/// </summary>
-		public virtual float Knockback => 0;
+		public virtual float Knockback
+		{
+			get
+			{
+				if (source is Projectile projectile)
+				{
+					return projectile.knockBack;
+				}
+				if (source is Item item)
+				{
+					return item.knockBack;
+				}
+				return 0;
+			}
+		}
 
 		/// <summary>
 		/// Whether the dash can be trigger via hotkey, and if it can be used to go directions other than left and right
@@ -371,47 +387,56 @@ namespace ArcaneOdyssey.PlayerClasses
 			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
 			dashing &= !(Immobile || HeavySkillActive || ItemHeavySkillActive);
-			DashSystem[] dashes = [OmniDash, SideDash];
-			foreach (DashSystem dash in dashes)
+
+			if (OmniDash is not null)
 			{
-				if (dash is not null)
+				if (!dashing && !OmniDash.OnCooldown(Player) && !Player.mount.Active && !Player.setSolar)
 				{
-					if (!dash.AnyDirection)
-						Player.dashType = DashID.None;
-					if (!dashing && !dash.OnCooldown(Player) && !Player.mount.Active && !Player.setSolar)
+					if (AOKeybinds.DashBind.JustPressed)
 					{
-						if (dash.AnyDirection && AOKeybinds.DashBind.JustPressed)
-						{
-							StartDash(dash, OmniDashDir, Imbue, true);
-						}
-						else if (!dash.AnyDirection)
-						{
-							if (DashDir != 0)
-							{
-								StartDash(dash, DashDir, Imbue);
-							}
-						}
+						StartDash(OmniDash, OmniDashDir, Imbue, true);
 					}
 				}
 			}
+
+			if (SideDash is not null)
+			{
+				Player.dashType = DashID.None;
+				if (!dashing && !SideDash.OnCooldown(Player) && !Player.mount.Active && !Player.setSolar)
+				{
+					if (DashDir != 0)
+					{
+						StartDash(SideDash, DashDir, Imbue);
+					}
+				}
+			}
+
 			if (CurrentDash is not null)
 			{
 				if (dashing)
 				{
 					if (CurrentDash.AnyDirection)
 					{
-						Player.blockExtraJumps = true;
-						Player.controlLeft = false;
-						Player.controlRight = false;
-						Player.controlJump = false;
-					}
-					if (CurrentDash.FallThrough)
-					{
-						Player.controlDown = true;
 						Player.noFallDmg = true;
 					}
+					if (CurrentDash.FallThrough && DashVelocity.Y > 0)
+					{
+						//fallthrough goes here
+					}
+
+					if (CurrentDash.AnyDirection && DashVelocity.Y == 0)
+					{
+						Player.velocity.Y *= .01f;
+					}
+
 					if (DashVelocity.X != 0)
+					{
 						Player.ChangeDir(Math.Sign(DashVelocity.X));
+					}
+					else if (CurrentDash.AnyDirection)
+					{
+						Player.velocity.X *= .01f;
+					}
 
 					Point upwardTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, Player.gravDir * -Player.height / 2f + Player.gravDir * 2f)).ToTileCoordinates();
 					Point aheadTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, 0f)).ToTileCoordinates();
@@ -490,7 +515,7 @@ namespace ArcaneOdyssey.PlayerClasses
 						if (CurrentDash.Immune)
 							Player.GiveImmuneTimeForCollisionAttack(12);
 
-						if (CurrentDash.Damage > 0 && Main.myPlayer == Player.whoAmI)
+						if (CurrentDash.ContactDamage && Main.myPlayer == Player.whoAmI)
 						{
 							var damagetype = CurrentDash.DamageType;
 							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.Next(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);

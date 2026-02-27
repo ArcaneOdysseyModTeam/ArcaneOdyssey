@@ -56,7 +56,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		public override float DashSpeed => 20;
 		public override int DashMax => 600;
 		public override DamageClass DamageType => DamageClass.Melee;
-		public override float Knockback => 5;
 		public override bool Immune => true;
 
 		public override bool OnHit(Player player, Entity target) => true;
