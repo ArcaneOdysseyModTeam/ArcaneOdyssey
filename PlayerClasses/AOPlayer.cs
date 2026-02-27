@@ -19,7 +19,6 @@ namespace ArcaneOdyssey.PlayerClasses
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 		public bool HeavySkillActive = false;
-        public bool ItemHeavySkillActive = false;
         public bool hasLoadedWorldBefore = false;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
@@ -126,19 +125,6 @@ namespace ArcaneOdyssey.PlayerClasses
 			return [];
 		}
 
-		public override void PostUpdateMiscEffects()
-		{
-			if (!hasLoadedWorldBefore)
-			{
-				hasLoadedWorldBefore = true;
-				if (Main.myPlayer == Player.whoAmI && AOUtils.BossesKilled < 1 && !(Player.HasTypeInInventory<EagleLegacy>() || Player.HasTypeInInventory<TitleMusicBox>()))
-				{
-					Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<EagleLegacy>(), noBroadcast: true, noGrabDelay: true);
-					Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<TitleMusicBox>(), noBroadcast: true, noGrabDelay: true);
-				}
-			}
-		}
-
 		public void TrySpiritLifesteal(int damage, bool cooldown = true)
 		{
 			if (!(cooldown && OnCooldown("SpiritLifesteal")))
@@ -151,6 +137,21 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public override void PostUpdate()
 		{
+			if (!hasLoadedWorldBefore)
+			{
+				hasLoadedWorldBefore = true;
+				if (Main.myPlayer == Player.whoAmI && AOUtils.BossesKilled < 1)
+				{
+					if (!Player.HasTypeInInventory<EagleLegacy>())
+					{
+						Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<EagleLegacy>(), noBroadcast: true, noGrabDelay: true);
+					}
+					if (!Player.HasTypeInInventory<TitleMusicBox>())
+					{
+						Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<TitleMusicBox>(), noBroadcast: true, noGrabDelay: true);
+					}
+				} 
+			}
 			pheonixHealing = 0;
 			HeavySkillActive = false;
 			DashStrike();

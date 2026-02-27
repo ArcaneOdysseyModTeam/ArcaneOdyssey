@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 2;
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 		public override int Cooldown => BreathtakerTechnique.Cooldown;
 		public override bool OnHit(Player player, Entity target)
 		{

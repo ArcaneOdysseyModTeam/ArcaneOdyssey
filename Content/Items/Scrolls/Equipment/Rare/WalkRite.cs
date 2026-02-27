@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
 
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 
 		public override bool OnHit(Player player, Entity target) => false;
 
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
 
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 
 		public override bool OnHit(Player player, Entity target) => false;
 
@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
 
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 
 		public override bool OnHit(Player player, Entity target) => false;
 

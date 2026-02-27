@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 		public override bool ContactDamage => false;
 		public override float DashSpeed => 23;
 		public override int DashMax => 60;
-		public override bool AnyDirection => false;
+		public override bool LocksPlayer => false;
 		public override bool Immune => false;
 		public override int Cooldown => 60 * 3;
 		public override bool OnHit(Player player, Entity target) => false;

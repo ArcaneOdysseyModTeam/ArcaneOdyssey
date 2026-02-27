@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 		public override int Cooldown => CrashScroll.Cooldown;
 
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 
 		public override bool OnHit(Player player, Entity target)
 		{
@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 		public override bool FallThrough => false;
 		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 		public override int Cooldown => 0;
 
 		public override float DashSpeed => 10;

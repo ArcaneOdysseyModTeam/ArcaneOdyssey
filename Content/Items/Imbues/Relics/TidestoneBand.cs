@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 2;
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 		public override int Cooldown => 60 * 3;
 
 		public override bool OnHit(Player player, Entity target) => true;

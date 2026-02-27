@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override int Cooldown => 30;
 
-		public override bool AnyDirection => false;
+		public override bool LocksPlayer => false;
 
 		public override void OnStart(Player player)
 		{

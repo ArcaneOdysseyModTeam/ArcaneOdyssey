@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override float DashSpeed => 12;
 		public override bool Immune => true;
 		public override bool OnHit(Player player, Entity target) => false;
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 		public override int Cooldown => 180;
 
 		public override void OnStart(Player player)

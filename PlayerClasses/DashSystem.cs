@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		/// <summary>
 		/// Whether the dash can be trigger via hotkey, and if it can be used to go directions other than left and right
 		/// </summary>
-		public abstract bool AnyDirection { get; }
+		public abstract bool LocksPlayer { get; }
 
 		/// <summary>
 		/// The cooldown between dash uses
@@ -108,7 +108,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				return player.ArcaneOdyssey().OnCooldown(DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
 			}
-			if (AnyDirection)
+			if (LocksPlayer)
 				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 			else
 				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
@@ -157,14 +157,14 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public virtual int DisplayedCooldownID => -1;
 
-		public Cooldown AOCooldown => new(AnyDirection ? Name : "StandardDash", Mod, Cooldown);
+		public Cooldown AOCooldown => new(LocksPlayer ? Name : "StandardDash", Mod, Cooldown);
 	}
 
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public void SetDash(DashSystem dash, int dir = 0)
 		{
-			if (dash.AnyDirection)
+			if (dash.LocksPlayer)
 			{
 				OmniDash = dash;
 				OmniDashDir = dir;
@@ -315,7 +315,7 @@ namespace ArcaneOdyssey.PlayerClasses
 				DashLeft = dashToUse.DashMax;
 				dashToUse.OnStart(Player);
 				Player.velocity += DashVelocity;
-				if (dashToUse.AnyDirection)
+				if (dashToUse.LocksPlayer)
 				{
 					Player.noFallDmg = true;
 					Player.StopExtraJumpInProgress();
@@ -386,7 +386,7 @@ namespace ArcaneOdyssey.PlayerClasses
 		{
 			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
-			dashing &= !(Immobile || HeavySkillActive || ItemHeavySkillActive);
+			dashing &= !(Immobile || HeavySkillActive);
 
 			if (OmniDash is not null)
 			{
@@ -415,16 +415,12 @@ namespace ArcaneOdyssey.PlayerClasses
 			{
 				if (dashing)
 				{
-					if (CurrentDash.AnyDirection)
+					if (CurrentDash.LocksPlayer)
 					{
 						Player.noFallDmg = true;
 					}
-					if (CurrentDash.FallThrough && DashVelocity.Y > 0)
-					{
-						//fallthrough goes here
-					}
 
-					if (CurrentDash.AnyDirection && DashVelocity.Y == 0)
+					if (CurrentDash.LocksPlayer && DashVelocity.Y == 0)
 					{
 						Player.velocity.Y *= .01f;
 					}
@@ -433,14 +429,14 @@ namespace ArcaneOdyssey.PlayerClasses
 					{
 						Player.ChangeDir(Math.Sign(DashVelocity.X));
 					}
-					else if (CurrentDash.AnyDirection)
+					else if (CurrentDash.LocksPlayer)
 					{
 						Player.velocity.X *= .01f;
 					}
 
 					Point upwardTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, Player.gravDir * -Player.height / 2f + Player.gravDir * 2f)).ToTileCoordinates();
 					Point aheadTilePoint = (Player.Center + new Vector2(MathHelper.Clamp(CurrentDashDir, -1f, 1f) * Player.width / 2 + 2, 0f)).ToTileCoordinates();
-					if (WorldGen.SolidOrSlopedTile(upwardTilePoint.X, upwardTilePoint.Y) || WorldGen.SolidOrSlopedTile(aheadTilePoint.X, aheadTilePoint.Y) || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame && CurrentDash.AnyDirection))
+					if (WorldGen.SolidOrSlopedTile(upwardTilePoint.X, upwardTilePoint.Y) || WorldGen.SolidOrSlopedTile(aheadTilePoint.X, aheadTilePoint.Y) || (Player.velocity.Y < 1 && Player.velocity.Y > -1 && Player.velocity.X < 1 && Player.velocity.X > -1 && !FirstFrame && CurrentDash.LocksPlayer))
 					{
 						DashLeft = 0;
 						Player.velocity /= 2f;
@@ -465,12 +461,10 @@ namespace ArcaneOdyssey.PlayerClasses
 						}
 						return;
 					}
-
 					CurrentDash.Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
 					CurrentDash.SecondImbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
-
 					CurrentDash.DashEffect(Player);
-					if (CurrentDash.AnyDirection)
+					if (CurrentDash.LocksPlayer)
 					{
 						Player.velocity += DashVelocity;
 						Player.velocity.Y = MathHelper.Clamp(Player.velocity.Y, -CurrentDash.DashSpeed * dashmaxmult, CurrentDash.DashSpeed * dashmaxmult);
@@ -490,6 +484,20 @@ namespace ArcaneOdyssey.PlayerClasses
 			}
 			Player.eocDash = DashLeft;
 			DashStrikeCooldown--;
+		}
+
+		public override void PostUpdateMiscEffects()
+		{
+			if (CurrentDash is not null)
+			{
+				if (dashing)
+				{
+					if (CurrentDash.FallThrough && DashVelocity.Y > 0)
+					{
+						Player.GoingDownWithGrapple = true;
+					}
+				}
+			}
 		}
 
 		internal int DashStrikeCooldown = 0;

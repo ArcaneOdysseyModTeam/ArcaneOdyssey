@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 	{
 		public override bool Immune => false;
 
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 
 		public override float DashSpeed => 23;
 
