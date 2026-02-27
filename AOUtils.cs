@@ -6,6 +6,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
+using ArcaneOdyssey.Content.NPCS;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Rarities;
@@ -338,7 +339,7 @@ namespace ArcaneOdyssey
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
-				if (npc.boss)
+				if (npc.boss && npc.ModNPC is not DebuffDummy)
 					return true;
 			}
 			return false;
@@ -637,7 +638,8 @@ namespace ArcaneOdyssey
 						{
 							if (source is Item item && item.ModItem is SpiritEnergy)
 							{
-								player2.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage), false);
+								if (!target.immortal)
+									player2.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage), false);
 								if (Main.netMode == NetmodeID.SinglePlayer && (item.Imbue() is DeathMagic || item.SecondImbue() is DeathMagic) && (target.lifeMax < player.statLifeMax2))
 								{
 									target.StrikeInstantKill();
@@ -651,14 +653,16 @@ namespace ArcaneOdyssey
 								}
 								if (projectile.ModProjectile is SpiritProjectile)
 								{
-									player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), false);
+									if (!target.immortal)
+										player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), false);
 								}
 								else
 								{
 									var proj = projectile.ArcaneOdyssey();
 									if (proj.Imbue is SpiritEnergy || proj.SecondImbue is SpiritEnergy)
 									{
-										player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage));
+										if (!target.immortal)
+											player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage));
 									}
 								}
 							}
@@ -978,7 +982,8 @@ namespace ArcaneOdyssey
 			if (player is not null)
 			{
 				if (imbue is SpiritEnergy)
-					player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
+					if (!npc.immortal)
+						player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
 				if (npc.immune[player.whoAmI] > 0 || player.whoAmI != Main.myPlayer)

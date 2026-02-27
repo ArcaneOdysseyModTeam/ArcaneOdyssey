@@ -335,7 +335,8 @@ namespace ArcaneOdyssey
 			{
 				if (Imbue is SpiritEnergy)
 				{
-					owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
+					if (!target.immortal)
+						owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
 				}
 			}
 

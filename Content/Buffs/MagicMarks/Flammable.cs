@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
@@ -11,5 +12,10 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 		public override List<int> Counterparts => [..base.Counterparts, BuffID.Slimed, BuffID.GelBalloonBuff];
 
 		public override string Texture => AOUtils.GetTexture<Flammable>();
+
+		public override void Update(NPC npc, ref int buffIndex)
+		{
+			npc.oiled = true;
+		}
 	}
 }

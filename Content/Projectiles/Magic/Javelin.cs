@@ -53,7 +53,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					Projectile.spriteDirection = Owner.direction;
 					Owner.heldProj = Projectile.whoAmI;
 					AOPlayerOwner.HeavySkillActive = true;
-					//Owner.heldProj = Projectile.whoAmI;
 					Owner.itemAnimation = Owner.itemAnimationMax;
 					Owner.itemTime = Owner.itemTimeMax;
 					Owner.itemRotation = dir.ToRotation();

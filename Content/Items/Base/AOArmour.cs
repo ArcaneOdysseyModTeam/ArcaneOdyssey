@@ -144,7 +144,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social")))
+			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 				return;
 
 			if (AOMaxMana > 0)

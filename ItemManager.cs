@@ -703,7 +703,8 @@ namespace ArcaneOdyssey
 				return;
 			if (Imbue is SpiritEnergy)
 			{
-				player.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage));
+				if (!target.immortal)
+					player.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage));
 			}
 			if (Main.netMode == NetmodeID.SinglePlayer && (Imbue is DeathMagic || SecondImbue is DeathMagic) && (target.lifeMax < player.statLifeMax2))
 			{

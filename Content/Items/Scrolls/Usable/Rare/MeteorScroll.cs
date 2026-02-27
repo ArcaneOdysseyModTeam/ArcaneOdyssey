@@ -28,9 +28,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			var offsetX = Main.MouseWorld.X;
-			var offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
-			position = new Vector2(offsetX, offsetY);
+			position = new Vector2(Main.MouseWorld.X, Main.screenPosition.Y - (Main.maxScreenH * .15f));
 			velocity = Vector2.UnitY * velocity.Length();
 		}
 	}

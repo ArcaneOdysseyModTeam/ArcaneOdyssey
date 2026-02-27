@@ -41,15 +41,5 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 				player.canFloatInWater = false;
 			}
 		}
-
-		public override bool ReApply(NPC npc, int time, int buffIndex)
-		{
-			return !LiterallyCheating;
-		}
-
-		public override bool ReApply(Player player, int time, int buffIndex)
-		{
-			return !LiterallyCheating;
-		}
 	}
 }

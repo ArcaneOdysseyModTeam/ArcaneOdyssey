@@ -236,5 +236,20 @@ Potions: {
 			DisplayName: Frost Gel
 			Tooltip: Melee and Whip attacks inflict enemies with Freezing
 		}
+
+		CorrodingGelPotion: {
+			DisplayName: Corroding Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Corroding
+		}
+
+		MeltingGelPotion: {
+			DisplayName: Melting Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Melting
+		}
+
+		ScorchGelPotion: {
+			DisplayName: Scorch Gel
+			Tooltip: Melee and Whip attacks inflict enemies with Scorched
+		}
 	}
 }

@@ -296,91 +296,94 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (this is SpiritEnergy)
+			if (!tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 			{
-				tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.RelicDamage", MathF.Round(AOScrollDamage, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.RelicSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
-				tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.RelicSize", MathF.Round(AOScrollSize, 3)).Value));
-			}
-
-			if (!Main.keyState.IsKeyDown(Keys.LeftShift))
-			{
-				if (this is not SpiritEnergy)
+				if (this is SpiritEnergy)
 				{
-					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.RelicDamage", MathF.Round(AOScrollDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.RelicSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.RelicSize", MathF.Round(AOScrollSize, 3)).Value));
 				}
 
-				if (ImbueDebuffs.Length > 0)
+				if (!Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
-					string req = "";
-					if (ImbueDebuffs[0].debuffPercent > 0)
+					if (this is not SpiritEnergy)
 					{
-						req = Mod.CustomLocalization("ImbueStuff.Requirement", (ImbueDebuffs[0].debuffPercent * 100f).Round()).Value;
+						tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
+						tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
+						tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
 					}
-					var debufftext = Mod.CustomLocalization("ImbueStuff.Debuffs", AOUtils.GetBuffName(ImbueDebuffs[0].debuffID) + req).Value;
-					foreach (var debuff in ImbueDebuffs)
+
+					if (ImbueDebuffs.Length > 0)
 					{
-						req = "";
-						if (debuff.debuffID != ImbueDebuffs[0].debuffID)
+						string req = "";
+						if (ImbueDebuffs[0].debuffPercent > 0)
 						{
-							if (debuff.debuffPercent > 0)
+							req = Mod.CustomLocalization("ImbueStuff.Requirement", (ImbueDebuffs[0].debuffPercent * 100f).Round()).Value;
+						}
+						var debufftext = Mod.CustomLocalization("ImbueStuff.Debuffs", AOUtils.GetBuffName(ImbueDebuffs[0].debuffID) + req).Value;
+						foreach (var debuff in ImbueDebuffs)
+						{
+							req = "";
+							if (debuff.debuffID != ImbueDebuffs[0].debuffID)
 							{
-								req = Mod.CustomLocalization("ImbueStuff.Requirement", (debuff.debuffPercent * 100f).Round()).Value;
+								if (debuff.debuffPercent > 0)
+								{
+									req = Mod.CustomLocalization("ImbueStuff.Requirement", (debuff.debuffPercent * 100f).Round()).Value;
+								}
+								debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, AOUtils.GetBuffName(debuff.debuffID) + req).Value;
 							}
-							debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, AOUtils.GetBuffName(debuff.debuffID) + req).Value;
 						}
+						tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
 					}
-					tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
-				}
-				else
-				{
-					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoDebuffs").Value));
-				}
-			}
-			else
-			{
-				if (this is not SpiritEnergy)
-				{
-					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
-				}
-
-				if (CombinedDebuffs.Length > 0)
-				{
-					var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(CombinedDebuffs[0].requirement), AOUtils.GetBuffName(CombinedDebuffs[0].result));
-					var debufftext = Mod.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
-					foreach (var debuff in CombinedDebuffs)
+					else
 					{
-						if (debuff.requirement != CombinedDebuffs[0].requirement)
-						{
-							aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(debuff.requirement), AOUtils.GetBuffName(debuff.result));
-							debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
-						}
+						tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoDebuffs").Value));
 					}
-					tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
 				}
 				else
 				{
-					tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoCombinedDebuffs").Value));
+					if (this is not SpiritEnergy)
+					{
+						tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
+						tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
+						tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
+					}
+
+					if (CombinedDebuffs.Length > 0)
+					{
+						var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(CombinedDebuffs[0].requirement), AOUtils.GetBuffName(CombinedDebuffs[0].result));
+						var debufftext = Mod.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
+						foreach (var debuff in CombinedDebuffs)
+						{
+							if (debuff.requirement != CombinedDebuffs[0].requirement)
+							{
+								aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(debuff.requirement), AOUtils.GetBuffName(debuff.result));
+								debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
+							}
+						}
+						tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
+					}
+					else
+					{
+						tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoCombinedDebuffs").Value));
+					}
 				}
-			}
-			tooltips.AddTooltip(new(Mod, "ShiftNotice", Mod.CustomLocalization("ImbueStuff.ShiftNotice").Value));
+				tooltips.AddTooltip(new(Mod, "ShiftNotice", Mod.CustomLocalization("ImbueStuff.ShiftNotice").Value));
 
 
-			if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
-			{
-				var ability = $"{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName")}]: {Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description")}";
+				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+				{
+					var ability = $"{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName")}]: {Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description")}";
 
-				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{ability}");
-				tooltips.AddTooltip(tooltip);
-			}
-			else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
-			{
-				TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
-				tooltips.AddTooltip(tooltip);
+					TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{ability}");
+					tooltips.AddTooltip(tooltip);
+				}
+				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
+				{
+					TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
+					tooltips.AddTooltip(tooltip);
+				}
 			}
 
 			if (TooltipsPrefix is not null)

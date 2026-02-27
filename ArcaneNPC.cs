@@ -55,9 +55,27 @@ namespace ArcaneOdyssey
 			if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)
 			{
 				if (!AOStunned)
-					StunCD -= 1 / 60;
+				{
+					if (StunCD > 0)
+					{
+						StunCD -= 1 / 60f;
+					}
+					else
+					{
+						StunCD = 0;
+					}
+				}
 				else
-					StunDuration -= 1 / 60;
+				{
+					if (StunDuration > 0)
+					{
+						StunDuration -= 1 / 60f;
+					}
+					else
+					{
+						StunDuration = 0;
+					}
+				}
 			}
 			return !AOStunned;
 		}
@@ -80,7 +98,14 @@ namespace ArcaneOdyssey
 
 		public override void ResetEffects(NPC npc)
 		{
-			ZapCD -= 1 / 60f;
+			if (ZapCD > 0)
+			{
+				ZapCD -= 1 / 60f;
+			}
+			else 
+			{ 
+				ZapCD = 0; 
+			}
 			if (StunDuration <= 0 && AOStunned)
 			{
 				AOStunned = false;

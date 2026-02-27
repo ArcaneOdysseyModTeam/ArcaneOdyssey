@@ -58,8 +58,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		{
 			if (player.AltUse())
 			{
-				var offsetX = Main.MouseWorld.X + (Main.screenWidth / 35f * Main.rand.Next(-2, 3));
-				var offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
+				var offsetX = Main.MouseWorld.X + (Main.maxScreenW / 35f * Main.rand.Next(-2, 3));
+				var offsetY = Main.screenPosition.Y - (Main.maxScreenH * .15f);
 				var pos = new Vector2(offsetX, offsetY);
 				player.itemRotation = player.MountedCenter.DirectionTo(pos).ToRotation();
 				if (player.direction != 1)
@@ -68,8 +68,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 				}
 				for (int i = -2; i < 3; i++)
 				{
-					offsetX = Main.MouseWorld.X + (Main.screenWidth / 35f * i);
-					offsetY = Main.screenPosition.Y - (Main.screenHeight * .15f);
+					offsetX = Main.MouseWorld.X + (Main.maxScreenW / 35f * i);
+					offsetY = Main.screenPosition.Y - (Main.maxScreenH * .15f);
 					pos = new Vector2(offsetX, offsetY);
 					Projectile.NewProjectile(source, pos, Vector2.UnitY * velocity.Length(), type, damage / 5, knockback / 5f, player.whoAmI);
 				}

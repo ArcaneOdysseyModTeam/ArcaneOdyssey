@@ -1,7 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Minions;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Relics.Minions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Steamworks;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -24,19 +26,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 			ProjectileID.Sets.MinionTargettingFeature[Type] = true;
 			Main.projPet[Type] = true;
 			ProjectileID.Sets.MinionSacrificable[Type] = true;
+			Main.projFrames[Type] = 4;
 		}
 
-		public override string Texture => AOUtils.BlankTexture;
+		public override string Texture => AOUtils.GetTexture<SpiritMinion>();
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Player.defaultWidth;
-			Projectile.height = Player.defaultHeight;
+			Projectile.width = 24;
+			Projectile.height = 46;
 			Projectile.minionSlots = 1;
 			Projectile.minion = true;
 			Projectile.netImportant = true;
-			Projectile.Opacity = .5f;
+			Projectile.Opacity = .75f;
 		}
 
 		private NPC potentialTarget;
@@ -45,6 +48,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 
 		public override void AI()
 		{
+			CheckActive();
+			if (Projectile.frameCounter++ > 5)
+			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= Main.projFrames[Type])
+				{
+					Projectile.frame = 0;
+				}
+			}
 			CheckActive();
 			if (Projectile.velocity.Y < 15f)
 				Projectile.velocity.Y += Gravity;
@@ -85,9 +97,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 				AttackTimer += ApplyScrollSpeed(1f);
 
 				if (MathHelper.Distance(potentialTarget.Center.X, Projectile.Center.X) > 30f)
-					Projectile.spriteDirection = (potentialTarget.Center.X - Projectile.Center.X < 0).ToDirectionInt();
+				{
+					if (potentialTarget.Center.X - Projectile.Center.X > 0)
+					{
+						Projectile.rotation = 0;
+						Projectile.spriteDirection = 1;
+					}
+					else
+					{
+						Projectile.rotation = MathHelper.Pi;
+						Projectile.spriteDirection = -1;
+					}
+				}
 
-				if (AttackTimer >= 15)
+				if (AttackTimer >= 25)
 				{
 					AttackTimer = 0;
 					if (Main.myPlayer == Projectile.owner)
@@ -124,34 +147,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 			}
 
 			return true;
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-			Player player = Main.playerVisualClone[Projectile.owner] ??= new();
-			player.CopyVisuals(Owner);
-			player.isFirstFractalAfterImage = true;
-			player.firstFractalAfterImageOpacity = Projectile.Opacity;
-			player.ResetEffects();
-			player.ResetVisibleAccessories();
-			player.UpdateDyes();
-			player.DisplayDollUpdate();
-			player.UpdateSocialShadow();
-			player.Center = Projectile.Center;
-			player.itemRotation = MathHelper.PiOver2;
-			player.direction = (Projectile.velocity.X > 0f) ? 1 : -1;
-			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
-			player.velocity = Projectile.velocity.SafeNormalize(Vector2.Zero);
-			player.PlayerFrame();
-			player.socialIgnoreLight = true;
-			Main.PlayerRenderer.DrawPlayer(Main.Camera, player, player.position, 0f, player.fullRotationOrigin, 0f, Projectile.scale);
-
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-			return false;
 		}
 
 		public bool MoveToDestination(Vector2 destination)
@@ -233,8 +228,23 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 				}
 			}
 
-			Projectile.spriteDirection = (Owner.Center.X - Projectile.Center.X < 0).ToDirectionInt();
+			if (Projectile.velocity.X > 0)
+			{
+				Projectile.rotation = 0;
+				Projectile.spriteDirection = 1;
+			}
+			else
+			{
+				Projectile.rotation = MathHelper.Pi;
+				Projectile.spriteDirection = -1;
+			}
 			return false;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+			return base.PreDraw(ref lightColor);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity) => false;
