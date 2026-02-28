@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 		{
 			if (npc.ArcaneOdyssey().ZapCD < 0)
 			{
-				npc.ArcaneOdyssey().ZapCD = 5f;
+				npc.ArcaneOdyssey().ZapCD = 5 * 60;
 
 				foreach (var npcs in Main.ActiveNPCs)
 				{

@@ -18,11 +18,11 @@ namespace ArcaneOdyssey
 	{
 		public override bool InstancePerEntity => true;
 
-		public float StunCD = 5;
-		public float ZapCD = 5; // ancient lightning chain
-		public float StunDuration = 1;
+		public int StunCD = 5 * 60;
+		public int ZapCD = 5 * 50; // ancient lightning chain
+		public int StunDuration = 60;
 
-		private float _defenseLost = 0;
+		private int _defenseLost = 0;
 
 		public void LowerDefense(int defense, Rectangle? location = null)
 		{
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey
 				{
 					if (StunCD > 0)
 					{
-						StunCD -= 1 / 60f;
+						StunCD--;
 					}
 					else
 					{
@@ -69,7 +69,7 @@ namespace ArcaneOdyssey
 				{
 					if (StunDuration > 0)
 					{
-						StunDuration -= 1 / 60f;
+						StunDuration--;
 					}
 					else
 					{
@@ -100,7 +100,7 @@ namespace ArcaneOdyssey
 		{
 			if (ZapCD > 0)
 			{
-				ZapCD -= 1 / 60f;
+				ZapCD--;
 			}
 			else 
 			{ 
@@ -109,8 +109,8 @@ namespace ArcaneOdyssey
 			if (StunDuration <= 0 && AOStunned)
 			{
 				AOStunned = false;
-				StunCD = 5;
-				StunDuration = 1;
+				StunCD = 5 * 60;
+				StunDuration = 60;
 			}
 			bleeding = false;
 			vesuvianBurn = false;

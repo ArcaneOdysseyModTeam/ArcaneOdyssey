@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Type] = 4;
+			Main.projFrames[Type] = 3;
 		}
 	}
 }
