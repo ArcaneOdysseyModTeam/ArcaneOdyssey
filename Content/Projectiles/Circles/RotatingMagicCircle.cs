@@ -44,14 +44,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 						}
 						if (Vector2.Distance(Main.MouseWorld, Owner.position) < 400)
 						{
-							Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, 10 * Imbue.AOScrollSpeed);
+							Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, ApplyScrollSpeed(10f));
 						}
 						else
-							Projectile.Center = Projectile.Center.MoveTowards(Owner.Center + Owner.Center.DirectionTo(Main.MouseWorld) * 400, 10 * Imbue.AOScrollSpeed);
+							Projectile.Center = Projectile.Center.MoveTowards(Owner.Center + Owner.Center.DirectionTo(Main.MouseWorld) * 400, ApplyScrollSpeed(10f));
 					}
 				}
 			}
-			Projectile.rotation += MathHelper.Pi / 120f * Imbue.AOScrollSpeed;
+			Projectile.rotation += ApplyScrollSpeed(MathHelper.Pi / 120f);
 		}
 
 		public override void OnKill(int timeLeft)

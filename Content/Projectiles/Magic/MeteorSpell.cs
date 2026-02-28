@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -50,12 +51,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 			}
 
-			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
-			{
-				Kill();
-				return;
-			}
-
 			if (!Main.dedServ)
 			{
 				if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
@@ -98,6 +93,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			return base.PreKill(timeLeft);
 		}
 
+		public string BackupTexture = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");
+
 		public override string Texture
 		{
 			get
@@ -109,12 +106,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					{
 						return asset;
 					}
-					else
-					{
-						Main.NewText(Imbue.DisplayName.Value + " is missing " + DisplayName.Value + " sprite.", Color.Red);
-					}
 				}
-				return AOUtils.BlankTexture;
+				return BackupTexture;
 			}
 		}
 	}

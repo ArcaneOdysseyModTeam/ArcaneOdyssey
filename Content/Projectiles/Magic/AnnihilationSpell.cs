@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -81,12 +82,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Projectile.velocity = Vector2.Zero;
 			}
 
-			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
-			{
-				Kill();
-				return;
-			}
-
 			if (Projectile.wet && State == AnnihilationState.Moving)
 			{
 				StartExploding();
@@ -97,7 +92,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				case AnnihilationState.Hovering:
 					Projectile.Opacity = 1f - ((Projectile.timeLeft - FlightTime) / (float)ChargeTime);
 					Owner.ChangeDir(Math.Sign(Main.MouseWorld.X - Owner.position.X));
-					Projectile.Center = Owner.Center - new Vector2(0, ((Player.defaultHeight / 2f) + Projectile.width) * Projectile.scale);
+					Projectile.Bottom = Owner.Top;
 					AOPlayerOwner.HeavySkillActive = true;
 
 					if (++Projectile.ai[1] > ChargeTime)
@@ -146,23 +141,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			return false;
 		}
 
+		public string BackupTexture = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");
+
 		public override string Texture
 		{
 			get
 			{
 				if (Imbue is not (null or SoundMagic or SlashMagic))
 				{
-					var asset = AOUtils.GetTexture<AnnihilationSpell>().Replace(Name, $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
+					var asset = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
 					if (ModContent.HasAsset(asset))
 					{
 						return asset;
 					}
-					else
-					{
-						Main.NewText(Imbue.DisplayName.Value + " is missing " + DisplayName.Value + " sprite.", Color.Red);
-					}
 				}
-				return AOUtils.BlankTexture;
+				return BackupTexture;
 			}
 		}
 	}

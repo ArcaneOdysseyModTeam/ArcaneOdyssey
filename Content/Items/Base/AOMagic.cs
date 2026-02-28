@@ -22,15 +22,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			base.SetStaticDefaults();
 			RegisterMutations();
 			ItemID.Sets.ItemNoGravity[Type] = true;
-
-			if (this is not (SoundMagic or SlashMagic))
-			{
-				var texture = AOUtils.GetTexture<AnnihilationSpell>().Replace("AnnihilationSpell", $"Annihilations/{ImbuableTier}/{AttackPrefix}Annihilation");
-				if (!ModContent.HasAsset(texture))
-				{
-					ArcaneOdysseyMod.NoticeQueue.Add(DisplayName.Value + " is missing Annihilation sprite.");
-				}
-			}
 		}
 
 		public virtual void RegisterMutations() { }
