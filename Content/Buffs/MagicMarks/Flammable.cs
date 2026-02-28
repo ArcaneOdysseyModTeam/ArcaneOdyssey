@@ -16,6 +16,11 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			npc.oiled = true;
+			//if (!Main.dedServ)
+			//{
+			//	var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Water_Cavern);
+			//	dust.velocity *= 0.4f;
+			//}
 		}
 	}
 }

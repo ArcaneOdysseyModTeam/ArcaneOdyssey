@@ -694,10 +694,10 @@ namespace ArcaneOdyssey
 			{
 				target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
 			}
-			if (player.meleeEnchant == GelBuff.GelID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
+			if (player.meleeEnchant == GelBuff.meleeEnchantID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
 			{
-				if (player.ArcaneOdyssey().gel != 0)
-					target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
+				if (player.ArcaneOdyssey().GelDebuff != 0)
+					target.AddBuff(player.ArcaneOdyssey().GelDebuff, 60 * Main.rand.Next(5, 10));
 			}
 			if (!CanBeAffected)
 				return;
@@ -710,6 +710,24 @@ namespace ArcaneOdyssey
 			{
 				target.StrikeInstantKill();
 			}
+		}
+
+		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
+		{
+			if (!Main.dedServ && player.meleeEnchant == GelBuff.meleeEnchantID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
+			{
+				player.ArcaneOdyssey()?.Gel?.Effects(hitbox);
+			}
+			thisItem = item;
+			owner = player;
+			if (!CanBeAffected)
+				return;
+			if (Imbue is not null && Imbue.PreEffects(item))
+			{
+				Imbue.LingeringEffects(hitbox, Vector2.Zero, item);
+			}
+			if (SecondImbue is not null && SecondImbue.PreEffects(item))
+				SecondImbue.LingeringEffects(hitbox, Vector2.Zero, item);
 		}
 
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)

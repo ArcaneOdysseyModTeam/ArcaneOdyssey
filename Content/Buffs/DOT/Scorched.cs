@@ -8,8 +8,6 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 {
 	public class Scorched : AODebuff
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.Electrified}";
-
 		public override List<int> Counterparts => [BuffID.ShadowFlame, ModContent.BuffType<AOShadowflame>()];
 
 		public override void Update(NPC npc, ref int buffIndex)

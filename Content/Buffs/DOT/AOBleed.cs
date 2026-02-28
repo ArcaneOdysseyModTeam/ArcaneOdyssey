@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		{
 			if (Main.GameUpdateCount % 2 == 0) 
 			{
-				Dust.NewDust(npc.Center, 0, 0, DustID.Blood, Alpha: 1);
+				Dust.NewDust(npc.Center, 0, 0, DustID.Blood);
 			}
 			npc.ArcaneOdyssey().bleeding = true;
 		}

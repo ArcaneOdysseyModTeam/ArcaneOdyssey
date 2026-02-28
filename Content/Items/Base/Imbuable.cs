@@ -249,6 +249,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				return true;
 			}
+			if (entity is Item item)
+			{
+				return AOUtils.ImbueClassCheck(item);
+			}
 			return false;
 		}
 

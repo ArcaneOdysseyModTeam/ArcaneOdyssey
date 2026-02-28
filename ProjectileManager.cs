@@ -297,6 +297,10 @@ namespace ArcaneOdyssey
 		public override void AI(Projectile projectile)
 		{
 			thisProjectile = projectile;
+			if (!Main.dedServ && projectile.TryGetOwner(out var player) && player.meleeEnchant == GelBuff.meleeEnchantID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+			{
+				player.ArcaneOdyssey()?.Gel?.Effects(projectile.Hitbox);
+			}
 			if (!CanBeAffected)
 				return;
 			if (Imbue is not null && Imbue.PreEffects(projectile))
@@ -313,10 +317,10 @@ namespace ArcaneOdyssey
 
 			if (projectile.TryGetOwner(out var player))
 			{
-				if (player.meleeEnchant == GelBuff.GelID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+				if (player.meleeEnchant == GelBuff.meleeEnchantID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
 				{
-					if (player.ArcaneOdyssey().gel != 0)
-						target.AddBuff(player.ArcaneOdyssey().gel, 60 * Main.rand.Next(5, 10));
+					if (player.ArcaneOdyssey().GelDebuff != 0)
+						target.AddBuff(player.ArcaneOdyssey().GelDebuff, 60 * Main.rand.Next(5, 10));
 				}
 
 				if (player.ArcaneOdyssey().BloodDisease != 0)

@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ProjectileID.Sets.TrailingMode[Type] = 3;
+			ProjectileID.Sets.TrailingMode[Type] = 2;
 		}
 
 		public override void SetDefaults()

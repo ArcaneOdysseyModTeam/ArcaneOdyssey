@@ -197,7 +197,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			AOSizeStat = 0;
 			AOHasteStat = 0;
 			Insanity = 0;
-			gel = 0;
+			Gel = null;
 			ResetAlsoDead();
 			HandleDashDetection();
 		}

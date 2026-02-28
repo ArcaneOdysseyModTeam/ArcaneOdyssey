@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +18,8 @@ namespace ArcaneOdyssey.PlayerClasses
 				CombatText.NewText(location.Value, Color.Gray, -defense, true);
 		}
 
-		public int gel = 0;
+		public GelBuff Gel { get; set; } = null;
+		public int GelDebuff => Gel?.DebuffID ?? 0;
 
 		public string bloodDisease = null;
 

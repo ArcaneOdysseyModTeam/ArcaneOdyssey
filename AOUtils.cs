@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Buffs.Gels;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
@@ -896,6 +897,20 @@ namespace ArcaneOdyssey
 			return modifiers;
 		}
 
+		public static GelBuff GelFromID(GelID id) => id switch
+		{
+			GelID.Arctic => ModContent.GetInstance<ArcticGel>(),
+			GelID.Bleed => ModContent.GetInstance<BleedGel>(),
+			GelID.Corroding => ModContent.GetInstance<CorrodingGel>(),
+			GelID.Desert => ModContent.GetInstance<DesertGel>(),
+			GelID.Frost => ModContent.GetInstance<FrostGel>(),
+			GelID.Melting => ModContent.GetInstance<MeltingGel>(),
+			GelID.Scorch => ModContent.GetInstance<ScorchGel>(),
+			GelID.Tide => ModContent.GetInstance<TideGel>(),
+			_ => null,
+		};
+		
+
 		public static NPC.HitModifiers CalculateImbueDamage(Imbuable imbue, NPC target, NPC.HitModifiers modifiers)
 		{
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
@@ -1770,5 +1785,18 @@ namespace ArcaneOdyssey
 		Common,
 		Rare,
 		Lost
+	}
+
+	public enum GelID
+	{
+		None,
+		Arctic,
+		Bleed,
+		Corroding,
+		Desert,
+		Frost,
+		Melting,
+		Scorch,
+		Tide
 	}
 }

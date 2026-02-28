@@ -1,5 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using ArcaneOdyssey.Content.Buffs.DOT;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.Gels
@@ -8,5 +11,11 @@ namespace ArcaneOdyssey.Content.Buffs.Gels
 	{
 		public override int DebuffID => ModContent.BuffType<Melting>();
 		public override string Texture => AOUtils.GelTexture;
+
+		public override void Effects(Rectangle hitbox)
+		{
+			var dust = Dust.NewDustDirect(hitbox.TopLeft(), hitbox.Width, hitbox.Height, DustID.Lava);
+			dust.velocity *= 0.4f;
+		}
 	}
 }

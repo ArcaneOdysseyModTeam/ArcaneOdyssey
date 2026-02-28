@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -7,7 +8,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 {
 	public abstract class GelBuff : AOBaseBuff
 	{
-		public const int GelID = 99;
+		public const int meleeEnchantID = 99;
 
 		public override void SetStaticDefaults()
 		{
@@ -25,8 +26,10 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.ArcaneOdyssey().gel = DebuffID;
-			player.meleeEnchant = GelID;
+			player.ArcaneOdyssey().Gel = this;
+			player.meleeEnchant = meleeEnchantID;
 		}
+
+		public abstract void Effects(Rectangle hitbox);
 	}
 }
