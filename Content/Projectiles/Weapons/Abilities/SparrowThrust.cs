@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Main.projFrames[Type] = 10;
+			Main.projFrames[Type] = 7;
 		}
 
 		public override void SetDefaults()

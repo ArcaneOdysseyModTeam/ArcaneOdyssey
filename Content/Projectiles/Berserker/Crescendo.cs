@@ -8,8 +8,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class Crescendo : StrengthTechnique
 	{		
-		public override string Texture => AOUtils.GetTexture<SparrowThrust>();
-
 		public override bool CanHaveImbueVFX => false;
 		public Color Colour => Imbue?.GetColour(Color.White) ?? Color.White;
 		public static int LingerTime => 60;

@@ -770,7 +770,7 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is SpiritEnergy)
 				{
-					return imbue is AOMagic;
+					return imbue is AOMagic && Main.hardMode;
 				}
 				if (imbue is FightingStyle)
 				{
@@ -778,11 +778,11 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is AOMagic)
 				{
-					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || item.ModItem is SpiritEnergy or FightingStyle);
+					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || (item.ModItem is SpiritEnergy or FightingStyle && Main.hardMode));
 				}
 				if (imbue is SpiritEnergy)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || item.ModItem is AOMagic or FightingStyle);
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || (item.ModItem is AOMagic or FightingStyle && Main.hardMode));
 				}
 			}
 			return false;
