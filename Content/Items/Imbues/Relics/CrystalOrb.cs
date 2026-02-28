@@ -55,6 +55,8 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			return true;
 		}
 
+		public override bool CanShoot(Player player) => !player.AltUse();
+
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			base.LingeringEffects(area, direction, source);

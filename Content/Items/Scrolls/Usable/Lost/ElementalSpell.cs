@@ -11,7 +11,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 {
 	public class ElementalSpell : LostScroll
 	{
-		public override string Texture => AOUtils.GetTexture<AnnihilationScroll>();
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()
