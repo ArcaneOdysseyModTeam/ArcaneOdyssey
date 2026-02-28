@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Berserker;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -10,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class PiercingGale : AOPlayerProjectile
 	{
-		public override string Texture => AOUtils.GetTexture<SparrowThrust>();
+		public override string Texture => AOUtils.GetTexture<Crescendo>();
 		public override Debuff? ProjectileDebuff => null;
 		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
 

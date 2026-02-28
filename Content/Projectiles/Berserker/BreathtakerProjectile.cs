@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 2;
+			Projectile.width = Projectile.height = Player.defaultHeight;
 			Projectile.extraUpdates = 1000;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
@@ -26,6 +26,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.ArcaneOdyssey().LowerDefense(2, target.Hitbox);
+		}
+
+		public override void AI()
+		{
+			if (Projectile.Distance(Owner.Center) > ApplyScrollSpeed(180f))
+			{
+				Kill();
+			}
+			Projectile.velocity = Owner.velocity.SafeNormalize(Projectile.velocity);
 		}
 	}
 }
