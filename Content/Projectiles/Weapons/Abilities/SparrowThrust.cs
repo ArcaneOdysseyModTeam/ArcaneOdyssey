@@ -13,6 +13,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public static int LingerTime => 60;
 		public static int TravelTime => 100 * 60;
 
+		public override float AOSize => 1.5f;
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -22,7 +24,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 186;
+			Projectile.width = Projectile.height = 128;
 			Projectile.friendly = true;
 			Projectile.timeLeft = LingerTime + TravelTime;
 			Projectile.extraUpdates = 100;

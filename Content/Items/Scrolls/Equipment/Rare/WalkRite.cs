@@ -2,6 +2,7 @@
 using ArcaneOdyssey.PlayerClasses;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 
@@ -41,6 +42,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 			player.ArcaneOdyssey().StartDash(dash, 4 * player.direction, Imbue, true);
 		}
 
+		public override void OnStart(Player player)
+		{
+			SoundEngine.PlaySound(Imbue?.ImbueSound, player.Center);
+		}
+
 		public override float DashSpeed => 15;
 
 		public override int DashMax => 15;
@@ -65,6 +71,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 			player.ArcaneOdyssey().StartDash(dash, 3 * player.direction, Imbue, true);
 		}
 
+		public override void OnStart(Player player)
+		{
+			SoundEngine.PlaySound(Imbue?.ImbueSound, player.Center);
+		}
+
 		public override float DashSpeed => 15;
 
 		public override int DashMax => 15;
@@ -86,6 +97,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override void OnEnd(Player player)
 		{
 			player.velocity *= .25f;
+		}
+
+		public override void OnStart(Player player)
+		{
+			SoundEngine.PlaySound(Imbue?.ImbueSound, player.Center);
 		}
 
 		public override float DashSpeed => 15;

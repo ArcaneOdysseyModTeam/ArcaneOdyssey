@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.PlayerClasses
 
 		public override void FrameEffects()
 		{
-			if (Player.armor[1].type == ModContent.ItemType<EliusChest>() && Player.back == -1)
+			if (Player.body == EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Body) && Player.back == -1)
 			{
 				Player.back = EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Back);
 			}
