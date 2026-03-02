@@ -66,6 +66,8 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 
 		public override void AI()
 		{
+
+			bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileSolidGround();
 			if (NPC.ai[0] == 0) //Chase
 			{// Chase the nearest player
 				NPC.ai[1]++;
@@ -73,7 +75,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
 				{ // Limit chasing distance
 					NPC.velocity.X += NPC.direction * 0.2f;
-					if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
+					if (NPC.ai[2] == 0 && !stuckintile && Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
 					{ // Attack meelee or stop
 						NPC.velocity.X = 0f;
 						if (NPC.ai[1] >= 60)
@@ -83,7 +85,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 							NPC.ai[1] = 0;
 						}
 					}
-					else if (NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
+					else if (NPC.ai[2] == 0 && !stuckintile && NPC.ai[1] > 130 && Main.player[NPC.target].Center.Distance(NPC.Center) <= 900f && Main.player[NPC.target].Center.Distance(NPC.Center) >= 100f)
 					{
 
 						NPC.ai[0] = 1;
@@ -95,8 +97,6 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				{
 					NPC.velocity.X *= 0.8f;
 				}
-
-				bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileSolidGround();
 
 				if (Math.Abs(NPC.velocity.X) < 0.2f)
 				{
@@ -114,7 +114,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 					NPC.noGravity = false;
 				}
 
-				if (NPC.HasValidTarget && (NPC.ai[2] > 30 || stuckintile))
+				if (NPC.HasValidTarget && (NPC.ai[2] >= 100 || stuckintile))
 				{
 					NPC.noTileCollide = true;
 					NPC.noGravity = true;
