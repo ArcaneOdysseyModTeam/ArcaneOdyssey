@@ -15,10 +15,12 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 	{
 		public abstract int AOHealth { get; }
 
+		public virtual int WalkingSpriteCount => 15;
+
 		public override void SetStaticDefaults()
 		{
 			MinibossSpawning.AllMinibosses.Add(this);
-			Main.npcFrameCount[Type] = 27;
+			Main.npcFrameCount[Type] = 24;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			ExternalModSupport.DeclareMiniboss(Type);
@@ -93,42 +95,59 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				{
 					NPC.velocity.X *= 0.8f;
 				}
+
+				bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileSolidGround();
+
 				if (Math.Abs(NPC.velocity.X) < 0.2f)
 				{
 					NPC.velocity.X = 0f;
 				}
-				bool tileUnderIsFlat = Main.tile[(int)(NPC.Bottom.X / 16f), (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
-				bool tileNextToFlatTile = Main.tileSolid[Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].TileType] && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsActuated && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
-				// Jump if there's a block
-				if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
+
+				if (Math.Abs(NPC.velocity.X) <= .2f)
 				{
-					NPC.velocity.Y = -7f;
+					NPC.ai[2]++; // stuck counter
 				}
-				else if (tileUnderIsFlat)
+				else
 				{
-					if (tileNextToFlatTile && (NPC.ai[1] % 5 == 1))
+					NPC.ai[2] = 0; // stuck counter
+					NPC.noTileCollide = false;
+					NPC.noGravity = false;
+				}
+
+				if (NPC.HasValidTarget && (NPC.ai[2] > 30 || stuckintile))
+				{
+					NPC.noTileCollide = true;
+					NPC.noGravity = true;
+					NPC.velocity = NPC.DirectionTo(Main.player[NPC.target].Center);
+				}
+				else
+				{
+					bool tileUnderIsFlat = Main.tile[(int)(NPC.Bottom.X / 16f), (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
+					bool tileNextToFlatTile = Main.tileSolid[Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].TileType] && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsActuated && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
+					// Jump if there's a block
+					if (CheckTileToDir(NPC.direction, NPC.Bottom + new Vector2(0f, -16f)) && canJump)
 					{
-						NPC.velocity.Y = -2f;
+						NPC.velocity.Y = -7f;
 					}
+					else if (tileUnderIsFlat)
+					{
+						if (tileNextToFlatTile && (NPC.ai[1] % 5 == 1))
+						{
+							NPC.velocity.Y = -2f;
+						}
+					}
+					else if (NPC.wet && (NPC.ai[1] % 3 == 1))
+					{
+						NPC.velocity.Y = -1f;
+					}
+					canJump = (CheckTileToDir(0, NPC.Bottom) || CheckTileToDir(0, NPC.BottomLeft) || CheckTileToDir(0, NPC.BottomRight)) && Math.Abs(NPC.velocity.Y) < 0.01f;
 				}
-				else if (NPC.wet && (NPC.ai[1] % 3 == 1))
-				{
-					NPC.velocity.Y = -1f;
-				}
-				canJump = (CheckTileToDir(0, NPC.Bottom) || CheckTileToDir(0, NPC.BottomLeft) || CheckTileToDir(0, NPC.BottomRight)) && Math.Abs(NPC.velocity.Y) < 0.01f;
 			}
-			else if (NPC.ai[0] == 1 && NPC.HasValidTarget) // col cleave
+			else if (NPC.ai[0] == 1 && NPC.HasValidTarget) // ranged
 			{
 				NPC.ai[1]++;
 				NPC.velocity.X *= 0.7f;
-				if (NPC.ai[1] >= 20)
-				{
-
-					NPC.ai[0] = 0;
-					NPC.ai[1] = 0;
-					NPC.frameCounter = 0;
-				}
-				else if (NPC.HasValidTarget && NPC.ai[1] == 15 && Main.netMode != NetmodeID.MultiplayerClient)
+				if (NPC.HasValidTarget && NPC.ai[1] == ((Main.npcFrameCount[Type] - WalkingSpriteCount) * 2) && Main.netMode != NetmodeID.MultiplayerClient)
 				{
 					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
 					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, Main.rand.Next(RangedProjectiles), NPC.damage, 4.5f);
@@ -137,14 +156,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
 			{
 				NPC.ai[1]++;
-				if (NPC.ai[1] >= 20)
-				{
-
-					NPC.ai[1] = 0;
-					NPC.frameCounter = 0;
-					NPC.ai[0] = 0;
-				}
-				else if (NPC.ai[1] == 10 && Main.netMode != NetmodeID.MultiplayerClient)
+				if (NPC.ai[1] == ((Main.npcFrameCount[Type] - WalkingSpriteCount) * 2) && Main.netMode != NetmodeID.MultiplayerClient)
 				{
 					List<int> melee = [.. MeleeProjectiles];
 					List<int> activetypes = [];
@@ -183,7 +195,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 		{
 			if (NPC.HasValidTarget)
 			{
-				if (NPC.HasValidTarget && NPC.ai[0] == 0)
+				if (NPC.ai[0] == 0)
 				{
 					if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
 					{
@@ -197,13 +209,13 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 					{
 						if (NPC.frameCounter > 3)
 						{
-							if (NPC.frame.Y < 16 * frameHeight && NPC.frame.Y > 0 * frameHeight)
+							if (NPC.frame.Y < (WalkingSpriteCount * frameHeight) && NPC.frame.Y >= 0)
 							{
 								NPC.frame.Y += frameHeight;
 							}
 							else
 							{
-								NPC.frame.Y = frameHeight;
+								NPC.frame.Y = 0;
 							}
 							NPC.frameCounter = 0;
 						}
@@ -212,35 +224,51 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				}
 				else if (NPC.ai[0] == 1)
 				{
-					if (NPC.frameCounter > 2)
+					if (NPC.frameCounter++ > 2)
 					{
-						if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
+						if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight) && NPC.frame.Y >= (WalkingSpriteCount * frameHeight))
 						{
 							NPC.frame.Y += frameHeight;
 						}
 						else
 						{
-							NPC.frame.Y = frameHeight * 17;
+							if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
+							{
+								NPC.frame.Y = WalkingSpriteCount * frameHeight;
+							}
+							else
+							{
+								NPC.ai[0] = 0;
+								NPC.ai[1] = 0;
+								NPC.frameCounter = 0;
+							}
 						}
 						NPC.frameCounter = 0;
 					}
-					NPC.frameCounter++;
 				}
 				else if (NPC.ai[0] == 2)
 				{
-					if (NPC.frameCounter > 2)
+					if (NPC.frameCounter++ > 2)
 					{
-						if (NPC.frame.Y < 27 * frameHeight && NPC.frame.Y > 16 * frameHeight)
+						if (NPC.frame.Y >= (WalkingSpriteCount * frameHeight) && NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
 						{
 							NPC.frame.Y += frameHeight;
 						}
 						else
 						{
-							NPC.frame.Y = frameHeight * 17;
+							if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
+							{
+								NPC.frame.Y = WalkingSpriteCount * frameHeight;
+							}
+							else
+							{
+								NPC.ai[0] = 0;
+								NPC.ai[1] = 0;
+								NPC.frameCounter = 0;
+							}
 						}
 						NPC.frameCounter = 0;
 					}
-					NPC.frameCounter++;
 				}
 			}
 			else

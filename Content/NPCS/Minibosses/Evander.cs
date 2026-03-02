@@ -19,10 +19,10 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<EvanderMelee>()];
 		public override List<int> RangedProjectiles => [ModContent.ProjectileType<EvanderSlash>()];
 
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			NPC.lifeMax = 5000;
 			NPC.damage = 75;
 			NPC.defense = 20;
 			NPC.width = 20;

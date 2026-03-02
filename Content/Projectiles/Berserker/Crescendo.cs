@@ -9,7 +9,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 	public class Crescendo : StrengthTechnique
 	{		
 		public override bool CanHaveImbueVFX => false;
-		public Color Colour => Imbue?.GetColour(Color.White) ?? Color.White;
 		public static int LingerTime => 60;
 		public static int TravelTime => 100 * 60;
 
@@ -68,6 +67,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			Color Colour = Imbue?.GetColour(lightColor) ?? lightColor;
 			var realkmax = ApplyScrollSpeed(12f).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{

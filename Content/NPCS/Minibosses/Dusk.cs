@@ -21,9 +21,9 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 		{
 			base.SetDefaults();
 			NPC.damage = 65;
-			NPC.defense = 15;
-			NPC.width = 20;
-			NPC.height = 44;
+			NPC.defense = 12;
+			NPC.width = Player.defaultWidth;
+			NPC.height = Player.defaultHeight;
 			//Sprite height 46
 			//Sprite width 68
 			NPC.HitSound = SoundID.NPCHit40;
@@ -32,6 +32,14 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Main.npcFrameCount[Type] = 28;
+		}
+
+		public override int WalkingSpriteCount => 12;
 
 		public override float ShootSpeed => 7f * .9f;
 

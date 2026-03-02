@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.timeLeft = 60 * 3;
 			Projectile.hostile = true;
+			Projectile.penetrate = -1;
 			Projectile.height = Projectile.width = 234;
 		}
 

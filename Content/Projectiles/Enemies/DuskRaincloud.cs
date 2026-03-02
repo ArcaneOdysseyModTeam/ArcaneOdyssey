@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.ignoreWater = true;
 			Projectile.timeLeft = MaxTimeLeft;
 			Projectile.scale = 1.5f;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SetStaticDefaults()
@@ -67,6 +68,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 
 			if (Projectile.timeLeft <= (MaxTimeLeft - 60))
 			{
+				Projectile.hostile = true;
 				Projectile.velocity = Vector2.Zero;
 				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(2f)), ModContent.ProjectileType<DuskRaindrop>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, null, true);
 			}

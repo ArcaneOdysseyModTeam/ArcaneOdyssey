@@ -27,6 +27,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.hostile = true;
 			Projectile.height = 84;
 			Projectile.width = 104;
+			Projectile.penetrate = -1;
 			Projectile.AverageDimensions();
 			Projectile.timeLeft = TimeLeftMax;
 			Projectile.ignoreWater = true;

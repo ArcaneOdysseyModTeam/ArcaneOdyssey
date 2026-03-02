@@ -13,9 +13,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Imbue is AOMagic)
+			if (Imbue is null or AOMagic)
 			{
-				lightColor = Imbue.GetColour();
+				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
 				return base.PreDraw(ref lightColor);
 			}
 			else
