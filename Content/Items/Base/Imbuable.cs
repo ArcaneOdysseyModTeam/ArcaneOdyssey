@@ -40,6 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			player.ArcaneOdyssey()?.AddEquippedImbue(Item);
 		}
+
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		public string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;

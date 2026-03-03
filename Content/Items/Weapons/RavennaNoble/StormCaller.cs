@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 {
-	public class StormCaller : AORangedOrMeleeWeapon
+	public class StormCaller : AOWeapon
 	{
 		public override float AODamage => 0.9f;
 		public override float AOSize => 1.1f;

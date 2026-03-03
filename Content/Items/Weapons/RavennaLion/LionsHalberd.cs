@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 {
-	public class LionsHalberd : AORangedOrMeleeWeapon
+	public class LionsHalberd : AOWeapon
 	{
 		public override float AOSpeed => .5f;
 		public override float AOSize => 1.35f;

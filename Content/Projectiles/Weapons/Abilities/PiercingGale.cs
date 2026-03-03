@@ -2,8 +2,10 @@
 using ArcaneOdyssey.Content.Projectiles.Berserker;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,26 +13,36 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 {
 	public class PiercingGale : AOPlayerProjectile
 	{
-		public override string Texture => AOUtils.GetTexture<Crescendo>();
-		public override Debuff? ProjectileDebuff => null;
+		public static int AfterimagesType => ModContent.ProjectileType<Crescendo>();
+		public static Texture2D Afterimages => TextureAssets.Projectile[AfterimagesType].Value;
 		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
-
-		public override float AOSize => 1f;
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Main.projFrames[Type] = 10;
-			ProjectileID.Sets.TrailingMode[Type] = 0;
+			Main.projFrames[Type] = 4;
 		}
+
+		public List<Vector2> cache = [];
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 64;
+			Projectile.width = Projectile.height = 24;
 			Projectile.friendly = true;
 			Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
 			Projectile.DamageType = DamageClass.Melee;
+		}
+
+		public override bool PreAI()
+		{
+			cache.Insert(0, Projectile.Center);
+			if (cache.Count > 10)
+			{
+				cache.RemoveAt(10);
+			}
+			Projectile.localAI[0]++;
+			return base.PreAI();
 		}
 
 		public override void AI()
@@ -47,6 +59,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			}
 
 			Projectile.rotation = Projectile.velocity.ToRotation();
+
+			if (++Projectile.frameCounter > 3)
+			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= Main.projFrames[Type])
+				{
+					Projectile.frame = 0;
+				}
+			}
 		}
 
 		public override bool PreKill(int timeLeft)
@@ -74,14 +95,21 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			var oldPos = cache.ToArray();
+			lightColor = Colour;
+			if (Projectile.localAI[0] > 2) Projectile.localAI[0] = 0;
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+			for (int k = oldPos.Length - 1; k > -1; k--)
 			{
-				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Colour) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale * .5f - (k * .015f), mode);
+				if (k % 3 == Projectile.localAI[0])
+				{
+					Vector2 drawPos = oldPos[k] + new Vector2(0f, Projectile.gfxOffY);
+					var colour2 = Projectile.GetAlpha(lightColor) * ((oldPos.Length - k) / (float)oldPos.Length);
+					colour2 *= .75f;
+					Main.EntitySpriteDraw(Afterimages, drawPos - Main.screenPosition, new(0, 0, Afterimages.Width, Afterimages.Height / Main.projFrames[AfterimagesType]), colour2, Projectile.rotation, new Vector2(Afterimages.Width, Afterimages.Height / Main.projFrames[AfterimagesType]) / 2f, Projectile.scale * .15f + (k * .05f), mode);
+				}
 			}
-			return false;
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

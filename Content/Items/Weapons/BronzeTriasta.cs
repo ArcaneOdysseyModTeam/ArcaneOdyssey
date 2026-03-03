@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class BronzeTriasta : AORangedOrMeleeWeapon
+	public class BronzeTriasta : AOWeapon
 	{
 		public override void SetStaticDefaults()
 		{

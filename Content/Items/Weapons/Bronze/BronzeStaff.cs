@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
-	public class BronzeStaff : AORangedOrMeleeWeapon
+	public class BronzeStaff : AOWeapon
 	{
 		public override float AOSpeed => 1;
 		public override float AOSize => .9f;

@@ -707,7 +707,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile is not null && projectile.active)
 			{
-				if ((projectile.ModProjectile is null or AOPlayerProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
+				if ((projectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 				{
 					return (
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
@@ -725,7 +725,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item is not null && item.active && (!item.accessory || item.ModItem is Scroll) && (item.ModItem is null or AORangedOrMeleeWeapon || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
+			if (item is not null && item.active && (!item.accessory || item.ModItem is Scroll) && (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
 				if (item.ArcaneOdyssey().WeaponsType != WeaponType.Artisinal)
 				{
@@ -1510,7 +1510,7 @@ namespace ArcaneOdyssey
 				return player.ArcaneOdyssey();
 			if (entity is Item item)
 			{
-				if (item.ModItem is AORangedOrMeleeWeapon weap)
+				if (item.ModItem is AOWeapon weap)
 					return weap;
 				return item.ArcaneOdyssey();
 			}
@@ -1523,7 +1523,7 @@ namespace ArcaneOdyssey
 	public struct WeaponAbility
 	{
 		public TooltipLine ToolTip = null;
-		public WeaponAbility(AORangedOrMeleeWeapon moditem, Color color)
+		public WeaponAbility(AOWeapon moditem, Color color)
 		{
 			string Key(string suffix)
 			{

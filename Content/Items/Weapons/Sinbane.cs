@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class Sinbane : AORangedOrMeleeWeapon
+	public class Sinbane : AOWeapon
 	{
 		public override int AOValue => 400;
 		public override AORarities AORarity => AORarities.Uncommon;

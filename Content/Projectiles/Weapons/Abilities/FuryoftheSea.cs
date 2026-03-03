@@ -50,8 +50,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 					Projectile.netSpam = 0;
 				}
 			}
-			if (Projectile.timeLeft % 6 == 0)
+			if (++Projectile.frameCounter > 6)
 			{
+				Projectile.frameCounter = 0;
 				SoundEngine.PlaySound(SoundID.Splash with { Pitch = -.25f }, Projectile.Center);
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{

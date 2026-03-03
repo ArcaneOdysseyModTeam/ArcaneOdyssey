@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 {
-	public class NobleThunderspear : AORangedOrMeleeWeapon
+	public class NobleThunderspear : AOWeapon
 	{
 		public override int AOValue => 135;
 

@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
-	public class BronzeTrident : AORangedOrMeleeWeapon
+	public class BronzeTrident : AOWeapon
 	{
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;

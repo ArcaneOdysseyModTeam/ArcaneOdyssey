@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
-	public class BronzeFlintlock : AORangedOrMeleeWeapon
+	public class BronzeFlintlock : AOWeapon
 	{
 		public override int AOValue => 60;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;

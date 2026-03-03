@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class AORangedOrMeleeWeapon : AOBaseItem, IImbuable
+	public abstract class AOWeapon : AOBaseItem, IImbuable
 	{
 		public float ApplyScrollSpeed(float value, bool flipfloat = false)
 		{

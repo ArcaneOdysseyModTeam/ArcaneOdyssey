@@ -26,12 +26,15 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			player.noFallDmg = true;
 		}
 
-		
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.accessory = true;
+		}
+
+		public override void UpdateVanity(Player player)
+		{
+			base.UpdateEquip(player);
 		}
 
 		public static float AscentWhenFalling => 0.75f;

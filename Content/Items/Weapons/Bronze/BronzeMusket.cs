@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
-	public class BronzeMusket : AORangedOrMeleeWeapon
+	public class BronzeMusket : AOWeapon
 	{
 		public override int AOValue => 140;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;

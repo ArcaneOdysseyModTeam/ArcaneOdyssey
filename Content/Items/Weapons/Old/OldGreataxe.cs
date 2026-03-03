@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
-	public class OldGreataxe : AORangedOrMeleeWeapon
+	public class OldGreataxe : AOWeapon
 	{
 		public override int AOValue => 50;
 		public override float AOSize => 1.05f;

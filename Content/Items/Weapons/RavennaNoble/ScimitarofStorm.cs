@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 {
-	public class ScimitarofStorm : AORangedOrMeleeWeapon
+	public class ScimitarofStorm : AOWeapon
 	{
 		public override int AOValue => 210;
 

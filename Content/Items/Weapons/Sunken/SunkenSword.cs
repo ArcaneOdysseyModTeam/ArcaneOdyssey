@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 {
-	public class SunkenSword : AORangedOrMeleeWeapon
+	public class SunkenSword : AOWeapon
 	{
 		public override bool? Cold => true;
 		public override float AOSpeed => 1.2f;
