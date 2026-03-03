@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 		public override float AOSize => .85f;
 
-		public override WeaponAbility? Ability => new(this, Color.MediumPurple);
+		public override Color Colour => Color.MediumPurple;
 
 		public override void SetStaticDefaults()
 		{

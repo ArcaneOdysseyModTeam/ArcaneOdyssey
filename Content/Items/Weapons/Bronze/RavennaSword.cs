@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override WeaponAbility? Ability => new(this, Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override void SetDefaults()
 		{
@@ -41,6 +41,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.ownedProjectileCounts[Item.shoot] < 1 && !player.ArcaneOdyssey().OnCooldown<WhirlwindCooldown>())
 			{
+				ActivateAbility(player, false);
 				player.ArcaneOdyssey()?.SetCooldown<WhirlwindCooldown>();
 				var proj = Projectile.NewProjectileDirect(new EntitySource_ItemUse(player, Item), player.Center, Vector2.UnitX * player.direction, ModContent.ProjectileType<Whirlwind>(), Item.damage, 0, player.whoAmI);
 				SoundEngine.PlaySound(Item.UseSound, player.Center);

@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Rare;
 		public override SoundStyle UseSound => SoundID.Item5;
-		public override WeaponAbility? Ability => new(this, Color.MediumPurple);
+		public override Color Colour => Color.MediumPurple;
 
 		public override void SetStaticDefaults()
 		{
@@ -58,6 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		{
 			if (player.AltUse())
 			{
+				ActivateAbility(player, true);
 				var offsetX = Main.MouseWorld.X + (Main.maxScreenW / 35f * Main.rand.Next(-2, 3));
 				var offsetY = Main.screenPosition.Y - (Main.maxScreenH * .15f);
 				var pos = new Vector2(offsetX, offsetY);

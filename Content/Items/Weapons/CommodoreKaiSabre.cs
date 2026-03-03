@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,6 +15,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override int AOValue => 200;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+
+		public override Color Colour => Color.Red;
 
 		public override void SetDefaults()
 		{

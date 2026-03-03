@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.2f;
 		public override SoundStyle UseSound => SoundID.Item11;
 
-		public override WeaponAbility? Ability => new(this, Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override void SetDefaults()
@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (type == ProjectileID.Bullet)
 			{
+				ActivateAbility(player, true);
 				type = ProjectileID.BulletHighVelocity;
 			}
 		}

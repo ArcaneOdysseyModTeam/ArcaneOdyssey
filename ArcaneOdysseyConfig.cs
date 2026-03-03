@@ -44,6 +44,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool ItemTypeTooltips { get; set; }
 
+		[DefaultValue(true)]
+		public bool AbilityText { get; set; }
+
 		public static ArcaneOdysseyClientConfig Instance;
 	}
 }

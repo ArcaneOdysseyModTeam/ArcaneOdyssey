@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Terraria;
@@ -30,6 +31,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override void EffectBeforeSpin(Player player)
 		{
+			if (Owner.PlayerItem()?.ModItem is AOWeapon weap)
+			{
+				weap.ActivateAbility(Owner, true);
+			}
 			if (Projectile.owner == Main.myPlayer)
 				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 17.5f * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, SecondImbue);
 		}

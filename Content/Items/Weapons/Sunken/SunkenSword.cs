@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 		public override int AOValue => 900;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override WeaponAbility? Ability => new(this, Color.Aqua);
+		public override Color Colour => Color.Aqua;
 		public override SoundStyle UseSound => SoundID.SplashWeak;
 		public override Debuff? WeaponDebuff => Debuff.Create<Soaked>(60 * 5);
 
@@ -44,7 +44,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 			{
 				var dash = new RisingTide(Item);
 				if (!dash.OnCooldown(player))
+				{
 					player.ArcaneOdyssey().StartDash(dash, -2, Imbue, true);
+					ActivateAbility(player, false);
+				}
 			}
 			if (!Main.dedServ)
 			{
@@ -67,9 +70,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 	public class RisingTide(Entity source) : DashSystem(source)
 	{
 		public override bool ContactDamage => false;
-		public override float DashSpeed => 23;
-		public override int DashMax => 60;
-		public override bool LocksPlayer => false;
+		public override float DashSpeed => 13;
+		public override int DashMax => 30;
+		public override bool LocksPlayer => true;
 		public override bool Immune => false;
 		public override int Cooldown => 60 * 3;
 		public override bool OnHit(Player player, Entity target) => false;
@@ -91,10 +94,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Sunken
 				// Adds dust
 				for (int dustCountInt = 0; dustCountInt < 50; dustCountInt++)
 				{
-					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1.3f);
-					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1.3f);
-					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1f);
-					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir, 255, new Color(255, 255, 255, 255), 1f);
+					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, Scale: 1.3f);
+					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, Scale: 1.3f);
+					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
+					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
 				}
 			}
 		}

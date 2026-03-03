@@ -91,6 +91,11 @@ Configs: {
 			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
 			Tooltip: Toggles whether to show the rarity and type of items in their tooltips
 		}
+
+		AbilityText: {
+			Label: Ability Text
+			Tooltip: Ability names appear above your head when you activate them
+		}
 	}
 }
 

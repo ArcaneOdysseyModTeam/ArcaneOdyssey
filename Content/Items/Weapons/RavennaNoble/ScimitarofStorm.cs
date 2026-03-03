@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 			knockback /= 2;
 		}
 
-		public override WeaponAbility? Ability => new(this, Color.Gold);
+		public override Color Colour => Color.Gold;
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
@@ -52,6 +52,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		public override void UseAnimation(Player player)
 		{
 			noUseCounter = 0;
+			if (swings == 0)
+				ActivateAbility(player, true);
 			if (++swings > 2)
 			{
 				swings = 0;
@@ -60,7 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 		public override void UpdateInventory(Player player)
 		{
-			if (!Main.mouseLeft)
+			if (!Main.mouseLeft && noUseCounter < 100)
 			{
 				noUseCounter++;
 			}

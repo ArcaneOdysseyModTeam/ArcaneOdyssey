@@ -129,7 +129,7 @@ Acrimony: {
 	DisplayName: Prometheus's Acrimony
 	Tooltip:
 		'''
-		Can be used to reset your imbues
+		Can be used to change your imbues
 		Right click on one in your inventory to use
 		'''
 }

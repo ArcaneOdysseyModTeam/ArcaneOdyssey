@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponType WeaponsType => WeaponType.Strength;
-		public override WeaponAbility? Ability => new(this, Color.Gold);
+		public override Color Colour => Color.Gold;
 
 		public override void SetDefaults()
 		{
@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		{
 			if (player.AltUse())
 			{
-				var dash = new SeismicSlash(Item);
+				var dash = new SeismicSlash(this);
 				if (!dash.OnCooldown(player))
 				{
 					player.ArcaneOdyssey().StartDash(dash, 2, Imbue);
@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		}
 	}
 
-	public class SeismicSlash(Entity source) : DashSystem(source)
+	public class SeismicSlash(AOWeapon hal) : DashSystem(hal.Item)
 	{
 		public override bool FallThrough => false;
 		public override bool LocksPlayer => true;
@@ -61,6 +61,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		public override bool OnHit(Player player, Entity target) => true;
 
 		public SlotId? sound = null;
+
+		public override bool ContactDamage => false;
 
 		public override void DashEffect(Player player)
 		{
@@ -98,14 +100,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 					activeSound.Stop();
 				}
 			}
-		}
-
-		public override void NaturalEnd(Player player)
-		{
 			if (player.whoAmI == Main.myPlayer)
 			{
 				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
 			}
+			hal.ActivateAbility(player, false);
 		}
 
 		public override int DisplayedCooldownID => ModContent.BuffType<SeismicSlashCooldown>();

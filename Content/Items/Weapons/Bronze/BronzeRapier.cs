@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;
 
-		public override WeaponAbility? Ability => new(this, Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override void SetDefaults()
 		{
@@ -68,6 +68,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			ActivateAbility(player, false);
 			var shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
 			var dash = new PiercingStrikes(shot);
 			player.ArcaneOdyssey().StartDash(dash, imbue: Imbue, imbueAffectsSpeed: true);

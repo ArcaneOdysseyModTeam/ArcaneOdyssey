@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AOSpeed => 1.1f;
 		public override int AOValue => 350;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override WeaponAbility? Ability => new(this, Color.Gold);
+		public override Color Colour => Color.Gold;
 		public override AORarities AORarity => AORarities.Rare;
 		public override bool? Cold => false;
 		public override Debuff? WeaponDebuff => Debuff.Create<CharredEffect>();
@@ -48,12 +48,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown<EtherealFlashCooldown>())
 			{
-				player.ArcaneOdyssey().StartDash(new EtherealFlash(Item), imbue: Imbue, imbueAffectsSpeed: true);
+				player.ArcaneOdyssey().StartDash(new EtherealFlash(this), imbue: Imbue, imbueAffectsSpeed: true);
 			}
 		}
 	}
 
-	public class EtherealFlash(Entity source) : DashSystem(source)
+	public class EtherealFlash(AOWeapon tri) : DashSystem(tri.Item)
 	{
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
@@ -65,6 +65,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override void OnEnd(Player player)
 		{
 			player.velocity *= .01f;
+			tri.ActivateAbility(player, false);
 		}
 
 		public override void OnStart(Player player)

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -37,5 +38,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			}
 			return base.CanUseItem(player) && canSwing;
 		}
+
+		public override Color Colour => Color.Gray;
 	}
 }

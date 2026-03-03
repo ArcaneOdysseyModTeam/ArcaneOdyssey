@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AOSize => 1;
 		public override float AOSpeed => .95f;
 		public override int AOValue => 50;
-		public override WeaponAbility? Ability => new(this, Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override void SetStaticDefaults()
 		{
@@ -54,6 +54,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override bool AltFunctionUse(Player player)
 		{
 			Item.useStyle = ItemUseStyleID.Swing;
+			ActivateAbility(player, false);
 			return true;
 		}
 

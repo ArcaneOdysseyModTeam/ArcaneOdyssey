@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override WeaponAbility? Ability => new(this, Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override void SetDefaults()
 		{
@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			ActivateAbility(player, true);
 			float anglediv = 9;
 			var angle1 = velocity.ToRotation() + MathHelper.Pi / anglediv;
 			var angle2 = velocity.ToRotation() - MathHelper.Pi / anglediv;
@@ -61,7 +62,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void UpdateInventory(Player player)
 		{
-			if (!Main.mouseLeft)
+			if (!Main.mouseLeft && noUseCounter < 100)
 			{
 				noUseCounter++;
 			}

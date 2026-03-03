@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.PlayerClasses;
 using System;
 using Terraria;
@@ -14,6 +15,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		{
 			if (Imbue is not null && Math.Abs(Owner.velocity.X) > (AOPlayerOwner.MaxRunSpeed * 1.1f) && !AOPlayerOwner.OnCooldown<RagingImpact>())
 			{
+				if (Owner.PlayerItem()?.ModItem is AOWeapon weap)
+				{
+					weap.ActivateAbility(Owner, false);
+				}
 				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, target.Center);
 				AOPlayerOwner.SetCooldown<RagingImpact>();
 				AOUtils.SimulateAOE(Projectile.width * 3, damageDone / 3, target.Center, hit.Knockback, Projectile, Projectile.DamageType, false, target.whoAmI);

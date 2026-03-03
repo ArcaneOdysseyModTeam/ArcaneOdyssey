@@ -1,14 +1,49 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
+using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class AOWeapon : AOBaseItem, IImbuable
 	{
+		public void ActivateAbility(Player player, bool passive)
+		{
+			if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
+			{
+				CombatText.NewText(player.Hitbox, Ability.Value.Colour, Ability.Value.Name + "!", !passive);
+			}
+		}
+
+		public WeaponAbility? Ability 
+		{ 
+			get
+			{
+				var ab = new WeaponAbility
+				{
+					Colour = GetColour()
+				};
+				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+				{
+					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName").Value;
+					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description").Value;
+					return ab;
+				}
+				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
+				{
+					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability").Value;
+					ab.Description = null;
+					return ab;
+				}
+				return null;
+			} 
+		}
+
 		public float ApplyScrollSpeed(float value, bool flipfloat = false)
 		{
 			if (Imbue is not null)
@@ -66,7 +101,13 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public abstract int AOValue { get; }
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public virtual Debuff? WeaponDebuff => Debuff.Create<AOBleed>(5 * 60);
-		public virtual WeaponAbility? Ability => null;
+		public abstract Color Colour { get; }
+
+		public Color GetColour()
+		{
+			return Imbue?.GetColour(Colour) ?? Colour;
+		}
+
 		public virtual SoundStyle UseSound => SoundID.Item71;
 
 
@@ -77,7 +118,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override void SetStaticDefaults()
 		{
-			_ = Ability;
 			if (WeaponsType == WeaponType.Strength)
 				ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}

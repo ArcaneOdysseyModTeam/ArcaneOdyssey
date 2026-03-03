@@ -98,7 +98,12 @@ namespace ArcaneOdyssey
 			{
 				if (weapon.Ability.HasValue)
 				{
-					tooltips.AddTooltip(weapon.Ability.Value.ToolTip);
+					string text = $"[c/{weapon.Ability.Value.Colour.Hex3()}:{weapon.Ability.Value.Name}]";
+					if (weapon.Ability.Value.Description is not null)
+					{
+						text += $": {weapon.Ability.Value.Description}";
+					}
+					tooltips.AddTooltip(new(weapon.Mod, "AOAbility", text));
 				}
 			}
 

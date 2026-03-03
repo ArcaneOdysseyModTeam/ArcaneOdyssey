@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -37,5 +38,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
+
+		public override Color Colour => Color.Brown;
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria.ID;
 
 
@@ -22,5 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 			Item.DamageType = AOUtils.TrueMelee();
 			Item.autoReuse = true;
 		}
+
+		public override Color Colour => Color.Gray;
 	}
 }

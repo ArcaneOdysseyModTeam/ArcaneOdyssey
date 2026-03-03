@@ -1441,6 +1441,15 @@ namespace ArcaneOdyssey
 			else return player.HeldItem;
 		}
 
+		public static Item PlayerItem(this ModPlayer player)
+		{
+			if (Main.myPlayer == player.Player.whoAmI && (!Main.mouseItem.IsAir) && Main.mouseItem.active)
+			{
+				return Main.mouseItem;
+			}
+			else return player.Player.HeldItem;
+		}
+
 		public static bool GetThisImbue(this Imbuable imbue, Player player)
 		{
 			if (imbue is not null)
@@ -1522,17 +1531,9 @@ namespace ArcaneOdyssey
 
 	public struct WeaponAbility
 	{
-		public TooltipLine ToolTip = null;
-		public WeaponAbility(AOWeapon moditem, Color color)
-		{
-			string Key(string suffix)
-			{
-				return $"Mods.{moditem.Mod.Name}.{moditem.LocalizationCategory}.{moditem.Name}.Ability.{suffix}";
-			}
-			var LocalizedName = Language.GetOrRegister(Key("DisplayName"), () => Key("DisplayName"));
-			var LocalizedDescription = Language.GetOrRegister(Key("Description"), () => Key("Description"));
-			ToolTip = new(moditem.Mod, "AOAbility", $"[c/{color.Hex3()}:{LocalizedName.Value}]: {LocalizedDescription.Value}");
-		}
+		public string Name;
+		public string Description;
+		public Color Colour;
 	}
 
 	public enum DashType

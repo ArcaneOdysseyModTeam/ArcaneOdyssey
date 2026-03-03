@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Weapons.RavennaNoble;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
@@ -33,6 +34,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 		{
 			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 3)
 			{
+				if (Owner.PlayerItem()?.ModItem is AOWeapon weap)
+				{
+					weap.ActivateAbility(Owner, false);
+				}
 				AOPlayerOwner.SetCooldown<SparrowThrustCooldown>();
 				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 

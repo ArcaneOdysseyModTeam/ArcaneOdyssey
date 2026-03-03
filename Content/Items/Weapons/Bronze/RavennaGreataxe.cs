@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override float AODamage => 1.025f;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override WeaponAbility? Ability => new(this, Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override void SetDefaults()
 		{
@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.AltUse())
 			{
-				var dash = new Devastate(Item);
+				var dash = new Devastate(this);
 				if (!dash.OnCooldown(player))
 				{
 					player.ArcaneOdyssey().StartDash(dash, 2, Imbue);
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		}
 	}
 
-	public class Devastate(Entity source) : DashSystem(source)
+	public class Devastate(AOWeapon axe) : DashSystem(axe.Item)
 	{
 		public override bool FallThrough => false;
 		public override bool LocksPlayer => true;
@@ -99,6 +99,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override void OnEnd(Player player)
 		{
 			player.ArcaneOdyssey().timeTillNextMove += 15;
+			axe.ActivateAbility(player, false);
 			if (!Main.dedServ)
 			{
 				if (player.whoAmI == Main.myPlayer)

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override float AOSize => .8f;
 		public override float AODamage => 1.1f;
 
-		public override WeaponAbility? Ability => new(this, new(104, 130, 0));
+		public override Color Colour => new(104, 130, 0);
 
 		public override void SetDefaults()
 		{
@@ -30,17 +30,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.shootSpeed = 3f;
 		}
 
-		public override bool? UseItem(Player player)
-		{
-			return base.UseItem(player);
-		}
-
 		public override bool AltFunctionUse(Player player) => !player.ArcaneOdyssey().OnCooldown<ToweringImpactCooldown>();
 
 		public override bool CanShoot(Player player) => player.AltUse();
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			ActivateAbility(player, false);
 			player.ArcaneOdyssey().SetCooldown<ToweringImpactCooldown>();
 			return true;
 		}

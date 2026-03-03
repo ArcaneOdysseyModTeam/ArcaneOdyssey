@@ -1,7 +1,9 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,7 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponType WeaponsType => WeaponType.Strength;
-		public override WeaponAbility? Ability => new(this, Color.PaleVioletRed);
+		public override Color Colour => Color.PaleVioletRed;
 
 		public override void SetDefaults()
 		{
@@ -27,6 +29,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 			Item.shoot = ModContent.ProjectileType<ColossalCleave>();
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			ActivateAbility(player, false);
+			return base.Shoot(player, source, position, velocity, type, damage, knockback);
 		}
 
 		public override bool AltFunctionUse(Player player) => Imbue is not null;

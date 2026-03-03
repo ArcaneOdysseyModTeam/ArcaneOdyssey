@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override SoundStyle UseSound => SoundID.Item11;
 
-		public override WeaponAbility? Ability => new(this, Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override AORarities AORarity => AORarities.Uncommon;
 
@@ -43,6 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.AltUse())
 			{
+				ActivateAbility(player, false);
 				for (int i = 0; i < 8; i++)
 				{
 					var offset = MathHelper.TwoPi / 16f;
