@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

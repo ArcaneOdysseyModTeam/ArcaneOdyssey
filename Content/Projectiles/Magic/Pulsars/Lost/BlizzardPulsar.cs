@@ -16,10 +16,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-
+			var OverlayFrames = BlizzardBlast.OverlayFrames;
 			if (ModContent.RequestIfExists<Texture2D>(Texture + "_Overlay", out var texture))
 			{
-				Main.EntitySpriteDraw(texture.Value, VisualCentre - (Projectile.velocity.SafeNormalize(Vector2.Zero) * (Projectile.Size / 2f * Projectile.scale)) - Main.screenPosition, new(0, texture.Width() * overlayFrame, texture.Width(), texture.Width()), lightColor, Projectile.velocity.ToRotation(), new(texture.Width() / 2f), Projectile.scale * .9f, SpriteEffects.None);
+				Main.EntitySpriteDraw(texture.Value, Projectile.Center - (Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()) * (Projectile.width / 2f)) - Main.screenPosition, new(0, texture.Width() * overlayFrame, texture.Width(), texture.Height() / OverlayFrames), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(texture.Width(), texture.Height() / OverlayFrames) / 2f, Projectile.scale * .9f, SpriteEffects.None);
 			}
 			return base.PreDraw(ref lightColor);
 		}

@@ -15,12 +15,15 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 	{
 		public abstract int AOHealth { get; }
 
-		public virtual int WalkingSpriteCount => 15;
+		public virtual int WalkingSpriteCount => 16;
+		public virtual int AttackingSpriteCount => 8;
+
+		public float MoveSpeed => .2f * MovespeedMulti;
 
 		public override void SetStaticDefaults()
 		{
 			MinibossSpawning.AllMinibosses.Add(this);
-			Main.npcFrameCount[Type] = 24;
+			Main.npcFrameCount[Type] = WalkingSpriteCount + AttackingSpriteCount;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			ExternalModSupport.DeclareMiniboss(Type);
@@ -39,6 +42,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 		public virtual float ShootSpeed => 5f;
 
 		public virtual float MovespeedMulti => 1f;
+		public float MaxSpeed => 40 * MoveSpeed;
 
 		public override void SetDefaults()
 		{
@@ -74,7 +78,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				NPC.TargetClosest();
 				if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
 				{ // Limit chasing distance
-					NPC.velocity.X += NPC.direction * 0.2f;
+					NPC.velocity.X += NPC.direction * MoveSpeed;
 					if (NPC.ai[2] == 0 && !stuckintile && Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
 					{ // Attack meelee or stop
 						NPC.velocity.X = 0f;
@@ -98,30 +102,30 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 					NPC.velocity.X *= 0.8f;
 				}
 
-				if (Math.Abs(NPC.velocity.X) < 0.2f)
+				if (Math.Abs(NPC.velocity.X) < MoveSpeed)
 				{
 					NPC.velocity.X = 0f;
 				}
 
-				if (Math.Abs(NPC.velocity.X) <= .2f)
+				if (Math.Abs(NPC.velocity.X) <= MoveSpeed)
 				{
 					NPC.ai[2]++; // stuck counter
 				}
 				else
 				{
 					NPC.ai[2] = 0; // stuck counter
-					NPC.noTileCollide = false;
-					NPC.noGravity = false;
 				}
 
 				if (NPC.HasValidTarget && (NPC.ai[2] >= 100 || stuckintile))
 				{
 					NPC.noTileCollide = true;
 					NPC.noGravity = true;
-					NPC.velocity = NPC.DirectionTo(Main.player[NPC.target].Center);
+					NPC.velocity.Y = -3f;
 				}
 				else
 				{
+					NPC.noTileCollide = false;
+					NPC.noGravity = false;
 					bool tileUnderIsFlat = Main.tile[(int)(NPC.Bottom.X / 16f), (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
 					bool tileNextToFlatTile = Main.tileSolid[Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].TileType] && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsActuated && !Main.tile[(int)(NPC.Bottom.X / 16f) + NPC.direction, (int)(NPC.Bottom.Y / 16f)].IsHalfBlock;
 					// Jump if there's a block
@@ -149,8 +153,8 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				NPC.velocity.X *= 0.7f;
 				if (NPC.HasValidTarget && NPC.ai[1] == ((Main.npcFrameCount[Type] - WalkingSpriteCount) * 2) && Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center);
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, Main.rand.Next(RangedProjectiles), NPC.damage, 4.5f);
+					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center + (Main.player[NPC.target].velocity * 20f));
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, Main.rand.Next(AOUtils.ShuffledList(RangedProjectiles)), NPC.damage, 4.5f);
 				}
 			}
 			else if (NPC.ai[0] == 2 && NPC.HasValidTarget) //melee
@@ -166,7 +170,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 					}
 					melee.RemoveAll(activetypes.Contains);
 					if (melee.Count > 0)
-						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, Main.rand.Next(melee), NPC.damage, 4.5f);
+						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, Main.rand.Next(AOUtils.ShuffledList(melee)), NPC.damage, 4.5f);
 				}
 			}
 		}
@@ -209,7 +213,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 					{
 						if (NPC.frameCounter > 3)
 						{
-							if (NPC.frame.Y < (WalkingSpriteCount * frameHeight) && NPC.frame.Y >= 0)
+							if (NPC.frame.Y < ((WalkingSpriteCount - 1) * frameHeight) && NPC.frame.Y >= 0)
 							{
 								NPC.frame.Y += frameHeight;
 							}
@@ -226,7 +230,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				{
 					if (NPC.frameCounter++ > 2)
 					{
-						if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight) && NPC.frame.Y >= (WalkingSpriteCount * frameHeight))
+						if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight) && NPC.frame.Y >= ((WalkingSpriteCount - 1) * frameHeight))
 						{
 							NPC.frame.Y += frameHeight;
 						}
@@ -234,7 +238,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 						{
 							if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
 							{
-								NPC.frame.Y = WalkingSpriteCount * frameHeight;
+								NPC.frame.Y = (WalkingSpriteCount - 1) * frameHeight;
 							}
 							else
 							{
@@ -250,7 +254,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				{
 					if (NPC.frameCounter++ > 2)
 					{
-						if (NPC.frame.Y >= (WalkingSpriteCount * frameHeight) && NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
+						if (NPC.frame.Y >= ((WalkingSpriteCount - 1) * frameHeight) && NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
 						{
 							NPC.frame.Y += frameHeight;
 						}
@@ -258,7 +262,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 						{
 							if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
 							{
-								NPC.frame.Y = WalkingSpriteCount * frameHeight;
+								NPC.frame.Y = (WalkingSpriteCount - 1) * frameHeight;
 							}
 							else
 							{
@@ -282,17 +286,23 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 	{
 		internal static List<AOMiniboss> AllMinibosses = [];
 
+		public static int MinibossCheckCounter = 60;
+
 		public override void PostUpdateWorld()
 		{
-			if (AOUtils.ServerOrSingleplayer && Main.hardMode)
+			if (MinibossCheckCounter-- <= 0)
 			{
-				foreach (var miniboss in AOUtils.ShuffledList(AllMinibosses))
+				MinibossCheckCounter = 60;
+				if (AOUtils.ServerOrSingleplayer && Main.hardMode)
 				{
-					foreach (var player in Main.ActivePlayers)
+					foreach (var miniboss in AOUtils.ShuffledList(AllMinibosses))
 					{
-						if (miniboss.ExtraConditions && player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!AOMinibossOrBossAlive()) && Main.rand.NextBool(miniboss.Downed ? 600 * 60 : 300 * 60))
+						foreach (var player in Main.ActivePlayers)
 						{
-							NPC.SpawnOnPlayer(player.whoAmI, miniboss.Type);
+							if (miniboss.ExtraConditions && player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!AOMinibossOrBossAlive()) && Main.rand.NextBool(miniboss.Downed ? 600 : 300))
+							{
+								NPC.SpawnOnPlayer(player.whoAmI, miniboss.Type);
+							}
 						}
 					}
 				}

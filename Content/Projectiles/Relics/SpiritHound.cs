@@ -95,7 +95,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			if (ModContent.RequestIfExists<Texture2D>(GlowTexture, out var texture))
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-				Main.EntitySpriteDraw(texture.Value, VisualCentre - Main.screenPosition, new(0, 0, texture.Width(), texture.Height()), lightColor, Projectile.rotation, texture.Size() / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, new(0, 0, texture.Width(), texture.Height()), Projectile.GetAlpha(lightColor), Projectile.rotation, texture.Size() / 2f, Projectile.scale, mode);
 			}
 		}
 	}

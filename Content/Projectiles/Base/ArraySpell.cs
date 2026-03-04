@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public const int ShootDelay = 60 * 3;
 
-		public const int ShootTime = 90;
+		public const int ShootTime = 120;
 
 		public override bool CanHaveImbueVFX => false;
 
@@ -49,8 +49,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			width = Proj1.Height / 4;
-			height = Proj1.Width / 4;
+			width = Proj1.Width / 4;
+			height = Proj1.Height / 4;
 			fallThrough = true;
 			return true;
 		}

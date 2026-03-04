@@ -258,6 +258,7 @@ Projectiles: {
 		EvanderSlash.DisplayName: Colossal Cleave
 		LaelusBlast.DisplayName: Spirit Blast
 		LaelusExplosion.DisplayName: Spirit Burst
+		DuskBeam.DisplayName: Nichtetheis
 	}
 
 	Pets.ElfPetProjectile.DisplayName: Aether
@@ -301,6 +302,11 @@ Achievements: {
 	MountainBreaker: {
 		FriendlyName: Mountain Breaker
 		Description: Slay Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
+	}
+
+	DarkOracle: {
+		FriendlyName: Dark Oracle
+		Description: Slay Dusk the Dark Oracle, a master assassin that wields a powerful relic.
 	}
 }
 

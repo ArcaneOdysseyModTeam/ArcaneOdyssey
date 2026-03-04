@@ -7,7 +7,13 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class DrainedEffect : AODebuff
 	{
-		public override List<int> Counterparts => [BuffID.Confused];
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Main.pvpBuff[Type] = true;
+		}
+
+		public override List<int> Counterparts => [BuffID.Confused, BuffID.Darkness, BuffID.Blackout];
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (!Main.dedServ)
@@ -49,6 +55,11 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 				return true;
 			}
 			else return false;
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.blind = true;
 		}
 	}
 }

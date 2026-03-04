@@ -128,7 +128,7 @@ namespace ArcaneOdyssey
 			void EvanderStuff()
 			{
 				string internalName = nameof(Evander);
-				float weight = 7.1f; // right after wof
+				float weight = 7.5f; // right after wof
 				Func<bool> downed = () => DownedBosses.downedEvander;
 				int bossType = ModContent.NPCType<Evander>();
 				int trophy = ModContent.ItemType<EvanderTrophy>();
@@ -151,10 +151,10 @@ namespace ArcaneOdyssey
 			void DuskStuff()
 			{
 				string internalName = nameof(Dusk);
-				float weight = 3.1f; // right after eow
+				float weight = 3.5f; // right after eow
 				Func<bool> downed = () => DownedBosses.downedDusk;
 				int bossType = ModContent.NPCType<Dusk>();
-				//int trophy = ModContent.ItemType<DuskMask>();
+				int trophy = ModContent.ItemType<DuskTrophy>();
 				int mask = ModContent.ItemType<DuskMask>();
 				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
@@ -167,7 +167,7 @@ namespace ArcaneOdyssey
 				bossType,
 				new Dictionary<string, object>()
 				{
-					["collectibles"] = new List<int> { mask },
+					["collectibles"] = new List<int> { mask, trophy },
 					["spawnInfo"] = spawnInfo
 				});
 			}
@@ -197,7 +197,7 @@ namespace ArcaneOdyssey
 
 			EvanderStuff();
 			DuskStuff();
-			LaelusStuff();
+			//LaelusStuff();
 		}
 	}
 }

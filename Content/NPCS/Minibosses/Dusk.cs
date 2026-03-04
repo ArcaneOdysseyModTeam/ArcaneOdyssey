@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
+using ArcaneOdyssey.Content.Items.BossTrophies;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
@@ -14,8 +15,8 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 	[AutoloadBossHead]
 	public class Dusk : AOMiniboss
 	{
-		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>(), ModContent.ProjectileType<DuskBeam>()];
-		public override List<int> RangedProjectiles => [ModContent.ProjectileType<DuskHound>()];
+		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>()];//, ModContent.ProjectileType<DuskBeam>()];
+		public override List<int> RangedProjectiles => [ModContent.ProjectileType<DuskHound>(), ModContent.ProjectileType<DuskBeam>()];
 
 		public override void SetDefaults()
 		{
@@ -33,13 +34,9 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			//NPC.ai[1] state time
 		}
 
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			Main.npcFrameCount[Type] = 28;
-		}
+		public override int WalkingSpriteCount => 13;
 
-		public override int WalkingSpriteCount => 12;
+		public override int AttackingSpriteCount => 15;
 
 		public override float ShootSpeed => 7f * .9f;
 
@@ -76,6 +73,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NyxStaff>(), 4));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DuskMask>(), 4));
+			npcLoot.Add(AOUtils.Common<DuskTrophy>(10));
 		}
 	}
 }

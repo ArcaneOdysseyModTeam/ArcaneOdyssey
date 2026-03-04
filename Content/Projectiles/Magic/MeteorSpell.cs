@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
-using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

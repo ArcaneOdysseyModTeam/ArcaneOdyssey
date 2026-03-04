@@ -186,6 +186,11 @@ BossTrophies: {
 		DisplayName: Evander Trophy
 		Tooltip: ""
 	}
+
+	DuskTrophy: {
+		DisplayName: Dusk Trophy
+		Tooltip: ""
+	}
 }
 
 Materials: {

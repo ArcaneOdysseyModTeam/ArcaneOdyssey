@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;

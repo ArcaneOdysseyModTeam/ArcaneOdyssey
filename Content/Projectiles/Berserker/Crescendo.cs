@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -71,7 +70,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			var realkmax = ApplyScrollSpeed(12f).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{
-				Vector2 drawPos = VisualCentre - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);
+				Vector2 drawPos = Projectile.Center - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, SpriteEffects.None, 0);
 			}

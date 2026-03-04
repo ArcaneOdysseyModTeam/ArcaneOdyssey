@@ -1,11 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.PlayerClasses;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Content.Projectiles.Base

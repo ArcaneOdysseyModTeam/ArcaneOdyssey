@@ -2,8 +2,6 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics.Minions;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Steamworks;
 using System;
 using Terraria;
 using Terraria.ID;
