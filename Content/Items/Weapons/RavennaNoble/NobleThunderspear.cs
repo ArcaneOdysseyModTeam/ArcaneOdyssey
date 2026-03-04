@@ -30,6 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.Spears[Type] = true;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ScimitarofStorm>();
 		}
 
 		public override void SetDefaults()

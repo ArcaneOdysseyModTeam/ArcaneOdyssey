@@ -178,7 +178,7 @@ namespace ArcaneOdyssey
 
 			if (projectile.ModProjectile is AOPlayerProjectile proj)
 			{
-				if (proj.ProjectileDebuff.HasValue)
+				if (proj.ProjectileDebuff.HasValue) // is done here instead of under AOPlayerProjectile to have damage calculation done in the correct order
 				{
 					target.AddBuff(proj.ProjectileDebuff.Value.debuffID, proj.ProjectileDebuff.Value.debuffDuration);
 				}

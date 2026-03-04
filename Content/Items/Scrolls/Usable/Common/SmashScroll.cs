@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 		{
 			base.SetDefaults();
 			Item.useTime = Item.useAnimation = 30;
-			Item.damage = 50;
+			Item.damage = 30;
 			Item.shoot = ModContent.ProjectileType<ShockwaveSmash>();
 			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Item.shootSpeed = 5f;

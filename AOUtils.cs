@@ -886,7 +886,7 @@ namespace ArcaneOdyssey
 
 						foreach (var alt in buff.alternatives)
 						{
-							if (target.HasBuff(alt) || (alt == BuffID.Wet && target.wet))
+							if (target.HasBuff(alt))
 							{
 								target.DelBuff(target.FindBuffIndex(alt));
 							}

@@ -20,6 +20,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override Debuff? WeaponDebuff => null; // dull weapon
 		public override SoundStyle UseSound => SoundID.Item1;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldGreataxe>();
+		}
 
 		public override void SetDefaults()
 		{

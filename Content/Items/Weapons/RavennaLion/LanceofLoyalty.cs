@@ -35,6 +35,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 			Item.shootSpeed = BaseLanceProjectile.Speed;
 		}
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LionsHalberd>();
+		}
+
 		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 	}
 }

@@ -23,6 +23,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<NobleThunderspear>();
 		}
 
 		public override void SetDefaults()

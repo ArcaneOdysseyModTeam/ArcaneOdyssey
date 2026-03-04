@@ -87,6 +87,7 @@ namespace ArcaneOdyssey
 			Main.time = 27000.0;
 			Main.dayTime = !AltMenu;
 		}
+
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
 		{
 			Vector2 drawOffset = Vector2.Zero;
@@ -109,8 +110,8 @@ namespace ArcaneOdyssey
 
 			spriteBatch.Draw(BackgroundTexture, drawOffset, null, thecolour, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-			Main.time = 27000;
 			Main.dayTime = !AltMenu;
+			Main.time = (AltMenu ? Main.nightLength : Main.dayLength) / 2;
 
 			spriteBatch.End();
 

@@ -60,11 +60,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
-
 		public AOPlayer AOPlayerOwner => Owner?.ArcaneOdyssey();
-
-		public Vector2 VisualCentre => Projectile.VisualPosition + (Projectile.Size / 2f);
 
 		public Player Owner
 		{
@@ -102,37 +98,5 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public virtual Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
 		public virtual SoundStyle? HitSound => null;
-
-		/// <summary>
-		/// Kills the projectile.
-		/// </summary>
-		public void Kill()
-		{
-			Projectile.Kill();
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-			Main.EntitySpriteDraw(Sprite, VisualCentre - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-			return false;
-		}
-
-		public override void PostDraw(Color lightColor)
-		{
-			if (ModContent.RequestIfExists<Texture2D>(GlowTexture, out var tex))
-			{
-				if (tex.Height() == Sprite.Height)
-				{
-					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-				}
-				else
-				{
-					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, VisualCentre - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Projectile.GetAlpha(Color.White), Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
-				}
-			}
-		}
 	}
 }

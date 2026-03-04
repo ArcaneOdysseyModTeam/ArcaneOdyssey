@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
@@ -13,6 +14,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override float AODamage => 1.05f;
 		public override AORarities AORarity => AORarities.Common;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldRapier>();
+		}
 
 		public override void SetDefaults()
 		{

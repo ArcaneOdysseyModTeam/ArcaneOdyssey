@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override void PostAI()
 		{
+			base.PostAI();
 			if (!Main.dedServ)
 			{
 				// dust

@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 	[AutoloadBossHead]
 	public class Dusk : AOMiniboss
 	{
-		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>()];
+		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>(), ModContent.ProjectileType<DuskBeam>()];
 		public override List<int> RangedProjectiles => [ModContent.ProjectileType<DuskHound>()];
 
 		public override void SetDefaults()

@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void PostAI()
 		{
+			base.PostAI();
 			if (Imbue is AOMagic)
 				SecondImbue?.LingeringEffects(Projectile.Hitbox);
 			if (!playedsound)

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
@@ -40,5 +41,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		}
 
 		public override Color Colour => Color.Gray;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldSword>();
+		}
 	}
 }

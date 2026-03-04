@@ -22,6 +22,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 
 		public int noUseCounter = 0;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<StormCaller>();
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

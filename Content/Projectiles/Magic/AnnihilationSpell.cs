@@ -47,6 +47,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public override void PostAI()
 		{
+			base.PostAI();
 			if (Imbue is SoundMagic) // manually do sound magic
 			{
 				var DustCount = 30;

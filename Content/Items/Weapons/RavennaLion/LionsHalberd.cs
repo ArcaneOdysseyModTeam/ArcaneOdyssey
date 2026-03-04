@@ -22,6 +22,12 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaLion
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Colour => Color.Gold;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LanceofLoyalty>();
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
