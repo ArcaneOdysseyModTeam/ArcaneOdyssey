@@ -316,6 +316,7 @@ Keybinds: {
 	DashBind.DisplayName: Dash Bind
 	Vanish.DisplayName: Vanish
 	CycleAuraMode.DisplayName: Cycle Aura Mode
+	PrintInfo.DisplayName: Print Info
 }
 
 RandomWords: {

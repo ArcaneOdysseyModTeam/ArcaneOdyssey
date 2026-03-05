@@ -26,31 +26,6 @@ namespace ArcaneOdyssey.PlayerClasses
 		public int DarkSealed = 0;
 		public int NimbusSealed = 0;
 
-		public void ResetAlsoDead()
-		{
-			List<int> queue = [];
-			foreach (int type in EquippedImbues)
-			{
-				var index = EquippedImbues.IndexOf(type);
-				if (index >= 0)
-				{
-					if (EquippedImbuesTimers[index] <= 0)
-					{
-						queue.Add(index);
-					}
-					else
-					{
-						EquippedImbuesTimers[index]--;
-					}
-				}
-			}
-			foreach (var i in queue)
-			{
-				EquippedImbues.RemoveAt(i);
-				EquippedImbuesTimers.RemoveAt(i);
-			}
-		}
-
 		public override void UpdateDead()
 		{
 			BronzeSealed = 0;

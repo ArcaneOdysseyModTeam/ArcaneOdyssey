@@ -1,7 +1,9 @@
 using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
+using ArcaneOdyssey.Content.NPCS.Minibosses;
 using ArcaneOdyssey.Content.NPCS.Town;
 using ArcaneOdyssey.Content.Tiles;
+using ArcaneOdyssey.PlayerClasses;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -196,7 +198,14 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class DevMode : ModSystem { public static bool devMode = false; }
+	public class DevMode : ModSystem 
+	{
+		#if VSDEBUGMODE
+		public static bool devMode = true;
+		#else
+		public static bool devMode = false;
+		#endif
+	}
 
 	public class AODebuffManager : GlobalBuff
 	{
@@ -308,4 +317,41 @@ namespace ArcaneOdyssey
 			}
 		}
 	}
+
+	#if VSDEBUGMODE
+	public class DebugStuff : ModSystem
+	{
+		public static ModKeybind PrintInfo { get; set; }
+
+		public override void Load()
+		{
+			PrintInfo = KeybindLoader.RegisterKeybind(Mod, "PrintInfo", "P");
+		}
+
+		public override void Unload()
+		{
+			PrintInfo = null;
+		}
+
+		public override void PostUpdateItems()
+		{
+			if (PrintInfo.JustPressed) 
+			{
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOUtils.BossesKilled) + " " + AOUtils.BossesKilled);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(TileLoot.commonpity) + " " + TileLoot.commonpity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(TileLoot.rarepity) + " " + TileLoot.rarepity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(TileLoot.lostpity) + " " + TileLoot.lostpity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.acumen) + " " + Main.LocalPlayer.ArcaneOdyssey().acumen);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.BronzeSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().BronzeSealed);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.NimbusSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.DarkSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Grounded) + " " + Main.LocalPlayer.ArcaneOdyssey().Grounded);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOSizeStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOSizeStat);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Insanity) + " " + Main.LocalPlayer.ArcaneOdyssey().Insanity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOHasteStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOHasteStat);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(ArcaneOdysseyMod.DevMode) + " " + ArcaneOdysseyMod.DevMode);
+			}
+		}
+	}
+	#endif
 }

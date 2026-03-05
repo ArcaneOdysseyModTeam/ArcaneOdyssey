@@ -16,9 +16,9 @@ namespace ArcaneOdyssey
 
 	public class TileLoot : GlobalTile
 	{
-		private static int commonpity = 0;
-		private static int rarepity = 0;
-		private static int lostpity = 0;
+		public static int commonpity = 0;
+		public static int rarepity = 0;
+		public static int lostpity = 0;
 		public override void Drop(int i, int j, int type)
 		{
 			if (type == TileID.Pots || (ExternalModSupport.HasCalamity && ExternalModSupport.Calamity.TryFind<ModTile>("AbyssalPots", out var tile) && type == tile.Type))

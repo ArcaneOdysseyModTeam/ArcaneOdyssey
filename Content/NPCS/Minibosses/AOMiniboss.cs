@@ -7,6 +7,7 @@ using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 
 namespace ArcaneOdyssey.Content.NPCS.Minibosses
 {
@@ -22,7 +23,6 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 
 		public override void SetStaticDefaults()
 		{
-			MinibossSpawning.AllMinibosses.Add(this);
 			Main.npcFrameCount[Type] = WalkingSpriteCount + AttackingSpriteCount;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
@@ -64,7 +64,60 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			boundingBox = AOUtils.ScaleRectangleNotRef(NPC.Hitbox, 1.5f);
 		}
 
+		public static bool AOMinibossOrBossAlive()
+		{
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if (npc.boss || npc.ModNPC is AOMiniboss)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool PlayerInOuterThirds(Player player)
+		{
+			var worldwidth = Main.maxTilesX * 16f;
+			return player.position.X < worldwidth / 3 || player.position.X > worldwidth / 3 * 2;
+		}
+
+		public static bool PlayerInOuterThirds(int i, int j)
+		{
+			return (i < (Main.maxTilesX / 3) || i > (Main.maxTilesX / 3 * 2)) && j < Main.UnderworldLayer;
+		}
+
 		public abstract bool ExtraConditions { get; }
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (PlayerInOuterThirds(spawnInfo.SpawnTileX, spawnInfo.SpawnTileY))
+			{
+				if (ExtraConditions)
+				{
+					if (!spawnInfo.Player.ZoneRockLayerHeight)
+					{
+						if (!spawnInfo.SafeRangeX)
+						{
+							if (!spawnInfo.PlayerSafe)
+							{
+								if (!spawnInfo.Invasion)
+								{
+									if (!spawnInfo.Water)
+									{
+										if (!spawnInfo.Sky)
+										{
+											return 1f / (Downed ? 600 : 300);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return 0f;
+		}
 
 		private bool canJump = false;
 
@@ -280,52 +333,6 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			{
 				NPC.frame.Y = 0;
 			}
-		}
-	}
-
-	public class MinibossSpawning : ModSystem
-	{
-		internal static List<AOMiniboss> AllMinibosses = [];
-
-		public static int MinibossCheckCounter = 60;
-
-		public override void PostUpdateWorld()
-		{
-			if (MinibossCheckCounter-- <= 0)
-			{
-				MinibossCheckCounter = 60;
-				if (AOUtils.ServerOrSingleplayer && Main.hardMode)
-				{
-					foreach (var miniboss in AOUtils.ShuffledList(AllMinibosses))
-					{
-						foreach (var player in Main.ActivePlayers)
-						{
-							if (miniboss.ExtraConditions && player.ZoneForest && (!player.ShoppingZone_AnyBiome) && PlayerInOuterThirds(player) && (!AOMinibossOrBossAlive()) && Main.rand.NextBool(miniboss.Downed ? 600 : 300))
-							{
-								NPC.SpawnOnPlayer(player.whoAmI, miniboss.Type);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		public static bool AOMinibossOrBossAlive()
-		{
-			foreach (var npc in Main.ActiveNPCs)
-			{
-				if (npc.boss || npc.ModNPC is AOMiniboss)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		public static bool PlayerInOuterThirds(Player player)
-		{
-			var worldwidth = Main.maxTilesX * 16f;
-			return player.position.X < worldwidth / 3 || player.position.X > worldwidth / 3 * 2;
 		}
 	}
 }
