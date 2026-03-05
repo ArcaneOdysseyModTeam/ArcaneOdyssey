@@ -199,5 +199,137 @@ namespace ArcaneOdyssey
 			DuskStuff();
 			//LaelusStuff();
 		}
+
+		public static bool? CheckItemTemperature(ModItem item)
+		{
+			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
+			{
+				switch (item.Name)
+				{
+					case "AbsoluteZero":
+					case "AbyssBlade":
+					case "AmidiasTrident":
+					case "Avalanche":
+					case "BrinyBaron":
+					case "DepthCrusher":
+					case "Floodtide":
+					case "NeptunesBounty":
+					case "Riptide":
+					case "SeashineSword":
+					case "Shimmerspark":
+					case "StarnightLance":
+					case "TenebreusTides":
+					case "TyphonsGreed":
+					case "UrchinMace":
+					case "Alluvion":
+					case "AquashardShotgun":
+					case "Archerfish":
+					case "DarkechoGreatbow":
+					case "EternalBlizzard":
+					case "FlakKraken":
+					case "FlurrystormCannon":
+					case "FrostbiteBlaster":
+					case "HoarfrostBow":
+					case "Leviatitan":
+					case "Megalodon":
+					case "Monsoon":
+					case "SDFMG":
+					case "Seadragon":
+					case "SeasSearing":
+					case "TheMaelstrom":
+					case "GreatbayPickaxe":
+					case "ShardlightPickaxe":
+					case "AbyssalWarhammer":
+						return true;
+					case "AegisBlade":
+					case "AnarchyBlade":
+					case "BalefulHarvester":
+					case "Brimlance":
+					case "Brimlash":
+					case "BrimstoneSword":
+					case "BurningRevelation":
+					case "DevilsSunrise":
+					case "DraconicDestruction":
+					case "DragonPow":
+					case "DragonRage":
+					case "EssenceFlayer":
+					case "FaultLine":
+					case "HellfireFlamberge":
+					case "HolyCollider":
+					case "MawOfInfinity":
+					case "Mourningstar":
+					case "OldLordClaymore":
+					case "SeekingScorcher":
+					case "StreamGouge":
+					case "TheBurningSky":
+					case "UltimusCleaver":
+					case "VulcaniteLance":
+					case "AuroraBlazer":
+					case "BlissfulBombardier":
+					case "BloodBoiler":
+					case "BrimstoneFury":
+					case "ChickenCannon":
+					case "ChromaticEruption":
+					case "ContinentalGreatbow":
+					case "DaemonsFlame":
+					case "DeadSunsWind":
+					case "DragonsBreath":
+					case "Drataliornus":
+					case "FirestormCannon":
+					case "FlarewingBow":
+					case "HalleysInferno":
+					case "HavocsBreath":
+					case "Hellborn":
+					case "Helstorm":
+					case "MagnomalyCannon":
+					case "Meowthrower":
+					case "PristineFury":
+					case "TelluricGlare":
+					case "DragoonDrizzlefish":
+					case "WildfireBloom":
+					case "InfernaCutter":
+					case "SeismicHampick":
+					case "TectonicTruncator":
+						return false;
+				}
+			}
+			return null;
+		}
+
+		public static WeaponType CheckWeaponsType(ModItem item)
+		{
+			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
+			{
+				switch (item.Name)
+				{
+					case "ClockworkBow":
+					case "FlakKraken":
+					case "HandheldTank":
+					case "MarksmanBow":
+					case "Roxcalibur":
+					case "DeepcoreGK2":
+					case "AnarchyBlade":
+					case "GrandGuardian":
+					case "HolyCollider":
+					case "MajesticGuard":
+						return WeaponType.Strength;
+					case "Karasawa":
+					case "PrismaticBreaker":
+					case "TheBurningSky":
+						return WeaponType.Arcanium;
+					case "TrueBiomeBlade":
+					case "BrokenBiomeBlade":
+					case "OmegaBiomeBlade":
+					case "Galaxia":
+					case "ArkoftheCosmos":
+					case "ArkoftheElements":
+					case "FracturedArk":
+					case "Earth":
+					case "TrueArkoftheAncients":
+						return WeaponType.Artisinal;
+				}
+			}
+			return WeaponType.Normal;
+		}
 	}
 }

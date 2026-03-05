@@ -78,11 +78,15 @@ namespace ArcaneOdyssey
 			{
 				if (item.GetItemType() == ItemType.Material)
 				{
-					tooltips.RemoveAll(e => e.Name == "Material");
+					tooltips.RemoveAll(e => e.Name == "Material" && e.Mod == "Terraria");
 				}
 				if (item.GetItemType() == ItemType.Vanity)
 				{
-					tooltips.RemoveAll(e => e.Name == "Vanity");
+					tooltips.RemoveAll(e => e.Name == "Vanity" && e.Mod == "Terraria");
+				}
+				if (item.GetItemType() == ItemType.Ammo)
+				{
+					tooltips.RemoveAll(e => e.Name == "Ammo" && e.Mod == "Terraria");
 				}
 
 				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
@@ -420,7 +424,7 @@ namespace ArcaneOdyssey
 
 		public override void SetDefaults(Item item)
 		{
-			if (!item.active || item.IsAir || item.Name == "")
+			if (!item.active || item.IsAir || string.IsNullOrWhiteSpace(item.Name))
 				return;
 			thisItem = item;
 			owner = null;
@@ -482,6 +486,12 @@ namespace ArcaneOdyssey
 					case ItemID.HelFire:
 					case ItemID.Amarok:
 					case ItemID.Cascade:
+					case ItemID.MoltenPickaxe:
+					case ItemID.SolarFlareDrill:
+					case ItemID.SolarFlarePickaxe:
+					case ItemID.MeteorHamaxe:
+					case ItemID.MoltenHamaxe:
+					case ItemID.LunarHamaxeSolar:
 						Cold = false;
 						break;
 				}
@@ -495,6 +505,11 @@ namespace ArcaneOdyssey
 						WeaponsType = WeaponType.Artisinal;
 						break;
 				}
+			}
+			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods && item.ModItem is not null or AOBaseItem)
+			{
+				Cold = ExternalModSupport.CheckItemTemperature(item.ModItem);
+				WeaponsType = ExternalModSupport.CheckWeaponsType(item.ModItem);
 			}
 		}
 
