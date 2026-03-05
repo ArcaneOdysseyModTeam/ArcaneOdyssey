@@ -57,9 +57,26 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			else return false;
 		}
 
+		public override bool ReApply(Player player, int time, int buffIndex)
+		{
+			if (player.HasBuff(Type))
+			{
+				player.buffTime[buffIndex] += time;
+				return true;
+			}
+			else return false;
+		}
+
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.blind = true;
+			if (player.buffTime[buffIndex] <= 60 * 5)
+			{
+				player.blind = true;
+			}
+			else
+			{
+				player.blackout = true;
+			}
 		}
 	}
 }

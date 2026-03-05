@@ -120,7 +120,8 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 				{
 					NPC.noTileCollide = true;
 					NPC.noGravity = true;
-					NPC.velocity.Y = -3f;
+					NPC.velocity = NPC.Center.DirectionTo(Main.player[NPC.target].Center) * 3f;
+					NPC.velocity.Y -= 2f;
 				}
 				else
 				{

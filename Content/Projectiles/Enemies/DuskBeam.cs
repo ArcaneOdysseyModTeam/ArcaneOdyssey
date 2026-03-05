@@ -45,13 +45,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				}
 			}
 
-			//foreach (var player in Main.ActivePlayers)
-			//{
-			//	if (player.Hitbox.Distance(Projectile.Center) < 500)
-			//	{
-			//		Projectile.velocity = Projectile.SafeDirectionTo(player.Center, Vector2.UnitX) * 7f;
-			//	}
-			//}
+			if (Projectile.velocity.Length() < 3f)
+			{
+				foreach (var player in Main.ActivePlayers)
+				{
+					if (player.Hitbox.Distance(Projectile.Center) < 500)
+					{
+						Projectile.velocity = Projectile.SafeDirectionTo(player.Center, Vector2.UnitX) * 7f;
+					}
+				}
+			}
 		}
 
 		public override bool PreDraw(ref Color lightColor) => false;

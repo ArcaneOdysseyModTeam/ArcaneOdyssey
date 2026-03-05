@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -55,29 +56,26 @@ namespace ArcaneOdyssey.Content.Items.Weapons.RavennaNoble
 			}
 		}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			if (player.AltUse())
 			{
 				ActivateAbility(player, true);
-				var offsetX = Main.MouseWorld.X + (Main.maxScreenW / 35f * Main.rand.Next(-2, 3));
-				var offsetY = Main.screenPosition.Y - (Main.maxScreenH * .15f);
+				var offsetX = Main.MouseWorld.X;
+				var offsetY = Main.screenPosition.Y;
 				var pos = new Vector2(offsetX, offsetY);
-				player.itemRotation = player.MountedCenter.DirectionTo(pos).ToRotation();
-				if (player.direction != 1)
-				{
-					player.itemRotation += MathHelper.Pi;
-				}
-				for (int i = -2; i < 3; i++)
-				{
-					offsetX = Main.MouseWorld.X + (Main.maxScreenW / 35f * i);
-					offsetY = Main.screenPosition.Y - (Main.maxScreenH * .15f);
-					pos = new Vector2(offsetX, offsetY);
-					Projectile.NewProjectile(source, pos, Vector2.UnitY * velocity.Length(), type, damage / 5, knockback / 5f, player.whoAmI);
-				}
+				velocity = player.MountedCenter.DirectionTo(pos) * velocity.Length();
+			}
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			if (player.AltUse())
+			{
+				Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ArrowStorm>(), damage, knockback, player.whoAmI, type);
 				return false;
 			}
-			return true;
+			return base.Shoot(player, source, position, velocity, type, damage, knockback);
 		}
 	}
 }

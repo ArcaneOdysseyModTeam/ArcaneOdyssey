@@ -210,7 +210,7 @@ namespace ArcaneOdyssey
 				{
 					Imbue ??= proj.ArcaneOdyssey()?.Imbue;
 					SecondImbue ??= proj.ArcaneOdyssey()?.SecondImbue;
-					Cold ??= proj.ArcaneOdyssey().Cold;
+					Cold ??= proj.ArcaneOdyssey()?.Cold;
 				}
 				else if (source is EntitySource_ItemUse { Item: Item item })
 				{

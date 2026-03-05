@@ -277,6 +277,7 @@ Projectiles: {
 			Whirlwind.DisplayName: Whirlwind
 			ToweringImpact.DisplayName: Towering Impact
 			DevastateShockwave.DisplayName: Devastate Shockwave
+			ArrowStorm.DisplayName: Arrow Storm
 		}
 
 		BronzeStaffProjectile.DisplayName: Bronze Staff
