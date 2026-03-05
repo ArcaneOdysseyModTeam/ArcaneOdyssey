@@ -237,7 +237,6 @@ namespace ArcaneOdyssey
 					case "Seadragon":
 					case "SeasSearing":
 					case "TheMaelstrom":
-					case "GreatbayPickaxe":
 					case "ShardlightPickaxe":
 					case "AbyssalWarhammer":
 						return true;

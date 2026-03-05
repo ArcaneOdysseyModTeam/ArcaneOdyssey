@@ -258,3 +258,8 @@ Potions: {
 		}
 	}
 }
+
+EmptyScroll: {
+	DisplayName: Empty Scroll
+	Tooltip: ""
+}

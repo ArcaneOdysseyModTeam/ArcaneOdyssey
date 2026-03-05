@@ -48,6 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(150);
 		}
 

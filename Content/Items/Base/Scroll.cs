@@ -168,5 +168,11 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual bool ExtraConditionsForImbue(Imbuable imbue) => true;
 
 		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue) && Imbue is not null;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EmptyScroll>();
+		}
 	}
 }

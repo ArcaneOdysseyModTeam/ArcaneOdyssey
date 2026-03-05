@@ -183,7 +183,7 @@ RavennaNoble: {
 
 		Ability: {
 			DisplayName: Storm of Arrows
-			Description: Arrows can fall from the sky
+			Description: Creates a shower of arrows
 		}
 	}
 

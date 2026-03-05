@@ -146,13 +146,20 @@ namespace ArcaneOdyssey
 			}
 
 			AddOption<AnnihilationScroll>();
-			AddOption<AcumenTechnique>();
-			AddOption<CrescendoTechnique>();
-			AddOption<ElementalSpell>();
-			if (Main.netMode != NetmodeID.SinglePlayer)
+			if (Main.netMode == NetmodeID.SinglePlayer) 
+			{
+				if (!Main.LocalPlayer.ArcaneOdyssey().acumen)
+				{
+					AddOption<AcumenTechnique>();
+				}
+			}
+			else
 			{
 				AddOption<EnchantmentSpell>();
+				AddOption<AcumenTechnique>();
 			}
+			AddOption<CrescendoTechnique>();
+			AddOption<ElementalSpell>();
 
 			return [.. options];
 		}

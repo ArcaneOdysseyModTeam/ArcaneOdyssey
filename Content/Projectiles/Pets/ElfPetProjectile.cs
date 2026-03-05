@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -24,7 +25,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 		{
 			Projectile.width = 132;
 			Projectile.height = 109;
-			Projectile.friendly = true;
 			Projectile.tileCollide = false;
 			Projectile.ai[0] = 0;
 			Projectile.frameCounter = 0;
@@ -144,6 +144,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 				Projectile.ai[0] -= 1f;
 			}
 			Projectile.frameCounter++;
+		}
+
+		public override bool? CanDamage() => false;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			return false;
 		}
 	}
 }
