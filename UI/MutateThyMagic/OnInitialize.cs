@@ -18,7 +18,6 @@ public partial class MutateThyMagicUI : BaseImbueUI
 	{
 		get 
 		{
-			Main.NewText($"The time of day is {Main.time}");
 			List<MagicTypes> types = [];
 			foreach (Item i in Main.LocalPlayer.inventory)
 			{
@@ -26,7 +25,6 @@ public partial class MutateThyMagicUI : BaseImbueUI
 				ModItem item = i.ModItem;
 				if (item is AOMagic magic && magic.ImbuableTier is AOImbuableTier.Normal)
 				{
-					Main.NewText($"Found {magic.Name}, tier {magic.ImbuableTier}");
 					MagicTypes type = IDToMagicType(magic.Type);
 					if (type is not MagicTypes.None) types.Add(type);
 				}
