@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -21,14 +20,13 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		public override SoundStyle UseSound => SoundID.Item5;
 		public override Color Colour => Color.Gold;
 
-		public override string Texture => AOUtils.GetTexture<StormCaller>();
-
-		public static float AttacksPerUse => 2f;
+		public static float AttacksPerUse => 2.5f;
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+			Item.staff[Type] = true;
 		}
 
 		public override void SetDefaults()
@@ -80,9 +78,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				var offsetX = Main.MouseWorld.X;
 				var offsetY = Main.screenPosition.Y;
 				var pos = new Vector2(offsetX, offsetY);
-				pos += new Vector2(Main.rand.NextFloat(ApplyImbueSpeed(-5f * 16, true), ApplyImbueSpeed(5f * 16, true)), Main.rand.NextFloat(ApplyImbueSpeed(-5f * 16, true), ApplyImbueSpeed(5f * 16, true)));
+				pos += new Vector2(Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)), Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)));
 				velocity = player.MountedCenter.DirectionTo(pos) * velocity.Length();
-				damage = (damage / AttacksPerUse).Round();
 			}
 		}
 

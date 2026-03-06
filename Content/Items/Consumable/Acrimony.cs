@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items
+namespace ArcaneOdyssey.Content.Items.Consumable
 {
 	[LegacyName("TitleMusicBox", "StarterAcrimony", "Paper")] // removed items are added here
 	public class Acrimony : AOBaseItem

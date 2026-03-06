@@ -6,7 +6,7 @@ Ancient: {
 
 	DeathMagic: {
 		DisplayName: Death Magic
-		Ability: Enemies with a lower max health than yours are instantly killed
+		Ability: Enemies with less that half your max health are instantly killed
 		Tooltip: ""
 	}
 }

@@ -17,9 +17,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float KBMulti => 3f;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit52;
 		public override Color ImbueColour => new(120, 0, 200);
-		public override float AOImbueSpeed => 1.1f;
-		public override float AOImbueSize => 1.2f;
-		public override float AOImbueDamage => 1f;
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1f;

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues;
+﻿using ArcaneOdyssey.Content.Items.Consumable;
+using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Base;
@@ -10,7 +11,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.GameContent.UI.ResourceSets;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -67,7 +67,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 					AOImbuableTier.Normal => AORarities.Rare,
 					AOImbuableTier.Lost => AORarities.Mystic,
 					AOImbuableTier.Ancient => AORarities.Legendary,
-					AOImbuableTier.Primordial => AORarities.Mythical,
 					_ => AORarities.Special,
 				};
 			}

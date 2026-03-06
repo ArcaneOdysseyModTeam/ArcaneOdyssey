@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public override float AOSize => 3f;
 		public override float AOSpeed => .5f;
 
-		public int ExplodingTime => ApplyImbueSpeed(60 * 8, true).Round();
+		public int ExplodingTime => ApplySpeed(60 * 8, true).Round();
 
 		public override void SetDefaults()
 		{

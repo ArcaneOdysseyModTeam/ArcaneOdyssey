@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
@@ -6,6 +7,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	public abstract class MagicSpell : AOPlayerProjectile
 	{
 		public override Debuff? ProjectileDebuff => null;
+
+		public virtual bool DrawWithImbueColours => false;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (DrawWithImbueColours)
+			{
+				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+			}
+			return base.PreDraw(ref lightColor);
+		}
 
 		public string Tier
 		{

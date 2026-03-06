@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 
 		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
 		{
-			mult = ApplyScrollSpeed(mult, true);
+			mult = ApplySpeed(mult, true);
 		}
 	}
 }

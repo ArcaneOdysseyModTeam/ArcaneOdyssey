@@ -16,9 +16,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Roar;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 
-		public override float AOImbueSpeed => 1.2f;
-		public override float AOImbueSize => 1.2f;
-		public override float AOImbueDamage => .95f;
 		public override float AOScrollSpeed => 1.4f;
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => .9f;

@@ -43,44 +43,48 @@ namespace ArcaneOdyssey.Content.Items.Base
 					return ab;
 				}
 				return null;
-			} 
-		}
-
-		public float ApplyScrollSpeed(float value, bool flipfloat = false)
-		{
-			if (Imbue is not null)
-			{
-				if (!flipfloat)
-				{
-					value *= Imbue.AOScrollSpeed;
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOScrollSpeed;
-				}
-				else
-				{
-					value *= Imbue.AOScrollSpeed.FlipFloat();
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOScrollSpeed.FlipFloat();
-				}
 			}
-			return value;
 		}
 
-		public float ApplyImbueSpeed(float value, bool flipfloat = false)
+		public float ApplySpeed(float value, bool flipfloat = false)
 		{
-			if (Imbue is not null)
+			if (BenifitsFromScrollStats.HasValue)
 			{
-				if (!flipfloat)
+				if (BenifitsFromScrollStats.Value)
 				{
-					value *= Imbue.AOImbueSpeed;
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOImbueSpeed;
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOScrollSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOScrollSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
 				}
 				else
 				{
-					value *= Imbue.AOImbueSpeed.FlipFloat();
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOImbueSpeed.FlipFloat();
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOImbueSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOImbueSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
 				}
 			}
 			return value;
@@ -127,12 +131,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useTime = Item.useAnimation = (27 * AOSpeed.FlipFloat()).Round();
+			Item.useTime = Item.useAnimation = (27 * (AOSpeed.FlipFloat() * AOSpeed.FlipFloat())).Round();
 			Item.knockBack = 4.5f * (AOSize * AOSize);
-			Item.scale = AOSize;
+			Item.scale = AOSize * AOSize;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 			Item.UseSound = UseSound with { Pitch = (AOSpeed * AOSpeed).MultiToPercent().Clamp(-1, 1) };
-			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(AOWeaponTier) * AODamage);
+			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(AOWeaponTier) * (AODamage * AODamage));
 			Item.DamageType = DamageClass.Melee;
 		}
 	}

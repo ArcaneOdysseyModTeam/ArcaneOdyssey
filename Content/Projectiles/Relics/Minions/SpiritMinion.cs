@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics.Minions
 			}
 			if ((MoveToDestination(destination) || AttackTimer > 0) && potentialTarget != null)
 			{
-				AttackTimer += ApplyScrollSpeed(1f);
+				AttackTimer += ApplySpeed(1f);
 
 				if (MathHelper.Distance(potentialTarget.Center.X, Projectile.Center.X) > 30f)
 				{

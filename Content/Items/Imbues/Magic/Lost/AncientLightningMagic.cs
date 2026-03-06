@@ -17,12 +17,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
 		public override Color ImbueColour => new(255, 0, 0, 255);
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOImbueSpeed => 1.4f;
-		public override float AOImbueSize => 1.1f;
-		public override float AOImbueDamage => 1.3f;
 		public override float AOScrollSpeed => 1.4f;
 		public override float AOScrollSize => 1.1f;
-		public override float AOScrollDamage => 1.3f;
+		public override float AOScrollDamage => .875f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 16), Debuff.Create<AncientLightingChain>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 

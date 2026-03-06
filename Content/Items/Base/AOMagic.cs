@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;
@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = GetSkill("Blast");
 			Item.autoReuse = true;
-			Item.damage = 10;
+			Item.damage = 10 + (100 * (int)ImbuableTier);
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}
 

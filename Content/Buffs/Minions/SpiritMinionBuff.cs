@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Content.Buffs.Minions
 {
 	public class SpiritMinionBuff : AOBaseBuff
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.Webbed}";
+		public override string Texture => AOUtils.GetTexture<ElementalBuff>();
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

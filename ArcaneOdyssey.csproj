@@ -6,12 +6,14 @@
 	<ItemGroup>
 		<Compile Remove="**\*.py" />
 		<Compile Remove="**\*.kra" />
+		<Compile Remove="**\*.kra~" />
 		<Compile Remove="**\*.png~" />
 		<Compile Remove="**\*.md" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="**\*.py" />
 		<None Remove="**\*.kra" />
+		<None Remove="**\*.kra~" />
 		<None Remove="**\*.png~" />
 		<None Remove="**\*.md" />
 	</ItemGroup>

@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				//	}
 				//	Projectile.ai[0] = 1;
 				//}
-				if (++Projectile.frameCounter > ApplyScrollSpeed(TravelTime / (float)Main.projFrames[Type], true))
+				if (++Projectile.frameCounter > ApplySpeed(TravelTime / (float)Main.projFrames[Type], true))
 				{
 					Projectile.frameCounter = 0;
 					if (++Projectile.frame >= Main.projFrames[Type])
@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		public override bool PreDraw(ref Color lightColor)
 		{
 			Color Colour = Imbue?.GetColour(lightColor) ?? lightColor;
-			var realkmax = ApplyScrollSpeed(12f).Round();
+			var realkmax = ApplySpeed(12f).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{
 				Vector2 drawPos = Projectile.Center - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);

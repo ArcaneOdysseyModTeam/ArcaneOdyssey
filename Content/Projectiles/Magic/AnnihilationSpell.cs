@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 		public const int FlightTime = 60 * 10;
 		public const int ChargeTime = 90;
-		public int ExplodingTime => ApplyImbueSpeed(60 * 8, true).Round();
+		public int ExplodingTime => ApplySpeed(60 * 8, true).Round();
 
 		public override void SetDefaults()
 		{
@@ -110,7 +110,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					return;
 
 				case AnnihilationState.Moving:
-					Projectile.rotation += ApplyScrollSpeed(MathHelper.Pi / 60f) * Math.Sign(Projectile.velocity.X);
+					Projectile.rotation += ApplySpeed(MathHelper.Pi / 60f) * Math.Sign(Projectile.velocity.X);
 					return;
 
 				case AnnihilationState.Exploding:

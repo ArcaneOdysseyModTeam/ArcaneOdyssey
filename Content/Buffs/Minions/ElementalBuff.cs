@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Content.Buffs.Minions
 {
 	public class ElementalBuff : AOBaseBuff
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.MagicLantern}";
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

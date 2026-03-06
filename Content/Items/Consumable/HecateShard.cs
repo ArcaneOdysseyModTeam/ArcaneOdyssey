@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Materials
+namespace ArcaneOdyssey.Content.Items.Consumable
 {
 	public class HecateShard : AOBaseItem
 	{

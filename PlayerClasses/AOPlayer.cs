@@ -1,6 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items;
-using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
+﻿using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdysseyMusic.MusicBoxes;
@@ -130,7 +130,7 @@ namespace ArcaneOdyssey.PlayerClasses
 			if (!(cooldown && OnCooldown("SpiritLifesteal")))
 			{
 				if (cooldown)
-					SetCooldown(new Cooldown("SpiritLifesteal", Mod, 60));
+					SetCooldown(new Cooldown("SpiritLifesteal", Mod, 60 * 2));
 				Player.Heal(Utils.Clamp(damage / 5, 1, 20));
 			}
 		}

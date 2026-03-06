@@ -1,8 +1,10 @@
-using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.NPCS.Town;
 using ArcaneOdyssey.Content.Tiles;
-using ArcaneOdyssey.PlayerClasses; // dont delete like an idiot
+#if VSDEBUGMODE
+using ArcaneOdyssey.PlayerClasses;
+#endif
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 
@@ -99,7 +102,7 @@ namespace ArcaneOdyssey
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, ModContent.TileType<TuckerGrave>());
+					KillTucker(Main.spawnTileX - 20, Main.spawnTileY - 5, Main.spawnTileX + 20, Main.spawnTileY + 5, ModContent.TileType<TuckerGrave>());
 				}));
 			}
 
@@ -183,12 +186,17 @@ namespace ArcaneOdyssey
 						}
 					}
 
-					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon chests probably
+					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon/calamity abyss chests probably
 					{
-						// maybe oathkeeper goes here later
+
 					}
 
 					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
+					{
+
+					}
+
+					if (chest.y > Main.UnderworldLayer && !chest.IsLocked()) // probably only thing this could be is calamity brimstone crags chests
 					{
 
 					}

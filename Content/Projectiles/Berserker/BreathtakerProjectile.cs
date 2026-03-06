@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override void AI()
 		{
-			if (Projectile.Distance(Owner.Center) > ApplyScrollSpeed(180f))
+			if (Projectile.Distance(Owner.Center) > ApplySpeed(180f))
 			{
 				Kill();
 			}

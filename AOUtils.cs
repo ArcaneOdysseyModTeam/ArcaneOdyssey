@@ -641,14 +641,14 @@ namespace ArcaneOdyssey
 							{
 								if (!target.immortal)
 									player2.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage), false);
-								if (Main.netMode == NetmodeID.SinglePlayer && (item.Imbue() is DeathMagic || item.SecondImbue() is DeathMagic) && (target.lifeMax < player.statLifeMax2))
+								if (Main.netMode == NetmodeID.SinglePlayer && (item.Imbue() is DeathMagic || item.SecondImbue() is DeathMagic) && (target.lifeMax < (player.statLifeMax2 * 2)))
 								{
 									target.StrikeInstantKill();
 								}
 							}
 							else if (source is Projectile projectile)
 							{
-								if (Main.netMode == NetmodeID.SinglePlayer && (projectile.Imbue() is DeathMagic || projectile.SecondImbue() is DeathMagic) && (target.lifeMax < player.statLifeMax2))
+								if (Main.netMode == NetmodeID.SinglePlayer && (projectile.Imbue() is DeathMagic || projectile.SecondImbue() is DeathMagic) && (target.lifeMax < (player.statLifeMax2 * 2)))
 								{
 									target.StrikeInstantKill();
 								}
@@ -1635,7 +1635,6 @@ namespace ArcaneOdyssey
 		Normal,
 		Lost,
 		Ancient,
-		Primordial, // unused
 		Developer,
 	}
 

@@ -162,13 +162,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
 					Projectile.scale *= AOSize;
 
-					target = Projectile.FindTargetWithLineOfSight(ApplyScrollSpeed(10f) * ShootTime);
+					target = Projectile.FindTargetWithLineOfSight(ApplySpeed(10f) * ShootTime);
 					if (target != -1)
 					{
 						var targetnpc = Main.npc[target];
 						if (ArcaneOdysseyConfig.Instance.PredictiveArray)
 						{
-							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * ApplyScrollSpeed(40f, true))).ToRotation();
+							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * ApplySpeed(40f, true))).ToRotation();
 						}
 						else
 						{
@@ -183,7 +183,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					if (++Projectile.ai[1] > ShootDelay)
 					{
 						Hovering = false;
-						Projectile.velocity = Projectile.rotation.ToRotationVector2() * ApplyScrollSpeed(10f);
+						Projectile.velocity = Projectile.rotation.ToRotationVector2() * ApplySpeed(10f);
 						if (Main.myPlayer == Projectile.owner)
 						{
 							Projectile.netUpdate = true;

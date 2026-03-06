@@ -28,9 +28,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		public override float AOImbueSpeed => 1.1f;
 		public override float AOImbueSize => 1.15f;
 		public override float AOImbueDamage => 1.1f;
-		public override float AOScrollSpeed => 1.1f;
-		public override float AOScrollSize => 1.15f;
-		public override float AOScrollDamage => 1.05f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOShadowflame>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(

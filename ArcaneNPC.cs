@@ -1,9 +1,8 @@
-﻿using ArcaneOdyssey.Content.Items;
-using ArcaneOdyssey.Content.Items.Armour.Vanity;
+﻿using ArcaneOdyssey.Content.Items.Armour.Vanity;
+using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -129,67 +128,104 @@ namespace ArcaneOdyssey
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
-			// onfire is 4 * 2, or 8
-			// poison is 6 * 2, or 12
-			// frostburn is 8 * 2, or 16
-			// shadowflame is 15 * 2, or 30
-			// cursed inferno is 24 * 2, or 48
-			// acid venom is 30 * 2, or 60
+			void Apply(float percentPerSecond, ref int damage, int? min = null, int? max = null)
+			{
+				var damagepercentage = percentPerSecond / 50f;
+				npc.GetLifeStats(out _, out int npcMaxLife);
+				var loss = Utils.Clamp((int)(npcMaxLife * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
+				npc.lifeRegen -= loss;
+				if (damage < 0)
+					damage = loss / 2;
+				else
+					damage += loss / 2;
+			}
 			if (bleeding)
 			{
-				npc.lifeRegen -= 10;
+				Apply(.8f, ref damage);
 			}
 			if (poisoned)
 			{
-				npc.lifeRegen -= 12;
+				Apply(1.2f, ref damage);
 			}
 			if (burning)
 			{
-				npc.lifeRegen -= 8;
+				Apply(1f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 			if (scalding)
 			{
-				npc.lifeRegen -= 25;
+				Apply(1.5f, ref damage);
+				// since its steam being oiled up does nothing
 			}
 			if (corroding) // same dot as melting!
 			{
-				npc.lifeRegen -= 30;
+				Apply(1.8f, ref damage);
 			}
 			if (melting)
 			{
-				npc.lifeRegen -= 30;
+				Apply(1.8f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 			if (shadowflame)
 			{
-				npc.lifeRegen -= 30;
+				Apply(2f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 			if (scorched)
 			{
-				npc.lifeRegen -= 28;
+				Apply(1.6f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 			if (seared)
 			{
-				npc.lifeRegen -= 16;
+				Apply(1.4f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 			if (singedstacks > 0)
 			{
-				npc.lifeRegen -= 6 * singedstacks;
+				Apply(.15f * singedstacks, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 			if (elecToxins)
 			{
-				npc.lifeRegen -= 80;
+				Apply(2.2f, ref damage);
 			}
 			if (phoenixDrain)
 			{
 				if (lesserPhoenixDrain > 0)
-					npc.lifeRegen -= 8 * lesserPhoenixDrain;
+					Apply(.25f * lesserPhoenixDrain, ref damage);
 				else
-					npc.lifeRegen -= 14;
+					Apply(1.3f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 			if (vesuvianBurn)
 			{
-				npc.GetLifeStats(out int npcCurrentlife, out _);
-				npc.lifeRegen -= Utils.Clamp((int)MathF.Ceiling(npcCurrentlife * 0.4f), 10, 10000);
+				Apply(4f, ref damage, 10, 10000);
+				if (npc.oiled)
+				{
+					Apply(.1f, ref damage);
+				}
 			}
 		}
 	}

@@ -125,23 +125,30 @@ Equipment: {
 	}
 }
 
-Acrimony: {
-	DisplayName: Prometheus's Acrimony
-	Tooltip:
-		'''
-		Can be used to change your imbues
-		Right click on one in your inventory to use
-		'''
-}
+Consumable: {
+	Acrimony: {
+		DisplayName: Prometheus's Acrimony
+		Tooltip:
+			'''
+			Can be used to change your imbues
+			Right click on one in your inventory to use
+			'''
+	}
 
-PoseidonSpirit: {
-	DisplayName: Poseidon's Spirit
-	Tooltip: Can be focused upon to grant power or knowledge
-}
+	PoseidonSpirit: {
+		DisplayName: Poseidon's Spirit
+		Tooltip: Can be focused upon to grant power or knowledge
+	}
 
-EagleLegacy: {
-	DisplayName: Eagle's Legacy
-	Tooltip: Can be focused upon to grant power
+	EagleLegacy: {
+		DisplayName: Eagle's Legacy
+		Tooltip: Can be focused upon to grant power
+	}
+
+	HecateShard: {
+		DisplayName: Hecate Shard
+		Tooltip: Mutates a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+	}
 }
 
 Blocks: {
@@ -227,11 +234,6 @@ Materials: {
 	BronzeBar: {
 		DisplayName: Bronze Bar
 		Tooltip: ""
-	}
-
-	HecateShard: {
-		DisplayName: Hecate Shard
-		Tooltip: Mutates a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
 	}
 
 	SunkenScrap: {

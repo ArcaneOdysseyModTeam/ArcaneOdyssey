@@ -8,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items
+namespace ArcaneOdyssey.Content.Items.Consumable
 {
 	[LegacyName("HecateOrb", "PoseidonChoice")]
 	public class EagleLegacy : AOBaseItem

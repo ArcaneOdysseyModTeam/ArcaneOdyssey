@@ -109,7 +109,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 										{
 											if (!spawnInfo.Sky)
 											{
-												return SpawnCondition.KingSlime.Chance * (Downed ? .5f : 1f);
+												return 1f / 150f * (Downed ? .5f : 1f);
 											}
 										}
 									}

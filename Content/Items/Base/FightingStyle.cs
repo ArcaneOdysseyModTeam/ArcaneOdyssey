@@ -9,10 +9,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = DamageClass.MeleeNoSpeed;
+			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Item.shoot = ModContent.ProjectileType<BasicStrike>();
 			Item.autoReuse = true;
-			Item.damage = 12;
+			Item.damage = 15 + (100 * (int)ImbuableTier);
 			Item.shootSpeed = 2f;
 			Item.knockBack = 10f;
 		}

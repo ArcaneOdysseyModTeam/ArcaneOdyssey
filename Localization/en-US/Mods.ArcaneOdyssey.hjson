@@ -213,7 +213,6 @@ MagicTierLines: {
 	Normal: "[c/2277ff:~ Basic magic ~]"
 	Lost: "[c/0044ff:~ Lost magic ~]"
 	Ancient: "[c/7ebcc2:~ Ancient magic ~]"
-	Primordial: "[c/ffc2c2:~ Primordial magic ~]"
 	Developer: "[c/ff0000:~ Developer magic ~]"
 }
 
@@ -221,8 +220,7 @@ SpecialTierLines: {
 	Normal: "[c/2277ff:~ Lesser lost magic ~]"
 	Lost: "[c/0044ff:~ Lost spirit mutation ~]"
 	Ancient: "[c/7ebcc2:~ Ancient spirit mutation ~]"
-	Primordial: "[c/ffc2c2:~ A dragon's power ~]"
-	Developer: "[c/ff0000:~ A god's chaos ~]"
+	Developer: "[c/ff0000:~ Power of the gods ~]"
 }
 
 FSTierLines: {
@@ -237,8 +235,7 @@ RelicTierLines: {
 	Normal: "[c/2277ff:~ Relic ~]"
 	Lost: "[c/0044ff:~ Blessed relic ~]"
 	Ancient: "[c/7ebcc2:~ Inhabited relic ~]"
-	Primordial: "[c/ffc2c2:~ Primordial relic ~]"
-	Developer: "[c/ff0000:~ A god's creation ~]"
+	Developer: "[c/ff0000:~ Developer relic ~]"
 }
 
 ArmourAutoTooltip: {

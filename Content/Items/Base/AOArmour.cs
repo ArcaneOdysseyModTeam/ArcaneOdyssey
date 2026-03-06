@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (Set.HasValue)
 			{
-				player.setBonus = Set.Value.Tooptip;
+				player.setBonus = "\n" + Set.Value.Tooptip;
 				ArmorSetEffects(player);
 			}
 		}

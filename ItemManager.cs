@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Accessories.Vanity;
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
@@ -57,9 +57,12 @@ namespace ArcaneOdyssey
 				leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 32), true);
 				itemLoot.Add(leadingConditionRule6);
 			}
-			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
-			AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 500));
-			itemLoot.Add(AcrimonyCondition);
+			if (ItemID.Sets.OpenableBag[item.type])
+			{
+				LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
+				AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 500));
+				itemLoot.Add(AcrimonyCondition);
+			}
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -128,41 +131,46 @@ namespace ArcaneOdyssey
 
 	public class AOItem : GlobalItem, IImbuable
 	{
-		public float ApplyScrollSpeed(float value, bool flipfloat = false)
-		{
-			if (Imbue is not null)
-			{
-				if (!flipfloat)
-				{
-					value *= Imbue.AOScrollSpeed;
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOScrollSpeed;
-				}
-				else
-				{
-					value *= Imbue.AOScrollSpeed.FlipFloat();
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOScrollSpeed.FlipFloat();
-				}
-			}
-			return value;
-		}
 
-		public float ApplyImbueSpeed(float value, bool flipfloat = false)
+		public float ApplySpeed(float value, bool flipfloat = false)
 		{
-			if (Imbue is not null)
+			if (BenifitsFromScrollStats.HasValue)
 			{
-				if (!flipfloat)
+				if (BenifitsFromScrollStats.Value)
 				{
-					value *= Imbue.AOImbueSpeed;
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOImbueSpeed;
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOScrollSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOScrollSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
 				}
 				else
 				{
-					value *= Imbue.AOImbueSpeed.FlipFloat();
-					if (SecondImbue is not null)
-						value *= SecondImbue.AOImbueSpeed.FlipFloat();
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOImbueSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOImbueSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
 				}
 			}
 			return value;
@@ -290,7 +298,7 @@ namespace ArcaneOdyssey
 				{
 					velocity *= imbue.AOScrollSpeed;
 					if (imbue.Imbue is not null)
-						velocity *= imbue.Imbue.AOScrollSpeed;
+						velocity *= imbue.Imbue.AOImbueSpeed;
 				}
 			}
 			else if (Imbue is not null)
@@ -301,7 +309,7 @@ namespace ArcaneOdyssey
 					{
 						velocity *= Imbue.AOScrollSpeed;
 						if (SecondImbue is not null)
-							velocity *= SecondImbue.AOScrollSpeed;
+							velocity *= SecondImbue.AOImbueSpeed;
 					}
 					else if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
@@ -324,7 +332,7 @@ namespace ArcaneOdyssey
 			{
 				crit *= imbue.AOScrollDamage;
 				if (imbue.Imbue is not null)
-					crit *= imbue.Imbue.AOScrollDamage;
+					crit *= imbue.Imbue.AOImbueDamage;
 				if (imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
 					if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
 						crit = 100;
@@ -335,7 +343,7 @@ namespace ArcaneOdyssey
 				{
 					crit *= Imbue.AOScrollDamage;
 					if (SecondImbue is not null)
-						crit *= SecondImbue.AOScrollDamage;
+						crit *= SecondImbue.AOImbueDamage;
 				}
 				else
 				{
@@ -361,7 +369,7 @@ namespace ArcaneOdyssey
 			{
 				knockback *= imbue.AOScrollSize * imbue.AOScrollSize;
 				if (imbue.Imbue is not null)
-					knockback *= imbue.Imbue.AOScrollSize * imbue.Imbue.AOScrollSize;
+					knockback *= imbue.Imbue.AOImbueDamage * imbue.Imbue.AOImbueDamage;
 				var extraknockbackmulti = imbue.KBMulti;
 				if (imbue.Imbue is not null)
 					extraknockbackmulti += imbue.Imbue.KBMulti.MultiToPercent();
@@ -379,7 +387,7 @@ namespace ArcaneOdyssey
 				{
 					knockback *= Imbue.AOImbueSize * Imbue.AOImbueSize;
 					if (SecondImbue is not null)
-						knockback *= SecondImbue.AOImbueSize * SecondImbue.AOImbueSize;
+						knockback *= SecondImbue.AOImbueSize * SecondImbue.AOImbueDamage;
 				}
 				var extraknockbackmulti = Imbue.KBMulti;
 				if (SecondImbue is not null)
@@ -411,7 +419,7 @@ namespace ArcaneOdyssey
 				{
 					damage += Imbue.AOScrollDamage.MultiToPercent();
 					if (SecondImbue is not null)
-						damage += SecondImbue.AOScrollDamage.MultiToPercent();
+						damage += SecondImbue.AOImbueDamage.MultiToPercent();
 				}
 				else if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
@@ -534,7 +542,7 @@ namespace ArcaneOdyssey
 					{
 						scale += Imbue.AOScrollSize.MultiToPercent();
 						if (SecondImbue is not null)
-							scale += SecondImbue.AOScrollSize.MultiToPercent();
+							scale += SecondImbue.AOImbueSize.MultiToPercent();
 					}
 				}
 			}
@@ -556,7 +564,7 @@ namespace ArcaneOdyssey
 					{
 						if (BenifitsFromScrollStats.GetValueOrDefault())
 						{
-							return Imbue.AOScrollSpeed * (SecondImbue?.AOScrollSpeed ?? 1f);
+							return Imbue.AOScrollSpeed * (SecondImbue?.AOImbueSpeed ?? 1f);
 						}
 
 						if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
@@ -726,9 +734,13 @@ namespace ArcaneOdyssey
 				if (!target.immortal)
 					player.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage));
 			}
-			if (Main.netMode == NetmodeID.SinglePlayer && (Imbue is DeathMagic || SecondImbue is DeathMagic) && (target.lifeMax < player.statLifeMax2))
+			if (Main.netMode == NetmodeID.SinglePlayer && (Imbue is DeathMagic || SecondImbue is DeathMagic) && (target.lifeMax < (player.statLifeMax2 * 2)))
 			{
 				target.StrikeInstantKill();
+			}
+			if (Imbue is PowderFist)
+			{
+				Projectile.NewProjectile(item.GetSource_ItemUse(player), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), damageDone / 2, 3f, player.whoAmI);
 			}
 		}
 
@@ -769,10 +781,6 @@ namespace ArcaneOdyssey
 			{
 				modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
 				modifiers = AOUtils.CalculateImbueDamage(SecondImbue, target, modifiers);
-				if (Imbue is PowderFist)
-				{
-					Projectile.NewProjectile(item.GetSource_ItemUse(player), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), modifiers.GetDamage(item.damage, false) / 2, 3f, player.whoAmI);
-				}
 			}
 		}
 	}

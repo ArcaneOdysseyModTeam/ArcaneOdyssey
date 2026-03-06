@@ -76,7 +76,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			if (Mode == JavelinMode.Flying)
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
-				Projectile.velocity.Y += ApplyScrollSpeed(0.13f, true);
+				Projectile.velocity.Y += ApplySpeed(0.13f, true);
 				if (Projectile.velocity.Y > 16f)
 				{
 					Projectile.velocity.Y = 16f;
@@ -121,11 +121,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			modifiers.SourceDamage *= charge;
 		}
 
-		public override bool PreDraw(ref Color lightColor)
-		{
-			lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
-			return base.PreDraw(ref lightColor);
-		}
+		public override bool DrawWithImbueColours => true;
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{

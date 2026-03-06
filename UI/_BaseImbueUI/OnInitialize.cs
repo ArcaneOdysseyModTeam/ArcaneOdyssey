@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items;
+﻿using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
