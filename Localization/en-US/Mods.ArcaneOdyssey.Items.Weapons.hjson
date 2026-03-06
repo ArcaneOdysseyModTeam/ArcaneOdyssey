@@ -217,3 +217,13 @@ Sinbane: {
 		Description: Release a slash up or down
 	}
 }
+
+SirenBow: {
+	DisplayName: Siren Bow
+	Tooltip: ""
+
+	Ability: {
+		DisplayName: Rain of Arrows
+		Description: Launch arrows into the sky
+	}
+}

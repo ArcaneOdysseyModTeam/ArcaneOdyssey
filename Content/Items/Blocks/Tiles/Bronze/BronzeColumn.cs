@@ -1,11 +1,12 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Blocks.Walls.Bronze;
 using ArcaneOdyssey.Content.Tiles.Bronze;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Blocks
+namespace ArcaneOdyssey.Content.Items.Blocks.Tiles.Bronze
 {
 	public class BronzeColumn : AOBaseItem
 	{

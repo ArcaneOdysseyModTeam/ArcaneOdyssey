@@ -1,9 +1,8 @@
 using ArcaneOdyssey.Content.Items;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.NPCS.Minibosses;
 using ArcaneOdyssey.Content.NPCS.Town;
 using ArcaneOdyssey.Content.Tiles;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.PlayerClasses; // dont delete like an idiot
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

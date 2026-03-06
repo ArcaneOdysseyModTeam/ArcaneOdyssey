@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
+using Terraria.GameContent.UI.ResourceSets;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -447,10 +448,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)
 		public override void RightClick(Player player)
 		{
+			Main.playerInventory = false;
 			var instance = ModContent.GetInstance<ImbueAnythingUISystem>();
-
-			if (!instance.CanShowImbueChange()) instance.ShowSwapUI(this);
+			if (!instance.CanShowImbueChange())
+				instance.ShowSwapUI(this);
 		}
+
 		public override bool CanRightClick()
 		{
 			try
@@ -476,7 +479,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			catch (Exception ex)
 			{
-				Main.NewText($"Error in {nameof(CanUseItem)}: \n{ex}", new Color(255, 0, 255));
+				Main.NewText($"Error in {nameof(CanRightClick)}: \n{ex}", new Color(255, 0, 255));
 				return false;
 			}
 		}

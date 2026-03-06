@@ -7,7 +7,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Normal
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Type] = 3;
+			Main.projFrames[Type] = 6;
+		}
+		public override void Rotate()
+		{
+			Projectile.rotation += 0.1f * Projectile.direction;
 		}
 	}
 }

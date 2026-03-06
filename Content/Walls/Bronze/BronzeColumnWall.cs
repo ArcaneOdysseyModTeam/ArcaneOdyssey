@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Walls
+namespace ArcaneOdyssey.Content.Walls.Bronze
 {
-	public class BronzeBrickWall : ModWall
+	public class BronzeColumnWall : ModWall
 	{
 		public override void SetStaticDefaults()
 		{

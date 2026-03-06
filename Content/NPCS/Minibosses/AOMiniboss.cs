@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			return player.position.X < worldwidth / 3 || player.position.X > worldwidth / 3 * 2;
 		}
 
-		public static bool PlayerInOuterThirds(int i, int j)
+		public static bool TileInOuterThirds(int i, int j)
 		{
 			return (i < (Main.maxTilesX / 3) || i > (Main.maxTilesX / 3 * 2)) && j < Main.UnderworldLayer;
 		}
@@ -91,23 +91,26 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (PlayerInOuterThirds(spawnInfo.SpawnTileX, spawnInfo.SpawnTileY))
+			if (TileInOuterThirds(spawnInfo.SpawnTileX, spawnInfo.SpawnTileY))
 			{
-				if (ExtraConditions)
+				if (!AOMinibossOrBossAlive())
 				{
-					if (!spawnInfo.Player.ZoneRockLayerHeight)
+					if (ExtraConditions)
 					{
-						if (!spawnInfo.SafeRangeX)
+						if (!spawnInfo.Player.ZoneRockLayerHeight)
 						{
-							if (!spawnInfo.PlayerSafe)
+							if (!spawnInfo.SafeRangeX)
 							{
-								if (!spawnInfo.Invasion)
+								if (!spawnInfo.PlayerSafe)
 								{
-									if (!spawnInfo.Water)
+									if (!spawnInfo.Invasion)
 									{
-										if (!spawnInfo.Sky)
+										if (!spawnInfo.Water)
 										{
-											return 1f / (Downed ? 600 : 300);
+											if (!spawnInfo.Sky)
+											{
+												return SpawnCondition.KingSlime.Chance * (Downed ? .5f : 1f);
+											}
 										}
 									}
 								}

@@ -13,9 +13,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 	{
 		public void ActivateAbility(Player player, bool passive)
 		{
-			if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
+			if (Ability.HasValue)
 			{
-				CombatText.NewText(player.Hitbox, Ability.Value.Colour, Ability.Value.Name + "!", !passive);
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
+				{
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, Ability.Value.Name + "!", !passive);
+				}
 			}
 		}
 

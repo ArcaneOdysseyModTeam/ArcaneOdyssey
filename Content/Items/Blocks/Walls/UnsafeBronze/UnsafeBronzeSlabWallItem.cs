@@ -1,13 +1,12 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Walls;
+using ArcaneOdyssey.Content.Walls.UnsafeBronze;
 using Terraria;
 using Terraria.GameContent.Creative;
-using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Items.Blocks
+namespace ArcaneOdyssey.Content.Items.Blocks.Walls.UnsafeBronze
 {
-	public class BronzeBrickWallItem : AOBaseItem
+	public class UnsafeBronzeSlabWallItem : AOBaseItem
 	{
 		public override AORarities AORarity => AORarities.Common;
 
@@ -20,12 +19,7 @@ namespace ArcaneOdyssey.Content.Items.Blocks
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DefaultToPlaceableWall(ModContent.WallType<BronzeBrickWall>());
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe(4).AddIngredient<BronzeBrick>().AddTile(TileID.WorkBenches).Register();
+			Item.DefaultToPlaceableWall(ModContent.WallType<UnsafeBronzeSlabWall>());
 		}
 	}
 }

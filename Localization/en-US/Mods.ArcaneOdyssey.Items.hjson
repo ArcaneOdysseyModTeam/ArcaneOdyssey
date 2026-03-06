@@ -145,39 +145,64 @@ EagleLegacy: {
 }
 
 Blocks: {
-	BronzeBrick: {
-		DisplayName: Bronze Brick
-		Tooltip: ""
-	}
-
-	BronzeBrickWallItem: {
-		DisplayName: Bronze Brick Wall
-		Tooltip: ""
-	}
-
-	BronzeColumn: {
-		DisplayName: Bronze Column
-		Tooltip: ""
-	}
-
-	BronzeColumnWallItem: {
-		DisplayName: Bronze Column Wall
-		Tooltip: ""
-	}
-
-	BronzeSlab: {
-		DisplayName: Bronze Slab
-		Tooltip: ""
-	}
-
-	BronzeSlabWallItem: {
-		DisplayName: Bronze Slab Wall
-		Tooltip: ""
-	}
-
 	TuckerGraveItem: {
 		DisplayName: Tucker's Grave
 		Tooltip: ""
+	}
+
+	Tiles: {
+		Bronze: {
+			BronzeBrick: {
+				DisplayName: Bronze Brick
+				Tooltip: ""
+			}
+
+			BronzeColumn: {
+				DisplayName: Bronze Column
+				Tooltip: ""
+			}
+
+			BronzeSlab: {
+				DisplayName: Bronze Slab
+				Tooltip: ""
+			}
+		}
+	}
+
+	Walls: {
+		Bronze: {
+			BronzeBrickWallItem: {
+				DisplayName: Bronze Brick Wall
+				Tooltip: ""
+			}
+
+			BronzeColumnWallItem: {
+				DisplayName: Bronze Column Wall
+				Tooltip: ""
+			}
+
+			BronzeSlabWallItem: {
+				DisplayName: Bronze Slab Wall
+				Tooltip: ""
+			}
+		}
+
+		UnsafeBronze: {
+			UnsafeBronzeBrickWallItem: {
+				DisplayName: Ravennan Bronze Brick Wall
+				Tooltip: ""
+			}
+
+			UnsafeBronzeColumnWallItem: {
+				DisplayName: Ravennan Bronze Column Wall
+				Tooltip: ""
+			}
+
+			UnsafeBronzeSlabWallItem: {
+				DisplayName: Ravennan Bronze Slab Wall
+				Tooltip: ""
+			}
+		}
 	}
 }
 

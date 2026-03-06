@@ -55,7 +55,11 @@ Configs: {
 
 		AffectsOtherMods: {
 			Label: "[i:Cog] Affect other mods"
-			Tooltip: Allows imbues and rarity tooltips to affect items from other mods
+			Tooltip:
+				'''
+				Allows imbues and rarity tooltips to affect items from other mods
+				Should only be disabled if your game is not functioning properly
+				'''
 		}
 
 		EnableMorden: {
@@ -65,12 +69,20 @@ Configs: {
 
 		VanillaItemTemperatures: {
 			Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
-			Tooltip: Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
+			Tooltip:
+				'''
+				Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
+				Should only be disabled if your game is not functioning properly
+				'''
 		}
 
 		PredictiveArray: {
 			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
-			Tooltip: Whether to have the Array spell predict enemy movements to aim
+			Tooltip:
+				'''
+				Whether to have the Array spell predict enemy movements to aim
+				Disable if enemies are moving unpredictably
+				'''
 		}
 	}
 
@@ -79,7 +91,11 @@ Configs: {
 
 		GenerateTucker: {
 			Label: "[i:ArcaneOdyssey/TuckerGraveItem] Generate Tucker's Grave"
-			Tooltip: Toggles the generation of Tucker's grave on world creation
+			Tooltip:
+				'''
+				Toggles the generation of Tucker's grave on world creation
+				Should only be disabled if your world is not generating properly
+				'''
 		}
 
 		AlternatePhoenixEffectVFX: {
@@ -89,11 +105,15 @@ Configs: {
 
 		ItemTypeTooltips: {
 			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
-			Tooltip: Toggles whether to show the rarity and type of items in their tooltips
+			Tooltip:
+				'''
+				Toggles whether to show the rarity and type of items in their tooltips
+				Should only be disabled if your items are not displaying properly
+				'''
 		}
 
 		AbilityText: {
-			Label: Ability Text
+			Label: "[i:ArcaneOdyssey/BronzeTriasta] Ability Text"
 			Tooltip: Ability names appear above your head when you activate them
 		}
 	}
@@ -173,19 +193,19 @@ NPCs: {
 
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
-		SpawnInfo: Spawns naturally in Hardmode, in the outer forests of the world.
+		SpawnInfo: Spawns naturally in Hardmode, in the outer thirds of the world.
 	}
 
 	DebuffDummy.DisplayName: Debuff Dummy
 
 	Dusk: {
 		DisplayName: Dusk, the Dark Oracle
-		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer forests of the world.
+		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer thirds of the world.
 	}
 
 	Laelus: {
-		DisplayName: Laelus, the Theif
-		SpawnInfo: Spawns naturally during the day, in the outer forests of the world.
+		DisplayName: Laelus, the Thief
+		SpawnInfo: Spawns naturally during the day, in the outer thirds of the world.
 	}
 }
 
@@ -224,7 +244,11 @@ RelicTierLines: {
 ArmourAutoTooltip: {
 	Agility: "{0}% increased movement speed"
 	Speed: "{0}% increased attack speed"
-	Power: "{0}% increased damage and {1}% increased critical strike chance"
+	Power:
+		'''
+		{0}% increased damage
+		{1}% increased critical strike chance
+		'''
 	Minions: Increases your max number of minions by {0}
 	Mana: Increases maximum mana by {0}
 	Size: "{0}% increased attack size"
@@ -278,6 +302,7 @@ Projectiles: {
 			ToweringImpact.DisplayName: Towering Impact
 			DevastateShockwave.DisplayName: Devastate Shockwave
 			ArrowStorm.DisplayName: Arrow Storm
+			ArrowRain.DisplayName: Arrow Rain
 		}
 
 		BronzeStaffProjectile.DisplayName: Bronze Staff
@@ -308,6 +333,11 @@ Achievements: {
 	DarkOracle: {
 		FriendlyName: Dark Oracle
 		Description: Slay Dusk the Dark Oracle, a master assassin that wields a powerful relic.
+	}
+
+	PettyTheft: {
+		FriendlyName: Petty Theft
+		Description: Slay Laelus the Thief, a bandit that foolishly wields a stolen relic.
 	}
 }
 

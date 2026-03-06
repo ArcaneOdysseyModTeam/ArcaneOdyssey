@@ -17,5 +17,11 @@ namespace ArcaneOdyssey.Content.Items.Materials
 			Item.maxStack = Item.CommonMaxStack;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Item.ResearchUnlockCount = 25;
+		}
 	}
 }
