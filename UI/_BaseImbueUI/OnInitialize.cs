@@ -61,7 +61,7 @@ public abstract partial class BaseImbueUI : UIState
 		Ice,
 
 		Light,
-		Lighting,
+		Lightning,
 
 		Magma,
 		Metal,
@@ -100,7 +100,7 @@ public abstract partial class BaseImbueUI : UIState
 		MagicTypes.Ice => ModContent.ItemType<IceMagic>(),
 
 		MagicTypes.Light => ModContent.ItemType<LightMagic>(),
-		MagicTypes.Lighting => ModContent.ItemType<LightningMagic>(),
+		MagicTypes.Lightning => ModContent.ItemType<LightningMagic>(),
 
 		MagicTypes.Magma => ModContent.ItemType<MagmaMagic>(),
 		MagicTypes.Metal => ModContent.ItemType<MetalMagic>(),
@@ -118,6 +118,47 @@ public abstract partial class BaseImbueUI : UIState
 
 		MagicTypes.None or _ => null,
 	};
+	/// <summary>
+	/// Should have no issue so long as we don't change the order of <see cref="MagicTypes"/>
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
+	public static MagicTypes IDToMagicType(int id)
+	{
+		// Spoky (2026 March 06): Can't seem to have a simple switch statement and use ModContent.Itemtype, oh well
+		int[] ids = [
+			ModContent.ItemType<BasicCombat>(),
+
+			ModContent.ItemType<EaglePatrimony>(),
+			ModContent.ItemType<SpiritEnergy>(),
+
+			ModContent.ItemType<AcidMagic>(),
+			ModContent.ItemType<AshMagic>(),
+			ModContent.ItemType<CrystalMagic>(),
+			ModContent.ItemType<EarthMagic>(),
+			ModContent.ItemType<ExplosionMagic>(),
+			ModContent.ItemType<FireMagic>(),
+			ModContent.ItemType<GlassMagic>(),
+			ModContent.ItemType<IceMagic>(),
+			ModContent.ItemType<LightMagic>(),
+			ModContent.ItemType<LightningMagic>(),
+			ModContent.ItemType<MagmaMagic>(),
+			ModContent.ItemType<MetalMagic>(),
+			ModContent.ItemType<PlasmaMagic>(),
+			ModContent.ItemType<PoisonMagic>(),
+			ModContent.ItemType<SandMagic>(),
+			ModContent.ItemType<ShadowMagic>(),
+			ModContent.ItemType<SnowMagic>(),
+			ModContent.ItemType<WaterMagic>(),
+			ModContent.ItemType<WindMagic>(),
+			ModContent.ItemType<WoodMagic>(),
+		];
+
+		for (int i = 0; i < ids.Length; i++) if (ids[i] == id) return (MagicTypes)(i);
+
+		return MagicTypes.None;
+	}
+
 	public static Asset<Texture2D> MagicTypeToMagicTexture(MagicTypes type)
 	{
 		if (type is MagicTypes.None) return TextureAssets.MagicPixel;
@@ -184,7 +225,7 @@ public abstract partial class BaseImbueUI : UIState
 	}
 
 
-	public const int separation = 4;
+	public const int Separation = 4;
 	#region Initialize thingies to make ui panels ready for cheeseburger production
 
 	protected virtual string GetTitle() => "No new title";
@@ -194,7 +235,7 @@ public abstract partial class BaseImbueUI : UIState
 
 		TitleText.HAlign = 0.5f;
 
-		TitleText.Top.Set(-(separation * 10), 0f);
+		TitleText.Top.Set(-(Separation * 10), 0f);
 
 		main.Append(TitleText);
 	}
@@ -206,8 +247,8 @@ public abstract partial class BaseImbueUI : UIState
 		main.SetPadding(0);
 		main.BackgroundColor = new(73, 94, 171);
 
-		main.Width.Set((float)((64 + separation) * ProductsPerRow + separation), 0f);
-		main.Height.Set(((64 + separation) * TotalRows) + separation, 0f);
+		main.Width.Set((float)((64 + Separation) * ProductsPerRow + Separation), 0f);
+		main.Height.Set(((64 + Separation) * TotalRows) + Separation, 0f);
 
 		main.HAlign = 0.5f; main.VAlign = 0.2f;
 
@@ -232,8 +273,8 @@ public abstract partial class BaseImbueUI : UIState
 
 		Append(CloseButton);
 
-		CloseText.Width.Set(CloseButton.Width.Pixels - separation * 2, 0f);
-		CloseText.Height.Set(CloseButton.Height.Pixels - separation * 2, 0f);
+		CloseText.Width.Set(CloseButton.Width.Pixels - Separation * 2, 0f);
+		CloseText.Height.Set(CloseButton.Height.Pixels - Separation * 2, 0f);
 
 		CloseText.IgnoresMouseInteraction = true;
 
@@ -254,14 +295,14 @@ public abstract partial class BaseImbueUI : UIState
 		ChooseButton.HAlign = 0.7f;
 
 		//ChooseButton.Left.Set(offset - (ChooseButton.Width.Pixels / 2), 0f);
-		ChooseButton.Top.Set(-(ChooseButton.Height.Pixels + separation), 0f);
+		ChooseButton.Top.Set(-(ChooseButton.Height.Pixels + Separation), 0f);
 
 		ChooseButton.OnLeftClick += ChosenButton_OnLeftClick;
 
 		Append(ChooseButton);
 
-		ChooseText.Width.Set(ChooseButton.Width.Pixels - separation * 2, 0f);
-		ChooseText.Height.Set(ChooseButton.Height.Pixels - separation * 2, 0f);
+		ChooseText.Width.Set(ChooseButton.Width.Pixels - Separation * 2, 0f);
+		ChooseText.Height.Set(ChooseButton.Height.Pixels - Separation * 2, 0f);
 
 		ChooseText.IgnoresMouseInteraction = true;
 
@@ -283,15 +324,15 @@ public abstract partial class BaseImbueUI : UIState
 
 			product.BackGround.Width.Set(64, 0f);
 			product.BackGround.Height.Set(64, 0f);
-			product.Icon.Width.Set(64 - (separation * 2), 0f);
-			product.Icon.Height.Set(64 - (separation * 2), 0f);
+			product.Icon.Width.Set(64 - (Separation * 2), 0f);
+			product.Icon.Height.Set(64 - (Separation * 2), 0f);
 
-			float left = (separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels), top = (separation * (offsetY + 1)) + (offsetY * product.BackGround.Height.Pixels);
+			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels), top = (Separation * (offsetY + 1)) + (offsetY * product.BackGround.Height.Pixels);
 
 			product.BackGround.Left.Set(left, 0f);
 			product.BackGround.Top.Set(top, 0f);
-			product.Icon.Left.Set(left + separation, 0f);
-			product.Icon.Top.Set(top + separation, 0f);
+			product.Icon.Left.Set(left + Separation, 0f);
+			product.Icon.Top.Set(top + Separation, 0f);
 
 			product.BackGround.OnLeftClick += OptionSelected;
 			product.Icon.IgnoresMouseInteraction = true;

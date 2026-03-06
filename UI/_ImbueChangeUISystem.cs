@@ -1,9 +1,10 @@
 ﻿using ArcaneOdyssey.UI.ImbueAcquiring;
 using ArcaneOdyssey.UI.ImbueAcquiringSequel;
 using ArcaneOdyssey.UI.ImbueChange;
-
+using ArcaneOdyssey.UI.MutateThyMagic;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -24,6 +25,9 @@ public class ImbueAnythingUISystem : ModSystem
 
 	private UserInterface _ImbueAcquireSequel;
 	internal ImbueAcquireSequelUI imbueAcquireSequelUI;
+
+	private UserInterface _MutateThyMagic;
+	internal MutateThyMagicUI mutateThyMagicUI;
 
 	private GameTime _prevTime;
 
@@ -55,6 +59,14 @@ public class ImbueAnythingUISystem : ModSystem
 		_ImbueChange?.SetState(imbueChangeUI);
 		imbueChangeUI.Activate();
 	}
+	public void ShowMutationUI()
+	{
+		mutateThyMagicUI = new();
+		mutateThyMagicUI.Initialize();
+		_MutateThyMagic = new();
+		_MutateThyMagic?.SetState(mutateThyMagicUI);
+		mutateThyMagicUI.Activate();
+	}
 	#endregion
 
 	#region Hide
@@ -72,6 +84,11 @@ public class ImbueAnythingUISystem : ModSystem
 	{
 		_ImbueChange?.SetState(null);
 		imbueChangeUI.Deactivate();
+	}
+	public void HideTheMutation()
+	{
+		_MutateThyMagic?.SetState(null);
+		mutateThyMagicUI.Deactivate();
 	}
 	#endregion
 
@@ -91,15 +108,22 @@ public class ImbueAnythingUISystem : ModSystem
 		//imbueChangeUI = new();
 		//imbueChangeUI.Initialize();
 
+		// Spoky (2026 March 06): This one is probably no only unneccesary, but harmful if it needs a player to start; though code should account for that
+		//mutateThyMagicUI = new();
+		//mutateThyMagicUI?.Initialize();
 	}
 	#endregion
 
 	public override void UpdateUI(GameTime gameTime)
 	{
 		_prevTime = gameTime;
+
 		_ImbueAcquire?.Update(gameTime);
 		_ImbueAcquireSequel?.Update(gameTime);
+
 		_ImbueChange?.Update(gameTime);
+
+		_MutateThyMagic?.Update(gameTime);
 	}
 
 	public bool CanShowImbueAcquire() => _prevTime is not null && _ImbueAcquire?.CurrentState is not null;
@@ -107,15 +131,17 @@ public class ImbueAnythingUISystem : ModSystem
 
 	public bool CanShowImbueChange() => _prevTime is not null && _ImbueChange?.CurrentState is not null;
 
+	public bool CanShowMutations() => _prevTime is not null && _MutateThyMagic?.CurrentState is not null;
+
 	public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 	{
 		int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
 
 		if (index is -1) return;
 
-		string[] names = ["ImbueAcquireUI", "ImbueAcquireSequelUI", "ImbueChangeUI"];
-		bool[] canShows = [CanShowImbueAcquire(), CanShowImbueSequelAcquire(), CanShowImbueChange()];
-		UserInterface[] uis = [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange];
+		string[] names = ["ImbueAcquireUI", "ImbueAcquireSequelUI", "ImbueChangeUI", "MutateThyFleshUI"];
+		bool[] canShows = [CanShowImbueAcquire(), CanShowImbueSequelAcquire(), CanShowImbueChange(), CanShowMutations()];
+		UserInterface[] uis = [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange, _MutateThyMagic];
 
 		if (names.Length != canShows.Length || canShows.Length != uis.Length)
 		{

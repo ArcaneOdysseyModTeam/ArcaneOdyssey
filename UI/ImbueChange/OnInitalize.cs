@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using Microsoft.Xna.Framework;
@@ -7,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+
 
 
 
@@ -50,5 +52,8 @@ public partial class ImbueChangeUI : BaseImbueUI
 
 	protected override string GetTitle() => Language.GetTextValue($"{LocalizationPath}SwappingImbue.AnnouncingHeWhoFellOff", TheGuyThatFellOff.Item.Name);
 
+	/// <summary>
+	/// The <see cref="ModItem"/> that would be swapped for another <see cref="Imbuable"/>
+	/// </summary>
 	public ModItem TheGuyThatFellOff;
 }
