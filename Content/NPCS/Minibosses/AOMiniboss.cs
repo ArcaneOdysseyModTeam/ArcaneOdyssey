@@ -7,7 +7,6 @@ using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 
 namespace ArcaneOdyssey.Content.NPCS.Minibosses
 {

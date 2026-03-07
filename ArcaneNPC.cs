@@ -45,6 +45,7 @@ namespace ArcaneOdyssey
 		public bool elecToxins = false;
 		public bool phoenixDrain = false;
 		public int lesserPhoenixDrain = 0;
+		public bool ionized = false;
 
 		public bool AOStunned = false;
 		#endregion
@@ -123,6 +124,7 @@ namespace ArcaneOdyssey
 			burning = false;
 			scorched = false;
 			corroding = false;
+			ionized = false;
 			lesserPhoenixDrain = 0;
 		}
 
@@ -142,6 +144,10 @@ namespace ArcaneOdyssey
 			if (bleeding)
 			{
 				Apply(.8f, ref damage);
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
+				}
 			}
 			if (poisoned)
 			{
@@ -152,12 +158,16 @@ namespace ArcaneOdyssey
 				Apply(1f, ref damage);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
 				}
 			}
 			if (scalding)
 			{
 				Apply(1.5f, ref damage);
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
+				}
 				// since its steam being oiled up does nothing
 			}
 			if (corroding) // same dot as melting!
@@ -169,7 +179,11 @@ namespace ArcaneOdyssey
 				Apply(1.8f, ref damage);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
+				}
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
 				}
 			}
 			if (shadowflame)
@@ -177,7 +191,11 @@ namespace ArcaneOdyssey
 				Apply(2f, ref damage);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
+				}
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
 				}
 			}
 			if (scorched)
@@ -185,7 +203,11 @@ namespace ArcaneOdyssey
 				Apply(1.6f, ref damage);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
+				}
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
 				}
 			}
 			if (seared)
@@ -193,20 +215,32 @@ namespace ArcaneOdyssey
 				Apply(1.4f, ref damage);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
+				}
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
 				}
 			}
 			if (singedstacks > 0)
 			{
-				Apply(.15f * singedstacks, ref damage);
+				Apply(.75f * singedstacks, ref damage);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
+				}
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
 				}
 			}
 			if (elecToxins)
 			{
 				Apply(2.2f, ref damage);
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
+				}
 			}
 			if (phoenixDrain)
 			{
@@ -216,7 +250,11 @@ namespace ArcaneOdyssey
 					Apply(1.3f, ref damage);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
+				}
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
 				}
 			}
 			if (vesuvianBurn)
@@ -224,7 +262,11 @@ namespace ArcaneOdyssey
 				Apply(4f, ref damage, 10, 10000);
 				if (npc.oiled)
 				{
-					Apply(.1f, ref damage);
+					Apply(.25f, ref damage);
+				}
+				if (ionized)
+				{
+					Apply(.5f, ref damage);
 				}
 			}
 		}

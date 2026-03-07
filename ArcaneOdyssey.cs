@@ -15,7 +15,6 @@ using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 

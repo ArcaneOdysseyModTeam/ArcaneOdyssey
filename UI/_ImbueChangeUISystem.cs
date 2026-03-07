@@ -4,7 +4,6 @@ using ArcaneOdyssey.UI.ImbueChange;
 using ArcaneOdyssey.UI.MutateThyMagic;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
