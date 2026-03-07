@@ -32,10 +32,27 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
-			if (item.type == ItemID.OceanCrateHard)
+			if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 12));
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 25));
 			}
+			else if (item.type == ItemID.IronCrate || item.type == ItemID.IronCrateHard)
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 20));
+			}
+			else if (item.type == ItemID.GoldenCrate || item.type == ItemID.GoldenCrateHard)
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
+			}
+			else if (ItemID.Sets.IsFishingCrate[item.type])
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 10));
+			}
+			else if (ItemID.Sets.IsFishingCrateHardmode[item.type])
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
+			}
+
 			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])
 			{
 				LeadingConditionRule leadingConditionRule1 = new(new Conditions.TenthAnniversaryIsUp());
@@ -57,6 +74,7 @@ namespace ArcaneOdyssey
 				leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 32), true);
 				itemLoot.Add(leadingConditionRule6);
 			}
+
 			if (ItemID.Sets.OpenableBag[item.type])
 			{
 				LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());

@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 
 		public override ref bool Downed => ref DownedBosses.downedLaelus;
 
-		public override bool ExtraConditions => Main.dayTime;
+		public override bool ExtraConditions => Main.dayTime || Main.remixWorld;
 
 		public override int AOHealth => 650;
 

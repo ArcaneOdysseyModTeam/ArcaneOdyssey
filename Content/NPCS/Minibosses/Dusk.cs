@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 
 		public override ref bool Downed => ref DownedBosses.downedDusk;
 
-		public override bool ExtraConditions => NPC.downedBoss2 && !Main.dayTime;
+		public override bool ExtraConditions => NPC.downedBoss2 && !Main.IsItDay();
 
 		public override int AOHealth => 1700;
 
