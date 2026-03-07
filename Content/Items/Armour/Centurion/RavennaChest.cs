@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Items.Armour.Centurion
 	{
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
 		public override int AODefense => 197;
-		public override int AOSize => AODefense / 17;
+		public override int Size => AODefense / 17;
 		public override int AOAttkSpd => AODefense / 17;
 		public override AORarities AORarity => AORarities.Uncommon;
 

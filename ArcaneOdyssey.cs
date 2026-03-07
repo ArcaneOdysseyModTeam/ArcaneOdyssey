@@ -38,8 +38,6 @@ namespace ArcaneOdyssey
 
 		internal static List<int> excludedProjectiles = [];
 
-		public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>([]);
-
 		/// <param name="args">
 		/// BlacklistProjectile/ExcludeProjectile (<seealso cref="int"/>)
 		/// <para>BlacklistItem/ExcludeItem (<seealso cref="int"/>)</para>
@@ -70,7 +68,6 @@ namespace ArcaneOdyssey
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
-			Array.Clear(Mutations);
 		}
 
 		public override void Unload()
@@ -79,7 +76,6 @@ namespace ArcaneOdyssey
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
-			Array.Clear(Mutations);
 		}
 
 		public override void PostSetupContent()
@@ -288,6 +284,28 @@ namespace ArcaneOdyssey
 				Main.NewText(message, Color.Yellow);
 			}
 			ArcaneOdysseyMod.NoticeQueue = [];
+		}
+	}
+
+	public class ArrayCollections : ModSystem
+	{
+		public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
+
+		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet();
+
+		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
+
+		public override void ResizeArrays()
+		{
+			Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
+
+			SizeStats = ItemID.Sets.Factory.CreateIntSet([
+				ItemID.MoltenBreastplate, 7,
+				ItemID.MoltenGreaves, 5,
+				ItemID.MoltenHelmet, 3,
+			]);
+
+			HasteStats = ItemID.Sets.Factory.CreateIntSet();
 		}
 	}
 

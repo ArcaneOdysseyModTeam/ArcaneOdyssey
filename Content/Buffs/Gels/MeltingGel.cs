@@ -10,7 +10,6 @@ namespace ArcaneOdyssey.Content.Buffs.Gels
 	public class MeltingGel : GelBuff
 	{
 		public override int DebuffID => ModContent.BuffType<Melting>();
-		public override string Texture => AOUtils.GelTexture;
 
 		public override void Effects(Rectangle hitbox)
 		{

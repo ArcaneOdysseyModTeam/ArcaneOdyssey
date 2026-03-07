@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int AOSize => 0;
+		public virtual int Size => 0;
 
 		/// <summary>
 		/// Base value
@@ -80,7 +80,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public int GetArmourSizeStat()
 		{
-			int val = AOSize;
+			int val = Size;
 			if (Imbue is not null)
 				val += Imbue.ArmourStats.Value.Corrected(Imbue).Size * (int)ArmourTier;
 			return val;
@@ -161,7 +161,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (GetArmourSizeStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / 2.75f)).Value));
+				tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / 2.75f)).Value));
 			}
 			if (GetArmourPowerStat() > 0)
 			{
@@ -177,7 +177,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (GetArmourHasteStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOHaste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(GetArmourHasteStat() / 2f)).Value));
+				tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(GetArmourHasteStat() / 2f)).Value));
 			}
 		}
 
@@ -205,6 +205,9 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			_ = Set?.Tooptip;
 			base.SetStaticDefaults();
+
+			ArrayCollections.SizeStats[Type] = Size;
+			ArrayCollections.HasteStats[Type] = Haste;
 		}
 	}
 }

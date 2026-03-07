@@ -6,8 +6,6 @@ using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -20,9 +18,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			if (ArcaneOdysseyMod.Mutations.Length == ItemID.Count)
-				ArcaneOdysseyMod.Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
-			ArcaneOdysseyMod.Mutations[Type] = [];
+			ArrayCollections.Mutations[Type] = [];
 			RegisterMutations();
 			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
@@ -31,7 +27,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public void RegisterMutation<T>() where T : AOMagic
 		{
-			ArcaneOdysseyMod.Mutations[Type].Add(ModContent.ItemType<T>());
+			ArrayCollections.Mutations[Type].Add(ModContent.ItemType<T>());
 		}
 
 		/// <summary>
@@ -42,7 +38,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (ImbuableTier != AOImbuableTier.Normal) 
 				return;
 
-			foreach (var mutation in ArcaneOdysseyMod.Mutations[Type])
+			foreach (var mutation in ArrayCollections.Mutations[Type])
 			{
 				Recipe.Create(mutation).AddIngredient(Type).AddIngredient<HecateShard>().DisableDecraft().Register();
 			}	
@@ -67,7 +63,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			//foreach (var mutation in ArcaneOdysseyMod.Mutations[Type])
+			//foreach (var mutation in ArrayCollections.Mutations[Type])
 			//{
 			//	Main.NewText(Lang.GetItemNameValue(mutation));
 			//}

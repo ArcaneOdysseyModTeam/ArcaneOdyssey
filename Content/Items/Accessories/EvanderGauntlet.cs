@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			if (!Main.dedServ)
 			{
 				EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);

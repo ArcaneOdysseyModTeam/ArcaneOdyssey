@@ -25,6 +25,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Default;
 
 namespace ArcaneOdyssey
 {
@@ -682,27 +683,19 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet([
-			ItemID.MoltenBreastplate, 7, 
-			ItemID.MoltenGreaves, 5, 
-			ItemID.MoltenHelmet, 3,
-			]);
-
-		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
-
 		public override void UpdateEquip(Item item, Player player)
 		{
 			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
 				if (item.type < ItemID.Count) // only vanilla items have entries
 				{
-					if (SizeStats[item.type] > 0)
+					if (ArrayCollections.SizeStats[item.type] > 0)
 					{
-						player.ArcaneOdyssey().AOSizeStat += SizeStats[item.type];
+						player.ArcaneOdyssey().AOSizeStat += ArrayCollections.SizeStats[item.type];
 					}
-					if (HasteStats[item.type] > 0)
+					if (ArrayCollections.HasteStats[item.type] > 0)
 					{
-						player.ArcaneOdyssey().AOHasteStat += HasteStats[item.type];
+						player.ArcaneOdyssey().AOHasteStat += ArrayCollections.HasteStats[item.type];
 					}
 				}
 			}
@@ -752,7 +745,7 @@ namespace ArcaneOdyssey
 				itemLoot.Add(leadingConditionRule6);
 			}
 
-			if (ItemID.Sets.OpenableBag[item.type])
+			if (itemLoot.Get().Count > 0)
 			{
 				LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 				AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 500));
@@ -767,7 +760,7 @@ namespace ArcaneOdyssey
 			{
 				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{AODASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
 			}
-			if ((item.ModItem is not null && item.ModItem.Name == "UnloadedItem") || !item.ArcaneOdyssey().CanBeAffected)
+			if (item.ModItem is UnloadedItem || !item.ArcaneOdyssey().CanBeAffected)
 			{
 				return;
 			}
@@ -776,15 +769,15 @@ namespace ArcaneOdyssey
 			{
 				if (item.GetItemType() == ItemType.Material)
 				{
-					tooltips.RemoveAll(e => e.Name == "Material" && e.Mod == "Terraria");
+					tooltips.Find(e => e.Name == "Material" && e.Mod == "Terraria")?.Hide();
 				}
 				else if (item.GetItemType() == ItemType.Vanity)
 				{
-					tooltips.RemoveAll(e => e.Name == "Vanity" && e.Mod == "Terraria");
+					tooltips.Find(e => e.Name == "Vanity" && e.Mod == "Terraria")?.Hide();
 				}
 				else if (item.GetItemType() == ItemType.Ammo)
 				{
-					tooltips.RemoveAll(e => e.Name == "Ammo" && e.Mod == "Terraria");
+					tooltips.Find(e => e.Name == "Ammo" && e.Mod == "Terraria")?.Hide();
 				}
 
 				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
@@ -798,15 +791,15 @@ namespace ArcaneOdyssey
 
 			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
-				if (item.type < ItemID.Count) // only vanilla items have entries
+				if (item.ModItem is not AOArmour) // avoid duplicate values
 				{
-					if (SizeStats[item.type] > 0)
+					if (ArrayCollections.SizeStats[item.type] > 0)
 					{
-						tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(SizeStats[item.type] / 2.75f)).Value));
+						tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArrayCollections.SizeStats[item.type] / 2.75f)).Value));
 					}
-					if (HasteStats[item.type] > 0)
+					if (ArrayCollections.HasteStats[item.type] > 0)
 					{
-						tooltips.AddTooltip(new(Mod, "AOHaste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(HasteStats[item.type] / 2f)).Value));
+						tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArrayCollections.HasteStats[item.type] / 2f)).Value));
 					}
 				}
 			}
