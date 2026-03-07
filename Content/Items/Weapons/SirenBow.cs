@@ -26,7 +26,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-			Item.staff[Type] = true;
 		}
 
 		public override void SetDefaults()
@@ -35,8 +34,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.DamageType = DamageClass.Ranged;
-			Item.width = 18;
-			Item.height = 56;
+			Item.width = 16;
+			Item.height = 46;
 			Item.autoReuse = true;
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
 			Item.shootSpeed = 15f;
@@ -51,8 +50,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		}
 
 		public override bool AltFunctionUse(Player player) => true;
-
-		public override Vector2? HoldoutOffset() => new();
 
 		public override void OnConsumeAmmo(Item ammo, Player player)
 		{

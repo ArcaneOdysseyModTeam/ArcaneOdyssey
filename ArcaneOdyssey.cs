@@ -38,6 +38,8 @@ namespace ArcaneOdyssey
 
 		internal static List<int> excludedProjectiles = [];
 
+		public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>([]);
+
 		/// <param name="args">
 		/// BlacklistProjectile/ExcludeProjectile (<seealso cref="int"/>)
 		/// <para>BlacklistItem/ExcludeItem (<seealso cref="int"/>)</para>
@@ -68,6 +70,7 @@ namespace ArcaneOdyssey
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
+			Array.Clear(Mutations);
 		}
 
 		public override void Unload()
@@ -76,11 +79,11 @@ namespace ArcaneOdyssey
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
+			Array.Clear(Mutations);
 		}
 
 		public override void PostSetupContent()
 		{
-			// generate localization
 			this.CoolCustomLocalization("RandomWords.Default");
 			this.CoolCustomLocalization("RandomWords.Unbound");
 			this.CoolCustomLocalization("RandomWords.None");
