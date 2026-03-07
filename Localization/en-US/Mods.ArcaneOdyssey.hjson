@@ -250,6 +250,7 @@ ArmourAutoTooltip: {
 	Mana: Increases maximum mana by {0}
 	Size: "{0}% increased attack size"
 	Pierce: Increases armour penetration by {0}
+	Haste: "{0}% reduced ability cooldown"
 }
 
 CodebreakerDialogOption: {

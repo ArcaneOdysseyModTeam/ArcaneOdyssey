@@ -161,7 +161,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 			if (GetArmourSizeStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / 3f)).Value));
+				tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / 2.75f)).Value));
 			}
 			if (GetArmourPowerStat() > 0)
 			{
@@ -174,6 +174,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 			if (GetArmourPierceStat() > 0)
 			{
 				tooltips.AddTooltip(new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", GetArmourPierceStat() / 5).Value));
+			}
+			if (GetArmourHasteStat() > 0)
+			{
+				tooltips.AddTooltip(new(Mod, "AOHaste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(GetArmourHasteStat() / 2f)).Value));
 			}
 		}
 

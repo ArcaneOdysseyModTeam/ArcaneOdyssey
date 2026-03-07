@@ -28,128 +28,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
-	public class ItemManager : GlobalItem
-	{
-		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
-		{
-			if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
-			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 25));
-			}
-			else if (item.type == ItemID.IronCrate || item.type == ItemID.IronCrateHard)
-			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 20));
-			}
-			else if (item.type == ItemID.GoldenCrate || item.type == ItemID.GoldenCrateHard)
-			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
-			}
-			else if (ItemID.Sets.IsFishingCrate[item.type])
-			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 10));
-			}
-			else if (ItemID.Sets.IsFishingCrateHardmode[item.type])
-			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
-			}
-
-			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])
-			{
-				LeadingConditionRule leadingConditionRule1 = new(new Conditions.TenthAnniversaryIsUp());
-				leadingConditionRule1.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
-				itemLoot.Add(leadingConditionRule1);
-				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
-				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 32), true);
-				itemLoot.Add(leadingConditionRule2);
-				//LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
-				//leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
-				//itemLoot.Add(leadingConditionRule3);
-				//LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
-				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
-				//itemLoot.Add(leadingConditionRule4);
-				LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
-				leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
-				itemLoot.Add(leadingConditionRule5);
-				LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
-				leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 32), true);
-				itemLoot.Add(leadingConditionRule6);
-			}
-
-			if (ItemID.Sets.OpenableBag[item.type])
-			{
-				LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
-				AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 500));
-				itemLoot.Add(AcrimonyCondition);
-			}
-		}
-
-		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-		{
-			var dashline = tooltips.Find(e => e.Text.Contains("{AODASHBIND}"));
-			if (dashline is not null)
-			{
-				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{AODASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
-			}
-			if ((item.ModItem is not null && item.ModItem.Name == "UnloadedItem") || !item.ArcaneOdyssey().CanBeAffected)
-			{
-				return;
-			}
-
-			if (ArcaneOdysseyClientConfig.Instance.ItemTypeTooltips)
-			{
-				if (item.GetItemType() == ItemType.Material)
-				{
-					tooltips.RemoveAll(e => e.Name == "Material" && e.Mod == "Terraria");
-				}
-				if (item.GetItemType() == ItemType.Vanity)
-				{
-					tooltips.RemoveAll(e => e.Name == "Vanity" && e.Mod == "Terraria");
-				}
-				if (item.GetItemType() == ItemType.Ammo)
-				{
-					tooltips.RemoveAll(e => e.Name == "Ammo" && e.Mod == "Terraria");
-				}
-
-				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
-				{
-					var line = item.GetItemRare().ToString();
-					line += " ";
-					line += item.GetItemType().ToString().ToLower();
-					tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
-				}
-			}
-
-			if (item.ModItem is AOWeapon weapon)
-			{
-				if (weapon.Ability.HasValue)
-				{
-					string text = $"[c/{weapon.Ability.Value.Colour.Hex3()}:{weapon.Ability.Value.Name}]";
-					if (weapon.Ability.Value.Description is not null)
-					{
-						text += $": {weapon.Ability.Value.Description}";
-					}
-					tooltips.AddTooltip(new(weapon.Mod, "AOAbility", text));
-				}
-			}
-
-			switch (item.ArcaneOdyssey().WeaponsType)
-			{
-				case WeaponType.Artisinal:
-					tooltips.AddTooltip(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
-					return;
-				case WeaponType.Arcanium:
-					tooltips.AddTooltip(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
-					return;
-				case WeaponType.Strength:
-					tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
-					return;
-			}
-		}
-	}
-
 	public class AOItem : GlobalItem, IImbuable
 	{
-
 		public float ApplySpeed(float value, bool flipfloat = false)
 		{
 			if (BenifitsFromScrollStats.HasValue)
@@ -799,6 +679,162 @@ namespace ArcaneOdyssey
 			{
 				modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
 				modifiers = AOUtils.CalculateImbueDamage(SecondImbue, target, modifiers);
+			}
+		}
+
+		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet([
+			ItemID.MoltenBreastplate, 7, 
+			ItemID.MoltenGreaves, 5, 
+			ItemID.MoltenHelmet, 3,
+			]);
+
+		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
+
+		public override void UpdateEquip(Item item, Player player)
+		{
+			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
+			{
+				if (item.type < ItemID.Count) // only vanilla items have entries
+				{
+					if (SizeStats[item.type] > 0)
+					{
+						player.ArcaneOdyssey().AOSizeStat += SizeStats[item.type];
+					}
+					if (HasteStats[item.type] > 0)
+					{
+						player.ArcaneOdyssey().AOHasteStat += HasteStats[item.type];
+					}
+				}
+			}
+		}
+		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+		{
+			if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 25));
+			}
+			else if (item.type == ItemID.IronCrate || item.type == ItemID.IronCrateHard)
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 20));
+			}
+			else if (item.type == ItemID.GoldenCrate || item.type == ItemID.GoldenCrateHard)
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
+			}
+			else if (ItemID.Sets.IsFishingCrateHardmode[item.type])
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
+			}
+			else if (ItemID.Sets.IsFishingCrate[item.type])
+			{
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 10));
+			}
+
+			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])
+			{
+				LeadingConditionRule leadingConditionRule1 = new(new Conditions.TenthAnniversaryIsUp());
+				leadingConditionRule1.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
+				itemLoot.Add(leadingConditionRule1);
+				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
+				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 32), true);
+				itemLoot.Add(leadingConditionRule2);
+				//LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
+				//leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
+				//itemLoot.Add(leadingConditionRule3);
+				//LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
+				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
+				//itemLoot.Add(leadingConditionRule4);
+				LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
+				leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
+				itemLoot.Add(leadingConditionRule5);
+				LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
+				leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 32), true);
+				itemLoot.Add(leadingConditionRule6);
+			}
+
+			if (ItemID.Sets.OpenableBag[item.type])
+			{
+				LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
+				AcrimonyCondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Acrimony>(), 500));
+				itemLoot.Add(AcrimonyCondition);
+			}
+		}
+
+		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+		{
+			var dashline = tooltips.Find(e => e.Text.Contains("{AODASHBIND}"));
+			if (dashline is not null)
+			{
+				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{AODASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
+			}
+			if ((item.ModItem is not null && item.ModItem.Name == "UnloadedItem") || !item.ArcaneOdyssey().CanBeAffected)
+			{
+				return;
+			}
+
+			if (ArcaneOdysseyClientConfig.Instance.ItemTypeTooltips)
+			{
+				if (item.GetItemType() == ItemType.Material)
+				{
+					tooltips.RemoveAll(e => e.Name == "Material" && e.Mod == "Terraria");
+				}
+				else if (item.GetItemType() == ItemType.Vanity)
+				{
+					tooltips.RemoveAll(e => e.Name == "Vanity" && e.Mod == "Terraria");
+				}
+				else if (item.GetItemType() == ItemType.Ammo)
+				{
+					tooltips.RemoveAll(e => e.Name == "Ammo" && e.Mod == "Terraria");
+				}
+
+				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
+				{
+					var line = item.GetItemRare().ToString();
+					line += " ";
+					line += item.GetItemType().ToString().ToLower();
+					tooltips.Insert(1, new TooltipLine(Mod, "ItemTypeLine", line));
+				}
+			}
+
+			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
+			{
+				if (item.type < ItemID.Count) // only vanilla items have entries
+				{
+					if (SizeStats[item.type] > 0)
+					{
+						tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(SizeStats[item.type] / 2.75f)).Value));
+					}
+					if (HasteStats[item.type] > 0)
+					{
+						tooltips.AddTooltip(new(Mod, "AOHaste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(HasteStats[item.type] / 2f)).Value));
+					}
+				}
+			}
+
+			if (item.ModItem is AOWeapon weapon)
+			{
+				if (weapon.Ability.HasValue)
+				{
+					string text = $"[c/{weapon.Ability.Value.Colour.Hex3()}:{weapon.Ability.Value.Name}]";
+					if (weapon.Ability.Value.Description is not null)
+					{
+						text += $": {weapon.Ability.Value.Description}";
+					}
+					tooltips.AddTooltip(new(weapon.Mod, "AOAbility", text));
+				}
+			}
+
+			switch (item.ArcaneOdyssey().WeaponsType)
+			{
+				case WeaponType.Artisinal:
+					tooltips.AddTooltip(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
+					return;
+				case WeaponType.Arcanium:
+					tooltips.AddTooltip(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
+					return;
+				case WeaponType.Strength:
+					tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
+					return;
 			}
 		}
 	}

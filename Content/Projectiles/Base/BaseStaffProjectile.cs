@@ -28,6 +28,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.ownerHitCheck = true;
 		}
 
+		public override void OnKill(int timeLeft)
+		{
+			Owner.channel = false;
+		}
+
 		public override void AI()
 		{
 			Owner.heldProj = Projectile.whoAmI;
@@ -55,6 +60,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Owner.reuseDelay = 2;
 				return;
 			}
+
+			Projectile.timeLeft = 2;
 
 			if (Projectile.ai[1] >= 600 || Projectile.ai[1] <= -600)
 			{

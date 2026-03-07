@@ -23,9 +23,11 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
 			NPC.trapImmune = false;
-			Music = AOUtils.GetMusic("Atlantean");
 			NPC.lavaImmune = false;
+#if VSDEBUGMODE
 			NPC.boss = true;
+			Music = AOUtils.GetMusic("Atlantean");
+#endif
 		}
 
 		public override void AI()
