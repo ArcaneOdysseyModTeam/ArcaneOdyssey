@@ -36,7 +36,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.projFrames[Type] = 6;
+			ProjectileID.Sets.NoLiquidDistortion[Type] = true;
 		}
 
 		public override void AI()

@@ -9,6 +9,7 @@ using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.NPCS;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.PlayerClasses;
 using ArcaneOdyssey.VFX.Rarities;
 using ArcaneOdysseyMusic;
@@ -45,52 +46,35 @@ namespace ArcaneOdyssey
 		public static int GetMusic(string name) => MusicLoader.GetMusicSlot(ArcaneOdysseyMusicMod.Instance, "Music/" + name);
 
 		internal static List<string> options = [
-			"FavoriteDesc",
-			"NoTransfer",
-			"SocialDesc",
-			"Damage",
-			"CritChance",
-			"Speed",
-			"NoSpeedScaling",
-			"SpecialSpeedScaling",
-			"Knockback",
-			"FishingPower",
-			"NeedsBait",
-			"BaitPower",
-			"Equipable",
-			"WandConsumes",
-			"Quest",
-			"Vanity",
-			"Defense",
-			"PickPower",
-			"AxePower",
-			"HammerPower",
-			"TileBoost",
-			"HealLife",
-			"HealMana",
-			"UseMana",
-			"Placeable",
-			"Ammo",
-			"Consumable",
-			"Material",
-			"Tooltip",
-			//"EtherianManaWarning",
-			//"WellFedExpert",
-			//"BuffTime",
-			//"OneDropLogo",
-			//"PrefixDamage",
-			//"PrefixSpeed",
-			//"PrefixCritChance",
-			//"PrefixUseMana",
-			//"PrefixSize",
-			//"PrefixShootSpeed",
-			//"PrefixKnockback",
-			//"PrefixAccDefense",
-			//"PrefixAccMaxMana",
-			//"PrefixAccCritChance",
-			//"PrefixAccDamage",
-			//"PrefixAccMoveSpeed",
-			//"PrefixAccMeleeSpeed",
+			"Terraria FavoriteDesc",
+			"Terraria NoTransfer",
+			"Terraria SocialDesc",
+			"Terraria Damage",
+			"Terraria CritChance",
+			"Terraria Speed",
+			"Terraria NoSpeedScaling",
+			"Terraria SpecialSpeedScaling",
+			"Terraria Knockback",
+			"Terraria FishingPower",
+			"Terraria NeedsBait",
+			"Terraria BaitPower",
+			"Terraria Equipable",
+			"Terraria WandConsumes",
+			"Terraria Quest",
+			"Terraria Vanity",
+			"Terraria Defense",
+			"Terraria PickPower",
+			"Terraria AxePower",
+			"Terraria HammerPower",
+			"Terraria TileBoost",
+			"Terraria HealLife",
+			"Terraria HealMana",
+			"Terraria UseMana",
+			"Terraria Placeable",
+			"Terraria Ammo",
+			"Terraria Consumable",
+			"Terraria Material",
+			"Terraria Tooltip",
 		];
 
 		public static string GetBuffName(int id)
@@ -174,13 +158,13 @@ namespace ArcaneOdyssey
 			bool found = false;
 			foreach (var option in options)
 			{
-				var index = tooltips.FindIndex((TooltipLine e) => e.Name.StartsWith(option) || e.Name == option);
+				var index = tooltips.FindIndex((TooltipLine e) => $"{e.Mod} {e.Name}".StartsWith(option) || $"{e.Mod} {e.Name}" == option);
 				if (index != -1)
 				{
 					tooltips.Insert(index, toAdd);
 					options.Reverse();
-					if (!options.Contains(toAdd.Name))
-						options.Add(toAdd.Name);
+					if (!options.Contains($"{toAdd.Mod} {toAdd.Name}"))
+						options.Add($"{toAdd.Mod} {toAdd.Name}");
 					found = true;
 					break;
 				}
@@ -192,8 +176,8 @@ namespace ArcaneOdyssey
 			{
 				tooltips.Add(toAdd);
 				options.Reverse();
-				if (!options.Contains(toAdd.Name))
-					options.Add(toAdd.Name);
+				if (!options.Contains($"{toAdd.Mod} {toAdd.Name}"))
+					options.Add($"{toAdd.Mod} {toAdd.Name}");
 			}
 		}
 
@@ -1480,9 +1464,9 @@ namespace ArcaneOdyssey
 
 		public static AOPlayer ArcaneOdyssey(this ModPlayer player) => player?.Player?.ArcaneOdyssey();
 
-		public static ArcaneNPC ArcaneOdyssey(this NPC npc)
+		public static AONPC ArcaneOdyssey(this NPC npc)
 		{
-			if (npc is not null && npc.active && npc.TryGetGlobalNPC<ArcaneNPC>(out var npcc))
+			if (npc is not null && npc.active && npc.TryGetGlobalNPC<AONPC>(out var npcc))
 				return npcc;
 			return null;
 		}

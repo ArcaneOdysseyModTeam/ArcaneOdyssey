@@ -11,10 +11,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.GlobalTypes
 {
-
-	public class TileLoot : GlobalTile
+	public class AOTile : GlobalTile
 	{
 		public static int commonpity = 0;
 		public static int rarepity = 0;

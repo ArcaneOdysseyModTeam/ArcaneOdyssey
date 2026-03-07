@@ -3,12 +3,9 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues;
 using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
-using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -17,28 +14,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.GlobalTypes
 {
-	public class ProjectileManager : GlobalProjectile
-	{
-		public override bool PreDraw(Projectile projectile, ref Color lightColor)
-		{
-			if (Main.myPlayer == projectile.owner)
-			{
-				if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is PoisonMagic or PoisonLightningMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is PoisonMagic or PoisonLightningMagic) && (projectile.type == ProjectileID.SporeGas || projectile.type == ProjectileID.SporeGas2 || projectile.type == ProjectileID.SporeGas3))
-				{
-					lightColor = projectile.GetAlpha(Color.Purple);
-				}
-
-				if ((projectile.GetOwner()?.ArcaneOdyssey()?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue() is AshMagic || projectile.GetOwner()?.ArcaneOdyssey()?.Imbue?.Imbue is AshMagic || projectile.GetOwner()?.PlayerItem()?.Imbue()?.Imbue is AshMagic) && projectile.type == ProjectileID.SporeCloud)
-				{
-					lightColor = projectile.GetAlpha(Color.DarkRed);
-				}
-			}
-			return base.PreDraw(projectile, ref lightColor);
-		}
-	}
-
 	public class AOProjectile : GlobalProjectile, IImbuable
 	{
 		public float ApplySpeed(float value, bool flipfloat = false)

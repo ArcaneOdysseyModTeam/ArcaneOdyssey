@@ -1,8 +1,10 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -29,6 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void PostAI()
 		{
 			base.PostAI();
+			Imbue ??= ModContent.GetInstance<WindMagic>();
 			if (Imbue is AOMagic)
 				SecondImbue?.LingeringEffects(Projectile.Hitbox);
 			if (!playedsound)

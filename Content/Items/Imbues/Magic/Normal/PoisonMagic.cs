@@ -1,10 +1,12 @@
 using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
@@ -67,9 +69,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, Color.Purple, 3f)];
 				spawnedDust.noGravity = true;
-				if (source is Projectile projectile && n / 2 >= 10)
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.25f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), Main.rand.Next([ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3]), 2 + AOUtils.BossesKilled, 0f);
 			}
+			if (source is Projectile projectile)
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<PoisonCloud>(), 2 * (AOUtils.BossesKilled + 1), 0f);
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 	}

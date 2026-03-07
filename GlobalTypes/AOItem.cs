@@ -27,7 +27,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.GlobalTypes
 {
 	public class AOItem : GlobalItem, IImbuable
 	{

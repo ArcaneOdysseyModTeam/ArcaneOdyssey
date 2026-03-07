@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -23,7 +24,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool PreAI()
 		{
-			if (Main.myPlayer == Projectile.owner && (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet)))
+			Imbue ??= ModContent.GetInstance<BasicCombat>();
+			if (Main.myPlayer == Projectile.owner && !Imbue.CanBeWet && Projectile.wet)
 			{
 				Kill();
 				return false;

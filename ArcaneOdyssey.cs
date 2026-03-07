@@ -2,6 +2,8 @@ using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.NPCS.Town;
 using ArcaneOdyssey.Content.Tiles;
+using ArcaneOdyssey.GlobalTypes;
+
 #if VSDEBUGMODE
 using ArcaneOdyssey.PlayerClasses;
 #endif
@@ -287,26 +289,18 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class ArrayCollections : ModSystem
+	[ReinitializeDuringResizeArrays]
+	public static class ArrayCollections
 	{
 		public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
 
-		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet();
+		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet([
+			ItemID.MoltenBreastplate, 7,
+			ItemID.MoltenGreaves, 5,
+			ItemID.MoltenHelmet, 3,
+		]);
 
 		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
-
-		public override void ResizeArrays()
-		{
-			Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
-
-			SizeStats = ItemID.Sets.Factory.CreateIntSet([
-				ItemID.MoltenBreastplate, 7,
-				ItemID.MoltenGreaves, 5,
-				ItemID.MoltenHelmet, 3,
-			]);
-
-			HasteStats = ItemID.Sets.Factory.CreateIntSet();
-		}
 	}
 
 	public class DownedNPCTracker : GlobalNPC
@@ -365,9 +359,9 @@ namespace ArcaneOdyssey
 			if (PrintInfo.JustPressed) 
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOUtils.BossesKilled) + " " + AOUtils.BossesKilled);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(TileLoot.commonpity) + " " + TileLoot.commonpity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(TileLoot.rarepity) + " " + TileLoot.rarepity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(TileLoot.lostpity) + " " + TileLoot.lostpity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.commonpity) + " " + AOTile.commonpity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.rarepity) + " " + AOTile.rarepity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.lostpity) + " " + AOTile.lostpity);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.acumen) + " " + Main.LocalPlayer.ArcaneOdyssey().acumen);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.BronzeSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().BronzeSealed);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.NimbusSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed);

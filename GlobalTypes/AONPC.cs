@@ -8,12 +8,12 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.GlobalTypes
 {
 	/// <summary>
 	/// basically AOPlayer but for npcs
 	/// </summary>
-	public class ArcaneNPC : GlobalNPC
+	public class AONPC : GlobalNPC
 	{
 		public override bool InstancePerEntity => true;
 
@@ -118,6 +118,7 @@ namespace ArcaneOdyssey
 			singedstacks = 0;
 			seared = false;
 			elecToxins = false;
+			poisoned = false;
 			phoenixDrain = false;
 			melting = false;
 			shadowflame = false;

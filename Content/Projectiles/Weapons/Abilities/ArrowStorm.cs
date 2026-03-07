@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(lightColor * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length));
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, 0, Sprite.Width, Sprite.Height / Main.projFrames[ThisProjectileType]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[ThisProjectileType]) / 2f, Projectile.scale, SpriteEffects.None, 0);
 			}
 			return false;
 		}

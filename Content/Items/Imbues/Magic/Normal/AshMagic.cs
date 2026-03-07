@@ -3,10 +3,12 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 {
@@ -106,10 +108,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Normal
 			}
 			if (source is Projectile projectile)
 			{
-				for (int n = 0; n < 10; n++)
-				{
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), new(1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 1.23f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f)), ProjectileID.SporeCloud, 2 + AOUtils.BossesKilled, 0f);
-				}
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<AshCloud>(), 5 * (AOUtils.BossesKilled + 1), 0f);
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 

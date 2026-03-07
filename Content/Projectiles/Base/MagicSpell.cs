@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -44,7 +45,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool PreAI()
 		{
-			if (Main.myPlayer == Projectile.owner && (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet)))
+			Imbue ??= ModContent.GetInstance<WindMagic>();
+			if (Main.myPlayer == Projectile.owner && !Imbue.CanBeWet && Projectile.wet)
 			{
 				Kill();
 				return false;

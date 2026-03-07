@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.GlobalTypes;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Items
@@ -9,7 +10,7 @@ namespace ArcaneOdyssey.Content.Items
 
 		public override void UpdateInventory(Player player)
 		{
-			Item.SetDefaults(Main.rand.Next(TileLoot.GetAllCommonScrollDrops()));
+			Item.SetDefaults(Main.rand.Next(AOTile.GetAllCommonScrollDrops()));
 		}
 	}
 }

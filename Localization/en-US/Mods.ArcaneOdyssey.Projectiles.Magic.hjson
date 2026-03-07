@@ -255,6 +255,8 @@ Effects: {
 	FrostmetalShard.DisplayName: Frostmetal Shard
 	PrismLinger.DisplayName: Prism Shard Cloud
 	ProminenceProjectile.DisplayName: Prominent Sun
+	AshCloud.DisplayName: Ash Cloud
+	PoisonCloud.DisplayName: Poison Cloud
 }
 
 MeteorSpell.DisplayName: Meteor Spell

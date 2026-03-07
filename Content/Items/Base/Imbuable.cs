@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -426,13 +427,15 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 			}
 
-			if (Effects.clearBuffs.Length > 0)
-			{
-				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(Effects.clearBuffs[0].id)).Value;
 
-				foreach (var buff in Effects.clearBuffs)
+			var clear = Effects.clearBuffs.OrderBy(e => Lang.GetBuffName(e.id)).ToArray();
+			if (clear.Length > 0)
+			{
+				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(clear[0].id)).Value;
+
+				foreach (var buff in clear)
 				{
-					if (buff.id != Effects.clearBuffs[0].id)
+					if (buff.id != clear[0].id)
 					{
 						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(buff.id)).Value;
 					}
