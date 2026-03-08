@@ -18,9 +18,6 @@
 		<None Remove="**\*.md" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Assets\" />
-	</ItemGroup>
-	<ItemGroup>
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>

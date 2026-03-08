@@ -1,10 +1,10 @@
 ﻿sampler uImage0 : register(s0);
 sampler uImage1 : register(s1);
 float3 uColor; // Colour
-float3 uSecondaryColor;
+float3 uSecondaryColor; // Rot speed red
 float uOpacity;
 float uSaturation; // Intensity
-float uRotation; // Rot speed
+float uRotation; 
 float uTime;
 float4 uSourceRect;
 float2 uWorldPosition;
@@ -21,7 +21,7 @@ float4 getCol(float2 inUV)
 	uv.y -= .5;
 	uv.x -= .5;
     
-	float theta = uRotation;
+	float theta = uSecondaryColor.r * uTime;
     
 	uv.x = uv.x * 4.;
     
