@@ -95,7 +95,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			//		Projectile.frame = 0;
 			//	}
 			//}
-			circleRotation += ApplySpeed(MathHelper.Pi / 120f);
+			circleRotation += ApplySpeed(MathHelper.PiOver4 / 200f);
 		}
 
 		public float Intensity => Projectile.Opacity * 1.2f;
