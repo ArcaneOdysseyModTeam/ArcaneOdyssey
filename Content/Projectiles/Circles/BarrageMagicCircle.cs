@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,7 +25,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
-			Projectile.Opacity = .75f;
 		}
 
 		public override void AI()
@@ -51,7 +51,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 			if (Owner.channel && !MarkedForDeath)
 			{
-				Projectile.Opacity = 1f;
 				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemAnimation = Owner.itemAnimationMax;
 				Owner.itemTime = Owner.itemTimeMax;
@@ -63,6 +62,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
+				var shake = Intensity * .25f;
+				Projectile.Center += new Vector2(Main.rand.NextFloat(-shake, shake), Main.rand.NextFloat(-shake, shake));
 
 				//dir += (Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread).ToRotationVector2());
 				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
@@ -95,7 +96,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			//		Projectile.frame = 0;
 			//	}
 			//}
-			circleRotation = ApplySpeed(MathHelper.Pi / 120f);
+			circleRotation = Intensity * ApplySpeed(MathHelper.Pi / 120f);
 		}
 
 		public float Intensity => Projectile.Opacity * 1.2f;
@@ -104,6 +105,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			if (Imbue is null or AOMagic)
+			{
+				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				Lighting.AddLight(Projectile.Center, lightColor.ToVector3());
+			}
+			else
+				lightColor = Color.Transparent;
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;

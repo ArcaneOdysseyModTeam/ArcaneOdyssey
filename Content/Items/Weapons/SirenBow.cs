@@ -40,6 +40,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			Item.shoot = ProjectileID.WoodenArrowFriendly;
 			Item.shootSpeed = 15f;
 			Item.useAmmo = AmmoID.Arrow;
+			Item.scale *= 1.5f;
 		}
 
 		public override float UseTimeMultiplier(Player player)
@@ -75,7 +76,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 				var offsetX = Main.MouseWorld.X;
 				var offsetY = Main.screenPosition.Y;
 				var pos = new Vector2(offsetX, offsetY);
-				pos += new Vector2(Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)), Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)));
 				velocity = player.MountedCenter.DirectionTo(pos) * velocity.Length();
 			}
 		}
@@ -84,6 +84,11 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 		{
 			if (player.AltUse())
 			{
+				var offsetX = Main.MouseWorld.X;
+				var offsetY = Main.screenPosition.Y;
+				var pos = new Vector2(offsetX, offsetY);
+				pos += new Vector2(Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)), Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)));
+				velocity = player.MountedCenter.DirectionTo(pos) * velocity.Length();
 				Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ArrowRain>(), damage, knockback, player.whoAmI, type);
 				return false;
 			}

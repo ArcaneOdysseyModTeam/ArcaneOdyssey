@@ -19,7 +19,9 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 		internal static readonly Color[] rainbowColors = [new Color(255, 71, 124), new Color(94, 61, 255), new Color(87, 219, 255), new Color(100, 255, 93)];
 
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override Color ImbueColour => Color.White;
+
+		public float UpdateCount => Main.GameUpdateCount / 100f;
+		public override Color ImbueColour => new(Math.Abs(MathF.Sin(UpdateCount)), Math.Abs(MathF.Cos(UpdateCount)), Math.Abs(MathF.Tan(UpdateCount)));
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollDamage => 1.2f;
 		public override float AOScrollSize => 1.15f;

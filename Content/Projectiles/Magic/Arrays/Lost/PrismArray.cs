@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Arrays.Lost
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.alpha = (int)(225 * .4f);
 		}
 		public override void SetStaticDefaults()
 		{

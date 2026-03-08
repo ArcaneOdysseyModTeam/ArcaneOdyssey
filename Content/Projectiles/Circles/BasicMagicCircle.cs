@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +24,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
-			Projectile.Opacity = .75f;
 		}
 
 		internal bool originallyAltFire = false;
@@ -87,7 +87,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 			if (Imbue is not null && !Main.dedServ)
 			{
-				Lighting.AddLight(Projectile.Center, Imbue.GetColour(Color.White).ToVector3());
 				if (Projectile.localAI[0]++ > 5)
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.GetColour(), 1f)];
@@ -109,7 +108,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			//		Projectile.frame = 0;
 			//	}
 			//}
-			circleRotation = ApplySpeed(MathHelper.Pi / 120f);
+			circleRotation = Intensity * ApplySpeed(MathHelper.Pi / 120f);
 		}
 
 
@@ -119,6 +118,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			if (Imbue is null or AOMagic)
+			{
+				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				Lighting.AddLight(Projectile.Center, lightColor.ToVector3());
+			}
+			else
+				lightColor = Color.Transparent;
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;
