@@ -1,5 +1,12 @@
 ﻿sampler uImage0 : register(s0);
-sampler uImage1 : register(s1);
+sampler uImage1 : register(s1)
+{
+	MagFilter = Linear;
+	MinFilter = Linear;
+	Mipfilter = Linear;
+	AddressU = Clamp; // Stops horizontal repeat
+	AddressV = Clamp; // Stops vertical repeat
+};
 float3 uColor; // Colour
 float3 uSecondaryColor; // Rot speed red
 float uOpacity;
