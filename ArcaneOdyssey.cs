@@ -8,6 +8,8 @@ using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.PlayerClasses;
 #endif
 using Microsoft.Xna.Framework;
+using ReLogic.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
+using Terraria.Graphics.Shaders;
 
 namespace ArcaneOdyssey
 {
@@ -29,6 +32,8 @@ namespace ArcaneOdyssey
 		/// </summary>
 		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
 		public const string InternalName = "ArcaneOdyssey";
+
+		public static Texture2D AncientMagicCircle;
 
 		internal static List<string> NoticeQueue = [];
 
@@ -70,6 +75,16 @@ namespace ArcaneOdyssey
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
+
+			if (Main.netMode != NetmodeID.Server)
+			{
+				AncientMagicCircle = Assets.Request<Texture2D>("Effects/MagicCircles/Ancient").Value;
+
+				Asset<Effect> MagicCircleShaderBase = this.Assets.Request<Effect>("Effects/MagicCircleShaderBase");
+
+				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
+
+			}
 		}
 
 		public override void Unload()
