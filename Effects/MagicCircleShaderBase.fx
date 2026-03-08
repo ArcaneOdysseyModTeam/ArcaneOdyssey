@@ -58,7 +58,7 @@ float4 getCol(float2 inUV)
     
 	float4 fragColor = float4(0., 0., 0., 0.);
     
-	fragColor = float4(colUV, 0., 1.);
+	fragColor = float4(colUV, 0., col.a);
 	fragColor = col;
     
 	uv = inUV * 4. - 2.;
@@ -71,7 +71,7 @@ float4 getCol(float2 inUV)
 
 	if (bloom.a > fragColor.a)
 	{
-		fragColor = bloom;
+		fragColor.rgb = bloom.rgb;
 	}
     
 	return fragColor;
