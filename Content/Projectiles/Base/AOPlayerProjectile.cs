@@ -78,7 +78,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public Imbuable Imbue
 		{
 			get => Projectile.ArcaneOdyssey()?.Imbue;
-			set => Projectile.ArcaneOdyssey().Imbue = value;
+			set
+			{
+				if (Projectile.ArcaneOdyssey() is not null)	
+				Projectile.ArcaneOdyssey().Imbue = value;
+			}
 		}
 
 		public Imbuable SecondImbue

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -27,19 +28,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			return base.PreDraw(ref lightColor);
 		}
 
-		//public override bool PreAI()
-		//{
-		//	Imbue ??= ModContent.GetInstance<SpiritEnergy>();
-		//	if (Main.myPlayer == Projectile.owner && !Imbue.CanBeWet && Projectile.wet)
-		//	{
-		//		Kill();
-		//		return false;
-		//	}
-		//	if (Imbue is IronLeg)
-		//	{
-		//		Owner.position.Y -= .001f;
-		//	}
-		//	return true;
-		//}
+		public override bool PreAI()
+		{
+			Imbue ??= ModContent.GetInstance<SpiritEnergy>();
+			if (Main.myPlayer == Projectile.owner && !Imbue.CanBeWet && Projectile.wet)
+			{
+				Kill();
+				return false;
+			}
+			return true;
+		}
 	}
 }

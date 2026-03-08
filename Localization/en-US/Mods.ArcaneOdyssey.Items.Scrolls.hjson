@@ -24,8 +24,8 @@ Equipment: {
 		}
 
 		LeapScroll: {
-			DisplayName: Leap Scroll
-			Tooltip: Jump midair with magic
+			DisplayName: Jump Scroll
+			Tooltip: Allows to weilder to double jump
 		}
 	}
 

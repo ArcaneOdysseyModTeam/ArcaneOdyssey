@@ -136,6 +136,10 @@ namespace ArcaneOdyssey.GlobalTypes
 				var damagepercentage = percentPerSecond / 50f;
 				npc.GetLifeStats(out _, out int npcMaxLife);
 				var loss = Utils.Clamp((int)(npcMaxLife * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
+				if (npc.boss)
+				{
+					loss /= 2;
+				}
 				npc.lifeRegen -= loss;
 				if (damage < 0)
 					damage = loss / 2;

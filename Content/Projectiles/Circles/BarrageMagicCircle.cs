@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Circles
@@ -86,14 +87,26 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				MarkedForDeath = true;
 			}
 
-			if (Projectile.frameCounter++ > 5)
-			{
-				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Type])
-				{
-					Projectile.frame = 0;
-				}
-			}
+			//if (Projectile.frameCounter++ > 5)
+			//{
+			//	Projectile.frameCounter = 0;
+			//	if (++Projectile.frame >= Main.projFrames[Type])
+			//	{
+			//		Projectile.frame = 0;
+			//	}
+			//}
+			circleRotation = ApplySpeed(MathHelper.Pi / 120f);
+		}
+
+		public float Intensity => Projectile.Opacity * 1.2f;
+
+		public float circleRotation = 0;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			return false;
 		}
 	}
 }

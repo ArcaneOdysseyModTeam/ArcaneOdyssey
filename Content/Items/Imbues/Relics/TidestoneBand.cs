@@ -35,33 +35,6 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 				}
 			}
 		}
-
-		
-
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
-		{
-			base.LingeringEffects(area, direction, source);
-			base.LingeringEffects(area, direction, source);
-		}
-
-		public override void KillEffects(Rectangle area, Entity source = null)
-		{
-			base.KillEffects(area, source);
-			base.KillEffects(area, source);
-			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
-		{
-			base.SpawningEffects(area, direction);
-			base.SpawningEffects(area, direction);
-		}
-
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
-		{
-			base.ExplosionEffects(position, intensity);
-			base.ExplosionEffects(position, intensity);
-		}
 	}
 
 	public class Thakrousi(Entity source) : DashSystem(source)
@@ -83,7 +56,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 			for (int i = 0; i < 20; i++)
 			{
 				Imbue?.ExplosionEffects(player.MountedCenter, 2f);
-				SecondImbue?.ExplosionEffects(player.MountedCenter, 2f);
+				SecondImbue?.ExplosionEffects(player.MountedCenter, 1.5f);
 			}
 		}
 

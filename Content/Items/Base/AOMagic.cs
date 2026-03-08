@@ -30,20 +30,6 @@ namespace ArcaneOdyssey.Content.Items.Base
 			ArrayCollections.Mutations[Type].Add(ModContent.ItemType<T>());
 		}
 
-		/// <summary>
-		/// Remove later
-		/// </summary>
-		public override void AddRecipes()
-		{
-			if (ImbuableTier != AOImbuableTier.Normal) 
-				return;
-
-			foreach (var mutation in ArrayCollections.Mutations[Type])
-			{
-				Recipe.Create(mutation).AddIngredient(Type).AddIngredient<HecateShard>().DisableDecraft().Register();
-			}	
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

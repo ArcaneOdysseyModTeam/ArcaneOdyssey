@@ -56,43 +56,5 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Relics
 		}
 
 		public override bool CanShoot(Player player) => !player.AltUse();
-
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
-		{
-			base.LingeringEffects(area, direction, source);
-			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
-		}
-
-		public override void KillEffects(Rectangle area, Entity source = null)
-		{
-			base.KillEffects(area, source);
-			var amount = 12 * 2;
-			for (float i = 0; i < amount; i++)
-			{
-				var centre = (MathHelper.TwoPi / amount * i).ToRotationVector2() * 20 * area.RelativeScale();
-				AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritDust>(), centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Alpha: 255 / 4, Scale: area.RelativeScale()).noGravity = true;
-			}
-			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
-		{
-			base.SpawningEffects(area, direction);
-			for (int n = 0; n < 2; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.X * 0.5f, direction.Y * 0.5f, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale())];
-				spawnedDust.noGravity = true;
-			}
-		}
-
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
-		{
-			base.ExplosionEffects(position, intensity);
-			for (int n = 0; n < 3; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Alpha: 255 / 4, newColor: ImbueColour, Scale: intensity)];
-				spawnedDust.noGravity = true;
-			}
-		}
 	}
 }

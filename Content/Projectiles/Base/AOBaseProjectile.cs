@@ -27,9 +27,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.Kill();
 		}
 
+		public virtual SpriteEffects FlippedMode => SpriteEffects.FlipVertically;
+
 		public override bool PreDraw(ref Color lightColor)
 		{
-			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;
 		}

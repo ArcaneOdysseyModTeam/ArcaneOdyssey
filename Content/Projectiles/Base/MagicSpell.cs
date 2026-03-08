@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override bool PreAI()
 		{
 			Imbue ??= ModContent.GetInstance<WindMagic>();
-			if (Main.myPlayer == Projectile.owner && !Imbue.CanBeWet && Projectile.wet)
+			if (Main.myPlayer == Projectile.owner && Imbue?.CanBeWet == false && Projectile.wet)
 			{
 				Kill();
 				return false;

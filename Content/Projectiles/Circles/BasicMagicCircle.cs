@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 
@@ -51,7 +52,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 			if (Owner.channel && !MarkedForDeath)
 			{
-				Projectile.Opacity = .75f * charge;
 				AOPlayerOwner.HeavySkillActive = true;
 				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemAnimation = Owner.itemAnimationMax;
@@ -87,22 +87,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 			if (Imbue is not null && !Main.dedServ)
 			{
-				float tempLightColorR = 0f;
-				float tempLightColorG = 0f;
-				float tempLightColorB = 0f;
-				if (Imbue.GetColour().R != 0f)
-				{
-					tempLightColorR = 3f / Imbue.GetColour().R;
-				}
-				if (Imbue.GetColour().G != 0f)
-				{
-					tempLightColorG = 3f / Imbue.GetColour().G;
-				}
-				if (Imbue.GetColour().B != 0f)
-				{
-					tempLightColorB = 3f / Imbue.GetColour().B;
-				}
-				Lighting.AddLight(Projectile.Center, tempLightColorR, tempLightColorG, tempLightColorB);
+				Lighting.AddLight(Projectile.Center, Imbue.GetColour(Color.White).ToVector3());
 				if (Projectile.localAI[0]++ > 5)
 				{
 					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.GetColour(), 1f)];
@@ -116,14 +101,27 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				Kill();
 			}
 
-			if (Projectile.frameCounter++ > 5)
-			{
-				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Type])
-				{
-					Projectile.frame = 0;
-				}
-			}
+			//if (Projectile.frameCounter++ > 5)
+			//{
+			//	Projectile.frameCounter = 0;
+			//	if (++Projectile.frame >= Main.projFrames[Type])
+			//	{
+			//		Projectile.frame = 0;
+			//	}
+			//}
+			circleRotation = ApplySpeed(MathHelper.Pi / 120f);
+		}
+
+
+		public float circleRotation = 0;
+
+		public float Intensity => Projectile.Opacity * (charge * charge);
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			return false;
 		}
 	}
 }
