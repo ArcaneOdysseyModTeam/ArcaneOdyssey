@@ -44,7 +44,10 @@ namespace ArcaneOdyssey.Content.Items.Consumable
 			try
 			{
 				//Main.NewText($"Can use item {!ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire()}");
-				return !ModContent.GetInstance<ImbueAnythingUISystem>().CanShowMutations();
+				if (ModContent.GetInstance<ImbueAnythingUISystem>().CanShowMutations()) return false;
+
+				foreach (var i in player.inventory) if (i.ModItem is AOMagic) return true;
+				return false;
 			}
 			catch (Exception ex)
 			{
@@ -55,11 +58,7 @@ namespace ArcaneOdyssey.Content.Items.Consumable
 		public override bool? UseItem(Player player)
 		{
 			// Spoky (2026 Jan 25): Expected for errors to have an error message but it appears we don't have said luxury, therefore gotta get errors, manually
-			try
-			{
-				ModContent.GetInstance<ImbueAnythingUISystem>().ShowMutationUI();
-				Main.playerInventory = false;
-			}
+			try { ModContent.GetInstance<ImbueAnythingUISystem>().ShowMutationUI(); }
 			// Spoky (2026 Jan 25): By the way, I like putting exceptions in purple
 			catch (Exception ex) { Main.NewText($"Error in {nameof(UseItem)}: \n{ex}", new Color(255, 0, 255)); }
 			return true;
