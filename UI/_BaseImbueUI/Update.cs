@@ -7,12 +7,14 @@ namespace ArcaneOdyssey.UI._BaseImbueUI;
 // Spoky (2026 Feb 08): If this isn't deleted after the UI is done, then I forgot to delete this
 public abstract partial class BaseImbueUI : UIState
 {
-	public override void Update(GameTime gameTime)
+	public sealed override void Update(GameTime gameTime)
 	{
 		if (Main.gameMenu || Main.dedServ) YoungMan_KillYourself();
 
 		// Spoky (2026 Jan 28): Made an oopise, thought I could just set Main.LocalPlayer.mouseInterface to = main.IsMouseHovering, but that breaks every other UI 
 		if (main.IsMouseHovering || CloseButton.IsMouseHovering || ChooseButton.IsMouseHovering) Main.LocalPlayer.mouseInterface = true;
+		
+		_UpdateExtras();
 
 		#region Visual Changes for the Products 
 		VisualUpdate(); void VisualUpdate()
@@ -24,8 +26,12 @@ public abstract partial class BaseImbueUI : UIState
 			//VisualUpdateCounter = 0;
 
 			foreach (var p in TheShop) p.Update();
+			_VisualUpdateExtras();
 		}
 		#endregion
 	}
+	protected virtual void _VisualUpdateExtras() { }
+	protected virtual void _UpdateExtras() { }
+
 	//private int VisualUpdateCounter = 0;
 }

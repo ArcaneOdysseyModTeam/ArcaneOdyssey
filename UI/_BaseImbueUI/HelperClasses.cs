@@ -1,8 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.UI.MutateThyMagic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,10 +15,11 @@ namespace ArcaneOdyssey.UI._BaseImbueUI;
 
 public abstract partial class BaseImbueUI : UIState
 {
+
 	/// <summary>
-	/// A <see cref="Product"/> is a bunch of ui stuff to represent an option for the player to select, kind of like a product, hmm.
+	/// Shrimple thingy that contains a simple <see cref="UIImage"/> for a background an Icon
 	/// </summary>
-	protected class Product
+	protected abstract class BaseProduct
 	{
 		protected BaseImbueUI MainUI;
 
@@ -25,14 +29,54 @@ public abstract partial class BaseImbueUI : UIState
 		public UIImage BackGround;
 		public UIImage Icon;
 
-		public Product(BaseImbueUI mainUI, MagicTypes type)
+		public BaseProduct(BaseImbueUI mainUI, Asset<Texture2D> texture)
 		{
 			MainUI = mainUI;
 			TexturePath = $"{mainUI.TexturePath}Product/";
-			CurrentType = type;
-
 
 			BackGround = new(ModContent.Request<Texture2D>($"{TexturePath}Neutral"));
+			Icon = new(texture) { ScaleToFit = true };
+		}
+
+		/// <summary>
+		/// <b>Set Icon to something in this constructor</b>
+		/// </summary>
+		/// <param name="mainUI"></param>
+		public BaseProduct(BaseImbueUI mainUI)
+		{
+			MainUI = mainUI;
+			TexturePath = $"{mainUI.TexturePath}Product/";
+			BackGround = new(ModContent.Request<Texture2D>($"{TexturePath}Neutral"));
+		}
+
+		public virtual void Update()
+		{
+			Color color = new(80, 80, 80, 80);
+
+			if (BackGround.IsMouseHovering)
+			{
+				color = new(160, 160, 160, 160);
+				if (!HasPlayedSound)
+				{
+					SoundEngine.PlaySound(SoundID.MenuTick, Main.LocalPlayer.position);
+					HasPlayedSound = true;
+				}
+			}
+			else HasPlayedSound = false;
+
+			BackGround.Color = color;
+		}
+		public bool HasPlayedSound = false;
+	}
+
+	/// <summary>
+	/// A <see cref="MagicProduct"/> is a bunch of ui stuff to represent an option for the player to select, kind of like a product, hmm. <b>Uses <see cref="MagicTypes"/></b>
+	/// </summary>
+	protected class MagicProduct : BaseProduct
+	{
+		public MagicProduct(BaseImbueUI mainUI, MagicTypes type) : base(mainUI)
+		{
+			CurrentType = type;
 
 			Asset<Texture2D> texture = MagicTypeToMagicTexture(CurrentType);
 			if (texture is null)
@@ -47,9 +91,10 @@ public abstract partial class BaseImbueUI : UIState
 			};
 		}
 
-		public void Update()
+		public override void Update()
 		{
-			if (CurrentType == MainUI.ProductSpotLight.CurrentType)
+			var magicType = MainUI is MutateThyMagicUI mui ? mui.WhoWeMutating : MainUI.ProductSpotLight.CurrentType;
+			if (CurrentType == magicType)
 			{
 				BackGround.Color = Color.White;
 				return;
@@ -70,7 +115,46 @@ public abstract partial class BaseImbueUI : UIState
 
 			BackGround.Color = color;
 		}
-		public bool HasPlayedSound = false;
+	}
+
+	protected class CustomProduct : BaseProduct
+	{
+		public ModItem Item { get; protected set; }
+		public CustomProduct(BaseImbueUI mainUI, ModItem item) : base(mainUI)
+		{
+			Item = item;
+			Icon = new(Terraria.GameContent.TextureAssets.Item[Item.Type]) { ScaleToFit = true };
+		}
+
+		public override void Update()
+		{
+			if (MainUI is MutateThyMagicUI mui)
+			{
+				if (mui.ProductSpotLight.Mutation is not null)
+				{
+					if (Item.Type == mui.ProductSpotLight.Mutation.Type)
+					{
+						BackGround.Color = Color.White;
+						return;
+					}
+				}
+			}
+
+			Color color = new(80, 80, 80, 80);
+
+			if (BackGround.IsMouseHovering)
+			{
+				color = new(160, 160, 160, 160);
+				if (!HasPlayedSound)
+				{
+					SoundEngine.PlaySound(SoundID.MenuTick, Main.LocalPlayer.position);
+					HasPlayedSound = true;
+				}
+			}
+			else HasPlayedSound = false;
+
+			BackGround.Color = color;
+		}
 	}
 
 	protected class DisplayProduct
@@ -78,6 +162,7 @@ public abstract partial class BaseImbueUI : UIState
 		public BaseImbueUI MainUI;
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType { protected set; get; }
+		public ModItem? Mutation { set; get; }
 
 		public UIImage Icon;
 
@@ -89,7 +174,7 @@ public abstract partial class BaseImbueUI : UIState
 
 			Icon.IgnoresMouseInteraction = true;
 
-			Icon.VAlign = 0.5f;
+			Icon.VAlign = MainUI is MutateThyMagicUI ? 0.65f : 0.5f;
 			Icon.HAlign = 0.3f;
 
 			//float offset = MainUI.main.Width.Pixels / 2f;
@@ -117,8 +202,6 @@ public abstract partial class BaseImbueUI : UIState
 			};
 			SetIconSizes();
 			ChangeType(type);
-
-			// Spoky (2026 January 28): Made it so it turns invisible if it is indeed nothing (so it doesn't show up for one frame)
 		}
 
 
@@ -129,6 +212,22 @@ public abstract partial class BaseImbueUI : UIState
 			if (CurrentType is MagicTypes.None) Icon.Color = Color.Transparent;
 			else Icon.Color = Color.White;
 			SetIconSizes();
+			Mutation = null;
+		}
+
+		public void ChangeType(ModItem item)
+		{
+			Main.NewText($"item? {item is null}");
+			CurrentType = MagicTypes.None;
+			if (item is not null)
+			{
+				Icon.Remove();
+				Icon = new(TextureAssets.Item[item.Type]) { ScaleToFit = true };
+				MainUI.Append(Icon);
+			}
+			else ChangeType(MagicTypes.None);
+			SetIconSizes();
+			Mutation = item;
 		}
 	}
 }

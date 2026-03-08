@@ -23,6 +23,7 @@ public abstract partial class BaseImbueUI : UIState
 	protected readonly string TexturePath = $"{ArcaneOdysseyMod.Instance.Name}/UI/_BaseImbueUI/Textures/",
 		LocalizationPath = $"Mods.ArcaneOdyssey.UI.ImbueChange.";
 
+	#region HardCoded Enum and methods for conversion, starting to think maybe this wasn't the best idea but oh well, too late
 	public enum MagicTypes
 	{
 		/// <summary>
@@ -158,7 +159,6 @@ public abstract partial class BaseImbueUI : UIState
 
 		return MagicTypes.None;
 	}
-
 	public static Asset<Texture2D> MagicTypeToMagicTexture(MagicTypes type)
 	{
 		if (type is MagicTypes.None) return TextureAssets.MagicPixel;
@@ -176,6 +176,7 @@ public abstract partial class BaseImbueUI : UIState
 		Main.NewText($"{nameof(MagicTypes)} {type} is not supported in {nameof(MagicTypeToItem)}", new Color(255, 0, 255));
 		return null;
 	}
+	#endregion
 
 	#region UI Panels declaration but not ready for cheeseburger production
 	/// <summary>
@@ -191,7 +192,7 @@ public abstract partial class BaseImbueUI : UIState
 		public static readonly Asset<Texture2D> Neutral = ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/_BaseImbueUI/Textures/Button/Neutral");
 	}
 
-	protected List<Product> TheShop = [];
+	protected List<MagicProduct> TheShop = [];
 	protected DisplayProduct ProductSpotLight;
 	#region Product SpotLight addons, hmm, come to think of it, these ones should've probably been inside of ProductSpotLight, whoops
 	/// <summary>
@@ -320,7 +321,7 @@ public abstract partial class BaseImbueUI : UIState
 		for (int i = 0; i < WhoAreWeDoing.Count; i++)
 		{
 			MagicTypes mType = WhoAreWeDoing[i];
-			Product product = new(this, mType);
+			MagicProduct product = new(this, mType);
 
 			product.BackGround.Width.Set(64, 0f);
 			product.BackGround.Height.Set(64, 0f);

@@ -15,7 +15,7 @@ public abstract partial class BaseImbueUI : UIState
 	}
 	protected abstract void ChosenButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement);
 
-	protected virtual void OptionChosen(Product p)
+	protected virtual void OptionChosen(MagicProduct p)
 	{
 		SoundEngine.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
 
@@ -62,7 +62,7 @@ public abstract partial class BaseImbueUI : UIState
 	protected virtual void OptionSelected(UIMouseEvent evt, UIElement listeningElement)
 	{
 		bool changed = false;
-		foreach (Product p in TheShop) if (p.BackGround.IsMouseHovering || p.Icon.IsMouseHovering)
+		foreach (MagicProduct p in TheShop) if (p.BackGround.IsMouseHovering || p.Icon.IsMouseHovering)
 			{
 				OptionChosen(p);
 

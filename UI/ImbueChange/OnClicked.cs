@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.UI.ImbueChange;
 // Spoky (2026 Feb 09): If this isn't deleted after the UI is done, then I forgot to delete this
 public partial class ImbueChangeUI : BaseImbueUI
 {
-	protected override void OptionChosen(Product p)
+	protected override void OptionChosen(MagicProduct p)
 	{
 		base.OptionChosen(p);
 
