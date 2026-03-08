@@ -1,9 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Imbues;
+using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using System;

@@ -1,6 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Content.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;

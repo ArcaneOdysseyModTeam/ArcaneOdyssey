@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

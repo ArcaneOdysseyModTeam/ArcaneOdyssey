@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;

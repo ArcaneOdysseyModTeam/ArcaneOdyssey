@@ -1,7 +1,7 @@
-﻿using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Imbues;
+using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;

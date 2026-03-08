@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;

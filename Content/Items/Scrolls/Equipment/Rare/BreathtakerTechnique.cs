@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Berserker;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

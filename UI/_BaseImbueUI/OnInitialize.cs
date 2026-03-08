@@ -1,7 +1,7 @@
-﻿using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Consumable;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

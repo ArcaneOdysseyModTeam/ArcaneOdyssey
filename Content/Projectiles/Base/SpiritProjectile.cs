@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Imbues.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;

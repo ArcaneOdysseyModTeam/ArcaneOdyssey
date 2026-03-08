@@ -1,6 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
+﻿using ArcaneOdyssey.Content.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Content.Items.BossTrophies;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;

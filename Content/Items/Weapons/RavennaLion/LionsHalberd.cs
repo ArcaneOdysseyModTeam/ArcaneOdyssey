@@ -1,6 +1,6 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Abilities;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
 using Terraria;

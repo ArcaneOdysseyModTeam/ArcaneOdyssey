@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Content.Items.Weapons.Sunken;
 using ArcaneOdyssey.Content.Projectiles;

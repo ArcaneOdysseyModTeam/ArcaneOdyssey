@@ -5,7 +5,7 @@ using ArcaneOdyssey.Content.Tiles;
 using ArcaneOdyssey.GlobalTypes;
 
 #if VSDEBUGMODE
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 #endif
 using Microsoft.Xna.Framework;
 using ReLogic.Content;

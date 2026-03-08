@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

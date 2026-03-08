@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.PlayerClasses;
+﻿using ArcaneOdyssey.AOPlayers;
 using Terraria;
 using Terraria.ID;
 

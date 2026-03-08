@@ -1,16 +1,16 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Imbues;
+using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Accessories.Vanity;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -85,6 +85,21 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private int imbueIndex = 0;
 		public bool specificImbue = false;
+
+		public override bool CanUseItem(Item item, Player player)
+		{
+			if (WeaponsType == WeaponType.Arcanium)
+			{
+				return Imbue is AOMagic;
+			}
+
+			if (WeaponsType == WeaponType.Strength)
+			{
+				return Imbue is FightingStyle;
+			}
+
+			return true;
+		}
 
 		public WeaponType _weaponsType;
 		public WeaponType WeaponsType

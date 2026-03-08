@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
