@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
 
@@ -12,12 +13,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 		public int ChargingProjectile;
 		public float ProjectileSpread = 0;
 
-		public override string Texture => AOUtils.GetTexture<BasicMagicCircle>();
-
-		public override void SetStaticDefaults()
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
-			Main.projFrames[Type] = 4;
+			overPlayers.Add(index);
 		}
+
+		public override string Texture => AOUtils.GetTexture<BasicMagicCircle>();
 
 		public override float AOSize => .5f;
 
@@ -26,6 +27,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
+			Projectile.hide = true;
+			Projectile.Opacity = .75f;
 		}
 
 		public override void AI()
@@ -40,6 +43,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					Projectile.netSpam = 0;
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
+				if (Owner.channel && !MarkedForDeath)
+					Projectile.alpha = 254;
 			}
 
 
@@ -52,7 +57,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 			if (Owner.channel && !MarkedForDeath)
 			{
-				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemAnimation = Owner.itemAnimationMax;
 				Owner.itemTime = Owner.itemTimeMax;
 				Owner.itemRotation = dir.ToRotation();
@@ -63,11 +67,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 30f);
+				Projectile.Opacity += 1 / 60f;
 
 				//dir += (Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread).ToRotationVector2());
 				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
 
-				if (Main.myPlayer == Projectile.owner && Main.GameUpdateCount % Owner.itemAnimationMax == 0)
+				if (Projectile.alpha == 0 && Main.myPlayer == Projectile.owner && Main.GameUpdateCount % Owner.itemAnimationMax == 0)
 				{
 					if (Owner.CheckMana(Owner.GetManaCost(Owner.PlayerItem()), true))
 					{
@@ -87,20 +92,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				MarkedForDeath = true;
 			}
 
-			//if (Projectile.frameCounter++ > 5)
-			//{
-			//	Projectile.frameCounter = 0;
-			//	if (++Projectile.frame >= Main.projFrames[Type])
-			//	{
-			//		Projectile.frame = 0;
-			//	}
-			//}
-			circleRotation += ApplySpeed(MathHelper.PiOver4 / 200f);
+			circleRotation = ApplySpeed(MathHelper.TwoPi / 5f);
 		}
 
 		public float Intensity => Projectile.Opacity * 1.2f;
 
-		public float circleRotation = 0;
+		public float circleRotation = MathHelper.TwoPi / 5f;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

@@ -47,7 +47,7 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool AbilityText { get; set; }
 
-		[DefaultValue(MagicCircleTypes.Ancient)]
+		[DefaultValue(MagicCircleTypes.Familiar)]
 		[ReloadRequired]
 		public MagicCircleTypes MagicCircleType { get; set; }
 
@@ -56,6 +56,7 @@ namespace ArcaneOdyssey
 
 	public enum MagicCircleTypes
 	{
+		Familiar,
 		Ancient,
 		Collision,
 		Ornamental,

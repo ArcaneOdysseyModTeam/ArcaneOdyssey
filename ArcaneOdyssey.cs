@@ -76,7 +76,7 @@ namespace ArcaneOdyssey
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
 
-			if (Main.netMode != NetmodeID.Server)
+			if (!Main.dedServ)
 			{
 				MagicCircleSprite = Assets.Request<Texture2D>($"Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}");
 

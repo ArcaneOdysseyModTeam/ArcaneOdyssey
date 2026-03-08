@@ -118,8 +118,8 @@ Configs: {
 		}
 
 		MagicCircleType: {
-			Label: Magic Circle Type
-			Tooltip: ""
+			Label: "[i:ArcaneOdyssey/EmptyScroll] Magic Circle Type"
+			Tooltip: Visually changes the appearance of oriented magic circles
 		}
 	}
 
@@ -163,6 +163,11 @@ Configs: {
 
 		Solar: {
 			Label: Solar
+			Tooltip: ""
+		}
+
+		Familiar: {
+			Label: Familiar
 			Tooltip: ""
 		}
 	}

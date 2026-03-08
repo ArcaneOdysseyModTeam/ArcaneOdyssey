@@ -68,21 +68,21 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (OriginWeaponType == WeaponType.Artisinal)
 					return null;
-				if (OriginWeaponType != WeaponType.Normal)
-					return true;
-				else
-					return false;
 				if (thisProjectile is not null)
 				{
-					return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile;
-				}
-				else
-				{
-					if (thisProjectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					if (thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or BaseMagicCircle)
+					{
+						return true;
+					}
+					else if (thisProjectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
 						return false;
 					}
 				}
+				if (OriginWeaponType != WeaponType.Normal)
+					return true;
+				else
+					return false;
 				return null;
 			}
 		}

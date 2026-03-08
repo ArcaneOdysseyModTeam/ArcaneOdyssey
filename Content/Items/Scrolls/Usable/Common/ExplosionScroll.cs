@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 100;
 			Item.shoot = ModContent.ProjectileType<ExplosionSpell>();
+			Item.useAnimation = Item.useTime = 40;
 		}
 
 		public override void UpdateInventory(Player player)
