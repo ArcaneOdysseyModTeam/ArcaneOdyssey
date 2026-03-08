@@ -30,6 +30,7 @@ float4 getCol(float2 inUV)
     
 	float theta = uSecondaryColor.r * uTime;
     
+	uv = uv * 2.;
 	uv.x = uv.x * 4.;
     
 	uvrot.x = uv.x * cos(theta) - uv.y * sin(theta);
@@ -45,7 +46,7 @@ float4 getCol(float2 inUV)
 	float2 colUV = inUV;
 	colUV.x = 1. - colUV.x;
     
-	colUV = colUV * 2. - 1.;
+	colUV = colUV * 4. - 2.;
     
 	colUV.x = colUV.x + 0.25;
     
@@ -61,7 +62,7 @@ float4 getCol(float2 inUV)
 	fragColor = float4(colUV, 0., col.a);
 	fragColor = col;
     
-	uv = inUV * 4. - 2.;
+	uv = inUV * 8. - 4.;
 	uv.x = uv.x * 4.;
 	float dist = clamp(distance(float2(0., 0.), uv), 0., 1.);
 	dist = 1. - dist;
