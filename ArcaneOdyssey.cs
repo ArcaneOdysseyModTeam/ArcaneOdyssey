@@ -316,6 +316,8 @@ namespace ArcaneOdyssey
 		]);
 
 		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
+
+		public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 	}
 
 	public class DownedNPCTracker : GlobalNPC

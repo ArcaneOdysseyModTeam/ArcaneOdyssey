@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
@@ -16,5 +17,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			}
 			npc.ArcaneOdyssey().ionized = true;
 		}
+
+		public override List<int> Counterparts => [BuffID.CursedInferno];
 	}
 }

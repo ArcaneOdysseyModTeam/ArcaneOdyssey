@@ -216,7 +216,7 @@ public abstract partial class BaseImbueUI : UIState
 
 		public void ChangeType(ModItem item)
 		{
-			Main.NewText($"item? {item is null}");
+			//Main.NewText($"item? {item is null}");
 			CurrentType = MagicTypes.None;
 			if (item is not null)
 			{

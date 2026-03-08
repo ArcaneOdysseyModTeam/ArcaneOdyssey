@@ -8,6 +8,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 	public class PhoenixHealing : AODebuff
 	{
 		public const int HealDistance = 700;
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			bool noPlayerFound = true;
@@ -17,19 +18,24 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 				if (npc.Hitbox.Distance(player.Center) <= HealDistance && (!AOUtils.BossAlive() || npc.boss))
 				{
 					noPlayerFound = false;
-					player.ArcaneOdyssey().pheonixHealing += npc.boss ? 2 : 1;
+					if (!ArrayCollections.phoenixAffected[npc.type] || !npc.boss)
+						player.ArcaneOdyssey().pheonixHealing += npc.boss ? 2 : 1;
 					npc.ArcaneOdyssey().lesserPhoenixDrain++;
 					if (!Main.dedServ)
 						HealEffect(player, npc);
 				}
 			}
-			if (noPlayerFound && !Main.dedServ)
+			if (noPlayerFound)
 			{
-				if (Main.GameUpdateCount % 4 == 0)
+				if (!Main.dedServ && Main.GameUpdateCount % 4 == 0)
 				{
 					Dust.NewDust(npc.position, npc.width, npc.height, DustID.BlueTorch, Scale: 1.4f);
 					Dust.NewDust(npc.position, npc.width, npc.height, DustID.YellowTorch, Scale: 1.4f);
 				}
+			}
+			else
+			{
+				ArrayCollections.phoenixAffected[npc.type] = true;
 			}
 		}
 

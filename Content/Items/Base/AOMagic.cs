@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -19,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			base.SetStaticDefaults();
 			ArrayCollections.Mutations[Type] = [];
 			RegisterMutations();
+			ArrayCollections.Mutations[Type] = [.. ArrayCollections.Mutations[Type].OrderBy(e => ModContent.GetModItem(e).DisplayName.Value)];
 			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
 

@@ -7,6 +7,7 @@ using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.PlayerClasses
@@ -153,6 +154,7 @@ namespace ArcaneOdyssey.PlayerClasses
 				} 
 			}
 			pheonixHealing = 0;
+			ArrayCollections.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 			HeavySkillActive = false;
 			DashStrike();
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
