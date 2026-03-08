@@ -116,6 +116,55 @@ Configs: {
 			Label: "[i:ArcaneOdyssey/BronzeTriasta] Ability Text"
 			Tooltip: Ability names appear above your head when you activate them
 		}
+
+		MagicCircleType: {
+			Label: Magic Circle Type
+			Tooltip: ""
+		}
+	}
+
+	MagicCircleTypes: {
+		Tooltip: ""
+
+		Ancient: {
+			Label: Ancient
+			Tooltip: ""
+		}
+
+		Collision: {
+			Label: Collision
+			Tooltip: ""
+		}
+
+		Ornamental: {
+			Label: Ornamental
+			Tooltip: ""
+		}
+
+		Penta: {
+			Label: Penta
+			Tooltip: ""
+		}
+
+		Reminiscent: {
+			Label: Reminiscent
+			Tooltip: ""
+		}
+
+		Segmented: {
+			Label: Segmented
+			Tooltip: ""
+		}
+
+		Singularity: {
+			Label: Singularity
+			Tooltip: ""
+		}
+
+		Solar: {
+			Label: Solar
+			Tooltip: ""
+		}
 	}
 }
 

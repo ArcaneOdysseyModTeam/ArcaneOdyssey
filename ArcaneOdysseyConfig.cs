@@ -47,6 +47,22 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool AbilityText { get; set; }
 
+		[DefaultValue(MagicCircleTypes.Ancient)]
+		[ReloadRequired]
+		public MagicCircleTypes MagicCircleType { get; set; }
+
 		public static ArcaneOdysseyClientConfig Instance;
+	}
+
+	public enum MagicCircleTypes
+	{
+		Ancient,
+		Collision,
+		Ornamental,
+		Penta,
+		Reminiscent,
+		Segmented,
+		Singularity,
+		Solar
 	}
 }

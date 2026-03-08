@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
+﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;

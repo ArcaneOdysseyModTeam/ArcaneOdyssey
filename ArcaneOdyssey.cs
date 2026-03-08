@@ -33,7 +33,7 @@ namespace ArcaneOdyssey
 		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
 		public const string InternalName = "ArcaneOdyssey";
 
-		public static Texture2D AncientMagicCircle;
+		public static Asset<Texture2D> MagicCircleSprite;
 
 		internal static List<string> NoticeQueue = [];
 
@@ -78,7 +78,7 @@ namespace ArcaneOdyssey
 
 			if (Main.netMode != NetmodeID.Server)
 			{
-				AncientMagicCircle = Assets.Request<Texture2D>("Effects/MagicCircles/Ancient").Value;
+				MagicCircleSprite = Assets.Request<Texture2D>($"Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}");
 
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 

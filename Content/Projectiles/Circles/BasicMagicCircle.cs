@@ -2,7 +2,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -14,9 +14,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 		public int ChargingProjectile;
 		public float charge = 1f;
 
-		public override void SetStaticDefaults()
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
-			//Main.projFrames[Type] = 4;
+			overPlayers.Add(index);
 		}
 
 		public override float AOSize => .5f;
@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 128;
 			Projectile.tileCollide = false;
+			Projectile.hide = true;
 		}
 
 		internal bool originallyAltFire = false;
@@ -55,7 +56,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			if (Owner.channel && !MarkedForDeath)
 			{
 				AOPlayerOwner.HeavySkillActive = true;
-				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemAnimation = Owner.itemAnimationMax;
 				Owner.itemTime = Owner.itemTimeMax;
 				Owner.itemRotation = dir.ToRotation();
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				charge += 1f / 120f;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
-				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 30f);
 				if (charge >= 1.5f)
 				{
 					Owner.channel = false;
@@ -110,7 +110,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			//		Projectile.frame = 0;
 			//	}
 			//}
-			circleRotation = Intensity * ApplySpeed(MathHelper.Pi / 120f);
+			circleRotation += ApplySpeed(MathHelper.PiOver4 / 200f);
 		}
 
 
@@ -131,9 +131,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-			var asset = Mod.Assets.Request<Texture2D>("Effects/MagicCircles/Ancient");
-			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(asset);
-			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(asset);
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"]
 				.UseColor(lightColor)
 				.UseSaturation(Intensity)
@@ -143,8 +142,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].Apply();
 
 
-			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.FlipVertically);
 			return false;
 		}
 

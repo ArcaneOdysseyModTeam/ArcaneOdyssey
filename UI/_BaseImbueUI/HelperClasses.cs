@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
-using ArcaneOdyssey.UI.MutateThyMagic;
+﻿using ArcaneOdyssey.UI.MutateThyMagic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

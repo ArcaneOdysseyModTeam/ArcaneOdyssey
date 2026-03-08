@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.Shaders;
 
 namespace ArcaneOdyssey.Content.Projectiles.Circles
 {
@@ -61,9 +62,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
-				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 20f);
-				var shake = Intensity * .25f;
-				Projectile.Center += new Vector2(Main.rand.NextFloat(-shake, shake), Main.rand.NextFloat(-shake, shake));
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 30f);
 
 				//dir += (Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread).ToRotationVector2());
 				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
@@ -96,7 +95,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			//		Projectile.frame = 0;
 			//	}
 			//}
-			circleRotation = Intensity * ApplySpeed(MathHelper.Pi / 120f);
+			circleRotation += ApplySpeed(MathHelper.Pi / 120f);
 		}
 
 		public float Intensity => Projectile.Opacity * 1.2f;
@@ -112,9 +111,29 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			}
 			else
 				lightColor = Color.Transparent;
-			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"]
+				.UseColor(lightColor)
+				.UseSaturation(Intensity)
+				.UseSecondaryColor(new Color(circleRotation, 0, 0));
+
+
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].Apply();
+
+
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.FlipVertically);
 			return false;
+		}
+
+		public override void PostDraw(Color lightColor)
+		{
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 		}
 	}
 }
