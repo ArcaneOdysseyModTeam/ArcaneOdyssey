@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
@@ -19,6 +20,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public const int ShootTime = 120;
 
 		public override bool CanHaveImbueVFX => false;
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overWiresUI.Add(index);
+		}
 
 
 		public Rectangle Proj1 => new(Projectile.Center.X.Round(), Projectile.position.Y.Round() - (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
@@ -46,6 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.localNPCHitCooldown = 1;
 			Projectile.timeLeft = ShootTime + ShootDelay;
 			Projectile.penetrate = 4;
+			Projectile.hide = true;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

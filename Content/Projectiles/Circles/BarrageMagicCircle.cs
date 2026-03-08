@@ -15,14 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
-			if (!MarkedForDeath)
-			{
-				overPlayers.Add(index);
-			}
-			else
-			{
-				behindProjectiles.Add(index);
-			}
+			overPlayers.Add(index);
 		}
 
 		public override string Texture => AOUtils.GetTexture<BasicMagicCircle>();
@@ -85,6 +78,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					{
 						if (ChargingProjectile != 0)
 						{
+							if (Main.rand.NextBool(5))
+							{
+								playedsound = false;
+							}
 							AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10f, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 						}
 					}

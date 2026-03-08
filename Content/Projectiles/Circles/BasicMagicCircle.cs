@@ -16,14 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
-			if (!MarkedForDeath)
-			{
-				overPlayers.Add(index);
-			}
-			else
-			{
-				behindProjectiles.Add(index);
-			}
+			overPlayers.Add(index);
 		}
 
 		public override float AOSize => .5f;
