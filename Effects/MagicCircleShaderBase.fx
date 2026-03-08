@@ -73,6 +73,10 @@ float4 getCol(float2 inUV)
 	{
 		fragColor.rgb = bloom.rgb;
 	}
+	else
+	{
+		fragColor.a = (fragColor.r + fragColor.g + fragColor.b) / 3.;
+	}
     
 	return fragColor;
 }
