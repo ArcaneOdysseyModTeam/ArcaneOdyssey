@@ -33,6 +33,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			if (Projectile.Distance(Owner.Center) > ApplySpeed(180f))
 			{
 				Kill();
+				return;
 			}
 			Projectile.velocity = Owner.velocity.SafeNormalize(Projectile.velocity);
 		}

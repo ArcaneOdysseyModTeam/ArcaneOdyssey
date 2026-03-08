@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using ArcaneOdyssey.Content.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

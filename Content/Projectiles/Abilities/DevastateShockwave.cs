@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
+namespace ArcaneOdyssey.Content.Projectiles.Abilities
 {
 	public class DevastateShockwave : AOPlayerProjectile
 	{

@@ -16,7 +16,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
-			overPlayers.Add(index);
+			if (!MarkedForDeath)
+			{
+				overPlayers.Add(index);
+			}
+			else
+			{
+				behindProjectiles.Add(index);
+			}
 		}
 
 		public override float AOSize => .5f;
@@ -24,7 +31,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 128;
+			Projectile.height = Projectile.width = 250;
 			Projectile.tileCollide = false;
 			Projectile.hide = true;
 			Projectile.Opacity = .75f;
@@ -101,19 +108,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				}
 			}
 
-			if (Projectile.alpha >= 255)
-			{
-				Kill();
-			}
-
-			//if (Projectile.frameCounter++ > 5)
-			//{
-			//	Projectile.frameCounter = 0;
-			//	if (++Projectile.frame >= Main.projFrames[Type])
-			//	{
-			//		Projectile.frame = 0;
-			//	}
-			//}
 			circleRotation = ApplySpeed(MathHelper.TwoPi / 5f);
 		}
 

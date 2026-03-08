@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
+namespace ArcaneOdyssey.Content.Projectiles.Abilities
 {
 	public class SparrowThrust : AOPlayerProjectile
 	{

@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 
@@ -12,6 +13,22 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public float charge = 1f;
 		public static int TimeLeft => 60 * 4;
 
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			if (Mode == JavelinMode.Grounded)
+			{
+				behindNPCsAndTiles.Add(index);
+			}
+			else if (Mode == JavelinMode.Piercing)
+			{
+				behindNPCs.Add(index);
+			}
+			else
+			{
+				overPlayers.Add(index);
+			}
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -21,6 +38,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			Projectile.height = 32;
 			Projectile.AverageDimensions();
 			Projectile.localNPCHitCooldown = (TimeLeft / 4) + 1;
+			Projectile.hide = true;
 		}
 
 		public override void AI()
@@ -38,7 +56,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
 
-			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
+			if (Projectile.position.ToTileCoordinates() != Projectile.oldPosition.ToTileCoordinates() && Main.myPlayer == Projectile.owner)
 			{
 				Projectile.netUpdate = true;
 				Projectile.netSpam = 0;

@@ -283,6 +283,8 @@ namespace ArcaneOdyssey
 			if (entity is Projectile projectile)
 			{
 				projectile.Kill();
+				if (Main.netMode != NetmodeID.SinglePlayer)
+					NetMessage.SendData(MessageID.KillProjectile, -1, -1, null, projectile.identity, projectile.owner);
 			}
 			if (entity is Item item)
 			{

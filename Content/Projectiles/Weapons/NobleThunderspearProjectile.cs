@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Weapons.RavennaNoble;
+using ArcaneOdyssey.Content.Projectiles.Abilities;
 using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
@@ -25,6 +26,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public void Kill()
 		{
 			Projectile.Kill();
+			if (Main.netMode != NetmodeID.SinglePlayer)
+				NetMessage.SendData(MessageID.KillProjectile, -1, -1, null, Projectile.identity, Projectile.owner);
 		}
 
 		public virtual SpriteEffects FlippedMode => SpriteEffects.FlipVertically;

@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		// ai 2 is first frame bool
 		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Array", "Blast");
 
-		public override float AOSize => .6f;
+		public override float AOSize => .75f;
 
 		public const int ShootDelay = 60 * 3;
 
@@ -147,7 +147,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Hovering)
 			{
-				if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
+				if (Projectile.position.ToTileCoordinates() != Projectile.oldPosition.ToTileCoordinates() && Main.myPlayer == Projectile.owner)
 				{
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
@@ -156,7 +156,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.spriteDirection = Owner.direction;
 				if (Main.myPlayer == Projectile.owner)
 				{
-					Projectile.scale = Imbue.AOScrollSize;
+					Projectile.scale = AOSize * Imbue.AOScrollSize;
 					if (SecondImbue is not null)
 						Projectile.scale *= SecondImbue.AOScrollSize;
 					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);

@@ -340,23 +340,6 @@ Projectiles: {
 	Pets.ElfPetProjectile.DisplayName: Aether
 
 	Weapons: {
-		Abilities: {
-			BronzeRapierProjectile.DisplayName: Bronze Rapier
-			ColossalCleave.DisplayName: Colossal Cleave
-			FuryoftheSea.DisplayName: Fury of the Sea
-			KatanaSlash.DisplayName: Slash
-			MountainWind.DisplayName: Mountain Wind
-			PiercingGale.DisplayName: Piercing Gale
-			SeismicSlashRock.DisplayName: Seismic Slash
-			SparrowThrust.DisplayName: Sparrow Thrust
-			TwinCrescent.DisplayName: Twin Crescent
-			Whirlwind.DisplayName: Whirlwind
-			ToweringImpact.DisplayName: Towering Impact
-			DevastateShockwave.DisplayName: Devastate Shockwave
-			ArrowStorm.DisplayName: Arrow Storm
-			ArrowRain.DisplayName: Arrow Rain
-		}
-
 		BronzeStaffProjectile.DisplayName: Bronze Staff
 		BronzeTriastaProjectile.DisplayName: Bronze Triasta
 		BronzeTridentProjectile.DisplayName: Bronze Trident
@@ -364,6 +347,23 @@ Projectiles: {
 		NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 		SunkenStaffProjectile.DisplayName: Sunken Staff
 		WoodenStaffProjectile.DisplayName: Wooden Staff
+	}
+
+	Abilities: {
+		BronzeRapierProjectile.DisplayName: Bronze Rapier
+		ColossalCleave.DisplayName: Colossal Cleave
+		FuryoftheSea.DisplayName: Fury of the Sea
+		KatanaSlash.DisplayName: Slash
+		MountainWind.DisplayName: Mountain Wind
+		PiercingGale.DisplayName: Piercing Gale
+		SeismicSlashRock.DisplayName: Seismic Slash
+		SparrowThrust.DisplayName: Sparrow Thrust
+		TwinCrescent.DisplayName: Twin Crescent
+		Whirlwind.DisplayName: Whirlwind
+		ToweringImpact.DisplayName: Towering Impact
+		DevastateShockwave.DisplayName: Devastate Shockwave
+		ArrowStorm.DisplayName: Storm of Arrows
+		ArrowRain.DisplayName: Rain of Arrows
 	}
 
 	DeathCurse.DisplayName: The Death Curse

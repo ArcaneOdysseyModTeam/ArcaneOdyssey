@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Projectile.ai[2] == 2)
-				Projectile.Kill();
+				Kill();
 		}
 
 		public override void AI()
@@ -103,7 +103,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
 				if (Owner.ItemAnimationEndingOrEnded)
 				{
-					Projectile.Kill();
+					Kill();
 				}
 			}
 		}

@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
+namespace ArcaneOdyssey.Content.Projectiles.Abilities
 {
 	public class Whirlwind : AOPlayerProjectile
 	{

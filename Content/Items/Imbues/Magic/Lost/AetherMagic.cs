@@ -98,7 +98,7 @@ namespace ArcaneOdyssey.Content.Items.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 			if (source is Projectile projectile && projectile.ModProjectile is not AetherExplosion)
 			{
-				if (projectile.owner == Main.myPlayer && AetherExplosion.Count < 3)
+				if (projectile.owner == Main.myPlayer && AetherExplosion.Count < 4)
 				{
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), projectile.damage / 4, 0, projectile.owner);
 				}

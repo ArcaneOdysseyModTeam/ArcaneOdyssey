@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Owner.dead || !Owner.channel)
 			{
-				Projectile.Kill();
+				Kill();
 				Owner.reuseDelay = 2;
 				return;
 			}

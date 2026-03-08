@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System.ComponentModel;
+using Terraria;
 using Terraria.ModLoader.Config;
 
 namespace ArcaneOdyssey
@@ -48,10 +50,17 @@ namespace ArcaneOdyssey
 		public bool AbilityText { get; set; }
 
 		[DefaultValue(MagicCircleTypes.Familiar)]
-		[ReloadRequired]
 		public MagicCircleTypes MagicCircleType { get; set; }
 
 		public static ArcaneOdysseyClientConfig Instance;
+
+		public override void OnChanged()
+		{
+			if (!Main.dedServ)
+			{
+				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}");
+			}
+		}
 	}
 
 	public enum MagicCircleTypes

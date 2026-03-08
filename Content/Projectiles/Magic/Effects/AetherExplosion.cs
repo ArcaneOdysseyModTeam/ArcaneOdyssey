@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
@@ -35,7 +36,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
-			Projectile.alpha = 40;
 		}
 
 		public override Debuff? ProjectileDebuff => null;

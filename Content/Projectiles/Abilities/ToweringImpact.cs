@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
+namespace ArcaneOdyssey.Content.Projectiles.Abilities
 {
 	public class ToweringImpact : AOPlayerProjectile
 	{

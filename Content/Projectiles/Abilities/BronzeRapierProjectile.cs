@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
+namespace ArcaneOdyssey.Content.Projectiles.Abilities
 {
 	public class BronzeRapierProjectile : AOPlayerProjectile
 	{

@@ -6,9 +6,9 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
+namespace ArcaneOdyssey.Content.Projectiles.Abilities
 {
-	public class ArrowStorm : AOPlayerProjectile
+	public class ArrowRain : AOPlayerProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 
@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			base.SetDefaults();
 			Projectile.Opacity = .75f;
-			Projectile.timeLeft = 45;
+			Projectile.timeLeft = 60;
 			Projectile.width = Projectile.height = 4;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
@@ -61,19 +61,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 
 		public override void AI()
 		{
-			if (goal == Vector2.Zero)
+			if (!AOUtils.ScreenRect.Intersects(Projectile.Hitbox))
 			{
-				var offsetX = Main.MouseWorld.X;
-				var offsetY = Main.screenPosition.Y;
-				goal = new Vector2(offsetX, offsetY);
-			}
-			if (Projectile.owner == Main.myPlayer)
-			{
-				if (Projectile.Distance(goal) <= Projectile.velocity.Length())
-				{
-					Kill();
-					return;
-				}
+				Kill();
+				return;
 			}
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 		}
@@ -82,14 +73,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons.Abilities
 		{
 			if (Projectile.owner == Main.myPlayer)
 			{
-				for (int i = -2; i < 3; i++)
-				{
-					var direction = (MathHelper.PiOver2 + (MathHelper.PiOver4 / 10f * i)).ToRotationVector2();
-					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, direction * (Projectile.velocity.Length() * .75f), ThisProjectileType, Projectile.damage / 3, Projectile.knockBack / 5f, Projectile.owner);
-				}
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.UnitY * Projectile.velocity.Length(), ThisProjectileType, Projectile.damage, Projectile.knockBack, Projectile.owner);
 			}
 		}
-
-		public Vector2 goal;
 	}
 }
