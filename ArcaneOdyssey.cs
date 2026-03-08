@@ -80,7 +80,7 @@ namespace ArcaneOdyssey
 			{
 				AncientMagicCircle = Assets.Request<Texture2D>("Effects/MagicCircles/Ancient").Value;
 
-				Asset<Effect> MagicCircleShaderBase = this.Assets.Request<Effect>("Effects/MagicCircleShaderBase");
+				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
 

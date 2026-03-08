@@ -2,6 +2,7 @@ using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -15,7 +16,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Type] = 4;
+			//Main.projFrames[Type] = 4;
 		}
 
 		public override float AOSize => .5f;
@@ -130,8 +131,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1("Effects/MagicCircles/Ancient");
-			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1("Effects/MagicCircles/Ancient");
+			var asset = Mod.Assets.Request<Texture2D>("Effects/MagicCircles/Ancient");
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(asset);
+			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(asset);
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"]
 				.UseColor(lightColor)
 				.UseSaturation(Intensity)
@@ -142,7 +144,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, mode);
 			return false;
 		}
 

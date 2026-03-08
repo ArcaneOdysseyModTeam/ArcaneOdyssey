@@ -18,6 +18,9 @@
 		<None Remove="**\*.md" />
 	</ItemGroup>
 	<ItemGroup>
+		<Folder Include="Effects\MagicCircles" />
+	</ItemGroup>
+	<ItemGroup>
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
