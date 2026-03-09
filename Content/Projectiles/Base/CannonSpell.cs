@@ -64,12 +64,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
 
-			if (!DoneCharging && !Owner.channel)
-			{
-				Projectile.velocity = dir * ApplySpeed(5f);
-				DoneCharging = true;
-			}
-
 			if (Owner.channel && !DoneCharging)
 			{
 				charge += 1f / 120f;
@@ -85,7 +79,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			else
 			{
 				DoneCharging = true;
-				Projectile.rotation = Projectile.velocity.ToRotation();
+				if (Projectile.velocity == Vector2.Zero)
+					Projectile.velocity = dir * ApplySpeed(5f);
 				if (TileTimer > 0)
 					TileTimer--;
 			}
@@ -137,7 +132,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				TileTimer = 65;
 			}
 			Projectile.position = Projectile.oldPosition;
-			Projectile.velocity = Projectile.oldVelocity;
+			Projectile.velocity = oldVelocity;
 			return false;
 		}
 	}
