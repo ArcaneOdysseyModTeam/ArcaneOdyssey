@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,12 +16,12 @@ namespace ArcaneOdyssey.Content.Imbues.Magic.Lost
 		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 1.25f;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
-		public override Color ImbueColour => Color.Gray;
+		public override Color ImbueColour => Color.Lerp(Color.Purple, Color.Gray, Math.Abs(MathF.Tan(AOUtils.UpdateCount))); // lerp between purple and gray quickly, more commonly gray
 		public override float AOImbueSpeed => 1.05f;
 		public override float AOImbueSize => 1.265f;
 		public override float AOImbueDamage => .95f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(3 * 60), Debuff.Create<Paralyzed>(60, 16)];
-		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, AOFrozen>(), Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
 
 		public override SynergyEffects Effects => new(
 			[

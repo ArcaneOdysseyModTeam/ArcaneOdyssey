@@ -28,6 +28,8 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		public static float UpdateCount => Main.GameUpdateCount / 100f;
+
 		/// <summary>
 		/// Spawns gore, centred to the <paramref name="centre"/>
 		/// </summary>

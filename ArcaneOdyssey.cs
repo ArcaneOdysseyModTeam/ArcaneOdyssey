@@ -2,9 +2,9 @@ using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.NPCS.Town;
 using ArcaneOdyssey.Content.Tiles;
-
 #if VSDEBUGMODE
 using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.GlobalTypes;
 #endif
 using Microsoft.Xna.Framework;
 using ReLogic.Content;
@@ -21,7 +21,6 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using Terraria.Graphics.Shaders;
-using ArcaneOdyssey.GlobalTypes;
 
 namespace ArcaneOdyssey
 {
