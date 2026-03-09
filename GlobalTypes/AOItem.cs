@@ -180,21 +180,22 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
-				Vector2 dimensions = new(frame.Width, frame.Height);
-				Vector2 location = position + (dimensions * (.25f * (52f / texture.Width())));
+				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
+				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .3f * (52f / texture.Width()), SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, .3f * (52f / texture.Width()), SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 				{
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColour(fs.DisplayColor));
 				}
 
-				if (SecondImbue is not null && SecondImbue.Type != Imbue.Type && SecondImbue.Type != item.type && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
+				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
 				{
-					location.X -= texture2.Width() * (.4f * (52f / texture2.Width()));
+					dimensions.X *= -1f;
+					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, dimensions / 2, .3f * (52f / texture2.Width()), SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, .3f * (52f / texture2.Width()), SpriteEffects.None, 1f);
 				}
 			}
 		}
