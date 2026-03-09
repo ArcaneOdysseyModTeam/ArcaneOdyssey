@@ -1,12 +1,13 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 {
 	public class BlindedEffect : AODebuff
 	{
+		public override List<int> Counterparts => [BuffID.Confused];
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (!Main.dedServ)
@@ -17,7 +18,7 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 			}
 			if (npc.HasBuff(Type))
 			{
-				var stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
+				var stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				switch (stack)
 				{
 					case 1:

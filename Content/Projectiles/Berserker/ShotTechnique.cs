@@ -7,8 +7,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 {
 	public class ShotTechnique : StrengthTechnique
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
-		public const int DustCount = 20;
+		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -19,18 +18,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override void AI()
 		{
-			if (Projectile.localAI[0] > 2 && !Main.dedServ)
+			if (!Main.dedServ)
 			{
-				Projectile.localAI[0] = 0;
-				for (float i = 0; i < DustCount; i++)
+				for (float i = 0; i < 15; i++)
 				{
-					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width / 2);
-					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue is null ? default : Imbue.GetColour(), .9f);
+					var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (Projectile.width / 2);
+					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, .9f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
 				}
 			}
-			Projectile.localAI[0]++;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -44,15 +41,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (!Main.dedServ)
 			{
-				for (float i = 0; i < DustCount; i++)
+				for (float i = 0; i < 15; i++)
 				{
-					var centre2 = (MathHelper.TwoPi / DustCount * i).ToRotationVector2() * (Projectile.width * 2);
-					var dust2 = Dust.NewDustPerfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue is null ? default : Imbue.GetColour(), 1.5f);
+					var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (Projectile.width * 2);
+					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, 1.5f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
-					Imbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
 				}
-				AOUtils.SimulateAOE(Projectile.width * 2, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType, false);
 			}
 			return base.PreKill(timeLeft);
 		}

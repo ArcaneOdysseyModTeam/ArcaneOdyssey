@@ -1,14 +1,13 @@
-﻿using ArcaneOdyssey.PlayerClasses;
+﻿using ArcaneOdyssey.AOPlayers;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Buffs.Base
 {
 	/// <summary>
 	/// nobody will tell its a custom debuff thats the point lol
 	/// </summary>
-	public abstract class Stun : ModBuff
+	public abstract class Stun : AOBaseBuff
 	{
 		/// <summary>
 		/// literally just for custom magics
@@ -16,7 +15,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 		public virtual bool LiterallyCheating => false;
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			if (!npc.boss && npc.ArcaneOdyssey().StunCD <= 0 || LiterallyCheating) 
+			if (!npc.boss && npc.ArcaneOdyssey().StunCD <= 0 || LiterallyCheating)
 			{
 				npc.ArcaneOdyssey().AOStunned = true;
 			}
@@ -24,6 +23,7 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.pvpBuff[Type] = true;
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -34,22 +34,12 @@ namespace ArcaneOdyssey.Content.Buffs.Base
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if ((player.ArcaneOdyssey().OnCooldown(Name + "Buff")) || LiterallyCheating)
+			if (player.ArcaneOdyssey().OnCooldown(Name + "Buff") || LiterallyCheating)
 			{
 				player.moveSpeed = 0f;
 				player.ArcaneOdyssey().SetCooldown(new Cooldown(Name + "Buff", DisplayName, 60));
 				player.canFloatInWater = false;
 			}
-		}
-
-		public override bool ReApply(NPC npc, int time, int buffIndex)
-		{
-			return !LiterallyCheating;
-		}
-
-		public override bool ReApply(Player player, int time, int buffIndex)
-		{
-			return !LiterallyCheating;
 		}
 	}
 }

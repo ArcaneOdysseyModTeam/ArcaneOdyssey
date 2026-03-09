@@ -1,0 +1,36 @@
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
+using System;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
+{
+	public class AshCloud : AOPlayerProjectile
+	{
+		public override Debuff? ProjectileDebuff => null;
+
+		public override float AOSize => 6f;
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.width = Projectile.height = 25;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.localNPCHitCooldown = 30;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.tileCollide = false;
+			Projectile.timeLeft = 120;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.rotation = Main.rand.NextFloat(-MathHelper.TwoPi, MathHelper.TwoPi);
+		}
+
+		public override void AI()
+		{
+			Projectile.Opacity = .5f * ((Projectile.timeLeft + 1) / 120f);
+			Projectile.rotation += MathHelper.PiOver4 / 60f * Math.Sign(Projectile.rotation);
+			Projectile.velocity = Projectile.rotation.ToRotationVector2() * .75f;
+		}
+	}
+}

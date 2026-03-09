@@ -9,15 +9,13 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
-	public class BronzeFlintlock : AORangedOrMeleeWeapon
+	public class BronzeFlintlock : AOWeapon
 	{
 		public override int AOValue => 60;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override float AODamage => .5f;
-		public override float AOSpeed => base.AOSpeed;
 		public override SoundStyle UseSound => SoundID.Item11;
 
-		public override WeaponAbility? Ability => new(Mod, "Multi Shot", "Shoots a spread of bullets", Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override AORarities AORarity => AORarities.Uncommon;
 
@@ -45,6 +43,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		{
 			if (player.AltUse())
 			{
+				ActivateAbility(player, false);
 				for (int i = 0; i < 8; i++)
 				{
 					var offset = MathHelper.TwoPi / 16f;

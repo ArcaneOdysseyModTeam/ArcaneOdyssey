@@ -1,0 +1,35 @@
+using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
+{
+	public class MeteorScroll : RareScroll
+	{
+		public override bool CanHaveMagic => true;
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.useTime = Item.useAnimation = 15;
+			Item.damage = 150;
+			Item.mana = 100;
+			Item.UseSound = SoundID.Item82;
+			Item.DamageType = DamageClass.Magic;
+			Item.shootSpeed = 8f;
+			Item.shoot = ModContent.ProjectileType<MeteorSpell>(); // does not need magic circle since it spawns offscreen
+		}
+
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+		
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			position = new Vector2(Main.MouseWorld.X, Main.screenPosition.Y - (Main.maxScreenH * .15f));
+			velocity = Vector2.UnitY * velocity.Length();
+		}
+	}
+}

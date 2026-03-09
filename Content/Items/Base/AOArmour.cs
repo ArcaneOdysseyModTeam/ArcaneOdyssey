@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
 	/// <summary>
 	/// also works as an accessory
 	/// </summary>
-	public abstract class AOArmour : AOBaseItem, ILocalizedModType
+	public abstract class AOArmour : AOBaseItem
 	{
-		public override string LocalizationCategory => Item.accessory ? "Items.Accessories" : "Items.Armour";
+		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		/// <summary>
 		/// Base value
@@ -36,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int AOSize => 0;
+		public virtual int Size => 0;
 
 		/// <summary>
 		/// Base value
@@ -48,12 +47,18 @@ namespace ArcaneOdyssey.Content.Items.Base
 		/// </summary>
 		public virtual int AOPower => 0;
 
-		public virtual int AOMinionSlots => 0;
+		/// <summary>
+		/// Base value
+		/// </summary>
+		public virtual int Haste => 0;
+
+		public virtual int MinionSlots => Set.HasValue ? (int)ArmourTier / 2 : 0;
 
 		public virtual int AOMaxMana => 0;
 
+
 		/// <summary>
-		/// Should only be set on boots
+		/// Should only be set on chest
 		/// </summary>
 		public virtual SetBonusHelper? Set => null;
 
@@ -68,56 +73,64 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (Set.HasValue)
 			{
-				player.setBonus = Set.Value.GenerateTooltip();
+				player.setBonus = "\n" + Set.Value.Tooptip;
 				ArmorSetEffects(player);
 			}
 		}
 
 		public int GetArmourSizeStat()
 		{
-			int val = AOSize;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Size * (int)ArmourTier;
+			int val = Size;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Size * (int)ArmourTier;
+			return val;
+		}
+
+		public int GetArmourHasteStat()
+		{
+			int val = Haste;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Haste * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourAgilityStat()
 		{
 			int val = AOAgility;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Agility * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Agility * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourPierceStat()
 		{
 			int val = AOPierce;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Pierce * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Pierce * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourPowerStat()
 		{
 			int val = AOPower;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Power * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Power * (int)ArmourTier;
 			return val;
 		}
 
 		public int GetArmourAttkSpeedStat()
 		{
 			int val = AOAttkSpd;
-			if (this.Imbue() is not null)
-				val += this.Imbue().ArmourStats.Value.Corrected(this.Imbue()).Attkspeed * (int)ArmourTier;
+			if (Imbue is not null)
+				val += Imbue.ArmourStats.Value.Corrected(Imbue).Attkspeed * (int)ArmourTier;
 			return val;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			if (head.ModItem is not null && body.ModItem is not null && Set.HasValue)
+			if (Set.HasValue && head.ModItem is not null && head.ModItem.Mod.Name == Mod.Name && legs.ModItem is not null && legs.ModItem.Mod.Name == Mod.Name)
 			{
-				return head.ModItem.Name == Set.Value.OtherItems[0] && body.ModItem.Name == Set.Value.OtherItems[1];
+				return head.ModItem.Name == Set.Value.OtherItems[0] && legs.ModItem.Name == Set.Value.OtherItems[1];
 			}
 			return false;
 		}
@@ -126,41 +139,45 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			base.SetDefaults();
 			Item.defense = AODefense.FromAODefense();
-			Item.value = GalleonToCopper(AOValue);
+			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social")))
+			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 				return;
 
 			if (AOMaxMana > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOMaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", [AOMaxMana]).Value));
+				tooltips.AddTooltip(new(Mod, "AOMaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", AOMaxMana).Value));
 			}
-			if (AOMinionSlots > 0)
+			if (MinionSlots > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOMinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", [AOMinionSlots]).Value));
+				tooltips.AddTooltip(new(Mod, "MinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", MinionSlots).Value));
 			}
-			if (AOAgility > 0)
+			if (GetArmourAgilityStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOAgility", Mod.CustomLocalization("ArmourAutoTooltip.Agility", [Math.Round(GetArmourAgilityStat() / 10f)]).Value));
+				tooltips.AddTooltip(new(Mod, "AOAgility", Mod.CustomLocalization("ArmourAutoTooltip.Agility", Math.Round(GetArmourAgilityStat() / 5f)).Value));
 			}
-			if (AOSize > 0)
+			if (GetArmourSizeStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOSize", Mod.CustomLocalization("ArmourAutoTooltip.Size", [Math.Round(GetArmourSizeStat() / 3f)]).Value));
+				tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / 2.75f)).Value));
 			}
-			if (AOPower > 0)
+			if (GetArmourPowerStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOPower", Mod.CustomLocalization("ArmourAutoTooltip.Power", [AOPower]).Value));
+				tooltips.AddTooltip(new(Mod, "AOPower", Mod.CustomLocalization("ArmourAutoTooltip.Power", GetArmourPowerStat(), (GetArmourPowerStat() / 4f).Round()).Value));
 			}
-			if (AOAttkSpd > 0)
+			if (GetArmourAttkSpeedStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOAttkSpd", Mod.CustomLocalization("ArmourAutoTooltip.Speed", [Math.Round(GetArmourAttkSpeedStat() / 3f)]).Value));
+				tooltips.AddTooltip(new(Mod, "AOAttkSpd", Mod.CustomLocalization("ArmourAutoTooltip.Speed", Math.Round(GetArmourAttkSpeedStat() / 2.75f)).Value));
 			}
-			if (AOPierce > 0)
+			if (GetArmourPierceStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", [GetArmourPierceStat() / 5]).Value));
+				tooltips.AddTooltip(new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", GetArmourPierceStat() / 5).Value));
+			}
+			if (GetArmourHasteStat() > 0)
+			{
+				tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(GetArmourHasteStat() / 2f)).Value));
 			}
 		}
 
@@ -173,14 +190,24 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence.FromAODefense();
 				}
 			}
-			player.moveSpeed += GetArmourAgilityStat() / 100f;
-			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 50f;
-			player.GetCritChance(DamageClass.Generic) += GetArmourPowerStat();
+			player.moveSpeed += GetArmourAgilityStat() / 50f;
+			player.GetDamage(DamageClass.Generic) += GetArmourPowerStat() / 100f;
+			player.GetCritChance(DamageClass.Generic) += (GetArmourPowerStat() / 4f).Round();
 			player.ArcaneOdyssey().AOSizeStat += GetArmourSizeStat();
+			player.ArcaneOdyssey().AOHasteStat += GetArmourHasteStat();
 			player.GetArmorPenetration(DamageClass.Generic) += GetArmourPierceStat() / 5;
-			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275;
-			player.maxMinions += AOMinionSlots;
+			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275f;
+			player.maxMinions += MinionSlots;
 			player.statManaMax2 += AOMaxMana;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			_ = Set?.Tooptip;
+			base.SetStaticDefaults();
+
+			ArrayCollections.SizeStats[Type] = Size;
+			ArrayCollections.HasteStats[Type] = Haste;
 		}
 	}
 }

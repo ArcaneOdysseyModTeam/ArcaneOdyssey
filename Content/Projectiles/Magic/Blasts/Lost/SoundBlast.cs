@@ -6,6 +6,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Blasts.Lost
 	public class SoundBlast : BlastSpell
 	{
 		public override bool PreDraw(ref Color lightColor) => false;
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 	}
 }

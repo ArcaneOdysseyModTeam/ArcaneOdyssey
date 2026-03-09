@@ -1,5 +1,6 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+﻿using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Abilities;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,8 +13,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Weapons
 
 		public override void EffectBeforeSpin(Player player)
 		{
+			if (player.PlayerItem()?.ModItem is AOWeapon weap)
+			{
+				weap.ActivateAbility(player, true);
+			}
 			if (Projectile.owner == Main.myPlayer)
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 15 * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<PiercingGale>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 18f * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<PiercingGale>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue);
 		}
 	}
 }

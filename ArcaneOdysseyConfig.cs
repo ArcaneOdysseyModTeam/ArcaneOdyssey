@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System.ComponentModel;
+using Terraria;
 using Terraria.ModLoader.Config;
 
 namespace ArcaneOdyssey
@@ -18,8 +20,15 @@ namespace ArcaneOdyssey
 		public bool VanillaItemTemperatures { get; set; }
 
 		[DefaultValue(true)]
-		[ReloadRequired]
-		public bool ProjectileSizes { get; set; }
+		public bool PredictiveArray { get; set; }
+
+		public override void OnLoaded()
+		{
+			if (!AffectsOtherMods)
+			{
+				ArcaneOdysseyMod.NoticeQueue.Add("\"[i:Cog] Affect other mods\" config is disabled, items from other mods will not be affected by this mod.");
+			}
+		}
 
 		public static ArcaneOdysseyConfig Instance;
 	}
@@ -31,9 +40,6 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool GenerateTucker { get; set; }
 
-		[DefaultValue(true)]
-		public bool ElfPetSoundEffects { get; set; }
-
 		[DefaultValue(false)]
 		public bool AlternatePhoenixEffectVFX { get; set; }
 
@@ -41,9 +47,32 @@ namespace ArcaneOdyssey
 		public bool ItemTypeTooltips { get; set; }
 
 		[DefaultValue(true)]
-		[ReloadRequired]
-		public bool MissingDebuffSprites { get; set; }
+		public bool AbilityText { get; set; }
+
+		[DefaultValue(MagicCircleTypes.Familiar)]
+		public MagicCircleTypes MagicCircleType { get; set; }
 
 		public static ArcaneOdysseyClientConfig Instance;
+
+		public override void OnChanged()
+		{
+			if (!Main.dedServ)
+			{
+				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+			}
+		}
+	}
+
+	public enum MagicCircleTypes
+	{
+		Familiar,
+		Ancient,
+		Collision,
+		Ornamental,
+		Penta,
+		Reminiscent,
+		Segmented,
+		Singularity,
+		Solar
 	}
 }

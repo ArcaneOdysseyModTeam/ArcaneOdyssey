@@ -1,129 +1,168 @@
-FreezingEffect: {
-	DisplayName: Freezing
-	Description: Your fingers are turning pale
+DOT: {
+	Scalding: {
+		DisplayName: Scalding
+		Description: You are covered in a thick cloud of hot steam
+	}
+
+	ElectrifiedToxins: {
+		DisplayName: Electrified Toxins
+		Description: Poison oozes out of your electrical wounds
+	}
+
+	HeavyBleed: {
+		DisplayName: Severe Bleeding
+		Description: You might have an artery leaking
+	}
+
+	IonizedEffect: {
+		DisplayName: Ionized
+		Description: Your skin burns and glows green
+	}
+
+	PhoenixHealing: {
+		DisplayName: Flames of the Phoenix
+		Description: Nearby foes are sapping life regeneration
+	}
+
+	SearedEffect: {
+		DisplayName: Seared
+		Description: Your skin is seared red by heat
+	}
+
+	Singed: {
+		DisplayName: Singed
+		Description: Layers of flame burn your flesh
+	}
+
+	VesuvianBurn: {
+		DisplayName: Vesuvian Burn
+		Description: You are covered in vesuvian magma, burning you severely
+	}
+
+	Corroding: {
+		DisplayName: Corroding
+		Description: Acid eats away at you
+	}
+
+	Melting: {
+		DisplayName: Melting
+		Description: Your body is covered in magma
+	}
+
+	Scorched: {
+		DisplayName: Scorched
+		Description: Plasma burns your skin
+	}
 }
 
-SnowyEffect: {
-	DisplayName: Snowy
-	Description: Feels chilly
+MagicMarks: {
+	SnowyEffect: {
+		DisplayName: Snowy
+		Description: Feels chilly
+	}
+
+	SandyEffect: {
+		DisplayName: Sandy
+		Description: You are covered in sand
+	}
+
+	FreezingEffect: {
+		DisplayName: Freezing
+		Description: Your fingers are turning pale
+	}
+
+	BlindedEffect: {
+		DisplayName: Blinded
+		Description: You can't see too well
+	}
+
+	CharredEffect: {
+		DisplayName: Charred
+		Description: You are covered in ash
+	}
+
+	CloudyEffect: {
+		DisplayName: Cloudy
+		Description: Clouds block your vision
+	}
+
+	Crystallized: {
+		DisplayName: Crystallized
+		Description: "{0} Crystals are embeded in your body, ready to shatter and deal damage"
+	}
+
+	DrainedEffect: {
+		DisplayName: Drained
+		Description: You feel drained and fatigued
+	}
 }
 
-AOFrozen: {
-	DisplayName: Frozen
-	Description: You can't move
+Helpers: {
+	AncientLightingChain: {
+		DisplayName: Ancient Lighting Chain
+		Description: Ancient Lightning streaks between enemies
+	}
+
+	ProminenceDebuff: {
+		DisplayName: Prominence
+		Description: You are releasing solar flares
+	}
 }
 
-AOPetrified: {
-	DisplayName: Petrified
-	Description: You can't move
+Minions: {
+	SpiritMinionBuff: {
+		DisplayName: Aithiraki
+		Description: Spirit Blast!
+	}
+
+	ElementalBuff: {
+		DisplayName: Elemental
+		Description: An elemental made of your magic fights for you
+	}
 }
 
-AOParalyzed: {
-	DisplayName: Paralyzed
-	Description: You can't move
+Mounts: {
+	RowboatBuff: {
+		DisplayName: Rowboat
+		Description: A wooden rowboat that seems to increase your fishing skill
+	}
 }
 
-CharredEffect: {
-	DisplayName: Charred
-	Description: You are covered in ash
+Pets: {
+	ElfPetBuff: {
+		DisplayName: Aether The Elf
+		Description: Aether is now following you around, boosting your morale and determination
+	}
 }
 
-Crystallized: {
-	DisplayName: Crystallized
-	Description: "{0} Crystals are embeded in your body, ready to shatter and deal damage"
+Stuns: {
+	AOFrozen: {
+		DisplayName: Frozen
+		Description: You can't move
+	}
+
+	Paralyzed: {
+		DisplayName: Paralyzed
+		Description: You can't move
+	}
+
+	Petrified: {
+		DisplayName: Petrified
+		Description: You can't move
+	}
+
+	Tangled: {
+		DisplayName: Tangled
+		Description: Sticky webs slowly restrict your movement
+	}
+
+	Trauma: {
+		DisplayName: Traumatized
+		Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
+	}
 }
 
-AOBleed: {
-	DisplayName: Bleeding
-	Description: You are losing blood
-}
-
-SandyEffect: {
-	Description: You are covered in sand
-	DisplayName: Sandy
-}
-
-Trauma: {
-	DisplayName: Traumatized
-	Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
-}
-
-RowboatBuff: {
-	DisplayName: Rowboat
-	Description: A wooden rowboat that seems to increase your fishing skill
-}
-
-AOScalding: {
-	DisplayName: Scalding
-	Description: You are covered in a thick cloud of hot steam
-}
-
-BlindedEffect: {
-	DisplayName: Blinded
-	Description: You can't see too well
-}
-
-DrainedEffect: {
-	DisplayName: Drained
-	Description: You feel drained and fatigued
-}
-
-IonizedEffect: {
-	DisplayName: Ionized
-	Description: Your skin burns and glows green
-}
-
-SearedEffect: {
-	DisplayName: Seared Effect
-	Description: Your skin is seared red by heat
-}
-
-ElfPetBuff: {
-	Description: Aether is now following you around, boosting your morale and determination
-	DisplayName: Aether The Elf
-}
-
-AncientLightingChain: {
-	DisplayName: Ancient Lighting Chain
-	Description: Ancient Lightning streaks between enemies
-}
-
-PhoenixHealing: {
-	DisplayName: Flames of the Phoenix
-	Description: Nearby enemies are sapping your life regeneration
-}
-
-HeavyBleed: {
-	DisplayName: Severe Bleeding
-	Description: You might have an artery leaking
-}
-
-ElectrifiedToxins: {
-	DisplayName: Electrified Toxins
-	Description: Poison oozes out of your electrical wounds
-}
-
-CloudyEffect: {
-	DisplayName: Cloudy Effect
-	Description: Clouds block your vision
-}
-
-VesuvianBurn: {
-	Description: You are covered in vesuvian magma, burning you severely
-	DisplayName: Vesuvian Burn
-}
-
-Tangled: {
-	DisplayName: Tangled
-	Description: Sticky webs restrict your movement
-}
-
-Singed: {
-	DisplayName: Singed
-	Description: Layers of flame burn your flesh
-}
-
-ProminenceDebuff: {
-	DisplayName: Prominence Debuff
-	Description: You are releasing solar flares
+Enchanted: {
+	DisplayName: Enchanted
+	Description: Damage, attack size, and health have been boosted by an ally
 }

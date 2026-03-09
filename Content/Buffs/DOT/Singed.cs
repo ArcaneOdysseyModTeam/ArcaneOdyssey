@@ -1,8 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using Terraria;
-using static ArcaneOdyssey.AOUtils;
 using Terraria.ID;
-using System;
+
 
 namespace ArcaneOdyssey.Content.Buffs.DOT
 {
@@ -12,9 +11,15 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
 			if (npc.HasBuff(Type))
 			{
-				stack = GetAOBuffStack(npc, buffIndex); // stacks disappear over time
+				stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 				npc.ArcaneOdyssey().singedstacks = stack;
 			}
 			if (!Main.dedServ)
@@ -27,7 +32,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 		{
 			if (npc.HasBuff(Type))
 			{
-				npc.buffTime[buffIndex] = Math.Clamp(npc.buffTime[buffIndex] + time, 0, 20 * 5 * 60);
+				npc.buffTime[buffIndex] = Utils.Clamp(npc.buffTime[buffIndex] + time, 0, 20 * 5 * 60);
 				return true;
 			}
 			else return false;

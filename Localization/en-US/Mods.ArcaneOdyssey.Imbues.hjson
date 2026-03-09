@@ -1,16 +1,62 @@
 Relics: {
 	EaglePatrimony: {
 		DisplayName: Eagle Patrimony
-		Tooltip: Despite never seeing this pendant before, you remember this heirloom as if it were a part of yourself
+
+		Ability: {
+			DisplayName: Astrapikis
+			Description: Release a slash of spirit energy
+		}
+
+		Tooltip: ""
 	}
 
-	Projectiles: {
-		Astrapikis.DisplayName: Astrapikis
-		SpiritBlast.DisplayName: Spirit Blast
+	EmberStaff: {
+		DisplayName: Ember Staff
+		Tooltip: Blessed by Hephaestus, the god of fire
+
+		Ability: {
+			DisplayName: Floganymai
+			Description: Release a pillar of spirit energy
+		}
+	}
+
+	NyxStaff: {
+		DisplayName: Staff of Night
+		Tooltip: Blessed by Nyx, the goddess of night
+
+		Ability: {
+			DisplayName: Nichtetheis
+			Description: Fire a beam of spirit energy
+		}
+	}
+
+	TidestoneBand: {
+		DisplayName: Tidestone Band
+		Tooltip: Blessed by Poseidon, the god of the sea
+
+		Ability: {
+			DisplayName: Thakrousi
+			Description: Use spirit energy to leap forward
+		}
+	}
+
+	CrystalOrb: {
+		DisplayName: Crystal Orb
+		Tooltip: Blessed by Aether, the god of light
+
+		Ability: {
+			DisplayName: Aithiraki
+			Description: Summon a spirit clone
+		}
+	}
+
+	SpiritEnergy: {
+		DisplayName: Divine Spirit Energy
+		Tooltip: ""
 	}
 }
 
 SteamImbue: {
 	DisplayName: Steam Imbue
-	Tooltip: Created when something hot is imbued with something cold, as well as the other way around
+	Tooltip: ""
 }

@@ -1,27 +1,30 @@
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
+
 namespace ArcaneOdyssey.Content.Projectiles.Pets
 {
-	public class ElfPetProjectile : ModProjectile
+	public class ElfPetProjectile : AOBaseProjectile
 	{
 		private Vector2 targetPosition;
 		private bool wasThereABoss = false;
 		private bool isThereABoss = false;
 		private bool haveICelebrated = false;
+		public static readonly SoundStyle ElfYippeeSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/ElfPetYippee");
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 13;
-			Main.projPet[Projectile.type] = true;
+			Main.projFrames[Type] = 13;
+			Main.projPet[Type] = true;
 		}
 		public override void SetDefaults()
 		{
 			Projectile.width = 132;
 			Projectile.height = 109;
-			Projectile.friendly = true;
 			Projectile.tileCollide = false;
 			Projectile.ai[0] = 0;
 			Projectile.frameCounter = 0;
@@ -84,7 +87,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 					}
 					if (Projectile.frame == 3)
 					{
-						if (!haveICelebrated)
+						if (!haveICelebrated && !Main.dedServ)
 						{
 							// Confetti
 							for (int n = 0; n < 20; n++)
@@ -92,13 +95,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 								int[] confettis = [DustID.Confetti_Blue, DustID.Confetti_Green, DustID.Confetti_Pink, DustID.Confetti_Yellow];
 								Dust.NewDust(Projectile.Center + new Vector2(0f, -25f), 1, 1, confettis[(int)Math.Round(Main.rand.NextFloat() * 3f)], 0, 0);
 							}
-							if (ArcaneOdysseyClientConfig.Instance.ElfPetSoundEffects)
-							{
-								//Audio here
-								Main.NewText("Elf yippee sound effect would be here");
-							}
+							//Audio here
+							SoundEngine.PlaySound(ElfYippeeSound, Projectile.Center);
 							haveICelebrated = true;
-
 						}
 					}
 				}
@@ -146,5 +145,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Pets
 			}
 			Projectile.frameCounter++;
 		}
+
+		public override bool? CanDamage() => false;
+
+		public override SpriteEffects FlippedMode => SpriteEffects.FlipHorizontally;
 	}
 }

@@ -7,6 +7,10 @@ dotnet_diagnostic.CS0162.severity = none
 root = true
 
 # 4 space indentation for all files
+
+# CA2211: Non-constant fields should not be visible
+dotnet_diagnostic.CA2211.severity = none
+
 [*]
 indent_style = tab
 indent_size = 4

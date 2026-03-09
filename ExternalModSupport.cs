@@ -1,9 +1,10 @@
-﻿using ArcaneOdyssey.Content.Items.BossTrophies;
-using ArcaneOdyssey.Content.Items.Equipment.Scrolls;
-using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
+using ArcaneOdyssey.Content.Items.BossTrophies;
+using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Content.Items.Weapons;
-using ArcaneOdyssey.Content.NPCS;
-using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Content.Items.Weapons.Sunken;
+using ArcaneOdyssey.Content.NPCS.Minibosses;
+using ArcaneOdyssey.Content.NPCS.Town;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -22,31 +23,13 @@ namespace ArcaneOdyssey
 			AddBossChecklist();
 		}
 
-		internal static bool hasYapped = false;
-		public override void PreUpdateWorld()
-		{
-			if (!(hasYapped || HasMusicMod || ArcaneOdysseyMod.DevMode))
-			{
-				hasYapped = true;
-				Main.NewText("You are missing the Arcane Odyssey Music Mod (ArcaneOdysseyMusic). For the full experience, enable this mod.", Color.Teal);
-			}
-		}
-
 		public static void RegisterDebuff(ModBuff buff)
 		{
 			if (HasCalamity)
 			{
-				Calamity.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
+				var call = (NPC e) => e.HasBuff(buff.Type);
+				Calamity.Call("RegisterDebuff", buff.Texture, call);
 			}
-		}
-
-		public static int GetMusic(string name, int fallback = 0)
-		{
-			if (HasMusicMod)
-			{
-				return (int)MusicMod.Call(name);
-			}
-			else return fallback;
 		}
 
 		public void MiscCalamitysStuff()
@@ -116,12 +99,13 @@ namespace ArcaneOdyssey
 			if (HasFargos)
 			{
 				// stat sheet
-				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", $"{1 + Math.Round(Main.LocalPlayer.ArcaneOdyssey().SizeMulti, 3)}x").Value;
+				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().SizeMulti - 100f, 1)).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
+				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1)).Value;
+				Fargos.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
 
-				// current imbue lol
-				Func<string> imbueText = () => Mod.CustomLocalization("FargosSheet.CurrentImbue", Main.LocalPlayer.ArcaneOdyssey().Imbue is not null ? Main.LocalPlayer.ArcaneOdyssey().Imbue.DisplayName.Value : Mod.CustomLocalization("RandomWords.None").Value).Value;
-				Fargos.Call("AddStat", ModContent.ItemType<EagleLegacy>(), imbueText);
+				//Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
+				//Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
 			}
@@ -129,8 +113,6 @@ namespace ArcaneOdyssey
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
 		public static Mod Calamity => ModLoader.GetMod("CalamityMod");
-		public static bool HasMusicMod => ModLoader.HasMod("ArcaneOdysseyMusic");
-		public static Mod MusicMod => ModLoader.GetMod("ArcaneOdysseyMusic");
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => ModLoader.GetMod("Fargowiltas");
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
@@ -146,14 +128,14 @@ namespace ArcaneOdyssey
 			void EvanderStuff()
 			{
 				string internalName = nameof(Evander);
-				float weight = 7.1f; // right after wof
+				float weight = 7.5f; // right after wof
 				Func<bool> downed = () => DownedBosses.downedEvander;
 				int bossType = ModContent.NPCType<Evander>();
 				int trophy = ModContent.ItemType<EvanderTrophy>();
-				LocalizedText spawnInfo = Mod.CustomLocalization("NPCs.Evander.SpawnInfo");
+				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
-				"LogBoss",
+				"LogMiniBoss",
 				Mod,
 				internalName,
 				weight,
@@ -166,34 +148,189 @@ namespace ArcaneOdyssey
 				});
 			}
 
+			void DuskStuff()
+			{
+				string internalName = nameof(Dusk);
+				float weight = 3.5f; // right after eow
+				Func<bool> downed = () => DownedBosses.downedDusk;
+				int bossType = ModContent.NPCType<Dusk>();
+				int trophy = ModContent.ItemType<DuskTrophy>();
+				int mask = ModContent.ItemType<DuskMask>();
+				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+
+				bossChecklist.Call(
+				"LogMiniBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					["collectibles"] = new List<int> { mask, trophy },
+					["spawnInfo"] = spawnInfo
+				});
+			}
+
+			//void LaelusStuff()
+			//{
+			//	string internalName = nameof(Laelus);
+			//	float weight = .5f; // right away!
+			//	Func<bool> downed = () => DownedBosses.downedLaelus;
+			//	int bossType = ModContent.NPCType<Laelus>();
+			//	//int trophy = ModContent.ItemType<EvanderTrophy>();
+			//	LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+
+			//	bossChecklist.Call(
+			//	"LogMiniBoss",
+			//	Mod,
+			//	internalName,
+			//	weight,
+			//	downed,
+			//	bossType,
+			//	new Dictionary<string, object>()
+			//	{
+			//		//["collectibles"] = new List<int> { trophy },
+			//		["spawnInfo"] = spawnInfo
+			//	});
+			//}
+
 			EvanderStuff();
+			DuskStuff();
+			//LaelusStuff();
 		}
 
-		public struct DebuffVulnurablilities(bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null)
+		public static bool? CheckItemTemperature(ModItem item)
 		{
-			public bool? sick = sick;
-			public bool? hot = hot;
-			public bool? electric = electric;
-			public bool? water = water;
-			public bool? cold = cold;
-
-			public readonly void ApplyDebuffVulnurablility(NPC NPC)
+			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
 			{
-				if (HasCalamity)
+				switch (item.Name)
 				{
-					if (sick.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "sick", sick.Value);
-					if (electric.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "electric", electric.Value);
-					if (water.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "water", water.Value);
-					if (hot.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "hot", hot.Value);
-					if (cold.HasValue)
-						Calamity.Call("SetVulnerabilities", NPC, "cold", cold.Value);
+					case "AbsoluteZero":
+					case "AbyssBlade":
+					case "AmidiasTrident":
+					case "Avalanche":
+					case "BrinyBaron":
+					case "DepthCrusher":
+					case "Floodtide":
+					case "NeptunesBounty":
+					case "Riptide":
+					case "SeashineSword":
+					case "Shimmerspark":
+					case "StarnightLance":
+					case "TenebreusTides":
+					case "TyphonsGreed":
+					case "UrchinMace":
+					case "Alluvion":
+					case "AquashardShotgun":
+					case "Archerfish":
+					case "DarkechoGreatbow":
+					case "EternalBlizzard":
+					case "FlakKraken":
+					case "FlurrystormCannon":
+					case "FrostbiteBlaster":
+					case "HoarfrostBow":
+					case "Leviatitan":
+					case "Megalodon":
+					case "Monsoon":
+					case "SDFMG":
+					case "Seadragon":
+					case "SeasSearing":
+					case "TheMaelstrom":
+					case "ShardlightPickaxe":
+					case "AbyssalWarhammer":
+						return true;
+					case "AegisBlade":
+					case "AnarchyBlade":
+					case "BalefulHarvester":
+					case "Brimlance":
+					case "Brimlash":
+					case "BrimstoneSword":
+					case "BurningRevelation":
+					case "DevilsSunrise":
+					case "DraconicDestruction":
+					case "DragonPow":
+					case "DragonRage":
+					case "EssenceFlayer":
+					case "FaultLine":
+					case "HellfireFlamberge":
+					case "HolyCollider":
+					case "MawOfInfinity":
+					case "Mourningstar":
+					case "OldLordClaymore":
+					case "SeekingScorcher":
+					case "StreamGouge":
+					case "TheBurningSky":
+					case "UltimusCleaver":
+					case "VulcaniteLance":
+					case "AuroraBlazer":
+					case "BlissfulBombardier":
+					case "BloodBoiler":
+					case "BrimstoneFury":
+					case "ChickenCannon":
+					case "ChromaticEruption":
+					case "ContinentalGreatbow":
+					case "DaemonsFlame":
+					case "DeadSunsWind":
+					case "DragonsBreath":
+					case "Drataliornus":
+					case "FirestormCannon":
+					case "FlarewingBow":
+					case "HalleysInferno":
+					case "HavocsBreath":
+					case "Hellborn":
+					case "Helstorm":
+					case "MagnomalyCannon":
+					case "Meowthrower":
+					case "PristineFury":
+					case "TelluricGlare":
+					case "DragoonDrizzlefish":
+					case "WildfireBloom":
+					case "InfernaCutter":
+					case "SeismicHampick":
+					case "TectonicTruncator":
+						return false;
 				}
 			}
-			public static void SetDebuffVulnurablility(NPC NPC, bool? sick = null, bool? hot = null, bool? electric = null, bool? water = null, bool? cold = null) => new DebuffVulnurablilities(sick, hot, electric, water, cold).ApplyDebuffVulnurablility(NPC);
+			return null;
+		}
+
+		public static WeaponType CheckWeaponsType(ModItem item)
+		{
+			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
+			{
+				switch (item.Name)
+				{
+					case "ClockworkBow":
+					case "FlakKraken":
+					case "HandheldTank":
+					case "MarksmanBow":
+					case "Roxcalibur":
+					case "DeepcoreGK2":
+					case "AnarchyBlade":
+					case "GrandGuardian":
+					case "HolyCollider":
+					case "MajesticGuard":
+						return WeaponType.Strength;
+					case "Karasawa":
+					case "PrismaticBreaker":
+					case "TheBurningSky":
+						return WeaponType.Arcanium;
+					case "TrueBiomeBlade":
+					case "BrokenBiomeBlade":
+					case "OmegaBiomeBlade":
+					case "Galaxia":
+					case "FourSeasonsGalaxia":
+					case "ArkoftheCosmos":
+					case "ArkoftheElements":
+					case "FracturedArk":
+					case "SkytideDragoon":
+					case "Earth":
+					case "TrueArkoftheAncients":
+						return WeaponType.Artisinal;
+				}
+			}
+			return WeaponType.Normal;
 		}
 	}
 }

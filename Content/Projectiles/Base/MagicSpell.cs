@@ -1,12 +1,24 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Normal;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class MagicSpell : AOPlayerProjectile, ILocalizedModType
+	public abstract class MagicSpell : AOPlayerProjectile
 	{
-		public override string LocalizationCategory => "Imbues.Magic.Projectiles";
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
+
+		public virtual bool DrawWithImbueColours => false;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (DrawWithImbueColours)
+			{
+				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+			}
+			return base.PreDraw(ref lightColor);
+		}
 
 		public string Tier
 		{
@@ -29,6 +41,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			base.SetDefaults();
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.friendly = true;
+		}
+
+		public override bool PreAI()
+		{
+			Imbue ??= ModContent.GetInstance<WindMagic>();
+			if (Main.myPlayer == Projectile.owner && Imbue?.CanBeWet == false && Projectile.wet)
+			{
+				Kill();
+				return false;
+			}
+			return true;
 		}
 	}
 }

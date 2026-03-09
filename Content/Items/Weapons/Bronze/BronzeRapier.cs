@@ -1,17 +1,17 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+using ArcaneOdyssey.Content.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 {
-	public class BronzeRapier : AORangedOrMeleeWeapon
+	public class BronzeRapier : AOWeapon
 	{
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;
 
-		public override WeaponAbility? Ability => new(Mod, "Piercing Strike", "Launch yourself towards the cursor, stabbing through any who cross your path", Color.Orange);
+		public override Color Colour => Color.Orange;
 
 		public override void SetDefaults()
 		{
@@ -28,8 +28,9 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			Item.height = Item.width = 46;
 			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.shoot = ModContent.ProjectileType<BronzeRapierProjectile>();
+			Item.shootSpeed = 1f;
 		}
 
 		public override void AddRecipes()
@@ -62,22 +63,18 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 			return base.CanUseItem(player);
 		}
 
-		public override bool CanShoot(Player player)
-		{
-			return player.AltUse() && player.ownedProjectileCounts[Item.shoot] < 1;
-		}
+		public override bool CanShoot(Player player) => player.AltUse() && player.ownedProjectileCounts[Item.shoot] < 1;
+		
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			ActivateAbility(player, false);
 			var shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-			var dash = new PiercingStrikes(Item) { projectile = shot };
+			var dash = new PiercingStrikes(shot);
 			player.ArcaneOdyssey().StartDash(dash, imbue: Imbue, imbueAffectsSpeed: true);
 			return false;
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return !new PiercingStrikes(Item).OnCooldown(player);
-		}
+		public override bool AltFunctionUse(Player player) => !player.ArcaneOdyssey().OnCooldown<PiercingStrikesCooldown>();
 	}
 }

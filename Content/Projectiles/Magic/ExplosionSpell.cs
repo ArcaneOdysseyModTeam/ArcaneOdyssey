@@ -1,18 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Circles;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Audio;
-using ArcaneOdyssey.Content.Projectiles.Base;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
 	public class ExplosionSpell : MagicSpell
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
-		public const float defaultMax = 3f;
-		public const float defaultMin = 0.6f;
+		public override bool CanHaveImbueVFX => false;
+		public override string Texture => AOUtils.BlankTexture;
 		public float charge = 1f;
 		public bool isPlacedExplosion = Main.mouseRight;
 		public Vector2 ensuredPosition = Main.MouseWorld;
@@ -21,66 +20,51 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			base.SetDefaults();
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
+			charge = 1f;
 		}
 
 		public override bool? CanDamage() => false;
 
 		public override void AI()
 		{
-			if (Projectile.position != Projectile.oldPosition)
-				Projectile.netUpdate = true;
-			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
 			var size = isPlacedExplosion ? 1f : 1.2f;
-			if (charge < defaultMax && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
+			if (AOPlayerOwner.myCircle is not null)
+				AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f));
+			if (Projectile.position != Projectile.oldPosition)
 			{
-				if (Projectile.ai[1] == 0)
+				if (Projectile.owner == Main.myPlayer)
 				{
-					charge = defaultMin;
-					Projectile.ai[1]++;
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
 				}
+			}
+			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
+			if (charge < BaseMagicCircle.GlobalMaxCharge && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ModProjectile is RotatingMagicCircle circle1 && !circle1.MarkedForDeath)
+			{
 				Projectile.Center = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;
-				charge += 1 / 60f;
-				//if (!isPlacedExplosion)
-				//{
-				//	ensuredPosition = Owner.Center;
-				//} else
-				//{
-				//	ensuredPosition = AOPlayerOwner.myCircle.Center;
-				//}
+				charge += BaseMagicCircle.GlobalChargeSpeed;
 			}
 			else
 			{
-				if (Projectile.ai[1] == 0)
-				{
-					charge = 1f;
-					Projectile.ai[1]++;
-				}
 				Owner.channel = false;
 				if (AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.Imbue().Name == Imbue.Name)
 				{
-					AOPlayerOwner.myCircle.ai[0]++;
+					if (AOPlayerOwner.myCircle.ModProjectile is RotatingMagicCircle circle)
+					{
+						circle.MarkedForDeath = true;
+					}
 					AOPlayerOwner.myCircle = null;
 				}
-				Owner.itemAnimation = 0;
-				Owner.itemTime = 0;
-				Owner.reuseDelay = 60;
-				//if (!isPlacedExplosion)
-				//{
-				//	ensuredPosition = Owner.Center;
-				//}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var damage = 25 * (charge * (charge / 2)) * size;
-					AOUtils.SimulateAOE(size * 100, damage, ensuredPosition, Projectile.knockBack, Projectile, DamageClass.Magic);
+					var damage = 50 * charge * size;
+					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, Projectile.DamageType);
 				}
-				for (int i = 0; i < 10 * charge * size; i++)
+				for (int i = 0; i < 30; i++)
 				{
-					Imbue?.ExplosionEffects(Projectile);
-				}
-				for (int i = 0; i < 5 * charge * size; i++)
-				{
-					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center, size * charge);
+					SecondImbue?.ExplosionEffects(Projectile.Center, size * charge);
 				}
 				SoundEngine.PlaySound(Imbue?.ImbueSound, ensuredPosition, null);
 				Kill();
@@ -90,9 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			{
 				for (int n = 0; n < 360; n += 4)
 				{
-					Vector2 currentDustPos = (new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f)))) * ((Imbue.AOScrollSize * 109) * size);
-					//currentDustPos.X = Utils.Clamp(currentDustPos.X, -1 * (Imbue.AOScrollSize * 100 * size), (Imbue.AOScrollSize * 100 * size));
-					//currentDustPos.Y = Utils.Clamp(currentDustPos.Y, -1 * (Imbue.AOScrollSize * 100 * size), (Imbue.AOScrollSize * 100 * size));
+					Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * (Imbue.AOScrollSize * 109 * size * charge);
 					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.GetColour(), 1f);
 				}
 			}

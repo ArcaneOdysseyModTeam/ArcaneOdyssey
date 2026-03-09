@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,7 +9,22 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 {
 	public class AetherExplosion : AOPlayerProjectile
 	{
-		internal static int Count = 0;
+		private static int _count = 0;
+
+		internal static int Count 
+		{ 
+			get
+			{
+				return _count;
+			}
+			set
+			{
+				_count = Utils.Clamp(value, 0, 10);
+			} 
+		}
+
+		public override float AOSize => .4f;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -17,24 +33,28 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
-			Projectile.Center = Projectile.position;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
-			Projectile.alpha = 40;
 		}
-		public override AODebuffRequirement? Debuff => null;
+
+		public override Debuff? ProjectileDebuff => null;
 
 		public override void OnSpawn(IEntitySource source)
 		{
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
 				Count++;
-				//if (ArcaneOdysseyConfig.Instance.ProjectileSizes)
-				BaseScale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
+				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
+				Projectile.Hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, Projectile.scale);
+			}
+			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherMagic)
+			{
+				Projectile.scale = Projectile.ai[0];
+				Projectile.Hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, Projectile.scale);
 			}
 			else
 			{
-				Projectile.active = false;
+				Kill();
 			}
 		}
 

@@ -10,41 +10,48 @@ namespace ArcaneOdyssey
 	{
 		public bool CanDrop(DropAttemptInfo info) => !NPC.downedAncientCultist;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstCultistKillDescription", () => "First Lunatic Cultist Defeated").Value;
+	}
+
+	public class FirstGolemKill : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => !NPC.downedGolemBoss;
+		public bool CanShowItemDropInUI() => true;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstGolemKillDescription", () => "First Golem Defeated").Value;
 	}
 
 	public class FirstMoonLordKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => !NPC.downedMoonlord;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstMoonLordKillDescription", () => "First Moon Lord Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstMoonLordKillDescription", () => "First Moon Lord Defeated").Value;
 	}
 
 	public class FirstEmpressKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => !NPC.downedEmpressOfLight;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstEmpressKillDescription", () => "First Empress of Light Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstEmpressKillDescription", () => "First Empress of Light Defeated").Value;
 	}
 
 	public class FirstEvanderKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEvander;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
 	}
 	public class NotFirstEvanderKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => DownedBosses.downedEvander;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.NotFirstEvanderKillDescription", () => "Following Evanders Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.NotFirstEvanderKillDescription", () => "Following Evanders Defeated").Value;
 	}
 
 	public class FirstDayEmpressKill : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEnragedEmpress;
 		public bool CanShowItemDropInUI() => true;
-		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.FirstDayEmpressKillDescription", () => "First Enraged Empress of Light Defeated").Value;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstDayEmpressKillDescription", () => "First Enraged Empress of Light Defeated").Value;
 	}
 
 	public class NoShowNoConditon : IItemDropRuleCondition
@@ -59,6 +66,26 @@ namespace ArcaneOdyssey
 		}
 		public bool CanShowItemDropInUI() => false;
 		public string GetConditionDescription() => "";
+	}
+
+	public class DownedAllMechBossesFirstTime : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info)
+		{
+			if (NPC.downedMechBoss1 && NPC.downedMechBoss2)
+				return !NPC.downedMechBoss3;
+
+			if (NPC.downedMechBoss1 && NPC.downedMechBoss3)
+				return (!NPC.downedMechBoss2) && !AOUtils.BothTwinsAlive();
+
+			if (NPC.downedMechBoss3 && NPC.downedMechBoss2)
+				return !NPC.downedMechBoss1;
+
+			return false;
+		}
+
+		public bool CanShowItemDropInUI() => true;
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstMechBossesKillDescription", () => "First Mechanical Trio Defeated").Value;
 	}
 
 	public class MultiDropHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
@@ -88,5 +115,10 @@ namespace ArcaneOdyssey
 			result.State = ItemDropAttemptResultState.FailedRandomRoll;
 			return result;
 		}
+	}
+
+	public class MultiDropHelper<T>(int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : MultiDropHelper(ModContent.ItemType<T>(), denominator, minQuantity, maxQuantity, numerator) where T : ModItem 
+	{
+
 	}
 }

@@ -1,0 +1,13 @@
+Astrapikis.DisplayName: Astrapikis
+Floganymai.DisplayName: Floganymai
+Nichtetheis.DisplayName: Nichtetheis
+SpiritBlast.DisplayName: Spirit Blast
+SpiritExplosion.DisplayName: Spirit Shockwave
+SpiritHound.DisplayName: Spirit Hound
+SpiritRaincloud.DisplayName: Spirit Rain
+SpiritRaindrop.DisplayName: Spirit Raindrop
+
+Minions: {
+	SpiritMinion.DisplayName: Aithiraki
+	MinionBlast.DisplayName: Spirit Blast
+}

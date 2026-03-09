@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArcaneOdyssey.Content.Imbues.Relics;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -6,23 +7,35 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class SpiritProjectile : AOPlayerProjectile, IImbuable
 	{
-		public override string LocalizationCategory => "Imbues.Relics.Projectiles";
-		public override AODebuffRequirement? Debuff => null;
+		public override Debuff? ProjectileDebuff => null;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = ModContent.GetInstance<OracleDamage>();
+			Projectile.DamageType = DamageClass.Summon;
 			Projectile.friendly = true;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Owner.MinionAttackTargetNPC = target.whoAmI;
-			if (Projectile.TryGetOwner(out var owner))
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Imbue?.GetColour() ?? Color.White;
+			return base.PreDraw(ref lightColor);
+		}
+
+		public override bool PreAI()
+		{
+			Imbue ??= ModContent.GetInstance<SpiritEnergy>();
+			if (Main.myPlayer == Projectile.owner && Imbue?.CanBeWet == false && Projectile.wet)
 			{
-				owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Clamp(Projectile.originalDamage / 5, 1, 20), false);
+				Kill();
+				return false;
 			}
+			return true;
 		}
 	}
 }

@@ -8,11 +8,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Cannons.Lost
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.alpha = (int)(225 * .4f);
 		}
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Type] = 8;
+			Main.projFrames[Type] = 7;
 		}
 	}
 }

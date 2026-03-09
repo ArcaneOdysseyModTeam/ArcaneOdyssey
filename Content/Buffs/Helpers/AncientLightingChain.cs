@@ -1,10 +1,10 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Imbues.Magic.Lost;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
-using System;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 
 namespace ArcaneOdyssey.Content.Buffs.Helpers
 {
@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Buffs.Helpers
 		{
 			if (npc.ArcaneOdyssey().ZapCD < 0)
 			{
-				npc.ArcaneOdyssey().ZapCD = 5f;
+				npc.ArcaneOdyssey().ZapCD = 5 * 60;
 
 				foreach (var npcs in Main.ActiveNPCs)
 				{

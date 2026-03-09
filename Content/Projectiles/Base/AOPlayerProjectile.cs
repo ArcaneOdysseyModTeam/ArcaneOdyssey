@@ -1,11 +1,8 @@
 ﻿using ArcaneOdyssey.Content.Buffs.DOT;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.PlayerClasses;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using ArcaneOdyssey.AOPlayers;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
@@ -13,57 +10,79 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	/// <summary>
 	/// Projectile created by the player, usually via weapon
 	/// </summary>
-	public abstract class AOPlayerProjectile : ModProjectile, IImbuable
+	public abstract class AOPlayerProjectile : AOBaseProjectile, IImbuable
 	{
+		public virtual bool CanHaveImbueVFX => true;
+
+		public float ApplySpeed(float value, bool flipfloat = false)
+		{
+			if (BenifitsFromScrollStats.HasValue)
+			{
+				if (BenifitsFromScrollStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOScrollSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOScrollSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOImbueSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOImbueSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 
-		public AOPlayer AOPlayerOwner
-		{
-			get
-			{
-				return Owner?.ArcaneOdyssey();
-			}
-		}
+		public AOPlayer AOPlayerOwner => Owner?.ArcaneOdyssey();
 
 		public Player Owner
 		{
 			get
 			{
-				if (Projectile.owner != 255)
+				if (Projectile.owner != 255 && Main.player[Projectile.owner]?.active == true)
 				{
 					return Main.player[Projectile.owner];
 				}
 				return null;
-			}
-			//set
-			//{
-			//	Owner = value;
-			//}
-		}
-
-		public float BaseScale
-		{
-			get
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
-					return Projectile.ArcaneOdyssey().BaseScale.GetValueOrDefault(1f);
-				else
-					return Projectile.scale;
-			}
-			set
-			{
-				if (ArcaneOdysseyConfig.Instance.ProjectileSizes && Projectile?.ArcaneOdyssey() is not null)
-					Projectile.ArcaneOdyssey().BaseScale = value;
-				else
-					Projectile.scale = value;
 			}
 		}
 
 		public Imbuable Imbue
 		{
 			get => Projectile.ArcaneOdyssey()?.Imbue;
-			set => Projectile.ArcaneOdyssey().Imbue = value;
+			set
+			{
+				if (Projectile.ArcaneOdyssey() is not null)	
+				Projectile.ArcaneOdyssey().Imbue = value;
+			}
 		}
 
 		public Imbuable SecondImbue
@@ -72,47 +91,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			set => Projectile.ArcaneOdyssey().SecondImbue = value;
 		}
 
-		public bool? BenifitsFromScrollStats
-		{
-			get => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
-		}
+		public bool? BenifitsFromScrollStats => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
 
 		public override void SetDefaults()
 		{
-			BaseScale = AOSize;
+			Projectile.scale *= AOSize;
 		}
 
 		public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 
-		public virtual AODebuffRequirement? Debuff => new(ModContent.BuffType<AOBleed>(), 60 * 5);
-		public virtual SoundStyle? DebuffApplySound => null;
-
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (Debuff.HasValue && (Debuff.Value.debuffPercent == 0 || modifiers.GetDamage(Projectile.damage, true) > target.lifeMax / Debuff.Value.debuffPercent))
-			{
-				target.AddBuff(Debuff.Value.debuffID, Debuff.Value.debuffDuration);
-				if (DebuffApplySound.HasValue)
-				{
-					SoundEngine.PlaySound(DebuffApplySound.Value, target.position);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Kills the projectile.
-		/// </summary>
-		public void Kill() => Projectile.Kill();
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
-			{
-				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, SpriteEffects.None);
-				return false;
-			}
-			return true;
-		}
+		public virtual Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
+		public virtual SoundStyle? HitSound => null;
 	}
 }

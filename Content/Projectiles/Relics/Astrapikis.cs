@@ -5,17 +5,15 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Relics
 {
 	public class Astrapikis : SpiritProjectile
 	{
-		public override string Texture => Mod.Name + "/Assets/BasicSlash";
+		public override string Texture => AOUtils.SlashTexture;
 		public override float AOSize => .75f;
 
 		public const int TimeLeftMax = 90;
-		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;
 
 		public override void SetStaticDefaults()
 		{
@@ -48,19 +46,23 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (Projectile.timeLeft == TimeLeftMax)
 			{
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				for (int i = 0; i < 30; i++)
 				{
-					Imbue?.ExplosionEffects(Entity);
-					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					SecondImbue?.ExplosionEffects(Projectile.Center);
 				}
 			}
 
 			Projectile.Opacity = Projectile.timeLeft / (float)TimeLeftMax;
 			if (Projectile.timeLeft % 10 == 0)
 			{
-				Imbue?.ExplosionEffects(Projectile);
-				SecondImbue?.ExplosionEffects(Projectile);
+				Imbue?.ExplosionEffects(Projectile.Center);
+				SecondImbue?.ExplosionEffects(Projectile.Center);
 			}
 		}
 
@@ -69,7 +71,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Imbue.GetColour()) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				var colour2 = Projectile.GetAlpha(Imbue?.GetColour() ?? Color.LightBlue) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (.05f * k), SpriteEffects.None, 0);
 			}
 			return false;

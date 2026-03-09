@@ -1,10 +1,12 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
+using Terraria.ModLoader;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
-	public class OldGreataxe : AORangedOrMeleeWeapon
+	public class OldGreataxe : AOWeapon
 	{
 		public override int AOValue => 50;
 		public override float AOSize => 1.05f;
@@ -13,14 +15,22 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override AORarities AORarity => AORarities.Common;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldGreatsword>();
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.height = Item.height = 70;
 			Item.axe = 70 / 5;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.autoReuse = true;
 		}
+
+		public override Color Colour => Color.Gray;
 	}
 }

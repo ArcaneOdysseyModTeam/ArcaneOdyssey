@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using static ArcaneOdyssey.AOUtils;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : AOPlayerProjectile
 	{
+		public override Debuff? ProjectileDebuff => null;
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
@@ -15,20 +16,27 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = TrueMeleeNoSpeed();
+			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Projectile.knockBack = 4.5f;
-			Projectile.height = Projectile.width = 120;
+			Projectile.height = Projectile.width = 175;
 			Projectile.friendly = true;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 20;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
 		}
 
+		public override void OnKill(int timeLeft)
+		{
+			Owner.channel = false;
+		}
+
 		public override void AI()
 		{
 			Owner.heldProj = Projectile.whoAmI;
-			Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter, true);
+			Projectile.Center = Owner.RotatedRelativePoint(Owner.RotatedRelativePoint(Owner.MountedCenter), true);
 			Projectile.direction = 1;
 
 			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed.FlipFloat() ?? 1f);
@@ -38,16 +46,22 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Projectile.ai[0] == 0f)
 			{
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 				Projectile.ai[0] = 1f;
 			}
 
 			if (Owner.dead || !Owner.channel)
 			{
-				Projectile.Kill();
+				Kill();
 				Owner.reuseDelay = 2;
 				return;
 			}
+
+			Projectile.timeLeft = 2;
 
 			if (Projectile.ai[1] >= 600 || Projectile.ai[1] <= -600)
 			{

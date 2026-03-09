@@ -1,15 +1,15 @@
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles
 {
-	public class DeathCurse : ModProjectile
+	public class DeathCurse : AOBaseProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 8;
+			Main.projFrames[Type] = 8;
 		}
 		public override void SetDefaults()
 		{
@@ -31,19 +31,20 @@ namespace ArcaneOdyssey.Content.Projectiles
 		{
 			if (!Main.dedServ)
 			{
-				Dust spawnedDust = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, 0, default, 2f);
+				Dust spawnedDust = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, Scale: 2f);
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, 0, default, 2.6f);
+				Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, Scale: 2.6f);
 				spawnedDust2.noGravity = true;
 			}
 			if (Projectile.Bottom.Y < 0 || Projectile.localAI[0] > 1000 || !Projectile.OnScreen())
 			{
-				Projectile.Kill();
+				Kill();
+				return;
 			}
 			if (Projectile.frameCounter++ > 2)
 			{
 				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}

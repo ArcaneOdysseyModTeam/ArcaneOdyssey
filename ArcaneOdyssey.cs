@@ -1,21 +1,26 @@
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Materials;
+using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.Items.Weapons.Scrolls;
-using ArcaneOdyssey.Content.NPCS;
+using ArcaneOdyssey.Content.NPCS.Town;
+using ArcaneOdyssey.Content.Tiles;
+#if VSDEBUGMODE
+using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.GlobalTypes;
+#endif
+using Microsoft.Xna.Framework;
+using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
+using Terraria.Graphics.Shaders;
 
 namespace ArcaneOdyssey
 {
@@ -27,18 +32,23 @@ namespace ArcaneOdyssey
 		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
 		public const string InternalName = "ArcaneOdyssey";
 
+		public static Asset<Texture2D> MagicCircleSprite;
+
+		internal static List<string> NoticeQueue = [];
+
 		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
-
-		internal static int[] alternateBuffs = BuffID.Sets.Factory.CreateIntSet(BuffID.CompanionCube, BuffID.Slimed, BuffID.GelBalloonBuff);
-		internal static bool?[] itemTemperatures = ItemID.Sets.Factory.CreateCustomSet<bool?>(null);
-		internal static int[] weaponTypes = ItemID.Sets.Factory.CreateIntSet();
 
 		internal static List<int> excludedItems = [];
 
 		internal static List<int> excludedProjectiles = [];
 
+		/// <param name="args">
+		/// BlacklistProjectile/ExcludeProjectile (<seealso cref="int"/>)
+		/// <para>BlacklistItem/ExcludeItem (<seealso cref="int"/>)</para>
+		/// <para>AddMordenDialogue (<seealso cref="string"/>, <seealso cref="Func{bool}"/>)</para>
+		/// </param>
 		public override object Call(params object[] args)
 		{
 			switch (args[0])
@@ -51,34 +61,6 @@ namespace ArcaneOdyssey
 				case "ExcludeItem":
 					excludedItems.Add((int)args[1]);
 					break;
-				case "GetPlayerImbue":
-					Imbuable imbue1 = Main.player[(int)args[1]].ArcaneOdyssey()?.Imbue;
-					return imbue1;
-					break;
-				case "GetItemImbue":
-					Imbuable imbue = ((Item)args[1]).ArcaneOdyssey()?.Imbue;
-					return imbue;
-					break;
-				case "RegisterItemTemperature":
-				case "SetItemTemperature":
-				case "AddItemTemperature":
-					itemTemperatures[(int)args[1]] = (bool?)args[2];
-					break;
-				case "GetItemTemperature":
-					var item1 = args[1] as Item;
-					return item1.ArcaneOdyssey()?.Cold;
-					break;
-				case "AddWeaponType":
-				case "RegisterWeaponType":
-				case "SetWeaponType":
-					var item2 = (int)args[1];
-					var type = (int)args[2];
-					weaponTypes[item2] = type;
-					break;
-				case "GetWeaponType":
-					var item3 = (int)args[1];
-					return weaponTypes[item3];
-					break;
 				case "AddMordenDialogue":
 					Edgelord.AddHelpOption((string)args[1], (Func<bool>)args[2]);
 					break;
@@ -86,9 +68,34 @@ namespace ArcaneOdyssey
 			return null;
 		}
 
+		public override void Load()
+		{
+			excludedItems.Clear();
+			excludedProjectiles.Clear();
+			staticLocalizer.Clear();
+			NoticeQueue.Clear();
+
+			if (!Main.dedServ)
+			{
+				MagicCircleSprite = Assets.Request<Texture2D>($"Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}", AssetRequestMode.ImmediateLoad);
+
+				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
+
+				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
+
+			}
+		}
+
+		public override void Unload()
+		{
+			excludedItems.Clear();
+			excludedProjectiles.Clear();
+			staticLocalizer.Clear();
+			NoticeQueue.Clear();
+		}
+
 		public override void PostSetupContent()
 		{
-			// generate localization
 			this.CoolCustomLocalization("RandomWords.Default");
 			this.CoolCustomLocalization("RandomWords.Unbound");
 			this.CoolCustomLocalization("RandomWords.None");
@@ -109,7 +116,7 @@ namespace ArcaneOdyssey
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					KillTucker(Main.spawnTileX - 2, Main.spawnTileY - 2, Main.spawnTileX + 2, Main.spawnTileY + 2, TileID.Tombstones);
+					KillTucker(Main.spawnTileX - 20, Main.spawnTileY - 5, Main.spawnTileX + 20, Main.spawnTileY + 5, ModContent.TileType<TuckerGrave>());
 				}));
 			}
 
@@ -137,7 +144,7 @@ namespace ArcaneOdyssey
 					int y = WorldGen.genRand.Next(top, bottom + 1);
 					if (Framing.GetTileSafely(x, y).TileType != tile)
 					{
-						WorldGen.PlaceObject(x, y, tile, false, 2, 0, -1, WorldGen.genRand.NextBool(2) ? 1 : -1);
+						WorldGen.PlaceObject(x, y, tile);
 					}
 					Tile tile1 = Framing.GetTileSafely(x, y); // maybe use later for something
 					success = tile1.TileType == tile;
@@ -191,64 +198,53 @@ namespace ArcaneOdyssey
 								}
 							}
 						}
-
-						if (WorldGen.genRand.NextBool(10))
-						{
-							for (int i = 0; i < Chest.maxItems; i++)
-							{
-								if (chest.item[i] != null && chest.item[i].IsAir)
-								{
-									chest.item[i].SetDefaults(ModContent.ItemType<CannonScroll>());
-									break;
-								}
-							}
-						}
 					}
 
-					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon chests probably
+					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon/calamity abyss chests probably
 					{
-						// maybe oathkeeper goes here later
+
 					}
 
 					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
 					{
 
-						if (WorldGen.genRand.NextBool(5))
-						{
-							for (int i = 0; i < Chest.maxItems; i++)
-							{
-								if (chest.item[i] != null && chest.item[i].IsAir)
-								{
-									chest.item[i].SetDefaults(ModContent.ItemType<PulsarScroll>());
-									break;
-								}
-							}
-						}
+					}
+
+					if (chest.y > Main.UnderworldLayer && !chest.IsLocked()) // probably only thing this could be is calamity brimstone crags chests
+					{
+
 					}
 				}
 			}
 		}
 	}
 
-	public class DevMode : ModSystem { public static bool devMode = false; }
+	public class DevMode : ModSystem 
+	{
+		#if VSDEBUGMODE
+		public static bool devMode = true;
+		#else
+		public static bool devMode = false;
+		#endif
+	}
 
 	public class AODebuffManager : GlobalBuff
 	{
-		public override void SetStaticDefaults()
-		{
-			if (ArcaneOdysseyClientConfig.Instance.MissingDebuffSprites)
-				TextureAssets.Buff[BuffID.Oiled] = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/OiledDebuff");
-		}
-
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
 		{
-			buffName = buffName.Replace("Imbue", "Gel");
+			buffName = buffName.Replace("Imbue", "GelDebuff");
 		}
 	}
 
 	public class DownedBosses : ModSystem
 	{
 		public static bool downedEvander;
+		public static bool downedDusk;
+		public static bool downedLaelus;
+		public static bool downedCrone;
+		public static bool downedDelamere;
+
+
 		public static bool downedEnragedEmpress;
 		public static bool downedWorldEater;
 		public static bool downedBrain;
@@ -256,8 +252,11 @@ namespace ArcaneOdyssey
 		public static void ResetDefaults()
 		{
 			downedEvander = false;
-			ExternalModSupport.hasYapped = false;
 			downedEnragedEmpress = false;
+			downedDusk = false;
+			downedLaelus = false;
+			downedCrone = false;
+			downedDelamere = false;
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();
@@ -271,6 +270,14 @@ namespace ArcaneOdyssey
 				downed.Add("Evander");
 			if (downedEnragedEmpress)
 				downed.Add("EnragedEoL");
+			if (downedDelamere)
+				downed.Add("Delamere");
+			if (downedDusk)
+				downed.Add("Dusk");
+			if (downedCrone)
+				downed.Add("Crone");
+			if (downedLaelus)
+				downed.Add("Laelus");
 
 			tag["downed"] = downed;
 		}
@@ -279,8 +286,37 @@ namespace ArcaneOdyssey
 		{
 			var downed = tag.GetList<string>("downed");
 			downedEvander = downed.Contains("Evander");
+			downedDusk = downed.Contains("Dusk");
+			downedCrone = downed.Contains("Crone");
+			downedLaelus = downed.Contains("Laelus");
+			downedDelamere = downed.Contains("Delamere");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
 		}
+
+		public override void PostUpdateWorld()
+		{
+			foreach (string message in ArcaneOdysseyMod.NoticeQueue)
+			{
+				Main.NewText(message, Color.Yellow);
+			}
+			ArcaneOdysseyMod.NoticeQueue = [];
+		}
+	}
+
+	[ReinitializeDuringResizeArrays]
+	public static class ArrayCollections
+	{
+		public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
+
+		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet([
+			ItemID.MoltenBreastplate, 7,
+			ItemID.MoltenGreaves, 5,
+			ItemID.MoltenHelmet, 3,
+		]);
+
+		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
+
+		public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 	}
 
 	public class DownedNPCTracker : GlobalNPC
@@ -318,4 +354,41 @@ namespace ArcaneOdyssey
 			}
 		}
 	}
+
+	#if VSDEBUGMODE
+	public class DebugStuff : ModSystem
+	{
+		public static ModKeybind PrintInfo { get; set; }
+
+		public override void Load()
+		{
+			PrintInfo = KeybindLoader.RegisterKeybind(Mod, "PrintInfo", "P");
+		}
+
+		public override void Unload()
+		{
+			PrintInfo = null;
+		}
+
+		public override void PostUpdateItems()
+		{
+			if (PrintInfo.JustPressed) 
+			{
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOUtils.BossesKilled) + " " + AOUtils.BossesKilled);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.commonpity) + " " + AOTile.commonpity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.rarepity) + " " + AOTile.rarepity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.lostpity) + " " + AOTile.lostpity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.acumen) + " " + Main.LocalPlayer.ArcaneOdyssey().acumen);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.BronzeSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().BronzeSealed);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.NimbusSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.DarkSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Grounded) + " " + Main.LocalPlayer.ArcaneOdyssey().Grounded);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOSizeStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOSizeStat);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Insanity) + " " + Main.LocalPlayer.ArcaneOdyssey().Insanity);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOHasteStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOHasteStat);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(ArcaneOdysseyMod.DevMode) + " " + ArcaneOdysseyMod.DevMode);
+			}
+		}
+	}
+	#endif
 }

@@ -5,15 +5,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Pulsars.Lost
 {
 	public class HeatPulsar : PulsarSpell
 	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.alpha = (int)(225 * .4f);
-		}
-
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Type] = 7;
+			Main.projFrames[Type] = 3;
 		}
 	}
 }

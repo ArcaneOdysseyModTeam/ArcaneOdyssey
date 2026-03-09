@@ -1,43 +1,94 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
+using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
-	public abstract class CannonSpell : MagicSpell, ILocalizedModType
+	public abstract class CannonSpell : MagicSpell
 	{
-		public override string Texture => GetType().Texture().Replace("Cannon", "Blast");
-		public override string LocalizationCategory => base.LocalizationCategory + ".Cannons." + Tier;
+		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Cannon", "Blast");
 		public int TileTimer = 0;
 
 		public override float AOSize => 2f;
-		public override float AOSpeed => .33f;
+
+		public bool DoneCharging = false;
+		public float charge = 1f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
 			Projectile.penetrate = -1;
+			Projectile.localNPCHitCooldown = 30;
+			Projectile.usesLocalNPCImmunity = true;
 			Projectile.timeLeft = 3 * 60;
-			Projectile.ignoreWater = true;
+			Projectile.hide = true;
+		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			if (!DoneCharging)
+				overWiresUI.Add(index);
+			else
+				behindNPCsAndTiles.Add(index);
+		}
+
+		public override bool? CanDamage()
+		{
+			if (!DoneCharging)
+			{
+				return false;
+			}
+			return null;
 		}
 
 		public override void AI()
 		{
-			if (TileTimer > 0)
-				TileTimer--;
-			if (Projectile.ai[2] == 0f)
-			{
-				Projectile.ai[2] = 1f;
-				Projectile.netUpdate = true;
-			}
-			Animate();
-			Rotate();
-			if (Imbue is null || ((!Imbue.CanBeWet) && Projectile.wet))
+			if (Projectile.wet && DoneCharging)
 			{
 				Kill();
 				return;
 			}
+			if (Projectile.ai[2] == 0f)
+			{
+				Projectile.ai[2] = 1f;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0; ;
+				}
+			}
+			Animate();
+			Rotate();
+
+			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
+
+			if (Owner.channel && !DoneCharging)
+			{
+				charge += BaseMagicCircle.GlobalChargeSpeed;
+				Projectile.timeLeft = 3 * 60;
+				Projectile.rotation = dir.ToRotation();
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 94f);
+				if (charge >= BaseMagicCircle.GlobalMaxCharge)
+				{
+					Owner.channel = false;
+					DoneCharging = true;
+				}
+			}
+			else
+			{
+				DoneCharging = true;
+				if (Projectile.velocity == Vector2.Zero)
+					Projectile.velocity = dir * ApplySpeed(5f);
+				if (TileTimer > 0)
+					TileTimer--;
+			}
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.SourceDamage *= charge;
 		}
 
 		public virtual void Animate()
@@ -45,7 +96,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			if (Projectile.frameCounter++ > 5)
 			{
 				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}
@@ -54,6 +105,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public virtual void Rotate()
 		{
+			Projectile.spriteDirection = Projectile.direction;
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 
@@ -67,17 +119,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (TileTimer <= 0)
+			if (DoneCharging)
 			{
-				Imbue?.KillEffects(Projectile);
+				if (TileTimer <= 0)
+				{
+					Imbue?.KillEffects(Projectile.Hitbox);
+				}
+				if (TileTimer < 60 && TileTimer > 0)
+				{
+					return true;
+				}
+				TileTimer = 65;
 			}
-			if (TileTimer < 60 && TileTimer > 0)
-			{
-				return true;
-			}
-			Projectile.velocity = Projectile.oldVelocity;
 			Projectile.position = Projectile.oldPosition;
-			TileTimer = 65;
+			Projectile.velocity = oldVelocity;
 			return false;
 		}
 	}

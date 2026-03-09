@@ -8,11 +8,6 @@ DevastateCooldown: {
 	Description: Devastate is on cooldown
 }
 
-ColossalCleaveCooldown: {
-	DisplayName: Colossal Cleave Cooldown
-	Description: Colossal Cleave is on cooldown
-}
-
 RisingTideCooldown: {
 	DisplayName: Rising Tide Cooldown
 	Description: Rising Tide is on cooldown
@@ -36,4 +31,44 @@ WhirlwindCooldown: {
 EtherealFlashCooldown: {
 	DisplayName: Ethereal Flash Cooldown
 	Description: Ethereal Flash is on cooldown
+}
+
+ThakrousiCooldown: {
+	DisplayName: Thakrousi Cooldown
+	Description: Thakrousi is on cooldown
+}
+
+SparrowThrustCooldown: {
+	DisplayName: Sparrow Thrust Cooldown
+	Description: Sparrow Thrust is on cooldown
+}
+
+RagingImpact: {
+	DisplayName: Raging Impact
+	Description: Raging Impact is on cooldown
+}
+
+WalkCooldown: {
+	DisplayName: Spirit Walk Cooldown
+	Description: Spirit Walk is on cooldown
+}
+
+SelinoCooldown: {
+	DisplayName: Selino Cooldown
+	Description: Selino is on cooldown
+}
+
+BreathtakerCooldown: {
+	DisplayName: Breathtaker Cooldown
+	Description: Breathtaker is on cooldown
+}
+
+ToweringImpactCooldown: {
+	DisplayName: Towering Impact Cooldown
+	Description: Towering Impact is on cooldown
+}
+
+GreatjumpCooldown: {
+	DisplayName: Greatjump Cooldown
+	Description: Greatjump is on cooldown
 }

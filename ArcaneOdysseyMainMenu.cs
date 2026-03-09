@@ -4,7 +4,6 @@ using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
@@ -19,7 +18,7 @@ namespace ArcaneOdyssey
 			public Vector2 velocity;
 			public Vector2 position;
 
-			public static Asset<Texture2D> Texture => ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.InternalName}/Assets/Raindrop");
+			public static Asset<Texture2D> Texture => ArcaneOdysseyMod.Instance.Assets.Request<Texture2D>("Assets/Raindrop");
 
 			public void Update()
 			{
@@ -49,32 +48,33 @@ namespace ArcaneOdyssey
 
 		public static List<Raindrop> Raindrops = [];
 
-		public Texture2D BackgroundTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/TitleBackground").Value;
+		public Texture2D BackgroundTexture => Mod.Assets.Request<Texture2D>("Assets/TitleBackground").Value;
 
 		public override string DisplayName => Mod.CustomLocalization("MenuStyle").Value;
 
 		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<TheTitleStyle>();
 
-		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/TitleLogo");
+		public override Asset<Texture2D> Logo => Mod.Assets.Request<Texture2D>("Assets/TitleLogo");
 
-		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Backgrounds/Blank");
+		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>(AOUtils.BlankTexture);
 
-		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Backgrounds/Blank");
+		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>(AOUtils.BlankTexture);
 
-		public override int Music => GetMusic();
-
-		private int GetMusic()
+		public override int Music
 		{
-			int mus;
-			if (!AltMenu)
+			get
 			{
-				mus = ExternalModSupport.GetMusic("TitleTheme", MusicID.OtherworldlyRain);
+				int mus;
+				if (!AltMenu)
+				{
+					mus = AOUtils.GetMusic("TitleTheme");
+				}
+				else
+				{
+					mus = AOUtils.GetMusic("DarkSea");
+				}
+				return mus;
 			}
-			else
-			{
-				mus = ExternalModSupport.GetMusic("DarkSea", MusicID.OtherworldlyNight);
-			}
-			return mus;
 		}
 
 		/// <summary>
@@ -87,6 +87,7 @@ namespace ArcaneOdyssey
 			Main.time = 27000.0;
 			Main.dayTime = !AltMenu;
 		}
+
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
 		{
 			Vector2 drawOffset = Vector2.Zero;
@@ -109,8 +110,8 @@ namespace ArcaneOdyssey
 
 			spriteBatch.Draw(BackgroundTexture, drawOffset, null, thecolour, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
-			Main.time = 27000;
 			Main.dayTime = !AltMenu;
+			Main.time = (AltMenu ? Main.nightLength : Main.dayLength) / 2;
 
 			spriteBatch.End();
 
@@ -157,9 +158,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Backgrounds/Blank");
-		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Backgrounds/Blank");
-		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Backgrounds/Blank");
+		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot(AOUtils.BlankTexture);
+		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot(AOUtils.BlankTexture);
+		public override int ChooseMiddleTexture() => BackgroundTextureLoader.GetBackgroundSlot(AOUtils.BlankTexture);
 		public override bool PreDrawCloseBackground(SpriteBatch spriteBatch) => false;
 	}
 }

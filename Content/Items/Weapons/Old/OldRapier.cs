@@ -1,11 +1,13 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using Terraria.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
-using static ArcaneOdyssey.AOUtils;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons.Old
 {
-	public class OldRapier : AORangedOrMeleeWeapon
+	public class OldRapier : AOWeapon
 	{
 		public override int AOValue => 20;
 		public override float AOSize => .9f;
@@ -17,10 +19,10 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.height = Item.height = 46;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.useTurn = true;
 		}
 
@@ -36,6 +38,14 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Old
 					Item.useStyle = ItemUseStyleID.Thrust;
 			}
 			return base.CanUseItem(player) && canSwing;
+		}
+
+		public override Color Colour => Color.Gray;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldSword>();
 		}
 	}
 }

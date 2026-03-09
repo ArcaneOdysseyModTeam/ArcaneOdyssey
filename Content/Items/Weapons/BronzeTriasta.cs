@@ -1,29 +1,33 @@
 ﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Weapons.Bronze;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Weapons;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ArcaneOdyssey.AOUtils;
+
 
 namespace ArcaneOdyssey.Content.Items.Weapons
 {
-	public class BronzeTriasta : AORangedOrMeleeWeapon
+	public class BronzeTriasta : AOWeapon
 	{
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.Spears[Type] = true;
+		}
 		public override float AODamage => 0.9f;
 		public override float AOSize => 1.1f;
 		public override float AOSpeed => 1.1f;
 		public override int AOValue => 350;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override WeaponAbility? Ability => new(Mod, "Ethereal Flash", "Channel the small amount of Aether Magic imbued in the Triasta to leap towards the target", Color.Gold);
+		public override Color Colour => Color.Gold;
 		public override AORarities AORarity => AORarities.Rare;
 		public override bool? Cold => false;
-		public override AODebuffRequirement? WeaponDebuff => new(ModContent.BuffType<CharredEffect>(), 10 * 60);
+		public override Debuff? WeaponDebuff => Debuff.Create<CharredEffect>();
 		public override SoundStyle UseSound => SoundID.Item15;
 
 		public override void SetDefaults()
@@ -31,7 +35,7 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 			base.SetDefaults();
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.DamageType = TrueMelee();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.shootSpeed = BaseSpearProjectile.Speed;
 			Item.noUseGraphic = true;
 			Item.width = Item.height = 52;
@@ -42,34 +46,28 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 		public override void UseAnimation(Player player)
 		{
-			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown(ModContent.BuffType<EtherealFlashCooldown>()))
+			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown<EtherealFlashCooldown>())
 			{
-				player.ArcaneOdyssey().StartDash(new EtherealFlash(Item), imbue: Imbue, imbueAffectsSpeed: true);
+				player.ArcaneOdyssey().StartDash(new EtherealFlash(this), imbue: Imbue, imbueAffectsSpeed: true);
 			}
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe().AddIngredient<BronzeTrident>().AddIngredient(ItemID.Anchor).AddTile(TileID.MythrilAnvil).Register(); // placeholder
 		}
 	}
 
-	public class EtherealFlash(Entity source) : DashSystem(source)
+	public class EtherealFlash(AOWeapon tri) : DashSystem(tri.Item)
 	{
-		
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 3;
-		public override bool AnyDirection => true;
+		public override bool LocksPlayer => true;
 		public override int Cooldown => 60 * 3;
 		public override bool OnHit(Player player, Entity target) => true;
 
 		public override void OnEnd(Player player)
 		{
-			SimulateAOE(150, 70, player.MountedCenter, 4.5f, player.PlayerItem(), TrueMeleeNoSpeed());
 			player.velocity *= .01f;
+			tri.ActivateAbility(player, false);
 		}
-		
+
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(SoundID.Item67);
@@ -88,6 +86,6 @@ namespace ArcaneOdyssey.Content.Items.Weapons
 
 	public class EtherealFlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => typeof(BronzeTriasta).Texture();
+		public override string ExtraIconTexture => AOUtils.GetTexture<BronzeTriasta>();
 	}
 }

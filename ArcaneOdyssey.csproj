@@ -1,29 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<!-- Import tModLoader mod properties -->
 	<Import Project="..\tModLoader.targets" />
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DefineConstants>$(DefineConstants);VSDEBUGMODE</DefineConstants>
 	</PropertyGroup>
-
-	<!-- General -->
-	<PropertyGroup>
-		
-	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="**\*.py" />
 		<Compile Remove="**\*.kra" />
+		<Compile Remove="**\*.kra~" />
 		<Compile Remove="**\*.png~" />
 		<Compile Remove="**\*.md" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="**\*.py" />
 		<None Remove="**\*.kra" />
+		<None Remove="**\*.kra~" />
 		<None Remove="**\*.png~" />
 		<None Remove="**\*.md" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Assets\" />
+		<Folder Include="Effects\MagicCircles" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="ArcaneOdysseyMusic">
+			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<!-- References -->

@@ -1,13 +1,64 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
-	public abstract class Scroll : AOBaseItem, IImbuable, ILocalizedModType
+	public abstract class Scroll : AOBaseItem, IImbuable
 	{
-		public override string LocalizationCategory => "Scrolls";
+		public float ApplySpeed(float value, bool flipfloat = false)
+		{
+			if (BenifitsFromScrollStats.HasValue)
+			{
+				if (BenifitsFromScrollStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOScrollSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOScrollSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOImbueSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.AOImbueSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
+		public bool? BenifitsFromScrollStats => Item.ArcaneOdyssey()?.BenifitsFromScrollStats;
+
+		public override bool ShowItemTypeTooltip => false;
+
+		public abstract ScrollTier Tier { get; }
+
 		public Imbuable Imbue
 		{
 			get
@@ -42,14 +93,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual bool CanHaveRelic => false;
 		public virtual bool CanHaveFS => false;
 
-		public virtual int AOValue => 100;
-		public override AORarities AORarity => AORarities.Uncommon;
+		public abstract int AOValue { get; }
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = 32;
-			Item.height = 32;
+			Item.width = Item.height = 32;
 			Item.noMelee = true;
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;
@@ -61,12 +110,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			if (HasCorrectImbue)
 			{
-				Item.color = Imbue.GetColour(Color.Transparent) with { A = (byte)(Imbue.GetColour(Color.Transparent).A * .75f) };
+				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}
 			else Item.color = Color.Transparent;
 		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override void UpdateEquip(Player player)
 		{
 			if (Item.CanHaveImbue(player.Imbue()))
 			{
@@ -76,16 +125,61 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				Imbue = null;
 			}
-			SecondImbue = Imbue?.Imbue;
+
+			if (this is not AuraScroll)
+			{
+				SecondImbue = Imbue?.Imbue;
+			}
+		
 			if (HasCorrectImbue)
 			{
-				Item.color = Imbue.GetColour(Color.Transparent) with { A = (byte)(Imbue.GetColour(Color.Transparent).A * .75f) };
+				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
 			}
 			else Item.color = Color.Transparent;
 		}
 
 		public override bool CanUseItem(Player player) => Imbue is not null;
 
-		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue);
+		public string GetTierFormatting()
+		{
+			var text = "";
+			if (CanHaveFS)
+			{
+				text += Mod.CustomLocalization("ScrollTiers.Technique");
+			}
+			if (CanHaveMagic)
+			{
+				if (!string.IsNullOrEmpty(text))
+				{
+					text += "/";
+				}
+				text += Mod.CustomLocalization("ScrollTiers.Spell");
+			}
+			if (CanHaveRelic)
+			{
+				if (!string.IsNullOrEmpty(text))
+				{
+					text += "/";
+				}
+				text += Mod.CustomLocalization("ScrollTiers.Rite");
+			}
+			return text;
+		}
+
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.AddTooltip(new(Mod, "ScrollTier", Mod.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
+		}
+
+		public virtual bool ExtraConditionsForImbue(Imbuable imbue) => true;
+
+		public bool HasCorrectImbue => Item.CanHaveImbue(Imbue) && Imbue is not null;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EmptyScroll>();
+		}
 	}
 }

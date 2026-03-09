@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+﻿using ArcaneOdyssey.Content.Projectiles.Abilities;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -7,20 +8,18 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
-	public class EvanderSlash : ModProjectile
+	public class EvanderSlash : AOBaseProjectile
 	{
-		public override string Texture => typeof(ColossalCleave).Texture();
+		public override string Texture => AOUtils.GetTexture<ColossalCleave>();
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.penetrate = -1;
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.damage = 25;
 			Projectile.timeLeft = 60 * 3;
 			Projectile.hostile = true;
+			Projectile.penetrate = -1;
 			Projectile.height = Projectile.width = 234;
-			Projectile.knockBack = 4.5f;
 		}
 
 		public override void SetStaticDefaults()
@@ -35,13 +34,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				Projectile.netUpdate = true;
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
 			}
 
 			if (++Projectile.frameCounter > 6)
 			{
 				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= Main.projFrames[Projectile.type])
+				if (++Projectile.frame >= Main.projFrames[Type])
 				{
 					Projectile.frame = 0;
 				}

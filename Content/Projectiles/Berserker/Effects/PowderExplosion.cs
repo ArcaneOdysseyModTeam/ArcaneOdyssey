@@ -1,19 +1,19 @@
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Content.Projectiles.Base;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 {
 	public class PowderExplosion : AOPlayerProjectile
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 
 		public override void SetDefaults()
 		{
-			Projectile.height = Projectile.width = 100;
+			Projectile.height = Projectile.width = 50;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
@@ -30,19 +30,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker.Effects
 				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 				for (int n = 0; n < 10; n++)
 				{
-					Imbue?.ExplosionEffects(Projectile);
-					Imbue?.ExplosionEffects(Projectile);
-					SecondImbue?.ExplosionEffects(Projectile);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					Imbue?.ExplosionEffects(Projectile.Center);
+					SecondImbue?.ExplosionEffects(Projectile.Center);
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
 					Projectile.Kill();
 				}
-				
 			}
 		}
 
-		public override bool? CanDamage() => Projectile.ai[0] >= 60;
+		public override bool? CanDamage() => Projectile.ai[0] >= 59;
 
 		public override bool PreDraw(ref Color lightColor) => false;
 	}

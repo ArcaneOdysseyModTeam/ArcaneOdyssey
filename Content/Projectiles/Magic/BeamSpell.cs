@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 {
 	public class BeamSpell : MagicSpell
 	{
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

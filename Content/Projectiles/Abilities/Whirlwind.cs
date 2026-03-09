@@ -1,0 +1,96 @@
+﻿using ArcaneOdyssey.Content.Items.Weapons.Bronze;
+using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.AOPlayers;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
+
+
+namespace ArcaneOdyssey.Content.Projectiles.Abilities
+{
+	public class Whirlwind : AOPlayerProjectile
+	{
+		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
+		public static int MaxTime => 20;
+		public static int TrueMaxTime => MaxTime * 2;
+
+		public override float AOSize => 2.25f;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.width = Projectile.height = 144;
+			Projectile.friendly = true;
+			Projectile.timeLeft = TrueMaxTime;
+			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
+			Projectile.ignoreWater = true;
+			Projectile.tileCollide = false;
+			Projectile.penetrate = -1;
+			Projectile.ownerHitCheck = true;
+			Projectile.localNPCHitCooldown = MaxTime;
+			Projectile.usesLocalNPCImmunity = true;
+		}
+
+		private Vector2 RotationOrigin;
+		private int OriginalDir;
+
+		public override void AI()
+		{
+			if (Projectile.ai[0] == 0)
+			{
+				Projectile.ai[0] = 1;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
+				Projectile.velocity = Vector2.Zero;
+				RotationOrigin = Owner.RotatedRelativePoint(Owner.MountedCenter);
+				OriginalDir = Owner.direction;
+			}
+			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed ?? 1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
+			Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale * OriginalDir);
+			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
+			{
+				Owner.itemTime = Owner.itemAnimation = 2;
+				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
+				//AOPlayerOwner.HeavySkillActive = true;
+				Owner.PlayerItem().noMelee = true;
+			}
+			else
+			{
+				Projectile.Opacity = (Projectile.timeLeft - 1f) / MaxTime;
+				Owner.PlayerItem().noMelee = false;
+			}
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+			{
+				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
+				var colour2 = Projectile.GetAlpha(Colour * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length));
+				var rotaitoneoffset = SpriteEffects.None;
+				if (OriginalDir == -1)
+				{
+					rotaitoneoffset = SpriteEffects.FlipHorizontally;
+				}
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.oldRot[k], Sprite.Size() / 2, Projectile.scale, rotaitoneoffset, 0);
+			}
+			return false;
+		}
+	}
+
+	public class WhirlwindCooldown : DisplayedCooldown
+	{
+		public override int CooldownLength => 60 + Whirlwind.MaxTime;
+		public override string ExtraIconTexture => AOUtils.GetTexture<RavennaSword>();
+	}
+}

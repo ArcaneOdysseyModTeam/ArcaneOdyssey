@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Content.NPCS
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 999999999;
+			NPC.lifeMax = int.MaxValue / 100;
 			NPC.noGravity = true;
 			NPC.damage = 0;
 			NPC.knockBackResist = 0f;
@@ -24,7 +24,18 @@ namespace ArcaneOdyssey.Content.NPCS
 			NPC.friendly = false;
 			NPC.trapImmune = false;
 			NPC.lavaImmune = false;
-			NPC.aiStyle = 0;
+#if VSDEBUGMODE
+			NPC.boss = true;
+			Music = AOUtils.GetMusic("Atlantean");
+#endif
+		}
+
+		public override void AI()
+		{
+			NPC.rotation = NPC.Center.DirectionTo(Main.LocalPlayer.MountedCenter).ToRotation();
+			NPC.life = NPC.lifeMax;
+			if (AOUtils.BossAlive())
+				NPC.Kill();
 		}
 	}
 }

@@ -5,3 +5,5 @@
 *.kra
 *.kra~
 *.user
+/compile_temp
+ArcaneOdyssey.csproj

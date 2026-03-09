@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -10,19 +10,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 	public class PrismLinger : AOPlayerProjectile
 	{
 		public override bool PreDraw(ref Color lightColor) => false;
-		public override string Texture => Mod.Name + "/Backgrounds/Blank";
+		public override string Texture => AOUtils.BlankTexture;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.width = Projectile.height = 200;
 			Projectile.friendly = true;
-			Projectile.penetrate = -1;
+			Projectile.penetrate = 3;
 			Projectile.tileCollide = false;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.timeLeft = 120;
-			Projectile.localNPCHitCooldown = Projectile.timeLeft / 3;
-			Projectile.Center = Projectile.position;
+			Projectile.localNPCHitCooldown = (Projectile.timeLeft / 3) - 1;
 			Projectile.DamageType = DamageClass.Magic;
 		}
 
