@@ -12,8 +12,6 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 	{
 		public override bool CanHaveMagic => true;
 
-		public override string Texture => AOUtils.GetTexture<BeamScroll>();
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
