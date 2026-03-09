@@ -53,13 +53,11 @@ float4 getCol(float2 inUV)
 	float intensity = uSaturation * 4.;
     
     
-	col.rgb = colTint * col.a * (colUV.x * intensity);
+	col.rgb = colTint * col.a * colUV.x * intensity;
+	col.a = colUV.x / (intensity / 2.);
     
-	float4 fragColor = float4(0., 0., 0., 0.);
-    
-	fragColor = float4(colUV, 0., col.a);
-	fragColor = col;
-    
+	float4 fragColor = col;
+        
 	uv = inUV * 16. - 8.;
 	uv.x = uv.x * 4.;
 	float dist = clamp(distance(float2(0., 0.), uv), 0., 1.);
@@ -70,11 +68,8 @@ float4 getCol(float2 inUV)
 
 	if (bloom.a > fragColor.a)
 	{
-		fragColor.rgb = bloom.rgb;
-	}
-	else
-	{
-		fragColor.a = (fragColor.r + fragColor.g + fragColor.b) / 3.;
+		
+		fragColor = bloom;
 	}
     
 	return fragColor;
