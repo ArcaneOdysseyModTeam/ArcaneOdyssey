@@ -379,17 +379,17 @@ Projectiles: {
 Achievements: {
 	MountainBreaker: {
 		FriendlyName: Mountain Broker
-		Description: Slay Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
+		Description: Defeat Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
 	}
 
 	DarkOracle: {
 		FriendlyName: Inevitable Dawn
-		Description: Slay Dusk the Dark Oracle, a master assassin that wields a powerful relic.
+		Description: Defeat Dusk the Dark Oracle, a master assassin that wields a powerful relic.
 	}
 
 	PettyTheft: {
 		FriendlyName: Petty Theft
-		Description: Slay Laelus the Thief, a bandit that foolishly wields a stolen relic.
+		Description: Defeat Laelus the Thief, a bandit that foolishly wields a stolen relic.
 	}
 }
 

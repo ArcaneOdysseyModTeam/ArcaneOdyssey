@@ -44,8 +44,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					Projectile.netSpam = 0;
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
-				if (Owner.channel && !MarkedForDeath)
-					Projectile.alpha = 254;
 			}
 
 
@@ -66,12 +64,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				{
 					Owner.itemRotation += MathHelper.Pi;
 				}
-				charge += 1f / 120f;
+				charge += GlobalChargeSpeed;
 				Projectile.Opacity += 1 / 60f;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 30f);
-				if (charge >= 1.5f)
+				if (charge >= GlobalMaxCharge)
 				{
 					Owner.channel = false;
 					MarkedForDeath = true;
