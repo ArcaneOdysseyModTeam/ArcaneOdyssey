@@ -39,11 +39,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 			}
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
-			if (charge < 1.75f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ModProjectile is RotatingMagicCircle circle1 && !circle1.MarkedForDeath)
+			if (charge < BaseMagicCircle.GlobalMaxCharge && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ModProjectile is RotatingMagicCircle circle1 && !circle1.MarkedForDeath)
 			{
 				Projectile.Center = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;
-				charge += 1 / 120f;
+				charge += BaseMagicCircle.GlobalChargeSpeed;
 			}
 			else
 			{

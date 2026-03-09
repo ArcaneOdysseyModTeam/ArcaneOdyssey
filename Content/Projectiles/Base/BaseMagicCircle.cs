@@ -13,6 +13,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public bool MarkedForDeath = false;
 		public bool playedsound = false;
 
+		public const float GlobalChargeSpeed = 1f / 120f;
+		public const float GlobalMaxCharge = 1.75f;
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			if (Imbue is null or AOMagic)

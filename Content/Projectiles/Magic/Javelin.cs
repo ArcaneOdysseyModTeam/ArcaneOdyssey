@@ -64,9 +64,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 
 			if (Mode == JavelinMode.Charging)
 			{
-				if (Owner.channel && charge < 1.5f)
+				if (Owner.channel && charge < BaseMagicCircle.GlobalMaxCharge)
 				{
-					charge += 1f / 120f;
+					charge += BaseMagicCircle.GlobalChargeSpeed;
 					Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 					Projectile.spriteDirection = Owner.direction;
 					Owner.heldProj = Projectile.whoAmI;

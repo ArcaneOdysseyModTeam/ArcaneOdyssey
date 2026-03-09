@@ -6,8 +6,6 @@ namespace ArcaneOdyssey.Achievements
 {
 	public class DarkOracle : ModAchievement
 	{
-		public override string TextureName => AOUtils.GetTexture<MountainBreaker>();
-
 		public override void SetStaticDefaults()
 		{
 			Achievement.SetCategory(AchievementCategory.Slayer);

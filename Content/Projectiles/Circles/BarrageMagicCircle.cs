@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 30f);
-				Projectile.Opacity += 1 / 60f;
+				Projectile.Opacity += GlobalChargeSpeed;
 
 				//dir += (Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread).ToRotationVector2());
 				dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();

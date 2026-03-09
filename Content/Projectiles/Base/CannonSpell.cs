@@ -66,11 +66,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Owner.channel && !DoneCharging)
 			{
-				charge += 1f / 120f;
+				charge += BaseMagicCircle.GlobalChargeSpeed;
 				Projectile.timeLeft = 3 * 60;
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 94f);
-				if (charge >= 1.5f)
+				if (charge >= BaseMagicCircle.GlobalMaxCharge)
 				{
 					Owner.channel = false;
 					DoneCharging = true;
