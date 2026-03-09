@@ -11,6 +11,12 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
 			if (npc.HasBuff(Type))
 			{
 				stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time

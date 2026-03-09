@@ -11,6 +11,12 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Chilled}";
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
 			if (!Main.dedServ)
 			{
 				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.SnowflakeIce);

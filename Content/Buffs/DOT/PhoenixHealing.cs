@@ -11,6 +11,12 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
 			bool noPlayerFound = true;
 			npc.ArcaneOdyssey().phoenixDrain = true;
 			foreach (var player in Main.ActivePlayers)
