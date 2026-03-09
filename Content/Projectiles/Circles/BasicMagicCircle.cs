@@ -125,7 +125,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"]
-				.UseColor(lightColor)
+				.UseColor(Projectile.GetAlpha(lightColor))
 				.UseSaturation(Intensity)
 				.UseSecondaryColor(new Color(circleRotation, 0, 0));
 			
