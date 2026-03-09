@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

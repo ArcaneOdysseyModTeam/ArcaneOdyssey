@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Weapons.Abilities;
+﻿using ArcaneOdyssey.Content.Projectiles.Abilities;
+using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

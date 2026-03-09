@@ -1,0 +1,38 @@
+﻿using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Buffs.Stuns;
+using ArcaneOdyssey.Content.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Projectiles.Relics;
+using ArcaneOdyssey.VFX.Dusts;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Content.Imbues.Relics
+{
+	public class EaglePatrimony : SpiritEnergy
+	{
+		public override AORarities AORarity => AORarities.Special;
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
+
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
+
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 33)];
+
+		
+
+		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightningMagic>();
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = Item.height = 40;
+			Item.shoot = ModContent.ProjectileType<Astrapikis>();
+			Item.shootSpeed = .9f;
+			Item.damage = 20;
+			Item.knockBack = 3.75f;
+		}
+
+		public override int DustType => ModContent.DustType<SpiritTentacle>();
+	}
+}

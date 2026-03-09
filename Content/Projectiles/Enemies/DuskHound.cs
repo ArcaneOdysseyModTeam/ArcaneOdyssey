@@ -1,11 +1,12 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
+﻿using ArcaneOdyssey.Content.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
@@ -61,9 +62,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 				}
 			}
 
-			if (Penetrations == 2)
+			if (Penetrations == 2 && Main.myPlayer == Projectile.owner)
 			{
 				Projectile.Kill();
+				if (Main.netMode != NetmodeID.SinglePlayer)
+					NetMessage.SendData(MessageID.KillProjectile, -1, -1, null, Projectile.identity, Projectile.owner);
+				return;
 			}
 
 			Projectile.rotation = Projectile.velocity.ToRotation();
@@ -103,7 +107,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			{
 				return true;
 			}
-			Projectile.velocity = Projectile.oldVelocity;
+			Projectile.velocity = oldVelocity;
 			Projectile.position = Projectile.oldPosition;
 			TileTimer = 65;
 			return false;

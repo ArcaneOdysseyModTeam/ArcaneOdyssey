@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 		{
 			if ((!Main.dedServ) && Main.myPlayer == Player.whoAmI)
 			{
-				Asset<Texture2D> carpetNoneLol = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/BlankCarpet");
+				Asset<Texture2D> carpetNoneLol = Mod.Assets.Request<Texture2D>("Assets/BlankCarpet");
 				Asset<Texture2D> carpetOriginal = IHATECARPETS.carpet;
 				TextureAssets.FlyingCarpet = hasHoverEquipped ? carpetNoneLol : carpetOriginal;
 			}

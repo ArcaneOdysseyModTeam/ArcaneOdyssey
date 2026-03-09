@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			{
 				return true;
 			}
-			Projectile.velocity = Projectile.oldVelocity;
+			Projectile.velocity = oldVelocity;
 			Projectile.position = Projectile.oldPosition;
 			TileTimer = 65;
 			return false;

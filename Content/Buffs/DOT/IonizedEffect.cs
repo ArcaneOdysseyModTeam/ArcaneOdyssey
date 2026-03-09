@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
@@ -8,6 +9,12 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
 			if (!Main.dedServ)
 			{
 				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.CursedTorch, 0f, -1f, 1, default, 3f);
@@ -16,5 +23,7 @@ namespace ArcaneOdyssey.Content.Buffs.DOT
 			}
 			npc.ArcaneOdyssey().ionized = true;
 		}
+
+		public override List<int> Counterparts => [BuffID.CursedInferno];
 	}
 }

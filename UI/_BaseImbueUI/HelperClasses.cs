@@ -161,7 +161,7 @@ public abstract partial class BaseImbueUI : UIState
 		public BaseImbueUI MainUI;
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType { protected set; get; }
-		public ModItem? Mutation { set; get; }
+		public ModItem Mutation { set; get; }
 
 		public UIImage Icon;
 
@@ -216,7 +216,7 @@ public abstract partial class BaseImbueUI : UIState
 
 		public void ChangeType(ModItem item)
 		{
-			Main.NewText($"item? {item is null}");
+			//Main.NewText($"item? {item is null}");
 			CurrentType = MagicTypes.None;
 			if (item is not null)
 			{

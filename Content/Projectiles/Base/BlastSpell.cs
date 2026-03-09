@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 		// ai 2 is first frame bool
 
-		public override float AOSize => .4f;
+		public override float AOSize => .6f;
 
 		public override void SetDefaults()
 		{

@@ -1,22 +1,32 @@
+using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Circles
 {
 	public class RotatingMagicCircle : BaseMagicCircle
 	{
+		public override float AOSize => 100 / 2000f;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 64;
+			Projectile.height = Projectile.width = 2000;
 			Projectile.tileCollide = false;
 			playedsound = false;
+			Projectile.hide = true;
+		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			behindNPCs.Add(index);
 		}
 
 		public override void AI()
 		{
-			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
+			if (Projectile.position.ToTileCoordinates() != Projectile.oldPosition.ToTileCoordinates() && Main.myPlayer == Projectile.owner)
 			{
 				Projectile.netUpdate = true;
 				Projectile.netSpam = 0;
@@ -51,6 +61,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					}
 				}
 			}
+
 			Projectile.rotation += ApplySpeed(MathHelper.Pi / 120f);
 		}
 
@@ -61,6 +72,22 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				AOPlayerOwner.myCircle = null;
 				Owner.channel = false;
 			}
+		}
+
+		public override string Texture => $"{Mod.Name}/Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}";
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (Imbue is null or AOMagic)
+			{
+				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				Lighting.AddLight(Projectile.Center, lightColor.ToVector3());
+			}
+			else
+				lightColor = Color.Transparent;
+
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.None);
+			return false;
 		}
 	}
 }

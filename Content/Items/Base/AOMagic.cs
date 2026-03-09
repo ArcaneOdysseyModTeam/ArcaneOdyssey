@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -19,6 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			base.SetStaticDefaults();
 			ArrayCollections.Mutations[Type] = [];
 			RegisterMutations();
+			ArrayCollections.Mutations[Type] = [.. ArrayCollections.Mutations[Type].OrderBy(e => ModContent.GetModItem(e).DisplayName.Value)];
 			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
 
@@ -111,7 +113,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
 					circleprojectile.rotation = rot.ToRotation();
-					((BasicMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Cannon");
+					Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 94), Vector2.Zero, magicToUse.GetSkill("Cannon"), damage, item.knockBack, player.whoAmI);
 					return circleprojectile;
 				}
 				else if (item.ModItem is PulsarScroll)

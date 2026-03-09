@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Relics.Minions;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -228,22 +229,18 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 
 			if (Projectile.velocity.X > 0)
 			{
-				Projectile.rotation = 0;
 				Projectile.spriteDirection = 1;
 			}
 			else
 			{
-				Projectile.rotation = MathHelper.Pi;
 				Projectile.spriteDirection = -1;
 			}
 			return false;
 		}
 
-		public override bool PreDraw(ref Color lightColor)
-		{
-			lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
-			return base.PreDraw(ref lightColor);
-		}
+		public override SpriteEffects FlippedMode => SpriteEffects.FlipHorizontally;
+
+		public override bool DrawWithImbueColours => true;
 
 		public override bool OnTileCollide(Vector2 oldVelocity) => false;
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

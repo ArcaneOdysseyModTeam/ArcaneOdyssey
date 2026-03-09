@@ -1,5 +1,5 @@
+using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Relics;
@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 100;
 			Item.shoot = ModContent.ProjectileType<ExplosionSpell>();
+			Item.useAnimation = Item.useTime = 40;
 		}
 
 		public override void UpdateInventory(Player player)

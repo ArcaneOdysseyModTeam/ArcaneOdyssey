@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -35,7 +35,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Effects
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
-			Projectile.alpha = 40;
 		}
 
 		public override Debuff? ProjectileDebuff => null;

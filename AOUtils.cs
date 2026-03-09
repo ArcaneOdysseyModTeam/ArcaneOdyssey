@@ -1,16 +1,16 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
 using ArcaneOdyssey.Content.Buffs.Gels;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
+using ArcaneOdyssey.Content.Imbues;
+using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Content.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.NPCS;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.GlobalTypes;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.VFX.Rarities;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
@@ -28,6 +28,8 @@ namespace ArcaneOdyssey
 {
 	public static class AOUtils
 	{
+		public static float UpdateCount => Main.GameUpdateCount / 100f;
+
 		/// <summary>
 		/// Spawns gore, centred to the <paramref name="centre"/>
 		/// </summary>
@@ -283,6 +285,8 @@ namespace ArcaneOdyssey
 			if (entity is Projectile projectile)
 			{
 				projectile.Kill();
+				if (Main.netMode != NetmodeID.SinglePlayer)
+					NetMessage.SendData(MessageID.KillProjectile, -1, -1, null, projectile.identity, projectile.owner);
 			}
 			if (entity is Item item)
 			{
@@ -772,6 +776,7 @@ namespace ArcaneOdyssey
 			return false;
 		}
 		public static bool IsTileSolidGround(this Tile tile) => tile != null && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
+		public static bool IsTileReallySolidGround(this Tile tile) => tile != null && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]);
 
 		public static bool TryGetSecondImbue(this Entity entity, Imbuable imbue, out Imbuable secondimbue)
 		{

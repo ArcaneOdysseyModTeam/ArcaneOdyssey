@@ -8,6 +8,12 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
 			if (!Main.dedServ)
 			{
 				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.Ash, 0f, 0f, 1, default, 1f);

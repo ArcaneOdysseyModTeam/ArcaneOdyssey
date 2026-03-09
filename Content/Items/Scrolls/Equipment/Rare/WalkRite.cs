@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using System;
 using Terraria;
 using Terraria.Audio;

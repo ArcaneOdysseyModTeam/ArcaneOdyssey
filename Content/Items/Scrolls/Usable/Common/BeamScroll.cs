@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 			Item.knockBack = 0f;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
+			Item.useAnimation = Item.useTime = 40;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

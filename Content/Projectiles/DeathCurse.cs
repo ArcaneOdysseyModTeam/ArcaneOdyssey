@@ -38,7 +38,8 @@ namespace ArcaneOdyssey.Content.Projectiles
 			}
 			if (Projectile.Bottom.Y < 0 || Projectile.localAI[0] > 1000 || !Projectile.OnScreen())
 			{
-				Projectile.Kill();
+				Kill();
+				return;
 			}
 			if (Projectile.frameCounter++ > 2)
 			{

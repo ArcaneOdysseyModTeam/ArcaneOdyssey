@@ -20,9 +20,9 @@ ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
-	ArcaniumIndicator: "[c/327DFF:Arcanium Weapon - Cannot be used fully without Magic]"
-	StrengthIndicator: "[c/700013:Strength Weapon - Cannot be used fully without a Fighting Style]"
-	ArtisinalIndicator: "[c/ADA500:Artisinal Weapon - Cannot be Imbued]"
+	ArcaniumIndicator: "[c/327DFF:Arcanium weapon - Requires a magic type]"
+	StrengthIndicator: "[c/700013:Strength weapon - Requires a fighting atyle]"
+	ArtisinalIndicator: "[c/ADA500:Artisinal weapon - Cannot be imbued]"
 	ScrollDamage: Scroll damage: {0}x
 	ScrollSpeed: Scroll speed: {0}x
 	ScrollSize: Scroll size: {0}x
@@ -118,8 +118,8 @@ Configs: {
 		}
 
 		MagicCircleType: {
-			Label: Magic Circle Type
-			Tooltip: ""
+			Label: "[i:ArcaneOdyssey/EmptyScroll] Magic Circle Type"
+			Tooltip: Visually changes the appearance of oriented magic circles
 		}
 	}
 
@@ -163,6 +163,11 @@ Configs: {
 
 		Solar: {
 			Label: Solar
+			Tooltip: ""
+		}
+
+		Familiar: {
+			Label: Familiar
 			Tooltip: ""
 		}
 	}
@@ -335,23 +340,6 @@ Projectiles: {
 	Pets.ElfPetProjectile.DisplayName: Aether
 
 	Weapons: {
-		Abilities: {
-			BronzeRapierProjectile.DisplayName: Bronze Rapier
-			ColossalCleave.DisplayName: Colossal Cleave
-			FuryoftheSea.DisplayName: Fury of the Sea
-			KatanaSlash.DisplayName: Slash
-			MountainWind.DisplayName: Mountain Wind
-			PiercingGale.DisplayName: Piercing Gale
-			SeismicSlashRock.DisplayName: Seismic Slash
-			SparrowThrust.DisplayName: Sparrow Thrust
-			TwinCrescent.DisplayName: Twin Crescent
-			Whirlwind.DisplayName: Whirlwind
-			ToweringImpact.DisplayName: Towering Impact
-			DevastateShockwave.DisplayName: Devastate Shockwave
-			ArrowStorm.DisplayName: Arrow Storm
-			ArrowRain.DisplayName: Arrow Rain
-		}
-
 		BronzeStaffProjectile.DisplayName: Bronze Staff
 		BronzeTriastaProjectile.DisplayName: Bronze Triasta
 		BronzeTridentProjectile.DisplayName: Bronze Trident
@@ -359,6 +347,23 @@ Projectiles: {
 		NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 		SunkenStaffProjectile.DisplayName: Sunken Staff
 		WoodenStaffProjectile.DisplayName: Wooden Staff
+	}
+
+	Abilities: {
+		BronzeRapierProjectile.DisplayName: Bronze Rapier
+		ColossalCleave.DisplayName: Colossal Cleave
+		FuryoftheSea.DisplayName: Fury of the Sea
+		KatanaSlash.DisplayName: Slash
+		MountainWind.DisplayName: Mountain Wind
+		PiercingGale.DisplayName: Piercing Gale
+		SeismicSlashRock.DisplayName: Seismic Slash
+		SparrowThrust.DisplayName: Sparrow Thrust
+		TwinCrescent.DisplayName: Twin Crescent
+		Whirlwind.DisplayName: Whirlwind
+		ToweringImpact.DisplayName: Towering Impact
+		DevastateShockwave.DisplayName: Devastate Shockwave
+		ArrowStorm.DisplayName: Storm of Arrows
+		ArrowRain.DisplayName: Rain of Arrows
 	}
 
 	DeathCurse.DisplayName: The Death Curse
@@ -373,12 +378,12 @@ Projectiles: {
 
 Achievements: {
 	MountainBreaker: {
-		FriendlyName: Mountain Breaker
+		FriendlyName: Mountain Broker
 		Description: Slay Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
 	}
 
 	DarkOracle: {
-		FriendlyName: Dark Oracle
+		FriendlyName: Inevitable Dawn
 		Description: Slay Dusk the Dark Oracle, a master assassin that wields a powerful relic.
 	}
 

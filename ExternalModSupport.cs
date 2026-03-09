@@ -172,28 +172,28 @@ namespace ArcaneOdyssey
 				});
 			}
 
-			void LaelusStuff()
-			{
-				string internalName = nameof(Laelus);
-				float weight = .5f; // right away!
-				Func<bool> downed = () => DownedBosses.downedLaelus;
-				int bossType = ModContent.NPCType<Laelus>();
-				//int trophy = ModContent.ItemType<EvanderTrophy>();
-				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+			//void LaelusStuff()
+			//{
+			//	string internalName = nameof(Laelus);
+			//	float weight = .5f; // right away!
+			//	Func<bool> downed = () => DownedBosses.downedLaelus;
+			//	int bossType = ModContent.NPCType<Laelus>();
+			//	//int trophy = ModContent.ItemType<EvanderTrophy>();
+			//	LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
 
-				bossChecklist.Call(
-				"LogMiniBoss",
-				Mod,
-				internalName,
-				weight,
-				downed,
-				bossType,
-				new Dictionary<string, object>()
-				{
-					//["collectibles"] = new List<int> { trophy },
-					["spawnInfo"] = spawnInfo
-				});
-			}
+			//	bossChecklist.Call(
+			//	"LogMiniBoss",
+			//	Mod,
+			//	internalName,
+			//	weight,
+			//	downed,
+			//	bossType,
+			//	new Dictionary<string, object>()
+			//	{
+			//		//["collectibles"] = new List<int> { trophy },
+			//		["spawnInfo"] = spawnInfo
+			//	});
+			//}
 
 			EvanderStuff();
 			DuskStuff();
@@ -320,9 +320,11 @@ namespace ArcaneOdyssey
 					case "BrokenBiomeBlade":
 					case "OmegaBiomeBlade":
 					case "Galaxia":
+					case "FourSeasonsGalaxia":
 					case "ArkoftheCosmos":
 					case "ArkoftheElements":
 					case "FracturedArk":
+					case "SkytideDragoon":
 					case "Earth":
 					case "TrueArkoftheAncients":
 						return WeaponType.Artisinal;

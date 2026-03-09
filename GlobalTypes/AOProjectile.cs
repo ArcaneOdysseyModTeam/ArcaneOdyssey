@@ -1,9 +1,9 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Imbues;
+using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using System;
@@ -68,21 +68,21 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (OriginWeaponType == WeaponType.Artisinal)
 					return null;
-				if (OriginWeaponType != WeaponType.Normal)
-					return true;
-				else
-					return false;
 				if (thisProjectile is not null)
 				{
-					return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile;
-				}
-				else
-				{
-					if (thisProjectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					if (thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or BaseMagicCircle)
+					{
+						return true;
+					}
+					else if (thisProjectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
 						return false;
 					}
 				}
+				if (OriginWeaponType != WeaponType.Normal)
+					return true;
+				else
+					return false;
 				return null;
 			}
 		}

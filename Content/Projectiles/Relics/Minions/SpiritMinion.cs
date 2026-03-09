@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Minions;
 using ArcaneOdyssey.Content.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -223,16 +224,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics.Minions
 
 			if (Projectile.velocity.X > 0)
 			{
-				Projectile.rotation = 0;
 				Projectile.spriteDirection = 1;
 			}
 			else
 			{
-				Projectile.rotation = MathHelper.Pi;
 				Projectile.spriteDirection = -1;
 			}
 			return false;
 		}
+
+		public override SpriteEffects FlippedMode => SpriteEffects.FlipHorizontally;
 
 		public override bool OnTileCollide(Vector2 oldVelocity) => false;
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

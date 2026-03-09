@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Owner.ItemAnimationEndingOrEnded)
 			{
-				Projectile.Kill();
+				Kill();
 			}
 		}
 

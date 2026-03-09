@@ -150,9 +150,9 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		}
 		#endregion
 
-		string text = "";
-		foreach (var s in mutations) text += $"[i:{s}], ";
-		Main.NewText($"Hmming {text}, {mutations.Count}, {magic.Name}");
+		//string text = "";
+		//foreach (var s in mutations) text += $"[i:{s}], ";
+		//Main.NewText($"Hmming {text}, {mutations.Count}, {magic.Name}");
 
 		static string PickOne(List<string> strings) => strings[Main.rand.Next(strings.Count)];
 	}

@@ -24,9 +24,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 128;
+			Projectile.height = Projectile.width = 250;
 			Projectile.tileCollide = false;
 			Projectile.hide = true;
+			Projectile.Opacity = .75f;
 		}
 
 		internal bool originallyAltFire = false;
@@ -43,6 +44,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					Projectile.netSpam = 0;
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
+				if (Owner.channel && !MarkedForDeath)
+					Projectile.alpha = 254;
 			}
 
 
@@ -64,6 +67,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					Owner.itemRotation += MathHelper.Pi;
 				}
 				charge += 1f / 120f;
+				Projectile.Opacity += 1 / 60f;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 30f);
@@ -97,20 +101,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				}
 			}
 
-			if (Projectile.alpha >= 255)
-			{
-				Kill();
-			}
-
-			//if (Projectile.frameCounter++ > 5)
-			//{
-			//	Projectile.frameCounter = 0;
-			//	if (++Projectile.frame >= Main.projFrames[Type])
-			//	{
-			//		Projectile.frame = 0;
-			//	}
-			//}
-			circleRotation += ApplySpeed(MathHelper.PiOver4 / 200f);
+			circleRotation = ApplySpeed(MathHelper.TwoPi / 5f);
 		}
 
 

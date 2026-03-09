@@ -15,6 +15,12 @@ namespace ArcaneOdyssey.Content.Buffs.MagicMarks
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
 			npc.oiled = true;
 			//if (!Main.dedServ)
 			//{

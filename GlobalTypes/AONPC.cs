@@ -1,6 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Vanity;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Items.Armour.Vanity;
 using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -138,13 +138,13 @@ namespace ArcaneOdyssey.GlobalTypes
 				var loss = Utils.Clamp((int)(npcMaxLife * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
 				if (npc.boss)
 				{
-					loss /= 2;
+					loss /= 4;
 				}
 				npc.lifeRegen -= loss;
 				if (damage < 0)
-					damage = loss / 2;
+					damage = loss / 4;
 				else
-					damage += loss / 2;
+					damage += loss / 4;
 			}
 			if (bleeding)
 			{
@@ -246,6 +246,10 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					Apply(.5f, ref damage);
 				}
+			}
+			if (ionized)
+			{
+				Apply(2.5f, ref damage);
 			}
 			if (phoenixDrain)
 			{

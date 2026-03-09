@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Normal;
+using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -32,32 +32,32 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			base.PostAI();
 			Imbue ??= ModContent.GetInstance<WindMagic>();
-			if (Imbue is AOMagic)
-				SecondImbue?.LingeringEffects(Projectile.Hitbox);
+
 			if (!playedsound)
 			{
 				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = (Imbue?.AOScrollSpeed ?? 0).MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				playedsound = true;
 			}
 
-			if (Imbue is not null)
+			if (Imbue is AOMagic && !Main.dedServ)
 			{
-				if (Projectile.localAI[0] > 5 && !Main.dedServ)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.GetColour(), 1f)];
-					spawnedDust.noGravity = true;
-					Projectile.localAI[0] = 0;
-				}
-				Projectile.localAI[0]++;
+				var hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, .5f);
+				SecondImbue?.LingeringEffects(hitbox);
+				Dust spawnedDust = Main.dust[Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.GetColour())];
+				spawnedDust.noGravity = true;
+			}
 
-				if (MarkedForDeath && !Main.dedServ)
+			if (MarkedForDeath && !Main.dedServ)
+			{
+				if (Projectile.alpha < 255)
 				{
-					if (Projectile.alpha < 255)
-					{
-						Projectile.alpha += 255 / 60;
-					}
-					else Projectile.Kill();
+					Projectile.alpha += 255 / 60;
 				}
+			}
+
+			if (Projectile.alpha >= 255 && Main.myPlayer == Projectile.owner)
+			{
+				Kill();
 			}
 		}
 	}

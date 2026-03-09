@@ -1,6 +1,7 @@
-﻿using ArcaneOdyssey.Content.Items.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
@@ -12,13 +13,19 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		// ai 2 is first frame bool
 		public override string Texture => GetType().FullName.Replace('.', '/').Replace("Array", "Blast");
 
-		public override float AOSize => .6f;
+		public override float AOSize => .75f;
 
 		public const int ShootDelay = 60 * 3;
 
 		public const int ShootTime = 120;
 
 		public override bool CanHaveImbueVFX => false;
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			if (Hovering)
+				overWiresUI.Add(index);
+		}
 
 
 		public Rectangle Proj1 => new(Projectile.Center.X.Round(), Projectile.position.Y.Round() - (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
@@ -132,6 +139,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
+			Projectile.hide = Hovering;
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
@@ -147,7 +155,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (Hovering)
 			{
-				if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
+				if (Projectile.position.ToTileCoordinates() != Projectile.oldPosition.ToTileCoordinates() && Main.myPlayer == Projectile.owner)
 				{
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
@@ -156,13 +164,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.spriteDirection = Owner.direction;
 				if (Main.myPlayer == Projectile.owner)
 				{
-					Projectile.scale = Imbue.AOScrollSize;
-					if (SecondImbue is not null)
-						Projectile.scale *= SecondImbue.AOScrollSize;
 					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
-					Projectile.scale *= AOSize;
 
-					target = Projectile.FindTargetWithLineOfSight(ApplySpeed(10f) * ShootTime);
+					target = Projectile.FindTargetWithLineOfSight(ApplySpeed(12f) * ShootTime);
 					if (target != -1)
 					{
 						var targetnpc = Main.npc[target];
@@ -183,7 +187,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					if (++Projectile.ai[1] > ShootDelay)
 					{
 						Hovering = false;
-						Projectile.velocity = Projectile.rotation.ToRotationVector2() * ApplySpeed(10f);
+						Projectile.velocity = Projectile.rotation.ToRotationVector2() * ApplySpeed(12f);
 						if (Main.myPlayer == Projectile.owner)
 						{
 							Projectile.netUpdate = true;

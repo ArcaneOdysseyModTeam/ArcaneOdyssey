@@ -1,16 +1,16 @@
 ﻿using ArcaneOdyssey.Content.Buffs.Base;
+using ArcaneOdyssey.Content.Imbues;
+using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Accessories.Vanity;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Equipment.Pets;
-using ArcaneOdyssey.Content.Items.Imbues;
-using ArcaneOdyssey.Content.Items.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Items.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Items.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Materials;
 using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
-using ArcaneOdyssey.PlayerClasses;
+using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -85,6 +85,21 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private int imbueIndex = 0;
 		public bool specificImbue = false;
+
+		public override bool CanUseItem(Item item, Player player)
+		{
+			if (WeaponsType == WeaponType.Arcanium)
+			{
+				return Imbue is AOMagic;
+			}
+
+			if (WeaponsType == WeaponType.Strength)
+			{
+				return Imbue is FightingStyle;
+			}
+
+			return true;
+		}
 
 		public WeaponType _weaponsType;
 		public WeaponType WeaponsType
@@ -165,21 +180,22 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
-				Vector2 dimensions = new(frame.Width, frame.Height);
-				Vector2 location = position + (dimensions * (.25f * (52f / texture.Width())));
+				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
+				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, dimensions / 2, .3f * (52f / texture.Width()), SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, .3f * (52f / texture.Width()), SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 				{
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), fs.GetColour(fs.DisplayColor));
 				}
 
-				if (SecondImbue is not null && SecondImbue.Type != Imbue.Type && SecondImbue.Type != item.type && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
+				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
 				{
-					location.X -= texture2.Width() * (.4f * (52f / texture2.Width()));
+					dimensions.X *= -1f;
+					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, dimensions / 2, .3f * (52f / texture2.Width()), SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, .3f * (52f / texture2.Width()), SpriteEffects.None, 1f);
 				}
 			}
 		}
