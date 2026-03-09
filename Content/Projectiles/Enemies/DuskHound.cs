@@ -107,7 +107,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			{
 				return true;
 			}
-			Projectile.velocity = Projectile.oldVelocity;
+			Projectile.velocity = oldVelocity;
 			Projectile.position = Projectile.oldPosition;
 			TileTimer = 65;
 			return false;
