@@ -2,7 +2,6 @@ using ArcaneOdyssey.Content.Items.Consumable;
 using ArcaneOdyssey.Content.Items.Weapons.Old;
 using ArcaneOdyssey.Content.NPCS.Town;
 using ArcaneOdyssey.Content.Tiles;
-using ArcaneOdyssey.GlobalTypes;
 
 #if VSDEBUGMODE
 using ArcaneOdyssey.AOPlayers;
@@ -22,6 +21,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using Terraria.Graphics.Shaders;
+using ArcaneOdyssey.GlobalTypes;
 
 namespace ArcaneOdyssey
 {
@@ -78,7 +78,7 @@ namespace ArcaneOdyssey
 
 			if (!Main.dedServ)
 			{
-				MagicCircleSprite = Assets.Request<Texture2D>($"Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}");
+				MagicCircleSprite = Assets.Request<Texture2D>($"Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}", AssetRequestMode.ImmediateLoad);
 
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 

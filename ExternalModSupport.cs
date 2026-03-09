@@ -320,9 +320,11 @@ namespace ArcaneOdyssey
 					case "BrokenBiomeBlade":
 					case "OmegaBiomeBlade":
 					case "Galaxia":
+					case "FourSeasonsGalaxia":
 					case "ArkoftheCosmos":
 					case "ArkoftheElements":
 					case "FracturedArk":
+					case "SkytideDragoon":
 					case "Earth":
 					case "TrueArkoftheAncients":
 						return WeaponType.Artisinal;

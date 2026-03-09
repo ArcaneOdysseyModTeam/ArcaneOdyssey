@@ -14,11 +14,13 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 5 * 9;
+			Item.damage = 23;
 			Item.mana = 30;
 			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 7;
+			Item.shootSpeed = 7f;
+			Item.useTime = Item.useAnimation = 20;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
+			Item.channel = true;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

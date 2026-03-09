@@ -58,9 +58,12 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			]);
 		}
 
+		public override bool? CanFallThroughPlatforms() => (NPC.HasValidTarget && ((Main.player[NPC.target].Bottom.Y - 10) > NPC.Bottom.Y)) || NPC.noTileCollide;
+		
+
 		public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
 		{
-			boundingBox = AOUtils.ScaleRectangleNotRef(NPC.Hitbox, 1.5f);
+			boundingBox = AOUtils.ScaleRectangleNotRef(NPC.Hitbox, 2f);
 		}
 
 		public static bool AOMinibossOrBossAlive()
@@ -108,7 +111,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 										{
 											if (!spawnInfo.Sky)
 											{
-												return 1f / 150f * (Downed ? .5f : 1f);
+												return 1f / (Downed ? 300f : 150f);
 											}
 										}
 									}
@@ -126,7 +129,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 		public override void AI()
 		{
 
-			bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileSolidGround();
+			bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileReallySolidGround();
 			if (NPC.ai[0] == 0) //Chase
 			{// Chase the nearest player
 				NPC.ai[1]++;
@@ -162,7 +165,7 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 					NPC.velocity.X = 0f;
 				}
 
-				if (Math.Abs(NPC.velocity.X) <= MoveSpeed)
+				if (Math.Abs(NPC.velocity.X) <= MoveSpeed && NPC.HasValidTarget && (Math.Abs(NPC.Center.Y - Main.player[NPC.target].Center.Y) > 16))
 				{
 					NPC.ai[2]++; // stuck counter
 				}

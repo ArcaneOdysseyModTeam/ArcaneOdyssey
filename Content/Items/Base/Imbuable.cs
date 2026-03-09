@@ -28,14 +28,16 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public int AuraHP(Player player)
 		{
+			float aura;
 			if (this is not FightingStyle || player.ArcaneOdyssey().acumen)
 			{
-				return (player.statLifeMax * (.225f * Aura)).Round();
+				aura = player.statLifeMax * (.225f * Aura);
 			}
 			else
 			{
-				return (player.statLifeMax * (.18f * Aura)).Round();
+				aura = player.statLifeMax * (.18f * Aura);
 			}
+			return (int)Math.Round(aura / 5f, MidpointRounding.AwayFromZero) * 5;
 		}
 
 		public override void UpdateEquip(Player player)

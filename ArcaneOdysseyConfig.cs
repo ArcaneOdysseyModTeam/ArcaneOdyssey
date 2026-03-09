@@ -58,7 +58,7 @@ namespace ArcaneOdyssey
 		{
 			if (!Main.dedServ)
 			{
-				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}");
+				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}", ReLogic.Content.AssetRequestMode.ImmediateLoad);
 			}
 		}
 	}

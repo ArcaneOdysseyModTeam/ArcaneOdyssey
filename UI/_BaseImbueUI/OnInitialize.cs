@@ -155,7 +155,7 @@ public abstract partial class BaseImbueUI : UIState
 			ModContent.ItemType<WoodMagic>(),
 		];
 
-		for (int i = 0; i < ids.Length; i++) if (ids[i] == id) return (MagicTypes)(i);
+		for (int i = 0; i < ids.Length; i++) if (ids[i] == id) return (MagicTypes)i;
 
 		return MagicTypes.None;
 	}
@@ -189,7 +189,7 @@ public abstract partial class BaseImbueUI : UIState
 	protected UIText CloseText = new("Close", 1, true), ChooseText = new("Choose", 1, true);
 	protected static class ButtonTextures
 	{
-		public static readonly Asset<Texture2D> Neutral = ModContent.Request<Texture2D>($"{ArcaneOdysseyMod.Instance.Name}/UI/_BaseImbueUI/Textures/Button/Neutral");
+		public static readonly Asset<Texture2D> Neutral = ArcaneOdysseyMod.Instance.Assets.Request<Texture2D>("UI/_BaseImbueUI/Textures/Button/Neutral", AssetRequestMode.ImmediateLoad);
 	}
 
 	protected List<MagicProduct> TheShop = [];

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Content.Tiles.Base
 
 		public override void Load()
 		{
-			FloaterTexture = ModContent.Request<Texture2D>(base.Texture);
+			FloaterTexture = ModContent.Request<Texture2D>(base.Texture, AssetRequestMode.ImmediateLoad);
 		}
 
 		public override void SetStaticDefaults()

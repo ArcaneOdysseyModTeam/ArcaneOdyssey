@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -9,21 +11,45 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public int TileTimer = 0;
 
 		public override float AOSize => 2f;
-		public override float AOSpeed => .5f;
+
+		public bool DoneCharging = false;
+		public float charge = 1f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
 			Projectile.penetrate = -1;
+			Projectile.localNPCHitCooldown = 30;
+			Projectile.usesLocalNPCImmunity = true;
 			Projectile.timeLeft = 3 * 60;
-			Projectile.ignoreWater = true;
+			Projectile.hide = true;
+		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			if (!DoneCharging)
+				overWiresUI.Add(index);
+			else
+				behindNPCsAndTiles.Add(index);
+		}
+
+		public override bool? CanDamage()
+		{
+			if (!DoneCharging)
+			{
+				return false;
+			}
+			return null;
 		}
 
 		public override void AI()
 		{
-			if (TileTimer > 0)
-				TileTimer--;
+			if (Projectile.wet && DoneCharging)
+			{
+				Kill();
+				return;
+			}
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;
@@ -35,6 +61,39 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			}
 			Animate();
 			Rotate();
+
+			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
+
+			if (!DoneCharging && !Owner.channel)
+			{
+				Projectile.velocity = dir * ApplySpeed(5f);
+				DoneCharging = true;
+			}
+
+			if (Owner.channel && !DoneCharging)
+			{
+				charge += 1f / 120f;
+				Projectile.timeLeft = 3 * 60;
+				Projectile.rotation = dir.ToRotation();
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 94f);
+				if (charge >= 1.5f)
+				{
+					Owner.channel = false;
+					DoneCharging = true;
+				}
+			}
+			else
+			{
+				DoneCharging = true;
+				Projectile.rotation = Projectile.velocity.ToRotation();
+				if (TileTimer > 0)
+					TileTimer--;
+			}
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.SourceDamage *= charge;
 		}
 
 		public virtual void Animate()
@@ -65,17 +124,20 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (TileTimer <= 0)
+			if (DoneCharging)
 			{
-				Imbue?.KillEffects(Projectile.Hitbox);
+				if (TileTimer <= 0)
+				{
+					Imbue?.KillEffects(Projectile.Hitbox);
+				}
+				if (TileTimer < 60 && TileTimer > 0)
+				{
+					return true;
+				}
+				TileTimer = 65;
 			}
-			if (TileTimer < 60 && TileTimer > 0)
-			{
-				return true;
-			}
-			Projectile.velocity = Projectile.oldVelocity;
 			Projectile.position = Projectile.oldPosition;
-			TileTimer = 65;
+			Projectile.velocity = Projectile.oldVelocity;
 			return false;
 		}
 	}

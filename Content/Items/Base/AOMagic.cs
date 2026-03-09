@@ -113,7 +113,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
 					circleprojectile.rotation = rot.ToRotation();
-					((BasicMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Cannon");
+					Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 94), Vector2.Zero, magicToUse.GetSkill("Cannon"), damage, item.knockBack, player.whoAmI);
 					return circleprojectile;
 				}
 				else if (item.ModItem is PulsarScroll)

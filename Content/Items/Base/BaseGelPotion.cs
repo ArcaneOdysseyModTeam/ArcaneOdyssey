@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		}
 
 		public override string Texture => Mod.Name + "/Assets/GelBottle";
-		public Texture2D LiquidSprite => ModContent.Request<Texture2D>(Mod.Name + "/Assets/GelLiquid").Value;
+		public Texture2D LiquidSprite => Mod.Assets.Request<Texture2D>("Assets/GelLiquid").Value;
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

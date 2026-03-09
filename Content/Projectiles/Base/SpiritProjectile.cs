@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		public override bool PreAI()
 		{
 			Imbue ??= ModContent.GetInstance<SpiritEnergy>();
-			if (Main.myPlayer == Projectile.owner && !Imbue.CanBeWet && Projectile.wet)
+			if (Main.myPlayer == Projectile.owner && Imbue?.CanBeWet == false && Projectile.wet)
 			{
 				Kill();
 				return false;

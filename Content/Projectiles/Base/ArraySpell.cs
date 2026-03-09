@@ -23,7 +23,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
-			overWiresUI.Add(index);
+			if (Hovering)
+				overWiresUI.Add(index);
 		}
 
 
@@ -52,7 +53,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 			Projectile.localNPCHitCooldown = 1;
 			Projectile.timeLeft = ShootTime + ShootDelay;
 			Projectile.penetrate = 4;
-			Projectile.hide = true;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -139,6 +139,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 		public override void AI()
 		{
+			Projectile.hide = Hovering;
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
@@ -163,13 +164,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.spriteDirection = Owner.direction;
 				if (Main.myPlayer == Projectile.owner)
 				{
-					Projectile.scale = AOSize * Imbue.AOScrollSize;
-					if (SecondImbue is not null)
-						Projectile.scale *= SecondImbue.AOScrollSize;
 					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
-					Projectile.scale *= AOSize;
 
-					target = Projectile.FindTargetWithLineOfSight(ApplySpeed(10f) * ShootTime);
+					target = Projectile.FindTargetWithLineOfSight(ApplySpeed(12f) * ShootTime);
 					if (target != -1)
 					{
 						var targetnpc = Main.npc[target];
@@ -190,7 +187,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					if (++Projectile.ai[1] > ShootDelay)
 					{
 						Hovering = false;
-						Projectile.velocity = Projectile.rotation.ToRotationVector2() * ApplySpeed(10f);
+						Projectile.velocity = Projectile.rotation.ToRotationVector2() * ApplySpeed(12f);
 						if (Main.myPlayer == Projectile.owner)
 						{
 							Projectile.netUpdate = true;
