@@ -248,6 +248,7 @@ NPCs: {
 	Evander: {
 		DisplayName: Evander, the Mountainbreaker
 		SpawnInfo: Spawns naturally in Hardmode, in the outer thirds of the world.
+		SpawnMessage: I will cleave your bones into pieces...
 	}
 
 	DebuffDummy.DisplayName: Debuff Dummy
@@ -255,11 +256,13 @@ NPCs: {
 	Dusk: {
 		DisplayName: Dusk, the Dark Oracle
 		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer thirds of the world.
+		SpawnMessage: Tell me, how much is your head worth?
 	}
 
 	Laelus: {
 		DisplayName: Laelus, the Thief
 		SpawnInfo: Spawns naturally during the day, in the outer thirds of the world.
+		SpawnMessage: You are no match for my powers...
 	}
 }
 
@@ -367,7 +370,7 @@ Projectiles: {
 	}
 
 	DeathCurse.DisplayName: The Death Curse
-	LeapFix.DisplayName: Leap Spell
+	LeapFix.DisplayName: Jump
 
 	Circles: {
 		BarrageMagicCircle.DisplayName: Magic Circle
@@ -430,4 +433,8 @@ ScrollTiers: {
 	Spell: spell
 	Rite: rite
 	Technique: technique
+	NeedsImbue: Requires a {0}
+	Magic: "[c/0000ff:magic type]"
+	FightingStyle: "[c/ff0000:fighting style]"
+	Relic: "[c/2277ff:relic]"
 }

@@ -81,6 +81,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				MarkedForDeath = true;
 				if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
+					{
+						CombatText.NewText(Owner.Hitbox, Imbue?.GetColour(Color.White) ?? Color.White, Lang.GetProjectileName(ChargingProjectile) + "!", true);
+					}
 					var proj = AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner, Imbue, SecondImbue, true);
 					if (proj.ModProjectile is PulsarSpell && originallyAltFire)
 					{

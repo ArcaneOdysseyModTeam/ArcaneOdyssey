@@ -1,8 +1,8 @@
 using ArcaneOdyssey.Content.Items.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 			Item.mana = 30;
 			Item.knockBack = 0f;
 			Item.DamageType = DamageClass.Magic;
-			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
+			Item.shoot = ModContent.ProjectileType<BeamSpell>(); // does not actually shoot
 			Item.useAnimation = Item.useTime = 40;
 		}
 

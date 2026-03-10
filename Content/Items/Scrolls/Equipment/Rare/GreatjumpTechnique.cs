@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		}
 	}
 
-	public class Greatjump(Entity source) : DashSystem(source)
+	public class Greatjump(Scroll scroll) : DashSystem(scroll.Item)
 	{
 		public override bool ContactDamage => false;
 		public override float DashSpeed => 30;
@@ -49,6 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override void OnStart(Player player)
 		{
+			scroll.ActivateAbility(player, ModContent.ProjectileType<GreatjumpShockwave>());
 			if (player.whoAmI == Main.myPlayer)
 			{
 				var proj = AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<GreatjumpShockwave>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);

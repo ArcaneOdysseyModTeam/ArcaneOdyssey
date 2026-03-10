@@ -40,11 +40,49 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return (int)Math.Round(aura / 5f, MidpointRounding.AwayFromZero) * 5;
 		}
 
-		public override void UpdateEquip(Player player)
+		public void ActivateAbility(Player player, bool passive)
 		{
-			player.ArcaneOdyssey()?.AddEquippedImbue(Item);
+			if (Ability.HasValue)
+			{
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
+				{
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, Ability.Value.Name + "!", !passive);
+				}
+			}
 		}
 
+		public WeaponAbility? Ability
+		{
+			get
+			{
+				var ab = new WeaponAbility
+				{
+					Colour = Imbue?.GetColour(ImbueColour) ?? GetColour(Color.White)
+				};
+				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+				{
+					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName").Value;
+					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description").Value;
+					return ab;
+				}
+				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
+				{
+					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability").Value;
+					ab.Description = null;
+					return ab;
+				}
+				return null;
+			}
+		}
+
+		public override void UpdateEquip(Player player)
+		{
+			player.ArcaneOdyssey()?.AddEquippedImbue(this);
+		}
+
+		/// <summary>
+		/// The second imbue
+		/// </summary>
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		public string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
@@ -379,18 +417,14 @@ namespace ArcaneOdyssey.Content.Items.Base
 				}
 				tooltips.AddTooltip(new(Mod, "ShiftNotice", Mod.CustomLocalization("ImbueStuff.ShiftNotice").Value));
 
-
-				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+				if (Ability.HasValue)
 				{
-					var ability = $"{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName")}]: {Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description")}";
-
-					TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{ability}");
-					tooltips.AddTooltip(tooltip);
-				}
-				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
-				{
-					TooltipLine tooltip = new(Mod, "ImbueGimmick", $"[c/{GetColour(Color.White).Hex3()}:{Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability")}]");
-					tooltips.AddTooltip(tooltip);
+					string text = $"[c/{Ability.Value.Colour.Hex3()}:{Ability.Value.Name}]";
+					if (Ability.Value.Description is not null)
+					{
+						text += $": {Ability.Value.Description}";
+					}
+					tooltips.AddTooltip(new(Mod, "AOAbility", text));
 				}
 			}
 

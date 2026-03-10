@@ -3,7 +3,6 @@ using ArcaneOdyssey.Content.Buffs.Gels;
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Imbues;
 using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Base;
@@ -713,7 +712,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item is not null && item.active && (!item.accessory || item.ModItem is Scroll) && (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
+			if (item is not null && item.active && (!item.accessory || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
 				if (item.ArcaneOdyssey().WeaponsType != WeaponType.Artisinal)
 				{
@@ -1358,7 +1357,7 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory<T>(this Player player, out T item) where T : ModItem
 		{
 			item = null;
-			if (player.ArcaneOdyssey().EquippedImbues.Contains(ModContent.ItemType<T>()))
+			if (player.ArcaneOdyssey().EquippedImbues.Contains(ModContent.ItemType<T>()) || player.ArcaneOdyssey().EquippedSecondImbues.Contains(ModContent.ItemType<T>()))
 			{
 				item = ModContent.GetInstance<T>();
 				return true;
@@ -1385,10 +1384,6 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory(this Player player, Type type, Mod mod = null)
 		{
 			mod ??= ArcaneOdysseyMod.Instance;
-			if (type.Name == nameof(PhoenixMagic))
-			{
-
-			}
 			if (mod.TryFind<ModItem>(type.Name, out var moditem) && player.ArcaneOdyssey().EquippedImbues.Contains(moditem.Type)) 
 			{
 				return true; 

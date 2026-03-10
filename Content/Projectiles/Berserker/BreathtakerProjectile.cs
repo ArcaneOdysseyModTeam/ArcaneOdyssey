@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker
@@ -32,6 +33,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (Projectile.Distance(Owner.Center) > ApplySpeed(180f))
 			{
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
+				{
+					CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+				}
 				Kill();
 				return;
 			}

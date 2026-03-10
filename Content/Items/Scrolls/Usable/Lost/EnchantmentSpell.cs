@@ -22,23 +22,21 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 
 		public override void UseAnimation(Player player)
 		{
-			if (Main.myPlayer == player.whoAmI)
+			if (Main.netMode != NetmodeID.SinglePlayer && Main.myPlayer == player.whoAmI)
 			{
+				ActivateAbility(player);
+				ChatHelper.SendChatMessageFromClient(new ChatMessage($"[c/{Color.AliceBlue.Hex3()}:{Mod.CustomLocalization("RandomWords.Enchantment", player.name)}]"));
 				foreach (var players in Main.ActivePlayers)
 				{
 					if (players.whoAmI != player.whoAmI)
 						players.AddBuff(ModContent.BuffType<Enchanted>(), 60 * 60 * 5, false); // 5 mins
 				}
-				AOMagic.CreateMagicCircle(Item, player, Imbue);
 			}
-			if (Main.dedServ)
+			else
 			{
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("RandomWords.Enchantment", player.name).ToNetworkText(), Color.AliceBlue);
+				Item.SetDefaults(ModContent.ItemType<EmptyScroll>());
 			}
-			else if (Main.netMode == NetmodeID.SinglePlayer)
-			{
-				Main.NewText(Mod.CustomLocalization("RandomWords.Enchantment", player.name).Value, Color.AliceBlue);
-			}
+			AOMagic.CreateMagicCircle(Item, player, Imbue);
 		}
 	}
 }

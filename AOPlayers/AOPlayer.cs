@@ -32,20 +32,34 @@ namespace ArcaneOdyssey.AOPlayers
 		/// Imbues in equipment slots
 		/// </summary>
 		public List<int> EquippedImbues = [];
+		public List<int> EquippedSecondImbues = [];
 		public List<int> EquippedImbuesTimers = [];
 
-		public void AddEquippedImbue(Item imbue)
+		public void AddEquippedImbue(Imbuable imbue)
 		{
-			var index = EquippedImbues.IndexOf(imbue.type);
+			var index = EquippedImbues.IndexOf(imbue.Type);
 			if (index != -1)
 			{
 				EquippedImbuesTimers[index] = 3;
 			}
 			else
 			{
-				EquippedImbues.Add(imbue.type);
+				EquippedImbues.Add(imbue.Type);
+				EquippedSecondImbues.Add(imbue.Imbue?.Type ?? 0);
 				EquippedImbuesTimers.Add(3);
 			}
+		}
+
+		public List<Imbuable> AllEquippedImbues()
+		{
+			List<Imbuable> list = [];
+			for (int i = 0; i < EquippedImbues.Count; i++)
+			{
+				var ret = (Imbuable)ModContent.GetModItem(EquippedImbues[i]);
+				ret.Imbue = (Imbuable)ModContent.GetModItem(EquippedSecondImbues[i]);
+				list.Add(ret);
+			}
+			return list;
 		}
 
 		public bool evil = false;
@@ -219,6 +233,7 @@ namespace ArcaneOdyssey.AOPlayers
 			foreach (var i in queue)
 			{
 				EquippedImbues.RemoveAt(i);
+				EquippedSecondImbues.RemoveAt(i);
 				EquippedImbuesTimers.RemoveAt(i);
 			}
 			HandleDashDetection();

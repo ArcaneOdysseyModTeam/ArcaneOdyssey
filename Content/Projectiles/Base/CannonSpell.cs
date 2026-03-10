@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Content.Projectiles.Base
 {
@@ -91,6 +90,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					{
 						Projectile.netUpdate = true;
 						Projectile.netSpam = 0;
+					}
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
+					{
+						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
 					}
 				}
 				if (TileTimer > 0)

@@ -292,15 +292,6 @@ namespace ArcaneOdyssey
 			downedDelamere = downed.Contains("Delamere");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
 		}
-
-		public override void PostUpdateWorld()
-		{
-			foreach (string message in ArcaneOdysseyMod.NoticeQueue)
-			{
-				Main.NewText(message, Color.Yellow);
-			}
-			ArcaneOdysseyMod.NoticeQueue = [];
-		}
 	}
 
 	[ReinitializeDuringResizeArrays]
@@ -317,6 +308,18 @@ namespace ArcaneOdyssey
 		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
 
 		public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
+	}
+
+	public class MessageHelper : ModSystem
+	{
+		public override void PostUpdateWorld()
+		{
+			foreach (string message in ArcaneOdysseyMod.NoticeQueue)
+			{
+				Main.NewText(message, Color.Yellow);
+			}
+			ArcaneOdysseyMod.NoticeQueue = [];
+		}
 	}
 
 	public class DownedNPCTracker : GlobalNPC

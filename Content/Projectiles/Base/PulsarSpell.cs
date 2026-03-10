@@ -32,6 +32,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.netSpam = 0;
 				}
 				Projectile.ai[0] = 1;
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
+				{
+					CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+				}
 			}
 			var frequency = Projectile.ai[1] == 0 ? 1f : 2f;
 			if (Imbue is not null)

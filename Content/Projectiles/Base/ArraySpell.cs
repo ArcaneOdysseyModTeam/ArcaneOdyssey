@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
+using ArcaneOdyssey.Content.Projectiles.Magic.Arrays.Lost;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -149,6 +150,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.netSpam = 0;
 				}
 				Projectile.velocity = Vector2.Zero;
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
+				{
+					CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+				}
 			}
 			Animate();
 			Rotate();
@@ -160,7 +165,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
 				}
-				if (Imbue is not PhoenixMagic)
+				if (this is not PhoenixArray)
 					Projectile.spriteDirection = Owner.direction;
 				if (Main.myPlayer == Projectile.owner)
 				{

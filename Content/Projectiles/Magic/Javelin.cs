@@ -89,6 +89,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					Mode = JavelinMode.Flying;
 					Owner.channel = false;
 					Projectile.timeLeft = TimeLeft;
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
+					{
+						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+					}
 				}
 			}
 			if (Mode == JavelinMode.Flying)

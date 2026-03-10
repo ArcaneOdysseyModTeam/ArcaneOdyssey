@@ -40,7 +40,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 					return null;
 				}
 				player.ArcaneOdyssey().acumen = true;
-				Main.NewText(Mod.CustomLocalization("RandomWords.Acumen"), Color.MediumVioletRed);
+				if (Main.myPlayer == player.whoAmI)
+				{
+					Main.NewText(Mod.CustomLocalization("RandomWords.Acumen"), Color.MediumVioletRed);
+					ActivateAbility(player);
+				}
 			}
 			return true;
 		}

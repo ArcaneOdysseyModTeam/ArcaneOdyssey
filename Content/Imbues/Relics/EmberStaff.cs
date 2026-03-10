@@ -5,6 +5,7 @@ using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -44,6 +45,12 @@ namespace ArcaneOdyssey.Content.Imbues.Relics
 		{
 			position = Main.MouseWorld;
 			player.LimitPointToPlayerReachableArea(ref position);
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			ActivateAbility(player, false);
+			return true;
 		}
 	}
 }

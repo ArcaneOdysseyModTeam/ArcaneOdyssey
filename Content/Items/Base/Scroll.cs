@@ -9,6 +9,57 @@ namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class Scroll : AOBaseItem, IImbuable
 	{
+		public void ActivateAbility(Player player, int? id = null)
+		{
+			if (Ability.HasValue)
+			{
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
+				{
+					var name = id.HasValue ? Lang.GetProjectileName(id.Value).Value : Ability.Value.Name;
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, name + "!", true);
+				}
+			}
+		}
+
+		public string ScrollName 
+		{ 
+			get
+			{
+				return DisplayName.Value.Replace("Scroll").Replace("Spell").Replace("Rite").Replace("Technique");
+			}
+		}
+
+		public WeaponAbility? Ability
+		{
+			get
+			{
+				if (HasCorrectImbue)
+				{
+					var ab = new WeaponAbility
+					{
+						Colour = Imbue.GetColour(Tier switch
+						{
+							ScrollTier.Common => Color.White,
+							ScrollTier.Rare => Color.Aqua,
+							ScrollTier.Lost => Color.AliceBlue,
+							_ => Color.White,
+						}),
+						Description = null
+					};
+					if (Item.shoot != ProjectileID.None && Item.shoot != ProjectileID.WoodenArrowFriendly)
+					{
+						ab.Name = Lang.GetProjectileName(Item.shoot).Value;
+					}
+					else
+					{
+						ab.Name = ScrollName;
+					}
+					return ab;
+				}
+				return null;
+			}
+		}
+
 		public float ApplySpeed(float value, bool flipfloat = false)
 		{
 			if (BenifitsFromScrollStats.HasValue)
@@ -138,7 +189,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			else Item.color = Color.Transparent;
 		}
 
-		public override bool CanUseItem(Player player) => Imbue is not null;
+		public override bool CanUseItem(Player player) => Imbue is not null && !Item.accessory;
 
 		public string GetTierFormatting()
 		{
@@ -166,10 +217,40 @@ namespace ArcaneOdyssey.Content.Items.Base
 			return text;
 		}
 
+		public string GetReqFormatting()
+		{
+			var text = "";
+			if (CanHaveFS)
+			{
+				text += Mod.CustomLocalization("ScrollTiers.FightingStyle");
+			}
+			if (CanHaveMagic)
+			{
+				if (!string.IsNullOrEmpty(text))
+				{
+					text += "/";
+				}
+				text += Mod.CustomLocalization("ScrollTiers.Magic");
+			}
+			if (CanHaveRelic)
+			{
+				if (!string.IsNullOrEmpty(text))
+				{
+					text += "/";
+				}
+				text += Mod.CustomLocalization("ScrollTiers.Relic");
+			}
+			return text;
+		}
+
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.AddTooltip(new(Mod, "ScrollTier", Mod.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
+			if (!HasCorrectImbue)
+			{
+				tooltips.AddTooltip(new(Mod, "ScrollReq", Mod.CustomLocalization($"ScrollTiers.NeedsImbue", GetTierFormatting()).Value));
+			}
 		}
 
 		public virtual bool ExtraConditionsForImbue(Imbuable imbue) => true;

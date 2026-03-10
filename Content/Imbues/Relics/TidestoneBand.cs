@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Content.Items.Base;
 
 namespace ArcaneOdyssey.Content.Imbues.Relics
 {
@@ -31,13 +32,13 @@ namespace ArcaneOdyssey.Content.Imbues.Relics
 			{
 				if (!player.ArcaneOdyssey().OnCooldown<ThakrousiCooldown>())
 				{
-					player.ArcaneOdyssey().StartDash(new Thakrousi(Item), imbue: this);
+					player.ArcaneOdyssey().StartDash(new Thakrousi(this), imbue: this);
 				}
 			}
 		}
 	}
 
-	public class Thakrousi(Entity source) : DashSystem(source)
+	public class Thakrousi(Imbuable imbuesource) : DashSystem(imbuesource.Item)
 	{
 		public override DamageClass DamageType => DamageClass.Summon;
 		public override bool Immune => true;
@@ -50,6 +51,7 @@ namespace ArcaneOdyssey.Content.Imbues.Relics
 
 		public override void OnEnd(Player player)
 		{
+			imbuesource.ActivateAbility(player, false);
 			AOUtils.SimulateAOE(150, Damage, player.MountedCenter, Knockback, source, DamageType);
 			player.velocity *= .01f;
 			SoundEngine.PlaySound(SoundID.Splash);

@@ -6,11 +6,11 @@ using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.NPCS.Minibosses
 {
-	[AutoloadBossHead]
 	public abstract class AOMiniboss : ModNPC
 	{
 		public abstract int AOHealth { get; }
@@ -124,11 +124,29 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 			return 0f;
 		}
 
+		public abstract Color Motif { get; }
+
+		public bool hasSaidMesage = false;
+
 		private bool canJump = false;
 
 		public override void AI()
 		{
-
+			if (!hasSaidMesage)
+			{
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					if (Main.dedServ)
+					{
+						ChatHelper.BroadcastChatMessage(Language.GetText(this.GetLocalizationKey("SpawnMessage")).ToNetworkText(), Motif);
+					}
+				}
+				else
+				{
+					Main.NewText(this.GetLocalizedValue("SpawnMessage"), Motif);
+				}
+				hasSaidMesage = true;
+			}
 			bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileReallySolidGround();
 			if (NPC.ai[0] == 0) //Chase
 			{// Chase the nearest player

@@ -327,6 +327,8 @@ namespace ArcaneOdyssey
 					case "SkytideDragoon":
 					case "Earth":
 					case "TrueArkoftheAncients":
+					case "Orderbringer":
+					case "GreatswordofJudgement":
 						return WeaponType.Artisinal;
 				}
 			}

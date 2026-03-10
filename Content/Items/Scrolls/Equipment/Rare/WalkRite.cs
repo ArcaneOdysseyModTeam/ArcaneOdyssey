@@ -1,5 +1,6 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.AOPlayers;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Content.Imbues.Relics;
+using ArcaneOdyssey.Content.Items.Base;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -22,12 +23,12 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		{
 			if (HasCorrectImbue)
 			{
-				player.ArcaneOdyssey()?.SetDash(new Walk1(Item), 3 * Math.Sign(player.velocity.X));
+				player.ArcaneOdyssey()?.SetDash(new Walk1(this), 3 * Math.Sign(player.velocity.X));
 			}
 		}
 	}
 
-	public class Walk1(Entity source) : DashSystem(source)
+	public class Walk1(WalkRite scroll) : DashSystem(scroll.Item)
 	{
 		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
@@ -45,6 +46,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(Imbue?.ImbueSound, player.Center);
+			scroll.ActivateAbility(player);
 		}
 
 		public override float DashSpeed => 15;

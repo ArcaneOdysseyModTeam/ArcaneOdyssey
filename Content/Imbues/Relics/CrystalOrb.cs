@@ -50,6 +50,7 @@ namespace ArcaneOdyssey.Content.Imbues.Relics
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			ActivateAbility(player, false);
 			player.AddBuff(Item.buffType, 2);
 			return true;
 		}

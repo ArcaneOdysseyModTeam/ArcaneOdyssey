@@ -509,7 +509,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Main.myPlayer != player.whoAmI)
 				return;
 
-			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().EquippedImbues.Select(e => (Imbuable)ModContent.GetModItem(e))];
+			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()]; 
 			options.RemoveAll(e => !item.CanHaveImbue(e));
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;

@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
@@ -28,5 +29,11 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 		}
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			ActivateAbility(player, type);
+			return true;
+		}
 	}
 }

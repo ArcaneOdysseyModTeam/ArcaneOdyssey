@@ -42,6 +42,8 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 
 		public override ref bool Downed => ref DownedBosses.downedDusk;
 
+		public override Color Motif => new(89, 0, 83);
+
 		public override bool ExtraConditions => NPC.downedBoss2 && !Main.IsItDay();
 
 		public override int AOHealth => 1700;

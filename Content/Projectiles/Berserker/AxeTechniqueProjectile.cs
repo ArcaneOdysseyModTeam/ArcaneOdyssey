@@ -42,6 +42,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override void AI()
 		{
+			if (Projectile.ai[0] == 0)
+			{
+				Projectile.ai[0] = 1;
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+				}
+			}
+
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
 			if (CanCutTrees && Main.myPlayer == Projectile.owner)

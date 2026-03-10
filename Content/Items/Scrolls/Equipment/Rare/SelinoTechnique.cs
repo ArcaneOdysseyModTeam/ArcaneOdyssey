@@ -30,14 +30,14 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		{
 			if (HasCorrectImbue)
 			{
-				player.ArcaneOdyssey()?.SetDash(new Selino1(Item));
+				player.ArcaneOdyssey()?.SetDash(new Selino1(this));
 			}
 		}
 
 		public override bool CanHaveFS => true;
 	}
 
-	public class Selino1(Entity source) : DashSystem(source)
+	public class Selino1(Scroll scroll) : DashSystem(scroll.Item)
 	{
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
@@ -48,6 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
+			scroll.ActivateAbility(player, ModContent.ProjectileType<Selino>());
 			var dash = new Selino2(source);
 			player.ArcaneOdyssey().StartDash(dash, 0, Imbue, true);
 			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);

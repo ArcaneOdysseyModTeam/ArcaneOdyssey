@@ -1,4 +1,4 @@
-BeamSpell.DisplayName: Beam Spell
+BeamSpell.DisplayName: Beam
 
 Blasts: {
 	Ancient: {
@@ -122,7 +122,7 @@ Cannons: {
 	}
 }
 
-ExplosionSpell.DisplayName: Explosion Spell
+ExplosionSpell.DisplayName: Explosion
 
 Pulsars: {
 	Ancient: {
@@ -185,7 +185,7 @@ Pulsars: {
 	}
 }
 
-LesserBeam.DisplayName: Lesser Beam
+LesserBeam.DisplayName: Beam
 
 Arrays: {
 	Ancient: {
@@ -248,7 +248,7 @@ Arrays: {
 	}
 }
 
-AnnihilationSpell.DisplayName: Annihilation Spell
+AnnihilationSpell.DisplayName: Annihilation
 
 Effects: {
 	AetherExplosion.DisplayName: Aether Explosion
@@ -259,12 +259,12 @@ Effects: {
 	PoisonCloud.DisplayName: Poison Cloud
 }
 
-MeteorSpell.DisplayName: Meteor Spell
+MeteorSpell.DisplayName: Meteor
 
 Minions: {
-	Elemental.DisplayName: Magic Elemental
-	MinionMinionBeam.DisplayName: Beam Spell
+	Elemental.DisplayName: Elemental
+	MinionMinionBeam.DisplayName: Beam
 }
 
-Javelin.DisplayName: Javelin Spell
-MagicRay.DisplayName: Magic Ray
+Javelin.DisplayName: Javelin
+MagicRay.DisplayName: Ray

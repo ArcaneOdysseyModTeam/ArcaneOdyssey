@@ -55,6 +55,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				{
 					var damage = 50 * charge * size;
 					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, Projectile.DamageType);
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
+					{
+						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+					}
 				}
 				for (int i = 0; i < 30; i++)
 				{

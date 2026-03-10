@@ -44,14 +44,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			}
 			else
 			{
-				//if (Projectile.ai[0] == 0)
-				//{
-				//	for (int i = 0; i < 5; i++)
-				//	{
-				//		Imbue?.ExplosionEffects(Projectile.Center);
-				//	}
-				//	Projectile.ai[0] = 1;
-				//}
 				if (++Projectile.frameCounter > ApplySpeed(TravelTime / (float)Main.projFrames[Type], true))
 				{
 					Projectile.frameCounter = 0;

@@ -40,6 +40,8 @@ namespace ArcaneOdyssey.Content.NPCS.Minibosses
 
 		public override bool ExtraConditions => Main.hardMode;
 
+		public override Color Motif => new(214, 0, 0);
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (!Main.dedServ)

@@ -3,8 +3,10 @@ using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Imbues.Magic.Normal;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using ArcaneOdyssey.VFX.Dusts;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +33,12 @@ namespace ArcaneOdyssey.Content.Imbues.Relics
 			Item.shootSpeed = .9f;
 			Item.damage = 20;
 			Item.knockBack = 3.75f;
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			ActivateAbility(player, false);
+			return true;
 		}
 
 		public override int DustType => ModContent.DustType<SpiritTentacle>();

@@ -24,6 +24,9 @@
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
+		<Reference Include="StructureHelper">
+		  <HintPath>..\references\StructureHelper.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<!-- References -->
