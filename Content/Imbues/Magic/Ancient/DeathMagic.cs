@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,7 +15,7 @@ namespace ArcaneOdyssey.Content.Imbues.Magic.Ancient
 		public override bool Special => true;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit54;
-		public override Color ImbueColour => new(0, 34, 41);
+		public override Color ImbueColour => Color.Lerp(new(0, 34, 41), Color.Black, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1.5f;

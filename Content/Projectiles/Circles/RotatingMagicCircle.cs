@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override void AI()
 		{
-			if (Projectile.position.ToTileCoordinates() != Projectile.oldPosition.ToTileCoordinates() && Main.myPlayer == Projectile.owner)
+			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
 			{
 				Projectile.netUpdate = true;
 				Projectile.netSpam = 0;

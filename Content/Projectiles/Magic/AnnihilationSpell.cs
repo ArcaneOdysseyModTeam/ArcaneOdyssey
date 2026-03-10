@@ -57,8 +57,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					dust.noGravity = true;
 				}
 			}
-			if (Imbue is SlashMagic)
-				Imbue.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 2f));
 		}
 
 		public void StartExploding()
@@ -147,7 +145,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			get
 			{
-				if (Imbue is not (null or SoundMagic or SlashMagic))
+				if (Imbue is not (null or SoundMagic))
 				{
 					var asset = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
 					if (ModContent.HasAsset(asset))

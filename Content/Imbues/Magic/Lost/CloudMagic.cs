@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,7 +16,7 @@ namespace ArcaneOdyssey.Content.Imbues.Magic.Lost
 		public override float? DashResist => 1.1f;
 		public override float KBMulti => 1.25f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
-		public override Color ImbueColour => new(255, 255, 255, 255);
+		public override Color ImbueColour => Color.Lerp(Color.LightGray, Color.DarkGray, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
 		public override float AOImbueSpeed => .9f;
 		public override float AOImbueSize => 1.3f;
 		public override float AOImbueDamage => .8f;

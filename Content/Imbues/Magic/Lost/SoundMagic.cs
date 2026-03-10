@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +12,7 @@ namespace ArcaneOdyssey.Content.Imbues.Magic.Lost
 	public class SoundMagic : AOMagic
 	{
 		public override float Aura => .4f;
-		public override Color ImbueColour => new(94, 236, 255);
+		public override Color ImbueColour => Color.Lerp(Color.White, new(94, 236, 255), Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Roar;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;

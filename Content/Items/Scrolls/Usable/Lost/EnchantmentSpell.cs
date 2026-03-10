@@ -22,10 +22,14 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 
 		public override void UseAnimation(Player player)
 		{
-			foreach (var players in Main.ActivePlayers)
+			if (Main.myPlayer == player.whoAmI)
 			{
-				if (players.whoAmI != player.whoAmI)
-					players.AddBuff(ModContent.BuffType<Enchanted>(), 60 * 60 * 5); // 5 mins
+				foreach (var players in Main.ActivePlayers)
+				{
+					if (players.whoAmI != player.whoAmI)
+						players.AddBuff(ModContent.BuffType<Enchanted>(), 60 * 60 * 5, false); // 5 mins
+				}
+				AOMagic.CreateMagicCircle(Item, player, Imbue);
 			}
 			if (Main.dedServ)
 			{

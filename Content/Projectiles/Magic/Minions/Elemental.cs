@@ -99,12 +99,10 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 				{
 					if (potentialTarget.Center.X - Projectile.Center.X > 0)
 					{
-						Projectile.rotation = 0;
 						Projectile.spriteDirection = 1;
 					}
 					else
 					{
-						Projectile.rotation = MathHelper.Pi;
 						Projectile.spriteDirection = -1;
 					}
 				}

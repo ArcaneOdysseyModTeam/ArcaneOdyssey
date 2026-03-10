@@ -3,6 +3,7 @@ using ArcaneOdyssey.Content.Buffs.MagicMarks;
 using ArcaneOdyssey.Content.Buffs.Stuns;
 using ArcaneOdyssey.Content.Items.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +12,7 @@ namespace ArcaneOdyssey.Content.Imbues.Magic.Lost
 {
 	public class ThreadMagic : AOMagic
 	{
-		public override Color ImbueColour => Color.Gray;
+		public override Color ImbueColour => Color.Lerp(Color.LightGray, Color.DarkGray, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 

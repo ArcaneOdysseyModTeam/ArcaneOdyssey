@@ -63,8 +63,11 @@ namespace ArcaneOdyssey.Content.Items.Consumable
 			// Spoky (2026 Jan 25): Expected for errors to have an error message but it appears we don't have said luxury, therefore gotta get errors, manually
 			try
 			{
-				ModContent.GetInstance<ImbueAnythingUISystem>().ShowMutationUI();
-				Main.playerInventory = false;
+				if (player.whoAmI == Main.myPlayer)
+				{
+					ModContent.GetInstance<ImbueAnythingUISystem>().ShowMutationUI();
+					Main.playerInventory = false;
+				}
 			}
 			// Spoky (2026 Jan 25): By the way, I like putting exceptions in purple
 			catch (Exception ex) { Main.NewText($"Error in {nameof(UseItem)}: \n{ex}", new Color(255, 0, 255)); }

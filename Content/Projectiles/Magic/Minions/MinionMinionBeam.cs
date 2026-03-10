@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic.Minions
 			Projectile.extraUpdates = 100;
 			Projectile.DamageType = DamageClass.MagicSummonHybrid;
 			Projectile.timeLeft = 400;
+			Projectile.tileCollide = false;
 		}
 
 		public override bool PreDraw(ref Color lightColor) => false;

@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 
 		public override void AI()
 		{
-			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.rotation.ToRotationVector2();
+			var dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.DirectionFrom(Owner.RotatedRelativePoint(Owner.MountedCenter)); 
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
@@ -43,6 +43,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					Projectile.netSpam = 0;
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
+				Projectile.rotation = dir.ToRotation();
 				if (Owner.channel && !MarkedForDeath)
 					Projectile.alpha = 254;
 			}

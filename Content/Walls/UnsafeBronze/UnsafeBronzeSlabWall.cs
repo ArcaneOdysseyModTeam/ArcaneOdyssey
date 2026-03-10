@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Walls.UnsafeBronze
 			DustType = DustID.Copper;
 			VanillaFallbackOnModDeletion = WallID.GoldBrick;
 
-			AddMapEntry(Color.DarkOrange);
+			AddMapEntry(Color.OrangeRed);
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)

@@ -4,6 +4,7 @@ using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -20,7 +21,7 @@ namespace ArcaneOdyssey.Content.Imbues.Magic.Lost
 		
 		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
-		public override Color ImbueColour => new(255, 255, 0);
+		public override Color ImbueColour => Color.Lerp(Color.LightYellow, Color.Yellow, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override float AOScrollSpeed => 1.25f;
