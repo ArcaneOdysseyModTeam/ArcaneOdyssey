@@ -82,6 +82,12 @@ namespace ArcaneOdyssey.Content.Items.Base
 						return circleprojectile;
 					}
 				}
+				else if (item.ModItem is EnchantmentSpell)
+				{
+					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI);
+					((RotatingMagicCircle)circleprojectile.ModProjectile).MarkedForDeath = true;
+					return circleprojectile;
+				}
 				else if (item.ModItem is JavelinSpell)
 				{
 					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), damage, item.knockBack, player.whoAmI);

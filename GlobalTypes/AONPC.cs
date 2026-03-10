@@ -138,7 +138,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				var loss = Utils.Clamp((int)(npcMaxLife * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
 				if (npc.boss)
 				{
-					loss /= 4;
+					loss /= 6;
 				}
 				npc.lifeRegen -= loss;
 				if (damage < 0)

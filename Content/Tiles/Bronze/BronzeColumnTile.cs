@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Content.Tiles.Bronze
 			DustType = DustID.Copper;
 			VanillaFallbackOnModDeletion = TileID.GoldBrick;
 
-			AddMapEntry(Color.DarkOrange);
+			AddMapEntry(Color.OrangeRed);
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)

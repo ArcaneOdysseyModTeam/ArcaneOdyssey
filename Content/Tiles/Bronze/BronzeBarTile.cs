@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Content.Tiles.Bronze
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.LavaPlacement = LiquidPlacement.Allowed;
 			TileObjectData.addTile(Type);
-			AddMapEntry(Color.DarkOrange, Language.GetText("MapObject.MetalBar"));
+			AddMapEntry(Color.OrangeRed, Language.GetText("MapObject.MetalBar"));
 			DustType = DustID.Copper;
 		}
 	}
