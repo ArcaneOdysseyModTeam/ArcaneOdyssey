@@ -43,8 +43,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			return targetHitbox.Intersects(fakebox);
 		}
 
+
+		public bool sentMessage = false;
 		public override void AI()
 		{
+			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
+			{
+				sentMessage = true;
+				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour(Color.White) ?? Color.White, DisplayName + "!", true);
+			}
 			Imbue.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			if (Projectile.ai[0] == 0)
 			{

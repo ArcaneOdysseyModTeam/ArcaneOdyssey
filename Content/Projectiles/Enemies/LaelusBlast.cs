@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
 	public class LaelusBlast : AOBaseProjectile
 	{
-		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
+		public Imbuable Imbue = ModContent.GetInstance<TidestoneBand>();
 
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
 
@@ -29,8 +29,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Main.projFrames[Type] = 4;
 		}
 
+
+		public bool sentMessage = false;
 		public override void AI()
 		{
+			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
+			{
+				sentMessage = true;
+				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour(Color.White) ?? Color.White, DisplayName + "!", true);
+			}
 			Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			if (Projectile.ai[0] == 0)
 			{

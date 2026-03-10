@@ -18,10 +18,17 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Projectile.height = Projectile.width = 170;
 			Projectile.tileCollide = false;
 		}
-		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
+		public Imbuable Imbue = ModContent.GetInstance<TidestoneBand>();
 
+
+		public bool sentMessage = false;
 		public override void AI()
 		{
+			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
+			{
+				sentMessage = true;
+				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour(Color.White) ?? Color.White, DisplayName + "!", true);
+			}
 			Imbue?.ExplosionEffects(Projectile.Center);
 		}
 

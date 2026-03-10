@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.Content.Projectiles.Enemies
 {
@@ -28,8 +29,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			Main.projFrames[Type] = 3;
 		}
 
+
+		public bool sentMessage = false;
 		public override void AI()
 		{
+			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
+			{
+				sentMessage = true;
+				CombatText.NewText(Projectile.Hitbox, Color.Red, DisplayName + "!", true);
+			}
 			Projectile.localAI[0]++;
 			if (Projectile.ai[0] == 0)
 			{

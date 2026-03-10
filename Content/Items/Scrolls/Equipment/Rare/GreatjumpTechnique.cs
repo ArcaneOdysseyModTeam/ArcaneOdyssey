@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		{
 			if (HasCorrectImbue)
 			{
-				var dash = new Greatjump(Item);
+				var dash = new Greatjump(this);
 				player.ArcaneOdyssey().OmniDash = dash;
 				player.ArcaneOdyssey().OmniDashDir = -2;
 			}
