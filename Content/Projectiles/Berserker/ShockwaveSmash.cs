@@ -20,6 +20,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 			Projectile.Opacity = .5f;
 		}
 
+		public override float AOSize => 2.5f;
+
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 6;
@@ -48,10 +50,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 					Kill();
 				}
 			}
-			Projectile.scale += .2f / 3;
-
-			//Imbue?.ExplosionEffects(Projectile.Center, .4f);
-			//SecondImbue?.ExplosionEffects(Projectile.Center, .4f);
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			width = Projectile.width / 4;
 			height = Projectile.height / 4;
-			fallThrough = false;
+			fallThrough = true;
 			return true;
 		}
 

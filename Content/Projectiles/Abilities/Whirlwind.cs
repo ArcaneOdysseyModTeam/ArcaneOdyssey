@@ -15,12 +15,15 @@ namespace ArcaneOdyssey.Content.Projectiles.Abilities
 		public static int MaxTime => 20;
 		public static int TrueMaxTime => MaxTime * 2;
 
+		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.NightsEdge}";
+
 		public override float AOSize => 2.25f;
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ProjectileID.Sets.TrailingMode[Type] = 2;
+			Main.projFrames[Type] = Main.projFrames[ProjectileID.NightsEdge];
 		}
 
 		public override void SetDefaults()
@@ -82,7 +85,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Abilities
 				{
 					rotaitoneoffset = SpriteEffects.FlipHorizontally;
 				}
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.oldRot[k], Sprite.Size() / 2, Projectile.scale, rotaitoneoffset, 0);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type]), colour2, Projectile.oldRot[k], (Sprite.Size() with { Y = Sprite.Height / Main.projFrames[Type] }) / 2f, Projectile.scale, rotaitoneoffset, 0);
 			}
 			return false;
 		}

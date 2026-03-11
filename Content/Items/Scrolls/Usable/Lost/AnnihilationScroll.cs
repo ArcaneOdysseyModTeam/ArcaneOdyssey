@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 			{
 				damage = item.damage;
 			}
-			scroll.ActivateAbility(player, ModContent.ProjectileType<AnnihilationSpell>());
+			scroll.ActivateAbility(player);
 			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.DirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 	}

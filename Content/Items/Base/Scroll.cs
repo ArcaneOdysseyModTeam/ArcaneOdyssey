@@ -1,33 +1,29 @@
 ﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Items.Base
 {
 	public abstract class Scroll : AOBaseItem, IImbuable
 	{
-		public void ActivateAbility(Player player, int? id = null)
+		public void ActivateAbility(Player player)
 		{
 			if (Ability.HasValue)
 			{
 				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
 				{
-					var name = id.HasValue ? Lang.GetProjectileName(id.Value).Value : Ability.Value.Name;
-					CombatText.NewText(player.Hitbox, Ability.Value.Colour, name + "!", true);
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, (Ability.Value.Name + "!").Trim(), true);
 				}
 			}
 		}
 
-		public string ScrollName 
-		{ 
-			get
-			{
-				return DisplayName.Value.Replace("Scroll").Replace("Spell").Replace("Rite").Replace("Technique");
-			}
-		}
+		public LocalizedText SkillName => Language.GetOrRegister(this.GetLocalizationKey("SkillName"), PrettyPrintName);
+
 
 		public WeaponAbility? Ability
 		{
@@ -44,15 +40,26 @@ namespace ArcaneOdyssey.Content.Items.Base
 							ScrollTier.Lost => Color.AliceBlue,
 							_ => Color.White,
 						}),
-						Description = null
+						Description = null,
+						Name = SkillName.Value
 					};
-					if (Item.shoot != ProjectileID.None && Item.shoot != ProjectileID.WoodenArrowFriendly)
+					if (Imbue is not FightingStyle)
 					{
-						ab.Name = Lang.GetProjectileName(Item.shoot).Value;
+						ab.Name = (Imbue.PrettySpellPrefix + " " + ab.Name).Trim();
 					}
-					else
+					else if (SecondImbue is not null)
 					{
-						ab.Name = ScrollName;
+						ab.Colour = SecondImbue.GetColour(Tier switch
+						{
+							ScrollTier.Common => Color.White,
+							ScrollTier.Rare => Color.Aqua,
+							ScrollTier.Lost => Color.AliceBlue,
+							_ => Color.White,
+						});
+					}
+					if (SecondImbue is not null)
+					{
+						ab.Name = (SecondImbue.PrettyAttackPrefix + " " + ab.Name).Trim();
 					}
 					return ab;
 				}
@@ -249,7 +256,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			tooltips.AddTooltip(new(Mod, "ScrollTier", Mod.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
 			if (!HasCorrectImbue)
 			{
-				tooltips.AddTooltip(new(Mod, "ScrollReq", Mod.CustomLocalization($"ScrollTiers.NeedsImbue", GetTierFormatting()).Value));
+				tooltips.AddTooltip(new(Mod, "ScrollReq", Mod.CustomLocalization($"ScrollTiers.NeedsImbue", GetReqFormatting()).Value));
 			}
 		}
 
@@ -260,6 +267,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
+			_ = SkillName;
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EmptyScroll>();
 		}
 	}

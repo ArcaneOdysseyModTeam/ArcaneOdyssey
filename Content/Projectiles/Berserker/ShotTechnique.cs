@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 30;
+			Projectile.width = Projectile.height = 50;
 			Projectile.extraUpdates = 20;
 			Projectile.timeLeft = 90;
 		}
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		{
 			if (!Main.dedServ)
 			{
-				for (float i = 0; i < 15; i++)
+				for (float i = 0; i < 5; i++)
 				{
 					var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (Projectile.width / 2);
 					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, .9f);

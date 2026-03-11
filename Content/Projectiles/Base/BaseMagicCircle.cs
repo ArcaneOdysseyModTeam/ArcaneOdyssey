@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (Imbue is null or AOMagic)
 			{
-				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				lightColor = Imbue?.GetColour() ?? Color.White;
 				return base.PreDraw(ref lightColor);
 			}
 			else
@@ -52,10 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 
 			if (MarkedForDeath && !Main.dedServ)
 			{
-				if (Projectile.alpha < 255)
-				{
-					Projectile.alpha += 255 / 60;
-				}
+				Projectile.Opacity -= GlobalChargeSpeed * 2f;
 			}
 
 			if (Projectile.alpha >= 255 && Main.myPlayer == Projectile.owner)

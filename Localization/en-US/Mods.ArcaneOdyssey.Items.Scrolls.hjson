@@ -7,6 +7,7 @@ Equipment: {
 				Dash then slam
 				Press {AODASHBIND} to activate
 				'''
+			SkillName: Crash
 		}
 
 		AuraScroll: {
@@ -16,16 +17,19 @@ Equipment: {
 				Empowers life, attack size, or damage
 				Life boost scales with imbue
 				'''
+			SkillName: Aura
 		}
 
 		HoverScroll: {
 			DisplayName: Hover Spell
 			Tooltip: Hover with magic
+			SkillName: Hover
 		}
 
 		LeapScroll: {
 			DisplayName: Jump Scroll
 			Tooltip: Allows to weilder to double jump
+			SkillName: Jump
 		}
 	}
 
@@ -33,6 +37,7 @@ Equipment: {
 		FlightScroll: {
 			DisplayName: Flight Scroll
 			Tooltip: Channels your imbue to fly
+			SkillName: Flight
 		}
 
 		ReflexScroll: {
@@ -42,6 +47,7 @@ Equipment: {
 				Channels your imbue to dash
 				Some imbues have special effects
 				'''
+			SkillName: Reflex
 		}
 
 		WalkRite: {
@@ -51,6 +57,7 @@ Equipment: {
 				Dash thrice with your spirit energy
 				Press {AODASHBIND} to activate
 				'''
+			SkillName: Walk
 		}
 
 		SelinoTechnique: {
@@ -60,6 +67,7 @@ Equipment: {
 				Dash thrice, releasing shockwaves
 				Press {AODASHBIND} to activate
 				'''
+			SkillName: Selino
 		}
 
 		BreathtakerTechnique: {
@@ -69,6 +77,7 @@ Equipment: {
 				Dash into an enemy and lower their defense
 				Press {AODASHBIND} to activate
 				'''
+			SkillName: Breathtaker
 		}
 
 		GreatjumpTechnique: {
@@ -78,6 +87,7 @@ Equipment: {
 				Kick off the air and launch upwards
 				Press {AODASHBIND} to activate
 				'''
+			SkillName: Greatjump
 		}
 	}
 
@@ -90,31 +100,37 @@ Usable: {
 		BeamScroll: {
 			DisplayName: Beam Spell
 			Tooltip: Fires a magic beam
+			SkillName: Beam
 		}
 
 		BlastScroll: {
 			DisplayName: Blast Rite
 			Tooltip: Fires a spirit blast
+			SkillName: Blast
 		}
 
 		ExplosionScroll: {
 			DisplayName: Explosion Scroll
 			Tooltip: Creates a controllable explosion
+			SkillName: Explosion
 		}
 
 		RainRite: {
 			DisplayName: Rain Rite
 			Tooltip: Shoots a spirit cloud that rains projectiles
+			SkillName: Rain
 		}
 
 		ShotScroll: {
 			DisplayName: Shot Technique
 			Tooltip: Shoots a quick blast of air
+			SkillName: Shot
 		}
 
 		SmashScroll: {
 			DisplayName: Smash Technique
 			Tooltip: Creates a shockwave of air
+			SkillName: Smash
 		}
 	}
 
@@ -122,26 +138,31 @@ Usable: {
 		AnnihilationScroll: {
 			DisplayName: Annihilation Spell
 			Tooltip: Fires a massive explosive magic blast
+			SkillName: Annihilation
 		}
 
 		EnchantmentSpell: {
 			DisplayName: Enchantment Spell
 			Tooltip: Buffs all other players
+			SkillName: Enchantment
 		}
 
 		CrescendoTechnique: {
 			DisplayName: Crescendo Technique
 			Tooltip: Creates a massive shockwave of air
+			SkillName: Crescendo
 		}
 
 		ElementalSpell: {
 			DisplayName: Elemental Spell
 			Tooltip: Summons an elemental made of magic
+			SkillName: Elemental
 		}
 
 		AcumenTechnique: {
 			DisplayName: Acumen Technique
 			Tooltip: Empowers your aura scroll effect permanently
+			SkillName: Acumen
 		}
 	}
 
@@ -149,26 +170,31 @@ Usable: {
 		ArrayScroll: {
 			DisplayName: Array Spell
 			Tooltip: Fires tracking magic blasts
+			SkillName: Array
 		}
 
 		CannonScroll: {
 			DisplayName: Cannon Spell
 			Tooltip: Fires a piercing magic blast
+			SkillName: Cannon
 		}
 
 		HoundRite: {
 			DisplayName: Hound Rite
 			Tooltip: Fires a piercing spirit blast
+			SkillName: Hound
 		}
 
 		PulsarScroll: {
 			DisplayName: Pulsar Spell
 			Tooltip: Fires a rapidly exploding magic blast
+			SkillName: Pulsar
 		}
 
 		BarrageSpell: {
 			DisplayName: Barrage Spell
 			Tooltip: Fires magic blasts rapidly
+			SkillName: Barrage
 		}
 
 		AxeTechnique: {
@@ -178,21 +204,25 @@ Usable: {
 				Cleave through the air and foes
 				Alt fire to ignore trees
 				'''
+			SkillName: Axe
 		}
 
 		MeteorScroll: {
 			DisplayName: Meteor Scroll
 			Tooltip: Calls down a magic meteor
+			SkillName: Meteor
 		}
 
 		JavelinSpell: {
 			DisplayName: Javelin Spell
 			Tooltip: Shoots a projectile that sticks to enemies and tiles
+			SkillName: Javelin
 		}
 
 		RaySpell: {
 			DisplayName: Ray Spell
 			Tooltip: Fires a continuously exploding beam of magic
+			SkillName: Ray
 		}
 	}
 }

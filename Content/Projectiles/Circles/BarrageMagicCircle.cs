@@ -40,8 +40,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				if (Main.myPlayer == Projectile.owner)
 				{
 					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
+					ProjectileSpread /= ApplySpeed(1f, true);
 				}
+				Projectile.netSpam = 0;
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 				Projectile.rotation = dir.ToRotation();
 				if (Owner.channel && !MarkedForDeath)
@@ -52,8 +53,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			if (Projectile.position != Projectile.oldPosition && Main.myPlayer == Projectile.owner)
 			{
 				Projectile.netUpdate = true;
-				Projectile.netSpam = 0;
 			}
+			Projectile.netSpam = 0;
+			dir = Projectile.rotation.AngleTowards(dir.ToRotation(), ApplySpeed(MathHelper.TwoPi / 200f)).ToRotationVector2();
 
 
 			if (Owner.channel && !MarkedForDeath)
@@ -97,7 +99,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				MarkedForDeath = true;
 			}
 
-			circleRotation = ApplySpeed(MathHelper.TwoPi / 5f);
+			//circleRotation = ApplySpeed(MathHelper.TwoPi / 5f);
 		}
 
 		public float Intensity => Projectile.Opacity * 1.2f;
@@ -108,11 +110,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 		{
 			if (Imbue is null or AOMagic)
 			{
-				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				lightColor = Imbue?.GetColour() ?? Color.White;
 				Lighting.AddLight(Projectile.Center, lightColor.ToVector3());
 			}
 			else
-				lightColor = Color.Transparent;
+				return false;
 
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
@@ -122,7 +124,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"]
 				.UseColor(lightColor)
 				.UseSaturation(Intensity)
-				.UseSecondaryColor(new Color(circleRotation, 0, 0));
+				.UseSecondaryColor(new Color(ApplySpeed(MathHelper.TwoPi / 5f), 0, 0));
 
 
 			GameShaders.Misc[Mod.Name + ":MagicCircleBase"].Apply();

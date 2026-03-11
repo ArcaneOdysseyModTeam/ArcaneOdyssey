@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 100;
+			Projectile.width = Projectile.height = 300;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;

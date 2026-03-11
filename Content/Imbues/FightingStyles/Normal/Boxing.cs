@@ -22,6 +22,7 @@ namespace ArcaneOdyssey.Content.Imbues.FightingStyles.Normal
 				EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);
 			}
 		}
+
 		public override Color ImbueColour => Color.Red;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
 		public override float AOImbueDamage => 0.9f;

@@ -91,7 +91,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					Projectile.timeLeft = TimeLeft;
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
 					{
-						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+						var name = (Imbue.PrettySpellPrefix + " " + DisplayName).Trim();
+						if (SecondImbue is not null)
+						{
+							name = SecondImbue.PrettyAttackPrefix + " " + name;
+						}
+						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(), (name + "!").Trim(), true);
 					}
 				}
 			}

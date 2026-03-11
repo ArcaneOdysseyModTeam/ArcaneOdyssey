@@ -58,12 +58,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Color Colour = Imbue?.GetColour(lightColor) ?? lightColor;
+			lightColor = Imbue?.GetColour(lightColor) ?? lightColor;
+			lightColor = SecondImbue?.GetColour(lightColor) ?? lightColor;
 			var realkmax = ApplySpeed(12f).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{
 				Vector2 drawPos = Projectile.Center - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
+				var colour2 = Projectile.GetAlpha(lightColor * (1f - ((realkmax - k) / (float)realkmax)));
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, SpriteEffects.None, 0);
 			}
 			return false;

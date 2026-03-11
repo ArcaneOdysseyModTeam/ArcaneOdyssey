@@ -8,6 +8,8 @@ Relics: {
 		}
 
 		Tooltip: ""
+		AttackPrefix: ""
+		SpellPrefix: Spirit
 	}
 
 	EmberStaff: {
@@ -18,6 +20,9 @@ Relics: {
 			DisplayName: Floganymai
 			Description: Release a pillar of spirit energy
 		}
+
+		AttackPrefix: ""
+		SpellPrefix: Spirit
 	}
 
 	NyxStaff: {
@@ -28,6 +33,9 @@ Relics: {
 			DisplayName: Nichtetheis
 			Description: Fire a beam of spirit energy
 		}
+
+		AttackPrefix: ""
+		SpellPrefix: Spirit
 	}
 
 	TidestoneBand: {
@@ -38,6 +46,9 @@ Relics: {
 			DisplayName: Thakrousi
 			Description: Use spirit energy to leap forward
 		}
+
+		AttackPrefix: ""
+		SpellPrefix: Spirit
 	}
 
 	CrystalOrb: {
@@ -48,15 +59,22 @@ Relics: {
 			DisplayName: Aithiraki
 			Description: Summon a spirit clone
 		}
+
+		AttackPrefix: ""
+		SpellPrefix: Spirit
 	}
 
 	SpiritEnergy: {
 		DisplayName: Divine Spirit Energy
 		Tooltip: ""
+		AttackPrefix: ""
+		SpellPrefix: Spirit
 	}
 }
 
 SteamImbue: {
 	DisplayName: Steam Imbue
 	Tooltip: ""
+	AttackPrefix: Scalding
+	SpellPrefix: Steam
 }

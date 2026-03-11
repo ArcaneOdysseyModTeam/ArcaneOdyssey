@@ -40,11 +40,5 @@ namespace ArcaneOdyssey.Content.Projectiles.Berserker
 				}
 			}
 		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
-			return base.PreDraw(ref lightColor);
-		}
 	}
 }

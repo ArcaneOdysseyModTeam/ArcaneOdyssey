@@ -57,7 +57,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, Projectile.DamageType);
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
 					{
-						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+						var name = DisplayName.Value;
+						if (SecondImbue is not null)
+						{
+							name = SecondImbue.PrettyAttackPrefix + " " + name;
+						}
+						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(), (name + "!").Trim(), true);
 					}
 				}
 				for (int i = 0; i < 30; i++)

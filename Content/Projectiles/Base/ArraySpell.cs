@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 				overWiresUI.Add(index);
 		}
 
+		public override bool HasMagicVariant => true;
 
 		public Rectangle Proj1 => new(Projectile.Center.X.Round(), Projectile.position.Y.Round() - (20 * Projectile.scale).Round(), (64 * Projectile.scale).Round(), (64 * Projectile.scale).Round());
 		public bool Proj1Active = true;
@@ -150,10 +151,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 					Projectile.netSpam = 0;
 				}
 				Projectile.velocity = Vector2.Zero;
-				if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
-				{
-					CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
-				}
 			}
 			Animate();
 			Rotate();

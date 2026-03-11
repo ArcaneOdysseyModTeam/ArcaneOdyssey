@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
 				{
-					CombatText.NewText(player.Hitbox, Ability.Value.Colour, Ability.Value.Name + "!", !passive);
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, (Ability.Value.Name + "!").Trim(), !passive);
 				}
 			}
 		}
@@ -34,12 +34,28 @@ namespace ArcaneOdyssey.Content.Items.Base
 				{
 					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName").Value;
 					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description").Value;
+					if (Imbue is not null)
+					{
+						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+					}
+					if (SecondImbue is not null)
+					{
+						ab.Name = (SecondImbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+					}
 					return ab;
 				}
 				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
 				{
 					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability").Value;
 					ab.Description = null;
+					if (Imbue is not null)
+					{
+						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+					}
+					if (SecondImbue is not null)
+					{
+						ab.Name = (SecondImbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+					}
 					return ab;
 				}
 				return null;

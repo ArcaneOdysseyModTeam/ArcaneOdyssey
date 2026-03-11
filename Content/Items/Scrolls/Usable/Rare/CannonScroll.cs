@@ -28,5 +28,8 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare
 			AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
 			return false;
 		}
+
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Imbue.GetSkill("Cannon")] < 1;
+		
 	}
 }

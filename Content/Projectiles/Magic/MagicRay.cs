@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 30; // ticker
+			Projectile.height = Projectile.width = 30; // thicker
 			Projectile.extraUpdates = 100;
 			Projectile.timeLeft = 85;
 			Projectile.stopsDealingDamageAfterPenetrateHits = true;

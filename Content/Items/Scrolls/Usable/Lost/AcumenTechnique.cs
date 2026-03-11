@@ -42,8 +42,9 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost
 				player.ArcaneOdyssey().acumen = true;
 				if (Main.myPlayer == player.whoAmI)
 				{
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText)
+						CombatText.NewText(player.Hitbox, Color.White, SkillName + "!", true); // manually do since its never imbued
 					Main.NewText(Mod.CustomLocalization("RandomWords.Acumen"), Color.MediumVioletRed);
-					ActivateAbility(player);
 				}
 			}
 			return true;

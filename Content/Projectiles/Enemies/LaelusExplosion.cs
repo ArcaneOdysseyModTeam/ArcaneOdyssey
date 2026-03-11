@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour(Color.White) ?? Color.White, DisplayName + "!", true);
+				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour() ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
 			Imbue?.ExplosionEffects(Projectile.Center);
 		}

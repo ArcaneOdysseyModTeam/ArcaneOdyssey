@@ -15,10 +15,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 		{
 			if (DrawWithImbueColours)
 			{
-				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				lightColor = Imbue?.GetColour() ?? Color.White;
 			}
 			return base.PreDraw(ref lightColor);
 		}
+
+		public virtual bool HasMagicVariant => false;
 
 		public string Tier
 		{

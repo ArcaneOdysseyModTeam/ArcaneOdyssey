@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -46,7 +47,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 			{
 				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
 				{
-					CombatText.NewText(player.Hitbox, Ability.Value.Colour, Ability.Value.Name + "!", !passive);
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, (Ability.Value.Name + "!").Trim(), !passive);
 				}
 			}
 		}
@@ -55,14 +56,16 @@ namespace ArcaneOdyssey.Content.Items.Base
 		{
 			get
 			{
-				var ab = new WeaponAbility
-				{
-					Colour = Imbue?.GetColour(ImbueColour) ?? GetColour(Color.White)
-				};
+				var ab = new WeaponAbility { Colour = GetColour() };
 				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
 				{
 					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName").Value;
 					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description").Value;
+					if (Imbue is not null)
+					{
+						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+						ab.Colour = Imbue.GetColour(ImbueColour);
+					}
 					return ab;
 				}
 				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
@@ -92,6 +95,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
+			_ = PrettyAttackPrefix;
+			_ = PrettySpellPrefix;
 		}
 
 		/// <summary>
@@ -149,6 +154,10 @@ namespace ArcaneOdyssey.Content.Items.Base
 		public virtual float KBMulti => 1f;
 
 		public virtual string AttackPrefix => Name.Replace("Magic");
+
+		public LocalizedText PrettyAttackPrefix => Language.GetOrRegister(this.GetLocalizationKey("AttackPrefix"), () => Regex.Replace(AttackPrefix, "([A-Z])", " $1").Trim());
+
+		public LocalizedText PrettySpellPrefix => Language.GetOrRegister(this.GetLocalizationKey("SpellPrefix"), () => Regex.Replace(AttackPrefix, "([A-Z])", " $1").Trim());
 
 		public int GetSkill(string skill, int fallback = ProjectileID.EnchantedBeam)
 		{
@@ -257,9 +266,17 @@ namespace ArcaneOdyssey.Content.Items.Base
 
 		public Color GetColour(Color? colour = null)
 		{
+			if (Imbue is not null)
+			{
+				colour ??= Imbue.GetColour(ImbueColour);
+			}
+			else
+			{
+				colour ??= Color.White;
+			}
 			if (this is FightingStyleBarred bar)
 			{
-				return Color.Lerp(colour.GetValueOrDefault(), ImbueColour, bar.LerpValue);
+				return Color.Lerp(colour.Value, ImbueColour, bar.LerpValue);
 			}
 			return ImbueColour;
 		}

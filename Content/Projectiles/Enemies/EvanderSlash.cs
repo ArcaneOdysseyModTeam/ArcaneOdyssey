@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Enemies
 			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Color.Red, DisplayName + "!", true);
+				CombatText.NewText(Projectile.Hitbox, Color.Red, (DisplayName + "!").Trim(), true);
 			}
 			Projectile.localAI[0]++;
 			if (Projectile.ai[0] == 0)

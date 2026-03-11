@@ -1,11 +1,13 @@
 using ArcaneOdyssey.Content.Items.Base;
 using ArcaneOdyssey.Content.Projectiles.Base;
+using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Content.Projectiles.Circles
 {
@@ -44,7 +46,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 					Projectile.netSpam = 0;
 				}
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
-				Projectile.rotation = dir.ToRotation();
+				if (Projectile.owner != Main.myPlayer)
+					Projectile.rotation = dir.ToRotation();
 			}
 
 
@@ -83,7 +86,16 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 				{
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
 					{
-						CombatText.NewText(Owner.Hitbox, Imbue?.GetColour(Color.White) ?? Color.White, Lang.GetProjectileName(ChargingProjectile) + "!", true);
+						var name = Lang.GetProjectileName(ChargingProjectile).Value;
+						if (ModContent.GetModProjectile(ChargingProjectile) is MagicSpell spell && !spell.HasMagicVariant)
+						{
+							name = (Imbue.PrettySpellPrefix + " " + name).Trim();
+						}
+						if (SecondImbue is not null)
+						{
+							name = (SecondImbue.PrettyAttackPrefix + " " + name).Trim();
+						}
+						CombatText.NewText(Owner.Hitbox, Imbue?.GetColour() ?? Color.White, (name + "!").Trim(), ModContent.GetModProjectile(ChargingProjectile) is not LesserBeam or BlastSpell);
 					}
 					var proj = AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner, Imbue, SecondImbue, true);
 					if (proj.ModProjectile is PulsarSpell && originallyAltFire)
@@ -116,11 +128,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 		{
 			if (Imbue is null or AOMagic)
 			{
-				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				lightColor = Imbue?.GetColour() ?? Color.White;
 				Lighting.AddLight(Projectile.Center, lightColor.ToVector3());
 			}
 			else
-				lightColor = Color.Transparent;
+				return false;
 
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);

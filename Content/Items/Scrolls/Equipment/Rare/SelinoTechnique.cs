@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
-			scroll.ActivateAbility(player, ModContent.ProjectileType<Selino>());
+			scroll.ActivateAbility(player);
 			var dash = new Selino2(source);
 			player.ArcaneOdyssey().StartDash(dash, 0, Imbue, true);
 			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);

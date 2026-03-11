@@ -35,12 +35,12 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 		{
 			if (HasCorrectImbue)
 			{
-				player.ArcaneOdyssey()?.SetDash(new Crash(Item));
+				player.ArcaneOdyssey()?.SetDash(new Crash(this));
 			}
 		}
 	}
 
-	public class Crash(Entity source) : DashSystem(source)
+	public class Crash(Scroll scroll) : DashSystem(scroll.Item)
 	{
 		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 		public override int Cooldown => CrashScroll.Cooldown;
@@ -57,6 +57,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common
 		public override void OnEnd(Player player)
 		{
 			player.velocity = Vector2.Zero;
+			scroll.ActivateAbility(player);
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 		}
 

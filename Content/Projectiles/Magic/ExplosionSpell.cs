@@ -28,8 +28,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		public override void AI()
 		{
 			var size = isPlacedExplosion ? 1f : 1.2f;
-			if (AOPlayerOwner.myCircle is not null)
-				AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f));
 			if (Projectile.position != Projectile.oldPosition)
 			{
 				if (Projectile.owner == Main.myPlayer)
@@ -62,7 +60,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, Projectile.DamageType);
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
 					{
-						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(Color.White), DisplayName + "!", true);
+						var name = (Imbue.PrettySpellPrefix + " " + DisplayName).Trim();
+						if (SecondImbue is not null)
+						{
+							name = SecondImbue.PrettyAttackPrefix + " " + name;
+						}
+						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(), (name + "!").Trim(), true);
 					}
 				}
 				for (int i = 0; i < 30; i++)

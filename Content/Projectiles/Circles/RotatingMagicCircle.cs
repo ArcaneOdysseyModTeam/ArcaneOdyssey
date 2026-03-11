@@ -80,11 +80,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Circles
 		{
 			if (Imbue is null or AOMagic)
 			{
-				lightColor = Imbue?.GetColour(Color.White) ?? Color.White;
+				lightColor = Imbue?.GetColour() ?? Color.White;
 				Lighting.AddLight(Projectile.Center, lightColor.ToVector3());
 			}
 			else
-				lightColor = Color.Transparent;
+				return false;
 
 			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.None);
 			return false;

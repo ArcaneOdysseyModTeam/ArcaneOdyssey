@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 
 		public override void OnStart(Player player)
 		{
-			scroll.ActivateAbility(player, ModContent.ProjectileType<GreatjumpShockwave>());
+			scroll.ActivateAbility(player);
 			if (player.whoAmI == Main.myPlayer)
 			{
 				var proj = AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<GreatjumpShockwave>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);

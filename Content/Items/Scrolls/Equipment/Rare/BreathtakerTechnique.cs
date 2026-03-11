@@ -32,12 +32,12 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		{
 			if (HasCorrectImbue)
 			{
-				player.ArcaneOdyssey()?.SetDash(new Breathtaker(Item));
+				player.ArcaneOdyssey()?.SetDash(new Breathtaker(this));
 			}
 		}
 	}
 
-	public class Breathtaker(Entity source) : DashSystem(source)
+	public class Breathtaker(Scroll scroll) : DashSystem(scroll.Item)
 	{
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
@@ -50,6 +50,7 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare
 		public override void OnEnd(Player player)
 		{
 			player.velocity *= .01f;
+			scroll.ActivateAbility(player);
 		}
 
 		public override bool ContactDamage => false;

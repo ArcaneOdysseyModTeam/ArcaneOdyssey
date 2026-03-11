@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BarrageMagicCircle>(), damage, item.knockBack, player.whoAmI);
 					circleprojectile.rotation = rot.ToRotation();
 					((BarrageMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
-					((BarrageMagicCircle)circleprojectile.ModProjectile).ProjectileSpread = MathHelper.PiOver4 / 2f / magicToUse.AOScrollSpeed.FlipFloat();
+					((BarrageMagicCircle)circleprojectile.ModProjectile).ProjectileSpread = MathHelper.PiOver4 / 2f;
 					barrage.ActivateAbility(player);
 					return circleprojectile;
 				}
@@ -109,7 +109,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BarrageMagicCircle>(), damage, item.knockBack, player.whoAmI);
 					circleprojectile.rotation = rot.ToRotation();
 					((BarrageMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<MagicRay>();
-					ray.ActivateAbility(player, ((BarrageMagicCircle)circleprojectile.ModProjectile).ChargingProjectile);
+					ray.ActivateAbility(player);
 					return circleprojectile;
 				}
 				else if (item.ModItem is ExplosionScroll)
@@ -145,7 +145,7 @@ namespace ArcaneOdyssey.Content.Items.Base
 					var proj = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Bottom, Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), 0, 0, player.whoAmI);
 					proj.rotation = MathHelper.PiOver2;
 					((BasicMagicCircle)proj.ModProjectile).MarkedForDeath = true;
-					leap.ActivateAbility(player, ModContent.ProjectileType<LeapFix>());
+					leap.ActivateAbility(player);
 					return proj;
 				}
 				else if (item.ModItem is ArrayScroll)
