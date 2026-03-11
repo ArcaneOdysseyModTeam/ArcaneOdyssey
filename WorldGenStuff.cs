@@ -160,25 +160,25 @@ namespace ArcaneOdyssey
 
 		public void SpawnEliusArena()
 		{
-			var epstein = Generator.GetStructureData("Structures/EliusArena", Mod);
+			var eliusArenaStruct = Generator.GetStructureData("Structures/EliusArena", Mod);
 
 			int x = Main.maxTilesX;
-			int epsteinPosX;
-			int epsteinPosY;
+			int eliusArenaStructPosX;
+			int eliusArenaStructPosY;
 			Rectangle arenaBounds;
 
 			do
 			{
-				epsteinPosX = WorldGen.genRand.Next((int)(x * 0.6), (int)(x * 0.9));
-				epsteinPosY = WorldGen.genRand.Next(120);
-				epsteinPosY = Math.Min(epsteinPosY, (int)GenVars.worldSurfaceLow - 50);
-				arenaBounds = new(epsteinPosX, epsteinPosY, epstein.width, epstein.height);
+				eliusArenaStructPosX = WorldGen.genRand.Next((int)(x * 0.6), (int)(x * 0.9));
+				eliusArenaStructPosY = WorldGen.genRand.Next(120);
+				eliusArenaStructPosY = Math.Min(eliusArenaStructPosY, (int)GenVars.worldSurfaceLow - 50);
+				arenaBounds = new(eliusArenaStructPosX, eliusArenaStructPosY, eliusArenaStruct.width, eliusArenaStruct.height);
 			}
 			while (!IsValidSkyPlacementArea(arenaBounds));
 
 			ArenaLoader.eliusArena = AOUtils.ScaleRectangleNotRef(arenaBounds, 1.15f);
 
-			Generator.GenerateFromData(epstein, new(epsteinPosX, epsteinPosY));
+			Generator.GenerateFromData(eliusArenaStruct, new(eliusArenaStructPosX, eliusArenaStructPosY));
 		}
 	}
 }
