@@ -57,7 +57,6 @@ namespace ArcaneOdyssey.Biomes
 		public override void SaveWorldData(TagCompound tag)
 		{
 			tag.Add("eliusarena", eliusArena.ToIntArray());
-			eliusArena = Rectangle.Empty;
 		}
 	}
 }

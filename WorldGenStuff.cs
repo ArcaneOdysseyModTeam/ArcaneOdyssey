@@ -169,15 +169,14 @@ namespace ArcaneOdyssey
 
 			do
 			{
-				epsteinPosX = WorldGen.genRand.Next((int)(x * 0.6), (int)(x * 0.8));
-				epsteinPosY = WorldGen.genRand.Next((epstein.height / 2) + 1, 120);
+				epsteinPosX = WorldGen.genRand.Next((int)(x * 0.6), (int)(x * 0.9));
+				epsteinPosY = WorldGen.genRand.Next(120);
 				epsteinPosY = Math.Min(epsteinPosY, (int)GenVars.worldSurfaceLow - 50);
-
-				arenaBounds = Utils.CenteredRectangle(new Vector2(epsteinPosX, epsteinPosY), new Vector2(epstein.width, epstein.height));
+				arenaBounds = new(epsteinPosX, epsteinPosY, epstein.width, epstein.height);
 			}
 			while (!IsValidSkyPlacementArea(arenaBounds));
 
-			ArenaLoader.eliusArena = AOUtils.ScaleRectangleNotRef(new(epsteinPosX, epsteinPosY, epstein.width, epstein.height), 1.15f);
+			ArenaLoader.eliusArena = AOUtils.ScaleRectangleNotRef(arenaBounds, 1.15f);
 
 			Generator.GenerateFromData(epstein, new(epsteinPosX, epsteinPosY));
 		}

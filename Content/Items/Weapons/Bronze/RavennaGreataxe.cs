@@ -73,8 +73,8 @@ namespace ArcaneOdyssey.Content.Items.Weapons.Bronze
 
 		public override void DashEffect(Player player)
 		{
-			if (player.itemAnimation < 8 || player.itemTime < 8)
-				player.itemAnimation = player.itemTime = 7;
+			if (player.ItemAnimationEndingOrEnded)
+				player.itemAnimation = player.itemTime = 2;
 
 			if (player.ArcaneOdyssey().DashLeft < (DashMax - 30))
 			{

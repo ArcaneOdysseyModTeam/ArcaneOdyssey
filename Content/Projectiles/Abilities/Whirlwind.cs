@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Abilities
 		public static int MaxTime => 20;
 		public static int TrueMaxTime => MaxTime * 2;
 
-		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.NightsEdge}";
+		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.TerraBlade2}";
 
 		public override float AOSize => 2.25f;
 
@@ -23,13 +23,14 @@ namespace ArcaneOdyssey.Content.Projectiles.Abilities
 		{
 			base.SetStaticDefaults();
 			ProjectileID.Sets.TrailingMode[Type] = 2;
-			Main.projFrames[Type] = Main.projFrames[ProjectileID.NightsEdge];
+			ProjectileID.Sets.TrailCacheLength[Type] = 15;
+			Main.projFrames[Type] = 4;
 		}
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 144;
+			Projectile.width = Projectile.height = 200;
 			Projectile.friendly = true;
 			Projectile.timeLeft = TrueMaxTime;
 			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
@@ -39,6 +40,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Abilities
 			Projectile.ownerHitCheck = true;
 			Projectile.localNPCHitCooldown = MaxTime;
 			Projectile.usesLocalNPCImmunity = true;
+			Projectile.frame = 1;
 		}
 
 		private Vector2 RotationOrigin;
@@ -58,12 +60,12 @@ namespace ArcaneOdyssey.Content.Projectiles.Abilities
 				RotationOrigin = Owner.RotatedRelativePoint(Owner.MountedCenter);
 				OriginalDir = Owner.direction;
 			}
-			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * 1.25f * (Imbue?.AOImbueSpeed ?? 1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
-			Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * 44f * Projectile.scale * OriginalDir);
+			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * ApplySpeed(1.25f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
+			//Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * Projectile.scale * OriginalDir);
 			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
-				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
+				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center + Projectile.rotation.ToRotationVector2()).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
 				//AOPlayerOwner.HeavySkillActive = true;
 				Owner.PlayerItem().noMelee = true;
 			}
@@ -79,13 +81,13 @@ namespace ArcaneOdyssey.Content.Projectiles.Abilities
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Colour * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length));
+				var colour2 = Projectile.GetAlpha(Colour) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 				var rotaitoneoffset = SpriteEffects.None;
 				if (OriginalDir == -1)
 				{
 					rotaitoneoffset = SpriteEffects.FlipHorizontally;
 				}
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type]), colour2, Projectile.oldRot[k], (Sprite.Size() with { Y = Sprite.Height / Main.projFrames[Type] }) / 2f, Projectile.scale, rotaitoneoffset, 0);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame), colour2, Projectile.oldRot[k], (Sprite.Size() with { Y = Sprite.Height / Main.projFrames[Type] }) / 2f, Projectile.scale, rotaitoneoffset, 0);
 			}
 			return false;
 		}
