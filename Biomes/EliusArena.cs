@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Biomes
 
 		public override void OnInBiome(Player player)
 		{
-			player.AddBuff(BuffID.NoBuilding, 2);
+			player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
 		}
 
 		public override int Music => -1;
@@ -45,18 +45,31 @@ namespace ArcaneOdyssey.Biomes
 
 		public override void LoadWorldData(TagCompound tag)
 		{
-			eliusArena = Rectangle.Empty;
 			if (tag.ContainsKey("eliusarena"))
 			{
 				eliusArena = tag.GetIntArray("eliusarena").FromIntArray();
 				if (eliusArena == default)
 					ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
 			}
+			else
+			{
+				ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
+			}
 		}
 
 		public override void SaveWorldData(TagCompound tag)
 		{
 			tag.Add("eliusarena", eliusArena.ToIntArray());
+		}
+
+		public override void Load()
+		{
+			eliusArena = Rectangle.Empty;
+		}
+
+		public override void Unload()
+		{
+			eliusArena = Rectangle.Empty;
 		}
 	}
 }

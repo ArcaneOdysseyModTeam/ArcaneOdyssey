@@ -290,3 +290,10 @@ EmptyScroll: {
 	DisplayName: Empty Scroll
 	Tooltip: ""
 }
+
+Debug: {
+	EliusArenaSpawner: {
+		DisplayName: Elius Arena Spawner [DEBUG]
+		Tooltip: Forces Elius's arena to generate
+	}
+}

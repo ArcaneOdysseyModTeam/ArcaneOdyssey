@@ -67,8 +67,9 @@ namespace ArcaneOdyssey
 							return false;
 					}
 				}
+				return true;
 			}
-			return true;
+			return false;
 		}
 
 		public static void KillTucker(int left, int top, int right, int bottom, int tile)
@@ -158,9 +159,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public void SpawnEliusArena()
+		public static void SpawnEliusArena()
 		{
-			var eliusArenaStruct = Generator.GetStructureData("Structures/EliusArena", Mod);
+			var eliusArenaStruct = Generator.GetStructureData("Structures/EliusArena", ArcaneOdysseyMod.Instance);
 
 			int x = Main.maxTilesX;
 			int eliusArenaStructPosX;
@@ -171,7 +172,8 @@ namespace ArcaneOdyssey
 			{
 				eliusArenaStructPosX = WorldGen.genRand.Next((int)(x * 0.6), (int)(x * 0.9));
 				eliusArenaStructPosY = WorldGen.genRand.Next(120);
-				eliusArenaStructPosY = Math.Min(eliusArenaStructPosY, (int)GenVars.worldSurfaceLow - 50);
+				if (GenVars.worldSurfaceLow != 0)
+					eliusArenaStructPosY = Math.Min(eliusArenaStructPosY, (int)GenVars.worldSurfaceLow - 50);
 				arenaBounds = new(eliusArenaStructPosX, eliusArenaStructPosY, eliusArenaStruct.width, eliusArenaStruct.height);
 			}
 			while (!IsValidSkyPlacementArea(arenaBounds));
