@@ -438,3 +438,10 @@ ScrollTiers: {
 	FightingStyle: "[c/ff0000:fighting style]"
 	Relic: "[c/2277ff:relic]"
 }
+
+Biomes: {
+	EliusArena: {
+		DisplayName: Djin Ruins
+		TownNPCDialogueName: the Djin Ruins
+	}
+}

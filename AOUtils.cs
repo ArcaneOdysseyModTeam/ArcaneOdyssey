@@ -242,6 +242,16 @@ namespace ArcaneOdyssey
 			return ModContent.GetInstance<T>().Effects;
 		}
 
+		public static int[] ToIntArray(this Rectangle rect)
+		{
+			return [rect.X, rect.Y, rect.Width, rect.Height];
+		}
+
+		public static Rectangle FromIntArray(this int[] array)
+		{
+			return new Rectangle(array[0], array[1], array[2], array[3]);
+		}
+
 		public static SynergyEffects CopyDamageSynergiesFromImbue<T>() where T : Imbuable
 		{
 			return ModContent.GetInstance<T>().Effects with { clearBuffs = [] };

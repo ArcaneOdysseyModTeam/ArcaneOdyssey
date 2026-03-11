@@ -21,6 +21,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using Terraria.Graphics.Shaders;
+using ArcaneOdyssey.Biomes;
 
 namespace ArcaneOdyssey
 {
@@ -102,6 +103,28 @@ namespace ArcaneOdyssey
 			this.CoolCustomLocalization("RandomWords.AnyMaterial");
 			this.CoolCustomLocalization("RandomWords.Help");
 			this.CoolCustomLocalization("RandomWords.Press");
+		}
+
+		public string BTitlesHook_BiomeChecker(Player player)
+		{
+			if (player.InModBiome<EliusArena>())
+				return "EliusArena";
+
+			return "";
+		}
+
+		public IEnumerable<dynamic> BTitlesHook_GetBiomes()
+		{
+			yield return new
+			{
+				Key = "EliusArena",
+				Title = this.CustomLocalization("Biomes.EliusArena.DisplayName").Value,
+				SubTitle = DisplayNameClean,
+				TitleColor = Color.MediumPurple,
+				TitleStroke = Color.Purple,
+				Icon = Assets.Request<Texture2D>("icon_small").Value,
+
+			};
 		}
 	}
 
