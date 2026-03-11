@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;

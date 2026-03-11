@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Content.Projectiles.Base;
-using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace ArcaneOdyssey.Content.Projectiles.Berserker

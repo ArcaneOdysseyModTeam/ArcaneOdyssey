@@ -62,49 +62,8 @@ namespace ArcaneOdyssey.Content.Items.Base
 			}
 		}
 
-		public float ApplySpeed(float value, bool flipfloat = false)
-		{
-			if (BenifitsFromScrollStats.HasValue)
-			{
-				if (BenifitsFromScrollStats.Value)
-				{
-					if (Imbue is not null)
-					{
-						if (!flipfloat)
-						{
-							value *= Imbue.AOScrollSpeed;
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
-						}
-						else
-						{
-							value *= Imbue.AOScrollSpeed.FlipFloat();
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
-						}
-					}
-				}
-				else
-				{
-					if (Imbue is not null)
-					{
-						if (!flipfloat)
-						{
-							value *= Imbue.AOImbueSpeed;
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
-						}
-						else
-						{
-							value *= Imbue.AOImbueSpeed.FlipFloat();
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
-						}
-					}
-				}
-			}
-			return value;
-		}
+		public float ApplySpeed(float value, bool flipfloat = false) => Item.ArcaneOdyssey().ApplySpeed(value, flipfloat);
+		public float ApplySize(float value, bool flipfloat = false) => Item.ArcaneOdyssey().ApplySize(value, flipfloat);
 
 		public override ItemType? ItemCategory => ItemType.Weapon;
 

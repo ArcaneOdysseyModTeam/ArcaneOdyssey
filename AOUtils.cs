@@ -182,18 +182,21 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static void ScaleRectangle(ref Rectangle rect, float scale, bool adjustX = true, bool adjustY = true)
+		/// <summary>
+		/// Scales a rectangle
+		/// </summary>
+		/// <param name="rect">Rectangle to scale</param>
+		/// <param name="scale">Multiplier to scale by</param>
+		/// <param name="adjustX">How many times to shift left the hitbox if it grew, or shift right if it shrunk</param>
+		/// <param name="adjustY">How many times to shift up the hitbox if it grew, or shift it down if it shrunk</param>
+		public static void ScaleRectangle(ref Rectangle rect, float scale, int adjustX = 1, int adjustY = 1)
 		{
 			var diffX = ((rect.Width - (rect.Width * scale)) / 2f).Round();
 			var diffY = ((rect.Height - (rect.Height * scale)) / 2f).Round();
 			rect.Width = (rect.Width * scale).Round();
 			rect.Height = (rect.Height * scale).Round();
-			if (!adjustX)
-				rect.X += diffX;
-			rect.X += diffX;
-			if (!adjustY)
-				rect.Y += diffY;
-			rect.Y += diffY;
+			rect.X += diffX * adjustX;
+			rect.Y += diffY * adjustY;
 		}
 
 		/// <summary>
@@ -201,39 +204,17 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="rectangle"></param>
 		/// <param name="scale"></param>
-		/// <param name="adjustX">null adjusts equally, true shifts down false shifts up</param>
-		/// <param name="adjustY">null adjusts equally, true shifts down false shifts up</param>
+		/// <param name="adjustX">How many times to shift left the hitbox if it grew, or shift right if it shrunk</param>
+		/// <param name="adjustY">How many times to shift up the hitbox if it grew, or shift it down if it shrunk</param>
 		/// <returns></returns>
-		public static Rectangle ScaleRectangleNotRef(Rectangle rectangle, float scale, bool? adjustX = null, bool? adjustY = null)
+		public static Rectangle ScaleRectangleNotRef(Rectangle rectangle, float scale, int adjustX = 1, int adjustY = 1)
 		{
 			var diffX = ((rectangle.Width - (rectangle.Width * scale)) / 2f).Round();
 			var diffY = ((rectangle.Height - (rectangle.Height * scale)) / 2f).Round();
 			rectangle.Width = (rectangle.Width * scale).Round();
 			rectangle.Height = (rectangle.Height * scale).Round();
-			rectangle.X += diffX;
-			rectangle.Y += diffY;
-			if (adjustY.HasValue)
-			{
-				if (adjustY.Value)
-				{
-					rectangle.Y -= diffY * 2;
-				}
-				else
-				{
-					rectangle.Y += diffY;
-				}	
-			}
-			if (adjustX.HasValue)
-			{
-				if (adjustX.Value)
-				{
-					rectangle.X -= diffX * 2;
-				}
-				else
-				{
-					rectangle.X += diffX;
-				}
-			}
+			rectangle.X += diffX * adjustX;
+			rectangle.Y += diffY * adjustY;
 			return rectangle;
 		}
 
@@ -399,6 +380,17 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
+		/// <summary>
+		/// Simulates AoE
+		/// </summary>
+		/// <param name="range">Range of the attack, will be multiplied by imbue sizes</param>
+		/// <param name="damage">Danage of the attack, will be multiplied by imbue damages if <paramref name="updatedamage"/> is true</param>
+		/// <param name="origin">Centre of the AoE, in world position</param>
+		/// <param name="knockback">Knockback of the AoE, will be multied by imbue sizes</param>
+		/// <param name="source">Source of the damage, used to get imbues</param>
+		/// <param name="damageClass"><seealso cref="DamageClass"/> of the AoE</param>
+		/// <param name="updatedamage">Whether to update damage with imbue stats, defaults to true</param>
+		/// <param name="ignoredNPCs">The <seealso cref="Entity.whoAmI"/> of <seealso cref="NPC"/>s you don't want to damage</param>
 		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, params int[] ignoredNPCs)
 		{
 			if (source is null) return;
@@ -422,10 +414,10 @@ namespace ArcaneOdyssey
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.SecondImbue().AOScrollDamage;
+									damage *= projectile.SecondImbue().AOImbueDamage;
 								}
-								range *= projectile.SecondImbue().AOScrollSize;
-								knockback *= projectile.SecondImbue().AOScrollSize;
+								range *= projectile.SecondImbue().AOImbueSize;
+								knockback *= projectile.SecondImbue().AOImbueSize;
 							}
 						}
 					}
@@ -466,10 +458,6 @@ namespace ArcaneOdyssey
 						if (source.HasSecondImbue(out var second))
 						{
 							modifiers = CalculateImbueDamage(second, target, modifiers);
-						}
-						else if (source is Item item && item.ModItem is Imbuable imbue2)
-						{
-							modifiers = CalculateImbueDamage(imbue2.Imbue, target, modifiers);
 						}
 					}
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
@@ -550,7 +538,20 @@ namespace ArcaneOdyssey
 			return closestTarget;
 		}
 
-		public static Rectangle SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, bool adjustY = true, bool adjustX = true, int ignoredNPC = -1)
+
+		/// <summary>
+		/// Simulates AoE
+		/// </summary>
+		/// <param name="hitbox">hitbox of the attack, will be multiplied by imbue sizes</param>
+		/// <param name="damage">Danage of the attack, will be multiplied by imbue damages if <paramref name="updatedamage"/> is true</param>
+		/// <param name="knockback">Knockback of the AoE, will be multied by imbue sizes</param>
+		/// <param name="source">Source of the damage, used to get imbues</param>
+		/// <param name="damageClass"><seealso cref="DamageClass"/> of the AoE</param>
+		/// <param name="updatedamage">Whether to update damage with imbue stats, defaults to true</param>
+		/// <param name="adjustX">How many times to shift left the hitbox if it grew, or shift right if it shrunk</param>
+		/// <param name="adjustY">How many times to shift up the hitbox if it grew, or shift it down if it shrunk</param>
+		/// <param name="ignoredNPCs">The <seealso cref="Entity.whoAmI"/> of <seealso cref="NPC"/>s you don't want to damage</param>
+		public static Rectangle SimulateAOE(Rectangle hitbox, float damage, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, int adjustX = 1, int adjustY = 1, params int[] ignoredNPCs)
 		{
 			if (source is null) return hitbox;
 			if (!source.active) return hitbox;
@@ -574,10 +575,10 @@ namespace ArcaneOdyssey
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOScrollDamage;
+									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
 								}
-								mult *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
-								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOScrollSize;
+								mult *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
 							}
 						}
 					}
@@ -609,11 +610,12 @@ namespace ArcaneOdyssey
 			{
 				mult *= player1.SizeMulti;
 			}
+
 			ScaleRectangle(ref hitbox, mult, adjustX, adjustY);
 
 			foreach (NPC target in Main.ActiveNPCs)
 			{
-				if (target.whoAmI == ignoredNPC)
+				if (ignoredNPCs.Contains(target.whoAmI))
 					continue;
 				if (target.Hitbox.Intersects(hitbox))
 				{
@@ -624,10 +626,6 @@ namespace ArcaneOdyssey
 						if (source.HasSecondImbue(out var second))
 						{
 							modifiers = CalculateImbueDamage(second, target, modifiers);
-						}
-						else if (source is Item item && item.ModItem is Imbuable imbue2)
-						{
-							modifiers = CalculateImbueDamage(imbue2.Imbue, target, modifiers);
 						}
 					}
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
@@ -677,7 +675,10 @@ namespace ArcaneOdyssey
 			second = null;
 			if (entity is Item item)
 			{
-				second = item.ArcaneOdyssey()?.SecondImbue;
+				if (item.ModItem is Imbuable imbue)
+					second = imbue.Imbue;
+				else
+					second = item.ArcaneOdyssey()?.SecondImbue;
 			}
 			if (entity is Projectile projectile)
 			{

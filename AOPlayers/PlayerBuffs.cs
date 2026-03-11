@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.Content.Buffs.Base;
+﻿using ArcaneOdyssey.Content.Buffs.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

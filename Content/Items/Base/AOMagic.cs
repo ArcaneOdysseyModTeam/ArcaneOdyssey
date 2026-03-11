@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;
 using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
-using ArcaneOdyssey.Content.Projectiles;
 using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using Microsoft.Xna.Framework;

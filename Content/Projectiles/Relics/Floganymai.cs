@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				Rectangle rect = new(Projectile.Hitbox.X, Projectile.Hitbox.Y - height, Projectile.width, height);
 				if (Main.myPlayer == Projectile.owner)
 				{
-					rect = AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false, false);
+					rect = AOUtils.SimulateAOE(rect, Projectile.damage, Projectile.knockBack, Projectile, Projectile.DamageType, false, adjustY: 2);
 				}
 				for (int i = 0; i <= 10; i++)
 				{

@@ -75,6 +75,50 @@ namespace ArcaneOdyssey.GlobalTypes
 			return value;
 		}
 
+		public float ApplySize(float value, bool flipfloat = false)
+		{
+			if (BenifitsFromScrollStats.HasValue)
+			{
+				if (BenifitsFromScrollStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOScrollSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSize;
+						}
+						else
+						{
+							value *= Imbue.AOScrollSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSize.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.AOImbueSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSize;
+						}
+						else
+						{
+							value *= Imbue.AOImbueSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.AOImbueSize.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
 		public override bool InstancePerEntity => true;
 
 		public Item thisItem = null;

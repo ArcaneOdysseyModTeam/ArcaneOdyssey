@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			var size = isPlacedExplosion ? 1f : 1.2f; 
 			if (AOPlayerOwner.myCircle is not null)
-				AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f)) * (100 / 2000f);
+				AOPlayerOwner.myCircle.scale = charge * (size * (3f / 4f)) * (100 / 2000f);
 			if (Projectile.position != Projectile.oldPosition)
 			{
 				if (Projectile.owner == Main.myPlayer)
@@ -58,8 +58,8 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var damage = 50 * charge * size;
-					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, Projectile.DamageType);
+					var damage = Projectile.damage * charge * size;
+					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, Projectile.DamageType, false);
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
 					{
 						var name = (Imbue.PrettySpellPrefix + " " + DisplayName).Trim();
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 			{
 				for (int n = 0; n < 360; n += 4)
 				{
-					Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * (Imbue.AOScrollSize * 109 * size * charge);
+					Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * ApplySize(109f * size * charge);
 					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.GetColour(), 1f);
 				}
 			}

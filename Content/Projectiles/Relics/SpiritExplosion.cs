@@ -27,7 +27,6 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 		public override void AI()
 		{
 			var size = isPlacedExplosion ? 1f : 1.2f;
-			AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f));
 			if (Projectile.position != Projectile.oldPosition)
 			{
 				if (Projectile.owner == Main.myPlayer)
@@ -37,11 +36,11 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				}
 			}
 			Owner.direction = ((Main.MouseWorld - Owner.position).X > 0).ToDirectionInt();
-			if (charge < 1.75f && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
+			if (charge < BaseMagicCircle.GlobalMaxCharge && AOPlayerOwner.myCircle is not null && AOPlayerOwner.myCircle.ai[0] < 1)
 			{
 				Projectile.Center = AOPlayerOwner.myCircle.Center;
 				ensuredPosition = AOPlayerOwner.myCircle.Center;
-				charge += 1 / 120f;
+				charge += BaseMagicCircle.GlobalChargeSpeed;
 			}
 			else
 			{
@@ -53,7 +52,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 				}
 				if (Main.myPlayer == Projectile.owner)
 				{
-					var damage = 50 * charge * size;
+					var damage = Projectile.damage * charge * size;
 					AOUtils.SimulateAOE(size * 100f * charge, damage, ensuredPosition, Projectile.knockBack, Projectile, Projectile.DamageType);
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
 					{
@@ -78,7 +77,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 			{
 				for (int n = 0; n < 360; n += 4)
 				{
-					Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * (Imbue.AOScrollSize * 109 * size * charge);
+					Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * ApplySize(109f * size * charge);
 					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.GetColour(), 1f);
 				}
 			}

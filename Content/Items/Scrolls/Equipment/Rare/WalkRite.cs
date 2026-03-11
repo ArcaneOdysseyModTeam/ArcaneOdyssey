@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Base;
 using System;
 using Terraria;

@@ -3,7 +3,7 @@
 WorldGen: {
 	Tucker: Burying Tucker
 	Morden: Placing Morden
-	EliusArena: Spawning a mysterious sky island
+	EliusArena: Generating a mysterious sky island
 }
 
 Bestiary: {

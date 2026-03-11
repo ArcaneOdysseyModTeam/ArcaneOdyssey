@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Relics
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
-			Rectangle fakebox = AOUtils.ScaleRectangleNotRef(new(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700), Imbue.AOScrollSize * (SecondImbue?.AOScrollSize ?? 1f), true, true);
+			Rectangle fakebox = AOUtils.ScaleRectangleNotRef(new(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700), Imbue.AOScrollSize * (SecondImbue?.AOScrollSize ?? 1f), 1, 2);
 			return targetHitbox.Intersects(fakebox);
 		}
 

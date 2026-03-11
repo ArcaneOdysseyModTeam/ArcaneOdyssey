@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Content.Imbues.Magic.Lost;
 using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Content.Items.Base;
@@ -210,6 +211,10 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void ResetEffects()
 		{
+			if (Player.InModBiome<EliusArena>())
+			{
+				Player.noBuilding = true;
+			}
 			AOSizeStat = 0;
 			AOHasteStat = 0;
 			Insanity = 0;

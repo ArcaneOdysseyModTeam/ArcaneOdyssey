@@ -14,49 +14,9 @@ namespace ArcaneOdyssey.Content.Projectiles.Base
 	{
 		public virtual bool CanHaveImbueVFX => true;
 
-		public float ApplySpeed(float value, bool flipfloat = false)
-		{
-			if (BenifitsFromScrollStats.HasValue)
-			{
-				if (BenifitsFromScrollStats.Value)
-				{
-					if (Imbue is not null)
-					{
-						if (!flipfloat)
-						{
-							value *= Imbue.AOScrollSpeed;
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
-						}
-						else
-						{
-							value *= Imbue.AOScrollSpeed.FlipFloat();
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
-						}
-					}
-				}
-				else
-				{
-					if (Imbue is not null)
-					{
-						if (!flipfloat)
-						{
-							value *= Imbue.AOImbueSpeed;
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
-						}
-						else
-						{
-							value *= Imbue.AOImbueSpeed.FlipFloat();
-							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
-						}
-					}
-				}
-			}
-			return value;
-		}
+		public float ApplySpeed(float value, bool flipfloat = false) => Projectile.ArcaneOdyssey().ApplySpeed(value, flipfloat);
+
+		public float ApplySize(float value, bool flipfloat = false) => Projectile.ArcaneOdyssey().ApplySize(value, flipfloat);
 
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;

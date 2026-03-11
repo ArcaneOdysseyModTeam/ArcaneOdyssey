@@ -1,6 +1,5 @@
 using ArcaneOdyssey.Content.Imbues.Relics;
 using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Circles;
 using ArcaneOdyssey.Content.Projectiles.Magic;
 using ArcaneOdyssey.Content.Projectiles.Relics;
 using Microsoft.Xna.Framework;
@@ -52,23 +51,22 @@ namespace ArcaneOdyssey.Content.Items.Scrolls.Usable.Common
 				mult *= 0;
 		}
 
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			if (Imbue is SpiritEnergy)
+			{
+				type = ModContent.ProjectileType<SpiritExplosion>();
+			}
+		}
+
 		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1 && player.ArcaneOdyssey().myCircle == null;
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (Imbue is AOMagic)
-			{
-				AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
-				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-			}
-			else
-			{
-				Projectile.NewProjectile(source, player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
-				Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SpiritExplosion>(), damage, knockback, player.whoAmI);
-			}
-			return false;
+			AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
+			return true;
 		}
 	}
 }
