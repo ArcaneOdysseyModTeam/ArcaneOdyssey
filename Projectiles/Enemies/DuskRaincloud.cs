@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
-using ArcaneOdyssey.NPCS.Minibosses;
+using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Relics;
 using Microsoft.Xna.Framework;

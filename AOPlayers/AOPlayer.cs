@@ -5,6 +5,7 @@ using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
@@ -178,6 +179,11 @@ namespace ArcaneOdyssey.AOPlayers
 				Imbue = null;
 			}
 			Player.statDefense -= _defenseLost;
+
+			if ((!Player.InModBiome<EliusArena>()) && AOUtils.NPCAlive<LordElius>())
+			{
+				Player.AddBuff(BuffID.Electrified, 2);
+			}
 		}
 
 		public void FreezeMovement()

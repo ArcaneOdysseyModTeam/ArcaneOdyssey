@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Graphics.Shaders;
 using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.NPCS.Town;
+using ArcaneOdyssey.NPCs.Town;
 
 namespace ArcaneOdyssey
 {
@@ -114,8 +114,8 @@ namespace ArcaneOdyssey
 				Key = "EliusArena",
 				Title = "Djin Ruins",
 				SubTitle = DisplayNameClean,
-				TitleColor = Color.MediumPurple,
-				TitleStroke = Color.Purple,
+				TitleColor = Color.Purple,
+				TitleStroke = Color.MediumPurple,
 				Icon = icon.Value,
 			};
 		}
@@ -134,7 +134,7 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
 		{
-			buffName = buffName.Replace("Imbue", "GelDebuff");
+			buffName = buffName.Replace("Imbue", "Gel");
 		}
 	}
 
@@ -146,6 +146,7 @@ namespace ArcaneOdyssey
 		public static bool downedCrone;
 		public static bool downedDelamere;
 
+		public static bool downedElius;
 
 		public static bool downedEnragedEmpress;
 		public static bool downedWorldEater;
@@ -180,6 +181,8 @@ namespace ArcaneOdyssey
 				downed.Add("Crone");
 			if (downedLaelus)
 				downed.Add("Laelus");
+			if (downedElius)
+				downed.Add("Elius");
 
 			tag["downed"] = downed;
 		}
@@ -193,6 +196,7 @@ namespace ArcaneOdyssey
 			downedLaelus = downed.Contains("Laelus");
 			downedDelamere = downed.Contains("Delamere");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
+			downedElius = downed.Contains("Elius");
 		}
 	}
 
@@ -221,42 +225,6 @@ namespace ArcaneOdyssey
 				Main.NewText(message, Color.Yellow);
 			}
 			ArcaneOdysseyMod.NoticeQueue = [];
-		}
-	}
-
-	public class DownedNPCTracker : GlobalNPC
-	{
-		public override void OnKill(NPC npc)
-		{
-			if (npc.type == NPCID.HallowBoss)
-			{
-				//if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
-				//{
-				//	DownedBosses.downedEnragedEmpress = true;
-				//	if (Main.dedServ)
-				//	{
-				//		NetMessage.SendData(MessageID.WorldData);
-				//	}
-				//}
-			}
-
-			if (npc.type == NPCID.EaterofWorldsHead)
-			{
-				DownedBosses.downedWorldEater = true;
-				if (Main.dedServ)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-			}
-
-			if (npc.type == NPCID.BrainofCthulhu)
-			{
-				DownedBosses.downedBrain = true;
-				if (Main.dedServ)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-			}
 		}
 	}
 

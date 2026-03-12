@@ -31,5 +31,7 @@ namespace ArcaneOdyssey.AOPlayers
 			DarkSealed = 0;
 			NimbusSealed = 0;
 		}
+
+		public uint EliusArenaCounter { get; set; } = 0;
 	}
 }

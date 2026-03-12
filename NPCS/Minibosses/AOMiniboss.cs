@@ -9,9 +9,9 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.NPCS.Minibosses
+namespace ArcaneOdyssey.NPCs.Minibosses
 {
-	public abstract class AOMiniboss : ModNPC
+	public abstract class AOMiniboss : AOBaseNPC
 	{
 		public abstract int AOHealth { get; }
 

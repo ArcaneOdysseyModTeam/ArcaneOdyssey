@@ -4,9 +4,11 @@ using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
@@ -336,6 +338,54 @@ namespace ArcaneOdyssey.GlobalTypes
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(AOUtils.Common<Acrimony>(3000));
 			npcLoot.Add(AcrimonyCondition);
+		}
+
+		public override void OnKill(NPC npc)
+		{
+			if (npc.type == NPCID.HallowBoss)
+			{
+				if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+				{
+					DownedBosses.downedEnragedEmpress = true;
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+
+			if (npc.type == NPCID.EaterofWorldsHead)
+			{
+				DownedBosses.downedWorldEater = true;
+				if (Main.dedServ)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
+			if (npc.type == NPCID.BrainofCthulhu)
+			{
+				DownedBosses.downedBrain = true;
+				if (Main.dedServ)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
+			if (npc.type == NPCID.EyeofCthulhu)
+			{
+				if (!NPC.downedBoss1)
+				{
+					if (Main.dedServ)
+					{
+						ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("MenacingMessages.EliusAvailable").ToNetworkText(), Color.MediumPurple);
+					}
+					else
+					{
+						Main.NewText(Mod.CustomLocalization("MenacingMessages.EliusAvailable").Value, Color.MediumPurple);
+					}
+				}
+			}
 		}
 	}
 }

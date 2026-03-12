@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.NPCS.Minibosses;
+﻿using ArcaneOdyssey.NPCs.Minibosses;
 using Terraria.Achievements;
 using Terraria.ModLoader;
 

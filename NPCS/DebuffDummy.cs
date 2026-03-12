@@ -2,9 +2,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.NPCS
+namespace ArcaneOdyssey.NPCs
 {
-	public class DebuffDummy : ModNPC
+	public class DebuffDummy : AOBaseNPC
 	{
 		public override void SetStaticDefaults()
 		{

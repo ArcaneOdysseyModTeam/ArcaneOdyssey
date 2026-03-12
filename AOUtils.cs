@@ -13,7 +13,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Imbues;
-using ArcaneOdyssey.NPCS;
+using ArcaneOdyssey.NPCs;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Buffs.Base;
@@ -244,6 +244,18 @@ namespace ArcaneOdyssey
 			return new Rectangle(array[0], array[1], array[2], array[3]);
 		}
 
+		public static bool NPCAlive<T>() where T : ModNPC
+		{
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if ((npc.type == ModContent.NPCType<T>()) && (npc.life > 0))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public static SynergyEffects CopyDamageSynergiesFromImbue<T>() where T : Imbuable
 		{
 			return ModContent.GetInstance<T>().Effects with { clearBuffs = [] };
@@ -325,11 +337,11 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool BossAlive()
+		public static bool BossAlive(bool ignoreDummy = true)
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
-				if (npc.boss && npc.ModNPC is not DebuffDummy)
+				if (npc.boss && (!ignoreDummy || (npc.ModNPC is not DebuffDummy)))
 					return true;
 			}
 			return false;

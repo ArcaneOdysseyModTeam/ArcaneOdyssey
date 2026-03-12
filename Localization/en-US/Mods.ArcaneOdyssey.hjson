@@ -176,93 +176,106 @@ Configs: {
 KeybindStuff.DashHelp: Double tap a movement key
 
 NPCs: {
-	Edgelord: {
-		DisplayName: Curse Thief
-		DisplayName1: Edgelord
-		DeathCurse: Morden's Curse has left...
-		Census.SpawnCondition: Always available, spawned on world creation
-		DyingText: HELP!
-		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy.
+	Town: {
+		Edgelord: {
+			DisplayName: Curse Thief
+			DeathCurse: Morden's Curse has left...
+			Census.SpawnCondition: Always available, spawned on world creation
+			DyingText: HELP!
+			Deviantt: I can't help much with this arcane stuff, talk to that Morden guy.
 
-		Chat: {
-			Intro: Hello, {0}.
-			Grave: That grave. It once belonged to a good friend of ours, Tucker.
-			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
-			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he immortal like me.
-			Hello: Hello again.
-			Pots: If you need help finding new scrolls, just go break some pots or something.
-			Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
-			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior. Talk to me if you need help using it.
-		}
+			Chat: {
+				Intro: Hello, {0}.
+				Grave: That grave. It once belonged to a good friend of ours, Tucker.
+				AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
+				OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he immortal like me.
+				Hello: Hello again.
+				Pots: If you need help finding new scrolls, just go break some pots or something.
+				Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
+				StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior. Talk to me if you need help using it.
+				CloudsShift: There's a storm coming in...
+			}
 
-		Help: {
-			Relics: Relics are quite interesting. They function as an imbue, as well as a weapon that can even channel magic.
-			Early1: According to what I've heard, those who do great deeds may be rewarded by what's left of the ancient gods in the form of a blessing, granting you knowledge or power.
-			Early2: You can imbue your items with your magic, relic, or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
-			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to find spell scrolls.
-			EarlyMagic2: Some spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
-			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but finding technique scrolls are needed to use your full power.
-			Pots: Breaking pots underground can yeild magical scrolls of various tiers.
-			Dash: Some scrolls allow you dash in a direction, depending on the type you can [{0} or {1}].
-			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
-			StackImbues: With multiple imbues, you can stack them on eachother to allow scrolls or special items to use both imbues at the same time. For example, a Relic can be imbued into a Magic, or a Magic can be imbued into a Fighting Style.
-			PreHard1: It's said there's some abomination deep, deep underground that devours magic. If left unchecked, it may bring great agony to these lands...
-			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
-			EarlyHard1: Killing that beast has granted you a god's blessing in the form of a sigil. You should use that if you haven't already.
-			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
-			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			BronzeTip: Bronze can be created using copper/tin, gold/platinum, and some sort of chaotic material.
-			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
-			NothingToSay: I don't have anything to say right now.
-			SunkenWeapon: Although made of Arcanium metal, that weapon in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
-			EvanderWarning: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
-			HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
-			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
-			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing item while using it.
-			ThermoFist: Thermo Fist collects kinetic energy and triggers your adrenaline to empower yourself. Try attacking while using it.
-			VanishingStyle: Vanishing Style is a much more advanced fighting style. You must deal damage to gain focus which increases your stealth, and while your focus is fading, unleash a critical strike!
-			WeaponSkills: Some weapons have special skills, make good use of them.
-			ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
-		}
+			Help: {
+				EliusHint: There's a storm to the east. Be careful if you decide to investigate.
+				Relics: Relics are quite interesting. They function as an imbue, as well as a weapon that can even channel magic.
+				Early1: According to what I've heard, those who do great deeds may be rewarded by what's left of the ancient gods in the form of a blessing, granting you knowledge or power.
+				Early2: You can imbue your items with your magic, relic, or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
+				EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to find spell scrolls.
+				EarlyMagic2: Some spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
+				EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but finding technique scrolls are needed to use your full power.
+				Pots: Breaking pots underground can yeild magical scrolls of various tiers.
+				Dash: Some scrolls allow you dash in a direction, depending on the type you can [{0} or {1}].
+				WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
+				StackImbues: With multiple imbues, you can stack them on eachother to allow scrolls or special items to use both imbues at the same time. For example, a Relic can be imbued into a Magic, or a Magic can be imbued into a Fighting Style.
+				PreHard1: It's said there's some abomination deep, deep underground that devours magic. If left unchecked, it may bring great agony to these lands...
+				PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
+				EarlyHard1: Killing that beast has granted you a god's blessing in the form of a sigil. You should use that if you haven't already.
+				EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
+				DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
+				BronzeTip: Bronze can be created using copper/tin, gold/platinum, and some sort of chaotic material.
+				CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
+				NothingToSay: I don't have anything to say right now.
+				SunkenWeapon: Although made of Arcanium metal, that weapon in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
+				EvanderWarning: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
+				HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
+				CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
+				SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing item while using it.
+				ThermoFist: Thermo Fist collects kinetic energy and triggers your adrenaline to empower yourself. Try attacking while using it.
+				VanishingStyle: Vanishing Style is a much more advanced fighting style. You must deal damage to gain focus which increases your stealth, and while your focus is fading, unleash a critical strike!
+				WeaponSkills: Some weapons have special skills, make good use of them.
+				ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
+			}
 
-		TownNPCMood: {
-			Content: I have no issues at the moment.
-			NoHome: Although I'm usually travelling, it would be nice to have a place to rest.
-			FarFromHome: I'm quite far from camp, aren't I?
-			LoveSpace: It's quite peaceful here.
-			DislikeCrowded: There are quite a lot of people here.
-			HateCrowded: This place is absolutely crammed.
-			LoveBiome: I love {BiomeName}, it's so open and free.
-			LikeBiome: Hm, {BiomeName} reminds me of Sameria, not a bad thing at all.
-			DislikeBiome: I must complain, {BiomeName} is so cold.
-			HateBiome: You would really put me in {BiomeName}, after everything we've been through?!
-			LikeNPC: "{NPCName} is a kind old man, like Enzior."
-			LoveNPC: "{NPCName} and I have quite a few things in common, we get along very well."
-			DislikeNPC: "{NPCName} is a pirate, something that I've had some negative experiences with out at sea."
-			HateNPC: "{NPCName} disgusts me with such experiments."
-			LikeNPC_Princess: "{NPCName} really shows me that not all royalty are wicked, quite respectable."
-			Princess_LovesNPC: "{NPCName} used to look at me funny, but we get along quite well now!"
+			TownNPCMood: {
+				Content: I have no issues at the moment.
+				NoHome: Although I'm usually travelling, it would be nice to have a place to rest.
+				FarFromHome: I'm quite far from camp, aren't I?
+				LoveSpace: It's quite peaceful here.
+				DislikeCrowded: There are quite a lot of people here.
+				HateCrowded: This place is absolutely crammed.
+				LoveBiome: I love {BiomeName}, it's so open and free.
+				LikeBiome: Hm, {BiomeName} reminds me of Sameria, not a bad thing at all.
+				DislikeBiome: I must complain, {BiomeName} is so cold.
+				HateBiome: You would really put me in {BiomeName}, after everything we've been through?!
+				LikeNPC: "{NPCName} is a kind old man, like Enzior."
+				LoveNPC: "{NPCName} and I have quite a few things in common, we get along very well."
+				DislikeNPC: "{NPCName} is a pirate, something that I've had some negative experiences with out at sea."
+				HateNPC: "{NPCName} disgusts me with such experiments."
+				LikeNPC_Princess: "{NPCName} really shows me that not all royalty are wicked, quite respectable."
+				Princess_LovesNPC: "{NPCName} used to look at me funny, but we get along quite well now!"
+			}
 		}
 	}
 
-	Evander: {
-		DisplayName: Evander, the Mountainbreaker
-		SpawnInfo: Spawns naturally in Hardmode, in the outer thirds of the world.
-		SpawnMessage: I will cleave your bones into pieces...
+	Minibosses: {
+		Evander: {
+			DisplayName: Evander, the Mountainbreaker
+			SpawnInfo: Spawns naturally in Hardmode, in the outer thirds of the world.
+			SpawnMessage: I will cleave your bones into pieces...
+		}
+
+		Dusk: {
+			DisplayName: Dusk, the Dark Oracle
+			SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer thirds of the world.
+			SpawnMessage: Tell me, how much is your head worth?
+		}
+
+		Laelus: {
+			DisplayName: Laelus, the Thief
+			SpawnInfo: Spawns naturally during the day, in the outer thirds of the world.
+			SpawnMessage: You are no match for my powers...
+		}
 	}
 
 	DebuffDummy.DisplayName: Debuff Dummy
 
-	Dusk: {
-		DisplayName: Dusk, the Dark Oracle
-		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer thirds of the world.
-		SpawnMessage: Tell me, how much is your head worth?
-	}
-
-	Laelus: {
-		DisplayName: Laelus, the Thief
-		SpawnInfo: Spawns naturally during the day, in the outer thirds of the world.
-		SpawnMessage: You are no match for my powers...
+	Bosses: {
+		LordElius: {
+			SpawnInfo: Spawns in the Djin Ruins after defeating the Eye of Cthulhu.
+			DisplayName: Lord Elius
+			SpawnMessage: What are you, some sort of rat?
+		}
 	}
 }
 
@@ -452,3 +465,5 @@ Prefixes: {
 	Enhanced.DisplayName: Enhanced
 	Explosive.DisplayName: Explosive
 }
+
+MenacingMessages.EliusAvailable: Thunder rumbles to the east...

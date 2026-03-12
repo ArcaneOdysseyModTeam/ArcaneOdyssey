@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.NPCs.Bosses;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +16,6 @@ namespace ArcaneOdyssey.Biomes
 
 		public override int BiomeCampfireItemType => ItemID.Campfire;
 
-
 		public override bool IsBiomeActive(Player player)
 		{
 			var playercoords = player.Hitbox.ToTileRect();
@@ -25,9 +25,37 @@ namespace ArcaneOdyssey.Biomes
 		public override void OnInBiome(Player player)
 		{
 			player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
+			if (NPC.downedBoss1)
+			{
+				if (!AOUtils.BossAlive())
+					player.ArcaneOdyssey().EliusArenaCounter++;
+				else
+					player.ArcaneOdyssey().EliusArenaCounter = 0;
+
+				if (player.ArcaneOdyssey().EliusArenaCounter >= (DownedBosses.downedElius ? (60 * 60) : (60 * 30))) // 30-60 seconds
+				{
+					if (!AOUtils.BossAlive(false))
+					{
+						if (AOUtils.ServerOrSingleplayer)
+						{
+							NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 2) * 16, ModContent.NPCType<LordElius>(), player.whoAmI);
+						}
+					}
+				}
+			}
 		}
 
-		public override int Music => -1;
+		public override void OnLeave(Player player)
+		{
+			player.ArcaneOdyssey().EliusArenaCounter = 0;
+		}
+
+		public override void OnEnter(Player player)
+		{
+			player.ArcaneOdyssey().EliusArenaCounter = 0;
+		}
+
+		public override int Music => AOUtils.GetMusic("TitleTheme"); // change to TitleTheme2 or ambient theme later
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 	}

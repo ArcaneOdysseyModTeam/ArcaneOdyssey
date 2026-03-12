@@ -18,10 +18,10 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 
 
-namespace ArcaneOdyssey.NPCS.Town
+namespace ArcaneOdyssey.NPCs.Town
 {
 	[AutoloadHead]
-	public class Edgelord : ModNPC
+	public class Edgelord : AOBaseNPC
 	{
 		public override void SetDefaults()
 		{
@@ -128,8 +128,6 @@ namespace ArcaneOdyssey.NPCS.Town
 			}
 		}
 
-		public override void ModifyTypeName(ref string typeName) => typeName = Mod.CustomLocalization($"NPCs.{Name}.DisplayNam{(!Main.zenithWorld ? "e" : "e1")}").Value;
-
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			bestiaryEntry.Info.AddRange([
@@ -213,6 +211,11 @@ namespace ArcaneOdyssey.NPCS.Town
 				{
 					AddOption("EarlyFighting1");
 				}
+			}
+
+			if (NPC.downedBoss1 && !DownedBosses.downedElius)
+			{
+				AddOption("EliusHint");
 			}
 
 			if (Player.HasTypeInInventory<FightingStyle>())
@@ -327,6 +330,11 @@ namespace ArcaneOdyssey.NPCS.Town
 			void AddOption(string value)
 			{
 				options.Add(this.GetLocalizedValue($"Chat.{value}"));
+			}
+
+			if (NPC.downedBoss1 && !DownedBosses.downedElius)
+			{
+				AddOption("CloudsShift");
 			}
 
 			AddOption("Water");

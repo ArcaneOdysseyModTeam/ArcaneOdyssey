@@ -3,8 +3,9 @@ using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Items.Weapons.Sunken;
-using ArcaneOdyssey.NPCS.Minibosses;
-using ArcaneOdyssey.NPCS.Town;
+using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.NPCs.Minibosses;
+using ArcaneOdyssey.NPCs.Town;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -107,7 +108,7 @@ namespace ArcaneOdyssey
 				//Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
 				//Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
-				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
+				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.Town.{nameof(Edgelord)}");
 			}
 		}
 
@@ -132,7 +133,7 @@ namespace ArcaneOdyssey
 				Func<bool> downed = () => DownedBosses.downedEvander;
 				int bossType = ModContent.NPCType<Evander>();
 				int trophy = ModContent.ItemType<EvanderTrophy>();
-				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
 				"LogMiniBoss",
@@ -156,7 +157,7 @@ namespace ArcaneOdyssey
 				int bossType = ModContent.NPCType<Dusk>();
 				int trophy = ModContent.ItemType<DuskTrophy>();
 				int mask = ModContent.ItemType<DuskMask>();
-				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
 				"LogMiniBoss",
@@ -172,32 +173,56 @@ namespace ArcaneOdyssey
 				});
 			}
 
-			//void LaelusStuff()
-			//{
-			//	string internalName = nameof(Laelus);
-			//	float weight = .5f; // right away!
-			//	Func<bool> downed = () => DownedBosses.downedLaelus;
-			//	int bossType = ModContent.NPCType<Laelus>();
-			//	//int trophy = ModContent.ItemType<EvanderTrophy>();
-			//	LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+			void LaelusStuff()
+			{
+				string internalName = nameof(Laelus);
+				float weight = .5f; // right away!
+				Func<bool> downed = () => DownedBosses.downedLaelus;
+				int bossType = ModContent.NPCType<Laelus>();
+				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
 
-			//	bossChecklist.Call(
-			//	"LogMiniBoss",
-			//	Mod,
-			//	internalName,
-			//	weight,
-			//	downed,
-			//	bossType,
-			//	new Dictionary<string, object>()
-			//	{
-			//		//["collectibles"] = new List<int> { trophy },
-			//		["spawnInfo"] = spawnInfo
-			//	});
-			//}
+				bossChecklist.Call(
+				"LogMiniBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					//["collectibles"] = new List<int> { trophy },
+					["spawnInfo"] = spawnInfo
+				});
+			}
+
+			void EliusStuff()
+			{
+				string internalName = nameof(LordElius);
+				float weight = 2.6f; // after blood moon
+				Func<bool> downed = () => DownedBosses.downedElius;
+				int bossType = ModContent.NPCType<LordElius>();
+				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Bosses.{internalName}.SpawnInfo");
+
+				bossChecklist.Call(
+				"LogBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					//["collectibles"] = new List<int> { trophy },
+					["spawnInfo"] = spawnInfo
+				});
+			}
 
 			EvanderStuff();
 			DuskStuff();
-			//LaelusStuff();
+			LaelusStuff();
+			EliusStuff();
 		}
 
 		public static bool? CheckItemTemperature(ModItem item)
