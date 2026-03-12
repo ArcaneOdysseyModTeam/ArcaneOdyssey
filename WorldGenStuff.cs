@@ -178,7 +178,7 @@ namespace ArcaneOdyssey
 			}
 			while (!IsValidSkyPlacementArea(arenaBounds));
 
-			ArenaLoader.eliusArena = AOUtils.ScaleRectangleNotRef(arenaBounds, 1.15f);
+			EliusArenaLoader.eliusArena = AOUtils.ScaleRectangleNotRef(arenaBounds, 1.15f);
 
 			Generator.GenerateFromData(eliusArenaStruct, new(eliusArenaStructPosX, eliusArenaStructPosY));
 		}

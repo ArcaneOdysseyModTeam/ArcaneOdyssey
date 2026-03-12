@@ -116,6 +116,16 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static Rectangle ToTileRect(this Rectangle rect)
+		{
+			return new(rect.X / 16, rect.Y / 16, rect.Width / 16, rect.Height / 16);
+		}
+
+		public static Rectangle ToWorldRect(this Rectangle rect)
+		{
+			return new(rect.X * 16, rect.Y * 16, rect.Width * 16, rect.Height * 16);
+		}
+
 		public static IList<T> ShuffledList<T>(IList<T> list)
 		{
 			int n = list.Count;

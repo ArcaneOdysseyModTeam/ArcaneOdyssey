@@ -18,12 +18,8 @@ namespace ArcaneOdyssey.Biomes
 
 		public override bool IsBiomeActive(Player player)
 		{
-			var playercoords = player.Hitbox;
-			playercoords.Width /= 16;
-			playercoords.X /= 16;
-			playercoords.Height /= 16;
-			playercoords.Y /= 16;
-			return ArenaLoader.eliusArena.Intersects(playercoords) || ArenaLoader.eliusArena.Contains(playercoords);
+			var playercoords = player.Hitbox.ToTileRect();
+			return EliusArenaLoader.eliusArena.Intersects(playercoords) || EliusArenaLoader.eliusArena.Contains(playercoords);
 		}
 
 		public override void OnInBiome(Player player)
@@ -36,7 +32,7 @@ namespace ArcaneOdyssey.Biomes
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 	}
 
-	public class ArenaLoader : ModSystem
+	public class EliusArenaLoader : ModSystem
 	{
 		/// <summary>
 		/// Area of the elius arena, in tile coordinates
