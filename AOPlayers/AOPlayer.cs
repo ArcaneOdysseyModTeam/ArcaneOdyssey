@@ -1,9 +1,10 @@
 ﻿using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Consumable;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Items.Armour.RavennaNoble;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace ArcaneOdyssey.AOPlayers
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public Imbuable Imbue { get; set; }
-		public int AOSizeStat = 0;
+		public int StatSize = 0;
 		public Projectile myCircle = null;
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
@@ -215,8 +216,8 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				Player.noBuilding = true;
 			}
-			AOSizeStat = 0;
-			AOHasteStat = 0;
+			StatSize = 0;
+			StatHaste = 0;
 			Insanity = 0;
 			Gel = null;
 			List<int> queue = [];
@@ -244,7 +245,7 @@ namespace ArcaneOdyssey.AOPlayers
 			HandleDashDetection();
 		}
 
-		public float SizeMulti => 1f + (AOSizeStat / 275f);
-		public float CooldownDurationMulti => (1f + (AOHasteStat / 200f)).FlipFloat();
+		public float SizeMulti => 1f + (StatSize / (AOArmour.SizeDivision * 100f));
+		public float CooldownDurationMulti => (1f + (StatHaste / (AOArmour.HasteDivision * 100f))).FlipFloat();
 	}
 }

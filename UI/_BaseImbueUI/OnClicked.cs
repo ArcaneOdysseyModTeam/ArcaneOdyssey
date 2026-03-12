@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

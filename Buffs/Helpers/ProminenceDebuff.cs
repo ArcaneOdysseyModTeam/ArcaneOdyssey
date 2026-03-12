@@ -1,0 +1,27 @@
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Projectiles.Magic.Effects;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Buffs.Helpers
+{
+	public class ProminenceDebuff : AODebuff
+	{
+		private int counter = 0;
+		public override void Update(NPC npc, ref int buffIndex)
+		{
+			if (++counter > 120)
+			{
+				counter = 0;
+				if (AOUtils.ServerOrSingleplayer)
+					Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, (Main.rand.NextFloat() - 0.5f) * 5f, (Main.rand.NextFloat() - 0.5f) * 5f, ModContent.ProjectileType<ProminenceProjectile>(), (int)MathHelper.Clamp(npc.lifeMax * 0.005f, 17f, 1000f), 0);
+			}
+			if (!Main.dedServ)
+			{
+				Dust.NewDust(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.Torch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 1f);
+			}
+		}
+	}
+}

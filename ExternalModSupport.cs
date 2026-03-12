@@ -1,10 +1,10 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
-using ArcaneOdyssey.Content.Items.BossTrophies;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
-using ArcaneOdyssey.Content.Items.Weapons;
-using ArcaneOdyssey.Content.Items.Weapons.Sunken;
-using ArcaneOdyssey.Content.NPCS.Minibosses;
-using ArcaneOdyssey.Content.NPCS.Town;
+﻿using ArcaneOdyssey.Items.Armour.Vanity.Masks;
+using ArcaneOdyssey.Items.BossTrophies;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Items.Weapons;
+using ArcaneOdyssey.Items.Weapons.Sunken;
+using ArcaneOdyssey.NPCS.Minibosses;
+using ArcaneOdyssey.NPCS.Town;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -101,7 +101,7 @@ namespace ArcaneOdyssey
 				// stat sheet
 				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().SizeMulti - 100f, 1)).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
-				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1)).Value;
+				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Abs(Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1))).Value;
 				Fargos.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
 
 				//Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;

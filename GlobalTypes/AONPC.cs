@@ -1,7 +1,7 @@
-﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Armour.Vanity;
-using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Materials;
+﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Items.Armour.Vanity;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;

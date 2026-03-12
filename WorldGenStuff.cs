@@ -1,8 +1,8 @@
 using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.NPCS.Town;
-using ArcaneOdyssey.Content.Tiles;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Weapons.Old;
+using ArcaneOdyssey.NPCS.Town;
+using ArcaneOdyssey.Tiles;
 using Microsoft.Xna.Framework;
 using StructureHelper.API;
 using System;

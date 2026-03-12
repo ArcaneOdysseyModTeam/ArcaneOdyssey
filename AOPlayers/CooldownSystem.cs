@@ -88,7 +88,7 @@ namespace ArcaneOdyssey.AOPlayers
 
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public int AOHasteStat;
+		public int StatHaste;
 		private List<Cooldown> toremove = [];
 		private Dictionary<int, Cooldown> tochange = [];
 		public override void PreUpdate()

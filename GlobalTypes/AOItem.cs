@@ -1,16 +1,4 @@
-﻿using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.Imbues;
-using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Imbues.Relics;
-using ArcaneOdyssey.Content.Items.Accessories.Vanity;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Equipment.Pets;
-using ArcaneOdyssey.Content.Items.Materials;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Content.Projectiles.Berserker.Effects;
-using ArcaneOdyssey.AOPlayers;
+﻿using ArcaneOdyssey.AOPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -26,6 +14,19 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Accessories.Vanity;
+using ArcaneOdyssey.Items.Equipment.Pets;
+using ArcaneOdyssey.Projectiles.Berserker.Effects;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Imbues.Base;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
@@ -751,11 +752,11 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					if (ArrayCollections.SizeStats[item.type] > 0)
 					{
-						player.ArcaneOdyssey().AOSizeStat += ArrayCollections.SizeStats[item.type];
+						player.ArcaneOdyssey().StatSize += ArrayCollections.SizeStats[item.type];
 					}
 					if (ArrayCollections.HasteStats[item.type] > 0)
 					{
-						player.ArcaneOdyssey().AOHasteStat += ArrayCollections.HasteStats[item.type];
+						player.ArcaneOdyssey().StatHaste += ArrayCollections.HasteStats[item.type];
 					}
 				}
 			}

@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

@@ -1,14 +1,4 @@
-﻿using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.Buffs.Gels;
-using ArcaneOdyssey.Content.Buffs.MagicMarks;
-using ArcaneOdyssey.Content.Imbues;
-using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Imbues.Magic.Normal;
-using ArcaneOdyssey.Content.Imbues.Relics;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.NPCS;
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.GlobalTypes;
+﻿using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.VFX.Rarities;
 using ArcaneOdysseyMusic;
@@ -22,6 +12,17 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.NPCS;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles.Base;
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Buffs.Gels;
+using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Imbues.Base;
 
 namespace ArcaneOdyssey
 {
@@ -895,19 +896,6 @@ namespace ArcaneOdyssey
 			}
 			return modifiers;
 		}
-
-		public static GelBuff GelFromID(GelID id) => id switch
-		{
-			GelID.Arctic => ModContent.GetInstance<ArcticGel>(),
-			GelID.Bleed => ModContent.GetInstance<BleedGel>(),
-			GelID.Corroding => ModContent.GetInstance<CorrodingGel>(),
-			GelID.Desert => ModContent.GetInstance<DesertGel>(),
-			GelID.Frost => ModContent.GetInstance<FrostGel>(),
-			GelID.Melting => ModContent.GetInstance<MeltingGel>(),
-			GelID.Scorch => ModContent.GetInstance<ScorchGel>(),
-			GelID.Tide => ModContent.GetInstance<TideGel>(),
-			_ => null,
-		};
 		
 
 		public static NPC.HitModifiers CalculateImbueDamage(Imbuable imbue, NPC target, NPC.HitModifiers modifiers)
@@ -1251,12 +1239,12 @@ namespace ArcaneOdyssey
 
 			if (item.master || item.rare == ItemRarityID.Master)
 			{
-				return AORarities.Mythical;
+				return AORarities.Legendary;
 			}
 
 			return item.rare switch
 			{
-				ItemRarityID.Gray => AORarities.Common,
+				ItemRarityID.Gray => AORarities.Junk,
 				ItemRarityID.White => AORarities.Common,
 				ItemRarityID.Blue => AORarities.Common,
 				ItemRarityID.Green => AORarities.Uncommon,
@@ -1267,7 +1255,9 @@ namespace ArcaneOdyssey
 				ItemRarityID.Lime => AORarities.Mystic,
 				ItemRarityID.Yellow => AORarities.Legendary,
 				ItemRarityID.Cyan => AORarities.Legendary,
-				_ => AORarities.Mythical,
+				ItemRarityID.Red => AORarities.Mythical,
+				ItemRarityID.Purple => AORarities.Mythical,
+				_ => AORarities.Lost,
 			};
 		}
 		#endregion
@@ -1607,13 +1597,15 @@ namespace ArcaneOdyssey
 	/// </summary>
 	public enum AORarities
 	{
-		Unknown = ItemRarityID.Gray,
+		Junk = ItemRarityID.Gray,
 		Common = ItemRarityID.White,
 		Uncommon = ItemRarityID.Green,
 		Rare = ItemRarityID.LightRed,
 		Mystic = ItemRarityID.LightPurple,
 		Legendary = ItemRarityID.Yellow,
 		Mythical = ItemRarityID.Red,
+		Lost,
+		Unknown,
 		Special
 	}
 
@@ -1780,18 +1772,5 @@ namespace ArcaneOdyssey
 		Common,
 		Rare,
 		Lost
-	}
-
-	public enum GelID
-	{
-		None,
-		Arctic,
-		Bleed,
-		Corroding,
-		Desert,
-		Frost,
-		Melting,
-		Scorch,
-		Tide
 	}
 }

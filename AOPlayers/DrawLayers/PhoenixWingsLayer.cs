@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

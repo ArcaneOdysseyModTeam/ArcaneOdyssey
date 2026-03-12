@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Items.Consumable;
+﻿using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using Terraria;
 using Terraria.Audio;

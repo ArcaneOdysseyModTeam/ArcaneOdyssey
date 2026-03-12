@@ -1,9 +1,9 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
-using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
-using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;
-using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
+﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Items.Scrolls.Usable.Common;
+using ArcaneOdyssey.Items.Scrolls.Usable.Lost;
+using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

@@ -445,3 +445,10 @@ Biomes: {
 		TownNPCDialogueName: the Djin Ruins
 	}
 }
+
+Prefixes: {
+	Amplified.DisplayName: Amplified
+	Bursting.DisplayName: Bursting
+	Enhanced.DisplayName: Enhanced
+	Explosive.DisplayName: Explosive
+}

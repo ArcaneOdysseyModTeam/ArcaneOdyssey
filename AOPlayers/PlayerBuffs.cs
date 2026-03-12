@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Content.Buffs.Base;
+﻿using ArcaneOdyssey.Buffs.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

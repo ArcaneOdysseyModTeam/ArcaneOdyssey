@@ -1,4 +1,3 @@
-using ArcaneOdyssey.Content.NPCS.Town;
 #if VSDEBUGMODE
 using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.GlobalTypes;
@@ -15,6 +14,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Graphics.Shaders;
 using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.NPCS.Town;
 
 namespace ArcaneOdyssey
 {
@@ -108,6 +108,7 @@ namespace ArcaneOdyssey
 
 		public IEnumerable<dynamic> BTitlesHook_GetBiomes()
 		{
+			var icon = Assets.Request<Texture2D>("icon_small", AssetRequestMode.ImmediateLoad);
 			yield return new
 			{
 				Key = "EliusArena",
@@ -115,8 +116,7 @@ namespace ArcaneOdyssey
 				SubTitle = DisplayNameClean,
 				TitleColor = Color.MediumPurple,
 				TitleStroke = Color.Purple,
-				Icon = Assets.Request<Texture2D>("icon_small").Value,
-
+				Icon = icon.Value,
 			};
 		}
 	}
@@ -288,9 +288,9 @@ namespace ArcaneOdyssey
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.NimbusSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.DarkSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Grounded) + " " + Main.LocalPlayer.ArcaneOdyssey().Grounded);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOSizeStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOSizeStat);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.StatSize) + " " + Main.LocalPlayer.ArcaneOdyssey().StatSize);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Insanity) + " " + Main.LocalPlayer.ArcaneOdyssey().Insanity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOHasteStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOHasteStat);
+				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.StatHaste) + " " + Main.LocalPlayer.ArcaneOdyssey().StatHaste);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(ArcaneOdysseyMod.DevMode) + " " + ArcaneOdysseyMod.DevMode);
 			}
 		}

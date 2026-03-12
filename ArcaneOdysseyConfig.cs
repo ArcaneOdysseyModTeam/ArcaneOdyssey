@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader.Config;
@@ -58,7 +59,7 @@ namespace ArcaneOdyssey
 		{
 			if (!Main.dedServ)
 			{
-				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}", AssetRequestMode.ImmediateLoad);
 			}
 		}
 	}

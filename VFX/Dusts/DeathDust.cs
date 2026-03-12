@@ -1,4 +1,4 @@
-using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
