@@ -2,7 +2,7 @@
 
 WorldGen: {
 	Tucker: Burying Tucker
-	Morden: Placing Morden
+	Morden: Cursing Morden
 	EliusArena: Generating a mysterious sky island
 }
 
@@ -10,11 +10,10 @@ Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
 	Evander: A bounty hunter born and raised in a faraway land, Evander gained the title 'Mountainbreaker' for his great strength. Using his colossal greatsword, he can send enormous slashes at his enemies, and use his overwhelming strength and reach to dominate at both long and close ranges.
 	Dusk: Her true name and history are unknown. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
-	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band, and was using his popularity to amass a small following to help him in his thievery. Despite carrying an old sword, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks with the Tidestone Band.
+	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band. Despite carrying a custom made dagger, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks with the Tidestone Band.
 }
 
 MenuStyle: Odyssey Style
-AnyBasicImbue: Any Worthy Item
 
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
@@ -89,20 +88,6 @@ Configs: {
 	ArcaneOdysseyClientConfig: {
 		DisplayName: Client Config
 
-		GenerateTucker: {
-			Label: "[i:ArcaneOdyssey/TuckerGraveItem] Generate Tucker's Grave"
-			Tooltip:
-				'''
-				Toggles the generation of Tucker's grave on world creation
-				Should only be disabled if your world is not generating properly
-				'''
-		}
-
-		AlternatePhoenixEffectVFX: {
-			Label: "[i:ArcaneOdyssey/PhoenixMagic] Alternate Phoenix Flames Effect"
-			Tooltip: Toggles an alternate look for the Phoenix Magic debuff's effect, resembling a bird
-		}
-
 		ItemTypeTooltips: {
 			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
 			Tooltip:
@@ -118,57 +103,57 @@ Configs: {
 		}
 
 		MagicCircleType: {
-			Label: "[i:ArcaneOdyssey/EmptyScroll] Magic Circle Type"
-			Tooltip: Visually changes the appearance of oriented magic circles
+			Label: "[i:ArcaneOdyssey/EmptyScroll] Magic Circle Design"
+			Tooltip: Visually changes the appearance of all magic circles
 		}
 	}
 
 	MagicCircleTypes: {
-		Tooltip: ""
+		Tooltip: Select your magic circle design
+
+		Familiar: {
+			Label: Familiar (Default)
+			Tooltip: By KT_australis
+		}
 
 		Ancient: {
 			Label: Ancient
-			Tooltip: ""
+			Tooltip: By R_SPhoenix
 		}
 
 		Collision: {
 			Label: Collision
-			Tooltip: ""
+			Tooltip: By KT_australis
 		}
 
 		Ornamental: {
 			Label: Ornamental
-			Tooltip: ""
+			Tooltip: By KT_australis
 		}
 
 		Penta: {
 			Label: Penta
-			Tooltip: ""
+			Tooltip: By R_SPhoenix
 		}
 
 		Reminiscent: {
 			Label: Reminiscent
-			Tooltip: ""
+			Tooltip: By KT_australis
 		}
 
 		Segmented: {
 			Label: Segmented
-			Tooltip: ""
+			Tooltip: By KT_australis
 		}
 
 		Singularity: {
 			Label: Singularity
-			Tooltip: ""
+			Tooltip: By R_SPhoenix
 		}
 
 		Solar: {
 			Label: Solar
-			Tooltip: ""
-		}
-
-		Familiar: {
-			Label: Familiar
-			Tooltip: ""
+			Tooltip: By R_SPhoenix
 		}
 	}
 }

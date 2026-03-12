@@ -23,7 +23,7 @@ namespace ArcaneOdyssey
 		{
 			// Spawn Tucker grave
 			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
-			if (ArcaneOdysseyClientConfig.Instance.GenerateTucker && Stalac != -1)
+			if (Stalac != -1)
 			{
 				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
 				{
@@ -126,7 +126,7 @@ namespace ArcaneOdyssey
 					}
 
 					int[] oldItems = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>(),];
-					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && !chest.IsLocked()) // cavern chests probably
+					if ((chest.y > Main.rockLayer) && (chest.y < Main.UnderworldLayer) && (!chest.IsLocked()) && (Main.tile[chest.x, chest.y].TileType == TileID.Containers)) // cavern chests probably
 					{
 						if (WorldGen.genRand.Next(Enumerable.Range(0, oldItems.Length).ToArray()) != 0)
 						{
@@ -141,17 +141,12 @@ namespace ArcaneOdyssey
 						}
 					}
 
-					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon/calamity abyss chests probably
+					if ((chest.y > Main.rockLayer) && (chest.y < Main.UnderworldLayer) && chest.IsLocked() && (Main.tile[chest.x, chest.y].TileType == TileID.Containers)) // dungeon chests
 					{
 
 					}
 
-					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
-					{
-
-					}
-
-					if (chest.y > Main.UnderworldLayer && !chest.IsLocked()) // probably only thing this could be is calamity brimstone crags chests
+					if ((chest.y > Main.UnderworldLayer) && chest.IsLocked() && (Main.tile[chest.x, chest.y].TileType == TileID.Containers)) // shadow chests
 					{
 
 					}

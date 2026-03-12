@@ -39,12 +39,6 @@ namespace ArcaneOdyssey
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 
 		[DefaultValue(true)]
-		public bool GenerateTucker { get; set; }
-
-		[DefaultValue(false)]
-		public bool AlternatePhoenixEffectVFX { get; set; }
-
-		[DefaultValue(true)]
 		public bool ItemTypeTooltips { get; set; }
 
 		[DefaultValue(true)]

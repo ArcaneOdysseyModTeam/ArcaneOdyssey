@@ -17,7 +17,6 @@ using ArcaneOdyssey.NPCs;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Buffs.Base;
-using ArcaneOdyssey.Buffs.Gels;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
@@ -114,6 +113,11 @@ namespace ArcaneOdyssey
 				list[k] = list[n];
 				list[n] = value;
 			}
+		}
+
+		public static string LocalizationCategoryOf<T>() where T : class, ILocalizedModType
+		{
+			return ModContent.GetInstance<T>().LocalizationCategory;
 		}
 
 		public static Rectangle ToTileRect(this Rectangle rect)

@@ -114,11 +114,11 @@ namespace ArcaneOdyssey.NPCs.Town
 					Dust spawnedDust2 = Main.dust[Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, Scale: 2.6f)];
 					spawnedDust2.noGravity = true;
 				}
-				Main.NewText(Mod.CustomLocalization($"NPCs.{Name}.DeathCurse").Value, Color.DarkCyan);
+				Main.NewText(Mod.CustomLocalization($"{LocalizationCategory}.{Name}.DeathCurse").Value, Color.DarkCyan);
 			}
 			else
 			{
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"NPCs.{Name}.DeathCurse").ToNetworkText(), Color.DarkCyan);
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"{LocalizationCategory}.{Name}.DeathCurse").ToNetworkText(), Color.DarkCyan);
 			}
 			if (AOUtils.ServerOrSingleplayer)
 				Projectile.NewProjectile(NPC.GetSource_Death(), NPC.position + (NPC.Size / 2f), new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);

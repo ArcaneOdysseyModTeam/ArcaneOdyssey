@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using Microsoft.Xna.Framework;
-using System.Linq;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -64,6 +64,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			npcLoot.Add(AOUtils.Common<NobleThunderspear>(6));
 			npcLoot.Add(AOUtils.Common<ScimitarofStorm>(6));
 			npcLoot.Add(AOUtils.Common<StormCaller>(6));
+		}
+
+		public override void OnKill()
+		{
+			DownedBosses.downedElius = true;
+			if (Main.dedServ)
+			{
+				NetMessage.SendData(MessageID.WorldData);
+			}
 		}
 	}
 }

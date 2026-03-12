@@ -71,13 +71,8 @@ namespace ArcaneOdyssey.Buffs.DOT
 					progress = 1f - MathHelper.Clamp((i - player.MountedCenter.Distance(npc.Center) / 2f) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
 				}
 
-				if (!ArcaneOdysseyClientConfig.Instance.AlternatePhoenixEffectVFX)
-				{
-					offsetpoint += (npc.Center.DirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
-				}
-				else
-					offsetpoint += (npc.Center.DirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress * Main.rand.NextFloat().FlipFloat();
-
+				offsetpoint += (npc.Center.DirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
+				
 				if (!progressed)
 				{
 					dustpos = Vector2.Lerp(player.MountedCenter, offsetpoint, progress);
