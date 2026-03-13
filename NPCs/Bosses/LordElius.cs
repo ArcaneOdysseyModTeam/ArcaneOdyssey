@@ -1,6 +1,8 @@
-﻿using ArcaneOdyssey.Biomes;
+﻿using System;
+using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -46,6 +48,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 
 		public bool sentMessage = false;
+		private bool hasSetSpawnLocation = false;
+		public Vector2 spawnLocation;
+		
 
 		public override void AI()
 		{
@@ -61,8 +66,50 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				CombatText.NewText(NPC.Hitbox, Color.MediumPurple, Mod.CustomLocalization(LocalizationCategory + "." + Name + ".SpawnMessage").Value, true);
 				sentMessage = true;
 			}
+			
+			if(!hasSetSpawnLocation) //this also is used for setup
+			{
+				// test specific, elius will be spawned in a location with his spawner later
+				NPC.Center = new Vector2((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 2) * 16);
+				// end test specific
+				NPC.Center = NPC.Center - new Vector2(0,32);
+				Main.NewText("Test: Elius location set");
+				spawnLocation = NPC.position;
+				hasSetSpawnLocation = true;
+				NPC.ai[0] = 1f;
+				NPC.ai[1] = 0f;
+			}
+			//apply the player slayer if the player is out of range here
 
 			// ai here, red
+			if (NPC.ai[0] == 1)
+			{
+				if (NPC.ai[1] < 2f)
+				{
+					Main.NewText("Storm of arrows or something idk");
+					NPC.ai[1] = 2f;
+				}
+				if (NPC.ai[1] > 60f)
+				{
+					NPC.ai[1] = 0f;
+					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()*1)+1;
+					Main.NewText(NPC.ai[0]);
+				}
+			} else if (NPC.ai[0] == 2)
+			{
+				if (NPC.ai[1] < 2f)
+				{
+					NPC.Center += new Vector2(100,0); //lmao hes just leaving fuck you
+					NPC.ai[1] = 2f;
+				}
+				if (NPC.ai[1] > 60f)
+				{
+					NPC.ai[1] = 0f;
+					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()*1)+1;
+					Main.NewText(NPC.ai[0]);
+				}
+			}
+			NPC.ai[1]+=1f;
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
