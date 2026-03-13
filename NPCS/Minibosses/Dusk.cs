@@ -10,7 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.NPCs.Minibosses
+namespace ArcaneOdyssey.NPCS.Minibosses
 {
 	[AutoloadBossHead]
 	public class Dusk : AOMiniboss
