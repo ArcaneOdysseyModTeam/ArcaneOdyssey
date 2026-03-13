@@ -27,11 +27,14 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
 			Projectile.timeLeft = 6 * 60;
-			originPos = Projectile.Center;
 		}
 
 		public override void AI()
 		{
+			if (timeAlive < 2)
+			{
+				originPos = Projectile.Center;
+			}
 			if (Projectile.wet && !(Projectile.lavaWet || Projectile.honeyWet || Projectile.shimmerWet))
 			{
 				Kill();
