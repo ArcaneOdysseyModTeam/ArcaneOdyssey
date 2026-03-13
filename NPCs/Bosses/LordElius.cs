@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
-using JetBrains.Annotations;
+using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -29,6 +29,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			NPC.lifeMax = 3000;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
@@ -43,15 +44,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.trapImmune = true;
 			NPC.lavaImmune = true;
 			NPC.boss = true;
-			Music = AOUtils.GetMusic("Elius");
 			SpawnModBiomes = [AOUtils.BiomeType<EliusArena>()];
 		}
+
+		public override AOMusicTrack Theme => AOMusicTrack.Elius;
 
 		public bool sentMessage = false;
 		private bool hasSetSpawnLocation = false;
 		public Vector2 spawnLocation;
 		
-
 		public override void AI()
 		{
 			Main.raining = true;

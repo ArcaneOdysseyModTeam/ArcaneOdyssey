@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -55,7 +56,7 @@ namespace ArcaneOdyssey.Biomes
 			player.ArcaneOdyssey().EliusArenaCounter = 0;
 		}
 
-		public override int Music => AOUtils.GetMusic("TitleTheme"); // change to TitleTheme2 or ambient theme later
+		public override int Music => AOMusicTrack.TitleTheme2.MusicSlot; // change to ambient theme later
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 	}

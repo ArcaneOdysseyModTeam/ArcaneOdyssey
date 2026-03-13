@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.NPCs.Town
 	{
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			NPC.townNPC = true;
 			NPC.friendly = true;
 			NPC.height = 44;

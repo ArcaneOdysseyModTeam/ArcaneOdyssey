@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdysseyMusic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -61,7 +62,7 @@ namespace ArcaneOdyssey.Titles
 
 		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>(AOUtils.BlankTexture);
 
-		public override int Music => AOUtils.GetMusic(Titles[SelectedTitle]);
+		public override int Music => Titles[SelectedTitle].MusicSlot;
 
 		public override void Update(bool isOnTitleScreen)
 		{
@@ -118,12 +119,12 @@ namespace ArcaneOdyssey.Titles
 			return false;
 		}
 
-		public static Dictionary<string, string> Titles = new
+		public static Dictionary<string, AOMusicTrack> Titles = new
 			(
-			[
-				KeyValuePair.Create("Classic", "TitleTheme"), // change to TitleTheme2 later
-				KeyValuePair.Create("Pixel", "TitleTheme"),
-			]
+				[
+					KeyValuePair.Create("Classic", AOMusicTrack.TitleTheme2),
+					KeyValuePair.Create("Pixel", AOMusicTrack.TitleTheme),
+				]
 			);
 
 		public static string SelectedTitle;

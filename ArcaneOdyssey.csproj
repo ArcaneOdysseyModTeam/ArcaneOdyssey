@@ -9,6 +9,7 @@
 		<Compile Remove="**\*.kra~" />
 		<Compile Remove="**\*.png~" />
 		<Compile Remove="**\*.md" />
+		<Compile Remove="**\*.tmod" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="**\*.py" />
@@ -16,16 +17,17 @@
 		<None Remove="**\*.kra~" />
 		<None Remove="**\*.png~" />
 		<None Remove="**\*.md" />
+		<None Remove="**\*.tmod" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Effects\MagicCircles" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="ArcaneOdysseyMusic">
-			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
+			<HintPath>references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
 		<Reference Include="StructureHelper">
-		  <HintPath>..\references\StructureHelper.dll</HintPath>
+		  <HintPath>references\StructureHelper.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 

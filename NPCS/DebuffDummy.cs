@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ArcaneOdysseyMusic;
+using Terraria;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.NPCs
@@ -12,6 +13,7 @@ namespace ArcaneOdyssey.NPCs
 
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			NPC.lifeMax = int.MaxValue / 100;
 			NPC.noGravity = true;
 			NPC.damage = 0;
@@ -25,9 +27,13 @@ namespace ArcaneOdyssey.NPCs
 			NPC.lavaImmune = false;
 #if VSDEBUGMODE
 			NPC.boss = true;
-			Music = AOUtils.GetMusic("Atlantean");
-#endif
 		}
+
+		public override AOMusicTrack Theme => AOMusicTrack.Atlantean;
+#else
+		}
+#endif
+
 
 		public override void AI()
 		{

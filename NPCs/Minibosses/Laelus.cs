@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 	[AutoloadBossHead]
 	public class Laelus : AOMiniboss
 	{
-		public override int AOHealth => 350;
+		public override int AOHealth => 650;
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<LaelusExplosion>()];
 		public override List<int> RangedProjectiles => [ModContent.ProjectileType<LaelusBlast>()];
 

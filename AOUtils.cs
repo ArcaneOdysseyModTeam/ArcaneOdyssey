@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.VFX.Rarities;
-using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -44,8 +43,6 @@ namespace ArcaneOdyssey
 		public const string SlashTexture = ArcaneOdysseyMod.InternalName + "/Assets/BasicSlash";
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
-
-		public static int GetMusic(string name) => MusicLoader.GetMusicSlot(ArcaneOdysseyMusicMod.Instance, "Music/" + name);
 
 		internal static List<string> options = [
 			"Terraria FavoriteDesc",
