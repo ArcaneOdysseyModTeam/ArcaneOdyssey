@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			Main.raining = true;
 			Main.rainTime = 2;
-			Main.windSpeedTarget = MathHelper.Lerp(-.8f, .4f, NPC.life / (float)NPC.lifeMax);
+			Main.windSpeedTarget = MathHelper.Lerp(-.8f, -.4f, NPC.life / (float)NPC.lifeMax);
 			Main.maxRaining = MathHelper.Lerp(1, .7f, NPC.life / (float)NPC.lifeMax);
 
 
