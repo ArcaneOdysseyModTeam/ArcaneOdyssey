@@ -3,8 +3,10 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
@@ -13,22 +15,27 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 	{
 		public override string Texture => AOUtils.BlankTexture;
 
-
 		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.DamageType = DamageClass.Summon;
-			Projectile.height = Projectile.width = 40; // hitscan
+			Projectile.height = Projectile.width = 20; // hitscan
 			Projectile.extraUpdates = 4;
 			Projectile.timeLeft = 90;
 			Projectile.hostile = true;
 		}
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ProjectileID.Sets.TrailingMode[Type] = 0;
+		}
+
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			target.AddBuff(ModContent.BuffType<DrainedEffect>(), 60 * 5);
-			Imbue?.KillEffects(Projectile.Hitbox, Projectile);
 		}
 
 		public bool sentMessage = false;
@@ -39,7 +46,15 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 				sentMessage = true;
 				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour() ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
-			Imbue.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+
+			foreach (var pos in Projectile.oldPos.Reverse())
+			{
+				if (Projectile.numUpdates == 0)
+				{
+					Imbue.LingeringEffects(Projectile.Hitbox with { Location = pos.ToPoint() }, Projectile.velocity, Projectile);
+				}
+			}
+
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
@@ -61,6 +76,11 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 					}
 				}
 			}
+		}
+
+		public override void OnKill(int timeLeft)
+		{
+			Imbue?.KillEffects(Projectile.Hitbox, Projectile);
 		}
 
 		public override bool PreDraw(ref Color lightColor) => false;

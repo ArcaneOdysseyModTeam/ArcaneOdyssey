@@ -75,10 +75,9 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			}
 		}
 
-		public override bool PreKill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Count--;
-			return base.PreKill(timeLeft);
 		}
 	}
 }

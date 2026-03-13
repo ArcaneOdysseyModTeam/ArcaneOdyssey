@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
-		public override bool PreKill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (!Main.dedServ)
 			{
@@ -50,7 +50,6 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 					Imbue?.ExplosionEffects(Projectile.Center);
 				}
 			}
-			return base.PreKill(timeLeft);
 		}
 	}
 }

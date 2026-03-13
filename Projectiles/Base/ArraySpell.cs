@@ -223,7 +223,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			}
 		}
 
-		public override bool PreKill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (Proj1Active)
 			{
@@ -245,7 +245,6 @@ namespace ArcaneOdyssey.Projectiles.Base
 				Imbue?.KillEffects(Proj4, Projectile);
 				SecondImbue?.KillEffects(Proj4, Projectile);
 			}
-			return base.PreKill(timeLeft);
 		}
 
 		public override void PostDraw(Color lightColor)

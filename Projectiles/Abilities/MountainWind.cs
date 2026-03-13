@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			}
 		}
 
-		public override bool PreKill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (!Main.dedServ)
 			{
@@ -90,8 +90,6 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 					}
 				}
 			}
-
-			return base.PreKill(timeLeft);
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

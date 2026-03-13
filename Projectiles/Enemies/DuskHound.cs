@@ -96,10 +96,9 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			}
 		}
 
-		public override bool PreKill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Imbue?.KillEffects(Projectile.Hitbox, Projectile);
-			return base.PreKill(timeLeft);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

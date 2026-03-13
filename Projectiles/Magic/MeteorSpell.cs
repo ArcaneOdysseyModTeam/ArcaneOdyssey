@@ -76,7 +76,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			//	Imbue.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 2f));
 		}
 
-		public override bool PreKill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (!Main.dedServ)
 			{
@@ -88,8 +88,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					}
 				}
 			}
-
-			return base.PreKill(timeLeft);
 		}
 
 		public string BackupTexture = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");

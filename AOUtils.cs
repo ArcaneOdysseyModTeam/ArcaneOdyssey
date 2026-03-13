@@ -22,6 +22,8 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Base;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 
 namespace ArcaneOdyssey
 {
@@ -492,6 +494,44 @@ namespace ArcaneOdyssey
 					if (modifiers.GetDamage(damage) > 0 && source.TryGetOwner(out Player player) && Main.myPlayer == player.whoAmI)
 					{
 						target.HitNPC(modifiers.GetDamage(damage), ((target.Center - origin).X > 0).ToDirectionInt(), source.AnyArcaneOdyssey()?.Imbue, player, false, knockback, damageClass, true);
+					}
+				}
+			}
+		}
+
+		public static void DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None, SpriteBatch batch = null)
+		{
+			batch ??= Main.spriteBatch;
+
+			var size = new Vector2(sprite.Width, sprite.Height / maxframes) / 2f;
+
+			bool colourisntnull = colour.HasValue;
+
+			float angle = start.AngleTo(end) - MathHelper.PiOver2;
+			var height = (int)(sprite.Height * scale);
+
+			bool canKeepDrawing = true;
+			while (canKeepDrawing)
+			{
+				var source = sprite.Frame(1, maxframes, 0, frame);
+				float distance = start.Distance(end);
+				if (distance < (height + 1f))
+				{
+					canKeepDrawing = false;
+				}
+				else if (float.IsNaN(distance))
+				{
+					canKeepDrawing = false;
+				}
+				else
+				{
+					start += start.DirectionTo(end) * height;
+					if (colourisntnull)
+						colour = Lighting.GetColor((int)start.X / 16, (int)(start.Y / 16f));
+					batch.Draw(sprite, start - Main.screenPosition, source, colour.Value, angle, size, scale, effects, 0f);
+					if (++frame >= maxframes)
+					{
+						frame = 0;
 					}
 				}
 			}
