@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 {
 	public class VesuviusMagic : AOMagic
 	{
-		public override Color ImbueColour => new(0, 0, 255);
+		public override Color ImbueColour => new(0, 130, 255);
 		public override float AOImbueSpeed => 1.2f;
 		public override float AOImbueSize => 3f;
 		public override float AOImbueDamage => 2f;
