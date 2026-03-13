@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.Titles
 
 			spriteBatch.End();
 
-			if (SelectedTitle == "Classic" || SelectedTitle == "Pixel")
+			if (SelectedTitle == "Classic")
 			{
 				if (Raindrops.Count <= 800)
 				{
@@ -128,7 +128,7 @@ namespace ArcaneOdyssey.Titles
 
 		public static string SelectedTitle;
 
-		public override void Load()
+		public override void OnSelected()
 		{
 			SelectedTitle = Main.rand.Next(Titles.Keys.ToList());
 		}

@@ -3,7 +3,6 @@ Armour: {
 		SunkenChest: {
 			DisplayName: Sunken Breastplate
 			Tooltip: It seems to constantly produce water
-
 			Set: Enemies that strike you are inflicted with Wet
 		}
 
@@ -46,7 +45,6 @@ Armour: {
 		RavennaChest: {
 			DisplayName: Ravenna Centurion Breastplate
 			Tooltip: ""
-
 			Set: Activate to slow your movement for extra defense
 		}
 
@@ -65,12 +63,11 @@ Armour: {
 		EliusChest: {
 			DisplayName: Ravenna Noble Armour
 			Tooltip: ""
-
-			Set: 
-				"""
+			Set:
+				'''
 				25% increased movement speed
 				Increased jump height
-				"""
+				'''
 		}
 
 		EliusHelm: {
