@@ -78,6 +78,8 @@ namespace ArcaneOdyssey
 			"Terraria Tooltip",
 		];
 
+		public static int BiomeType<T>() where T : ModBiome => ModContent.GetInstance<T>()?.Type ?? 0;
+
 		public static string GetBuffName(int id)
 		{
 			if (!(id <= 0 || id >= BuffLoader.BuffCount))
@@ -1565,15 +1567,14 @@ namespace ArcaneOdyssey
 		private Color Colour = colour;
 		public string[] OtherItems = otherItems;
 
-		public static string Key(ModItem item, string suffix)
+		public static string Key(ModItem item)
 		{
-			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Set.{suffix}";
+			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Set";
 		}
 
-		public LocalizedText LocalizedName = Language.GetOrRegister(Key(moditem, "DisplayName"), () => Key(moditem, "DisplayName"));
-		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem, "Description"), () => Key(moditem, "Description"));
+		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem), () => Key(moditem));
 
-		public readonly string Tooptip => $"[c/{Colour.Hex3()}:{LocalizedName.Value}]: {LocalizedDescription.Value}";
+		public readonly string Tooptip => LocalizedDescription.Value;
 	}
 
 	public struct ImbueArmourStats(int size = 0, int attkspeed = 0, int power = 0, int defence = 0, int agility = 0, int pierce = 0, int haste = 0)

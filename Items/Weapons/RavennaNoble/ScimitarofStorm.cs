@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 			knockback /= 2;
 		}
 
-		public override Color Colour => Color.Gold;
+		public override Color Colour => Color.MediumPurple;
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

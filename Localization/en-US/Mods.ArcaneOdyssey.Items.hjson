@@ -4,10 +4,7 @@ Armour: {
 			DisplayName: Sunken Breastplate
 			Tooltip: It seems to constantly produce water
 
-			Set: {
-				DisplayName: Aquatic Rebuttal
-				Description: Enemies that strike you are Wet
-			}
+			Set: Enemies that strike you are inflicted with Wet
 		}
 
 		SunkenBoots: {
@@ -50,10 +47,7 @@ Armour: {
 			DisplayName: Ravenna Centurion Breastplate
 			Tooltip: ""
 
-			Set: {
-				DisplayName: Ravenna Bulwark
-				Description: Slows your movement for extra defense
-			}
+			Set: Activate to slow your movement for extra defense
 		}
 
 		RavennaHelm: {
@@ -72,10 +66,11 @@ Armour: {
 			DisplayName: Ravenna Noble Armour
 			Tooltip: ""
 
-			Set: {
-				DisplayName: Lightning Speed
-				Description: Higher jumps and 25% increased movement speed
-			}
+			Set: 
+				"""
+				25% increased movement speed
+				Increased jump height
+				"""
 		}
 
 		EliusHelm: {

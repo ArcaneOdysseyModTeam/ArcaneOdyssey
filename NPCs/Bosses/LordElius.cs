@@ -1,8 +1,9 @@
-﻿using ArcaneOdyssey.Items.Armour.RavennaNoble;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,6 +14,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange([
+				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
+			]);
 		}
 
 		public override void SetDefaults()
@@ -32,24 +42,23 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.lavaImmune = true;
 			NPC.boss = true;
 			Music = AOUtils.GetMusic("Elius");
+			SpawnModBiomes = [AOUtils.BiomeType<EliusArena>()];
 		}
 
 		public bool sentMessage = false;
 
 		public override void AI()
 		{
-			//if (!Main.raining)
-			//{
-			//	Main.StartRain();
-			//}
 			Main.raining = true;
-			Main.windSpeedTarget = -.4f;
-			Main.maxRaining = .7f;
 			Main.rainTime = 2;
+			Main.windSpeedTarget = MathHelper.Lerp(-.8f, .4f, NPC.life / (float)NPC.lifeMax);
+			Main.maxRaining = MathHelper.Lerp(1, .7f, NPC.life / (float)NPC.lifeMax);
+
 
 			if (!sentMessage)
 			{
 				Main.NewText(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".SpawnMessage"), Color.MediumPurple);
+				CombatText.NewText(NPC.Hitbox, Color.MediumPurple, Mod.CustomLocalization(LocalizationCategory + "." + Name + ".SpawnMessage").Value, true);
 				sentMessage = true;
 			}
 
@@ -69,6 +78,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void OnKill()
 		{
 			DownedBosses.downedElius = true;
+			Main.windSpeedTarget = -.1f;
 			if (Main.dedServ)
 			{
 				NetMessage.SendData(MessageID.WorldData);

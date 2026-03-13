@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.Titles
 
 			spriteBatch.End();
 
-			if (SelectedTitle == "Classic")
+			if (SelectedTitle == "Classic" || SelectedTitle == "Pixel")
 			{
 				if (Raindrops.Count <= 800)
 				{
@@ -122,7 +122,7 @@ namespace ArcaneOdyssey.Titles
 			(
 			[
 				KeyValuePair.Create("Classic", "TitleTheme"), // change to TitleTheme2 later
-
+				KeyValuePair.Create("Pixel", "TitleTheme"),
 			]
 			);
 

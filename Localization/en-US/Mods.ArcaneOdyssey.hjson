@@ -11,6 +11,7 @@ Bestiary: {
 	Evander: A bounty hunter born and raised in a faraway land, Evander gained the title 'Mountainbreaker' for his great strength. Using his colossal greatsword, he can send enormous slashes at his enemies, and use his overwhelming strength and reach to dominate at both long and close ranges.
 	Dusk: Her true name and history are unknown. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
 	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band. Despite carrying a custom made dagger, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks with the Tidestone Band.
+	LordElius: Lord Elius is a young man from a noble family in the Ravenna Realm. Despite his young age, he is talented in his usage of magic alongside his weapons.
 }
 
 MenuStyle: Odyssey Style
@@ -391,6 +392,11 @@ Achievements: {
 	PettyTheft: {
 		FriendlyName: Petty Theft
 		Description: Defeat Laelus the Thief, a bandit that foolishly wields a stolen relic.
+	}
+
+	EliusKilled: {
+		FriendlyName: Prince of Storm
+		Description: Defeat Lord Elius, the thundering magic-casting noble.
 	}
 }
 
