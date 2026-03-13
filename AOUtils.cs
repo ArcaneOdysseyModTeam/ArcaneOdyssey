@@ -23,7 +23,6 @@ using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 
 namespace ArcaneOdyssey
 {
