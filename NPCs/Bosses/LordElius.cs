@@ -79,7 +79,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.ai[0] = 1f;
 				NPC.ai[1] = 0f;
 			}
-			//apply the player slayer if the player is out of range here
 
 			// ai here, red
 			if (NPC.ai[0] == 1)

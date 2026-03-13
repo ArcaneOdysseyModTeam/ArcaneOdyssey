@@ -335,8 +335,8 @@ Normal: {
 Developer: {
 	VesuviusMagic: {
 		DisplayName: Vesuvius Magic
-		Tooltip: Dedicated to [c/ff2b00:RedBirb1508]
-		AttackPrefix: Unholy
+		Tooltip: Dedicated to [c/aa2b00:RedBirb1508]
+		AttackPrefix: Vesuvian
 		SpellPrefix: Vesuvius
 	}
 
