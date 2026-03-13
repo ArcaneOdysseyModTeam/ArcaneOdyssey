@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override bool Special => true;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit54;
-		public override Color ImbueColour => Color.Lerp(new(0, 34, 41), Color.Black, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
+		public override Color ImbueColour => Color.Lerp(new(0, 200, 150), Color.Black, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 		public override float AOScrollSpeed => 1f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1.5f;
@@ -26,6 +26,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<DeathDust>(), direction.X * 0.5f, direction.Y * 0.5f, Scale: 2f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Vortex, direction.X * 0.5f, direction.Y * 0.5f, Scale: 1f * area.RelativeScale())];
+				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -33,6 +35,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<DeathDust>(), Scale: 2.3f)];
 			spawnedDust.noGravity = true;
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Vortex, Scale: 1.3f)];
+			spawnedDust2.noGravity = true;
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
@@ -41,6 +45,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<DeathDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2f * intensity)];
+				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -50,6 +56,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<DeathDust>(), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 4f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Vortex, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
+				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
