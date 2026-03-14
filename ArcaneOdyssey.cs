@@ -257,6 +257,9 @@ namespace ArcaneOdyssey
 			downedLaelus = false;
 			downedCrone = false;
 			downedDelamere = false;
+			downedLaelus = false;
+			downedWorldEater = false;
+			downedBrain = false;
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();
@@ -278,6 +281,10 @@ namespace ArcaneOdyssey
 				downed.Add("Crone");
 			if (downedLaelus)
 				downed.Add("Laelus");
+			if (downedBrain)
+				downed.Add("Brain");
+			if (downedWorldEater)
+				downed.Add("EoW");
 
 			tag["downed"] = downed;
 		}
@@ -291,6 +298,8 @@ namespace ArcaneOdyssey
 			downedLaelus = downed.Contains("Laelus");
 			downedDelamere = downed.Contains("Delamere");
 			downedEnragedEmpress = downed.Contains("EnragedEoL");
+			downedBrain = downed.Contains("Brain");
+			downedWorldEater = downed.Contains("EoW");
 		}
 
 		public override void PostUpdateWorld()
@@ -325,14 +334,14 @@ namespace ArcaneOdyssey
 		{
 			if (npc.type == NPCID.HallowBoss)
 			{
-				//if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
-				//{
-				//	DownedBosses.downedEnragedEmpress = true;
-				//	if (Main.dedServ)
-				//	{
-				//		NetMessage.SendData(MessageID.WorldData);
-				//	}
-				//}
+				if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+				{
+					DownedBosses.downedEnragedEmpress = true;
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
 			}
 
 			if (npc.type == NPCID.EaterofWorldsHead)

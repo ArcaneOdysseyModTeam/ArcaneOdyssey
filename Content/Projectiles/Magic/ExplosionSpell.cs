@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Content.Projectiles.Magic
 		{
 			var size = isPlacedExplosion ? 1f : 1.2f;
 			if (AOPlayerOwner.myCircle is not null)
-				AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f));
+				AOPlayerOwner.myCircle.scale = charge * Imbue.AOScrollSize * (size * (3f / 4f)) * (100 / 2000f);
 			if (Projectile.position != Projectile.oldPosition)
 			{
 				if (Projectile.owner == Main.myPlayer)
