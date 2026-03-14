@@ -7,5 +7,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 	{
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override Debuff? ProjectileDebuff => Debuff.Create<CharredEffect>();
+
+		public override float AOSize => 1.15f;
 	}
 }

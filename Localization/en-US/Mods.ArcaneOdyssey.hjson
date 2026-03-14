@@ -14,7 +14,7 @@ Bestiary: {
 	LordElius: Lord Elius is a young man from a noble family in the Ravenna Realm. Despite his young age, he is talented in his usage of magic alongside his weapons.
 }
 
-MenuStyle: Odyssey Style
+MenuStyle: Odyssey ({0} Style)
 
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}

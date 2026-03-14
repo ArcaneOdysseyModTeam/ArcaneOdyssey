@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.MainMenus
 
 		public Texture2D BackgroundTexture => Mod.Assets.Request<Texture2D>("MainMenus/Images/" + SelectedTitle).Value;
 
-		public override string DisplayName => Mod.CustomLocalization("MenuStyle").Value;
+		public override string DisplayName => Mod.CustomLocalization("MenuStyle", SelectedTitle).Value;
 
 		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<TheTitleStyle>();
 
