@@ -43,7 +43,6 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.frame = 1;
 		}
 
-		private Vector2 RotationOrigin;
 		private int OriginalDir;
 
 		public override void AI()
@@ -57,7 +56,6 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 					Projectile.netSpam = 0;
 				}
 				Projectile.velocity = Vector2.Zero;
-				RotationOrigin = Owner.RotatedRelativePoint(Owner.MountedCenter);
 				OriginalDir = Owner.direction;
 			}
 			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * ApplySpeed(1.25f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
@@ -65,7 +63,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
-				Owner.itemRotation = RotationOrigin.DirectionTo(Projectile.Center + Projectile.rotation.ToRotationVector2()).ToRotation() + (Owner.direction == 1 ? 0f : MathHelper.PiOver2);
+				Owner.itemRotation = Projectile.rotation + MathHelper.PiOver4 + (Owner.direction == 1 ? 0f : -MathHelper.PiOver2);
 				//AOPlayerOwner.HeavySkillActive = true;
 				Owner.PlayerItem().noMelee = true;
 			}

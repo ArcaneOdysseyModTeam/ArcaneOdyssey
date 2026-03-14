@@ -170,7 +170,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			else
 			{
-				options.Add(ModContent.ItemType<RareScroll>());
+				options.Add(ModContent.ItemType<RareEmptyScroll>());
 			}
 
 			return [.. options];
