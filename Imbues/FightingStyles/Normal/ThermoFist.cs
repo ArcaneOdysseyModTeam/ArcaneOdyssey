@@ -145,13 +145,10 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override void PostUpdate()
 		{
-			if (Player.TryGetImbue(out Imbuable imbue))
+			if (Player.HasTypeInInventory<ThermoFist>(out var thermo))
 			{
-				if (imbue is ThermoFist thermo && thermo.GetThisImbue(Player))
-				{
-					if (!Player.ArcaneOdyssey().OnCooldown(thermo.Name))
-						thermo.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-				}
+				if (!Player.ArcaneOdyssey().OnCooldown(thermo.Name))
+					thermo.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 			}
 		}
 	}

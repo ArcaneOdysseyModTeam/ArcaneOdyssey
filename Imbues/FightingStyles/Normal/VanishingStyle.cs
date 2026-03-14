@@ -98,20 +98,11 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public const float BarMin = FightingStyleBarred.BarMin;
 		public override void PreUpdate()
 		{
-			if (Player.ArcaneOdyssey()?.Imbue is VanishingStyle vanish && vanish.GetThisImbue(Player))
+			if (Player.HasTypeInInventory<VanishingStyle>(out var vanish))
 			{
 				Player.opacityForAnimation = vanish.LerpValue.FlipFloat() - 1f;
 				if (!Player.ArcaneOdyssey().OnCooldown(vanish.Name))
 					vanish.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-			}
-			else if (Player.HasTypeInInventory<VanishingStyle>(out var vanish1))
-			{
-				if (vanish1.GetThisImbue(Player))
-				{
-					Player.opacityForAnimation = vanish1.LerpValue.FlipFloat() - 1f;
-					if (!Player.ArcaneOdyssey().OnCooldown(vanish1.Name))
-						vanish1.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-				}
 			}
 		}
 	}

@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.AOPlayers
 {
 	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{
-		public override string Texture => Mod.Name + "/Assets/Debuff";
+		public override string Texture => AOUtils.DebuffTexture;
 		public virtual string ExtraIconTexture => null;
 
 		public override void SetStaticDefaults()

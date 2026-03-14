@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossTrophies;
+using ArcaneOdyssey.Items.Scrolls.Usable.Common;
+using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
@@ -75,6 +77,8 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NyxStaff>(), 4));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DuskMask>(), 4));
+			npcLoot.Add(AOUtils.Common<RainRite>(4));
+			npcLoot.Add(AOUtils.Common<HoundRite>(4));
 			npcLoot.Add(AOUtils.Common<DuskTrophy>(10));
 		}
 	}

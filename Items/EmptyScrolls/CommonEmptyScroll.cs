@@ -3,12 +3,12 @@ using ArcaneOdyssey.Items.Base;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items
+namespace ArcaneOdyssey.Items.EmptyScrolls
 {
-	[LegacyName("Paper")] // common removed items are added here
-	public class EmptyScroll : AOBaseItem
+	[LegacyName("Paper", "EmptyScroll")]
+	public class CommonEmptyScroll : AOBaseItem
 	{
-		public override AORarities AORarity => AORarities.Junk;
+		public override AORarities AORarity => AORarities.Common;
 
 		public override void UpdateInventory(Player player)
 		{

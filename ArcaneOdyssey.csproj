@@ -4,25 +4,26 @@
 		<DefineConstants>$(DefineConstants);VSDEBUGMODE</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
+		<AdditionalFiles Remove="references\**" />
 		<Compile Remove="**\*.py" />
 		<Compile Remove="**\*.kra" />
 		<Compile Remove="**\*.kra~" />
 		<Compile Remove="**\*.png~" />
 		<Compile Remove="**\*.md" />
 		<Compile Remove="**\*.tmod" />
-	</ItemGroup>
-	<ItemGroup>
+		<Compile Remove="**\*.dll" />
+		<Compile Remove="**\*.pdb" />
+		<Compile Remove="**\*.kra" />
+		<Compile Remove="references\**" />
+		<EmbeddedResource Remove="references\**" />
 		<None Remove="**\*.py" />
-		<None Remove="**\*.kra" />
 		<None Remove="**\*.kra~" />
 		<None Remove="**\*.png~" />
 		<None Remove="**\*.md" />
 		<None Remove="**\*.tmod" />
-	</ItemGroup>
-	<ItemGroup>
+		<None Remove="**\*.kra" />
+		<None Remove="references\**" />
 		<Folder Include="Effects\MagicCircles" />
-	</ItemGroup>
-	<ItemGroup>
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
@@ -30,7 +31,4 @@
 		  <HintPath>references\StructureHelper.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-
-	<!-- References -->
-
 </Project>

@@ -29,16 +29,6 @@ namespace ArcaneOdyssey
 	{
 		public static float UpdateCount => Main.GameUpdateCount / 100f;
 
-		/// <summary>
-		/// Spawns gore, centred to the <paramref name="centre"/>
-		/// </summary>
-		public static Gore SpawnGore(IEntitySource source, Vector2 centre, Vector2 velocity, int type, float scale = 1f)
-		{
-			var gore = Gore.NewGorePerfect(source, centre, velocity, type, scale);
-			gore.Centre(centre);
-			return gore;
-		}
-
 		public const string BlankTexture = ArcaneOdysseyMod.InternalName + "/Backgrounds/Blank";
 		public const string SlashTexture = ArcaneOdysseyMod.InternalName + "/Assets/BasicSlash";
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
@@ -77,26 +67,6 @@ namespace ArcaneOdyssey
 		];
 
 		public static int BiomeType<T>() where T : ModBiome => ModContent.GetInstance<T>()?.Type ?? 0;
-
-		public static string GetBuffName(int id)
-		{
-			if (!(id <= 0 || id >= BuffLoader.BuffCount))
-			{
-				if (id < BuffID.Count)
-				{
-					return Lang.GetBuffName(id);
-				}
-				else
-				{
-					var modbuff = ModContent.GetModBuff(id);
-					if (modbuff is not null)
-					{
-						return modbuff.DisplayName.Value;
-					}
-				}
-			}
-			return ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.None").Value;
-		}
 
 		public static IItemDropRule Common<T>(int chanceDenominator = 1, int minimumDropped = 1, int maximumDropped = 1) where T : ModItem
 		{
@@ -145,7 +115,7 @@ namespace ArcaneOdyssey
 
 		public static bool? ToNullableBool(this int value)
 		{
-			if (value == 2)
+			if (value == 0)
 			{
 				return null;
 			}
@@ -156,18 +126,14 @@ namespace ArcaneOdyssey
 		{
 			if (value.HasValue)
 			{
-				return value.Value.ToInt();
+				return value.Value.ToDirectionInt();
 			}
-			return 2;
+			return 0;
 		}
 
 		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd, Color? colour = null)
 		{
-			if (colour.HasValue)
-			{
-				toAdd.Text = $"[c/{colour.Value.Hex3()}:{toAdd.Text}]";
-			}
-
+			toAdd.OverrideColor = colour;
 			tooltips.Reverse();
 			options.Reverse();
 
@@ -267,20 +233,15 @@ namespace ArcaneOdyssey
 
 		public static float RelativeScale(this Rectangle rect, int scale = 64)
 		{
-			return MathHelper.Clamp((rect.Width + rect.Height) / 2f / scale, .5f, 2f);
+			return MathHelper.Clamp((rect.Width + rect.Height) / 2f / scale, .5f, 2.5f);
 		}
 
 		public static Imbuable Imbue(this Player player) => player?.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this ModPlayer player) => player?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this Projectile projectile) => projectile?.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this ModProjectile projectile) => projectile?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this Item item) => item?.ArcaneOdyssey()?.Imbue;
-		public static Imbuable Imbue(this ModItem item) => item?.ArcaneOdyssey()?.Imbue;
 
 		public static Imbuable SecondImbue(this Projectile projectile) => projectile?.ArcaneOdyssey()?.SecondImbue;
-		public static Imbuable SecondImbue(this ModProjectile projectile) => projectile?.ArcaneOdyssey()?.SecondImbue;
 		public static Imbuable SecondImbue(this Item item) => item?.ArcaneOdyssey()?.SecondImbue;
-		public static Imbuable SecondImbue(this ModItem item) => item?.ArcaneOdyssey()?.SecondImbue;
 
 		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int Alpha = 0, Color newColor = default, float Scale = 1f)
 		{
@@ -318,14 +279,6 @@ namespace ArcaneOdyssey
 				npc.StrikeInstantKill();
 			}
 		}
-
-		public static StatInheritanceData WarlordInheritance => QuickInheritance(1.1f);
-		public static StatInheritanceData MostInheritance => QuickInheritance(.9f);
-		public static StatInheritanceData ThreeQuartersInheritance => QuickInheritance(.75f);
-		public static StatInheritanceData QuarterInheritance => QuickInheritance(.25f);
-		public static StatInheritanceData HalfInheritance => QuickInheritance(.5f);
-		public static StatInheritanceData QuickInheritance(float num) => new(num, num, num, num, num); // makes me hungry
-		public static StatInheritanceData QuickInheritance(double num) => new((float)num, (float)num, (float)num, (float)num, (float)num); // makes me less hungry
 
 		public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
 		{
@@ -851,7 +804,7 @@ namespace ArcaneOdyssey
 			return false;
 		}
 		public static bool IsTileSolidGround(this Tile tile) => tile != null && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
-		public static bool IsTileReallySolidGround(this Tile tile) => tile != null && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]);
+		public static bool IsTileReallySolidGround(this Tile tile) => tile != null && tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
 
 		public static bool TryGetSecondImbue(this Entity entity, Imbuable imbue, out Imbuable secondimbue)
 		{
@@ -1024,21 +977,15 @@ namespace ArcaneOdyssey
 			return imbue is not null;
 		}
 
-		public static bool TryGetImbue(this ModPlayer player, out Imbuable imbue)
-		{
-			imbue = player.Player.ArcaneOdyssey()?.Imbue;
-			return imbue is not null;
-		}
-
 		public static bool ServerOrSingleplayer => Main.netMode != NetmodeID.MultiplayerClient;
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 
 		public static Rectangle ScreenRect => new(Main.screenPosition.X.Round(), Main.screenPosition.Y.Round(), Main.screenWidth, Main.screenHeight);
 
-		public static bool OnScreen(this Entity entity)
+		public static bool OnScreen(this Rectangle Hitbox)
 		{
-			return entity.Hitbox.Intersects(ScreenRect);
+			return Hitbox.Intersects(ScreenRect);
 		}
 
 		public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
@@ -1126,13 +1073,13 @@ namespace ArcaneOdyssey
 				List<bool> conditions = [];
 				if (checklistfailed || !ModLoader.TryGetMod("BossChecklist", out var checklist))
 				{
-					conditions.AddRange([DownedBosses.downedEvander, DownedBosses.downedLaelus, DownedBosses.downedCrone, DownedBosses.downedDelamere, DownedBosses.downedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
-					if (ModLoader.TryGetMod("CalamityMod", out var cal))
+					conditions.AddRange([DownedBosses.downedEvander, DownedBosses.downedElius, DownedBosses.downedCalvus, DownedBosses.downedAllanon, DownedBosses.downedArgos, DownedBosses.downedLaelus, DownedBosses.downedCrone, DownedBosses.downedDelamere, DownedBosses.downedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
+					if (ExternalModSupport.HasCalamity)
 					{
 						string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
 						foreach (var boss in extrBosses)
 						{
-							conditions.Add((bool)cal.Call("GetBossDowned", boss));
+							conditions.Add((bool)ExternalModSupport.Calamity.Call("GetBossDowned", boss));
 						}
 					}
 				}
@@ -1154,10 +1101,10 @@ namespace ArcaneOdyssey
 					else
 					{
 						checklistfailed = true;
-						return AOUtils.BossesKilled;
+						return BossesKilled;
 					}
 				}
-				foreach (bool killed in conditions)
+				foreach (var killed in conditions)
 				{
 					if (killed)
 						count++;
@@ -1374,7 +1321,7 @@ namespace ArcaneOdyssey
 		/// <param name="AODamage">AO weapon damage multiplier</param>
 		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOItemTiers"/></param>
 		/// <returns></returns>
-		public static float WeaponDamage(AOItemTiers AOWeaponTier) => 25 * (int)AOWeaponTier;
+		public static float WeaponDamage(AOItemTiers AOWeaponTier) => 22 * (int)AOWeaponTier;
 
 		public static Vector2 Centre(this Gore gore, Vector2? newCentre)
 		{
@@ -1393,7 +1340,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="input">Input</param>
 		/// <returns></returns>
-		public static float FlipFloat(this float input) => MathHelper.Clamp(2f - input, .1f, 2f);
+		public static float FlipFloat(this float input) => MathHelper.Clamp(2f - input, .01f, 2f);
 
 		public static float MultiToPercent(this float multiplier) => multiplier - 1f; // wow simplest function on the earth
 
@@ -1489,33 +1436,6 @@ namespace ArcaneOdyssey
 			}
 			else return player.HeldItem;
 		}
-
-		public static Item PlayerItem(this ModPlayer player)
-		{
-			if (Main.myPlayer == player.Player.whoAmI && (!Main.mouseItem.IsAir) && Main.mouseItem.active)
-			{
-				return Main.mouseItem;
-			}
-			else return player.Player.HeldItem;
-		}
-
-		public static bool GetThisImbue(this Imbuable imbue, Player player)
-		{
-			if (imbue is not null)
-			{
-				foreach (var item in player.inventory)
-				{
-					if (item.active)
-					{
-						if (item.Name == imbue.DisplayName.Value)
-						{
-							return true;
-						}
-					}
-				}
-			}
-			return false;
-		}
 		#endregion
 
 		#region ArcaneOdyssey()
@@ -1526,8 +1446,6 @@ namespace ArcaneOdyssey
 				return playah;
 			return null;
 		}
-
-		public static AOPlayer ArcaneOdyssey(this ModPlayer player) => player?.Player?.ArcaneOdyssey();
 
 		public static AONPC ArcaneOdyssey(this NPC npc)
 		{
@@ -1543,16 +1461,12 @@ namespace ArcaneOdyssey
 			return null;
 		}
 
-		public static AOProjectile ArcaneOdyssey(this ModProjectile projectile) => projectile?.Projectile?.ArcaneOdyssey();
-
 		public static AOItem ArcaneOdyssey(this Item item)
 		{
 			if (item is not null && !item.IsAir && item.active && item.TryGetGlobalItem<AOItem>(out var item1))
 				return item1;
 			return null;
 		}
-
-		public static AOItem ArcaneOdyssey(this ModItem item) => item?.Item?.ArcaneOdyssey();
 
 		public static IImbuable AnyArcaneOdyssey(this Entity entity)
 		{
@@ -1583,13 +1497,6 @@ namespace ArcaneOdyssey
 		public string Name;
 		public string Description;
 		public Color Colour;
-	}
-
-	public enum DashType
-	{
-		Standard,
-		Burst,
-		Instant
 	}
 
 	/// <summary>

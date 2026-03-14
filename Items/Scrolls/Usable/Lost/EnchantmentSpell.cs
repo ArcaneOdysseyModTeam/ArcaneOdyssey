@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.EmptyScrolls;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Chat;
@@ -35,7 +36,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
 			}
 			else
 			{
-				Item.SetDefaults(ModContent.ItemType<EmptyScroll>());
+				Item.SetDefaults(ModContent.ItemType<CommonEmptyScroll>());
 			}
 			AOMagic.CreateMagicCircle(Item, player, Imbue);
 		}

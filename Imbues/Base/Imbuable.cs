@@ -384,7 +384,7 @@ namespace ArcaneOdyssey.Imbues.Base
 						{
 							req = Mod.CustomLocalization("ImbueStuff.Requirement", (ImbueDebuffs[0].debuffPercent * 100f).Round()).Value;
 						}
-						var debufftext = Mod.CustomLocalization("ImbueStuff.Debuffs", AOUtils.GetBuffName(ImbueDebuffs[0].debuffID) + req).Value;
+						var debufftext = Mod.CustomLocalization("ImbueStuff.Debuffs", Lang.GetBuffName(ImbueDebuffs[0].debuffID) + req).Value;
 						foreach (var debuff in ImbueDebuffs)
 						{
 							req = "";
@@ -394,7 +394,7 @@ namespace ArcaneOdyssey.Imbues.Base
 								{
 									req = Mod.CustomLocalization("ImbueStuff.Requirement", (debuff.debuffPercent * 100f).Round()).Value;
 								}
-								debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, AOUtils.GetBuffName(debuff.debuffID) + req).Value;
+								debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, Lang.GetBuffName(debuff.debuffID) + req).Value;
 							}
 						}
 						tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
@@ -415,13 +415,13 @@ namespace ArcaneOdyssey.Imbues.Base
 
 					if (CombinedDebuffs.Length > 0)
 					{
-						var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(CombinedDebuffs[0].requirement), AOUtils.GetBuffName(CombinedDebuffs[0].result));
+						var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(CombinedDebuffs[0].requirement), Lang.GetBuffName(CombinedDebuffs[0].result));
 						var debufftext = Mod.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
 						foreach (var debuff in CombinedDebuffs)
 						{
 							if (debuff.requirement != CombinedDebuffs[0].requirement)
 							{
-								aaaaa = Mod.CustomLocalization("ImbueStuff.Result", AOUtils.GetBuffName(debuff.requirement), AOUtils.GetBuffName(debuff.result));
+								aaaaa = Mod.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(debuff.requirement), Lang.GetBuffName(debuff.result));
 								debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
 							}
 						}
@@ -469,13 +469,13 @@ namespace ArcaneOdyssey.Imbues.Base
 			var syns = Effects.magicBuffMultipliers.Sorted(new Comparison<Synergy>(SortMultipliers));
 			if (syns.Count > 0)
 			{
-				text = Mod.CustomLocalization("ImbueStuff.SynergiesInfo", DisplayName.Value, AOUtils.GetBuffName(syns[0].buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", syns[0].multiplier).Value).Value;
+				text = Mod.CustomLocalization("ImbueStuff.SynergiesInfo", DisplayName.Value, Lang.GetBuffName(syns[0].buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", syns[0].multiplier).Value).Value;
 
 				foreach (var effect in syns)
 				{
 					if (effect.buffID != syns[0].buffID)
 					{
-						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(effect.buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", effect.multiplier).Value).Value;
+						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(effect.buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", effect.multiplier).Value).Value;
 					}
 				}
 			}
@@ -484,13 +484,13 @@ namespace ArcaneOdyssey.Imbues.Base
 			var clear = Effects.clearBuffs.OrderBy(e => Lang.GetBuffName(e.id)).ToArray();
 			if (clear.Length > 0)
 			{
-				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, AOUtils.GetBuffName(clear[0].id)).Value;
+				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, Lang.GetBuffName(clear[0].id)).Value;
 
 				foreach (var buff in clear)
 				{
 					if (buff.id != clear[0].id)
 					{
-						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, AOUtils.GetBuffName(buff.id)).Value;
+						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(buff.id)).Value;
 					}
 				}
 			}

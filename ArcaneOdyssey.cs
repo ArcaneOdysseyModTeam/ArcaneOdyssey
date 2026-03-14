@@ -11,7 +11,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.Graphics.Shaders;
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.NPCs.Town;
@@ -23,7 +22,7 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// disable all cooldowns and stuff lmao
 		/// </summary>
-		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
+		public const bool DevMode = ArcaneOdyssey.DevMode.devMode;
 		public const string InternalName = "ArcaneOdyssey";
 
 		public static Asset<Texture2D> MagicCircleSprite;
@@ -76,7 +75,6 @@ namespace ArcaneOdyssey
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
-
 			}
 		}
 
@@ -114,7 +112,7 @@ namespace ArcaneOdyssey
 				Key = "EliusArena",
 				Title = "Djin Ruins",
 				SubTitle = DisplayNameClean,
-				TitleColor = Color.Purple,
+				TitleColor = Color.LightGray,
 				TitleStroke = Color.MediumPurple,
 				Icon = icon.Value,
 			};
@@ -124,9 +122,9 @@ namespace ArcaneOdyssey
 	public class DevMode : ModSystem 
 	{
 		#if VSDEBUGMODE
-		public static bool devMode = true;
+		public const bool devMode = true;
 		#else
-		public static bool devMode = false;
+		public const bool devMode = false;
 		#endif
 	}
 
@@ -135,68 +133,6 @@ namespace ArcaneOdyssey
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
 		{
 			buffName = buffName.Replace("Imbue", "Gel");
-		}
-	}
-
-	public class DownedBosses : ModSystem
-	{
-		public static bool downedEvander;
-		public static bool downedDusk;
-		public static bool downedLaelus;
-		public static bool downedCrone;
-		public static bool downedDelamere;
-
-		public static bool downedElius;
-
-		public static bool downedEnragedEmpress;
-		public static bool downedWorldEater;
-		public static bool downedBrain;
-
-		public static void ResetDefaults()
-		{
-			downedEvander = false;
-			downedEnragedEmpress = false;
-			downedDusk = false;
-			downedLaelus = false;
-			downedCrone = false;
-			downedDelamere = false;
-		}
-
-		public override void OnWorldLoad() => ResetDefaults();
-
-		public override void OnWorldUnload() => ResetDefaults();
-
-		public override void SaveWorldData(TagCompound tag)
-		{
-			List<string> downed = [];
-			if (downedEvander)
-				downed.Add("Evander");
-			if (downedEnragedEmpress)
-				downed.Add("EnragedEoL");
-			if (downedDelamere)
-				downed.Add("Delamere");
-			if (downedDusk)
-				downed.Add("Dusk");
-			if (downedCrone)
-				downed.Add("Crone");
-			if (downedLaelus)
-				downed.Add("Laelus");
-			if (downedElius)
-				downed.Add("Elius");
-
-			tag["downed"] = downed;
-		}
-
-		public override void LoadWorldData(TagCompound tag)
-		{
-			var downed = tag.GetList<string>("downed");
-			downedEvander = downed.Contains("Evander");
-			downedDusk = downed.Contains("Dusk");
-			downedCrone = downed.Contains("Crone");
-			downedLaelus = downed.Contains("Laelus");
-			downedDelamere = downed.Contains("Delamere");
-			downedEnragedEmpress = downed.Contains("EnragedEoL");
-			downedElius = downed.Contains("Elius");
 		}
 	}
 

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Projectiles.Enemies;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -66,6 +67,8 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TidestoneBand>()));
+			npcLoot.Add(AOUtils.Common<BlastScroll>(4));
+			npcLoot.Add(AOUtils.Common<ExplosionScroll>(4));
 		}
 	}
 }

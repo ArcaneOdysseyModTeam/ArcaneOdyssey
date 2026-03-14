@@ -88,6 +88,15 @@ namespace ArcaneOdyssey
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstMechBossesKillDescription", () => "First Mechanical Trio Defeated").Value;
 	}
 
+	public class KilledABoss : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => AOUtils.BossesKilled > 0;
+
+		public bool CanShowItemDropInUI() => true;
+
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.KilledABossDescription", () => "Defeated at least one strong foe").Value;
+	}
+
 	public class MultiDropHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
 	{
 		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)

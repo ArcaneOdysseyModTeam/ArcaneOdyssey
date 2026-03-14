@@ -278,14 +278,26 @@ Potions: {
 	}
 }
 
-EmptyScroll: {
-	DisplayName: Empty Scroll
-	Tooltip: ""
-}
-
 Debug: {
 	EliusArenaSpawner: {
 		DisplayName: Elius Arena Spawner [DEBUG]
 		Tooltip: Forces Elius's arena to generate
+	}
+}
+
+EmptyScrolls: {
+	CommonEmptyScroll: {
+		DisplayName: Common Empty Scroll
+		Tooltip: ""
+	}
+
+	LostEmptyScroll: {
+		DisplayName: Lost Empty Scroll
+		Tooltip: ""
+	}
+
+	RareEmptyScroll: {
+		DisplayName: Rare Empty Scroll
+		Tooltip: ""
 	}
 }

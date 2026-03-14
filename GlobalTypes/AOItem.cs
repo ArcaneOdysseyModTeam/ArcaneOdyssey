@@ -27,6 +27,7 @@ using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.EmptyScrolls;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
@@ -761,27 +762,54 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 		}
+
 		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
-			if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
+			bool addedScrap = false;
+
+			if (item.type == ItemID.WoodenCrateHard)
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 25));
+				if (!addedScrap)
+				{
+					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 25));
+					addedScrap = true;
+				}
 			}
-			else if (item.type == ItemID.IronCrate || item.type == ItemID.IronCrateHard)
+
+			if (item.type == ItemID.IronCrateHard)
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 20));
+				if (!addedScrap)
+				{
+					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 20));
+					addedScrap = true;
+				}
 			}
-			else if (item.type == ItemID.GoldenCrate || item.type == ItemID.GoldenCrateHard)
+
+			if (item.type == ItemID.GoldenCrateHard)
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
+				if (!addedScrap)
+				{
+					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
+					addedScrap = true;
+				}
 			}
-			else if (ItemID.Sets.IsFishingCrateHardmode[item.type])
+
+			if (ItemID.Sets.IsFishingCrateHardmode[item.type])
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
+				if (!addedScrap)
+				{
+					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
+					addedScrap = true;
+				}
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<LostEmptyScroll>(), 100));
 			}
-			else if (ItemID.Sets.IsFishingCrate[item.type])
+
+			if (ItemID.Sets.IsFishingCrate[item.type])
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 10));
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CommonEmptyScroll>(), 10));
+				LeadingConditionRule rarescrollcondition = new(new KilledABoss());
+				rarescrollcondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RareScroll>(), 20));
+				itemLoot.Add(rarescrollcondition);
 			}
 
 			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])

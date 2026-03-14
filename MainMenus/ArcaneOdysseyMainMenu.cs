@@ -8,7 +8,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Titles
+namespace ArcaneOdyssey.MainMenus
 {
 	public class ArcaneOdysseyMainMenu : ModMenu
 	{
@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Titles
 
 		public static List<Raindrop> Raindrops = [];
 
-		public Texture2D BackgroundTexture => Mod.Assets.Request<Texture2D>("Titles/Images/" + SelectedTitle).Value;
+		public Texture2D BackgroundTexture => Mod.Assets.Request<Texture2D>("MainMenus/Images/" + SelectedTitle).Value;
 
 		public override string DisplayName => Mod.CustomLocalization("MenuStyle").Value;
 
