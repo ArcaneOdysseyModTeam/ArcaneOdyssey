@@ -227,3 +227,13 @@ SirenBow: {
 		Description: Launch arrows into the sky
 	}
 }
+
+Sanguine: {
+	DisplayName: Sanguine
+	Tooltip: ""
+
+	Ability: {
+		DisplayName: Sanguine Throw
+		Description: Throw the weapon on use
+	}
+}

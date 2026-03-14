@@ -59,12 +59,10 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				OriginalDir = Owner.direction;
 			}
 			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * ApplySpeed(1.25f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
-			//Projectile.Center = RotationOrigin + (Projectile.rotation.ToRotationVector2() * Projectile.scale * OriginalDir);
 			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
 				Owner.itemRotation = Projectile.rotation + MathHelper.PiOver4 + (Owner.direction == 1 ? 0f : -MathHelper.PiOver2);
-				//AOPlayerOwner.HeavySkillActive = true;
 				Owner.PlayerItem().noMelee = true;
 			}
 			else

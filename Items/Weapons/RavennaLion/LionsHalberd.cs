@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 			Item.axe = 105 / 5;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
+			Item.autoReuse = true;
 		}
 
 		public override bool AltFunctionUse(Player player) => Imbue is not null;

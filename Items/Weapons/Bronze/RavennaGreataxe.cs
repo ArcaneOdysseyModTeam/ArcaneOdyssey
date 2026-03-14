@@ -32,6 +32,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			Item.DamageType = AOUtils.TrueMelee();
 			Item.axe = 90 / 5;
 			Item.useStyle = ItemUseStyleID.Swing;
+			Item.autoReuse = true;
 		}
 
 		public override void AddRecipes()

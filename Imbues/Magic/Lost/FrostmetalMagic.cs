@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float? DashResist => 1.45f;
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 		public override Color ImbueColour => Color.Lerp(new(100, 100, 100), new(65, 150, 177), Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
-		public override float AOScrollSpeed => 0.6f;
+		public override float AOScrollSpeed => 0.65f;
 		public override float AOScrollSize => 1.2f;
 		public override float AOScrollDamage => 1.2f;
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, AOFrozen>()];

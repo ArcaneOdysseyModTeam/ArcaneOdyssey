@@ -10,7 +10,7 @@ Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
 	Evander: A bounty hunter born and raised in a faraway land, Evander gained the title 'Mountainbreaker' for his great strength. Using his colossal greatsword, he can send enormous slashes at his enemies, and use his overwhelming strength and reach to dominate at both long and close ranges.
 	Dusk: Her true name and history are unknown. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
-	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band. Despite carrying a custom made dagger, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks with the Tidestone Band.
+	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band. Despite carrying a dagger he also stole, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks.
 	LordElius: Lord Elius is a young man from a noble family in the Ravenna Realm. Despite his young age, he is talented in his usage of magic alongside his weapons.
 }
 
@@ -366,6 +366,7 @@ Projectiles: {
 		DevastateShockwave.DisplayName: Devastate Shockwave
 		ArrowStorm.DisplayName: Storm of Arrows
 		ArrowRain.DisplayName: Rain of Arrows
+		SanguineThrow.DisplayName: Sanguine Throw
 	}
 
 	DeathCurse.DisplayName: The Death Curse
