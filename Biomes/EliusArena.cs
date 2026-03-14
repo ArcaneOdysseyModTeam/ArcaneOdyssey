@@ -59,6 +59,8 @@ namespace ArcaneOdyssey.Biomes
 		public override int Music => AOMusicTrack.TitleTheme2.MusicSlot; // change to ambient theme later
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+
+		public override string MapBackground => BackgroundPath;
 	}
 
 	public class EliusArenaLoader : ModSystem

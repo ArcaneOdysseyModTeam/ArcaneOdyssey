@@ -5,7 +5,6 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -20,7 +19,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			RegisterMutation<IonMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst
-		public override Color ImbueColour => Color.Lerp(Color.Red, Color.OrangeRed, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
+		public override Color ImbueColour => Color.OrangeRed;
+		public override Color ImbueColour2 => Color.Orange;
+		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override float AOScrollSpeed => 1.3f;

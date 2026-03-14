@@ -20,7 +20,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 
-		public override Color ImbueColour => new(Math.Abs(MathF.Sin(AOUtils.UpdateCount)), Math.Abs(MathF.Cos(AOUtils.UpdateCount)), Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
+		public override Color ImbueColour => new(217, 0, 255);
+		public override Color ImbueColour2 => new(0, 196, 52);
+		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
+
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollDamage => 1.125f;
 		public override float AOScrollSize => 1.15f;

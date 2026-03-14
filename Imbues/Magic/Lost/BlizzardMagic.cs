@@ -3,7 +3,6 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -16,7 +15,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float? DashResist => 1.075f;
 		public override bool? Cold => true;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
-		public override Color ImbueColour => Color.Lerp(Color.White, Color.DarkGray, Math.Abs(MathF.Tan(AOUtils.UpdateCount))); // lerp between white and gray quickly, more commonly gray
+		public override Color ImbueColour => Color.DarkGray;
+		public override Color ImbueColour2 => Color.White;
+		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float AOImbueSpeed => .925f;
 		public override float AOImbueSize => 1.15f;

@@ -106,7 +106,7 @@ namespace ArcaneOdyssey
 
 		public IEnumerable<dynamic> BTitlesHook_GetBiomes()
 		{
-			var icon = Assets.Request<Texture2D>("icon_small", AssetRequestMode.ImmediateLoad);
+			var icon = ModContent.Request<Texture2D>(AOUtils.GetTexture<EliusArena>() + "_Icon", AssetRequestMode.ImmediateLoad);
 			yield return new
 			{
 				Key = "EliusArena",

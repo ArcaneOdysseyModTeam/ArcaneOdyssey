@@ -2,7 +2,6 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,7 +13,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float Aura => .8f;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool CanBeWet => false;
-		public override Color ImbueColour => Color.Lerp(Color.Black, new(20, 20, 20), Math.Abs(MathF.Tan(AOUtils.UpdateCount))); // lerp between purple and gray quickly, more commonly gray
+		public override Color ImbueColour => new(20, 20, 20); // lerp between purple and gray quickly, more commonly gray
+		public override Color ImbueColour2 => Color.Black;
+		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override float AOScrollSpeed => 1.1f;
 		public override float AOScrollSize => 1.25f;
 		public override float AOScrollDamage => 1.28f;

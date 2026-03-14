@@ -14,7 +14,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
-		public override Color ImbueColour => Color.Lerp(Color.Yellow, Color.LightYellow, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
+		public override Color ImbueColour => Color.Yellow;
+		public override Color ImbueColour2 => Color.LightYellow;
+		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
 		public override float AOScrollSpeed => 1.275f;
 		public override float AOScrollSize => 1.15f;

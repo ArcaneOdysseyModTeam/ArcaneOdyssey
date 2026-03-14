@@ -64,7 +64,6 @@ namespace ArcaneOdyssey.Imbues.Base
 					if (Imbue is not null)
 					{
 						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
-						ab.Colour = Imbue.GetColour(ImbueColour);
 					}
 					return ab;
 				}
@@ -137,7 +136,9 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
 		public virtual Debuff[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);
-		public virtual Color ImbueColour => Color.Transparent;
+		public abstract Color ImbueColour { get; }
+		public virtual Color ImbueColour2 => Color.White;
+		public virtual ColourTransitionStyle TransitionStyle => ColourTransitionStyle.None;
 		public virtual Combo[] CombinedDebuffs => [];
 		public virtual SoundStyle? ImbueSound => null;
 
@@ -270,13 +271,18 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				colour ??= Imbue.GetColour(ImbueColour);
 			}
-			else
-			{
-				colour ??= Color.White;
-			}
+			colour ??= ImbueColour2;
 			if (this is FightingStyleBarred bar)
 			{
 				return Color.Lerp(colour.Value, ImbueColour, bar.LerpValue);
+			}
+			if (TransitionStyle == ColourTransitionStyle.Smooth)
+			{
+				return Color.Lerp(ImbueColour, colour.Value, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
+			}
+			else if (TransitionStyle == ColourTransitionStyle.Tangent)
+			{
+				return Color.Lerp(colour.Value, ImbueColour, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 			}
 			return ImbueColour;
 		}
@@ -540,5 +546,12 @@ namespace ArcaneOdyssey.Imbues.Base
 		}
 		public override bool ConsumeItem(Player player) => false;
 		#endregion
+	}
+
+	public enum ColourTransitionStyle
+	{
+		None,
+		Smooth,
+		Tangent
 	}
 }

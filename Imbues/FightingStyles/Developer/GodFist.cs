@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Developer
 {
@@ -11,5 +12,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Developer
 		public override float AOImbueSize => 1.5f;
 		public override float AOImbueSpeed => 1.6f;
 		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
+		public override Color ImbueColour => new(255, 224, 228);
 	}
 }
