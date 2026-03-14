@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.height = Item.width = 50;
+			Item.height = Item.width = 44;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.shoot = ModContent.ProjectileType<SanguineThrow>();
 			Item.shootSpeed = 11f;

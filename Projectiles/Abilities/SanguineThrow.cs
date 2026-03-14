@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 50;
+			Projectile.width = Projectile.height = 44;
 			Projectile.timeLeft = 600;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true;
