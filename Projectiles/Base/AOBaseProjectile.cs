@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			VariableTexture |= Texture != $"{Mod.Name}/{TextureAssets.Projectile[Type].Name.Replace("\\", "/")}";
 		}
 
-		public virtual Texture2D Sprite => (VariableTexture ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Projectile[Type]).Value;
+		public virtual Texture2D Sprite => (VariableTexture ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Projectile[Type])?.Value;
 
 		/// <summary>
 		/// Kills the projectile.

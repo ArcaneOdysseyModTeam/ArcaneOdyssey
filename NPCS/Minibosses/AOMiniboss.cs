@@ -47,7 +47,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		{
 			base.SetDefaults();
 			NPC.aiStyle = NPCAIStyleID.FaceClosestPlayer;
-			NPC.knockBackResist = 0f;
+			NPC.knockBackResist = 0.1f;
 			NPC.lifeMax = (AOHealth / 2) + (AOHealth / 4);
 		}
 

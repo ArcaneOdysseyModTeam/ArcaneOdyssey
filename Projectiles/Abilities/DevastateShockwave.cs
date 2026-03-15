@@ -14,8 +14,11 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Sprite.Width;
-			Projectile.height = Sprite.Height / Main.projFrames[Type];
+			if (Sprite is not null)
+			{
+				Projectile.width = Sprite.Width;
+				Projectile.height = Sprite.Height / Main.projFrames[Type];
+			}
 			Projectile.ownerHitCheck = true;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
