@@ -442,12 +442,13 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				if (Ability.HasValue)
 				{
-					string text = Ability.Value.Name;
-					if (Ability.Value.Description is not null)
+					string text = Ability?.Name;
+					if (Ability?.Description is not null)
 					{
-						text += $": {Ability.Value.Description}";
+						text += $": {Ability?.Description}";
 					}
-					tooltips.AddTooltip(new TooltipLine(Mod, "AOAbility", text) { OverrideColor = Ability?.Colour });
+					//Main.NewText("Drw");
+					tooltips.AddTooltip(new TooltipLine(Mod, "AOAbility", text), Ability?.Colour);
 				}
 			}
 
