@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.damage = (20 * AOImbueDamage).Round();
 		}
 		public override bool? Cold => true;
-		public override Color ImbueColour => Color.Blue;
+		public override Color ImbueColour => new(0, 30, 255);
 
 		public override void UseAnimation(Player player)
 		{
