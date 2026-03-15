@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 {
 	public class Whirlwind : AOPlayerProjectile
 	{
-		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
+		public Color Colour => Imbue?.GetColour() ?? Color.Orange;
 		public static int MaxTime => 20;
 		public static int TrueMaxTime => MaxTime * 2;
 

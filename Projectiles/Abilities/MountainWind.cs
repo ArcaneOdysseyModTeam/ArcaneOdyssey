@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			{
 				if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
 				{
-					sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f }, Projectile.Center);
+					sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f, IsLooped = true }, Projectile.Center);
 				}
 				else
 				{
@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
-		public Color Colour => Imbue?.GetColour(Color.Gold) ?? Color.White;
+		public Color Colour => Imbue?.GetColour() ?? Color.White;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

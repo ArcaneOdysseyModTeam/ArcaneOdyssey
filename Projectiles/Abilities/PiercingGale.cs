@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	{
 		public static int AfterimagesType => ModContent.ProjectileType<Crescendo>();
 		public static Texture2D Afterimages => TextureAssets.Projectile[AfterimagesType].Value;
-		public Color Colour => Imbue?.GetColour(Color.Orange) ?? Color.Orange;
+		public Color Colour => Imbue?.GetColour() ?? Color.Orange;
 
 		public override void SetStaticDefaults()
 		{

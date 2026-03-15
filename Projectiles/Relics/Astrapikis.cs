@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 	public class Astrapikis : SpiritProjectile
 	{
 		public override string Texture => AOUtils.SlashTexture;
-		public override float AOSize => .75f;
+		public override float AOSize => 1.5f;
 
 		public const int TimeLeftMax = 90;
 
@@ -29,9 +29,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			Projectile.localNPCHitCooldown = TimeLeftMax / 2;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;
-			Projectile.height = 234;
-			Projectile.width = 74;
-			Projectile.AverageDimensions();
+			Projectile.height = Projectile.width = 80;
 		}
 
 		public override void OnSpawn(IEntitySource source)

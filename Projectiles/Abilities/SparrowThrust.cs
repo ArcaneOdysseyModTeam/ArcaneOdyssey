@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	public class SparrowThrust : AOPlayerProjectile
 	{
 		public override bool CanHaveImbueVFX => false;
-		public Color Colour => Imbue?.GetColour(Color.MediumPurple) ?? Color.MediumPurple;
+		public Color Colour => Imbue?.GetColour() ?? Color.MediumPurple;
 		public static int LingerTime => 60;
 		public static int TravelTime => 100 * 60;
 

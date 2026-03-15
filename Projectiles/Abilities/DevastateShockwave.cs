@@ -14,8 +14,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 594;
-			Projectile.height = 108;
+			Projectile.width = Sprite.Width;
+			Projectile.height = Sprite.Height / Main.projFrames[Type];
 			Projectile.ownerHitCheck = true;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.GetColour(Color.Orange) ?? Color.Orange;
+			lightColor = Imbue?.GetColour() ?? Color.Orange;
 			return base.PreDraw(ref lightColor);
 		}
 	}

@@ -17,8 +17,8 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.GetColour(lightColor) ?? lightColor;
-			lightColor = SecondImbue?.GetColour(lightColor) ?? lightColor;
+			lightColor = Imbue?.GetColour() ?? lightColor;
+			lightColor = SecondImbue?.GetColour() ?? lightColor;
 			return base.PreDraw(ref lightColor);
 		}
 

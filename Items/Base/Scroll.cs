@@ -34,13 +34,7 @@ namespace ArcaneOdyssey.Items.Base
 				{
 					var ab = new WeaponAbility
 					{
-						Colour = Imbue.GetColour(Tier switch
-						{
-							ScrollTier.Common => Color.White,
-							ScrollTier.Rare => Color.Aqua,
-							ScrollTier.Lost => Color.AliceBlue,
-							_ => Color.White,
-						}),
+						Colour = Imbue.GetColour(),
 						Description = null,
 						Name = SkillName.Value
 					};
@@ -50,13 +44,7 @@ namespace ArcaneOdyssey.Items.Base
 					}
 					else if (SecondImbue is not null)
 					{
-						ab.Colour = SecondImbue.GetColour(Tier switch
-						{
-							ScrollTier.Common => Color.White,
-							ScrollTier.Rare => Color.Aqua,
-							ScrollTier.Lost => Color.AliceBlue,
-							_ => Color.White,
-						});
+						ab.Colour = SecondImbue.GetColour();
 					}
 					if (SecondImbue is not null)
 					{
@@ -169,7 +157,7 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			if (HasCorrectImbue)
 			{
-				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
+				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(), .75f);
 			}
 			else Item.color = Color.Transparent;
 		}
@@ -192,7 +180,7 @@ namespace ArcaneOdyssey.Items.Base
 		
 			if (HasCorrectImbue)
 			{
-				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(Color.Transparent), .75f);
+				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(), .75f);
 			}
 			else Item.color = Color.Transparent;
 		}

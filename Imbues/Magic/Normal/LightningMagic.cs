@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<StormMagic>();
 		}
 		public override float DashSpeed => 1.4f; // instant
-		public override SoundStyle? ImbueSound => SoundID.DD2_LightningAuraZap;
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => new(255, 140, 255, 255);
 		public override float AOImbueSpeed => 1.2f;
 		public override float AOImbueSize => .95f;

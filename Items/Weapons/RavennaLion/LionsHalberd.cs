@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 				{
 					if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
 					{
-						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f }, player.Center);
+						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f, IsLooped = true }, player.Center);
 					}
 					else
 					{

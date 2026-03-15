@@ -265,24 +265,24 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public Color GetColour(Color? colour = null)
+		public Color GetColour()
 		{
-			if (Imbue is not null)
-			{
-				colour ??= Imbue.GetColour(ImbueColour);
-			}
-			colour ??= ImbueColour2;
+			var colour = ImbueColour2;
 			if (this is FightingStyleBarred bar)
 			{
-				return Color.Lerp(colour.Value, ImbueColour, bar.LerpValue);
+				if (Imbue is not null)
+				{
+					colour = Imbue.ImbueColour;
+				}
+				return Color.Lerp(colour, ImbueColour, bar.LerpValue);
 			}
 			if (TransitionStyle == ColourTransitionStyle.Smooth)
 			{
-				return Color.Lerp(ImbueColour, colour.Value, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
+				return Color.Lerp(ImbueColour, colour, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
 			}
 			else if (TransitionStyle == ColourTransitionStyle.Tangent)
 			{
-				return Color.Lerp(colour.Value, ImbueColour, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
+				return Color.Lerp(colour, ImbueColour, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 			}
 			return ImbueColour;
 		}
@@ -442,12 +442,12 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				if (Ability.HasValue)
 				{
-					string text = $"[c/{Ability.Value.Colour.Hex3()}:{Ability.Value.Name}]";
+					string text = Ability.Value.Name;
 					if (Ability.Value.Description is not null)
 					{
 						text += $": {Ability.Value.Description}";
 					}
-					tooltips.AddTooltip(new(Mod, "AOAbility", text));
+					tooltips.AddTooltip(new TooltipLine(Mod, "AOAbility", text) { OverrideColor = Ability?.Colour });
 				}
 			}
 

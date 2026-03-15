@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public Color GetColour()
 		{
-			return Imbue?.GetColour(Colour) ?? Colour;
+			return Imbue?.GetColour() ?? Colour;
 		}
 
 		public virtual SoundStyle UseSound => SoundID.Item71;
