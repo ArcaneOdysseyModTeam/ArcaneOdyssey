@@ -14,6 +14,14 @@ Bestiary: {
 	LordElius: Lord Elius is a young man from a noble family in the Ravenna Realm. Despite his young age, he is talented in his usage of magic alongside his weapons.
 }
 
+GodSouls: {
+	Changed: You have imbued the {0} with {1}'s soul
+	Obtained: You have been granted the soul of {0}
+	Soul0: nobody
+	Soul1: Poseidon
+	Soul2: Athena
+}
+
 MenuStyle: Odyssey ({0} Style)
 
 ImbueStuff: {
@@ -29,6 +37,7 @@ ImbueStuff: {
 	RelicDamage: Damage: {0}x
 	RelicSpeed: Speed: {0}x
 	RelicSize: Size: {0}x
+	Drawback: +{0}% attack drawback
 	ShiftNotice: SHIFT shows other stats
 	ImbueDamage: Imbue damage: {0}x
 	ImbueSpeed: Imbue speed: {0}x
@@ -47,6 +56,13 @@ ImbueStuff: {
 	Conjoined: "{0}, {1}"
 	Result: "{0} => {1}"
 	Requirement: " ({0}%)"
+}
+
+Drawback: {
+	Death0: "{0} got too greedy."
+	Death1: "{0} forgot to manage their heath."
+	Death2: "{0} didn't deem the drawback relevant."
+	Death3: "{0} should've been less aggressive."
 }
 
 Configs: {
@@ -289,9 +305,9 @@ FSTierLines: {
 
 RelicTierLines: {
 	Normal: "[c/2277ff:~ Relic ~]"
-	Lost: "[c/0044ff:~ Blessed relic ~]"
-	Ancient: "[c/7ebcc2:~ Inhabited relic ~]"
-	Developer: "[c/ff0000:~ Developer relic ~]"
+	Lost: "[c/0044ff:~ Inhabited relic ~]"
+	Ancient: "[c/7ebcc2:~ Deific relic ~]"
+	Developer: "[c/ff0000:~ Unstable relic ~]"
 }
 
 ArmourAutoTooltip: {
@@ -407,6 +423,7 @@ Keybinds: {
 	Vanish.DisplayName: Vanish
 	CycleAuraMode.DisplayName: Cycle Aura Mode
 	PrintInfo.DisplayName: Print Info
+	CycleGodSoul.DisplayName: Cycle God Soul
 }
 
 RandomWords: {

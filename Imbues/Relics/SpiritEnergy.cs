@@ -1,6 +1,8 @@
-﻿using ArcaneOdyssey.Imbues.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -10,6 +12,95 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class SpiritEnergy : Imbuable
 	{
+		public override AOImbuableTier ImbuableTier
+		{
+			get
+			{
+				if (Soul != GodSoulID.None)
+				{
+					if (Stability.HasValue)
+					{
+						if (Stability.Value)
+						{
+							return AOImbuableTier.Ancient; // deific
+						}
+						else
+						{
+							return AOImbuableTier.Developer; // unstable
+						}
+					}
+					else
+					{
+						return AOImbuableTier.Lost; // inhabited
+					}
+				}
+				else
+				{
+					return AOImbuableTier.Normal; // normal
+				}
+			}
+		}
+
+		public GodSoulID Soul = GodSoulID.None;
+		private int soulindex = 0;
+
+		public virtual GodSoulID[] SoulSynergies => [];
+		public virtual GodSoulID[] UnstableSouls => [];
+
+		public bool? Stability
+		{
+			get
+			{
+				if (SoulSynergies.Contains(Soul))
+					return true;
+				if (UnstableSouls.Contains(Soul))
+					return false;
+				return null;
+			}
+		}
+
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			base.Update(ref gravity, ref maxFallSpeed);
+			Soul = GodSoulID.None;
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			base.UpdateInventory(player);
+			if (Main.myPlayer == player.whoAmI && player.PlayerItem() == Item)
+			{
+				if (AOKeybinds.CycleGodSoul.JustPressed)
+				{
+					var souls = player.ArcaneOdyssey().Souls;
+					if (souls.Count > 1)
+					{
+						if (++soulindex >= souls.Count)
+						{
+							soulindex = 0;
+						}
+						Soul = souls[soulindex];
+						Color colour = Color.White;
+						if (Stability.HasValue)
+						{
+							if (Stability.Value)
+								colour = Color.Green;
+							else
+								colour = Color.Red;
+						}
+						Main.NewText(Mod.CustomLocalization("GodSouls.Changed", DisplayName.Value, Mod.CustomLocalization($"GodSouls.Soul{(int)Soul}").Value), colour);
+					}
+				}
+			}
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+				ItemID.Sets.ItemNoGravity[Type] = true;
+		}
+
 		public override Color ImbueColour => SpiritColor;
 		public static Color SpiritColor => new(0, 183, 255);
 
@@ -17,13 +108,100 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override SoundStyle? ImbueSound => SoundID.NPCDeath6;
 
-		public override float AOImbueDamage => AOScrollDamage;
-		public override float AOImbueSize => AOScrollSize;
-		public override float AOImbueSpeed => AOScrollSpeed;
+		public override float AOImbueSpeed => RelicSpeed;
+		public override float AOImbueDamage => RelicDamage;
+		public override float AOImbueSize => RelicSize;
 
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollDamage => 1f;
-		public override float AOScrollSize => 1f;
+		public override float AOScrollSpeed
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergySpeed;
+					}
+					else
+					{
+						return UnstableSpeed;
+					}
+				}
+				return RelicSpeed;
+			}
+		}
+
+		public override float AOScrollDamage
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergyDamage;
+					}
+					else
+					{
+						return UnstableDamage;
+					}
+				}
+				return RelicDamage;
+			}
+		}
+
+		public override float AOScrollSize
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergySize;
+					}
+					else
+					{
+						return UnstableSize;
+					}
+				}
+				return RelicSize;
+			}
+		}
+
+		public override int Drawback
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergyDrawback;
+					}
+					else
+					{
+						return UnstableDrawback;
+					}
+				}
+				return RelicDrawback;
+			}
+		}
+
+		public virtual float RelicSpeed => 1f;
+		public virtual float RelicDamage => 1f;
+		public virtual float RelicSize => 1f;
+		public virtual int RelicDrawback => 0;
+
+		public virtual float SynergySpeed => 1f;
+		public virtual float SynergyDamage => 1f;
+		public virtual float SynergySize => 1f;
+		public virtual int SynergyDrawback => 0;
+
+		public virtual float UnstableSpeed => 1f;
+		public virtual float UnstableDamage => 1f;
+		public virtual float UnstableSize => 1f;
+		public virtual int UnstableDrawback => 0;
 
 		public override float? DashResist => 1.2f;
 

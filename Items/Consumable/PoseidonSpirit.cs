@@ -38,6 +38,11 @@ public class PoseidonSpirit : AOBaseItem
 		return false;
 	}
 
+	public override void UpdateInventory(Player player)
+	{
+		player.ArcaneOdyssey().AddSoul(AOPlayers.GodSoulID.Poseidon);
+	}
+
 	#region UI system
 	public override bool CanUseItem(Player player)
 	{

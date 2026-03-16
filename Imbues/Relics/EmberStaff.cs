@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(252, 107, 3);
-		public override float AOScrollDamage => .95f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollSpeed => 1f;
+		public override float RelicDamage => .95f;
+		public override float RelicSize => 1.1f;
+		public override float RelicSpeed => 1f;
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<FireMagic>();
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.width = Item.height = 56;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.shoot = ModContent.ProjectileType<Floganymai>();
-			Item.damage = (120 * AOScrollDamage).Round();
+			Item.damage = 120;
 			Item.shootSpeed = 1f;
 			Item.noUseGraphic = false;
 		}

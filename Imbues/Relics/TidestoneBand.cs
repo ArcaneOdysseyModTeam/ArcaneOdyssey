@@ -11,17 +11,29 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class TidestoneBand : SpiritEnergy
 	{
+		public override float UnstableSpeed => 1.2f;
+		public override int UnstableDrawback => 2;
+
+		public override float SynergySize => 1.25f;
+
+		public override float SynergySpeed => .8f;
+
 		public override int AOValue => 500;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<WaterMagic>();
 
+		public override GodSoulID[] SoulSynergies => [GodSoulID.Poseidon];
+		public override GodSoulID[] UnstableSouls => [GodSoulID.Athena];
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.width = Item.height = 56;
-			Item.damage = (20 * AOImbueDamage).Round();
+			Item.damage = 20;
+			Item.knockBack = 6.25f;
 		}
+
 		public override bool? Cold => true;
 		public override Color ImbueColour => new(0, 30, 255);
 
@@ -45,7 +57,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override float DashSpeed => 120;
 		public override int DashMax => 2;
 		public override bool LocksPlayer => true;
-		public override int Cooldown => 60 * 3;
+		public override int Cooldown => (60 * 3 * imbuesource.AOScrollSpeed.FlipFloat()).Round();
 
 		public override bool OnHit(Player player, Entity target) => true;
 

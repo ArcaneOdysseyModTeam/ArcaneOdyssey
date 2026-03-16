@@ -45,13 +45,13 @@ namespace ArcaneOdyssey.Projectiles.Base
 			{
 				if (tex.Height() == Sprite.Height)
 				{
-					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
+					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, tex.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				}
 				else
 				{
-					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, 0, tex.Width(), tex.Height()), Projectile.GetAlpha(Color.White), Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
+					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
+					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(Color.White), Projectile.rotation, tex.Size() / 2f, Projectile.scale, mode);
 				}
 			}
 		}

@@ -233,7 +233,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 				{
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue));
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue));
 				}
 
 				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
@@ -878,17 +878,17 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
+			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures || item.ModItem is not null)
 			{
 				if (item.ModItem is not AOArmour) // avoid duplicate values
 				{
 					if (ArrayCollections.SizeStats[item.type] > 0)
 					{
-						tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArrayCollections.SizeStats[item.type] / 2.75f)).Value));
+						tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArrayCollections.SizeStats[item.type] / AOArmour.SizeDivision)).Value));
 					}
 					if (ArrayCollections.HasteStats[item.type] > 0)
 					{
-						tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArrayCollections.HasteStats[item.type] / 2f)).Value));
+						tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArrayCollections.HasteStats[item.type] / AOArmour.HasteDivision)).Value));
 					}
 				}
 			}

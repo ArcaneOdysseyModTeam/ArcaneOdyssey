@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Relics;
@@ -14,6 +15,18 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class EaglePatrimony : SpiritEnergy
 	{
+		public override float UnstableSize => 1.2f;
+		public override float UnstableSpeed => .9f;
+		public override int UnstableDrawback => 2;
+
+		public override float SynergyDamage => 1.15f;
+		public override float SynergySize => .8f;
+		public override float SynergySpeed => 1.2f;
+
+		public override GodSoulID[] SoulSynergies => [GodSoulID.Athena];
+		public override GodSoulID[] UnstableSouls => [GodSoulID.Poseidon];
+
+
 		public override Color ImbueColour => new(0, 255, 251);
 		public override AORarities AORarity => AORarities.Special;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };

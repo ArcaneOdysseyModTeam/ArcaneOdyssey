@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -26,6 +27,8 @@ namespace ArcaneOdyssey.Imbues.Base
 	public abstract class Imbuable : AOBaseItem, IImbuable
 	{
 		public virtual float Aura => .7f;
+
+		public virtual int Drawback => 0;
 
 		public int AuraHP(Player player)
 		{
@@ -57,6 +60,10 @@ namespace ArcaneOdyssey.Imbues.Base
 			get
 			{
 				var ab = new WeaponAbility { Colour = Colour };
+				if (Imbue is not null)
+				{
+					ab.Colour = Imbue.ImbueColour;
+				}
 				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
 				{
 					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName").Value;
@@ -263,6 +270,13 @@ namespace ArcaneOdyssey.Imbues.Base
 					}
 				}
 			}
+			else if (Drawback > 0)
+			{
+				if ((!player.AltUse()) && Main.myPlayer == player.whoAmI)
+				{
+					player.Hurt(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: player.statDefense.Positive);
+				}
+			}
 		}
 
 		public Color Colour
@@ -370,21 +384,18 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (!tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 			{
-				if (this is SpiritEnergy)
+				TooltipLine tip = new(Mod, "Drawback", Mod.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
+				if (Drawback < 1)
 				{
-					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.RelicDamage", MathF.Round(AOScrollDamage, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.RelicSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.RelicSize", MathF.Round(AOScrollSize, 3)).Value));
+					tip.Hide();
 				}
+				tooltips.AddTooltip(tip, Color.Red);
 
 				if (!Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
-					if (this is not SpiritEnergy)
-					{
-						tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
-						tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
-						tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
-					}
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
 
 					if (ImbueDebuffs.Length > 0)
 					{
@@ -415,13 +426,10 @@ namespace ArcaneOdyssey.Imbues.Base
 				}
 				else
 				{
-					if (this is not SpiritEnergy)
-					{
-						tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
-						tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
-						tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
-					}
-
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
+					
 					if (CombinedDebuffs.Length > 0)
 					{
 						var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(CombinedDebuffs[0].requirement), Lang.GetBuffName(CombinedDebuffs[0].result));
@@ -450,7 +458,6 @@ namespace ArcaneOdyssey.Imbues.Base
 					{
 						text += $": {Ability?.Description}";
 					}
-					//Main.NewText("Drw");
 					tooltips.AddTooltip(new TooltipLine(Mod, "AOAbility", text), Ability?.Colour);
 				}
 			}

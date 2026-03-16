@@ -131,7 +131,7 @@ namespace ArcaneOdyssey
 			return 0;
 		}
 
-		public static void AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd, Color? colour = null)
+		public static int AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd, Color? colour = null)
 		{
 			toAdd.OverrideColor = colour;
 			tooltips.Reverse();
@@ -161,6 +161,7 @@ namespace ArcaneOdyssey
 				if (!options.Contains($"{toAdd.Mod} {toAdd.Name}"))
 					options.Add($"{toAdd.Mod} {toAdd.Name}");
 			}
+			return tooltips.IndexOf(toAdd);
 		}
 
 		/// <summary>
@@ -251,10 +252,11 @@ namespace ArcaneOdyssey
 		}
 
 		public static EntitySource_ItemUse GetSource_ItemUse(this Entity item, Player player, string context = null) => new(player, item as Item, context);
+		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
-		public static string GetTexture<T>() where T : ModType
+		public static string GetTexture<T>() where T : class
 		{
 			return typeof(T).FullName.Replace('.', '/');
 		}
@@ -851,7 +853,7 @@ namespace ArcaneOdyssey
 
 		public static ModDamageHelper CalculateImbueDamage(Imbuable imbue, NPC target, ModDamageHelper modifiers)
 		{
-			if (imbue is not null)
+			if (imbue is not null && target is not null && target.active)
 			{
 				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 				{
@@ -917,7 +919,7 @@ namespace ArcaneOdyssey
 
 		public static ModDamageHelper CalculateImbueDamage(Imbuable imbue, Player target, ModDamageHelper modifiers)
 		{
-			if (imbue is not null)
+			if (imbue is not null && target is not null && target.active)
 			{
 				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
 				{

@@ -15,9 +15,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override int AOValue => 700;
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Purple;
-		public override float AOScrollDamage => .9f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollSpeed => 1.1f;
+		public override float RelicDamage => .9f;
+		public override float RelicSize => 1.1f;
+		public override float RelicSpeed => 1.1f;
 
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<ShadowMagic>();
 
@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.width = Item.height = 46;
 			Item.shoot = ModContent.ProjectileType<Nichtetheis>();
 			Item.noUseGraphic = false;
-			Item.damage = (30 * AOScrollDamage).Round();
+			Item.damage = 30;
 			Item.shootSpeed = 7f * AOScrollSpeed;
 		}
 

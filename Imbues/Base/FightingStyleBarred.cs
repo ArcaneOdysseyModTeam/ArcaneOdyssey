@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public const float BarMax = 100f;
 		public const float BarMin = 0f;
 
-		private float _barValue = BarMin;
+		protected float _barValue = BarMin;
 		public float BarValue { get => UpdateBar(); set => UpdateBar(value); }
 
 		/// <summary>

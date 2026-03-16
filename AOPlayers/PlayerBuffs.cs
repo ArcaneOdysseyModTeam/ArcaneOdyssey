@@ -1,5 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -94,18 +97,31 @@ namespace ArcaneOdyssey.AOPlayers
 			BronzeSealed = tag.GetInt("bronzesealedchests");
 			acumen = tag.GetBool("acumenconsumed");
 			hasLoadedWorldBefore = tag.GetBool("wowiveloadedinbefore");
+			if (tag.TryGet<List<int>>("godsouls", out var souls) && souls.Count > 1)
+			{
+				Souls = [.. souls.Select(e => (GodSoulID)e)];
+			}
 		}
 
 		public override void SaveData(TagCompound tag)
 		{
-			tag.Add("aodisease", bloodDisease ?? "null");
-			tag.Add("aomentality", evil);
-			tag.Add("allimbues", allChosenImbues);
-			tag.Add("darksealedchests", DarkSealed);
-			tag.Add("nimbussealedchests", NimbusSealed);
-			tag.Add("bronzesealedchests", BronzeSealed);
-			tag.Add("acumenconsumed", acumen);
 			tag.Add("wowiveloadedinbefore", true);
+			if (bloodDisease is not null)
+				tag.Add("aodisease", bloodDisease);
+			if (evil)
+				tag.Add("aomentality", true);
+			if (allChosenImbues.Count > 0)
+				tag.Add("allimbues", allChosenImbues);
+			if (DarkSealed > 0)
+				tag.Add("darksealedchests", DarkSealed);
+			if (NimbusSealed > 0)
+				tag.Add("nimbussealedchests", NimbusSealed);
+			if (BronzeSealed > 0)
+				tag.Add("bronzesealedchests", BronzeSealed);
+			if (acumen)
+				tag.Add("acumenconsumed", acumen);
+			if (Souls.Count > 1)
+				tag.Add("godsouls", Souls.Select(e => (int)e).ToList());
 		}
 	}
 }
