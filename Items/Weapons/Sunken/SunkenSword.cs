@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 		public override int AOValue => 900;
 		public override AORarities AORarity => AORarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override Color Colour => Color.Aqua;
+		public override Color Motif => Color.Aqua;
 		public override SoundStyle UseSound => SoundID.SplashWeak;
 		public override Debuff? WeaponDebuff => Debuff.Create<Soaked>(60 * 5);
 

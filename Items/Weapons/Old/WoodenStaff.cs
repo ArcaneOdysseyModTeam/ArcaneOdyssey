@@ -44,6 +44,6 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 
-		public override Color Colour => Color.Brown;
+		public override Color Motif => Color.Brown;
 	}
 }

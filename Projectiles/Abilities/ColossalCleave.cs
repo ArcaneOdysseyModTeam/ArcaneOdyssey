@@ -107,7 +107,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			return Projectile.ai[2] == 0;
 		}
 
-		public Color Colour => Imbue?.GetColour() ?? Color.White;
+		public Color Colour => Imbue?.Colour ?? Color.White;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

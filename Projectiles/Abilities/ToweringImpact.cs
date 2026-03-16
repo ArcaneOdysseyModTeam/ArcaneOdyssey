@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.GetColour() ?? Color.White;
+			lightColor = Imbue?.Colour ?? Color.White;
 			return base.PreDraw(ref lightColor);
 		}
 	}

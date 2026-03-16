@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Items.Base
 			{
 				var ab = new WeaponAbility
 				{
-					Colour = GetColour()
+					Colour = Colour
 				};
 				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
 				{
@@ -83,12 +83,9 @@ namespace ArcaneOdyssey.Items.Base
 		public abstract int AOValue { get; }
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public virtual Debuff? WeaponDebuff => Debuff.Create<AOBleed>(5 * 60);
-		public abstract Color Colour { get; }
+		public abstract Color Motif { get; }
 
-		public Color GetColour()
-		{
-			return Imbue?.GetColour() ?? Colour;
-		}
+		public Color Colour => Imbue?.Colour ?? Motif;
 
 		public virtual SoundStyle UseSound => SoundID.Item71;
 

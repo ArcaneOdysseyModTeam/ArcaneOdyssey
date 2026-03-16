@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override float AOSize => 1;
 		public override float AOSpeed => .95f;
 		public override int AOValue => 50;
-		public override Color Colour => Color.Orange;
+		public override Color Motif => Color.Orange;
 
 		public override void SetStaticDefaults()
 		{

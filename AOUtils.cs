@@ -183,20 +183,21 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="rectangle"></param>
+		/// <param name="rect"></param>
 		/// <param name="scale"></param>
 		/// <param name="adjustX">How many times to shift left the hitbox if it grew, or shift right if it shrunk</param>
 		/// <param name="adjustY">How many times to shift up the hitbox if it grew, or shift it down if it shrunk</param>
 		/// <returns></returns>
-		public static Rectangle ScaleRectangleNotRef(Rectangle rectangle, float scale, int adjustX = 1, int adjustY = 1)
+		public static Rectangle Scaled(this Rectangle rectangle, float scale, int adjustX = 1, int adjustY = 1)
 		{
-			var diffX = ((rectangle.Width - (rectangle.Width * scale)) / 2f).Round();
-			var diffY = ((rectangle.Height - (rectangle.Height * scale)) / 2f).Round();
-			rectangle.Width = (rectangle.Width * scale).Round();
-			rectangle.Height = (rectangle.Height * scale).Round();
-			rectangle.X += diffX * adjustX;
-			rectangle.Y += diffY * adjustY;
-			return rectangle;
+			Rectangle rect = new(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+			var diffX = ((rect.Width - (rect.Width * scale)) / 2f).Round();
+			var diffY = ((rect.Height - (rect.Height * scale)) / 2f).Round();
+			rect.Width = (rect.Width * scale).Round();
+			rect.Height = (rect.Height * scale).Round();
+			rect.X += diffX * adjustX;
+			rect.Y += diffY * adjustY;
+			return rect;
 		}
 
 		public static SynergyEffects CopySynergiesFromImbue<T>() where T : Imbuable
@@ -913,9 +914,76 @@ namespace ArcaneOdyssey
 			}
 			return modifiers;
 		}
-		
+
+		public static ModDamageHelper CalculateImbueDamage(Imbuable imbue, Player target, ModDamageHelper modifiers)
+		{
+			if (imbue is not null)
+			{
+				if (imbue is CrystalMagic && target.HasBuff<Crystallized>() && GetAOBuffStack(target, target.FindBuffIndex(ModContent.BuffType<Crystallized>())) == 4)
+				{
+					modifiers.FinalDamage += .3f;
+				}
+
+				if (imbue.CombinedDebuffs is not null)
+				{
+					foreach (Combo buffkeys in imbue.CombinedDebuffs)
+					{
+						if (target.HasBuff(buffkeys.requirement) || (buffkeys.requirement == BuffID.Wet && target.wet))
+						{
+							target.AddBuff(buffkeys.result, buffkeys.duration);
+						}
+
+						foreach (var alt in buffkeys.alternatives)
+						{
+							if (target.HasBuff(alt) || (alt == BuffID.Wet && target.wet))
+							{
+								target.AddBuff(buffkeys.result, buffkeys.duration);
+							}
+						}
+					}
+				}
+
+				foreach (Synergy multiplier in imbue.Effects.magicBuffMultipliers)
+				{
+					if (target.HasBuff(multiplier.buffID) || (multiplier.buffID == BuffID.Wet && target.wet))
+					{
+						modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+					}
+
+					foreach (var alt in multiplier.alternatives)
+					{
+						if (target.HasBuff(alt) || (alt == BuffID.Wet && target.wet))
+						{
+							modifiers.FinalDamage += multiplier.multiplier.MultiToPercent();
+						}
+					}
+				}
+
+				foreach (var buff in imbue.Effects.clearBuffs)
+				{
+					if (target.HasBuff(buff.id))
+					{
+						target.DelBuff(target.FindBuffIndex(buff.id));
+					}
+
+					foreach (var alt in buff.alternatives)
+					{
+						if (target.HasBuff(alt))
+						{
+							target.DelBuff(target.FindBuffIndex(alt));
+						}
+					}
+				}
+			}
+			return modifiers;
+		}
 
 		public static NPC.HitModifiers CalculateImbueDamage(Imbuable imbue, NPC target, NPC.HitModifiers modifiers)
+		{
+			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
+		}
+
+		public static Player.HurtModifiers CalculateImbueDamage(Imbuable imbue, Player target, Player.HurtModifiers modifiers)
 		{
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
 		}
@@ -1305,6 +1373,11 @@ namespace ArcaneOdyssey
 		public static int GetAOBuffStack(NPC npc, int index)
 		{
 			return (npc.buffTime[index] / 60 / 5) + 1;
+		}
+
+		public static int GetAOBuffStack(Player player, int index)
+		{
+			return (player.buffTime[index] / 60 / 5) + 1;
 		}
 
 		/// <summary>
@@ -1729,11 +1802,6 @@ namespace ArcaneOdyssey
 		public int GetDamage(float damage)
 		{
 			return FinalDamage.ApplyTo(damage).Round();
-		}
-
-		public static ModDamageHelper FromHitModifiers(NPC.HitModifiers hitModifiers)
-		{
-			return new ModDamageHelper(hitModifiers.FinalDamage);
 		}
 	}
 

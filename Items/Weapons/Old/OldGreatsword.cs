@@ -29,6 +29,6 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 
-		public override Color Colour => Color.Gray;
+		public override Color Motif => Color.Gray;
 	}
 }

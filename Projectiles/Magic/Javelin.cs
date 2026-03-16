@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 						{
 							name = SecondImbue.PrettyAttackPrefix + " " + name;
 						}
-						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(), (name + "!").Trim(), true);
+						CombatText.NewText(Owner.Hitbox, Imbue.Colour, (name + "!").Trim(), true);
 					}
 				}
 			}

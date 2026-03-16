@@ -24,6 +24,11 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.Opacity = .95f;
 		}
 
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+		}
+
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 4;
@@ -36,7 +41,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour() ?? Color.White, (DisplayName + "!").Trim(), true);
+				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
 			Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			if (Projectile.ai[0] == 0)
@@ -77,7 +82,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.GetColour() ?? Color.White;
+			lightColor = Imbue?.Colour ?? Color.White;
 			return base.PreDraw(ref lightColor);
 		}
 	}

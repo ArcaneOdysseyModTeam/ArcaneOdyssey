@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			get
 			{
-				var ab = new WeaponAbility { Colour = GetColour() };
+				var ab = new WeaponAbility { Colour = Colour };
 				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
 				{
 					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName").Value;
@@ -265,26 +265,29 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public Color GetColour()
+		public Color Colour
 		{
-			var colour = ImbueColour2;
-			if (this is FightingStyleBarred bar)
+			get
 			{
-				if (Imbue is not null)
+				var colour = ImbueColour2;
+				if (this is FightingStyleBarred bar)
 				{
-					colour = Imbue.ImbueColour;
+					if (Imbue is not null)
+					{
+						colour = Imbue.ImbueColour;
+					}
+					return Color.Lerp(colour, ImbueColour, bar.LerpValue);
 				}
-				return Color.Lerp(colour, ImbueColour, bar.LerpValue);
+				if (TransitionStyle == ColourTransitionStyle.Smooth)
+				{
+					return Color.Lerp(ImbueColour, colour, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
+				}
+				else if (TransitionStyle == ColourTransitionStyle.Tangent)
+				{
+					return Color.Lerp(colour, ImbueColour, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
+				}
+				return ImbueColour;
 			}
-			if (TransitionStyle == ColourTransitionStyle.Smooth)
-			{
-				return Color.Lerp(ImbueColour, colour, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
-			}
-			else if (TransitionStyle == ColourTransitionStyle.Tangent)
-			{
-				return Color.Lerp(colour, ImbueColour, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
-			}
-			return ImbueColour;
 		}
 
 		/// <summary>
@@ -487,17 +490,19 @@ namespace ArcaneOdyssey.Imbues.Base
 				}
 			}
 
-
-			var clear = Effects.clearBuffs.OrderBy(e => Lang.GetBuffName(e.id)).ToArray();
-			if (clear.Length > 0)
+			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, Lang.GetBuffName(clear[0].id)).Value;
-
-				foreach (var buff in clear)
+				var clear = Effects.clearBuffs.OrderBy(e => Lang.GetBuffName(e.id)).ToArray();
+				if (clear.Length > 0)
 				{
-					if (buff.id != clear[0].id)
+					text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, Lang.GetBuffName(clear[0].id)).Value;
+
+					foreach (var buff in clear)
 					{
-						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(buff.id)).Value;
+						if (buff.id != clear[0].id)
+						{
+							text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(buff.id)).Value;
+						}
 					}
 				}
 			}

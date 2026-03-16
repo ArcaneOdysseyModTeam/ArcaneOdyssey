@@ -18,7 +18,13 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.height = Projectile.width = 170;
 			Projectile.tileCollide = false;
 		}
+
 		public Imbuable Imbue = ModContent.GetInstance<TidestoneBand>();
+
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+		}
 
 
 		public bool sentMessage = false;
@@ -27,7 +33,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour() ?? Color.White, (DisplayName + "!").Trim(), true);
+				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
 			Imbue?.ExplosionEffects(Projectile.Center);
 		}

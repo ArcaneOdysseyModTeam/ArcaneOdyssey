@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 		{
 			if (DrawWithImbueColours)
 			{
-				lightColor = Imbue?.GetColour() ?? Color.White;
+				lightColor = Imbue?.Colour ?? Color.White;
 			}
 			return base.PreDraw(ref lightColor);
 		}

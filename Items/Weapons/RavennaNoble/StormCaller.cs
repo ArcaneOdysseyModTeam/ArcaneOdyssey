@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Rare;
 		public override SoundStyle UseSound => SoundID.Item5;
-		public override Color Colour => Color.MediumPurple;
+		public override Color Motif => Color.MediumPurple;
 
 		public override void SetStaticDefaults()
 		{

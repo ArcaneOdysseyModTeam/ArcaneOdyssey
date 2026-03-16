@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override float AODamage => 1.025f;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override Color Colour => Color.Orange;
+		public override Color Motif => Color.Orange;
 
 		public override void SetDefaults()
 		{

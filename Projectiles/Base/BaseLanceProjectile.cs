@@ -92,7 +92,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			float widthMultiplier = 23f;
 			float collisionPoint = 0f;
 
-			Rectangle lanceHitboxBounds = AOUtils.ScaleRectangleNotRef(new(0, 0, 300, 300), Projectile.scale);
+			var lanceHitboxBounds = new Rectangle(0, 0, 300, 300).Scaled(Projectile.scale);
 
 			lanceHitboxBounds.X = (int)Projectile.position.X - lanceHitboxBounds.Width / 2;
 			lanceHitboxBounds.Y = (int)Projectile.position.Y - lanceHitboxBounds.Height / 2;

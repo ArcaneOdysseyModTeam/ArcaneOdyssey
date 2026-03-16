@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 		{
 			if (Imbue is null or AOMagic)
 			{
-				lightColor = Imbue?.GetColour() ?? Color.White;
+				lightColor = Imbue?.Colour ?? Color.White;
 				return base.PreDraw(ref lightColor);
 			}
 			else
@@ -44,9 +44,9 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 			if (Imbue is AOMagic && !Main.dedServ)
 			{
-				var hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, .5f);
+				var hitbox = Projectile.Hitbox.Scaled(.5f);
 				SecondImbue?.LingeringEffects(hitbox);
-				Dust spawnedDust = Main.dust[Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.GetColour())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.Colour)];
 				spawnedDust.noGravity = true;
 			}
 

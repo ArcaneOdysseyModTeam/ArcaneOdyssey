@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Items.Weapons
 
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor; // unfortunately a pre boss item
 
-		public override Color Colour => Color.Red;
+		public override Color Motif => Color.Red;
 
 		public override AORarities AORarity => AORarities.Uncommon;
 

@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	{
 		public override string Texture => AOUtils.SlashTexture;
 		public override float AOSize => .25f;
-		public Color Colour => Imbue?.GetColour() ?? Color.Gold;
+		public Color Colour => Imbue?.Colour ?? Color.Gold;
 
 		public override void SetStaticDefaults()
 		{

@@ -68,8 +68,8 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.GetColour() ?? lightColor;
-			lightColor = SecondImbue?.GetColour() ?? lightColor;
+			lightColor = Imbue?.Colour ?? lightColor;
+			lightColor = SecondImbue?.Colour ?? lightColor;
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);

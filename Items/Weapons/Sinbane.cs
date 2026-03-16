@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override float AOSize => .8f;
 		public override float AODamage => 1.1f;
 
-		public override Color Colour => new(104, 130, 0);
+		public override Color Motif => new(104, 130, 0);
 
 		public override void SetDefaults()
 		{

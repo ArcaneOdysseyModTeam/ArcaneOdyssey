@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Items.Base
 				{
 					var ab = new WeaponAbility
 					{
-						Colour = Imbue.GetColour(),
+						Colour = Imbue.Colour,
 						Description = null,
 						Name = SkillName.Value
 					};
@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Items.Base
 					}
 					else if (SecondImbue is not null)
 					{
-						ab.Colour = SecondImbue.GetColour();
+						ab.Colour = SecondImbue.Colour;
 					}
 					if (SecondImbue is not null)
 					{
@@ -157,7 +157,7 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			if (HasCorrectImbue)
 			{
-				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(), .75f);
+				Item.color = Color.Lerp(Color.Transparent, Imbue.Colour, .75f);
 			}
 			else Item.color = Color.Transparent;
 		}
@@ -180,7 +180,7 @@ namespace ArcaneOdyssey.Items.Base
 		
 			if (HasCorrectImbue)
 			{
-				Item.color = Color.Lerp(Color.Transparent, Imbue.GetColour(), .75f);
+				Item.color = Color.Lerp(Color.Transparent, Imbue.Colour, .75f);
 			}
 			else Item.color = Color.Transparent;
 		}

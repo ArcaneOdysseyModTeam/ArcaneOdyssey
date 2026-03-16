@@ -31,6 +31,6 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 			Item.useStyle = ItemUseStyleID.Thrust;
 		}
 
-		public override Color Colour => Color.Gray;
+		public override Color Motif => Color.Gray;
 	}
 }

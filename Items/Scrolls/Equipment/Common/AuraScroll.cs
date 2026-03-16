@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 
 			if (!hideVisual && Main.GameUpdateCount % 2 == 0)
 			{
-				Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(player.Hitbox, 2f), player.velocity, player);
+				Imbue?.LingeringEffects(player.Hitbox.Scaled(2f), player.velocity, player);
 			}
 
 			if (Main.myPlayer == player.whoAmI && AOKeybinds.CycleAuraMode.JustPressed)
@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 				{
 					Mode = AuraMode.Resistance;
 				}
-				Main.NewText(Mod.CustomLocalization("RandomWords.ModeCycled", Mode), Imbue.GetColour());
+				Main.NewText(Mod.CustomLocalization("RandomWords.ModeCycled", Mode), Imbue.Colour);
 			}
 
 			if (Mode == AuraMode.Resistance)

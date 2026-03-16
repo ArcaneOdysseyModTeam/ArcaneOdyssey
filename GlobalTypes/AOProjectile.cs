@@ -308,7 +308,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			mult *= Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
 			if (projectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				projectile.Hitbox = AOUtils.ScaleRectangleNotRef(projectile.Hitbox, mult);
+				projectile.Hitbox.Scaled(mult);
 				projectile.scale *= mult;
 			}
 		}

@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 
 		public override float AOSize => .85f;
 
-		public override Color Colour => Color.MediumPurple;
+		public override Color Motif => Color.MediumPurple;
 
 		public override void SetStaticDefaults()
 		{

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Great;
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override SoundStyle UseSound => SoundID.Item5;
-		public override Color Colour => Color.Gold;
+		public override Color Motif => Color.Gold;
 
 		public static float AttacksPerUse => 2.5f;
 

@@ -28,8 +28,8 @@ namespace ArcaneOdyssey.Projectiles.Relics
 
 		public override void AI()
 		{
-			Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 64f / Projectile.width * .25f), Projectile.velocity, Projectile);
-			SecondImbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 64f / Projectile.width * .25f), Projectile.velocity, Projectile);
+			Imbue?.LingeringEffects(Projectile.Hitbox.Scaled(64f / Projectile.width * .25f), Projectile.velocity, Projectile);
+			SecondImbue?.LingeringEffects(Projectile.Hitbox.Scaled(64f / Projectile.width * .25f), Projectile.velocity, Projectile);
 
 			if (Projectile.ai[0] == 0)
 			{

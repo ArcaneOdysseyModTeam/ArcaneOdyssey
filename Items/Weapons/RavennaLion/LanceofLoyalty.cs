@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 	{
 		public override int AOValue => 200;
 		public override WeaponType WeaponsType => WeaponType.Strength;
-		public override Color Colour => Color.Gold;
+		public override Color Motif => Color.Gold;
 
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 

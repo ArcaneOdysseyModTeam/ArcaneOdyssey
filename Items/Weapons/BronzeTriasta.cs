@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override float AOSpeed => 1.1f;
 		public override int AOValue => 350;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override Color Colour => Color.Gold;
+		public override Color Motif => Color.Gold;
 		public override AORarities AORarity => AORarities.Rare;
 		public override bool? Cold => false;
 		public override Debuff? WeaponDebuff => Debuff.Create<CharredEffect>();

@@ -95,7 +95,7 @@ namespace ArcaneOdyssey.Projectiles.Circles
 						{
 							name = (SecondImbue.PrettyAttackPrefix + " " + name).Trim();
 						}
-						CombatText.NewText(Owner.Hitbox, Imbue?.GetColour() ?? Color.White, (name + "!").Trim(), ModContent.GetModProjectile(ChargingProjectile) is not LesserBeam or BlastSpell);
+						CombatText.NewText(Owner.Hitbox, Imbue?.Colour ?? Color.White, (name + "!").Trim(), ModContent.GetModProjectile(ChargingProjectile) is not LesserBeam or BlastSpell);
 					}
 					var proj = AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner, Imbue, SecondImbue, true);
 					if (proj.ModProjectile is PulsarSpell && originallyAltFire)
@@ -110,7 +110,7 @@ namespace ArcaneOdyssey.Projectiles.Circles
 			{
 				if (Projectile.localAI[0]++ > 5)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.GetColour(), 1f)];
+					Dust spawnedDust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X + (Projectile.scale * Projectile.width * Main.rand.NextFloat()), Projectile.position.Y + (Projectile.scale * Projectile.height * Main.rand.NextFloat())), 0, 0, DustID.SilverFlame, 8f * (Main.rand.NextFloat() - 0.5f), 8f * (Main.rand.NextFloat() - 0.5f), 0, Imbue.Colour, 1f)];
 					spawnedDust.noGravity = true;
 					Projectile.localAI[0] = 0;
 				}
@@ -128,7 +128,7 @@ namespace ArcaneOdyssey.Projectiles.Circles
 		{
 			if (Imbue is null or AOMagic)
 			{
-				lightColor = Imbue?.GetColour() ?? Color.White;
+				lightColor = Imbue?.Colour ?? Color.White;
 				Lighting.AddLight(Projectile.Center, lightColor.ToVector3());
 			}
 			else

@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 
-		public override Color Colour => Color.Red;
+		public override Color Motif => Color.Red;
 
 		public override void SetDefaults()
 		{

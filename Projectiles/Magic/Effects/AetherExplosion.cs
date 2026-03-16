@@ -45,12 +45,12 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			{
 				Count++;
 				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
-				Projectile.Hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, Projectile.scale);
+				Projectile.Hitbox = Projectile.Hitbox.Scaled(Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherMagic)
 			{
 				Projectile.scale = Projectile.ai[0];
-				Projectile.Hitbox = AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, Projectile.scale);
+				Projectile.Hitbox = Projectile.Hitbox.Scaled(Projectile.scale);
 			}
 			else
 			{

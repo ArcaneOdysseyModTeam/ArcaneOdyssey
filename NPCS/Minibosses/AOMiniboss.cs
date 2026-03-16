@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
 		{
-			boundingBox = AOUtils.ScaleRectangleNotRef(NPC.Hitbox, 2f);
+			boundingBox = NPC.Hitbox.Scaled(2.5f);
 		}
 
 		public static bool AOMinibossOrBossAlive()

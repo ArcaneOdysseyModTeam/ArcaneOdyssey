@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 {
 	public class KatanaSlash : AOPlayerProjectile
 	{
-		public Color Colour => Imbue?.GetColour() ?? Color.Red;
+		public Color Colour => Imbue?.Colour ?? Color.Red;
 
 		public override void SetDefaults()
 		{

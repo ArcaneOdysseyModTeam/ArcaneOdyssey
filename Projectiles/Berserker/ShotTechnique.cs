@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 				for (float i = 0; i < 5; i++)
 				{
 					var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (Projectile.width / 2);
-					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, .9f);
+					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.Colour ?? Color.White, .9f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
 				}
@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 				for (float i = 0; i < 15; i++)
 				{
 					var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (Projectile.width * 2);
-					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.GetColour() ?? Color.White, 1.5f);
+					var dust2 = AOUtils.NewDustImperfect(centre2 + Projectile.Center, DustID.BubbleBurst_White, (-centre2) / 5, 0, Imbue?.Colour ?? Color.White, 1.5f);
 					dust2.noLight = true;
 					dust2.noGravity = true;
 					Imbue?.ExplosionEffects(Projectile.Center);

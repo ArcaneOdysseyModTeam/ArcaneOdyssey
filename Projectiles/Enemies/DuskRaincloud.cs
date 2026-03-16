@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
-			Rectangle fakebox = AOUtils.ScaleRectangleNotRef(new(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700), Imbue.AOScrollSize, 1, 2);
+			var fakebox = new Rectangle(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700).Scaled(Imbue.AOScrollSize, 1, 2);
 			return targetHitbox.Intersects(fakebox);
 		}
 
@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour() ?? Color.White, (DisplayName + "!").Trim(), true);
+				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
 			Imbue.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			if (Projectile.ai[0] == 0)
@@ -90,6 +90,11 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 					Projectile.frame = 0;
 				}
 			}
+		}
+
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

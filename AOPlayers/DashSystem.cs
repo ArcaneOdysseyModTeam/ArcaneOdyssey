@@ -461,8 +461,8 @@ namespace ArcaneOdyssey.AOPlayers
 						}
 						return;
 					}
-					CurrentDash.Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
-					CurrentDash.SecondImbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
+					CurrentDash.Imbue?.LingeringEffects(Player.Hitbox.Scaled(1.5f), Player.velocity, Player);
+					CurrentDash.SecondImbue?.LingeringEffects(Player.Hitbox.Scaled(1.5f), Player.velocity, Player);
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.LocksPlayer)
 					{

@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override SoundStyle UseSound => SoundID.Item11;
 
-		public override Color Colour => Color.Orange;
+		public override Color Motif => Color.Orange;
 
 		public override AORarities AORarity => AORarities.Uncommon;
 

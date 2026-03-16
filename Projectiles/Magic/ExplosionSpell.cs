@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 						{
 							name = SecondImbue.PrettyAttackPrefix + " " + name;
 						}
-						CombatText.NewText(Owner.Hitbox, Imbue.GetColour(), (name + "!").Trim(), true);
+						CombatText.NewText(Owner.Hitbox, Imbue.Colour, (name + "!").Trim(), true);
 					}
 				}
 				for (int i = 0; i < 30; i++)
@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				for (int n = 0; n < 360; n += 4)
 				{
 					Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * ApplySize(109f * size * charge);
-					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.GetColour(), 1f);
+					Dust.NewDustPerfect(ensuredPosition + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.Colour, 1f);
 				}
 			}
 		}

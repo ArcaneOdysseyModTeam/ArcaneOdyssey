@@ -33,9 +33,10 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			ProjectileID.Sets.TrailingMode[Type] = 0;
 		}
 
-		public override void OnHitPlayer(Player target, Player.HurtInfo info)
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
 			target.AddBuff(ModContent.BuffType<DrainedEffect>(), 60 * 5);
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
 		}
 
 		public bool sentMessage = false;
@@ -44,7 +45,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour() ?? Color.White, (DisplayName + "!").Trim(), true);
+				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
 
 			foreach (var pos in Projectile.oldPos.Reverse())

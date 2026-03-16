@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	public class SparrowThrust : AOPlayerProjectile
 	{
 		public override bool CanHaveImbueVFX => false;
-		public Color Colour => Imbue?.GetColour() ?? Color.MediumPurple;
+		public Color Colour => Imbue?.Colour ?? Color.MediumPurple;
 		public static int LingerTime => 60;
 		public static int TravelTime => 100 * 60;
 
@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				oldvelo = Projectile.velocity;
-				Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 1f - (.75f * ((Projectile.timeLeft - TravelTime) / (float)TravelTime))), Projectile.velocity, Projectile);
+				Imbue?.LingeringEffects(Projectile.Hitbox.Scaled(1f - (.75f * ((Projectile.timeLeft - TravelTime) / (float)TravelTime))), Projectile.velocity, Projectile);
 			}
 			else
 			{

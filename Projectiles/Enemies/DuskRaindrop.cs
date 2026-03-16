@@ -22,6 +22,11 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.Opacity = .25f;
 		}
 
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+		}
+
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
 		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
 
@@ -33,7 +38,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public override void AI()
 		{
-			Imbue.LingeringEffects(AOUtils.ScaleRectangleNotRef(Projectile.Hitbox, 64f / Projectile.width * .25f), Projectile.velocity, Projectile);
+			Imbue.LingeringEffects(Projectile.Hitbox.Scaled(64f / Projectile.width * .25f), Projectile.velocity, Projectile);
 
 			if (Projectile.ai[0] == 0)
 			{

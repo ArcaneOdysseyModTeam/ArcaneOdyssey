@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 			return base.CanUseItem(player) && canSwing;
 		}
 
-		public override Color Colour => Color.Gray;
+		public override Color Motif => Color.Gray;
 
 		public override void SetStaticDefaults()
 		{

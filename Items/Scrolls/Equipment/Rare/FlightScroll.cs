@@ -81,8 +81,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		{
 			if (inUse)
 			{
-				player.Imbue()?.LingeringEffects(AOUtils.ScaleRectangleNotRef(player.Hitbox, 3f));
-				player.Imbue()?.Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(player.Hitbox, 3f));
+				player.Imbue()?.LingeringEffects(player.Hitbox.Scaled(3f));
+				player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox.Scaled(3f));
 			}
 
 			return false;

@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.GetColour() ?? Color.White, (DisplayName + "!").Trim(), true);
+				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
 			Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 
@@ -91,9 +91,14 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		{
 			if (Penetrations++ == 0)
 			{
-				Imbue?.KillEffects(AOUtils.ScaleRectangleNotRef(target.Hitbox, 4f));
+				Imbue?.KillEffects(target.Hitbox.Scaled(4f));
 				Projectile.timeLeft -= TimeLeftMax / 2;
 			}
+		}
+
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
 		}
 
 		public override void OnKill(int timeLeft)
@@ -120,7 +125,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.GetColour() ?? Color.White;
+			lightColor = Imbue?.Colour ?? Color.White;
 			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;

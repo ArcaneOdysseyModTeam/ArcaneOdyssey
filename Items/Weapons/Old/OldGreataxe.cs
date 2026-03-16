@@ -31,6 +31,6 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 			Item.autoReuse = true;
 		}
 
-		public override Color Colour => Color.Gray;
+		public override Color Motif => Color.Gray;
 	}
 }
