@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
@@ -43,6 +44,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				Projectile.position.Y += Projectile.height / 3;
 			}
 		}
+
+		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 
 		public override void AI()
 		{

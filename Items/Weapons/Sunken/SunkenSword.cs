@@ -9,6 +9,7 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Items.Weapons.Bronze;
+using ArcaneOdyssey.Projectiles.Abilities;
 
 
 namespace ArcaneOdyssey.Items.Weapons.Sunken
@@ -96,13 +97,14 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 			{
 				SoundEngine.PlaySound(SoundID.Splash, player.position);
 				// Adds dust
-				for (int dustCountInt = 0; dustCountInt < 50; dustCountInt++)
-				{
-					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, Scale: 1.3f);
-					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, Scale: 1.3f);
-					Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
-					Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
-				}
+				//for (int dustCountInt = 0; dustCountInt < 50; dustCountInt++)
+				//{
+				//	Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, Scale: 1.3f);
+				//	Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.Water, player.velocity.X * dustCountInt * 0.02f, -1f * dustCountInt * player.gravDir, Scale: 1.3f);
+				//	Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
+				//	Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
+				//}
+				AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, Vector2.UnitY * -2f, ModContent.ProjectileType<RisingTideProjectile>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue);
 			}
 		}
 

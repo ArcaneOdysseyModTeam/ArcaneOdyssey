@@ -1,13 +1,9 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
-using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.Projectiles;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;

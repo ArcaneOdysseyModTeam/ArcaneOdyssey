@@ -348,10 +348,11 @@ Projectiles: {
 		TwinCrescent.DisplayName: Twin Crescent
 		Whirlwind.DisplayName: Whirlwind
 		ToweringImpact.DisplayName: Towering Impact
-		DevastateShockwave.DisplayName: Devastate Shockwave
+		DevastateShockwave.DisplayName: Devastate
 		ArrowStorm.DisplayName: Storm of Arrows
 		ArrowRain.DisplayName: Rain of Arrows
 		SanguineThrow.DisplayName: Sanguine Throw
+		RisingTideProjectile.DisplayName: Rising Tide
 	}
 
 	DeathCurse.DisplayName: The Death Curse

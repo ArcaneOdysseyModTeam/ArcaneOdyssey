@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Terraria;
+﻿using System.Collections.Generic;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Guidebook
 {

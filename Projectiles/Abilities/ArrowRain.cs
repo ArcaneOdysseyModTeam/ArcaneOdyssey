@@ -14,6 +14,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override Texture2D Sprite => ThisProjectileType != 0 ? TextureAssets.Projectile[ThisProjectileType].Value : base.Sprite;
 
+		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

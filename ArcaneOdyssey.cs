@@ -13,7 +13,6 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Graphics.Shaders;
 using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.NPCs.Town;
 
 namespace ArcaneOdyssey
 {

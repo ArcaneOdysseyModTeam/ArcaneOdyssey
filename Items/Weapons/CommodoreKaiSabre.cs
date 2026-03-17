@@ -26,5 +26,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.shoot = ModContent.ProjectileType<KatanaSlash>();
 		}
+
+		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 	}
 }

@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			if (!Main.dedServ)
 			{
 				Random rnd = new();
-				Dust dust = Main.dust[Dust.NewDust(Projectile.TopLeft, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default)];
+				Dust dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Water, 0, 0, 100, default)];
 				dust.noGravity = true;
 				//dust.velocity = Projectile.velocity * -1;
 
