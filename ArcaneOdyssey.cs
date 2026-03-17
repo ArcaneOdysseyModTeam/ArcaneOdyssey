@@ -84,6 +84,8 @@ namespace ArcaneOdyssey
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
+			GameShaders.Misc[InternalName + ":MagicCircleBase"] = null;
+			MagicCircleSprite = null;
 		}
 
 		public override void PostSetupContent()

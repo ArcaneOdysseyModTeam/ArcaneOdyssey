@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +21,22 @@ namespace ArcaneOdyssey.Biomes
 		public override bool IsBiomeActive(Player player)
 		{
 			var playercoords = player.Hitbox.ToTileRect();
-			return EliusArenaLoader.eliusArena.Intersects(playercoords) || EliusArenaLoader.eliusArena.Contains(playercoords);
+			if (EliusArenaLoader.eliusArena.Intersects(playercoords))
+			{
+				if ((!ModLoader.TryGetMod("SubworldLibrary", out Mod subworld)) || (!(bool)subworld.Call("AnyActive")))
+				{
+					return true;
+				}
+			}
+			if (ModLoader.TryGetMod("SubworldLibrary", out var lib) && ((string)lib.Call("Current")) == "SubworldGenTest/DjinRuinsSubworld")
+			{
+				if (player.Bottom.Y == 1936)
+				{
+					AOUtils.Kill(player);
+				}
+				return true;
+			}
+			return false;
 		}
 
 		public override void OnInBiome(Player player)
