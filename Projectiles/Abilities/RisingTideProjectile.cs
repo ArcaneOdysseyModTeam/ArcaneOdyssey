@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Projectiles.Base;
+﻿using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -42,6 +43,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			}
 			Projectile.Opacity = 1f - (Projectile.frame / (float)Main.projFrames[Type]);
 		}
+
+		public override Debuff? ProjectileDebuff => Debuff.Create<Soaked>();
 
 		public override bool PreDraw(ref Color lightColor)
 		{
