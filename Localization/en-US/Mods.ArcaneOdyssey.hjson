@@ -198,37 +198,6 @@ NPCs: {
 				CloudsShift: There's a storm coming in...
 			}
 
-			Help: {
-				EliusHint: There's a storm to the east. Be careful if you decide to investigate.
-				Relics: Relics are quite interesting. They function as an imbue, as well as a weapon that can even channel magic.
-				Early1: According to what I've heard, those who do great deeds may be rewarded by what's left of the ancient gods in the form of a blessing, granting you knowledge or power.
-				Early2: You can imbue your items with your magic, relic, or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
-				EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to find spell scrolls.
-				EarlyMagic2: Some spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
-				EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but finding technique scrolls are needed to use your full power.
-				Pots: Breaking pots underground can yeild magical scrolls of various tiers.
-				Dash: Some scrolls allow you dash in a direction, depending on the type you can [{0} or {1}].
-				WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
-				StackImbues: With multiple imbues, you can stack them on eachother to allow scrolls or special items to use both imbues at the same time. For example, a Relic can be imbued into a Magic, or a Magic can be imbued into a Fighting Style.
-				PreHard1: It's said there's some abomination deep, deep underground that devours magic. If left unchecked, it may bring great agony to these lands...
-				PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
-				EarlyHard1: Killing that beast has granted you a god's blessing in the form of a sigil. You should use that if you haven't already.
-				EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
-				DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-				BronzeTip: Bronze can be created using copper/tin, gold/platinum, and some sort of chaotic material.
-				CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
-				NothingToSay: I don't have anything to say right now.
-				SunkenWeapon: Although made of Arcanium metal, that weapon in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
-				EvanderWarning: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
-				HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
-				CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
-				SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing item while using it.
-				ThermoFist: Thermo Fist collects kinetic energy and triggers your adrenaline to empower yourself. Try attacking while using it.
-				VanishingStyle: Vanishing Style is a much more advanced fighting style. You must deal damage to gain focus which increases your stealth, and while your focus is fading, unleash a critical strike!
-				WeaponSkills: Some weapons have special skills, make good use of them.
-				ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
-			}
-
 			TownNPCMood: {
 				Content: I have no issues at the moment.
 				NoHome: Although I'm usually travelling, it would be nice to have a place to rest.
@@ -467,6 +436,8 @@ Biomes: {
 		TownNPCDialogueName: the Djin Ruins
 	}
 }
+
+NewGuide: Morden has a new guide available!
 
 Prefixes: {
 	Amplified.DisplayName: Amplified

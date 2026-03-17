@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Guidebook;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -101,6 +102,7 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				Souls = [.. souls.Select(e => (GodSoulID)e)];
 			}
+			oldAvailablePages = tag.Get<string[]>("guidebooks");
 		}
 
 		public override void SaveData(TagCompound tag)
@@ -122,6 +124,44 @@ namespace ArcaneOdyssey.AOPlayers
 				tag.Add("acumenconsumed", acumen);
 			if (Souls.Count > 1)
 				tag.Add("godsouls", Souls.Select(e => (int)e).ToList());
+			if (AvailablePages().Count > 0)
+				tag.Add("guidebooks", AvailablePages().Select(e => e.Name).ToArray());
+		}
+
+		public override void PreUpdateBuffs()
+		{
+			foreach (var page in AvailablePages())
+			{
+				if (!oldAvailablePages.Contains(page.Name))
+				{
+					Main.NewText(Mod.CustomLocalization("NewGuide").Value);
+				}
+			}
+
+			oldAvailablePages = [.. AvailablePages().Select(e => e.Name)];
+		}
+
+		private static int SortPages(GuidebookPage x, GuidebookPage y)
+		{
+			if (x.PageNum > y.PageNum)
+			{
+				return 1;
+			}
+			if (x.PageNum < y.PageNum)
+			{
+				return -1;
+			}
+			return 0;
+		}
+
+		internal string[] oldAvailablePages = [];
+
+		public List<GuidebookPage> AvailablePages()
+		{
+			List<GuidebookPage> pages = [.. GuidebookSystem.AllPages];
+			pages.Sort(new Comparison<GuidebookPage>(SortPages));
+			pages.RemoveAll(e => !(e.MetConditions(Player) || oldAvailablePages.Contains(e.Name)));
+			return pages;
 		}
 	}
 }

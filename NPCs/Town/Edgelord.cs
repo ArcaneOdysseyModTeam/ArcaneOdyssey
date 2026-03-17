@@ -139,7 +139,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = Mod.CustomLocalization("RandomWords.Help").Value;
+			button = Mod.CustomLocalization("RandomWords.Guide").Value;
 			button2 = Mod.CustomLocalization("ImbueStuff.SynergiesButton").Value;
 		}
 
@@ -147,7 +147,7 @@ namespace ArcaneOdyssey.NPCs.Town
 		{
 			if (firstButton)
 			{
-				Main.npcChatText = GetChatHelpButton();
+				Main.npcChatText = Main.rand.Next(Player.ArcaneOdyssey().AvailablePages()).GetText().Value; // placeholder, open up guidebook ui instead
 			}
 			else
 			{
@@ -162,163 +162,10 @@ namespace ArcaneOdyssey.NPCs.Town
 			}
 		}
 
-		internal static Dictionary<string, Func<bool>> helpOptions = [];
-		public static void AddHelpOption(string value, Func<bool> condition)
-		{
-			helpOptions[value] = condition;
-		}
-
 		public static Player Player => Main.LocalPlayer;
 
-		public string GetChatHelpButton()
-		{
-			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
-			{
-				return this.GetLocalizedValue("DyingText");
-			}
-
-			List<string> options = [];
-
-			void AddOption(string value)
-			{
-				options.Add(this.GetLocalizedValue($"Help.{value}"));
-			}
-
-			foreach (string key in helpOptions.Keys)
-			{
-				if (helpOptions[key]())
-				{
-					options.Add(key);
-				}
-			}
-
-			if (false)//(Main.hardMode)
-			{
-				AddOption("DarkSeaWarning");
-			}
-
-			if (AOUtils.BossesKilled < 3)
-			{
-				AddOption("Relics");
-				AddOption("Early1");
-				AddOption("Early2");
-				AddOption("WorldofMagic");
-				if (Player.HasTypeInInventory<AOMagic>())
-				{
-					AddOption("EarlyMagic1");
-					AddOption("EarlyMagic2");
-				}
-				if (Player.HasTypeInInventory<FightingStyle>())
-				{
-					AddOption("EarlyFighting1");
-				}
-			}
-
-			if (NPC.downedBoss1 && !DownedBosses.downedElius)
-			{
-				AddOption("EliusHint");
-			}
-
-			if (Player.HasTypeInInventory<FightingStyle>())
-			{
-				if (!Main.hardMode)
-				{
-					AddOption("SailorStyle");
-					AddOption("ThermoFist");
-				}
-				else
-				{
-					AddOption("VanishingStyle");
-					if (NPC.downedPirates)
-					{
-						AddOption("CannonFist");
-					}
-				}
-			}
-
-			if (Player.HasTypeInInventory<ReflexScroll>() || Player.HasTypeInInventory<WalkRite>())
-			{
-				string doubletapdash = Mod.CustomLocalization("KeybindStuff.DashHelp").Value;
-				if (ModLoader.HasMod("CalamityMod"))
-				{
-					doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
-				}
-				else if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
-				{
-					if ((bool)fargos.Call("DoubleTapDashDisabled"))
-					{
-						doubletapdash = Mod.CustomLocalization("RandomWords.Press", ExternalModSupport.DashBind()?.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value;
-					}
-				}
-				string dashbind = AOKeybinds.DashBind.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value);
-				options.Add(Language.GetTextValue(this.GetLocalizationKey("Help.Dash"), doubletapdash, Mod.CustomLocalization("RandomWords.Press", dashbind).Value));
-			}
-
-			if (NPC.downedBoss2 && !Main.hardMode)
-			{
-				AddOption("BronzeTip");
-				AddOption("WeaponSkills");
-			}
-
-			if (Main.hardMode && !NPC.downedMechBossAny)
-			{
-				AddOption("EarlyHard1");
-				AddOption("EarlyHard2");
-			}
-
-			if (Main.hardMode && !(DownedBosses.downedEvander || DownedBosses.downedDelamere))
-			{
-				AddOption("EvanderWarning");
-			}
-
-			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
-			{
-				AddOption("HasStrengthWeapon");
-			}
-
-			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Artisinal)
-			{
-				AddOption("ArtisinalWeapon");
-			}
-
-			if (!Main.hardMode)
-			{
-				AddOption("PreHard1");
-				AddOption("PreHard2");
-			}
-
-			if (!(Player.HasTypeInInventory<CommonScroll>() && Player.HasTypeInInventory<RareScroll>() && Player.HasTypeInInventory<LostScroll>()))
-			{
-				AddOption("Pots");
-			}
-
-			if (Player.GetAllImbues().Count > 1)
-			{
-				AddOption("StackImbues");
-			}
-
-			if (Player.PlayerItem()?.ModItem is SunkenSword || Player.PlayerItem()?.ModItem is SunkenStaff)
-			{
-				AddOption("SunkenWeapon");
-			}
-
-			if (!NPC.downedAncientCultist && NPC.downedGolemBoss)
-			{
-				AddOption("CultistTip");
-			}
-
-			options.RemoveAll(e => e == LastHelp);
-
-			if (options.Count == 0)
-				AddOption("NothingToSay");
-
-			string chosen = Main.rand.Next(options);
-			LastHelp = chosen;
-			return chosen;
-		}
 
 		private static string LastDialogue = "";
-		private static string LastHelp = "";
 
 		public override string GetChat()
 		{
