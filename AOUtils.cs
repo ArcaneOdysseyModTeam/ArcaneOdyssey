@@ -1433,7 +1433,7 @@ namespace ArcaneOdyssey
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{
-				if (item.ModItem.GetType().Name == typeof(T).Name || item.ModItem.GetType().IsSubclassOf(typeof(T)))
+				if (item.ModItem is T)
 				{
 					return true;
 				}
@@ -1453,9 +1453,9 @@ namespace ArcaneOdyssey
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var items in no)
 			{
-				if (items.ModItem.GetType().Name == typeof(T).Name || items.ModItem.GetType().IsSubclassOf(typeof(T)))
+				if (items.ModItem is T)
 				{
-					item = (T)items.ModItem;
+					item = items.ModItem as T;
 					return true;
 				}
 			}

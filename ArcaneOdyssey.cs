@@ -91,6 +91,7 @@ namespace ArcaneOdyssey
 			this.CoolCustomLocalization("RandomWords.None");
 			this.CoolCustomLocalization("RandomWords.AnyMaterial");
 			this.CoolCustomLocalization("RandomWords.Help");
+			this.CoolCustomLocalization("RandomWords.Guide");
 			this.CoolCustomLocalization("RandomWords.Press");
 		}
 
