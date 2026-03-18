@@ -62,14 +62,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 			item.ArcaneOdyssey().Imbue = player.Imbue();
 			if (player.whoAmI == Main.myPlayer)
 			{
-				var proj = AOMagic.CreateMagicCircle(item, player, player.Imbue());
-				for (int i = 0; i < 5; i++)
+				var proj = Imbuable.CreateMagicCircle(item, player, MagicCircleMode.Rotating, true).Projectile;
+				for (int i = 0; i < 15; i++)
 				{
-					player.Imbue()?.ExplosionEffects(proj.Center, proj.scale);
-					player.Imbue()?.Imbue?.ExplosionEffects(proj.Center, proj.scale);
+					player.Imbue()?.ExplosionEffects(proj.Center);
+					player.Imbue()?.Imbue?.ExplosionEffects(proj.Center);
 				}
 			}
-			SoundEngine.PlaySound(player.Imbue().ImbueSound, player.Bottom);
+			SoundEngine.PlaySound(player.Imbue().ImbueSound, player.Center);
 			playSound = !player.Imbue().ImbueSound.HasValue;
 			Projectile.NewProjectile(player.GetSource_FromThis(), player.position, Vector2.Zero, ModContent.ProjectileType<LeapFix>(), 0, 0, player.whoAmI, player.direction);
 			// vfx here

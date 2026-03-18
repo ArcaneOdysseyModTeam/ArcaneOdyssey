@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			ProjectileID.Sets.TrailingMode[Type] = 2;
 			ProjectileID.Sets.TrailCacheLength[Type] = 50;
 		}
-		public override float AOSize => 2f;
+		public override float AOSize => 2.5f;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -30,12 +30,12 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override void AI()
 		{
-			Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Water, Main.rand.NextBool().ToDirectionInt() * 10f, 0, 100);
+			Dust.NewDust(Projectile.Center, 0, Projectile.height, DustID.Water, Main.rand.NextBool().ToDirectionInt() * 10f, Scale: 3f);
 			Projectile.velocity = Vector2.UnitY * -1f * Owner.gravDir;
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			if (Projectile.timeLeft % 5 == 0)
 			{
-				Projectile.Center = Owner.Center + (Owner.velocity * 5f);
+				Projectile.Center = Owner.Center + (Projectile.velocity * 5f);
 
 				if (Projectile.frame++ >= (Main.projFrames[Type] + 1))
 				{

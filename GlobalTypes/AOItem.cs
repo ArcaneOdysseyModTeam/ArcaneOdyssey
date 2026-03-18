@@ -28,6 +28,7 @@ using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
+using ArcaneOdyssey.Projectiles;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
@@ -625,7 +626,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 						if (Imbue is AOMagic magic)
 						{
-							AOMagic.CreateMagicCircle(Imbue.Item, player, magic);
+							Imbuable.CreateMagicCircle(Imbue.Item, player, MagicCircleMode.Rotating, true);
 						}
 					}
 				}

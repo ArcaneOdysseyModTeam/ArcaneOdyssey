@@ -2,7 +2,6 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
-using ArcaneOdyssey.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -66,8 +65,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
-			return true;
+			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Rotating, false, type, player.AltUse());
+			return false;
 		}
 	}
 }

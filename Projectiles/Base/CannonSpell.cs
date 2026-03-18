@@ -73,10 +73,10 @@ namespace ArcaneOdyssey.Projectiles.Base
 					Projectile.netSpam = 0;
 				}
 				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 94f);
-				charge += BaseMagicCircle.GlobalChargeSpeed;
+				charge += Circle.GlobalChargeSpeed;
 				Projectile.timeLeft = 3 * 60;
 				Projectile.rotation = dir.ToRotation();
-				if (charge >= BaseMagicCircle.GlobalMaxCharge)
+				if (charge >= Circle.GlobalMaxCharge)
 				{
 					Owner.channel = false;
 					DoneCharging = true;

@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
@@ -185,13 +186,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			return fallback;
 		}
 
-		public Projectile CreateChargingEffect(Item item, Player player)
-		{
-			if (this is AOMagic)
-				return AOMagic.CreateMagicCircle(item, player, this, item.damage);
-			return null;
-		}
-
 		public virtual void SpawningEffects(Rectangle area, Vector2 direction) { }
 
 		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
@@ -241,7 +235,7 @@ namespace ArcaneOdyssey.Imbues.Base
 					name = player.Imbue().Name;
 				if (Name != name)
 				{
-					AOMagic.CreateMagicCircle(Item, player, this);
+					CreateMagicCircle(Item, player, MagicCircleMode.Rotating, true);
 				}
 				if (Name != name)
 				{
@@ -517,6 +511,17 @@ namespace ArcaneOdyssey.Imbues.Base
 			text = Mod.CustomLocalization("ImbueStuff.SentenceEnd", text).Value;
 
 			return text;
+		}
+
+		// spread 
+		public static Circle CreateMagicCircle(Item item, Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f)
+		{
+			Circle circle = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<Circle>(), player.GetWeaponDamage(item), player.GetWeaponKnockback(item), player.whoAmI, ai2: (int)mode).ModProjectile as Circle;
+			circle.ProjectileSpread = spread;
+			circle.MarkedForDeath = markedfordeath;
+			circle.originallyAltFire = altfire;
+			circle.ChargingProjectile = chargingProjectile;
+			return circle;
 		}
 
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)

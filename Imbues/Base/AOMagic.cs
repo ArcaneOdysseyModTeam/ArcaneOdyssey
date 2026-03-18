@@ -1,9 +1,4 @@
-﻿using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Lost;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
-using ArcaneOdyssey.Projectiles.Circles;
-using ArcaneOdyssey.Projectiles.Magic;
+﻿using ArcaneOdyssey.Projectiles;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -50,125 +45,15 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			CreateMagicCircle(Item, player, this, damage);
-			return false;
-		}
-
-		public static Projectile CreateMagicCircle(Item item, Player player, Imbuable magicToUse, int damage = 0)
-		{
-			if (magicToUse is not null && Main.myPlayer == player.whoAmI)
+			if (!player.AltUse())
 			{
-				var rot = player.SafeDirectionTo(Main.MouseWorld);
-				if (item.ModItem is AOMagic)
-				{
-					if (player.PlayerItem()?.ModItem?.Type != magicToUse.Type || player.AltUse())
-					{
-						Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI);
-						((RotatingMagicCircle)circleprojectile.ModProjectile).MarkedForDeath = true;
-						return circleprojectile;
-					}
-					else
-					{
-						Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
-						circleprojectile.rotation = rot.ToRotation();
-						if (magicToUse.DashSpeed < 1.4f)
-						{
-							((BasicMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
-						}
-						else
-						{
-							((BasicMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<LesserBeam>();
-						}
-						return circleprojectile;
-					}
-				}
-				else if (item.ModItem is EnchantmentSpell)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI);
-					((RotatingMagicCircle)circleprojectile.ModProjectile).MarkedForDeath = true;
-					return circleprojectile;
-				}
-				else if (item.ModItem is JavelinSpell)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = rot.ToRotation();
-					return circleprojectile;
-				}
-				else if (item.ModItem is BarrageSpell barrage)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BarrageMagicCircle>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = rot.ToRotation();
-					((BarrageMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Blast");
-					((BarrageMagicCircle)circleprojectile.ModProjectile).ProjectileSpread = MathHelper.PiOver4 / 2f;
-					barrage.ActivateAbility(player);
-					return circleprojectile;
-				}
-				else if (item.ModItem is RaySpell ray)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BarrageMagicCircle>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = rot.ToRotation();
-					((BarrageMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<MagicRay>();
-					ray.ActivateAbility(player);
-					return circleprojectile;
-				}
-				else if (item.ModItem is ExplosionScroll)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI, 0, player.altFunctionUse);
-					//player.ArcaneOdyssey().myCircle = circleprojectile;
-					return circleprojectile;
-				}
-				else if (item.ModItem is CannonScroll)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = rot.ToRotation();
-					Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 94), Vector2.Zero, magicToUse.GetSkill("Cannon"), damage, item.knockBack, player.whoAmI);
-					return circleprojectile;
-				}
-				else if (item.ModItem is PulsarScroll)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = rot.ToRotation();
-					((BasicMagicCircle)circleprojectile.ModProjectile).originallyAltFire = player.AltUse();
-					((BasicMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Pulsar");
-					return circleprojectile;
-				}
-				else if (item.ModItem is BeamScroll)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter + (rot * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = rot.ToRotation();
-					((BasicMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = ModContent.ProjectileType<BeamSpell>();
-					return circleprojectile;
-				}
-				else if (item.ModItem is LeapScroll leap)
-				{
-					var proj = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Bottom, Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), 0, 0, player.whoAmI);
-					proj.rotation = MathHelper.PiOver2;
-					((BasicMagicCircle)proj.ModProjectile).MarkedForDeath = true;
-					leap.ActivateAbility(player);
-					return proj;
-				}
-				else if (item.ModItem is ArrayScroll)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.MountedCenter - (Vector2.UnitY * 30), Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), damage, item.knockBack, player.whoAmI);
-					circleprojectile.rotation = MathHelper.PiOver2;
-					((BasicMagicCircle)circleprojectile.ModProjectile).ChargingProjectile = magicToUse.GetSkill("Array");
-					return circleprojectile;
-				}
-				else if (item.ModItem is AnnihilationScroll)
-				{
-					var proj = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Bottom, Vector2.Zero, ModContent.ProjectileType<BasicMagicCircle>(), 0, 0, player.whoAmI);
-					proj.rotation = MathHelper.PiOver2;
-					((BasicMagicCircle)proj.ModProjectile).MarkedForDeath = true;
-					return proj;
-				}
-				else if (item.ModItem is ElementalSpell)
-				{
-					Projectile circleprojectile = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<RotatingMagicCircle>(), 0, 0f, player.whoAmI);
-					((RotatingMagicCircle)circleprojectile.ModProjectile).MarkedForDeath = true;
-					return circleprojectile;
-				}
+				CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, GetSkill("Blast"));
 			}
-			return null;
+			else
+			{
+				CreateMagicCircle(Item, player, MagicCircleMode.Rotating, true);
+			}
+			return false;
 		}
 	}
 }

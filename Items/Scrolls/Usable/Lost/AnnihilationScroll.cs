@@ -1,11 +1,12 @@
 using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Projectiles.Magic;
-using ArcaneOdyssey.Imbues.Base;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
 {
@@ -26,7 +27,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			player.ArcaneOdyssey()?.StartDash(new Annihilation(this), -2, Imbue, false);
-			AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
+			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Basic, true);
 			return false;
 		}
 

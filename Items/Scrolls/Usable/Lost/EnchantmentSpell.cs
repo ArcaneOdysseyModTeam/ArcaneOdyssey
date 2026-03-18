@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
 			{
 				Item.SetDefaults(ModContent.ItemType<CommonEmptyScroll>());
 			}
-			AOMagic.CreateMagicCircle(Item, player, Imbue);
+			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Rotating, true);
 		}
 	}
 }

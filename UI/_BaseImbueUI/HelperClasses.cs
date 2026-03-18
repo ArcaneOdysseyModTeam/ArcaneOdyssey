@@ -122,7 +122,7 @@ public abstract partial class BaseImbueUI : UIState
 		public CustomProduct(BaseImbueUI mainUI, ModItem item) : base(mainUI)
 		{
 			Item = item;
-			Icon = new(Terraria.GameContent.TextureAssets.Item[Item.Type]) { ScaleToFit = true };
+			Icon = new(TextureAssets.Item[Item.Type]) { ScaleToFit = true };
 		}
 
 		public override void Update()

@@ -125,7 +125,7 @@ namespace ArcaneOdyssey.AOPlayers
 			if (Souls.Count > 1)
 				tag.Add("godsouls", Souls.Select(e => (int)e).ToList());
 			if (AvailablePages().Count > 0)
-				tag.Add("guidebooks", AvailablePages().Select(e => e.Name).ToList());
+				tag.Add("guidebooks", unlockedPages);
 		}
 
 		public override void PreUpdateBuffs()
@@ -164,7 +164,7 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			List<GuidebookPage> pages = [.. GuidebookSystem.AllPages];
 			pages.Sort(new Comparison<GuidebookPage>(SortPages));
-			pages.RemoveAll(e => !(e.MetConditions(Player) || unlockedPages.Contains(e.Name)));
+			pages.RemoveAll(e => !e.MetConditions(Player));
 			return pages;
 		}
 	}

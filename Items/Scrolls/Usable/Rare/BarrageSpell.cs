@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			AOMagic.CreateMagicCircle(Item, player, Imbue, damage);
+			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false, Imbue.GetSkill("Blast"), spread: MathHelper.PiOver4 / 2f);
 			return false;
 		}
 

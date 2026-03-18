@@ -357,12 +357,7 @@ Projectiles: {
 
 	DeathCurse.DisplayName: The Death Curse
 	LeapFix.DisplayName: Jump
-
-	Circles: {
-		BarrageMagicCircle.DisplayName: Magic Circle
-		BasicMagicCircle.DisplayName: Magic Circle
-		RotatingMagicCircle.DisplayName: Magic Circle
-	}
+	Circle.DisplayName: Magic Circle
 }
 
 Achievements: {

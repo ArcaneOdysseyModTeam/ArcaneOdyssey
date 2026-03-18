@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
-using System;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

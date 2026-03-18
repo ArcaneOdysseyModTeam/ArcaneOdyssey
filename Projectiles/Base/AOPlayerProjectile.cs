@@ -23,6 +23,12 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public AOPlayer AOPlayerOwner => Owner?.ArcaneOdyssey();
 
+		public void NetUpdate()
+		{
+			Projectile.netSpam = 0;
+			Projectile.netUpdate = true;
+		}
+
 		public Player Owner
 		{
 			get

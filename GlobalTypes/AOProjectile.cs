@@ -4,6 +4,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Magic;
 using System;
@@ -114,7 +115,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					return null;
 				if (thisProjectile is not null)
 				{
-					if (thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or BaseMagicCircle)
+					if (thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or Circle)
 					{
 						return true;
 					}

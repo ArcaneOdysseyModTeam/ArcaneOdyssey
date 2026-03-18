@@ -22,6 +22,7 @@ using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework.Graphics;
+using ArcaneOdyssey.Projectiles;
 
 namespace ArcaneOdyssey
 {
@@ -227,6 +228,14 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
+
+		public static void NetUpdate(this Projectile projectile)
+		{
+			projectile.netUpdate = true;
+			projectile.netSpam = 0;
+		}
+
+		public static bool IsOwner(this Projectile projectile) => Main.myPlayer == projectile.owner;
 
 		public static SynergyEffects CopyDamageSynergiesFromImbue<T>() where T : Imbuable
 		{
@@ -731,7 +740,7 @@ namespace ArcaneOdyssey
 					return (
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
-							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or BaseMagicCircle
+							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or Circle
 						)
 						&& projectile.owner != 255
 						&& !projectile.hostile

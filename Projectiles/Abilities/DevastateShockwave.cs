@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override void AI()
 		{
-			if (++Projectile.frameCounter >= 7)
+			if (++Projectile.frameCounter >= ApplySpeed(6f, true))
 			{
 				Projectile.frameCounter = 0;
 				if (++Projectile.frame >= Main.projFrames[Type])
