@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
+using System;
+using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,11 +24,20 @@ namespace ArcaneOdyssey.Biomes
 			var playercoords = player.Hitbox.ToTileRect();
 			if (EliusArenaLoader.eliusArena.Intersects(playercoords))
 			{
-				if ((!ModLoader.TryGetMod("SubworldLibrary", out Mod subworld)) || (!(bool)subworld.Call("AnyActive")))
+				if (!ModLoader.TryGetMod("SubworldLibrary", out Mod subworld))
 				{
 					return true;
 				}
+				else
+				{
+					if ((bool)subworld.Call("AnyActive", null))
+					{
+						return true;
+					}
+				}
 			}
+
+#if VSDEBUGMODE
 			if (ModLoader.TryGetMod("SubworldLibrary", out var lib) && ((string)lib.Call("Current")) == "SubworldGenTest/DjinRuinsSubworld")
 			{
 				if (player.Bottom.Y == 1936)
@@ -35,6 +46,7 @@ namespace ArcaneOdyssey.Biomes
 				}
 				return true;
 			}
+#endif
 			return false;
 		}
 

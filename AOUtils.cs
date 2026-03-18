@@ -1124,7 +1124,8 @@ namespace ArcaneOdyssey
 			return text;
 		}
 
-		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback = null) => Language.GetOrRegister(mod.GetLocalizationKey(key), () => fallback ?? mod.CustomLocalization(key).Value);
+		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback) => Language.GetOrRegister(mod.GetLocalizationKey(key), () => fallback ?? mod.CustomLocalization(key).Value);
+		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, Func<string> fallback = null) => Language.GetOrRegister(mod.GetLocalizationKey(key), fallback ?? (() => mod.CustomLocalization(key).Value));
 
 
 		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;

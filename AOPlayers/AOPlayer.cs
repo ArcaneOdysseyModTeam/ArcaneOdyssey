@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
 		public int groundedCounter = 0;
-		public bool Grounded => groundedCounter >= 15;
+		public bool Grounded => groundedCounter >= 3;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 

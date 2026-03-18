@@ -9,6 +9,7 @@ namespace ArcaneOdyssey.Guidebook
 		{
 			foreach (var page in AllPages)
 			{
+				_ = page.DisplayName;
 				page.GetText();
 			}
 		}

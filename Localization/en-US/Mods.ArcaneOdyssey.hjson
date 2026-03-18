@@ -439,7 +439,7 @@ Biomes: {
 	}
 }
 
-NewGuide: Morden has a new guide available!
+NewGuide: Morden has a new guide available! ({0})
 
 Prefixes: {
 	Amplified.DisplayName: Amplified

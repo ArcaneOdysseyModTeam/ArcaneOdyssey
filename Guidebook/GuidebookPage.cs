@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System.Text.RegularExpressions;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -28,10 +29,9 @@ namespace ArcaneOdyssey.Guidebook
 			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/'), out Image, AssetRequestMode.ImmediateLoad);
 		}
 
-		public LocalizedText GetText()
-		{
-			return Mod.CoolCustomLocalization("Guidebook." + Name);
-		}
+		public LocalizedText GetText() => Mod.CoolCustomLocalization("Guidebook." + Name + ".Text", Name + " Content goes here.");
+
+		public LocalizedText DisplayName => Mod.CoolCustomLocalization("Guidebook." + Name + ".DisplayName", () => Regex.Replace(Name, "([A-Z])", " $1").Trim());
 
 		public abstract bool MetConditions(Player player);
 

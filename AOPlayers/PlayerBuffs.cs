@@ -134,7 +134,7 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				if (!unlockedPages.Contains(page.Name))
 				{
-					Main.NewText(Mod.CustomLocalization("NewGuide").Value);
+					Main.NewText(Mod.CustomLocalization("NewGuide", page.DisplayName.Value).Value);
 				}
 			}
 
