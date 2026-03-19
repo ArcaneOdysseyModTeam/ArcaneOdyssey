@@ -118,12 +118,6 @@ Usable: {
 			SkillName: Rain
 		}
 
-		ShotScroll: {
-			DisplayName: Shot Technique
-			Tooltip: Shoots a quick blast of air
-			SkillName: Shot
-		}
-
 		SmashScroll: {
 			DisplayName: Smash Technique
 			Tooltip: Creates a shockwave of air
@@ -221,9 +215,9 @@ Usable: {
 		}
 
 		ShotScroll: {
-			SkillName: Shot Scroll
-			DisplayName: Shot Scroll
-			Tooltip: ""
+			DisplayName: Shot Technique
+			Tooltip: Shoots a quick blast of air
+			SkillName: Shot
 		}
 	}
 }

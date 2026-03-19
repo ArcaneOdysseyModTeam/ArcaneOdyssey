@@ -286,11 +286,6 @@ Debug: {
 }
 
 EmptyScrolls: {
-	CommonEmptyScroll: {
-		DisplayName: Common Empty Scroll
-		Tooltip: ""
-	}
-
 	LostEmptyScroll: {
 		DisplayName: Lost Empty Scroll
 		Tooltip: ""
