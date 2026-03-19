@@ -68,9 +68,8 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TidestoneBand>()));
-			npcLoot.Add(AOUtils.Common<Sanguine>(5));
-			npcLoot.Add(AOUtils.Common<BlastScroll>(4));
-			npcLoot.Add(AOUtils.Common<ExplosionScroll>(4));
+			npcLoot.Add(AOUtils.Common<Sanguine>(4));
+			npcLoot.Add(AnyDropHelper.Create(ModContent.ItemType<BlastScroll>(), ModContent.ItemType<ExplosionScroll>()));
 		}
 	}
 }

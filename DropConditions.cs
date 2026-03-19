@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
@@ -129,5 +131,45 @@ namespace ArcaneOdyssey
 	public class MultiDropHelper<T>(int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : MultiDropHelper(ModContent.ItemType<T>(), denominator, minQuantity, maxQuantity, numerator) where T : ModItem 
 	{
 
+	}
+
+	public class AnyDropHelper(int[] itemIDs, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemIDs.FirstOrDefault(), denominator, minQuantity, maxQuantity, numerator)
+	{
+		public int[] ids = itemIDs;
+
+		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			var id = Main.rand.Next(ids);
+			ItemDropAttemptResult result = default;
+			if (info.rng.Next(chanceDenominator) < chanceNumerator)
+			{
+				if (!(id <= 0 || id >= ItemLoader.ItemCount))
+				{
+					CommonCode.DropItem(info, id, Main.rand.Next(amountDroppedMinimum, amountDroppedMaximum + 1));
+				}
+				result.State = ItemDropAttemptResultState.Success;
+				return result;
+			}
+
+			result.State = ItemDropAttemptResultState.FailedRandomRoll;
+			return result;
+		}
+
+		public override void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
+		{
+			float num = (float)chanceNumerator / (float)chanceDenominator;
+			float dropRate = num * ratesInfo.parentDroprateChance;
+			dropRate /= (float)ids.Length;
+			foreach (var id in ids)
+			{
+				drops.Add(new DropRateInfo(id, amountDroppedMinimum, amountDroppedMaximum, dropRate, ratesInfo.conditions));
+			}
+			Chains.ReportDroprates(ChainedRules, num, drops, ratesInfo);
+		}
+
+		public static AnyDropHelper Create(params int[] ids)
+		{
+			return new AnyDropHelper(ids);
+		}
 	}
 }

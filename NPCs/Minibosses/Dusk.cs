@@ -74,10 +74,9 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NyxStaff>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DuskMask>(), 4));
-			npcLoot.Add(AOUtils.Common<RainRite>(4));
-			npcLoot.Add(AOUtils.Common<HoundRite>(4));
+			npcLoot.Add(AOUtils.Common<NyxStaff>());
+			npcLoot.Add(AOUtils.Common<DuskMask>(4));
+			npcLoot.Add(AnyDropHelper.Create(ModContent.ItemType<RainRite>(), ModContent.ItemType<HoundRite>()));
 			npcLoot.Add(AOUtils.Common<DuskTrophy>(10));
 		}
 	}

@@ -114,12 +114,16 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(AOUtils.Common<EliusBoots>(6));
-			npcLoot.Add(AOUtils.Common<EliusChest>(6));
-			npcLoot.Add(AOUtils.Common<EliusHelm>(6));
-			npcLoot.Add(AOUtils.Common<NobleThunderspear>(6));
-			npcLoot.Add(AOUtils.Common<ScimitarofStorm>(6));
-			npcLoot.Add(AOUtils.Common<StormCaller>(6));
+			npcLoot.Add(
+				AnyDropHelper.Create(
+					ModContent.ItemType<EliusBoots>(),
+					ModContent.ItemType<EliusChest>(),
+					ModContent.ItemType<EliusHelm>(),
+					ModContent.ItemType<NobleThunderspear>(),
+					ModContent.ItemType<ScimitarofStorm>(),
+					ModContent.ItemType<StormCaller>()
+					)
+				);
 		}
 
 		public override void OnKill()

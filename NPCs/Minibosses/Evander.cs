@@ -68,9 +68,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ColossalGreatsword>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderCape>(), 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderGauntlet>(), 4));
+			npcLoot.Add(AnyDropHelper.Create(ModContent.ItemType<ColossalGreatsword>(), ModContent.ItemType<EvanderCape>(), ModContent.ItemType<EvanderGauntlet>()));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EvanderTrophy>(), 10));
 		}
 	}
