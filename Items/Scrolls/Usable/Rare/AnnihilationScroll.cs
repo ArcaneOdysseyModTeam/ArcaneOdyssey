@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static AssGen.Assets;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
@@ -27,7 +28,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			player.ArcaneOdyssey()?.StartDash(new Annihilation(this), -2, Imbue, false);
-			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Basic, true);
+			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
 			return false;
 		}
 

@@ -514,13 +514,24 @@ namespace ArcaneOdyssey.Imbues.Base
 		}
 
 		// spread 
-		public static Circle CreateMagicCircle(Item item, Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f)
+		public static Circle CreateMagicCircle(Item item, Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f, Vector2? position = null, float? rotation = null)
 		{
-			Circle circle = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<Circle>(), player.GetWeaponDamage(item), player.GetWeaponKnockback(item), player.whoAmI, ai2: (int)mode).ModProjectile as Circle;
+			if (mode != MagicCircleMode.Rotating)
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter) + (player.DirectionTo(Main.MouseWorld) * 30f);
+				rotation ??= player.AngleTo(Main.MouseWorld);
+			}
+			else
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter);
+				rotation ??= 0;
+			}
+			Circle circle = Projectile.NewProjectileDirect(item.GetSource_ItemUse(player), position.Value, Vector2.Zero, ModContent.ProjectileType<Circle>(), player.GetWeaponDamage(item), player.GetWeaponKnockback(item), player.whoAmI, ai2: (int)mode).ModProjectile as Circle;
 			circle.ProjectileSpread = spread;
 			circle.MarkedForDeath = markedfordeath;
 			circle.originallyAltFire = altfire;
 			circle.ChargingProjectile = chargingProjectile;
+			circle.Projectile.rotation = rotation.Value;
 			return circle;
 		}
 

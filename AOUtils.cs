@@ -229,6 +229,20 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
+		public static bool NPCAlive<T>(out NPC found) where T : ModNPC
+		{
+			found = null;
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if ((npc.type == ModContent.NPCType<T>()) && (npc.life > 0))
+				{
+					found = npc;
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public static void NetUpdate(this Projectile projectile)
 		{
 			projectile.netUpdate = true;

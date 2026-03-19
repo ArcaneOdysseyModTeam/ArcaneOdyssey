@@ -31,13 +31,15 @@ Equipment: {
 			Tooltip: Allows to weilder to double jump
 			SkillName: Jump
 		}
-	}
 
-	Rare: {
-		FlightScroll: {
-			DisplayName: Flight Scroll
-			Tooltip: Channels your imbue to fly
-			SkillName: Flight
+		BreathtakerTechnique: {
+			DisplayName: Breathtaker Technique
+			Tooltip:
+				'''
+				Dash into an enemy and lower their defense
+				Press {AODASHBIND} to activate
+				'''
+			SkillName: Breathtaker
 		}
 
 		ReflexScroll: {
@@ -48,6 +50,14 @@ Equipment: {
 				Some imbues have special effects
 				'''
 			SkillName: Reflex
+		}
+	}
+
+	Rare: {
+		FlightScroll: {
+			DisplayName: Flight Scroll
+			Tooltip: Channels your imbue to fly
+			SkillName: Flight
 		}
 
 		WalkRite: {
@@ -70,16 +80,6 @@ Equipment: {
 			SkillName: Selino
 		}
 
-		BreathtakerTechnique: {
-			DisplayName: Breathtaker Technique
-			Tooltip:
-				'''
-				Dash into an enemy and lower their defense
-				Press {AODASHBIND} to activate
-				'''
-			SkillName: Breathtaker
-		}
-
 		GreatjumpTechnique: {
 			DisplayName: Greatjump Technique
 			Tooltip:
@@ -89,9 +89,6 @@ Equipment: {
 				'''
 			SkillName: Greatjump
 		}
-	}
-
-	Lost: {
 	}
 }
 
@@ -132,9 +129,67 @@ Usable: {
 			Tooltip: Creates a shockwave of air
 			SkillName: Smash
 		}
+
+		CannonScroll: {
+			DisplayName: Cannon Spell
+			Tooltip: Fires a piercing magic blast
+			SkillName: Cannon
+		}
+
+		HoundRite: {
+			DisplayName: Hound Rite
+			Tooltip: Fires a piercing spirit blast
+			SkillName: Hound
+		}
+
+		BarrageSpell: {
+			DisplayName: Barrage Spell
+			Tooltip: Fires magic blasts rapidly
+			SkillName: Barrage
+		}
 	}
 
-	Lost: {
+	Rare: {
+		ArrayScroll: {
+			DisplayName: Array Spell
+			Tooltip: Fires tracking magic blasts
+			SkillName: Array
+		}
+
+		PulsarScroll: {
+			DisplayName: Pulsar Spell
+			Tooltip: Fires a rapidly exploding magic blast
+			SkillName: Pulsar
+		}
+
+		AxeTechnique: {
+			DisplayName: Axe Technique
+			Tooltip:
+				'''
+				Cleave through the air and foes
+				Alt fire to ignore trees
+				'''
+			SkillName: Axe
+		}
+
+		MeteorScroll: {
+			DisplayName: Meteor Scroll
+			Tooltip: Calls down a magic meteor
+			SkillName: Meteor
+		}
+
+		JavelinSpell: {
+			DisplayName: Javelin Spell
+			Tooltip: Shoots a projectile that sticks to enemies and tiles
+			SkillName: Javelin
+		}
+
+		RaySpell: {
+			DisplayName: Ray Spell
+			Tooltip: Fires a continuously exploding beam of magic
+			SkillName: Ray
+		}
+
 		AnnihilationScroll: {
 			DisplayName: Annihilation Spell
 			Tooltip: Fires a massive explosive magic blast
@@ -164,65 +219,11 @@ Usable: {
 			Tooltip: Empowers your aura scroll effect permanently
 			SkillName: Acumen
 		}
-	}
 
-	Rare: {
-		ArrayScroll: {
-			DisplayName: Array Spell
-			Tooltip: Fires tracking magic blasts
-			SkillName: Array
-		}
-
-		CannonScroll: {
-			DisplayName: Cannon Spell
-			Tooltip: Fires a piercing magic blast
-			SkillName: Cannon
-		}
-
-		HoundRite: {
-			DisplayName: Hound Rite
-			Tooltip: Fires a piercing spirit blast
-			SkillName: Hound
-		}
-
-		PulsarScroll: {
-			DisplayName: Pulsar Spell
-			Tooltip: Fires a rapidly exploding magic blast
-			SkillName: Pulsar
-		}
-
-		BarrageSpell: {
-			DisplayName: Barrage Spell
-			Tooltip: Fires magic blasts rapidly
-			SkillName: Barrage
-		}
-
-		AxeTechnique: {
-			DisplayName: Axe Technique
-			Tooltip:
-				'''
-				Cleave through the air and foes
-				Alt fire to ignore trees
-				'''
-			SkillName: Axe
-		}
-
-		MeteorScroll: {
-			DisplayName: Meteor Scroll
-			Tooltip: Calls down a magic meteor
-			SkillName: Meteor
-		}
-
-		JavelinSpell: {
-			DisplayName: Javelin Spell
-			Tooltip: Shoots a projectile that sticks to enemies and tiles
-			SkillName: Javelin
-		}
-
-		RaySpell: {
-			DisplayName: Ray Spell
-			Tooltip: Fires a continuously exploding beam of magic
-			SkillName: Ray
+		ShotScroll: {
+			SkillName: Shot Scroll
+			DisplayName: Shot Scroll
+			Tooltip: ""
 		}
 	}
 }

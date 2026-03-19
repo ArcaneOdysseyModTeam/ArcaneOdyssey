@@ -300,4 +300,9 @@ EmptyScrolls: {
 		DisplayName: Rare Empty Scroll
 		Tooltip: ""
 	}
+
+	EmptyScroll: {
+		DisplayName: Empty Scroll
+		Tooltip: ""
+	}
 }

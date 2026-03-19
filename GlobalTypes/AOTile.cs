@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (NPC.downedBoss3)
 			{
-
+				AddOption<AuraScroll>();
 			}
 
 			return [.. options];
@@ -104,7 +104,6 @@ namespace ArcaneOdyssey.GlobalTypes
 				AddOption<ShotScroll>();
 				AddOption<WalkRite>();
 				AddOption<AxeTechnique>();
-				AddOption<AuraScroll>();
 				AddOption<SelinoTechnique>();
 				AddOption<ArrayScroll>();
 				AddOption<PulsarScroll>();

@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 			item.ArcaneOdyssey().Imbue = player.Imbue();
 			if (player.whoAmI == Main.myPlayer)
 			{
-				var proj = Imbuable.CreateMagicCircle(item, player, MagicCircleMode.Rotating, true).Projectile;
+				var proj = Imbuable.CreateMagicCircle(item, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2).Projectile;
 				for (int i = 0; i < 15; i++)
 				{
 					player.Imbue()?.ExplosionEffects(proj.Center);

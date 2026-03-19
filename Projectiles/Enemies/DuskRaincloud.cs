@@ -47,48 +47,49 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		public bool sentMessage = false;
 		public override void AI()
 		{
-			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
+			if (AOUtils.NPCAlive<Dusk>(out var dusk))
 			{
-				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
-			}
-			Imbue.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
-			if (Projectile.ai[0] == 0)
-			{
-				Projectile.ai[0] = 1;
-				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
-				if (Projectile.owner == Main.myPlayer)
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
 				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0; ;
+					sentMessage = true;
+					CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
 				}
-				Projectile.velocity = -Vector2.UnitY * 5;
-			}
-
-			foreach (var npc in Main.ActiveNPCs)
-			{
-				if (npc.ModNPC is Dusk)
+				Imbue.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				if (Projectile.ai[0] == 0)
 				{
-					Projectile.Center = Projectile.Center with { X = npc.Center.X };
+					Projectile.ai[0] = 1;
+					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+					if (Projectile.owner == Main.myPlayer)
+					{
+						Projectile.netUpdate = true;
+						Projectile.netSpam = 0; ;
+					}
+					Projectile.velocity = -Vector2.UnitY * 5;
 				}
-			}
 
-			if (Projectile.timeLeft <= (MaxTimeLeft - 60))
-			{
-				Projectile.hostile = true;
-				Projectile.velocity = Vector2.Zero;
-				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(2f)), ModContent.ProjectileType<DuskRaindrop>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, null, true);
-			}
+				Projectile.Center = Projectile.Center with { X = dusk.Center.X };
 
-
-			if (Projectile.frameCounter++ > 5)
-			{
-				Projectile.frameCounter = 0;
-				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
-				if (++Projectile.frame >= Main.projFrames[Type])
+				if (Projectile.timeLeft <= (MaxTimeLeft - 60))
 				{
-					Projectile.frame = 0;
+					Projectile.hostile = true;
+					Projectile.velocity = Vector2.Zero;
+					AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(2f)), ModContent.ProjectileType<DuskRaindrop>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, null, true);
 				}
+
+
+				if (Projectile.frameCounter++ > 5)
+				{
+					Projectile.frameCounter = 0;
+					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+					if (++Projectile.frame >= Main.projFrames[Type])
+					{
+						Projectile.frame = 0;
+					}
+				}
+			}
+			else
+			{
+				Kill();
 			}
 		}
 

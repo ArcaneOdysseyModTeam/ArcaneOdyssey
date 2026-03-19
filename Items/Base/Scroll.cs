@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

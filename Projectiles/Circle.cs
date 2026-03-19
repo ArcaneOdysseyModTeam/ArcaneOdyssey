@@ -85,19 +85,29 @@ namespace ArcaneOdyssey.Projectiles
 				{
 					Projectile.alpha = 255 - 1;
 				}
+				else if (Mode == MagicCircleMode.Rotating)
+				{
+					Projectile.Opacity = 1f;
+				}
 				Projectile.ai[0] = 1;
 
 				if (Mode == MagicCircleMode.Barrage)
 				{
+
 				}
 				if (Mode != MagicCircleMode.Rotating)
 				{
 					dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.DirectionFrom(Owner.RotatedRelativePoint(Owner.MountedCenter));
 					Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
-					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 30f);
+					if (Owner.ItemAnimationActive)
+					{
+						Owner.itemRotation = dir.ToRotation();
+						if (Owner.direction != 1)
+						{
+							Owner.itemRotation += MathHelper.Pi;
+						}
+					}
 				}
-
-				Projectile.rotation = dir.ToRotation();
 			}
 
 			if (Mode == MagicCircleMode.Barrage)

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
+namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
 	public class ShotScroll : RareScroll
 	{

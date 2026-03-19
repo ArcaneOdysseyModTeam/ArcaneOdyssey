@@ -28,7 +28,7 @@ using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Projectiles;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
