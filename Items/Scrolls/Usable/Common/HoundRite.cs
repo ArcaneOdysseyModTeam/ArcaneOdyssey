@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
+namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
-	public class HoundRite : RareScroll
+	public class HoundRite : CommonScroll
 	{
 		public override bool CanHaveRelic => true;
 

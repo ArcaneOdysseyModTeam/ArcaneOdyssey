@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossTrophies;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;

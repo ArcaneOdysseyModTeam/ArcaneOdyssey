@@ -6,9 +6,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
+namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
-	public class BarrageSpell : RareScroll
+	public class BarrageSpell : CommonScroll
 	{
 		public override bool CanHaveMagic => true;
 

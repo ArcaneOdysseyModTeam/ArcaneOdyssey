@@ -6,9 +6,9 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Base;
 
-namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
+namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 {
-	public class ReflexScroll : RareScroll
+	public class ReflexScroll : CommonScroll
 	{
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveFS => true;

@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.VFX.Dusts
 		public override int Rows => 3;
 		public override bool PreDraw(Dust dust)
 		{
-			Lighting.AddLight(dust.Centre(), dust.color.ToVector3());
+			Lighting.AddLight(dust.Centre(), dust.color.ToVector3() * dust.scale);
 			return base.PreDraw(dust);
 		}
 	}

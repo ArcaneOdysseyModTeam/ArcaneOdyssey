@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -257,7 +257,7 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			base.SetStaticDefaults();
 			_ = SkillName;
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CommonEmptyScroll>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EmptyScroll>();
 		}
 	}
 }

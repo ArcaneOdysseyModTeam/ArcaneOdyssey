@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Usable.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Projectiles.Enemies;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;

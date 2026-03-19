@@ -8,9 +8,9 @@ using Terraria.ModLoader;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
 
-namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
+namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 {
-	public class BreathtakerTechnique : RareScroll
+	public class BreathtakerTechnique : CommonScroll
 	{
 		public override bool CanHaveFS => true;
 		public const int Cooldown = 60 * 10;

@@ -3,7 +3,6 @@ using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Items.Scrolls.Usable.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Lost;
 using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -25,17 +24,17 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (Player.GetClosestRollLuck(i, j, 50 - (commonpity++ / 2)) == 0)
 				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllCommonScrollDrops()));
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j).ToWorldCoordinates(), Main.rand.Next(GetAllCommonScrollDrops()));
 					commonpity = 0;
 				}
 				else if (Player.GetClosestRollLuck(i, j, 150 - (rarepity++ / 2)) == 0)
 				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllRareScrollDrops()));
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j).ToWorldCoordinates(), Main.rand.Next(GetAllRareScrollDrops()));
 					rarepity = 0;
 				}
 				else if (Player.GetClosestRollLuck(i, j, 300 - (lostpity++ / 2)) == 0)
 				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllLostScrollDrops()));
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j).ToWorldCoordinates(), Main.rand.Next(GetAllLostScrollDrops()));
 					lostpity = 0;
 				}
 			}
@@ -59,26 +58,30 @@ namespace ArcaneOdyssey.GlobalTypes
 			AddOption<RainRite>();
 			AddOption<CrashScroll>();
 			AddOption<LeapScroll>();
+			AddOption<HoverScroll>();
 
 			if (AOUtils.BossesKilled > 0)
 			{
 				AddOption<SmashScroll>();
+				AddOption<HoundRite>();
+				AddOption<CannonScroll>();
+			}
+
+			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
+			{
+				AddOption<ReflexScroll>();
 			}
 
 			if (NPC.downedBoss2)
 			{
 				AddOption<BeamScroll>();
-				AddOption<HoverScroll>();
+				AddOption<BarrageSpell>();
+				AddOption<BreathtakerTechnique>();
 			}
 
 			if (NPC.downedBoss3)
 			{
-				AddOption<AuraScroll>();
-			}
 
-			if (Main.hardMode)
-			{
-				AddOption<ShotScroll>();
 			}
 
 			return [.. options];
@@ -91,68 +94,29 @@ namespace ArcaneOdyssey.GlobalTypes
 		public static int[] GetAllRareScrollDrops()
 		{
 			List<int> options = [];
-			if (AOUtils.BossesKilled > 0)
+			if (Main.hardMode)
 			{
 				void AddOption<T>() where T : RareScroll
 				{
 					options.Add(ModContent.ItemType<T>());
 				}
 
-				AddOption<HoundRite>();
+				AddOption<ShotScroll>();
 				AddOption<WalkRite>();
 				AddOption<AxeTechnique>();
-				AddOption<BarrageSpell>();
-				AddOption<BreathtakerTechnique>();
-
-				if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
-				{
-					AddOption<ReflexScroll>();
-				}
-
-				if (NPC.downedBoss2)
-				{
-					AddOption<SelinoTechnique>();
-				}
-
-				if (NPC.downedBoss3)
-				{
-					AddOption<ArrayScroll>();
-					AddOption<PulsarScroll>();
-					AddOption<JavelinSpell>();
-					AddOption<SelinoTechnique>();
-				}
-
-				if (Main.hardMode)
-				{
-					AddOption<RaySpell>();
-					AddOption<MeteorScroll>();
-					AddOption<FlightScroll>();
-					AddOption<GreatjumpTechnique>();
-				}
-			}
-			else
-			{
-				options.Add(ModContent.ItemType<CommonEmptyScroll>());
-			}
-
-			return [.. options];
-		}
-
-		/// <summary>
-		/// Drops in hardmode
-		/// </summary>
-		/// <returns></returns>
-		public static int[] GetAllLostScrollDrops()
-		{
-			List<int> options = [];
-			if (Main.hardMode)
-			{
-				void AddOption<T>() where T : LostScroll
-				{
-					options.Add(ModContent.ItemType<T>());
-				}
-
+				AddOption<AuraScroll>();
+				AddOption<SelinoTechnique>();
+				AddOption<ArrayScroll>();
+				AddOption<PulsarScroll>();
+				AddOption<JavelinSpell>();
+				AddOption<RaySpell>();
+				AddOption<MeteorScroll>();
+				AddOption<FlightScroll>();
+				AddOption<GreatjumpTechnique>();
+				AddOption<CrescendoTechnique>();
+				AddOption<ElementalSpell>();
 				AddOption<AnnihilationScroll>();
+
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
 					if (!Main.LocalPlayer.ArcaneOdyssey().acumen)
@@ -165,13 +129,34 @@ namespace ArcaneOdyssey.GlobalTypes
 					AddOption<EnchantmentSpell>();
 					AddOption<AcumenTechnique>();
 				}
-				AddOption<CrescendoTechnique>();
-				AddOption<ElementalSpell>();
+				
 			}
 			else
 			{
-				options.Add(ModContent.ItemType<RareEmptyScroll>());
+				options.Add(ModContent.ItemType<EmptyScroll>());
 			}
+
+			return [.. options];
+		}
+
+		/// <summary>
+		/// Drops in hardmode
+		/// </summary>
+		/// <returns></returns>
+		public static int[] GetAllLostScrollDrops()
+		{
+			List<int> options = [];
+			//if (false)
+			//{
+			//	void AddOption<T>() where T : LostScroll
+			//	{
+			//		options.Add(ModContent.ItemType<T>());
+			//	}
+			//}
+			//else
+			//{
+				options.Add(ModContent.ItemType<RareEmptyScroll>());
+			//}
 
 			return [.. options];
 		}

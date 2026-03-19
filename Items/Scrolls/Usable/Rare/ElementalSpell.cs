@@ -7,9 +7,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
+namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
-	public class ElementalSpell : LostScroll
+	public class ElementalSpell : RareScroll
 	{
 		public override bool CanHaveMagic => true;
 

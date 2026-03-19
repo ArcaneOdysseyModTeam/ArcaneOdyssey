@@ -8,9 +8,9 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
+namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
-	public class EnchantmentSpell : LostScroll
+	public class EnchantmentSpell : RareScroll
 	{
 		public override bool CanHaveMagic => true;
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
 			}
 			else
 			{
-				Item.SetDefaults(ModContent.ItemType<CommonEmptyScroll>());
+				Item.SetDefaults(ModContent.ItemType<EmptyScroll>());
 			}
 			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Rotating, true);
 		}

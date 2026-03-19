@@ -25,10 +25,10 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Projectiles.Berserker.Effects;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
@@ -802,15 +802,12 @@ namespace ArcaneOdyssey.GlobalTypes
 					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
 					addedScrap = true;
 				}
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<LostEmptyScroll>(), 100));
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<RareScroll>(), 20));
 			}
 
 			if (ItemID.Sets.IsFishingCrate[item.type])
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CommonEmptyScroll>(), 10));
-				LeadingConditionRule rarescrollcondition = new(new KilledABoss());
-				rarescrollcondition.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RareScroll>(), 20));
-				itemLoot.Add(rarescrollcondition);
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<EmptyScroll>(), 10));
 			}
 
 			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])

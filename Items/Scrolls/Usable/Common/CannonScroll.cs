@@ -7,9 +7,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
+namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
-	public class CannonScroll : RareScroll
+	public class CannonScroll : CommonScroll
 	{
 		public override bool CanHaveMagic => true;
 

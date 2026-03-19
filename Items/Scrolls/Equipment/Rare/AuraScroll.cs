@@ -6,9 +6,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
+namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 {
-	public class AuraScroll : CommonScroll
+	public class AuraScroll : RareScroll
 	{
 		//public override bool CanHaveRelic => true;
 		public override bool CanHaveFS => true;

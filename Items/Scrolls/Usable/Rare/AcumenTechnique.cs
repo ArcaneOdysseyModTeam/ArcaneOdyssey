@@ -6,9 +6,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Items.Scrolls.Usable.Lost
+namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
-	public class AcumenTechnique : LostScroll
+	public class AcumenTechnique : RareScroll
 	{
 		public override bool ExtraConditionsForImbue(Imbuable imbue) => false;
 		public override bool CanHaveFS => true;
