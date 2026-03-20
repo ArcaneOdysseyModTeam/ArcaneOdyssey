@@ -532,6 +532,10 @@ namespace ArcaneOdyssey.Imbues.Base
 			circle.originallyAltFire = altfire;
 			circle.ChargingProjectile = chargingProjectile;
 			circle.Projectile.rotation = rotation.Value;
+			if ((chargingProjectile != 0) || (!markedfordeath))
+			{
+				player.ArcaneOdyssey().myCircle = circle;
+			}
 			return circle;
 		}
 

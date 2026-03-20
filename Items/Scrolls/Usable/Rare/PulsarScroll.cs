@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 40;
+			Item.damage = 70;
 			Item.DamageType = DamageClass.Magic;
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 50;

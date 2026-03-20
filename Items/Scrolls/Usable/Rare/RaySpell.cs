@@ -20,15 +20,19 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 			Item.DamageType = DamageClass.Magic;
 			Item.shootSpeed = 7f;
 			Item.channel = true;
-			Item.damage = Item.useTime = Item.useAnimation = 5;
-			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
+			Item.damage = 22;
+			Item.useTime = Item.useAnimation = 5;
+			Item.knockBack = 1f;
+			Item.shoot = ModContent.ProjectileType<MagicRay>();
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false, ModContent.ProjectileType<MagicRay>());
-			return false;
+			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false);
+			return true;
 		}
+
+		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
 
 		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
 		{

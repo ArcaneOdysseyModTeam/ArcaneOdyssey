@@ -6,6 +6,7 @@ using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace ArcaneOdyssey.AOPlayers
 	{
 		public Imbuable Imbue { get; set; }
 		public int StatSize = 0;
-		public Projectile myCircle = null;
+		public Circle myCircle = null;
 		public int timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 		public bool HeavySkillActive = false;

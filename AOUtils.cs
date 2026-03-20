@@ -474,16 +474,14 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static void DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None, SpriteBatch batch = null)
+		public static void DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None)
 		{
-			batch ??= Main.spriteBatch;
-
 			var size = new Vector2(sprite.Width, sprite.Height / maxframes) / 2f;
 
 			bool colourisntnull = colour.HasValue;
 
-			float angle = start.AngleTo(end) - MathHelper.PiOver2;
-			var height = (int)(sprite.Height * scale);
+			float angle = start.AngleTo(end);
+			var height = (int)(sprite.Width * scale);
 
 			bool canKeepDrawing = true;
 			while (canKeepDrawing)
@@ -501,9 +499,9 @@ namespace ArcaneOdyssey
 				else
 				{
 					start += start.DirectionTo(end) * height;
-					if (colourisntnull)
+					if (!colourisntnull)
 						colour = Lighting.GetColor((int)start.X / 16, (int)(start.Y / 16f));
-					batch.Draw(sprite, start - Main.screenPosition, source, colour.Value, angle, size, scale, effects, 0f);
+					Main.EntitySpriteDraw(sprite, start - Main.screenPosition, source, colour.Value, angle, size, scale, effects);
 					if (++frame >= maxframes)
 					{
 						frame = 0;

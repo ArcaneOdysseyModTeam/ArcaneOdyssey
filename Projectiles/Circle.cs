@@ -234,6 +234,14 @@ namespace ArcaneOdyssey.Projectiles
 			}
 		}
 
+		public override void OnKill(int timeLeft)
+		{
+			if (AOPlayerOwner.myCircle?.Projectile.identity == Projectile.identity)
+			{
+				AOPlayerOwner.myCircle = null;
+			}
+		}
+
 		public float Intensity
 		{
 			get
