@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static AssGen.Assets;
 
 namespace ArcaneOdyssey.Imbues.Relics
 {
@@ -102,7 +103,64 @@ namespace ArcaneOdyssey.Imbues.Relics
 		}
 
 		public override Color ImbueColour => SpiritColor;
-		public static Color SpiritColor => new(0, 183, 255);
+
+		public Color SpiritColor
+		{
+			get
+			{
+				if (!Main.dedServ)
+				{
+					if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
+					{
+						if (Imbue is AOMagic)
+						{
+							return Color.Red;
+						}
+						return Color.Purple;
+					}
+					else
+					{
+						if (Imbue is AOMagic)
+						{
+							return Color.Gold;
+						}
+					}
+				}
+				return new(0, 183, 255);
+			}
+		}
+
+		public override string Texture
+		{
+			get
+			{
+				if (Type == ModContent.ItemType<SpiritEnergy>())
+				{
+					if (!Main.dedServ && Main.LocalPlayer.active)
+					{
+						if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
+						{
+							if (Imbue is AOMagic)
+							{
+								return AOUtils.GetTexture<SpiritEnergy>() + "_Evil_Magic";
+							}
+							return AOUtils.GetTexture<SpiritEnergy>() + "_Evil_Normal";
+						}
+						else
+						{
+							if (Imbue is AOMagic)
+							{
+								return AOUtils.GetTexture<SpiritEnergy>() + "_Good_Magic";
+							}
+							return AOUtils.GetTexture<SpiritEnergy>() + "_Good_Normal";
+						}
+					}
+				}
+				return base.Texture;
+			}
+		}
+
+		public static SpiritEnergy Instance => ModContent.GetInstance<SpiritEnergy>();
 
 		public virtual int AOValue => 0;
 

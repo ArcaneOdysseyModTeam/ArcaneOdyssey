@@ -553,6 +553,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected)
 				return;
 
+			if (item.type == ModContent.ItemType<SpiritEnergy>())
+			{
+				item.color = (item.ModItem as SpiritEnergy).SpiritColor;
+			}
+
 			if (Main.myPlayer != player.whoAmI)
 				return;
 

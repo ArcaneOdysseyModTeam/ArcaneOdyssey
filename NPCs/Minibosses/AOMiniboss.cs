@@ -20,6 +20,11 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public float MoveSpeed => .2f * MovespeedMulti;
 
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
+		}
+
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = WalkingSpriteCount + AttackingSpriteCount;

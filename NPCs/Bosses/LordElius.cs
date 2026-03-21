@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +21,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			Main.npcFrameCount[NPC.type] = 1;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+			NPCID.Sets.NoTownNPCHappiness[Type] = true;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -60,6 +64,17 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			Main.windSpeedTarget = MathHelper.Lerp(-.8f, -.4f, NPC.life / (float)NPC.lifeMax);
 			Main.maxRaining = MathHelper.Lerp(1, .7f, NPC.life / (float)NPC.lifeMax);
 
+
+			if (sparing)
+			{
+				if (!sentMessage)
+				{
+					Main.NewText(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".DoomMessage"), Color.MediumPurple);
+					CombatText.NewText(NPC.Hitbox, Color.MediumPurple, Mod.CustomLocalization(LocalizationCategory + "." + Name + ".DoomMessage").Value, true);
+					sentMessage = true;
+				}
+				return;
+			}
 
 			if (!sentMessage)
 			{
@@ -128,12 +143,110 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void OnKill()
 		{
-			DownedBosses.downedElius = true;
 			Main.windSpeedTarget = -.1f;
+			DownedBosses.downedElius = true;
 			if (Main.dedServ)
 			{
 				NetMessage.SendData(MessageID.WorldData);
 			}
+		}
+
+		// probably not needed
+		//public override void SendExtraAI(BinaryWriter writer)
+		//{
+		//	writer.Write(sparing);
+		//}
+
+		//public override void ReceiveExtraAI(BinaryReader reader)
+		//{
+		//	sparing = reader.ReadBoolean();
+		//}
+
+
+		public bool sparing = false;
+
+		public override bool CheckDead()
+		{
+			Main.windSpeedTarget = -.1f;
+			if (DownedBosses.downedElius)
+			{
+				return true;
+			}
+			sparing = true;
+			NPC.life = 1;
+			NPC.active = true;
+			NPC.dontTakeDamage = true;
+			NPC.chaseable = false;
+			NPC.netUpdate = true;
+			sentMessage = false;
+			NPC.noGravity = false;
+			NPC.noTileCollide = false;
+			NPC.velocity = Vector2.Zero;
+			return false;
+		}
+
+		public override bool CanChat() => sparing;
+
+		public override void SetChatButtons(ref string button, ref string button2)
+		{
+			button = Mod.CustomLocalization("RandomWords.Kill").Value;
+			button2 = Mod.CustomLocalization("RandomWords.Spare").Value;
+		}
+
+		public override string GetChat()
+		{
+			return Mod.CustomLocalization(LocalizationCategory + "." + Name + ".DoomMessage").Value;
+		}
+
+		public override void OnGoToStatue(bool toKingStatue)
+		{
+			NPC.Center = new((EliusArenaLoader.eliusArena.Center.X + 25) * 16f, (EliusArenaLoader.eliusArena.Center.Y + 2) * 16f);
+		}
+
+		public override bool CanGoToStatue(bool toKingStatue) => true;
+
+		public override bool CheckActive() => !sparing;
+
+		public override bool UsesPartyHat() => false;
+
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		{
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+			{
+				foreach (var player in Main.ActivePlayers)
+				{
+					player.ArcaneOdyssey().evil = firstButton;
+				}
+				if (firstButton)
+				{
+					ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Killed").ToNetworkText(), SpiritEnergy.Instance.SpiritColor);
+				}
+				else
+				{
+					ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Spared").ToNetworkText(), SpiritEnergy.Instance.SpiritColor);
+				}
+			}
+			else
+			{
+				Main.LocalPlayer.ArcaneOdyssey().evil = firstButton;
+				if (firstButton)
+				{
+					Main.NewText(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Killed").Value, SpiritEnergy.Instance.SpiritColor);
+				}
+				else
+				{
+					Main.NewText(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Spared").Value, SpiritEnergy.Instance.SpiritColor);
+				}
+			}
+
+			NPC.active = false;
+			NPC.netUpdate = true;
+			NPC.NPCLoot();
+		}
+
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
 		}
 	}
 }

@@ -232,6 +232,9 @@ NPCs: {
 			SpawnInfo: Spawns in the Djin Ruins after defeating the Eye of Cthulhu.
 			DisplayName: Lord Elius
 			SpawnMessage: What are you, some sort of rat?
+			DoomMessage: Go on, finish it...
+			Killed: Your spirit darkens...
+			Spared: Lord Elius has left!
 		}
 	}
 }
@@ -392,6 +395,8 @@ RandomWords: {
 	Acumen: Your aura scroll effect has been boosted while using fighting styles
 	Enchantment: "{0} has buffed all players! [i:ArcaneOdyssey/EnchantmentSpell]"
 	Guide: Guidebook
+	Kill: Kill
+	Spare: Spare
 }
 
 FargosSheet: {

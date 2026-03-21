@@ -93,6 +93,8 @@ namespace ArcaneOdyssey
 			this.CoolCustomLocalization("RandomWords.Help");
 			this.CoolCustomLocalization("RandomWords.Guide");
 			this.CoolCustomLocalization("RandomWords.Press");
+			this.CoolCustomLocalization("RandomWords.Kill");
+			this.CoolCustomLocalization("RandomWords.Spare");
 		}
 
 		public string BTitlesHook_BiomeChecker(Player player)

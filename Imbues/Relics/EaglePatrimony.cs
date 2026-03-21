@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override GodSoulID[] UnstableSouls => [GodSoulID.Poseidon];
 
 
-		public override Color ImbueColour => new(0, 255, 251);
+		public override Color ImbueColour => SpiritColor with { A = 255, G = (byte)(SpiritColor.G * 1.1f), B = (byte)(SpiritColor.B * .9f) };
 		public override AORarities AORarity => AORarities.Special;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 
