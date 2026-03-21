@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override void UpdateLifeRegen(ref int damage)
 		{
-			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet)
 			{
 				NPC.lifeRegen = 120 * -5;
 				HitEffect(NPC.CalculateHitInfo(5, 0));
@@ -165,7 +165,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override string GetChat()
 		{
-			if ((NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet) || !ArcaneOdysseyConfig.Instance.EnableMorden)
+			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet)
 			{
 				return this.GetLocalizedValue("DyingText");
 			}
@@ -231,7 +231,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			}
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs) => ArcaneOdysseyConfig.Instance.EnableMorden;
+		public override bool CanTownNPCSpawn(int numTownNPCs) => true;
 
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 	}

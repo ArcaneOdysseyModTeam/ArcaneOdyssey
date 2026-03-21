@@ -34,7 +34,7 @@ namespace ArcaneOdyssey
 
 			// Spawn Morden
 			int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
-			if (ArcaneOdysseyConfig.Instance.EnableMorden && guide != -1)
+			if (guide != -1)
 			{
 				tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
 				{

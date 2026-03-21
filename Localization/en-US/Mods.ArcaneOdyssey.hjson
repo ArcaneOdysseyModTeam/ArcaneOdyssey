@@ -78,26 +78,12 @@ Configs: {
 				'''
 		}
 
-		EnableMorden: {
-			Label: "[i:Flymeal] Enable Morden"
-			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
-		}
-
 		VanillaItemTemperatures: {
 			Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
 			Tooltip:
 				'''
 				Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
 				Should only be disabled if your game is not functioning properly
-				'''
-		}
-
-		PredictiveArray: {
-			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
-			Tooltip:
-				'''
-				Whether to have the Array spell predict enemy movements to aim
-				Disable if enemies are moving unpredictably
 				'''
 		}
 	}
@@ -351,7 +337,7 @@ Projectiles: {
 		DevastateShockwave.DisplayName: Devastate
 		ArrowStorm.DisplayName: Storm of Arrows
 		ArrowRain.DisplayName: Rain of Arrows
-		SanguineThrow.DisplayName: Sanguine Throw
+		SanguineThrow.DisplayName: Sanguine
 		RisingTideProjectile.DisplayName: Rising Tide
 	}
 

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -47,7 +48,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (!player.AltUse())
 			{
-				CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, GetSkill("Blast"));
+				CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, DashSpeed >= 1.4f ? ModContent.ProjectileType<LesserBeam>() : type);
 			}
 			else
 			{

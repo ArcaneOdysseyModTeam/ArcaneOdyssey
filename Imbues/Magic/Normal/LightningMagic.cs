@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 
-			float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f; ;
+			float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
 			if (source is Projectile projectile && projectile.extraUpdates > 0)
 			{
 				waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)projectile.numUpdates) % 5 % 10f - 2.5f) - 12.5f;

@@ -282,7 +282,7 @@ namespace ArcaneOdyssey.Projectiles
 			{
 				if (Projectile.Opacity == 1f && Main.myPlayer == Projectile.owner && Main.GameUpdateCount % Owner.itemAnimationMax == 0)
 				{
-					if (Owner.CheckMana(Owner.GetManaCost(Owner.PlayerItem()), true))
+					if (Owner.CheckMana(Owner.PlayerItem(), -1, true))
 					{
 						if (ChargingProjectile != 0)
 						{

@@ -1,7 +1,7 @@
 Sunken: {
 	SunkenStaff: {
 		DisplayName: Sunken Staff
-		Tooltip: It seems to constantly produce water
+		Tooltip: "'It seems to constantly produce water'"
 
 		Ability: {
 			DisplayName: Fury of the Sea
@@ -11,7 +11,7 @@ Sunken: {
 
 	SunkenSword: {
 		DisplayName: Sunken Sword
-		Tooltip: It seems to constantly produce water
+		Tooltip: "'It seems to constantly produce water'"
 
 		Ability: {
 			DisplayName: Rising Tide
@@ -210,7 +210,7 @@ RavennaNoble: {
 
 Sinbane: {
 	DisplayName: Sinbane
-	Tooltip: Also called the Oathkeeper
+	Tooltip: "'Also known as the Oathkeeper'"
 
 	Ability: {
 		DisplayName: Towering Impact

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -24,6 +25,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.hide = true;
+			Projectile.alpha = 255 - 1;
 		}
 
 		public static Asset<Texture2D> EndTexture;
@@ -35,16 +37,24 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				EndTexture = ModContent.Request<Texture2D>(Texture + "_End");
 		}
 
+		public override void SetStaticDefaults()
+		{
+			Main.projFrames[Type] = 1;
+		}
+
 		public Vector2 End
 		{
 			get
 			{
 				Vector2 proj = Projectile.Center;
-				for (float i = 0; i < 85f; i++)
+				var dist = MathF.Min(85f * Projectile.Opacity, Projectile.Distance(Main.MouseWorld) / (Sprite.Width * Projectile.scale) / (Projectile.velocity.Length() / 2f));
+				for (float i = 0; i < dist; i++)
 				{
 					proj += Projectile.velocity;
-					if (!Collision.CanHitLine(Projectile.Center, Projectile.width / 10, Projectile.height / 10, proj, Projectile.width / 10, Projectile.height / 10))
+					if (!Collision.CanHitLine(Projectile.Center, 0, 0, proj, 0, 0))
 					{
+						if (Main.rand.NextBool(25))
+							Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
 						break;
 					}
 				}
@@ -52,25 +62,46 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			}
 		}
 
+		public bool dying = false;
+
 		public override void AI()
 		{
-			if (AOPlayerOwner.myCircle is not null)
+			if (++Projectile.frameCounter > 6)
 			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= Main.projFrames[Type])
+				{
+					Projectile.frame = 0;
+				}
+			}
+			if (Main.GameUpdateCount % 5 == 0)
+			{
+				for (Vector2 i = Vector2.Zero; i.Length() < Projectile.Center.Distance(End); i += Projectile.velocity)
+				{
+					Imbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
+					SecondImbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
+				}
+			}
+			if (AOPlayerOwner.myCircle is not null && !dying)
+			{
+				dying = AOPlayerOwner.myCircle.MarkedForDeath;
 				Projectile.Opacity = AOPlayerOwner.myCircle.Projectile.Opacity;
 				Projectile.velocity = AOPlayerOwner.myCircle.Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
+				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.Center = AOPlayerOwner.myCircle.Projectile.Center - Projectile.velocity;
-				if (Main.GameUpdateCount % 5 == 0)
-				{
-					for (Vector2 i = Vector2.Zero; i.Length() < Projectile.Center.Distance(End); i += Projectile.velocity)
-					{
-						Imbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
-						SecondImbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
-					}
-				}
 			}
 			else
 			{
-				Kill();
+				dying = true;
+
+				Projectile.position -= Projectile.velocity;
+
+				Projectile.Opacity -= Circle.GlobalChargeSpeed * 2f;
+
+				if (Projectile.alpha >= 255 && Main.myPlayer == Projectile.owner)
+				{
+					Kill();
+				}
 			}
 		}
 
@@ -93,14 +124,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			AOUtils.DrawChain(Projectile.Center, End, Sprite, Projectile.scale, colour: Projectile.GetAlpha(Imbue?.Colour ?? lightColor));
-			return false;
-		}
-
-		public override void PostDraw(Color lightColor)
-		{
-			var end = End;
+			var end = AOUtils.DrawChain(Projectile.Center, End, Sprite, Projectile.scale, colour: Projectile.GetAlpha(Imbue?.Colour ?? lightColor));
+			end += new Vector2(EndTexture.Width() * Projectile.scale / 2, 0).RotatedBy(Projectile.rotation);
 			Main.EntitySpriteDraw(EndTexture.Value, end - Main.screenPosition, null, Projectile.GetAlpha(Imbue?.Colour ?? lightColor), Projectile.AngleTo(end), EndTexture.Size() / 2f, Projectile.scale, SpriteEffects.None);
+			return false;
 		}
 	}
 }

@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using static AssGen.Assets;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {

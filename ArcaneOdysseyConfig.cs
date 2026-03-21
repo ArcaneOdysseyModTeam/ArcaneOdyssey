@@ -15,13 +15,7 @@ namespace ArcaneOdyssey
 		public bool AffectsOtherMods { get; set; }
 
 		[DefaultValue(true)]
-		public bool EnableMorden { get; set; }
-
-		[DefaultValue(true)]
 		public bool VanillaItemTemperatures { get; set; }
-
-		[DefaultValue(true)]
-		public bool PredictiveArray { get; set; }
 
 		public override void OnLoaded()
 		{

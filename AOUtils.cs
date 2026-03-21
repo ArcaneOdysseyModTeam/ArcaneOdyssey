@@ -474,40 +474,55 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static void DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None)
+		/// <summary>
+		/// Draws a line of a sprite
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <param name="sprite"></param>
+		/// <param name="scale"></param>
+		/// <param name="maxframes"></param>
+		/// <param name="frame"></param>
+		/// <param name="colour"></param>
+		/// <param name="effects"></param>
+		/// <returns></returns>
+		public static Vector2 DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None, SpriteBatch batch = null)
 		{
+			batch ??= Main.spriteBatch;
+
 			var size = new Vector2(sprite.Width, sprite.Height / maxframes) / 2f;
 
 			bool colourisntnull = colour.HasValue;
 
-			float angle = start.AngleTo(end);
-			var height = (int)(sprite.Width * scale);
+			float rotation = start.AngleTo(end);
+			var width = sprite.Width * scale;
 
-			bool canKeepDrawing = true;
-			while (canKeepDrawing)
+			bool hasNotEnded = true;
+			while (hasNotEnded)
 			{
 				var source = sprite.Frame(1, maxframes, 0, frame);
 				float distance = start.Distance(end);
-				if (distance < (height + 1f))
+				if (distance < width)
 				{
-					canKeepDrawing = false;
+					hasNotEnded = false;
 				}
 				else if (float.IsNaN(distance))
 				{
-					canKeepDrawing = false;
+					hasNotEnded = false;
 				}
 				else
 				{
-					start += start.DirectionTo(end) * height;
+					start += start.DirectionTo(end) * width;
 					if (!colourisntnull)
-						colour = Lighting.GetColor((int)start.X / 16, (int)(start.Y / 16f));
-					Main.EntitySpriteDraw(sprite, start - Main.screenPosition, source, colour.Value, angle, size, scale, effects);
+						colour = Lighting.GetColor(start.ToTileCoordinates());
+					batch.Draw(sprite, start - Main.screenPosition, source, colour.Value, rotation, size, scale, effects, 0);
 					if (++frame >= maxframes)
 					{
 						frame = 0;
 					}
 				}
 			}
+			return start;
 		}
 
 		public static NPC GetMinionTarget(this Vector2 origin, float maxDistanceToCheck, Player owner, bool ignoreTiles = true, bool checksRange = false)

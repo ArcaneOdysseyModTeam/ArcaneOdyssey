@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public override float AOSize => .75f;
 
-		public const int ShootDelay = 60 * 3;
+		public const int ShootDelay = 60;
 
 		public const int ShootTime = 120;
 
@@ -121,6 +121,40 @@ namespace ArcaneOdyssey.Projectiles.Base
 			}
 		}
 
+		public Vector2 TrueCentre
+		{
+			get
+			{
+				Vector2? cent = null;
+
+				if (Proj1Active)
+				{
+					cent ??= Proj1.Center();
+					cent = Vector2.Lerp(cent.Value, Proj1.Center(), .5f);
+				}
+
+				if (Proj2Active)
+				{
+					cent ??= Proj2.Center();
+					cent = Vector2.Lerp(cent.Value, Proj2.Center(), .5f);
+				}
+
+				if (Proj3Active)
+				{
+					cent ??= Proj3.Center();
+					cent = Vector2.Lerp(cent.Value, Proj3.Center(), .5f);
+				}
+
+				if (Proj4Active)
+				{
+					cent ??= Proj4.Center();
+					cent = Vector2.Lerp(cent.Value, Proj4.Center(), .5f);
+				}
+
+				return cent.GetValueOrDefault(Projectile.Center);
+			}
+		}
+
 		public bool Hovering
 		{
 			get => Projectile.ai[0] == 0;
@@ -168,22 +202,15 @@ namespace ArcaneOdyssey.Projectiles.Base
 				{
 					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
 
-					target = Projectile.FindTargetWithLineOfSight(ApplySpeed(12f) * ShootTime);
+					target = AOUtils.ClosestNPCAt(TrueCentre, ApplySpeed(12f) * ShootTime, false, true)?.whoAmI ?? -1;
 					if (target != -1)
 					{
 						var targetnpc = Main.npc[target];
-						if (ArcaneOdysseyConfig.Instance.PredictiveArray)
-						{
-							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center + (targetnpc.velocity * ApplySpeed(40f, true))).ToRotation();
-						}
-						else
-						{
-							Projectile.rotation = Projectile.SafeDirectionTo(targetnpc.Center).ToRotation();
-						}
+						Projectile.rotation = TrueCentre.DirectionTo(targetnpc.Center).ToRotation();
 					}
 					else if (Projectile.owner == Main.myPlayer)
 					{
-						Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld);
+						Projectile.rotation = TrueCentre.AngleTo(Main.MouseWorld);
 					}
 
 					if (++Projectile.ai[1] > ShootDelay)
@@ -198,6 +225,16 @@ namespace ArcaneOdyssey.Projectiles.Base
 					}
 				}
 			}
+			else
+			{
+				target = AOUtils.ClosestNPCAt(TrueCentre, ApplySpeed(12f) * Projectile.timeLeft, false, true)?.whoAmI ?? target;
+				if (target != -1)
+				{
+					var targetnpc = Main.npc[target];
+					Projectile.velocity = Projectile.velocity.ToRotation().AngleTowards(TrueCentre.AngleTo(targetnpc.Center + (targetnpc.velocity * 10)), ApplySpeed(MathHelper.TwoPi) / 100f).ToRotationVector2() * Projectile.velocity.Length();
+				}
+			}
+
 			if (!Hovering || Imbue is SoundMagic)
 			{
 				if (Proj1Active)
@@ -254,21 +291,25 @@ namespace ArcaneOdyssey.Projectiles.Base
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 				if (Proj1Active)
 				{
+					Lighting.AddLight(Proj1.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
 					Main.EntitySpriteDraw(Sprite, Proj1.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 					Main.EntitySpriteDraw(tex.Value, Proj1.Center() - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				}
 				if (Proj2Active)
 				{
+					Lighting.AddLight(Proj2.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
 					Main.EntitySpriteDraw(Sprite, Proj2.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 					Main.EntitySpriteDraw(tex.Value, Proj2.Center() - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				}
 				if (Proj3Active)
 				{
+					Lighting.AddLight(Proj3.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
 					Main.EntitySpriteDraw(Sprite, Proj3.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 					Main.EntitySpriteDraw(tex.Value, Proj3.Center() - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				}
 				if (Proj4Active)
 				{
+					Lighting.AddLight(Proj4.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
 					Main.EntitySpriteDraw(Sprite, Proj4.Center() - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 					Main.EntitySpriteDraw(tex.Value, Proj4.Center() - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				}

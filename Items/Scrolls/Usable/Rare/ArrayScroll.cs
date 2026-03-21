@@ -16,8 +16,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 55;
-			Item.mana = 100;
+			Item.damage = 190;
+			Item.mana = 50;
 			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot

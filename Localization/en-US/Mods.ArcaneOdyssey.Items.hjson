@@ -2,18 +2,18 @@ Armour: {
 	Sunken: {
 		SunkenChest: {
 			DisplayName: Sunken Breastplate
-			Tooltip: It seems to constantly produce water
+			Tooltip: "'It seems to constantly produce water'"
 			Set: Enemies that strike you are inflicted with Wet
 		}
 
 		SunkenBoots: {
 			DisplayName: Sunken Boots
-			Tooltip: It seems to constantly produce water
+			Tooltip: "'It seems to constantly produce water'"
 		}
 
 		SunkenHelm: {
 			DisplayName: Sunken Helmet
-			Tooltip: It seems to constantly produce water
+			Tooltip: "'It seems to constantly produce water'"
 		}
 	}
 
@@ -230,7 +230,7 @@ Materials: {
 
 	SunkenScrap: {
 		DisplayName: Sunken Scrap
-		Tooltip: ""
+		Tooltip: "'It has spent centuries submerged in water'"
 	}
 }
 
