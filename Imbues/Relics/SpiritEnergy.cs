@@ -155,7 +155,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 						}
 					}
 				}
-				return Texture;
+				return base.ImbueUISprite;
 			}
 		}
 

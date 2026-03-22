@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Projectiles
 				NetUpdate();
 				if (!MarkedForDeath)
 				{
-					Projectile.alpha = 255 - 1;
+					Projectile.Opacity = .1f;
 				}
 				else if (Mode == MagicCircleMode.Rotating)
 				{
@@ -316,7 +316,13 @@ namespace ArcaneOdyssey.Projectiles
 						}
 						CombatText.NewText(Owner.Hitbox, Imbue?.Colour ?? Color.White, (name + "!").Trim(), ModContent.GetModProjectile(ChargingProjectile) is not LesserBeam or BlastSpell);
 					}
-					var proj = AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 10, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner, Imbue, SecondImbue, true);
+
+					var velo = dir * 10f;
+					if (charge != 1f)
+					{
+						velo = dir * 15f * (charge / 2f);
+					}
+					var proj = AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velo, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner, Imbue, SecondImbue, true);
 					if (proj.ModProjectile is PulsarSpell && originallyAltFire)
 					{
 						proj.ai[1] = 1;

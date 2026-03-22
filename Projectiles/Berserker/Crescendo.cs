@@ -6,10 +6,10 @@ using Terraria;
 namespace ArcaneOdyssey.Projectiles.Berserker
 {
 	public class Crescendo : StrengthTechnique
-	{		
+	{
 		public override bool CanHaveImbueVFX => false;
-		public static int LingerTime => 60;
-		public static int TravelTime => 100 * 60;
+		public static int TravelTime => 60;
+		public static int LingerTime => 100 * 60;
 
 		public override void SetStaticDefaults()
 		{
@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 		{
 			base.SetDefaults();
 			Projectile.width = Projectile.height = 186;
-			Projectile.timeLeft = LingerTime + TravelTime;
+			Projectile.timeLeft = TravelTime + LingerTime;
 			Projectile.extraUpdates = 100;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 		public override void AI()
 		{
 			AOPlayerOwner.HeavySkillActive = true;
-			if (Projectile.timeLeft > TravelTime)
+			if (Projectile.timeLeft > LingerTime)
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				oldvelo = Projectile.velocity;
@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			}
 			else
 			{
-				if (++Projectile.frameCounter > ApplySpeed(TravelTime / (float)Main.projFrames[Type], true))
+				if (++Projectile.frameCounter > ApplySpeed(LingerTime / (float)Main.projFrames[Type], true))
 				{
 					Projectile.frameCounter = 0;
 					if (++Projectile.frame >= Main.projFrames[Type])

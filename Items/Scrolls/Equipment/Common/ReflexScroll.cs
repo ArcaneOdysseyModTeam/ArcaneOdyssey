@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 
 		public override void OnStart(Player player)
 		{
-			ground = player.ArcaneOdyssey().Grounded;
+			ground = player.ArcaneOdyssey().grounded;
 			if (!ground && Imbue is not null)
 			{
 				player.ArcaneOdyssey().DashVelocity *= Imbue.DashSpeed;

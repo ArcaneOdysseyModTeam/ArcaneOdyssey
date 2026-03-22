@@ -27,8 +27,7 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool hasLoadedWorldBefore = false;
 		public bool Immobile => Player.CCed || timeTillNextMove > 0;
 		public bool CanMoveOnGround;
-		public int groundedCounter = 0;
-		public bool Grounded => groundedCounter >= 3;
+		public bool grounded = false;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public int timeSinceSoftFrozen;
 
@@ -189,18 +188,19 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public void FreezeMovement()
 		{
-			if (Math.Abs(Player.velocity.Y) < 1f && Player.wingTime == Player.wingTimeMax && !Player.controlJump)
+			if (Math.Abs(Player.velocity.Y) < .5f && Player.wingTime == Player.wingTimeMax && Player.wingFrame == 0 && !Player.controlJump && !Player.TryingToHoverDown && !Player.TryingToHoverUp)
 			{
-				if (groundedCounter < 60)
-					groundedCounter++;
+				grounded = true;
 			}
 			else
-				groundedCounter = 0;
+			{
+				grounded = false;
+			}
 			if (HeavySkillActive)
 			{
 				if (FirstFrozenFrame)
 				{
-					CanMoveOnGround = Grounded;
+					CanMoveOnGround = grounded;
 				}
 				if (!CanMoveOnGround)
 				{
@@ -214,6 +214,11 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				timeSinceSoftFrozen = 0;
 				CanMoveOnGround = false;
+			}
+			if (timeTillNextMove > 0)
+			{
+				Player.velocity.X *= .001f;
+				Player.velocity.Y *= .001f;
 			}
 		}
 

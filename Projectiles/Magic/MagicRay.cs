@@ -135,10 +135,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 			//lightColor = Imbue?.Colour ?? lightColor;
-			var end = AOUtils.DrawChain(Projectile.Center - Projectile.velocity, End, Sprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(lightColor), mode);
+			var end = AOUtils.DrawChain(Projectile.Center - Projectile.velocity, End, Sprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
 			var EndTexture = ModContent.Request<Texture2D>(Texture + "End");
 			end += new Vector2(EndTexture.Width() * Projectile.scale, 0).RotatedBy(Projectile.rotation);
-			Main.EntitySpriteDraw(EndTexture.Value, end - Main.screenPosition, EndTexture.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(lightColor), Projectile.AngleTo(end), EndTexture.Size() with { Y = EndTexture.Height() / Main.projFrames[Type] } / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(EndTexture.Value, end - Main.screenPosition, EndTexture.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(), Projectile.AngleTo(end), EndTexture.Size() with { Y = EndTexture.Height() / Main.projFrames[Type] } / 2f, Projectile.scale, mode);
 			return false;
 		}
 	}

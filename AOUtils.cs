@@ -182,6 +182,9 @@ namespace ArcaneOdyssey
 			rect.Y += diffY * adjustY;
 		}
 
+		public static Color GetAlpha(this Projectile projectile) => projectile.GetAlpha(Color.White);
+		
+
 		/// <summary>
 		/// 
 		/// </summary>

@@ -35,21 +35,21 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			if (Projectile.Center.Distance(targetPosition) > 5f)
 			{
 				Projectile.velocity = Vector2.Zero;
-				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, 5f);
+				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, Projectile.Distance(targetPosition) / 60f);
 				var velocity = Projectile.DirectionTo(targetPosition); // fake velocity
 				Projectile.spriteDirection = (velocity.X < 0).ToDirectionInt();
 				if (Projectile.spriteDirection == -1)
 				{
-					if (Projectile.rotation < MathHelper.PiOver4)
+					if (Projectile.rotation < (MathHelper.Pi / 6f))
 					{
-						Projectile.rotation += MathHelper.PiOver4 / 20f;
+						Projectile.rotation += (MathHelper.Pi / 6f) / 20f;
 					}
 				}
 				else
 				{
-					if (Projectile.rotation > (-MathHelper.PiOver4))
+					if (Projectile.rotation > (-(MathHelper.Pi / 6f)))
 					{
-						Projectile.rotation -= MathHelper.PiOver4 / 20f;
+						Projectile.rotation -= (MathHelper.Pi / 6f) / 20f;
 					}
 				}
 				if (Projectile.Distance(Owner.position) > (Main.maxScreenW * .55f))
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			}
 			else
 			{
-				Projectile.rotation = Projectile.rotation.AngleTowards(0f, MathHelper.PiOver4 / 10f);
+				Projectile.rotation = Projectile.rotation.AngleTowards(0f, (MathHelper.Pi / 6f) / 20f);
 				Projectile.spriteDirection = Owner.direction * -1;
 			}
 		}

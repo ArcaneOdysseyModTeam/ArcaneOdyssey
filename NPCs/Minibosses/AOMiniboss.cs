@@ -155,14 +155,17 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			}
 			bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileReallySolidGround();
 			if (NPC.ai[0] == 0) //Chase
-			{// Chase the nearest player
+			{
+				// Chase the nearest player
 				NPC.ai[1]++;
 				NPC.TargetClosest();
 				if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
-				{ // Limit chasing distance
+				{ 
+					// Limit chasing distance
 					NPC.velocity.X += NPC.direction * MoveSpeed;
 					if (NPC.ai[2] == 0 && !stuckintile && Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
-					{ // Attack meelee or stop
+					{ 
+						// Attack meelee or stop
 						NPC.velocity.X = 0f;
 						if (NPC.ai[1] >= 60)
 						{

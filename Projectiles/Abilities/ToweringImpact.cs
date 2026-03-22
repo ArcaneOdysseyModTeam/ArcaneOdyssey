@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			{
 				Projectile.rotation = MathHelper.Pi;
 			}
-			if (AOPlayerOwner.Grounded)
+			if (AOPlayerOwner.grounded)
 			{
 				Projectile.position.Y -= Projectile.height / 3;
 			}

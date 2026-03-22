@@ -235,6 +235,7 @@ NPCs: {
 			DoomMessage: Go on, finish it...
 			Killed: Your spirit darkens...
 			Spared: Lord Elius has left!
+			Refight: It's you again!
 		}
 	}
 }
