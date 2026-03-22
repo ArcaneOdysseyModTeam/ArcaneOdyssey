@@ -95,7 +95,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
-		public string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
+		public virtual string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
 
 		internal Dictionary<string, int> Skills = [];
 

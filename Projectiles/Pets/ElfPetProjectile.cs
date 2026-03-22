@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Pets
 {
-	public class ElfPetProjectile : AOBaseProjectile
+	public class ElfPetProjectile : AOPlayerProjectile
 	{
 		private Vector2 targetPosition;
 		private bool wasThereABoss = false;
@@ -26,9 +26,8 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			Projectile.width = 132;
 			Projectile.height = 109;
 			Projectile.tileCollide = false;
-			Projectile.ai[0] = 0;
-			Projectile.frameCounter = 0;
 			Projectile.frame = 12;
+			Projectile.netImportant = true;
 		}
 		public override bool PreAI()
 		{
@@ -51,10 +50,9 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			}
 			return true;
 		}
+
 		public override void AI()
 		{
-			Projectile.active = true;
-			Player Owner = Main.player[Projectile.owner];
 			var modPlayer = Owner.GetModPlayer<ThyPlayer>();
 			if (modPlayer.elfPet)
 			{

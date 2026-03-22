@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Items.Armour.Vanity;
 using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -79,6 +80,15 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 			return !AOStunned;
+		}
+
+		public override void ModifyShop(NPCShop shop)
+		{
+			if (shop.NpcType == NPCID.Clothier)
+			{
+				shop.Add<VermillionBracelet>();
+			}
+
 		}
 
 		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)

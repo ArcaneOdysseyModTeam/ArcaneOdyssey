@@ -133,6 +133,11 @@ Pets: {
 		DisplayName: Aether The Elf
 		Description: Aether is now following you around, boosting your morale and determination
 	}
+
+	IrisBuff: {
+		DisplayName: Iris
+		Description: The Anomaly follows you
+	}
 }
 
 Stuns: {

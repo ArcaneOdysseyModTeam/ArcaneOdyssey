@@ -313,7 +313,10 @@ Projectiles: {
 		DuskBeam.DisplayName: Nichtetheis
 	}
 
-	Pets.ElfPetProjectile.DisplayName: Aether
+	Pets: {
+		ElfPetProjectile.DisplayName: Aether
+		Iris.DisplayName: Iris
+	}
 
 	Weapons: {
 		BronzeStaffProjectile.DisplayName: Bronze Staff

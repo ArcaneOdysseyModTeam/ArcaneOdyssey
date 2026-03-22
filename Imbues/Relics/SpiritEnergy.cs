@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static AssGen.Assets;
 
 namespace ArcaneOdyssey.Imbues.Relics
 {
@@ -130,7 +129,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public override string Texture
+		public override string ImbueUISprite
 		{
 			get
 			{
@@ -142,21 +141,21 @@ namespace ArcaneOdyssey.Imbues.Relics
 						{
 							if (Imbue is AOMagic)
 							{
-								return AOUtils.GetTexture<SpiritEnergy>() + "_Evil_Magic";
+								return Texture + "_Evil_Magic";
 							}
-							return AOUtils.GetTexture<SpiritEnergy>() + "_Evil_Normal";
+							return Texture + "_Evil_Normal";
 						}
 						else
 						{
 							if (Imbue is AOMagic)
 							{
-								return AOUtils.GetTexture<SpiritEnergy>() + "_Good_Magic";
+								return Texture + "_Good_Magic";
 							}
-							return AOUtils.GetTexture<SpiritEnergy>() + "_Good_Normal";
+							return Texture + "_Good_Normal";
 						}
 					}
 				}
-				return base.Texture;
+				return Texture;
 			}
 		}
 

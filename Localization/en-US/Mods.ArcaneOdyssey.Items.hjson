@@ -107,6 +107,11 @@ Equipment: {
 			DisplayName: Aether's Heart
 			Tooltip: Dedicated to [c/9b59b6:ThyGoodBoy]
 		}
+
+		VermillionBracelet: {
+			DisplayName: Vermillion Bracelet
+			Tooltip: ""
+		}
 	}
 
 	Mounts: {
