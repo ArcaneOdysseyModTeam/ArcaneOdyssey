@@ -22,6 +22,8 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.buffType = ModContent.BuffType<IrisBuff>();
 			Item.shoot = ModContent.ProjectileType<Iris>();
+			Item.value = AOUtils.GalleonToCopper(60);
+			Item.shopCustomPrice = Item.buyPrice(gold: 1);
 		}
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)

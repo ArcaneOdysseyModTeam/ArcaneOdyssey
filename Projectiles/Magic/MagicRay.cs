@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Projectiles.Base;
+﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -28,18 +29,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.alpha = 255 - 1;
 		}
 
-		public static Asset<Texture2D> EndTexture;
-
-		public override void AutoStaticDefaults()
-		{
-			base.AutoStaticDefaults();
-			if (!Main.dedServ)
-				EndTexture = ModContent.Request<Texture2D>(Texture + "_End");
-		}
-
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Type] = 1;
+			base.SetStaticDefaults();
+			Main.projFrames[Type] = 5;
 		}
 
 		public Vector2 End
@@ -47,8 +40,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			get
 			{
 				Vector2 proj = Projectile.Center;
-				var dist = MathF.Min(85f * Projectile.Opacity, Projectile.Distance(Main.MouseWorld) / (Sprite.Width * Projectile.scale) / (Projectile.velocity.Length() / 2f));
-				for (float i = 0; i < dist; i++)
+				for (float i = 0; i < 85f * Projectile.Opacity; i++)
 				{
 					proj += Projectile.velocity;
 					if (!Collision.CanHitLine(Projectile.Center, 0, 0, proj, 0, 0))
@@ -87,6 +79,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				dying = AOPlayerOwner.myCircle.MarkedForDeath;
 				Projectile.Opacity = AOPlayerOwner.myCircle.Projectile.Opacity;
 				Projectile.velocity = AOPlayerOwner.myCircle.Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
+				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.Center = AOPlayerOwner.myCircle.Projectile.Center - Projectile.velocity;
 			}
@@ -102,6 +95,24 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				{
 					Kill();
 				}
+			}
+		}
+
+		public string BackupTexture = AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/CrystalRay");
+
+		public override string Texture
+		{
+			get
+			{
+				if (Imbue is not null)
+				{
+					var asset = AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Ray");
+					if (ModContent.HasAsset(asset))
+					{
+						return asset;
+					}
+				}
+				return BackupTexture;
 			}
 		}
 
@@ -124,9 +135,12 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			var end = AOUtils.DrawChain(Projectile.Center, End, Sprite, Projectile.scale, colour: Projectile.GetAlpha(Imbue?.Colour ?? lightColor));
-			end += new Vector2(EndTexture.Width() * Projectile.scale / 2, 0).RotatedBy(Projectile.rotation);
-			Main.EntitySpriteDraw(EndTexture.Value, end - Main.screenPosition, null, Projectile.GetAlpha(Imbue?.Colour ?? lightColor), Projectile.AngleTo(end), EndTexture.Size() / 2f, Projectile.scale, SpriteEffects.None);
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
+			//lightColor = Imbue?.Colour ?? lightColor;
+			var end = AOUtils.DrawChain(Projectile.Center - Projectile.velocity, End, Sprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(lightColor), mode);
+			var EndTexture = ModContent.Request<Texture2D>(Texture + "End");
+			end += new Vector2(EndTexture.Width() * Projectile.scale, 0).RotatedBy(Projectile.rotation);
+			Main.EntitySpriteDraw(EndTexture.Value, end - Main.screenPosition, EndTexture.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(lightColor), Projectile.AngleTo(end), EndTexture.Size() with { Y = EndTexture.Height() / Main.projFrames[Type] } / 2f, Projectile.scale, mode);
 			return false;
 		}
 	}
