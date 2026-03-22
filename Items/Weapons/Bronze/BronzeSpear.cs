@@ -10,7 +10,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
-	public class BronzeTrident : AOWeapon
+	[LegacyName("BronzeTrident")]
+	public class BronzeSpear : AOWeapon
 	{
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;
@@ -29,7 +30,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.shoot = ModContent.ProjectileType<BronzeTridentProjectile>();
+			Item.shoot = ModContent.ProjectileType<BronzeSpearProjectile>();
 			Item.shootSpeed = BaseSpearProjectile.Speed;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
@@ -60,7 +61,6 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BronzeBar>(10).AddIngredient(ItemID.Trident).AddTile(TileID.Anvils).Register();
 			CreateRecipe().AddIngredient<BronzeBar>(10).AddIngredient(ItemID.Spear).AddTile(TileID.Anvils).Register();
 		}
 	}

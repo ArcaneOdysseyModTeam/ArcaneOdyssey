@@ -50,10 +50,21 @@ namespace ArcaneOdyssey.Projectiles.Base
 			Imbue ??= ModContent.GetInstance<WindMagic>();
 			if (Main.myPlayer == Projectile.owner && Imbue?.CanBeWet == false && Projectile.wet)
 			{
-				Kill();
-				return false;
+				return TouchingWater();
 			}
 			return true;
+		}
+
+
+		/// <summary>
+		/// Override for custom behaviour on touching water
+		/// <para/>By default, cancels ai and kills the projectile
+		/// </summary>
+		/// <returns></returns>
+		public virtual bool TouchingWater()
+		{
+			Kill();
+			return false;
 		}
 	}
 }

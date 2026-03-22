@@ -321,7 +321,7 @@ Projectiles: {
 	Weapons: {
 		BronzeStaffProjectile.DisplayName: Bronze Staff
 		BronzeTriastaProjectile.DisplayName: Bronze Triasta
-		BronzeTridentProjectile.DisplayName: Bronze Trident
+		BronzeSpearProjectile.DisplayName: Bronze Spear
 		LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
 		NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 		SunkenStaffProjectile.DisplayName: Sunken Staff

@@ -71,12 +71,12 @@ Bronze: {
 		}
 	}
 
-	BronzeTrident: {
-		DisplayName: Bronze Trident
+	BronzeSpear: {
+		DisplayName: Bronze Spear
 		Tooltip: ""
 
 		Ability: {
-			DisplayName: Trident Throw
+			DisplayName: Spear Throw
 			Description: Throw your weapon
 		}
 	}
