@@ -1,9 +1,6 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Projectiles.Base;
+﻿using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -43,7 +40,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				for (float i = 0; i < 85f * Projectile.Opacity; i++)
 				{
 					proj += Projectile.velocity;
-					if (!Collision.CanHitLine(Projectile.Center, 0, 0, proj, 0, 0))
+					var tile = AOUtils.GetTile(proj.ToTileCoordinates().X, proj.ToTileCoordinates().Y);
+					if (tile.IsTileReallySolidGround() || (!Imbue.CanBeWet && tile.LiquidAmount > 0))
 					{
 						if (Main.rand.NextBool(25))
 							Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
@@ -98,7 +96,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			}
 		}
 
-		public string BackupTexture = AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/CrystalRay");
+		public string BackupTexture = AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WaterRay");
 
 		public override string Texture
 		{
