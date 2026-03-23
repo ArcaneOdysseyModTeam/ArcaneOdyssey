@@ -566,6 +566,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
 
+			if (item.TryGetSecondImbue(Imbue, out var second5))
+				SecondImbue = second5;
+
 			if (SecondImbue is not null)
 			{
 				if (Imbue?.Imbue != SecondImbue)
@@ -588,7 +591,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (options.Count > 0 && AOUtils.ImbueClassCheck(item))
 			{
-				if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
+				if ((!specificImbue) || (item.accessory && item.ModItem is not Imbuable))
 				{
 					if (item.CanHaveImbue(player.Imbue()))
 					{
@@ -605,13 +608,12 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 				}
 
-				if ((!item.accessory || item.ModItem is Imbuable) && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
+				if (((!item.accessory) || item.ModItem is Imbuable) && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
 				{
 					if (options.Count > 1)
 					{
 						specificImbue = true;
 						player.ArcaneOdyssey()?.SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
-						specificImbue = true;
 						if (++imbueIndex >= options.Count)
 						{
 							imbueIndex = 0;
