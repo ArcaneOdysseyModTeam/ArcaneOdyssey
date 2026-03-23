@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons
 {
-	public class SirenBow : AOWeapon
+	public class SirenBow : Weapon
 	{
 		public override float AODamage => 1.025f;
 		public override float AOSize => .825f;

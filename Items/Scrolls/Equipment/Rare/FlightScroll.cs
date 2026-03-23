@@ -18,10 +18,10 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		{
 			if (HasCorrectImbue)
 			{
-				constantAscend *= Imbue.AOScrollSpeed;
-				ascentWhenRising *= Imbue.AOScrollSpeed;
-				maxCanAscendMultiplier *= Imbue.AOScrollSpeed;
-				maxAscentMultiplier *= Imbue.AOScrollSpeed;
+				constantAscend *= Imbue.ScrollSpeed;
+				ascentWhenRising *= Imbue.ScrollSpeed;
+				maxCanAscendMultiplier *= Imbue.ScrollSpeed;
+				maxAscentMultiplier *= Imbue.ScrollSpeed;
 			}
 			else
 			{
@@ -37,8 +37,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		{
 			if (HasCorrectImbue)
 			{
-				speed *= Imbue.AOScrollSpeed;
-				acceleration *= Imbue.AOScrollSpeed;
+				speed *= Imbue.ScrollSpeed;
+				acceleration *= Imbue.ScrollSpeed;
 			}
 			else
 			{

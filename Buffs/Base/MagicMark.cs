@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Buffs.Base
 	/// <summary>
 	/// basic debuff for things like Snowy
 	/// </summary>
-	public abstract class AODebuff : AOBaseBuff
+	public abstract class MagicMark : BaseBuff
 	{
 		public override void SetStaticDefaults()
 		{

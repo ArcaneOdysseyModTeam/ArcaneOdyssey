@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class DuskBeam : AOBaseProjectile
+	public class DuskBeam : BaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 

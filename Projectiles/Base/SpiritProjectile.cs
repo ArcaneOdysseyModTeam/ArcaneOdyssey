@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class SpiritProjectile : AOPlayerProjectile, IImbuable
+	public abstract class SpiritProjectile : PlayerProjectile, IImbuable
 	{
 		public override Debuff? ProjectileDebuff => null;
 

@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class CharredEffect : AODebuff
+	public class CharredEffect : MagicMark
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{

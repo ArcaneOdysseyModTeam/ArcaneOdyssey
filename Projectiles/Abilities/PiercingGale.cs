@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class PiercingGale : AOPlayerProjectile
+	public class PiercingGale : PlayerProjectile
 	{
 		public static int AfterimagesType => ModContent.ProjectileType<Crescendo>();
 		public static Texture2D Afterimages => TextureAssets.Projectile[AfterimagesType].Value;

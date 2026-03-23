@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class TwinCrescent : AOPlayerProjectile
+	public class TwinCrescent : PlayerProjectile
 	{
 		public override string Texture => AOUtils.SlashTexture;
 		public override float AOSize => .25f;

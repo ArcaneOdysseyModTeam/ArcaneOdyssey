@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class Scorched : AODebuff
+	public class Scorched : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.ShadowFlame, ModContent.BuffType<AOShadowflame>()];
 

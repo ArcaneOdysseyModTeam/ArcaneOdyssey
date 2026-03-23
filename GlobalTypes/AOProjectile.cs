@@ -29,15 +29,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOScrollSpeed;
+							value *= Imbue.ScrollSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOScrollSpeed.FlipFloat();
+							value *= Imbue.ScrollSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
 						}
 					}
 				}
@@ -47,15 +47,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOImbueSpeed;
+							value *= Imbue.ImbueSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOImbueSpeed.FlipFloat();
+							value *= Imbue.ImbueSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
 						}
 					}
 				}
@@ -73,15 +73,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOScrollSize;
+							value *= Imbue.ScrollSize;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize;
+								value *= SecondImbue.ImbueSize;
 						}
 						else
 						{
-							value *= Imbue.AOScrollSize.FlipFloat();
+							value *= Imbue.ScrollSize.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize.FlipFloat();
+								value *= SecondImbue.ImbueSize.FlipFloat();
 						}
 					}
 				}
@@ -91,15 +91,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOImbueSize;
+							value *= Imbue.ImbueSize;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize;
+								value *= SecondImbue.ImbueSize;
 						}
 						else
 						{
-							value *= Imbue.AOImbueSize.FlipFloat();
+							value *= Imbue.ImbueSize.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize.FlipFloat();
+								value *= SecondImbue.ImbueSize.FlipFloat();
 						}
 					}
 				}
@@ -119,7 +119,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						return true;
 					}
-					else if (thisProjectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					else if (thisProjectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
 						return false;
 					}
@@ -154,7 +154,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj)
+				if (thisProjectile is not null && thisProjectile.ModProjectile is PlayerProjectile proj)
 				{
 					return proj.CanHaveImbue;
 				}
@@ -169,7 +169,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj && proj.Cold.HasValue)
+				if (thisProjectile is not null && thisProjectile.ModProjectile is PlayerProjectile proj && proj.Cold.HasValue)
 				{
 					return proj.Cold.Value;
 				}
@@ -202,7 +202,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected)
 				return;
 
-			if (projectile.ModProjectile is AOPlayerProjectile proj)
+			if (projectile.ModProjectile is PlayerProjectile proj)
 			{
 				if (proj.ProjectileDebuff.HasValue) // is done here instead of under AOPlayerProjectile to have damage calculation done in the correct order
 				{
@@ -225,7 +225,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected || projectile.hostile || projectile.owner == 255 || !projectile.active || projectile.npcProj || projectile.trap)
 				return;
 
-			if (projectile.ModProjectile is AOPlayerProjectile proj1)
+			if (projectile.ModProjectile is PlayerProjectile proj1)
 			{
 				projectile.velocity *= proj1.AOSpeed;
 			}
@@ -290,24 +290,24 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					if (BenifitsFromScrollStats.Value)
 					{
-						mult *= Imbue.AOScrollSize;
+						mult *= Imbue.ScrollSize;
 						if (SecondImbue is not null)
 						{
-							mult *= SecondImbue.AOImbueSize;
+							mult *= SecondImbue.ImbueSize;
 						}
 					}
 					else
 					{
-						mult *= Imbue.AOImbueSize;
+						mult *= Imbue.ImbueSize;
 						if (SecondImbue is not null)
 						{
-							mult *= SecondImbue.AOImbueSize;
+							mult *= SecondImbue.ImbueSize;
 						}
 					}
 				}
 			}
 			mult *= Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
-			if (projectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			if (projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
 				projectile.Hitbox.Scaled(mult);
 				projectile.scale *= mult;

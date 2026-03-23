@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(235, 40, 0, 0);
-		public override float AOImbueSpeed => 0.975f;
-		public override float AOImbueSize => 1.22f;
-		public override float AOImbueDamage => 0.95f;
-		public override float AOScrollSpeed => 0.95f;
-		public override float AOScrollSize => 1.25f;
-		public override float AOScrollDamage => 0.875f;
+		public override float ImbueSpeed => 0.975f;
+		public override float ImbueSize => 1.22f;
+		public override float ImbueDamage => 0.95f;
+		public override float ScrollSpeed => 0.95f;
+		public override float ScrollSize => 1.25f;
+		public override float ScrollDamage => 0.875f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Petrified>(60, 33)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Melting, Petrified>(), Combo.Create<AOBurning, Petrified>(), Combo.Create<Scorched, Petrified>(), Combo.Create<CharredEffect, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<Singed, Petrified>()];
@@ -91,8 +91,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

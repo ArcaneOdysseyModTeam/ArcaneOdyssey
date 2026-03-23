@@ -18,10 +18,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.Red;
 		public override Color ImbueColour2 => Color.DarkRed;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOScrollSpeed => 1.4f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollDamage => .875f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
+		public override float ScrollSpeed => 1.4f;
+		public override float ScrollSize => 1.1f;
+		public override float ScrollDamage => .875f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 16), Debuff.Create<AncientLightingChain>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 
@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.Firework_Red, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2.3f * intensity);
+				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.Firework_Red, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2.3f * intensity);
 				dust.noGravity = true;
 			}
 		}

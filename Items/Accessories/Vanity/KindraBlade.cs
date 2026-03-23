@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Accessories.Vanity
 {
-	public class KindraBlade : AOBaseItem
+	public class KindraBlade : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Special;
 

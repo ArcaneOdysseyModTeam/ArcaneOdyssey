@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Items.Materials
 {
-	public class AncientHecateOrb : AOBaseItem
+	public class AncientHecateOrb : BaseItem
 	{
 		public int AOValue = 20000;
 		public override AORarities AORarity => AORarities.Mythical;

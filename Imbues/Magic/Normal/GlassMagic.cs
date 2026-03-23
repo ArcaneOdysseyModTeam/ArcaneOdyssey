@@ -22,12 +22,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float? DashResist => 1.05f;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override Color ImbueColour => new(255, 255, 255);
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.053f;
-		public override float AOImbueDamage => 1f;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollDamage => 0.9f;
+		public override float ImbueSpeed => 1f;
+		public override float ImbueSize => 1.053f;
+		public override float ImbueDamage => 1f;
+		public override float ScrollSpeed => 1f;
+		public override float ScrollSize => 1.1f;
+		public override float ScrollDamage => 0.9f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity);
+				Dust.NewDust(position, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: intensity);
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

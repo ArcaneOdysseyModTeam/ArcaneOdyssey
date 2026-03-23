@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class BaseLanceProjectile : AOPlayerProjectile
+	public abstract class BaseLanceProjectile : PlayerProjectile
 	{
 		public const float Speed = BaseSpearProjectile.Speed;
 

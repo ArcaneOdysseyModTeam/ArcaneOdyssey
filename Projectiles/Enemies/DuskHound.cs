@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class DuskHound : AOBaseProjectile
+	public class DuskHound : BaseProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<SpiritHound>();
 

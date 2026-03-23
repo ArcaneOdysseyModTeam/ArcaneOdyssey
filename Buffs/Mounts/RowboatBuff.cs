@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Mounts
 {
-	public class RowboatBuff : AOBaseBuff
+	public class RowboatBuff : BaseBuff
 	{
 		public override void SetStaticDefaults()
 		{

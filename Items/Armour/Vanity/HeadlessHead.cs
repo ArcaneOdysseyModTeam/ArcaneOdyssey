@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Armour.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class HeadlessHead : AOBaseItem
+	public class HeadlessHead : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Special;
 

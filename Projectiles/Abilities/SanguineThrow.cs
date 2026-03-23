@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class SanguineThrow : AOPlayerProjectile
+	public class SanguineThrow : PlayerProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<Sanguine>();
 

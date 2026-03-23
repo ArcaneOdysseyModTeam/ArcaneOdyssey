@@ -81,10 +81,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => new(0, 115, 255);
 		public override Color ImbueColour2 => Color.Yellow;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOScrollDamage => .95f;
-		public override float AOScrollSpeed => 1.2f;
-		public override float AOScrollSize => 1.3f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
+		public override float ScrollDamage => .95f;
+		public override float ScrollSpeed => 1.2f;
+		public override float ScrollSize => 1.3f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<PhoenixHealing>(),];
 
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
@@ -138,9 +138,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), Scale: 2f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BlueFairy, (Main.rand.NextFloat() - 0.5f) * (15f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * intensity * ScrollSize), Scale: 2f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * intensity * AOScrollSize), Scale: 2f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (15f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (15f * intensity * ScrollSize), Scale: 2f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class Singed : AODebuff
+	public class Singed : MagicMark
 	{
 		private int stack = 1;
 

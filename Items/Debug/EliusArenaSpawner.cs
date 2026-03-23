@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Items.Debug
 {
-	public class EliusArenaSpawner : AOBaseItem
+	public class EliusArenaSpawner : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Special;
 

@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class BlindedEffect : AODebuff
+	public class BlindedEffect : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.Confused];
 		public override void Update(NPC npc, ref int buffIndex)

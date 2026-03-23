@@ -43,16 +43,16 @@ public abstract partial class BaseImbueUI : UIState
 			}
 			else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
 
-			SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
-				$"Speed: {magic.AOScrollSpeed} \n" +
-				$"Damage: {magic.AOScrollDamage} \n" +
+			SpotStats.SetText($"Size: {magic.ScrollSize} \n" +
+				$"Speed: {magic.ScrollSpeed} \n" +
+				$"Damage: {magic.ScrollDamage} \n" +
 				$"{prefix} {text}");
 		}
 		else if (item.ModItem is Imbuable other)
 		{
-			SpotStats.SetText($"Size: {other.AOScrollSize} \n" +
-				$"Speed: {other.AOScrollSpeed} \n" +
-				$"Damage: {other.AOScrollDamage} ");
+			SpotStats.SetText($"Size: {other.ScrollSize} \n" +
+				$"Speed: {other.ScrollSpeed} \n" +
+				$"Damage: {other.ScrollDamage} ");
 		}
 		else
 		{

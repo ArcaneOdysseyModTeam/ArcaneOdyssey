@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles
 {
-	public class Circle : AOPlayerProjectile
+	public class Circle : PlayerProjectile
 	{
 		public int ChargingProjectile;
 		public float charge = 1f;

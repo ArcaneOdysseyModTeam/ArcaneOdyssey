@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {
-	public abstract class Scroll : AOBaseItem, IImbuable
+	public abstract class Scroll : BaseItem, IImbuable
 	{
 		public void ActivateAbility(Player player)
 		{
@@ -66,15 +66,15 @@ namespace ArcaneOdyssey.Items.Base
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOScrollSpeed;
+							value *= Imbue.ScrollSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOScrollSpeed.FlipFloat();
+							value *= Imbue.ScrollSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
 						}
 					}
 				}
@@ -84,15 +84,15 @@ namespace ArcaneOdyssey.Items.Base
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOImbueSpeed;
+							value *= Imbue.ImbueSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOImbueSpeed.FlipFloat();
+							value *= Imbue.ImbueSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
 						}
 					}
 				}

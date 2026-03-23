@@ -257,7 +257,7 @@ namespace ArcaneOdyssey.AOPlayers
 			HandleDashDetection();
 		}
 
-		public float SizeMulti => 1f + (StatSize / (AOArmour.SizeDivision * 100f));
-		public float CooldownDurationMulti => (1f + (StatHaste / (AOArmour.HasteDivision * 100f))).FlipFloat();
+		public float SizeMulti => 1f + (StatSize / (Armour.SizeDivision * 100f));
+		public float CooldownDurationMulti => (1f + (StatHaste / (Armour.HasteDivision * 100f))).FlipFloat();
 	}
 }

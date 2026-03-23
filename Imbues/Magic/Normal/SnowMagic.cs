@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 255, 255);
 		public override bool CanBeWet => false;
-		public override float AOImbueSpeed => 1.05f;
-		public override float AOImbueSize => 1.11f;
-		public override float AOImbueDamage => 1f;
-		public override float AOScrollSpeed => 1.1f;
-		public override float AOScrollSize => 1.15f;
-		public override float AOScrollDamage => 0.925f;
+		public override float ImbueSpeed => 1.05f;
+		public override float ImbueSize => 1.11f;
+		public override float ImbueDamage => 1f;
+		public override float ScrollSpeed => 1.1f;
+		public override float ScrollSize => 1.15f;
+		public override float ScrollDamage => 0.925f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<SnowyEffect>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
 		public override SynergyEffects Effects => new(
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.SnowBlock, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.SnowBlock, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

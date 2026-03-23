@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 
 		public override void EffectBeforeSpin(Player player)
 		{
-			if (player.PlayerItem()?.ModItem is AOWeapon weap)
+			if (player.PlayerItem()?.ModItem is Weapon weap)
 			{
 				weap.ActivateAbility(player, true);
 			}

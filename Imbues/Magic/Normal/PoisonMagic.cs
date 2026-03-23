@@ -21,12 +21,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item17;
 		public override Color ImbueColour => new(105, 0, 105, 255);
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.11f;
-		public override float AOImbueDamage => 0.825f;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1.15f;
-		public override float AOScrollDamage => 0.75f;
+		public override float ImbueSpeed => 1f;
+		public override float ImbueSize => 1.11f;
+		public override float ImbueDamage => 0.825f;
+		public override float ScrollSpeed => 1f;
+		public override float ScrollSize => 1.15f;
+		public override float ScrollDamage => 0.75f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOPoisoned>()];
 		//public override AODebuff ImbueDebuff2 => new AODebuff(BuffID.Stinky, 60*10);
 		public override SynergyEffects Effects => new(
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, Color.Purple, 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), 0, Color.Purple, 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

@@ -41,6 +41,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				oldvelo = Projectile.velocity;
 				Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}
 			else
 			{

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class LaelusBlast : AOBaseProjectile
+	public class LaelusBlast : BaseProjectile
 	{
 		public Imbuable Imbue = ModContent.GetInstance<TidestoneBand>();
 

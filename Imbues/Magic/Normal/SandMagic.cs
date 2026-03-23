@@ -22,12 +22,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 60, 255);
 		public override bool CanBeWet => false;
-		public override float AOImbueSpeed => 0.975f;
-		public override float AOImbueSize => 1.053f;
-		public override float AOImbueDamage => 1.05f;
-		public override float AOScrollSpeed => 0.95f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollDamage => 0.975f;
+		public override float ImbueSpeed => 0.975f;
+		public override float ImbueSize => 1.053f;
+		public override float ImbueDamage => 1.05f;
+		public override float ScrollSpeed => 0.95f;
+		public override float ScrollSize => 1.1f;
+		public override float ScrollDamage => 0.975f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<SandyEffect>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Sand, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Sand, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

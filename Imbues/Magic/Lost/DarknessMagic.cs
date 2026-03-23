@@ -15,15 +15,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			RegisterMutation<DeathMagic>();
 		}
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Black;
 		public override Color ImbueColour2 => Color.DarkRed;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override float AOScrollSpeed => 1.2f;
-		public override float AOScrollSize => 1.3f;
-		public override float AOScrollDamage => .85f;
+		public override float ScrollSpeed => 1.2f;
+		public override float ScrollSize => 1.3f;
+		public override float ScrollDamage => .85f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<DrainedEffect>((60 * 7.5f).Round())];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -61,9 +61,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 2; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.VampireHeal, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), Scale: 3f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.VampireHeal, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Helpers
 {
-	public class ProminenceDebuff : AODebuff
+	public class ProminenceDebuff : MagicMark
 	{
 		private int counter = 0;
 		public override void Update(NPC npc, ref int buffIndex)

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Armour.Vanity.Masks
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class DuskMask : AOBaseItem
+	public class DuskMask : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Uncommon;
 

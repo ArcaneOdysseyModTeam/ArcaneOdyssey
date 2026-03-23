@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class ArrowRain : AOPlayerProjectile
+	public class ArrowRain : PlayerProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 

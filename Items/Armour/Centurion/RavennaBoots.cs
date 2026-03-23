@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Armour.Centurion
 {
 	[AutoloadEquip(EquipType.Legs)]
-	public class RavennaBoots : AOArmour
+	public class RavennaBoots : Base.Armour
 	{
 		public override AOItemTiers ArmourTier => AOItemTiers.Poor;
 

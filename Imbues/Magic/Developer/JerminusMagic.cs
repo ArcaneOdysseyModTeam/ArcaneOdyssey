@@ -7,11 +7,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 	public class JerminusMagic : AOMagic
 	{
 		public override Color ImbueColour => new(255, 0, 0);
-		public override float AOScrollSpeed => 3f;
-		public override float AOScrollSize => 3.5f;
+		public override float ScrollSpeed => 3f;
+		public override float ScrollSize => 3.5f;
 		public override float DashSpeed => 1.4f;
-		public override float AOScrollDamage => .2f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
+		public override float ScrollDamage => .2f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Developer;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Trauma>()];
 	}
 }

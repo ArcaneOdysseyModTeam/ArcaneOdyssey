@@ -25,12 +25,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollDamage => .925f;
+		public override float ScrollSpeed => 1f;
+		public override float ScrollSize => 1.1f;
+		public override float ScrollDamage => .925f;
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Singed>(60 * 5)];
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
@@ -88,9 +88,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 6; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<FlareDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * AOScrollSize), Alpha: (255 * .75f).Round(), Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<FlareDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * ScrollSize), Alpha: (255 * .75f).Round(), Scale: intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.PinkFairy, (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * intensity * AOScrollSize), 0, Color.Red, 0.8f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.PinkFairy, (Main.rand.NextFloat() - 0.5f) * (22f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (22f * intensity * ScrollSize), 0, Color.Red, 0.8f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

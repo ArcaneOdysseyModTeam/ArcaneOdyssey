@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class PhoenixHealing : AODebuff
+	public class PhoenixHealing : MagicMark
 	{
 		public const int HealDistance = 700;
 

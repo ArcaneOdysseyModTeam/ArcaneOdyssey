@@ -13,10 +13,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class SlashMagic : AOMagic
 	{
 		public override float Aura => .5f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOScrollDamage => 1.2f;
-		public override float AOScrollSpeed => 1.1f;
-		public override float AOScrollSize => .8f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
+		public override float ScrollDamage => 1.2f;
+		public override float ScrollSpeed => 1.1f;
+		public override float ScrollSize => .8f;
 		public override Color ImbueColour => new(0, 255, 0);
 		public override Color ImbueColour2 => new(0, 120, 0);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SlashDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Alpha: 60, Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SlashDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Alpha: 60, Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

@@ -9,7 +9,7 @@ using ArcaneOdyssey.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class Whirlwind : AOPlayerProjectile
+	public class Whirlwind : PlayerProjectile
 	{
 		public Color Colour => Imbue?.Colour ?? Color.Orange;
 		public static int MaxTime => 20;

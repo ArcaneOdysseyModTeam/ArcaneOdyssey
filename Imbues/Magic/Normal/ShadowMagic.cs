@@ -19,12 +19,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Black;
-		public override float AOImbueSpeed => 1.125f;
-		public override float AOImbueSize => 1.053f;
-		public override float AOImbueDamage => 1.025f;
-		public override float AOScrollSpeed => 1.25f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollDamage => 0.95f;
+		public override float ImbueSpeed => 1.125f;
+		public override float ImbueSize => 1.053f;
+		public override float ImbueDamage => 1.025f;
+		public override float ScrollSpeed => 1.25f;
+		public override float ScrollSize => 1.1f;
+		public override float ScrollDamage => 0.95f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<DrainedEffect>(60 * 5)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

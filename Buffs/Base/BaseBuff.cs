@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Base
 {
-	public abstract class AOBaseBuff : ModBuff, ILocalizedModType
+	public abstract class BaseBuff : ModBuff, ILocalizedModType
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 

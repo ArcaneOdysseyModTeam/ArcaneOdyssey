@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class CloudyEffect : AODebuff
+	public class CloudyEffect : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.Confused];
 		public override void Update(NPC npc, ref int buffIndex)

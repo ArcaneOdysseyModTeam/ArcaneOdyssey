@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
-	public class PoisonCloud : AOPlayerProjectile
+	public class PoisonCloud : PlayerProjectile
 	{
 		public override void SetStaticDefaults()
 		{

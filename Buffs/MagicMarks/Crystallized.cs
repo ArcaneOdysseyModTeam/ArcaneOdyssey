@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class Crystallized : AODebuff
+	public class Crystallized : MagicMark
 	{
 		private int stack = 1;
 

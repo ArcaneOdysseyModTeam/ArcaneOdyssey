@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class Scalding : AODebuff
+	public class Scalding : MagicMark
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class LaelusExplosion : AOBaseProjectile
+	public class LaelusExplosion : BaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()

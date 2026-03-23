@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class FreezingEffect : AODebuff
+	public class FreezingEffect : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.Chilled];
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Chilled}";

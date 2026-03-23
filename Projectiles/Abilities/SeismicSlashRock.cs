@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class SeismicSlashRock : AOPlayerProjectile
+	public class SeismicSlashRock : PlayerProjectile
 	{
 		public override float AOSize => 2f;
 

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 {
 	[AutoloadEquip(EquipType.Legs)]
-	public class EliusBoots : AOArmour
+	public class EliusBoots : Base.Armour
 	{
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Rare;

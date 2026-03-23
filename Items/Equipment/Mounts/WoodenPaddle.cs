@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Equipment.Mounts
 {
-	public class WoodenPaddle : AOBaseItem
+	public class WoodenPaddle : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Common;
 

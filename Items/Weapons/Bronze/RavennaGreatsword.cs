@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
-	public class RavennaGreatsword : AOWeapon
+	public class RavennaGreatsword : Weapon
 	{
 		public override int AOValue => 40;
 		public override float AOSize => 1.2f;

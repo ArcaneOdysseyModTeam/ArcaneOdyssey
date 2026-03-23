@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(252, 107, 3);
-		public override float RelicDamage => .95f;
-		public override float RelicSize => 1.1f;
-		public override float RelicSpeed => 1f;
+		public override float ImbueDamage => .95f;
+		public override float ImbueSize => 1.1f;
+		public override float ImbueSpeed => 1f;
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<FireMagic>();
 

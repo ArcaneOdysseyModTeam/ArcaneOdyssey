@@ -4,7 +4,7 @@ using Terraria.Localization;
 
 namespace ArcaneOdyssey.Buffs.Base
 {
-	public abstract class VanillaClone : AODebuff
+	public abstract class VanillaClone : MagicMark
 	{
 		public abstract int VanillaID { get; }
 

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Base
 {
-	public abstract class GelBuff : AOBaseBuff
+	public abstract class GelBuff : BaseBuff
 	{
 		public const int meleeEnchantID = 99;
 

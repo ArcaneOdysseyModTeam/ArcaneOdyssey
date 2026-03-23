@@ -4,7 +4,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class DevastateShockwave : AOPlayerProjectile
+	public class DevastateShockwave : PlayerProjectile
 	{
 		public override void SetStaticDefaults()
 		{

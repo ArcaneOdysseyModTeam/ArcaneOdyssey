@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class KatanaSlash : AOPlayerProjectile
+	public class KatanaSlash : PlayerProjectile
 	{
 		public Color Colour => Imbue?.Colour ?? Color.Red;
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 					Projectile.netSpam = 0;
 					var distance = 300f;
 					if (Imbue is not null)
-						distance *= Imbue.AOImbueSpeed;
+						distance *= Imbue.ImbueSpeed;
 					Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, distance);
 					Projectile.rotation = MathHelper.TwoPi / Main.rand.NextFloat();
 				}

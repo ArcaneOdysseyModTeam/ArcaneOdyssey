@@ -24,11 +24,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour2 => new(0, 196, 52);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 
-		public override float AOScrollSpeed => 1.1f;
-		public override float AOScrollDamage => 1.125f;
-		public override float AOScrollSize => 1.15f;
+		public override float ScrollSpeed => 1.1f;
+		public override float ScrollDamage => 1.125f;
+		public override float ScrollSize => 1.15f;
 
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<BlindedEffect>(60 * 3), Debuff.Create<AOBleed>()];
 
 		public override SynergyEffects Effects => new(
@@ -116,10 +116,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			if (Main.dedServ)
 				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
-			Dust.NewDust(position, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 0.9f * intensity);
+			Dust.NewDust(position, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 0.9f * intensity);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, rainbowColors[rainbowStep % 3], 1.3f * intensity);
+				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), 0, rainbowColors[rainbowStep % 3], 1.3f * intensity);
 				dust.noGravity = true;
 				rainbowStep++;
 			}

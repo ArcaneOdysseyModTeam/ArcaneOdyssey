@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class MountainWind : AOPlayerProjectile
+	public class MountainWind : PlayerProjectile
 	{
 		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.WeatherPainShot}";
 		public override void SetStaticDefaults()

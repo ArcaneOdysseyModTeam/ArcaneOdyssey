@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class StrengthTechnique : AOPlayerProjectile
+	public abstract class StrengthTechnique : PlayerProjectile
 	{
 		public override Debuff? ProjectileDebuff => null;
 		public override void SetDefaults()

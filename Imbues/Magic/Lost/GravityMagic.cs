@@ -19,10 +19,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => new(31, 0, 48);
 		public override Color ImbueColour2 => new(140, 0, 217);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override float AOScrollSpeed => 1.1f;
-		public override float AOScrollSize => 1.2f;
-		public override float AOScrollDamage => 1f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override float ScrollSpeed => 1.1f;
+		public override float ScrollSize => 1.2f;
+		public override float ScrollDamage => 1f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<GravityDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<GravityDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

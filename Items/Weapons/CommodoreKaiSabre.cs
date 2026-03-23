@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons
 {
-	public class CommodoreKaiSabre : AOWeapon
+	public class CommodoreKaiSabre : Weapon
 	{
 		public override float AOSpeed => 1.1f;
 		public override float AOSize => 1.1f;

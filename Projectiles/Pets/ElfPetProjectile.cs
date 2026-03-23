@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Pets
 {
-	public class ElfPetProjectile : AOPlayerProjectile
+	public class ElfPetProjectile : PlayerProjectile
 	{
 		private Vector2 targetPosition;
 		private bool wasThereABoss = false;

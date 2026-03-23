@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class ColossalCleave : AOPlayerProjectile
+	public class ColossalCleave : PlayerProjectile
 	{
 		public override float AOSpeed => .65f;
 		public override float AOSize => 1.2f;

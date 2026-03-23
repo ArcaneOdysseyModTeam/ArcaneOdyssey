@@ -21,10 +21,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.Purple;
 		public override Color ImbueColour2 => new(105, 0, 105, 255);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override float AOImbueSize => 1.15f;
-		public override float AOImbueDamage => 0.9f;
-		public override float AOScrollSpeed => 1.4f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override float ImbueSize => 1.15f;
+		public override float ImbueDamage => 0.9f;
+		public override float ScrollSpeed => 1.4f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<ElectrifiedToxins>(), Debuff.Create<Paralyzed>(60, 25)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 		public override SynergyEffects Effects => new(
@@ -82,9 +82,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, Color.Purple, 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), 0, Color.Purple, 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 1.2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 1.2f * intensity);
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

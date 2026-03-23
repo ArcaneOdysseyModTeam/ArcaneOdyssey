@@ -26,12 +26,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(255, 100, 255, 255);
 		public override bool CanBeWet => false;
-		public override float AOImbueSpeed => 1.125f;
-		public override float AOImbueSize => 0.948f;
-		public override float AOImbueDamage => 0.9f;
-		public override float AOScrollSpeed => 1.2f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollDamage => 0.825f;
+		public override float ImbueSpeed => 1.125f;
+		public override float ImbueSize => 0.948f;
+		public override float ImbueDamage => 0.9f;
+		public override float ScrollSpeed => 1.2f;
+		public override float ScrollSize => 1f;
+		public override float ScrollDamage => 0.825f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Scorched>(60 * 10)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.Firework_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.Firework_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity);
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

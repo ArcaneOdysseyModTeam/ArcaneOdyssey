@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 		{
 			if (Imbue is not null && Math.Abs(Owner.velocity.X) > (AOPlayerOwner.MaxRunSpeed * 1.1f) && !AOPlayerOwner.OnCooldown<RagingImpact>())
 			{
-				if (Owner.PlayerItem()?.ModItem is AOWeapon weap)
+				if (Owner.PlayerItem()?.ModItem is Weapon weap)
 				{
 					weap.ActivateAbility(Owner, false);
 				}

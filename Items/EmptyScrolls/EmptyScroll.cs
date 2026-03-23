@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.EmptyScrolls
 {
 	[LegacyName("Paper")]
-	public class EmptyScroll : AOBaseItem
+	public class EmptyScroll : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Common;
 

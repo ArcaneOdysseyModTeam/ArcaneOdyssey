@@ -16,10 +16,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => new(20, 20, 20); // lerp between purple and gray quickly, more commonly gray
 		public override Color ImbueColour2 => Color.Black;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override float AOScrollSpeed => 1.1f;
-		public override float AOScrollSize => 1.25f;
-		public override float AOScrollDamage => 1.28f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override float ScrollSpeed => 1.1f;
+		public override float ScrollSize => 1.25f;
+		public override float ScrollDamage => 1.28f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Flammable>()];
 		public override SynergyEffects Effects => new(
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water_Cavern, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * AOScrollSize), 0, Color.Black, 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water_Cavern, (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * intensity * ScrollSize), 0, Color.Black, 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

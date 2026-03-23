@@ -14,16 +14,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class FrostmetalMagic : AOMagic
 	{
 		public override float Aura => 1.3f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override bool? Cold => true;
 		public override float? DashResist => 1.45f;
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 		public override Color ImbueColour => new(65, 150, 177);
 		public override Color ImbueColour2 => new(100, 100, 100);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override float AOScrollSpeed => 0.65f;
-		public override float AOScrollSize => 1.2f;
-		public override float AOScrollDamage => 1.2f;
+		public override float ScrollSpeed => 0.65f;
+		public override float ScrollSize => 1.2f;
+		public override float ScrollDamage => 1.2f;
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, AOFrozen>()];
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>(), Debuff.Create<FreezingEffect>()];
 		public override SynergyEffects Effects => new(
@@ -80,10 +80,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				return;
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity))];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity))];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(position, 0, 0, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity);
-				Dust.NewDust(position, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: intensity);
+				Dust.NewDust(position, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2f * intensity);
 			}
 		}
 

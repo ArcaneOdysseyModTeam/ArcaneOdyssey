@@ -13,7 +13,7 @@ using ArcaneOdyssey.Items.Weapons.Old;
 
 namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
-	public class RavennaGreataxe : AOWeapon
+	public class RavennaGreataxe : Weapon
 	{
 		public override int AOValue => 100;
 		public override float AOSize => 1.025f;
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		}
 	}
 
-	public class Devastate(AOWeapon axe) : DashSystem(axe.Item)
+	public class Devastate(Weapon axe) : DashSystem(axe.Item)
 	{
 		public override bool FallThrough => false;
 		public override bool LocksPlayer => true;

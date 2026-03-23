@@ -13,12 +13,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 	{
 		public override float DashSpeed => 1.2f; // burst
 		public override bool Special => true;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit54;
 		public override Color ImbueColour => Color.Lerp(new(0, 200, 150), Color.Black, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1.2f;
-		public override float AOScrollDamage => 1.5f;
+		public override float ScrollSpeed => 1f;
+		public override float ScrollSize => 1.2f;
+		public override float ScrollDamage => 1.5f;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
@@ -43,9 +43,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<DeathDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<DeathDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

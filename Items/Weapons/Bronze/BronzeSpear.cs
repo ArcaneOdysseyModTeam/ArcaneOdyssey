@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
 	[LegacyName("BronzeTrident")]
-	public class BronzeSpear : AOWeapon
+	public class BronzeSpear : Weapon
 	{
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 		public override AORarities AORarity => AORarities.Uncommon;

@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 		{
 			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 3)
 			{
-				if (Owner.PlayerItem()?.ModItem is AOWeapon weap)
+				if (Owner.PlayerItem()?.ModItem is Weapon weap)
 				{
 					weap.ActivateAbility(Owner, false);
 				}

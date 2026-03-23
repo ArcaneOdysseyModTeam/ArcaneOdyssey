@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Berserker.Effects
 {
-	public class PowderExplosion : AOPlayerProjectile
+	public class PowderExplosion : PlayerProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 

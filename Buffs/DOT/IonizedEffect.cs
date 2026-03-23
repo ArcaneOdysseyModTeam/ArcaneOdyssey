@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class IonizedEffect : AODebuff
+	public class IonizedEffect : MagicMark
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{

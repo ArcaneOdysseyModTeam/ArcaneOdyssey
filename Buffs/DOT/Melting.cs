@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class Melting : AODebuff
+	public class Melting : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.OnFire3, BuffID.Burning];
 

@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.NPCs.Minibosses
 {
 	[AutoloadBossHead]
-	public class Evander : AOMiniboss
+	public class Evander : Miniboss
 	{
 		public override int AOHealth => 5000;
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<EvanderMelee>()];

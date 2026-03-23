@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons
 {
-	public class ColossalGreatsword : AOWeapon
+	public class ColossalGreatsword : Weapon
 	{
 		public override float AOSpeed => .65f;
 		public override float AOSize => 1.2f;

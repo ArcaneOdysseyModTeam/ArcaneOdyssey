@@ -200,7 +200,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 					Projectile.spriteDirection = Owner.direction;
 				if (Main.myPlayer == Projectile.owner)
 				{
-					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.AOScrollSpeed);
+					Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) - new Vector2(0, Player.defaultHeight * .75f * Projectile.scale), AOPlayerOwner.MaxPossibleSpeed * Imbue.ScrollSpeed);
 
 					target = AOUtils.ClosestNPCAt(TrueCentre, ApplySpeed(12f) * ShootTime, false, true)?.whoAmI ?? -1;
 					if (target != -1)

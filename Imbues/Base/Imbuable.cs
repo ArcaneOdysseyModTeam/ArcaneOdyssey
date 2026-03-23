@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Imbues.Base
 	/// Imbue values are applied as multipliers to imbued projectiles,
 	/// <para>Scroll values are applied as multipliers to projectiles created using spell scrolls</para>
 	/// </summary>
-	public abstract class Imbuable : AOBaseItem, IImbuable
+	public abstract class Imbuable : BaseItem, IImbuable
 	{
 		public virtual float Aura => .7f;
 
@@ -117,9 +117,9 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				return ImbuableTier switch
 				{
-					AOImbuableTier.Normal => AORarities.Rare,
-					AOImbuableTier.Lost => AORarities.Mystic,
-					AOImbuableTier.Ancient => AORarities.Legendary,
+					ImbuableTiers.Normal => AORarities.Rare,
+					ImbuableTiers.Lost => AORarities.Mystic,
+					ImbuableTiers.Ancient => AORarities.Legendary,
 					_ => AORarities.Special,
 				};
 			}
@@ -130,18 +130,18 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override bool ShowItemTypeTooltip => false;
 
-		public virtual float AOImbueSpeed => AOScrollSpeed != 1f ? MathF.Round(AOScrollSpeed <= 1f ? AOScrollSpeed * 1.1f : AOScrollSpeed * .85f, 3) : 1f;
-		public virtual float AOImbueSize => AOScrollSize != 1f ? MathF.Round(AOScrollSize <= 1f ? AOScrollSize * 1.1f : AOScrollSize * .85f, 3) : 1f;
-		public virtual float AOImbueDamage => AOScrollDamage != 1f ? MathF.Round(AOScrollDamage <= 1f ? AOScrollDamage * 1.1f : AOScrollDamage * .85f, 3) : 1f;
-		public virtual float AOScrollSpeed => AOImbueSpeed != 1f ? MathF.Round(AOImbueSpeed <= 1f ? AOImbueSpeed * 1.1f : AOImbueSpeed * AOImbueSpeed, 3) : 1f;
-		public virtual float AOScrollSize => AOImbueSize != 1f ? MathF.Round(AOImbueSize <= 1f ? AOImbueSize * 1.1f : AOImbueSize * AOImbueSize, 3) : 1f;
-		public virtual float AOScrollDamage => AOImbueDamage != 1f ? MathF.Round(AOImbueDamage <= 1f ? AOImbueDamage * 1.1f : AOImbueDamage * AOImbueDamage, 3) : 1f;
+		public virtual float ImbueSpeed => ScrollSpeed != 1f ? MathF.Round(ScrollSpeed <= 1f ? ScrollSpeed * 1.1f : ScrollSpeed * .85f, 3) : 1f;
+		public virtual float ImbueSize => ScrollSize != 1f ? MathF.Round(ScrollSize <= 1f ? ScrollSize * 1.1f : ScrollSize * .85f, 3) : 1f;
+		public virtual float ImbueDamage => ScrollDamage != 1f ? MathF.Round(ScrollDamage <= 1f ? ScrollDamage * 1.1f : ScrollDamage * .85f, 3) : 1f;
+		public virtual float ScrollSpeed => ImbueSpeed != 1f ? MathF.Round(ImbueSpeed <= 1f ? ImbueSpeed * 1.1f : ImbueSpeed * ImbueSpeed, 3) : 1f;
+		public virtual float ScrollSize => ImbueSize != 1f ? MathF.Round(ImbueSize <= 1f ? ImbueSize * 1.1f : ImbueSize * ImbueSize, 3) : 1f;
+		public virtual float ScrollDamage => ImbueDamage != 1f ? MathF.Round(ImbueDamage <= 1f ? ImbueDamage * 1.1f : ImbueDamage * ImbueDamage, 3) : 1f;
 
 		/// <summary>
 		/// For magics or fighing styles, you may return any value
 		/// <para>Relics are always Normal for now</para>
 		/// </summary>
-		public virtual AOImbuableTier ImbuableTier => AOImbuableTier.Normal;
+		public virtual ImbuableTiers ImbuableTier => ImbuableTiers.Normal;
 		public virtual Debuff[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new([], []);
 		public abstract Color ImbueColour { get; }
@@ -311,7 +311,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 			if (entity is Projectile projectile)
 			{
-				if (projectile.ModProjectile is AOPlayerProjectile proj && (!proj.CanHaveImbueVFX))
+				if (projectile.ModProjectile is PlayerProjectile proj && (!proj.CanHaveImbueVFX))
 				{
 					return false;
 				}
@@ -387,9 +387,9 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				if (!Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
-					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(AOScrollDamage, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(AOScrollSpeed, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(AOScrollSize, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(ScrollDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(ScrollSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(ScrollSize, 3)).Value));
 
 					if (ImbueDebuffs.Length > 0)
 					{
@@ -420,9 +420,9 @@ namespace ArcaneOdyssey.Imbues.Base
 				}
 				else
 				{
-					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(AOImbueDamage, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(AOImbueSpeed, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(AOImbueSize, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(ImbueDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(ImbueSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(ImbueSize, 3)).Value));
 					
 					if (CombinedDebuffs.Length > 0)
 					{

@@ -25,11 +25,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.Purple;
 		public override Color ImbueColour2 => Color.MediumPurple;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override bool CanBeWet => true;
-		public override float AOImbueSpeed => 1.1f;
-		public override float AOImbueSize => 1.15f;
-		public override float AOImbueDamage => 1.1f;
+		public override float ImbueSpeed => 1.1f;
+		public override float ImbueSize => 1.15f;
+		public override float ImbueDamage => 1.1f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOShadowflame>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
@@ -90,9 +90,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				return;
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.FireworkFountain_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 1.3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.FireworkFountain_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 1.3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Shadowflame, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2.8f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Shadowflame, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2.8f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

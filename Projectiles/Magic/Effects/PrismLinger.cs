@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
-	public class PrismLinger : AOPlayerProjectile
+	public class PrismLinger : PlayerProjectile
 	{
 		public override bool PreDraw(ref Color lightColor) => false;
 		public override string Texture => AOUtils.BlankTexture;

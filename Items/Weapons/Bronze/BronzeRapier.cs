@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
-	public class BronzeRapier : AOWeapon
+	public class BronzeRapier : Weapon
 	{
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => .9f;

@@ -20,12 +20,12 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
-		public override float AOImbueDamage => Main.rand.NextFloat(0.85f, 1.17f);
-		public override float AOImbueSpeed => .9f;
-		public override float AOImbueSize => Main.rand.NextFloat(1.11f, 1.25f);
-		public override float AOScrollDamage => Main.rand.NextFloat(0.7f, .96f);
-		public override float AOScrollSize => Main.rand.NextFloat(1.05f, 1.19f);
-		public override float AOScrollSpeed => .9f;
+		public override float ImbueDamage => Main.rand.NextFloat(0.85f, 1.17f);
+		public override float ImbueSpeed => .9f;
+		public override float ImbueSize => Main.rand.NextFloat(1.11f, 1.25f);
+		public override float ScrollDamage => Main.rand.NextFloat(0.7f, .96f);
+		public override float ScrollSize => Main.rand.NextFloat(1.05f, 1.19f);
+		public override float ScrollSpeed => .9f;
 
 		public override Combo[] CombinedDebuffs => [Combo.Create<AOBurning, Petrified>(), Combo.Create<AOBurning, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<SearedEffect, Petrified>()];
 
@@ -82,11 +82,11 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
-				Dust spawnedDust3 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 4f * intensity)];
+				Dust spawnedDust3 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 4f * intensity)];
 				spawnedDust3.noGravity = true;
 			}
 		}

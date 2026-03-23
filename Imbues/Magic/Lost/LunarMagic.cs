@@ -11,15 +11,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class LunarMagic : AOMagic
 	{
 		public override float Aura => .8f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => true;
 		public override Color ImbueColour => new(0, 10, 87);
 		public override Color ImbueColour2 => new(137, 64, 255);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override float AOImbueSpeed => 1.1f;
-		public override float AOImbueSize => 1.25f;
-		public override float AOImbueDamage => 0.95f;
+		public override float ImbueSpeed => 1.1f;
+		public override float ImbueSize => 1.25f;
+		public override float ImbueDamage => 0.95f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Soaked>(60 * 7), Debuff.Create<BlindedEffect>(3 * 60)];
 		public override SynergyEffects Effects => new(
@@ -74,11 +74,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water_GlowingMushroom, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water_GlowingMushroom, (Main.rand.NextFloat() - 0.5f) * (35f * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * ScrollSize), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust1 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust1 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust1.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

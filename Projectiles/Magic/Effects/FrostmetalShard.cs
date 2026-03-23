@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
-	public class FrostmetalShard : AOPlayerProjectile
+	public class FrostmetalShard : PlayerProjectile
 	{
 		public override void SetStaticDefaults()
 		{

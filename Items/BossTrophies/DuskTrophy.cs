@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.BossTrophies
 {
-	public class DuskTrophy : AOBaseItem
+	public class DuskTrophy : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Common;
 

@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class SnowyEffect : AODebuff
+	public class SnowyEffect : MagicMark
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{

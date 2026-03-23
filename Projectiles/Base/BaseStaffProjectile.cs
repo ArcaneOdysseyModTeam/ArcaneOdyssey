@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class BaseStaffProjectile : AOPlayerProjectile
+	public abstract class BaseStaffProjectile : PlayerProjectile
 	{
 		public override Debuff? ProjectileDebuff => null;
 
@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			Projectile.Center = Owner.RotatedRelativePoint(Owner.RotatedRelativePoint(Owner.MountedCenter), true);
 			Projectile.direction = 1;
 
-			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed.FlipFloat() ?? 1f);
+			float spintime = 25f * AOSpeed.FlipFloat() * 2f * (Imbue?.ImbueSpeed.FlipFloat() ?? 1f);
 			Vector2 expectedDirection = Owner.SafeDirectionTo(Main.MouseWorld);
 			Owner.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
 
@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 			else
 			{
-				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / (25f * AOSpeed.FlipFloat() * 2f * (Imbue?.AOImbueSpeed ?? 1f)));
+				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / (25f * AOSpeed.FlipFloat() * 2f * (Imbue?.ImbueSpeed ?? 1f)));
 			}
 
 			Projectile.rotation += MathHelper.TwoPi * 2f / spintime * Owner.direction;

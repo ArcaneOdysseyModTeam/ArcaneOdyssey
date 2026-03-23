@@ -44,15 +44,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOScrollSpeed;
+							value *= Imbue.ScrollSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOScrollSpeed.FlipFloat();
+							value *= Imbue.ScrollSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
 						}
 					}
 				}
@@ -62,15 +62,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOImbueSpeed;
+							value *= Imbue.ImbueSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOImbueSpeed.FlipFloat();
+							value *= Imbue.ImbueSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
 						}
 					}
 				}
@@ -88,15 +88,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOScrollSize;
+							value *= Imbue.ScrollSize;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize;
+								value *= SecondImbue.ImbueSize;
 						}
 						else
 						{
-							value *= Imbue.AOScrollSize.FlipFloat();
+							value *= Imbue.ScrollSize.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize.FlipFloat();
+								value *= SecondImbue.ImbueSize.FlipFloat();
 						}
 					}
 				}
@@ -106,15 +106,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOImbueSize;
+							value *= Imbue.ImbueSize;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize;
+								value *= SecondImbue.ImbueSize;
 						}
 						else
 						{
-							value *= Imbue.AOImbueSize.FlipFloat();
+							value *= Imbue.ImbueSize.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSize.FlipFloat();
+								value *= SecondImbue.ImbueSize.FlipFloat();
 						}
 					}
 				}
@@ -153,7 +153,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (thisItem is not null && thisItem.ModItem is AOWeapon weap)
+				if (thisItem is not null && thisItem.ModItem is Weapon weap)
 				{
 					return weap.WeaponsType;
 				}
@@ -184,7 +184,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (thisItem is not null && thisItem.ModItem is AOWeapon item)
+				if (thisItem is not null && thisItem.ModItem is Weapon item)
 				{
 					return item.CanBeAffected;
 				}
@@ -199,7 +199,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (thisItem is not null && thisItem.ModItem is AOWeapon weap)
+				if (thisItem is not null && thisItem.ModItem is Weapon weap)
 				{
 					return weap.Cold;
 				}
@@ -258,9 +258,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (!item.DamageType.Name.Contains("NoSpeed"))
 				{
-					velocity *= imbue.AOScrollSpeed;
+					velocity *= imbue.ScrollSpeed;
 					if (imbue.Imbue is not null)
-						velocity *= imbue.Imbue.AOImbueSpeed;
+						velocity *= imbue.Imbue.ImbueSpeed;
 				}
 			}
 			else if (Imbue is not null)
@@ -269,15 +269,15 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					if (BenifitsFromScrollStats.GetValueOrDefault())
 					{
-						velocity *= Imbue.AOScrollSpeed;
+						velocity *= Imbue.ScrollSpeed;
 						if (SecondImbue is not null)
-							velocity *= SecondImbue.AOImbueSpeed;
+							velocity *= SecondImbue.ImbueSpeed;
 					}
-					else if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+					else if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 					{
-						velocity *= Imbue.AOImbueSpeed;
+						velocity *= Imbue.ImbueSpeed;
 						if (SecondImbue is not null)
-							velocity *= SecondImbue.AOImbueSpeed;
+							velocity *= SecondImbue.ImbueSpeed;
 					}
 				}
 			}
@@ -292,9 +292,9 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (item.ModItem is Imbuable imbue)
 			{
-				crit *= imbue.AOScrollDamage;
+				crit *= imbue.ScrollDamage;
 				if (imbue.Imbue is not null)
-					crit *= imbue.Imbue.AOImbueDamage;
+					crit *= imbue.Imbue.ImbueDamage;
 				if (imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
 					if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
 						crit = 100;
@@ -303,15 +303,15 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
-					crit *= Imbue.AOScrollDamage;
+					crit *= Imbue.ScrollDamage;
 					if (SecondImbue is not null)
-						crit *= SecondImbue.AOImbueDamage;
+						crit *= SecondImbue.ImbueDamage;
 				}
 				else
 				{
-					crit *= Imbue.AOImbueDamage;
+					crit *= Imbue.ImbueDamage;
 					if (SecondImbue is not null)
-						crit *= SecondImbue.AOImbueDamage;
+						crit *= SecondImbue.ImbueDamage;
 				}
 
 				if (Imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
@@ -329,9 +329,9 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (item.ModItem is Imbuable imbue)
 			{
-				knockback *= imbue.AOScrollSize * imbue.AOScrollSize;
+				knockback *= imbue.ScrollSize * imbue.ScrollSize;
 				if (imbue.Imbue is not null)
-					knockback *= imbue.Imbue.AOImbueDamage * imbue.Imbue.AOImbueDamage;
+					knockback *= imbue.Imbue.ImbueDamage * imbue.Imbue.ImbueDamage;
 				var extraknockbackmulti = imbue.KBMulti;
 				if (imbue.Imbue is not null)
 					extraknockbackmulti += imbue.Imbue.KBMulti.MultiToPercent();
@@ -341,15 +341,15 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
-					knockback *= Imbue.AOScrollSize;
+					knockback *= Imbue.ScrollSize;
 					if (SecondImbue is not null)
-						knockback *= SecondImbue.AOScrollSize;
+						knockback *= SecondImbue.ScrollSize;
 				}
-				else if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				else if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					knockback *= Imbue.AOImbueSize * Imbue.AOImbueSize;
+					knockback *= Imbue.ImbueSize * Imbue.ImbueSize;
 					if (SecondImbue is not null)
-						knockback *= SecondImbue.AOImbueSize * SecondImbue.AOImbueDamage;
+						knockback *= SecondImbue.ImbueSize * SecondImbue.ImbueDamage;
 				}
 				var extraknockbackmulti = Imbue.KBMulti;
 				if (SecondImbue is not null)
@@ -371,23 +371,23 @@ namespace ArcaneOdyssey.GlobalTypes
 			
 			if (item.ModItem is Imbuable imbue)
 			{
-				damage += imbue.AOScrollDamage.MultiToPercent();
+				damage += imbue.ScrollDamage.MultiToPercent();
 				if (imbue.Imbue is not null)
-					damage += imbue.Imbue.AOScrollDamage.MultiToPercent();
+					damage += imbue.Imbue.ScrollDamage.MultiToPercent();
 			}
 			else if (Imbue is not null)
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
-					damage += Imbue.AOScrollDamage.MultiToPercent();
+					damage += Imbue.ScrollDamage.MultiToPercent();
 					if (SecondImbue is not null)
-						damage += SecondImbue.AOImbueDamage.MultiToPercent();
+						damage += SecondImbue.ImbueDamage.MultiToPercent();
 				}
-				else if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				else if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					damage += Imbue.AOImbueDamage.MultiToPercent();
+					damage += Imbue.ImbueDamage.MultiToPercent();
 					if (SecondImbue is not null)
-						damage += SecondImbue.AOImbueDamage.MultiToPercent();
+						damage += SecondImbue.ImbueDamage.MultiToPercent();
 				}
 			}
 		}
@@ -476,7 +476,7 @@ namespace ArcaneOdyssey.GlobalTypes
 						break;
 				}
 			}
-			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods && item.ModItem is not null or AOBaseItem)
+			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods && item.ModItem is not null or BaseItem)
 			{
 				Cold = ExternalModSupport.CheckItemTemperature(item.ModItem);
 				WeaponsType = ExternalModSupport.CheckWeaponsType(item.ModItem);
@@ -489,22 +489,22 @@ namespace ArcaneOdyssey.GlobalTypes
 			owner = player;
 			if (item.noMelee || !CanBeAffected)
 				return;
-			if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+			if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
 				scale *= player.ArcaneOdyssey().SizeMulti;
 				if (Imbue is not null)
 				{
 					if (!BenifitsFromScrollStats.GetValueOrDefault())
 					{
-						scale += Imbue.AOImbueSize.MultiToPercent();
+						scale += Imbue.ImbueSize.MultiToPercent();
 						if (SecondImbue is not null)
-							scale += SecondImbue.AOImbueSize.MultiToPercent();
+							scale += SecondImbue.ImbueSize.MultiToPercent();
 					}
 					else
 					{
-						scale += Imbue.AOScrollSize.MultiToPercent();
+						scale += Imbue.ScrollSize.MultiToPercent();
 						if (SecondImbue is not null)
-							scale += SecondImbue.AOImbueSize.MultiToPercent();
+							scale += SecondImbue.ImbueSize.MultiToPercent();
 					}
 				}
 			}
@@ -518,7 +518,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (item.ModItem is Imbuable imbue)
 				{
-					return imbue.AOScrollSpeed * (imbue.Imbue?.AOScrollSpeed ?? 1f);
+					return imbue.ScrollSpeed * (imbue.Imbue?.ScrollSpeed ?? 1f);
 				}
 				if (!item.DamageType.Name.Contains("NoSpeed"))
 				{
@@ -526,12 +526,12 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (BenifitsFromScrollStats.GetValueOrDefault())
 						{
-							return Imbue.AOScrollSpeed * (SecondImbue?.AOImbueSpeed ?? 1f);
+							return Imbue.ScrollSpeed * (SecondImbue?.ImbueSpeed ?? 1f);
 						}
 
-						if (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+						if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 						{
-							return Imbue.AOImbueSpeed * (SecondImbue?.AOImbueSpeed ?? 1f);
+							return Imbue.ImbueSpeed * (SecondImbue?.ImbueSpeed ?? 1f);
 						}
 					}
 				}
@@ -738,7 +738,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected)
 				return;
 
-			if (item.ModItem is AOWeapon weap)
+			if (item.ModItem is Weapon weap)
 			{
 				if (weap.WeaponDebuff.HasValue)
 				{
@@ -874,7 +874,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					tooltips.Find(e => e.Name == "Ammo" && e.Mod == "Terraria")?.Hide();
 				}
 
-				if (item.ModItem is not AOBaseItem || (item.ModItem is AOBaseItem based && based.ShowItemTypeTooltip))
+				if (item.ModItem is not BaseItem || (item.ModItem is BaseItem based && based.ShowItemTypeTooltip))
 				{
 					var line = item.GetItemRare().ToString();
 					line += " ";
@@ -885,20 +885,20 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures || item.ModItem is not null)
 			{
-				if (item.ModItem is not AOArmour) // avoid duplicate values
+				if (item.ModItem is not Armour) // avoid duplicate values
 				{
 					if (ArrayCollections.SizeStats[item.type] > 0)
 					{
-						tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArrayCollections.SizeStats[item.type] / AOArmour.SizeDivision)).Value));
+						tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArrayCollections.SizeStats[item.type] / Armour.SizeDivision)).Value));
 					}
 					if (ArrayCollections.HasteStats[item.type] > 0)
 					{
-						tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArrayCollections.HasteStats[item.type] / AOArmour.HasteDivision)).Value));
+						tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArrayCollections.HasteStats[item.type] / Armour.HasteDivision)).Value));
 					}
 				}
 			}
 
-			if (item.ModItem is AOWeapon weapon)
+			if (item.ModItem is Weapon weapon)
 			{
 				if (weapon.Ability.HasValue)
 				{

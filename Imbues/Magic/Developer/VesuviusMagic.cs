@@ -12,13 +12,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 	public class VesuviusMagic : AOMagic
 	{
 		public override Color ImbueColour => new(0, 130, 255);
-		public override float AOImbueSpeed => 1.2f;
-		public override float AOImbueSize => 3f;
-		public override float AOImbueDamage => 2f;
-		public override float AOScrollSpeed => 1.2f;
-		public override float AOScrollSize => 3f;
-		public override float AOScrollDamage => 2f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
+		public override float ImbueSpeed => 1.2f;
+		public override float ImbueSize => 3f;
+		public override float ImbueDamage => 2f;
+		public override float ScrollSpeed => 1.2f;
+		public override float ScrollSize => 3f;
+		public override float ScrollDamage => 2f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Developer;
 		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<VesuvianBurn>()];
@@ -69,8 +69,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, new Color(0, 0, 255, 0), 2f * intensity);
-				Dust.NewDust(position, 0, 0, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, Color.Blue, 2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), 0, new Color(0, 0, 255, 0), 2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), 0, Color.Blue, 2f * intensity);
 			}
 		}
 

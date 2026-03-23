@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Blocks
 {
-	public class TuckerGraveItem : AOBaseItem
+	public class TuckerGraveItem : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Special;
 

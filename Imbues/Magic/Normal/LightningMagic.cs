@@ -24,12 +24,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => new(255, 140, 255, 255);
-		public override float AOImbueSpeed => 1.2f;
-		public override float AOImbueSize => .95f;
-		public override float AOImbueDamage => .95f;
-		public override float AOScrollSpeed => 1.4f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollDamage => .875f;
+		public override float ImbueSpeed => 1.2f;
+		public override float ImbueSize => .95f;
+		public override float ImbueDamage => .95f;
+		public override float ScrollSpeed => 1.4f;
+		public override float ScrollSize => 1f;
+		public override float ScrollDamage => .875f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 33)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 1.2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 1.2f * intensity);
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

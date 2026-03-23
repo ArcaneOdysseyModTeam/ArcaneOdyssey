@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class EvanderMelee : AOBaseProjectile
+	public class EvanderMelee : BaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 		public override void SetDefaults()

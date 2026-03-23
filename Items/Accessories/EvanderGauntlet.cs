@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Accessories
 {
-	public class EvanderGauntlet : AOArmour
+	public class EvanderGauntlet : Base.Armour
 	{
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override void Load()

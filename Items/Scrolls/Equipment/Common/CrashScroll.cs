@@ -124,14 +124,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		}
 		public override bool OnHit(Player player, Entity target)
 		{
-			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
+			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().ImbueSize);
 			gore.Centre(target.Center);
 			return false;
 		}
 
 		public override void OnEnd(Player player)
 		{
-			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().AOImbueSize);
+			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().ImbueSize);
 			gore.Centre(player.Bottom);
 
 			AOUtils.SimulateAOE(Player.defaultHeight * 3, Damage, player.Bottom, Knockback, player, DamageType);

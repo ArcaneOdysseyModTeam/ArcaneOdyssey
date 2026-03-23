@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Pets
 {
-	public class IrisBuff : AOBaseBuff
+	public class IrisBuff : BaseBuff
 	{
 		public override void SetStaticDefaults()
 		{

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class MagicSpell : AOPlayerProjectile
+	public abstract class MagicSpell : PlayerProjectile
 	{
 		public override Debuff? ProjectileDebuff => null;
 
@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 				var split = GetType().FullName.Split('.');
 				foreach (var item in split)
 				{
-					if (item == AOImbuableTier.Normal.ToString() || item == AOImbuableTier.Lost.ToString() || item == AOImbuableTier.Ancient.ToString() || item == AOImbuableTier.Developer.ToString())
+					if (item == ImbuableTiers.Normal.ToString() || item == ImbuableTiers.Lost.ToString() || item == ImbuableTiers.Ancient.ToString() || item == ImbuableTiers.Developer.ToString())
 					{
 						return item;
 					}

@@ -11,12 +11,12 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override float Aura => 1f;
 		public override Color ImbueColour => Color.White;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
-		public override float AOImbueDamage => 1.075f;
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.06f;
-		public override float AOScrollDamage => .925f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
+		public override float ImbueDamage => 1.075f;
+		public override float ImbueSpeed => 1f;
+		public override float ImbueSize => 1.06f;
+		public override float ScrollDamage => .925f;
+		public override float ScrollSize => 1f;
+		public override float ScrollSpeed => 1f;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

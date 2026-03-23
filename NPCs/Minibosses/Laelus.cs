@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.NPCs.Minibosses
 {
 	[AutoloadBossHead]
-	public class Laelus : AOMiniboss
+	public class Laelus : Miniboss
 	{
 		public override int AOHealth => 650;
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<LaelusExplosion>()];

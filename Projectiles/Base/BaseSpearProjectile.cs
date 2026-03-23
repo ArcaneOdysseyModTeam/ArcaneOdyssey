@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class BaseSpearProjectile : AOPlayerProjectile
+	public abstract class BaseSpearProjectile : PlayerProjectile
 	{
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public const float Speed = 3.7f;

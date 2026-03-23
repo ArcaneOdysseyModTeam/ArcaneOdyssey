@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.NPCs
 {
-	public class DebuffDummy : AOBaseNPC
+	public class DebuffDummy : BaseNPC
 	{
 		public override void SetStaticDefaults()
 		{

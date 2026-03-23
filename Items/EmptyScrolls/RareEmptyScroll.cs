@@ -4,7 +4,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Items.EmptyScrolls
 {
-	public class RareEmptyScroll : AOBaseItem
+	public class RareEmptyScroll : BaseItem
 	{
 		public override string Texture => AOUtils.GetTexture<EmptyScroll>();
 

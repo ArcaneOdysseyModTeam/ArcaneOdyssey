@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Items.Base
 	/// <summary>
 	/// also works as an accessory
 	/// </summary>
-	public abstract class AOArmour : AOBaseItem
+	public abstract class Armour : BaseItem
 	{
 		public const float SizeDivision = 2.75f;
 		public const float HasteDivision = 2f;

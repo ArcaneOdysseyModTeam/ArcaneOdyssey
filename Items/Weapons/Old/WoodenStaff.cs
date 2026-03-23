@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.Old
 {
-	public class WoodenStaff : AOWeapon
+	public class WoodenStaff : Weapon
 	{
 		public override float AOSpeed => 1.05f;
 		public override float AOSize => 0.9f;

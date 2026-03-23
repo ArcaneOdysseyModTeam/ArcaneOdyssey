@@ -7,6 +7,6 @@ namespace ArcaneOdyssey.Guidebook.Pages
 	{
 		public override int PageNum => 7;
 
-		public override bool MetConditions(Player player) => player.HasTypeInInventory<AOWeapon>();
+		public override bool MetConditions(Player player) => player.HasTypeInInventory<Weapon>();
 	}
 }

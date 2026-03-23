@@ -11,16 +11,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class StormMagic : AOMagic
 	{
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 1.25f;
 		public override SoundStyle? ImbueSound => SoundID.Thunder with { Volume = .6f };
 		public override Color ImbueColour => Color.DarkGray;
 		public override Color ImbueColour2 => Color.Purple;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override float AOImbueSpeed => 1.05f;
-		public override float AOImbueSize => 1.265f;
-		public override float AOImbueDamage => .95f;
+		public override float ImbueSpeed => 1.05f;
+		public override float ImbueSize => 1.265f;
+		public override float ImbueDamage => .95f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(3 * 60), Debuff.Create<Paralyzed>(60, 16)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
 
@@ -79,9 +79,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), 0, Color.DimGray, 4f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), 0, Color.DimGray, 4f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity);
+				Dust.NewDust(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: intensity);
 			}
 		}
 

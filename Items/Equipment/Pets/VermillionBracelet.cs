@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Equipment.Pets
 {
-	public class VermillionBracelet : AOBaseItem
+	public class VermillionBracelet : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Uncommon;
 

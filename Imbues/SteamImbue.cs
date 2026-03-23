@@ -22,18 +22,18 @@ namespace ArcaneOdyssey.Imbues
 			return steam;
 		}
 
-		public override float AOScrollDamage => .85f;
-		public override float AOImbueDamage => .925f;
-		public override float AOScrollSize => 1.15f;
-		public override float AOImbueSize => 1.1f;
-		public override float AOImbueSpeed => 1;
+		public override float ScrollDamage => .85f;
+		public override float ImbueDamage => .925f;
+		public override float ScrollSize => 1.15f;
+		public override float ImbueSize => 1.1f;
+		public override float ImbueSpeed => 1;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Scalding>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.LiquidsWaterLava;
 
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Developer;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Developer;
 
 		public override SynergyEffects Effects => new([], 
 			[

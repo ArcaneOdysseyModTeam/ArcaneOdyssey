@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class SparrowThrust : AOPlayerProjectile
+	public class SparrowThrust : PlayerProjectile
 	{
 		public override bool CanHaveImbueVFX => false;
 		public Color Colour => Imbue?.Colour ?? Color.MediumPurple;

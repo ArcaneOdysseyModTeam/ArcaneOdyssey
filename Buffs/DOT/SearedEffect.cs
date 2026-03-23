@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class SearedEffect : AODebuff
+	public class SearedEffect : MagicMark
 	{
 		public override void Update(NPC npc, ref int buffIndex)
 		{

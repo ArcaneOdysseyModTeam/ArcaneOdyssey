@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Accessories.Vanity
 {
-	public class VesuvianSigil : AOBaseItem
+	public class VesuvianSigil : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Special;
 

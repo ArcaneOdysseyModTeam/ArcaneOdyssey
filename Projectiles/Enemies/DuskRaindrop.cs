@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class DuskRaindrop : AOBaseProjectile
+	public class DuskRaindrop : BaseProjectile
 	{
 		public override bool? CanDamage() => false;
 

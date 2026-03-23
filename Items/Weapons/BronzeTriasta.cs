@@ -12,7 +12,7 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 
 namespace ArcaneOdyssey.Items.Weapons
 {
-	public class BronzeTriasta : AOWeapon
+	public class BronzeTriasta : Weapon
 	{
 		public override void SetStaticDefaults()
 		{
@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		}
 	}
 
-	public class EtherealFlash(AOWeapon tri) : DashSystem(tri.Item)
+	public class EtherealFlash(Weapon tri) : DashSystem(tri.Item)
 	{
 		public override bool Immune => true;
 		public override float DashSpeed => 120;

@@ -24,10 +24,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
-		public override float AOScrollSpeed => 1.3f;
-		public override float AOScrollSize => 1.2f;
-		public override float AOScrollDamage => .85f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override float ScrollSpeed => 1.3f;
+		public override float ScrollSize => 1.2f;
+		public override float ScrollDamage => .85f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<SearedEffect>()];
 
 		public override SynergyEffects Effects => new(
@@ -77,7 +77,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 6; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<HeatDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * AOScrollSize), Alpha: (255 * .75f).Round(), Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<HeatDust>(), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (30f * intensity * ScrollSize), Alpha: (255 * .75f).Round(), Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

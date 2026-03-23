@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Consumable;
 
-public class PoseidonSpirit : AOBaseItem
+public class PoseidonSpirit : BaseItem
 {
 	public int AOValue = 10000;
 	public override AORarities AORarity => AORarities.Mythical;

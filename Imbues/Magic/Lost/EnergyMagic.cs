@@ -17,10 +17,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.Yellow;
 		public override Color ImbueColour2 => Color.LightYellow;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
-		public override float AOScrollSpeed => 1.275f;
-		public override float AOScrollSize => 1.15f;
-		public override float AOScrollDamage => .75f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
+		public override float ScrollSpeed => 1.275f;
+		public override float ScrollSize => 1.15f;
+		public override float ScrollDamage => .75f;
 
 		
 
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.Firework_Yellow, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2.3f * intensity);
+				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.Firework_Yellow, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2.3f * intensity);
 				dust.noGravity = true;
 			}
 		}

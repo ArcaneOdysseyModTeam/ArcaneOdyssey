@@ -17,7 +17,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.NPCs.Town
 {
 	[AutoloadHead]
-	public class Edgelord : AOBaseNPC
+	public class Edgelord : BaseNPC
 	{
 		public override void SetDefaults()
 		{

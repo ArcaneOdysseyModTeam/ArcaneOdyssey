@@ -18,12 +18,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.Purple;
-		public override float AOImbueSpeed => 0.925f;
-		public override float AOImbueSize => 1f;
-		public override float AOImbueDamage => 1f;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1.05f;
-		public override float AOScrollDamage => 0.875f;
+		public override float ImbueSpeed => 0.925f;
+		public override float ImbueSize => 1f;
+		public override float ImbueDamage => 1f;
+		public override float ScrollSpeed => 1f;
+		public override float ScrollSize => 1.05f;
+		public override float ScrollDamage => 0.875f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Corroding>(60 * 10)];
 		public override SynergyEffects Effects => new(
@@ -74,8 +74,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.Venom, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity);
-				Dust.NewDust(position, 0, 0, DustID.UnholyWater, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.Venom, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: intensity);
+				Dust.NewDust(position, 0, 0, DustID.UnholyWater, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity);
 			}
 		}
 

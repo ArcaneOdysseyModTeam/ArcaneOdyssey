@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Materials
 {
 	[LegacyName("ArcaniumScrap")]
-	public class SunkenScrap : AOBaseItem
+	public class SunkenScrap : BaseItem
 	{
 		public int AOValue = 400;
 		public override AORarities AORarity => AORarities.Rare;

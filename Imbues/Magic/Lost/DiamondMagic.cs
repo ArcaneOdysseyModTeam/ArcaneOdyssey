@@ -12,13 +12,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override float Aura => 1.5f;
 		public override float? DashResist => 1.6f;
-		public override float AOScrollSpeed => .65f;
-		public override float AOScrollSize => 1.2f;
-		public override float AOScrollDamage => 1.1f;
+		public override float ScrollSpeed => .65f;
+		public override float ScrollSize => 1.2f;
+		public override float ScrollDamage => 1.1f;
 		public override Color ImbueColour => new(0, 210, 217);
 		public override Color ImbueColour2 => new(158, 252, 255);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
 		public override SynergyEffects Effects => new(
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.GemSapphire, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.GemSapphire, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity);
 			}
 		}
 

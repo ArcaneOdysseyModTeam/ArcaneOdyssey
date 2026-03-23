@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Helpers
 {
-	public class AncientLightingChain : AODebuff
+	public class AncientLightingChain : MagicMark
 	{
 		public const float ChainDistance = 200f;
 		public override void Update(NPC npc, ref int buffIndex)

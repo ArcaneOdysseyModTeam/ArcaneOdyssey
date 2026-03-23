@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {
-	public abstract class AOWeapon : AOBaseItem, IImbuable
+	public abstract class Weapon : BaseItem, IImbuable
 	{
 		public void ActivateAbility(Player player, bool passive)
 		{

@@ -7,7 +7,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class RisingTideProjectile : AOPlayerProjectile
+	public class RisingTideProjectile : PlayerProjectile
 	{
 		public override void SetStaticDefaults()
 		{

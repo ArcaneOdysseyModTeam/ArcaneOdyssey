@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Armour.Sunken
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class SunkenChest : AOArmour
+	public class SunkenChest : Base.Armour
 	{
 		public override AOItemTiers ArmourTier => AOItemTiers.Good;
 		public override int AODefense => 194;

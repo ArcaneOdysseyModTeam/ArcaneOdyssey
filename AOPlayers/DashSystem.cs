@@ -292,22 +292,22 @@ namespace ArcaneOdyssey.AOPlayers
 					{
 						if (CurrentDash.UseScrollImbueStats.Value)
 						{
-							DashVelocity *= CurrentDash.Imbue.AOScrollSpeed;
-							dashmaxmult *= CurrentDash.Imbue.AOScrollSpeed;
+							DashVelocity *= CurrentDash.Imbue.ScrollSpeed;
+							dashmaxmult *= CurrentDash.Imbue.ScrollSpeed;
 							if (CurrentDash.SecondImbue is not null)
 							{
-								DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed;
-								dashmaxmult *= CurrentDash.SecondImbue.AOScrollSpeed;
+								DashVelocity *= CurrentDash.SecondImbue.ScrollSpeed;
+								dashmaxmult *= CurrentDash.SecondImbue.ScrollSpeed;
 							}
 						}
 						else
 						{
-							DashVelocity *= CurrentDash.Imbue.AOImbueSpeed;
-							dashmaxmult *= CurrentDash.Imbue.AOImbueSpeed;
+							DashVelocity *= CurrentDash.Imbue.ImbueSpeed;
+							dashmaxmult *= CurrentDash.Imbue.ImbueSpeed;
 							if (CurrentDash.SecondImbue is not null)
 							{
-								DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed;
-								dashmaxmult *= CurrentDash.SecondImbue.AOImbueSpeed;
+								DashVelocity *= CurrentDash.SecondImbue.ImbueSpeed;
+								dashmaxmult *= CurrentDash.SecondImbue.ImbueSpeed;
 							}
 						}
 					}
@@ -556,15 +556,15 @@ namespace ArcaneOdyssey.AOPlayers
 				{
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
-						knockback += Imbue.AOScrollSize.MultiToPercent();
+						knockback += Imbue.ScrollSize.MultiToPercent();
 					}
 					else
 					{
-						knockback += Imbue.AOImbueSize.MultiToPercent();
+						knockback += Imbue.ImbueSize.MultiToPercent();
 					}
 
 					if (CurrentDash.SecondImbue is not null)
-						knockback += CurrentDash.SecondImbue.AOImbueSize.MultiToPercent();
+						knockback += CurrentDash.SecondImbue.ImbueSize.MultiToPercent();
 				}
 			}
 			return knockback.ApplyTo(CurrentDash.Knockback);

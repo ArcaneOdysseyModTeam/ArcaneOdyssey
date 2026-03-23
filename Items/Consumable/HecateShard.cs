@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Consumable
 {
-	public class HecateShard : AOBaseItem
+	public class HecateShard : BaseItem
 	{
 		public int AOValue = 20000;
 		public override AORarities AORarity => AORarities.Legendary;
@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Items.Consumable
 					return false;
 
 				foreach (var i in player.inventory) 
-					if (i.ModItem is AOMagic magic && magic.ImbuableTier == AOImbuableTier.Normal) 
+					if (i.ModItem is AOMagic magic && magic.ImbuableTier == ImbuableTiers.Normal) 
 						return true;
 				return false;
 			}

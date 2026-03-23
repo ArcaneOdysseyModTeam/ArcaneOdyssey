@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs
 {
-	public class Enchanted : AOBaseBuff
+	public class Enchanted : BaseBuff
 	{
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.MagicPower}";
 

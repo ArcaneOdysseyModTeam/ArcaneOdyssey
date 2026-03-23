@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override float DashSpeed => 120;
 		public override int DashMax => 2;
 		public override bool LocksPlayer => true;
-		public override int Cooldown => (60 * 3 * imbuesource.AOScrollSpeed.FlipFloat()).Round();
+		public override int Cooldown => (60 * 3 * imbuesource.ScrollSpeed.FlipFloat()).Round();
 
 		public override bool OnHit(Player player, Entity target) => true;
 

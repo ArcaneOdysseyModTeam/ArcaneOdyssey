@@ -4,7 +4,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Projectiles
 {
-	public class LeapFix : AOBaseProjectile
+	public class LeapFix : BaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
 		public override void AI()

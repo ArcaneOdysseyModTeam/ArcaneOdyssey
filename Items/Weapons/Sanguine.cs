@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons
 {
-	public class Sanguine : AOWeapon
+	public class Sanguine : Weapon
 	{
 		public override int AOValue => 125;
 

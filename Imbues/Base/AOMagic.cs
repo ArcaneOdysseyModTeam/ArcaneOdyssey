@@ -30,12 +30,12 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.mana = (10 * AOScrollSpeed.FlipFloat()).Round();
+			Item.mana = (10 * ScrollSpeed.FlipFloat()).Round();
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = GetSkill("Blast");
 			Item.autoReuse = true;
 			Item.damage = 10 + (100 * (int)ImbuableTier);
-			Item.shootSpeed = 7f * AOScrollSpeed;
+			Item.shootSpeed = 7f * ScrollSpeed;
 		}
 
 		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)

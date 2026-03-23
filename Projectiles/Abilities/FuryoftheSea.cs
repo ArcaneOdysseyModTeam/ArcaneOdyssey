@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class FuryoftheSea : AOPlayerProjectile
+	public class FuryoftheSea : PlayerProjectile
 	{
 		public override float AOSpeed => .9f;
 		public override float AOSize => 1.25f;

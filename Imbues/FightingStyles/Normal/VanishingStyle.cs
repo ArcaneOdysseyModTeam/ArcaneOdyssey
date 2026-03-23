@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override Color DisplayColor => Color.White;
 		public override float MinImbueSpeed => !HasYou ? 1.1f : 1.5f;
 
-		public override AOImbuableTier ImbuableTier => !HasYou ? base.ImbuableTier : AOImbuableTier.Ancient;
+		public override ImbuableTiers ImbuableTier => !HasYou ? base.ImbuableTier : ImbuableTiers.Ancient;
 
 		public override float BarValueMulti => 1.111f;
 		public override float MinImbueDamage => !HasYou ? .85f : 1f;
@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * intensity * AOScrollSize), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (25f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * intensity * ScrollSize), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

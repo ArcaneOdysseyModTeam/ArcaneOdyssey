@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class Corroding : AODebuff
+	public class Corroding : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.Venom];
 

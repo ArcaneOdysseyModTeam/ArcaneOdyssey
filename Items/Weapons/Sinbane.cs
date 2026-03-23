@@ -9,7 +9,7 @@ using ArcaneOdyssey.Projectiles.Abilities;
 
 namespace ArcaneOdyssey.Items.Weapons
 {
-	public class Sinbane : AOWeapon
+	public class Sinbane : Weapon
 	{
 		public override int AOValue => 400;
 		public override AORarities AORarity => AORarities.Uncommon;

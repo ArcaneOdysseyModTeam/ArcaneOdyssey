@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
-	public class AetherExplosion : AOPlayerProjectile
+	public class AetherExplosion : PlayerProjectile
 	{
 		private static int _count = 0;
 

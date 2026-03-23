@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs.Minibosses
 {
-	public abstract class AOMiniboss : AOBaseNPC
+	public abstract class Miniboss : BaseNPC
 	{
 		public abstract int AOHealth { get; }
 
@@ -76,7 +76,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		{
 			foreach (var npc in Main.ActiveNPCs)
 			{
-				if (npc.boss || npc.ModNPC is AOMiniboss)
+				if (npc.boss || npc.ModNPC is Miniboss)
 				{
 					return true;
 				}

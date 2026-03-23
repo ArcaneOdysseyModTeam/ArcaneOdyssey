@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
-	public class ProminenceProjectile : AOPlayerProjectile
+	public class ProminenceProjectile : PlayerProjectile
 	{
 		public override Debuff? ProjectileDebuff => Debuff.Create<Melting>(120);
 

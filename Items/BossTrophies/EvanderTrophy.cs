@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.BossTrophies
 {
-	public class EvanderTrophy : AOBaseItem
+	public class EvanderTrophy : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Common;
 

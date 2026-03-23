@@ -25,11 +25,11 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 				player.GetModPlayer<HoverPlayer>().hasHoverEquipped = true;
 				if (player.carpetTime > 0 && player.controlJump)
 				{
-					player.moveSpeed += Imbue.AOScrollSpeed.MultiToPercent();
+					player.moveSpeed += Imbue.ScrollSpeed.MultiToPercent();
 					Imbue.LingeringEffects(player.Hitbox);
 				}
 				else
-					player.carpetTime = (player.carpetTime * Imbue.AOScrollDamage).Round();
+					player.carpetTime = (player.carpetTime * Imbue.ScrollDamage).Round();
 			}
 		}
 

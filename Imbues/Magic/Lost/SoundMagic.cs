@@ -16,11 +16,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.Roar;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 
-		public override float AOScrollSpeed => 1.4f;
-		public override float AOScrollSize => 1.25f;
-		public override float AOScrollDamage => .9f;
+		public override float ScrollSpeed => 1.4f;
+		public override float ScrollSize => 1.25f;
+		public override float ScrollDamage => .9f;
 		public override float KBMulti => 1.5f;
 
 		public override SynergyEffects Effects => new(
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				{
 					for (float i = 0; i < DustCount; i++)
 					{
-						var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (300f * AOScrollSize * intensity);
+						var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (300f * ScrollSize * intensity);
 						var dust = Dust.NewDustPerfect(position, DustID.MushroomTorch, centre / e, Scale: 2f * intensity);
 						dust.noGravity = true;
 					}

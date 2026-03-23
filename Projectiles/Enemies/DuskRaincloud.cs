@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class DuskRaincloud : AOBaseProjectile
+	public class DuskRaincloud : BaseProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<SpiritRaincloud>();
 
@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
-			var fakebox = new Rectangle(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700).Scaled(Imbue.AOScrollSize, 1, 2);
+			var fakebox = new Rectangle(Projectile.Hitbox.Center.X - 190, Projectile.Hitbox.Center.Y, 190 * 2, 700).Scaled(Imbue.ScrollSize, 1, 2);
 			return targetHitbox.Intersects(fakebox);
 		}
 

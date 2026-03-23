@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 {
-	public class LanceofLoyalty : AOWeapon
+	public class LanceofLoyalty : Weapon
 	{
 		public override int AOValue => 200;
 		public override WeaponType WeaponsType => WeaponType.Strength;

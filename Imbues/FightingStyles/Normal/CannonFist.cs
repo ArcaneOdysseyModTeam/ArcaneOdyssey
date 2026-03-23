@@ -17,18 +17,18 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
-		public override float AOImbueDamage => 1.085f;
-		public override float AOImbueSpeed => 1f;
-		public override float AOImbueSize => 1.056f;
-		public override float AOScrollDamage => 0.7f;
-		public override float AOScrollSize => 1f;
-		public override float AOScrollSpeed => 1f;
+		public override float ImbueDamage => 1.085f;
+		public override float ImbueSpeed => 1f;
+		public override float ImbueSize => 1.056f;
+		public override float ScrollDamage => 0.7f;
+		public override float ScrollSize => 1f;
+		public override float ScrollSpeed => 1f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.shoot = ProjectileID.CannonballFriendly;
-			Item.shootSpeed = 8f * AOScrollSpeed;
+			Item.shootSpeed = 8f * ScrollSpeed;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.knockBack = 2f;
@@ -71,11 +71,11 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
-				Dust spawnedDust3 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 4f * intensity)];
+				Dust spawnedDust3 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 4f * intensity)];
 				spawnedDust3.noGravity = true;
 			}
 		}

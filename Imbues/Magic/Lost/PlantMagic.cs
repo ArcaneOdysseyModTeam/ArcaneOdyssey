@@ -11,15 +11,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class PlantMagic : AOMagic
 	{
 		public override float Aura => .8f;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override Color ImbueColour => Color.ForestGreen;
 		public override Color ImbueColour2 => Color.PaleGreen;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOPoisoned>(60 * 10),];
 		public override SoundStyle? ImbueSound => SoundID.Grass;
-		public override float AOImbueSpeed => 1.05f;
-		public override float AOImbueSize => 1.2f;
-		public override float AOImbueDamage => .95f;
+		public override float ImbueSpeed => 1.05f;
+		public override float ImbueSize => 1.2f;
+		public override float ImbueDamage => .95f;
 		public override SynergyEffects Effects => new([],
 			[
 				Synergy.Create<Scorched>(1.15f),
@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pearlwood, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2.5f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pearlwood, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2.5f * intensity)];
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.GrassBlades, 8f * intensity * (Main.rand.NextFloat() - 0.5f), 8f * intensity * (Main.rand.NextFloat() - 0.5f), Scale: 1.5f * intensity)];
 				spawnedDust2.noGravity = true;

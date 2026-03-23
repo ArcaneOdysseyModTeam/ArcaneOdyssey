@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class CloudMagic : AOMagic
 	{
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override float? DashResist => 1.1f;
 		public override float KBMulti => 1.25f;
@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.LightGray;
 		public override Color ImbueColour2 => Color.DarkGray;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override float AOImbueSpeed => .9f;
-		public override float AOImbueSize => 1.3f;
-		public override float AOImbueDamage => .8f;
+		public override float ImbueSpeed => .9f;
+		public override float ImbueSize => 1.3f;
+		public override float ImbueDamage => .8f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(5 * 60)];
 
 		public override SynergyEffects Effects => new(
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 6f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 6f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

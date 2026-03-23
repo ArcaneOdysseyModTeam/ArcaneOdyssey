@@ -9,7 +9,7 @@ using ArcaneOdyssey.Items.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class BronzeRapierProjectile : AOPlayerProjectile
+	public class BronzeRapierProjectile : PlayerProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<BronzeRapier>();
 		public override float AOSpeed => 1.05f;

@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			Item.ArcaneOdyssey()?.owner?.ArcaneOdyssey()?.SetCooldown(new Cooldown(Name, DisplayName, 60));
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: LerpValue * 3f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: LerpValue * 3f * intensity);
 			}
 		}
 

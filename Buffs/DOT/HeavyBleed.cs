@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class HeavyBleed : AODebuff
+	public class HeavyBleed : MagicMark
 	{
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Bleeding}";
 		private int totalTicks = 0;

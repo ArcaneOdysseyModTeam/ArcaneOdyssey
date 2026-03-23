@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Accessories
 {
 	[AutoloadEquip(EquipType.Back)]
-	public class EvanderCape : AOArmour
+	public class EvanderCape : Base.Armour
 	{
 		public override AORarities AORarity => AORarities.Uncommon;
 		public override AOItemTiers ArmourTier => AOItemTiers.Good;

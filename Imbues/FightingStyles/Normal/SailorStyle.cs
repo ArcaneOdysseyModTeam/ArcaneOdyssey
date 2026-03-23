@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * AOScrollSize * intensity), Scale: LerpValue * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (35f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * ScrollSize * intensity), Scale: LerpValue * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

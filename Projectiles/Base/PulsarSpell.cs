@@ -38,11 +38,11 @@ namespace ArcaneOdyssey.Projectiles.Base
 			var frequency = Projectile.ai[1] == 0 ? 1f : 2f;
 			if (Imbue is not null)
 			{
-				Projectile.localAI[0] += Imbue.AOScrollSpeed * frequency;
+				Projectile.localAI[0] += Imbue.ScrollSpeed * frequency;
 			}
 			if (SecondImbue is not null)
 			{
-				Projectile.localAI[0] += MathHelper.Clamp(SecondImbue.AOScrollSpeed.MultiToPercent() * frequency, 0, 3);
+				Projectile.localAI[0] += MathHelper.Clamp(SecondImbue.ScrollSpeed.MultiToPercent() * frequency, 0, 3);
 			}
 			if (Projectile.localAI[0] >= 30)
 			{

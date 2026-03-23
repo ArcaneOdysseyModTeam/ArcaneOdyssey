@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Pets
 {
-	public class ElfPetBuff : AOBaseBuff
+	public class ElfPetBuff : BaseBuff
 	{
 		public override void SetStaticDefaults()
 		{

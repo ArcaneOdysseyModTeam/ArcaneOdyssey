@@ -15,9 +15,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override int AOValue => 700;
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Purple;
-		public override float RelicDamage => .9f;
-		public override float RelicSize => 1.1f;
-		public override float RelicSpeed => 1.1f;
+		public override float ImbueDamage => .9f;
+		public override float ImbueSize => 1.1f;
+		public override float ImbueSpeed => 1.1f;
 
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<ShadowMagic>();
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.shoot = ModContent.ProjectileType<Nichtetheis>();
 			Item.noUseGraphic = false;
 			Item.damage = 30;
-			Item.shootSpeed = 7f * AOScrollSpeed;
+			Item.shootSpeed = 7f * ImbueSpeed;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -44,5 +44,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			ActivateAbility(player, true);
 			return true;
 		}
+
+		public override bool CanShoot(Player player) => !player.AltUse();
 	}
 }

@@ -10,7 +10,7 @@ using ArcaneOdyssey.Projectiles.Weapons;
 
 namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 {
-	public class NobleThunderspear : AOWeapon
+	public class NobleThunderspear : Weapon
 	{
 		public override int AOValue => 135;
 

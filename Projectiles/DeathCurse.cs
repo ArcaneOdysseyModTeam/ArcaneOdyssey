@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles
 {
-	public class DeathCurse : AOBaseProjectile
+	public class DeathCurse : BaseProjectile
 	{
 		public override void SetStaticDefaults()
 		{

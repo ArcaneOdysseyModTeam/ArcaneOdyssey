@@ -44,7 +44,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					if (tile.IsTileReallySolidGround() || (!Imbue.CanBeWet && tile.LiquidAmount > 0))
 					{
 						if (Main.rand.NextBool(25))
+						{
 							Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+							SecondImbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+						}
 						break;
 					}
 				}

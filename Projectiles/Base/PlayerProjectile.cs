@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 	/// <summary>
 	/// Projectile created by the player, usually via weapon
 	/// </summary>
-	public abstract class AOPlayerProjectile : AOBaseProjectile, IImbuable
+	public abstract class PlayerProjectile : BaseProjectile, IImbuable
 	{
 		public virtual bool CanHaveImbueVFX => true;
 

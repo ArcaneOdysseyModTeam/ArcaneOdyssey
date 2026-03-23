@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class EvanderSlash : AOBaseProjectile
+	public class EvanderSlash : BaseProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<ColossalCleave>();
 

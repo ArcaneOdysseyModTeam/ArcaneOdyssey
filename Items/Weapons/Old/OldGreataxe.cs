@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.Old
 {
-	public class OldGreataxe : AOWeapon
+	public class OldGreataxe : Weapon
 	{
 		public override int AOValue => 50;
 		public override float AOSize => 1.05f;

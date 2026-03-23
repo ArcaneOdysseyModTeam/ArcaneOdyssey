@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {
-	public abstract class BaseGelPotion : AOBaseItem
+	public abstract class BaseGelPotion : BaseItem
 	{
 		public abstract int GelID { get; }
 

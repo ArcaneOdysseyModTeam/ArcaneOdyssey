@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class DrainedEffect : AODebuff
+	public class DrainedEffect : MagicMark
 	{
 		public override void SetStaticDefaults()
 		{

@@ -54,6 +54,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				origin ??= Projectile.Center;
 				Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}
 			else
 			{

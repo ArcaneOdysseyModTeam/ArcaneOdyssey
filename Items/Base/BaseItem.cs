@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {
-	public abstract class AOBaseItem : ModItem, ILocalizedModType
+	public abstract class BaseItem : ModItem, ILocalizedModType
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 

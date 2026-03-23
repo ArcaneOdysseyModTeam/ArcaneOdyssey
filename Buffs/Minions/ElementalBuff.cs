@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Minions
 {
-	public class ElementalBuff : AOBaseBuff
+	public class ElementalBuff : BaseBuff
 	{
 		public override void SetStaticDefaults()
 		{

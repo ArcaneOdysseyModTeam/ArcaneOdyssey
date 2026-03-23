@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class SpiritEnergy : Imbuable
 	{
-		public override AOImbuableTier ImbuableTier
+		public override ImbuableTiers ImbuableTier
 		{
 			get
 			{
@@ -22,21 +22,21 @@ namespace ArcaneOdyssey.Imbues.Relics
 					{
 						if (Stability.Value)
 						{
-							return AOImbuableTier.Ancient; // deific
+							return ImbuableTiers.Ancient; // deific
 						}
 						else
 						{
-							return AOImbuableTier.Developer; // unstable
+							return ImbuableTiers.Developer; // unstable
 						}
 					}
 					else
 					{
-						return AOImbuableTier.Lost; // inhabited
+						return ImbuableTiers.Lost; // inhabited
 					}
 				}
 				else
 				{
-					return AOImbuableTier.Normal; // normal
+					return ImbuableTiers.Normal; // normal
 				}
 			}
 		}
@@ -165,11 +165,11 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override SoundStyle? ImbueSound => SoundID.NPCDeath6;
 
-		public override float AOImbueSpeed => RelicSpeed;
-		public override float AOImbueDamage => RelicDamage;
-		public override float AOImbueSize => RelicSize;
+		public override float ImbueSpeed => 1f;
+		public override float ImbueDamage => 1f;
+		public override float ImbueSize => 1f;
 
-		public override float AOScrollSpeed
+		public override float ScrollSpeed
 		{
 			get
 			{
@@ -184,11 +184,11 @@ namespace ArcaneOdyssey.Imbues.Relics
 						return UnstableSpeed;
 					}
 				}
-				return RelicSpeed;
+				return ImbueSpeed;
 			}
 		}
 
-		public override float AOScrollDamage
+		public override float ScrollDamage
 		{
 			get
 			{
@@ -203,11 +203,11 @@ namespace ArcaneOdyssey.Imbues.Relics
 						return UnstableDamage;
 					}
 				}
-				return RelicDamage;
+				return ImbueDamage;
 			}
 		}
 
-		public override float AOScrollSize
+		public override float ScrollSize
 		{
 			get
 			{
@@ -222,7 +222,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 						return UnstableSize;
 					}
 				}
-				return RelicSize;
+				return ImbueSize;
 			}
 		}
 
@@ -244,10 +244,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 				return RelicDrawback;
 			}
 		}
-
-		public virtual float RelicSpeed => 1f;
-		public virtual float RelicDamage => 1f;
-		public virtual float RelicSize => 1f;
+		
 		public virtual int RelicDrawback => 0;
 
 		public virtual float SynergySpeed => 1f;
@@ -320,12 +317,12 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: intensity, Alpha: 255 / 4, newColor: SpiritColor)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: intensity, Alpha: 255 / 4, newColor: SpiritColor)];
 				spawnedDust.noGravity = true;
 			}
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustType, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Alpha: 255 / 4, newColor: ImbueColour, Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustType, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Alpha: 255 / 4, newColor: ImbueColour, Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

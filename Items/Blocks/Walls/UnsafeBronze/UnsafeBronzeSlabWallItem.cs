@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Blocks.Walls.UnsafeBronze
 {
-	public class UnsafeBronzeSlabWallItem : AOBaseItem
+	public class UnsafeBronzeSlabWallItem : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Common;
 

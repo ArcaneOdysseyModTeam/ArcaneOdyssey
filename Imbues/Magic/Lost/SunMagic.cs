@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class SunMagic : AOMagic
 	{
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
@@ -20,9 +20,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour2 => new(227, 73, 52);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 		public override bool CanBeWet => false;
-		public override float AOScrollSpeed => 1f;
-		public override float AOScrollSize => 1.3f;
-		public override float AOScrollDamage => 1.2f;
+		public override float ScrollSpeed => 1f;
+		public override float ScrollSize => 1.3f;
+		public override float ScrollDamage => 1.2f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<ProminenceDebuff>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
@@ -80,9 +80,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Flare, (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (30f * AOScrollSize * intensity), Scale: 8f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Flare, (Main.rand.NextFloat() - 0.5f) * (30f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (30f * ScrollSize * intensity), Scale: 8f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pixie, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

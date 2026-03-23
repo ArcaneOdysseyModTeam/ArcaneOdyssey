@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Blocks.Tiles.Bronze
 {
-	public class BronzeBrick : AOBaseItem
+	public class BronzeBrick : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Common;
 

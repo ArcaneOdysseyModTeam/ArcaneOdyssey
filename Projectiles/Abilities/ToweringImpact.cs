@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
-	public class ToweringImpact : AOPlayerProjectile
+	public class ToweringImpact : PlayerProjectile
 	{
 		public override string Texture => AOUtils.SlashTexture;
 

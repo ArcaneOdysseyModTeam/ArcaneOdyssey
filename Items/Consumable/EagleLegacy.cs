@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Consumable
 {
 	[LegacyName("HecateOrb", "PoseidonChoice")]
-	public class EagleLegacy : AOBaseItem
+	public class EagleLegacy : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Mythical;
 

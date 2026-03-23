@@ -40,13 +40,13 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 			player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox);
 		}
 
-		public override float GetDurationMultiplier(Player player) => player.Imbue().AOScrollSize * 2;
+		public override float GetDurationMultiplier(Player player) => player.Imbue().ScrollSize * 2;
 
 		public override void UpdateHorizontalSpeeds(Player player)
 		{
-			player.runAcceleration *= (player.Imbue().AOScrollSpeed + 1) * 2;
-			player.maxRunSpeed *= player.Imbue().AOScrollSpeed + 1;
-			player.jumpSpeedBoost *= player.Imbue().AOScrollSpeed;
+			player.runAcceleration *= (player.Imbue().ScrollSpeed + 1) * 2;
+			player.maxRunSpeed *= player.Imbue().ScrollSpeed + 1;
+			player.jumpSpeedBoost *= player.Imbue().ScrollSpeed;
 			base.UpdateHorizontalSpeeds(player);
 		}
 

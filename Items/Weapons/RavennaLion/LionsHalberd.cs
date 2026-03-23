@@ -11,7 +11,7 @@ using ArcaneOdyssey.Projectiles.Abilities;
 
 namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 {
-	public class LionsHalberd : AOWeapon
+	public class LionsHalberd : Weapon
 	{
 		public override float AOSpeed => .5f;
 		public override float AOSize => 1.35f;
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 		}
 	}
 
-	public class SeismicSlash(AOWeapon hal) : DashSystem(hal.Item)
+	public class SeismicSlash(Weapon hal) : DashSystem(hal.Item)
 	{
 		public override bool FallThrough => false;
 		public override bool LocksPlayer => true;
@@ -109,7 +109,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 			}
 			if (player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.AOImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
+				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.ImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
 			}
 			hal.ActivateAbility(player, false);
 		}

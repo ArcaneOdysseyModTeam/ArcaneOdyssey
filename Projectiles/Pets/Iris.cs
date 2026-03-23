@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Pets
 {
-	public class Iris : AOPlayerProjectile
+	public class Iris : PlayerProjectile
 	{
 		public override void SetStaticDefaults()
 		{

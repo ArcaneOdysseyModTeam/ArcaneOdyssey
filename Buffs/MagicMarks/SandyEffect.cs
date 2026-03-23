@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
-	public class SandyEffect : AODebuff
+	public class SandyEffect : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.WindPushed];
 

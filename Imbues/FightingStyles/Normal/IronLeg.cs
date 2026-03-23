@@ -33,12 +33,12 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
 
-		public override float AOImbueDamage => 1.125f;
-		public override float AOImbueSpeed => 0.75f;
-		public override float AOImbueSize => 1.1f;
-		public override float AOScrollDamage => .95f;
-		public override float AOScrollSize => 1.1f;
-		public override float AOScrollSpeed => 0.75f;
+		public override float ImbueDamage => 1.125f;
+		public override float ImbueSpeed => 0.75f;
+		public override float ImbueSize => 1.1f;
+		public override float ScrollDamage => .95f;
+		public override float ScrollSize => 1.1f;
+		public override float ScrollSpeed => 0.75f;
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
 		public override SynergyEffects Effects => new(
@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 2f * intensity);
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

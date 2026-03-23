@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Equipment.Pets
 {
-	public class ElfPetItem : AOBaseItem
+	public class ElfPetItem : BaseItem
 	{
 		public override AORarities AORarity => AORarities.Special;
 

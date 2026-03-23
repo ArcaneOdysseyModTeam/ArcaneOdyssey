@@ -413,20 +413,20 @@ namespace ArcaneOdyssey
 					{
 						if (updatedamage)
 						{
-							damage *= imbue.AOScrollDamage;
+							damage *= imbue.ScrollDamage;
 						}
-						range *= imbue.AOScrollSize;
-						knockback *= imbue.AOScrollSize;
+						range *= imbue.ScrollSize;
+						knockback *= imbue.ScrollSize;
 						if (source is Projectile projectile)
 						{
 							if (projectile.SecondImbue() is not null)
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.SecondImbue().AOImbueDamage;
+									damage *= projectile.SecondImbue().ImbueDamage;
 								}
-								range *= projectile.SecondImbue().AOImbueSize;
-								knockback *= projectile.SecondImbue().AOImbueSize;
+								range *= projectile.SecondImbue().ImbueSize;
+								knockback *= projectile.SecondImbue().ImbueSize;
 							}
 						}
 					}
@@ -434,20 +434,20 @@ namespace ArcaneOdyssey
 					{
 						if (updatedamage)
 						{
-							damage *= imbue.AOImbueDamage;
+							damage *= imbue.ImbueDamage;
 						}
-						range *= imbue.AOImbueSize;
-						knockback *= imbue.AOImbueSize;
+						range *= imbue.ImbueSize;
+						knockback *= imbue.ImbueSize;
 						if (source is Projectile projectile)
 						{
 							if (projectile.SecondImbue() is not null)
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.SecondImbue().AOImbueDamage;
+									damage *= projectile.SecondImbue().ImbueDamage;
 								}
-								range *= projectile.SecondImbue().AOImbueSize;
-								knockback *= projectile.SecondImbue().AOImbueSize;
+								range *= projectile.SecondImbue().ImbueSize;
+								knockback *= projectile.SecondImbue().ImbueSize;
 							}
 						}
 					}
@@ -625,20 +625,20 @@ namespace ArcaneOdyssey
 					{
 						if (updatedamage)
 						{
-							damage *= imbue.AOScrollDamage;
+							damage *= imbue.ScrollDamage;
 						}
-						mult *= imbue.AOScrollSize;
-						knockback *= imbue.AOScrollSize;
+						mult *= imbue.ScrollSize;
+						knockback *= imbue.ScrollSize;
 						if (source is Projectile projectile)
 						{
 							if (projectile.ArcaneOdyssey().SecondImbue is not null)
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+									damage *= projectile.ArcaneOdyssey().SecondImbue.ImbueDamage;
 								}
-								mult *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
-								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+								mult *= projectile.ArcaneOdyssey().SecondImbue.ImbueSize;
+								knockback *= projectile.ArcaneOdyssey().SecondImbue.ImbueSize;
 							}
 						}
 					}
@@ -646,20 +646,20 @@ namespace ArcaneOdyssey
 					{
 						if (updatedamage)
 						{
-							damage *= imbue.AOImbueDamage;
+							damage *= imbue.ImbueDamage;
 						}
-						mult *= imbue.AOImbueSize;
-						knockback *= imbue.AOImbueSize;
+						mult *= imbue.ImbueSize;
+						knockback *= imbue.ImbueSize;
 						if (source is Projectile projectile)
 						{
 							if (projectile.ArcaneOdyssey().SecondImbue is not null)
 							{
 								if (updatedamage)
 								{
-									damage *= projectile.ArcaneOdyssey().SecondImbue.AOImbueDamage;
+									damage *= projectile.ArcaneOdyssey().SecondImbue.ImbueDamage;
 								}
-								mult *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
-								knockback *= projectile.ArcaneOdyssey().SecondImbue.AOImbueSize;
+								mult *= projectile.ArcaneOdyssey().SecondImbue.ImbueSize;
+								knockback *= projectile.ArcaneOdyssey().SecondImbue.ImbueSize;
 							}
 						}
 					}
@@ -765,7 +765,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile is not null && projectile.active)
 			{
-				if ((projectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
+				if ((projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
 				{
 					return (
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
@@ -783,7 +783,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item is not null && item.active && (!item.accessory || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or AOBaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
+			if (item is not null && item.active && (!item.accessory || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
 				if (item.ArcaneOdyssey().WeaponsType != WeaponType.Artisinal)
 				{
@@ -1042,18 +1042,18 @@ namespace ArcaneOdyssey
 			{
 				if (usescrollstats)
 				{
-					velocity *= imbue.AOScrollSpeed;
+					velocity *= imbue.ScrollSpeed;
 					if (secondimbue is not null)
 					{
-						velocity *= secondimbue.AOScrollSpeed;
+						velocity *= secondimbue.ScrollSpeed;
 					}
 				}
 				else
 				{
-					velocity *= imbue.AOImbueSpeed;
+					velocity *= imbue.ImbueSpeed;
 					if (secondimbue is not null)
 					{
-						velocity *= secondimbue.AOImbueSpeed;
+						velocity *= secondimbue.ImbueSpeed;
 					}
 				}
 			}
@@ -1270,7 +1270,7 @@ namespace ArcaneOdyssey
 
 		public static ItemType GetItemType(this Item item)
 		{
-			if (item.ModItem is AOBaseItem based && based.ItemCategory.HasValue)
+			if (item.ModItem is BaseItem based && based.ItemCategory.HasValue)
 			{
 				return based.ItemCategory.Value;
 			}
@@ -1587,7 +1587,7 @@ namespace ArcaneOdyssey
 		{
 			if (entity is Projectile projectile)
 			{
-				if (projectile.ModProjectile is AOPlayerProjectile proj)
+				if (projectile.ModProjectile is PlayerProjectile proj)
 				{
 					return proj;
 				}
@@ -1597,7 +1597,7 @@ namespace ArcaneOdyssey
 				return player.ArcaneOdyssey();
 			if (entity is Item item)
 			{
-				if (item.ModItem is AOWeapon weap)
+				if (item.ModItem is Weapon weap)
 					return weap;
 				return item.ArcaneOdyssey();
 			}
@@ -1702,7 +1702,7 @@ namespace ArcaneOdyssey
 		Artisinal
 	}
 
-	public enum AOImbuableTier
+	public enum ImbuableTiers
 	{
 		Normal,
 		Lost,
@@ -1777,7 +1777,7 @@ namespace ArcaneOdyssey
 		public int id = id;
 		public int[] alternatives = alternatives;
 
-		public static ClearBuff Create<T>() where T : AOBaseBuff
+		public static ClearBuff Create<T>() where T : BaseBuff
 		{
 			return new(ModContent.BuffType<T>(), [..ModContent.GetInstance<T>().Counterparts]);
 		}
@@ -1796,12 +1796,12 @@ namespace ArcaneOdyssey
 		public int duration = duration;
 		public int[] alternatives = alternatives;
 
-		public static Combo Create<T>(int result, int duration = 60) where T : AOBaseBuff
+		public static Combo Create<T>(int result, int duration = 60) where T : BaseBuff
 		{
 			return new(ModContent.BuffType<T>(), result, duration, [..ModContent.GetInstance<T>().Counterparts]);
 		}
 
-		public static Combo Create<T, R>(int duration = 60) where T : AOBaseBuff where R : AOBaseBuff
+		public static Combo Create<T, R>(int duration = 60) where T : BaseBuff where R : BaseBuff
 		{
 			return new(ModContent.BuffType<T>(), ModContent.BuffType<R>(), duration, [..ModContent.GetInstance<T>().Counterparts]);
 		}
@@ -1818,7 +1818,7 @@ namespace ArcaneOdyssey
 		public float multiplier = multi;
 		public int[] alternatives = alternatives;
 
-		public static Synergy Create<T>(float multi) where T : AOBaseBuff
+		public static Synergy Create<T>(float multi) where T : BaseBuff
 		{
 			return new(ModContent.BuffType<T>(), multi, [..ModContent.GetInstance<T>().Counterparts]);
 		}

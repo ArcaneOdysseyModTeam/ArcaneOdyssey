@@ -15,11 +15,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour2 => Color.LightGray;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override SoundStyle? ImbueSound => SoundID.Grass;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 
-		public override float AOImbueDamage => .7f;
-		public override float AOImbueSize => 1.15f;
-		public override float AOImbueSpeed => .85f;
+		public override float ImbueDamage => .7f;
+		public override float ImbueSize => 1.15f;
+		public override float ImbueSpeed => .85f;
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Tangled>(60 * 5)];
 
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Web, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Web, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

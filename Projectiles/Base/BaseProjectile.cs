@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class AOBaseProjectile : ModProjectile, ILocalizedModType
+	public abstract class BaseProjectile : ModProjectile, ILocalizedModType
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 

@@ -13,16 +13,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 	{
 		public override float DashSpeed => 1.4f; // instant
 		public override bool? Cold => false;
-		public override AOImbuableTier ImbuableTier => AOImbuableTier.Ancient;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new(0, 255, 0);
 		public override bool CanBeWet => false;
-		public override float AOImbueSpeed => 1.5f;
-		public override float AOImbueSize => 1.2f;
-		public override float AOImbueDamage => 1.6f;
-		public override float AOScrollSpeed => 1.5f;
-		public override float AOScrollSize => 1.2f;
-		public override float AOScrollDamage => 1.6f;
+		public override float ImbueSpeed => 1.5f;
+		public override float ImbueSize => 1.2f;
+		public override float ImbueDamage => 1.6f;
+		public override float ScrollSpeed => 1.5f;
+		public override float ScrollSize => 1.2f;
+		public override float ScrollDamage => 1.6f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<IonizedEffect>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.CursedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * AOScrollSize * intensity), Scale: 4f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.CursedTorch, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 4f * intensity)];
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

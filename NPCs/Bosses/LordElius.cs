@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
-	public class LordElius : AOBaseNPC
+	public class LordElius : BaseNPC
 	{
 		public override void SetStaticDefaults()
 		{

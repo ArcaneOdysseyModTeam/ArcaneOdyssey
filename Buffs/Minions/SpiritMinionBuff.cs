@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Minions
 {
-	public class SpiritMinionBuff : AOBaseBuff
+	public class SpiritMinionBuff : BaseBuff
 	{
 		public override string Texture => AOUtils.GetTexture<ElementalBuff>();
 		public override void SetStaticDefaults()

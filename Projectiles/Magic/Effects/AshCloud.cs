@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
-	public class AshCloud : AOPlayerProjectile
+	public class AshCloud : PlayerProjectile
 	{
 		public override Debuff? ProjectileDebuff => null;
 
