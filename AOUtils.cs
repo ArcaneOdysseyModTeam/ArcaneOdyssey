@@ -520,8 +520,17 @@ namespace ArcaneOdyssey
 					start += start.DirectionTo(end) * width;
 					if (!colourisntnull)
 						colour = Lighting.GetColor(start.ToTileCoordinates());
-					batch.Draw(sprite, start - Main.screenPosition, source, colour.Value, rotation, size, scale, effects, 0);
-					if (++frame >= maxframes)
+					batch.Draw(sprite, start - Main.screenPosition, source, colour.Value, rotation, size, scale, effects, 0); distance = start.Distance(end);
+
+					if (distance < width)
+					{
+						break;
+					}
+					else if (float.IsNaN(distance))
+					{
+						break;
+					}
+					else if (++frame >= maxframes)
 					{
 						frame = 0;
 					}
