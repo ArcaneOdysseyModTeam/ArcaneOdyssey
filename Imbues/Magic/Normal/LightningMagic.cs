@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			spawnedDust.noGravity = true;
 
 			Lighting.AddLight(area.Center(), 2, 1, 2);
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.3f * area.RelativeScale());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.4f * area.RelativeScale());
 		}
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{

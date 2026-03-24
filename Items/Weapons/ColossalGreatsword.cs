@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override float AOSize => 1.2f;
 		public override float AODamage => 1.15f;
 		public override int AOValue => 250;
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Motif => Color.PaleVioletRed;

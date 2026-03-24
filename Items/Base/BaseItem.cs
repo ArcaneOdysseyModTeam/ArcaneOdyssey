@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Base
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
-		public abstract AORarities AORarity { get; }
+		public abstract Rarities Rarity { get; }
 
 		public virtual ItemType? ItemCategory => null;
 
@@ -18,12 +18,15 @@ namespace ArcaneOdyssey.Items.Base
 
 		public override void SetDefaults()
 		{
-			if (AORarity != AORarities.Special)
-				Item.rare = (int)AORarity;
-			if (AORarity == AORarities.Special)
+			if (Rarity != Rarities.Special)
+				Item.rare = (int)Rarity;
+			if (Rarity == Rarities.Special)
 			{
 				Item.rare = ModContent.RarityType<HotPinkRare>();
 			}
+			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
+
+		public virtual int AOValue => 0;
 	}
 }

@@ -2,15 +2,17 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Items.Armour.RavennaNoble;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdysseyMusic.MusicBoxes;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -74,13 +76,8 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public float MaxPossibleSpeed => Math.Max(MaxRunSpeed, CurrentDash?.DashSpeed ?? MaxRunSpeed);
 
-		public override void FrameEffects()
-		{
-			if (Player.body == EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Body) && Player.back == -1)
-			{
-				Player.back = EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Back);
-			}
-		}
+		public Item thundering = null;
+		public bool hiddenThunder = false;
 
 		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
@@ -127,6 +124,20 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
+		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			UpdateDebuffHelpers(damageDone, target, item.Imbue(), false, true);
+		}
+
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			UpdateDebuffHelpers(damageDone, target, proj.Imbue(), false, true);
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			base.OnHitNPC(target, hit, damageDone);
+		}
 
 		internal IList<string> allChosenImbues = [];
 
@@ -184,6 +195,18 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				Player.AddBuff(BuffID.Electrified, 2);
 			}
+
+			if (thundering is not null && Player.RollLuck(5 * 60) == 0)
+			{
+				var proj = Projectile.NewProjectileDirect(Player.GetSource_Accessory(thundering), new Vector2(Main.screenPosition.X + Main.rand.NextFloat(Main.screenWidth), Main.screenPosition.Y - 16), Vector2.UnitY * 7f, ModContent.ProjectileType<ThunderingEffect>(), Main.rand.Next(20, 50), 0f, Player.whoAmI);
+				var target = proj.Center.ClosestNPCAt(proj.timeLeft * 7f, false, true);
+				if (target is not null)
+				{
+					proj.Center = target.Center with { Y = proj.Center.Y };
+					proj.damage = (int)MathHelper.Clamp(target.lifeMax * 0.005f, proj.damage, 1000f);
+					SoundEngine.PlaySound(ModContent.GetInstance<LightningMagic>()?.ImbueSound, target.Center);
+				}
+			}
 		}
 
 		public void FreezeMovement()
@@ -231,6 +254,8 @@ namespace ArcaneOdyssey.AOPlayers
 			StatSize = 0;
 			StatHaste = 0;
 			Insanity = 0;
+			thundering = null;
+			hiddenThunder = false;
 			Gel = null;
 			List<int> queue = [];
 			foreach (int type in EquippedImbues)

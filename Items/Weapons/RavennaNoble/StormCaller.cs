@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 		public override float AOSpeed => 1.15f;
 		public override int AOValue => 120;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 		public override SoundStyle UseSound => SoundID.Item5;
 		public override Color Motif => Color.MediumPurple;
 

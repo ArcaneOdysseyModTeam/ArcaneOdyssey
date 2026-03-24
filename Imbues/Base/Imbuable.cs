@@ -111,16 +111,16 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		public virtual ImbueArmourStats? ArmourStats => null;
 
-		public override AORarities AORarity
+		public override Rarities Rarity
 		{
 			get
 			{
 				return ImbuableTier switch
 				{
-					ImbuableTiers.Normal => AORarities.Rare,
-					ImbuableTiers.Lost => AORarities.Mystic,
-					ImbuableTiers.Ancient => AORarities.Legendary,
-					_ => AORarities.Special,
+					ImbuableTiers.Normal => Rarities.Rare,
+					ImbuableTiers.Lost => Rarities.Mystic,
+					ImbuableTiers.Ancient => Rarities.Legendary,
+					_ => Rarities.Special,
 				};
 			}
 		}

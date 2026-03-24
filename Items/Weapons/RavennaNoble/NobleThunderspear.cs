@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
 
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 
 		public override float AODamage => 1.05f;
 

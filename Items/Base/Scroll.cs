@@ -140,8 +140,6 @@ namespace ArcaneOdyssey.Items.Base
 		public virtual bool CanHaveRelic => false;
 		public virtual bool CanHaveFS => false;
 
-		public abstract int AOValue { get; }
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -150,7 +148,6 @@ namespace ArcaneOdyssey.Items.Base
 			Item.knockBack = 4.5f;
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
 
 		public override void UpdateInventory(Player player)

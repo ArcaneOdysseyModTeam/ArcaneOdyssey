@@ -873,6 +873,10 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					tooltips.Find(e => e.Name == "Ammo" && e.Mod == "Terraria")?.Hide();
 				}
+				else if (item.GetItemType() == ItemType.Consumable)
+				{
+					tooltips.Find(e => e.Name == "Consumable" && e.Mod == "Terraria")?.Hide();
+				}
 
 				if (item.ModItem is not BaseItem || (item.ModItem is BaseItem based && based.ShowItemTypeTooltip))
 				{

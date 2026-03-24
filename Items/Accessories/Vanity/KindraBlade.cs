@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Accessories.Vanity
 {
 	public class KindraBlade : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Special;
+		public override Rarities Rarity => Rarities.Special;
 
 		public override void Load()
 		{

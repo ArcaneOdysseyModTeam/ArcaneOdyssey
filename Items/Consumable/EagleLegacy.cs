@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Items.Consumable
 	[LegacyName("HecateOrb", "PoseidonChoice")]
 	public class EagleLegacy : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Mythical;
+		public override Rarities Rarity => Rarities.Mythical;
 
 		public override void SetDefaults()
 		{

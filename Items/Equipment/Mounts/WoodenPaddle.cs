@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Equipment.Mounts
 {
 	public class WoodenPaddle : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Common;
+		public override Rarities Rarity => Rarities.Common;
 
 		public override void SetDefaults()
 		{

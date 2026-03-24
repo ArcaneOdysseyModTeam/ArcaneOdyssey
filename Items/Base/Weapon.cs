@@ -80,7 +80,6 @@ namespace ArcaneOdyssey.Items.Base
 		public virtual float AOSpeed => 1f;
 		public virtual float AOSize => 1f;
 		public virtual float AODamage => 1f;
-		public abstract int AOValue { get; }
 		public abstract AOItemTiers AOWeaponTier { get; }
 		public virtual Debuff? WeaponDebuff => Debuff.Create<AOBleed>(5 * 60);
 		public abstract Color Motif { get; }
@@ -107,7 +106,6 @@ namespace ArcaneOdyssey.Items.Base
 			Item.useTime = Item.useAnimation = (27 * (AOSpeed.FlipFloat() * AOSpeed.FlipFloat())).Round();
 			Item.knockBack = 4.5f * (AOSize * AOSize);
 			Item.scale = AOSize * AOSize;
-			Item.value = AOUtils.GalleonToCopper(AOValue);
 			Item.UseSound = UseSound with { Pitch = (AOSpeed * AOSpeed).MultiToPercent().Clamp(-1, 1) };
 			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(AOWeaponTier) * (AODamage * AODamage));
 			Item.DamageType = DamageClass.Melee;

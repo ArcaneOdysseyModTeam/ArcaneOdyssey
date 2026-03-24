@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 		public override float AOSize => 1.25f;
 		public override float AODamage => 1f;
 		public override int AOValue => 1350;
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override Debuff? WeaponDebuff => Debuff.Create<Soaked>();
 		public override Color Motif => Color.Aqua;

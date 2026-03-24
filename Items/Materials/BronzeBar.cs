@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Materials
 			Item.ResearchUnlockCount = 25;
 		}
 
-		public override AORarities AORarity => AORarities.Uncommon;
+		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override void SetDefaults()
 		{
@@ -24,7 +24,6 @@ namespace ArcaneOdyssey.Items.Materials
 			Item.height = 24;
 			Item.createTile = ModContent.TileType<BronzeBarTile>();
 			Item.maxStack = Item.CommonMaxStack;
-			Item.value = Item.sellPrice(silver: 30); // bit less than hellstone
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 			Item.useAnimation = 15;
@@ -32,6 +31,8 @@ namespace ArcaneOdyssey.Items.Materials
 			Item.autoReuse = true;
 			Item.consumable = true;
 		}
+
+		public override int AOValue => 30;
 
 		public override void AddRecipes()
 		{

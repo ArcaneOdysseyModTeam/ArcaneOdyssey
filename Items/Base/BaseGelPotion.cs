@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public abstract Color LiquidColour { get; }
 
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 
 		public override void SetDefaults()
 		{
@@ -27,8 +27,9 @@ namespace ArcaneOdyssey.Items.Base
 			Item.UseSound = SoundID.Item3;
 			Item.buffType = GelID;
 			Item.buffTime = 60 * 60 * 20;
-			Item.value = Item.sellPrice(silver: 7);
 		}
+
+		public override int AOValue => 7;
 
 		public override string Texture => Mod.Name + "/Assets/GelBottle";
 		public Texture2D LiquidSprite => Mod.Assets.Request<Texture2D>("Assets/GelLiquid").Value;

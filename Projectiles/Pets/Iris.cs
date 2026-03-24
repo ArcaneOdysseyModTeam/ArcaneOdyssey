@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Buffs.Pets;
+using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +32,8 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		public override void AI()
 		{
+			if (Owner.HasBuff<IrisBuff>())
+				Projectile.timeLeft = 2;
 			targetPosition = Owner.Center + new Vector2(Owner.direction * 50f, -17f);
 			if (Projectile.Center.Distance(targetPosition) > 5f)
 			{

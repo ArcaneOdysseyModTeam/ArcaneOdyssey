@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.EmptyScrolls
 	{
 		public override string Texture => AOUtils.GetTexture<EmptyScroll>();
 
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 
 		public override void UpdateInventory(Player player)
 		{

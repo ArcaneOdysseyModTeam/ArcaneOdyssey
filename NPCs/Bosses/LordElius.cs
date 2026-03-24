@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
+using ArcaneOdyssey.Items.BossBags;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
@@ -8,6 +9,7 @@ using System;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,6 +43,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.defense = 0;
 			NPC.width = Player.defaultWidth;
 			NPC.height = Player.defaultHeight;
+			NPC.value = Item.buyPrice(gold: 3);
+			NPC.SpawnWithHigherTime(10);
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
@@ -147,16 +151,17 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(
-				AnyDropHelper.Create(
+			LeadingConditionRule leadingConditionRule1 = new(new Conditions.NotExpert());
+			leadingConditionRule1.OnSuccess(AnyDropHelper.Create(
 					ModContent.ItemType<EliusBoots>(),
 					ModContent.ItemType<EliusChest>(),
 					ModContent.ItemType<EliusHelm>(),
 					ModContent.ItemType<NobleThunderspear>(),
 					ModContent.ItemType<ScimitarofStorm>(),
 					ModContent.ItemType<StormCaller>()
-					)
-				);
+					));
+			npcLoot.Add(leadingConditionRule1);
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>()));
 		}
 
 		public override void OnKill()

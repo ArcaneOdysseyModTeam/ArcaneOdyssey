@@ -1,4 +1,5 @@
 ﻿using ArcaneOdysseyMusic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs
@@ -11,7 +12,7 @@ namespace ArcaneOdyssey.NPCs
 
 		public override void SetDefaults()
 		{
-			if (Theme is not null)
+			if (Theme is not null && !Main.dedServ)
 				Music = Theme.MusicSlot;
 		}
 	}

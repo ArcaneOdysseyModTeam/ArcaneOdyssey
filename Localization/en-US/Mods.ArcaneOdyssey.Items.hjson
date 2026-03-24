@@ -99,6 +99,15 @@ Accessories: {
 			Tooltip: Dedicated to [c/ff2b00:RedBirb1508]
 		}
 	}
+
+	ThunderingCape: {
+		DisplayName: Thundering Cape
+		Tooltip:
+			'''
+			Lightning randomly strikes, scaling with luck
+			Disabling visibilty makes lightning invisible
+			'''
+	}
 }
 
 Equipment: {
@@ -303,6 +312,13 @@ EmptyScrolls: {
 
 	EmptyScroll: {
 		DisplayName: Empty Scroll
+		Tooltip: ""
+	}
+}
+
+BossBags: {
+	EliusBossBag: {
+		DisplayName: Treasure Bag (Lord Elius)
 		Tooltip: ""
 	}
 }

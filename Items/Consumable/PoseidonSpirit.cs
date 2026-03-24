@@ -12,13 +12,12 @@ namespace ArcaneOdyssey.Items.Consumable;
 
 public class PoseidonSpirit : BaseItem
 {
-	public int AOValue = 10000;
-	public override AORarities AORarity => AORarities.Mythical;
+	public override int AOValue => 10000;
+	public override Rarities Rarity => Rarities.Mythical;
 
 	public override void SetDefaults()
 	{
 		base.SetDefaults();
-		Item.value = AOUtils.GalleonToCopper(AOValue);
 		Item.width = Item.height = 64;
 		Item.useStyle = ItemUseStyleID.HiddenAnimation;
 		Item.useAnimation = 20;

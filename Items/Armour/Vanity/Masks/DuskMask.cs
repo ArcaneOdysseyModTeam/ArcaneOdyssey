@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Items.Armour.Vanity.Masks
 	[AutoloadEquip(EquipType.Head)]
 	public class DuskMask : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Uncommon;
+		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override void SetDefaults()
 		{

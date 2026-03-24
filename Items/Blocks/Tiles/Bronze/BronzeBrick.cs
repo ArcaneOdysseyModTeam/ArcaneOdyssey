@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Blocks.Tiles.Bronze
 {
 	public class BronzeBrick : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Common;
+		public override Rarities Rarity => Rarities.Common;
 
 		public override void SetStaticDefaults()
 		{

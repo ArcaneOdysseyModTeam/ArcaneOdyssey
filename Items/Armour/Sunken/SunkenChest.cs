@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Items.Armour.Sunken
 		public override int AODefense => 194;
 		public override int Size => AOAttkSpd;
 		public override int AOAttkSpd => 22;
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 
 		public override int AOValue => 1350;
 		public override SetBonusHelper? Set => new(this, Color.Aqua, "SunkenHelm", "SunkenBoots");

@@ -10,8 +10,8 @@ namespace ArcaneOdyssey.Items.Consumable
 	[LegacyName("TitleMusicBox", "StarterAcrimony")] // rare removed items are added here
 	public class Acrimony : BaseItem
 	{
-		public int AOValue = 10000;
-		public override AORarities AORarity => AORarities.Legendary;
+		public override int AOValue => 10000;
+		public override Rarities Rarity => Rarities.Legendary;
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -20,7 +20,6 @@ namespace ArcaneOdyssey.Items.Consumable
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.value = AOUtils.GalleonToCopper(AOValue);
 			Item.width = Item.height = 32;
 			//Item.useStyle = ItemUseStyleID.HoldUp;
 			//Item.useAnimation = 20;

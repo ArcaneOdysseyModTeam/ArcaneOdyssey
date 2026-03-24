@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Armour.RavennaNoble
@@ -8,15 +7,6 @@ namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 	[AutoloadEquip(EquipType.Body)]
 	public class EliusChest : Base.Armour
 	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			if (Main.netMode != NetmodeID.Server)
-			{
-				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Back);
-			}
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -33,20 +23,12 @@ namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
 
-		public override AORarities AORarity => AORarities.Rare;
+		public override Rarities Rarity => Rarities.Rare;
 
 		public override int AOPower => 10;
 
 		public override int AOAgility => 12;
 
 		public override int AOValue => 150;
-
-		public override void Load()
-		{
-			if (!Main.dedServ)
-			{
-				EquipLoader.AddEquipTexture(Mod, Texture + "_" + EquipType.Back, EquipType.Back, this);
-			}
-		}
 	}
 }

@@ -524,11 +524,11 @@ namespace ArcaneOdyssey
 
 					if (distance < width)
 					{
-						break;
+						hasNotEnded = false;
 					}
 					else if (float.IsNaN(distance))
 					{
-						break;
+						hasNotEnded = false;
 					}
 					else if (++frame >= maxframes)
 					{
@@ -1324,72 +1324,72 @@ namespace ArcaneOdyssey
 			return ItemType.Item;
 		}
 
-		public static AORarities GetItemRare(this Item item)
+		public static Rarities GetItemRare(this Item item)
 		{
 			if (ExternalModSupport.HasCalamity)
 			{
 				if (item.rare == ExternalModSupport.Calamity.Find<ModRarity>("DarkOrange").Type)
 				{
-					return AORarities.Unknown;
+					return Rarities.Unknown;
 				}
 			}
 
 			if (item.rare == ModContent.RarityType<HotPinkRare>())
 			{
-				return AORarities.Special;
+				return Rarities.Special;
 			}
 
 			if (ModLoader.TryGetMod("NoxusBoss", out var wotg))
 			{
 				if (item.rare == wotg.Find<ModRarity>("SolynRewardRarity").Type)
 				{
-					return AORarities.Mystic;
+					return Rarities.Mystic;
 				}
 				if (item.rare == wotg.Find<ModRarity>("GenesisComponentRarity").Type)
 				{
-					return AORarities.Unknown;
+					return Rarities.Unknown;
 				}
 				if (item.rare == wotg.Find<ModRarity>("NamelessDeityRarity").Type)
 				{
-					return AORarities.Unknown;
+					return Rarities.Unknown;
 				}
 				if (item.rare == wotg.Find<ModRarity>("AvatarRarity").Type)
 				{
-					return AORarities.Unknown;
+					return Rarities.Unknown;
 				}
 			}
 
 			if (item.questItem || item.rare == ItemRarityID.Quest)
 			{
-				return AORarities.Rare;
+				return Rarities.Rare;
 			}
 
 			if (item.expert || item.rare == ItemRarityID.Expert)
 			{
-				return AORarities.Mystic;
+				return Rarities.Mystic;
 			}
 
 			if (item.master || item.rare == ItemRarityID.Master)
 			{
-				return AORarities.Legendary;
+				return Rarities.Legendary;
 			}
 
 			return item.rare switch
 			{
-				ItemRarityID.Gray => AORarities.Junk,
-				ItemRarityID.White => AORarities.Common,
-				ItemRarityID.Blue => AORarities.Common,
-				ItemRarityID.Green => AORarities.Uncommon,
-				ItemRarityID.Orange => AORarities.Uncommon,
-				ItemRarityID.LightRed => AORarities.Rare,
-				ItemRarityID.Pink => AORarities.Rare,
-				ItemRarityID.LightPurple => AORarities.Mystic,
-				ItemRarityID.Lime => AORarities.Mystic,
-				ItemRarityID.Yellow => AORarities.Legendary,
-				ItemRarityID.Cyan => AORarities.Legendary,
-				ItemRarityID.Red => AORarities.Mythical,
-				ItemRarityID.Purple => AORarities.Mythical,
-				_ => AORarities.Lost,
+				ItemRarityID.Gray => Rarities.Junk,
+				ItemRarityID.White => Rarities.Common,
+				ItemRarityID.Blue => Rarities.Common,
+				ItemRarityID.Green => Rarities.Uncommon,
+				ItemRarityID.Orange => Rarities.Uncommon,
+				ItemRarityID.LightRed => Rarities.Rare,
+				ItemRarityID.Pink => Rarities.Rare,
+				ItemRarityID.LightPurple => Rarities.Mystic,
+				ItemRarityID.Lime => Rarities.Mystic,
+				ItemRarityID.Yellow => Rarities.Legendary,
+				ItemRarityID.Cyan => Rarities.Legendary,
+				ItemRarityID.Red => Rarities.Mythical,
+				ItemRarityID.Purple => Rarities.Mythical,
+				_ => Rarities.Lost,
 			};
 		}
 		#endregion
@@ -1438,7 +1438,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="price">Price, in Galleons</param>
 		/// <returns></returns>
-		public static int GalleonToCopper(int price) => Item.buyPrice(silver: price);
+		public static int GalleonToCopper(int price) => Item.sellPrice(silver: price);
 
 
 		/// <summary>
@@ -1691,7 +1691,7 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Arcane Odyssey rarities, converted to RarityID
 	/// </summary>
-	public enum AORarities
+	public enum Rarities
 	{
 		Junk = ItemRarityID.Gray,
 		Common = ItemRarityID.White,

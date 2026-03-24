@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 {
 	public class VermillionBracelet : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Uncommon;
+		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override void SetDefaults()
 		{
@@ -22,9 +22,10 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.buffType = ModContent.BuffType<IrisBuff>();
 			Item.shoot = ModContent.ProjectileType<Iris>();
-			Item.value = AOUtils.GalleonToCopper(60);
-			Item.shopCustomPrice = Item.buyPrice(gold: 1);
+			//Item.shopCustomPrice = Item.buyPrice(gold: 1);
 		}
+
+		public override int AOValue => 60;
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{

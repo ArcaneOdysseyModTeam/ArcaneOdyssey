@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.BossTrophies
 {
 	public class EvanderTrophy : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Common;
+		public override Rarities Rarity => Rarities.Common;
 
 		public override void SetDefaults()
 		{

@@ -34,9 +34,6 @@ ImbueStuff: {
 	ScrollDamage: Scroll damage: {0}x
 	ScrollSpeed: Scroll speed: {0}x
 	ScrollSize: Scroll size: {0}x
-	RelicDamage: Damage: {0}x
-	RelicSpeed: Speed: {0}x
-	RelicSize: Size: {0}x
 	Drawback: +{0}% attack drawback
 	ShiftNotice: SHIFT shows other stats
 	ImbueDamage: Imbue damage: {0}x
@@ -351,6 +348,7 @@ Projectiles: {
 	DeathCurse.DisplayName: The Death Curse
 	LeapFix.DisplayName: Jump
 	Circle.DisplayName: Magic Circle
+	ThunderingEffect.DisplayName: Lightning Strike
 }
 
 Achievements: {

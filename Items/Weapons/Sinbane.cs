@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.Weapons
 	public class Sinbane : Weapon
 	{
 		public override int AOValue => 400;
-		public override AORarities AORarity => AORarities.Uncommon;
+		public override Rarities Rarity => Rarities.Uncommon;
 		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
 		public override float AOSpeed => 1.1f;
 		public override float AOSize => .8f;

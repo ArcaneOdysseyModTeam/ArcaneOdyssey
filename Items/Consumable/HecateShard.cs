@@ -12,13 +12,12 @@ namespace ArcaneOdyssey.Items.Consumable
 {
 	public class HecateShard : BaseItem
 	{
-		public int AOValue = 20000;
-		public override AORarities AORarity => AORarities.Legendary;
+		public override int AOValue => 20000;
+		public override Rarities Rarity => Rarities.Legendary;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.value = AOUtils.GalleonToCopper(AOValue);
 			Item.width = Item.height = 32;
 
 			Item.useStyle = ItemUseStyleID.HiddenAnimation;

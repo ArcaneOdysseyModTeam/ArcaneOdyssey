@@ -34,11 +34,6 @@ namespace ArcaneOdyssey.Items.Base
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int AOValue => 0;
-
-		/// <summary>
-		/// Base value
-		/// </summary>
 		public virtual int Size => 0;
 
 		/// <summary>
@@ -143,7 +138,6 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			base.SetDefaults();
 			Item.defense = AODefense.FromAODefense();
-			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

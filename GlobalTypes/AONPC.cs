@@ -91,17 +91,6 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		}
 
-		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
-		{
-			player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, item.Imbue(), false);
-		}
-
-		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
-		{
-			if (projectile.TryGetOwner(out var player))
-				player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, projectile.Imbue(), false);
-		}
-
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.ArmorPenetration += _defenseLost;

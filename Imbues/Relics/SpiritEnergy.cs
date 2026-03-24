@@ -161,8 +161,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public static SpiritEnergy Instance => ModContent.GetInstance<SpiritEnergy>();
 
-		public virtual int AOValue => 0;
-
 		public override SoundStyle? ImbueSound => SoundID.NPCDeath6;
 
 		public override float ImbueSpeed => 1f;
@@ -265,7 +263,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Summon;
-			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
 
 		public virtual int DustType => ModContent.DustType<SpiritDust>();

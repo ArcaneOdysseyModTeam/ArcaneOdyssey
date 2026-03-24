@@ -11,18 +11,18 @@ namespace ArcaneOdyssey.Projectiles
 		{
 			Main.projFrames[Type] = 8;
 		}
+
 		public override void SetDefaults()
 		{
+			base.SetDefaults();
 			Projectile.tileCollide = false;
 			Projectile.width = Projectile.height = 100;
 			Projectile.ignoreWater = true;
-			Projectile.damage = 700;
 			Projectile.hostile = true;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
-			offset = null;
 		}
 
 		private float? offset = null;
@@ -52,8 +52,7 @@ namespace ArcaneOdyssey.Projectiles
 			if (Projectile.localAI[0] > 50)
 			{
 				Projectile.velocity.Y += -23f / 30f;
-				if (!offset.HasValue)
-					offset = Main.rand.NextFloat() - 0.5f;
+				offset ??= Main.rand.NextFloat() - 0.5f;
 				Projectile.velocity.X += offset.Value * (13f / 15f);
 			}
 			else

@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Items.Debug
 {
 	public class EliusArenaSpawner : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Special;
+		public override Rarities Rarity => Rarities.Special;
 
 		public override string Texture => AOUtils.GelTexture;
 

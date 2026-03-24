@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Blocks
 {
 	public class TuckerGraveItem : BaseItem
 	{
-		public override AORarities AORarity => AORarities.Special;
+		public override Rarities Rarity => Rarities.Special;
 
 		public override void SetStaticDefaults()
 		{
