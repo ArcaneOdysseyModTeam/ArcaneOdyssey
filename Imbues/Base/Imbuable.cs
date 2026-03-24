@@ -319,7 +319,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					return false;
 				}
-				return AOUtils.ImbueClassCheck(projectile);
+				return projectile.Imbue() is not null;
 			}
 			if (entity is Player)
 			{
@@ -327,7 +327,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 			if (entity is Item item)
 			{
-				return AOUtils.ImbueClassCheck(item);
+				return item.Imbue() is not null;
 			}
 			return false;
 		}

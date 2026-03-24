@@ -134,11 +134,6 @@ namespace ArcaneOdyssey.AOPlayers
 			UpdateDebuffHelpers(damageDone, target, proj.Imbue(), false, true);
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			base.OnHitNPC(target, hit, damageDone);
-		}
-
 		internal IList<string> allChosenImbues = [];
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -204,7 +199,6 @@ namespace ArcaneOdyssey.AOPlayers
 				{
 					proj.Center = target.Center with { Y = proj.Center.Y };
 					proj.damage = (int)MathHelper.Clamp(target.lifeMax * 0.005f, proj.damage, 1000f);
-					SoundEngine.PlaySound(ModContent.GetInstance<LightningMagic>()?.ImbueSound, target.Center);
 				}
 			}
 		}
