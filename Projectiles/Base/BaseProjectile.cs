@@ -11,14 +11,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
-		public bool VariableTexture = false;
-
-		public override void PostAI()
-		{
-			VariableTexture |= Texture != $"{Mod.Name}/{TextureAssets.Projectile[Type].Name.Replace("\\", "/")}";
-		}
-
-		public virtual Texture2D Sprite => (VariableTexture ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Projectile[Type])?.Value;
+		public virtual Texture2D Sprite => (Texture != $"{Mod.Name}/{TextureAssets.Projectile[Type]?.Name.Replace("\\", "/") ?? Texture}" ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Projectile[Type])?.Value;
 
 		/// <summary>
 		/// Kills the projectile.

@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -139,23 +141,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			return false;
 		}
 
-		public string BackupTexture = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");
+		public override string Texture => AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");
 
-		public override string Texture
-		{
-			get
-			{
-				if (Imbue is not (null or SoundMagic))
-				{
-					var asset = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
-					if (ModContent.HasAsset(asset))
-					{
-						return asset;
-					}
-				}
-				return BackupTexture;
-			}
-		}
+		public override Texture2D Sprite => ArrayCollections.annihilationSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 	}
 
 	public enum AnnihilationState

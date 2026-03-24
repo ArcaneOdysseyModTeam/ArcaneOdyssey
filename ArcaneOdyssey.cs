@@ -151,6 +151,14 @@ namespace ArcaneOdyssey
 		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
 
 		public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
+
+		public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+		public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+		public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+		public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
 	}
 
 	public class MessageHelper : ModSystem

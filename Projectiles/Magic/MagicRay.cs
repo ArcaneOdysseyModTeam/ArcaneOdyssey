@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Projectiles.Base;
+﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Main.projFrames[Type] = 5;
+			Main.projFrames[Type] = 4;
 		}
 
 		public Vector2 End
@@ -45,8 +46,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					{
 						if (Main.rand.NextBool(25))
 						{
-							Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
-							SecondImbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+							//Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+							//SecondImbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
 						}
 						break;
 					}
@@ -71,8 +72,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			{
 				for (Vector2 i = Vector2.Zero; i.Length() < Projectile.Center.Distance(End); i += Projectile.velocity)
 				{
-					Imbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
-					SecondImbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
+					//Imbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
+					//SecondImbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
 				}
 			}
 			if (AOPlayerOwner.myCircle is not null && !dying)
@@ -82,7 +83,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Projectile.velocity = AOPlayerOwner.myCircle.Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				Projectile.rotation = Projectile.velocity.ToRotation();
-				Projectile.Center = AOPlayerOwner.myCircle.Projectile.Center - Projectile.velocity;
+				Projectile.Center = AOPlayerOwner.myCircle.Projectile.Center - (Projectile.velocity * 1.75f);
 			}
 			else
 			{
@@ -99,23 +100,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			}
 		}
 
-		public string BackupTexture = AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WaterRay");
-
-		public override string Texture
-		{
-			get
-			{
-				if (Imbue is not null)
-				{
-					var asset = AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Ray");
-					if (ModContent.HasAsset(asset))
-					{
-						return asset;
-					}
-				}
-				return BackupTexture;
-			}
-		}
+		public override string Texture => AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WindRay");
+		public override Texture2D Sprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ArrayCollections.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArrayCollections.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
@@ -137,11 +126,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			//lightColor = Imbue?.Colour ?? lightColor;
-			var end = AOUtils.DrawChain(Projectile.Center - Projectile.velocity, End, Sprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
-			var EndTexture = ModContent.Request<Texture2D>(Texture + "End");
-			end += new Vector2(EndTexture.Width() * Projectile.scale, 0).RotatedBy(Projectile.rotation);
-			Main.EntitySpriteDraw(EndTexture.Value, end - Main.screenPosition, EndTexture.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(), Projectile.AngleTo(end), EndTexture.Size() with { Y = EndTexture.Height() / Main.projFrames[Type] } / 2f, Projectile.scale, mode);
+			var info = AOUtils.DrawChain(Projectile.Center, End, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+			var end = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(Projectile.rotation);
+			Main.EntitySpriteDraw(EndSprite, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), Projectile.rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;
 		}
 	}

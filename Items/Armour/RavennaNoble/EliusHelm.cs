@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Items.Base;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Armour.RavennaNoble

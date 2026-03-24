@@ -88,6 +88,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							Main.NewText(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Refight").Value, Color.MediumPurple);
 							CombatText.NewText(NPC.Hitbox, Color.MediumPurple, Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Refight").Value, true);
 						}
+						else
+						{
+							NPC.Opacity = .5f;
+						}
 					}
 					else
 					{

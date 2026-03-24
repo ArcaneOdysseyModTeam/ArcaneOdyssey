@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
@@ -18,6 +20,31 @@ namespace ArcaneOdyssey.Imbues.Base
 			RegisterMutations();
 			ArrayCollections.Mutations[Type] = [.. ArrayCollections.Mutations[Type].OrderBy(e => ModContent.GetModItem(e).DisplayName.Value)];
 			ItemID.Sets.ItemNoGravity[Type] = true;
+		}
+
+		public override void AutoStaticDefaults()
+		{
+			base.AutoStaticDefaults();
+
+			if (ModContent.RequestIfExists<Texture2D>(AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/{ImbuableTier}/{AttackPrefix}Annihilation"), out var annihilation))
+			{
+				ArrayCollections.annihilationSprites[Type] = annihilation;
+			}
+
+			if (ModContent.RequestIfExists<Texture2D>(AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/{ImbuableTier}/{AttackPrefix}Ray"), out var ray))
+			{
+				ArrayCollections.raySprites[Type] = ray;
+			}
+
+			if (ModContent.RequestIfExists<Texture2D>(AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/{ImbuableTier}/{AttackPrefix}RayEnd"), out var rayend))
+			{
+				ArrayCollections.rayEndSprites[Type] = rayend;
+			}
+
+			if (ModContent.RequestIfExists<Texture2D>(AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/{ImbuableTier}/{AttackPrefix}RayStart"), out var raystart))
+			{
+				ArrayCollections.rayStartSprites[Type] = raystart;
+			}
 		}
 
 		public virtual void RegisterMutations() { }

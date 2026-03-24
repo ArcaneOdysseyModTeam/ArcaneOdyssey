@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Materials;
+﻿using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

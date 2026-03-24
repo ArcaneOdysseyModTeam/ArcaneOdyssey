@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			NPC.friendly = true;
 			NPC.height = 44;
 			NPC.width = 20;
-			NPC.lifeMax = 1000;
+			NPC.lifeMax = 6000;
 			NPC.aiStyle = NPCAIStyleID.Passive;
 			NPC.defense = 15;
 			NPC.HitSound = SoundID.NPCHit52;

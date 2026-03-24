@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Items.Base;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Accessories
 {

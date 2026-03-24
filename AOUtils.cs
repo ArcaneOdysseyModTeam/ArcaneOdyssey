@@ -489,7 +489,7 @@ namespace ArcaneOdyssey
 		/// <param name="colour"></param>
 		/// <param name="effects"></param>
 		/// <returns></returns>
-		public static Vector2 DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None, SpriteBatch batch = null)
+		public static ChainEndInfo DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None, SpriteBatch batch = null)
 		{
 			batch ??= Main.spriteBatch;
 
@@ -501,6 +501,7 @@ namespace ArcaneOdyssey
 			var width = sprite.Width * scale;
 
 			bool hasNotEnded = true;
+			var length = 0;
 			while (hasNotEnded)
 			{
 				var source = sprite.Frame(1, maxframes, 0, frame);
@@ -515,6 +516,7 @@ namespace ArcaneOdyssey
 				}
 				else
 				{
+					length++;
 					start += start.DirectionTo(end) * width;
 					if (!colourisntnull)
 						colour = Lighting.GetColor(start.ToTileCoordinates());
@@ -525,7 +527,7 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-			return start;
+			return new ChainEndInfo(frame, start, length);
 		}
 
 		public static NPC GetMinionTarget(this Vector2 origin, float maxDistanceToCheck, Player owner, bool ignoreTiles = true, bool checksRange = false)
@@ -1852,5 +1854,14 @@ namespace ArcaneOdyssey
 		Common,
 		Rare,
 		Lost
+	}
+
+	public struct ChainEndInfo(int finalFrame, Vector2 ending, int length)
+	{
+		public int FinalFrame = finalFrame;
+
+		public Vector2 Ending = ending;
+
+		public int Length = length;
 	}
 }
