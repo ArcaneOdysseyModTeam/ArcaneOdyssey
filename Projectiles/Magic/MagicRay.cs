@@ -44,11 +44,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					var tile = AOUtils.GetTile(proj.ToTileCoordinates().X, proj.ToTileCoordinates().Y);
 					if (tile.IsTileReallySolidGround() || (!Imbue.CanBeWet && tile.LiquidAmount > 0))
 					{
-						if (Main.rand.NextBool(25))
-						{
-							//Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
-							//SecondImbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
-						}
 						break;
 					}
 				}
@@ -60,6 +55,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void AI()
 		{
+			
 			if (++Projectile.frameCounter > 6)
 			{
 				Projectile.frameCounter = 0;
@@ -68,14 +64,39 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Projectile.frame = 0;
 				}
 			}
-			if (Main.GameUpdateCount % 5 == 0)
+
+			if (!Main.dedServ)
 			{
-				for (Vector2 i = Vector2.Zero; i.Length() < Projectile.Center.Distance(End); i += Projectile.velocity)
+				if (Projectile.localAI[0]++ < (85f * Projectile.Opacity))
 				{
-					//Imbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
-					//SecondImbue?.LingeringEffects(Projectile.Hitbox with { Location = (Projectile.position + i).ToPoint() }, Projectile.velocity, Projectile);
+					var proj = Projectile.Center;
+
+					proj += Projectile.velocity * Projectile.localAI[0];
+
+					var tile = AOUtils.GetTile(proj.ToTileCoordinates().X, proj.ToTileCoordinates().Y);
+					if (!tile.IsTileReallySolidGround())
+					{
+						Imbue?.LingeringEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+						SecondImbue?.LingeringEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+					}
+					else
+					{
+						Projectile.localAI[0] = 0;
+					}
+					
+					
+					if (tile.IsTileReallySolidGround() || (tile.LiquidAmount > 0))
+					{
+						Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+						SecondImbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+					}
+				}
+				else
+				{
+					Projectile.localAI[0] = 0;
 				}
 			}
+			
 			if (AOPlayerOwner.myCircle is not null && !dying)
 			{
 				dying = AOPlayerOwner.myCircle.MarkedForDeath;
@@ -98,6 +119,12 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Kill();
 				}
 			}
+		}
+
+		public override bool TouchingWater()
+		{
+			dying = true;
+			return true;
 		}
 
 		public override string Texture => AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WindRay");

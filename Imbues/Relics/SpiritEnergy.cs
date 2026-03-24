@@ -265,7 +265,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Summon;
-			Item.noMelee = true;
 			Item.value = AOUtils.GalleonToCopper(AOValue);
 		}
 

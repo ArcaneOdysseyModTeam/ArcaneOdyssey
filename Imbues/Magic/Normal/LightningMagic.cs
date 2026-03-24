@@ -67,14 +67,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-
-			float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
+			var updates = (float)Main.GameUpdateCount;
 			if (source is Projectile projectile && projectile.extraUpdates > 0)
 			{
-				waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)projectile.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
+				updates += projectile.numUpdates;
 			}
+			float waveVal = 10f * MathF.Abs(updates % 5f % 10f - 2.5f) - 12.5f;
 			Vector2 baseVec = new(0f, waveVal);
-			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Scale: 1.2f);
+			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
 			spawnedDust.noGravity = true;
 
 			Lighting.AddLight(area.Center(), 2, 1, 2);

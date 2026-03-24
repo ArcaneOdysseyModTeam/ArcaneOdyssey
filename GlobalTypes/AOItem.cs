@@ -518,7 +518,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (item.ModItem is Imbuable imbue)
 				{
-					return imbue.ScrollSpeed * (imbue.Imbue?.ScrollSpeed ?? 1f);
+					return imbue.ScrollSpeed * (imbue.Imbue?.ImbueSpeed ?? 1f);
 				}
 				if (!item.DamageType.Name.Contains("NoSpeed"))
 				{

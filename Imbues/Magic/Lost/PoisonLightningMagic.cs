@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)projectile.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
 			}
 			Vector2 baseVec = new(0f, waveVal);
-			Dust spawnedDust2 = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Scale: 1.2f);
+			Dust spawnedDust2 = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
 			spawnedDust2.noGravity = true;
 			Lighting.AddLight(area.Center(), 2, 1, 2);
 		}
