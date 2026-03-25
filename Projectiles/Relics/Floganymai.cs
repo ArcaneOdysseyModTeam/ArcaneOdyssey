@@ -8,11 +8,10 @@ namespace ArcaneOdyssey.Projectiles.Relics
 	{
 		public override bool CanHaveImbueVFX => false;
 		public override string Texture => AOUtils.BlankTexture;
-		private int pulses;
+		private ref float Pulses => ref Projectile.ai[2];
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			pulses = 0;
 			Projectile.extraUpdates = 100;
 			Projectile.timeLeft = 1000000;
 			Projectile.height = 2;
@@ -62,8 +61,8 @@ namespace ArcaneOdyssey.Projectiles.Relics
 					Imbue?.LingeringEffects(rect);
 					SecondImbue?.LingeringEffects(rect);
 				}
-				pulses++;
-				if (pulses > 5)
+				Pulses++;
+				if (Pulses > 5)
 				{
 					Kill();
 				}

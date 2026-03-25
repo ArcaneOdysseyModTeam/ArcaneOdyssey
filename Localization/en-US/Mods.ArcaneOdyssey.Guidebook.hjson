@@ -76,3 +76,13 @@ Weapons: {
 	DisplayName: Weapons
 	Text: Weapons Content goes here.
 }
+
+Mutating: {
+	DisplayName: Lost Magic
+	Text: Mutating Content goes here.
+}
+
+StrengthWeapons: {
+	DisplayName: Strength Weapons
+	Text: StrengthWeapons Content goes here.
+}

@@ -8,7 +8,7 @@ Ancient: {
 
 	DeathMagic: {
 		DisplayName: Death Magic
-		Ability: Enemies with less that half your max health are instantly killed
+		Ability: Enemies with less that double your max health are instantly killed
 		Tooltip: ""
 		AttackPrefix: Deadly
 		SpellPrefix: Death

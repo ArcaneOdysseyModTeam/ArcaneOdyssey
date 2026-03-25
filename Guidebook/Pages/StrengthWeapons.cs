@@ -1,0 +1,26 @@
+﻿using ArcaneOdyssey.Items.Base;
+using Terraria;
+
+namespace ArcaneOdyssey.Guidebook.Pages
+{
+	public class StrengthWeapons : GuidebookPage
+	{
+		public override int PageNum => 10;
+
+		public override bool MetConditions(Player player)
+		{
+			if (player is not null)
+			{
+				if (player.HasTypeInInventory<Weapon>(e => e.WeaponsType == WeaponType.Strength))
+				{
+					return true;
+				}
+				if (player.PlayerItem()?.ArcaneOdyssey() is not null)
+				{
+					return player.PlayerItem().ArcaneOdyssey().WeaponsType == WeaponType.Strength;
+				}
+			}
+			return false;
+		}
+	}
+}

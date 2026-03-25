@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<AOPoisoned>(60 * 3);
 
-		public override float AOSize => 5f;
+		public override float AOSize => 4f;
 
 		public override void SetDefaults()
 		{

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
@@ -186,7 +187,6 @@ namespace ArcaneOdyssey.NPCs.Town
 			{
 				options.Add(Language.GetTextValue(this.GetLocalizationKey("Chat.Intro"), Player.name));
 				AddOption("Grave");
-
 			}
 			else
 				AddOption("Hello");
@@ -196,14 +196,19 @@ namespace ArcaneOdyssey.NPCs.Town
 				AddOption("OldManTalk");
 			}
 
-			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength)
+			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength || Player.HasTypeInInventory<Weapon>(weap => weap.WeaponsType == WeaponType.Strength))
 			{
 				AddOption("StrongWarrior");
 			}
 			
-			if (!(Player.HasTypeInInventory<CommonScroll>() && Player.HasTypeInInventory<RareScroll>() && Player.HasTypeInInventory<LostScroll>()))
+			if (!Player.HasTypeInInventory<Scroll>())
 			{
 				AddOption("Pots");
+			}
+
+			if (Player.HasTypeInInventory<DeathMagic>())
+			{
+				AddOption("DeathMagic");
 			}
 
 			options.RemoveAll(e => e == LastDialogue);

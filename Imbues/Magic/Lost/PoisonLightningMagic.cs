@@ -95,8 +95,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 1.2f * area.RelativeScale());
 			}
-			if (source is Projectile projectile)
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<PoisonCloud>(), 15 * (AOUtils.BossesKilled + 1), 0f);
+			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
+			{
+				var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<PoisonCloud>(), 15 * (AOUtils.BossesKilled + 1), 0f);
+				proj.scale *= projectile.Hitbox.RelativeScale(max: 2f);
+				proj.Hitbox = proj.Hitbox.Scaled(projectile.Hitbox.RelativeScale(max: 2f));
+				proj.netUpdate = true;
+			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 	}

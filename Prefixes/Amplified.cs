@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Prefixes
 {
-	public class Amplified : AOPrefix
+	public class Amplified : BasePrefix
 	{
 		public const int HasteBoost = 10;
 		public override void ApplyAccessoryEffects(Player player)

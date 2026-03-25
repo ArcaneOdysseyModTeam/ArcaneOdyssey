@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Prefixes
 {
-	public class Bursting : AOPrefix
+	public class Bursting : BasePrefix
 	{
 		public const int SizeBoost = 10;
 		public override void ApplyAccessoryEffects(Player player)

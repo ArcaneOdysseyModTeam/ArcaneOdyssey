@@ -1,4 +1,6 @@
-﻿using ArcaneOdysseyMusic;
+﻿#if VSDEBUGMODE
+using ArcaneOdysseyMusic;
+#endif
 using Terraria;
 using Terraria.ID;
 

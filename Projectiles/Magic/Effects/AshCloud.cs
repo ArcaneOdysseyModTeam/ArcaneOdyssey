@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 	{
 		public override Debuff? ProjectileDebuff => null;
 
-		public override float AOSize => 6f;
+		public override float AOSize => 5f;
 
 		public override void SetDefaults()
 		{

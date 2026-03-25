@@ -259,9 +259,9 @@ namespace ArcaneOdyssey
 			return ModContent.GetInstance<T>().Effects with { clearBuffs = [] };
 		}
 
-		public static float RelativeScale(this Rectangle rect, int scale = 64)
+		public static float RelativeScale(this Rectangle rect, int scale = 64, float min = .5f, float max = 2.5f)
 		{
-			return MathHelper.Clamp((rect.Width + rect.Height) / 2f / scale, .5f, 2.5f);
+			return MathHelper.Clamp((rect.Width + rect.Height) / 2f / scale, min, max);
 		}
 
 		public static Imbuable Imbue(this Player player) => player?.ArcaneOdyssey()?.Imbue;
@@ -1478,7 +1478,7 @@ namespace ArcaneOdyssey
 		#endregion
 
 		#region Player Inventory Helpers
-		public static bool HasTypeInInventory<T>(this Player player) where T : ModItem
+		public static bool HasTypeInInventory<T>(this Player player, Func<T, bool> check = null) where T : ModItem
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
@@ -1486,19 +1486,31 @@ namespace ArcaneOdyssey
 			{
 				if (item.ModItem is T)
 				{
-					return true;
+					if (check is not null)
+					{
+						if (check.Invoke(item.ModItem as T))
+						{
+							return true;
+						}
+					}
+					else
+					{
+						return true;
+					}
 				}
 			}
 			return false;
 		}
 
-		public static bool HasTypeInInventory<T>(this Player player, out T item) where T : ModItem
+		public static bool HasTypeInInventory<T>(this Player player, out T item, Func<T, bool> check = null) where T : ModItem
 		{
 			item = null;
-			if (player.ArcaneOdyssey().EquippedImbues.Contains(ModContent.ItemType<T>()) || player.ArcaneOdyssey().EquippedSecondImbues.Contains(ModContent.ItemType<T>()))
+			if (player?.ArcaneOdyssey() is not null)
 			{
-				item = ModContent.GetInstance<T>();
-				return true;
+				if (player.ArcaneOdyssey().EquippedImbues.Contains(ModContent.ItemType<T>()) || player.ArcaneOdyssey().EquippedSecondImbues.Contains(ModContent.ItemType<T>()))
+				{
+					item ??= ModContent.GetInstance<T>();
+				}
 			}
 			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
@@ -1506,11 +1518,22 @@ namespace ArcaneOdyssey
 			{
 				if (items.ModItem is T)
 				{
-					item = items.ModItem as T;
-					return true;
+					if (check is not null)
+					{
+						if (check.Invoke(items.ModItem as T))
+						{
+							item ??= items.ModItem as T;
+							break;
+						}
+					}
+					else
+					{
+						item ??= items.ModItem as T;
+						break;
+					}
 				}
 			}
-			return false;
+			return item is not null;
 		}
 
 		public static List<T> Sorted<T>(this List<T> self, Comparison<T> comparer)

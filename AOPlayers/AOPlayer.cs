@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
@@ -12,7 +11,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 

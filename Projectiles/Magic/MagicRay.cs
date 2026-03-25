@@ -89,6 +89,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					{
 						Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
 						SecondImbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
+						Projectile.localAI[0] = 0;
 					}
 				}
 				else

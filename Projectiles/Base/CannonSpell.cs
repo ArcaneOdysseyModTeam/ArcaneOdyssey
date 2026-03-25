@@ -46,11 +46,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public override void AI()
 		{
-			if (Projectile.wet && DoneCharging)
-			{
-				Kill();
-				return;
-			}
+			Projectile.tileCollide = !Projectile.wet;
 			if (Projectile.ai[2] == 0f)
 			{
 				Projectile.ai[2] = 1f;

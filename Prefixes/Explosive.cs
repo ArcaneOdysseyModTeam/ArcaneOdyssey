@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Prefixes
 {
-	public class Explosive : AOPrefix
+	public class Explosive : BasePrefix
 	{
 		public const int SizeBoost = 20;
 		public override void ApplyAccessoryEffects(Player player)

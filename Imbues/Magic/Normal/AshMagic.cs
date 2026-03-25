@@ -106,9 +106,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Dust spawnedDust2 = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale());
 				spawnedDust2.noGravity = true;
 			}
-			if (source is Projectile projectile)
+			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
 			{
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<AshCloud>(), 5 * (AOUtils.BossesKilled + 1), 0f);
+				var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<AshCloud>(), 3 * (AOUtils.BossesKilled + 1), 0f);
+				proj.scale *= projectile.Hitbox.RelativeScale(max: 2f);
+				proj.Hitbox = proj.Hitbox.Scaled(projectile.Hitbox.RelativeScale(max: 2f));
+				proj.netUpdate = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 

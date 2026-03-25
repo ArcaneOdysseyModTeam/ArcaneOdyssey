@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.TerraBlade2}";
 
-		public override float AOSize => 2.25f;
+		public override float AOSize => 3f;
 
 		public override void SetStaticDefaults()
 		{
@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = Projectile.height = 200;
+			Projectile.width = Projectile.height = 150;
 			Projectile.friendly = true;
 			Projectile.timeLeft = TrueMaxTime;
 			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				Projectile.velocity = Vector2.Zero;
 				OriginalDir = Owner.direction;
 			}
-			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * ApplySpeed(1.25f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
+			Projectile.rotation = MathHelper.Pi / (MaxTime / 2) * ApplySpeed(1f) * OriginalDir * (MaxTime - (Projectile.timeLeft - MaxTime));
 			if (Projectile.timeLeft > (TrueMaxTime - MaxTime))
 			{
 				Owner.itemTime = Owner.itemAnimation = 2;
