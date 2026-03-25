@@ -25,8 +25,8 @@ namespace ArcaneOdyssey.NPCs.Town
 			base.SetDefaults();
 			NPC.townNPC = true;
 			NPC.friendly = true;
-			NPC.height = 44;
-			NPC.width = 20;
+			NPC.height = Player.defaultHeight;
+			NPC.width = Player.defaultWidth;
 			NPC.lifeMax = 6000;
 			NPC.aiStyle = NPCAIStyleID.Passive;
 			NPC.defense = 15;

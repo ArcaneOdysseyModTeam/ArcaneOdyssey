@@ -118,6 +118,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.ai[1] = 0f;
 			}
 
+			NPC.spriteDirection = (NPC.DirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt() * -1;
+
 			// ai here, red
 			if (NPC.ai[0] == 1)
 			{
@@ -136,7 +138,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (NPC.ai[1] < 2f)
 				{
-					NPC.Center += new Vector2(100, 0); //lmao hes just leaving fuck you
+					NPC.Center += new Vector2(Main.rand.Next(-100, 100)); //lmao hes just leaving fuck you
 					NPC.ai[1] = 2f;
 				}
 				if (NPC.ai[1] > 60f)
