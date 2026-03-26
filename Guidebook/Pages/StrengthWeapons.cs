@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Guidebook.Pages
 {
 	public class StrengthWeapons : GuidebookPage
 	{
-		public override int PageNum => 10;
+		public override int PageNum => After<AboutGodSouls>();
 
 		public override bool MetConditions(Player player)
 		{

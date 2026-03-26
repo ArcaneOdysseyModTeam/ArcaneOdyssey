@@ -116,10 +116,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			if (Main.dedServ)
 				return;
 			int rainbowStep = (int)Main.GameUpdateCount;
-			Dust.NewDust(position, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), Scale: 0.9f * intensity);
+			Dust.NewDust(position, 0, 0, DustID.Glass, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 0.9f * intensity);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * ScrollSize * intensity), 0, rainbowColors[rainbowStep % 3], 1.3f * intensity);
+				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.AncientLight, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), 0, rainbowColors[rainbowStep % 3], 1.3f * intensity);
 				dust.noGravity = true;
 				rainbowStep++;
 			}

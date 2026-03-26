@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 
@@ -152,6 +154,14 @@ namespace ArcaneOdyssey.Projectiles.Base
 			Projectile.position = Projectile.oldPosition;
 			Projectile.velocity = oldVelocity;
 			return false;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
+			var scale = Projectile.scale * MathHelper.Lerp(1f, charge, MathF.Sin(AOUtils.UpdateCount * 5f));
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor) * .25f, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, scale, mode);
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

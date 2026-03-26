@@ -351,6 +351,7 @@ namespace ArcaneOdyssey
 		}
 
 		public static float Clamp(this float num, float min, float max) => MathHelper.Clamp(num, min, max);
+		public static int Clamp(this int num, int min, int max) => Math.Clamp(num, min, max);
 
 		public static bool IsLocked(this Chest chest) => Chest.IsLocked(chest.x, chest.y);
 

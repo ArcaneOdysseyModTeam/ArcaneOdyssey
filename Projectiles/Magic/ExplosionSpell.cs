@@ -31,8 +31,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				NetUpdate();
 			}
 			Projectile.velocity = Vector2.Zero;
-			Imbue?.ExplosionEffects(Projectile.Center);
-			SecondImbue?.ExplosionEffects(Projectile.Center);
+			Imbue?.ExplosionEffects(Projectile.Center, Projectile.scale);
+			SecondImbue?.ExplosionEffects(Projectile.Center, Projectile.scale);
 		}
 	}
 }

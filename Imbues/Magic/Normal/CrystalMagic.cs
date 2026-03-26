@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (7f * intensity * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (7f * intensity * ScrollSize), Scale: 2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (7f * intensity), (Main.rand.NextFloat() - 0.5f) * (7f * intensity), Scale: 2f * intensity);
 			}
 		}
 

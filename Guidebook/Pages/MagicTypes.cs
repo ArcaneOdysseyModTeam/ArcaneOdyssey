@@ -6,6 +6,6 @@ namespace ArcaneOdyssey.Guidebook.Pages
 	public class MagicTypes : GuidebookPage
 	{
 		public override bool MetConditions(Player player) => player.HasTypeInInventory<AOMagic>();
-		public override int PageNum => 1;
+		public override int PageNum => After<GettingStarted>();
 	}
 }

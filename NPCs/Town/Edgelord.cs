@@ -144,7 +144,7 @@ namespace ArcaneOdyssey.NPCs.Town
 		{
 			if (firstButton)
 			{
-				Main.npcChatText = Main.rand.Next(Player.ArcaneOdyssey().AvailablePages()).GetText().Value; // placeholder, open up guidebook ui instead
+				Main.npcChatText = Main.rand.Next(Player.ArcaneOdyssey().AvailablePages()).Description.Value; // placeholder, open up guidebook ui instead
 			}
 			else
 			{
