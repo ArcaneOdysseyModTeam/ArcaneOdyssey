@@ -140,17 +140,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		{
 			if (!hasSaidMesage)
 			{
-				if (Main.netMode != NetmodeID.SinglePlayer)
-				{
-					if (Main.dedServ)
-					{
-						ChatHelper.BroadcastChatMessage(Language.GetText(this.GetLocalizationKey("SpawnMessage")).ToNetworkText(), Motif);
-					}
-				}
-				else
-				{
-					Main.NewText(this.GetLocalizedValue("SpawnMessage"), Motif);
-				}
+				NPC.NPCDialogue(this.GetLocalizedValue("SpawnMessage"), Motif);
 				hasSaidMesage = true;
 			}
 			bool stuckintile = Main.tile[(int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f)].IsTileReallySolidGround();

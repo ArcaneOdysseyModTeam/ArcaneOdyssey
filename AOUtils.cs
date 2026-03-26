@@ -598,6 +598,13 @@ namespace ArcaneOdyssey
 		}
 
 
+		public static void NPCDialogue(this NPC npc, string message, Color? colour = null)
+		{
+			Main.NewText(message, colour);
+			CombatText.NewText(npc.Hitbox, colour.GetValueOrDefault(Color.White), message, true);
+		}
+
+
 		/// <summary>
 		/// Simulates AoE
 		/// </summary>
