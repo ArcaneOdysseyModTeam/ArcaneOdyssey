@@ -166,27 +166,30 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void OnKill()
 		{
 			Main.windSpeedTarget = -.1f;
+			if (!DownedBosses.downedElius)
+			{
+				if (justKilled) // kill
+				{
+					// gore goes here
+					for (int n = 0; n < 17; n++)
+					{
+						Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
+					}
+					ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Killed").ToNetworkText(), Color.Purple);
+				}
+				else
+				{
+					for (int n = 0; n < 17; n++)
+					{
+						Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
+					}
+					ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Spared").ToNetworkText(), new(0, 183, 255));
+				}
+			}
 			DownedBosses.downedElius = true;
 			if (Main.dedServ)
 			{
 				NetMessage.SendData(MessageID.WorldData);
-			}
-			if (justKilled) // kill
-			{
-				// gore goes here
-				for (int n = 0; n < 17; n++)
-				{
-					Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
-				}
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Killed").ToNetworkText(), Color.Purple);
-			}
-			else
-			{
-				for (int n = 0; n < 17; n++)
-				{
-					Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
-				}
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Spared").ToNetworkText(), new(0, 183, 255));
 			}
 		}
 
