@@ -1,4 +1,6 @@
 using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
 using Terraria;
@@ -6,8 +8,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Projectiles.Abilities;
 
 namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 {
@@ -109,7 +109,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 			}
 			if (player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.itemLocation, player.itemLocation.DirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.ImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
+				Projectile.NewProjectile(new EntitySource_ItemUse(player, player.PlayerItem()), player.Bottom with { X = player.Bottom.X + (30 * player.direction)}, player.SafeDirectionTo(Main.MouseWorld.Y < player.MountedCenter.Y ? Main.MouseWorld : player.MountedCenter + (new Vector2(16 * player.direction, -4) * 5)) * 12f * (player.Imbue()?.ImbueSpeed ?? 1f), ModContent.ProjectileType<SeismicSlashRock>(), Damage, Knockback, player.whoAmI);
 			}
 			hal.ActivateAbility(player, false);
 		}

@@ -186,7 +186,7 @@ namespace ArcaneOdyssey.Projectiles
 								Projectile.Center = Projectile.Center.MoveTowards(Main.MouseWorld, ApplySpeed(10f));
 							}
 							else
-								Projectile.Center = Projectile.Center.MoveTowards(Owner.Center + Owner.Center.DirectionTo(Main.MouseWorld) * 400, ApplySpeed(10f));
+								Projectile.Center = Projectile.Center.MoveTowards(Owner.RotatedRelativePoint(Owner.MountedCenter) + Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) * 400, ApplySpeed(10f));
 						}
 					}
 				}

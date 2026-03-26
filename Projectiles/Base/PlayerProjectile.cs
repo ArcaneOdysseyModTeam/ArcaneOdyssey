@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.AOPlayers;
-using Terraria;
-using Terraria.Audio;
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Imbues.Base;
+using Terraria;
+using Terraria.Audio;
 
 
 namespace ArcaneOdyssey.Projectiles.Base

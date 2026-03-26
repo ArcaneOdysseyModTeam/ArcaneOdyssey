@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 					progress = 1f - MathHelper.Clamp((i - player.MountedCenter.Distance(npc.Center) / 2f) / (player.MountedCenter.Distance(npc.Center) / 2f), 0, 1);
 				}
 
-				offsetpoint += (npc.Center.DirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
+				offsetpoint += (npc.SafeDirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
 				
 				if (!progressed)
 				{

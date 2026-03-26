@@ -233,7 +233,7 @@ namespace ArcaneOdyssey.AOPlayers
 				collisions = 0;
 				if (direction == 0)
 				{
-					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
+					DashVelocity = Player.SafeDirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
 				}
 				else
 				{

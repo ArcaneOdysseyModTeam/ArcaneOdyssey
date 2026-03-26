@@ -205,7 +205,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 				{
 					NPC.noTileCollide = true;
 					NPC.noGravity = true;
-					NPC.velocity = NPC.Center.DirectionTo(Main.player[NPC.target].Center) * 3f;
+					NPC.velocity = NPC.SafeDirectionTo(Main.player[NPC.target].Center) * 3f;
 					NPC.velocity.Y -= 2f;
 				}
 				else
@@ -239,7 +239,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 				NPC.velocity.X *= 0.7f;
 				if (NPC.HasValidTarget && NPC.ai[1] == ((Main.npcFrameCount[Type] - WalkingSpriteCount) * 2) && Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					Vector2 aimDir = NPC.Center.DirectionTo(Main.player[NPC.target].Center + (Main.player[NPC.target].velocity * 20f));
+					Vector2 aimDir = NPC.SafeDirectionTo(Main.player[NPC.target].Center + (Main.player[NPC.target].velocity * 20f));
 					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, aimDir * ShootSpeed, Main.rand.Next(AOUtils.ShuffledList(RangedProjectiles)), NPC.damage, 4.5f);
 				}
 			}

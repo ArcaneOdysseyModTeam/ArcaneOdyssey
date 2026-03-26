@@ -1,54 +1,52 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System.Text.RegularExpressions;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
 {
-	public abstract class GuidebookPage : ILoadable
+	public abstract class GuidebookPage : ModType
 	{
 		public abstract int PageNum { get; }
 
 		public Asset<Texture2D> Image;
 
-		public string Name => GetType().Name;
-
-		public Mod Mod { get; set; }
-
-		public virtual void Draw()
+		protected sealed override void Register()
 		{
-
+			ModTypeLookup<GuidebookPage>.Register(this);
 		}
 
-		public void Load(Mod mod)
+		public sealed override void SetupContent() => SetStaticDefaults();
+
+		public override void SetStaticDefaults()
 		{
-			Mod = mod;
-			GuidebookSystem.AllPages.Add(this);
+			GuidebookSystem.AllPages[PageNum] = this;
+		}
+
+		public static int Count = 0;
+
+		public override void Load()
+		{
+			GuidebookSystem.PageCount++;
 			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/'), out Image, AssetRequestMode.ImmediateLoad);
 		}
 
 		public LocalizedText GetText() => Mod.CoolCustomLocalization("Guidebook." + Name + ".Text", Name + " Content goes here.");
 
-		public LocalizedText DisplayName => Mod.CoolCustomLocalization("Guidebook." + Name + ".DisplayName", () => Regex.Replace(Name, "([A-Z])", " $1").Trim());
+		public LocalizedText DisplayName => Mod.CoolCustomLocalization("Guidebook." + Name + ".DisplayName", PrettyPrintName);
 
 		public abstract bool MetConditions(Player player);
 
-		public void Unload()
+		public override void Unload()
 		{
-			Mod = null;
-			GuidebookSystem.AllPages.Clear();
 			Image = null;
 		}
 
-		public static GuidebookPage Get(string name)
+		public static GuidebookPage Get(int page)
 		{
-			return GuidebookSystem.AllPages.Find(e => e.Name == name);
+			return GuidebookSystem.AllPages.Find(e => e.PageNum == page);
 		}
-
-		public static GuidebookPage GetInstance<T>() => Get(typeof(T).Name);
-		
 	}
 
 	//GettingStarted

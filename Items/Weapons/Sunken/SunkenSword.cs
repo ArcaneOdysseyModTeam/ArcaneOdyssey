@@ -1,14 +1,14 @@
 using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Items.Weapons.Bronze;
+using ArcaneOdyssey.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Materials;
-using ArcaneOdyssey.Buffs.MagicMarks;
-using ArcaneOdyssey.Items.Weapons.Bronze;
-using ArcaneOdyssey.Projectiles.Abilities;
 
 
 namespace ArcaneOdyssey.Items.Weapons.Sunken

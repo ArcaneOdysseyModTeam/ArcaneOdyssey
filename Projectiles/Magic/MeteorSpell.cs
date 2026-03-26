@@ -1,6 +1,7 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -43,11 +44,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
-				if (Projectile.owner == Main.myPlayer)
-				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
-				}
+				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
 			}
 
 			if (!Main.dedServ)
@@ -90,22 +88,22 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			}
 		}
 
-		public string BackupTexture = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");
-
-		public override string Texture
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
-			get
+			if (projHitbox.Intersects(targetHitbox))
 			{
-				if (Imbue is not (null or SoundMagic or SlashMagic))
+				var explode = projHitbox.ClosestPointInRect(targetHitbox.Center());
+				for (int i = 0; i < 10; i++)
 				{
-					var asset = AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/{Imbue.ImbuableTier}/{Imbue.AttackPrefix}Annihilation");
-					if (ModContent.HasAsset(asset))
-					{
-						return asset;
-					}
+					Imbue?.ExplosionEffects(explode, Projectile.scale / AOSize);
+					SecondImbue?.ExplosionEffects(explode, Projectile.scale / AOSize);
 				}
-				return BackupTexture;
 			}
+			return null;
 		}
+
+		public override string Texture => AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");
+
+		public override Texture2D Sprite => ArrayCollections.annihilationSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 	}
 }

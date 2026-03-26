@@ -118,7 +118,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.ai[1] = 0f;
 			}
 
-			NPC.spriteDirection = (NPC.DirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt() * -1;
+			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt() * -1;
 
 			// ai here, red
 			if (NPC.ai[0] == 1)

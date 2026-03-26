@@ -1,11 +1,11 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Imbues.Magic.Normal;
-using ArcaneOdyssey.Imbues.Base;
 
 namespace ArcaneOdyssey.Imbues.Relics
 {

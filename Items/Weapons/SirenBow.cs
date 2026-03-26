@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Items.Weapons
 				var offsetX = Main.MouseWorld.X;
 				var offsetY = Main.screenPosition.Y;
 				var pos = new Vector2(offsetX, offsetY);
-				velocity = player.MountedCenter.DirectionTo(pos) * velocity.Length();
+				velocity = player.SafeDirectionTo(pos) * velocity.Length();
 			}
 		}
 
@@ -90,7 +90,7 @@ namespace ArcaneOdyssey.Items.Weapons
 				var offsetY = Main.screenPosition.Y;
 				var pos = new Vector2(offsetX, offsetY);
 				pos += new Vector2(Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)), Main.rand.NextFloat(ApplySpeed(-5f * 16, true), ApplySpeed(5f * 16, true)));
-				velocity = player.MountedCenter.DirectionTo(pos) * velocity.Length();
+				velocity = player.SafeDirectionTo(pos) * velocity.Length();
 				Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ArrowRain>(), damage, knockback, player.whoAmI, type);
 				return false;
 			}

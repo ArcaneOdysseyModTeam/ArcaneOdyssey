@@ -1,13 +1,13 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles.Base;
+using ArcaneOdyssey.Projectiles.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Weapons;
-using ArcaneOdyssey.Buffs.MagicMarks;
 
 
 namespace ArcaneOdyssey.Items.Weapons

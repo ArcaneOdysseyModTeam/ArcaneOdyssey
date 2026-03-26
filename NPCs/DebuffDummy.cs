@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.NPCs
 
 		public override void AI()
 		{
-			NPC.rotation = NPC.Center.DirectionTo(Main.LocalPlayer.MountedCenter).ToRotation();
+			NPC.rotation = NPC.SafeDirectionTo(Main.LocalPlayer.MountedCenter).ToRotation();
 			NPC.life = NPC.lifeMax;
 			if (AOUtils.BossAlive())
 				NPC.Kill();

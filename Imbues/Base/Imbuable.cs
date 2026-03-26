@@ -207,19 +207,29 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		/// <summary>
 		/// Draws a solid box out of dust for walls ect
-		/// <para>I am not making this lol</para>
 		/// </summary>
 		/// <param name="area">The box</param>
-		public virtual void BoxEffects(Rectangle area) { }
+		public virtual void BoxEffects(Rectangle area) 
+		{
+			for (int X = 0; X <= area.Width; X += 4)
+			{
+				Dust.NewDustPerfect(area.TopLeft() with { X = area.X + X }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
+				Dust.NewDustPerfect(area.BottomLeft() with { X = area.X + X }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
+			}
+			for (int Y = 0; Y <= area.Height; Y += 4)
+			{
+				Dust.NewDustPerfect(area.TopLeft() with { Y = area.Y + Y }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
+				Dust.NewDustPerfect(area.TopRight() with { X = area.Y + Y }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
+			}
+
+			LingeringEffects(area, Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2());
+		}
 
 
 		/// <summary>
-		/// For surge, ray ect
+		/// For surge, ect
 		/// </summary>
-		/// <param name="origin">Where to shoot out dust from</param>
-		/// <param name="rangemulti">The length of the beam</param>
-		/// <param name="widthmulti">The width of the beam</param>
-		public virtual void BeamEffects(Vector2 origin, float direction, float rangemulti = 1f, float widthmulti = 1f) { }
+		public virtual void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle) { }
 
 		public override void UseAnimation(Player player)
 		{
@@ -319,17 +329,8 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					return false;
 				}
-				return projectile.Imbue() is not null;
 			}
-			if (entity is Player)
-			{
-				return true;
-			}
-			if (entity is Item item)
-			{
-				return item.Imbue() is not null;
-			}
-			return false;
+			return true;
 		}
 
 		public override void SetDefaults()
@@ -518,7 +519,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (mode != MagicCircleMode.Rotating)
 			{
-				position ??= player.RotatedRelativePoint(player.MountedCenter) + (player.DirectionTo(Main.MouseWorld) * 30f);
+				position ??= player.RotatedRelativePoint(player.MountedCenter) + (player.SafeDirectionTo(Main.MouseWorld) * 30f);
 				rotation ??= player.AngleTo(Main.MouseWorld);
 			}
 			else

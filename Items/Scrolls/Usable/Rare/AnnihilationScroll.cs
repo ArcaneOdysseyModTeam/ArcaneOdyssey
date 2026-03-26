@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 				damage = item.damage;
 			}
 			scroll.ActivateAbility(player);
-			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.DirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 	}
 }

@@ -1,4 +1,19 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Accessories.Vanity;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.EmptyScrolls;
+using ArcaneOdyssey.Items.Equipment.Pets;
+using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Projectiles.Berserker.Effects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -14,21 +29,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
-using ArcaneOdyssey.Imbues;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Consumable;
-using ArcaneOdyssey.Items.Materials;
-using ArcaneOdyssey.Buffs.Base;
-using ArcaneOdyssey.Imbues.Relics;
-using ArcaneOdyssey.Items.Accessories.Vanity;
-using ArcaneOdyssey.Items.Equipment.Pets;
-using ArcaneOdyssey.Projectiles.Berserker.Effects;
-using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Items.EmptyScrolls;
-using ArcaneOdyssey.Projectiles;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 
 namespace ArcaneOdyssey.GlobalTypes
 {

@@ -1,7 +1,19 @@
-﻿using ArcaneOdyssey.GlobalTypes;
-using ArcaneOdyssey.AOPlayers;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.GlobalTypes;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.NPCs;
+using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.VFX.Rarities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +23,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Imbues;
-using ArcaneOdyssey.NPCs;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Buffs.Base;
-using ArcaneOdyssey.Buffs.MagicMarks;
-using ArcaneOdyssey.Imbues.Relics;
-using ArcaneOdyssey.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Imbues.Magic.Normal;
-using ArcaneOdyssey.Imbues.Base;
-using Microsoft.Xna.Framework.Graphics;
-using ArcaneOdyssey.Projectiles;
 
 namespace ArcaneOdyssey
 {
@@ -80,9 +80,7 @@ namespace ArcaneOdyssey
 			while (n-- > 1)
 			{
 				int k = Main.rand.Next(n + 1);
-				T value = list[k];
-				list[k] = list[n];
-				list[n] = value;
+				(list[n], list[k]) = (list[k], list[n]);
 			}
 		}
 
@@ -107,9 +105,7 @@ namespace ArcaneOdyssey
 			while (n-- > 1)
 			{
 				int k = Main.rand.Next(n + 1);
-				T value = list[k];
-				list[k] = list[n];
-				list[n] = value;
+				(list[n], list[k]) = (list[k], list[n]);
 			}
 			return list;
 		}
@@ -246,14 +242,6 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-		public static void NetUpdate(this Projectile projectile)
-		{
-			projectile.netUpdate = true;
-			projectile.netSpam = 0;
-		}
-
-		public static bool IsOwner(this Projectile projectile) => Main.myPlayer == projectile.owner;
-
 		public static SynergyEffects CopyDamageSynergiesFromImbue<T>() where T : Imbuable
 		{
 			return ModContent.GetInstance<T>().Effects with { clearBuffs = [] };
@@ -282,7 +270,7 @@ namespace ArcaneOdyssey
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
-		public static string GetTexture<T>() where T : class
+		public static string GetTexture<T>()
 		{
 			return typeof(T).FullName.Replace('.', '/');
 		}
@@ -341,7 +329,7 @@ namespace ArcaneOdyssey
 				if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
 					alivecount++;
 			}
-			return alivecount == 2;
+			return alivecount > 1;
 		}
 
 		public static DamageClass TrueMelee()
@@ -1040,6 +1028,11 @@ namespace ArcaneOdyssey
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
 		}
 
+		public static T Find<T>(this T[] array, Predicate<T> predicate)
+		{
+			return Array.Find(array, predicate);
+		}
+
 		/// <summary>
 		/// <inheritdoc cref="Projectile.NewProjectile(IEntitySource, float, float, float, float, int, int, float, int, float, float, float)"/>
 		/// </summary>
@@ -1140,7 +1133,7 @@ namespace ArcaneOdyssey
 			{
 				type = steam.Imbue.GetType();
 			}
-			return player.HasTypeInInventory(type);
+			return player.HasTypeInInventory<Imbuable>(e => e.Type == imbue.Type);
 		}
 
 		/// <summary>
@@ -1257,9 +1250,9 @@ namespace ArcaneOdyssey
 			{
 				player = Main.player[npc.releaseOwner];
 			}
-			if (entity is Player player1)
+			if (entity is Player)
 			{
-				player = player1;
+				player = entity as Player;
 			}
 			if (entity is Item item)
 			{
@@ -1478,7 +1471,7 @@ namespace ArcaneOdyssey
 		#endregion
 
 		#region Player Inventory Helpers
-		public static bool HasTypeInInventory<T>(this Player player, Func<T, bool> check = null) where T : ModItem
+		public static bool HasTypeInInventory<T>(this Player player, Predicate<T> check = null) where T : ModItem
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
@@ -1502,7 +1495,7 @@ namespace ArcaneOdyssey
 			return false;
 		}
 
-		public static bool HasTypeInInventory<T>(this Player player, out T item, Func<T, bool> check = null) where T : ModItem
+		public static bool HasTypeInInventory<T>(this Player player, out T item, Predicate<T> check = null) where T : ModItem
 		{
 			item = null;
 			if (player?.ArcaneOdyssey() is not null)
@@ -1540,41 +1533,6 @@ namespace ArcaneOdyssey
 		{
 			self.Sort(comparer);
 			return self;
-		}
-
-		public static bool HasTypeInInventory(this Player player, Type type, Mod mod = null)
-		{
-			mod ??= ArcaneOdysseyMod.Instance;
-			if (mod.TryFind<ModItem>(type.Name, out var moditem) && player.ArcaneOdyssey().EquippedImbues.Contains(moditem.Type)) 
-			{
-				return true; 
-			}
-			List<Item> no = [.. player.inventory, player.trashItem];
-			no.RemoveAll(e => e.ModItem is null);
-			foreach (var items in no)
-			{
-				if (items.ModItem.GetType().Name == type.Name || items.ModItem.GetType().IsSubclassOf(type))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		public static bool HasTypeInInventory(this Player player, Type type, out ModItem item)
-		{
-			List<Item> no = [.. player.inventory, player.trashItem];
-			item = null;
-			no.RemoveAll(e => e.ModItem is null);
-			foreach (var items in no)
-			{
-				if (items.ModItem.GetType().Name == type.Name || items.ModItem.GetType().IsSubclassOf(type))
-				{
-					item = items.ModItem;
-					return true;
-				}
-			}
-			return false;
 		}
 
 		public static Item PlayerItem(this Player player)

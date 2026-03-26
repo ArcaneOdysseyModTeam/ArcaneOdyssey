@@ -1,12 +1,12 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles.Berserker;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Projectiles.Berserker;
 
 namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 {

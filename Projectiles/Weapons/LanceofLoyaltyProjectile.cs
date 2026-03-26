@@ -1,10 +1,10 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles.Base;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Projectiles.Base;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
 {

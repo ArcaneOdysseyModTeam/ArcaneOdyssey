@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			{
 				Projectile.velocity = Vector2.Zero;
 				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, Projectile.Distance(targetPosition) / 60f);
-				var velocity = Projectile.DirectionTo(targetPosition); // fake velocity
+				var velocity = Projectile.SafeDirectionTo(targetPosition); // fake velocity
 				Projectile.spriteDirection = (velocity.X < 0).ToDirectionInt();
 				if (Projectile.spriteDirection == -1)
 				{

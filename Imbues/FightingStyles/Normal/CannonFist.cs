@@ -1,13 +1,13 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.DOT;
+using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Buffs.DOT;
-using ArcaneOdyssey.Buffs.MagicMarks;
-using ArcaneOdyssey.Imbues.Base;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {

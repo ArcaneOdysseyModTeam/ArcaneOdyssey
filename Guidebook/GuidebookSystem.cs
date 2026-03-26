@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
@@ -14,6 +14,23 @@ namespace ArcaneOdyssey.Guidebook
 			}
 		}
 
-		public static List<GuidebookPage> AllPages = [];
+		public override void Unload()
+		{
+			PageCount = 0;
+		}
+
+		public static int PageCount = 0;
+
+
+		public static SetFactory Factory = new(PageCount, nameof(GuidebookPage), i => GuidebookPage.Get(i).Name);
+
+
+		public static GuidebookPage[] AllPages = Factory.CreateCustomSet<GuidebookPage>(null);
+
+		public override void ResizeArrays()
+		{
+			Factory = new(PageCount, nameof(GuidebookSystem), i => GuidebookPage.Get(i).Name);
+			AllPages = Factory.CreateCustomSet<GuidebookPage>(null);
+		}
 	}
 }

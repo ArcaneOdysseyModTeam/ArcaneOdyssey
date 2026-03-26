@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 				var offsetX = Main.MouseWorld.X;
 				var offsetY = Main.screenPosition.Y;
 				var pos = new Vector2(offsetX, offsetY);
-				velocity = player.MountedCenter.DirectionTo(pos) * velocity.Length();
+				velocity = player.SafeDirectionTo(pos) * velocity.Length();
 			}
 		}
 

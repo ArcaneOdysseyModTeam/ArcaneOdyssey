@@ -1,4 +1,7 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
@@ -7,9 +10,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Imbues.Base;
 
 
 namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
