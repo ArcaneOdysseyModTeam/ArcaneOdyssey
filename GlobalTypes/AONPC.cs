@@ -82,15 +82,6 @@ namespace ArcaneOdyssey.GlobalTypes
 			return !AOStunned;
 		}
 
-		public override void ModifyShop(NPCShop shop)
-		{
-			if (shop.NpcType == NPCID.Clothier)
-			{
-				shop.Add<VermillionBracelet>();
-			}
-
-		}
-
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.ArmorPenetration += _defenseLost;

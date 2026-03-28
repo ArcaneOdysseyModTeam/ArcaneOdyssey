@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.buffType = ModContent.BuffType<IrisBuff>();
 			Item.shoot = ModContent.ProjectileType<Iris>();
-			//Item.shopCustomPrice = Item.buyPrice(gold: 1);
+			Item.master = true;
 		}
 
 		public override int AOValue => 60;

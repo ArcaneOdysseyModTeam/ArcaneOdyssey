@@ -183,14 +183,13 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisProjectile = projectile;
 			if (CanBeAffected && !Main.dedServ)
 			{
-				if (projectile.ModProjectile is not ExplosionSpell)
+				if (Imbue is not null && Imbue.PreEffects(projectile))
 				{
-					if (Imbue is not null && Imbue.PreEffects(projectile))
-					{
-						Imbue.KillEffects(projectile.Hitbox, projectile);
-					}
-					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-						SecondImbue.KillEffects(projectile.Hitbox, projectile);
+					Imbue.KillEffects(projectile.Hitbox, projectile);
+				}
+				if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
+				{
+					SecondImbue.KillEffects(projectile.Hitbox, projectile);
 				}
 			}
 			return true;
@@ -309,7 +308,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			mult *= Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
 			if (projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				projectile.Hitbox.Scaled(mult);
+				projectile.Hitbox = projectile.Hitbox.Scaled(mult);
 				projectile.scale *= mult;
 			}
 		}
@@ -334,7 +333,9 @@ namespace ArcaneOdyssey.GlobalTypes
 				Imbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 			}
 			if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
+			{
 				SecondImbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
+			}
 		}
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
@@ -370,7 +371,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (Main.netMode == NetmodeID.SinglePlayer && Imbue is DeathMagic && (target.lifeMax < (Main.player[projectile.owner].statLifeMax2 * 2)))
+			if (Main.netMode == NetmodeID.SinglePlayer && (Imbue is DeathMagic || SecondImbue is DeathMagic) && (target.lifeMax < (Main.player[projectile.owner].statLifeMax2 * 2)))
 			{
 				target.StrikeInstantKill();
 			}

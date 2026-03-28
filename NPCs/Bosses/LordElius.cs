@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.BossBags;
+using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
@@ -15,6 +16,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
+	[AutoloadBossHead]
 	public class LordElius : BaseNPC
 	{
 		public override void SetStaticDefaults()
@@ -115,7 +117,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.ai[1] = 0f;
 			}
 
-			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt() * -1;
+			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
 
 			// ai here, red
 			if (NPC.ai[0] == 1)
@@ -160,7 +162,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					ModContent.ItemType<StormCaller>()
 					));
 			npcLoot.Add(leadingConditionRule1);
-			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>()));
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>())); 
+			leadingConditionRule1 = new(new Conditions.IsMasterMode());
+			leadingConditionRule1.OnSuccess(AOUtils.Common<VermillionBracelet>(4));
+			npcLoot.Add(leadingConditionRule1);
 		}
 
 		public override void OnKill()

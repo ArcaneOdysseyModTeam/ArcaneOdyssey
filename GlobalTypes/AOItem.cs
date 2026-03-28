@@ -334,7 +334,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					knockback *= imbue.Imbue.ImbueDamage * imbue.Imbue.ImbueDamage;
 				var extraknockbackmulti = imbue.KBMulti;
 				if (imbue.Imbue is not null)
-					extraknockbackmulti += imbue.Imbue.KBMulti.MultiToPercent();
+					extraknockbackmulti *= imbue.Imbue.KBMulti;
 				knockback *= extraknockbackmulti;
 			}
 			else if (Imbue is not null)
@@ -353,7 +353,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 				var extraknockbackmulti = Imbue.KBMulti;
 				if (SecondImbue is not null)
-					extraknockbackmulti += SecondImbue.KBMulti.MultiToPercent();
+					extraknockbackmulti *= SecondImbue.KBMulti;
 				knockback *= extraknockbackmulti;
 			}
 		}
@@ -371,23 +371,23 @@ namespace ArcaneOdyssey.GlobalTypes
 			
 			if (item.ModItem is Imbuable imbue)
 			{
-				damage += imbue.ScrollDamage.MultiToPercent();
+				damage *= imbue.ScrollDamage;
 				if (imbue.Imbue is not null)
-					damage += imbue.Imbue.ScrollDamage.MultiToPercent();
+					damage *= imbue.Imbue.ImbueDamage;
 			}
 			else if (Imbue is not null)
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
-					damage += Imbue.ScrollDamage.MultiToPercent();
+					damage *= Imbue.ScrollDamage;
 					if (SecondImbue is not null)
-						damage += SecondImbue.ImbueDamage.MultiToPercent();
+						damage *= SecondImbue.ImbueDamage;
 				}
 				else if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					damage += Imbue.ImbueDamage.MultiToPercent();
+					damage *= Imbue.ImbueDamage;
 					if (SecondImbue is not null)
-						damage += SecondImbue.ImbueDamage.MultiToPercent();
+						damage *= SecondImbue.ImbueDamage;
 				}
 			}
 		}
@@ -496,15 +496,15 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					if (!BenifitsFromScrollStats.GetValueOrDefault())
 					{
-						scale += Imbue.ImbueSize.MultiToPercent();
+						scale *= Imbue.ImbueSize;
 						if (SecondImbue is not null)
-							scale += SecondImbue.ImbueSize.MultiToPercent();
+							scale *= SecondImbue.ImbueSize;
 					}
 					else
 					{
-						scale += Imbue.ScrollSize.MultiToPercent();
+						scale *= Imbue.ScrollSize;
 						if (SecondImbue is not null)
-							scale += SecondImbue.ImbueSize.MultiToPercent();
+							scale *= SecondImbue.ImbueSize;
 					}
 				}
 			}
