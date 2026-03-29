@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Accessories
 	[AutoloadEquip(EquipType.Back)]
 	public class ThunderingCape : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Mystic;
+		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override void SetDefaults()
 		{

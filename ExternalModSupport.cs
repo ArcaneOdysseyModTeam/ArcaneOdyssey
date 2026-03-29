@@ -206,7 +206,7 @@ namespace ArcaneOdyssey
 				float weight = 2.6f; // after blood moon
 				Func<bool> downed = () => DownedBosses.downedElius;
 				int bossType = ModContent.NPCType<LordElius>();
-				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				int trophy = ModContent.ItemType<EliusTrophy>();
 				int relic = ModContent.ItemType<EliusBossRelic>();
 				int pet = ModContent.ItemType<VermillionBracelet>();
 				int musicbox = ModContent.ItemType<EliusMusicBox>();
@@ -221,7 +221,7 @@ namespace ArcaneOdyssey
 				bossType,
 				new Dictionary<string, object>()
 				{
-					["collectibles"] = new List<int> { pet, musicbox, relic },
+					["collectibles"] = new List<int> { pet, musicbox, relic, trophy },
 					["spawnInfo"] = spawnInfo
 				});
 			}

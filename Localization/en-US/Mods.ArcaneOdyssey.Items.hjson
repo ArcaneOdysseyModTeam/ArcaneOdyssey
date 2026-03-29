@@ -233,6 +233,11 @@ BossTrophies: {
 		DisplayName: Dusk Trophy
 		Tooltip: ""
 	}
+
+	EliusTrophy: {
+		DisplayName: Lord Elius Trophy
+		Tooltip: ""
+	}
 }
 
 Materials: {

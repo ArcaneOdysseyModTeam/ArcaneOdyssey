@@ -3,6 +3,7 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.BossBags;
 using ArcaneOdyssey.Items.BossRelics;
+using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
@@ -153,6 +154,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
+			npcLoot.Add(AOUtils.Common<EliusTrophy>(10));
 			LeadingConditionRule leadingConditionRule1 = new(new Conditions.NotExpert());
 			leadingConditionRule1.OnSuccess(AnyDropHelper.Create(
 					ModContent.ItemType<EliusBoots>(),
