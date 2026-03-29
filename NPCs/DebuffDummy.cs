@@ -1,8 +1,7 @@
-﻿#if VSDEBUGMODE
-using ArcaneOdysseyMusic;
-#endif
+﻿using ArcaneOdysseyMusic;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs
 {
@@ -12,6 +11,8 @@ namespace ArcaneOdyssey.NPCs
 		{
 			Main.npcFrameCount[NPC.type] = 1;
 		}
+
+		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 
 		public override void SetDefaults()
 		{
@@ -27,21 +28,17 @@ namespace ArcaneOdyssey.NPCs
 			NPC.friendly = false;
 			NPC.trapImmune = false;
 			NPC.lavaImmune = false;
-#if VSDEBUGMODE
 			NPC.boss = true;
 		}
 
 		public override AOMusicTrack Theme => AOMusicTrack.Atlantean;
-#else
-		}
-#endif
 
 
 		public override void AI()
 		{
 			NPC.rotation = NPC.SafeDirectionTo(Main.LocalPlayer.MountedCenter).ToRotation();
 			NPC.life = NPC.lifeMax;
-			if (AOUtils.BossAlive())
+			if (AOUtils.BossAlive)
 				NPC.Kill();
 		}
 	}

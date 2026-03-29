@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook

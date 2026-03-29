@@ -8,7 +8,6 @@ using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.NPCs;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.VFX.Rarities;
@@ -311,14 +310,17 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool BossAlive(bool ignoreDummy = true)
+		public static bool BossAlive
 		{
-			foreach (var npc in Main.ActiveNPCs)
+			get
 			{
-				if (npc.boss && (!ignoreDummy || (npc.ModNPC is not DebuffDummy)))
-					return true;
+				foreach (var npc in Main.ActiveNPCs)
+				{
+					if (npc.boss)
+						return true;
+				}
+				return false;
 			}
-			return false;
 		}
 
 		public static bool BothTwinsAlive()
@@ -1360,21 +1362,6 @@ namespace ArcaneOdyssey
 				}
 			}
 
-			if (item.questItem || item.rare == ItemRarityID.Quest)
-			{
-				return Rarities.Rare;
-			}
-
-			if (item.expert || item.rare == ItemRarityID.Expert)
-			{
-				return Rarities.Mystic;
-			}
-
-			if (item.master || item.rare == ItemRarityID.Master)
-			{
-				return Rarities.Legendary;
-			}
-
 			return item.rare switch
 			{
 				ItemRarityID.Gray => Rarities.Junk,
@@ -1382,10 +1369,13 @@ namespace ArcaneOdyssey
 				ItemRarityID.Blue => Rarities.Common,
 				ItemRarityID.Green => Rarities.Uncommon,
 				ItemRarityID.Orange => Rarities.Uncommon,
+				ItemRarityID.Quest => Rarities.Rare,
 				ItemRarityID.LightRed => Rarities.Rare,
 				ItemRarityID.Pink => Rarities.Rare,
+				ItemRarityID.Expert => Rarities.Mystic,
 				ItemRarityID.LightPurple => Rarities.Mystic,
 				ItemRarityID.Lime => Rarities.Mystic,
+				ItemRarityID.Master => Rarities.Mystic,
 				ItemRarityID.Yellow => Rarities.Legendary,
 				ItemRarityID.Cyan => Rarities.Legendary,
 				ItemRarityID.Red => Rarities.Mythical,

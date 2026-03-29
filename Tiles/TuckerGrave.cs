@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Tiles
 			AdjTiles = [TileID.Tombstones];
 			Main.tileFrameImportant[Type] = true;
 			Main.tileObsidianKill[Type] = true;
+			TileID.Sets.InteractibleByNPCs[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);
 			TileObjectData.newTile.LavaDeath = false;

@@ -53,14 +53,14 @@ namespace ArcaneOdyssey.Biomes
 			player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
 			if (NPC.downedBoss1)
 			{
-				if (!AOUtils.BossAlive())
+				if (!AOUtils.BossAlive)
 					player.ArcaneOdyssey().EliusArenaCounter++;
 				else
 					player.ArcaneOdyssey().EliusArenaCounter = 0;
 
 				if (player.ArcaneOdyssey().EliusArenaCounter >= (DownedBosses.downedElius ? (60 * 60) : (60 * 30))) // 30-60 seconds
 				{
-					if (!AOUtils.BossAlive(false))
+					if (!AOUtils.BossAlive)
 					{
 						if (AOUtils.ServerOrSingleplayer)
 						{

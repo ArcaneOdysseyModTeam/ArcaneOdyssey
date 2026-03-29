@@ -1,11 +1,15 @@
 ﻿using ArcaneOdyssey.Items.Armour.Vanity.Masks;
+using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
+using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -203,6 +207,9 @@ namespace ArcaneOdyssey
 				Func<bool> downed = () => DownedBosses.downedElius;
 				int bossType = ModContent.NPCType<LordElius>();
 				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				int relic = ModContent.ItemType<EliusBossRelic>();
+				int pet = ModContent.ItemType<VermillionBracelet>();
+				int musicbox = ModContent.ItemType<EliusMusicBox>();
 				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Bosses.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
@@ -214,7 +221,7 @@ namespace ArcaneOdyssey
 				bossType,
 				new Dictionary<string, object>()
 				{
-					//["collectibles"] = new List<int> { trophy },
+					["collectibles"] = new List<int> { pet, musicbox, relic },
 					["spawnInfo"] = spawnInfo
 				});
 			}
@@ -223,6 +230,11 @@ namespace ArcaneOdyssey
 			DuskStuff();
 			LaelusStuff();
 			EliusStuff();
+
+			bossChecklist.Call("SubmitEntryCollectibles", Mod, new Dictionary<string, object>()
+			{
+				{ "Terraria HallowBoss", new List<int>() { ModContent.ItemType<HecateShard>() } },
+			});
 		}
 
 		public static bool? CheckItemTemperature(ModItem item)

@@ -119,7 +119,11 @@ Equipment: {
 
 		VermillionBracelet: {
 			DisplayName: Vermillion Bracelet
-			Tooltip: ""
+			Tooltip:
+				'''
+				Summons a miniature Iris
+				'A bracelet made out of red titanium'
+				'''
 		}
 	}
 
@@ -319,6 +323,13 @@ EmptyScrolls: {
 BossBags: {
 	EliusBossBag: {
 		DisplayName: Treasure Bag (Lord Elius)
+		Tooltip: ""
+	}
+}
+
+BossRelics: {
+	EliusBossRelic: {
+		DisplayName: Lord Elius Relic
 		Tooltip: ""
 	}
 }

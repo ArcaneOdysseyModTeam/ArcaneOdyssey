@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.AOPlayers
 				{
 					if (!(npc.CountsAsACritter || npc.friendly || Main.npcCatchable[npc.type]))
 					{
-						if (npc.boss || !AOUtils.BossAlive())
+						if (npc.boss || !AOUtils.BossAlive)
 						{
 							Player.ArcaneOdyssey()?.SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
 							if (npc.boss)

@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Items.Armour.Vanity;
 using ArcaneOdyssey.Items.Consumable;
-using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;

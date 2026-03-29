@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			npc.ArcaneOdyssey().phoenixDrain = true;
 			foreach (var player in Main.ActivePlayers)
 			{
-				if (npc.Hitbox.Distance(player.Center) <= HealDistance && (!AOUtils.BossAlive() || npc.boss))
+				if (npc.Hitbox.Distance(player.Center) <= HealDistance && (!AOUtils.BossAlive || npc.boss))
 				{
 					noPlayerFound = false;
 					if (!ArrayCollections.phoenixAffected[npc.type] || !npc.boss)

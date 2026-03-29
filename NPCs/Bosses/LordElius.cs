@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.BossBags;
+using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
@@ -164,6 +165,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			npcLoot.Add(leadingConditionRule1);
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>())); 
 			leadingConditionRule1 = new(new Conditions.IsMasterMode());
+			leadingConditionRule1.OnSuccess(AOUtils.Common<EliusBossRelic>());
 			leadingConditionRule1.OnSuccess(AOUtils.Common<VermillionBracelet>(4));
 			npcLoot.Add(leadingConditionRule1);
 		}
