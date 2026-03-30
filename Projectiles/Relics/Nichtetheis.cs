@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 40; // hitscan
 			Projectile.extraUpdates = 100;
+			Projectile.stopsDealingDamageAfterPenetrateHits = true;
 			Projectile.timeLeft = TravelTime + LingerTime;
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
 		}
@@ -37,7 +38,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 
 		private Vector2? origin = null;
 		private Vector2? end = null;
-		public override bool CanHaveImbueVFX => false;
+		public override bool CanHaveImbueVFX => !dying;
 
 		public bool dying = false;
 
@@ -48,8 +49,8 @@ namespace ArcaneOdyssey.Projectiles.Relics
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				origin ??= Projectile.Center + (Projectile.velocity.SafeNormalize(Projectile.velocity) * 60f);
-				Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
-				SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				//Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				//SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}
 			else
 			{
@@ -92,7 +93,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			return true;
 		}
 
-		public override bool? CanCutTiles() => SecondImbue is not null && !dying;
+		public override bool? CanCutTiles() => !dying;
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
@@ -101,5 +102,9 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			return false;
 		}
 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Projectile.timeLeft = LingerTime;
+		}
 	}
 }

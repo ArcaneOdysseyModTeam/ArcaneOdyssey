@@ -238,6 +238,11 @@ BossTrophies: {
 		DisplayName: Lord Elius Trophy
 		Tooltip: ""
 	}
+
+	LaelusTrophy: {
+		DisplayName: Laelus Trophy
+		Tooltip: ""
+	}
 }
 
 Materials: {

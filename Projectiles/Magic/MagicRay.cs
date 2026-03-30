@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -55,7 +56,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void AI()
 		{
-			
 			if (++Projectile.frameCounter > 6)
 			{
 				Projectile.frameCounter = 0;
@@ -128,16 +128,15 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			return true;
 		}
 
-		public override string Texture => AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WindRay");
-		public override Texture2D Sprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D MidSprite => ArrayCollections.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArrayCollections.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public override string Texture => AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WindRayEnd");
+		public Texture2D MidSprite => ArrayCollections.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.raySprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.rayEndSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArrayCollections.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.rayStartSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			float _ = 0f;
-			if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, End, projHitbox.Width, ref _))
+			if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, End, MathF.Sqrt((projHitbox.Width ^ 2) + (projHitbox.Height ^ 2)), ref _))
 			{
 				return true;
 			}

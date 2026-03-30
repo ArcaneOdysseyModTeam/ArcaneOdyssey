@@ -29,6 +29,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 10; // hitscan
+			Projectile.stopsDealingDamageAfterPenetrateHits = true;
 			Projectile.extraUpdates = 100;
 			Projectile.timeLeft = TravelTime + LingerTime;
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
@@ -36,11 +37,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		}
 
 
-		public override string Texture => AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WindRay");
-		public override Texture2D Sprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D MidSprite => ArrayCollections.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArrayCollections.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public override string Texture => AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WindRayEnd");
+		public Texture2D MidSprite => ArrayCollections.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.raySprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.rayEndSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArrayCollections.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.rayStartSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 
 
 		public override float AOSize => .75f;
@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		private Vector2? origin = null;
 		private Vector2? end = null;
-		public override bool CanHaveImbueVFX => false;
+		public override bool CanHaveImbueVFX => !dying;
 
 		public bool dying = false;
 
@@ -59,8 +59,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				origin ??= Projectile.Center;
-				Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
-				SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				//Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				//SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}
 			else
 			{
@@ -111,6 +111,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (!dying)
 				return null;
 			return false;
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Projectile.timeLeft = LingerTime;
 		}
 	}
 }
