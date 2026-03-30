@@ -125,6 +125,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool TouchingWater()
 		{
 			dying = true;
+			Owner.channel = false;
+			Projectile.ignoreWater = true;
 			return true;
 		}
 
