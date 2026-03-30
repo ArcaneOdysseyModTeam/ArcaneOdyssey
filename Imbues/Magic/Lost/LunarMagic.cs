@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class LunarMagic : AOMagic
+	public class LunarMagic : MagicType
 	{
 		public override float Aura => .8f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
@@ -48,6 +48,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SearedEffect>(0.7f)
 			]
 		);
+
+		public override int BlastFrames => 5;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

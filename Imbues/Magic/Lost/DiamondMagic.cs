@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class DiamondMagic : AOMagic
+	public class DiamondMagic : MagicType
 	{
 		public override float Aura => 1.5f;
 		public override float? DashResist => 1.6f;
@@ -34,6 +34,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Crystallized>(1.125f)
 			]
 			);
+
+		public override int BlastFrames => 4;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 10; n++)

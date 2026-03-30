@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class PrismMagic : AOMagic
+	public class PrismMagic : MagicType
 	{
 		public override float Aura => .3f;
 		public override float? DashResist => 1.15f;
@@ -46,6 +46,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Melting>(1.05f),
 			]
 			);
+
+		public override int BlastFrames => 7;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

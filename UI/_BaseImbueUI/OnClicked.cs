@@ -23,7 +23,7 @@ public abstract partial class BaseImbueUI : UIState
 		var item = MagicTypeToItem(p.CurrentType).Clone();
 
 		SpotTitle.SetText(item.Name, 1, true);
-		if (item.ModItem is AOMagic magic)
+		if (item.ModItem is MagicType magic)
 		{
 			// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
 			string prefix = magic.ImbueDebuffs.Length switch

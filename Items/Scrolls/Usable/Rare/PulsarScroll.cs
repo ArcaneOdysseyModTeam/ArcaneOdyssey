@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -18,14 +19,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 			Item.DamageType = DamageClass.Magic;
 			Item.UseSound = SoundID.Item84;
 			Item.mana = 50;
-			Item.shoot = ProjectileID.WoodenArrowFriendly;
+			Item.shoot = ModContent.ProjectileType<PulsarSpell>();
 		}
 
 		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Basic, true, Imbue.GetSkill("Pulsar"), player.AltUse());
+			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Basic, true, type, player.AltUse());
 			return false;
 		}
 	}

@@ -10,7 +10,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class MagmaMagic : AOMagic
+	public class MagmaMagic : MagicType
 	{
 		public override float Aura => 1f;
 		public override void RegisterMutations()
@@ -70,6 +70,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
+
+		public override int BlastFrames => 4;
+		public override void UpdateProjectile(Projectile Projectile)
+		{
+
+			Projectile.rotation += 0.1f * Projectile.direction;
+		}
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

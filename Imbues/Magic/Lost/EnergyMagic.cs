@@ -10,7 +10,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class EnergyMagic : AOMagic
+	public class EnergyMagic : MagicType
 	{
 		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
@@ -44,6 +44,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
+
+		public override int BlastFrames => 3;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

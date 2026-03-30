@@ -205,6 +205,11 @@ namespace ArcaneOdyssey
 			return ModContent.GetInstance<T>().Effects;
 		}
 
+		public static Combo[] CopyCombosFromImbue<T>() where T : Imbuable
+		{
+			return ModContent.GetInstance<T>().CombinedDebuffs;
+		}
+
 		public static int[] ToIntArray(this Rectangle rect)
 		{
 			return [rect.X, rect.Y, rect.Width, rect.Height];
@@ -821,7 +826,7 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is Scroll scroll)
 				{
-					if (scroll.CanHaveMagic && imbue is AOMagic && scroll.ExtraConditionsForImbue(imbue))
+					if (scroll.CanHaveMagic && imbue is MagicType && scroll.ExtraConditionsForImbue(imbue))
 					{
 						return true;
 					}
@@ -837,19 +842,19 @@ namespace ArcaneOdyssey
 				}
 				if (item.ModItem is SpiritEnergy)
 				{
-					return imbue is AOMagic && Main.hardMode;
+					return imbue is MagicType && Main.hardMode;
 				}
 				if (imbue is FightingStyle)
 				{
 					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength) && item.ModItem is not Imbuable;
 				}
-				if (imbue is AOMagic)
+				if (imbue is MagicType)
 				{
 					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || (item.ModItem is SpiritEnergy or FightingStyle && Main.hardMode));
 				}
 				if (imbue is SpiritEnergy)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || (item.ModItem is AOMagic or FightingStyle && Main.hardMode));
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || (item.ModItem is MagicType or FightingStyle && Main.hardMode));
 				}
 			}
 			return false;
@@ -1760,6 +1765,11 @@ namespace ArcaneOdyssey
 	{
 		public ClearBuff[] clearBuffs = buffsToClear;
 		public List<Synergy> magicBuffMultipliers = buffMultipliers;
+
+		public static SynergyEffects operator +(SynergyEffects one, SynergyEffects two)
+		{
+			return new([.. one.clearBuffs, .. two.clearBuffs], [.. one.magicBuffMultipliers, .. two.magicBuffMultipliers]);
+		}
 	}
 
 	public struct ClearBuff(int id, params int[] alternatives)

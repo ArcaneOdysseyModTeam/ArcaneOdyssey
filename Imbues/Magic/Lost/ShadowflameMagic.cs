@@ -11,7 +11,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class ShadowflameMagic : AOMagic
+	public class ShadowflameMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -62,6 +62,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 			]
 			);
+
+		public override int BlastFrames => 3;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

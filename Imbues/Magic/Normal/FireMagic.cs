@@ -10,7 +10,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class FireMagic : AOMagic
+	public class FireMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -66,6 +66,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 			]
 			);
+
+		public override int BlastFrames => 3;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

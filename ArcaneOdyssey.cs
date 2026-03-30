@@ -5,7 +5,6 @@ using ArcaneOdyssey.GlobalTypes;
 using Microsoft.Xna.Framework;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -21,7 +20,11 @@ namespace ArcaneOdyssey
 		/// <summary>
 		/// disable all cooldowns and stuff lmao
 		/// </summary>
-		public const bool DevMode = ArcaneOdyssey.DevMode.devMode;
+#if VSDEBUGMODE
+		public const bool DevMode = true;
+#else
+		public const bool DevMode = false;
+#endif
 		public const string InternalName = "ArcaneOdyssey";
 
 		public static Asset<Texture2D> MagicCircleSprite;
@@ -38,8 +41,9 @@ namespace ArcaneOdyssey
 
 		/// <param name="args">
 		/// BlacklistProjectile/ExcludeProjectile (<seealso cref="int"/>)
-		/// <para>BlacklistItem/ExcludeItem (<seealso cref="int"/>)</para>
-		/// <para>AddMordenDialogue (<seealso cref="string"/>, <seealso cref="Func{bool}"/>)</para>
+		/// <para/>BlacklistItem/ExcludeItem (<seealso cref="int"/>)
+		/// <para/>AddSizeStat (<seealso cref="int"/>, <seealso cref="int"/>)
+		/// <para/>AddHasteStat (<seealso cref="int"/>, <seealso cref="int"/>)
 		/// </param>
 		public override object Call(params object[] args)
 		{
@@ -52,6 +56,16 @@ namespace ArcaneOdyssey
 				case "BlacklistItem":
 				case "ExcludeItem":
 					excludedItems.Add((int)args[1]);
+					break;
+				case "AddSizeStat":
+				case "SetSizeStat":
+				case "SizeStat":
+					Sets.SizeStats[(int)args[1]] = (int)args[2];
+					break;
+				case "AddHasteStat":
+				case "SetHasteStat":
+				case "HasteStat":
+					Sets.HasteStats[(int)args[1]] = (int)args[2];
 					break;
 			}
 			return null;
@@ -118,15 +132,35 @@ namespace ArcaneOdyssey
 				Icon = icon.Value,
 			};
 		}
-	}
 
-	public class DevMode : ModSystem 
-	{
-		#if VSDEBUGMODE
-		public const bool devMode = true;
-		#else
-		public const bool devMode = false;
-		#endif
+
+		[ReinitializeDuringResizeArrays]
+		public static class Sets
+		{
+			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
+
+			public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet(0,
+				ItemID.MoltenBreastplate, 7,
+				ItemID.MoltenGreaves, 5,
+				ItemID.MoltenHelmet, 3
+			);
+
+			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0);
+
+			public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
+
+			public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+			public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+			public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+			public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+			public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+			public static int[] BlastMaxFrames = ItemID.Sets.Factory.CreateIntSet(1);
+		}
 	}
 
 	public class AODebuffManager : GlobalBuff
@@ -135,30 +169,6 @@ namespace ArcaneOdyssey
 		{
 			buffName = buffName.Replace("Imbue", "Gel");
 		}
-	}
-
-	[ReinitializeDuringResizeArrays]
-	public static class ArrayCollections
-	{
-		public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
-
-		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet([
-			ItemID.MoltenBreastplate, 7,
-			ItemID.MoltenGreaves, 5,
-			ItemID.MoltenHelmet, 3,
-		]);
-
-		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
-
-		public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
-
-		public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-		public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-		public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-		public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
 	}
 
 	public class MessageHelper : ModSystem
@@ -204,7 +214,6 @@ namespace ArcaneOdyssey
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.StatSize) + " " + Main.LocalPlayer.ArcaneOdyssey().StatSize);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Insanity) + " " + Main.LocalPlayer.ArcaneOdyssey().Insanity);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.StatHaste) + " " + Main.LocalPlayer.ArcaneOdyssey().StatHaste);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(ArcaneOdysseyMod.DevMode) + " " + ArcaneOdysseyMod.DevMode);
 			}
 		}
 	}

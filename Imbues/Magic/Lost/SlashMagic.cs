@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class SlashMagic : AOMagic
+	public class SlashMagic : MagicType
 	{
 		public override float Aura => .5f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
@@ -36,6 +36,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SandyEffect>(1.1f)
 			]
 			);
+
+		public override int BlastFrames => 4;
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class PoisonMagic : AOMagic
+	public class PoisonMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -40,6 +40,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Scalding>(0.9f)
 			]
 			);
+
+		public override int BlastFrames => 7;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

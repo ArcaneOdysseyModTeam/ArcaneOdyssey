@@ -11,11 +11,12 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class LightningMagic : AOMagic
+	public class LightningMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
 			RegisterMutation<AncientLightningMagic>();
+			RegisterMutation<AetherLightningMagic>();
 			RegisterMutation<EnergyMagic>();
 			RegisterMutation<PoisonLightningMagic>();
 			RegisterMutation<SoundMagic>();
@@ -56,6 +57,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
+
+		public override int BlastFrames => 6;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

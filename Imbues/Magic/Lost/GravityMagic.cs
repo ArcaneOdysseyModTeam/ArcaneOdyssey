@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class GravityMagic : AOMagic
+	public class GravityMagic : MagicType
 	{
 		public override float Aura => 1f;
 		public override float DashSpeed => 1.2f; // burst
@@ -44,6 +44,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SandyEffect>(1.1f)
 			]
 			);
+
+		public override int BlastFrames => 4;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

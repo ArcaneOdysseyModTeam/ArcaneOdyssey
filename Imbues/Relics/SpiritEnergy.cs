@@ -111,7 +111,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 				{
 					if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
 					{
-						if (Imbue is AOMagic)
+						if (Imbue is MagicType)
 						{
 							return Color.Red;
 						}
@@ -119,7 +119,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 					}
 					else
 					{
-						if (Imbue is AOMagic)
+						if (Imbue is MagicType)
 						{
 							return Color.Gold;
 						}
@@ -139,7 +139,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 					{
 						if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
 						{
-							if (Imbue is AOMagic)
+							if (Imbue is MagicType)
 							{
 								return Texture + "_Evil_Magic";
 							}
@@ -147,7 +147,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 						}
 						else
 						{
-							if (Imbue is AOMagic)
+							if (Imbue is MagicType)
 							{
 								return Texture + "_Good_Magic";
 							}

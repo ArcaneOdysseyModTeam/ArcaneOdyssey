@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class SandMagic : AOMagic
+	public class SandMagic : MagicType
 	{
 		public override float Aura => 1f;
 		public override void RegisterMutations()
@@ -50,6 +50,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Scalding>(1.125f)
 			]
 			);
+
+		public override int BlastFrames => 7;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

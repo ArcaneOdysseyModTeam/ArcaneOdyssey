@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class StormMagic : AOMagic
+	public class StormMagic : MagicType
 	{
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.4f; // instant
@@ -57,6 +57,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
+
+		public override int BlastFrames => 6;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

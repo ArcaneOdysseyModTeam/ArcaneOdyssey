@@ -56,7 +56,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 	{
 		SoundEngine.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
 		Item item = MagicTypeToItem(p.CurrentType).Clone();
-		if (item.ModItem is not AOMagic magic)
+		if (item.ModItem is not MagicType magic)
 		{
 			Main.NewText($"Item {item.Name}([i:{item.type}]) is not a magic? ? ?");
 			return;
@@ -104,7 +104,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		TodaysOffers = [];
 		#endregion
 
-		List<int> mutations = ArrayCollections.Mutations[magic.Type];
+		List<int> mutations = ArcaneOdysseyMod.Sets.Mutations[magic.Type];
 
 		int total = mutations.Count, totalRows = (total / ProductsPerRow) + (total % ProductsPerRow > 0 ? +1 : 0);
 		AuxPanel.Height.Set(((64 + Separation) * totalRows) + Separation, 0f);
@@ -163,7 +163,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		ProductSpotLight.ChangeType(product.Item);
 
 		SpotTitle.SetText(product.Item.Item.Name);
-		if (product.Item is AOMagic magic)
+		if (product.Item is MagicType magic)
 		{
 			// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
 			string prefix = magic.ImbueDebuffs.Length switch

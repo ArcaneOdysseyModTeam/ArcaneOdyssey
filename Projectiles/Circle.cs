@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -143,13 +144,13 @@ namespace ArcaneOdyssey.Projectiles
 
 			Imbue ??= ModContent.GetInstance<WindMagic>();
 
-			if (!playedsound && Imbue is AOMagic)
+			if (!playedsound && Imbue is MagicType)
 			{
 				SoundEngine.PlaySound(SoundID.Item84 with { Pitch = ApplySpeed(1f).MultiToPercent().Clamp(-1, 1) }, Projectile.Center);
 				playedsound = true;
 			}
 
-			if (Imbue is AOMagic && !Main.dedServ && Projectile.Opacity >= .5f)
+			if (Imbue is MagicType && !Main.dedServ && Projectile.Opacity >= .5f)
 			{
 				var hitbox = Projectile.Hitbox.Scaled(.5f);
 				SecondImbue?.LingeringEffects(hitbox);
@@ -306,7 +307,7 @@ namespace ArcaneOdyssey.Projectiles
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
 					{
 						var name = Lang.GetProjectileName(ChargingProjectile).Value;
-						if (ModContent.GetModProjectile(ChargingProjectile) is MagicSpell spell && !spell.HasMagicVariant)
+						if (ModContent.GetModProjectile(ChargingProjectile) is MagicSpell spell)
 						{
 							name = (Imbue.PrettySpellPrefix + " " + name).Trim();
 						}
@@ -334,7 +335,7 @@ namespace ArcaneOdyssey.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Imbue is null or AOMagic)
+			if (Imbue is null or MagicType)
 			{
 				lightColor = Imbue?.Colour ?? Color.White;
 				Lighting.AddLight(Projectile.Center, lightColor.ToVector3() * Intensity);

@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Items.Consumable
 					return false;
 
 				foreach (var i in player.inventory) 
-					if (i.ModItem is AOMagic magic && magic.ImbuableTier == ImbuableTiers.Normal) 
+					if (i.ModItem is MagicType magic && magic.ImbuableTier == ImbuableTiers.Normal) 
 						return true;
 				return false;
 			}

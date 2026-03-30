@@ -95,6 +95,11 @@ MagicMarks: {
 		DisplayName: Drained
 		Description: You feel drained and fatigued
 	}
+
+	CursedAshes: {
+		DisplayName: Cursed Ashes
+		Description: Defense reduced
+	}
 }
 
 Helpers: {

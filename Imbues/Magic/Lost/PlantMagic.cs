@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class PlantMagic : AOMagic
+	public class PlantMagic : MagicType
 	{
 		public override float Aura => .8f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
@@ -31,6 +31,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Melting>(1.1f),
 				Synergy.Create<Tangled>(.9f),
 			]);
+
+		public override int BlastFrames => 2;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

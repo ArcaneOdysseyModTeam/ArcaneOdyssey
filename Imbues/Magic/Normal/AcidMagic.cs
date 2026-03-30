@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class AcidMagic : AOMagic
+	public class AcidMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -54,6 +54,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			);
 
 		public override float Aura => .8f;
+
+		public override int BlastFrames => 5;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

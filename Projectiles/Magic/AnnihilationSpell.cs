@@ -141,9 +141,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			return false;
 		}
 
-		public override string Texture => AOUtils.GetTexture<AnnihilationSpell>().Replace(nameof(AnnihilationSpell), $"Annihilations/Normal/WindAnnihilation");
+		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Annihilation");
 
-		public override Texture2D Sprite => ArrayCollections.annihilationSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.annihilationSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 	}
 
 	public enum AnnihilationState

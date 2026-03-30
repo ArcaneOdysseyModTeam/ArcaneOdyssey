@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class PoisonLightningMagic : AOMagic
+	public class PoisonLightningMagic : MagicType
 	{
 		public override float Aura => .8f;
 		public override float DashSpeed => 1.4f; // instant
@@ -54,6 +54,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
+
+		public override int BlastFrames => 6;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 10; n++)

@@ -2,6 +2,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -35,7 +36,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 			{
 				Item.DamageType = DamageClass.Summon;
 			}
-			else if (Imbue is AOMagic)
+			else if (Imbue is MagicType)
 			{
 				Item.DamageType = DamageClass.Magic;
 			}

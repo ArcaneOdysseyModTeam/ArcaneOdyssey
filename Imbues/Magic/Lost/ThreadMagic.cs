@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class ThreadMagic : AOMagic
+	public class ThreadMagic : MagicType
 	{
 		public override Color ImbueColour => Color.DarkGray;
 		public override Color ImbueColour2 => Color.LightGray;
@@ -33,6 +33,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Melting>(.95f),
 				Synergy.Create<Scorched>( 0.8f),
 			]);
+
+		public override int BlastFrames => 1;
+
+		public override void UpdateProjectile(Projectile Projectile)
+		{
+			Projectile.rotation += 0.1f * Projectile.direction;
+		}
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

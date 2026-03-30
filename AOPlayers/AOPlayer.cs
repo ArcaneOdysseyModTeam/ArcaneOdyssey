@@ -175,7 +175,7 @@ namespace ArcaneOdyssey.AOPlayers
 				} 
 			}
 			pheonixHealing = 0;
-			ArrayCollections.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
+			ArcaneOdysseyMod.Sets.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 			HeavySkillActive = false;
 			DashStrike();
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))

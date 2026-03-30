@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 
-namespace ArcaneOdyssey.Projectiles.Magic
+namespace ArcaneOdyssey.Projectiles.Relics
 {
 	public class SpiritExplosion : SpiritProjectile
 	{

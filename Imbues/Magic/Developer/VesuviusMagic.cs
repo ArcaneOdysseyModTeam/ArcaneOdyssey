@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Developer
 {
-	public class VesuviusMagic : AOMagic
+	public class VesuviusMagic : MagicType
 	{
 		public override Color ImbueColour => new(0, 130, 255);
 		public override float ImbueSpeed => 1.2f;
@@ -49,6 +49,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 				Synergy.Create<Scalding>(2.075f)
 			]
 			);
+
+		public override int BlastFrames => 4;
+		public override void UpdateProjectile(Projectile Projectile)
+		{
+			Projectile.rotation += 0.1f * Projectile.direction;
+		}
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

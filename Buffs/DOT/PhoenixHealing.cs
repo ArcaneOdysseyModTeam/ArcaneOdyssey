@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 				if (npc.Hitbox.Distance(player.Center) <= HealDistance && (!AOUtils.BossAlive || npc.boss))
 				{
 					noPlayerFound = false;
-					if (!ArrayCollections.phoenixAffected[npc.type] || !npc.boss)
+					if (!ArcaneOdysseyMod.Sets.phoenixAffected[npc.type] || !npc.boss)
 						player.ArcaneOdyssey().pheonixHealing += npc.boss ? 2 : 1;
 					npc.ArcaneOdyssey().lesserPhoenixDrain++;
 					if (!Main.dedServ)
@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			}
 			else
 			{
-				ArrayCollections.phoenixAffected[npc.type] = true;
+				ArcaneOdysseyMod.Sets.phoenixAffected[npc.type] = true;
 			}
 		}
 

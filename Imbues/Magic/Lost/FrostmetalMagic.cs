@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class FrostmetalMagic : AOMagic
+	public class FrostmetalMagic : MagicType
 	{
 		public override float Aura => 1.3f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
@@ -51,6 +51,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 			]
 			);
+
+		public override int BlastFrames => 8;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

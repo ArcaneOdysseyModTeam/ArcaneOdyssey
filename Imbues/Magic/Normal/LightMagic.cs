@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class LightMagic : AOMagic
+	public class LightMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<EnergyMagic>();
 			RegisterMutation<LunarMagic>();
 			RegisterMutation<PrismMagic>();
+			RegisterMutation<AetherLightningMagic>();
 		}
 
 		public override float DashSpeed => 1.4f; // instant
@@ -37,6 +38,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<DrainedEffect>(0.8f)
 			]
 			);
+
+		public override int BlastFrames => 6;
+		public override void UpdateProjectile(Projectile Projectile)
+		{
+
+			Projectile.rotation += 0.1f * Projectile.direction;
+		}
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)

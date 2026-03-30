@@ -37,10 +37,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		}
 
 
-		public override string Texture => AOUtils.GetTexture<MagicRay>().Replace(nameof(MagicRay), $"Rays/Normal/WindRayEnd");
-		public Texture2D MidSprite => ArrayCollections.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.raySprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArrayCollections.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.rayEndSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArrayCollections.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArrayCollections.rayStartSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
+		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArcaneOdysseyMod.Sets.raySprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArcaneOdysseyMod.Sets.rayEndSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArcaneOdysseyMod.Sets.rayStartSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 
 
 		public override float AOSize => .75f;

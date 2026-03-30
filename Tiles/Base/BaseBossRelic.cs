@@ -96,11 +96,11 @@ namespace ArcaneOdyssey.Tiles.Base
 			spriteBatch.Draw(FloaterTexture.Value, drawPos, null, colour, 0f, origin, 1f, mode, 0f);
 
 
-			float scale = (float)Math.Sin(Main.GlobalTimeWrappedHourly * MathHelper.TwoPi / 2f) * 0.3f + 0.7f;
+			float scale = (float)Math.Sin(Main.GlobalTimeWrappedHourly * MathHelper.Pi) * 0.3f + 0.7f;
 			Color effectColor = colour;
 			effectColor.A = 0;
 			effectColor = effectColor * 0.1f * scale;
-			for (float num5 = 0f; num5 < 1f; num5 += 355f / (678f * (float)Math.PI))
+			for (float num5 = 0f; num5 < 1f; num5 += 355f / (678f * MathHelper.Pi))
 			{
 				spriteBatch.Draw(FloaterTexture.Value, drawPos + (MathHelper.TwoPi * num5).ToRotationVector2() * (6f + offset * 2f), null, effectColor, 0f, origin, 1f, mode, 0f);
 			}

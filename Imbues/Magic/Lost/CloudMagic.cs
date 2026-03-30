@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class CloudMagic : AOMagic
+	public class CloudMagic : MagicType
 	{
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
@@ -48,6 +48,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
+
+		public override int BlastFrames => 4;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

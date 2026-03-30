@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class EarthMagic : AOMagic
+	public class EarthMagic : MagicType
 	{
 		public override float Aura => 1.3f;
 		public override void RegisterMutations()
@@ -45,7 +45,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 			);
 
+		public override int BlastFrames => 1;
 
+		public override void UpdateProjectile(Projectile Projectile)
+		{
+
+			Projectile.rotation += 0.1f * Projectile.direction;
+		}
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

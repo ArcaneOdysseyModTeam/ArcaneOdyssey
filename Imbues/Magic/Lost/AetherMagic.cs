@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class AetherMagic : AOMagic
+	public class AetherMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -54,6 +54,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
+		public override int BlastFrames => 6;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

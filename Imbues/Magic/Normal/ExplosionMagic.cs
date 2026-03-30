@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class ExplosionMagic : AOMagic
+	public class ExplosionMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<PhoenixMagic>();
 			RegisterMutation<SunMagic>();
 			RegisterMutation<ShadowflameMagic>();
+			RegisterMutation<AetherLightningMagic>();
 		}
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
@@ -58,6 +59,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
+
+		public override int BlastFrames => 7;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)

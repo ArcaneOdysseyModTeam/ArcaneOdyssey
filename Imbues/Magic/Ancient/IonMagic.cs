@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Ancient
 {
-	public class IonMagic : AOMagic
+	public class IonMagic : MagicType
 	{
 		public override float DashSpeed => 1.4f; // instant
 		public override bool? Cold => false;
@@ -50,6 +50,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 				Synergy.Create<Scorched>(1.1f)
 			]
 			);
+
+		public override int BlastFrames => 4;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

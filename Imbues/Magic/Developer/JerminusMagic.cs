@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.Imbues.Magic.Developer
 {
-	public class JerminusMagic : AOMagic
+	public class JerminusMagic : MagicType
 	{
 		public override Color ImbueColour => new(255, 0, 0);
 		public override float ScrollSpeed => 3f;
@@ -13,5 +13,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 		public override float ScrollDamage => .2f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Developer;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Trauma>()];
+
+		public override int BlastFrames => 1;
 	}
 }

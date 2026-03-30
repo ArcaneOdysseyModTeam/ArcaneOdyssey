@@ -137,7 +137,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			if (WeaponsType == WeaponType.Arcanium)
 			{
-				return Imbue is AOMagic;
+				return Imbue is MagicType;
 			}
 
 			if (WeaponsType == WeaponType.Strength)
@@ -631,7 +631,7 @@ namespace ArcaneOdyssey.GlobalTypes
 							specificImbue = false;
 						}
 
-						if (Imbue is AOMagic magic)
+						if (Imbue is MagicType magic)
 						{
 							Imbuable.CreateMagicCircle(Imbue.Item, player, MagicCircleMode.Rotating, true);
 						}
@@ -757,16 +757,13 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
-				if (item.type < ItemID.Count) // only vanilla items have entries
+				if (ArcaneOdysseyMod.Sets.SizeStats[item.type] > 0)
 				{
-					if (ArrayCollections.SizeStats[item.type] > 0)
-					{
-						player.ArcaneOdyssey().StatSize += ArrayCollections.SizeStats[item.type];
-					}
-					if (ArrayCollections.HasteStats[item.type] > 0)
-					{
-						player.ArcaneOdyssey().StatHaste += ArrayCollections.HasteStats[item.type];
-					}
+					player.ArcaneOdyssey().StatSize += ArcaneOdysseyMod.Sets.SizeStats[item.type];
+				}
+				if (ArcaneOdysseyMod.Sets.HasteStats[item.type] > 0)
+				{
+					player.ArcaneOdyssey().StatHaste += ArcaneOdysseyMod.Sets.HasteStats[item.type];
 				}
 			}
 		}
@@ -889,16 +886,13 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures || item.ModItem is not null)
 			{
-				if (item.ModItem is not Armour) // avoid duplicate values
+				if (ArcaneOdysseyMod.Sets.SizeStats[item.type] > 0)
 				{
-					if (ArrayCollections.SizeStats[item.type] > 0)
-					{
-						tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArrayCollections.SizeStats[item.type] / Armour.SizeDivision)).Value));
-					}
-					if (ArrayCollections.HasteStats[item.type] > 0)
-					{
-						tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArrayCollections.HasteStats[item.type] / Armour.HasteDivision)).Value));
-					}
+					tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArcaneOdysseyMod.Sets.SizeStats[item.type] / Armour.SizeDivision)).Value));
+				}
+				if (ArcaneOdysseyMod.Sets.HasteStats[item.type] > 0)
+				{
+					tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArcaneOdysseyMod.Sets.HasteStats[item.type] / Armour.HasteDivision)).Value));
 				}
 			}
 

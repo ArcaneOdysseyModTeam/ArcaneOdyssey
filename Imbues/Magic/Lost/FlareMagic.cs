@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class FlareMagic : AOMagic
+	public class FlareMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -61,6 +61,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 			]
 			);
+
+		public override int BlastFrames => 3;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

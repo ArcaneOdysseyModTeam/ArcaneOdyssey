@@ -10,7 +10,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class PlasmaMagic : AOMagic
+	public class PlasmaMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<HeatMagic>();
 			RegisterMutation<PhoenixMagic>();
 			RegisterMutation<SunMagic>();
+			RegisterMutation<AetherLightningMagic>();
 		}
 		public override bool Special => true;
 		public override float DashSpeed => 1.4f; // instant
@@ -65,6 +66,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
+
+		public override int BlastFrames => 4;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 10; n++)

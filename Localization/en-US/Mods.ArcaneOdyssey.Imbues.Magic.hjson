@@ -42,7 +42,7 @@ Lost: {
 
 	FrostmetalMagic: {
 		DisplayName: Frostmetal Magic
-		Ability: Projectiles explode into hazardous shards
+		Ability: Explodes into hazardous shards
 		Tooltip: ""
 		AttackPrefix: Hardy
 		SpellPrefix: Frostmetal
@@ -182,8 +182,24 @@ Lost: {
 	StormMagic: {
 		DisplayName: Storm Magic
 		Tooltip: ""
-		AttackPrefix: Unstable
+		AttackPrefix: Tempestuous
 		SpellPrefix: Storm
+	}
+
+	AetherLightningMagic: {
+		DisplayName: Aether Lightning Magic
+		AttackPrefix: Unstable
+		SpellPrefix: Aether Lightning
+		Ability: Attacks have large, penetrating aftershocks
+		Tooltip: ""
+	}
+
+	CursedAshMagic: {
+		DisplayName: Cursed Ash Magic
+		AttackPrefix: Cursed
+		SpellPrefix: Cursed Ash
+		Ability: Lowers enemy defense
+		Tooltip: Dedicated to [c/00ffff:KT_australis]
 	}
 }
 

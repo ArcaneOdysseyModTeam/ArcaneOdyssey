@@ -20,8 +20,6 @@ namespace ArcaneOdyssey.Projectiles.Base
 			return base.PreDraw(ref lightColor);
 		}
 
-		public virtual bool HasMagicVariant => false;
-
 		public string Tier
 		{
 			get

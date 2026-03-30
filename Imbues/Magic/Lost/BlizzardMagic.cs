@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class BlizzardMagic : AOMagic
+	public class BlizzardMagic : MagicType
 	{
 		public override float Aura => .9f;
 		public override float? DashResist => 1.075f;
@@ -50,6 +50,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SearedEffect>(0.8f)
 			]
 			);
+
+		public override int BlastFrames => 4;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

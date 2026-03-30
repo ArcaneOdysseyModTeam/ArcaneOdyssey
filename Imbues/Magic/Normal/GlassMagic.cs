@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class GlassMagic : AOMagic
+	public class GlassMagic : MagicType
 	{
 		public override float Aura => .2f;
 		public override void RegisterMutations()
@@ -43,6 +43,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Melting>(1.05f),
 			]
 			);
+
+		public override int BlastFrames => 8;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 10; n++)

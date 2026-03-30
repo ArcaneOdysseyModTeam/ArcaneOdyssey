@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class AshMagic : AOMagic
+	public class AshMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<ShadowflameMagic>();
 			RegisterMutation<PhoenixMagic>();
 			RegisterMutation<SunMagic>();
+			RegisterMutation<CursedAshMagic>();
 		}
 		public override bool Special => true;
 		public override bool? Cold => false;
@@ -70,6 +71,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 			);
 
+		public override int BlastFrames => 7;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
@@ -114,16 +117,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				proj.netUpdate = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-
 		}
-
-		public override bool PreEffects(Entity entity = null)
-		{
-			if (entity is Projectile projectile)
-				return base.PreEffects(projectile) && projectile.type != ProjectileID.SporeCloud;
-			return base.PreEffects(entity);
-		}
-
-
 	}
 }

@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class HeatMagic : AOMagic
+	public class HeatMagic : MagicType
 	{
 		public override float Aura => .6f;
 		public override void RegisterMutations()
@@ -54,6 +54,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Soaked>(0.9f),
 			]
 			);
+
+		public override int BlastFrames => 3;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

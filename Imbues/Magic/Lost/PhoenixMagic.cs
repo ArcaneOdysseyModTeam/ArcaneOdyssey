@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	[AutoloadEquip(EquipType.Wings)]
-	public class PhoenixMagic : AOMagic
+	public class PhoenixMagic : MagicType
 	{
 		public override void SetStaticDefaults()
 		{
@@ -115,6 +115,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 			]
 			);
+
+		public override int BlastFrames => 4;
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

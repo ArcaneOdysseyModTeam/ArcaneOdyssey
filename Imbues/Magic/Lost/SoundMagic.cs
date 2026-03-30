@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class SoundMagic : AOMagic
+	public class SoundMagic : MagicType
 	{
 		public override float Aura => .4f;
 		public override Color ImbueColour => new(94, 236, 255);
@@ -33,6 +33,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<AOFrozen>(1.2f),
 			]);
 
+		public override int BlastFrames => 1;
 
 		public const int DustCount = 30;
 		public override void KillEffects(Rectangle area, Entity source = null)

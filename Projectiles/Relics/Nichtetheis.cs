@@ -9,9 +9,9 @@ namespace ArcaneOdyssey.Projectiles.Relics
 	public class Nichtetheis : SpiritProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => ArrayCollections.raySprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArrayCollections.rayEndSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArrayCollections.rayStartSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.raySprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.rayEndSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.rayStartSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<DrainedEffect>(60 * 5);
 		public const int TravelTime = 75;

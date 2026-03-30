@@ -7,7 +7,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Ancient
 {
-	public class DeathMagic : AOMagic
+	public class DeathMagic : MagicType
 	{
 		public override float DashSpeed => 1.2f; // burst
 		public override bool Special => true;
@@ -17,6 +17,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.5f;
+
+		public override int BlastFrames => 4;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class OilMagic : AOMagic
+	public class OilMagic : MagicType
 	{
 		public override float Aura => .8f;
 		public override float DashSpeed => 1.2f; // burst
@@ -38,6 +38,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
+
+		public override int BlastFrames => 5;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

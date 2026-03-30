@@ -10,7 +10,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class IceMagic : AOMagic
+	public class IceMagic : MagicType
 	{
 		public override float Aura => 1.1f;
 		public override void RegisterMutations()
@@ -66,6 +66,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Singed>(0.85f)
 			]
 			);
+
+		public override int BlastFrames => 4;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)

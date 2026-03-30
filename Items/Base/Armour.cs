@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public int GetArmourSizeStat()
 		{
-			int val = Size;
+			int val = 0;
 			if (Imbue is not null)
 				val += Imbue.ArmourStats.Value.Corrected(Imbue).Size * (int)ArmourTier;
 			return val;
@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public int GetArmourHasteStat()
 		{
-			int val = Haste;
+			int val = 0;
 			if (Imbue is not null)
 				val += Imbue.ArmourStats.Value.Corrected(Imbue).Haste * (int)ArmourTier;
 			return val;
@@ -183,7 +183,7 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			if (Arcanium.HasValue && player.TryGetImbue(out Imbuable imbue) && imbue.ArmourStats.HasValue)
 			{
-				if ((Arcanium.Value && imbue is AOMagic) || ((!Arcanium.Value) && imbue is FightingStyle))
+				if ((Arcanium.Value && imbue is MagicType) || ((!Arcanium.Value) && imbue is FightingStyle))
 				{
 					Item.defense = AODefense.FromAODefense() + imbue.ArmourStats.Value.Corrected(imbue).Defence.FromAODefense();
 				}
@@ -204,8 +204,8 @@ namespace ArcaneOdyssey.Items.Base
 			_ = Set?.Tooptip;
 			base.SetStaticDefaults();
 
-			ArrayCollections.SizeStats[Type] = Size;
-			ArrayCollections.HasteStats[Type] = Haste;
+			ArcaneOdysseyMod.Sets.SizeStats[Type] = Size;
+			ArcaneOdysseyMod.Sets.HasteStats[Type] = Haste;
 		}
 	}
 }

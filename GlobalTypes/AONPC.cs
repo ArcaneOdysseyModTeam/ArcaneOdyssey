@@ -48,6 +48,8 @@ namespace ArcaneOdyssey.GlobalTypes
 		public int lesserPhoenixDrain = 0;
 		public bool ionized = false;
 
+		public bool ashcursed = false;
+
 		public bool AOStunned = false;
 		#endregion
 
@@ -84,6 +86,10 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.ArmorPenetration += _defenseLost;
+			if (ashcursed)
+			{
+				modifiers.ScalingArmorPenetration += .1f;
+			}
 		}
 
 		public override void ResetEffects(NPC npc)
@@ -116,6 +122,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			scorched = false;
 			corroding = false;
 			ionized = false;
+			ashcursed = false;
 			lesserPhoenixDrain = 0;
 		}
 

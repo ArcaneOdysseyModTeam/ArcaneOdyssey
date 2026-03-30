@@ -45,6 +45,12 @@ namespace ArcaneOdyssey.Imbues.Base
 			return (int)Math.Round(aura / 5f, MidpointRounding.AwayFromZero) * 5;
 		}
 
+		public virtual void UpdateProjectile(Projectile Projectile)
+		{
+			Projectile.spriteDirection = Projectile.direction;
+			Projectile.rotation = Projectile.velocity.ToRotation();
+		}
+
 		public void ActivateAbility(Player player, bool passive)
 		{
 			if (Ability.HasValue)
@@ -167,24 +173,6 @@ namespace ArcaneOdyssey.Imbues.Base
 		public LocalizedText PrettyAttackPrefix => Language.GetOrRegister(this.GetLocalizationKey("AttackPrefix"), () => Regex.Replace(AttackPrefix, "([A-Z])", " $1").Trim());
 
 		public LocalizedText PrettySpellPrefix => Language.GetOrRegister(this.GetLocalizationKey("SpellPrefix"), () => Regex.Replace(AttackPrefix, "([A-Z])", " $1").Trim());
-
-		public int GetSkill(string skill, int fallback = ProjectileID.EnchantedBeam)
-		{
-			if (Skills.TryGetValue(skill, out var skillint))
-			{
-				return skillint;
-			}
-			else
-			{
-				if (Mod.TryFind<ModProjectile>(AttackPrefix + skill, out var proj))
-				{
-					Skills.Add(skill, proj.Type);
-					return proj.Type;
-				}
-			}
-			Main.NewText(DisplayName.Value + " is missing " + skill + " skill.", Color.Red);
-			return fallback;
-		}
 
 		public virtual void SpawningEffects(Rectangle area, Vector2 direction) { }
 
@@ -352,7 +340,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			get
 			{
-				if (this is AOMagic)
+				if (this is MagicType)
 				{
 					if (Special && ArcaneOdysseyMod.DevMode) // eventually i want to add some way to get lore, like athenas wisdom. if we have the knowledge it will be added here...
 					{
@@ -556,7 +544,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				Player player = Main.LocalPlayer;
 
 				//														Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
-				if (!(Type == ModContent.ItemType<SpiritEnergy>() || this is EaglePatrimony or AOMagic or FightingStyle /*&& ImbuableTier == AOImbuableTier.Normal*/))
+				if (!(Type == ModContent.ItemType<SpiritEnergy>() || this is EaglePatrimony or MagicType or FightingStyle /*&& ImbuableTier == AOImbuableTier.Normal*/))
 				{
 					//Main.NewText($"Item is not swappable");
 					return false;

@@ -10,7 +10,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class SunMagic : AOMagic
+	public class SunMagic : MagicType
 	{
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
@@ -55,6 +55,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 			]
 			);
+
+		public override int BlastFrames => 4;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
