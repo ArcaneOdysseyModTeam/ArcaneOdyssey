@@ -183,7 +183,7 @@ namespace ArcaneOdyssey
 				float weight = .5f; // right away!
 				Func<bool> downed = () => DownedBosses.downedLaelus;
 				int bossType = ModContent.NPCType<Laelus>();
-				//int trophy = ModContent.ItemType<EvanderTrophy>();
+				int trophy = ModContent.ItemType<LaelusTrophy>();
 				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
@@ -195,7 +195,7 @@ namespace ArcaneOdyssey
 				bossType,
 				new Dictionary<string, object>()
 				{
-					//["collectibles"] = new List<int> { trophy },
+					["collectibles"] = new List<int> { trophy },
 					["spawnInfo"] = spawnInfo
 				});
 			}

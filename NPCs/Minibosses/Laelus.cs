@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Projectiles.Enemies;
@@ -68,6 +69,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TidestoneBand>()));
+			npcLoot.Add(AOUtils.Common<LaelusTrophy>(10));
 			npcLoot.Add(AOUtils.Common<Sanguine>(4));
 			npcLoot.Add(AnyDropHelper.Create(ModContent.ItemType<BlastScroll>(), ModContent.ItemType<ExplosionScroll>()));
 		}
