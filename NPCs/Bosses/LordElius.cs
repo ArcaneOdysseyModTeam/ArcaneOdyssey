@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			SpawnModBiomes = [AOUtils.BiomeType<EliusArena>()];
 		}
 
-		public override AOMusicTrack Theme => AOMusicTrack.Elius;
+		public override MusicTrack Theme => MusicTrack.Elius;
 
 		public bool sentMessage = false;
 		private bool hasSetSpawnLocation = false;

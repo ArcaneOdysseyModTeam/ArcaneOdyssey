@@ -6,7 +6,7 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles;
-using ArcaneOdysseyMusic.MusicBoxes;
+using ArcaneOdysseyMusic.MusicBoxes.Items;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

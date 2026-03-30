@@ -119,11 +119,11 @@ namespace ArcaneOdyssey.MainMenus
 			return false;
 		}
 
-		public static Dictionary<string, AOMusicTrack> Titles = new
+		public static Dictionary<string, MusicTrack> Titles = new
 			(
 				[
-					KeyValuePair.Create("Classic", AOMusicTrack.TitleTheme2),
-					KeyValuePair.Create("Pixel", AOMusicTrack.TitleTheme),
+					KeyValuePair.Create("Classic", MusicTrack.TitleTheme2),
+					KeyValuePair.Create("Pixel", MusicTrack.TitleTheme),
 				]
 			);
 

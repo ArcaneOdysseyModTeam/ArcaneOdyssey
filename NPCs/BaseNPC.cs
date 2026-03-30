@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.NPCs
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
-		public virtual AOMusicTrack Theme => null;
+		public virtual MusicTrack Theme => null;
 
 		public override void SetDefaults()
 		{

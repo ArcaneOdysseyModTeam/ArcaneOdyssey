@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.NPCs
 			NPC.boss = true;
 		}
 
-		public override AOMusicTrack Theme => AOMusicTrack.Atlantean;
+		public override MusicTrack Theme => MusicTrack.Atlantean;
 
 
 		public override void AI()
