@@ -797,7 +797,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item is not null && item.active && (!item.accessory || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
+			if (item is not null && item.active && (!item.accessory || item.ModItem is (Scroll or Imbuable)) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
 			{
 				if (item.ArcaneOdyssey().WeaponsType != WeaponType.Artisinal)
 				{
@@ -805,7 +805,7 @@ namespace ArcaneOdyssey
 						|| item.DamageType.CountsAsClass(DamageClass.Ranged)
 						||
 						(
-							item.ModItem is Scroll or Imbuable
+							item.ModItem is (Scroll or Imbuable)
 						);
 				}
 			}
@@ -1476,7 +1476,7 @@ namespace ArcaneOdyssey
 		#region Player Inventory Helpers
 		public static bool HasTypeInInventory<T>(this Player player, Predicate<T> check = null) where T : ModItem
 		{
-			List<Item> no = [.. player.inventory, player.trashItem];
+			List<Item> no = [.. player.inventory, player.trashItem, .. player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e))];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{

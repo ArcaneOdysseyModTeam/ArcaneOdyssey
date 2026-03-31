@@ -85,6 +85,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				charge += Circle.GlobalChargeSpeed;
 				Projectile.timeLeft = 3 * 60;
 				Projectile.rotation = dir.ToRotation();
+				Projectile.spriteDirection = Owner.direction;
 				if (charge >= Circle.GlobalMaxCharge)
 				{
 					Owner.channel = false;
