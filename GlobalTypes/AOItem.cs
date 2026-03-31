@@ -6,6 +6,7 @@ using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Accessories.Vanity;
+using ArcaneOdyssey.Items.Armour.Vanity.Taz;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.EmptyScrolls;
@@ -814,26 +815,26 @@ namespace ArcaneOdyssey.GlobalTypes
 				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<EmptyScroll>(), 10));
 			}
 
-			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])
+			if (ItemID.Sets.BossBag[item.type])
 			{
-				LeadingConditionRule leadingConditionRule1 = new(new Conditions.TenthAnniversaryIsUp());
-				leadingConditionRule1.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 16), true);
-				itemLoot.Add(leadingConditionRule1);
-				LeadingConditionRule leadingConditionRule2 = new(new Conditions.TenthAnniversaryIsNotUp());
-				leadingConditionRule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KindraBlade>(), 32), true);
-				itemLoot.Add(leadingConditionRule2);
-				//LeadingConditionRule leadingConditionRule3 = new(new Conditions.TenthAnniversaryIsUp());
-				//leadingConditionRule3.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 8), true);
-				//itemLoot.Add(leadingConditionRule3);
-				//LeadingConditionRule leadingConditionRule4 = new(new Conditions.TenthAnniversaryIsNotUp());
-				//leadingConditionRule4.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VesuvianSigil>(), 16), true);
-				//itemLoot.Add(leadingConditionRule4);
-				LeadingConditionRule leadingConditionRule5 = new(new Conditions.TenthAnniversaryIsUp());
-				leadingConditionRule5.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 16), true);
-				itemLoot.Add(leadingConditionRule5);
-				LeadingConditionRule leadingConditionRule6 = new(new Conditions.TenthAnniversaryIsNotUp());
-				leadingConditionRule6.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ElfPetItem>(), 32), true);
-				itemLoot.Add(leadingConditionRule6);
+				if (!ItemID.Sets.PreHardmodeLikeBossBag[item.type])
+				{
+					LeadingConditionRule devItems1 = new(new Conditions.TenthAnniversaryIsNotUp());
+					devItems1.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>()], 16), true);
+					itemLoot.Add(devItems1);
+					LeadingConditionRule devItems2 = new(new Conditions.TenthAnniversaryIsUp());
+					devItems2.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>()], 8), true);
+					itemLoot.Add(devItems2);
+				}
+				else
+				{
+					LeadingConditionRule devItems1 = new(new Conditions.TenthAnniversaryIsNotUp());
+					devItems1.OnSuccess(new MultiAnyDropHelper([[ModContent.ItemType<TazBoots>(), ModContent.ItemType<TazChest>(), ModContent.ItemType<TazHat>()]], 16), true);
+					itemLoot.Add(devItems1);
+					LeadingConditionRule devItems2 = new(new Conditions.TenthAnniversaryIsUp());
+					devItems2.OnSuccess(new MultiAnyDropHelper([[ModContent.ItemType<TazBoots>(), ModContent.ItemType<TazChest>(), ModContent.ItemType<TazHat>()]], 8), true);
+					itemLoot.Add(devItems2);
+				}
 			}
 
 			if (itemLoot.Get().Count > 0)
