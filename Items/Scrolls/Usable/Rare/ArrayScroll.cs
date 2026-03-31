@@ -5,7 +5,6 @@ using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare

@@ -34,6 +34,23 @@ Armour: {
 				Tooltip: ""
 			}
 		}
+
+		Taz: {
+			TazHat: {
+				DisplayName: Insane Warlord Hat
+				Tooltip: "'The man who weilds only strength weapons'"
+			}
+
+			TazBoots: {
+				DisplayName: Insane Warlord Pants
+				Tooltip: "'The man who came back from the Dark Sea with children'"
+			}
+
+			TazChest: {
+				DisplayName: Insane Warlord Shirt
+				Tooltip: "'The man who dominates without a drop of mana'"
+			}
+		}
 	}
 
 	Centurion: {
