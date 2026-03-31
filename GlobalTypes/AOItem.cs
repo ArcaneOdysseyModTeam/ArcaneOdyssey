@@ -231,7 +231,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, .3f * (52f / texture.Width()), SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, .3f * (52f / Math.Max(texture.Width(), texture.Height())), SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
 				{
@@ -243,7 +243,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					dimensions.X *= -1f;
 					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, .3f * (52f / texture2.Width()), SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, .3f * (52f / Math.Max(texture2.Width(), texture2.Height())), SpriteEffects.None, 1f);
 				}
 			}
 		}

@@ -133,7 +133,7 @@ namespace ArcaneOdyssey
 
 	}
 
-	public class AnyDropHelper(int[] itemIDs, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemIDs.FirstOrDefault(), denominator, minQuantity, maxQuantity, numerator)
+	public class AnyDropHelper(int[] itemIDs, int denominator = 1, int numerator = 1) : CommonDrop(itemIDs.FirstOrDefault(), denominator, chanceNumerator: numerator)
 	{
 		public int[] ids = itemIDs;
 
