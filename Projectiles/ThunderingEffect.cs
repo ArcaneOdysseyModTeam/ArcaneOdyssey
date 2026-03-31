@@ -22,9 +22,11 @@ namespace ArcaneOdyssey.Projectiles
 			base.SetDefaults();
 			Projectile.friendly = true;
 			Projectile.extraUpdates = 100;
-			Projectile.height = Projectile.width = 1;
+			Projectile.height = Projectile.width = 2;
 			Projectile.ignoreWater = true;
 			Projectile.DamageType = DamageClass.Generic;
 		}
+
+		public override bool? CanCutTiles() => false;
 	}
 }

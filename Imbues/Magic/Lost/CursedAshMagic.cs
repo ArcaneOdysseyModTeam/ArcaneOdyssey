@@ -33,6 +33,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override Combo[] CombinedDebuffs => AOUtils.CopyCombosFromImbue<AshMagic>();
 
+		public override int BlastFrames => 7;
+
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DeathMagic>();

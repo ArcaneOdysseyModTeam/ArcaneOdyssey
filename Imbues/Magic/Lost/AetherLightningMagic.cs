@@ -24,6 +24,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 15), Debuff.Create<CharredEffect>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<AOBleed, HeavyBleed>()];
 
+		public override int BlastFrames => 6;
+
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<Petrified>(), // petrified
