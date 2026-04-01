@@ -3,6 +3,7 @@ using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,6 +39,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			{
 				ActivateAbility(player, true);
 				type = ProjectileID.BulletHighVelocity;
+				damage += new Item(ItemID.HighVelocityBullet).damage - new Item(ItemID.MusketBall).damage;
 			}
 		}
 

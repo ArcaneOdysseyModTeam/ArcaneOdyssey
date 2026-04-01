@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		{
 			if (player.AltUse())
 			{
-				ActivateAbility(player, false);
+				ActivateAbility(player, true);
 				for (int i = 0; i < 8; i++)
 				{
 					var offset = MathHelper.TwoPi / 16f;

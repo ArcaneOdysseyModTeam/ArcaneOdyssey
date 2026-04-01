@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 
 		public override AOItemTiers ArmourTier => AOItemTiers.Average;
 
-		public override Rarities Rarity => Rarities.Rare;
+		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override int AOPower => 10;
 
