@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
@@ -26,47 +25,27 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			base.AutoStaticDefaults();
 
-			if (ModContent.RequestIfExists<Texture2D>(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out var annihilation))
-			{
-				ArcaneOdysseyMod.Sets.annihilationSprites[Type] = annihilation;
-			}
-			else if (ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out ArcaneOdysseyMod.Sets.annihilationSprites[Type]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing annihilation sprite");
 			}
 
-			if (ModContent.RequestIfExists<Texture2D>(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out var ray))
-			{
-				ArcaneOdysseyMod.Sets.raySprites[Type] = ray;
-			}
-			else if (ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.raySprites[Type]) & ArcaneOdysseyMod.DevMode) 
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray sprite");
 			}
 
-			if (ModContent.RequestIfExists<Texture2D>(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out var rayend))
-			{
-				ArcaneOdysseyMod.Sets.rayEndSprites[Type] = rayend;
-			}
-			else if (ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ArcaneOdysseyMod.Sets.rayEndSprites[Type]) & ArcaneOdysseyMod.DevMode) 
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray end sprite");
 			}
 
-			if (ModContent.RequestIfExists<Texture2D>(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out var raystart))
-			{
-				ArcaneOdysseyMod.Sets.rayStartSprites[Type] = raystart;
-			}
-			else if (ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ArcaneOdysseyMod.Sets.rayStartSprites[Type]) & ArcaneOdysseyMod.DevMode) 
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
 			}
 
-			if (ModContent.RequestIfExists<Texture2D>(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out var blast))
-			{
-				ArcaneOdysseyMod.Sets.blasts[Type] = blast;
-			}
-			else if (ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ArcaneOdysseyMod.Sets.blasts[Type]) & ArcaneOdysseyMod.DevMode) 
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing blast sprite");
 			}

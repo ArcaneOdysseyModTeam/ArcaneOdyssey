@@ -3,9 +3,12 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
@@ -83,6 +86,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public static Asset<Texture2D> trail;
+
+		public override void AutoStaticDefaults()
+		{
+			base.AutoStaticDefaults();
+
+			ModContent.RequestIfExists(Texture.Replace(Name, AttackPrefix + "Trail"), out trail);
 		}
 	}
 }

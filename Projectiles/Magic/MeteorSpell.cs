@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -105,5 +106,15 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Annihilation");
 
 		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.annihilationSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (Imbue is BlizzardMagic)
+			{
+				var texture = BlizzardMagic.trail;
+				Main.EntitySpriteDraw(texture.Value, Projectile.Center - (Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()) * (Projectile.width / 2f)) - Main.screenPosition, new(0, texture.Height() / 7 * BlastSpell.TrailFrame, texture.Width(), texture.Height() / 7), Projectile.GetAlpha(lightColor), Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()).ToRotation(), new Vector2(texture.Width(), texture.Height() / 7) / 2f, Projectile.scale * .9f, SpriteEffects.None);
+			}
+			return base.PreDraw(ref lightColor);
+		}
 	}
 }
