@@ -81,7 +81,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
 				}
-				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * 94f);
+				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (dir * ApplySize(90f));
 				charge += Circle.GlobalChargeSpeed;
 				Projectile.timeLeft = 3 * 60;
 				Projectile.rotation = dir.ToRotation();

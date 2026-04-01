@@ -125,11 +125,13 @@ namespace ArcaneOdyssey.AOPlayers
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			UpdateDebuffHelpers(damageDone, target, item.Imbue(), false, true);
+			UpdateDebuffHelpers(damageDone, target, item.SecondImbue(), false, true);
 		}
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			UpdateDebuffHelpers(damageDone, target, proj.Imbue(), false, true);
+			UpdateDebuffHelpers(damageDone, target, proj.SecondImbue(), false, true);
 		}
 
 		internal IList<string> allChosenImbues = [];

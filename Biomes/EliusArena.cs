@@ -106,7 +106,6 @@ namespace ArcaneOdyssey.Biomes
 			else
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
-				eliusArena = Rectangle.Empty;
 			}
 		}
 
@@ -117,12 +116,22 @@ namespace ArcaneOdyssey.Biomes
 
 		public override void Load()
 		{
-			eliusArena = Rectangle.Empty;
+			eliusArena = default;
 		}
 
 		public override void Unload()
 		{
-			eliusArena = Rectangle.Empty;
+			eliusArena = default;
+		}
+
+		public override void OnWorldLoad()
+		{
+			eliusArena = default;
+		}
+
+		public override void OnWorldUnload()
+		{
+			eliusArena = default;
 		}
 	}
 }

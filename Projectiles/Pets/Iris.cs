@@ -38,21 +38,57 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			if (Projectile.Center.Distance(targetPosition) > 5f)
 			{
 				Projectile.velocity = Vector2.Zero;
-				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, Projectile.Distance(targetPosition) / 60f);
+				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, Projectile.Distance(targetPosition) / 40f);
 				var velocity = Projectile.SafeDirectionTo(targetPosition); // fake velocity
 				Projectile.spriteDirection = (velocity.X < 0).ToDirectionInt();
-				if (Projectile.spriteDirection == -1)
+				if (Projectile.Center.Distance(targetPosition) > 120f)
 				{
-					if (Projectile.rotation < (MathHelper.Pi / 6f))
+					if (Projectile.spriteDirection == -1)
 					{
-						Projectile.rotation += (MathHelper.Pi / 6f) / 20f;
+						if (Projectile.rotation < (MathHelper.Pi / 6f))
+						{
+							Projectile.rotation += (MathHelper.Pi / 6f) / 20f;
+						}
+						if (Projectile.rotation > (MathHelper.Pi / 6f))
+						{
+							Projectile.rotation -= (MathHelper.Pi / 6f) / 20f;
+						}
+					}
+					else
+					{
+						if (Projectile.rotation > (-(MathHelper.Pi / 6f)))
+						{
+							Projectile.rotation -= (MathHelper.Pi / 6f) / 20f;
+						}
+						if (Projectile.rotation < (-(MathHelper.Pi / 6f)))
+						{
+							Projectile.rotation += (MathHelper.Pi / 6f) / 20f;
+						}
 					}
 				}
 				else
 				{
-					if (Projectile.rotation > (-(MathHelper.Pi / 6f)))
+					if (Projectile.spriteDirection == -1)
 					{
-						Projectile.rotation -= (MathHelper.Pi / 6f) / 20f;
+						if (Projectile.rotation < (MathHelper.Pi / 12f))
+						{
+							Projectile.rotation += (MathHelper.Pi / 12f) / 20f;
+						}
+						if (Projectile.rotation > (MathHelper.Pi / 12f))
+						{
+							Projectile.rotation -= (MathHelper.Pi / 12f) / 20f;
+						}
+					}
+					else
+					{
+						if (Projectile.rotation > (-(MathHelper.Pi / 12f)))
+						{
+							Projectile.rotation -= (MathHelper.Pi / 12f) / 20f;
+						}
+						if (Projectile.rotation < (-(MathHelper.Pi / 12f)))
+						{
+							Projectile.rotation += (MathHelper.Pi / 12f) / 20f;
+						}
 					}
 				}
 				if (Projectile.Distance(Owner.position) > (Main.maxScreenW * .55f))

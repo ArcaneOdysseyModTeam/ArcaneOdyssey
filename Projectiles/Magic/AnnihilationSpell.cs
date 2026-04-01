@@ -121,8 +121,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 						AOUtils.SimulateAOE(Projectile.width * 6, Projectile.damage, Projectile.Center, Projectile.knockBack, Projectile, Projectile.DamageType);
 						for (int i = 0; i < 30; i++)
 						{
-							Imbue?.ExplosionEffects(Projectile.Center, 2.5f);
-							SecondImbue?.ExplosionEffects(Projectile.Center, 1.25f);
+							Imbue?.ExplosionEffects(Projectile.Center, Projectile.scale);
+							SecondImbue?.ExplosionEffects(Projectile.Center, Projectile.scale * .7f);
 							SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 						}
 					}

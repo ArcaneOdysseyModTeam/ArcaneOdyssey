@@ -1148,7 +1148,7 @@ namespace ArcaneOdyssey
 			{
 				type = steam.Imbue.GetType();
 			}
-			return player.HasTypeInInventory<Imbuable>(e => e.Type == imbue.Type);
+			return player.HasTypeInInventory<Imbuable>(e => e.Type == imbue.Type); // because it includes equipped imbues
 		}
 
 		/// <summary>
@@ -1476,7 +1476,11 @@ namespace ArcaneOdyssey
 		#region Player Inventory Helpers
 		public static bool HasTypeInInventory<T>(this Player player, Predicate<T> check = null) where T : ModItem
 		{
-			List<Item> no = [.. player.inventory, player.trashItem, .. player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e))];
+			List<Item> no = [.. player.inventory, player.trashItem];
+			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
+			{
+				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
+			}
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{

@@ -92,7 +92,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		{
 			if (projHitbox.Intersects(targetHitbox))
 			{
-				var explode = projHitbox.ClosestPointInRect(targetHitbox.Center());
+				var explode = Vector2.Lerp(targetHitbox.ClosestPointInRect(projHitbox.Center()), projHitbox.ClosestPointInRect(targetHitbox.Center()), .5f);
 				for (int i = 0; i < 10; i++)
 				{
 					Imbue?.ExplosionEffects(explode, Projectile.scale / AOSize);

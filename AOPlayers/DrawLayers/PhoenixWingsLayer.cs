@@ -34,6 +34,8 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 			{
 				shader = player.cWings
 			};
+			//drawInfo.compBackArmFrame = new Rectangle(-10000, 100000, 100000, 19997);
+			//drawInfo.compFrontArmFrame = new Rectangle(-10000, 100000, 100000, 19997);
 			drawInfo.DrawDataCache.Add(d);
 		}
 	}

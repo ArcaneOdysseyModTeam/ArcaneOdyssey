@@ -332,30 +332,28 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				knockback *= imbue.ScrollSize * imbue.ScrollSize;
 				if (imbue.Imbue is not null)
-					knockback *= imbue.Imbue.ImbueDamage * imbue.Imbue.ImbueDamage;
-				var extraknockbackmulti = imbue.KBMulti;
+					knockback *= imbue.Imbue.ScrollSize * imbue.Imbue.ScrollSize;
+				knockback *= imbue.KBMulti;
 				if (imbue.Imbue is not null)
-					extraknockbackmulti *= imbue.Imbue.KBMulti;
-				knockback *= extraknockbackmulti;
+					knockback *= imbue.Imbue.KBMulti;
 			}
 			else if (Imbue is not null)
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
-					knockback *= Imbue.ScrollSize;
+					knockback *= Imbue.ScrollSize * Imbue.ScrollSize;
 					if (SecondImbue is not null)
-						knockback *= SecondImbue.ScrollSize;
+						knockback *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
 				}
 				else if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
 					knockback *= Imbue.ImbueSize * Imbue.ImbueSize;
 					if (SecondImbue is not null)
-						knockback *= SecondImbue.ImbueSize * SecondImbue.ImbueDamage;
+						knockback *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
 				}
-				var extraknockbackmulti = Imbue.KBMulti;
+				knockback *= Imbue.KBMulti;
 				if (SecondImbue is not null)
-					extraknockbackmulti *= SecondImbue.KBMulti;
-				knockback *= extraknockbackmulti;
+					knockback *= SecondImbue.KBMulti;
 			}
 		}
 
@@ -515,29 +513,40 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
+			float mult = 1f;
 			if (CanBeAffected)
 			{
 				if (item.ModItem is Imbuable imbue)
 				{
-					return imbue.ScrollSpeed * (imbue.Imbue?.ImbueSpeed ?? 1f);
+					mult *= imbue.ScrollSpeed;
+					if (imbue.Imbue is not null)
+					{
+						mult *= imbue.Imbue.ImbueSpeed;
+					}
 				}
-				if (!item.DamageType.Name.Contains("NoSpeed"))
+				else if (ItemID.Sets.Spears[item.type] || (!item.DamageType.Name.Contains("NoSpeed")))
 				{
 					if (Imbue is not null)
 					{
-						if (BenifitsFromScrollStats.GetValueOrDefault())
+						if (BenifitsFromScrollStats.HasValue)
 						{
-							return Imbue.ScrollSpeed * (SecondImbue?.ImbueSpeed ?? 1f);
-						}
-
-						if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-						{
-							return Imbue.ImbueSpeed * (SecondImbue?.ImbueSpeed ?? 1f);
+							if (!BenifitsFromScrollStats.Value)
+							{
+								mult *= Imbue.ImbueSpeed;
+								if (SecondImbue is not null)
+									mult *= SecondImbue.ImbueSpeed;
+							}
+							else
+							{
+								mult *= Imbue.ScrollSpeed;
+								if (SecondImbue is not null)
+									mult *= SecondImbue.ImbueSpeed;
+							}
 						}
 					}
 				}
 			}
-			return base.UseSpeedMultiplier(item, player);
+			return mult;
 		}
 
 		public override void UpdateInventory(Item item, Player player)
