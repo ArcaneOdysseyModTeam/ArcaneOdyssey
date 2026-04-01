@@ -79,13 +79,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			//for (int n = 0; n < 3; n++)
-			//{
-			//	Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowStarDust, (Main.rand.NextFloat() - 0.5f) * (25f * intensity), (Main.rand.NextFloat() - 0.5f) * (25f * intensity), Scale: 3f * intensity)];
-			//	spawnedDust.noGravity = true;
-			//	Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.YellowTorch, (Main.rand.NextFloat() - 0.5f) * (25f * intensity), (Main.rand.NextFloat() - 0.5f) * (25f * intensity), Scale: 3f * intensity)];
-			//	spawnedDust2.noGravity = true;
-			//}
 			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), 0, 0, ai0: 2f * intensity);
 		}
 
@@ -106,14 +99,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), projectile.damage / 4, 0, projectile.owner);
 				}
 			}
-		}
-
-		public override bool PreEffects(Entity entity = null)
-		{
-			if (entity is Projectile projectile)
-				if (projectile.ModProjectile is AetherExplosion)
-					return false;
-			return base.PreEffects(entity);
 		}
 	}
 }

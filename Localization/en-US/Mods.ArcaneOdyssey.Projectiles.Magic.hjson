@@ -11,6 +11,7 @@ Effects: {
 	PoisonCloud.DisplayName: Poison Cloud
 	PrismLinger.DisplayName: Prism Shard Cloud
 	ProminenceProjectile.DisplayName: Prominent Sun
+	AetherLightningAftershock.DisplayName: Aether Lightning Aftershock
 }
 
 ExplosionSpell.DisplayName: Explosion

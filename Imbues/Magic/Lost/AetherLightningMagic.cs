@@ -2,11 +2,13 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
@@ -70,7 +72,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			//aftershock goes here
+			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), 0, 0, ai0: 2f * intensity);
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
@@ -80,6 +82,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+			if (source is Projectile projectile && projectile.ModProjectile is not AetherLightningAftershock)
+			{
+				if (projectile.owner == Main.myPlayer && AetherLightningAftershock.Count < 4)
+				{
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage / 6, 0, projectile.owner);
+				}
+			}
 		}
 	}
 }

@@ -281,31 +281,8 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			float mult = 1f;
-
-			if (Imbue is not null)
-			{
-				if (BenifitsFromScrollStats.HasValue)
-				{
-					if (BenifitsFromScrollStats.Value)
-					{
-						mult *= Imbue.ScrollSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.ImbueSize;
-						}
-					}
-					else
-					{
-						mult *= Imbue.ImbueSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.ImbueSize;
-						}
-					}
-				}
-			}
-			mult *= Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
+			float mult = Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
+			mult = ApplySize(mult);
 			if (projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
 				projectile.Hitbox = projectile.Hitbox.Scaled(mult);

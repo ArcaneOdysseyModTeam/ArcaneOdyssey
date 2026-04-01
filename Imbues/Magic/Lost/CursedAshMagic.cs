@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			_ = Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CorruptTorch, Scale: 1f * area.RelativeScale());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CorruptTorch, Scale: 1f * area.RelativeScale());
 			Dust spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.Ash, Scale: 2f * area.RelativeScale());
 			spawnedDust.noGravity = true;
 		}
@@ -61,9 +61,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.CorruptTorch, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: intensity)];
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2f * intensity)];
-				spawnedDust2.noGravity = true;
+				Dust.NewDust(position, 0, 0, DustID.CorruptTorch, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: intensity);
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ash, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2f * intensity)];
+				spawnedDust.noGravity = true;
 			}
 		}
 
@@ -75,13 +75,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.CorruptTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale());
 				spawnedDust2.noGravity = true;
-			}
-			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
-			{
-				var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<AshCloud>(), 20 * (AOUtils.BossesKilled + 1), 0f);
-				proj.scale *= projectile.Hitbox.RelativeScale(max: 2f);
-				proj.Hitbox = proj.Hitbox.Scaled(projectile.Hitbox.RelativeScale(max: 2f));
-				proj.netUpdate = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
