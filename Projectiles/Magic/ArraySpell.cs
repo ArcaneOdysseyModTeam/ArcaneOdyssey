@@ -338,7 +338,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			if (Imbue is BlizzardMagic)
+			if (Imbue is BlizzardMagic && !Hovering)
 			{
 				var texture = BlizzardMagic.trail;
 				if (Proj1Active)

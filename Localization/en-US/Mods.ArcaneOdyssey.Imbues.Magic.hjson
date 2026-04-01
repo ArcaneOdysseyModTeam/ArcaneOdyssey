@@ -362,4 +362,12 @@ Developer: {
 		AttackPrefix: Jerminal
 		SpellPrefix: Jerminus
 	}
+
+	WitherLightningMagic: {
+		AttackPrefix: Withering
+		SpellPrefix: Wither Lightning
+		DisplayName: Wither Lightning Magic
+		Tooltip: ""
+		Ability: Enemies with less that double your max health are instantly killed
+	}
 }

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Base;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -495,6 +496,30 @@ namespace ArcaneOdyssey.AOPlayers
 					if (CurrentDash.FallThrough && DashVelocity.Y > 0)
 					{
 						Player.GoingDownWithGrapple = true;
+					}
+				}
+			}
+
+			if (Player.InModBiome<EliusArena>() && InSpace)
+			{
+				Player.gravity = Player.defaultGravity;
+				if (Player.wet)
+				{
+					if (Player.honeyWet)
+					{
+						Player.gravity = 0.1f;
+					}
+					else if (Player.merman)
+					{
+						Player.gravity = 0.3f;
+					}
+					else if (Player.trident && !Player.lavaWet)
+					{
+						Player.gravity = Player.controlUp ? 0.1f : 0.25f;
+					}
+					else
+					{
+						Player.gravity = 0.2f;
 					}
 				}
 			}

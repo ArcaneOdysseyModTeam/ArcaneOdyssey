@@ -203,6 +203,18 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
+		public float SpaceGravityMulti
+		{
+			get
+			{
+				float x = Main.maxTilesX / 4200f;
+				x *= x;
+				return (float)((Player.position.Y / 16f - (60f + 10f * x)) / (Main.worldSurface / (Main.remixWorld ? 1.0 : 6.0)));
+			}
+		}
+
+		public bool InSpace => SpaceGravityMulti < 1f;
+
 		public void FreezeMovement()
 		{
 			if (Math.Abs(Player.velocity.Y) < .5f && Player.wingTime == Player.wingTimeMax && Player.wingFrame == 0 && !Player.controlJump && !Player.TryingToHoverDown && !Player.TryingToHoverUp)
