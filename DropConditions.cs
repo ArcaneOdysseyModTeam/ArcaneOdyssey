@@ -218,4 +218,41 @@ namespace ArcaneOdyssey
 			return new AnyDropHelper(ids);
 		}
 	}
+
+	public class Mastvengence : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info)
+		{
+			if (ExternalModSupport.HasCalamity)
+			{
+				if ((bool)ExternalModSupport.Calamity.Call("DifficultyActive", "revengeance"))
+				{
+					return true;
+				}
+			}
+			return Main.masterMode;
+		}
+
+		public bool CanShowItemDropInUI() => Main.masterMode || ExternalModSupport.HasCalamity;
+
+		public string GetConditionDescription() => Language.GetTextValue("Bestiary_ItemDropConditions.IsMasterMode");
+	}
+
+	public class NotMastvengence : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info)
+		{
+			if (ExternalModSupport.HasCalamity)
+			{
+				if ((bool)ExternalModSupport.Calamity.Call("DifficultyActive", "revengeance"))
+				{
+					return false;
+				}
+			}
+			return !Main.masterMode;
+		}
+
+		public bool CanShowItemDropInUI() => !Main.masterMode;
+		public string GetConditionDescription() => Language.GetTextValue("Bestiary_ItemDropConditions.NotMasterMode");
+	}
 }

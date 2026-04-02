@@ -784,6 +784,7 @@ namespace ArcaneOdyssey
 					return (
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
+							|| projectile.DamageType.CountsAsClass(DamageClass.Throwing)
 							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or Circle
 						)
 						&& projectile.owner != 255
@@ -803,9 +804,10 @@ namespace ArcaneOdyssey
 				{
 					return item.DamageType.CountsAsClass(DamageClass.Melee)
 						|| item.DamageType.CountsAsClass(DamageClass.Ranged)
+						|| item.DamageType.CountsAsClass(DamageClass.Throwing)
 						||
 						(
-							item.ModItem is (Scroll or Imbuable)
+							item.ModItem is Scroll or Imbuable
 						);
 				}
 			}

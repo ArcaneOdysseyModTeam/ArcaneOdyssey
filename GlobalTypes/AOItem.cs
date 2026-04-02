@@ -800,6 +800,11 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
+			if (item.type == ItemID.GoldenCrate)
+			{
+				itemLoot.Add(new AnyDropHelper(ArcaneOdysseyMod.Sets.OldWeapons, 5));
+			}
+
 			if (item.type == ItemID.GoldenCrateHard)
 			{
 				if (!addedScrap)
@@ -807,6 +812,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
 					addedScrap = true;
 				}
+				itemLoot.Add(new AnyDropHelper(ArcaneOdysseyMod.Sets.OldWeapons, 5));
 			}
 
 			if (ItemID.Sets.IsFishingCrateHardmode[item.type])

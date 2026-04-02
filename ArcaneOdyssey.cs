@@ -2,16 +2,17 @@
 using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.GlobalTypes;
 #endif
+using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Weapons.Old;
 using Microsoft.Xna.Framework;
-using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Graphics.Shaders;
-using ArcaneOdyssey.Biomes;
 
 namespace ArcaneOdyssey
 {
@@ -160,6 +161,8 @@ namespace ArcaneOdyssey
 			public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
 
 			public static int[] BlastMaxFrames = ItemID.Sets.Factory.CreateIntSet(1);
+
+			public static int[] OldWeapons = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>()];
 		}
 	}
 

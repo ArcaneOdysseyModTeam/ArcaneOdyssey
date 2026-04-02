@@ -131,12 +131,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			void Apply(float percentPerSecond, ref int damage, int? min = null, int? max = null)
 			{
 				var damagepercentage = percentPerSecond / 50f;
-				npc.GetLifeStats(out _, out int npcMaxLife);
-				var loss = Utils.Clamp((int)(npcMaxLife * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
 				if (npc.boss)
 				{
-					loss /= 6;
+					damagepercentage /= 6;
 				}
+				var loss = Utils.Clamp((int)(npc.lifeMax * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
 				npc.lifeRegen -= loss;
 				if (damage < 0)
 					damage = loss / 4;

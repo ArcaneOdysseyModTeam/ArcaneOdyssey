@@ -9,7 +9,7 @@ using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
-using ArcaneOdysseyMusic.MusicBoxes.Items;
+using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
 using Terraria;

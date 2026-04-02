@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.MainMenus
 
 			public void Draw()
 			{
-				Main.spriteBatch.Draw(Texture.Value, position, new Color(255, 255, 255, 255 / 10));
+				Main.spriteBatch.Draw(Texture.Value, position, Color.White);
 			}
 
 			public Raindrop()
@@ -119,13 +119,12 @@ namespace ArcaneOdyssey.MainMenus
 			return false;
 		}
 
-		public static Dictionary<string, MusicTrack> Titles = new
-			(
-				[
-					KeyValuePair.Create("Classic", MusicTrack.TitleTheme2),
-					KeyValuePair.Create("Pixel", MusicTrack.TitleTheme),
-				]
-			);
+
+		public static Dictionary<string, MusicTrack> Titles = new()
+		{
+			["Classic"] = MusicTrack.TitleTheme2,
+			["Pixel"] = MusicTrack.TitleTheme,
+		};
 
 		public static string SelectedTitle;
 

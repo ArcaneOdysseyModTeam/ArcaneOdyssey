@@ -1,13 +1,11 @@
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Items.Consumable;
-using ArcaneOdyssey.Items.Weapons.Old;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdyssey.Tiles;
 using Microsoft.Xna.Framework;
 using StructureHelper.API;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Generation;
@@ -125,16 +123,15 @@ namespace ArcaneOdyssey
 						}
 					}
 
-					int[] oldItems = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>(),];
 					if ((chest.y > Main.rockLayer) && (chest.y < Main.UnderworldLayer) && (!chest.IsLocked()) && (Main.tile[chest.x, chest.y].TileType == TileID.Containers)) // cavern chests probably
 					{
-						if (WorldGen.genRand.Next(Enumerable.Range(0, oldItems.Length).ToArray()) != 0)
+						if (WorldGen.genRand.NextBool(5))
 						{
 							for (int i = 0; i < Chest.maxItems; i++)
 							{
 								if (chest.item[i] != null && chest.item[i].IsAir)
 								{
-									chest.item[i].SetDefaults(WorldGen.genRand.Next(oldItems));
+									chest.item[i].SetDefaults(WorldGen.genRand.Next(ArcaneOdysseyMod.Sets.OldWeapons));
 									break;
 								}
 							}
