@@ -83,6 +83,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 
 		public override int DashMax => 30;
 
-		public override bool Immune => false;
+		public override bool Immune => Imbue is not null && (Imbue.DashSpeed >= 1.4f);
 	}
 }

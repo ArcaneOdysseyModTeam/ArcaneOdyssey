@@ -58,13 +58,16 @@ namespace ArcaneOdyssey.Biomes
 				else
 					player.ArcaneOdyssey().EliusArenaCounter = 0;
 
-				if (player.ArcaneOdyssey().EliusArenaCounter >= (DownedBosses.downedElius ? (60 * 60) : (60 * 30))) // 30-60 seconds
+				if (player.ArcaneOdyssey().EliusArenaCounter >= (30 * 60)) // 30 seconds
 				{
-					if (!AOUtils.BossAlive)
+					if (Main.raining || !DownedBosses.downedElius)
 					{
-						if (AOUtils.ServerOrSingleplayer)
+						if (!AOUtils.BossAlive)
 						{
-							NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 2) * 16, ModContent.NPCType<LordElius>(), player.whoAmI);
+							if (AOUtils.ServerOrSingleplayer)
+							{
+								NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16, ModContent.NPCType<LordElius>(), player.whoAmI);
+							}
 						}
 					}
 				}

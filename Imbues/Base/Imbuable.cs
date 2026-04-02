@@ -62,6 +62,60 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
+		public static bool IsValidEnemyImbue(Imbuable imbue)
+		{
+			if (imbue is MagicType or FightingStyle)
+			{
+				if (NPC.downedMoonlord || DownedBosses.downedEnragedEmpress)
+				{
+					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (!imbue.Special)) || ((imbue.ImbuableTier == ImbuableTiers.Ancient) && (imbue is MagicType) && (!imbue.Special)))
+					{
+						return true;
+					}
+				}
+
+				else if (NPC.downedMechBossAny)
+				{
+					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (imbue is MagicType) && (!imbue.Special)))
+					{
+						return true;
+					}
+				}
+
+				else if (Main.hardMode)
+				{
+					if (imbue.ImbuableTier == ImbuableTiers.Normal)
+					{
+						return true;
+					}
+				}
+
+				else
+				{
+					if (imbue.ImbuableTier == ImbuableTiers.Normal)
+					{
+						if (imbue is FightingStyle)
+						{
+							return imbue.Type == ModContent.ItemType<BasicCombat>();
+						}
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		public static Imbuable[] AllValidEnemyImbues 
+		{ 
+			get
+			{
+				var imbues = ModContent.GetContent<Imbuable>().ToList();
+				imbues.RemoveAll(e => !IsValidEnemyImbue(e));
+				return [.. imbues];
+			}
+		}
+
 		public WeaponAbility? Ability
 		{
 			get

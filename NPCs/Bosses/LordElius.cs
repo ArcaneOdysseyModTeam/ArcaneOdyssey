@@ -109,7 +109,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			
 			if (!hasSetSpawnLocation) //this also is used for setup
 			{
-				NPC.Center = new Vector2((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 2) * 16);
+				NPC.Center = new Vector2((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16);
 				// end test specific
 				NPC.Center = NPC.Center - new Vector2(0,32);
 				Main.NewText("Test: Elius location set");
