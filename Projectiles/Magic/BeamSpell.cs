@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArcaneOdysseyMod.Sets.rayStartSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 
 
-		public override float AOSize => .75f;
+		public override float Size => .75f;
 
 
 		private Vector2? origin = null;

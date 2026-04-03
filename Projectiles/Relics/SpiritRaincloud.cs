@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 {
 	public class SpiritRaincloud : SpiritProjectile
 	{
-		public override float AOSize => 1.5f;
+		public override float Size => 1.5f;
 
 		public override bool? CanDamage() => Projectile.timeLeft <= (MaxTimeLeft - 60);
 

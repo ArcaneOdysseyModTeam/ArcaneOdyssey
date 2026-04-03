@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 	public class SpiritHound : SpiritProjectile
 	{
 		public int TileTimer = 0;
-		public override float AOSpeed => .9f;
+		public override float Speed => .9f;
 
 		public const int TimeLeftMax = 60 * 5;
 

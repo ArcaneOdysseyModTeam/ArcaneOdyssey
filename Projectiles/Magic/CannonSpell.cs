@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.blasts[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 
-		public override float AOSize => 2f;
+		public override float Size => 2f;
 
 		public bool DoneCharging = false;
 		public float charge = 1f;

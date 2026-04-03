@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), 0, 0, ai0: 2f * intensity);
+			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), 0, 0, ai0: intensity);
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				if (projectile.owner == Main.myPlayer)
 				{
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage / 6, 0, projectile.owner);
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage / 4, 0, projectile.owner);
 				}
 			}
 		}

@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Projectiles
 		public const float GlobalChargeSpeed = 1f / 120f;
 		public const float GlobalMaxCharge = 1.75f;
 
-		public override float AOSize => .5f;
+		public override float Size => .5f;
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{

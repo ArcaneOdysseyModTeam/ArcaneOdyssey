@@ -12,8 +12,8 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 	public class SunkenStaffProjectile : BaseStaffProjectile
 	{
 		public override bool? Cold => true;
-		public override float AOSpeed => .9f;
-		public override float AOSize => 1.25f;
+		public override float Speed => .9f;
+		public override float Size => 1.25f;
 		public override Debuff? ProjectileDebuff => Debuff.Create<Soaked>();
 		public override SoundStyle? HitSound => SoundID.Splash;
 

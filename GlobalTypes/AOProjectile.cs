@@ -227,7 +227,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (projectile.ModProjectile is PlayerProjectile proj1)
 			{
-				projectile.velocity *= proj1.AOSpeed;
+				projectile.velocity *= proj1.Speed;
 			}
 
 			if (AOUtils.ImbueClassCheck(projectile))

@@ -15,8 +15,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 	{
 		// ai 2 is first frame bool
 
-		public override float AOSize => 3f;
-		public override float AOSpeed => .5f;
+		public override float Size => 3f;
+		public override float Speed => .5f;
 
 		public int ExplodingTime => ApplySpeed(60 * 8, true).Round();
 
@@ -96,8 +96,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				var explode = Vector2.Lerp(targetHitbox.ClosestPointInRect(projHitbox.Center()), projHitbox.ClosestPointInRect(targetHitbox.Center()), .5f);
 				for (int i = 0; i < 10; i++)
 				{
-					Imbue?.ExplosionEffects(explode, Projectile.scale / AOSize);
-					SecondImbue?.ExplosionEffects(explode, Projectile.scale / AOSize);
+					Imbue?.ExplosionEffects(explode, Projectile.scale / Size);
+					SecondImbue?.ExplosionEffects(explode, Projectile.scale / Size);
 				}
 			}
 			return null;

@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 {
 	public class LanceofLoyaltyProjectile : BaseLanceProjectile
 	{
-		public override float AOSize => 1.25f;
+		public override float Size => 1.25f;
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Imbue is not null && Math.Abs(Owner.velocity.X) > (AOPlayerOwner.MaxRunSpeed * 1.1f) && !AOPlayerOwner.OnCooldown<RagingImpact>())

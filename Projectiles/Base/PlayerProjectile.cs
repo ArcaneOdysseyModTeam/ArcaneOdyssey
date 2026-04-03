@@ -61,11 +61,11 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public override void SetDefaults()
 		{
-			Projectile.scale *= AOSize;
+			Projectile.scale *= Size;
 		}
 
-		public virtual float AOSpeed => 1f;
-		public virtual float AOSize => 1f;
+		public virtual float Speed => 1f;
+		public virtual float Size => 1f;
 
 		public virtual Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
 		public virtual SoundStyle? HitSound => null;

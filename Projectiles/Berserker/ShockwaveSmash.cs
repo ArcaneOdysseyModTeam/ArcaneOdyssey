@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			Projectile.Opacity = .5f;
 		}
 
-		public override float AOSize => 2.5f;
+		public override float Size => 2.5f;
 
 		public override void SetStaticDefaults()
 		{

@@ -9,6 +9,8 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
 	public class AetherExplosion : PlayerProjectile
 	{
+		public const int SpriteSize = 128;
+
 		private static int _count = 0;
 
 		internal static int Count 
@@ -23,12 +25,12 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			} 
 		}
 
-		public override float AOSize => .4f;
+		public override float Size => .4f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.height = Projectile.width = 128;
+			Projectile.height = Projectile.width = SpriteSize;
 			Projectile.friendly = true;
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.usesLocalNPCImmunity = true;
@@ -44,18 +46,24 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
 				Count++;
-				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale * 1.2f / ((Projectile.width + Projectile.height) / 2f), .4f, 1.75f);
-				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(128)).Scaled(Projectile.scale);
+				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale * 1.2f / SpriteSize, Size, 1.75f);
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherLightningMagic)
 			{
 				Projectile.scale = Projectile.ai[0];
-				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(128)).Scaled(Projectile.scale);
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else
 			{
 				Kill();
 			}
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Color.White;
+			return base.PreDraw(ref lightColor);
 		}
 
 		public override void SetStaticDefaults()

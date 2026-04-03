@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.TerraBlade2}";
 
-		public override float AOSize => 3f;
+		public override float Size => 3f;
 
 		public override void SetStaticDefaults()
 		{

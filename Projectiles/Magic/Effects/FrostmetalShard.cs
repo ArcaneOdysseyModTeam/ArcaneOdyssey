@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		private float randomRotationOffset;
 
-		public override float AOSize => 1.35f;
+		public override float Size => 1.35f;
 
 		public override void SetDefaults()
 		{

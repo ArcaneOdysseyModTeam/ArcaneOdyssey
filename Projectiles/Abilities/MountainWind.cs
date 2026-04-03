@@ -15,8 +15,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		{
 			Main.projFrames[Type] = Main.projFrames[ProjectileID.WeatherPainShot];
 		}
-		public override float AOSize => 1.05f;
-		public override float AOSpeed => .9f;
+		public override float Size => 1.05f;
+		public override float Speed => .9f;
 
 		public override void SetDefaults()
 		{

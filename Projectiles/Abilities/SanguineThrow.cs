@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	{
 		public override string Texture => AOUtils.GetTexture<Sanguine>();
 
-		public override float AOSize => .85f;
+		public override float Size => .85f;
 
 		public override void SetDefaults()
 		{

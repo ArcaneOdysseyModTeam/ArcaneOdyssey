@@ -12,8 +12,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	public class BronzeRapierProjectile : PlayerProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<BronzeRapier>();
-		public override float AOSpeed => 1.05f;
-		public override float AOSize => .9f;
+		public override float Speed => 1.05f;
+		public override float Size => .9f;
 
 		public override void SetDefaults()
 		{

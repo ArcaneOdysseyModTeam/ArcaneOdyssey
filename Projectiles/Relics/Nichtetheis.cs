@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
 		}
 
-		public override float AOSize => 1f;
+		public override float Size => 1f;
 
 
 		private Vector2? origin = null;

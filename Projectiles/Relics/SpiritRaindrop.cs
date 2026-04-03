@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 	{
 		public override bool CanHaveImbueVFX => false;
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
-		public override float AOSize => .25f;
+		public override float Size => .25f;
 
 		public override bool? CanDamage() => false;
 

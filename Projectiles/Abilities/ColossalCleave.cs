@@ -9,8 +9,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 {
 	public class ColossalCleave : PlayerProjectile
 	{
-		public override float AOSpeed => .65f;
-		public override float AOSize => 1.2f;
+		public override float Speed => .65f;
+		public override float Size => 1.2f;
 		public override SoundStyle? HitSound => SoundID.NPCHit42;
 
 		public override void SetStaticDefaults()

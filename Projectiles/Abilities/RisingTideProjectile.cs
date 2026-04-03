@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			ProjectileID.Sets.TrailingMode[Type] = 2;
 			ProjectileID.Sets.TrailCacheLength[Type] = 50;
 		}
-		public override float AOSize => 2.5f;
+		public override float Size => 2.5f;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

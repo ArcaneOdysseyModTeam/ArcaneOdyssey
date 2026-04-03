@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 {
 	public class SeismicSlashRock : PlayerProjectile
 	{
-		public override float AOSize => 2f;
+		public override float Size => 2f;
 
 		public override void SetDefaults()
 		{

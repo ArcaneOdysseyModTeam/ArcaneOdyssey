@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public static int LingerTime => 60;
 		public static int TravelTime => 100 * 60;
 
-		public override float AOSize => 1.5f;
+		public override float Size => 1.5f;
 
 		public override void SetStaticDefaults()
 		{

@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 	{
 		public override string Texture => AOUtils.SlashTexture;
 
-		public override float AOSize => .5f;
+		public override float Size => .5f;
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
 

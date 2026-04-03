@@ -15,8 +15,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 	{
 		// ai 2 is first frame bool
 
-		public override float AOSize => 2f;
-		public override float AOSpeed => .3f;
+		public override float Size => 2f;
+		public override float Speed => .3f;
 
 		public const int FlightTime = 60 * 10;
 		public const int ChargeTime = 90;
