@@ -36,14 +36,14 @@ namespace ArcaneOdyssey.Items.BossBags
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			itemLoot.Add(
-				AnyDropHelper.Create(
+				new AnyDropHelper([
 					ModContent.ItemType<EliusBoots>(),
 					ModContent.ItemType<EliusChest>(),
 					ModContent.ItemType<EliusHelm>(),
 					ModContent.ItemType<NobleThunderspear>(),
 					ModContent.ItemType<ScimitarofStorm>(),
 					ModContent.ItemType<StormCaller>()
-					)
+					], rolls: 2)
 				);
 
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ThunderingCape>()));

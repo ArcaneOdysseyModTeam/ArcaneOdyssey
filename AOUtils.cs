@@ -1145,12 +1145,12 @@ namespace ArcaneOdyssey
 
 		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
 		{
-			var type = imbue.GetType();
+			var type = imbue.Type;
 			if (imbue is SteamImbue steam)
 			{
-				type = steam.Imbue.GetType();
+				type = steam.Imbue.Type;
 			}
-			return player.HasTypeInInventory<Imbuable>(e => e.Type == imbue.Type); // because it includes equipped imbues
+			return player.HasTypeInInventory<Imbuable>(e => e.Type == type); // because it includes equipped imbues
 		}
 
 		/// <summary>

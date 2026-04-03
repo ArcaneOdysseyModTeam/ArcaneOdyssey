@@ -133,19 +133,25 @@ namespace ArcaneOdyssey
 
 	}
 
-	public class AnyDropHelper(int[] itemIDs, int denominator = 1, int numerator = 1) : CommonDrop(itemIDs.FirstOrDefault(), denominator, chanceNumerator: numerator)
+	public class AnyDropHelper(int[] itemIDs, int denominator = 1, int numerator = 1, int rolls = 1) : CommonDrop(itemIDs.FirstOrDefault(), denominator, chanceNumerator: numerator)
 	{
 		public int[] ids = itemIDs;
+		public int rolls = rolls;
 
 		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
 		{
-			var id = Main.rand.Next(ids);
+			List<int> actualids = [..ids];
 			ItemDropAttemptResult result = default;
 			if (info.rng.Next(chanceDenominator) < chanceNumerator)
 			{
-				if (!(id <= 0 || id >= ItemLoader.ItemCount))
+				for (int i = 0; i < rolls; i++)
 				{
-					CommonCode.DropItem(info, id, Main.rand.Next(amountDroppedMinimum, amountDroppedMaximum + 1));
+					var id = Main.rand.Next(actualids);
+					actualids.Remove(id);
+					if (!(id <= 0 || id >= ItemLoader.ItemCount))
+					{
+						CommonCode.DropItem(info, id, Main.rand.Next(amountDroppedMinimum, amountDroppedMaximum + 1));
+					}
 				}
 				result.State = ItemDropAttemptResultState.Success;
 				return result;
@@ -159,7 +165,7 @@ namespace ArcaneOdyssey
 		{
 			float num = (float)chanceNumerator / (float)chanceDenominator;
 			float dropRate = num * ratesInfo.parentDroprateChance;
-			dropRate /= (float)ids.Length;
+			dropRate /= ids.Length / (float)rolls;
 			foreach (var id in ids)
 			{
 				drops.Add(new DropRateInfo(id, amountDroppedMinimum, amountDroppedMaximum, dropRate, ratesInfo.conditions));

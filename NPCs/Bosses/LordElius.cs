@@ -156,14 +156,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			npcLoot.Add(AOUtils.Common<EliusTrophy>(10));
 			LeadingConditionRule leadingConditionRule1 = new(new Conditions.NotExpert());
-			leadingConditionRule1.OnSuccess(AnyDropHelper.Create(
+			leadingConditionRule1.OnSuccess(new AnyDropHelper([
 					ModContent.ItemType<EliusBoots>(),
 					ModContent.ItemType<EliusChest>(),
 					ModContent.ItemType<EliusHelm>(),
 					ModContent.ItemType<NobleThunderspear>(),
 					ModContent.ItemType<ScimitarofStorm>(),
 					ModContent.ItemType<StormCaller>()
-					));
+					], rolls: 2));
 			npcLoot.Add(leadingConditionRule1);
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>())); 
 			leadingConditionRule1 = new(new Mastvengence());
