@@ -276,6 +276,7 @@ namespace ArcaneOdyssey
 					case "TheMaelstrom":
 					case "ShardlightPickaxe":
 					case "AbyssalWarhammer":
+					case "HalleysInferno":
 						return true;
 					case "AegisBlade":
 					case "AnarchyBlade":
@@ -313,7 +314,6 @@ namespace ArcaneOdyssey
 					case "Drataliornus":
 					case "FirestormCannon":
 					case "FlarewingBow":
-					case "HalleysInferno":
 					case "HavocsBreath":
 					case "Hellborn":
 					case "Helstorm":
@@ -348,8 +348,8 @@ namespace ArcaneOdyssey
 					case "GrandGuardian":
 					case "HolyCollider":
 					case "MajesticGuard":
-						return WeaponType.Strength;
 					case "Karasawa":
+						return WeaponType.Strength;
 					case "PrismaticBreaker":
 					case "TheBurningSky":
 						return WeaponType.Arcanium;

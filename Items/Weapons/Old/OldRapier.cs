@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 				else
 					Item.useStyle = ItemUseStyleID.Thrust;
 			}
-			return base.CanUseItem(player) && canSwing;
+			return canSwing;
 		}
 
 		public override Color Motif => Color.Gray;

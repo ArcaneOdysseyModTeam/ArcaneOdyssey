@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			Projectile.timeLeft = TravelTime + LingerTime;
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
 			Projectile.hide = true;
+			Projectile.tileCollide = false;
 		}
 
 
@@ -79,21 +80,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			}
 		}
 
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-		{
-			width = height = 0;
-			fallThrough = true;
-			return true;
-		}
-
 		public override bool? CanCutTiles() => !dying;
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			Projectile.tileCollide = false;
-			Projectile.timeLeft = LingerTime;
-			return false;
-		}
 
 		public override bool PreDraw(ref Color lightColor)
 		{

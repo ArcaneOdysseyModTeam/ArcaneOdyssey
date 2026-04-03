@@ -25,7 +25,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
-			Projectile.Opacity = 0f;
 			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 		}
 
@@ -35,7 +34,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		{
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
-				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) / (SpriteSize / 2f), Size, 5f);
+				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / (SpriteSize / 2f), Size));
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherLightningMagic)
@@ -48,6 +47,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			{
 				Kill();
 			}
+			Projectile.scale /= 5f;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -82,9 +82,9 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			}
 			else if (Projectile.ai[1] == 60)
 			{
+				Projectile.scale *= 5f;
 				Projectile.netUpdate = true;
 				Projectile.netSpam = 0;
-				Projectile.alpha = 0;
 				SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center);
 				return true;
 			}	
@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.ScalingArmorPenetration += .25f;
+			modifiers.ScalingArmorPenetration += 1f;
 		}
 
 		public override bool? CanCutTiles() => false;
