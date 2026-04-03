@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.Opacity = 0f;
+			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 		}
 
 		public override Debuff? ProjectileDebuff => null;
@@ -34,13 +35,14 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		{
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
-				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale * 1.2f / (SpriteSize / 2f), Size, 1.75f);
+				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) / (SpriteSize / 2f), Size, 5f);
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherLightningMagic)
 			{
 				Projectile.scale = Projectile.ai[0];
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
+				Projectile.ai[1] = 59;
 			}
 			else
 			{
@@ -73,12 +75,12 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override bool PreAI()
 		{
-			Projectile.ai[0]++;
-			if (Projectile.ai[0] < 60)
+			Projectile.ai[1]++;
+			if (Projectile.ai[1] < 60)
 			{
 				return false;
 			}
-			else if (Projectile.ai[0] == 60)
+			else if (Projectile.ai[1] == 60)
 			{
 				Projectile.netUpdate = true;
 				Projectile.netSpam = 0;
@@ -101,7 +103,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override bool? CanDamage()
 		{
-			if (Projectile.ai[0] >= 60)
+			if (Projectile.ai[1] >= 60)
 				return null;
 			return false;
 		}
