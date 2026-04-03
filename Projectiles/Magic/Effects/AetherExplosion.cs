@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
 				Count++;
-				Projectile.scale = MathHelper.Max((projectile.width + projectile.height) / 2f / SpriteSize, Size);
+				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / 2f / SpriteSize, Size));
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherMagic)
