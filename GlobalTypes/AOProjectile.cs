@@ -65,6 +65,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public float ApplySize(float value, bool flipfloat = false)
 		{
+			value *= Main.player[thisProjectile?.owner ?? 255]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
 			if (BenifitsFromScrollStats.HasValue)
 			{
 				if (BenifitsFromScrollStats.Value)
@@ -281,8 +282,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			float mult = Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
-			mult = ApplySize(mult);
+			var mult = ApplySize(1f);
 			if (projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
 				projectile.Hitbox = projectile.Hitbox.Scaled(mult);

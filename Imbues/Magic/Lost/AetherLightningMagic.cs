@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class AetherLightningMagic : MagicType
 	{
 		public override float DashSpeed => 1.4f; // instant
-		public override SoundStyle? ImbueSound => SoundID.Thunder;
+		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Turquoise;
 		public override Color ImbueColour2 => Color.White;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 			if (source is Projectile projectile && projectile.ModProjectile is not AetherLightningAftershock)
 			{
-				if (projectile.owner == Main.myPlayer && AetherLightningAftershock.Count < 4)
+				if (projectile.owner == Main.myPlayer)
 				{
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage / 6, 0, projectile.owner);
 				}

@@ -2,6 +2,8 @@
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -9,20 +11,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
 	public class AetherLightningAftershock : PlayerProjectile
 	{
-		private static int _count = 0;
-
-		internal static int Count 
-		{ 
-			get
-			{
-				return _count;
-			}
-			set
-			{
-				_count = Utils.Clamp(value, 0, 10);
-			} 
-		}
-
 		public override float AOSize => .4f;
 
 		public override void SetDefaults()
@@ -35,6 +23,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
+			Projectile.Opacity = 0f;
 		}
 
 		public override Debuff? ProjectileDebuff => null;
@@ -43,14 +32,13 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		{
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
-				Count++;
-				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale * 1.2f / ((projectile.width + projectile.height) / 2f), .4f, 1.75f);
-				Projectile.Hitbox = Projectile.Hitbox.Scaled(Projectile.scale);
+				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale * 1.2f / ((Projectile.width + Projectile.height) / 2f), .5f, 2f);
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(128)).Scaled(Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherLightningMagic)
 			{
 				Projectile.scale = Projectile.ai[0];
-				Projectile.Hitbox = Projectile.Hitbox.Scaled(Projectile.scale);
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(128)).Scaled(Projectile.scale);
 			}
 			else
 			{
@@ -75,14 +63,39 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			}
 		}
 
+		public override bool PreAI()
+		{
+			Projectile.ai[0]++;
+			if (Projectile.ai[0] < 60)
+			{
+				return false;
+			}
+			else if (Projectile.ai[0] == 60)
+			{
+				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
+				Projectile.alpha = 0;
+				SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center);
+				return true;
+			}	
+			else
+			{
+				return true;
+			}
+		}
+
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.ScalingArmorPenetration += .25f;
 		}
 
-		public override void OnKill(int timeLeft)
+		public override bool? CanCutTiles() => false;
+
+		public override bool? CanDamage()
 		{
-			Count--;
+			if (Projectile.ai[0] >= 60)
+				return null;
+			return false;
 		}
 	}
 }

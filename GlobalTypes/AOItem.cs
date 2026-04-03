@@ -81,6 +81,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public float ApplySize(float value, bool flipfloat = false)
 		{
+			value *= owner?.ArcaneOdyssey()?.SizeMulti ?? 1f;
 			if (BenifitsFromScrollStats.HasValue)
 			{
 				if (BenifitsFromScrollStats.Value)
@@ -490,22 +491,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 			if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
-				scale *= player.ArcaneOdyssey().SizeMulti;
-				if (Imbue is not null)
-				{
-					if (!BenifitsFromScrollStats.GetValueOrDefault())
-					{
-						scale *= Imbue.ImbueSize;
-						if (SecondImbue is not null)
-							scale *= SecondImbue.ImbueSize;
-					}
-					else
-					{
-						scale *= Imbue.ScrollSize;
-						if (SecondImbue is not null)
-							scale *= SecondImbue.ImbueSize;
-					}
-				}
+				scale = ApplySize(scale);
 			}
 		}
 

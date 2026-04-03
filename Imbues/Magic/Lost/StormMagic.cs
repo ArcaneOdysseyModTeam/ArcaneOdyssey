@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.DarkGray;
 		public override Color ImbueColour2 => Color.Purple;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override float ImbueSpeed => 1.05f;
-		public override float ImbueSize => 1.265f;
-		public override float ImbueDamage => .95f;
+		public override float ScrollSpeed => 1.275f;
+		public override float ScrollSize => 1.265f;
+		public override float ScrollDamage => .95f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(3 * 60), Debuff.Create<Paralyzed>(60, 16)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
 

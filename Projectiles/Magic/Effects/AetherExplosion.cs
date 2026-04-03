@@ -44,13 +44,13 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
 				Count++;
-				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale / 2f / Projectile.width, .37f, 1.3f);
-				Projectile.Hitbox = Projectile.Hitbox.Scaled(Projectile.scale);
+				Projectile.scale = MathHelper.Clamp((projectile.width + projectile.height) * projectile.scale * 1.2f / ((Projectile.width + Projectile.height) / 2f), .4f, 1.75f);
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(128)).Scaled(Projectile.scale);
 			}
-			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherMagic)
+			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherLightningMagic)
 			{
 				Projectile.scale = Projectile.ai[0];
-				Projectile.Hitbox = Projectile.Hitbox.Scaled(Projectile.scale);
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(128)).Scaled(Projectile.scale);
 			}
 			else
 			{
@@ -79,5 +79,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		{
 			Count--;
 		}
+
+		public override bool? CanCutTiles() => false;
 	}
 }
