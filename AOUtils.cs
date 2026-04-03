@@ -779,7 +779,7 @@ namespace ArcaneOdyssey
 		{
 			if (projectile is not null && projectile.active)
 			{
-				if ((projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && projectile.ArcaneOdyssey().CanBeAffected)
+				if ((projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (projectile.ArcaneOdyssey()?.CanBeAffected == true))
 				{
 					return (
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
@@ -798,9 +798,9 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if (item is not null && item.active && (!item.accessory || item.ModItem is (Scroll or Imbuable)) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && item.ArcaneOdyssey().CanBeAffected && item.ammo == AmmoID.None)
+			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.CanBeAffected == true) && (item.ammo == AmmoID.None))
 			{
-				if (item.ArcaneOdyssey().WeaponsType != WeaponType.Artisinal)
+				if (item.ArcaneOdyssey()?.WeaponsType != WeaponType.Artisinal)
 				{
 					return item.DamageType.CountsAsClass(DamageClass.Melee)
 						|| item.DamageType.CountsAsClass(DamageClass.Ranged)
