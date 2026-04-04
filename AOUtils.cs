@@ -1045,6 +1045,13 @@ namespace ArcaneOdyssey
 			return modifiers with { FinalDamage = CalculateImbueDamage(imbue, target, new ModDamageHelper(modifiers.FinalDamage)).FinalDamage };
 		}
 
+		/// <summary>
+		/// <inheritdoc cref="Array.Find{T}(T[], Predicate{T})"/>
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="array"></param>
+		/// <param name="predicate"></param>
+		/// <returns><inheritdoc cref="Array.Find{T}(T[], Predicate{T})"/></returns>
 		public static T Find<T>(this T[] array, Predicate<T> predicate)
 		{
 			return Array.Find(array, predicate);
