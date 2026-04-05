@@ -38,8 +38,6 @@ namespace ArcaneOdyssey.NPCs
 		{
 			NPC.rotation = NPC.SafeDirectionTo(Main.LocalPlayer.MountedCenter).ToRotation();
 			NPC.life = NPC.lifeMax;
-			if (AOUtils.BossAlive)
-				NPC.Kill();
 		}
 	}
 }

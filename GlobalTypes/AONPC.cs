@@ -277,7 +277,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		}
 	}
 
-	public class AOGlobalNPC : GlobalNPC
+	public class NPCLootManager : GlobalNPC
 	{
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
@@ -290,6 +290,14 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (projectile.Imbue() is GravityMagic)
 				modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
 		}
+
+		public delegate void ModifyNPCLootDelegate(NPC npc, NPCLoot npcLoot);
+
+		public static event ModifyNPCLootDelegate ModifyNPCLootEvent;
+
+		public delegate void ModifyGlobalLootDelegate(GlobalLoot globalLoot);
+
+		public static event ModifyGlobalLootDelegate ModifyGlobalLootEvent;
 
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
@@ -329,9 +337,16 @@ namespace ArcaneOdyssey.GlobalTypes
 				leadingConditionRule.OnSuccess(new MultiDropHelper<PoseidonSpirit>());
 				npcLoot.Add(leadingConditionRule);
 			}
+			ModifyNPCLootEvent?.Invoke(npc, npcLoot);
+		}
+
+		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
+		{
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(AOUtils.Common<Acrimony>(3000));
-			npcLoot.Add(AcrimonyCondition);
+			globalLoot.Add(AcrimonyCondition);
+
+			ModifyGlobalLootEvent?.Invoke(globalLoot);
 		}
 
 		public override void OnKill(NPC npc)

@@ -438,3 +438,9 @@ Prefixes: {
 }
 
 MenacingMessages.EliusAvailable: Thunder rumbles to the east...
+
+MainMenuStyle: {
+	Classic: Classic
+	Pixel: Pixel
+	Dragon: Dragon
+}

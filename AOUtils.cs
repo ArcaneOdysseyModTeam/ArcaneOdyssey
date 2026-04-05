@@ -29,7 +29,7 @@ namespace ArcaneOdyssey
 	{
 		public static float UpdateCount => Main.GameUpdateCount / 100f;
 
-		public const string BlankTexture = ArcaneOdysseyMod.InternalName + "/Backgrounds/Blank";
+		public const string BlankTexture = ArcaneOdysseyMod.InternalName + "/Assets/Blank";
 		public const string SlashTexture = ArcaneOdysseyMod.InternalName + "/Assets/BasicSlash";
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
@@ -1497,7 +1497,7 @@ namespace ArcaneOdyssey
 				{
 					if (check is not null)
 					{
-						if (check.Invoke(item.ModItem as T))
+						if (check(item.ModItem as T))
 						{
 							return true;
 						}
@@ -1529,7 +1529,7 @@ namespace ArcaneOdyssey
 				{
 					if (check is not null)
 					{
-						if (check.Invoke(items.ModItem as T))
+						if (check(items.ModItem as T))
 						{
 							item ??= items.ModItem as T;
 							break;

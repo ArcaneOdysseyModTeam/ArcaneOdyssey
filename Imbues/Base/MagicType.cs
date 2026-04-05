@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (!player.AltUse())
 			{
-				CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, DashSpeed >= 1.4f ? ModContent.ProjectileType<LesserBeam>() : type);
+				CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, type);
 			}
 			else
 			{

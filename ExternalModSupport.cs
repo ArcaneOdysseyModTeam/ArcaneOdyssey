@@ -117,11 +117,11 @@ namespace ArcaneOdyssey
 		}
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
-		public static Mod Calamity => ModLoader.GetMod("CalamityMod");
+		public static Mod Calamity => HasCalamity ? ModLoader.GetMod("CalamityMod") : null;
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
-		public static Mod Fargos => ModLoader.GetMod("Fargowiltas");
+		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
-		public static Mod Thorium => ModLoader.GetMod("ThoriumMod");
+		public static Mod Thorium => HasThorium ? ModLoader.GetMod("ThoriumMod") : null;
 
 		private void AddBossChecklist()
 		{

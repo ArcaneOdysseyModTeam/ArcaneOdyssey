@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -37,9 +38,10 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
+			Projectile.light = 1f;
 		}
 
-		public override Debuff? ProjectileDebuff => null;
+		public override Debuff? ProjectileDebuff => Debuff.Create<CharredEffect>(60 * 5);
 
 		public override void OnSpawn(IEntitySource source)
 		{
@@ -58,12 +60,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			{
 				Kill();
 			}
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			lightColor = Color.White;
-			return base.PreDraw(ref lightColor);
 		}
 
 		public override void SetStaticDefaults()

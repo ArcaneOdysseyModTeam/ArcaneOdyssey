@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 			Item.useTime = Item.useAnimation = 40;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ModContent.ProjectileType<ArraySpell>();
+			Item.autoReuse = true;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

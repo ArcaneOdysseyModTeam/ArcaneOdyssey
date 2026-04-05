@@ -2,7 +2,7 @@ Ancient: {
 	IonMagic: {
 		DisplayName: Ion Magic
 		Tooltip: Dedicated to [c/1eff00:Gammaboy45]
-		AttackPrefix: Ionic
+		AttackPrefix: Nuclear
 		SpellPrefix: Ion
 	}
 

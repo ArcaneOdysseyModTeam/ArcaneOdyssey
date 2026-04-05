@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -241,24 +242,30 @@ namespace ArcaneOdyssey
 
 		public bool CanShowItemDropInUI() => Main.masterMode || ExternalModSupport.HasCalamity;
 
-		public string GetConditionDescription() => Language.GetTextValue("Bestiary_ItemDropConditions.IsMasterMode");
+		public string GetConditionDescription()
+		{
+			if (!ExternalModSupport.HasCalamity)
+				return Language.GetTextValue("Bestiary_ItemDropConditions.IsMasterMode");
+
+			else if (!Main.masterMode)
+				return Language.GetTextValue("Mods.CalamityMod.Condition.InRev");
+
+			return Language.GetTextValue("Bestiary_ItemDropConditions.IsMasterMode");
+		}
 	}
 
-	public class NotMastvengence : IItemDropRuleCondition
+	public class QuickDropRule(Predicate<DropAttemptInfo> lambda, bool ui = true, string desc = null) : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info)
-		{
-			if (ExternalModSupport.HasCalamity)
-			{
-				if ((bool)ExternalModSupport.Calamity.Call("DifficultyActive", "revengeance"))
-				{
-					return false;
-				}
-			}
-			return !Main.masterMode;
-		}
+		private readonly Predicate<DropAttemptInfo> condition = lambda;
 
-		public bool CanShowItemDropInUI() => !Main.masterMode;
-		public string GetConditionDescription() => Language.GetTextValue("Bestiary_ItemDropConditions.NotMasterMode");
+		private readonly bool visibleInUI = ui;
+
+		private readonly string description = desc;
+
+		public bool CanDrop(DropAttemptInfo info) => condition(info);
+
+		public bool CanShowItemDropInUI() => visibleInUI;
+
+		public string GetConditionDescription() => description;
 	}
 }

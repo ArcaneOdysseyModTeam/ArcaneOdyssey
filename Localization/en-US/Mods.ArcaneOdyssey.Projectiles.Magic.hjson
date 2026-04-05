@@ -16,7 +16,6 @@ Effects: {
 
 ExplosionSpell.DisplayName: Explosion
 Javelin.DisplayName: Javelin
-LesserBeam.DisplayName: Blast
 MagicRay.DisplayName: Ray
 MeteorSpell.DisplayName: Meteor
 
@@ -26,3 +25,4 @@ Minions: {
 }
 
 PulsarSpell.DisplayName: Pulsar
+HomingArray.DisplayName: Homing Array

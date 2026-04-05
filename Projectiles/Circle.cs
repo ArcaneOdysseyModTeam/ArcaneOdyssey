@@ -315,7 +315,7 @@ namespace ArcaneOdyssey.Projectiles
 						{
 							name = (SecondImbue.PrettyAttackPrefix + " " + name).Trim();
 						}
-						CombatText.NewText(Owner.Hitbox, Imbue?.Colour ?? Color.White, (name + "!").Trim(), ModContent.GetModProjectile(ChargingProjectile) is not LesserBeam or BlastSpell);
+						CombatText.NewText(Owner.Hitbox, Imbue?.Colour ?? Color.White, (name + "!").Trim(), ModContent.GetModProjectile(ChargingProjectile) is not BlastSpell);
 					}
 
 					var velo = dir * 10f;

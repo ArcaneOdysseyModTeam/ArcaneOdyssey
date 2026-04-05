@@ -2,9 +2,9 @@
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+			Projectile.light = 2f;
 		}
 
 		public override Debuff? ProjectileDebuff => null;
@@ -34,7 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		{
 			if (source is EntitySource_Parent { Entity: Projectile projectile })
 			{
-				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / (SpriteSize / 2f), Size));
+				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / 2f / (SpriteSize / 2f), Size));
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherLightningMagic)
@@ -48,12 +49,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 				Kill();
 			}
 			Projectile.scale /= 5f;
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			lightColor = Color.White;
-			return base.PreDraw(ref lightColor);
 		}
 
 		public override void SetStaticDefaults()
