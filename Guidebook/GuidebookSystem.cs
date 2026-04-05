@@ -8,6 +8,8 @@ namespace ArcaneOdyssey.Guidebook
 		public override void Unload()
 		{
 			PageCount = 0;
+			AllPages = [];
+			GuidebookPage.PagesOrdered = [];
 		}
 
 		public static int PageCount = 0;

@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Debug
 {
@@ -26,6 +27,9 @@ namespace ArcaneOdyssey.Items.Debug
 			{
 				Main.NewText("Doesn't work in multiplayer idiot");
 			}
+			Item.SetDefaults(ItemID.DirtBlock);
 		}
+
+		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 	}
 }

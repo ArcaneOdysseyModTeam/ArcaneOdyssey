@@ -34,17 +34,6 @@ namespace ArcaneOdyssey.Biomes
 					}
 				}
 			}
-
-#if VSDEBUGMODE
-			if (ModLoader.TryGetMod("SubworldLibrary", out var lib) && ((string)lib.Call("Current")) == "SubworldGenTest/DjinRuinsSubworld")
-			{
-				if (player.Bottom.Y == 1936)
-				{
-					AOUtils.Kill(player);
-				}
-				return true;
-			}
-#endif
 			return false;
 		}
 
@@ -62,12 +51,9 @@ namespace ArcaneOdyssey.Biomes
 				{
 					if (Main.raining || !DownedBosses.downedElius)
 					{
-						if (!AOUtils.BossAlive)
+						if (AOUtils.ServerOrSingleplayer)
 						{
-							if (AOUtils.ServerOrSingleplayer)
-							{
-								NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16, ModContent.NPCType<LordElius>(), player.whoAmI);
-							}
+							NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16, ModContent.NPCType<LordElius>(), player.whoAmI);
 						}
 					}
 				}

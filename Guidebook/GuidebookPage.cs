@@ -17,6 +17,8 @@ namespace ArcaneOdyssey.Guidebook
 		protected sealed override void Register()
 		{
 			ModTypeLookup<GuidebookPage>.Register(this);
+			GuidebookSystem.PageCount++;
+			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/'), out Image, AssetRequestMode.ImmediateLoad);
 		}
 
 		public sealed override void SetupContent() => SetStaticDefaults();
@@ -32,22 +34,11 @@ namespace ArcaneOdyssey.Guidebook
 
 		internal static Dictionary<string, int> PagesOrdered = [];
 
-		public override void Load()
-		{
-			GuidebookSystem.PageCount++;
-			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/'), out Image, AssetRequestMode.ImmediateLoad);
-		}
-
-		public LocalizedText Description => Mod.CoolCustomLocalization("Guidebook." + Name + ".Text", Name + " Content goes here.");
+		public LocalizedText Description => Mod.CoolCustomLocalization("Guidebook." + Name + ".Text", () => PrettyPrintName() + " Content goes here.");
 
 		public LocalizedText DisplayName => Mod.CoolCustomLocalization("Guidebook." + Name + ".DisplayName", PrettyPrintName);
 
 		public abstract bool MetConditions(Player player);
-
-		public override void Unload()
-		{
-			Image = null;
-		}
 
 		public static GuidebookPage Get(int page)
 		{

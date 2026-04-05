@@ -31,8 +31,6 @@ namespace ArcaneOdyssey.Items.BossBags
 
 		public override bool CanRightClick() => true;
 
-		public override string Texture => AOUtils.GelTexture;
-
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			itemLoot.Add(
