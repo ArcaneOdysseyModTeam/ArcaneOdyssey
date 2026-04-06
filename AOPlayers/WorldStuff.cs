@@ -32,6 +32,6 @@ namespace ArcaneOdyssey.AOPlayers
 			NimbusSealed = 0;
 		}
 
-		public uint EliusArenaCounter { get; set; } = 0;
+		public uint eliusArenaCounter = 0;
 	}
 }

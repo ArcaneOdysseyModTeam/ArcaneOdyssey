@@ -1,14 +1,11 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs
 {
 	public class Enchanted : BaseBuff
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.MagicPower}";
-
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

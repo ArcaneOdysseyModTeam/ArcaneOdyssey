@@ -28,7 +28,6 @@ public partial class MutateThyMagicUI : BaseImbueUI
 				if (player.GetItem(player.whoAmI, ContentSamples.ItemsByType[ProductSpotLight.Mutation.Type].Clone() , GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
 				{
 					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
-					player.ArcaneOdyssey().allChosenImbues.Add(newItem.ModItem.Name);
 				}
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();

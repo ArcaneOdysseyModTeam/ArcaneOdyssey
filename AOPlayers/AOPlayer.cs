@@ -134,19 +134,26 @@ namespace ArcaneOdyssey.AOPlayers
 			UpdateDebuffHelpers(damageDone, target, proj.SecondImbue(), false, true);
 		}
 
-		internal IList<string> allChosenImbues = [];
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
+			List<Item> items = [];
 			if (!mediumCoreDeath)
 			{
-				List<Item> items = [
-						new Item(ModContent.ItemType<EagleLegacy>()),
-						new Item(ModContent.ItemType<TitleMusicBox>())
-					];
-				return items;
+				items.Add(new Item(ModContent.ItemType<EagleLegacy>()));
+				items.Add(new Item(ModContent.ItemType<TitleMusicBox>()));
 			}
-			return [];
+			else
+			{
+				foreach (var imbue in Player.inventory)
+				{
+					if (imbue.ModItem is Imbuable)
+					{
+						items.Add(new Item(imbue.type));
+					}
+				}
+			}
+			return items;
 		}
 
 		public void TrySpiritLifesteal(int damage, bool cooldown = true)

@@ -43,11 +43,11 @@ namespace ArcaneOdyssey.Biomes
 			if (NPC.downedBoss1)
 			{
 				if (!AOUtils.BossAlive)
-					player.ArcaneOdyssey().EliusArenaCounter++;
+					player.ArcaneOdyssey().eliusArenaCounter++;
 				else
-					player.ArcaneOdyssey().EliusArenaCounter = 0;
+					player.ArcaneOdyssey().eliusArenaCounter = 0;
 
-				if (player.ArcaneOdyssey().EliusArenaCounter >= (30 * 60)) // 30 seconds
+				if (player.ArcaneOdyssey().eliusArenaCounter >= (30 * 60)) // 30 seconds
 				{
 					if (Main.raining || !DownedBosses.downedElius)
 					{
@@ -62,12 +62,12 @@ namespace ArcaneOdyssey.Biomes
 
 		public override void OnLeave(Player player)
 		{
-			player.ArcaneOdyssey().EliusArenaCounter = 0;
+			player.ArcaneOdyssey().eliusArenaCounter = 0;
 		}
 
 		public override void OnEnter(Player player)
 		{
-			player.ArcaneOdyssey().EliusArenaCounter = 0;
+			player.ArcaneOdyssey().eliusArenaCounter = 0;
 		}
 
 		public override int Music => MusicTrack.Djin.MusicSlot;

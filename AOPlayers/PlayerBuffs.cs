@@ -92,7 +92,6 @@ namespace ArcaneOdyssey.AOPlayers
 			else
 				bloodDisease = null;
 			evil = tag.GetBool("aomentality");
-			allChosenImbues = tag.GetList<string>("allimbues");
 			DarkSealed = tag.GetInt("darksealedchests");
 			NimbusSealed = tag.GetInt("nimbussealedchests");
 			BronzeSealed = tag.GetInt("bronzesealedchests");
@@ -112,8 +111,6 @@ namespace ArcaneOdyssey.AOPlayers
 				tag.Add("aodisease", bloodDisease);
 			if (evil)
 				tag.Add("aomentality", true);
-			if (allChosenImbues.Count > 0)
-				tag.Add("allimbues", allChosenImbues);
 			if (DarkSealed > 0)
 				tag.Add("darksealedchests", DarkSealed);
 			if (NimbusSealed > 0)
