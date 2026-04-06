@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -28,6 +29,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override float Size => .4f;
 
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -39,6 +45,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.light = 1f;
+			Projectile.hide = true;
 		}
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<CharredEffect>(60 * 5);

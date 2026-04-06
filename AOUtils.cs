@@ -13,6 +13,7 @@ using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.VFX.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,6 +97,14 @@ namespace ArcaneOdyssey
 		public static Rectangle ToWorldRect(this Rectangle rect)
 		{
 			return new(rect.X * 16, rect.Y * 16, rect.Width * 16, rect.Height * 16);
+		}
+
+		public static bool RequestIfExists<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class => ModContent.RequestIfExists(name, out texture, mode);
+
+		public static Asset<T> Request<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class
+		{
+			texture = ModContent.Request<T>(name, mode);
+			return texture;
 		}
 
 		public static IList<T> ShuffledList<T>(IList<T> list)

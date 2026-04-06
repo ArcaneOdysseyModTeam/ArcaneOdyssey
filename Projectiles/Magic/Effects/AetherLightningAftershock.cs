@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -15,6 +16,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override float Size => .4f;
 
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -27,6 +33,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.tileCollide = false;
 			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 			Projectile.light = 2f;
+			Projectile.hide = true;
 		}
 
 		public override Debuff? ProjectileDebuff => null;
@@ -42,7 +49,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			{
 				Projectile.scale = Projectile.ai[0];
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
-				Projectile.ai[1] = 59;
+				Projectile.ai[1] = 44;
 			}
 			else
 			{
@@ -71,11 +78,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override bool PreAI()
 		{
 			Projectile.ai[1]++;
-			if (Projectile.ai[1] < 60)
+			if (Projectile.ai[1] < 45)
 			{
 				return false;
 			}
-			else if (Projectile.ai[1] == 60)
+			else if (Projectile.ai[1] == 45)
 			{
 				Projectile.scale *= 5f;
 				Projectile.netUpdate = true;
