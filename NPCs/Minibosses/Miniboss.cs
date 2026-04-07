@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public abstract List<int> MeleeProjectiles { get; }
 
-		public abstract ref bool Downed { get; }
+		public abstract bool Downed { get; set; }
 
 		public virtual float ShootSpeed => 5f;
 
@@ -259,7 +259,6 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			}
 			else
 			{
-				NetMessage.SendData(MessageID.WorldData);
 				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"RandomWords.Downed", DisplayName.Value).ToNetworkText(), new Color(175, 75, 255));
 			}
 		}

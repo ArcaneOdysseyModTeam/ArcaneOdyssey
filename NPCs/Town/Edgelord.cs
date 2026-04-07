@@ -177,7 +177,7 @@ namespace ArcaneOdyssey.NPCs.Town
 				options.Add(this.GetLocalizedValue($"Chat.{value}"));
 			}
 
-			if (NPC.downedBoss1 && !DownedBosses.downedElius)
+			if (NPC.downedBoss1 && !DownedBosses.DownedElius)
 			{
 				AddOption("CloudsShift");
 			}

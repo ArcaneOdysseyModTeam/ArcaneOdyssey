@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Biomes
 
 				if (player.ArcaneOdyssey().eliusArenaCounter >= (30 * 60)) // 30 seconds
 				{
-					if (Main.raining || !DownedBosses.downedElius)
+					if (Main.raining || !DownedBosses.DownedElius)
 					{
 						if (AOUtils.ServerOrSingleplayer)
 						{

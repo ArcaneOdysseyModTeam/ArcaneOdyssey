@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic
@@ -138,6 +139,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				if (TileTimer <= 0)
 				{
 					Imbue?.KillEffects(Projectile.Hitbox);
+					if (!Main.dedServ)
+					{
+						PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+						Main.instance.CameraModifiers.Add(modifier);
+					}
 				}
 				if (TileTimer < 60 && TileTimer > 0)
 				{

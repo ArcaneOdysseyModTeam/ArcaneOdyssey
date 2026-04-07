@@ -19,6 +19,9 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<LaelusExplosion>()];
 		public override List<int> RangedProjectiles => [ModContent.ProjectileType<LaelusBlast>()];
 
+		public override int AttackingSpriteCount => 1;
+		public override int WalkingSpriteCount => 1;
+
 
 		public override void SetDefaults()
 		{
@@ -36,7 +39,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			//NPC.ai[1] state time
 		}
 
-		public override ref bool Downed => ref DownedBosses.downedEvander;
+		public override bool Downed { get => DownedBosses.DownedLaelus; set => DownedBosses.DownedLaelus = value; }
 
 		public override bool ExtraConditions => Main.dayTime || Main.remixWorld;
 

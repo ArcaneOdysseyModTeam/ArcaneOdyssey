@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -86,6 +87,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 						activeSound.Stop();
 					}
 				}
+				PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(20f), ApplySize(6f), 20, ApplySize(1000f), FullName);
+				Main.instance.CameraModifiers.Add(modifier);
 			}
 		}
 

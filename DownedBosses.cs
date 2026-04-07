@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -6,35 +9,192 @@ namespace ArcaneOdyssey
 {
 	public class DownedBosses : ModSystem
 	{
-		public static bool downedEvander;
-		public static bool downedDusk;
-		public static bool downedLaelus;
-		public static bool downedCrone;
-		public static bool downedDelamere;
+		private static bool _downedEvander;
+		private static bool _downedDusk;
+		private static bool _downedLaelus;
+		private static bool _downedCrone;
+		private static bool _downedDelamere;
 
-		public static bool downedElius;
-		public static bool downedAllanon;
-		public static bool downedArgos;
-		public static bool downedCalvus;
+		private static bool _downedElius;
+		private static bool _downedAllanon;
+		private static bool _downedArgos;
+		private static bool _downedCalvus;
 
-		public static bool downedEnragedEmpress;
-		public static bool downedWorldEater;
-		public static bool downedBrain;
+		public static bool DownedBrain { get; set; }
+
+		public static bool DownedWorldEater { get; set; }
+
+		public static bool DownedEnragedEmpress { get; set; }
+
+		public static bool DownedCalvus { get => _downedCalvus; set
+			{
+				if (!value)
+				{
+					_downedCalvus = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedCalvus, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedArgos { get => _downedArgos; set
+			{
+				if (!value)
+				{
+					_downedArgos = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedArgos, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedAllanon { get => _downedAllanon; set
+			{
+				if (!value)
+				{
+					_downedAllanon = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedAllanon, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedElius { get => _downedElius; set
+			{
+				if (!value)
+				{
+					_downedElius = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedElius, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedDelamere { get => _downedDelamere; set
+			{
+				if (!value)
+				{
+					_downedDelamere = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedDelamere, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedCrone { get => _downedCrone; set
+			{
+				if (!value)
+				{
+					_downedCrone = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedCrone, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedLaelus { get => _downedLaelus; set
+			{
+				if (!value)
+				{
+					_downedLaelus = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedLaelus, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedDusk { get => _downedDusk; set
+			{
+				if (!value)
+				{
+					_downedDusk = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedDusk, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
+
+		public static bool DownedEvander
+		{
+			get => _downedEvander; set
+			{
+				if (!value)
+				{
+					_downedEvander = value;
+				}
+				else
+				{
+					NPC.SetEventFlagCleared(ref _downedEvander, -1);
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+		}
 
 		public static void ResetDefaults()
 		{
-			downedEvander = false;
-			downedEnragedEmpress = false;
-			downedDusk = false;
-			downedLaelus = false;
-			downedCrone = false;
-			downedDelamere = false;
-			downedElius = false;
-			downedAllanon = false;
-			downedArgos = false;
-			downedCalvus = false;
-			downedBrain = false;
-			downedWorldEater = false;
+			DownedEvander = false;
+			DownedEnragedEmpress = false;
+			DownedDusk = false;
+			DownedLaelus = false;
+			DownedCrone = false;
+			DownedDelamere = false;
+			DownedElius = false;
+			DownedAllanon = false;
+			DownedArgos = false;
+			DownedCalvus = false;
+			DownedBrain = false;
+			DownedWorldEater = false;
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();
@@ -44,49 +204,96 @@ namespace ArcaneOdyssey
 		public override void SaveWorldData(TagCompound tag)
 		{
 			List<string> downed = [];
-			if (downedEvander)
-				downed.Add("Evander");
-			if (downedEnragedEmpress)
-				downed.Add("EnragedEoL");
-			if (downedDelamere)
-				downed.Add("Delamere");
-			if (downedDusk)
-				downed.Add("Dusk");
-			if (downedCrone)
-				downed.Add("Crone");
-			if (downedLaelus)
-				downed.Add("Laelus");
-			if (downedElius)
-				downed.Add("Elius");
-			if (downedAllanon)
-				downed.Add("Allanon");
-			if (downedArgos)
-				downed.Add("Argos");
-			if (downedCalvus)
-				downed.Add("Calvus");
-			if (downedWorldEater)
-				downed.Add("EoW");
-			if (downedBrain)
-				downed.Add("Brain");
-
+			if (DownedEvander)
+				downed.Add(DownedFlagID.Evander);
+			if (DownedEnragedEmpress)
+				downed.Add(DownedFlagID.DaytimeEmpress);
+			if (DownedDelamere)
+				downed.Add(DownedFlagID.Delamere);
+			if (DownedDusk)
+				downed.Add(DownedFlagID.Dusk);
+			if (DownedCrone)
+				downed.Add(DownedFlagID.TheCrone);
+			if (DownedLaelus)
+				downed.Add(DownedFlagID.Laelus);
+			if (DownedElius)
+				downed.Add(DownedFlagID.LordElius);
+			if (DownedAllanon)
+				downed.Add(DownedFlagID.Allanon);
+			if (DownedArgos)
+				downed.Add(DownedFlagID.Argos);
+			if (DownedCalvus)
+				downed.Add(DownedFlagID.Calvus);
+			if (DownedWorldEater)
+				downed.Add(DownedFlagID.EaterofWorlds);
+			if (DownedBrain)
+				downed.Add(DownedFlagID.CrimsonBrain);
 			tag["downed"] = downed;
 		}
 
 		public override void LoadWorldData(TagCompound tag)
 		{
 			var downed = tag.GetList<string>("downed");
-			downedEvander = downed.Contains("Evander");
-			downedDusk = downed.Contains("Dusk");
-			downedCrone = downed.Contains("Crone");
-			downedLaelus = downed.Contains("Laelus");
-			downedDelamere = downed.Contains("Delamere");
-			downedEnragedEmpress = downed.Contains("EnragedEoL");
-			downedElius = downed.Contains("Elius");
-			downedAllanon = downed.Contains("Allanon");
-			downedArgos = downed.Contains("Argos");
-			downedCalvus = downed.Contains("Calvus");
-			downedWorldEater = downed.Contains("EoW");
-			downedBrain = downed.Contains("Brain");
+			DownedEvander = downed.Contains(DownedFlagID.Evander);
+			DownedDusk = downed.Contains(DownedFlagID.Dusk);
+			DownedCrone = downed.Contains(DownedFlagID.TheCrone);
+			DownedLaelus = downed.Contains(DownedFlagID.Laelus);
+			DownedDelamere = downed.Contains(DownedFlagID.Delamere);
+			DownedEnragedEmpress = downed.Contains(DownedFlagID.DaytimeEmpress);
+			DownedElius = downed.Contains(DownedFlagID.LordElius);
+			DownedAllanon = downed.Contains(DownedFlagID.Allanon);
+			DownedArgos = downed.Contains(DownedFlagID.Argos);
+			DownedCalvus = downed.Contains(DownedFlagID.Calvus);
+			DownedWorldEater = downed.Contains(DownedFlagID.EaterofWorlds);
+			DownedBrain = downed.Contains(DownedFlagID.CrimsonBrain);
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(DownedEvander);
+			writer.Write(DownedDusk);
+			writer.Write(DownedCrone); 
+			writer.Write(DownedLaelus); 
+			writer.Write(DownedDelamere);
+			writer.Write(DownedEnragedEmpress);
+			writer.Write(DownedElius);
+			writer.Write(DownedAllanon);
+			writer.Write(DownedArgos);
+			writer.Write(DownedCalvus);
+			writer.Write(DownedWorldEater);
+			writer.Write(DownedBrain);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			DownedEvander = reader.ReadBoolean();
+			DownedDusk = reader.ReadBoolean();
+			DownedCrone = reader.ReadBoolean();
+			DownedLaelus = reader.ReadBoolean();
+			DownedDelamere = reader.ReadBoolean();
+			DownedEnragedEmpress = reader.ReadBoolean();
+			DownedElius = reader.ReadBoolean();
+			DownedAllanon = reader.ReadBoolean();
+			DownedArgos = reader.ReadBoolean();
+			DownedCalvus = reader.ReadBoolean();
+			DownedWorldEater = reader.ReadBoolean();
+			DownedBrain = reader.ReadBoolean();
+		}
+
+		public class DownedFlagID
+		{
+			public const string Evander = "Evander";
+			public const string DaytimeEmpress = "EnragedEoL";
+			public const string Delamere = "Delamere";
+			public const string Dusk = "Dusk";
+			public const string TheCrone = "Crone";
+			public const string Laelus = "Laelus";
+			public const string LordElius = "Elius";
+			public const string Allanon = "Allanon";
+			public const string Argos = "Argos";
+			public const string Calvus = "Calvus";
+			public const string EaterofWorlds = "EoW";
+			public const string CrimsonBrain = "Brain";
 		}
 	}
 }

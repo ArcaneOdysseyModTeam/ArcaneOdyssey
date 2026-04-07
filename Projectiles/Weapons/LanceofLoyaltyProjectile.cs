@@ -1,9 +1,11 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Base;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
@@ -26,6 +28,11 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 				{
 					Imbue?.ExplosionEffects(target.Center);
 					SecondImbue?.ExplosionEffects(target.Center);
+				}
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
 				}
 			}
 		}

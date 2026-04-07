@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.CameraModifiers;
 
 namespace ArcaneOdyssey.Projectiles.Berserker
 {
@@ -45,6 +46,15 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			}
 			else
 			{
+				if (Projectile.ai[0] == 0)
+				{
+					Projectile.ai[0] = 1;
+					if (!Main.dedServ)
+					{
+						PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(20f), ApplySize(6f), 20, ApplySize(1000f), FullName);
+						Main.instance.CameraModifiers.Add(modifier);
+					}
+				}
 				if (++Projectile.frameCounter > ApplySpeed(LingerTime / (float)Main.projFrames[Type], true))
 				{
 					Projectile.frameCounter = 0;

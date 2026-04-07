@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.CameraModifiers;
 
 namespace ArcaneOdyssey.Projectiles.Magic
 {
@@ -29,6 +30,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Projectile.ai[0] = 1;
 				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center, null);
 				NetUpdate();
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
 			}
 			Projectile.velocity = Vector2.Zero;
 			Imbue?.ExplosionEffects(Projectile.Center, Projectile.scale);

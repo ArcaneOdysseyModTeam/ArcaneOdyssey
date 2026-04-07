@@ -88,7 +88,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!Main.dedServ)
 				{
-					if (DownedBosses.downedElius)
+					if (DownedBosses.DownedElius)
 					{
 						if (!Main.LocalPlayer.ArcaneOdyssey().evil)
 						{
@@ -175,7 +175,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void OnKill()
 		{
 			Main.windSpeedTarget = -.1f;
-			if (!DownedBosses.downedElius)
+			if (!DownedBosses.DownedElius)
 			{
 				if (justKilled) // kill
 				{
@@ -195,11 +195,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Spared").ToNetworkText(), new(0, 183, 255));
 				}
 			}
-			DownedBosses.downedElius = true;
-			if (Main.dedServ)
-			{
-				NetMessage.SendData(MessageID.WorldData);
-			}
+			DownedBosses.DownedElius = true;
 		}
 
 		// probably not needed
@@ -218,7 +214,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override bool CheckDead()
 		{
-			if (DownedBosses.downedElius)
+			if (DownedBosses.DownedElius)
 			{
 				return true;
 			}
@@ -283,7 +279,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				if (NPC.life <= 0)
 				{
-					if (DownedBosses.downedElius)
+					if (DownedBosses.DownedElius)
 					{
 						if (!Main.dedServ)
 						{

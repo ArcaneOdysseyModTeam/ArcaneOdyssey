@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.CameraModifiers;
 
 namespace ArcaneOdyssey.Projectiles.Magic
 {
@@ -127,7 +128,14 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (Mode == JavelinMode.Grounded)
 			{
 				if (Projectile.timeLeft % (TimeLeft / 4) == 0)
+				{
 					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+					if (!Main.dedServ)
+					{
+						PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+						Main.instance.CameraModifiers.Add(modifier);
+					}
+				}
 			}
 		}
 

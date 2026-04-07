@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Graphics.CameraModifiers;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {
@@ -14,11 +15,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			if (Sprite is not null)
-			{
-				Projectile.width = Sprite.Width;
-				Projectile.height = Sprite.Height / Main.projFrames[Type];
-			}
+			Projectile.width = 594;
+			Projectile.height = 108;
 			Projectile.ownerHitCheck = true;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
@@ -31,6 +29,16 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override void AI()
 		{
+			if (Projectile.ai[0] == 0)
+			{
+				Projectile.ai[0] = 1;
+				Projectile.Bottom = Owner.Bottom;
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(20f), ApplySize(6f), 20, ApplySize(300f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
+			}
 			if (++Projectile.frameCounter >= ApplySpeed(6f, true))
 			{
 				Projectile.frameCounter = 0;

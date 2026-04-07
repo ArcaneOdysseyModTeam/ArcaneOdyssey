@@ -36,7 +36,8 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			//NPC.ai[1] state time
 		}
 
-		public override ref bool Downed => ref DownedBosses.downedEvander;
+
+		public override bool Downed { get => DownedBosses.DownedEvander; set => DownedBosses.DownedEvander = value; }
 
 		public override bool ExtraConditions => Main.hardMode;
 

@@ -1,8 +1,10 @@
 ﻿using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -57,17 +59,6 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 				}
 			}
 
-			if (++Projectile.localAI[0] >= 30 && !Main.dedServ)
-			{
-				Projectile.localAI[0] = 0;
-				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
-				for (int n = 0; n < 10; n++)
-				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 255 / 2, default, 3f)];
-					spawnedDust.noGravity = true;
-				}
-			}
-
 			if (Projectile.timeLeft <= 30)
 			{
 				Projectile.ai[1] = 1;
@@ -81,6 +72,19 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			else
 			{
 				Projectile.rotation = Projectile.velocity.ToRotation();
+
+				if (++Projectile.localAI[0] >= 30 && !Main.dedServ)
+				{
+					Projectile.localAI[0] = 0;
+					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
+					for (int n = 0; n < 10; n++)
+					{
+						Dust spawnedDust = Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, 255 / 2, default, 3f)];
+						spawnedDust.noGravity = true;
+					}
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), 10f, 4f, 10, 500f, FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
 			}
 		}
 

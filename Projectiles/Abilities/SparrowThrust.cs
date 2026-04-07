@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
@@ -56,6 +57,11 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 						Imbue?.ExplosionEffects(Vector2.Lerp(Projectile.Center, Owner.MountedCenter, .5f));
 					}
 					Projectile.ai[0] = 1;
+					if (!Main.dedServ)
+					{
+						PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(20f), ApplySize(6f), 20, ApplySize(1000f), FullName);
+						Main.instance.CameraModifiers.Add(modifier);
+					}
 				}
 				if (++Projectile.frameCounter > ApplySpeed(TravelTime / Main.projFrames[Type], true))
 				{

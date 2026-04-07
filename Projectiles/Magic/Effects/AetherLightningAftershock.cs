@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -87,6 +88,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 				Projectile.scale *= 5f;
 				Projectile.netUpdate = true;
 				Projectile.netSpam = 0;
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
 				SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center);
 				return true;
 			}	

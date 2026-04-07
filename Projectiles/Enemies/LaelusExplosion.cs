@@ -3,6 +3,7 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
@@ -30,10 +31,15 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		public bool sentMessage = false;
 		public override void AI()
 		{
-			if (ArcaneOdysseyClientConfig.Instance.AbilityText && !Main.dedServ && !sentMessage)
+			if (!Main.dedServ && !sentMessage)
 			{
 				sentMessage = true;
-				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
+				PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), 10f, 2f, 10, 100f, FullName);
+				Main.instance.CameraModifiers.Add(modifier);
+				if (ArcaneOdysseyClientConfig.Instance.AbilityText)
+				{
+					CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
+				}
 			}
 			Imbue?.ExplosionEffects(Projectile.Center);
 		}

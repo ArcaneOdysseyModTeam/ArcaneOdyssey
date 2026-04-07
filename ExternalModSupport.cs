@@ -134,7 +134,7 @@ namespace ArcaneOdyssey
 			{
 				string internalName = nameof(Evander);
 				float weight = 7.5f; // right after wof
-				Func<bool> downed = () => DownedBosses.downedEvander;
+				Func<bool> downed = () => DownedBosses.DownedEvander;
 				int bossType = ModContent.NPCType<Evander>();
 				int trophy = ModContent.ItemType<EvanderTrophy>();
 				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
@@ -157,7 +157,7 @@ namespace ArcaneOdyssey
 			{
 				string internalName = nameof(Dusk);
 				float weight = 3.5f; // right after eow
-				Func<bool> downed = () => DownedBosses.downedDusk;
+				Func<bool> downed = () => DownedBosses.DownedDusk;
 				int bossType = ModContent.NPCType<Dusk>();
 				int trophy = ModContent.ItemType<DuskTrophy>();
 				int mask = ModContent.ItemType<DuskMask>();
@@ -181,7 +181,7 @@ namespace ArcaneOdyssey
 			{
 				string internalName = nameof(Laelus);
 				float weight = .5f; // right away!
-				Func<bool> downed = () => DownedBosses.downedLaelus;
+				Func<bool> downed = () => DownedBosses.DownedLaelus;
 				int bossType = ModContent.NPCType<Laelus>();
 				int trophy = ModContent.ItemType<LaelusTrophy>();
 				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
@@ -204,7 +204,7 @@ namespace ArcaneOdyssey
 			{
 				string internalName = nameof(LordElius);
 				float weight = 2.6f; // after blood moon
-				Func<bool> downed = () => DownedBosses.downedElius;
+				Func<bool> downed = () => DownedBosses.DownedElius;
 				int bossType = ModContent.NPCType<LordElius>();
 				int trophy = ModContent.ItemType<EliusTrophy>();
 				int relic = ModContent.ItemType<EliusBossRelic>();

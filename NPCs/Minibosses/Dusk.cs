@@ -40,7 +40,8 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public override float ShootSpeed => 7f * .9f;
 
-		public override ref bool Downed => ref DownedBosses.downedDusk;
+
+		public override bool Downed { get => DownedBosses.DownedDusk; set => DownedBosses.DownedDusk = value; }
 
 		public override Color Motif => new(89, 0, 83);
 

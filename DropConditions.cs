@@ -39,20 +39,20 @@ namespace ArcaneOdyssey
 
 	public class FirstEvanderKill : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEvander;
+		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.DownedEvander;
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
 	}
 	public class NotFirstEvanderKill : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => DownedBosses.downedEvander;
+		public bool CanDrop(DropAttemptInfo info) => DownedBosses.DownedEvander;
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.NotFirstEvanderKillDescription", () => "Following Evanders Defeated").Value;
 	}
 
 	public class FirstDayEmpressKill : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEnragedEmpress && info.npc.AI_120_HallowBoss_IsGenuinelyEnraged();
+		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.DownedEnragedEmpress && info.npc.AI_120_HallowBoss_IsGenuinelyEnraged();
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstDayEmpressKillDescription", () => "First Enraged Empress of Light Defeated").Value;
 	}
@@ -79,7 +79,7 @@ namespace ArcaneOdyssey
 				return !NPC.downedMechBoss3;
 
 			if (NPC.downedMechBoss1 && NPC.downedMechBoss3)
-				return (!NPC.downedMechBoss2) && !AOUtils.BothTwinsAlive();
+				return (!NPC.downedMechBoss2) && !AOUtils.BothTwinsAlive;
 
 			if (NPC.downedMechBoss3 && NPC.downedMechBoss2)
 				return !NPC.downedMechBoss1;

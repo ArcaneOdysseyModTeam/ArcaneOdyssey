@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic
@@ -60,6 +61,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				}
 				if (Main.myPlayer == Projectile.owner)
 					AOUtils.SimulateAOE(130, Projectile.damage / frequency, Projectile.Center, 0f, Projectile, DamageClass.Magic, false);
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
 			}
 			if (Projectile.ai[2] == 0f)
 			{

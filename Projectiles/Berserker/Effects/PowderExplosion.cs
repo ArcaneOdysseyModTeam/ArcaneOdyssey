@@ -2,6 +2,7 @@ using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,6 +28,11 @@ namespace ArcaneOdyssey.Projectiles.Berserker.Effects
 		{
 			if (++Projectile.ai[0] >= 60)
 			{
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
 				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 				for (int n = 0; n < 10; n++)
 				{
