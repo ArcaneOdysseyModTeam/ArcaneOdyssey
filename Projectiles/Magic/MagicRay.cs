@@ -104,7 +104,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Projectile.Opacity = AOPlayerOwner.myCircle.Projectile.Opacity;
 				Projectile.velocity = AOPlayerOwner.myCircle.Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
-				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.Center = AOPlayerOwner.myCircle.Projectile.Center - (Projectile.velocity * 1.75f);
 			}
 			else
@@ -156,8 +155,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 			var info = AOUtils.DrawChain(Projectile.Center, End, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
-			var end = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(Projectile.rotation);
-			Main.EntitySpriteDraw(EndSprite, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), Projectile.rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			var end = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
+			Main.EntitySpriteDraw(EndSprite, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;
 		}
 	}

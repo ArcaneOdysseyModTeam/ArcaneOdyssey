@@ -586,7 +586,7 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-			return new ChainEndInfo(frame, start, length);
+			return new ChainEndInfo(frame, start, length, rotation);
 		}
 
 		public static NPC GetMinionTarget(this Vector2 origin, float maxDistanceToCheck, Player owner, bool ignoreTiles = true, bool checksRange = false)
@@ -1926,12 +1926,14 @@ namespace ArcaneOdyssey
 		Lost
 	}
 
-	public struct ChainEndInfo(int finalFrame, Vector2 ending, int length)
+	public readonly struct ChainEndInfo(int finalFrame, Vector2 ending, int length, float rotation)
 	{
-		public int FinalFrame = finalFrame;
+		public readonly int FinalFrame = finalFrame;
 
-		public Vector2 Ending = ending;
+		public readonly Vector2 Ending = ending;
 
-		public int Length = length;
+		public readonly int Length = length;
+
+		public readonly float Rotation = rotation;
 	}
 }

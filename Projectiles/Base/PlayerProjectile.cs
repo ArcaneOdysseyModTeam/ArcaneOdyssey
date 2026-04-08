@@ -18,6 +18,8 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public float ApplySize(float value, bool flipfloat = false) => Projectile.ArcaneOdyssey().ApplySize(value, flipfloat);
 
+		public float ApplyKnockback(float value, bool flipfloat = false) => Projectile.ArcaneOdyssey().ApplyKnockback(value, flipfloat);
+
 		public virtual bool CanHaveImbue => true;
 		public virtual bool? Cold => null;
 

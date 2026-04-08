@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				Projectile.Bottom = Owner.Bottom;
 				if (!Main.dedServ)
 				{
-					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(20f), ApplySize(6f), 20, ApplySize(300f), FullName);
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(20f), ApplyKnockback(6f), 20, ApplyKnockback(300f), FullName);
 					Main.instance.CameraModifiers.Add(modifier);
 				}
 			}

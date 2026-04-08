@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -81,6 +82,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 					dust.noLight = true;
 					dust.noGravity = true;
 				}
+				PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
+				Main.instance.CameraModifiers.Add(modifier);
 			}
 		}
 

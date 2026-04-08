@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 					Projectile.ai[0] = 1;
 					if (!Main.dedServ)
 					{
-						PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(20f), ApplySize(6f), 20, ApplySize(1000f), FullName);
+						PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(20f), ApplyKnockback(6f), 20, ApplyKnockback(1000f), FullName);
 						Main.instance.CameraModifiers.Add(modifier);
 					}
 				}

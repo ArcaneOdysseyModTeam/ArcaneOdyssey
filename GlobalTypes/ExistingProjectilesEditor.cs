@@ -1,23 +1,24 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Weapons.Bronze;
+using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey
+namespace ArcaneOdyssey.GlobalTypes
 {
-	public class ExistingProjectilesEditor : GlobalProjectile
+	public partial class AOProjectile : GlobalProjectile, IImbuable
 	{
-		public override bool InstancePerEntity => true;
-
 		public BeamSpell piercingShotBeam;
 
 		public bool isPiercingShot = false;
+		public bool isStormOfArrows;
 
-		public override void OnSpawn(Projectile projectile, IEntitySource source)
+		public void Spawn(Projectile projectile, IEntitySource source)
 		{
 			if (projectile.type == ProjectileID.BulletHighVelocity)
 			{
@@ -30,9 +31,14 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
+
+			if (source is EntitySource_Parent { Entity: Projectile storm} && storm.type == ModContent.ProjectileType<ArrowStorm>())
+			{
+				isStormOfArrows = true;
+			}
 		}
 
-		public override void AI(Projectile projectile)
+		public void Update(Projectile projectile)
 		{
 			if (isPiercingShot)
 			{
@@ -44,14 +50,19 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public override bool PreKill(Projectile projectile, int timeLeft)
+		public void Death(Projectile projectile, int timeLeft)
 		{
 			if (isPiercingShot)
 			{
 				piercingShotBeam.Projectile.timeLeft = BeamSpell.LingerTime;
 				piercingShotBeam.Projectile.rotation = projectile.rotation;
 			}
-			return base.PreKill(projectile, timeLeft);
+
+			if (isStormOfArrows && !Main.dedServ)
+			{
+				PunchCameraModifier modifier = new(projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(3f), ApplyKnockback(1f), 4, ApplyKnockback(500f), FullName);
+				Main.instance.CameraModifiers.Add(modifier);
+			}
 		}
 	}
 }

@@ -124,6 +124,56 @@ namespace ArcaneOdyssey.GlobalTypes
 			return value;
 		}
 
+		public float ApplyKnockback(float value, bool flipfloat = false)
+		{
+			if (BenifitsFromScrollStats.HasValue)
+			{
+				if (Imbue is not null)
+				{
+					value *= Imbue.KBMulti;
+					if (SecondImbue is not null)
+						value *= SecondImbue.KBMulti;
+				}
+				if (BenifitsFromScrollStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ScrollSize * Imbue.ScrollSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ScrollSize.FlipFloat() * Imbue.ScrollSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ImbueSize * Imbue.ImbueSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ImbueSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
 		public override bool InstancePerEntity => true;
 
 		public Item thisItem = null;

@@ -56,7 +56,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		{
 			if (Projectile.timeLeft > LingerTime)
 			{
-				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				origin ??= Projectile.Center;
 				//Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
@@ -99,11 +98,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(), Projectile.AngleTo(end.GetValueOrDefault(Owner.Center)), new Vector2(StartSprite.Width, StartSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin.GetValueOrDefault(Owner.Center)), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
-			var rot = end.GetValueOrDefault(origin.GetValueOrDefault(Projectile.Center)).DirectionFrom(Projectile.Center).ToRotation();
-			var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(rot);
-			Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), rot, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
+			Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+			var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
+			Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;
 		}
 

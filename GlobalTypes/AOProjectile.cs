@@ -17,7 +17,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
-	public class AOProjectile : GlobalProjectile, IImbuable
+	public partial class AOProjectile : GlobalProjectile, IImbuable
 	{
 		public float ApplySpeed(float value, bool flipfloat = false)
 		{
@@ -108,6 +108,68 @@ namespace ArcaneOdyssey.GlobalTypes
 			return value;
 		}
 
+		public float ApplyKnockback(float value, bool flipfloat = false)
+		{
+			if (BenifitsFromScrollStats.HasValue)
+			{
+				if (!flipfloat)
+				{
+					if (Imbue is not null)
+					{
+						value *= Imbue.KBMulti;
+						if (SecondImbue is not null)
+							value *= SecondImbue.KBMulti;
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						value *= 1f / Imbue.KBMulti;
+						if (SecondImbue is not null)
+							value *= 1f / SecondImbue.KBMulti;
+					}
+				}
+				if (BenifitsFromScrollStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ScrollSize * Imbue.ScrollSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ScrollSize.FlipFloat() * Imbue.ScrollSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ImbueSize * Imbue.ImbueSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ImbueSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
 		public bool? BenifitsFromScrollStats
 		{
 			get
@@ -179,9 +241,10 @@ namespace ArcaneOdyssey.GlobalTypes
 			set => _cold = value;
 		}
 
-		public override bool PreKill(Projectile projectile, int timeLeft)
+		public override void OnKill(Projectile projectile, int timeLeft)
 		{
 			thisProjectile = projectile;
+			Death(projectile, timeLeft);
 			if (CanBeAffected && !Main.dedServ)
 			{
 				if (Imbue is not null && Imbue.PreEffects(projectile))
@@ -193,7 +256,6 @@ namespace ArcaneOdyssey.GlobalTypes
 					SecondImbue.KillEffects(projectile.Hitbox, projectile);
 				}
 			}
-			return true;
 		}
 
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
@@ -222,6 +284,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			thisProjectile = projectile;
+			Spawn(projectile, source);
 			if (!CanBeAffected || projectile.hostile || projectile.owner == 255 || !projectile.active || projectile.npcProj || projectile.trap)
 				return;
 
@@ -299,6 +362,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void AI(Projectile projectile)
 		{
 			thisProjectile = projectile;
+			Update(projectile);
 			if (!Main.dedServ && projectile.TryGetOwner(out var player) && player.meleeEnchant == GelBuff.meleeEnchantID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
 			{
 				player.ArcaneOdyssey()?.Gel?.Effects(projectile.Hitbox);

@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					AOUtils.SimulateAOE(130, Projectile.damage / frequency, Projectile.Center, 0f, Projectile, DamageClass.Magic, false);
 				if (!Main.dedServ)
 				{
-					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
 					Main.instance.CameraModifiers.Add(modifier);
 				}
 			}

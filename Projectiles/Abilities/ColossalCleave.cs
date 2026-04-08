@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			if (++Projectile.localAI[0] >= 30 && !Main.dedServ)
 			{
 				Projectile.localAI[0] = 0;
-				PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplySize(10f), ApplySize(4f), 10, ApplySize(500f), FullName);
+				PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
 				Main.instance.CameraModifiers.Add(modifier);
 				for (int i = 0; i < 10; i++)
 				{
