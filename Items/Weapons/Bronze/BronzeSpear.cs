@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		{
 			base.SetDefaults();
 			Item.shoot = ModContent.ProjectileType<BronzeSpearProjectile>();
-			Item.shootSpeed = BaseSpearProjectile.Speed;
+			Item.shootSpeed = BaseSpearProjectile.SpearSpeed;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;

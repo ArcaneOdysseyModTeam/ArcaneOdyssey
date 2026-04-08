@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.DamageType = AOUtils.TrueMelee();
-			Item.shootSpeed = BaseSpearProjectile.Speed;
+			Item.shootSpeed = BaseSpearProjectile.SpearSpeed;
 			Item.noUseGraphic = true;
 			Item.width = Item.height = 52;
 			Item.shoot = ModContent.ProjectileType<BronzeTriastaProjectile>();

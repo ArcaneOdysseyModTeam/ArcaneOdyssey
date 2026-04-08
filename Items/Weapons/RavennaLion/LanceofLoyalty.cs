@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.shoot = ModContent.ProjectileType<LanceofLoyaltyProjectile>();
-			Item.shootSpeed = BaseLanceProjectile.Speed;
+			Item.shootSpeed = BaseLanceProjectile.LanceSpeed;
 		}
 
 		public override void SetStaticDefaults()

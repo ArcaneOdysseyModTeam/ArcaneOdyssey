@@ -443,4 +443,5 @@ MainMenuStyle: {
 	Classic: Classic
 	Pixel: Pixel
 	Dragon: Dragon
+	MenuBack: MenuBack
 }

@@ -99,11 +99,19 @@ namespace ArcaneOdyssey
 			return new(rect.X * 16, rect.Y * 16, rect.Width * 16, rect.Height * 16);
 		}
 
-		public static bool RequestIfExists<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class => ModContent.RequestIfExists(name, out texture, mode);
+		public static bool RequestIfExists<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class
+		{
+			if (ModContent.HasAsset(name))
+			{
+				texture ??= ModContent.Request<T>(name, mode);
+				return true;
+			}
+			return false;
+		}
 
 		public static Asset<T> Request<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class
 		{
-			texture = ModContent.Request<T>(name, mode);
+			texture ??= ModContent.Request<T>(name, mode);
 			return texture;
 		}
 
@@ -1525,6 +1533,11 @@ namespace ArcaneOdyssey
 		{
 			defaultValue ??= Vector2.Zero;
 			return (destination - entity.Center).SafeNormalize(defaultValue.Value);
+		}
+		public static Vector2 SafeDirectionFrom(this Entity entity, Vector2 destination, Vector2? defaultValue = null)
+		{
+			defaultValue ??= Vector2.Zero;
+			return (entity.Center - destination).SafeNormalize(defaultValue.Value);
 		}
 		#endregion
 

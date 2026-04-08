@@ -57,20 +57,20 @@ namespace ArcaneOdyssey.MainMenus
 			public string Name;
 
 			public LocalizedText DisplayName;
+			public Asset<Texture2D> BackgroundTexture;
 
-			public MainMenuStyle(MusicTrack track, Color colour, string name, Mod mod = null)
+			public MainMenuStyle(MusicTrack track, Color colour, string name, Mod mod = null, string path = "MainMenus/Images")
 			{
 				Track = track;
 				Colour = colour;
 				Name = name;
 				mod ??= ArcaneOdysseyMod.Instance;
 				DisplayName = mod.CoolCustomLocalization("MainMenuStyle." + Name);
+				BackgroundTexture = AOUtils.Request(mod.Name + "/" + path + "/" + Name, ref BackgroundTexture, AssetRequestMode.ImmediateLoad);
 			}
 		}
 
 		public static List<Raindrop> Raindrops = [];
-
-		public Texture2D BackgroundTexture => Mod.Assets.Request<Texture2D>("MainMenus/Images/" + SelectedTitle.Name).Value;
 
 		public override string DisplayName => Mod.CustomLocalization("MenuStyle", SelectedTitle.DisplayName.Value).Value;
 
@@ -92,8 +92,8 @@ namespace ArcaneOdyssey.MainMenus
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
 		{
 			Vector2 drawOffset = Vector2.Zero;
-			float xScale = (float)Main.screenWidth / BackgroundTexture.Width;
-			float yScale = (float)Main.screenHeight / BackgroundTexture.Height;
+			float xScale = (float)Main.screenWidth / SelectedTitle.BackgroundTexture.Width();
+			float yScale = (float)Main.screenHeight / SelectedTitle.BackgroundTexture.Height();
 			float scale = xScale;
 
 			if (xScale != yScale)
@@ -101,13 +101,13 @@ namespace ArcaneOdyssey.MainMenus
 				if (yScale > xScale)
 				{
 					scale = yScale;
-					drawOffset.X -= (BackgroundTexture.Width * scale - Main.screenWidth) * 0.5f;
+					drawOffset.X -= (SelectedTitle.BackgroundTexture.Width() * scale - Main.screenWidth) * 0.5f;
 				}
 				else
-					drawOffset.Y -= (BackgroundTexture.Height * scale - Main.screenHeight) * 0.5f;
+					drawOffset.Y -= (SelectedTitle.BackgroundTexture.Height() * scale - Main.screenHeight) * 0.5f;
 			}
 
-			spriteBatch.Draw(BackgroundTexture, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(SelectedTitle.BackgroundTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
 			spriteBatch.End();
 
@@ -131,12 +131,12 @@ namespace ArcaneOdyssey.MainMenus
 			logoRotation = 0f;
 			logoScale = 1f;
 			drawColor = Color.White;
-			logoDrawCenter.Y = Logo.Height() / 2f;
+			logoDrawCenter.Y = Logo.Height() / 2f * logoScale;
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 			return true;
 		}
 
-		public static MainMenuStyle SelectedTitle;
+		internal static MainMenuStyle SelectedTitle;
 		public static List<MainMenuStyle> Titles = [];
 
 		public override void OnSelected()

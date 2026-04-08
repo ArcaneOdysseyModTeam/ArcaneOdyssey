@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 {
 	public abstract class BaseLanceProjectile : PlayerProjectile
 	{
-		public const float Speed = BaseSpearProjectile.Speed;
+		public const float LanceSpeed = BaseSpearProjectile.SpearSpeed;
 
 		public override void SetStaticDefaults()
 		{
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			if (Owner.itemAnimation > Owner.itemAnimationMax / 2)
 			{
 				Projectile.Opacity = MathHelper.Lerp(0, 1f, 2f - (Owner.itemAnimation / ((float)Owner.itemAnimationMax / 2)));
-				Projectile.ai[1] += Speed / (Projectile.extraUpdates + 1f);
+				Projectile.ai[1] += LanceSpeed / (Projectile.extraUpdates + 1f);
 			}
 			else if (Owner.channel)
 			{
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			}
 			else
 			{
-				Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
+				Projectile.ai[1] -= LanceSpeed / (Projectile.extraUpdates + 1f);
 				Projectile.Opacity = MathHelper.Lerp(0, 1f, Owner.itemAnimation / (float)Owner.itemAnimationMax);
 			}
 

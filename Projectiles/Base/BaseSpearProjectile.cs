@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 	public abstract class BaseSpearProjectile : PlayerProjectile
 	{
 		public abstract AOItemTiers AOWeaponTier { get; }
-		public const float Speed = 3.7f;
+		public const float SpearSpeed = 3.7f;
 
 		public override void SetStaticDefaults()
 		{
@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 				if (Owner.itemAnimation < Owner.itemAnimationMax / 2)
 				{
-					Projectile.ai[1] -= Speed / (Projectile.extraUpdates + 1f);
+					Projectile.ai[1] -= SpearSpeed / (Projectile.extraUpdates + 1f);
 					if (Projectile.localAI[0] == 0f)
 					{
 						if (Projectile.owner == Main.myPlayer)
@@ -97,7 +97,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 				}
 				else
 				{
-					Projectile.ai[1] += Speed / (Projectile.extraUpdates + 1f);
+					Projectile.ai[1] += SpearSpeed / (Projectile.extraUpdates + 1f);
 				}
 
 				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;

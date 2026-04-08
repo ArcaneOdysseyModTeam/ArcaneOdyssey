@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 		{
 			base.SetDefaults();
 			Item.shoot = ModContent.ProjectileType<NobleThunderspearProjectile>();
-			Item.shootSpeed = BaseSpearProjectile.Speed;
+			Item.shootSpeed = BaseSpearProjectile.SpearSpeed;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
