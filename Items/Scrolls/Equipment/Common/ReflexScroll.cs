@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		}
 	}
 
-	public class Reflex(Entity source) : DashSystem(source)
+	public class Reflex(Entity source) : ModDash(source)
 	{
 		private float invisbase;
 		private bool ground;
@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 			}
 		}
 
-		public override bool OnHit(Player player, Entity target) => true;
+		public override bool OnHit(Player player, NPC target) => true;
 
 		public override void DashEffect(Player player)
 		{

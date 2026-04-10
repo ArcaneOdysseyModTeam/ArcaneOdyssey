@@ -12,17 +12,17 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 {
 	public class NobleThunderspear : Weapon
 	{
-		public override int AOValue => 135;
+		public override int Value => 135;
 
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 
 		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override float AODamage => 1.05f;
 
-		public override float AOSpeed => 1.15f;
+		public override float Speed => 1.15f;
 
-		public override float AOSize => .85f;
+		public override float Size => .85f;
 
 		public override Color Motif => Color.MediumPurple;
 

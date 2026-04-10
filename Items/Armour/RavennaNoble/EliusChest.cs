@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 			player.jumpSpeedBoost += 2.5f;
 		}
 
-		public override AOItemTiers ArmourTier => AOItemTiers.Average;
+		public override ItemTiers ArmourTier => ItemTiers.Average;
 
 		public override Rarities Rarity => Rarities.Uncommon;
 
@@ -29,6 +29,6 @@ namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 
 		public override int AOAgility => 12;
 
-		public override int AOValue => 150;
+		public override int Value => 150;
 	}
 }

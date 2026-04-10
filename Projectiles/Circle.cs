@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -259,17 +260,17 @@ namespace ArcaneOdyssey.Projectiles
 			}
 		}
 
-		public override string Texture
+		public override Texture2D Sprite 
 		{
 			get
 			{
 				if (Mode == MagicCircleMode.Rotating)
 				{
-					return $"{Mod.Name}/Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}";
+					return ArcaneOdysseyMod.MagicCircleSprite.Value;
 				}
 				else
 				{
-					return AOUtils.GetTexture<Circle>();
+					return TextureAssets.Projectile[Type].Value;
 				}
 			}
 		}
@@ -359,7 +360,7 @@ namespace ArcaneOdyssey.Projectiles
 				GameShaders.Misc[Mod.Name + ":MagicCircleBase"].Apply();
 
 
-				Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.FlipVertically);
+				Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.FlipVertically);
 			}
 			else
 			{

@@ -311,8 +311,46 @@ namespace ArcaneOdyssey
 
 		public static int Round(this float num) => (int)Math.Round(num);
 
-		public static string GetTexture<T>()
+		public static string GetTexture<T>(bool usemodtype = true) where T : class
 		{
+			if (usemodtype && ArcaneOdysseyMod.finishedLoading)
+			{
+				if (typeof(T).IsSubclassOf(typeof(ModItem)))
+				{
+					var inst = ModContent.GetInstance<T>() as ModItem;
+					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					if (ModContent.HasAsset(tex))
+						return tex;
+				}
+				if (typeof(T).IsSubclassOf(typeof(ModProjectile)))
+				{
+					var inst = ModContent.GetInstance<T>() as ModProjectile;
+					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					if (ModContent.HasAsset(tex))
+						return tex;
+				}
+				if (typeof(T).IsSubclassOf(typeof(ModBiome)))
+				{
+					var inst = ModContent.GetInstance<T>() as ModBiome;
+					var tex = inst.Mod.Name + "/" + inst.BestiaryIcon.Replace(inst.Mod.Name + "/");
+					if (ModContent.HasAsset(tex))
+						return tex;
+				}
+				if (typeof(T).IsSubclassOf(typeof(ModGore)))
+				{
+					var inst = ModContent.GetInstance<T>() as ModGore;
+					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					if (ModContent.HasAsset(tex))
+						return tex;
+				}
+				if (typeof(T).IsSubclassOf(typeof(ModBuff)))
+				{
+					var inst = ModContent.GetInstance<T>() as ModBuff;
+					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					if (ModContent.HasAsset(tex))
+						return tex;
+				}
+			}
 			return typeof(T).FullName.Replace('.', '/');
 		}
 
@@ -1504,9 +1542,9 @@ namespace ArcaneOdyssey
 		/// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
 		/// </summary>
 		/// <param name="AODamage">AO weapon damage multiplier</param>
-		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="AOItemTiers"/></param>
+		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="ItemTiers"/></param>
 		/// <returns></returns>
-		public static float WeaponDamage(AOItemTiers AOWeaponTier) => 22 * (int)AOWeaponTier;
+		public static float WeaponDamage(ItemTiers AOWeaponTier) => 22 * (int)AOWeaponTier;
 
 		public static Vector2 Centre(this Gore gore, Vector2? newCentre)
 		{
@@ -1780,7 +1818,7 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Arcane Odyssey weapon tiers, used for scaling
 	/// </summary>
-	public enum AOItemTiers
+	public enum ItemTiers
 	{
 		/// <summary>
 		/// Literally doesn't exist, don't bother

@@ -13,12 +13,12 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 {
 	public class LionsHalberd : Weapon
 	{
-		public override float AOSpeed => .5f;
-		public override float AOSize => 1.35f;
+		public override float Speed => .5f;
+		public override float Size => 1.35f;
 		public override float AODamage => 1.15f;
-		public override int AOValue => 250;
+		public override int Value => 250;
 		public override Rarities Rarity => Rarities.Rare;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Motif => Color.Gold;
 
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 		}
 	}
 
-	public class SeismicSlash(Weapon hal) : DashSystem(hal.Item)
+	public class SeismicSlash(Weapon hal) : ModDash(hal.Item)
 	{
 		public override bool FallThrough => false;
 		public override bool LocksPlayer => true;
@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 		public override DamageClass DamageType => DamageClass.Melee;
 		public override bool Immune => true;
 
-		public override bool OnHit(Player player, Entity target) => true;
+		public override bool OnHit(Player player, NPC target) => true;
 
 		public SlotId? sound = null;
 

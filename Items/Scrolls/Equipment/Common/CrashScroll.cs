@@ -41,14 +41,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		}
 	}
 
-	public class Crash(Scroll scroll) : DashSystem(scroll.Item)
+	public class Crash(Scroll scroll) : ModDash(scroll.Item)
 	{
 		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 		public override int Cooldown => CrashScroll.Cooldown;
 
 		public override bool LocksPlayer => true;
 
-		public override bool OnHit(Player player, Entity target)
+		public override bool OnHit(Player player, NPC target)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), target.Center, Vector2.Zero, ModContent.GoreType<Impact>());
 			gore.Centre(target.Center);
@@ -93,7 +93,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override int DisplayedCooldownID => ModContent.BuffType<CrashCooldown>();
 	}
 
-	public class Smash(Entity source) : DashSystem(source)
+	public class Smash(Entity source) : ModDash(source)
 	{
 		public override bool FallThrough => false;
 		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
@@ -122,7 +122,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 				}
 			}
 		}
-		public override bool OnHit(Player player, Entity target)
+		public override bool OnHit(Player player, NPC target)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().ImbueSize);
 			gore.Centre(target.Center);

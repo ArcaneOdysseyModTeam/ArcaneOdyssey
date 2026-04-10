@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1;
 	}
 
-	public class Annihilation(AnnihilationScroll scroll) : DashSystem(scroll.Item)
+	public class Annihilation(AnnihilationScroll scroll) : ModDash(scroll.Item)
 	{
 		public override bool Immune => false;
 
@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 
 		public override bool ContactDamage => false;
 
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 
 		public override void OnEnd(Player player)
 		{

@@ -13,14 +13,20 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
 	public class BronzeRapier : Weapon
 	{
-		public override float AOSpeed => 1.05f;
-		public override float AOSize => .9f;
+		public override float Speed => 1.05f;
+		public override float Size => .9f;
 		public override float AODamage => 1.05f;
-		public override int AOValue => 40;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override int Value => 40;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override Color Motif => Color.Orange;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.rapier[Type] = true;
+		}
 
 		public override void SetDefaults()
 		{

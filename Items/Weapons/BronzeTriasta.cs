@@ -20,10 +20,10 @@ namespace ArcaneOdyssey.Items.Weapons
 			ItemID.Sets.Spears[Type] = true;
 		}
 		public override float AODamage => 0.9f;
-		public override float AOSize => 1.1f;
-		public override float AOSpeed => 1.1f;
-		public override int AOValue => 350;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override float Size => 1.1f;
+		public override float Speed => 1.1f;
+		public override int Value => 350;
+		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override Color Motif => Color.Gold;
 		public override Rarities Rarity => Rarities.Rare;
 		public override bool? Cold => false;
@@ -53,14 +53,14 @@ namespace ArcaneOdyssey.Items.Weapons
 		}
 	}
 
-	public class EtherealFlash(Weapon tri) : DashSystem(tri.Item)
+	public class EtherealFlash(Weapon tri) : ModDash(tri.Item)
 	{
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
 		public override int DashMax => 3;
 		public override bool LocksPlayer => true;
 		public override int Cooldown => 60 * 3;
-		public override bool OnHit(Player player, Entity target) => true;
+		public override bool OnHit(Player player, NPC target) => true;
 
 		public override void OnEnd(Player player)
 		{

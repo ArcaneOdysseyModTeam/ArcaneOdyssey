@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		}
 	}
 
-	public class Greatjump(Scroll scroll) : DashSystem(scroll.Item)
+	public class Greatjump(Scroll scroll) : ModDash(scroll.Item)
 	{
 		public override bool ContactDamage => false;
 		public override float DashSpeed => 30;
@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		public override bool LocksPlayer => false;
 		public override bool Immune => false;
 		public override int Cooldown => 60 * 3;
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 
 		public override void OnStart(Player player)
 		{

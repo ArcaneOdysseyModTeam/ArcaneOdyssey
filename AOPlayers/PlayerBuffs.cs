@@ -142,7 +142,7 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
-		private static int SortPages(GuidebookPage x, GuidebookPage y)
+		private static int SortPages(ModGuidebookPage x, ModGuidebookPage y)
 		{
 			if (x.PageNum > y.PageNum)
 			{
@@ -157,10 +157,10 @@ namespace ArcaneOdyssey.AOPlayers
 
 		internal List<string> unlockedPages = [];
 
-		public List<GuidebookPage> AvailablePages()
+		public List<ModGuidebookPage> AvailablePages()
 		{
-			List<GuidebookPage> pages = [.. GuidebookSystem.AllPages];
-			pages.Sort(new Comparison<GuidebookPage>(SortPages));
+			List<ModGuidebookPage> pages = [.. GuidebookSystem.AllPages];
+			pages.Sort(new Comparison<ModGuidebookPage>(SortPages));
 			pages.RemoveAll(e => !e.MetConditions(Player));
 			return pages;
 		}

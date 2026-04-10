@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.Consumable;
 
 public class PoseidonSpirit : BaseItem
 {
-	public override int AOValue => 10000;
+	public override int Value => 10000;
 	public override Rarities Rarity => Rarities.Mythical;
 
 	public override void SetDefaults()

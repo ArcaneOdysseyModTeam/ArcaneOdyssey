@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public virtual bool? Arcanium => null;
 
-		public abstract AOItemTiers ArmourTier { get; }
+		public abstract ItemTiers ArmourTier { get; }
 
 
 		public override void UpdateArmorSet(Player player)

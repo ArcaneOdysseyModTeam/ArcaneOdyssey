@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.Consumable
 {
 	public class HecateShard : BaseItem
 	{
-		public override int AOValue => 20000;
+		public override int Value => 20000;
 		public override Rarities Rarity => Rarities.Legendary;
 
 		public override void SetDefaults()

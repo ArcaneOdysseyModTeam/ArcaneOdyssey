@@ -10,9 +10,9 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
 	public class BronzeMusket : Weapon
 	{
-		public override int AOValue => 140;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
-		public override float AOSpeed => .8f;
+		public override int Value => 140;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
+		public override float Speed => .8f;
 		public override float AODamage => 1.2f;
 		public override SoundStyle UseSound => SoundID.Item11; // PORT change to 133
 

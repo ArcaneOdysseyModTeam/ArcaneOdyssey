@@ -12,12 +12,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
 	public class RavennaGreatsword : Weapon
 	{
-		public override int AOValue => 40;
-		public override float AOSize => 1.2f;
-		public override float AOSpeed => .9f;
+		public override int Value => 40;
+		public override float Size => 1.2f;
+		public override float Speed => .9f;
 		public override float AODamage => 1.05f;
 		public override Rarities Rarity => Rarities.Uncommon;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override Color Motif => Color.Orange;
 
 		public override void SetDefaults()
@@ -29,6 +29,11 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			Item.shootSpeed = 5;
 		}
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.greatsword[Type] = true;
+		}
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BronzeBar>(12).AddIngredient<OldGreatsword>().AddTile(TileID.Anvils).Register();

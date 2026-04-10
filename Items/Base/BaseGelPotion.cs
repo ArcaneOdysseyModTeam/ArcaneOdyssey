@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Items.Base
 			Item.buffTime = 60 * 60 * 20;
 		}
 
-		public override int AOValue => 7;
+		public override int Value => 7;
 
 		public override string Texture => Mod.Name + "/Assets/GelBottle";
 		public Texture2D LiquidSprite => Mod.Assets.Request<Texture2D>("Assets/GelLiquid").Value;

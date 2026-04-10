@@ -12,10 +12,10 @@ namespace ArcaneOdyssey.Items.Weapons
 	public class SirenBow : Weapon
 	{
 		public override float AODamage => 1.025f;
-		public override float AOSize => .825f;
-		public override float AOSpeed => 1.15f;
-		public override int AOValue => 100;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Great;
+		public override float Size => .825f;
+		public override float Speed => 1.15f;
+		public override int Value => 100;
+		public override ItemTiers WeaponTier => ItemTiers.Great;
 		public override Rarities Rarity => Rarities.Uncommon;
 		public override SoundStyle UseSound => SoundID.Item5;
 		public override Color Motif => Color.Gold;

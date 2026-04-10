@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override bool? Cold => true;
 		public override Debuff? ProjectileDebuff => Debuff.Create<Soaked>(60 * 5);
 		public override SoundStyle? HitSound => SoundID.Splash;
-		public AOItemTiers AOWeaponTier = AOItemTiers.Good;
+		public ItemTiers AOWeaponTier = ItemTiers.Good;
 
 
 		public override void SetDefaults()

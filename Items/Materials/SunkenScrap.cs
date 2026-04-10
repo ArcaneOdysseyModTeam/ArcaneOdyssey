@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Materials
 	[LegacyName("ArcaniumScrap")]
 	public class SunkenScrap : BaseItem
 	{
-		public override int AOValue => 400;
+		public override int Value => 400;
 		public override Rarities Rarity => Rarities.Rare;
 
 		public override void SetDefaults()

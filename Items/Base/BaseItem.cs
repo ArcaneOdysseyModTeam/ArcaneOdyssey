@@ -24,9 +24,9 @@ namespace ArcaneOdyssey.Items.Base
 			{
 				Item.rare = ModContent.RarityType<HotPinkRare>();
 			}
-			Item.value = AOUtils.GalleonToCopper(AOValue);
+			Item.value = AOUtils.GalleonToCopper(Value);
 		}
 
-		public virtual int AOValue => 0;
+		public virtual int Value => 0;
 	}
 }

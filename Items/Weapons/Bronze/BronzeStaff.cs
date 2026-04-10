@@ -11,12 +11,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
 	public class BronzeStaff : Weapon
 	{
-		public override float AOSpeed => 1;
-		public override float AOSize => .9f;
+		public override float Speed => 1;
+		public override float Size => .9f;
 		public override float AODamage => 1.1f;
-		public override int AOValue => 50;
+		public override int Value => 50;
 		public override Rarities Rarity => Rarities.Uncommon;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override Color Motif => Color.Orange;
 
 
@@ -41,6 +41,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 1;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.staff[Type] = true;
 		}
 	}
 }

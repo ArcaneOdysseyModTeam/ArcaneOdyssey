@@ -11,8 +11,8 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
 	public class BronzeFlintlock : Weapon
 	{
-		public override int AOValue => 60;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override int Value => 60;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override SoundStyle UseSound => SoundID.Item11; // PORT change to 134
 
 		public override Color Motif => Color.Orange;

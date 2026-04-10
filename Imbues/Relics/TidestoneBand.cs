@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override float SynergySpeed => .8f;
 
-		public override int AOValue => 500;
+		public override int Value => 500;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<WaterMagic>();
@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		}
 	}
 
-	public class Thakrousi(Imbuable imbuesource) : DashSystem(imbuesource.Item)
+	public class Thakrousi(Imbuable imbuesource) : ModDash(imbuesource.Item)
 	{
 		public override DamageClass DamageType => DamageClass.Summon;
 		public override bool Immune => true;
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override bool LocksPlayer => true;
 		public override int Cooldown => (60 * 3 * imbuesource.ScrollSpeed.FlipFloat()).Round();
 
-		public override bool OnHit(Player player, Entity target) => true;
+		public override bool OnHit(Player player, NPC target) => true;
 
 		public override void OnEnd(Player player)
 		{

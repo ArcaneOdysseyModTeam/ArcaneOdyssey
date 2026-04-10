@@ -10,15 +10,15 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 {
 	public class LanceofLoyalty : Weapon
 	{
-		public override int AOValue => 200;
+		public override int Value => 200;
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Motif => Color.Gold;
 
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override ItemTiers WeaponTier => ItemTiers.Good;
 
 		public override Rarities Rarity => Rarities.Rare;
-		public override float AOSpeed => .675f;
-		public override float AOSize => 1.25f;
+		public override float Speed => .675f;
+		public override float Size => 1.25f;
 		public override float AODamage => 1.1f;
 
 		public override void SetDefaults()

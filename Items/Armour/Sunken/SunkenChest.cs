@@ -9,13 +9,13 @@ namespace ArcaneOdyssey.Items.Armour.Sunken
 	[AutoloadEquip(EquipType.Body)]
 	public class SunkenChest : Base.Armour
 	{
-		public override AOItemTiers ArmourTier => AOItemTiers.Good;
+		public override ItemTiers ArmourTier => ItemTiers.Good;
 		public override int AODefense => 194;
 		public override int Size => AOAttkSpd;
 		public override int AOAttkSpd => 22;
 		public override Rarities Rarity => Rarities.Rare;
 
-		public override int AOValue => 1350;
+		public override int Value => 1350;
 		public override SetBonusHelper? Set => new(this, Color.Aqua, "SunkenHelm", "SunkenBoots");
 
 		public override void ArmorSetEffects(Player player)

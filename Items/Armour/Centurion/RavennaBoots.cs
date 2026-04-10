@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Armour.Centurion
 	[AutoloadEquip(EquipType.Legs)]
 	public class RavennaBoots : Base.Armour
 	{
-		public override AOItemTiers ArmourTier => AOItemTiers.Poor;
+		public override ItemTiers ArmourTier => ItemTiers.Poor;
 
 		public override void SetStaticDefaults()
 		{
@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Items.Armour.Centurion
 		public override int Size => AODefense / 20;
 		public override int AOAttkSpd => AODefense / 20;
 		public override Rarities Rarity => Rarities.Common;
-		public override int AOValue => 30;
+		public override int Value => 30;
 
 		public override void AddRecipes()
 		{

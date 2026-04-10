@@ -6,10 +6,10 @@ namespace ArcaneOdyssey.Items.Accessories
 	public class EvanderCape : Base.Armour
 	{
 		public override Rarities Rarity => Rarities.Uncommon;
-		public override AOItemTiers ArmourTier => AOItemTiers.Good;
+		public override ItemTiers ArmourTier => ItemTiers.Good;
 		public override int AODefense => 170;
 		public override int AOPierce => 21;
-		public override int AOValue => 75;
+		public override int Value => 75;
 
 		public override void SetDefaults()
 		{

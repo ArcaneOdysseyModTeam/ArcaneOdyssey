@@ -11,14 +11,20 @@ namespace ArcaneOdyssey.Items.Weapons
 {
 	public class Sinbane : Weapon
 	{
-		public override int AOValue => 400;
+		public override int Value => 400;
 		public override Rarities Rarity => Rarities.Uncommon;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
-		public override float AOSpeed => 1.1f;
-		public override float AOSize => .8f;
+		public override ItemTiers WeaponTier => ItemTiers.Good;
+		public override float Speed => 1.1f;
+		public override float Size => .8f;
 		public override float AODamage => 1.1f;
 
 		public override Color Motif => new(104, 130, 0);
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.greatsword[Type] = true;
+		}
 
 		public override void SetDefaults()
 		{

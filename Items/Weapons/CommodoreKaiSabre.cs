@@ -9,12 +9,12 @@ namespace ArcaneOdyssey.Items.Weapons
 {
 	public class CommodoreKaiSabre : Weapon
 	{
-		public override float AOSpeed => 1.1f;
-		public override float AOSize => 1.1f;
+		public override float Speed => 1.1f;
+		public override float Size => 1.1f;
 		public override float AODamage => .925f;
-		public override int AOValue => 200;
+		public override int Value => 200;
 		public override Rarities Rarity => Rarities.Uncommon;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 
 		public override Color Motif => Color.Red;
 

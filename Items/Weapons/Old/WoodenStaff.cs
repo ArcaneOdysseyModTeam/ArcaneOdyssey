@@ -11,12 +11,12 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 {
 	public class WoodenStaff : Weapon
 	{
-		public override float AOSpeed => 1.05f;
-		public override float AOSize => 0.9f;
+		public override float Speed => 1.05f;
+		public override float Size => 0.9f;
 		public override float AODamage => 1f;
-		public override int AOValue => 1350;
+		public override int Value => 1350;
 		public override Rarities Rarity => Rarities.Common;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
+		public override ItemTiers WeaponTier => ItemTiers.Poor;
 		public override Debuff? WeaponDebuff => null; // dull weapon
 		public override SoundStyle UseSound => SoundID.Item1;
 
@@ -24,6 +24,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldGreataxe>();
+			ArcaneOdysseyMod.Sets.staff[Type] = true;
 		}
 
 		public override void SetDefaults()

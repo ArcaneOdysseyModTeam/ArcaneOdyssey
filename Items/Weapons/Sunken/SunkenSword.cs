@@ -16,12 +16,12 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 	public class SunkenSword : Weapon
 	{
 		public override bool? Cold => true;
-		public override float AOSpeed => 1.2f;
-		public override float AOSize => .9f;
+		public override float Speed => 1.2f;
+		public override float Size => .9f;
 		public override float AODamage => 1f;
-		public override int AOValue => 900;
+		public override int Value => 900;
 		public override Rarities Rarity => Rarities.Rare;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override Color Motif => Color.Aqua;
 		public override SoundStyle UseSound => SoundID.SplashWeak;
 		public override Debuff? WeaponDebuff => Debuff.Create<Soaked>(60 * 5);
@@ -71,7 +71,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 		}
 	}
 
-	public class RisingTide(Entity source) : DashSystem(source)
+	public class RisingTide(Entity source) : ModDash(source)
 	{
 		public override bool ContactDamage => false;
 		public override float DashSpeed => 13;
@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 		public override bool LocksPlayer => true;
 		public override bool Immune => false;
 		public override int Cooldown => 60 * 3;
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 
 		public override void DashEffect(Player player)
 		{

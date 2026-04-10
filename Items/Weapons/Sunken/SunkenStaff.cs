@@ -14,12 +14,12 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 	public class SunkenStaff : Weapon
 	{
 		public override bool? Cold => true;
-		public override float AOSpeed => .9f;
-		public override float AOSize => 1.25f;
+		public override float Speed => .9f;
+		public override float Size => 1.25f;
 		public override float AODamage => 1f;
-		public override int AOValue => 1350;
+		public override int Value => 1350;
 		public override Rarities Rarity => Rarities.Rare;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override Debuff? WeaponDebuff => Debuff.Create<Soaked>();
 		public override Color Motif => Color.Aqua;
 		public override SoundStyle UseSound => SoundID.SplashWeak;
@@ -45,6 +45,12 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 			recipe.AddIngredient<SunkenScrap>(2);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.staff[Type] = true;
 		}
 
 		public override bool CanUseItem(Player player)

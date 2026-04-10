@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				piercingShotBeam.dying = true;
 				piercingShotBeam.end = projectile.Center;
 				piercingShotBeam.Projectile.timeLeft = BeamSpell.LingerTime + BeamSpell.TravelTime;
-				piercingShotBeam.Projectile.Center = piercingShotBeam.origin.GetValueOrDefault(piercingShotBeam.Projectile.Center);
+				piercingShotBeam.Projectile.Center = piercingShotBeam.origin;
 			}
 		}
 

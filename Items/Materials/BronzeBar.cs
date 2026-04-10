@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Items.Materials
 			Item.consumable = true;
 		}
 
-		public override int AOValue => 30;
+		public override int Value => 30;
 
 		public override void AddRecipes()
 		{

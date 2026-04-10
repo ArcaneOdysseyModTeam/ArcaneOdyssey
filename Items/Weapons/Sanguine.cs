@@ -10,17 +10,17 @@ namespace ArcaneOdyssey.Items.Weapons
 {
 	public class Sanguine : Weapon
 	{
-		public override int AOValue => 125;
+		public override int Value => 125;
 
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor; // unfortunately a pre boss item
+		public override ItemTiers WeaponTier => ItemTiers.Poor; // unfortunately a pre boss item
 
 		public override Color Motif => Color.Red;
 
 		public override Rarities Rarity => Rarities.Uncommon;
 
 		public override float AODamage => 1.1f;
-		public override float AOSpeed => 1.05f;
-		public override float AOSize => .85f;
+		public override float Speed => 1.05f;
+		public override float Size => .85f;
 
 		public override void SetDefaults()
 		{
@@ -32,6 +32,12 @@ namespace ArcaneOdyssey.Items.Weapons
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.autoReuse = true;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.dagger[Type] = true;
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

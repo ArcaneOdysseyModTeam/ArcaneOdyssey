@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		}
 	}
 
-	public class Breathtaker(Scroll scroll) : DashSystem(scroll.Item)
+	public class Breathtaker(Scroll scroll) : ModDash(scroll.Item)
 	{
 		public override bool Immune => true;
 		public override float DashSpeed => 120;
@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override bool LocksPlayer => true;
 		public override int Cooldown => BreathtakerTechnique.Cooldown;
 
-		public override bool OnHit(Player player, Entity target) => true;
+		public override bool OnHit(Player player, NPC target) => true;
 
 		public override void OnEnd(Player player)
 		{

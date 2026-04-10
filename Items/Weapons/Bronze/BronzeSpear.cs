@@ -13,12 +13,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 	[LegacyName("BronzeTrident")]
 	public class BronzeSpear : Weapon
 	{
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override Rarities Rarity => Rarities.Uncommon;
 		public override float AODamage => 1.05f;
-		public override float AOSize => 1;
-		public override float AOSpeed => .95f;
-		public override int AOValue => 50;
+		public override float Size => 1;
+		public override float Speed => .95f;
+		public override int Value => 50;
 		public override Color Motif => Color.Orange;
 
 		public override void SetStaticDefaults()

@@ -37,14 +37,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		public override bool CanHaveFS => true;
 	}
 
-	public class Selino1(Scroll scroll) : DashSystem(scroll.Item)
+	public class Selino1(Scroll scroll) : ModDash(scroll.Item)
 	{
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
 		public override bool LocksPlayer => true;
 
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 
 		public override void OnEnd(Player player)
 		{
@@ -63,14 +63,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		public override int DisplayedCooldownID => ModContent.BuffType<SelinoCooldown>();
 	}
 
-	public class Selino2(Entity source) : DashSystem(source)
+	public class Selino2(Entity source) : ModDash(source)
 	{
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
 		public override bool LocksPlayer => true;
 
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 
 		public override void OnEnd(Player player)
 		{
@@ -88,14 +88,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		public override int DisplayedCooldownID => ModContent.BuffType<SelinoCooldown>();
 	}
 
-	public class Selino3(Entity source) : DashSystem(source)
+	public class Selino3(Entity source) : ModDash(source)
 	{
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
 		public override bool LocksPlayer => true;
 
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 
 		public override void OnEnd(Player player)
 		{

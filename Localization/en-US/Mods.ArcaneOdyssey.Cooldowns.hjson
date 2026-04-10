@@ -72,3 +72,8 @@ GreatjumpCooldown: {
 	DisplayName: Greatjump Cooldown
 	Description: Greatjump is on cooldown
 }
+
+CrushingJudgementCooldown: {
+	DisplayName: Crushing Judgement Cooldown
+	Description: Crushing Judgement is on cooldown
+}

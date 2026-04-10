@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class EmberStaff : SpiritEnergy
 	{
-		public override int AOValue => 700;
+		public override int Value => 700;
 		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;

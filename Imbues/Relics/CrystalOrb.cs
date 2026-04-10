@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override float ImbueSpeed => 1.2f;
 		public override float ImbueSize => 1f;
 		public override float ImbueDamage => 0.9f;
-		public override int AOValue => 700;
+		public override int Value => 700;
 		
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightMagic>();
 

@@ -23,10 +23,10 @@ namespace ArcaneOdyssey.Items.Accessories
 				EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
 			}
 		}
-		public override AOItemTiers ArmourTier => AOItemTiers.Good;
+		public override ItemTiers ArmourTier => ItemTiers.Good;
 		public override int AODefense => 226;
 		public override int AOPierce => 28;
-		public override int AOValue => 200;
+		public override int Value => 200;
 
 		public override void SetDefaults()
 		{

@@ -12,10 +12,10 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 	public class StormCaller : Weapon
 	{
 		public override float AODamage => 0.9f;
-		public override float AOSize => 1.1f;
-		public override float AOSpeed => 1.15f;
-		public override int AOValue => 120;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override float Size => 1.1f;
+		public override float Speed => 1.15f;
+		public override int Value => 120;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override Rarities Rarity => Rarities.Uncommon;
 		public override SoundStyle UseSound => SoundID.Item5;
 		public override Color Motif => Color.MediumPurple;

@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 {
 	public abstract class BaseSpearProjectile : PlayerProjectile
 	{
-		public abstract AOItemTiers AOWeaponTier { get; }
+		public abstract ItemTiers AOWeaponTier { get; }
 		public const float SpearSpeed = 3.7f;
 
 		public override void SetStaticDefaults()

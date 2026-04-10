@@ -15,12 +15,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 {
 	public class RavennaGreataxe : Weapon
 	{
-		public override int AOValue => 100;
-		public override float AOSize => 1.025f;
-		public override float AOSpeed => .925f;
+		public override int Value => 100;
+		public override float Size => 1.025f;
+		public override float Speed => .925f;
 		public override float AODamage => 1.025f;
 		public override Rarities Rarity => Rarities.Uncommon;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override Color Motif => Color.Orange;
 
 		public override void SetDefaults()
@@ -40,10 +40,13 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			CreateRecipe().AddIngredient<BronzeBar>(10).AddIngredient<OldGreataxe>().AddTile(TileID.Anvils).Register();
 		}
 
-		public override bool AltFunctionUse(Player player)
+		public override void SetStaticDefaults()
 		{
-			return CanUseItem(player);
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.greataxe[Type] = true;
 		}
+
+		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool? UseItem(Player player)
 		{
@@ -59,7 +62,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		}
 	}
 
-	public class Devastate(Weapon axe) : DashSystem(axe.Item)
+	public class Devastate(Weapon axe) : ModDash(axe.Item)
 	{
 		public override bool FallThrough => false;
 		public override bool LocksPlayer => true;
@@ -68,7 +71,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override int DashMax => 600;
 		public override bool Immune => true;
 		public override bool ContactDamage => false;
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 
 		public override int DisplayedCooldownID => ModContent.BuffType<DevastateCooldown>();
 
@@ -114,7 +117,6 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			{
 				activeSound.Stop();	
 			}
-			// Vfx
 		}
 	}
 

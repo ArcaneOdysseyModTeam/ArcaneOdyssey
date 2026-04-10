@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
 {
-	public abstract class GuidebookPage : ModType
+	public abstract class ModGuidebookPage : ModType
 	{
 		public abstract int PageNum { get; }
 
@@ -16,18 +16,17 @@ namespace ArcaneOdyssey.Guidebook
 
 		protected sealed override void Register()
 		{
-			ModTypeLookup<GuidebookPage>.Register(this);
+			ModTypeLookup<ModGuidebookPage>.Register(this);
 			GuidebookSystem.PageCount++;
 			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/'), out Image, AssetRequestMode.ImmediateLoad);
 		}
 
-		public sealed override void SetupContent() => SetStaticDefaults();
-
-		public override void SetStaticDefaults()
+		public sealed override void SetupContent()
 		{
 			GuidebookSystem.AllPages[PageNum] = this;
 			_ = DisplayName;
 			_ = Description;
+			SetStaticDefaults();
 		}
 
 		public static int Count = 0;
@@ -40,19 +39,19 @@ namespace ArcaneOdyssey.Guidebook
 
 		public abstract bool MetConditions(Player player);
 
-		public static GuidebookPage Get(int page)
+		public static ModGuidebookPage Get(int page)
 		{
-			var pages = ModContent.GetContent<GuidebookPage>();
+			var pages = ModContent.GetContent<ModGuidebookPage>();
 			return pages.ToList().Find(e => e.PageNum == page);
 		}
 
-		public static GuidebookPage Get(string page)
+		public static ModGuidebookPage Get(string page)
 		{
-			var pages = ModContent.GetContent<GuidebookPage>();
+			var pages = ModContent.GetContent<ModGuidebookPage>();
 			return pages.ToList().Find(e => e.Name == page);
 		}
 
-		public int Before<T>() where T : GuidebookPage
+		public int Before<T>() where T : ModGuidebookPage
 		{
 			var inst = ModContent.GetInstance<T>();
 			if (!PagesOrdered.ContainsKey(Name))
@@ -77,7 +76,7 @@ namespace ArcaneOdyssey.Guidebook
 			return PagesOrdered[Name];
 		}
 
-		public int After<T>() where T : GuidebookPage
+		public int After<T>() where T : ModGuidebookPage
 		{
 			var inst = ModContent.GetInstance<T>();
 			if (!PagesOrdered.ContainsKey(Name))

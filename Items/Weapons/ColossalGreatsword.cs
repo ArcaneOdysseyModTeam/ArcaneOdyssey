@@ -10,14 +10,20 @@ namespace ArcaneOdyssey.Items.Weapons
 {
 	public class ColossalGreatsword : Weapon
 	{
-		public override float AOSpeed => .65f;
-		public override float AOSize => 1.2f;
+		public override float Speed => .65f;
+		public override float Size => 1.2f;
 		public override float AODamage => 1.15f;
-		public override int AOValue => 250;
+		public override int Value => 250;
 		public override Rarities Rarity => Rarities.Rare;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Good;
+		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Motif => Color.PaleVioletRed;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.greatsword[Type] = true;
+		}
 
 		public override void SetDefaults()
 		{

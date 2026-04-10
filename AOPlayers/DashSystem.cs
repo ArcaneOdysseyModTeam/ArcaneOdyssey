@@ -9,17 +9,14 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers
 {
-	public abstract class DashSystem(Entity source) : IImbuable
+	public abstract class ModDash(Entity source) : ModType, IImbuable
 	{
 		public Entity source = source;
 		public Imbuable Imbue { get; set; }
 		public Imbuable SecondImbue { get; set; }
 
-		public string Name => GetType().Name;
-
 		public virtual bool FallThrough => true;
 
-		public virtual Mod Mod => ArcaneOdysseyMod.Instance;
 
 		/// <summary>
 		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
@@ -110,10 +107,12 @@ namespace ArcaneOdyssey.AOPlayers
 				return player.ArcaneOdyssey().OnCooldown(DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
 			}
 			if (LocksPlayer)
-				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
+				return (player.ArcaneOdyssey().OnCooldown(Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 			else
 				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
 		}
+
+		public sealed override void SetupContent() => SetStaticDefaults();
 
 		/// <summary>
 		/// Called every frame, and before the dash starts
@@ -147,7 +146,7 @@ namespace ArcaneOdyssey.AOPlayers
 		/// <param name="player"></param>
 		/// <param name="target"></param>
 		/// <returns>Whether to end the dash</returns>
-		public abstract bool OnHit(Player player, Entity target);
+		public abstract bool OnHit(Player player, NPC target);
 
 		public virtual void OnEnd(Player player) { }
 
@@ -159,11 +158,13 @@ namespace ArcaneOdyssey.AOPlayers
 		public virtual int DisplayedCooldownID => -1;
 
 		public Cooldown AOCooldown => new(LocksPlayer ? Name : "StandardDash", Mod, Cooldown);
+
+		protected sealed override void Register() { }
 	}
 
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public void SetDash(DashSystem dash, int dir = 0)
+		public void SetDash(ModDash dash, int dir = 0)
 		{
 			if (dash.LocksPlayer)
 			{
@@ -173,12 +174,12 @@ namespace ArcaneOdyssey.AOPlayers
 			else SideDash = dash;
 		}
 
-		private DashSystem _dash;
-		public DashSystem OmniDash { get => _dash; set => _dash = !dashing ? value : _dash; }
+		private ModDash _dash;
+		public ModDash OmniDash { get => _dash; set => _dash = !dashing ? value : _dash; }
 		public int OmniDashDir = 0;
-		private DashSystem _dash2;
-		public DashSystem SideDash { get => _dash2; set => _dash2 = !dashing ? value : _dash2; }
-		public DashSystem CurrentDash;
+		private ModDash _dash2;
+		public ModDash SideDash { get => _dash2; set => _dash2 = !dashing ? value : _dash2; }
+		public ModDash CurrentDash;
 		public int DashLeft;
 		public Vector2 DashVelocity;
 		public bool dashing;
@@ -213,7 +214,7 @@ namespace ArcaneOdyssey.AOPlayers
 		/// </summary>
 		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
 		/// <param name="direction">The direction of the normal dash, leave 0 for any direction<para>-1 is left, 1 is right</para><para>-2 is up, 2 is down</para><para>-3 is left up diagonal, 3 is right up diagonal</para><para>-4 is left down diagonal, 4 is right down diagonal</para></param>
-		public void StartDash(DashSystem dashToUse, int direction = 0, Imbuable imbue = null, bool imbueAffectsSpeed = false)
+		public void StartDash(ModDash dashToUse, int direction = 0, Imbuable imbue = null, bool imbueAffectsSpeed = false)
 		{
 			if (dashToUse.ExtraCheck(Player))
 			{

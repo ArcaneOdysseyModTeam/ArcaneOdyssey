@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	public class Imbuing : GuidebookPage
+	public class Imbuing : ModGuidebookPage
 	{
 		public override int PageNum => After<FightingStyles>();
 

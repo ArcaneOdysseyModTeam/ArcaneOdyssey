@@ -9,12 +9,12 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 {
 	public class OldRapier : Weapon
 	{
-		public override int AOValue => 20;
-		public override float AOSize => .9f;
-		public override float AOSpeed => 1.025f;
+		public override int Value => 20;
+		public override float Size => .9f;
+		public override float Speed => 1.025f;
 		public override float AODamage => 1.025f;
 		public override Rarities Rarity => Rarities.Common;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
+		public override ItemTiers WeaponTier => ItemTiers.Poor;
 
 		public override void SetDefaults()
 		{
@@ -46,6 +46,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldSword>();
+			ArcaneOdysseyMod.Sets.rapier[Type] = true;
 		}
 	}
 }

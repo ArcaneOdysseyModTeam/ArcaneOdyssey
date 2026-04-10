@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			{
 				if (!playedSound)
 				{
-					SoundEngine.PlaySound(SoundID.Item121, Projectile.Center);
+					SoundEngine.PlaySound(SoundID.Item121 with { MaxInstances = 0 }, Projectile.Center);
 					playedSound = true;
 				}
 				return false;

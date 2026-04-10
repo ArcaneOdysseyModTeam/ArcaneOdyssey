@@ -7,7 +7,6 @@ using Terraria.ObjectData;
 
 namespace ArcaneOdyssey.Tiles
 {
-	[LegacyName("TitleMusicBoxTile")]
 	public class TuckerGrave : ModTile
 	{
 		public override void SetStaticDefaults()

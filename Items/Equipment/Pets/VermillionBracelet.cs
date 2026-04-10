@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 			Item.master = true;
 		}
 
-		public override int AOValue => 60;
+		public override int Value => 60;
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{

@@ -237,3 +237,13 @@ Sanguine: {
 		Description: Throw the weapon on use
 	}
 }
+
+Vindicator: {
+	DisplayName: Vindicator
+	Tooltip: ""
+
+		Ability: {
+			DisplayName: Crushing Judgement
+			Description: Jump towards the cursor and release a shockwave
+		}
+}

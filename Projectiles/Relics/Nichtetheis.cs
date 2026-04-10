@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 		public override float Size => 1f;
 
 
-		private Vector2? origin = null;
+		private Vector2 origin = default;
 		private Vector2? end = null;
 		public override bool CanHaveImbueVFX => !dying;
 
@@ -44,17 +44,16 @@ namespace ArcaneOdyssey.Projectiles.Relics
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft > LingerTime)
+			if (origin == default)
 			{
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
-				origin ??= Projectile.Center + (Projectile.velocity.SafeNormalize(Projectile.velocity) * 60f);
-				//Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
-				//SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
+				origin = Projectile.Center + (Projectile.velocity.SafeNormalize(Projectile.velocity) * 60f);
 			}
-			else
+
+			if (Projectile.timeLeft <= LingerTime)
 			{
 				end ??= Projectile.Center;
-				Projectile.Center = origin.GetValueOrDefault(Owner.Center);
+				Projectile.Center = origin;
 				Projectile.velocity = Vector2.Zero;
 				dying = true;
 
@@ -71,7 +70,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin.GetValueOrDefault(Owner.Center)), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+			var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
 			var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
 			Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
 			var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);

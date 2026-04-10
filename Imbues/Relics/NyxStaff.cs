@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class NyxStaff : SpiritEnergy
 	{
-		public override int AOValue => 700;
+		public override int Value => 700;
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Purple;
 		public override float ImbueDamage => .9f;

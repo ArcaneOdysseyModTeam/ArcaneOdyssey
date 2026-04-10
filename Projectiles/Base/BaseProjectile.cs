@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			return false;
 		}
 

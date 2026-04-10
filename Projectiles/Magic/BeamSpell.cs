@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override float Size => .75f;
 
 
-		internal Vector2? origin = null;
+		internal Vector2 origin = default;
 		internal Vector2? end = null;
 		public override bool CanHaveImbueVFX => !dying;
 
@@ -54,18 +54,17 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void AI()
 		{
-			origin ??= Projectile.Center;
-			if (Projectile.timeLeft > LingerTime)
+			if (origin == default)
 			{
+				origin = Projectile.Center;
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
-				//Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
-				//SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}
-			else
+
+			if (Projectile.timeLeft <= LingerTime)
 			{
 				Projectile.hide = AOPlayerOwner.myCircle is not null && Projectile.hide;
 				end ??= Projectile.Center;
-				Projectile.Center = origin.GetValueOrDefault(Owner.Center);
+				Projectile.Center = origin;
 				Projectile.velocity = Vector2.Zero;
 				dying = true;
 
@@ -98,7 +97,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin.GetValueOrDefault(Owner.Center)), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+			var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
 			var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
 			Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
 			var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);

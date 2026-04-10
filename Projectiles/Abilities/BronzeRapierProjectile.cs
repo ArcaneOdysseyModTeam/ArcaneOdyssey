@@ -53,12 +53,12 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		}
 	}
 
-	public class PiercingStrikes(Entity source) : DashSystem(source)
+	public class PiercingStrikes(Entity source) : ModDash(source)
 	{
 		public override int DashMax => 20;
 		public override float DashSpeed => 12;
 		public override bool Immune => true;
-		public override bool OnHit(Player player, Entity target) => false;
+		public override bool OnHit(Player player, NPC target) => false;
 		public override bool LocksPlayer => true;
 		public override int Cooldown => 180;
 

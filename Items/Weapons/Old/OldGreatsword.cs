@@ -8,17 +8,18 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 {
 	public class OldGreatsword : Weapon
 	{
-		public override int AOValue => 40;
-		public override float AOSize => 1.1f;
-		public override float AOSpeed => .9f;
+		public override int Value => 40;
+		public override float Size => 1.1f;
+		public override float Speed => .9f;
 		public override float AODamage => 1.05f;
 		public override Rarities Rarity => Rarities.Common;
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Poor;
+		public override ItemTiers WeaponTier => ItemTiers.Poor;
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldRapier>();
+			ArcaneOdysseyMod.Sets.greatsword[Type] = true;
 		}
 
 		public override void SetDefaults()

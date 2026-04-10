@@ -13,6 +13,8 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
 
 namespace ArcaneOdyssey
 {
@@ -37,6 +39,8 @@ namespace ArcaneOdyssey
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
 
 		internal static List<int> excludedItems = [];
+
+		public static bool finishedLoading = false;
 
 		internal static List<int> excludedProjectiles = [];
 
@@ -74,6 +78,7 @@ namespace ArcaneOdyssey
 
 		public override void Load()
 		{
+			finishedLoading = false;
 			excludedItems.Clear();
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
@@ -91,6 +96,7 @@ namespace ArcaneOdyssey
 
 		public override void Unload()
 		{
+			finishedLoading = false;
 			excludedItems.Clear();
 			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
@@ -101,6 +107,7 @@ namespace ArcaneOdyssey
 
 		public override void PostSetupContent()
 		{
+			finishedLoading = true;
 			this.CoolCustomLocalization("RandomWords.Default");
 			this.CoolCustomLocalization("RandomWords.Unbound");
 			this.CoolCustomLocalization("RandomWords.None");
@@ -110,6 +117,47 @@ namespace ArcaneOdyssey
 			this.CoolCustomLocalization("RandomWords.Press");
 			this.CoolCustomLocalization("RandomWords.Kill");
 			this.CoolCustomLocalization("RandomWords.Spare");
+
+			static bool inArray(int i)
+			{
+				return ItemID.Sets.Deprecated[i] || Sets.claw[i] || Sets.spear[i] || Sets.dualbladed[i] || Sets.greatsword[i] || Sets.dagger[i] || Sets.staff[i] || Sets.rapier[i] || Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || Sets.greataxe[i];
+			}
+
+			for (int i = 0; i < ItemLoader.ItemCount; i++)
+			{
+				if (!inArray(i))
+				{
+					var item = new Item(i);
+
+					if (Item.claw[i])
+					{
+						Sets.claw[i] = true;
+					}
+
+					else if (ItemID.Sets.Spears[i])
+					{
+						Sets.spear[i] = true;
+					}
+
+					if (!inArray(i))
+					{
+						if (item.DamageType.CountsAsClass(DamageClass.Melee) && item.axe == 0 && item.hammer == 0 && item.pick == 0 && item.ModItem is not (Imbuable or Scroll) && !item.accessory)
+						{
+							Sets.sword[i] = true;
+						}
+
+						else if (item.useAmmo == AmmoID.Arrow)
+						{
+							Sets.bow[i] = true;
+						}
+
+						else if (item.useAmmo == AmmoID.Bullet)
+						{
+							Sets.gun[i] = true;
+						}
+					}
+				}
+			}
 		}
 
 		public string BTitlesHook_BiomeChecker(Player player)
@@ -122,7 +170,7 @@ namespace ArcaneOdyssey
 
 		public IEnumerable<dynamic> BTitlesHook_GetBiomes()
 		{
-			var icon = ModContent.Request<Texture2D>(AOUtils.GetTexture<EliusArena>() + "_Icon", AssetRequestMode.ImmediateLoad);
+			var icon = ModContent.Request<Texture2D>(AOUtils.GetTexture<EliusArena>(), AssetRequestMode.ImmediateLoad);
 			yield return new
 			{
 				Key = "EliusArena",
@@ -163,6 +211,30 @@ namespace ArcaneOdyssey
 			public static int[] BlastMaxFrames = ItemID.Sets.Factory.CreateIntSet(1);
 
 			public static int[] OldWeapons = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>()];
+
+			public static bool[] staff = ItemID.Sets.Factory.CreateBoolSet(ItemID.MonkStaffT1, ItemID.MonkStaffT3);
+
+			public static bool[] claw = ItemID.Sets.Factory.CreateBoolSet(ItemID.FetidBaghnakhs);
+
+			public static bool[] bow = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] spear = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] greatsword = ItemID.Sets.Factory.CreateBoolSet(ItemID.FieryGreatsword, ItemID.BreakerBlade, ItemID.AdamantiteSword, ItemID.TitaniumSword, ItemID.ChlorophyteClaymore, ItemID.StarWrath, ItemID.Seedler, ItemID.TerraBlade);
+
+			public static bool[] sword = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] greataxe = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteGreataxe, ItemID.TitaniumWaraxe, ItemID.WarAxeoftheNight, ItemID.AdamantiteWaraxe);
+
+			public static bool[] rapier = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] dualbladed = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] dagger = ItemID.Sets.Factory.CreateBoolSet(ItemID.ThrowingKnife, ItemID.PoisonedKnife, ItemID.FrostDaggerfish, ItemID.BoneDagger, ItemID.FlyingKnife, ItemID.ShadowFlameKnife, ItemID.PsychoKnife);
+
+			public static bool[] gun = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer);
 		}
 	}
 

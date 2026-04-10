@@ -10,15 +10,15 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 {
 	public class ScimitarofStorm : Weapon
 	{
-		public override int AOValue => 210;
+		public override int Value => 210;
 
-		public override AOItemTiers AOWeaponTier => AOItemTiers.Average;
+		public override ItemTiers WeaponTier => ItemTiers.Average;
 
 		public override Rarities Rarity => Rarities.Uncommon;
 
-		public override float AOSpeed => 1.15f;
+		public override float Speed => 1.15f;
 		public override float AODamage => 1.05f;
-		public override float AOSize => .85f;
+		public override float Size => .85f;
 
 		public int noUseCounter = 0;
 
@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<StormCaller>();
+			ArcaneOdysseyMod.Sets.dualbladed[Type] = true;
 		}
 
 		public override void SetDefaults()
