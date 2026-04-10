@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.4f; // instant
 		public override float KBMulti => 1.25f;
-		public override SoundStyle? ImbueSound => SoundID.Thunder with { Volume = .6f };
+		public override SoundStyle? ImbueSound => SoundID.Thunder with { Volume = .6f }; // PORT change to InstantThunder
 		public override Color ImbueColour => Color.DarkGray;
 		public override Color ImbueColour2 => Color.Purple;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;

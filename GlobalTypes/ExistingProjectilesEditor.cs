@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (source is EntitySource_ItemUse_WithAmmo { Item: Item item, AmmoItemIdUsed: int bullet })
 				{
-					if (item.type == ModContent.ItemType<BronzeMusket>() && bullet != ItemID.HighVelocityBullet)
+					if (item.type == ModContent.ItemType<BronzeMusket>() && item.Imbue() is MagicType && bullet != ItemID.HighVelocityBullet)
 					{
 						isPiercingShot = true;
 						piercingShotBeam = Projectile.NewProjectileDirect(source, projectile.Center, projectile.velocity.SafeNormalize(Vector2.Zero), ModContent.ProjectileType<BeamSpell>(), 0, 0, projectile.owner).ModProjectile as BeamSpell;
@@ -45,8 +45,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				piercingShotBeam.dying = true;
 				piercingShotBeam.end = projectile.Center;
 				piercingShotBeam.Projectile.timeLeft = BeamSpell.LingerTime + BeamSpell.TravelTime;
-				piercingShotBeam.Projectile.position -= piercingShotBeam.Projectile.velocity;
-				piercingShotBeam.Projectile.rotation = projectile.rotation;
+				piercingShotBeam.Projectile.Center = piercingShotBeam.origin.GetValueOrDefault(piercingShotBeam.Projectile.Center);
 			}
 		}
 
@@ -55,13 +54,14 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (isPiercingShot)
 			{
 				piercingShotBeam.Projectile.timeLeft = BeamSpell.LingerTime;
-				piercingShotBeam.Projectile.rotation = projectile.rotation;
+				isPiercingShot = false;
 			}
 
 			if (isStormOfArrows && !Main.dedServ)
 			{
 				PunchCameraModifier modifier = new(projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(3f), ApplyKnockback(1f), 4, ApplyKnockback(500f), FullName);
 				Main.instance.CameraModifiers.Add(modifier);
+				isStormOfArrows = false;
 			}
 		}
 	}

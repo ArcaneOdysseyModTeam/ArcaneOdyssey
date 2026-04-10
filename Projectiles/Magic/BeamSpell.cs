@@ -54,10 +54,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void AI()
 		{
+			origin ??= Projectile.Center;
 			if (Projectile.timeLeft > LingerTime)
 			{
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
-				origin ??= Projectile.Center;
 				//Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 				//SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}

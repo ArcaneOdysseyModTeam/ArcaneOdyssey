@@ -76,11 +76,18 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			}
 		}
 
+		private bool playedSound = false;
+
 		public override bool PreAI()
 		{
 			Projectile.ai[1]++;
 			if (Projectile.ai[1] < 45)
 			{
+				if (!playedSound)
+				{
+					SoundEngine.PlaySound(SoundID.Item121, Projectile.Center);
+					playedSound = true;
+				}
 				return false;
 			}
 			else if (Projectile.ai[1] == 45)
@@ -93,7 +100,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
 					Main.instance.CameraModifiers.Add(modifier);
 				}
-				SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center);
+				//SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center); // PORT change to InstantThunder
 				return true;
 			}	
 			else
