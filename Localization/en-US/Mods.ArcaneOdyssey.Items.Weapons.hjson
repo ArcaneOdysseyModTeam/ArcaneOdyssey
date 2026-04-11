@@ -242,8 +242,8 @@ Vindicator: {
 	DisplayName: Vindicator
 	Tooltip: ""
 
-		Ability: {
-			DisplayName: Crushing Judgement
-			Description: Jump towards the cursor and release a shockwave
-		}
+	Ability: {
+		DisplayName: Crushing Judgement
+		Description: Jump towards the cursor and release a shockwave
+	}
 }

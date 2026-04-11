@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Items.Blocks;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -29,8 +31,9 @@ namespace ArcaneOdyssey.Tiles
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
+			RegisterItemDrop(ModContent.ItemType<WhiteEyesPlush>());
 
-			AddMapEntry(Color.IndianRed, Lang.GetItemName(TileLoader.GetItemDropFromTypeAndStyle(Type)));
+			AddMapEntry(Color.IndianRed, Lang.GetItemName(ModContent.ItemType<WhiteEyesPlush>()));
 		}
 
 		public static readonly SoundStyle YippeeSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/ElfPetYippee") { MaxInstances = 0 };
@@ -43,7 +46,7 @@ namespace ArcaneOdyssey.Tiles
 		{
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
-			player.cursorItemIconID = TileLoader.GetItemDropFromTypeAndStyle(Type);
+			player.cursorItemIconID = ModContent.ItemType<WhiteEyesPlush>();
 			player.cursorItemIconEnabled = true;
 		}
 

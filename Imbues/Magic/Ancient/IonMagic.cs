@@ -17,9 +17,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new(0, 255, 0);
 		public override bool CanBeWet => false;
-		public override float ImbueSpeed => 1.5f;
-		public override float ImbueSize => 1.2f;
-		public override float ImbueDamage => 1.6f;
 		public override float ScrollSpeed => 1.5f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.6f;
