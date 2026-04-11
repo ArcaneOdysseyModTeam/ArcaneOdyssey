@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
@@ -24,6 +25,7 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.Biomes;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -973,6 +975,20 @@ namespace ArcaneOdyssey.GlobalTypes
 					tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
 					return;
 			}
+		}
+	}
+
+	public class CheeseRestrictions : GlobalItem
+	{
+		public override bool CanUseItem(Item item, Player player)
+		{
+
+			bool inArena = player.InModBiome<EliusArena>(); // add subworlds here later
+			bool illegalItemForArena = item.type is ItemID.Sandgun or ItemID.DirtBomb or ItemID.DirtStickyBomb or ItemID.DryBomb or ItemID.BottomlessShimmerBucket;
+			if (illegalItemForArena && inArena)
+				return false;
+
+			return base.CanUseItem(item, player);
 		}
 	}
 }

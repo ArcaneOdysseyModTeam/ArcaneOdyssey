@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Buffs.Base;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
@@ -415,6 +416,20 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Main.netMode == NetmodeID.SinglePlayer && (Imbue is DeathMagic || SecondImbue is DeathMagic) && (target.lifeMax < (Main.player[projectile.owner].statLifeMax2 * 2)))
 			{
 				target.StrikeInstantKill();
+			}
+		}
+		public override void PrepareBombToBlow(Projectile projectile)
+		{
+			if (AOUtils.TryGetOwner(projectile, out Player owner))
+			{
+				if (owner.InModBiome<EliusArena>()) // add subworlds later
+				{
+					projectile.Kill();
+				}
+			}
+			if (projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			{
+				projectile.Kill();
 			}
 		}
 	}

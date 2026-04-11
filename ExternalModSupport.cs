@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using static AssGen.Assets;
 
 namespace ArcaneOdyssey
 {
@@ -349,6 +350,7 @@ namespace ArcaneOdyssey
 					case "HolyCollider":
 					case "MajesticGuard":
 					case "Karasawa":
+					case "GrandDad":
 						return WeaponType.Strength;
 					case "PrismaticBreaker":
 					case "TheBurningSky":
@@ -370,6 +372,83 @@ namespace ArcaneOdyssey
 				}
 			}
 			return WeaponType.Normal;
+		}
+
+		public static void CheckWeapon(ModItem item)
+		{
+			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
+			{
+				if (item.Name.Contains("greatsword", StringComparison.CurrentCultureIgnoreCase) || item.Name.Contains("claymore", StringComparison.CurrentCultureIgnoreCase))
+				{
+					ArcaneOdysseyMod.Sets.greatsword[item.Type] = true;
+				}
+				if (item.Name.Contains("greataxe", StringComparison.CurrentCultureIgnoreCase))
+				{
+					ArcaneOdysseyMod.Sets.greataxe[item.Type] = true;
+				}
+				if (item.Name.Contains("knives", StringComparison.CurrentCultureIgnoreCase))
+				{
+					ArcaneOdysseyMod.Sets.dagger[item.Type] = true;
+				}
+				if (item.Name.Contains("claws", StringComparison.CurrentCultureIgnoreCase))
+				{
+					ArcaneOdysseyMod.Sets.claw[item.Type] = true;
+				}
+				switch (item.Name)
+				{
+					case "AegisBlade":
+					case "AnarchyBlade":
+					case "Ataraxia":
+					case "BlightedCleaver":
+					case "CelestialClaymore":
+					case "CometQuasher":
+					case "DevilsDevastation":
+					case "DraconicDestruction":
+					case "Earth":
+					case "GalactusBlade":
+					case "GrandDad":
+					case "GrandGuardian":
+					case "Hellkite":
+					case "HolyCollider":
+					case "MajesticGuard":
+					case "Roxcalibur":
+					case "StellarStriker":
+					case "StormRuler":
+					case "TheMutilator":
+					case "VoidEdge":
+						ArcaneOdysseyMod.Sets.greatsword[item.Type] = true;
+						break;
+					case "Avalanche":
+					case "SeekingScorcher":
+						ArcaneOdysseyMod.Sets.greataxe[item.Type] = true;
+						break;
+					case "EmpyreanKnives":
+					case "IllustriousKnives":
+					case "TheDarkMaster":
+						ArcaneOdysseyMod.Sets.dagger[item.Type] = true;
+						break;
+					case "FallenPaladinsHammer":
+					case "GalaxySmasher":
+					case "Pwnagehammer":
+					case "StellarContempt":
+					case "TriactisTruePaladinianMageHammerofMight":
+						ArcaneOdysseyMod.Sets.greathammer[item.Type] = true;
+						break;
+					case "GildedProboscis":
+					case "SkytideDragoon":
+					case "StreamGouge":
+					case "TheBurningSky":
+					case "Violence":
+						ArcaneOdysseyMod.Sets.spear[item.Type] = true;
+						break;
+					case "SaharaSlicers":
+						ArcaneOdysseyMod.Sets.dualbladed[item.Type] = true;
+						break;
+					case "TyphonsGreed":
+						ArcaneOdysseyMod.Sets.staff[item.Type] = true;
+						break;
+				}
+			}
 		}
 	}
 }

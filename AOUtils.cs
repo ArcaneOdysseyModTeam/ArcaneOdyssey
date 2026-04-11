@@ -89,9 +89,15 @@ namespace ArcaneOdyssey
 			return ModContent.GetInstance<T>().LocalizationCategory;
 		}
 
-		public static Rectangle ToTileRect(this Rectangle rect)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="offset">set to 8 to use middle of tiles</param>
+		/// <returns></returns>
+		public static Rectangle ToTileRect(this Rectangle rect, int offset = 0)
 		{
-			return new(rect.X / 16, rect.Y / 16, rect.Width / 16, rect.Height / 16);
+			return new((rect.X / 16) - (offset / 2), (rect.Y / 16) - (offset / 2), (rect.Width / 16) + offset, (rect.Height / 16) + offset);
 		}
 
 		public static Rectangle ToWorldRect(this Rectangle rect)
@@ -1360,7 +1366,7 @@ namespace ArcaneOdyssey
 			player = null;
 			if (entity is Projectile projectile)
 			{
-				player = Main.player[projectile.owner];
+				return projectile.TryGetOwner(out player);
 			}
 			if (entity is NPC npc)
 			{

@@ -65,12 +65,12 @@ namespace ArcaneOdyssey
 				case "AddSizeStat":
 				case "SetSizeStat":
 				case "SizeStat":
-					Sets.SizeStats[(int)args[1]] = (int)args[2];
+					ArcaneOdysseyMod.Sets.SizeStats[(int)args[1]] = (int)args[2];
 					break;
 				case "AddHasteStat":
 				case "SetHasteStat":
 				case "HasteStat":
-					Sets.HasteStats[(int)args[1]] = (int)args[2];
+					ArcaneOdysseyMod.Sets.HasteStats[(int)args[1]] = (int)args[2];
 					break;
 			}
 			return null;
@@ -107,7 +107,6 @@ namespace ArcaneOdyssey
 
 		public override void PostSetupContent()
 		{
-			finishedLoading = true;
 			this.CoolCustomLocalization("RandomWords.Default");
 			this.CoolCustomLocalization("RandomWords.Unbound");
 			this.CoolCustomLocalization("RandomWords.None");
@@ -117,47 +116,6 @@ namespace ArcaneOdyssey
 			this.CoolCustomLocalization("RandomWords.Press");
 			this.CoolCustomLocalization("RandomWords.Kill");
 			this.CoolCustomLocalization("RandomWords.Spare");
-
-			static bool inArray(int i)
-			{
-				return ItemID.Sets.Deprecated[i] || Sets.claw[i] || Sets.spear[i] || Sets.dualbladed[i] || Sets.greatsword[i] || Sets.dagger[i] || Sets.staff[i] || Sets.rapier[i] || Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || Sets.greataxe[i];
-			}
-
-			for (int i = 0; i < ItemLoader.ItemCount; i++)
-			{
-				if (!inArray(i))
-				{
-					var item = new Item(i);
-
-					if (Item.claw[i])
-					{
-						Sets.claw[i] = true;
-					}
-
-					else if (ItemID.Sets.Spears[i])
-					{
-						Sets.spear[i] = true;
-					}
-
-					if (!inArray(i))
-					{
-						if (item.DamageType.CountsAsClass(DamageClass.Melee) && item.axe == 0 && item.hammer == 0 && item.pick == 0 && item.ModItem is not (Imbuable or Scroll) && !item.accessory)
-						{
-							Sets.sword[i] = true;
-						}
-
-						else if (item.useAmmo == AmmoID.Arrow)
-						{
-							Sets.bow[i] = true;
-						}
-
-						else if (item.useAmmo == AmmoID.Bullet)
-						{
-							Sets.gun[i] = true;
-						}
-					}
-				}
-			}
 		}
 
 		public string BTitlesHook_BiomeChecker(Player player)
@@ -230,11 +188,11 @@ namespace ArcaneOdyssey
 
 			public static bool[] dualbladed = ItemID.Sets.Factory.CreateBoolSet();
 
-			public static bool[] dagger = ItemID.Sets.Factory.CreateBoolSet(ItemID.ThrowingKnife, ItemID.PoisonedKnife, ItemID.FrostDaggerfish, ItemID.BoneDagger, ItemID.FlyingKnife, ItemID.ShadowFlameKnife, ItemID.PsychoKnife);
+			public static bool[] dagger = ItemID.Sets.Factory.CreateBoolSet(ItemID.ThrowingKnife, ItemID.VampireKnives, ItemID.PoisonedKnife, ItemID.FrostDaggerfish, ItemID.BoneDagger, ItemID.FlyingKnife, ItemID.ShadowFlameKnife, ItemID.PsychoKnife);
 
 			public static bool[] gun = ItemID.Sets.Factory.CreateBoolSet();
 
-			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer);
+			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer, ItemID.PaladinsHammer);
 		}
 	}
 
@@ -255,6 +213,60 @@ namespace ArcaneOdyssey
 				Main.NewText(message, Color.Yellow);
 			}
 			ArcaneOdysseyMod.NoticeQueue = [];
+		}
+
+		public override void PostSetupRecipes()
+		{
+			ArcaneOdysseyMod.finishedLoading = true;
+
+			static bool inArray(int i)
+			{
+				return ItemID.Sets.Deprecated[i] || ArcaneOdysseyMod.Sets.claw[i] || ArcaneOdysseyMod.Sets.spear[i] || ArcaneOdysseyMod.Sets.dualbladed[i] || ArcaneOdysseyMod.Sets.greatsword[i] || ArcaneOdysseyMod.Sets.dagger[i] || ArcaneOdysseyMod.Sets.staff[i] || ArcaneOdysseyMod.Sets.rapier[i] || ArcaneOdysseyMod.Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || ArcaneOdysseyMod.Sets.greataxe[i];
+			}
+
+			for (int i = 0; i < ItemLoader.ItemCount; i++)
+			{
+				if (!inArray(i))
+				{
+					var item = new Item(i);
+
+					if (item.ModItem is not null)
+					{
+						ExternalModSupport.CheckWeapon(item.ModItem);
+					}
+
+					if (!inArray(i))
+					{
+						if (Item.claw[i])
+						{
+							ArcaneOdysseyMod.Sets.claw[i] = true;
+						}
+
+						else if (ItemID.Sets.Spears[i])
+						{
+							ArcaneOdysseyMod.Sets.spear[i] = true;
+						}
+
+						if (!inArray(i))
+						{
+							if (item.DamageType.CountsAsClass(DamageClass.Melee) && item.axe == 0 && item.hammer == 0 && item.pick == 0 && item.ModItem is not (Imbuable or Scroll) && !item.accessory)
+							{
+								ArcaneOdysseyMod.Sets.sword[i] = true;
+							}
+
+							else if (item.useAmmo == AmmoID.Arrow)
+							{
+								ArcaneOdysseyMod.Sets.bow[i] = true;
+							}
+
+							else if (item.useAmmo == AmmoID.Bullet)
+							{
+								ArcaneOdysseyMod.Sets.gun[i] = true;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
