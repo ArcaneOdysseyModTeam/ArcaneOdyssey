@@ -19,7 +19,6 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.ownerHitCheck = true;
 		}
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 
 		public override void SetStaticDefaults()
 		{

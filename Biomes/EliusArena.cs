@@ -1,6 +1,6 @@
-﻿using ArcaneOdyssey.NPCs.Bosses;
-using ArcaneOdysseyMusic;
+﻿using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,39 +37,6 @@ namespace ArcaneOdyssey.Biomes
 			return false;
 		}
 
-		public override void OnInBiome(Player player)
-		{
-			player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
-			if (NPC.downedBoss1)
-			{
-				if (!AOUtils.BossAlive)
-					player.ArcaneOdyssey().eliusArenaCounter++;
-				else
-					player.ArcaneOdyssey().eliusArenaCounter = 0;
-
-				if (player.ArcaneOdyssey().eliusArenaCounter >= (30 * 60)) // 30 seconds
-				{
-					if (Main.raining || !DownedBosses.DownedElius)
-					{
-						if (AOUtils.ServerOrSingleplayer)
-						{
-							NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16, ModContent.NPCType<LordElius>(), player.whoAmI);
-						}
-					}
-				}
-			}
-		}
-
-		public override void OnLeave(Player player)
-		{
-			player.ArcaneOdyssey().eliusArenaCounter = 0;
-		}
-
-		public override void OnEnter(Player player)
-		{
-			player.ArcaneOdyssey().eliusArenaCounter = 0;
-		}
-
 		public override int Music => MusicTrack.Djin.MusicSlot;
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
@@ -101,6 +68,22 @@ namespace ArcaneOdyssey.Biomes
 		public override void SaveWorldData(TagCompound tag)
 		{
 			tag.Add("eliusarena", eliusArena.ToIntArray());
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(eliusArena.X);
+			writer.Write(eliusArena.Y);
+			writer.Write(eliusArena.Width);
+			writer.Write(eliusArena.Height);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			eliusArena.X = reader.ReadInt32();
+			eliusArena.Y = reader.ReadInt32();
+			eliusArena.Width = reader.ReadInt32();
+			eliusArena.Height = reader.ReadInt32();
 		}
 
 		public override void Load()

@@ -1,6 +1,10 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Base;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Debug
@@ -23,13 +27,16 @@ namespace ArcaneOdyssey.Items.Debug
 			{
 				WorldGenStuff.SpawnEliusArena();
 			}
-			else if (Main.myPlayer == player.whoAmI)
+			else if (Main.dedServ)
 			{
-				Main.NewText("Doesn't work in multiplayer idiot");
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("Debug.Attempt").ToNetworkText(), Color.White);
+				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("Debug.AnyString", EliusArenaLoader.eliusArena.ToString()).ToNetworkText(), Color.White);
 			}
-			Item.SetDefaults(ItemID.DirtBlock);
+			else
+			{
+				Main.NewText("Location found on your client:");
+				Main.NewText(EliusArenaLoader.eliusArena.ToString());
+			}
 		}
-
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 	}
 }

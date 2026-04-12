@@ -43,6 +43,5 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 
 		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 	}
 }

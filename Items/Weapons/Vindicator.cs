@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Items.Weapons
 
 		public override Debuff? WeaponDebuff => null;
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
+		
 
 		public override bool AltFunctionUse(Player player) => true;
 
@@ -90,13 +90,13 @@ namespace ArcaneOdyssey.Items.Weapons
 			}
 		}
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
+		
 	}
 
 	public class CrushingJudgementCooldown : DisplayedCooldown
 	{
 		public override string ExtraIconTexture => AOUtils.GetTexture<Vindicator>();
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
+		
 	}
 }

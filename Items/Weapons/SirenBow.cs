@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			}
 		}
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode; //unobtainable
+		 //unobtainable
 
 		public override void UseAnimation(Player player)
 		{

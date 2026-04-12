@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			knockback *= 3f;
 		}
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
+		
 	}
 
 	public class ToweringImpactCooldown : DisplayedCooldown

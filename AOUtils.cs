@@ -357,6 +357,10 @@ namespace ArcaneOdyssey
 						return tex;
 				}
 			}
+			if (typeof(T).IsSubclassOf(typeof(ModBiome)))
+			{
+				return typeof(T).FullName.Replace('.', '/') + "_Icon";
+			}
 			return typeof(T).FullName.Replace('.', '/');
 		}
 

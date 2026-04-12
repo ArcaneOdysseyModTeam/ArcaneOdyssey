@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Blocks;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

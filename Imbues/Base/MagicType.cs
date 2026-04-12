@@ -61,11 +61,11 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.mana = 10;
+			Item.mana = 5;
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ModContent.ProjectileType<BlastSpell>();
 			Item.autoReuse = true;
-			Item.damage = 10 + (100 * (int)ImbuableTier);
+			Item.damage = 15 + (100 * (int)ImbuableTier);
 			Item.shootSpeed = 7f * ScrollSpeed;
 		}
 

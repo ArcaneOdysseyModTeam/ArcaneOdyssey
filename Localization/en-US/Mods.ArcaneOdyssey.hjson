@@ -446,3 +446,8 @@ MainMenuStyle: {
 	MenuBack: MenuBack
 	Djin: Djin
 }
+
+Debug: {
+	Attempt: Detected an attempt to spawn EliusArena, rejected. Found location:
+	AnyString: "{0}"
+}

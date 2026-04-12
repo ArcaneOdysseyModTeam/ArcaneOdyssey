@@ -127,18 +127,21 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void PreUpdateBuffs()
 		{
-			foreach (var page in AvailablePages())
+			if (Main.myPlayer == Player.whoAmI)
 			{
-				if (!unlockedPages.Contains(page.Name))
+				foreach (var page in AvailablePages())
 				{
-					Main.NewText(Mod.CustomLocalization("NewGuide", page.DisplayName.Value).Value);
+					if (!unlockedPages.Contains(page.Name))
+					{
+						Main.NewText(Mod.CustomLocalization("NewGuide", page.DisplayName.Value).Value);
+					}
 				}
-			}
 
-			foreach (string str in AvailablePages().Select(e => e.Name))
-			{
-				if (!unlockedPages.Contains(str))
-					unlockedPages.Add(str);
+				foreach (string str in AvailablePages().Select(e => e.Name))
+				{
+					if (!unlockedPages.Contains(str))
+						unlockedPages.Add(str);
+				}
 			}
 		}
 

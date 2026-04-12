@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			}
 		}
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
+		
 
 		public override void AI()
 		{

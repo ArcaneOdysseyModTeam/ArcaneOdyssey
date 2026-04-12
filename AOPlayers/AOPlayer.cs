@@ -197,6 +197,35 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				Player.AddBuff(BuffID.Electrified, 2);
 			}
+			if (Player.whoAmI == Main.myPlayer)
+			{
+				if (Player.InModBiome<EliusArena>())
+				{
+					Player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
+					if (NPC.downedBoss1)
+					{
+						if (!AOUtils.BossAlive)
+							eliusArenaCounter++;
+						else
+							eliusArenaCounter = 0;
+
+						if (eliusArenaCounter >= (30 * 60)) // 30 seconds
+						{
+							if (Main.raining || !DownedBosses.DownedElius)
+							{
+								if (AOUtils.ServerOrSingleplayer)
+								{
+									NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16, ModContent.NPCType<LordElius>(), Player.whoAmI);
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					eliusArenaCounter = 0;
+				}
+			}
 
 			if (thundering is not null && Player.RollLuck(5 * 60) == 0)
 			{

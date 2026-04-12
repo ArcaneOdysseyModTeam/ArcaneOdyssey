@@ -12,7 +12,6 @@ namespace ArcaneOdyssey.NPCs
 			Main.npcFrameCount[NPC.type] = 1;
 		}
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode;
 
 		public override void SetDefaults()
 		{

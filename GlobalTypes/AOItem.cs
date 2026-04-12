@@ -25,7 +25,6 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameContent.Biomes;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameInput;
 using Terraria.ID;

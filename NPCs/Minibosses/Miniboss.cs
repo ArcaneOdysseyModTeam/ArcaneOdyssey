@@ -53,6 +53,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			NPC.aiStyle = NPCAIStyleID.FaceClosestPlayer;
 			NPC.knockBackResist = 0.1f;
 			NPC.lifeMax = (AOHealth / 2) + (AOHealth / 4);
+			NPC.rarity = 4;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

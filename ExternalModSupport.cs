@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static AssGen.Assets;
 
 namespace ArcaneOdyssey
 {
