@@ -228,26 +228,13 @@ namespace ArcaneOdyssey
 
 	public class Mastvengence : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info)
-		{
-			if (ExternalModSupport.HasCalamity)
-			{
-				if ((bool)ExternalModSupport.Calamity.Call("DifficultyActive", "revengeance"))
-				{
-					return true;
-				}
-			}
-			return Main.masterMode;
-		}
+		public bool CanDrop(DropAttemptInfo info) => ExternalModSupport.Mastvengence;
 
-		public bool CanShowItemDropInUI() => Main.masterMode || ExternalModSupport.HasCalamity;
+		public bool CanShowItemDropInUI() => ExternalModSupport.Mastvengence;
 
 		public string GetConditionDescription()
 		{
-			if (!ExternalModSupport.HasCalamity)
-				return Language.GetTextValue("Bestiary_ItemDropConditions.IsMasterMode");
-
-			else if (!Main.masterMode)
+			if (ExternalModSupport.HasCalamity && !Main.masterMode)
 				return Language.GetTextValue("Mods.CalamityMod.Condition.InRev");
 
 			return Language.GetTextValue("Bestiary_ItemDropConditions.IsMasterMode");

@@ -109,14 +109,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			
 			if (!hasSetSpawnLocation) //this also is used for setup
 			{
-				NPC.Center = new Vector2((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16);
-				// end test specific
-				NPC.Center = NPC.Center - new Vector2(0,32);
-				Main.NewText("Test: Elius location set");
 				spawnLocation = NPC.position;
 				hasSetSpawnLocation = true;
 				NPC.ai[0] = 1f;
 				NPC.ai[1] = 0f;
+			}
+			else if (!NPC.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			{
+				NPC.position = spawnLocation;
 			}
 
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
@@ -126,27 +126,27 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (NPC.ai[1] < 2f)
 				{
-					Main.NewText("Storm of arrows or something idk");
+					//Main.NewText("Storm of arrows or something idk");
 					NPC.ai[1] = 2f;
 				}
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()*1)+1;
-					Main.NewText(NPC.ai[0]);
+					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()) + 1f;
+					//Main.NewText(NPC.ai[0]);
 				}
 			} else if (NPC.ai[0] == 2)
 			{
 				if (NPC.ai[1] < 2f)
 				{
-					NPC.Center += new Vector2(Main.rand.Next(-100, 100)); //lmao hes just leaving fuck you
+					NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
 					NPC.ai[1] = 2f;
 				}
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()*1)+1;
-					Main.NewText(NPC.ai[0]);
+					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()) + 1f;
+					//Main.NewText(NPC.ai[0]);
 				}
 			}
 			NPC.ai[1]+=1f;
@@ -246,7 +246,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void OnGoToStatue(bool toKingStatue)
 		{
-			NPC.Center = new((EliusArenaLoader.eliusArena.Center.X + 25) * 16f, (EliusArenaLoader.eliusArena.Center.Y + 2) * 16f);
+			NPC.position = spawnLocation;
 		}
 
 		public override bool CanGoToStatue(bool toKingStatue) => true;

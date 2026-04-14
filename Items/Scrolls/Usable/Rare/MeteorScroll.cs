@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		{
 			base.SetDefaults();
 			Item.useTime = Item.useAnimation = 15;
-			Item.damage = 150;
+			Item.damage = 300;
 			Item.mana = 100;
 			Item.UseSound = SoundID.Item82;
 			Item.DamageType = DamageClass.Magic;

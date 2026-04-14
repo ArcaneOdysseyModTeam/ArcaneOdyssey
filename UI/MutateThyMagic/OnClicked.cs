@@ -27,7 +27,13 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 				if (player.GetItem(player.whoAmI, ContentSamples.ItemsByType[ProductSpotLight.Mutation.Type].Clone() , GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
 				{
-					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
+					var item = player.QuickSpawnItemDirect(player.GetSource_FromThis(), newItem, newItem.stack);
+					if (item.ModItem is MagicType magic)
+					{
+						var og = ModContent.GetModItem((int)MagicTypeToID(WhoWeMutating));
+						if (og != null)
+							magic.OriginalImbue = og.Mod.Name + "." + og.Name;
+					}
 				}
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();
@@ -35,7 +41,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 			else if (normieIndex < 0)
 			{
 				SoundEngine.PlaySound(SoundID.Tink);
-				Main.NewText($"Have you managed to lose your [i:{(int)MagicTypeToID(WhoWeMutating)}]? ? ?");
+				Main.NewText($"Have you managed to lose your [i:{(int)MagicTypeToID(WhoWeMutating)}]? What a fool.");
 			}
 			else if (hecateIndex < 0)
 			{

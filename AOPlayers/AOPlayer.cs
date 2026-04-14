@@ -171,7 +171,7 @@ namespace ArcaneOdyssey.AOPlayers
 			if (!hasLoadedWorldBefore)
 			{
 				hasLoadedWorldBefore = true;
-				if (Main.myPlayer == Player.whoAmI && AOUtils.BossesKilled < 1)
+				if (Main.myPlayer == Player.whoAmI)
 				{
 					if (!Player.HasTypeInInventory<EagleLegacy>())
 					{

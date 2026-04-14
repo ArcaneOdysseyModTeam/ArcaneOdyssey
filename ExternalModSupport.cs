@@ -28,6 +28,21 @@ namespace ArcaneOdyssey
 			AddBossChecklist();
 		}
 
+		public static bool Mastvengence
+		{
+			get
+			{
+				if (HasCalamity)
+				{
+					if ((bool)Calamity.Call("DifficultyActive", "revengeance"))
+					{
+						return true;
+					}
+				}
+				return Main.masterMode;
+			}
+		}
+
 		public static void RegisterDebuff(ModBuff buff)
 		{
 			if (HasCalamity)

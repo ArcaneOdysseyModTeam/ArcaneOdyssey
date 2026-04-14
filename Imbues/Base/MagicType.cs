@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Projectiles;
+﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
 using System.Linq;
@@ -6,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
@@ -49,6 +51,38 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing blast sprite");
 			}
+		}
+
+		public string OriginalImbue = ArcaneOdysseyMod.InternalName + "." + nameof(WindMagic);
+
+		public override void SaveData(TagCompound tag)
+		{
+			tag.Add("original", OriginalImbue);
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			var str = tag.GetString("original");
+			OriginalImbue = string.IsNullOrEmpty(str) ? OriginalImbue : str;
+		}
+
+		/// <summary>
+		/// Will be useful for using hecate essense with lost/ancient magic later
+		/// </summary>
+		/// <returns></returns>
+		public MagicType GetBaseImbue()
+		{
+			if (ModLoader.TryGetMod(OriginalImbue.Split('.')[0], out var mod))
+			{
+				if (mod.TryFind<ModItem>(OriginalImbue.Split('.')[1], out var item))
+				{
+					if (item is MagicType)
+					{
+						return item as MagicType;
+					}
+				}
+			}
+			return ModContent.GetInstance<WindMagic>();
 		}
 
 		public virtual void RegisterMutations() { }
