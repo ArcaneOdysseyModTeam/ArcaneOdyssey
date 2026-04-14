@@ -192,16 +192,12 @@ namespace ArcaneOdyssey.AOPlayers
 				Imbue = null;
 			}
 			Player.statDefense -= _defenseLost;
-
-			if ((!Player.InModBiome<EliusArena>()) && AOUtils.NPCAlive<LordElius>())
+			
+			if (Player.InModBiome<EliusArena>())
 			{
-				Player.AddBuff(BuffID.Electrified, 2);
-			}
-			if (Player.whoAmI == Main.myPlayer)
-			{
-				if (Player.InModBiome<EliusArena>())
+				Player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
+				if (AOUtils.ServerOrSingleplayer)
 				{
-					Player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
 					if (NPC.downedBoss1)
 					{
 						if (!AOUtils.BossAlive)
@@ -213,19 +209,19 @@ namespace ArcaneOdyssey.AOPlayers
 						{
 							if (Main.raining || !DownedBosses.DownedElius)
 							{
-								if (AOUtils.ServerOrSingleplayer)
-								{
-									NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 1) * 16, ModContent.NPCType<LordElius>(), Player.whoAmI);
-								}
+								NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, EliusArenaLoader.eliusArena.Center.Y * 16, ModContent.NPCType<LordElius>(), Player.whoAmI);
 							}
 						}
 					}
 				}
-				else
-				{
-					eliusArenaCounter = 0;
-				}
 			}
+			else
+			{
+				eliusArenaCounter = 0;
+				if (AOUtils.NPCAlive<LordElius>())
+					Player.AddBuff(BuffID.Electrified, 2);
+			}
+			
 
 			if (thundering is not null && Player.RollLuck(5 * 60) == 0)
 			{

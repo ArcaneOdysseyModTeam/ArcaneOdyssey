@@ -18,13 +18,13 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.damage = 50;
+			Item.damage = 60;
 			Item.reuseDelay = 60;
 			Item.InterruptChannelOnHurt = true;
 			Item.channel = true;
 			Item.DamageType = DamageClass.MagicSummonHybrid;
 			Item.UseSound = SoundID.Item84;
-			Item.mana = 100;
+			Item.mana = 25;
 			Item.shoot = ModContent.ProjectileType<ExplosionSpell>();
 			Item.useAnimation = Item.useTime = 40;
 		}

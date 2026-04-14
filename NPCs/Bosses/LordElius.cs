@@ -214,7 +214,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override bool CheckDead()
 		{
-			if (DownedBosses.DownedElius)
+			if (Main.netMode != NetmodeID.SinglePlayer || DownedBosses.DownedElius)
 			{
 				return true;
 			}

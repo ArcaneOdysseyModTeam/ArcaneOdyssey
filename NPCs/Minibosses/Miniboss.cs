@@ -99,25 +99,28 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (TileInOuterThirds(spawnInfo.SpawnTileX, spawnInfo.SpawnTileY))
+			if (TileInOuterThirds(spawnInfo.SpawnTileX, spawnInfo.SpawnTileY) || !Downed)
 			{
 				if (!AOMinibossOrBossAlive())
 				{
-					if (ExtraConditions)
+					if (spawnInfo.SpawnTileY < Main.UnderworldLayer)
 					{
-						if (!spawnInfo.Player.ZoneRockLayerHeight)
+						if (ExtraConditions)
 						{
-							if (!spawnInfo.SafeRangeX)
+							if (!spawnInfo.Player.ZoneRockLayerHeight)
 							{
-								if (!spawnInfo.PlayerSafe)
+								if (!spawnInfo.SafeRangeX)
 								{
-									if (!spawnInfo.Invasion)
+									if (!spawnInfo.PlayerSafe)
 									{
-										if (!spawnInfo.Water)
+										if (!spawnInfo.Invasion)
 										{
-											if (!spawnInfo.Sky)
+											if (!spawnInfo.Water)
 											{
-												return 1f / (Downed ? 300f : 150f);
+												if (!spawnInfo.Sky)
+												{
+													return 1f / 150f;
+												}
 											}
 										}
 									}

@@ -62,6 +62,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (AOUtils.BossesKilled > 0)
 			{
+				AddOption<EffervescenceRite>();
 				AddOption<SmashScroll>();
 				AddOption<HoundRite>();
 				AddOption<CannonScroll>();

@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		}
 
 		public int Target { get => (int)Projectile.ai[0]; set => Projectile.ai[0] = value; }
-		public int oldTarget;
+		public int OldTarget { get => (int)Projectile.localAI[0]; set => Projectile.localAI[0] = value; }
 
 		public override void AI()
 		{
@@ -77,10 +77,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (Main.myPlayer == Projectile.owner)
 			{
 				Target = AOUtils.ClosestNPCAt(Projectile.Center, ApplySpeed(12f) * 120, false, true)?.whoAmI ?? -1;
-				if (Target != oldTarget)
+				if (Target != OldTarget)
 				{
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
+					OldTarget = Target;
 				}
 			}
 			if (Target != -1)

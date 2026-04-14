@@ -141,6 +141,12 @@ Usable: {
 			Tooltip: Fires magic blasts rapidly
 			SkillName: Barrage
 		}
+
+		EffervescenceRite: {
+			SkillName: Effervescence
+			DisplayName: Effervescence Rite
+			Tooltip: Creates a circle of auto-aiming spirit
+		}
 	}
 
 	Rare: {

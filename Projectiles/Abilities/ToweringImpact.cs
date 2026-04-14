@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.CameraModifiers;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {

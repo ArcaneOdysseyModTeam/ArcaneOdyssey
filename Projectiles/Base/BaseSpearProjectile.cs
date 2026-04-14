@@ -86,11 +86,8 @@ namespace ArcaneOdyssey.Projectiles.Base
 					Projectile.ai[1] -= SpearSpeed / (Projectile.extraUpdates + 1f);
 					if (Projectile.localAI[0] == 0f)
 					{
-						if (Projectile.owner == Main.myPlayer)
-						{
-							Projectile.netUpdate = true;
-							Projectile.netSpam = 0;
-						}
+						Projectile.netUpdate = true;
+						Projectile.netSpam = 0;
 						Projectile.localAI[0] = 1f;
 						EffectBeforeReelBack();
 					}
@@ -100,8 +97,8 @@ namespace ArcaneOdyssey.Projectiles.Base
 					Projectile.ai[1] += SpearSpeed / (Projectile.extraUpdates + 1f);
 				}
 
-				Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver2 * Projectile.spriteDirection) - MathHelper.PiOver4;
-				if (Owner.ItemAnimationEndingOrEnded)
+				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+				if (Owner.ItemAnimationEndingOrEnded && Projectile.owner == Main.myPlayer)
 				{
 					Kill();
 				}

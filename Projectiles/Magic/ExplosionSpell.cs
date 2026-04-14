@@ -16,10 +16,12 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			base.SetDefaults();
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-			Projectile.width = Projectile.height = 100;
+			Projectile.width = Projectile.height = 200;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
+			Projectile.ownerHitCheck = true;
 			Projectile.timeLeft = 30;
+			Projectile.penetrate = -1;
 			SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center, null);
 		}
 
