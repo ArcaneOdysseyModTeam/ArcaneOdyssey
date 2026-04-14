@@ -597,8 +597,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				Player player = Main.LocalPlayer;
 
-				//														Spoky (2026 Fev 08): in case the change should only apply to normal imbues, decomment this
-				if (!(Type == ModContent.ItemType<SpiritEnergy>() || this is EaglePatrimony or MagicType or FightingStyle /*&& ImbuableTier == AOImbuableTier.Normal*/))
+				if (!(Type == ModContent.ItemType<SpiritEnergy>() || this is EaglePatrimony or MagicType or FightingStyle && ImbuableTier == ImbuableTiers.Normal))
 				{
 					//Main.NewText($"Item is not swappable");
 					return false;

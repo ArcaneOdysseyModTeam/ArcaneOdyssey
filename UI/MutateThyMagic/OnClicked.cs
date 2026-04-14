@@ -22,18 +22,24 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 			if (normieIndex >= 0 && hecateIndex >= 0 && ProductSpotLight.Mutation is not null)
 			{
-				player.inventory[normieIndex].TurnToAir(); 
-				player.inventory[hecateIndex].TurnToAir(); 
+				player.inventory[normieIndex].SetDefaults(ProductSpotLight.Mutation.Type);
+				player.inventory[hecateIndex].TurnToAir();
 
-				if (player.GetItem(player.whoAmI, ContentSamples.ItemsByType[ProductSpotLight.Mutation.Type].Clone() , GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
+				var newItem = player.inventory[normieIndex];
+
+				//if (player.GetItem(player.whoAmI, ContentSamples.ItemsByType[ProductSpotLight.Mutation.Type].Clone(), GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item)
+				//{
+				//	if (newItem.netID != ItemID.None)
+				//	{
+				//		newItem = player.QuickSpawnItemDirect(player.GetSource_FromThis(), newItem, newItem.stack);
+				//	}
+				//}
+
+				if (newItem.ModItem is MagicType magic)
 				{
-					var item = player.QuickSpawnItemDirect(player.GetSource_FromThis(), newItem, newItem.stack);
-					if (item.ModItem is MagicType magic)
-					{
-						var og = ModContent.GetModItem((int)MagicTypeToID(WhoWeMutating));
-						if (og != null)
-							magic.OriginalImbue = og.Mod.Name + "." + og.Name;
-					}
+					var og = ModContent.GetModItem((int)MagicTypeToID(WhoWeMutating));
+					if (og != null)
+						magic.OriginalImbue = og.Mod.Name + "." + og.Name;
 				}
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();

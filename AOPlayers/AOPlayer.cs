@@ -175,11 +175,11 @@ namespace ArcaneOdyssey.AOPlayers
 				{
 					if (!Player.HasTypeInInventory<EagleLegacy>())
 					{
-						Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<EagleLegacy>(), noBroadcast: true, noGrabDelay: true);
+						Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<EagleLegacy>());
 					}
 					if (!Player.HasTypeInInventory<TitleMusicBox>())
 					{
-						Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<TitleMusicBox>(), noBroadcast: true, noGrabDelay: true);
+						Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<TitleMusicBox>());
 					}
 				} 
 			}

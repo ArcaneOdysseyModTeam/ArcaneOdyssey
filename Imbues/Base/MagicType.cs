@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
@@ -53,17 +54,35 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public string OriginalImbue = ArcaneOdysseyMod.InternalName + "." + nameof(WindMagic);
+		public const string DefaultOriginalImbue = ArcaneOdysseyMod.InternalName + "." + nameof(WindMagic);
+
+		public string OriginalImbue = DefaultOriginalImbue;
 
 		public override void SaveData(TagCompound tag)
 		{
-			tag.Add("original", OriginalImbue);
+			base.SaveData(tag);
+			if (OriginalImbue != DefaultOriginalImbue)
+				tag.Add("original", OriginalImbue);
 		}
 
 		public override void LoadData(TagCompound tag)
 		{
+			base.LoadData(tag);
 			var str = tag.GetString("original");
-			OriginalImbue = string.IsNullOrEmpty(str) ? OriginalImbue : str;
+			if (!string.IsNullOrEmpty(str))
+				OriginalImbue = str;
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			base.NetSend(writer);
+			writer.Write(OriginalImbue);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			base.NetReceive(reader);
+			OriginalImbue = reader.ReadString();
 		}
 
 		/// <summary>
