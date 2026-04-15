@@ -64,39 +64,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Projectile.frame = 0;
 				}
 			}
-
-			if (!Main.dedServ)
-			{
-				if (Projectile.localAI[0]++ < (85f * Projectile.Opacity))
-				{
-					var proj = Projectile.Center;
-
-					proj += Projectile.velocity * Projectile.localAI[0];
-
-					var tile = AOUtils.GetTile(proj.ToTileCoordinates().X, proj.ToTileCoordinates().Y);
-					if (!tile.IsTileReallySolidGround())
-					{
-						Imbue?.LingeringEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
-						SecondImbue?.LingeringEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
-					}
-					else
-					{
-						Projectile.localAI[0] = 0;
-					}
-					
-					
-					if (tile.IsTileReallySolidGround() || (tile.LiquidAmount > 0))
-					{
-						Imbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
-						SecondImbue?.KillEffects(Projectile.Hitbox with { Location = (proj - (Projectile.Size / 2f)).ToPoint() });
-						Projectile.localAI[0] = 0;
-					}
-				}
-				else
-				{
-					Projectile.localAI[0] = 0;
-				}
-			}
 			
 			if (AOPlayerOwner.myCircle is not null && !dying)
 			{
@@ -105,6 +72,12 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Projectile.velocity = AOPlayerOwner.myCircle.Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				Projectile.Center = AOPlayerOwner.myCircle.Projectile.Center - (Projectile.velocity * 1.75f);
+				if (!Main.dedServ)
+				{
+					var dist = Projectile.Distance(End);
+					Imbue?.ConeEffects(Projectile.Center, dist, Projectile.rotation);
+					SecondImbue?.ConeEffects(Projectile.Center, dist, Projectile.rotation);
+				}
 			}
 			else
 			{
@@ -118,6 +91,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				{
 					Kill();
 				}
+			}
+
+			if (Projectile.position != Projectile.oldPosition)
+			{
+				NetUpdate();
 			}
 		}
 
@@ -157,6 +135,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			var info = AOUtils.DrawChain(Projectile.Center, End, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
 			var end = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
 			Main.EntitySpriteDraw(EndSprite, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Projectile.rotation = info.Rotation;
 			return false;
 		}
 	}

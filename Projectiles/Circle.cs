@@ -49,6 +49,8 @@ namespace ArcaneOdyssey.Projectiles
 			writer.WriteFlags(MarkedForDeath, playedsound, originallyAltFire);
 			writer.Write(ChargingProjectile);
 			writer.Write(charge);
+			writer.Write(ProjectileSpread);
+			writer.Write(Projectile.rotation);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -56,6 +58,8 @@ namespace ArcaneOdyssey.Projectiles
 			reader.ReadFlags(out MarkedForDeath, out playedsound, out originallyAltFire);
 			ChargingProjectile = reader.ReadInt32();
 			charge = reader.ReadSingle();
+			ProjectileSpread = reader.ReadSingle();
+			Projectile.rotation = reader.ReadSingle();
 		}
 
 		public override void SetDefaults()

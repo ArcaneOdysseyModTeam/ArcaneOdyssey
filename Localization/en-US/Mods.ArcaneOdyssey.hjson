@@ -280,6 +280,7 @@ ArmourAutoTooltip: {
 	Size: "{0}% increased attack size"
 	Pierce: Increases armour penetration by {0}
 	Haste: "{0}% reduced ability cooldown"
+	Insanity: Insanity increased by {0}
 }
 
 CodebreakerDialogOption: {
@@ -435,6 +436,7 @@ Prefixes: {
 	Bursting.DisplayName: Bursting
 	Enhanced.DisplayName: Enhanced
 	Explosive.DisplayName: Explosive
+	AtlanteanPrefix.DisplayName: Atlantean
 }
 
 MenacingMessages.EliusAvailable: Thunder rumbles to the east...

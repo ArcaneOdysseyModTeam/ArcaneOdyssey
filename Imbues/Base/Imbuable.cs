@@ -271,7 +271,13 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// <summary>
 		/// For surge, ect
 		/// </summary>
-		public virtual void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle) { }
+		public virtual void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0f)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				AOUtils.NewDustImperfect(coneCenter, DustID.ShimmerSpark, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: Colour, Scale: .2f * (coneLength / 25f));
+			}
+		}
 
 		public override void UseAnimation(Player player)
 		{

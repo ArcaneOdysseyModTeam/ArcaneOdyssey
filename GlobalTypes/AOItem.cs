@@ -14,6 +14,7 @@ using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Prefixes;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Berserker.Effects;
 using Microsoft.Xna.Framework;
@@ -21,6 +22,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -31,6 +33,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
@@ -79,6 +82,70 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			return value;
 		}
+
+		/// <summary>
+		/// Adds atlantean essence to an item
+		/// </summary>
+		/// <returns>Whether it was applied successfully</returns>
+		public bool AddAtlanteanEssense()
+		{
+			if (thisItem is not null)
+			{
+				if (thisItem.accessory && thisItem.prefix != ModContent.PrefixType<AtlanteanPrefix>())
+				{
+					return thisItem.Prefix(ModContent.PrefixType<AtlanteanPrefix>());
+				}
+			}
+			return false;
+		}
+
+		public enum RandomBoostType
+		{
+			Power,
+			Defense,
+			Agility,
+			Size,
+			Haste,
+			Pierce,
+			Mana,
+			Minions
+		}
+
+		public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+		{
+
+		}
+
+		public override void SaveData(Item item, TagCompound tag)
+		{
+			thisItem = item;
+			if (AtlanteanApplied)
+			{
+				tag.Add("atlantean", (int)Boost);
+			}
+		}
+
+		public override void NetSend(Item item, BinaryWriter writer)
+		{
+			thisItem = item;
+		}
+
+		public override void NetReceive(Item item, BinaryReader reader)
+		{
+			thisItem = item;
+		}
+
+		public override void LoadData(Item item, TagCompound tag)
+		{
+			thisItem = item;
+			if (tag.ContainsKey("atlantean"))
+			{
+				Boost = (RandomBoostType)tag.GetInt("atlantean");
+			}
+		}
+
+		public bool AtlanteanApplied => thisItem.prefix == ModContent.PrefixType<AtlanteanPrefix>();
+		public RandomBoostType? Boost = null;
 
 		public float ApplySize(float value, bool flipfloat = false)
 		{
@@ -246,6 +313,18 @@ namespace ArcaneOdyssey.GlobalTypes
 			set => _canImbue = value;
 		}
 
+		public override void ApplyPrefix(Item item, int pre)
+		{
+			if (pre == ModContent.PrefixType<AtlanteanPrefix>())
+			{
+				Boost ??= Main.rand.Next(Enum.GetValues<RandomBoostType>());
+			}
+			else
+			{
+				Boost = null;
+			}
+		}
+
 
 		private bool? _cold = null;
 		public bool? Cold
@@ -276,6 +355,15 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			thisItem = item;
+
+			if (AtlanteanApplied)
+			{
+				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
+				Vector2 location = position + (dimensions * .5f * scale);
+
+				spriteBatch.Draw(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value, location, null, Color.White, 0, TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value.Size() / 2f, .3f * (52f / Math.Max(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Width(), TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Height())), SpriteEffects.None, 1f);
+			}
+
 			if (Imbue is null || !CanBeAffected)
 				return;
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
@@ -973,6 +1061,16 @@ namespace ArcaneOdyssey.GlobalTypes
 				case WeaponType.Strength:
 					tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
 					return;
+			}
+
+			if (AtlanteanApplied && Boost.HasValue)
+			{
+				var tip = tooltips.Find(e => e.Mod == Mod.Name && e.Name == "RandomStat" && e.IsModifier == true);
+				if (tip is not null)
+				{
+					if (Boost is not RandomBoostType.Power)
+						tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", "???").Value;
+				}
 			}
 		}
 	}

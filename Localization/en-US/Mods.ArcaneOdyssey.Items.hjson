@@ -176,6 +176,16 @@ Consumable: {
 		DisplayName: Hecate Shard
 		Tooltip: Mutates a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
 	}
+
+	AtlanteanEssence: {
+		DisplayName: Atlantean Essence
+		Tooltip:
+			'''
+			'Prolonged exposure to magic has mutated them, becoming mindless beasts'
+			Can be applied to accessories to grant a random stat in exchange for a level of insanity
+			Prioritizes the first applicable item in your inventory, be careful not to mess up
+			'''
+	}
 }
 
 Blocks: {

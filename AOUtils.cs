@@ -67,6 +67,13 @@ namespace ArcaneOdyssey
 			"Terraria Tooltip",
 		];
 
+		public static Vector2 Add(this Vector2 vec, float add)
+		{
+			return vec.SafeNormalize() * (vec.Length() + add);
+		}
+
+		public static Vector2 SafeNormalize(this Vector2 vector) => vector.SafeNormalize(Vector2.Zero);
+
 		public static int BiomeType<T>() where T : ModBiome => ModContent.GetInstance<T>()?.Type ?? 0;
 
 		public static IItemDropRule Common<T>(int chanceDenominator = 1, int minimumDropped = 1, int maximumDropped = 1) where T : ModItem

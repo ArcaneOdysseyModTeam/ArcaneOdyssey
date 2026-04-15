@@ -8,26 +8,26 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
-	public class RaySpell : RareScroll
+	public class SurgeSpell : RareScroll
 	{
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.mana = 12;
+			Item.mana = 15;
 			Item.DamageType = DamageClass.Magic;
 			Item.shootSpeed = 7f;
 			Item.channel = true;
-			Item.damage = 22;
+			Item.damage = 15;
 			Item.useTime = Item.useAnimation = 5;
-			Item.knockBack = 1f;
-			Item.shoot = ModContent.ProjectileType<MagicRay>();
+			Item.knockBack = 0f;
+			Item.shoot = ModContent.ProjectileType<Surge>();
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false);
+			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false, spread: ApplySpeed(MathHelper.PiOver4 / 2f));
 			ActivateAbility(player);
 			return true;
 		}

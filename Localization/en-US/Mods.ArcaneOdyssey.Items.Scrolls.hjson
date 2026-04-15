@@ -186,7 +186,7 @@ Usable: {
 
 		RaySpell: {
 			DisplayName: Ray Spell
-			Tooltip: Fires a continuously exploding beam of magic
+			Tooltip: Fires a continuous beam of magic
 			SkillName: Ray
 		}
 
@@ -224,6 +224,12 @@ Usable: {
 			DisplayName: Shot Technique
 			Tooltip: Shoots a quick blast of air
 			SkillName: Shot
+		}
+
+		SurgeSpell: {
+			SkillName: Surge
+			DisplayName: Surge Spell
+			Tooltip: Releases a surge of raw, unrefined magical energy
 		}
 	}
 }
