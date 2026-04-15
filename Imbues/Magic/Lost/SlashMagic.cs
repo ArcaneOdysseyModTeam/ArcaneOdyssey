@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -70,6 +71,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SlashDust>(), direction.X / 2f, direction.Y / 2f, Alpha: 60, Scale: .5f * area.RelativeScale());
 			}
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<WindMagic>();
 		}
 	}
 }

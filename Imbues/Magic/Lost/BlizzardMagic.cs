@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -97,6 +98,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			base.AutoStaticDefaults();
 
 			ModContent.RequestIfExists(Texture.Replace(Name, AttackPrefix + "Trail"), out trail);
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<SnowMagic>();
 		}
 	}
 }

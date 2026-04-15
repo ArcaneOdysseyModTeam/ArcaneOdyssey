@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using System;
@@ -90,6 +91,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage / 4, 0, projectile.owner);
 				}
 			}
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<LightningMagic>();
 		}
 	}
 }

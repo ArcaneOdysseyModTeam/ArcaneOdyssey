@@ -89,5 +89,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
+
+		public override void RegisterMutations()
+		{
+
+		}
 	}
 }

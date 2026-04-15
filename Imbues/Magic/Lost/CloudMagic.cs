@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -83,6 +84,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<WindMagic>();
 		}
 	}
 }

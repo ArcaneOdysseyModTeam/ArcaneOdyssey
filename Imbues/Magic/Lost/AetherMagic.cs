@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -16,6 +17,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override void RegisterMutations()
 		{
 			RegisterMutation<IonMagic>();
+			RegisterDefaultMagic<LightMagic>();
 		}
 		
 		public override float DashSpeed => 1.4f; // instant

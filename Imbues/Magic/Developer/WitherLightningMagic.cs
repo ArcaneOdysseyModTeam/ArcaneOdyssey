@@ -29,5 +29,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.Vortex, Vector2.Zero, Scale: 2f);
 			spawnedDust.noGravity = true;
 		}
+
+		public override void RegisterMutations()
+		{
+
+		}
 	}
 }

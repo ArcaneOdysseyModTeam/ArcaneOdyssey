@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -14,6 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DeathMagic>();
+			RegisterDefaultMagic<ShadowMagic>();
 		}
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst

@@ -15,5 +15,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Trauma>()];
 
 		public override int BlastFrames => 1;
+
+		public override void RegisterMutations()
+		{
+			
+		}
 	}
 }

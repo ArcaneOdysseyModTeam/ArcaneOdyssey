@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -85,6 +86,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IchorTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<LightningMagic>();
 		}
 	}
 }

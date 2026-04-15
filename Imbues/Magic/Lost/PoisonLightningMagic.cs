@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using System;
@@ -106,6 +107,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				proj.netUpdate = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<PoisonMagic>();
 		}
 	}
 }

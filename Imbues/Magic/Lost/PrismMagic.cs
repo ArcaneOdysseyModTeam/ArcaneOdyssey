@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using System;
@@ -125,6 +126,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				dust.noGravity = true;
 				rainbowStep++;
 			}
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<GlassMagic>();
 		}
 	}
 }

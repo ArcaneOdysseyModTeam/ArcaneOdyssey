@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DeathMagic>();
+			RegisterDefaultMagic<AshMagic>();
 		}
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

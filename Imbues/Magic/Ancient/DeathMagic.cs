@@ -1,4 +1,5 @@
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -60,6 +61,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<DarknessMagic>();
 		}
 	}
 }

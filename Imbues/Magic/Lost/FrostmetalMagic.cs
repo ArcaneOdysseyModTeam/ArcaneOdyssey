@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -122,6 +123,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Mercury, 2f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void RegisterMutations()
+		{
+			RegisterDefaultMagic<IceMagic>();
 		}
 	}
 }

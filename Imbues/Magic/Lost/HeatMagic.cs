@@ -3,6 +3,7 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -17,6 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override void RegisterMutations()
 		{
 			RegisterMutation<IonMagic>();
+			RegisterDefaultMagic<FireMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.OrangeRed;
