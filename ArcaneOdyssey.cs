@@ -193,6 +193,8 @@ namespace ArcaneOdyssey
 			public static bool[] gun = ItemID.Sets.Factory.CreateBoolSet();
 
 			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer, ItemID.PaladinsHammer);
+
+			public static int[] baseImbues = ItemID.Sets.Factory.CreateIntSet();
 		}
 	}
 

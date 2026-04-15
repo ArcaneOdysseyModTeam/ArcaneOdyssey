@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.LightGray;
 		public override Color ImbueColour2 => Color.DarkGray;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override float ImbueSpeed => .9f;
-		public override float ImbueSize => 1.3f;
-		public override float ImbueDamage => .8f;
+		public override float ScrollSpeed => .9f;
+		public override float ScrollSize => 1.3f;
+		public override float ScrollDamage => .8f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(5 * 60)];
 
 		public override SynergyEffects Effects => new(
@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 6f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BubbleBurst_White, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

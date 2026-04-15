@@ -90,6 +90,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.SnowflakeIce, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.Ice, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2f * intensity)];
+				spawnedDust2.noGravity = true;
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

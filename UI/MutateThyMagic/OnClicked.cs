@@ -85,15 +85,15 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		{
 			suffix = p.CurrentType switch
 			{
-				MagicTypes.Acid or MagicTypes.Sand or MagicTypes.Sand or MagicTypes.Shadow => PickOne(["AndJustGoingToTheToilet", "ANDORDERING54NUGGETS"]),
+				MagicTypes.Acid or MagicTypes.Sand or MagicTypes.Sand or MagicTypes.Shadow => Main.rand.Next(["AndJustGoingToTheToilet", "ANDORDERING54NUGGETS"]),
 
-				MagicTypes.Ash or MagicTypes.Crystal or MagicTypes.Magma or MagicTypes.Glass => PickOne(["AndScanning500Coupons", "AndJustBuyingABigMac", "AndJustGoingToTheToilet"]),
+				MagicTypes.Ash or MagicTypes.Crystal or MagicTypes.Magma or MagicTypes.Glass => Main.rand.Next(["AndScanning500Coupons", "AndJustBuyingABigMac", "AndJustGoingToTheToilet"]),
 
-				MagicTypes.Earth or MagicTypes.Explosion or MagicTypes.Fire or MagicTypes.Lightning or MagicTypes.Earth => PickOne(["AndOrderingSomethingActuallyInteresting", "ANDORDERING54NUGGETS"]),
+				MagicTypes.Earth or MagicTypes.Explosion or MagicTypes.Fire or MagicTypes.Lightning or MagicTypes.Earth => Main.rand.Next(["AndOrderingSomethingActuallyInteresting", "ANDORDERING54NUGGETS"]),
 
-				MagicTypes.Light or MagicTypes.Metal or MagicTypes.Plasma or MagicTypes.Poison => PickOne(["AndJustBuyingABigMac", "ANDORDERING54NUGGETS", "AndJustGoingToTheToilet"]),
+				MagicTypes.Light or MagicTypes.Metal or MagicTypes.Plasma or MagicTypes.Poison => Main.rand.Next(["AndJustBuyingABigMac", "ANDORDERING54NUGGETS", "AndJustGoingToTheToilet"]),
 
-				MagicTypes.Ice or MagicTypes.Snow or MagicTypes.Water or MagicTypes.Wind or MagicTypes.Wood => PickOne(["AndOrderingSodaWITHEXTRAICE"]),
+				MagicTypes.Ice or MagicTypes.Snow or MagicTypes.Water or MagicTypes.Wind or MagicTypes.Wood => Main.rand.Next(["AndOrderingSodaWITHEXTRAICE"]),
 
 				MagicTypes.None or MagicTypes.ReturnToMonke or MagicTypes.MonkLife or MagicTypes.HeHasAcceptedChristInHisHeart or _ => "AndWaitWaitWhat",
 			};
@@ -164,8 +164,6 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		//string text = "";
 		//foreach (var s in mutations) text += $"[i:{s}], ";
 		//Main.NewText($"Hmming {text}, {mutations.Count}, {magic.Name}");
-
-		static string PickOne(List<string> strings) => strings[Main.rand.Next(strings.Count)];
 	}
 
 	protected void MutationChosen(CustomProduct product)

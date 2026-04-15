@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SlashDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Alpha: 60, Scale: intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SlashDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Alpha: 60, Scale: 2f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}

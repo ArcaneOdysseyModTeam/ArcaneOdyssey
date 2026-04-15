@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.GemSapphire, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity);
+				Dust.NewDustDirect(position, 0, 0, DustID.GemSapphire, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity).noGravity = true;
 			}
 		}
 

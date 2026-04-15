@@ -56,6 +56,23 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public const string DefaultOriginalImbue = ArcaneOdysseyMod.InternalName + "." + nameof(WindMagic);
 
+		public string BaseImbue
+		{
+			get
+			{
+				var type = ArcaneOdysseyMod.Sets.baseImbues[Type];
+				if (type != -1)
+				{
+					var item = ModContent.GetModItem(type);
+					if (item != null)
+					{
+						return item.Mod.Name + "." + item.Name;
+					}
+				}
+				return DefaultOriginalImbue;
+			}
+		}
+
 		public string OriginalImbue = DefaultOriginalImbue;
 
 		public override void SaveData(TagCompound tag)
@@ -71,6 +88,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			var str = tag.GetString("original");
 			if (!string.IsNullOrEmpty(str))
 				OriginalImbue = str;
+			else
+				OriginalImbue = BaseImbue;
 		}
 
 		public override void NetSend(BinaryWriter writer)
@@ -104,11 +123,16 @@ namespace ArcaneOdyssey.Imbues.Base
 			return ModContent.GetInstance<WindMagic>();
 		}
 
-		public virtual void RegisterMutations() { }
+		public abstract void RegisterMutations();
 
 		public void RegisterMutation<T>() where T : MagicType
 		{
 			ArcaneOdysseyMod.Sets.Mutations[Type].Add(ModContent.ItemType<T>());
+		}
+
+		public void RegisterDefaultMagic<T>() where T : MagicType
+		{
+			ArcaneOdysseyMod.Sets.baseImbues[Type] = ModContent.ItemType<T>();
 		}
 
 		public override void SetDefaults()

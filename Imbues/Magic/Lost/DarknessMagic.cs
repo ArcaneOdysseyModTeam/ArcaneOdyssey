@@ -63,9 +63,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 2; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (35f * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.VampireHeal, (Main.rand.NextFloat() - 0.5f) * (35f * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.VampireHeal, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}

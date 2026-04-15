@@ -52,17 +52,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			for (float e = 13; e < 18; e++)
+			for (float i = 0; i < DustCount; i++)
 			{
-				if (!Main.dedServ)
-				{
-					for (float i = 0; i < DustCount; i++)
-					{
-						var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (300f * intensity);
-						var dust = Dust.NewDustPerfect(position, DustID.MushroomTorch, centre / e, Scale: 2f * intensity);
-						dust.noGravity = true;
-					}
-				}
+				float e = Main.rand.Next(13, 18);
+				var centre = (MathHelper.TwoPi / DustCount * (i + Main.rand.NextFloat())).ToRotationVector2() * (300f * intensity);
+				var dust = Dust.NewDustPerfect(position, DustID.MushroomTorch, (centre / e) * .4f, Scale: 2f * intensity);
+				dust.noGravity = true;
 			}
 		}
 

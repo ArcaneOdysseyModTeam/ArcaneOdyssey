@@ -17,11 +17,13 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.blasts[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
 		public override float Size => .5f;
 		public override float Speed => .25f;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
 		}
+
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			width /= 4;
@@ -34,11 +36,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		{
 			if (Projectile.ai[0] == 0)
 			{
-				if (Main.myPlayer == Projectile.owner)
-				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
-				}
+				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
 				Projectile.ai[0] = 1;
 			}
 			var frequency = Projectile.ai[1] == 0 ? 1f : 2f;
@@ -53,27 +52,19 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (Projectile.localAI[0] >= 30)
 			{
 				Projectile.localAI[0] = 0;
-				for (int i = 0; i < 15; i++)
-				{
-					Imbue?.ExplosionEffects(Projectile.Center);
-					SecondImbue?.ExplosionEffects(Projectile.Center);
-					Imbue?.ExplosionEffects(Projectile.Center);
-				}
 				if (Main.myPlayer == Projectile.owner)
+				{
 					AOUtils.SimulateAOE(130, Projectile.damage / frequency, Projectile.Center, 0f, Projectile, DamageClass.Magic, false);
+				}
 				if (!Main.dedServ)
 				{
+					for (int i = 0; i < 15; i++)
+					{
+						Imbue?.ExplosionEffects(Projectile.Center, Projectile.scale / Size);
+						SecondImbue?.ExplosionEffects(Projectile.Center, Projectile.scale / Size);
+					}
 					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
 					Main.instance.CameraModifiers.Add(modifier);
-				}
-			}
-			if (Projectile.ai[2] == 0f)
-			{
-				Projectile.ai[2] = 1f;
-				if (Main.myPlayer == Projectile.owner)
-				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
 				}
 			}
 			if (Projectile.frameCounter++ > 5)

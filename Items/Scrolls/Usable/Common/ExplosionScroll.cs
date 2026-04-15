@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Projectiles.Relics;
 using Microsoft.Xna.Framework;
@@ -66,7 +67,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Rotating, false, type, player.AltUse());
+			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Rotating, false, type, player.AltUse());
 			return false;
 		}
 	}

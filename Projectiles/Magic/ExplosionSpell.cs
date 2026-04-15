@@ -22,7 +22,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.ownerHitCheck = true;
 			Projectile.timeLeft = 30;
 			Projectile.penetrate = -1;
-			SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center, null);
 		}
 
 		public override void AI()

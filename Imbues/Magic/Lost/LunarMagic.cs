@@ -76,12 +76,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water_GlowingMushroom, (Main.rand.NextFloat() - 0.5f) * (35f * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (35f * ScrollSize), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water_GlowingMushroom, (Main.rand.NextFloat() - 0.5f) * (25f * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * ScrollSize), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust1 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust1 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (20f * intensity), (Main.rand.NextFloat() - 0.5f) * (20f * intensity), 150, Scale: 3f * intensity)];
 				spawnedDust1.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.RedsWingsRun, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
-				spawnedDust2.noGravity = true;
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)

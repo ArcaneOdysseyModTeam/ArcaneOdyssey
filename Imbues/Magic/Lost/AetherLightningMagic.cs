@@ -72,8 +72,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			if (Main.projectile.Find(e => e.active && (e.type == ModContent.ProjectileType<AetherLightningAftershock>()) && (e.Center.ToPoint16() == position.ToPoint16()) && (e.ai[0] != 0)) is null)
-				Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), 0, 0, ai0: intensity);
+			if (Main.projectile.Find(e => e.active && (e.type == ModContent.ProjectileType<AetherLightningAftershock>()) && (e.Center.ToTileCoordinates16() == position.ToTileCoordinates16()) && (e.ai[0] != 0)) is null)
+				Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), 0, 0, ai0: intensity * .8f);
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)

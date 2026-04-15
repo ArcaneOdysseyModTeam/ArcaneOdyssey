@@ -7,12 +7,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Projectiles
 {
@@ -22,6 +24,7 @@ namespace ArcaneOdyssey.Projectiles
 		public float charge = 1f;
 		public bool MarkedForDeath = false;
 		public bool playedsound = false;
+		internal bool originallyAltFire = false;
 		public float ProjectileSpread = 0;
 
 		public const float GlobalChargeSpeed = 1f / 120f;
@@ -39,6 +42,20 @@ namespace ArcaneOdyssey.Projectiles
 			{
 				behindProjectiles.Add(index);
 			}
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.WriteFlags(MarkedForDeath, playedsound, originallyAltFire);
+			writer.Write(ChargingProjectile);
+			writer.Write(charge);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			reader.ReadFlags(out MarkedForDeath, out playedsound, out originallyAltFire);
+			ChargingProjectile = reader.ReadInt32();
+			charge = reader.ReadSingle();
 		}
 
 		public override void SetDefaults()
@@ -69,6 +86,8 @@ namespace ArcaneOdyssey.Projectiles
 
 		public override bool? CanDamage() => false;
 
+		private float ExplosionSizeMult => !originallyAltFire ? 1.25f : 1f;
+
 		public override void AI()
 		{
 			if (!MarkedForDeath)
@@ -91,12 +110,9 @@ namespace ArcaneOdyssey.Projectiles
 				{
 					Projectile.Opacity = 1f;
 				}
+
 				Projectile.ai[0] = 1;
 
-				if (Mode == MagicCircleMode.Barrage)
-				{
-
-				}
 				if (Mode != MagicCircleMode.Rotating)
 				{
 					dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.DirectionFrom(Owner.RotatedRelativePoint(Owner.MountedCenter));
@@ -124,14 +140,14 @@ namespace ArcaneOdyssey.Projectiles
 				if (ChargingProjectile == ModContent.ProjectileType<ExplosionSpell>() || ChargingProjectile == ModContent.ProjectileType<SpiritExplosion>())
 				{
 					// Outline vfx
-					if (Main.myPlayer == Projectile.owner && Imbue is not null)
+					if (Imbue is not null)
 					{
 						for (int n = 0; n < 360; n += 4)
 						{
-							Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * ApplySize(109f);
-							currentDustPos.X = Utils.Clamp(currentDustPos.X, -1 * ApplySize(100f), ApplySize(100f));
-							currentDustPos.Y = Utils.Clamp(currentDustPos.Y, -1 * ApplySize(100f), ApplySize(100f));
-							Dust.NewDustPerfect(Projectile.Center + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.Colour, ApplySize(1f));
+							Vector2 currentDustPos = new Vector2((float)Math.Cos(n * (MathHelper.Pi / 180f)), (float)Math.Sin(n * (MathHelper.Pi / 180f))) * ApplySize(109f * ExplosionSizeMult);
+							currentDustPos.X = Utils.Clamp(currentDustPos.X, -1 * ApplySize(100f * ExplosionSizeMult), ApplySize(100f * ExplosionSizeMult));
+							currentDustPos.Y = Utils.Clamp(currentDustPos.Y, -1 * ApplySize(100f * ExplosionSizeMult), ApplySize(100f * ExplosionSizeMult));
+							Dust.NewDustPerfect(Projectile.Center + currentDustPos, DustID.ShimmerSpark, Vector2.Zero, 0, Imbue.Colour, ApplySize(1f * ExplosionSizeMult));
 						}
 					}
 				}
@@ -275,8 +291,6 @@ namespace ArcaneOdyssey.Projectiles
 			}
 		}
 
-		internal bool originallyAltFire = false;
-
 		public virtual void ShootProjectile()
 		{
 			dir = (dir.ToRotation() + Main.rand.NextFloat(-ProjectileSpread, ProjectileSpread)).ToRotationVector2();
@@ -291,6 +305,7 @@ namespace ArcaneOdyssey.Projectiles
 							if (Main.rand.NextBool(5))
 							{
 								playedsound = false;
+								NetUpdate();
 							}
 							AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 12f, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 						}
@@ -298,6 +313,7 @@ namespace ArcaneOdyssey.Projectiles
 					else
 					{
 						MarkedForDeath = true;
+						NetUpdate();
 					}
 				}
 			}
@@ -325,11 +341,20 @@ namespace ArcaneOdyssey.Projectiles
 						velo = dir * 15f * (charge / 2f);
 					}
 					var proj = AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velo, ChargingProjectile, (Projectile.damage * charge).Round(), Projectile.knockBack * charge, Projectile.owner, Imbue, SecondImbue, true);
+
+					if (ChargingProjectile == ModContent.ProjectileType<ExplosionSpell>() || ChargingProjectile == ModContent.ProjectileType<SpiritExplosion>())
+					{
+						proj.damage = (Projectile.damage * charge * ExplosionSizeMult).Round();
+						proj.Hitbox = proj.Hitbox.Scaled(ExplosionSizeMult);
+						proj.scale *= ExplosionSizeMult;
+					}
+
 					if (proj.ModProjectile is PulsarSpell && originallyAltFire)
 					{
 						proj.ai[1] = 1;
 					}
 					ChargingProjectile = 0;
+					NetUpdate();
 				}
 			}
 		}

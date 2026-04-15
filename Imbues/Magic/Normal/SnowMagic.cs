@@ -79,18 +79,22 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				spawnedDust.noGravity = true;
 			}
 		}
+
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Snow, Scale: area.RelativeScale());
 		}
+
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			for (int n = 0; n < 3; n++)
+			for (int n = 0; n < 2; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.SnowBlock, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
+			Dust.NewDustDirect(position, 0, 0, DustID.Snow, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity).noGravity = true;
 		}
+
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)

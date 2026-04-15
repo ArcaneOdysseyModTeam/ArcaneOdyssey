@@ -66,6 +66,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Mercury, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2f * intensity)];
+				spawnedDust.noGravity = true;
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)
