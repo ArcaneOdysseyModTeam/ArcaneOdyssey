@@ -347,19 +347,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		private bool _canImbue = true;
-		public bool CanBeAffected
-		{
-			get
-			{
-				if (thisItem is not null && thisItem.ModItem is Weapon item)
-				{
-					return item.CanBeAffected;
-				}
-				return _canImbue;
-			}
-			set => _canImbue = value;
-		}
+		public bool canBeAffected = true;
 
 		public override void ApplyPrefix(Item item, int pre)
 		{
@@ -396,7 +384,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			clone._cold = _cold;
 			clone._weaponsType = _weaponsType;
 			clone.thisItem = to;
-			clone._canImbue = _canImbue;
+			clone.canBeAffected = canBeAffected;
+			clone.Boost = Boost;
 			return clone;
 		}
 
@@ -422,8 +411,9 @@ namespace ArcaneOdyssey.GlobalTypes
 				spriteBatch.Draw(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value, location, null, Color.White, 0, TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value.Size() / 2f, .3f * (52f / Math.Max(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Width(), TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Height())), SpriteEffects.None, 1f);
 			}
 
-			if (Imbue is null || !CanBeAffected)
+			if (Imbue is null || !canBeAffected)
 				return;
+
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
@@ -431,9 +421,9 @@ namespace ArcaneOdyssey.GlobalTypes
 
 				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, .3f * (52f / Math.Max(texture.Width(), texture.Height())), SpriteEffects.None, 1f);
 
-				if (Imbue is FightingStyleBarred fs && item.ModItem?.Type != Imbue.Type)
+				if (Imbue is FightingStyleBarred fs)
 				{
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue));
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 4f), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, Vector2.Zero, .5f, SpriteEffects.None, 0f);
 				}
 
 				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
@@ -450,7 +440,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 
 			if (item.ModItem is Imbuable imbue)
@@ -486,7 +476,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 
 			if (item.ModItem is Imbuable imbue)
@@ -523,7 +513,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 
 			if (item.ModItem is Imbuable imbue)
@@ -559,7 +549,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 			if (item.ModItem is Scroll)
 			{
@@ -597,7 +587,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			owner = null;
 			if (ArcaneOdysseyMod.excludedItems.Contains(item.type))
 			{
-				CanBeAffected = false;
+				canBeAffected = false;
 				return;
 			}
 			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
@@ -684,7 +674,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (item.noMelee || !CanBeAffected)
+			if (item.noMelee || !canBeAffected)
 				return;
 			if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
@@ -697,7 +687,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			owner = player;
 			float mult = 1f;
-			if (CanBeAffected)
+			if (canBeAffected)
 			{
 				if (item.ModItem is Imbuable imbue)
 				{
@@ -743,7 +733,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				WeaponsType = WeaponType.Normal;
 			}
 
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 
 			if (item.type == ModContent.ItemType<SpiritEnergy>())
@@ -889,7 +879,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (player.ArcaneOdyssey().GelDebuff != 0)
 					target.AddBuff(player.ArcaneOdyssey().GelDebuff, 60 * Main.rand.Next(5, 10));
 			}
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 			if (Imbue is SpiritEnergy)
 			{
@@ -914,7 +904,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			thisItem = item;
 			owner = player;
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 			if (Imbue is not null && Imbue.PreEffects(item))
 			{
@@ -928,7 +918,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!CanBeAffected)
+			if (!canBeAffected)
 				return;
 
 			if (item.ModItem is Weapon weap)
@@ -1090,7 +1080,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (item.ModItem is UnloadedItem || !item.ArcaneOdyssey().CanBeAffected)
+			if (item.ModItem is UnloadedItem || !item.ArcaneOdyssey().canBeAffected)
 			{
 				return;
 			}

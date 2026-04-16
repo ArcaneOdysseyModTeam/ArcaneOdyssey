@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 	{
 		public override float Speed => 1.05f;
 		public override float Size => 0.9f;
-		public override float AODamage => 1f;
+		public override float Damage => 1f;
 		public override int Value => 1350;
 		public override Rarities Rarity => Rarities.Common;
 		public override ItemTiers WeaponTier => ItemTiers.Poor;

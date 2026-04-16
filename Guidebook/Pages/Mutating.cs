@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	public class Mutating : ModGuidebookPage
+	public class Mutating : GuidebookPage
 	{
 		public override int PageNum => After<StrengthWeapons>();
 

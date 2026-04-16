@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 {
 	public class StormCaller : Weapon
 	{
-		public override float AODamage => 0.9f;
+		public override float Damage => 0.9f;
 		public override float Size => 1.1f;
 		public override float Speed => 1.15f;
 		public override int Value => 120;

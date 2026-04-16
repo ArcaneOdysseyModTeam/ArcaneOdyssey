@@ -75,11 +75,9 @@ namespace ArcaneOdyssey.Items.Base
 
 		public bool? BenifitsFromScrollStats => Item.ArcaneOdyssey()?.BenifitsFromScrollStats;
 
-		public virtual bool CanBeAffected => true;
-
 		public virtual float Speed => 1f;
 		public virtual float Size => 1f;
-		public virtual float AODamage => 1f;
+		public virtual float Damage => 1f;
 		public abstract ItemTiers WeaponTier { get; }
 		public virtual Debuff? WeaponDebuff => Debuff.Create<AOBleed>(5 * 60);
 		public abstract Color Motif { get; }
@@ -107,7 +105,7 @@ namespace ArcaneOdyssey.Items.Base
 			Item.knockBack = 4.5f * (Size * Size);
 			Item.scale = Size * Size;
 			Item.UseSound = UseSound with { Pitch = (Speed * Speed).MultiToPercent().Clamp(-1, 1) };
-			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(WeaponTier) * (AODamage * AODamage));
+			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(WeaponTier) * (Damage * Damage));
 			Item.DamageType = DamageClass.Melee;
 		}
 	}

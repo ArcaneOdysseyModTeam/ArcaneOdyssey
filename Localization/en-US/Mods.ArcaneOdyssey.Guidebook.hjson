@@ -56,33 +56,3 @@ Imbuing: {
 		'''
 	DisplayName: Imbuing
 }
-
-ObtainingScrolls: {
-	DisplayName: Obtaining Scrolls
-	Text: ObtainingScrolls Content goes here.
-}
-
-Relics: {
-	DisplayName: Relics
-	Text: Relics Content goes here.
-}
-
-UsingScrolls: {
-	DisplayName: Using Scrolls
-	Text: UsingScrolls Content goes here.
-}
-
-Weapons: {
-	DisplayName: Weapons
-	Text: Weapons Content goes here.
-}
-
-Mutating: {
-	DisplayName: Lost Magic
-	Text: Mutating Content goes here.
-}
-
-StrengthWeapons: {
-	DisplayName: Strength Weapons
-	Text: StrengthWeapons Content goes here.
-}

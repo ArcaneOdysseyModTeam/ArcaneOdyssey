@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons
 
 		public override Rarities Rarity => Rarities.Uncommon;
 
-		public override float AODamage => 1.1f;
+		public override float Damage => 1.1f;
 		public override float Speed => 1.05f;
 		public override float Size => .85f;
 

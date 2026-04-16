@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 	{
 		public override float Speed => .5f;
 		public override float Size => 1.35f;
-		public override float AODamage => 1.15f;
+		public override float Damage => 1.15f;
 		public override int Value => 250;
 		public override Rarities Rarity => Rarities.Rare;
 		public override ItemTiers WeaponTier => ItemTiers.Good;

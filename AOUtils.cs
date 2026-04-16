@@ -35,6 +35,15 @@ namespace ArcaneOdyssey
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
 
+		public static Imbuable SafeImbuable(ModItem item)
+		{
+			if (item is not null)
+			{
+				return item as Imbuable;
+			}
+			return null;
+		}
+
 		internal static List<string> options = [
 			"Terraria FavoriteDesc",
 			"Terraria NoTransfer",
@@ -907,7 +916,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.CanBeAffected == true) && (item.ammo == AmmoID.None))
+			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.canBeAffected == true) && (item.ammo == AmmoID.None))
 			{
 				if (item.ArcaneOdyssey()?.WeaponsType != WeaponType.Artisinal)
 				{

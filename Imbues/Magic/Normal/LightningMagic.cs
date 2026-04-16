@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		}
 		public override float DashSpeed => 1.4f; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
-		public override Color ImbueColour => new(255, 140, 255, 255);
+		public override Color ImbueColour => new(255, 140, 255);
 		public override float ImbueSpeed => 1.2f;
 		public override float ImbueSize => .95f;
 		public override float ImbueDamage => .95f;

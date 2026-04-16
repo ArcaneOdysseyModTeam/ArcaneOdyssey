@@ -465,4 +465,22 @@ namespace ArcaneOdyssey
 			}
 		}
 	}
+
+	public class TooltipTweaks : GlobalItem
+	{
+		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+		{
+			if (ExternalModSupport.HasCalamity) 
+			{
+				if (item.ModItem?.Mod == Mod)
+				{
+					var master = tooltips.Find(e => e.Mod == "Terraria" && e.Name == "Master");
+					if (master is not null)
+					{
+						master.Text = Language.GetTextValue("Mods.CalamityMod.Vanilla.MasterExclusive");
+					}
+				} 
+			}
+		}
+	}
 }

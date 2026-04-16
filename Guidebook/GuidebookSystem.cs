@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Guidebook
 		{
 			PageCount = 0;
 			AllPages = [];
-			ModGuidebookPage.PagesOrdered = [];
+			GuidebookPage.PagesOrdered = [];
 		}
 
 		public static int PageCount = 0;
@@ -18,20 +18,20 @@ namespace ArcaneOdyssey.Guidebook
 		public static SetFactory Factory = null;
 
 
-		public static ModGuidebookPage[] AllPages = [];
+		public static GuidebookPage[] AllPages = [];
 
 		public override void PostSetupContent()
 		{
-			foreach (var page in ModGuidebookPage.PagesOrdered.Keys)
+			foreach (var page in GuidebookPage.PagesOrdered.Keys)
 			{
-				AllPages[ModGuidebookPage.Get(page).PageNum] = ModGuidebookPage.Get(page);
+				AllPages[GuidebookPage.Get(page).PageNum] = GuidebookPage.Get(page);
 			}
 		}
 
 		public override void ResizeArrays()
 		{
-			Factory = new(PageCount, nameof(GuidebookSystem), i => ModGuidebookPage.Get(i).Name);
-			AllPages = Factory.CreateCustomSet<ModGuidebookPage>(null);
+			Factory = new(PageCount, nameof(GuidebookSystem), i => GuidebookPage.Get(i).Name);
+			AllPages = Factory.CreateCustomSet<GuidebookPage>(null);
 		}
 	}
 }

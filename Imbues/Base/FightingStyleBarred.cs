@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%") / 2), DisplayColor);
+			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%") / 2), Color.Lerp(DisplayColor, ImbueColour, LerpValue));
 		}
 
 		public override void UpdateInventory(Player player)

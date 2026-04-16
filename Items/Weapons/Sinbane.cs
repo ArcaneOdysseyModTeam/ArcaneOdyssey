@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override float Speed => 1.1f;
 		public override float Size => .8f;
-		public override float AODamage => 1.1f;
+		public override float Damage => 1.1f;
 
 		public override Color Motif => new(104, 130, 0);
 

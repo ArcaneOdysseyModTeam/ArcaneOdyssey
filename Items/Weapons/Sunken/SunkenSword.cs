@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 		public override bool? Cold => true;
 		public override float Speed => 1.2f;
 		public override float Size => .9f;
-		public override float AODamage => 1f;
+		public override float Damage => 1f;
 		public override int Value => 900;
 		public override Rarities Rarity => Rarities.Rare;
 		public override ItemTiers WeaponTier => ItemTiers.Good;

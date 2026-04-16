@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Weapons
 {
 	public class SirenBow : Weapon
 	{
-		public override float AODamage => 1.025f;
+		public override float Damage => 1.025f;
 		public override float Size => .825f;
 		public override float Speed => 1.15f;
 		public override int Value => 100;

@@ -59,12 +59,19 @@ Normal: {
 		AttackPrefix: Gunpowder
 		SpellPrefix: Powder Fist
 	}
+
+	ThunderStyle: {
+		AttackPrefix: Static
+		SpellPrefix: Thundering Style
+		DisplayName: Thundering Style
+		Tooltip: ""
+	}
 }
 
 Developer: {
 	GodFist: {
 		DisplayName: God Fist
-		Tooltip: ""
+		Ability: Moving across the ground improves strength
 		AttackPrefix: Godly
 		SpellPrefix: God Fist
 	}

@@ -9,11 +9,13 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Magic;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 
 namespace ArcaneOdyssey.GlobalTypes
@@ -227,6 +229,18 @@ namespace ArcaneOdyssey.GlobalTypes
 			set => _canImbue = value;
 		}
 
+		public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
+		{
+			binaryWriter.Write(Imbue?.Type ?? ItemID.None);
+			binaryWriter.Write(SecondImbue?.Type ?? ItemID.None);
+		}
+
+		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
+		{
+			Imbue = AOUtils.SafeImbuable(ModContent.GetModItem(binaryReader.ReadInt32()));
+			SecondImbue = AOUtils.SafeImbuable(ModContent.GetModItem(binaryReader.ReadInt32()));
+		}
+
 
 		private bool? _cold = null;
 		public bool? Cold
@@ -418,18 +432,31 @@ namespace ArcaneOdyssey.GlobalTypes
 				target.StrikeInstantKill();
 			}
 		}
+	}
+
+	public class AntiArenaCheese : GlobalProjectile
+	{
 		public override void PrepareBombToBlow(Projectile projectile)
 		{
-			if (AOUtils.TryGetOwner(projectile, out Player owner))
-			{
-				if (owner.InModBiome<EliusArena>()) // add subworlds later
-				{
-					projectile.Kill();
-				}
-			}
-			if (projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			if (AOUtils.TryGetOwner(projectile, out Player owner) && owner.InModBiome<EliusArena>()) // add subworlds later
 			{
 				projectile.Kill();
+				return;
+			}
+
+			else if (projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			{
+				projectile.Kill();
+				return;
+			}
+		}
+
+		public override void OnSpawn(Projectile projectile, IEntitySource source)
+		{
+			if (projectile.type == ProjectileID.Tombstone && projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			{
+				projectile.Kill();
+				return;
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	public class ForgingBronze : ModGuidebookPage
+	public class ForgingBronze : GuidebookPage
 	{
 		public override int PageNum => After<UsingScrolls>();
 

@@ -56,6 +56,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.lavaImmune = true;
 			NPC.boss = true;
 			SpawnModBiomes = [AOUtils.BiomeType<EliusArena>()];
+			NPC.buffImmune[BuffID.Confused] = true;
 		}
 
 		public override MusicTrack Theme => MusicTrack.Elius;
@@ -246,7 +247,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void OnGoToStatue(bool toKingStatue)
 		{
-			NPC.position = spawnLocation;
+			NPC.position = NPC.oldPosition;
 		}
 
 		public override bool CanGoToStatue(bool toKingStatue) => true;

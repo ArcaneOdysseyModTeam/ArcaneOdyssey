@@ -8,15 +8,22 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
 {
-	public abstract class ModGuidebookPage : ModType
+	public abstract class GuidebookPage : ModType, ILocalizedModType
 	{
 		public abstract int PageNum { get; }
+
+		public virtual PageOrdering Position { get; }
+
+		public class PageOrdering
+		{
+			public int PageNum { get; set; }
+		}
 
 		public Asset<Texture2D> Image;
 
 		protected sealed override void Register()
 		{
-			ModTypeLookup<ModGuidebookPage>.Register(this);
+			ModTypeLookup<GuidebookPage>.Register(this);
 			GuidebookSystem.PageCount++;
 			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/'), out Image, AssetRequestMode.ImmediateLoad);
 		}
@@ -33,25 +40,27 @@ namespace ArcaneOdyssey.Guidebook
 
 		internal static Dictionary<string, int> PagesOrdered = [];
 
-		public LocalizedText Description => Mod.CoolCustomLocalization("Guidebook." + Name + ".Text", () => PrettyPrintName() + " Content goes here.");
+		public LocalizedText Description => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".Text", () => PrettyPrintName() + " content goes here.");
 
-		public LocalizedText DisplayName => Mod.CoolCustomLocalization("Guidebook." + Name + ".DisplayName", PrettyPrintName);
+		public LocalizedText DisplayName => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".DisplayName", PrettyPrintName);
+
+		public virtual string LocalizationCategory => "Guidebook";
 
 		public abstract bool MetConditions(Player player);
 
-		public static ModGuidebookPage Get(int page)
+		public static GuidebookPage Get(int page)
 		{
-			var pages = ModContent.GetContent<ModGuidebookPage>();
+			var pages = ModContent.GetContent<GuidebookPage>();
 			return pages.ToList().Find(e => e.PageNum == page);
 		}
 
-		public static ModGuidebookPage Get(string page)
+		public static GuidebookPage Get(string page)
 		{
-			var pages = ModContent.GetContent<ModGuidebookPage>();
+			var pages = ModContent.GetContent<GuidebookPage>();
 			return pages.ToList().Find(e => e.Name == page);
 		}
 
-		public int Before<T>() where T : ModGuidebookPage
+		public int Before<T>() where T : GuidebookPage
 		{
 			var inst = ModContent.GetInstance<T>();
 			if (!PagesOrdered.ContainsKey(Name))
@@ -76,7 +85,7 @@ namespace ArcaneOdyssey.Guidebook
 			return PagesOrdered[Name];
 		}
 
-		public int After<T>() where T : ModGuidebookPage
+		public int After<T>() where T : GuidebookPage
 		{
 			var inst = ModContent.GetInstance<T>();
 			if (!PagesOrdered.ContainsKey(Name))
