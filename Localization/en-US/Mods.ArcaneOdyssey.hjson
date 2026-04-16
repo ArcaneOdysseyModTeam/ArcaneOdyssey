@@ -281,6 +281,7 @@ ArmourAutoTooltip: {
 	Pierce: Increases armour penetration by {0}
 	Haste: "{0}% reduced ability cooldown"
 	Insanity: Insanity increased by {0}
+	Defense: "{0} defense"
 }
 
 CodebreakerDialogOption: {

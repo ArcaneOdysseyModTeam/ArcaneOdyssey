@@ -89,12 +89,26 @@ namespace ArcaneOdyssey.GlobalTypes
 		/// <returns>Whether it was applied successfully</returns>
 		public bool AddAtlanteanEssense()
 		{
-			if (thisItem is not null)
+			if (CanHaveAtlanteanEssence())
 			{
-				if (thisItem.accessory && thisItem.prefix != ModContent.PrefixType<AtlanteanPrefix>())
+				if (thisItem.accessory)
 				{
 					return thisItem.Prefix(ModContent.PrefixType<AtlanteanPrefix>());
 				}
+				// add atlantean weapons here later
+			}
+			return false;
+		}
+
+		public bool CanHaveAtlanteanEssence()
+		{
+			if (thisItem is not null)
+			{
+				if (thisItem.accessory && thisItem.CanHavePrefixes() && thisItem.CanApplyPrefix(ModContent.PrefixType<AtlanteanPrefix>()) && thisItem.prefix != ModContent.PrefixType<AtlanteanPrefix>())
+				{
+					return true;
+				}
+				// add atlantean weapons here later
 			}
 			return false;
 		}
@@ -103,6 +117,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			Power,
 			Defense,
+			Speed,
 			Agility,
 			Size,
 			Haste,
@@ -113,7 +128,40 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override void UpdateAccessory(Item item, Player player, bool hideVisual)
 		{
-
+			if (Boost is not null)
+			{
+				switch (Boost.Value)
+				{
+					case RandomBoostType.Power:
+						player.GetDamage(DamageClass.Generic) += .06f;
+						player.GetCritChance(DamageClass.Generic) += .05f;
+						break;
+					case RandomBoostType.Defense:
+						player.statDefense += 8;
+						break;
+					case RandomBoostType.Agility:
+						player.moveSpeed += .075f;
+						break;
+					case RandomBoostType.Size:
+						player.ArcaneOdyssey().StatSize += 25;
+						break;
+					case RandomBoostType.Haste:
+						player.ArcaneOdyssey().StatHaste += 25;
+						break;
+					case RandomBoostType.Pierce:
+						player.GetArmorPenetration(DamageClass.Generic) += 3;
+						break;
+					case RandomBoostType.Mana:
+						player.statManaMax2 += 40;
+						break;
+					case RandomBoostType.Minions:
+						player.maxMinions += 2;
+						break;
+					case RandomBoostType.Speed:
+						player.GetAttackSpeed(DamageClass.Generic) += .075f;
+						break;
+				}
+			}
 		}
 
 		public override void SaveData(Item item, TagCompound tag)
@@ -350,6 +398,16 @@ namespace ArcaneOdyssey.GlobalTypes
 			clone.thisItem = to;
 			clone._canImbue = _canImbue;
 			return clone;
+		}
+
+		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
+			{
+				spriteBatch.Draw(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value, position, null, Color.White * .75f, 0, TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value.Size() / 2f, .8f * (52f / Math.Max(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Width(), TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Height())), SpriteEffects.None, 1f);
+			}
+
+			return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
 		}
 
 		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -992,6 +1050,46 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{AODASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
 			}
+
+
+			if (AtlanteanApplied && Boost.HasValue)
+			{
+				var tip = tooltips.Find(e => e.Mod == Mod.Name && e.Name == "RandomStat" && e.IsModifier == true);
+				if (tip is not null)
+				{
+					switch (Boost.Value)
+					{
+						case RandomBoostType.Power:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 6, 5).Value;
+							break;
+						case RandomBoostType.Defense:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 8).Value;
+							break;
+						case RandomBoostType.Agility:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 7.5).Value;
+							break;
+						case RandomBoostType.Size:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", Math.Round(25 / Armour.SizeDivision, 1)).Value;
+							break;
+						case RandomBoostType.Haste:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", Math.Round(25 / Armour.HasteDivision, 1)).Value;
+							break;
+						case RandomBoostType.Pierce:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 3).Value;
+							break;
+						case RandomBoostType.Mana:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 40).Value;
+							break;
+						case RandomBoostType.Minions:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 2).Value;
+							break;
+						case RandomBoostType.Speed:
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 7.5).Value;
+							break;
+					}
+				}
+			}
+
 			if (item.ModItem is UnloadedItem || !item.ArcaneOdyssey().CanBeAffected)
 			{
 				return;
@@ -1061,16 +1159,6 @@ namespace ArcaneOdyssey.GlobalTypes
 				case WeaponType.Strength:
 					tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
 					return;
-			}
-
-			if (AtlanteanApplied && Boost.HasValue)
-			{
-				var tip = tooltips.Find(e => e.Mod == Mod.Name && e.Name == "RandomStat" && e.IsModifier == true);
-				if (tip is not null)
-				{
-					if (Boost is not RandomBoostType.Power)
-						tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", "???").Value;
-				}
 			}
 		}
 	}

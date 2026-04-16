@@ -95,5 +95,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			}
 			return false;
 		}
+
+		public override bool? CanCutTiles() => false;
 	}
 }

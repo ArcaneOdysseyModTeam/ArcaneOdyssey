@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Items.Consumable
 			Item.useTime = 20;
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.HiddenAnimation;
+			Item.maxStack = Item.CommonMaxStack;
 		}
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
@@ -51,7 +52,7 @@ namespace ArcaneOdyssey.Items.Consumable
 					continue;
 				}
 
-				Item.TurnToAir();
+				Item.stack--;
 				break;
 			}
 		}

@@ -406,6 +406,8 @@ namespace ArcaneOdyssey.Projectiles
 				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 			}
 		}
+
+		public override bool? CanCutTiles() => false;
 	}
 
 	public enum MagicCircleMode

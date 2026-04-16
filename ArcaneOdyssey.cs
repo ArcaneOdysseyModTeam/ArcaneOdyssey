@@ -65,12 +65,12 @@ namespace ArcaneOdyssey
 				case "AddSizeStat":
 				case "SetSizeStat":
 				case "SizeStat":
-					ArcaneOdysseyMod.Sets.SizeStats[(int)args[1]] = (int)args[2];
+					Sets.SizeStats[(int)args[1]] = (int)args[2];
 					break;
 				case "AddHasteStat":
 				case "SetHasteStat":
 				case "HasteStat":
-					ArcaneOdysseyMod.Sets.HasteStats[(int)args[1]] = (int)args[2];
+					Sets.HasteStats[(int)args[1]] = (int)args[2];
 					break;
 			}
 			return null;

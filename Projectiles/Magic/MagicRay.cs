@@ -138,5 +138,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.rotation = info.Rotation;
 			return false;
 		}
+
+		public override bool? CanCutTiles() => false;
 	}
 }

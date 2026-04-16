@@ -1962,7 +1962,7 @@ namespace ArcaneOdyssey
 	/// </summary>
 	public struct ModDamageHelper(StatModifier? statModifier)
 	{
-		public StatModifier FinalDamage = statModifier.GetValueOrDefault(new(1, 1));
+		public StatModifier FinalDamage = statModifier.GetValueOrDefault(StatModifier.Default);
 		public int GetDamage(int damage)
 		{
 			return FinalDamage.ApplyTo(damage).Round();
