@@ -75,7 +75,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 				}
 			}
 		}
-
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Color.White;
+			return true;
+		}
 		private bool playedSound = false;
 
 		public override bool PreAI()

@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -89,6 +90,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override void OnKill(int timeLeft)
 		{
 			Count--;
+		}
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Color.White;
+			return true;
 		}
 
 		public override bool? CanCutTiles() => false;
