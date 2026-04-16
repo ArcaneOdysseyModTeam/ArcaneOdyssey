@@ -94,7 +94,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override bool PreDraw(ref Color lightColor)
 		{
 			lightColor = Color.White;
-			return true;
+			return base.PreDraw(ref lightColor);
 		}
 
 		public override bool? CanCutTiles() => false;
