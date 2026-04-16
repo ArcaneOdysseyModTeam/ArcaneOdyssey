@@ -35,6 +35,8 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 			Projectile.light = 2f;
 			Projectile.hide = true;
+			DrawOriginOffsetX = Sprite.Bounds.Width/-2;
+			DrawOriginOffsetY = (Sprite.Bounds.Height/Main.projFrames[Type])/-4;
 		}
 
 		public override Debuff? ProjectileDebuff => null;
@@ -75,11 +77,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 				}
 			}
 		}
-		public override bool PreDraw(ref Color lightColor)
-		{
-			lightColor = Color.White;
-			return base.PreDraw(ref lightColor);
-		}
+
 		private bool playedSound = false;
 
 		public override bool PreAI()
@@ -116,6 +114,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.ScalingArmorPenetration += 1f;
+		}
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Color.White;
+			return true;
 		}
 
 		public override bool? CanCutTiles() => false;
