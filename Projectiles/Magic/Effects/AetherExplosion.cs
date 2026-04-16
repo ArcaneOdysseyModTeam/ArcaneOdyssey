@@ -47,8 +47,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.tileCollide = false;
 			Projectile.light = 1f;
 			Projectile.hide = true;
-			DrawOriginOffsetX = Sprite.Bounds.Width/-2;
-			DrawOriginOffsetY = (Sprite.Bounds.Height/Main.projFrames[Type])/-4;
 		}
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<CharredEffect>(60 * 5);
@@ -96,7 +94,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override bool PreDraw(ref Color lightColor)
 		{
 			lightColor = Color.White;
-			return true;
+			return base.PreDraw(ref lightColor);
 		}
 
 		public override bool? CanCutTiles() => false;
