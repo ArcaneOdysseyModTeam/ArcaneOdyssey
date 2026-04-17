@@ -74,5 +74,6 @@ Developer: {
 		Ability: Moving across the ground improves strength
 		AttackPrefix: Godly
 		SpellPrefix: God Fist
+		Tooltip: ""
 	}
 }

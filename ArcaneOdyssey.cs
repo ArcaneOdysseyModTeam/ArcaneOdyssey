@@ -195,6 +195,8 @@ namespace ArcaneOdyssey
 			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer, ItemID.PaladinsHammer);
 
 			public static int[] baseImbues = ItemID.Sets.Factory.CreateIntSet();
+
+			public static bool[] tombstone = ProjectileID.Sets.Factory.CreateBoolSet();
 		}
 	}
 
@@ -224,6 +226,14 @@ namespace ArcaneOdyssey
 			static bool inArray(int i)
 			{
 				return ItemID.Sets.Deprecated[i] || ArcaneOdysseyMod.Sets.claw[i] || ArcaneOdysseyMod.Sets.spear[i] || ArcaneOdysseyMod.Sets.dualbladed[i] || ArcaneOdysseyMod.Sets.greatsword[i] || ArcaneOdysseyMod.Sets.dagger[i] || ArcaneOdysseyMod.Sets.staff[i] || ArcaneOdysseyMod.Sets.rapier[i] || ArcaneOdysseyMod.Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || ArcaneOdysseyMod.Sets.greataxe[i];
+			}
+
+			for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
+			{
+				if (ProjectileID.Sets.IsAGravestone[i])
+				{
+					ArcaneOdysseyMod.Sets.tombstone[i] = true; 
+				}
 			}
 
 			for (int i = 0; i < ItemLoader.ItemCount; i++)

@@ -56,3 +56,33 @@ Imbuing: {
 		'''
 	DisplayName: Imbuing
 }
+
+Mutating: {
+	DisplayName: Mutating
+	Text: Mutating content goes here.
+}
+
+ObtainingScrolls: {
+	DisplayName: Obtaining Scrolls
+	Text: Obtaining Scrolls content goes here.
+}
+
+Relics: {
+	DisplayName: Relics
+	Text: Relics content goes here.
+}
+
+StrengthWeapons: {
+	DisplayName: Strength Weapons
+	Text: Strength Weapons content goes here.
+}
+
+UsingScrolls: {
+	DisplayName: Using Scrolls
+	Text: Using Scrolls content goes here.
+}
+
+Weapons: {
+	DisplayName: Weapons
+	Text: Weapons content goes here.
+}

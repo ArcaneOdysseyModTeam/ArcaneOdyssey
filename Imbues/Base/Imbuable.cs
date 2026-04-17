@@ -352,6 +352,10 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					return Color.Lerp(colour, ImbueColour, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
 				}
+				else if (TransitionStyle == ColourTransitionStyle.Linear)
+				{
+					return Color.Lerp(ImbueColour, colour, Math.Abs((AOUtils.UpdateCount % 2f) - 1f));
+				}
 				return ImbueColour;
 			}
 		}
@@ -633,6 +637,7 @@ namespace ArcaneOdyssey.Imbues.Base
 	{
 		None,
 		Smooth,
-		Tangent
+		Tangent,
+		Linear
 	}
 }

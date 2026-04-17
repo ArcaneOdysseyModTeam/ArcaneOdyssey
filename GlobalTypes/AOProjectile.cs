@@ -201,6 +201,10 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void SetDefaults(Projectile projectile)
 		{
 			thisProjectile = projectile;
+			if (projectile.aiStyle == ProjAIStyleID.GraveMarker)
+			{
+				ArcaneOdysseyMod.Sets.tombstone[projectile.type] = true;
+			}
 			if (ArcaneOdysseyMod.excludedProjectiles.Contains(projectile.type))
 			{
 				CanBeAffected = false;
@@ -451,11 +455,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		public override void OnSpawn(Projectile projectile, IEntitySource source)
+		public override void AI(Projectile projectile)
 		{
-			if (projectile.type == ProjectileID.Tombstone && projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			if ((ArcaneOdysseyMod.Sets.tombstone[projectile.type] || projectile.aiStyle == ProjAIStyleID.Explosive || ProjectileID.Sets.Explosive[projectile.type]) && projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
 			{
-				projectile.Kill();
+				projectile.active = false;
 				return;
 			}
 		}
