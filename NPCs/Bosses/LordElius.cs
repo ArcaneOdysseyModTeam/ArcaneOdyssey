@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	[AutoloadBossHead]
 	public class LordElius : BaseNPC
 	{
+		private Vector2[] podiumPos = {new Vector2(-645.5f,69f),new Vector2(-305.5f,53f),new Vector2(0f,0f),new Vector2(380.5f,53f),new Vector2(698.5f,69f)}; 
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;
@@ -122,6 +123,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
 
+
 			// ai here, red
 			if (NPC.ai[0] == 1)
 			{
@@ -140,7 +142,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (NPC.ai[1] < 2f)
 				{
-					NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
+					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
+					NPC.Center = spawnLocation + podiumPos[(int)Main.rand.NextFloat(0,5)];
 					NPC.ai[1] = 2f;
 				}
 				if (NPC.ai[1] > 60f)
