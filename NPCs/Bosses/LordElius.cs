@@ -135,7 +135,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()) + 1f;
+					NPC.ai[0] = Main.rand.Next(1) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
 			} else if (NPC.ai[0] == 2)
@@ -143,13 +143,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (NPC.ai[1] < 2f)
 				{
 					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
-					NPC.Center = spawnLocation + podiumPos[(int)Main.rand.NextFloat(0,5)];
+					NPC.Center = spawnLocation + podiumPos[(int)Main.rand.Next(0, 5)];
 					NPC.ai[1] = 2f;
 				}
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = MathF.Round(Main.rand.NextFloat()) + 1f;
+					NPC.ai[0] = Main.rand.NextFloat(1) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
 			}
