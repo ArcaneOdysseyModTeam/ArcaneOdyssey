@@ -149,7 +149,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.NextFloat(1) + 1f;
+					NPC.ai[0] = Main.rand.Next(1) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
 			}
