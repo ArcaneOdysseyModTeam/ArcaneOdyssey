@@ -6,7 +6,6 @@ using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -53,7 +52,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown<SpearThrowCooldown>())
 			{
 				type = ModContent.ProjectileType<SpearThrow>();
-				velocity /= 3f;
+				velocity *= 3f;
 				ActivateAbility(player, false);
 				player.ArcaneOdyssey().SetCooldown<SpearThrowCooldown>();
 			}
@@ -64,8 +63,9 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			if (!player.ArcaneOdyssey().OnCooldown<SpearThrowCooldown>())
 			{
 				Item.useStyle = ItemUseStyleID.Swing;
+				return true;
 			}
-			return true;
+			return false;
 		}
 
 		public override void AddRecipes()

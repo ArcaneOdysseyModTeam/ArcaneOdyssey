@@ -13,7 +13,6 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.timeLeft = 60;
 			Projectile.friendly = true;
 			Projectile.DamageType = DamageClass.Melee;
 		}
@@ -36,6 +35,14 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			{
 				Projectile.velocity.Y = 16f;
 			}
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			width /= 4;
+			height /= 4;
+			fallThrough = true;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 	}
 }

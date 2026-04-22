@@ -3,12 +3,9 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 {
