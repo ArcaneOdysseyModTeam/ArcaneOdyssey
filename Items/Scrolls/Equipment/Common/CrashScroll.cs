@@ -169,6 +169,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 
 	public class CrashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<CrashScroll>();
+		public override string Texture => AOUtils.GetTexture<CrashScroll>();
 	}
 }

@@ -116,6 +116,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 	public class WalkCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<WalkRite>();
+		public override string Texture => AOUtils.GetTexture<WalkRite>();
 	}
 }

@@ -116,6 +116,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 	public class SelinoCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<SelinoTechnique>();
+		public override string Texture => AOUtils.GetTexture<SelinoTechnique>();
 	}
 }

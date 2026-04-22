@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using System.IO;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -13,26 +12,12 @@ namespace ArcaneOdyssey.Biomes
 	/// </summary>
 	public class EliusArena : ModBiome
 	{
-		public override int BiomeTorchItemType => ItemID.Torch;
-
-		public override int BiomeCampfireItemType => ItemID.Campfire;
-
 		public override bool IsBiomeActive(Player player)
 		{
 			var playercoords = player.Hitbox.ToTileRect();
 			if (EliusArenaLoader.eliusArena.Intersects(playercoords))
 			{
-				if (!ModLoader.TryGetMod("SubworldLibrary", out Mod subworld))
-				{
-					return true;
-				}
-				else
-				{
-					if ((bool)subworld.Call("AnyActive", null))
-					{
-						return true;
-					}
-				}
+				return ExternalModSupport.NotInSubworld;
 			}
 			return false;
 		}
@@ -56,12 +41,13 @@ namespace ArcaneOdyssey.Biomes
 			if (tag.ContainsKey("eliusarena"))
 			{
 				eliusArena = tag.GetIntArray("eliusarena").FromIntArray();
-				if (eliusArena == default)
+				if (eliusArena == default && ExternalModSupport.NotInSubworld)
 					ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
 			}
 			else
 			{
-				ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
+				if (ExternalModSupport.NotInSubworld)
+					ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
 			}
 		}
 

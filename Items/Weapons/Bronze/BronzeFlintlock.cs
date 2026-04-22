@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -41,9 +42,10 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (player.AltUse())
+			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown<MultiShotCooldown>())
 			{
 				ActivateAbility(player, true);
+				player.ArcaneOdyssey().SetCooldown<MultiShotCooldown>();
 				for (int i = 0; i < 8; i++)
 				{
 					var offset = MathHelper.TwoPi / 16f;
@@ -59,5 +61,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		{
 			CreateRecipe().AddIngredient(ItemID.TheUndertaker).AddIngredient<BronzeBar>(10).AddTile(TileID.Anvils).Register();
 		}
+	}
+
+	public class MultiShotCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<BronzeFlintlock>();
+
+		public override int CooldownLength => 90;
 	}
 }

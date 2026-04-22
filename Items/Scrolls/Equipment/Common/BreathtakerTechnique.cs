@@ -68,6 +68,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 
 	public class BreathtakerCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<BreathtakerTechnique>();
+		public override string Texture => AOUtils.GetTexture<BreathtakerTechnique>();
 	}
 }

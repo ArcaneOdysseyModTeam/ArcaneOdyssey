@@ -80,6 +80,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 	public class ThakrousiCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<TidestoneBand>();
+		public override string Texture => AOUtils.GetTexture<TidestoneBand>();
 	}
 }

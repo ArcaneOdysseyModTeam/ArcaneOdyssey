@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.hostile = true;
 			Projectile.penetrate = -1;
 			Projectile.height = Projectile.width = 234;
+			Projectile.ignoreWater = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -99,6 +100,12 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.velocity = Vector2.Zero;
 			Projectile.timeLeft = 30;
 			return false;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Color.Red;
+			return base.PreDraw(ref lightColor);
 		}
 
 		public override bool? CanDamage()

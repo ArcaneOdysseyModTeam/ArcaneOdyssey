@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+﻿using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
@@ -13,7 +12,6 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 	public class NobleThunderspearProjectile : BaseSpearProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<NobleThunderspear>();
-		public override ItemTiers AOWeaponTier => ItemTiers.Average;
 
 		public override float Size => .85f;
 
@@ -26,15 +24,15 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 		public override void AI()
 		{
 			base.AI();
-			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 3)
+			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 2)
 				AOPlayerOwner.HeavySkillActive = true;
 		}
 
 		public override void EffectBeforeReelBack()
 		{
-			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 3)
+			if (Main.myPlayer == Projectile.owner && Projectile.ai[2] == 2)
 			{
-				if (Owner.PlayerItem()?.ModItem is Weapon weap)
+				if (Owner.PlayerItem()?.ModItem is NobleThunderspear weap)
 				{
 					weap.ActivateAbility(Owner, false);
 				}

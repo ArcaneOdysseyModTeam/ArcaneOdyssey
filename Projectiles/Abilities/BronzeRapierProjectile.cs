@@ -83,6 +83,6 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 	public class PiercingStrikesCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<BronzeRapier>();
+		public override string Texture => AOUtils.GetTexture<BronzeRapier>();
 	}
 }

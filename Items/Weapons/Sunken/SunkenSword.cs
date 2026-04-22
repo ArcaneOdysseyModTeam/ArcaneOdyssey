@@ -112,7 +112,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 
 	public class RisingTideCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<SunkenSword>();
+		public override string Texture => AOUtils.GetTexture<SunkenSword>();
 	}
 
 }

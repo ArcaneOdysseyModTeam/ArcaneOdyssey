@@ -76,7 +76,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CrimsonTorch, Scale: LerpValue * 2f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				spawnedDust.noLight = true;
 			}
 		}
 
@@ -105,12 +104,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override void UpdateInventory(Player player)
 		{
-			if (player.GetModPlayer<ThermoFallOff>().resetBar)
-			{
-				BarValue = BarMin;
-				player.opacityForAnimation = 1f;
-				player.GetModPlayer<ThermoFallOff>().resetBar = false;
-			}
 			if (!player.ArcaneOdyssey().OnCooldown(Name))
 				BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 			base.UpdateInventory(player);
@@ -141,7 +134,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	{
 		public const float BarMax = FightingStyleBarred.BarMax;
 		public const float BarMin = FightingStyleBarred.BarMin;
-		public bool resetBar = false;
 
 		public override void PostUpdate()
 		{

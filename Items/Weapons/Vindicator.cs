@@ -95,7 +95,7 @@ namespace ArcaneOdyssey.Items.Weapons
 
 	public class CrushingJudgementCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<Vindicator>();
+		public override string Texture => AOUtils.GetTexture<Vindicator>();
 
 		
 	}

@@ -1,9 +1,11 @@
-﻿using ArcaneOdyssey.Items.Armour.Vanity.Masks;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;
@@ -128,6 +130,8 @@ namespace ArcaneOdyssey
 				//Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
 				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.Town.{nameof(Edgelord)}");
+				Fargos.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
+				Fargos.Call("AddPermaUpgrade", new Item(ModContent.ItemType<AcumenTechnique>()), () => Main.LocalPlayer.ArcaneOdyssey().acumen);
 			}
 		}
 
@@ -137,6 +141,25 @@ namespace ArcaneOdyssey
 		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
 		public static Mod Thorium => HasThorium ? ModLoader.GetMod("ThoriumMod") : null;
+
+		public static bool NotInSubworld
+		{
+			get
+			{
+				if (!ModLoader.TryGetMod("SubworldLibrary", out Mod subworld))
+				{
+					return true;
+				}
+				else
+				{
+					if ((bool)subworld.Call("AnyActive", null))
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+		}
 
 		private void AddBossChecklist()
 		{

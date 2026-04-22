@@ -7,7 +7,6 @@ namespace ArcaneOdyssey.Projectiles.Base
 {
 	public abstract class BaseSpearProjectile : PlayerProjectile
 	{
-		public abstract ItemTiers AOWeaponTier { get; }
 		public const float SpearSpeed = 3.7f;
 
 		public override void SetStaticDefaults()
@@ -28,19 +27,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			Projectile.ownerHitCheck = true;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.ignoreWater = true;
-		}
-
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-		{
-			fallThrough = true;
-			width = height /= 4;
-			return Projectile.ai[2] == 2; // do not kill projectile on tile collide unless thrown
-		}
-
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			if (Projectile.ai[2] == 2)
-				Kill();
+			Projectile.tileCollide = false;
 		}
 
 		public override void AI()
@@ -53,57 +40,38 @@ namespace ArcaneOdyssey.Projectiles.Base
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;
 				}
-				if (Projectile.ai[2] == 2) // throwing
-				{
-					Projectile.velocity *= 3 / (Projectile.extraUpdates + 1f);
-					Projectile.timeLeft = 60 * (Projectile.extraUpdates + 1);
-				}
-				else
-				{
-					Projectile.velocity.Normalize();
-				}
+				Projectile.velocity.Normalize();
 			}
 
 			Owner.ChangeDir(Projectile.direction);
+			
+			Owner.heldProj = Projectile.whoAmI;
+			Owner.itemTime = Owner.itemAnimation;
+			Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.ai[1]);
 
-			if (Projectile.ai[2] == 2) // throwing
+			if (Owner.itemAnimation < Owner.itemAnimationMax / 2)
 			{
-				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-				Projectile.velocity.Y += 0.13f;
-				if (Projectile.velocity.Y > 16f)
+				Projectile.ai[1] -= SpearSpeed * Projectile.scale;
+				if (Projectile.localAI[0] == 0f)
 				{
-					Projectile.velocity.Y = 16f;
+					Projectile.netUpdate = true;
+					Projectile.netSpam = 0;
+					Projectile.localAI[0] = 1f;
+					EffectBeforeReelBack();
 				}
 			}
 			else
 			{
-				Owner.heldProj = Projectile.whoAmI;
-				Owner.itemTime = Owner.itemAnimation;
-				Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.ai[1]);
+				Projectile.ai[1] += SpearSpeed * Projectile.scale;
+			}
 
-				if (Owner.itemAnimation < Owner.itemAnimationMax / 2)
-				{
-					Projectile.ai[1] -= SpearSpeed / (Projectile.extraUpdates + 1f);
-					if (Projectile.localAI[0] == 0f)
-					{
-						Projectile.netUpdate = true;
-						Projectile.netSpam = 0;
-						Projectile.localAI[0] = 1f;
-						EffectBeforeReelBack();
-					}
-				}
-				else
-				{
-					Projectile.ai[1] += SpearSpeed / (Projectile.extraUpdates + 1f);
-				}
-
-				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-				if (Owner.ItemAnimationEndingOrEnded && Projectile.owner == Main.myPlayer)
-				{
-					Kill();
-				}
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+			if (Owner.ItemAnimationEndingOrEnded && Projectile.owner == Main.myPlayer)
+			{
+				Kill();
 			}
 		}
+		
 
 		public virtual void EffectBeforeReelBack() { }
 	}

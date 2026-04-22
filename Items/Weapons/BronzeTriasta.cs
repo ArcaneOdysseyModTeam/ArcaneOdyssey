@@ -86,6 +86,6 @@ namespace ArcaneOdyssey.Items.Weapons
 
 	public class EtherealFlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<BronzeTriasta>();
+		public override string Texture => AOUtils.GetTexture<BronzeTriasta>();
 	}
 }

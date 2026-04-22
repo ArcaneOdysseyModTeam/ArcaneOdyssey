@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: player.altFunctionUse + 1);
+			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: player.altFunctionUse);
 			return false;
 		}
 	}
@@ -60,6 +60,6 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 	public class SparrowThrustCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 * 5;
-		public override string ExtraIconTexture => AOUtils.GetTexture<NobleThunderspear>();
+		public override string Texture => AOUtils.GetTexture<NobleThunderspear>();
 	}
 }

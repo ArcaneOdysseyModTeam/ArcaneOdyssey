@@ -41,6 +41,6 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 	public class RagingImpact : DisplayedCooldown
 	{
 		public override int CooldownLength => 180;
-		public override string ExtraIconTexture => AOUtils.GetTexture<LanceofLoyaltyProjectile>();
+		public override string Texture => AOUtils.GetTexture<LanceofLoyaltyProjectile>();
 	}
 }

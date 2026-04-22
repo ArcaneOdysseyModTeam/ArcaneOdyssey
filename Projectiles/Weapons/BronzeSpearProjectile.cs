@@ -6,6 +6,5 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 	public class BronzeSpearProjectile : BaseSpearProjectile
 	{
 		public override string Texture => AOUtils.GetTexture<BronzeSpear>();
-		public override ItemTiers AOWeaponTier => ItemTiers.Average;
 	}
 }

@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -26,12 +28,25 @@ namespace ArcaneOdyssey.Items.Weapons
 		{
 			base.SetDefaults();
 			Item.height = Item.width = 44;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.shoot = ModContent.ProjectileType<SanguineThrow>();
-			Item.shootSpeed = 11f;
-			Item.noMelee = true;
-			Item.noUseGraphic = true;
+			Item.shootSpeed = 10f * Speed;
 			Item.autoReuse = true;
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player.ArcaneOdyssey().OnCooldown<SanguineThrowCooldown>())
+			{
+				Item.noUseGraphic = false;
+				Item.noMelee = false;
+			}
+			else
+			{
+				Item.noUseGraphic = true;
+				Item.noMelee = true;
+			}
+			return base.CanUseItem(player);
 		}
 
 		public override void SetStaticDefaults()
@@ -40,10 +55,20 @@ namespace ArcaneOdyssey.Items.Weapons
 			ArcaneOdysseyMod.Sets.dagger[Type] = true;
 		}
 
+		public override bool CanShoot(Player player) => !player.ArcaneOdyssey().OnCooldown<SanguineThrowCooldown>();
+
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			ActivateAbility(player, true);
+			player.ArcaneOdyssey().SetCooldown<SanguineThrowCooldown>();
 			return true;
 		}
+	}
+
+	public class SanguineThrowCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<Sanguine>();
+
+		public override int CooldownLength => 60;
 	}
 }

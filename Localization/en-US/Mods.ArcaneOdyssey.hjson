@@ -62,6 +62,19 @@ Drawback: {
 	Death3: "{0} should've been less aggressive."
 }
 
+Insanity: {
+	Death0: "{0} was brought to insanity."
+	Death1: "{0} was reduced to a beast."
+	Death2: "{0} forgot to equip banishment."
+	Death3: "{0} was lost in their madness."
+	Death4: "{0} was never seen again."
+	Message0: A second chance, reborn!
+	Message1: You hear a voice calling out to you...
+	Message2: Save me!
+	Message3: Who am I?
+	Message4: A vision of- you are forced to stop thinking.
+}
+
 Configs: {
 	ArcaneOdysseyConfig: {
 		DisplayName: Server Config
@@ -112,7 +125,7 @@ Configs: {
 		Tooltip: Select your magic circle design
 
 		Familiar: {
-			Label: Familiar (Default)
+			Label: Familiar
 			Tooltip: By KT_australis
 		}
 
@@ -255,8 +268,7 @@ SpecialTierLines: {
 FSTierLines: {
 	Normal: "[c/2277ff:~ Fighting style ~]"
 	Lost: "[c/0044ff:~ Lost fighting style ~]"
-	Ancient: "[c/7ebcc2:~ Advanced lost fighting style ~]"
-	Primordial: "[c/ffc2c2:~ Primordial fighing style ~]"
+	Ancient: "[c/7ebcc2:~ Ancient fighting style ~]"
 	Developer: "[c/ff0000:~ Developer fighting style ~]"
 }
 
@@ -346,6 +358,7 @@ Projectiles: {
 		ArrowRain.DisplayName: Rain of Arrows
 		SanguineThrow.DisplayName: Sanguine
 		RisingTideProjectile.DisplayName: Rising Tide
+		SpearThrow.DisplayName: Spear Throw
 	}
 
 	DeathCurse.DisplayName: The Death Curse

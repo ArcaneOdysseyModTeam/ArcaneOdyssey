@@ -1,5 +1,7 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Weapons;
 using Microsoft.Xna.Framework;
@@ -46,16 +48,23 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: player.altFunctionUse);
-			return false;
+			if (player.AltUse() && !player.ArcaneOdyssey().OnCooldown<SpearThrowCooldown>())
+			{
+				type = ModContent.ProjectileType<SpearThrow>();
+				velocity /= 3f;
+				ActivateAbility(player, false);
+				player.ArcaneOdyssey().SetCooldown<SpearThrowCooldown>();
+			}
 		}
 
 		public override bool AltFunctionUse(Player player)
 		{
-			Item.useStyle = ItemUseStyleID.Swing;
-			ActivateAbility(player, false);
+			if (!player.ArcaneOdyssey().OnCooldown<SpearThrowCooldown>())
+			{
+				Item.useStyle = ItemUseStyleID.Swing;
+			}
 			return true;
 		}
 
@@ -63,5 +72,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		{
 			CreateRecipe().AddIngredient<BronzeBar>(10).AddIngredient(ItemID.Spear).AddTile(TileID.Anvils).Register();
 		}
+	}
+
+	public class SpearThrowCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<BronzeSpear>();
+
+		public override int CooldownLength => 60;
 	}
 }

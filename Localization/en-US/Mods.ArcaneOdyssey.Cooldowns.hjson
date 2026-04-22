@@ -77,3 +77,53 @@ CrushingJudgementCooldown: {
 	DisplayName: Crushing Judgement Cooldown
 	Description: Crushing Judgement is on cooldown
 }
+
+MountainWindCooldown: {
+	DisplayName: Mountain Wind Cooldown
+	Description: Mountain Wind is on cooldown
+}
+
+MultiShotCooldown: {
+	DisplayName: Multi Shot Cooldown
+	Description: Multi Shot is on cooldown
+}
+
+PiercingShotCooldown: {
+	DisplayName: Piercing Shot Cooldown
+	Description: Piercing Shot is on cooldown
+}
+
+SpearThrowCooldown: {
+	DisplayName: Spear Throw Cooldown
+	Description: Spear Throw is on cooldown
+}
+
+StormofArrowsCooldown: {
+	DisplayName: Storm of Arrows Cooldown
+	Description: Storm of Arrows is on cooldown
+}
+
+TwinCrecsentsCooldown: {
+	DisplayName: Twin Crecsents Cooldown
+	Description: Twin Crecsents is on cooldown
+}
+
+SanguineThrowCooldown: {
+	DisplayName: Sanguine Throw Cooldown
+	Description: Sanguine Throw is on cooldown
+}
+
+FuryoftheSeaCooldown: {
+	DisplayName: Fury of the Sea Cooldown
+	Description: Fury of the Sea is on cooldown
+}
+
+PiercingGaleCooldown: {
+	DisplayName: Piercing Gale Cooldown
+	Description: Piercing Gale is on cooldown
+}
+
+ColossalCleaveCooldown: {
+	DisplayName: Colossal Cleave Cooldown
+	Description: Colossal Cleave is on cooldown
+}

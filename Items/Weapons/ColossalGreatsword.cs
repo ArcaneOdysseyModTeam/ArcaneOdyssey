@@ -1,3 +1,4 @@
+using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
@@ -38,12 +39,20 @@ namespace ArcaneOdyssey.Items.Weapons
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			player.ArcaneOdyssey().SetCooldown<ColossalCleaveCooldown>();
 			ActivateAbility(player, false);
-			return base.Shoot(player, source, position, velocity, type, damage, knockback);
+			return true;
 		}
 
-		public override bool AltFunctionUse(Player player) => Imbue is not null;
+		public override bool AltFunctionUse(Player player) => !player.ArcaneOdyssey().OnCooldown<ColossalCleaveCooldown>();
 
-		public override bool CanShoot(Player player) => player.AltUse() && player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool CanShoot(Player player) => player.AltUse();
+	}
+
+	public class ColossalCleaveCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<ColossalGreatsword>();
+
+		public override int CooldownLength => 180;
 	}
 }

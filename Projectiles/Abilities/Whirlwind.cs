@@ -92,6 +92,6 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	public class WhirlwindCooldown : DisplayedCooldown
 	{
 		public override int CooldownLength => 60 + Whirlwind.MaxTime;
-		public override string ExtraIconTexture => AOUtils.GetTexture<RavennaSword>();
+		public override string Texture => AOUtils.GetTexture<RavennaSword>();
 	}
 }

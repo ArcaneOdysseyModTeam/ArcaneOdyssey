@@ -1,10 +1,14 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 {
@@ -87,5 +91,12 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 			Vector2 drawPosition = Item.Bottom - Main.screenPosition - new Vector2(0, drawOrigin.Y);
 			spriteBatch.Draw(itemTexture, drawPosition, itemFrame, lightColor, rotation, drawOrigin, scale, SpriteEffects.FlipHorizontally, 0f);
 		}
+	}
+
+	public class TwinCrecsentsCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<ScimitarofStorm>();
+
+		public override int CooldownLength => 60;
 	}
 }

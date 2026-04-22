@@ -119,6 +119,6 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 
 	public class SeismicSlashCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<LionsHalberd>();
+		public override string Texture => AOUtils.GetTexture<LionsHalberd>();
 	}
 }

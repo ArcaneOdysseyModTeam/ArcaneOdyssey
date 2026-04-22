@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Buffs.MagicMarks;
+﻿using ArcaneOdyssey;
+using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,9 +10,9 @@ namespace ArcaneOdyssey.Projectiles.Relics
 	public class Nichtetheis : SpiritProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.raySprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.rayEndSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.rayStartSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<DrainedEffect>(60 * 5);
 		public const int TravelTime = 75;

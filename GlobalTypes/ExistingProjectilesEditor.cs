@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					if (item.type == ModContent.ItemType<BronzeMusket>() && item.Imbue() is MagicType && bullet != ItemID.HighVelocityBullet)
 					{
 						isPiercingShot = true;
-						piercingShotBeam = Projectile.NewProjectileDirect(source, projectile.Center, projectile.velocity.SafeNormalize(Vector2.Zero), ModContent.ProjectileType<BeamSpell>(), 0, 0, projectile.owner).ModProjectile as BeamSpell;
+						piercingShotBeam = Projectile.NewProjectileDirect(source, projectile.Center, projectile.velocity.SafeNormalize(), ModContent.ProjectileType<BeamSpell>(), 0, 0, projectile.owner).ModProjectile as BeamSpell;
 					}
 				}
 			}
@@ -45,7 +45,8 @@ namespace ArcaneOdyssey.GlobalTypes
 				piercingShotBeam.dying = true;
 				piercingShotBeam.end = projectile.Center;
 				piercingShotBeam.Projectile.timeLeft = BeamSpell.LingerTime + BeamSpell.TravelTime;
-				piercingShotBeam.Projectile.Center = piercingShotBeam.origin;
+				if (piercingShotBeam.origin != default)
+					piercingShotBeam.Projectile.Center = piercingShotBeam.origin;
 			}
 		}
 

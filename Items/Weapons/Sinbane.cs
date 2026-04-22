@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Items.Weapons
 
 	public class ToweringImpactCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<Sinbane>();
+		public override string Texture => AOUtils.GetTexture<Sinbane>();
 
 		public override int CooldownLength => 60 * 5;
 	}

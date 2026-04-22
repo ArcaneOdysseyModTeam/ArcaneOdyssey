@@ -144,6 +144,8 @@ namespace ArcaneOdyssey
 		[ReinitializeDuringResizeArrays]
 		public static class Sets
 		{
+			public static int[] OldWeapons = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>()];
+
 			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
 
 			public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet(0,
@@ -156,19 +158,7 @@ namespace ArcaneOdyssey
 
 			public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 
-			public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-			public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-			public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-			public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-			public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
 			public static int[] BlastMaxFrames = ItemID.Sets.Factory.CreateIntSet(1);
-
-			public static int[] OldWeapons = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>()];
 
 			public static bool[] staff = ItemID.Sets.Factory.CreateBoolSet(ItemID.MonkStaffT1, ItemID.MonkStaffT3);
 
@@ -197,6 +187,21 @@ namespace ArcaneOdyssey
 			public static int[] baseImbues = ItemID.Sets.Factory.CreateIntSet();
 
 			public static bool[] tombstone = ProjectileID.Sets.Factory.CreateBoolSet();
+
+			[ReinitializeDuringResizeArrays]
+			public static class Assets
+			{
+
+				public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+			}
 		}
 	}
 

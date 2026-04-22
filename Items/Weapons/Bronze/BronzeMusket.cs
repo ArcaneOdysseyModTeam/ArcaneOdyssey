@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -34,8 +35,9 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			if (type == ProjectileID.Bullet)
+			if (type == ProjectileID.Bullet && !player.ArcaneOdyssey().OnCooldown<PiercingShotCooldown>())
 			{
+				player.ArcaneOdyssey().SetCooldown<PiercingShotCooldown>();
 				ActivateAbility(player, true);
 				type = ProjectileID.BulletHighVelocity;
 				damage += new Item(ItemID.HighVelocityBullet).damage - new Item(ItemID.MusketBall).damage;
@@ -52,5 +54,12 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		{
 			CreateRecipe().AddIngredient(ItemID.Musket).AddIngredient<BronzeBar>(10).AddTile(TileID.Anvils).Register();
 		}
+	}
+
+	public class PiercingShotCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<BronzeMusket>();
+
+		public override int CooldownLength => 90;
 	}
 }

@@ -8,7 +8,6 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
@@ -21,7 +20,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	[AutoloadBossHead]
 	public class LordElius : BaseNPC
 	{
-		private Vector2[] podiumPos = {new Vector2(-645.5f,69f),new Vector2(-305.5f,53f),new Vector2(0f,0f),new Vector2(380.5f,53f),new Vector2(698.5f,69f)}; 
+		private Vector2[] podiumPos = [new(-645.5f, 69f), new(-305.5f, 53f), new(0f, 0f), new(380.5f, 53f), new(698.5f, 69f)];
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;
@@ -111,7 +110,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			
 			if (!hasSetSpawnLocation) //this also is used for setup
 			{
-				spawnLocation = NPC.position;
+				spawnLocation = NPC.Center;
 				hasSetSpawnLocation = true;
 				NPC.ai[0] = 1f;
 				NPC.ai[1] = 0f;
@@ -135,7 +134,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(1) + 1f;
+					NPC.ai[0] = Main.rand.Next(2) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
 			} else if (NPC.ai[0] == 2)
@@ -143,13 +142,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (NPC.ai[1] < 2f)
 				{
 					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
-					NPC.Center = spawnLocation + podiumPos[(int)Main.rand.Next(0, 5)];
+					NPC.Center = spawnLocation + podiumPos[Main.rand.Next(5)];
 					NPC.ai[1] = 2f;
 				}
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(1) + 1f;
+					NPC.ai[0] = Main.rand.Next(2) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
 			}

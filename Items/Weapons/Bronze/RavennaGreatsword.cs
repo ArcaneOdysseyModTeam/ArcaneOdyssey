@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Items.Weapons.Old;
 using ArcaneOdyssey.Projectiles.Abilities;
@@ -34,6 +35,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			base.SetStaticDefaults();
 			ArcaneOdysseyMod.Sets.greatsword[Type] = true;
 		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BronzeBar>(12).AddIngredient<OldGreatsword>().AddTile(TileID.Anvils).Register();
@@ -41,6 +43,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			player.ArcaneOdyssey().SetCooldown<MountainWindCooldown>();
 			ActivateAbility(player, true);
 			float anglediv = 9;
 			var angle1 = velocity.ToRotation() + MathHelper.Pi / anglediv;
@@ -50,32 +53,13 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			return true;
 		}
 
-		public override bool CanShoot(Player player) => swings == 1;
+		public override bool CanShoot(Player player) => !player.ArcaneOdyssey().OnCooldown<MountainWindCooldown>();
+	}
 
+	public class MountainWindCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<RavennaGreatsword>();
 
-		public int swings = 0;
-		public int noUseCounter = 0;
-
-		public override void UseAnimation(Player player)
-		{
-			noUseCounter = 0;
-			if (++swings > 3)
-			{
-				swings = 0;
-			}
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			if (!Main.mouseLeft && noUseCounter < 100)
-			{
-				noUseCounter++;
-			}
-
-			if (noUseCounter > 120 || player.PlayerItem().type != Type)
-			{
-				swings = 0;
-			}
-		}
+		public override int CooldownLength => 120;
 	}
 }

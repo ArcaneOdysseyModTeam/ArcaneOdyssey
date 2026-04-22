@@ -1,54 +1,53 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 
 namespace ArcaneOdyssey.AOPlayers
 {
 	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{
-		public override string Texture => AOUtils.DebuffTexture;
-		public virtual string ExtraIconTexture => null;
-
 		public override void SetStaticDefaults()
 		{
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
+			Main.buffNoTimeDisplay[Type] = true;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 
-		public int TypeID
-		{
-			get
-			{
-				if (ArcaneOdysseyMod.Instance.TryFind<ModBuff>(Name, out var cooldown))
-				{
-					return cooldown.Type;
-				}
-				else
-					return Type;
-			}
-		}
+		public static Asset<Texture2D> debuffBackground;
 
-		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
+		public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
 		{
-			if (ExtraIconTexture is not null)
+			var ogrect = drawParams.MouseRectangle;
+			drawParams.MouseRectangle.Width = (32 * (drawParams.MouseRectangle.Width / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))).Round();
+			drawParams.MouseRectangle.Height = (32 * (drawParams.MouseRectangle.Height / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))).Round();
+
+			if (AOUtils.RequestIfExists(AOUtils.DebuffTexture, ref debuffBackground))
 			{
-				if (ModContent.RequestIfExists<Texture2D>(ExtraIconTexture, out var tex))
-				{
-					spriteBatch.Draw(tex.Value, drawParams.MouseRectangle with
-					{
-						Height = drawParams.MouseRectangle.Height - drawParams.MouseRectangle.Height / 32 * 4,
-						Width = drawParams.MouseRectangle.Width - drawParams.MouseRectangle.Width / 32 * 4,
-						X = drawParams.MouseRectangle.X + drawParams.MouseRectangle.Width / 32 * 2,
-						Y = drawParams.MouseRectangle.Y + drawParams.MouseRectangle.Height / 32 * 2
-					}, drawParams.DrawColor);
-				}
+				spriteBatch.Draw(debuffBackground.Value, drawParams.Position, null, drawParams.DrawColor, 0f, default, 1f, SpriteEffects.None, 0f);
 			}
+
+			spriteBatch.Draw(drawParams.Texture, drawParams.Position, null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.None, 0f);
+
+			if (this is TwinCrecsentsCooldown)
+			{
+				spriteBatch.Draw(drawParams.Texture, drawParams.Position, null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.FlipHorizontally, 0f);
+			}
+
+			drawParams.MouseRectangle.Width = (32 * (ogrect.Width / (float)drawParams.Texture.Width)).Round();
+			drawParams.MouseRectangle.Height = (32 * (ogrect.Height / (float)drawParams.Texture.Height)).Round();
+
+			return false;
 		}
 
 		public virtual int CooldownLength => 0;

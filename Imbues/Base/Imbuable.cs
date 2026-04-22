@@ -283,7 +283,6 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (player.AltUse() && Main.myPlayer == player.whoAmI)
 			{
-				player.GetModPlayer<ThermoFallOff>().resetBar = true;
 				var name = "";
 				if (player.Imbue() is SteamImbue steam)
 				{

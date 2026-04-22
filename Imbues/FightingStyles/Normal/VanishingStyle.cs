@@ -76,11 +76,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override void UpdateInventory(Player player)
 		{
-			if (player.GetModPlayer<ThermoFallOff>().resetBar)
-			{
-				BarValue = BarMin;
-				player.GetModPlayer<ThermoFallOff>().resetBar = false;
-			}
 			if (!player.ArcaneOdyssey().OnCooldown(Name))
 				BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
 			base.UpdateInventory(player);

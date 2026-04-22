@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Abilities;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -41,7 +42,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 			Item.useAmmo = AmmoID.Arrow;
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public override bool AltFunctionUse(Player player) => !player.ArcaneOdyssey().OnCooldown<StormofArrowsCooldown>();
 
 		public override Vector2? HoldoutOffset() => new();
 
@@ -65,6 +66,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 				var offsetY = Main.screenPosition.Y;
 				var pos = new Vector2(offsetX, offsetY);
 				velocity = player.SafeDirectionTo(pos) * velocity.Length();
+				player.ArcaneOdyssey().SetCooldown<StormofArrowsCooldown>();
 			}
 		}
 
@@ -77,5 +79,12 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 			}
 			return base.Shoot(player, source, position, velocity, type, damage, knockback);
 		}
+	}
+
+	public class StormofArrowsCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<StormCaller>();
+
+		public override int CooldownLength => 120;
 	}
 }

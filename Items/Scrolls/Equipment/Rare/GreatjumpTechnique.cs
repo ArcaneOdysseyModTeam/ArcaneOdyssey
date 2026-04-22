@@ -62,6 +62,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 	public class GreatjumpCooldown : DisplayedCooldown
 	{
-		public override string ExtraIconTexture => AOUtils.GetTexture<GreatjumpTechnique>();
+		public override string Texture => AOUtils.GetTexture<GreatjumpTechnique>();
 	}
 }

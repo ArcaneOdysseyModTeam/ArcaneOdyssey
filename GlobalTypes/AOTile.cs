@@ -109,13 +109,18 @@ namespace ArcaneOdyssey.GlobalTypes
 				AddOption<ArrayScroll>();
 				AddOption<PulsarScroll>();
 				AddOption<JavelinSpell>();
-				AddOption<RaySpell>();
-				AddOption<MeteorScroll>();
 				AddOption<FlightScroll>();
 				AddOption<GreatjumpTechnique>();
-				AddOption<CrescendoTechnique>();
 				AddOption<ElementalSpell>();
-				AddOption<AnnihilationScroll>();
+				AddOption<SurgeSpell>();
+
+				if (NPC.downedMechBossAny)
+				{
+					AddOption<RaySpell>();
+					AddOption<AnnihilationScroll>();
+					AddOption<MeteorScroll>();
+					AddOption<CrescendoTechnique>();
+				}
 
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{

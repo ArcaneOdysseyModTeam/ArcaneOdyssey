@@ -1,5 +1,7 @@
-﻿using ArcaneOdyssey.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
 using Terraria;
@@ -32,12 +34,23 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 
 		public override void EffectBeforeSpin(Player player)
 		{
-			if (Owner.PlayerItem()?.ModItem is Weapon weap)
+			if (!player.ArcaneOdyssey().OnCooldown<FuryoftheSeaCooldown>())
 			{
-				weap.ActivateAbility(Owner, true);
+				player.ArcaneOdyssey().SetCooldown<FuryoftheSeaCooldown>();
+				if (Owner.PlayerItem()?.ModItem is Weapon weap)
+				{
+					weap.ActivateAbility(Owner, true);
+				}
+				if (Projectile.owner == Main.myPlayer)
+					AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 17.5f * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, SecondImbue);
 			}
-			if (Projectile.owner == Main.myPlayer)
-				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 17.5f * player.SafeDirectionTo(Main.MouseWorld), ModContent.ProjectileType<FuryoftheSea>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, SecondImbue);
 		}
+	}
+
+	public class FuryoftheSeaCooldown : DisplayedCooldown
+	{
+		public override string Texture => AOUtils.GetTexture<SunkenStaff>();
+
+		public override int CooldownLength => 60;
 	}
 }

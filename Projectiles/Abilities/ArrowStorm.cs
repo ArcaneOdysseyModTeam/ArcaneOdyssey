@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				for (int i = -2; i < 3; i++)
 				{
 					var direction = (MathHelper.PiOver2 + (MathHelper.PiOver4 / 10f * i)).ToRotationVector2();
-					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, direction * (Projectile.velocity.Length() * .75f), ThisProjectileType, Projectile.damage / 3, Projectile.knockBack / 5f, Projectile.owner);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, direction * (Projectile.velocity.Length() * .75f), ThisProjectileType, Projectile.damage / 2, Projectile.knockBack / 5f, Projectile.owner);
 				}
 			}
 		}
