@@ -341,18 +341,18 @@ Potions: {
 Debug: {
 	EliusArenaSpawner: {
 		DisplayName: Elius Arena Spawner [DEBUG]
-		Tooltip: Forces Elius's arena to generate
+		Tooltip: Forces Elius's arena to generate, or checks for multiplayer syncing
 	}
 }
 
 EmptyScrolls: {
 	LostEmptyScroll: {
-		DisplayName: Lost Empty Scroll
+		DisplayName: Empty Scroll
 		Tooltip: ""
 	}
 
 	RareEmptyScroll: {
-		DisplayName: Rare Empty Scroll
+		DisplayName: Empty Scroll
 		Tooltip: ""
 	}
 

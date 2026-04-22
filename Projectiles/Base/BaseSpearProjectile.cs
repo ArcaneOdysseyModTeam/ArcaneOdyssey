@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 {
 	public abstract class BaseSpearProjectile : PlayerProjectile
 	{
-		public const float SpearSpeed = 3.7f;
+		public const float SpearSpeed = 3.65f;
 
 		public override void SetStaticDefaults()
 		{

@@ -27,23 +27,36 @@ namespace ArcaneOdyssey.Items.Weapons
 		{
 			base.SetDefaults();
 			Item.height = Item.width = 44;
+			Item.reuseDelay = 2;
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.shoot = ModContent.ProjectileType<SanguineThrow>();
 			Item.shootSpeed = 10f * Speed;
 			Item.autoReuse = true;
 		}
 
+		private bool canshoot;
+
+		private bool canSwing;
+
 		public override bool CanUseItem(Player player)
 		{
-			if (player.ArcaneOdyssey().OnCooldown<SanguineThrowCooldown>())
+			canSwing = !canSwing;
+			if (!canSwing && player.ArcaneOdyssey().OnCooldown<SanguineThrowCooldown>())
 			{
-				Item.noUseGraphic = false;
+				canshoot = false;
+				Item.useStyle = ItemUseStyleID.Thrust;
 				Item.noMelee = false;
+				Item.noUseGraphic = false;
+				return canSwing;
 			}
-			else
+			if (!player.ArcaneOdyssey().OnCooldown<SanguineThrowCooldown>())
 			{
-				Item.noUseGraphic = true;
+				canSwing = true;
+				canshoot = true;
+				Item.useStyle = ItemUseStyleID.Swing;
 				Item.noMelee = true;
+				Item.noUseGraphic = true;
+				return true;
 			}
 			return base.CanUseItem(player);
 		}
@@ -54,10 +67,11 @@ namespace ArcaneOdyssey.Items.Weapons
 			ArcaneOdysseyMod.Sets.dagger[Type] = true;
 		}
 
-		public override bool CanShoot(Player player) => !player.ArcaneOdyssey().OnCooldown<SanguineThrowCooldown>();
+		public override bool CanShoot(Player player) => canshoot;
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			canshoot = false;
 			ActivateAbility(player, true);
 			player.ArcaneOdyssey().SetCooldown<SanguineThrowCooldown>();
 			return true;

@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.AOPlayers
 {
@@ -18,7 +19,7 @@ namespace ArcaneOdyssey.AOPlayers
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
-			Main.buffNoTimeDisplay[Type] = true;
+			//Main.buffNoTimeDisplay[Type] = true;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 
@@ -30,16 +31,21 @@ namespace ArcaneOdyssey.AOPlayers
 			drawParams.MouseRectangle.Width = (32 * (drawParams.MouseRectangle.Width / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))).Round();
 			drawParams.MouseRectangle.Height = (32 * (drawParams.MouseRectangle.Height / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))).Round();
 
+			var scaledx = (drawParams.Texture.Width * (drawParams.MouseRectangle.Width / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))) - drawParams.MouseRectangle.Width;
+			var scaledy = (drawParams.Texture.Height * (drawParams.MouseRectangle.Height / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))) - drawParams.MouseRectangle.Height;
+
+			drawParams.TextPosition.Y = (32 * (ogrect.Height / (float)drawParams.Texture.Height)) + drawParams.Position.Y;
+
 			if (AOUtils.RequestIfExists(AOUtils.DebuffTexture, ref debuffBackground))
 			{
-				spriteBatch.Draw(debuffBackground.Value, drawParams.Position, null, drawParams.DrawColor, 0f, default, 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(debuffBackground.Value, drawParams.Position, null, drawParams.DrawColor, 0f, default, Math.Max(ogrect.Height, ogrect.Width) / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height), SpriteEffects.None, 0f);
 			}
 
-			spriteBatch.Draw(drawParams.Texture, drawParams.Position, null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.None, 0f);
+			spriteBatch.Draw(drawParams.Texture, drawParams.Position - (new Vector2(scaledx, scaledy) * 1.5f), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.None, 0f);
 
 			if (this is TwinCrecsentsCooldown)
 			{
-				spriteBatch.Draw(drawParams.Texture, drawParams.Position, null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.FlipHorizontally, 0f);
+				spriteBatch.Draw(drawParams.Texture, drawParams.Position - (new Vector2(scaledx, scaledy) * 1.5f), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.FlipHorizontally, 0f);
 			}
 
 			drawParams.MouseRectangle.Width = (32 * (ogrect.Width / (float)drawParams.Texture.Width)).Round();

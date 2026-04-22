@@ -358,7 +358,7 @@ Projectiles: {
 		ArrowRain.DisplayName: Rain of Arrows
 		SanguineThrow.DisplayName: Sanguine
 		RisingTideProjectile.DisplayName: Rising Tide
-		SpearThrow.DisplayName: Spear Throw
+		SpearThrow.DisplayName: Bronze Spear
 	}
 
 	DeathCurse.DisplayName: The Death Curse

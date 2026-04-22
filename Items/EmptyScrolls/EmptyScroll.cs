@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.EmptyScrolls
 {
-	[LegacyName("Paper")]
+	[LegacyName("TitleMusicBox", "Paper")]
 	public class EmptyScroll : BaseItem
 	{
 		public override Rarities Rarity => Rarities.Common;

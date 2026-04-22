@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Consumable
 {
-	[LegacyName("TitleMusicBox", "StarterAcrimony")] // rare removed items are added here
+	[LegacyName("StarterAcrimony")]
 	public class Acrimony : BaseItem
 	{
 		public override int Value => 10000;
