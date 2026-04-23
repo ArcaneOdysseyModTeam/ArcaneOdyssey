@@ -18,5 +18,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 			newDust.noGravity = true;
 			npc.ArcaneOdyssey().seared = true;
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
 	}
 }

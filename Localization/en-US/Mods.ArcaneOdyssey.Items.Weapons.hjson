@@ -247,3 +247,10 @@ Vindicator: {
 		Description: Jump towards the cursor and release a shockwave
 	}
 }
+
+Atlantean: {
+	AtlanteanGreatsword: {
+		DisplayName: Atlantean Greatsword
+		Tooltip: ""
+	}
+}

@@ -23,5 +23,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 			}
 			npc.ArcaneOdyssey().vesuvianBurn = true;
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
 	}
 }

@@ -31,5 +31,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 				buffIndex--;
 			}
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
 	}
 }

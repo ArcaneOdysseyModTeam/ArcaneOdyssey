@@ -9,6 +9,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 {
 	public class AOPoisoned : VanillaClone
 	{
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
 		public override int VanillaID => BuffID.Poisoned;
 		public override List<int> Counterparts => [.. base.Counterparts, ModContent.BuffType<ElectrifiedToxins>()];
 

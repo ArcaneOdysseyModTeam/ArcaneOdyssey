@@ -25,5 +25,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 		}
 
 		public override List<int> Counterparts => [BuffID.CursedInferno];
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
 	}
 }

@@ -8,6 +8,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 	{
 		public override int VanillaID => BuffID.OnFire;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (npc.wet && !npc.lavaWet)

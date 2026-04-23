@@ -17,5 +17,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 				Dust.NewDust(npc.position, npc.width, npc.height, DustID.WitherLightning, newColor: Color.Purple);
 			}
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
 	}
 }

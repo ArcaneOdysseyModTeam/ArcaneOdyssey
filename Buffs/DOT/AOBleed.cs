@@ -10,6 +10,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 	{
 		public override int VanillaID => BuffID.Bleeding;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (Main.GameUpdateCount % 2 == 0) 

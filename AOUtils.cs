@@ -923,6 +923,7 @@ namespace ArcaneOdyssey
 					return item.DamageType.CountsAsClass(DamageClass.Melee)
 						|| item.DamageType.CountsAsClass(DamageClass.Ranged)
 						|| item.DamageType.CountsAsClass(DamageClass.Throwing)
+						|| item.DamageType.CountsAsClass(DamageClass.Magic)
 						||
 						(
 							item.ModItem is Scroll or Imbuable
@@ -966,10 +967,18 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is FightingStyle)
 				{
+					if (item.DamageType.CountsAsClass(DamageClass.Magic))
+					{
+						return false;
+					}
 					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength) && item.ModItem is not Imbuable;
 				}
 				if (imbue is MagicType)
 				{
+					if (item.DamageType.CountsAsClass(DamageClass.Magic))
+					{
+						return false;
+					}
 					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || (item.ModItem is SpiritEnergy or FightingStyle && Main.hardMode));
 				}
 				if (imbue is SpiritEnergy)
@@ -1315,9 +1324,6 @@ namespace ArcaneOdyssey
 
 		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
 
-
-		private static bool checklistfailed = true; // do not spam console if set to true
-
 		/// <summary>
 		/// Includes minibosses
 		/// </summary>
@@ -1327,37 +1333,21 @@ namespace ArcaneOdyssey
 			{
 				int count = 0;
 				List<bool> conditions = [];
-				if (checklistfailed || !ModLoader.TryGetMod("BossChecklist", out var checklist))
+				conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.DownedWorldEater, DownedBosses.DownedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
+				if (ExternalModSupport.HasCalamity)
 				{
-					conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.DownedWorldEater, DownedBosses.DownedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
-					if (ExternalModSupport.HasCalamity)
+					string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
+					foreach (var boss in extrBosses)
 					{
-						string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
-						foreach (var boss in extrBosses)
-						{
-							conditions.Add((bool)ExternalModSupport.Calamity.Call("GetBossDowned", boss));
-						}
+						conditions.Add((bool)ExternalModSupport.Calamity.Call("GetBossDowned", boss));
 					}
 				}
-				else
+				if (ExternalModSupport.HasThorium)
 				{
-					var raw = checklist.Call("GetBossInfoDictionary", ModInstance);
-					if (raw is Dictionary<string, Dictionary<string, object>> data)
+					string[] extrBosses = "Lich Viscount PatchWerk StarScouter Illusionist CorpseBloom ForgottenOne BoreanStrider FallenBeholder BuriedChampion ThePrimordials QueenJellyfish GraniteEnergyStorm TheGrandThunderBird".Split(" ");
+					foreach (var boss in extrBosses)
 					{
-						foreach (var boss in data)
-						{
-							bool isbossormini = (bool)boss.Value["isBoss"] || (bool)boss.Value["isMiniboss"];
-							if (isbossormini)
-							{
-								var func = (Func<bool>)boss.Value["downed"];
-								conditions.Add(func.Invoke());
-							}
-						}
-					}
-					else
-					{
-						checklistfailed = true;
-						return BossesKilled;
+						conditions.Add((bool)ExternalModSupport.Thorium.Call("GetDownedBoss", boss));
 					}
 				}
 				foreach (var killed in conditions)
@@ -1365,7 +1355,6 @@ namespace ArcaneOdyssey
 					if (killed)
 						count++;
 				}
-				//checklistfailed = false;
 				return count;
 			}
 		}

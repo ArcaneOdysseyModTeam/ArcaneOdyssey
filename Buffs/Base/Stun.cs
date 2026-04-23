@@ -30,6 +30,7 @@ namespace ArcaneOdyssey.Buffs.Base
 			Main.buffNoTimeDisplay[Type] = false;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 			ExternalModSupport.RegisterDebuff(this);
+			ExternalModSupport.RegisterStatusBuff(Type);
 		}
 
 		public override void Update(Player player, ref int buffIndex)

@@ -24,5 +24,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 				dust.velocity *= 0.4f;
 			}
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
 	}
 }

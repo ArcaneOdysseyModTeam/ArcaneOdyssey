@@ -9,6 +9,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 	{
 		public const int HealDistance = 700;
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (npc.wet && !npc.lavaWet)

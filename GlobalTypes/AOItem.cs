@@ -14,6 +14,7 @@ using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Items.Weapons.Atlantean;
 using ArcaneOdyssey.Prefixes;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Berserker.Effects;
@@ -39,6 +40,7 @@ namespace ArcaneOdyssey.GlobalTypes
 {
 	public class AOItem : GlobalItem, IImbuable
 	{
+		public ItemType ItemType => thisItem?.GetItemType() ?? ItemType.Item;
 		public float ApplySpeed(float value, bool flipfloat = false)
 		{
 			if (BenifitsFromScrollStats.HasValue)
@@ -95,7 +97,14 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					return thisItem.Prefix(ModContent.PrefixType<AtlanteanPrefix>());
 				}
-				// add atlantean weapons here later
+				if (!ArcaneOdysseyMod.Sets.atlanteanItem[thisItem.type])
+				{
+					if (ArcaneOdysseyMod.Sets.greatsword[thisItem.type])
+					{
+						thisItem.SetDefaults(ModContent.ItemType<AtlanteanGreatsword>());
+						return true;
+					}
+				}
 			}
 			return false;
 		}
@@ -108,7 +117,13 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					return true;
 				}
-				// add atlantean weapons here later
+				if (!ArcaneOdysseyMod.Sets.atlanteanItem[thisItem.type])
+				{
+					if (ArcaneOdysseyMod.Sets.greatsword[thisItem.type])
+					{
+						return true;
+					}
+				}
 			}
 			return false;
 		}
@@ -176,11 +191,15 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void NetSend(Item item, BinaryWriter writer)
 		{
 			thisItem = item;
+			writer.Write(Imbue?.Type ?? ItemID.None);
+			writer.Write(SecondImbue?.Type ?? ItemID.None);
 		}
 
 		public override void NetReceive(Item item, BinaryReader reader)
 		{
 			thisItem = item;
+			Imbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
+			SecondImbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
 		}
 
 		public override void LoadData(Item item, TagCompound tag)
@@ -393,7 +412,9 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
 			{
-				spriteBatch.Draw(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value, position, null, Color.White * .75f, 0, TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value.Size() / 2f, .8f * (52f / Math.Max(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Width(), TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Height())), SpriteEffects.None, 1f);
+				var itemsprite = TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()];
+				var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
+				spriteBatch.Draw(itemsprite.Value, position, null, Color.White * .75f, 0, itemsprite.Size() / 2f, drawScale * .8f * (52f / Math.Max(itemsprite.Width(), itemsprite.Height())), SpriteEffects.None, 1f);
 			}
 
 			return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
@@ -403,12 +424,14 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 
+			var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
 			if (AtlanteanApplied)
 			{
+				var itemsprite = TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()];
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value, location, null, Color.White, 0, TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Value.Size() / 2f, .3f * (52f / Math.Max(TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Width(), TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()].Height())), SpriteEffects.None, 1f);
+				spriteBatch.Draw(itemsprite.Value, location, null, Color.White, 0, itemsprite.Size() / 2f, drawScale * .3f * (52f / Math.Max(itemsprite.Width(), itemsprite.Height())), SpriteEffects.None, 1f);
 			}
 
 			if (Imbue is null || !canBeAffected)
@@ -419,11 +442,11 @@ namespace ArcaneOdyssey.GlobalTypes
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, .3f * (52f / Math.Max(texture.Width(), texture.Height())), SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, drawScale * .3f * (52f / Math.Max(texture.Width(), texture.Height())), SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs)
 				{
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 4f), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, Vector2.Zero, .5f, SpriteEffects.None, 0f);
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 4f), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, Vector2.Zero, drawScale * .5f, SpriteEffects.None, 0f);
 				}
 
 				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
@@ -431,7 +454,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					dimensions.X *= -1f;
 					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, .3f * (52f / Math.Max(texture2.Width(), texture2.Height())), SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, drawScale * .3f * (52f / Math.Max(texture2.Width(), texture2.Height())), SpriteEffects.None, 1f);
 				}
 			}
 		}
@@ -663,7 +686,7 @@ namespace ArcaneOdyssey.GlobalTypes
 						break;
 				}
 			}
-			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods && item.ModItem is not null or BaseItem)
+			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods && item.ModItem is not null or BaseItem && AOUtils.ImbueClassCheck(item))
 			{
 				Cold = ExternalModSupport.CheckItemTemperature(item.ModItem);
 				WeaponsType = ExternalModSupport.CheckWeaponsType(item.ModItem);

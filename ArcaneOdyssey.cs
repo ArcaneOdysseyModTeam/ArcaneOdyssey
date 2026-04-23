@@ -184,9 +184,13 @@ namespace ArcaneOdyssey
 
 			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer, ItemID.PaladinsHammer);
 
+			public static bool[] flail = ItemID.Sets.Factory.CreateBoolSet(ItemID.DripplerFlail, ItemID.Mace, ItemID.FlamingMace, ItemID.Flairon, ItemID.BallOHurt, ItemID.BlueMoon, ItemID.DaoofPow, ItemID.FlowerPow, ItemID.Sunfury, ItemID.TheMeatball);
+
 			public static int[] baseImbues = ItemID.Sets.Factory.CreateIntSet();
 
 			public static bool[] tombstone = ProjectileID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] atlanteanItem = ItemID.Sets.Factory.CreateBoolSet();
 
 			[ReinitializeDuringResizeArrays]
 			public static class Assets
@@ -224,14 +228,14 @@ namespace ArcaneOdyssey
 			ArcaneOdysseyMod.NoticeQueue = [];
 		}
 
+		internal static bool InArray(int i)
+		{
+			return ItemID.Sets.Deprecated[i] || ArcaneOdysseyMod.Sets.claw[i] || ArcaneOdysseyMod.Sets.spear[i] || ArcaneOdysseyMod.Sets.dualbladed[i] || ArcaneOdysseyMod.Sets.greatsword[i] || ArcaneOdysseyMod.Sets.dagger[i] || ArcaneOdysseyMod.Sets.staff[i] || ArcaneOdysseyMod.Sets.rapier[i] || ArcaneOdysseyMod.Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || ArcaneOdysseyMod.Sets.greataxe[i] || ArcaneOdysseyMod.Sets.flail[i];
+		}
+
 		public override void PostSetupRecipes()
 		{
 			ArcaneOdysseyMod.finishedLoading = true;
-
-			static bool inArray(int i)
-			{
-				return ItemID.Sets.Deprecated[i] || ArcaneOdysseyMod.Sets.claw[i] || ArcaneOdysseyMod.Sets.spear[i] || ArcaneOdysseyMod.Sets.dualbladed[i] || ArcaneOdysseyMod.Sets.greatsword[i] || ArcaneOdysseyMod.Sets.dagger[i] || ArcaneOdysseyMod.Sets.staff[i] || ArcaneOdysseyMod.Sets.rapier[i] || ArcaneOdysseyMod.Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || ArcaneOdysseyMod.Sets.greataxe[i];
-			}
 
 			for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
 			{
@@ -243,16 +247,19 @@ namespace ArcaneOdyssey
 
 			for (int i = 0; i < ItemLoader.ItemCount; i++)
 			{
-				if (!inArray(i))
+				if (!InArray(i))
 				{
 					var item = new Item(i);
 
 					if (item.ModItem is not null)
 					{
-						ExternalModSupport.CheckWeapon(item.ModItem);
+						if (AOUtils.ImbueClassCheck(item) || item.ArcaneOdyssey().WeaponsType is WeaponType.Arcanium)
+						{
+							ExternalModSupport.CheckWeapon(item.ModItem);
+						}
 					}
 
-					if (!inArray(i))
+					if (!InArray(i))
 					{
 						if (Item.claw[i])
 						{
@@ -264,7 +271,7 @@ namespace ArcaneOdyssey
 							ArcaneOdysseyMod.Sets.spear[i] = true;
 						}
 
-						if (!inArray(i))
+						if (!InArray(i))
 						{
 							if (item.DamageType.CountsAsClass(DamageClass.Melee) && item.axe == 0 && item.hammer == 0 && item.pick == 0 && item.ModItem is not (Imbuable or Scroll) && !item.accessory)
 							{

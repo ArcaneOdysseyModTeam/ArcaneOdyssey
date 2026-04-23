@@ -17,6 +17,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 			npc.ArcaneOdyssey().scalding = true;
 		}
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
+
 		public override List<int> Counterparts => [BuffID.Frostburn, BuffID.Frostburn2];
 	}
 }
