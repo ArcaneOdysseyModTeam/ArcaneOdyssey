@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Items.Consumable
 			try
 			{
 				//Main.NewText($"Can use item {!ModContent.GetInstance<ImbueChangeUISystem>().CanShowImbueAcquire()}");
-				return !ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueAcquire();
+				return !ModContent.GetInstance<ModUISystem>().CanShowImbueAcquire();
 			}
 			catch (Exception ex)
 			{
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Items.Consumable
 			{
 				if (player.whoAmI == Main.myPlayer)
 				{
-					ModContent.GetInstance<ImbueAnythingUISystem>().ShowAcquireUI();
+					ModContent.GetInstance<ModUISystem>().ShowAcquireUI();
 					Main.playerInventory = false;
 				}
 			}

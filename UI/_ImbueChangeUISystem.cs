@@ -11,10 +11,10 @@ using Terraria.UI;
 namespace ArcaneOdyssey.UI;
 
 /// <summary>
-/// The <see cref="ModSystem"/> 
+/// The <see cref="ModSystem"/> of this mod, currently holds <see cref="ImbueAcquireUI"/>, <see cref="ImbueChangeUI"/>, <see cref="ImbueAcquireSequelUI"/>, <see cref="mutateThyMagicUI"/>
 /// </summary>
 [Autoload(Side = ModSide.Client)]
-public class ImbueAnythingUISystem : ModSystem
+public class ModUISystem : ModSystem
 {
 	private UserInterface _ImbueAcquire;
 	internal ImbueAcquireUI imbueAcquireUI;

@@ -187,7 +187,7 @@ public abstract partial class BaseImbueUI : UIState
 	// Spoky (2026 January 25): Wanted to use TexturePath but it is not static therefore no can do, and given close button won't change texture (atleast not for now)
 	protected UIImageButton CloseButton = new(ButtonTextures.Neutral), ChooseButton = new(ButtonTextures.Neutral);
 	protected UIText CloseText = new("Close", 1, true), ChooseText = new("Choose", 1, true);
-	protected static class ButtonTextures
+	public static class ButtonTextures
 	{
 		public static readonly Asset<Texture2D> Neutral = ArcaneOdysseyMod.Instance.Assets.Request<Texture2D>("UI/_BaseImbueUI/Textures/Button/Neutral", AssetRequestMode.ImmediateLoad);
 	}

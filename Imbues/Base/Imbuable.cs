@@ -595,7 +595,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void RightClick(Player player)
 		{
 			Main.playerInventory = false;
-			var instance = ModContent.GetInstance<ImbueAnythingUISystem>();
+			var instance = ModContent.GetInstance<ModUISystem>();
 			if (!instance.CanShowImbueChange())
 				instance.ShowSwapUI(this);
 		}

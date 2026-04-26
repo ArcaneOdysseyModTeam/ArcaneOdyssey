@@ -48,7 +48,7 @@ public class PoseidonSpirit : BaseItem
 		try
 		{
 			//Main.NewText($"Can use item {!ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire()}");
-			return !ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire();
+			return !ModContent.GetInstance<ModUISystem>().CanShowImbueSequelAcquire();
 		}
 		catch (Exception ex)
 		{
@@ -63,7 +63,7 @@ public class PoseidonSpirit : BaseItem
 		{
 			if (player.whoAmI == Main.myPlayer)
 			{
-				ModContent.GetInstance<ImbueAnythingUISystem>().ShowAcquireSequelUI();
+				ModContent.GetInstance<ModUISystem>().ShowAcquireSequelUI();
 				Main.playerInventory = false;
 			}
 		}

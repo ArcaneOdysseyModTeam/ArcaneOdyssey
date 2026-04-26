@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Imbues.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Guidebook;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
@@ -133,7 +135,7 @@ namespace ArcaneOdyssey.NPCs.Town
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
-
+		
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Mod.CustomLocalization("RandomWords.Guide").Value;
@@ -145,6 +147,16 @@ namespace ArcaneOdyssey.NPCs.Town
 			if (firstButton)
 			{
 				Main.npcChatText = Main.rand.Next(Player.ArcaneOdyssey().AvailablePages()).Description.Value; // placeholder, open up guidebook ui instead
+
+				AOPlayer modPlayer = Player.ArcaneOdyssey();
+				List<GuidebookPage> list = modPlayer.AvailablePages();
+				Main.NewText($"Hmm {Player.name}, modPlayer: {modPlayer.Name}\n");
+				foreach (var l in list)
+				{
+					Main.NewText($"Name: {l.DisplayName} \n" +
+						$"\t{l.Description}\n");
+				}
+
 			}
 			else
 			{

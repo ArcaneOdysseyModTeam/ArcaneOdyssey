@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Items.Consumable
 			try
 			{
 				//Main.NewText($"Can use item {!ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire()}");
-				if (ModContent.GetInstance<ImbueAnythingUISystem>().CanShowMutations()) 
+				if (ModContent.GetInstance<ModUISystem>().CanShowMutations()) 
 					return false;
 
 				foreach (var i in player.inventory) 
@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Items.Consumable
 			{
 				if (player.whoAmI == Main.myPlayer)
 				{
-					ModContent.GetInstance<ImbueAnythingUISystem>().ShowMutationUI();
+					ModContent.GetInstance<ModUISystem>().ShowMutationUI();
 					Main.playerInventory = false;
 				}
 			}
