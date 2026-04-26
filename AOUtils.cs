@@ -939,6 +939,7 @@ namespace ArcaneOdyssey
 			{
 				if (imbue is SteamImbue steam)
 				{
+					steam.Imbue ??= ModContent.GetInstance<WindMagic>();
 					return CanHaveImbue(item, steam.Imbue);
 				}
 				if (imbue is null)
@@ -1282,6 +1283,7 @@ namespace ArcaneOdyssey
 			var type = imbue.Type;
 			if (imbue is SteamImbue steam)
 			{
+				steam.Imbue ??= ModContent.GetInstance<WindMagic>();
 				type = steam.Imbue.Type;
 			}
 			return player.HasTypeInInventory<Imbuable>(e => e.Type == type); // because it includes equipped imbues

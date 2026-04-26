@@ -15,10 +15,10 @@ namespace ArcaneOdyssey.Imbues
 	{
 		public static SteamImbue Create(Imbuable imbue)
 		{
-			SteamImbue steam = (SteamImbue)new Item(ModContent.ItemType<SteamImbue>()).ModItem;
+			SteamImbue steam = ModContent.GetInstance<SteamImbue>();
 			steam.Imbue = imbue;
 			if (imbue is null)
-				steam.Imbue = (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
+				steam.Imbue = ModContent.GetInstance<WindMagic>();
 			return steam;
 		}
 

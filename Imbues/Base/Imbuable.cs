@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
@@ -286,6 +287,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				var name = "";
 				if (player.Imbue() is SteamImbue steam)
 				{
+					steam.Imbue ??= ModContent.GetInstance<WindMagic>();
 					name = steam.Imbue.Name;
 				}
 				else if (player.Imbue() is not null)
