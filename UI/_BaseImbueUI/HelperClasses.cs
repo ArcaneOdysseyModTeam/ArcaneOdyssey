@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.UI.MutateThyMagic;
+using Humanizer;
+using Microsoft.Build.Tasks.Deployment.Bootstrapper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -86,7 +88,7 @@ public abstract partial class BaseImbueUI : UIState
 
 			Icon = new(texture)
 			{
-				ScaleToFit = true
+				ScaleToFit = true,
 			};
 		}
 
@@ -167,9 +169,35 @@ public abstract partial class BaseImbueUI : UIState
 
 		protected void SetIconSizes()
 		{
+			Main.NewText($"Hmming, {Icon.Width.Pixels}, {Icon.Height.Pixels}, left {Icon.Left.Pixels}, {Icon.Top.Pixels}");
 
-			Icon.Width.Set(128, 0f);
-			Icon.Height.Set(128, 0f);
+			#region Warning! Math!
+			float maxLength = 128;
+			float ratio = Icon.Width.Pixels / Icon.Height.Pixels;
+
+			if (ratio >= 1f) // Fat and Short; Tragedy
+			{
+				float height = (int)(maxLength / ratio), topReal = (maxLength - height) / 2;
+				//Main.NewText($"On est gros; height: {height}, expected: {topReal}");
+				Icon.Width.Set(maxLength, 0f);
+				Icon.Left.Set(0, 0f);
+
+				Icon.Height.Set(height, 0f);
+				Icon.Top.Set(topReal, 0f);
+			}
+			else // Paper Straw build
+			{
+				float width = (int)(maxLength * ratio), leftReal = (maxLength - width) / 2;
+				//Main.NewText($"On est grand; width: {width}, expected: {leftReal}");
+
+				Icon.Height.Set(maxLength, 0f);
+				Icon.Top.Set(0, 0f);
+
+				Icon.Width.Set((int)(maxLength * ratio), 0f);
+				Icon.Left.Set(leftReal, 0f);
+			}
+
+			#endregion
 
 			Icon.IgnoresMouseInteraction = true;
 

@@ -133,16 +133,45 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 			product.BackGround.Width.Set(64, 0f);
 			product.BackGround.Height.Set(64, 0f);
-			product.Icon.Width.Set(64 - (Separation * 2), 0f);
-			product.Icon.Height.Set(64 - (Separation * 2), 0f);
 
 			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels), 
 				top = (Separation * (offsetY + 1)) + (offsetY * product.BackGround.Height.Pixels);
 
 			product.BackGround.Left.Set(left, 0f);
 			product.BackGround.Top.Set(top, 0f);
-			product.Icon.Left.Set(left + Separation, 0f);
-			product.Icon.Top.Set(top + Separation, 0f);
+
+			#region Mathing math to make the images not squished whilst being increased in size if needed
+			float maxLength = (64 - (Separation * 2));
+			float ratio = product.Icon.Width.Pixels / product.Icon.Height.Pixels;
+
+			//Main.NewText($"Product: {mType}, ratio: {ratio}, width{product.Icon.Width.Pixels}, height: {product.Icon.Height.Pixels}");
+
+			if (ratio >= 1f) // Fat and Short; Tragedy
+			{
+				float height = (int)(maxLength / ratio), topReal = (maxLength - height) / 2;
+				//Main.NewText($"On est gros; height: {height}, expected: {topReal}");
+				product.Icon.Width.Set(maxLength, 0f);
+				product.Icon.Left.Set(left + Separation, 0f);
+
+				product.Icon.Height.Set(height, 0f);
+				product.Icon.Top.Set(top + topReal + Separation, 0f);
+			}
+			else // Paper Straw build
+			{
+				float width = (int)(maxLength * ratio), leftReal = (maxLength - width) / 2;
+				//Main.NewText($"On est grand; width: {width}, expected: {leftReal}");
+
+				product.Icon.Height.Set(maxLength, 0f);
+				product.Icon.Top.Set(top + Separation, 0f);
+
+				product.Icon.Width.Set((int)(maxLength * ratio), 0f);
+				product.Icon.Left.Set(left + leftReal + Separation, 0f);
+			}
+
+			//Main.NewText($"\tNew, width{product.Icon.Width.Pixels}, height: {product.Icon.Height.Pixels}");
+			//product.Icon.Left.Set(left + Separation, 0f);
+			//product.Icon.Top.Set(top + Separation, 0f);
+			#endregion
 
 			product.BackGround.OnLeftClick += MutationSelected;
 			product.Icon.IgnoresMouseInteraction = true;
