@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override int Value => 350;
 		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override Color Motif => Color.Gold;
-		public override Rarities Rarity => Rarities.Rare;
+		public override ItemRarities Rarity => ItemRarities.Rare;
 		public override bool? Cold => false;
 		public override Debuff? WeaponDebuff => Debuff.Create<CharredEffect>();
 		public override SoundStyle UseSound => SoundID.Item15;

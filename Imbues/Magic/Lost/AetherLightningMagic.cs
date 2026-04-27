@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class AetherLightningMagic : MagicType
 	{
-		public override float DashSpeed => 1.4f; // instant
+		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Turquoise;
 		public override Color ImbueColour2 => Color.White;

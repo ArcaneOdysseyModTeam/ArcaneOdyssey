@@ -184,22 +184,24 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		public virtual ImbueArmourStats? ArmourStats => null;
 
-		public override Rarities Rarity
+		public override ItemRarities Rarity
 		{
 			get
 			{
 				return ImbuableTier switch
 				{
-					ImbuableTiers.Normal => Rarities.Rare,
-					ImbuableTiers.Lost => Rarities.Mystic,
-					ImbuableTiers.Ancient => Rarities.Legendary,
-					_ => Rarities.Special,
+					ImbuableTiers.Normal => ItemRarities.Rare,
+					ImbuableTiers.Lost => ItemRarities.Mystic,
+					ImbuableTiers.Ancient => ItemRarities.Legendary,
+					_ => ItemRarities.Special,
 				};
 			}
 		}
 
 		public virtual float? DashResist => null;
 		public virtual float DashSpeed => 1f;
+		
+		public virtual bool ImmuneDash => false;
 
 		public override bool ShowItemTypeTooltip => false;
 

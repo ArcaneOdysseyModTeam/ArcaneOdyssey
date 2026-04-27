@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override float Aura => .8f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
+		public override float? DashResist => 1.05f;
 		public override Color ImbueColour => Color.ForestGreen;
 		public override Color ImbueColour2 => Color.PaleGreen;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;

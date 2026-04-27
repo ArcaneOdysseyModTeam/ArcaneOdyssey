@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.VFX.Dusts
+namespace ArcaneOdyssey.Dusts
 {
 	public class GravityDust : ModDust
 	{

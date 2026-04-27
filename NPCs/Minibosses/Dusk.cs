@@ -1,9 +1,9 @@
-﻿using ArcaneOdyssey.Imbues.Relics;
+﻿using ArcaneOdyssey.Gores;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Usable.Common;
 using ArcaneOdyssey.Projectiles.Enemies;
-using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

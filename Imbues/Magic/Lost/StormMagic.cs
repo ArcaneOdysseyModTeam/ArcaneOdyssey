@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class StormMagic : MagicType
 	{
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
-		public override float DashSpeed => 1.4f; // instant
+		public override bool ImmuneDash => true; // instant
 		public override float KBMulti => 1.25f;
 		public override SoundStyle? ImbueSound => SoundID.Thunder with { Volume = .6f }; // PORT change to InstantThunder
 		public override Color ImbueColour => Color.DarkGray;

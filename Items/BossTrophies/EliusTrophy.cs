@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.BossTrophies
 {
 	public class EliusTrophy : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Common;
+		public override ItemRarities Rarity => ItemRarities.Common;
 
 		public override void SetDefaults()
 		{

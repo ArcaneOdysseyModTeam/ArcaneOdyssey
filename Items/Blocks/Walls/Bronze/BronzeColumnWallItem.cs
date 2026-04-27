@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Blocks.Walls.Bronze
 {
 	public class BronzeColumnWallItem : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Common;
+		public override ItemRarities Rarity => ItemRarities.Common;
 
 		public override void SetStaticDefaults()
 		{

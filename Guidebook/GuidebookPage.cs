@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
 {
-	public abstract class GuidebookPage : ModType, ILocalizedModType
+	public abstract class GuidebookPage : ModTexturedType, ILocalizedModType
 	{
 		public abstract int PageNum { get; }
 
@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Guidebook
 		{
 			ModTypeLookup<GuidebookPage>.Register(this);
 			GuidebookSystem.PageCount++;
-			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/'), out Image, AssetRequestMode.ImmediateLoad);
+			ModContent.RequestIfExists(Texture, out Image, AssetRequestMode.ImmediateLoad);
 		}
 
 		public sealed override void SetupContent()

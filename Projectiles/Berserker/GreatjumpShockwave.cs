@@ -34,8 +34,11 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 				Projectile.frameCounter = 0;
 				if (++Projectile.frame >= Main.projFrames[Type])
 				{
-					Kill();
-					return;
+					if (Projectile.owner == Main.myPlayer)
+					{
+						Kill();
+						return;
+					}
 				}
 			}
 		}

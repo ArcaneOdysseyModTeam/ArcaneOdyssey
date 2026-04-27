@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Armour.Centurion
 		public override int AODefense => 144;
 		public override int Size => AODefense / 17;
 		public override int AOAttkSpd => AODefense / 17;
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override int Value => 55;
 
 		public override void SetDefaults()

@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.EmptyScrolls
 	[LegacyName("TitleMusicBox", "Paper")]
 	public class EmptyScroll : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Common;
+		public override ItemRarities Rarity => ItemRarities.Common;
 
 		public override void UpdateInventory(Player player)
 		{

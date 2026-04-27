@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -26,12 +27,23 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.tileCollide = false;
 			Projectile.hide = true;
 			Projectile.alpha = 255 - 1;
+			Projectile.ArmorPenetration += 5;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			Main.projFrames[Type] = 4;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(dying);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			dying = reader.ReadBoolean();
 		}
 
 		public Vector2 End
@@ -104,6 +116,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			dying = true;
 			Owner.channel = false;
 			Projectile.ignoreWater = true;
+			NetUpdate();
 			return true;
 		}
 
@@ -115,12 +128,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			float _ = 0f;
-			if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, End, MathF.Sqrt((projHitbox.Width ^ 2) + (projHitbox.Height ^ 2)), ref _))
-			{
-				return true;
-			}
-
-			return false;
+			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, End, MathF.Sqrt((projHitbox.Width ^ 2) + (projHitbox.Height ^ 2)), ref _);
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

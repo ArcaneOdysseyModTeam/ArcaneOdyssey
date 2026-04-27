@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Base
 	{
 		public override ScrollTier Tier => ScrollTier.Common;
 		public override int Value => 100;
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 
 		public override void SetStaticDefaults()
 		{

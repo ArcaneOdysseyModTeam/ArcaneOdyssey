@@ -18,9 +18,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		// ai 2 is first frame bool
 
 		public override float Size => 3f;
-		public override float Speed => .5f;
-
-		public int ExplodingTime => ApplySpeed(60 * 8, true).Round();
 
 		public override void SetDefaults()
 		{

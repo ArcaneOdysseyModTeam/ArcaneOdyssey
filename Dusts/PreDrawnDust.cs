@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.VFX.Dusts
+namespace ArcaneOdyssey.Dusts
 {
 	public abstract class PreDrawnDust : ModDust
 	{

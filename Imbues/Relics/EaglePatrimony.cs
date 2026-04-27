@@ -1,9 +1,9 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Relics;
-using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 
 		public override Color ImbueColour => SpiritColor with { A = 255, G = (byte)(SpiritColor.G * 1.1f), B = (byte)(SpiritColor.B * .9f) };
-		public override Rarities Rarity => Rarities.Special;
+		public override ItemRarities Rarity => ItemRarities.Special;
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];

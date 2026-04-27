@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Weapons
 
 		public override Color Motif => new(0, 30, 255);
 
-		public override Rarities Rarity => Rarities.Rare;
+		public override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override float Size => .9f;
 		public override float Speed => 1.15f;

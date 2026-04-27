@@ -19,7 +19,6 @@ namespace ArcaneOdyssey.AOPlayers
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
-			//Main.buffNoTimeDisplay[Type] = true;
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 
@@ -135,14 +134,14 @@ namespace ArcaneOdyssey.AOPlayers
 			toremove = [];
 		}
 
-		public bool OnCooldown(string ID) => GetCooldown(ID).ID is not null && !ArcaneOdysseyMod.DevMode;
+		public bool OnCooldown(string ID) => GetCooldown(ID).ID is not null;
 
-		public bool OnCooldown(int ID) => Player.HasBuff(ID) && !ArcaneOdysseyMod.DevMode;
+		public bool OnCooldown(int ID) => Player.HasBuff(ID);
 
 
 		public bool OnCooldown<T>() where T : DisplayedCooldown
 		{
-			return Player.HasBuff<T>() && !ArcaneOdysseyMod.DevMode;
+			return Player.HasBuff<T>();
 		}
 
 		public Cooldown GetCooldown(string ID)

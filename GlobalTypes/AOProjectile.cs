@@ -5,8 +5,6 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
-using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Magic;

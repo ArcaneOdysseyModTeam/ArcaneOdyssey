@@ -3,6 +3,7 @@ using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -34,6 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.timeLeft = TravelTime + LingerTime;
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
 			Projectile.hide = true;
+			Projectile.ArmorPenetration += 5;
 		}
 
 
@@ -51,6 +53,21 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool CanHaveImbueVFX => !dying;
 
 		public bool dying = false;
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.WriteVector2(end.GetValueOrDefault());
+			writer.Write(dying);
+			writer.WriteVector2(origin);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			var read = reader.ReadVector2();
+			end = read == default ? null : read;
+			dying = reader.ReadBoolean();
+			origin = reader.ReadVector2();
+		}
 
 		public override void AI()
 		{

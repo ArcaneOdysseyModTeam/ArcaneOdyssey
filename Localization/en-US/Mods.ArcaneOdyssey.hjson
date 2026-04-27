@@ -88,6 +88,11 @@ Configs: {
 				'''
 		}
 
+		GroundReflexes: {
+			Label: "[i:ArcaneOdysseyMod/ReflexScroll] Ground Dodges"
+			Tooltip: Allows dashing while grounded to always have a 1x speed multiplier, in exchange for a 1.75x defense multiplier
+		}
+
 		VanillaItemTemperatures: {
 			Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
 			Tooltip:
@@ -294,6 +299,7 @@ ArmourAutoTooltip: {
 	Haste: "{0}% reduced ability cooldown"
 	Insanity: Insanity increased by {0}
 	Defense: "{0} defense"
+	Regen: Increased life regeneration
 }
 
 CodebreakerDialogOption: {
@@ -451,6 +457,8 @@ Prefixes: {
 	Enhanced.DisplayName: Enhanced
 	Explosive.DisplayName: Explosive
 	AtlanteanPrefix.DisplayName: Atlantean
+	Healing.DisplayName: Healing
+	Piercing.DisplayName: Piercing
 }
 
 MenacingMessages.EliusAvailable: Thunder rumbles to the east...

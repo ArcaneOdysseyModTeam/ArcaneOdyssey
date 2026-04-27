@@ -1,8 +1,8 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
-using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

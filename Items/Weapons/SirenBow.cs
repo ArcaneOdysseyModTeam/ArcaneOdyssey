@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override float Speed => 1.15f;
 		public override int Value => 100;
 		public override ItemTiers WeaponTier => ItemTiers.Great;
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override SoundStyle UseSound => SoundID.Item5;
 		public override Color Motif => Color.Gold;
 

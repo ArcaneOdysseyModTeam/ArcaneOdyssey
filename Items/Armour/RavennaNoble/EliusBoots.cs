@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 	public class EliusBoots : Base.Armour
 	{
 		public override ItemTiers ArmourTier => ItemTiers.Average;
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override int Value => 60;
 		public override int AOAgility => 11;
 		public override int AOPower => 9;

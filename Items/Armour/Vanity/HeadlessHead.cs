@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Armour.Vanity
 	[AutoloadEquip(EquipType.Head)]
 	public class HeadlessHead : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Special;
+		public override ItemRarities Rarity => ItemRarities.Special;
 
 		public override void SetStaticDefaults()
 		{

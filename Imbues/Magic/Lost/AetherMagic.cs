@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			RegisterDefaultMagic<LightMagic>();
 		}
 		
-		public override float DashSpeed => 1.4f; // instant
+		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => Color.Yellow;
 		public override Color ImbueColour2 => Color.LightYellow;

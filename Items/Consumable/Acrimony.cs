@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Consumable
 	public class Acrimony : BaseItem
 	{
 		public override int Value => 10000;
-		public override Rarities Rarity => Rarities.Legendary;
+		public override ItemRarities Rarity => ItemRarities.Legendary;
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

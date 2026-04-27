@@ -25,11 +25,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 		{
 			if (Projectile.ai[0] == 0)
 			{
-				if (Main.myPlayer == Projectile.owner)
-				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
-				}
+				NetUpdate();
 				Projectile.Center = Owner.Center + (Projectile.velocity * 20f);
 				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.velocity = Vector2.Zero;

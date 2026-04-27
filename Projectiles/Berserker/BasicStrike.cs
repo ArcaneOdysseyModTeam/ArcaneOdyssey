@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.VFX.Gores;
+﻿using ArcaneOdyssey.Gores;
+using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

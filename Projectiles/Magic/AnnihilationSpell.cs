@@ -68,6 +68,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.timeLeft = ExplodingTime;
 			Projectile.velocity = Vector2.Zero;
 			State = AnnihilationState.Exploding;
+			Projectile.tileCollide = false;
+			NetUpdate();
 		}
 
 		public override void AI()

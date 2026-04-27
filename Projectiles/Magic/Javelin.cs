@@ -40,6 +40,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.AverageDimensions();
 			Projectile.localNPCHitCooldown = (TimeLeft / 4) + 1;
 			Projectile.hide = true;
+			Projectile.ArmorPenetration += 5;
 		}
 
 		public override void AI()
@@ -132,6 +133,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 					if (!Main.dedServ)
 					{
+						for (int i = 0; i < 10; i++)
+						{
+							Imbue?.ExplosionEffects(Projectile.Center, Projectile.scale / 2f);
+							SecondImbue?.ExplosionEffects(Projectile.Center, Projectile.scale / 2f);
+						}
 						PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
 						Main.instance.CameraModifiers.Add(modifier);
 					}

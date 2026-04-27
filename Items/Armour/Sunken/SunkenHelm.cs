@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Armour.Sunken
 		public override int AODefense => 204;
 		public override int Size => AOAttkSpd;
 		public override int AOAttkSpd => 16;
-		public override Rarities Rarity => Rarities.Rare;
+		public override ItemRarities Rarity => ItemRarities.Rare;
 		public override int Value => 675;
 
 		public override int AOPower => 7;

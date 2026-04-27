@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Weapons.Atlantean
 
 		public override Color Motif => Color.PaleVioletRed;
 
-		public override Rarities Rarity => Rarities.Rare;
+		public override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override Debuff? WeaponDebuff => Debuff.Create<HeavyBleed>();
 

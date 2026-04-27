@@ -3,6 +3,7 @@ using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -52,6 +53,16 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		public override bool CanHaveImbueVFX => !dying;
 
 		public bool dying = false;
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(dying);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			dying = reader.ReadBoolean();
+		}
 
 		public override void AI()
 		{

@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.VFX.Rarities;
+﻿using ArcaneOdyssey.Rarities;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Base
 	{
 		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
-		public abstract Rarities Rarity { get; }
+		public abstract ItemRarities Rarity { get; }
 
 		public virtual ItemType? ItemCategory => null;
 
@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Items.Base
 
 		public override void SetDefaults()
 		{
-			if (Rarity != Rarities.Special)
+			if (Rarity != ItemRarities.Special)
 				Item.rare = (int)Rarity;
-			if (Rarity == Rarities.Special)
+			if (Rarity == ItemRarities.Special)
 			{
 				Item.rare = ModContent.RarityType<HotPinkRare>();
 			}

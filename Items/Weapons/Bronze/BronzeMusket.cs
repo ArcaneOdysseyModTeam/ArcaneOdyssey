@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 
 		public override Color Motif => Color.Orange;
 
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

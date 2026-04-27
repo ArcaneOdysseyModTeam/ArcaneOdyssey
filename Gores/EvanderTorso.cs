@@ -3,9 +3,9 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.VFX.Gores
+namespace ArcaneOdyssey.Gores
 {
-	public class EvanderLeg : ModGore
+	public class EvanderTorso : ModGore
 	{
 		public override void SetStaticDefaults()
 		{

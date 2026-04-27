@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.UI.MutateThyMagic;
-using Humanizer;
-using Microsoft.Build.Tasks.Deployment.Bootstrapper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

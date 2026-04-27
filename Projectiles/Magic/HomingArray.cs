@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			base.SetDefaults();
 			Projectile.timeLeft = 120;
 			Projectile.width = Projectile.height = 64;
+			Projectile.ArmorPenetration += 5;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -46,8 +47,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Target = AOUtils.ClosestNPCAt(Projectile.Center, ApplySpeed(12f) * 120, false, true)?.whoAmI ?? -1;
 				if (Target != oldTarget)
 				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
+					NetUpdate();
 				}
 			}
 			if (Target != -1)

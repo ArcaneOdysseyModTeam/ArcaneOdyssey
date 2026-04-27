@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 {
 	public class VermillionBracelet : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 
 		public override void SetDefaults()
 		{

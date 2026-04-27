@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 			Item.mana = 100;
 			Item.UseSound = SoundID.Item82;
 			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 8f;
+			Item.shootSpeed = 4f;
 			Item.shoot = ModContent.ProjectileType<MeteorSpell>(); // does not need magic circle since it spawns offscreen
 		}
 

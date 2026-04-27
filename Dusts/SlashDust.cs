@@ -1,7 +1,7 @@
 ﻿using Terraria;
 
 
-namespace ArcaneOdyssey.VFX.Dusts
+namespace ArcaneOdyssey.Dusts
 {
 	public class SlashDust : PreDrawnDust
 	{

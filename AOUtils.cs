@@ -5,13 +5,12 @@ using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Imbues.Magic.Developer;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.VFX.Rarities;
+using ArcaneOdyssey.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -1441,60 +1440,60 @@ namespace ArcaneOdyssey
 			return ItemType.Item;
 		}
 
-		public static Rarities GetItemRare(this Item item)
+		public static ItemRarities GetItemRare(this Item item)
 		{
 			if (ExternalModSupport.HasCalamity)
 			{
 				if (item.rare == ExternalModSupport.Calamity.Find<ModRarity>("DarkOrange").Type)
 				{
-					return Rarities.Unknown;
+					return ItemRarities.Unknown;
 				}
 			}
 
 			if (item.rare == ModContent.RarityType<HotPinkRare>())
 			{
-				return Rarities.Special;
+				return ItemRarities.Special;
 			}
 
 			if (ModLoader.TryGetMod("NoxusBoss", out var wotg))
 			{
 				if (item.rare == wotg.Find<ModRarity>("SolynRewardRarity").Type)
 				{
-					return Rarities.Mystic;
+					return ItemRarities.Mystic;
 				}
 				if (item.rare == wotg.Find<ModRarity>("GenesisComponentRarity").Type)
 				{
-					return Rarities.Unknown;
+					return ItemRarities.Unknown;
 				}
 				if (item.rare == wotg.Find<ModRarity>("NamelessDeityRarity").Type)
 				{
-					return Rarities.Unknown;
+					return ItemRarities.Unknown;
 				}
 				if (item.rare == wotg.Find<ModRarity>("AvatarRarity").Type)
 				{
-					return Rarities.Unknown;
+					return ItemRarities.Unknown;
 				}
 			}
 
 			return item.rare switch
 			{
-				ItemRarityID.Gray => Rarities.Junk,
-				ItemRarityID.White => Rarities.Common,
-				ItemRarityID.Blue => Rarities.Common,
-				ItemRarityID.Green => Rarities.Uncommon,
-				ItemRarityID.Orange => Rarities.Uncommon,
-				ItemRarityID.Quest => Rarities.Rare,
-				ItemRarityID.LightRed => Rarities.Rare,
-				ItemRarityID.Pink => Rarities.Rare,
-				ItemRarityID.Expert => Rarities.Mystic,
-				ItemRarityID.LightPurple => Rarities.Mystic,
-				ItemRarityID.Lime => Rarities.Mystic,
-				ItemRarityID.Master => Rarities.Mystic,
-				ItemRarityID.Yellow => Rarities.Legendary,
-				ItemRarityID.Cyan => Rarities.Legendary,
-				ItemRarityID.Red => Rarities.Mythical,
-				ItemRarityID.Purple => Rarities.Mythical,
-				_ => Rarities.Lost,
+				ItemRarityID.Gray => ItemRarities.Junk,
+				ItemRarityID.White => ItemRarities.Common,
+				ItemRarityID.Blue => ItemRarities.Common,
+				ItemRarityID.Green => ItemRarities.Uncommon,
+				ItemRarityID.Orange => ItemRarities.Uncommon,
+				ItemRarityID.Quest => ItemRarities.Rare,
+				ItemRarityID.LightRed => ItemRarities.Rare,
+				ItemRarityID.Pink => ItemRarities.Rare,
+				ItemRarityID.Expert => ItemRarities.Mystic,
+				ItemRarityID.LightPurple => ItemRarities.Mystic,
+				ItemRarityID.Lime => ItemRarities.Mystic,
+				ItemRarityID.Master => ItemRarities.Mystic,
+				ItemRarityID.Yellow => ItemRarities.Legendary,
+				ItemRarityID.Cyan => ItemRarities.Legendary,
+				ItemRarityID.Red => ItemRarities.Mythical,
+				ItemRarityID.Purple => ItemRarities.Mythical,
+				_ => ItemRarities.Lost,
 			};
 		}
 		#endregion
@@ -1793,7 +1792,7 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Arcane Odyssey rarities, converted to RarityID
 	/// </summary>
-	public enum Rarities
+	public enum ItemRarities
 	{
 		Junk = ItemRarityID.Gray,
 		Common = ItemRarityID.White,

@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Blocks.Walls.UnsafeBronze
 {
 	public class UnsafeBronzeSlabWallItem : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Common;
+		public override ItemRarities Rarity => ItemRarities.Common;
 
 		public override void SetStaticDefaults()
 		{

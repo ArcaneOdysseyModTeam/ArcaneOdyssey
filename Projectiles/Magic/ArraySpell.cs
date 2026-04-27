@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		}
 
 		public int Target { get => (int)Projectile.ai[0]; set => Projectile.ai[0] = value; }
-		public int OldTarget { get => (int)Projectile.localAI[0]; set => Projectile.localAI[0] = value; }
+		public int OldTarget;
 
 		public override void AI()
 		{

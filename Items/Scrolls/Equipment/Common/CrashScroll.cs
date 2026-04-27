@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Gores;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
 using System.Collections.Generic;

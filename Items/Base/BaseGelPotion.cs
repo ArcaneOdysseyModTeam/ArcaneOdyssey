@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public abstract Color LiquidColour { get; }
 
-		public override Rarities Rarity => Rarities.Rare;
+		public override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override void SetDefaults()
 		{

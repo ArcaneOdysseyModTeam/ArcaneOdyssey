@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Graphics.CameraModifiers;
 using Terraria.ModLoader;
@@ -13,7 +14,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 {
 	public class CannonSpell : MagicSpell
 	{
-		public int TileTimer = 0;
+		public short TileTimer = 0;
 
 		public override string Texture => (Mod.Name + "/" + ArcaneOdysseyMod.Sets.Assets.blasts[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Name ?? typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Blast")).Replace("\\", "/");
 
@@ -33,6 +34,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.timeLeft = 3 * 60;
 			Projectile.hide = true;
+			Projectile.ArmorPenetration += 5;
 		}
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -41,6 +43,20 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				overWiresUI.Add(index);
 			else
 				behindNPCsAndTiles.Add(index);
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(DoneCharging);
+			writer.Write(charge);
+			writer.Write(TileTimer);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			DoneCharging = reader.ReadBoolean();
+			charge = reader.ReadSingle();
+			TileTimer = reader.ReadInt16();
 		}
 
 		public override bool? CanDamage()
@@ -78,7 +94,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 			if (Owner.channel && !DoneCharging)
 			{
-				if (Main.myPlayer == Projectile.owner && Projectile.position != Projectile.oldPosition)
+				if (Projectile.position != Projectile.oldPosition)
 				{
 					Projectile.netUpdate = true;
 					Projectile.netSpam = 0;

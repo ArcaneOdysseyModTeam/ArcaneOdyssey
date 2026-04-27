@@ -50,6 +50,15 @@ Equipment: {
 				Some imbues have special effects
 				'''
 			SkillName: Reflex
+
+			Special: {
+				Instant: Ignores enemy contact damage
+				Fast: Dashes are faster than usual
+				Resist: Provides defense while dashing
+				Vanish: You turn invisible as you dash
+				Thermo: Ignores enemy contact damage above 50%
+				Sailor: Dashes faster above 50%
+			}
 		}
 	}
 

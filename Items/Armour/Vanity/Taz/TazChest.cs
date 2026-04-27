@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Items.Armour.Vanity.Taz
 	[AutoloadEquip(EquipType.Body)]
 	public class TazChest : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 
 		public override void SetDefaults()
 		{

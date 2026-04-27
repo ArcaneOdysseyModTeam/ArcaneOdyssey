@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Items.Accessories
 {
 	public class EvanderGauntlet : Base.Armour
 	{
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override void Load()
 		{
 			if (!Main.dedServ)

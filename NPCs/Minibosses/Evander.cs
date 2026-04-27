@@ -1,8 +1,8 @@
-﻿using ArcaneOdyssey.Items.Accessories;
+﻿using ArcaneOdyssey.Gores;
+using ArcaneOdyssey.Items.Accessories;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Projectiles.Enemies;
-using ArcaneOdyssey.VFX.Gores;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

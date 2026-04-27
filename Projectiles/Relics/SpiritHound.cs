@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			Projectile.timeLeft = TimeLeftMax;
 			Projectile.ignoreWater = true;
 			Projectile.Opacity = .75f;
+			Projectile.ArmorPenetration += 5;
 		}
 
 		public override void AI()

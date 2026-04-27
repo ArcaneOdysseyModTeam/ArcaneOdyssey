@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 		}
 
 		public int Target { get => (int)Projectile.ai[0]; set => Projectile.ai[0] = value; }
-		public int OldTarget { get => (int)Projectile.localAI[0]; set => Projectile.localAI[0] = value; }
+		public int OldTarget;
 
 		public ref float RandomRotation => ref Projectile.ai[1];
 
@@ -47,9 +47,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			if (Projectile.ai[2] == 0)
 			{
 				Projectile.ai[2] = 1;
-				Projectile.netUpdate = true;
-				Projectile.netSpam = 0;
-
+				NetUpdate();
 				if (Main.myPlayer == Projectile.owner)
 					defaultTargetPos = Main.MouseWorld;
 				else
@@ -75,8 +73,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 				Target = AOUtils.ClosestNPCAt(Projectile.Center, ApplySpeed(12f) * 120, false, true)?.whoAmI ?? -1;
 				if (Target != OldTarget)
 				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
+					NetUpdate();
 					OldTarget = Target;
 				}
 			}

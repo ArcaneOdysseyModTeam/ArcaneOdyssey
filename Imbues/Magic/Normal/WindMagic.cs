@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<SoundMagic>();
 			RegisterMutation<StormMagic>();
 		}
-		public override float DashSpeed => 1.4f; // instant
+		public override bool ImmuneDash => true; // instant
 		public override float KBMulti => 2f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(232, 232, 232);

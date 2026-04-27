@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Accessories.Vanity
 {
 	public class VesuvianSigil : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Special;
+		public override ItemRarities Rarity => ItemRarities.Special;
 
 		public override void Load()
 		{

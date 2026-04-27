@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 	public class BronzeSpear : Weapon
 	{
 		public override ItemTiers WeaponTier => ItemTiers.Average;
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override float Damage => 1.05f;
 		public override float Size => 1;
 		public override float Speed => .95f;

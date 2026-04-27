@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.BossBags
 {
 	public class EliusBossBag : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 
 		public override void SetStaticDefaults()
 		{

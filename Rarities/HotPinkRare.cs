@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.VFX.Rarities
+namespace ArcaneOdyssey.Rarities
 {
 	public class HotPinkRare : ModRarity
 	{

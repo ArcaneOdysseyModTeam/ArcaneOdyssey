@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Materials
 			Item.ResearchUnlockCount = 25;
 		}
 
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 
 		public override void SetDefaults()
 		{

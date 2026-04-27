@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Items.Armour.Centurion
 		public override int AODefense => 56;
 		public override int Size => AODefense / 20;
 		public override int AOAttkSpd => AODefense / 20;
-		public override Rarities Rarity => Rarities.Common;
+		public override ItemRarities Rarity => ItemRarities.Common;
 		public override int Value => 30;
 
 		public override void AddRecipes()

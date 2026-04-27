@@ -29,11 +29,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center, null);
+				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				NetUpdate();
 				if (!Main.dedServ)
 				{
-					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), Projectile.timeLeft, ApplyKnockback(500f), FullName);
 					Main.instance.CameraModifiers.Add(modifier);
 				}
 			}

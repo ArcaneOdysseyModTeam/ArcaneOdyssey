@@ -20,6 +20,7 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Berserker.Effects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
@@ -408,13 +409,20 @@ namespace ArcaneOdyssey.GlobalTypes
 			return clone;
 		}
 
+		public static Asset<Texture2D> AtlanteanIndicator;
+
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
+			var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
+
+			if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence() && AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
 			{
-				var itemsprite = TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()];
-				var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
-				spriteBatch.Draw(itemsprite.Value, position, null, Color.White * .75f, 0, itemsprite.Size() / 2f, drawScale * .8f * (52f / Math.Max(itemsprite.Width(), itemsprite.Height())), SpriteEffects.None, 1f);
+				spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .5f, 0, AtlanteanIndicator.Size() / 2f, drawScale * .8f * (52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height())), SpriteEffects.None, 1f);
+			}
+
+			if (AtlanteanApplied && AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
+			{
+				spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .75f, 0, AtlanteanIndicator.Size() / 2f, drawScale * .8f * (52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height())), SpriteEffects.None, 1f);
 			}
 
 			return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
@@ -424,18 +432,9 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 
-			var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
-			if (AtlanteanApplied)
-			{
-				var itemsprite = TextureAssets.Item[ModContent.ItemType<AtlanteanEssence>()];
-				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
-				Vector2 location = position + (dimensions * .5f * scale);
-
-				spriteBatch.Draw(itemsprite.Value, location, null, Color.White, 0, itemsprite.Size() / 2f, drawScale * .3f * (52f / Math.Max(itemsprite.Width(), itemsprite.Height())), SpriteEffects.None, 1f);
-			}
-
 			if (Imbue is null || !canBeAffected)
 				return;
+			var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
 
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
@@ -934,7 +933,9 @@ namespace ArcaneOdyssey.GlobalTypes
 				Imbue.LingeringEffects(hitbox, Vector2.Zero, item);
 			}
 			if (SecondImbue is not null && SecondImbue.PreEffects(item))
+			{
 				SecondImbue.LingeringEffects(hitbox, Vector2.Zero, item);
+			}
 		}
 
 		public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)

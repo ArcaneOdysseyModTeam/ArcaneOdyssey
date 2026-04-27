@@ -3,7 +3,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.VFX.Gores
+namespace ArcaneOdyssey.Gores
 {
 	public class EvanderHead : ModGore
 	{

@@ -44,11 +44,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (Projectile.timeLeft == TimeLeftMax)
 			{
-				if (Projectile.owner == Main.myPlayer)
-				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
-				}
+				NetUpdate();
 				for (int i = 0; i < 30; i++)
 				{
 					Imbue?.ExplosionEffects(Projectile.Center);

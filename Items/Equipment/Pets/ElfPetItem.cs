@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 {
 	public class ElfPetItem : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Special;
+		public override ItemRarities Rarity => ItemRarities.Special;
 
 		public override void SetDefaults()
 		{

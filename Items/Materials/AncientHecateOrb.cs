@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Items.Materials
 	public class AncientHecateOrb : BaseItem
 	{
 		public override int Value => 20000;
-		public override Rarities Rarity => Rarities.Mythical;
+		public override ItemRarities Rarity => ItemRarities.Mythical;
 
 		public override void SetDefaults()
 		{

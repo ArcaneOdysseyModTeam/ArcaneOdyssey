@@ -238,6 +238,7 @@ namespace ArcaneOdyssey.Projectiles
 					{
 						Owner.channel = false;
 						MarkedForDeath = true;
+						NetUpdate();
 					}
 				}
 			}
@@ -304,12 +305,12 @@ namespace ArcaneOdyssey.Projectiles
 				{
 					if (Owner.CheckMana(Owner.PlayerItem(), -1, true))
 					{
+						NetUpdate();
 						if (ChargingProjectile != 0)
 						{
 							if (Main.rand.NextBool(5))
 							{
 								playedsound = false;
-								NetUpdate();
 							}
 							AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, dir * 12f, ChargingProjectile, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 						}

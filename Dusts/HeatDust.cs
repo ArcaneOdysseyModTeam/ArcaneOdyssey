@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.VFX.Dusts
+namespace ArcaneOdyssey.Dusts
 {
 	public class HeatDust : PreDrawnDust
 	{

@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<AetherLightningMagic>();
 		}
 
-		public override float DashSpeed => 1.4f; // instant
+		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => new(255, 255, 0, 255);
 		public override float ImbueSpeed => 1.3f;

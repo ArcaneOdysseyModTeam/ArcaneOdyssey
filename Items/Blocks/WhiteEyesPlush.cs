@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Items.Blocks
 {
 	public class WhiteEyesPlush : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Rare;
+		public override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override void SetDefaults()
 		{

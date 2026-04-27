@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Items.BossRelics
 {
 	public class EliusBossRelic : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Mystic;
+		public override ItemRarities Rarity => ItemRarities.Mystic;
 
 		public override void SetDefaults()
 		{

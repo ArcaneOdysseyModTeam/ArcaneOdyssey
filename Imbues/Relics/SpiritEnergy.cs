@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.VFX.Dusts;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;

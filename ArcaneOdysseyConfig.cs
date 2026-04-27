@@ -17,6 +17,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool VanillaItemTemperatures { get; set; }
 
+		[DefaultValue(true)]
+		public bool GroundReflexes { get; set; }
+
 		public override void OnLoaded()
 		{
 			if (!AffectsOtherMods)

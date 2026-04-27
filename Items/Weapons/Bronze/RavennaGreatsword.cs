@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override float Size => 1.2f;
 		public override float Speed => .9f;
 		public override float Damage => 1.05f;
-		public override Rarities Rarity => Rarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override Color Motif => Color.Orange;
 

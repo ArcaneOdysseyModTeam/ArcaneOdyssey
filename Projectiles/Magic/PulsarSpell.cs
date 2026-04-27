@@ -79,6 +79,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		}
 
 		public override bool? CanDamage() => false;
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			if (Imbue is BlizzardMagic)

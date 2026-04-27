@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Items.Consumable
 {
 	public class AtlanteanEssence : BaseItem
 	{
-		public override Rarities Rarity => Rarities.Mystic;
+		public override ItemRarities Rarity => ItemRarities.Mystic;
 
 		public override void SetDefaults()
 		{
