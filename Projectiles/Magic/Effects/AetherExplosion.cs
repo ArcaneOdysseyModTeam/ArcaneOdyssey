@@ -94,6 +94,10 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override bool PreDraw(ref Color lightColor)
 		{
 			lightColor = Color.White;
+			if (Projectile.ai[0] != 0 && Projectile.owner != Main.myPlayer)
+			{
+				return false;
+			}
 			return base.PreDraw(ref lightColor);
 		}
 

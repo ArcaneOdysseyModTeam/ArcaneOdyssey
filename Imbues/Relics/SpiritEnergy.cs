@@ -107,7 +107,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			get
 			{
-				if (!Main.dedServ)
+				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
 					if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
 					{

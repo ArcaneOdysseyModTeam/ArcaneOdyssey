@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker.Effects
 		{
 			if (++Projectile.ai[0] >= 60)
 			{
+				NetUpdate();
 				if (!Main.dedServ)
 				{
 					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);

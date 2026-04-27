@@ -80,6 +80,10 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override bool PreAI()
 		{
+			if (Projectile.ai[0] != 0 && Projectile.owner != Main.myPlayer)
+			{
+				return false;
+			}
 			Projectile.ai[1]++;
 			if (Projectile.ai[1] < 45)
 			{
@@ -116,6 +120,10 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override bool PreDraw(ref Color lightColor)
 		{
 			lightColor = Color.White;
+			if (Projectile.ai[0] != 0 && Projectile.owner != Main.myPlayer)
+			{
+				return false;
+			}
 			return base.PreDraw(ref lightColor);
 		}
 

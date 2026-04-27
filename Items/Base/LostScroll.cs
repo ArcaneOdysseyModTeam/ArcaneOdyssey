@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Items.Base
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<RareEmptyScroll>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LostEmptyScroll>();
 		}
 	}
 }

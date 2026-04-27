@@ -5,6 +5,8 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Magic;
@@ -177,23 +179,13 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (OriginWeaponType == WeaponType.Artisinal)
-					return null;
 				if (thisProjectile is not null)
 				{
-					if (thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or Circle)
-					{
-						return true;
-					}
-					else if (thisProjectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-					{
-						return false;
-					}
+					if (OriginWeaponType == WeaponType.Artisinal)
+						return null;
+					if (thisProjectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+						return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or Circle || OriginWeaponType != WeaponType.Normal;
 				}
-				if (OriginWeaponType != WeaponType.Normal)
-					return true;
-				else
-					return false;
 				return null;
 			}
 		}

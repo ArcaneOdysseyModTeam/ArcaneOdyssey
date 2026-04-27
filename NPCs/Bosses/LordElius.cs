@@ -284,7 +284,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (DownedBosses.DownedElius)
 					{
-						if (!Main.dedServ)
+						if (Main.netMode == NetmodeID.SinglePlayer)
 						{
 							if (!Main.LocalPlayer.ArcaneOdyssey().evil)
 							{

@@ -104,7 +104,8 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			}
 			if (source is Projectile projectile && projectile.ModProjectile is not PowderExplosion)
 			{
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), projectile.damage / 2, 3f, projectile.owner);
+				if (projectile.owner == Main.myPlayer)
+					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), projectile.damage / 2, 3f, projectile.owner);
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

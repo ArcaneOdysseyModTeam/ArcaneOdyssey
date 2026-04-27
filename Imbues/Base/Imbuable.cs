@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+using ArcaneOdyssey.Imbues.Magic.Developer;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
@@ -44,6 +45,17 @@ namespace ArcaneOdyssey.Imbues.Base
 				aura = player.statLifeMax * (.18f * Aura);
 			}
 			return (int)Math.Round(aura / 5f, MidpointRounding.AwayFromZero) * 5;
+		}
+
+		public bool PlayerHasImbue(Player player)
+		{
+			var type = Type;
+			if (this is SteamImbue steam)
+			{
+				steam.Imbue ??= ModContent.GetInstance<JerminusMagic>();
+				type = steam.Imbue.Type;
+			}
+			return player.HasTypeInInventory<Imbuable>(e => e.Type == type); // because it includes equipped imbues
 		}
 
 		public virtual void UpdateProjectile(Projectile Projectile)

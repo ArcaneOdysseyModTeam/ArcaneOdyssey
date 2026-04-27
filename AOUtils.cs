@@ -5,6 +5,7 @@ using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Developer;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
@@ -903,6 +904,7 @@ namespace ArcaneOdyssey
 							projectile.DamageType.CountsAsClass(DamageClass.Melee)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Throwing)
+							|| projectile.DamageType.CountsAsClass(DamageClass.Magic)
 							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or Circle
 						)
 						&& projectile.owner != 255
@@ -1276,17 +1278,6 @@ namespace ArcaneOdyssey
 			{
 				npc.SimpleStrikeNPC(damage, hitDirection, crit, knockBack, damageType);
 			}
-		}
-
-		public static bool PlayerHasImbue(this Imbuable imbue, Player player)
-		{
-			var type = imbue.Type;
-			if (imbue is SteamImbue steam)
-			{
-				steam.Imbue ??= ModContent.GetInstance<WindMagic>();
-				type = steam.Imbue.Type;
-			}
-			return player.HasTypeInInventory<Imbuable>(e => e.Type == type); // because it includes equipped imbues
 		}
 
 		/// <summary>

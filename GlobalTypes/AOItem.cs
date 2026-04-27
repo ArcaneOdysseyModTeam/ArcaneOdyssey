@@ -353,9 +353,9 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (thisItem.CanHaveImbue(Imbue))
+				if (thisItem is not null)
 				{
-					if (thisItem is not null)
+					if (thisItem.CanHaveImbue(Imbue))
 					{
 						if (WeaponsType == WeaponType.Artisinal)
 							return null;

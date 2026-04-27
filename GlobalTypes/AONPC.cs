@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Items.Armour.Vanity;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Chat;
@@ -398,6 +399,9 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 				}
 			}
+
+			if (npc.type == NPCID.TownSlimePurple)
+				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);
 		}
 	}
 }
