@@ -16,7 +16,11 @@ public partial class ImbueChangeUI : BaseImbueUI
 	{
 		base.OptionChosen(p);
 
-		TitleText.SetText(Language.GetTextValue($"{LocalizationPath}SwappingImbue.BetrayalAmogstUs", TheGuyThatFellOff.Item.Name, SpotTitle.Text));
+		//Main.NewText($"Check, felloff: {TheGuyThatFellOff.Item.Name}, spot: {SpotTitle.Text}, hmm: {string.Equals(TheGuyThatFellOff.Item.Name.ToLower(), SpotTitle.Text.ToLower())}");
+		string suffix = string.Equals(TheGuyThatFellOff.Item.Name.ToLower(), SpotTitle.Text.ToLower()) ?
+			"PleaseDontTellMeThisGuyIsAboutToWasteTheirAcrimony" :
+			"BetrayalAmogstUs";
+		TitleText.SetText(Language.GetTextValue($"{LocalizationPath}SwappingImbue.{suffix}", TheGuyThatFellOff.Item.Name, SpotTitle.Text));
 	}
 
 	protected override void ChosenButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)

@@ -18,4 +18,5 @@ Titles: {
 SwappingImbue: {
 	AnnouncingHeWhoFellOff: Swapping {0}
 	BetrayalAmogstUs: Swapping {0} to {1}
+	PleaseDontTellMeThisGuyIsAboutToWasteTheirAcrimony: Swapping {0} to {1}; wait, are you sure about this?
 }

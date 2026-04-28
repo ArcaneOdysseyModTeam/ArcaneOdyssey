@@ -26,6 +26,7 @@ public abstract partial class BaseImbueUI : UIState
 			//VisualUpdateCounter = 0;
 
 			foreach (var p in TheShop) p.Update();
+			ProductSpotLight?.Update();
 			_VisualUpdateExtras();
 		}
 		#endregion

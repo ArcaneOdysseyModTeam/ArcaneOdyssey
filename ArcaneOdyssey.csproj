@@ -16,6 +16,7 @@
 		<Compile Remove="**\*.kra" />
 		<Compile Remove="references\**" />
 		<EmbeddedResource Remove="references\**" />
+		<Folder Include="UI\ReadingSimulator\DevItem\" />
 		<None Remove="**\*.py" />
 		<None Remove="**\*.kra~" />
 		<None Remove="**\*.png~" />

@@ -2,6 +2,7 @@
 using ArcaneOdyssey.UI.ImbueAcquiringSequel;
 using ArcaneOdyssey.UI.ImbueChange;
 using ArcaneOdyssey.UI.MutateThyMagic;
+using ArcaneOdyssey.UI.ReadingSimulator;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -28,9 +29,14 @@ public class ModUISystem : ModSystem
 	private UserInterface _MutateThyMagic;
 	internal MutateThyMagicUI mutateThyMagicUI;
 
+	private UserInterface _ReadingSimulator;
+	internal ReadingSimulatorUI readingSimulatorUI;
+
 	private GameTime _prevTime;
 
 	#region Show
+
+	#region Imbues
 	public void ShowAcquireUI()
 	{
 		imbueAcquireUI = new();
@@ -68,7 +74,22 @@ public class ModUISystem : ModSystem
 	}
 	#endregion
 
+	#region Reading Simulator
+	public void ShowReadingSimulator()
+	{
+		readingSimulatorUI = new();
+		readingSimulatorUI.Initialize();
+		_ReadingSimulator = new();
+		_ReadingSimulator?.SetState(readingSimulatorUI);
+		readingSimulatorUI.Activate();
+	}
+	#endregion
+
+	#endregion
+
 	#region Hide
+
+	#region Imbue
 	public void HideTheImbueAcquire()
 	{
 		_ImbueAcquire?.SetState(null);
@@ -89,6 +110,16 @@ public class ModUISystem : ModSystem
 		_MutateThyMagic?.SetState(null);
 		mutateThyMagicUI.Deactivate();
 	}
+	#endregion
+
+	#region Reading Simulator
+	public void HideReadingSimulator()
+	{
+		_ReadingSimulator?.SetState(null);
+		readingSimulatorUI.Deactivate();
+	}
+	#endregion
+
 	#endregion
 
 	// Spoky (2026 February 20): Turns out load method is unnecessary, cool? If something breaks maybe load method was needed
@@ -117,20 +148,25 @@ public class ModUISystem : ModSystem
 	{
 		_prevTime = gameTime;
 
-		_ImbueAcquire?.Update(gameTime);
-		_ImbueAcquireSequel?.Update(gameTime);
-
-		_ImbueChange?.Update(gameTime);
-
-		_MutateThyMagic?.Update(gameTime);
+		List<UserInterface> interfaces = [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange, _MutateThyMagic, _ReadingSimulator];
+		foreach (var i in interfaces) i?.Update(gameTime);
 	}
 
+
+	#region Can Shows
+
+	#region Imbues
 	public bool CanShowImbueAcquire() => _prevTime is not null && _ImbueAcquire?.CurrentState is not null;
 	public bool CanShowImbueSequelAcquire() => _prevTime is not null && _ImbueAcquireSequel?.CurrentState is not null;
-
 	public bool CanShowImbueChange() => _prevTime is not null && _ImbueChange?.CurrentState is not null;
-
 	public bool CanShowMutations() => _prevTime is not null && _MutateThyMagic?.CurrentState is not null;
+	#endregion
+
+	#region Reading
+	public bool CanShowReadingSimulator() => _prevTime is not null && _ReadingSimulator?.CurrentState is not null;
+	#endregion
+
+	#endregion
 
 	public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 	{
@@ -138,9 +174,9 @@ public class ModUISystem : ModSystem
 
 		if (index is -1) return;
 
-		string[] names = ["ImbueAcquireUI", "ImbueAcquireSequelUI", "ImbueChangeUI", "MutateThyFleshUI"];
-		bool[] canShows = [CanShowImbueAcquire(), CanShowImbueSequelAcquire(), CanShowImbueChange(), CanShowMutations()];
-		UserInterface[] uis = [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange, _MutateThyMagic];
+		string[] names = ["ImbueAcquireUI", "ImbueAcquireSequelUI", "ImbueChangeUI", "MutateThyFleshUI", "ReadingSimulatorUI"];
+		bool[] canShows = [CanShowImbueAcquire(), CanShowImbueSequelAcquire(), CanShowImbueChange(), CanShowMutations(), CanShowReadingSimulator()];
+		UserInterface[] uis = [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange, _MutateThyMagic, _ReadingSimulator];
 
 		if (names.Length != canShows.Length || canShows.Length != uis.Length)
 		{

@@ -375,3 +375,8 @@ BossRelics: {
 		Tooltip: ""
 	}
 }
+
+MarketableSpoky: {
+	DisplayName: Marketable Spoky
+	Tooltip: ""
+}

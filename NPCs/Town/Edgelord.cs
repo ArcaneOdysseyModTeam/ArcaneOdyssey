@@ -5,6 +5,7 @@ using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -157,6 +158,8 @@ namespace ArcaneOdyssey.NPCs.Town
 						$"\t{l.Description}\n");
 				}
 
+				Main.CloseNPCChatOrSign();
+				ModContent.GetInstance<ModUISystem>().ShowReadingSimulator();
 			}
 			else
 			{
