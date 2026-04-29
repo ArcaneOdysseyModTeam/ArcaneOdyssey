@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Tiles;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Blocks
@@ -13,6 +14,7 @@ namespace ArcaneOdyssey.Items.Blocks
 			base.SetDefaults();
 			Item.DefaultToPlaceableTile(ModContent.TileType<WhiteEyesPlushTile>());
 			Item.width = Item.height = 32;
+			Item.value = Item.buyPrice(1);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Items.Armour.Vanity;
+using ArcaneOdyssey.Items.Blocks;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Projectiles;
@@ -402,6 +403,14 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (npc.type == NPCID.TownSlimePurple)
 				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);
+		}
+
+		public override void ModifyShop(NPCShop shop)
+		{
+			if (shop.NpcType == NPCID.Clothier)
+			{
+				shop.Add<WhiteEyesPlush>();
+			}
 		}
 	}
 }

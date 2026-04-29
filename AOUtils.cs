@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
@@ -216,6 +217,16 @@ namespace ArcaneOdyssey
 			rect.Y += diffY * adjustY;
 		}
 
+		public static void WriteRectangle(this BinaryWriter writer, Rectangle rect)
+		{
+			writer.Write(rect.X);
+			writer.Write(rect.Y);
+			writer.Write(rect.Width);
+			writer.Write(rect.Height);
+		}
+
+		public static Rectangle ReadRectangle(this BinaryReader reader) => new(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
+
 		public static Color GetAlpha(this Projectile projectile) => projectile.GetAlpha(Color.White);
 		
 
@@ -249,15 +260,9 @@ namespace ArcaneOdyssey
 			return ModContent.GetInstance<T>().CombinedDebuffs;
 		}
 
-		public static int[] ToIntArray(this Rectangle rect)
-		{
-			return [rect.X, rect.Y, rect.Width, rect.Height];
-		}
+		public static int[] ToIntArray(this Rectangle rect) => [rect.X, rect.Y, rect.Width, rect.Height];
 
-		public static Rectangle FromIntArray(this int[] array)
-		{
-			return new Rectangle(array[0], array[1], array[2], array[3]);
-		}
+		public static Rectangle FromIntArray(this int[] array) => new(array[0], array[1], array[2], array[3]);
 
 		public static bool NPCAlive<T>() where T : ModNPC
 		{

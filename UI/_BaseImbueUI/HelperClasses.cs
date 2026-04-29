@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.UI.MutateThyMagic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -13,7 +10,6 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.UI._BaseImbueUI;
 
