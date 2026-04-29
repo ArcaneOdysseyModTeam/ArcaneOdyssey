@@ -413,16 +413,19 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
+			var drawScale = AOUtils.Average(frame.Width, frame.Height) * scale / 24f;
 
-			if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence() && AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
+			if (AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
 			{
-				spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .5f, 0, AtlanteanIndicator.Size() / 2f, drawScale * .8f * (52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height())), SpriteEffects.None, 1f);
-			}
+				if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
+				{
+					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .5f, 0, AtlanteanIndicator.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .8f, SpriteEffects.None, 1f);
+				}
 
-			if (AtlanteanApplied && AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
-			{
-				spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .75f, 0, AtlanteanIndicator.Size() / 2f, drawScale * .8f * (52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height())), SpriteEffects.None, 1f);
+				if (AtlanteanApplied)
+				{
+					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .75f, 0, AtlanteanIndicator.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .8f, SpriteEffects.None, 1f);
+				}
 			}
 
 			return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
@@ -441,7 +444,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, drawScale * .3f * (52f / Math.Max(texture.Width(), texture.Height())), SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .3f, SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs)
 				{
@@ -453,7 +456,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					dimensions.X *= -1f;
 					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, drawScale * .3f * (52f / Math.Max(texture2.Width(), texture2.Height())), SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .3f, SpriteEffects.None, 1f);
 				}
 			}
 		}
@@ -1181,9 +1184,8 @@ namespace ArcaneOdyssey.GlobalTypes
 	{
 		public override bool CanUseItem(Item item, Player player)
 		{
-
 			bool inArena = player.InModBiome<EliusArena>(); // add subworlds here later
-			bool illegalItemForArena = item.type is ItemID.Sandgun or ItemID.DirtBomb or ItemID.DirtStickyBomb or ItemID.DryBomb or ItemID.BottomlessShimmerBucket;
+			bool illegalItemForArena = item.type is ItemID.Sandgun or ItemID.DirtBomb or ItemID.DirtStickyBomb or ItemID.DryBomb or ItemID.BottomlessShimmerBucket or ItemID.WaterBucket or ItemID.BottomlessBucket or ItemID.BottomlessHoneyBucket or ItemID.BottomlessLavaBucket;
 			if (illegalItemForArena && inArena)
 				return false;
 

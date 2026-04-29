@@ -16,6 +16,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.Modules;
 
 
 namespace ArcaneOdyssey.GlobalTypes
@@ -430,28 +431,43 @@ namespace ArcaneOdyssey.GlobalTypes
 
 	public class AntiArenaCheese : GlobalProjectile
 	{
-		public override void PrepareBombToBlow(Projectile projectile)
-		{
-			if (AOUtils.TryGetOwner(projectile, out Player owner) && owner.InModBiome<EliusArena>()) // add subworlds later
-			{
-				projectile.Kill();
-				return;
-			}
-
-			else if (projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
-			{
-				projectile.Kill();
-				return;
-			}
-		}
-
 		public override void AI(Projectile projectile)
 		{
-			if ((ArcaneOdysseyMod.Sets.tombstone[projectile.type] || projectile.aiStyle == ProjAIStyleID.Explosive || ProjectileID.Sets.Explosive[projectile.type]) && projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			if (ArcaneOdysseyMod.Sets.tombstone[projectile.type] && projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
 			{
 				projectile.active = false;
 				return;
 			}
+		}
+
+		public override void Load()
+		{
+			On_Projectile.CanExplodeTile += EliusTileCheck;
+			On_Projectile.ShouldWallExplode += EliusWallCheck;
+		}
+
+		private bool EliusWallCheck(On_Projectile.orig_ShouldWallExplode orig, Projectile self, Microsoft.Xna.Framework.Vector2 compareSpot, int radius, int minI, int maxI, int minJ, int maxJ)
+		{
+			if (orig(self, compareSpot, radius, minI, maxI, minJ, maxJ) && !(EliusArenaLoader.eliusArena.Intersects(Utils.CenteredRectangle(compareSpot.ToTileCoordinates().ToVector2(), new(radius))) || ExternalModSupport.InAOSubworld))
+			{
+				return true;
+			}
+			return false;
+		}
+
+		private bool EliusTileCheck(On_Projectile.orig_CanExplodeTile orig, Projectile self, int x, int y)
+		{
+			if (orig(self, x, y) && !(EliusArenaLoader.eliusArena.Contains(x, y) || ExternalModSupport.InAOSubworld))
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public override void Unload()
+		{
+			On_Projectile.CanExplodeTile -= EliusTileCheck;
+			On_Projectile.ShouldWallExplode -= EliusWallCheck;
 		}
 	}
 }

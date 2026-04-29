@@ -22,9 +22,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 114;
-			Projectile.height = 96;
-			Projectile.AverageDimensions();
+			Projectile.width = 105;
+			Projectile.height = 105;
 			Projectile.alpha = (int)(225 * .75f);
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.timeLeft = 60;
@@ -32,6 +31,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = -1;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 10;
 		}
 
 		public override void SetStaticDefaults()

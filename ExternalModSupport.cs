@@ -239,6 +239,18 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static bool InAOSubworld
+		{
+			get
+			{
+				if (ModLoader.TryGetMod("SubworldLibrary", out Mod subworld) && (bool)subworld.Call("AnyActive", ArcaneOdysseyMod.Instance))
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
 		private void AddBossChecklist()
 		{
 			if (!ModLoader.TryGetMod("BossChecklist", out var bossChecklist) || bossChecklist.Version < new Version(1, 6))

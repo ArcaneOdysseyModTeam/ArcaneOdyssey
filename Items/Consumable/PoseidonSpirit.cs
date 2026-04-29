@@ -3,10 +3,12 @@ using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Consumable;
 
@@ -72,4 +74,39 @@ public class PoseidonSpirit : BaseItem
 		return true;
 	}
 	#endregion
+}
+
+public class MechBossSpiritDropSystem : ModSystem
+{
+	public static bool dropped = false;
+
+	public override void Load()
+	{
+		dropped = false;
+	}
+
+	public override void Unload()
+	{
+		dropped = false;
+	}
+
+	public override void LoadWorldData(TagCompound tag)
+	{
+		dropped = tag.GetBool("dropped");
+	}
+
+	public override void SaveWorldData(TagCompound tag)
+	{
+		tag["dropped"] = dropped;
+	}
+
+	public override void NetSend(BinaryWriter writer)
+	{
+		writer.Write(dropped);
+	}
+
+	public override void NetReceive(BinaryReader reader)
+	{
+		dropped = reader.ReadBoolean();
+	}
 }

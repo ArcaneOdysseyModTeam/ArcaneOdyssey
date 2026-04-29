@@ -1589,6 +1589,22 @@ namespace ArcaneOdyssey
 			defaultValue ??= Vector2.Zero;
 			return (entity.Center - destination).SafeNormalize(defaultValue.Value);
 		}
+
+		public static float Average(params float[] inputs)
+		{
+			if (inputs.Length <= 0)
+				return 0;
+
+			float val = 0;
+
+			foreach (var num in inputs)
+			{
+				val += num;
+			}
+
+			return val / inputs.Length;
+		}
+
 		#endregion
 
 		#region Player Inventory Helpers

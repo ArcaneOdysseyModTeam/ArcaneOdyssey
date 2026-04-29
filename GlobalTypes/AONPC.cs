@@ -293,14 +293,6 @@ namespace ArcaneOdyssey.GlobalTypes
 				modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
 		}
 
-		public delegate void ModifyNPCLootDelegate(NPC npc, NPCLoot npcLoot);
-
-		public static event ModifyNPCLootDelegate ModifyNPCLootEvent;
-
-		public delegate void ModifyGlobalLootDelegate(GlobalLoot globalLoot);
-
-		public static event ModifyGlobalLootDelegate ModifyGlobalLootEvent;
-
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
 			if (npc.type == NPCID.WallofFlesh)
@@ -335,11 +327,10 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			if (npc.type == NPCID.SkeletronPrime || npc.type == NPCID.TheDestroyer || npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
 			{
-				LeadingConditionRule leadingConditionRule = new(new DownedAllMechBossesFirstTime());
-				leadingConditionRule.OnSuccess(new MultiDropHelper<PoseidonSpirit>());
+				LeadingConditionRule leadingConditionRule = new(new SpiritMechDropCondition());
+				leadingConditionRule.OnSuccess(new MechBossSpiritDropper());
 				npcLoot.Add(leadingConditionRule);
 			}
-			ModifyNPCLootEvent?.Invoke(npc, npcLoot);
 		}
 
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
@@ -347,8 +338,6 @@ namespace ArcaneOdyssey.GlobalTypes
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(AOUtils.Common<Acrimony>(3000));
 			globalLoot.Add(AcrimonyCondition);
-
-			ModifyGlobalLootEvent?.Invoke(globalLoot);
 		}
 
 		public override void OnKill(NPC npc)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArcaneOdyssey.Items.Consumable;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -71,18 +72,21 @@ namespace ArcaneOdyssey
 		public string GetConditionDescription() => "";
 	}
 
-	public class DownedAllMechBossesFirstTime : IItemDropRuleCondition
+	public class SpiritMechDropCondition : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info)
 		{
-			if (NPC.downedMechBoss1 && NPC.downedMechBoss2)
-				return !NPC.downedMechBoss3;
+			if (!MechBossSpiritDropSystem.dropped)
+			{
+				if (NPC.downedMechBoss1 && NPC.downedMechBoss2)
+					return !NPC.downedMechBoss3;
 
-			if (NPC.downedMechBoss1 && NPC.downedMechBoss3)
-				return (!NPC.downedMechBoss2) && !AOUtils.BothTwinsAlive;
+				if (NPC.downedMechBoss1 && NPC.downedMechBoss3)
+					return !(NPC.downedMechBoss2 || AOUtils.BothTwinsAlive);
 
-			if (NPC.downedMechBoss3 && NPC.downedMechBoss2)
-				return !NPC.downedMechBoss1;
+				if (NPC.downedMechBoss3 && NPC.downedMechBoss2)
+					return !NPC.downedMechBoss1;
+			}
 
 			return false;
 		}
@@ -90,6 +94,23 @@ namespace ArcaneOdyssey
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstMechBossesKillDescription", () => "First Mechanical Trio Defeated").Value;
 	}
+
+
+	public class MechBossSpiritDropper() : MultiDropHelper<PoseidonSpirit>()
+	{
+		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			var result = base.TryDroppingItem(info);
+
+			if (result.State == ItemDropAttemptResultState.Success)
+			{
+				MechBossSpiritDropSystem.dropped = true;
+			}
+
+			return result;
+		}
+	}
+
 
 	public class KilledABoss : IItemDropRuleCondition
 	{
