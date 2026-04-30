@@ -149,14 +149,14 @@ namespace ArcaneOdyssey.NPCs.Town
 			{
 				Main.npcChatText = Main.rand.Next(Player.ArcaneOdyssey().AvailablePages()).Description.Value; // placeholder, open up guidebook ui instead
 
-				AOPlayer modPlayer = Player.ArcaneOdyssey();
-				List<GuidebookPage> list = modPlayer.AvailablePages();
-				Main.NewText($"Hmm {Player.name}, modPlayer: {modPlayer.Name}\n");
-				foreach (var l in list)
-				{
-					Main.NewText($"Name: {l.DisplayName} \n" +
-						$"\t{l.Description}\n");
-				}
+				//AOPlayer modPlayer = Player.ArcaneOdyssey();
+				//List<GuidebookPage> list = modPlayer.AvailablePages();
+				//Main.NewText($"Hmm {Player.name}, modPlayer: {modPlayer.Name}\n");
+				//foreach (var l in list)
+				//{
+				//	Main.NewText($"Name: {l.DisplayName} \n" +
+				//		$"\t{l.Description}\n");
+				//}
 
 				Main.CloseNPCChatOrSign();
 				ModContent.GetInstance<ModUISystem>().ShowReadingSimulator();
