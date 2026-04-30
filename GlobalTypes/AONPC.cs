@@ -266,7 +266,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			if (vesuvianBurn)
 			{
-				Apply(4f, ref damage, 10, 10000);
+				Apply(8f, ref damage, 10, 10000);
 				if (npc.oiled)
 				{
 					Apply(.25f, ref damage);
