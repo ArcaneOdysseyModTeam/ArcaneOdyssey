@@ -1,10 +1,13 @@
 GettingStarted: {
 	Text:
 		'''
-		Welcome to the Arcane Odyssey Mod. To get started, find your Eagle Legacy. Using it will allow you to select your power.
-		Fighting Styles like Basic Combat allow you to use melee style techniques.
-		Magic Types allow you to cast spells using scrolls, but for now you can just shoot basic blasts.
-		Relics allow you to summon phenomena using the power of creation, focusing your minions.
+		Welcome to the Arcane Odyssey Mod. To get started, find your [i:ArcaneOdyssey/EagleLegacy] Eagle Legacy. Using it will allow you to select your power.
+
+		[i:ArcaneOdyssey/BasicCombat] Fighting Styles like Basic Combat allow you to use melee style techniques.
+
+		[i:ArcaneOdyssey/FireMagic] Magic Types allow you to cast spells using scrolls, and are highly versatile.
+
+		[i:ArcaneOdyssey/EaglePatrimony] Relics allow you to summon phenomena using the power of creation, focusing your minions.
 		'''
 	DisplayName: Getting Started
 }
@@ -13,6 +16,7 @@ MagicTypes: {
 	Text:
 		'''
 		You have obtained a magic type. With this you can cast powerful spells, and greatly enhance weapons.
+
 		But for now, try left clicking with your magic. This will shoot a basic blast, which isn't too powerful.
 		'''
 	DisplayName: Magic Types
@@ -22,7 +26,9 @@ AboutGodSouls: {
 	Text:
 		'''
 		You have been granted a portion of a god's soul. With this, you can enhance your relics.
+
 		Some relics synergize from souls, modifying their stats.
+
 		Other relics may be unstable with an incompatible soul. You may take damage when using these, and the stats are lopsided.
 		'''
 	DisplayName: God Souls
@@ -32,8 +38,10 @@ FightingStyles: {
 	Text:
 		'''
 		You have obtained a fighting style. With this, you can unleash skilled techniques, and wield weapons far too heavy for a regular person.
+
 		But for now, try left clicking with your fighting style. This will unleash a basic strike, which isn't too powerful.
-		Basic Combat can be upgraded into other fighting styles. Try giving it to the Guide NPC to see what you can craft with it.
+
+		[i:ArcaneOdyssey/BasicCombat] Basic Combat can be upgraded into other fighting styles. Try giving it to the Guide NPC to see what you can craft with it.
 		'''
 	DisplayName: Fighting Styles
 }
@@ -41,7 +49,8 @@ FightingStyles: {
 ForgingBronze: {
 	Text:
 		'''
-		Bronze is a material used primarily by a certain nation. It combines copper/tin, gold/platinum, and shadow scales/tissue samples at a hellforge.
+		[i:ArcaneOdyssey/BronzeBar] Bronze is a material used primarily by a certain nation. It combines [i:20]/[i:703], [i:19]/[i:706], and [i:86]/[i:1329] at a hellforge.
+
 		Old weapons can be repaired using it to add abilities, and heavy armour can be forged with it.
 		'''
 	DisplayName: Forging Bronze
@@ -51,7 +60,9 @@ Imbuing: {
 	Text:
 		'''
 		Magic types, Fighting Styles, and Relics are all imbues, and thus can all be imbued into compatible ranged/melee weapons.
-		This can be done by right clicking with your imbue to select it (which is required to imbue accessories), or you can choose an imbue per item using the Cycle Item Imbue keybind.
+
+		This can be done by right clicking with your imbue to select it (which is required to imbue compatible accessories), or you can choose an imbue per item using the Cycle Item Imbue keybind.
+
 		Imbued items normally use the Imbue stats of your imbue, rebalancing the stats of the item slightly. Debuffs from your imbue are also applied to the item.
 		'''
 	DisplayName: Imbuing

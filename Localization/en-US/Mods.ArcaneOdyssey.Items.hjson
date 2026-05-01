@@ -251,10 +251,11 @@ Blocks: {
 
 	WhiteEyesPlush: {
 		DisplayName: White Eyes Plush
-		Tooltip: '''
-		The cutest predator?
-		Can be squeezed
-		'''
+		Tooltip:
+			'''
+			The cutest predator?
+			Can be squeezed
+			'''
 	}
 }
 

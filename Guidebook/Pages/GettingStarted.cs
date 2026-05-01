@@ -11,7 +11,5 @@ namespace ArcaneOdyssey.Guidebook.Pages
 		/// always page 0
 		/// </summary>
 		public override int PageNum => 0;
-
-		public override string Texture => AOUtils.GetTexture<EagleLegacy>();
 	}
 }
