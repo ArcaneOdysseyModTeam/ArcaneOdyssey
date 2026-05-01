@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.1f;
 		public override float ScrollDamage => 0.9f;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			

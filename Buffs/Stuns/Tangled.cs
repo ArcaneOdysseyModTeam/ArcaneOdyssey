@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace ArcaneOdyssey.Buffs.Stuns
 {
 	public class Tangled : Stun
 	{
-		public override string Texture => $"Terraria/Images/Buff_{BuffID.Webbed}";
-		private int stack = 1;
+		public const int VanillaID = BuffID.Webbed;
 
-		public override List<int> Counterparts => [BuffID.Webbed];
+		public override string Texture => $"Terraria/Images/Buff_{VanillaID}";
+
+		public override List<int> Counterparts => [VanillaID];
+
+		public override LocalizedText Description => Language.GetText($"BuffDescription.{BuffID.Search.GetName(VanillaID)}");
+
+		public override LocalizedText DisplayName => Language.GetText($"BuffName.{BuffID.Search.GetName(VanillaID)}");
+
+		private int stack = 1;
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
@@ -41,12 +49,13 @@ namespace ArcaneOdyssey.Buffs.Stuns
 
 		public override bool ReApply(NPC npc, int time, int buffIndex)
 		{
-			if (npc.HasBuff(Type))
-			{
-				npc.buffTime[buffIndex] += time;
-				return true;
-			}
-			return false;
+			npc.buffTime[buffIndex] += time;
+			return true;
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.webbed = true;
 		}
 	}
 }

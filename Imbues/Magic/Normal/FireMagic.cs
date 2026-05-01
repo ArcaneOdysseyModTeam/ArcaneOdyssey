@@ -32,11 +32,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 0.85f;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBurning>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Burning>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Bleeding>(),
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<SnowyEffect>(),
 				ClearBuff.Create<Soaked>(),
@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				ClearBuff.Create<Flammable>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<Singed>(1.1f),
 				Synergy.Create<CharredEffect>(1.01f),
 				
@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				
 				Synergy.Create<Melting>(1.05f),
 				
-				Synergy.Create<AOPoisoned>(1.05f),
+				Synergy.Create<Poisoned>(1.05f),
 				Synergy.Create<Scorched>(1.1f),
 				
 				Synergy.Create<Flammable>(1.075f),

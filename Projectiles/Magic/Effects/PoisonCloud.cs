@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Main.projFrames[Type] = 3;
 		}
 
-		public override Debuff? ProjectileDebuff => Debuff.Create<AOPoisoned>(60 * 3);
+		public override Debuff? ProjectileDebuff => Debuff.Create<Poisoned>(60 * 3);
 
 		public override float Size => 4f;
 

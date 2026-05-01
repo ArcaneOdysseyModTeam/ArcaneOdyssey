@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override SynergyEffects Effects => new([],
 			[
-				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<Burning>(.9f),
 				 // burning
 				Synergy.Create<CharredEffect>(.9f), // charred
 				Synergy.Create<SearedEffect>(0.8f),

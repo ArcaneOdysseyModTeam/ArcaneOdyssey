@@ -17,24 +17,23 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}
-			if (npc.HasBuff(Type))
+			
+			var stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
+			switch (stack)
 			{
-				var stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
-				switch (stack)
-				{
-					case 1:
-						return;
-					case 2:
-						return;
-					case 3:
-						return;
-					case 4:
-						return;
-					default:
-						npc.AddBuff(BuffID.Confused, 60);
-						break;
-				}
+				case 1:
+					return;
+				case 2:
+					return;
+				case 3:
+					return;
+				case 4:
+					return;
+				default:
+					npc.AddBuff(BuffID.Confused, 60);
+					break;
 			}
+			
 			if (npc.HasBuff(BuffID.Confused))
 			{
 				npc.DelBuff(buffIndex);
@@ -44,12 +43,14 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 
 		public override bool ReApply(NPC npc, int time, int buffIndex)
 		{
-			if (npc.HasBuff(Type))
-			{
-				npc.buffTime[buffIndex] += time;
-				return true;
-			}
-			else return false;
+			npc.buffTime[buffIndex] += time;
+			return true;
+		}
+
+		public override bool ReApply(Player player, int time, int buffIndex)
+		{
+			player.buffTime[buffIndex] += time;
+			return true;
 		}
 	}
 }

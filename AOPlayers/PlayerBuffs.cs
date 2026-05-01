@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
-using ArcaneOdyssey.Guidebook;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -125,47 +124,61 @@ namespace ArcaneOdyssey.AOPlayers
 				tag.Add("guidebooks", unlockedPages);
 		}
 
-		public override void PreUpdateBuffs()
-		{
-			if (Main.myPlayer == Player.whoAmI)
-			{
-				foreach (var page in AvailablePages())
-				{
-					if (!unlockedPages.Contains(page.Name))
-					{
-						Main.NewText(Mod.CustomLocalization("NewGuide", page.DisplayName.Value).Value);
-					}
-				}
 
-				foreach (string str in AvailablePages().Select(e => e.Name))
-				{
-					if (!unlockedPages.Contains(str))
-						unlockedPages.Add(str);
-				}
+		public bool bleeding = false;
+		public bool elecToxins = false;
+		public bool ionized = false;
+		public bool scalded = false;
+		public int singe = 0;
+		public bool seared = false;
+
+		public override void UpdateBadLifeRegen()
+		{
+			void subtract(int num)
+			{
+				Player.lifeRegen = Math.Min(Player.lifeRegen - num, -num);
+			}
+
+			if (bleeding)
+			{
+				subtract(6);
+			}
+
+			if (elecToxins)
+			{
+				subtract(20);
+			}
+
+			if (ionized)
+			{
+				subtract(50);
+			}
+
+			if (scalded)
+			{
+				subtract(10);
+			}
+
+			if (singe > 0)
+			{
+				subtract(5 * singe);
+			}
+
+			if (seared)
+			{
+				subtract(10);
 			}
 		}
 
-		private static int SortPages(GuidebookPage x, GuidebookPage y)
+		public void ResetBuffs()
 		{
-			if (x.PageNum > y.PageNum)
-			{
-				return 1;
-			}
-			if (x.PageNum < y.PageNum)
-			{
-				return -1;
-			}
-			return 0;
-		}
-
-		internal List<string> unlockedPages = [];
-
-		public List<GuidebookPage> AvailablePages()
-		{
-			List<GuidebookPage> pages = [.. GuidebookSystem.AllPages];
-			pages.Sort(new Comparison<GuidebookPage>(SortPages));
-			pages.RemoveAll(e => !e.MetConditions(Player));
-			return pages;
+			bleeding = false;
+			Gel = null;
+			elecToxins = false;
+			ionized = false;
+			scalded = false;
+			singe = 0;
+			seared = false;
 		}
 	}
 }

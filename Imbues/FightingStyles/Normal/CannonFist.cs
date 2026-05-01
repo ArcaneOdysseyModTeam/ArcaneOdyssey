@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			}
 		}
 
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
 			[],
 			[

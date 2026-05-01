@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 		public virtual float Speed => 1f;
 		public virtual float Size => 1f;
 
-		public virtual Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
+		public virtual Debuff? ProjectileDebuff => Debuff.Create<Bleeding>(60 * 5);
 		public virtual SoundStyle? HitSound => null;
 	}
 }

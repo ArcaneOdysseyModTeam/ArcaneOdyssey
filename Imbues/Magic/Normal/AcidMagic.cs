@@ -33,15 +33,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				ClearBuff.Create<SandyEffect>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.075f),
+				Synergy.Create<Bleeding>(1.075f),
 				
-				Synergy.Create<AOBurning>(1.075f),
+				Synergy.Create<Burning>(1.075f),
 				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<FreezingEffect>(1.2f),
 				
 				Synergy.Create<Melting>(1.05f),
 				
-				Synergy.Create<AOPoisoned>(1.05f),
+				Synergy.Create<Poisoned>(1.05f),
 				Synergy.Create<Scorched>(1.1f),
 				Synergy.Create<Singed>(1.1f),
 				Synergy.Create<Soaked>(0.9f),

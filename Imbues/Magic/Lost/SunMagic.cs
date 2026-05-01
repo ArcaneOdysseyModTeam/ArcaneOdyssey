@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Bleeding>(),
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<SnowyEffect>(),
 				ClearBuff.Create<Soaked>(),
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				ClearBuff.Create<Flammable>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<CharredEffect>(1.01f),
 				
 				Synergy.Create<Corroding>(1.05f),

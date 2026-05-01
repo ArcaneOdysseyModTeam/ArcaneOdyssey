@@ -25,21 +25,21 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Bleeding>(),
 				ClearBuff.Create<CharredEffect>(),
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<SnowyEffect>(),
 				ClearBuff.Create<Soaked>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.15f),
-				Synergy.Create<AOBurning>(1.075f),
+				Synergy.Create<Bleeding>(1.15f),
+				Synergy.Create<Burning>(1.075f),
 				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<Corroding>(1.05f),
 				Synergy.Create<Crystallized>(0.99f),
 				Synergy.Create<FreezingEffect>(0.97f),
 				Synergy.Create<Melting>(1.05f),
-				Synergy.Create<AOPoisoned>(1.05f),
+				Synergy.Create<Poisoned>(1.05f),
 				Synergy.Create<SnowyEffect>(0.99f),
 				Synergy.Create<Soaked>(0.95f),
 				Synergy.Create<Flammable>(1.075f),

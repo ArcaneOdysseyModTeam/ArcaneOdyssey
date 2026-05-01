@@ -185,6 +185,12 @@ namespace ArcaneOdyssey.NPCs.Town
 			{
 				return this.GetLocalizedValue("DyingText");
 			}
+
+			if (Main.rand.NextBool(100))
+			{
+				return this.GetLocalizedValue("Chat.EasterEgg");
+			}
+
 			List<string> options = [];
 
 			void AddOption(string value)

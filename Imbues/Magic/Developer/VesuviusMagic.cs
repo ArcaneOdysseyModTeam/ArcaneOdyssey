@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 				ClearBuff.Create<FreezingEffect>(), // freezing
 				ClearBuff.Create<Petrified>(),
 				ClearBuff.Create<Soaked>(),
-				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Bleeding>(),
 				ClearBuff.Create<Corroding>(),
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<SandyEffect>(),
@@ -35,8 +35,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 			],
 			[
 				Synergy.Create<Petrified>(2.2f), // petrified
-				Synergy.Create<AOBleed>(2.15f), // bleeding
-				Synergy.Create<AOBurning>(2.075f),
+				Synergy.Create<Bleeding>(2.15f), // bleeding
+				Synergy.Create<Burning>(2.075f),
 				Synergy.Create<Corroding>(2.1f),
 				Synergy.Create<FreezingEffect>(1.95f),
 				Synergy.Create<SnowyEffect>(1.99f),

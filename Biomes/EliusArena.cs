@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Biomes
 
 		public override void NetSend(BinaryWriter writer)
 		{
-			writer.WriteRectangle(eliusArena);
+			writer.Write(eliusArena);
 		}
 
 		public override void NetReceive(BinaryReader reader)

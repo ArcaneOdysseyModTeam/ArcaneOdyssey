@@ -27,24 +27,24 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override float ScrollSize => Main.rand.NextFloat(1.05f, 1.19f);
 		public override float ScrollSpeed => .9f;
 
-		public override Combo[] CombinedDebuffs => [Combo.Create<AOBurning, Petrified>(), Combo.Create<AOBurning, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<SearedEffect, Petrified>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Burning, Petrified>(), Combo.Create<Burning, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<SearedEffect, Petrified>()];
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CharredEffect>()];
 		public override SynergyEffects Effects => new(
 			[
 				ClearBuff.Create<Soaked>(),
 				ClearBuff.Create<FreezingEffect>(),
-				ClearBuff.Create<AOFrozen>(),
+				ClearBuff.Create<Frozen>(),
 				ClearBuff.Create<Paralyzed>(),
 				ClearBuff.Create<Petrified>(),
 				ClearBuff.Create<Scalding>(),
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				ClearBuff.Create<SearedEffect>(),
 			],
 			[
 				Synergy.Create<Petrified>(1.1f),
 				Synergy.Create<Scalding>(1.1f),
-				Synergy.Create<AOBurning>(1.1f),
+				Synergy.Create<Burning>(1.1f),
 				Synergy.Create<SearedEffect>(1.1f),
 				Synergy.Create<Corroding>(1.1f),
 				Synergy.Create<SandyEffect>(1.1f),

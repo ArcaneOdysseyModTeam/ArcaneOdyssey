@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => new(0, 255, 0);
 		public override Color ImbueColour2 => new(0, 120, 0);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>(60 * 15)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>(60 * 15)];
 		public override SoundStyle? ImbueSound => SoundID.Item71;
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

@@ -16,7 +16,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.Modules;
 
 
 namespace ArcaneOdyssey.GlobalTypes
@@ -228,12 +227,20 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			binaryWriter.Write(Imbue?.Type ?? ItemID.None);
 			binaryWriter.Write(SecondImbue?.Type ?? ItemID.None);
+			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
+			{
+				binaryWriter.Write(projectile.scale);
+			}
 		}
 
 		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
 		{
 			Imbue = AOUtils.SafeImbuable(ModContent.GetModItem(binaryReader.ReadInt32()));
 			SecondImbue = AOUtils.SafeImbuable(ModContent.GetModItem(binaryReader.ReadInt32()));
+			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
+			{
+				projectile.scale = binaryReader.ReadSingle();
+			}
 		}
 
 

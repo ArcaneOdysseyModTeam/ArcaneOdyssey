@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 {
 	public class Scorched : MagicMark
 	{
-		public override List<int> Counterparts => [BuffID.ShadowFlame, ModContent.BuffType<AOShadowflame>()];
+		public override List<int> Counterparts => [BuffID.ShadowFlame, ModContent.BuffType<Shadowflame>()];
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
@@ -30,6 +30,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 		{
 			base.SetStaticDefaults();
 			ExternalModSupport.RegisterDoT(Type);
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.onFire3 = true;
 		}
 	}
 }

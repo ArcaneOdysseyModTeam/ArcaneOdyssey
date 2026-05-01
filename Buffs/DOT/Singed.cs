@@ -17,11 +17,10 @@ namespace ArcaneOdyssey.Buffs.DOT
 				buffIndex--;
 				return;
 			}
-			if (npc.HasBuff(Type))
-			{
-				stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
-				npc.ArcaneOdyssey().singedstacks = stack;
-			}
+
+			stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
+			npc.ArcaneOdyssey().singedstacks = stack;
+
 			if (!Main.dedServ)
 			{
 				Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
@@ -42,6 +41,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 		{
 			base.SetStaticDefaults();
 			ExternalModSupport.RegisterDoT(Type);
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			stack = AOUtils.GetAOBuffStack(player, buffIndex); // stacks disappear over time
+			player.ArcaneOdyssey().singe = stack;
 		}
 	}
 }

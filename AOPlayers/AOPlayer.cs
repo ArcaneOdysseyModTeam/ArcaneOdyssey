@@ -187,10 +187,12 @@ namespace ArcaneOdyssey.AOPlayers
 			ArcaneOdysseyMod.Sets.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 			HeavySkillActive = false;
 			DashStrike();
+
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
 				Imbue = null;
 			}
+
 			Player.statDefense -= _defenseLost;
 			
 			if (Player.InModBiome<EliusArena>())
@@ -294,10 +296,10 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 			StatSize = 0;
 			StatHaste = 0;
-			Insanity = 0;
 			thundering = null;
 			hiddenThunder = false;
-			Gel = null;
+			Insanity = 0;
+			ResetBuffs();
 			List<int> queue = [];
 			foreach (int type in EquippedImbues)
 			{

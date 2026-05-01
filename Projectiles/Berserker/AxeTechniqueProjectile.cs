@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 
 		public override float Size => .5f;
 
-		public override Debuff? ProjectileDebuff => Debuff.Create<AOBleed>(60 * 5);
+		public override Debuff? ProjectileDebuff => Debuff.Create<Bleeding>(60 * 5);
 
 		public override void SetStaticDefaults()
 		{

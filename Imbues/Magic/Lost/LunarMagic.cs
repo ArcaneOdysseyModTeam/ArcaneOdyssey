@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				ClearBuff.Create<CharredEffect>(),
 				ClearBuff.Create<Melting>(),
 				ClearBuff.Create<Scorched>(),
@@ -35,8 +35,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				ClearBuff.Create<SearedEffect>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.05f),
-				Synergy.Create<AOBurning>(.8f),
+				Synergy.Create<Bleeding>(1.05f),
+				Synergy.Create<Burning>(.8f),
 				Synergy.Create<CharredEffect>(0.9f),
 				Synergy.Create<DrainedEffect>(0.9f),
 				Synergy.Create<Corroding>(.9f),

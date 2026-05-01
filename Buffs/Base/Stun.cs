@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.Base
@@ -35,12 +34,9 @@ namespace ArcaneOdyssey.Buffs.Base
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (player.ArcaneOdyssey().OnCooldown(Name + "Buff") || LiterallyCheating)
-			{
-				player.moveSpeed = 0f;
-				player.ArcaneOdyssey().SetCooldown(new Cooldown(Name + "Buff", DisplayName, 60));
-				player.canFloatInWater = false;
-			}
+			player.canFloatInWater = false;
 		}
+
+		public override bool ReApply(Player player, int time, int buffIndex) => !LiterallyCheating;
 	}
 }

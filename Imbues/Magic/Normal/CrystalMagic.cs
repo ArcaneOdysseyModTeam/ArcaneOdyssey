@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			],
 			[
 				Synergy.Create<FreezingEffect>(1.01f),
-				Synergy.Create<AOBleed>(1.01f),
+				Synergy.Create<Bleeding>(1.01f),
 				
 				Synergy.Create<Corroding>(1.01f),
 				

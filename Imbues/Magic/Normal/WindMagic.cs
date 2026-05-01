@@ -32,10 +32,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float ScrollSpeed => 1.35f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => .825f;
-		public override Combo[] CombinedDebuffs => [Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<SnowyEffect, Frozen>(), Combo.Create<FreezingEffect, Frozen>()];
 		public override SynergyEffects Effects => new(
 			[
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<CharredEffect>(),
 				ClearBuff.Create<Corroding>(),
@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			[
 				Synergy.Create<Crystallized>(0.9f),
 				
-				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<Burning>(.9f),
 				Synergy.Create<CharredEffect>(1.125f),
 				Synergy.Create<Singed>(.9f),
 				Synergy.Create<FreezingEffect>(1.1f),

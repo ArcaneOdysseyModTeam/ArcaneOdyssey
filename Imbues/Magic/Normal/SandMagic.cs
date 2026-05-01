@@ -35,9 +35,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				ClearBuff.Create<Flammable>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.1f),
+				Synergy.Create<Bleeding>(1.1f),
 				
-				Synergy.Create<AOBurning>(1.125f),
+				Synergy.Create<Burning>(1.125f),
 				Synergy.Create<CharredEffect>(1.01f),
 				
 				Synergy.Create<Corroding>(1.075f),

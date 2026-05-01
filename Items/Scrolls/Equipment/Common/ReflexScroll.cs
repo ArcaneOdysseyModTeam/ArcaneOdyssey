@@ -95,7 +95,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 			}
 		}
 
-		public override bool OnHit(Player player, NPC target) => true;
+		public override bool OnHit(Player player, NPC target) => !Immune;
 
 		public override void DashEffect(Player player)
 		{
@@ -124,6 +124,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 
 		public override int DashMax => 30;
 
-		public override bool Immune => Imbue is not null && Imbue.ImmuneDash;
+		public override bool Immune => Imbue is not null && Imbue.ImmuneDash && !ground;
 	}
 }

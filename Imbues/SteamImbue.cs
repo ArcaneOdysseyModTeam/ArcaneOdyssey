@@ -37,14 +37,14 @@ namespace ArcaneOdyssey.Imbues
 
 		public override SynergyEffects Effects => new([], 
 			[
-				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<Petrified>(1.1f),
-				Synergy.Create<AOBurning>(1.1f),
+				Synergy.Create<Burning>(1.1f),
 				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<Corroding>(1.05f),
 				Synergy.Create<FreezingEffect>(.9f),
 				Synergy.Create<Soaked>(.9f),
-				Synergy.Create<AOFrozen>(.9f),
+				Synergy.Create<Frozen>(.9f),
 				Synergy.Create<Crystallized>(.85f),
 				Synergy.Create<SandyEffect>(.8f),
 			]

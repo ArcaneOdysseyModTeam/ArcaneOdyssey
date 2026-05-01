@@ -15,6 +15,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using System.IO;
 
 namespace ArcaneOdyssey
 {
@@ -128,7 +129,7 @@ namespace ArcaneOdyssey
 
 		public IEnumerable<dynamic> BTitlesHook_GetBiomes()
 		{
-			var icon = ModContent.Request<Texture2D>(AOUtils.GetTexture<EliusArena>(), AssetRequestMode.ImmediateLoad);
+			var icon = ModContent.Request<Texture2D>(AOUtils.GetTexture<EliusArena>() + "_Icon", AssetRequestMode.ImmediateLoad);
 			yield return new
 			{
 				Key = "EliusArena",
@@ -138,6 +139,41 @@ namespace ArcaneOdyssey
 				TitleStroke = Color.MediumPurple,
 				Icon = icon.Value,
 			};
+		}
+
+		public class PacketID
+		{
+			/// <summary>
+			/// Create lingering visuals on all clients, best used for item swing visuals
+			/// <para/> Requires two item ids and a rectangle
+			/// </summary>
+			public const byte LingeringVisuals = 0;
+		}
+
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+			var command = reader.ReadByte();
+			if (command == PacketID.LingeringVisuals)
+			{
+				if (Main.dedServ) // forward to clients
+				{
+					var packet = GetPacket();
+					packet.Write(PacketID.LingeringVisuals);
+					packet.Write(reader.ReadInt32()); // imbue 1
+					packet.Write(reader.ReadInt32()); // imbue 2, if applicable
+					packet.Write(reader.ReadRectangle()); // area
+					packet.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					var imbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
+					var imbue2 = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
+					var area = reader.ReadRectangle();
+
+					imbue?.LingeringEffects(area);
+					imbue2?.LingeringEffects(area);
+				}
+			}
 		}
 
 

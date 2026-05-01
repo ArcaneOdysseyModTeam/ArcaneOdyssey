@@ -32,17 +32,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ImbueSpeed => 1.1f;
 		public override float ImbueSize => 1.15f;
 		public override float ImbueDamage => 1.1f;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOShadowflame>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Shadowflame>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Bleeding>(),
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<SnowyEffect>(),
 				ClearBuff.Create<CharredEffect>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<CharredEffect>(1.01f),
 				
 				Synergy.Create<Corroding>(1.05f),
@@ -53,9 +53,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				
 				Synergy.Create<Melting>(1.05f),
 				
-				Synergy.Create<AOPoisoned>(1.05f),
+				Synergy.Create<Poisoned>(1.05f),
 				
-				Synergy.Create<AOBurning>(1.1f),
+				Synergy.Create<Burning>(1.1f),
 				
 				Synergy.Create<Flammable>(1.075f),
 				Synergy.Create<SandyEffect>(0.98f),

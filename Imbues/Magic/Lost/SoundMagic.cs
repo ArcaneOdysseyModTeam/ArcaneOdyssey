@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			[
 				Synergy.Create<SandyEffect>(.9f),
 				Synergy.Create<Crystallized>(1.1f),
-				Synergy.Create<AOFrozen>(1.2f),
+				Synergy.Create<Frozen>(1.2f),
 			]);
 
 		public override int BlastFrames => 1;

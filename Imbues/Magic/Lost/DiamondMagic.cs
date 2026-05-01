@@ -21,14 +21,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 			
 			],
 			[
 				Synergy.Create<FreezingEffect>(1.01f),
-				Synergy.Create<AOBleed>(1.01f),
+				Synergy.Create<Bleeding>(1.01f),
 				Synergy.Create<Corroding>(1.01f),
 				Synergy.Create<Melting>(1.075f),
 				Synergy.Create<SandyEffect>(1.125f),
