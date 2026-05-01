@@ -25,7 +25,7 @@ MagicTypes: {
 AboutGodSouls: {
 	Text:
 		'''
-		You have been granted a portion of a god's soul. With this, you can enhance your relics.
+		You have been granted a portion of a god's soul. With this, you can enhance your [i:ArcaneOdysseyMod/SpiritEnergy] Relics.
 
 		Some relics synergize from souls, modifying their stats.
 
@@ -49,9 +49,9 @@ FightingStyles: {
 ForgingBronze: {
 	Text:
 		'''
-		[i:ArcaneOdyssey/BronzeBar] Bronze is a material used primarily by a certain nation. It combines [i:20]/[i:703], [i:19]/[i:706], and [i:86]/[i:1329] at a hellforge.
+		[i:ArcaneOdyssey/BronzeBar] Bronze is a material used primarily by a certain nation. It combines [i:20]/[i:703], [i:19]/[i:706], and [i:86]/[i:1329] at a [i:221] Hellforge.
 
-		Old weapons can be repaired using it to add abilities, and heavy armour can be forged with it.
+		Old weapons can be upgraded using [i:ArcaneOdyssey/BronzeBar] to add abilities, and [i:ArcaneOdyssey/RavennaChest] heavy armour can be forged with it.
 		'''
 	DisplayName: Forging Bronze
 }
@@ -61,9 +61,11 @@ Imbuing: {
 		'''
 		Magic types, Fighting Styles, and Relics are all imbues, and thus can all be imbued into compatible ranged/melee weapons.
 
-		This can be done by right clicking with your imbue to select it (which is required to imbue compatible accessories), or you can choose an imbue per item using the Cycle Item Imbue keybind.
+		This can be done by right clicking with your imbue to select it, or you can choose an imbue per item using the Cycle Item Imbue keybind.
 
 		Imbued items normally use the Imbue stats of your imbue, rebalancing the stats of the item slightly. Debuffs from your imbue are also applied to the item.
+
+		To imbue compatible accessories, you must right click the magic to select it as your primary imbue.
 		'''
 	DisplayName: Imbuing
 }
@@ -75,7 +77,7 @@ Mutating: {
 
 ObtainingScrolls: {
 	DisplayName: Obtaining Scrolls
-	Text: Obtaining Scrolls content goes here.
+	Text: Obtaining Scrolls content goes here. Talk about pots and fishing.
 }
 
 Relics: {
@@ -90,10 +92,15 @@ StrengthWeapons: {
 
 UsingScrolls: {
 	DisplayName: Using Scrolls
-	Text: Using Scrolls content goes here.
+	Text: Using Scrolls content goes here. Mention accessories.
 }
 
 Weapons: {
 	DisplayName: Weapons
-	Text: Weapons content goes here.
+	Text: Weapons content goes here. Mention abilities and their cooldowns.
+}
+
+SteamGuide: {
+	DisplayName: Item Attributes
+	Text: Steam Guide content goes here. Mention the temperatures of items and imbues, and how they create steam.
 }

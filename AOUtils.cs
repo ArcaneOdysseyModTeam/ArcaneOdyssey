@@ -1604,6 +1604,10 @@ namespace ArcaneOdyssey
 			{
 				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
 			}
+			if (player.useVoidBag())
+			{
+				no.AddRange(player.bank4.item);
+			}
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var item in no)
 			{
@@ -1622,6 +1626,63 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
+			return false;
+		}
+
+		public static bool HasItemInInventory(this Player player, Predicate<Item> check)
+		{
+			List<Item> no = [.. player.inventory, player.trashItem];
+
+			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
+			{
+				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
+			}
+
+			if (player.useVoidBag())
+			{
+				no.AddRange(player.bank4.item);
+			}
+
+			no.RemoveAll(e => e.IsAir || !e.active);
+
+			foreach (var item in no)
+			{
+				if (check(item))
+				{
+					return true;
+				}
+			}
+			
+			return false;
+		}
+
+		public static bool HasItemInInventory(this Player player, Predicate<Item> check, out Item i)
+		{
+			i = null;
+
+			List<Item> no = [.. player.inventory, player.trashItem];
+
+			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
+			{
+				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
+			}
+
+			if (player.useVoidBag())
+			{
+				no.AddRange(player.bank4.item);
+			}
+
+			no.RemoveAll(e => e.IsAir || !e.active);
+
+			foreach (var item in no)
+			{
+				if (check(item))
+				{
+					i = item;
+					return true;
+				}
+			}
+
 			return false;
 		}
 

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ArcaneOdyssey.UI.ReadingSimulator;
 

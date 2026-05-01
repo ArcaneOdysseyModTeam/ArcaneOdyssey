@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Guidebook;
-using ArcaneOdyssey.Imbues.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;

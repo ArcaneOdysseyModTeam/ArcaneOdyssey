@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Items.Consumable;
-using Terraria;
+﻿using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
