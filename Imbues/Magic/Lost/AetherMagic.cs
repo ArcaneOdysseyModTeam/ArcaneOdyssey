@@ -39,8 +39,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				ClearBuff.Create<Soaked>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.01f),
-				Synergy.Create<AOBurning>(1.125f),
+				Synergy.Create<Bleeding>(1.01f),
+				Synergy.Create<Burning>(1.125f),
 				Synergy.Create<Corroding>(1.075f),
 				Synergy.Create<FreezingEffect>(1.01f),
 				Synergy.Create<Melting>(1.075f),

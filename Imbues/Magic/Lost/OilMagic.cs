@@ -28,10 +28,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			
 			],
 			[
-				Synergy.Create<AOBurning>(1.15f),
+				Synergy.Create<Burning>(1.15f),
 				Synergy.Create<Melting>(1.15f),
 				Synergy.Create<Scorched>(1.15f),
-				Synergy.Create<AOBleed>(1.1f),
+				Synergy.Create<Bleeding>(1.1f),
 				Synergy.Create<HeavyBleed>(1.1f),
 				Synergy.Create<SandyEffect>(0.96f),
 				Synergy.Create<SnowyEffect>(0.96f),

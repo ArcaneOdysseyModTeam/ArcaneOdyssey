@@ -41,21 +41,21 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override SynergyEffects Effects => new(
 			[
 				ClearBuff.Create<Soaked>(),
-				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Bleeding>(),
 				ClearBuff.Create<FreezingEffect>()
 			],
 			[
 				Synergy.Create<Crystallized>(0.85f),
 				Synergy.Create<SnowyEffect>(0.95f),
 				Synergy.Create<FreezingEffect>(0.95f),
-				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<Melting>(1.075f),
 				Synergy.Create<Corroding>(1.075f),
 				Synergy.Create<SearedEffect>(1.1f),
 				Synergy.Create<Scorched>(1.1f),
 				Synergy.Create<SandyEffect>(0.8f),
-				Synergy.Create<AOBurning>(1.1f),
+				Synergy.Create<Burning>(1.1f),
 				Synergy.Create<Scalding>(1.1f),
 			]
 		);

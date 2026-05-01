@@ -28,13 +28,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float ScrollSize => 1.3f;
 		public override float ScrollDamage => 1f;
 		public override SoundStyle? ImbueSound => SoundID.Item110;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<FreezingEffect>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.1f),
+				Synergy.Create<Bleeding>(1.1f),
 				
 				Synergy.Create<Corroding>(1.075f),
 				Synergy.Create<Crystallized>(1.075f),

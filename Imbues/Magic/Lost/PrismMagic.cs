@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.15f;
 
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<BlindedEffect>(60 * 3), Debuff.Create<AOBleed>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<BlindedEffect>(60 * 3), Debuff.Create<Bleeding>()];
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

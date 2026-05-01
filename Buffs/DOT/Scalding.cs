@@ -24,5 +24,10 @@ namespace ArcaneOdyssey.Buffs.DOT
 		}
 
 		public override List<int> Counterparts => [BuffID.Frostburn, BuffID.Frostburn2];
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.ArcaneOdyssey().scalded = true;
+		}
 	}
 }

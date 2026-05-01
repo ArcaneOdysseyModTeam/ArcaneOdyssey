@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			[
 				ClearBuff.Create<SearedEffect>(),
 				ClearBuff.Create<CharredEffect>(),
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				ClearBuff.Create<Melting>(),
 				ClearBuff.Create<Corroding>(),
 				ClearBuff.Create<Scorched>(),
@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 				Synergy.Create<Crystallized>(1.1f),
 				Synergy.Create<SnowyEffect>(1.1f),
 				Synergy.Create<FreezingEffect>(1.075f),
-				Synergy.Create<AOBleed>(1.05f),
+				Synergy.Create<Bleeding>(1.05f),
 				Synergy.Create<CharredEffect>(0.9f),
 				Synergy.Create<Melting>(.9f),
 				Synergy.Create<Singed>(0.8f),
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 				Synergy.Create<SearedEffect>(0.85f),
 				Synergy.Create<Scorched>(0.85f),
 				Synergy.Create<SandyEffect>(0.8f),
-				Synergy.Create<AOBurning>(.8f),
+				Synergy.Create<Burning>(.8f),
 			]
 		);
 

@@ -15,6 +15,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 			ExternalModSupport.RegisterDoT(Type);
 		}
 
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.onFire2 = true;
+		}
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (npc.wet && !npc.lavaWet)

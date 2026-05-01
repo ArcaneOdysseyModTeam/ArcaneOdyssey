@@ -101,6 +101,15 @@ Configs: {
 				Should only be disabled if your game is not functioning properly
 				'''
 		}
+
+		SyncProjectileSizes: {
+			Label: "[i:ArcaneOdyssey/SteamImbue] Sync Projectile Sizes"
+			Tooltip:
+				'''
+				Toggles whether projectiles have their sizes visually synced between multiplayer clients
+				Should be disabled if your game is not functioning properly
+				'''
+		}
 	}
 
 	ArcaneOdysseyClientConfig: {
@@ -198,6 +207,7 @@ NPCs: {
 				StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior. Talk to me if you need help using it.
 				CloudsShift: There's a storm coming in...
 				DeathMagic: Are you mocking me with that magic?
+				EasterEgg: Mimhere island... is real...
 			}
 
 			TownNPCMood: {

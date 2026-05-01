@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class AOBurning : VanillaClone
+	public class Burning : VanillaClone
 	{
 		public override int VanillaID => BuffID.OnFire;
 
@@ -28,6 +28,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Torch);
 				dust.velocity *= 0.4f;
 			}
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.onFire = true;
 		}
 	}
 }

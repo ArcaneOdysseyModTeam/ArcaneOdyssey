@@ -146,11 +146,6 @@ Pets: {
 }
 
 Stuns: {
-	AOFrozen: {
-		DisplayName: Frozen
-		Description: You can't move
-	}
-
 	Paralyzed: {
 		DisplayName: Paralyzed
 		Description: You can't move
@@ -159,11 +154,6 @@ Stuns: {
 	Petrified: {
 		DisplayName: Petrified
 		Description: You can't move
-	}
-
-	Tangled: {
-		DisplayName: Tangled
-		Description: Sticky webs slowly restrict your movement
 	}
 
 	Trauma: {

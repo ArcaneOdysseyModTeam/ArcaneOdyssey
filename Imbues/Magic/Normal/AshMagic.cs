@@ -35,14 +35,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float ScrollDamage => 0.875f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Petrified>(60, 33)];
-		public override Combo[] CombinedDebuffs => [Combo.Create<Melting, Petrified>(), Combo.Create<AOBurning, Petrified>(), Combo.Create<Scorched, Petrified>(), Combo.Create<CharredEffect, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<Singed, Petrified>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Melting, Petrified>(), Combo.Create<Burning, Petrified>(), Combo.Create<Scorched, Petrified>(), Combo.Create<CharredEffect, Petrified>(), Combo.Create<Scalding, Petrified>(), Combo.Create<Singed, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<Soaked>(),
 				ClearBuff.Create<SnowyEffect>(),
 				ClearBuff.Create<FreezingEffect>(),
 				
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				
 				ClearBuff.Create<Melting>(),
 				ClearBuff.Create<CharredEffect>(),
@@ -51,9 +51,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				ClearBuff.Create<Scalding>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.1f),
+				Synergy.Create<Bleeding>(1.1f),
 				
-				Synergy.Create<AOBurning>(1.02f),
+				Synergy.Create<Burning>(1.02f),
 				
 				Synergy.Create<Corroding>(1.075f),
 				Synergy.Create<Singed>(1.2f),

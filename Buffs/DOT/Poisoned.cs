@@ -7,9 +7,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class AOPoisoned : VanillaClone
+	public class Poisoned : VanillaClone
 	{
-
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -26,6 +25,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.SteampunkSteam, newColor: Color.Purple);
 				dust.velocity *= 0.4f;
 			}
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.poisoned = true;
 		}
 	}
 }

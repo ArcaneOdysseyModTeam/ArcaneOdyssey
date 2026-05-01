@@ -38,7 +38,7 @@ namespace ArcaneOdyssey
 
 		public static Imbuable SafeImbuable(ModItem item)
 		{
-			if (item is not null)
+			if (item is Imbuable)
 			{
 				return item as Imbuable;
 			}
@@ -217,7 +217,7 @@ namespace ArcaneOdyssey
 			rect.Y += diffY * adjustY;
 		}
 
-		public static void WriteRectangle(this BinaryWriter writer, Rectangle rect)
+		public static void Write(this BinaryWriter writer, Rectangle rect)
 		{
 			writer.Write(rect.X);
 			writer.Write(rect.Y);
@@ -356,13 +356,6 @@ namespace ArcaneOdyssey
 					if (ModContent.HasAsset(tex))
 						return tex;
 				}
-				if (typeof(T).IsSubclassOf(typeof(ModBiome)))
-				{
-					var inst = ModContent.GetInstance<T>() as ModBiome;
-					var tex = inst.Mod.Name + "/" + inst.BestiaryIcon.Replace(inst.Mod.Name + "/");
-					if (ModContent.HasAsset(tex))
-						return tex;
-				}
 				if (typeof(T).IsSubclassOf(typeof(ModGore)))
 				{
 					var inst = ModContent.GetInstance<T>() as ModGore;
@@ -377,10 +370,6 @@ namespace ArcaneOdyssey
 					if (ModContent.HasAsset(tex))
 						return tex;
 				}
-			}
-			if (typeof(T).IsSubclassOf(typeof(ModBiome)))
-			{
-				return typeof(T).FullName.Replace('.', '/') + "_Icon";
 			}
 			return typeof(T).FullName.Replace('.', '/');
 		}

@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => .85f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 15), Debuff.Create<CharredEffect>()];
-		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<AOBleed, HeavyBleed>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<Bleeding, HeavyBleed>()];
 
 		public override int BlastFrames => 6;
 
@@ -33,12 +33,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<Petrified>(), // petrified
 				ClearBuff.Create<SandyEffect>(),
-				ClearBuff.Create<AOBleed>(),
-				ClearBuff.Create<AOFrozen>()
+				ClearBuff.Create<Bleeding>(),
+				ClearBuff.Create<Frozen>()
 			],
 			[
 				Synergy.Create<FreezingEffect>(1.2f), // frozen
-				Synergy.Create<AOBleed>(1.2f), // bleeding
+				Synergy.Create<Bleeding>(1.2f), // bleeding
 				Synergy.Create<Melting>(1.075f),
 				Synergy.Create<Corroding>(1.075f),
 				Synergy.Create<Soaked>( 1.05f), // 

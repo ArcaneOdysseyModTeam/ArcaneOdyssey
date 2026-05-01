@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class AOShadowflame : VanillaClone
+	public class Shadowflame : VanillaClone
 	{
 		public override int VanillaID => BuffID.ShadowFlame;
 
@@ -22,6 +22,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 		{
 			base.SetStaticDefaults();
 			ExternalModSupport.RegisterDoT(Type);
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.onFire3 = true;
 		}
 	}
 }

@@ -923,21 +923,39 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
 		{
-			if (!Main.dedServ && player.meleeEnchant == GelBuff.meleeEnchantID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
+			if (player.meleeEnchant == GelBuff.meleeEnchantID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
 			{
 				player.ArcaneOdyssey()?.Gel?.Effects(hitbox);
 			}
+
 			thisItem = item;
 			owner = player;
+
 			if (!canBeAffected)
 				return;
+
+			int imbue1 = 0;
+			int imbue2 = 0;
+
 			if (Imbue is not null && Imbue.PreEffects(item))
 			{
+				imbue1 = Imbue.Type;
 				Imbue.LingeringEffects(hitbox, Vector2.Zero, item);
 			}
 			if (SecondImbue is not null && SecondImbue.PreEffects(item))
 			{
+				imbue2 = SecondImbue.Type;
 				SecondImbue.LingeringEffects(hitbox, Vector2.Zero, item);
+			}
+
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+			{
+				var packet = Mod.GetPacket();
+				packet.Write(ArcaneOdysseyMod.PacketID.LingeringVisuals);
+				packet.Write(imbue1);
+				packet.Write(imbue2);
+				packet.Write(hitbox);
+				packet.Send();
 			}
 		}
 

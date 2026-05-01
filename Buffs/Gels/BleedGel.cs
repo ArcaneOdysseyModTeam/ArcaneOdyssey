@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Buffs.Gels
 {
 	public class BleedGel : GelBuff
 	{
-		public override int DebuffID => ModContent.BuffType<AOBleed>();
+		public override int DebuffID => ModContent.BuffType<Bleeding>();
 
 		public override void Effects(Rectangle hitbox)
 		{

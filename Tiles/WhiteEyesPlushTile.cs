@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Tiles
 
 		public static readonly SoundStyle SqueakSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/WhiteEyesPlush/Squeak", 2) { MaxInstances = 0 };
 
-		public static readonly SoundStyle DevSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/WhiteEyesPlush/Dev", 2) { MaxInstances = 0 };
+		public static readonly SoundStyle DevSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/WhiteEyesPlush/Dev", 3) { MaxInstances = 0 };
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 
@@ -59,7 +59,7 @@ namespace ArcaneOdyssey.Tiles
 			{
 				SoundEngine.PlaySound(YippeeSound, new Vector2(i, j).ToWorldCoordinates());
 			}
-			else if (Main.rand.NextBool(100)) 
+			else if (Main.rand.NextBool(100) || ArcaneOdysseyMod.DevMode)
 			{
 				SoundEngine.PlaySound(DevSound, new Vector2(i, j).ToWorldCoordinates());
 			}

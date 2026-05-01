@@ -31,12 +31,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				ClearBuff.Create<Petrified>(), // petrified
 				ClearBuff.Create<CharredEffect>(),
 				ClearBuff.Create<SandyEffect>(),
-				ClearBuff.Create<AOBleed>(),
-				ClearBuff.Create<AOFrozen>()
+				ClearBuff.Create<Bleeding>(),
+				ClearBuff.Create<Frozen>()
 			],
 			[
 				Synergy.Create<FreezingEffect>(1.2f), // frozen
-				Synergy.Create<AOBleed>(1.2f), // bleeding
+				Synergy.Create<Bleeding>(1.2f), // bleeding
 				Synergy.Create<Melting>(1.075f),
 				Synergy.Create<Corroding>(1.075f),
 				Synergy.Create<Soaked>( 1.05f), // 

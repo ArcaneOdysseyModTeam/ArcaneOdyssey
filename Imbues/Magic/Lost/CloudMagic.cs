@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override SynergyEffects Effects => new(
 			[
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				ClearBuff.Create<CharredEffect>(),
 				ClearBuff.Create<Corroding>(),
 				ClearBuff.Create<SandyEffect>(),
@@ -37,10 +37,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			],
 			[
 				Synergy.Create<Crystallized>(0.9f),
-				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<Burning>(.9f),
 				Synergy.Create<CharredEffect>(1.125f),
 				Synergy.Create<FreezingEffect>(1.1f),
-				Synergy.Create<AOPoisoned>(.9f),
+				Synergy.Create<Poisoned>(.9f),
 				Synergy.Create<SandyEffect>(0.9f),
 				Synergy.Create<Scorched>(1.15f),
 				Synergy.Create<Soaked>(0.9f),

@@ -20,6 +20,10 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool GroundReflexes { get; set; }
 
+		[DefaultValue(true)]
+		[ReloadRequired]
+		public bool SyncProjectileSizes { get; set; } 
+
 		public override void OnLoaded()
 		{
 			if (!AffectsOtherMods)

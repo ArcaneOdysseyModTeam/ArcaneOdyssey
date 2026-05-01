@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Soaked>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				ClearBuff.Create<CharredEffect>(),
 				ClearBuff.Create<Corroding>(),
 				ClearBuff.Create<Melting>(),
@@ -43,9 +43,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			],
 			[
 				Synergy.Create<Crystallized>(0.85f),
-				Synergy.Create<AOBleed>(1.05f),
+				Synergy.Create<Bleeding>(1.05f),
 				
-				Synergy.Create<AOBurning>(.8f),
+				Synergy.Create<Burning>(.8f),
 				Synergy.Create<CharredEffect>(0.9f),
 				
 				Synergy.Create<Corroding>(.9f),

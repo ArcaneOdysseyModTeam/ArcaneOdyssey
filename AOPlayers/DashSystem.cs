@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace ArcaneOdyssey.AOPlayers
 {
 	public abstract class ModDash(Entity source) : ModType, IImbuable
@@ -159,7 +158,161 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public Cooldown AOCooldown => new(LocksPlayer ? Name : "StandardDash", Mod, Cooldown);
 
-		protected sealed override void Register() { }
+		protected sealed override void Register()
+		{
+			ModTypeLookup<ModDash>.Register(this);
+		}
+
+		public float ApplySpeed(float value, bool flipfloat = false)
+		{
+			if (UseScrollImbueStats.HasValue)
+			{
+				if (UseScrollImbueStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ScrollSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.ScrollSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ImbueSpeed;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSpeed;
+						}
+						else
+						{
+							value *= Imbue.ImbueSpeed.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
+		public float ApplySize(float value, bool flipfloat = false, Player player = null)
+		{
+			value *= player?.ArcaneOdyssey()?.SizeMulti ?? 1f;
+			if (UseScrollImbueStats.HasValue)
+			{
+				if (UseScrollImbueStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ScrollSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ScrollSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ImbueSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ImbueSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
+		public float ApplyKnockback(float value, bool flipfloat = false)
+		{
+			if (UseScrollImbueStats.HasValue)
+			{
+				if (!flipfloat)
+				{
+					if (Imbue is not null)
+					{
+						value *= Imbue.KBMulti;
+						if (SecondImbue is not null)
+							value *= SecondImbue.KBMulti;
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						value *= 1f / Imbue.KBMulti;
+						if (SecondImbue is not null)
+							value *= 1f / SecondImbue.KBMulti;
+					}
+				}
+				if (UseScrollImbueStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ScrollSize * Imbue.ScrollSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ScrollSize.FlipFloat() * Imbue.ScrollSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ImbueSize * Imbue.ImbueSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ImbueSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
 	}
 
 	public partial class AOPlayer : ModPlayer, IImbuable
@@ -290,29 +443,8 @@ namespace ArcaneOdyssey.AOPlayers
 				dashmaxmult = 1f;
 				if (imbueAffectsSpeed && CurrentDash.Imbue is not null)
 				{
-					if (CurrentDash.UseScrollImbueStats.HasValue)
-					{
-						if (CurrentDash.UseScrollImbueStats.Value)
-						{
-							DashVelocity *= CurrentDash.Imbue.ScrollSpeed;
-							dashmaxmult *= CurrentDash.Imbue.ScrollSpeed;
-							if (CurrentDash.SecondImbue is not null)
-							{
-								DashVelocity *= CurrentDash.SecondImbue.ScrollSpeed;
-								dashmaxmult *= CurrentDash.SecondImbue.ScrollSpeed;
-							}
-						}
-						else
-						{
-							DashVelocity *= CurrentDash.Imbue.ImbueSpeed;
-							dashmaxmult *= CurrentDash.Imbue.ImbueSpeed;
-							if (CurrentDash.SecondImbue is not null)
-							{
-								DashVelocity *= CurrentDash.SecondImbue.ImbueSpeed;
-								dashmaxmult *= CurrentDash.SecondImbue.ImbueSpeed;
-							}
-						}
-					}
+					DashVelocity *= CurrentDash.ApplySpeed(1f);
+					dashmaxmult = CurrentDash.ApplySpeed(dashmaxmult);
 				}
 				DashLeft = dashToUse.DashMax;
 				dashToUse.OnStart(Player);
@@ -381,7 +513,7 @@ namespace ArcaneOdyssey.AOPlayers
 			else DashDir = 0;
 		}
 
-		public const int DashBoxExtraBoost = 8;
+		public float DashBoxExtraBoost => CurrentDash.ApplySize(8f, player: Player);
 		public int CurrentDashDir;
 
 		public override void PreUpdateMovement()
@@ -532,10 +664,10 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (CurrentDash is not null && dashing)
 			{
-				var hitbox = new Rectangle((int)(Player.position.X + (Player.velocity.X * 0.5f) - (DashBoxExtraBoost / 2f)), (int)(Player.position.Y + (Player.velocity.Y * 0.5f) - (DashBoxExtraBoost / 2f)), Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost);
+				var hitbox = Utils.CenteredRectangle(Player.Center + (Player.velocity / 2f), new(Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost));
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
-					if (DashStrikeCooldown <= 0 && hitbox.Intersects(npc.getRect()) && (npc.noTileCollide || Player.CanHit(npc)))
+					if (DashStrikeCooldown <= 0 && hitbox.Intersects(npc.Hitbox) && (npc.noTileCollide || Player.CanHit(npc)))
 					{
 						DashStrikeCooldown = 10;
 						collisions++;

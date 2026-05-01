@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
-	public class AOBleed : VanillaClone
+	public class Bleeding : VanillaClone
 	{
 		public override int VanillaID => BuffID.Bleeding;
 
@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 		{
 			base.SetStaticDefaults();
 			ExternalModSupport.RegisterDoT(Type);
+			Main.pvpBuff[Type] = true;
 		}
 
 		public override void Update(NPC npc, ref int buffIndex)
@@ -23,6 +24,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 				Dust.NewDust(npc.Center, 0, 0, DustID.Blood);
 			}
 			npc.ArcaneOdyssey().bleeding = true;
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.ArcaneOdyssey().bleeding = true;
 		}
 
 		public override List<int> Counterparts => [..base.Counterparts, ModContent.BuffType<HeavyBleed>()];

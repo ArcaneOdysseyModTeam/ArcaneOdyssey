@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.ForestGreen;
 		public override Color ImbueColour2 => Color.PaleGreen;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOPoisoned>(60 * 10),];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Poisoned>(60 * 10),];
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override float ImbueSpeed => 1.05f;
 		public override float ImbueSize => 1.2f;
@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			[
 				Synergy.Create<Scorched>(1.15f),
 				
-				Synergy.Create<AOBurning>(1.15f),
+				Synergy.Create<Burning>(1.15f),
 				
 				Synergy.Create<Corroding>(1.1f),
 				

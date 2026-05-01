@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override float ScrollSize => 1.1f;
 		public override float ScrollSpeed => 0.75f;
 
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<AOBleed>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
 			[
 				ClearBuff.Create<FreezingEffect>()

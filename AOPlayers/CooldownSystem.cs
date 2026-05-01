@@ -110,7 +110,7 @@ namespace ArcaneOdyssey.AOPlayers
 			foreach (var Cooldown in Cooldowns)
 			{
 				var cool = Cooldown;
-				if (--cool.cooldownRemaining <= 0 || ArcaneOdysseyMod.DevMode)
+				if (--cool.cooldownRemaining <= 0)
 				{
 					if (OnCooldown(Cooldown.ID) && !toremove.Contains(Cooldown))
 						toremove.Add(Cooldown);

@@ -346,6 +346,11 @@ Debug: {
 		DisplayName: Elius Arena Spawner [DEBUG]
 		Tooltip: Forces Elius's arena to generate, or checks for multiplayer syncing
 	}
+
+	MarketableSpoky: {
+		DisplayName: Marketable Spoky [DEBUG]
+		Tooltip: Opens the guidebook from anywhere
+	}
 }
 
 EmptyScrolls: {
@@ -377,9 +382,4 @@ BossRelics: {
 		DisplayName: Lord Elius Relic
 		Tooltip: ""
 	}
-}
-
-MarketableSpoky: {
-	DisplayName: Marketable Spoky
-	Tooltip: ""
 }

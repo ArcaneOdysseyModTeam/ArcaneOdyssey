@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Items.Base
 		public virtual float Size => 1f;
 		public virtual float Damage => 1f;
 		public abstract ItemTiers WeaponTier { get; }
-		public virtual Debuff? WeaponDebuff => Debuff.Create<AOBleed>(5 * 60);
+		public virtual Debuff? WeaponDebuff => Debuff.Create<Bleeding>(5 * 60);
 		public abstract Color Motif { get; }
 
 		public Color Colour => Imbue?.Colour ?? Motif;

@@ -24,5 +24,10 @@ namespace ArcaneOdyssey.Buffs.DOT
 			base.SetStaticDefaults();
 			ExternalModSupport.RegisterDoT(Type);
 		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.venom = true;
+		}
 	}
 }

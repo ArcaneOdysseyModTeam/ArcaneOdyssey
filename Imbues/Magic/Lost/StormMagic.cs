@@ -23,12 +23,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.265f;
 		public override float ScrollDamage => .95f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(3 * 60), Debuff.Create<Paralyzed>(60, 16)];
-		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<SnowyEffect, AOFrozen>(), Combo.Create<FreezingEffect, AOFrozen>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<SnowyEffect, Frozen>(), Combo.Create<FreezingEffect, Frozen>()];
 
 		public override SynergyEffects Effects => new(
 			[
 				
-				ClearBuff.Create<AOBurning>(),
+				ClearBuff.Create<Burning>(),
 				
 				ClearBuff.Create<Corroding>(),
 				ClearBuff.Create<SandyEffect>(),
@@ -39,17 +39,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				ClearBuff.Create<Flammable>(),
 				ClearBuff.Create<Petrified>(), // petrified
 				ClearBuff.Create<CharredEffect>(),
-				ClearBuff.Create<AOBleed>(),
+				ClearBuff.Create<Bleeding>(),
 			],
 			[
 				Synergy.Create<CloudyEffect>(1.1f),
 				Synergy.Create<Crystallized>(0.9f),
 				
-				Synergy.Create<AOBurning>(.9f),
+				Synergy.Create<Burning>(.9f),
 				Synergy.Create<CharredEffect>(1.125f),
 				Synergy.Create<FreezingEffect>(1.1f),
 				
-				Synergy.Create<AOPoisoned>(.9f),
+				Synergy.Create<Poisoned>(.9f),
 				Synergy.Create<SandyEffect>(0.9f),
 				Synergy.Create<Scorched>(1.15f),
 				Synergy.Create<Soaked>(0.9f),

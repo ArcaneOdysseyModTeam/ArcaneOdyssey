@@ -38,18 +38,18 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				ClearBuff.Create<Flammable>(),
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<SnowyEffect>(),
-				ClearBuff.Create<AOFrozen>()
+				ClearBuff.Create<Frozen>()
 			],
 			[
-				Synergy.Create<AOBleed>(1.15f),
+				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<SnowyEffect>(0.99f),
-				Synergy.Create<AOPoisoned>(1.05f),
+				Synergy.Create<Poisoned>(1.05f),
 				Synergy.Create<Flammable>(1.075f),
 				Synergy.Create<Corroding>(1.075f),
 				Synergy.Create<Melting>(1.075f),
 				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<FreezingEffect>(0.95f),
-				Synergy.Create<AOBurning>(1.125f),
+				Synergy.Create<Burning>(1.125f),
 				Synergy.Create<Crystallized>(1.075f),
 				Synergy.Create<Scorched>(1.15f),
 				Synergy.Create<Scalding>(1.125f),

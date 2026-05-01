@@ -1,13 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.UI;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-namespace ArcaneOdyssey.UI.ReadingSimulator.DevItem;
 
-public class MarketableSpoky : ModItem
+namespace ArcaneOdyssey.Items.Debug;
+
+public class MarketableSpoky : BaseItem
 {
+	public override ItemRarities Rarity => ItemRarities.Special;
+
     public override void SetStaticDefaults()
     {
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 0;
@@ -15,13 +20,10 @@ public class MarketableSpoky : ModItem
 
     public override void SetDefaults()
     {
-        Item.damage = 0;
         Item.useStyle = ItemUseStyleID.HoldUp;
         Item.width = 26;
         Item.height = 38;
-        Item.useAnimation = 20;
-        Item.useTime = 20;
-        Item.rare = ItemRarityID.Gray;
+        Item.useAnimation = Item.useTime = 20;
         Item.noMelee = true;
     }
 

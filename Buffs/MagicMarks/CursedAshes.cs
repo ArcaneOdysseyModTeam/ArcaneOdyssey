@@ -14,5 +14,10 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			npc.ArcaneOdyssey().ashcursed = true;
 		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.statDefense -= 15;
+		}
 	}
 }
