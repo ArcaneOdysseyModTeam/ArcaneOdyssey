@@ -105,8 +105,9 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = ModContent.GetInstance<FlareMagic>().Colour;
-			Main.EntitySpriteDraw(ArcaneOdysseyMod.MagicCircleSprite.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), MathHelper.Lerp(0f, MathHelper.PiOver2, AOUtils.UpdateCount * 2), ArcaneOdysseyMod.MagicCircleSprite.Size() / 2f, Projectile.scale * .75f * (100 / 2000f), SpriteEffects.None);
+			var flare = ModContent.GetInstance<FlareMagic>();
+			lightColor = flare.Colour;
+			Main.EntitySpriteDraw(flare.Circle.Texture.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), MathHelper.Lerp(0f, MathHelper.PiOver2, AOUtils.UpdateCount * 2), flare.Circle.Texture.Size() / 2f, Projectile.scale * .75f * (100 / 2000f), SpriteEffects.None);
 			Lighting.AddLight(Projectile.Center, lightColor.ToVector3() * MathHelper.Lerp(2f, 4f, Math.Abs(MathF.Sin(AOUtils.UpdateCount))));
 			lightColor = Color.White;
 			return base.PreDraw(ref lightColor);

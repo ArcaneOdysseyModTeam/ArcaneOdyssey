@@ -21,6 +21,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour2 => new(227, 73, 52);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 		public override bool CanBeWet => false;
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.3f;
 		public override float ScrollDamage => 1.2f;

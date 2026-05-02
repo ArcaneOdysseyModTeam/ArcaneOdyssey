@@ -31,6 +31,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.1f;
 		public override float ScrollDamage => .925f;
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
+
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Singed>(60 * 5)];
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 

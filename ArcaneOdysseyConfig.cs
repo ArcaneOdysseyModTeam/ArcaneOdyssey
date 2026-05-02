@@ -45,30 +45,7 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool AbilityText { get; set; }
 
-		[DefaultValue(MagicCircleTypes.Familiar)]
-		public MagicCircleTypes MagicCircleType { get; set; }
 
 		public static ArcaneOdysseyClientConfig Instance;
-
-		public override void OnChanged()
-		{
-			if (!Main.dedServ)
-			{
-				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}", AssetRequestMode.ImmediateLoad);
-			}
-		}
-	}
-
-	public enum MagicCircleTypes
-	{
-		Familiar,
-		Ancient,
-		Collision,
-		Ornamental,
-		Penta,
-		Reminiscent,
-		Segmented,
-		Singularity,
-		Solar
 	}
 }

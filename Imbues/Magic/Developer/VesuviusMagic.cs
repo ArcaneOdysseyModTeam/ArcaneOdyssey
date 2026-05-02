@@ -56,6 +56,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 			Projectile.rotation += 0.1f * Projectile.direction;
 		}
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Malignant;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)

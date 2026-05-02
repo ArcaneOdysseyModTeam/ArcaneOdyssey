@@ -23,7 +23,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => .75f;
 
-		
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
+
+
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

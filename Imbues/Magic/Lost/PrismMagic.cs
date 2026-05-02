@@ -48,6 +48,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Penta;
+
 		public override int BlastFrames => 7;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

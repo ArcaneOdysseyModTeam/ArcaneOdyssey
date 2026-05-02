@@ -2052,4 +2052,24 @@ namespace ArcaneOdyssey
 
 		public readonly float Rotation = rotation;
 	}
+
+	public enum MagicCircleTypes
+	{
+		Familiar,
+		Ancient,
+		Collision,
+		Ornamental,
+		Penta,
+		Reminiscent,
+		Segmented,
+		Singularity,
+		Solar,
+		Tidal,
+		Tesla,
+		Imperial,
+		Malignant,
+		Monolith,
+		Draconic,
+		Demonic
+	}
 }

@@ -23,6 +23,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override float ScrollDamage => 1.6f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<IonizedEffect>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Ornamental;
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<Bleeding>(),

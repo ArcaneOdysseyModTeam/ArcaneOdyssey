@@ -25,6 +25,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(3 * 60), Debuff.Create<Paralyzed>(60, 16)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<SnowyEffect, Frozen>(), Combo.Create<FreezingEffect, Frozen>()];
 
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 		public override SynergyEffects Effects => new(
 			[
 				

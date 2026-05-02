@@ -103,5 +103,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				}
 			}
 		}
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Monolith;
 	}
 }

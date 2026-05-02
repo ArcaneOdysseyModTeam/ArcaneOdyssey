@@ -66,6 +66,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Ornamental;
+
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Snow, Scale: area.RelativeScale());

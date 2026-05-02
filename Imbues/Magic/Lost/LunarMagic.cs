@@ -22,6 +22,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ImbueSize => 1.25f;
 		public override float ImbueDamage => 0.95f;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Tidal;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Soaked>(60 * 7), Debuff.Create<BlindedEffect>(3 * 60)];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

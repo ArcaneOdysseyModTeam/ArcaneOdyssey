@@ -18,6 +18,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Collision;
 		public override float ImbueDamage => .7f;
 		public override float ImbueSize => 1.15f;
 		public override float ImbueSpeed => .85f;

@@ -36,6 +36,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override int BlastFrames => 2;
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)

@@ -2,6 +2,8 @@
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.IO;
 using System.Linq;
 using Terraria;
@@ -14,6 +16,51 @@ namespace ArcaneOdyssey.Imbues.Base
 {
 	public abstract class MagicType : Imbuable
 	{
+		public virtual MagicCircleTypes CircleType => MagicCircleTypes.Familiar;
+
+		public class MagicCircle
+		{
+			public override string ToString()
+			{
+				return $"{ArcaneOdysseyMod.InternalName}/Effects/MagicCircles/{Type}_{Tier}";
+			}
+
+			public MagicCircleTypes Type;
+
+			public ImbuableTiers Tier;
+
+			public Asset<Texture2D> Texture
+			{
+				get
+				{
+					if (ArcaneOdysseyMod.Sets.Assets.MagicCircles.TryGetValue(ToString(), out var tex))
+					{
+						return tex;
+					}
+					else
+					{
+						tex = ModContent.Request<Texture2D>(ToString());
+						ArcaneOdysseyMod.Sets.Assets.MagicCircles[ToString()] = tex;
+						return tex;
+					}
+				}
+			}
+		}
+
+		public override void Load()
+		{
+			base.Load();
+			_ = Circle.Texture;
+		}
+
+		public MagicCircle Circle 
+		{
+			get
+			{
+				return new MagicCircle { Tier = ImbuableTier, Type = CircleType };
+			}
+		}
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

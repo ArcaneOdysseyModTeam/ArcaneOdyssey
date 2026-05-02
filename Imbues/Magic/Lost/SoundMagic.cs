@@ -24,6 +24,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollDamage => .9f;
 		public override float KBMulti => 1.5f;
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Monolith;
+
 		public override SynergyEffects Effects => new(
 			[
 

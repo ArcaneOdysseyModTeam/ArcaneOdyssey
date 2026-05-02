@@ -24,6 +24,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollDamage => .8f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CloudyEffect>(5 * 60)];
 
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Segmented;
 		public override SynergyEffects Effects => new(
 			[
 				ClearBuff.Create<Burning>(),

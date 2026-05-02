@@ -287,12 +287,12 @@ namespace ArcaneOdyssey.Projectiles
 			{
 				if (Mode == MagicCircleMode.Rotating)
 				{
-					return ArcaneOdysseyMod.MagicCircleSprite.Value;
+					if (Imbue is MagicType magic)
+					{
+						return magic.Circle.Texture.Value;
+					}
 				}
-				else
-				{
-					return TextureAssets.Projectile[Type].Value;
-				}
+				return TextureAssets.Projectile[Type].Value;
 			}
 		}
 
@@ -366,25 +366,23 @@ namespace ArcaneOdyssey.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Imbue is null or MagicType)
-			{
-				lightColor = Imbue?.Colour ?? Color.White;
-				Lighting.AddLight(Projectile.Center, lightColor.ToVector3() * Intensity);
-			}
-			else
+			if (Imbue is not MagicType magic)
 				return false;
+
+			lightColor = Imbue?.Colour ?? Color.White;
+			Lighting.AddLight(Projectile.Center, lightColor.ToVector3() * Intensity);
 
 			if (Mode != MagicCircleMode.Rotating)
 			{
 				Main.spriteBatch.End();
 				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-				GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
-				GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(ArcaneOdysseyMod.MagicCircleSprite);
+				GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(magic.Circle.Texture);
+				GameShaders.Misc[Mod.Name + ":MagicCircleBase"].UseImage1(magic.Circle.Texture);
 				GameShaders.Misc[Mod.Name + ":MagicCircleBase"]
 					.UseColor(lightColor)
 					.UseSaturation(Intensity)
-					.UseSecondaryColor(new Color(ApplySpeed(MathHelper.TwoPi / 5f), 0, 0));
+					.UseSecondaryColor(new Color((255 * ApplySpeed(MathHelper.TwoPi / 5f)).Round(), 0, 0));
 
 
 				GameShaders.Misc[Mod.Name + ":MagicCircleBase"].Apply();
@@ -403,8 +401,11 @@ namespace ArcaneOdyssey.Projectiles
 		{
 			if (Mode != MagicCircleMode.Rotating)
 			{
-				Main.spriteBatch.End();
-				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+				if (Imbue is MagicType)
+				{
+					Main.spriteBatch.End();
+					Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+				}
 			}
 		}
 

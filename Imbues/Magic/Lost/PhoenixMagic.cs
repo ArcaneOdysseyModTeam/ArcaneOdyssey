@@ -38,6 +38,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			base.UpdateEquip(player);
 		}
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Imperial;
+
 		public static float AscentWhenFalling => 0.75f;
 		public static float AscentWhenRising => 0.15f;
 		public static float MaxCanAscendMultiplier => 1f;

@@ -97,5 +97,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			RegisterDefaultMagic<LightningMagic>();
 		}
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
 	}
 }

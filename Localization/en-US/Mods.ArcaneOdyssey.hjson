@@ -134,55 +134,6 @@ Configs: {
 			Tooltip: Visually changes the appearance of all magic circles
 		}
 	}
-
-	MagicCircleTypes: {
-		Tooltip: Select your magic circle design
-
-		Familiar: {
-			Label: Familiar
-			Tooltip: By KT_australis
-		}
-
-		Ancient: {
-			Label: Ancient
-			Tooltip: By R_SPhoenix
-		}
-
-		Collision: {
-			Label: Collision
-			Tooltip: By KT_australis
-		}
-
-		Ornamental: {
-			Label: Ornamental
-			Tooltip: By KT_australis
-		}
-
-		Penta: {
-			Label: Penta
-			Tooltip: By R_SPhoenix
-		}
-
-		Reminiscent: {
-			Label: Reminiscent
-			Tooltip: By KT_australis
-		}
-
-		Segmented: {
-			Label: Segmented
-			Tooltip: By KT_australis
-		}
-
-		Singularity: {
-			Label: Singularity
-			Tooltip: By R_SPhoenix
-		}
-
-		Solar: {
-			Label: Solar
-			Tooltip: By R_SPhoenix
-		}
-	}
 }
 
 KeybindStuff.DashHelp: Double tap a movement key

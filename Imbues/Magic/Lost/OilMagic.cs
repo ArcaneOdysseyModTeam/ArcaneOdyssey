@@ -20,6 +20,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSpeed => 1.1f;
 		public override float ScrollSize => 1.25f;
 		public override float ScrollDamage => 1.28f;
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Segmented;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Flammable>()];

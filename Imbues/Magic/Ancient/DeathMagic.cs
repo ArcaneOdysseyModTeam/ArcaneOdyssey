@@ -19,6 +19,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.5f;
 
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Ancient;
+
 		public override int BlastFrames => 4;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

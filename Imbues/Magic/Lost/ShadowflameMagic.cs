@@ -32,6 +32,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ImbueSpeed => 1.1f;
 		public override float ImbueSize => 1.15f;
 		public override float ImbueDamage => 1.1f;
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Shadowflame>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(

@@ -32,6 +32,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<SearedEffect>()];
 
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<Soaked>(),

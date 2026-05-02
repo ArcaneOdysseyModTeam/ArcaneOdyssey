@@ -31,8 +31,6 @@ namespace ArcaneOdyssey
 #endif
 		public const string InternalName = "ArcaneOdyssey";
 
-		public static Asset<Texture2D> MagicCircleSprite;
-
 		internal static List<string> NoticeQueue = [];
 
 		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
@@ -87,8 +85,6 @@ namespace ArcaneOdyssey
 
 			if (!Main.dedServ)
 			{
-				MagicCircleSprite = Assets.Request<Texture2D>($"Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}", AssetRequestMode.ImmediateLoad);
-
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
@@ -103,7 +99,6 @@ namespace ArcaneOdyssey
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
 			GameShaders.Misc[InternalName + ":MagicCircleBase"] = null;
-			MagicCircleSprite = null;
 		}
 
 		public override void PostSetupContent()
@@ -241,6 +236,8 @@ namespace ArcaneOdyssey
 				public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
 
 				public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Dictionary<string, Asset<Texture2D>> MagicCircles = [];
 			}
 		}
 	}
