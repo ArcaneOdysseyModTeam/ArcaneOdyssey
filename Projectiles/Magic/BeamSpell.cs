@@ -56,15 +56,14 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
-			writer.WriteVector2(end.GetValueOrDefault());
+			writer.Write(end);
 			writer.Write(dying);
 			writer.WriteVector2(origin);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			var read = reader.ReadVector2();
-			end = read == default ? null : read;
+			end = reader.ReadNullableVector2();
 			dying = reader.ReadBoolean();
 			origin = reader.ReadVector2();
 		}

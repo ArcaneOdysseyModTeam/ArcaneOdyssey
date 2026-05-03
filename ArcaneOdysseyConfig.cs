@@ -45,6 +45,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool AbilityText { get; set; }
 
+		[DefaultValue(true)]
+		public bool UniqueMagicCircles { get; set; }
+
 
 		public static ArcaneOdysseyClientConfig Instance;
 	}

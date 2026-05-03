@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			length = reader.ReadSingle();
 			spread = reader.ReadSingle();
 			Projectile.rotation = reader.ReadSingle();
+			Opacity = reader.ReadSingle();
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)
@@ -33,6 +34,25 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			writer.Write(length);
 			writer.Write(spread);
 			writer.Write(Projectile.rotation);
+			writer.Write(Opacity);
+		}
+
+		private float opac = 0f;
+
+		public float Opacity 
+		{ 
+			get
+			{
+				if (Projectile.owner == Main.myPlayer)
+				{
+					return AOPlayerOwner?.myCircle?.Projectile.Opacity ?? opac;
+				}
+				return opac;
+			}
+			set
+			{
+				opac = value;
+			}
 		}
 
 		public override void AI()
@@ -51,7 +71,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				length = ApplySize(400f);
 			}
 
-			if (AOPlayerOwner.myCircle.Projectile.Opacity == 1f)
+			if (Opacity == 1f)
 			{
 				if (!Main.dedServ)
 				{
@@ -76,7 +96,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
-			if (AOPlayerOwner.myCircle.Projectile.Opacity == 1f)
+			if (Opacity == 1f)
 			{
 				if (AOUtils.BossAlive)
 				{

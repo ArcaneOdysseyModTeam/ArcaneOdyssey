@@ -301,7 +301,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				var name = "";
 				if (player.Imbue() is SteamImbue steam)
 				{
-					steam.Imbue ??= ModContent.GetInstance<WindMagic>();
+					steam.Imbue ??= ModContent.GetInstance<JerminusMagic>();
 					name = steam.Imbue.Name;
 				}
 				else if (player.Imbue() is not null)
@@ -314,34 +314,22 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					player.ArcaneOdyssey().Imbue = this;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						Main.NewText(chatmessage.Value, 13, 132, 168);
-					}
-					else if (Main.dedServ)
-					{
-						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
-					}
+					Main.NewText(chatmessage.Value, 13, 132, 168);
+					
 				}
 				else
 				{
 					player.ArcaneOdyssey().Imbue = null;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						Main.NewText(chatmessage.Value, 13, 132, 168);
-					}
-					else if (Main.dedServ)
-					{
-						ChatHelper.SendChatMessageToClient(chatmessage.ToNetworkText(), new Color(13, 132, 168), player.whoAmI);
-					}
+					Main.NewText(chatmessage.Value, 13, 132, 168);
+					
 				}
 			}
 			else if (Drawback > 0)
 			{
 				if ((!player.AltUse()) && Main.myPlayer == player.whoAmI)
 				{
-					player.Hurt(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: player.statDefense.Positive);
+					player.Hurt(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
 				}
 			}
 		}

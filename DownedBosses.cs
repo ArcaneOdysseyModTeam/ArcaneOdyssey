@@ -183,18 +183,19 @@ namespace ArcaneOdyssey
 
 		public static void ResetDefaults()
 		{
-			DownedEvander = false;
-			DownedEnragedEmpress = false;
-			DownedDusk = false;
-			DownedLaelus = false;
-			DownedCrone = false;
-			DownedDelamere = false;
-			DownedElius = false;
-			DownedAllanon = false;
-			DownedArgos = false;
-			DownedCalvus = false;
+			_downedEvander = false;
+			_downedDusk = false;
+			_downedLaelus = false;
+			_downedCrone = false;
+			_downedDelamere = false;
+			_downedElius = false;
+			_downedAllanon = false;
+			_downedArgos = false;
+			_downedCalvus = false;
+
 			DownedBrain = false;
 			DownedWorldEater = false;
+			DownedEnragedEmpress = false;
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();
@@ -234,8 +235,8 @@ namespace ArcaneOdyssey
 		public override void LoadWorldData(TagCompound tag)
 		{
 			var downed = tag.GetList<string>("downed");
-			DownedEvander = downed.Contains(DownedFlagID.Evander);
-			DownedDusk = downed.Contains(DownedFlagID.Dusk);
+			_downedEvander = downed.Contains(DownedFlagID.Evander);
+			_downedDusk = downed.Contains(DownedFlagID.Dusk);
 			DownedCrone = downed.Contains(DownedFlagID.TheCrone);
 			DownedLaelus = downed.Contains(DownedFlagID.Laelus);
 			DownedDelamere = downed.Contains(DownedFlagID.Delamere);
@@ -250,32 +251,20 @@ namespace ArcaneOdyssey
 
 		public override void NetSend(BinaryWriter writer)
 		{
-			writer.Write(DownedEvander);
-			writer.Write(DownedDusk);
-			writer.Write(DownedCrone); 
-			writer.Write(DownedLaelus); 
-			writer.Write(DownedDelamere);
+			writer.WriteFlags(_downedEvander, _downedDusk, _downedCrone, _downedLaelus, _downedDelamere, _downedElius, _downedAllanon, _downedArgos);
+			writer.WriteFlags(_downedCalvus);
+
 			writer.Write(DownedEnragedEmpress);
-			writer.Write(DownedElius);
-			writer.Write(DownedAllanon);
-			writer.Write(DownedArgos);
-			writer.Write(DownedCalvus);
 			writer.Write(DownedWorldEater);
 			writer.Write(DownedBrain);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
-			DownedEvander = reader.ReadBoolean();
-			DownedDusk = reader.ReadBoolean();
-			DownedCrone = reader.ReadBoolean();
-			DownedLaelus = reader.ReadBoolean();
-			DownedDelamere = reader.ReadBoolean();
+			reader.ReadFlags(out _downedEvander, out _downedDusk, out _downedCrone, out _downedLaelus, out _downedDelamere, out _downedElius, out _downedAllanon, out _downedArgos);
+			reader.ReadFlags(out _downedCalvus);
+
 			DownedEnragedEmpress = reader.ReadBoolean();
-			DownedElius = reader.ReadBoolean();
-			DownedAllanon = reader.ReadBoolean();
-			DownedArgos = reader.ReadBoolean();
-			DownedCalvus = reader.ReadBoolean();
 			DownedWorldEater = reader.ReadBoolean();
 			DownedBrain = reader.ReadBoolean();
 		}

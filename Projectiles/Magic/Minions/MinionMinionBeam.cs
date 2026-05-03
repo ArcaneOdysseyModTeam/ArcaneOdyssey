@@ -20,11 +20,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			Main.projFrames[Type] = 4;
 		}
 
-		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
-		{
-			behindProjectiles.Add(index);
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -34,7 +29,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			Projectile.extraUpdates = 100;
 			Projectile.timeLeft = TravelTime + LingerTime;
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
-			Projectile.hide = true;
 			Projectile.tileCollide = false;
 		}
 
@@ -48,7 +42,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		public override float Size => .75f;
 
 
-		private Vector2? origin = null;
+		private Vector2 origin = default;
 		private Vector2? end = null;
 		public override bool CanHaveImbueVFX => !dying;
 
@@ -57,27 +51,29 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(dying);
+			writer.WriteVector2(origin);
+			writer.Write(end);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			dying = reader.ReadBoolean();
+			origin = reader.ReadVector2();
+			end = reader.ReadNullableVector2();
 		}
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft > LingerTime)
+			if (origin == default)
 			{
-				Projectile.rotation = Projectile.velocity.ToRotation();
+				origin = Projectile.Center;
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
-				origin ??= Projectile.Center;
-				//Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
-				//SecondImbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}
-			else
+
+			if (Projectile.timeLeft <= LingerTime)
 			{
 				end ??= Projectile.Center;
-				Projectile.Center = origin.GetValueOrDefault(Owner.Center);
+				Projectile.Center = origin;
 				Projectile.velocity = Vector2.Zero;
 				dying = true;
 
@@ -91,17 +87,16 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			}
 		}
 
-		public override bool? CanCutTiles() => !dying;
-
 		public override bool PreDraw(ref Color lightColor)
 		{
 			if (origin != default)
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(), Projectile.AngleTo(end.GetValueOrDefault(Owner.Center)), new Vector2(StartSprite.Width, StartSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
-				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(Owner.Center), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
-				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(Projectile.rotation);
-				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), Projectile.rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+				var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
+				Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
+				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			}
 			return false;
 		}

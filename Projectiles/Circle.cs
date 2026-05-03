@@ -5,6 +5,7 @@ using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Projectiles.Relics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +31,7 @@ namespace ArcaneOdyssey.Projectiles
 		public const float GlobalChargeSpeed = 1f / 120f;
 		public const float GlobalMaxCharge = 1.75f;
 
-		public override float Size => .5f;
+		public override float Size => .6f;
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
@@ -94,6 +95,11 @@ namespace ArcaneOdyssey.Projectiles
 
 		public override void AI()
 		{
+			if ((ChargingProjectile != 0) || (!MarkedForDeath))
+			{
+				AOPlayerOwner.myCircle = this;
+			}
+
 			if (!MarkedForDeath)
 			{
 				dir = Main.myPlayer == Projectile.owner ? Owner.RotatedRelativePoint(Owner.MountedCenter).DirectionTo(Main.MouseWorld) : Projectile.DirectionFrom(Owner.RotatedRelativePoint(Owner.MountedCenter));

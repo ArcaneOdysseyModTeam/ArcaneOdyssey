@@ -227,6 +227,24 @@ namespace ArcaneOdyssey
 
 		public static Rectangle ReadRectangle(this BinaryReader reader) => new(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
 
+		public static void Write(this BinaryWriter writer, Vector2? vec)
+		{
+			writer.WriteVector2(vec.GetValueOrDefault(Vector2.Zero));
+		}
+
+		public static Vector2? ReadNullableVector2(this BinaryReader reader)
+		{
+			var vec = reader.ReadVector2();
+			if (vec == Vector2.Zero)
+			{
+				return null;
+			}
+			else
+			{
+				return vec;
+			}
+		}
+
 		public static Color GetAlpha(this Projectile projectile) => projectile.GetAlpha(Color.White);
 		
 
@@ -2055,7 +2073,6 @@ namespace ArcaneOdyssey
 
 	public enum MagicCircleTypes
 	{
-		Familiar,
 		Ancient,
 		Collision,
 		Ornamental,

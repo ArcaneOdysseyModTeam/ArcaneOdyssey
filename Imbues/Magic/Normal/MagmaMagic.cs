@@ -72,6 +72,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			);
 
 		public override int BlastFrames => 4;
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;
+
 		public override void UpdateProjectile(Projectile Projectile)
 		{
 

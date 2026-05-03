@@ -129,9 +129,9 @@ Configs: {
 			Tooltip: Ability names appear above your head when you activate them
 		}
 
-		MagicCircleType: {
-			Label: "[i:ArcaneOdyssey/EmptyScroll] Magic Circle Design"
-			Tooltip: Visually changes the appearance of all magic circles
+		UniqueMagicCircles: {
+			Label: "[i:ArcaneOdyssey/EmptyScroll] Unique Magic Circles"
+			Tooltip: Allows every magic type to have a unique magic circle design
 		}
 	}
 }

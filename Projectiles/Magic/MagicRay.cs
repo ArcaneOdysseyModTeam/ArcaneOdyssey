@@ -38,12 +38,32 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
+			writer.Write(Opacity);
 			writer.Write(dying);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			dying = reader.ReadBoolean();
+			Opacity = reader.ReadSingle();
+		}
+
+		private float opac = 0f;
+
+		public float Opacity
+		{
+			get
+			{
+				if (Projectile.owner == Main.myPlayer && !dying)
+				{
+					return AOPlayerOwner?.myCircle?.Projectile.Opacity ?? opac;
+				}
+				return opac;
+			}
+			set
+			{
+				opac = value;
+			}
 		}
 
 		public Vector2 End
@@ -51,7 +71,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			get
 			{
 				Vector2 proj = Projectile.Center;
-				for (float i = 0; i < 85f * Projectile.Opacity; i++)
+				for (float i = 0; i < 85f * Opacity; i++)
 				{
 					proj += Projectile.velocity;
 					var tile = AOUtils.GetTile(proj.ToTileCoordinates().X, proj.ToTileCoordinates().Y);
@@ -68,6 +88,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void AI()
 		{
+			Projectile.Opacity = Opacity;
+
 			if (++Projectile.frameCounter > 6)
 			{
 				Projectile.frameCounter = 0;
@@ -80,7 +102,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (AOPlayerOwner.myCircle is not null && !dying)
 			{
 				dying = AOPlayerOwner.myCircle.MarkedForDeath;
-				Projectile.Opacity = AOPlayerOwner.myCircle.Projectile.Opacity;
 				Projectile.velocity = AOPlayerOwner.myCircle.Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length();
 				Projectile.spriteDirection = (Projectile.velocity.X > 0).ToDirectionInt();
 				Projectile.Center = AOPlayerOwner.myCircle.Projectile.Center - (Projectile.velocity * 1.75f);
@@ -97,7 +118,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 				Projectile.position -= Projectile.velocity;
 
-				Projectile.Opacity -= Circle.GlobalChargeSpeed * 2f;
+				Opacity -= Circle.GlobalChargeSpeed * 2f;
 
 				if (Projectile.alpha >= 255 && Main.myPlayer == Projectile.owner)
 				{

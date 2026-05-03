@@ -49,6 +49,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 		public override int BlastFrames => 4;
 
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Imperial;
+
 		public override void UpdateProjectile(Projectile Projectile)
 		{
 			Projectile.rotation += 0.1f * Projectile.direction;

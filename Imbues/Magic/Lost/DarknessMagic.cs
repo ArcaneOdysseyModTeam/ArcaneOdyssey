@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override MagicCircleTypes CircleType => MagicCircleTypes.Draconic;
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 
 		public override int BlastFrames => 7;
 

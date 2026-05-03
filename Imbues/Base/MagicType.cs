@@ -16,12 +16,16 @@ namespace ArcaneOdyssey.Imbues.Base
 {
 	public abstract class MagicType : Imbuable
 	{
-		public virtual MagicCircleTypes CircleType => MagicCircleTypes.Familiar;
+		public abstract MagicCircleTypes CircleType { get; }
 
 		public class MagicCircle
 		{
 			public override string ToString()
 			{
+				if (!ArcaneOdysseyClientConfig.Instance.UniqueMagicCircles)
+				{
+					return $"{ArcaneOdysseyMod.InternalName}/Effects/MagicCircles/Familiar";
+				}
 				return $"{ArcaneOdysseyMod.InternalName}/Effects/MagicCircles/{Type}_{Tier}";
 			}
 

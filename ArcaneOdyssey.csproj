@@ -23,7 +23,6 @@
 		<None Remove="**\*.tmod" />
 		<None Remove="**\*.kra" />
 		<None Remove="references\**" />
-		<Folder Include="Effects\MagicCircles" />
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>

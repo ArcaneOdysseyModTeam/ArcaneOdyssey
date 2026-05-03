@@ -40,6 +40,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			);
 
 		public override int BlastFrames => 6;
+
+		public override MagicCircleTypes CircleType => MagicCircleTypes.Ancient;
+
 		public override void UpdateProjectile(Projectile Projectile)
 		{
 
