@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Imbues.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Items.Base;
 using Microsoft.Xna.Framework;

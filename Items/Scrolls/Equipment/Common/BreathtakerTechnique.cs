@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.AOPlayers;
+﻿using ArcaneOdyssey;
+using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
 using Microsoft.Xna.Framework;
@@ -58,7 +59,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(SoundID.Item67);
-			var proj = Projectile.NewProjectileDirect(source.GetSource_ItemUse(player), player.Center, (player.velocity + player.ArcaneOdyssey().DashVelocity).SafeNormalize(Vector2.Zero), ModContent.ProjectileType<BreathtakerProjectile>(), Damage, Knockback, player.whoAmI);
+			var proj = Projectile.NewProjectileDirect(Source.GetSource_ItemUse(player), player.Center, (player.velocity + player.ArcaneOdyssey().DashVelocity).SafeNormalize(Vector2.Zero), ModContent.ProjectileType<BreathtakerProjectile>(), Damage, Knockback, player.whoAmI);
 			//proj.timeLeft = player.ArcaneOdyssey().DashLeft;
 			// use newprojectile instead of shootprojectile because we actually dont wanna modify the velocity
 		}

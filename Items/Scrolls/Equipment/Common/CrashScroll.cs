@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.MountedCenter, Vector2.Zero, ModContent.GoreType<Impact>());
 			gore.Centre(player.MountedCenter + player.velocity);
-			player.ArcaneOdyssey()?.StartDash(new Smash(source) { Imbue = Imbue, SecondImbue = SecondImbue }, 2);
+			player.ArcaneOdyssey()?.StartDash(new Smash(Source) { Imbue = Imbue, SecondImbue = SecondImbue }, 2);
 		}
 
 		public override void OnStart(Player player)

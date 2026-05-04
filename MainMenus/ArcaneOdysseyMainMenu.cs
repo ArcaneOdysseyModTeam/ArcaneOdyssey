@@ -34,17 +34,15 @@ namespace ArcaneOdyssey.MainMenus
 
 			public void Draw()
 			{
-				Main.spriteBatch.Draw(Texture.Value, position, SelectedTitle.Colour);
+				Main.spriteBatch.Draw(Texture.Value, position, null, SelectedTitle.Colour, 0, Texture.Size() / 2f, (3f * depth) - (2f * depth.Pow()), SpriteEffects.None, 0f);
 			}
 
 			public Raindrop()
 			{
 				depth = Main.rand.NextFloat(1, .25f);
-				maxlife = 120;//(int)Math.Round(100f * depth);
-				velocity = new Vector2(0, 20) * depth;
 				maxlife = (int)Math.Round(100f * depth);
 				velocity = new Vector2(0, 20) * depth;
-				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0 - Texture.Height());
+				position = new Vector2(Main.screenWidth * Main.rand.NextFloat(0f, 1f), 0 - Texture.Height() - velocity.Y);
 			}
 		}
 

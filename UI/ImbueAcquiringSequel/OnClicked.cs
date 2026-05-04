@@ -23,18 +23,18 @@ public partial class ImbueAcquireSequelUI : BaseImbueUI
 				player.inventory[acrIndex].TurnToAir();
 				if (player.GetItem(player.whoAmI, MagicTypeToItem(ProductSpotLight.CurrentType), GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
 					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
-				SoundEngine.PlaySound(SoundID.Unlock, player.position);
+				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();
 			}
 			else
 			{
-				SoundEngine.PlaySound(SoundID.Tink, player.position);
+				SoundEngine.PlaySound(SoundID.Tink);
 				Main.NewText($"Did you drop your [i:{ModContent.ItemType<PoseidonSpirit>()}]Spirit!? Pick it up before choosing an option");
 			}
 		}
 		else
 		{
-			SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.position);
+			SoundEngine.PlaySound(SoundID.Tink);
 			Main.NewText($"Choose an option first");
 		}
 	}

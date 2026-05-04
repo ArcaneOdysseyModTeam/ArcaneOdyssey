@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -74,7 +73,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				for (float i = 0; i < 85f * Opacity; i++)
 				{
 					proj += Projectile.velocity;
-					var tile = AOUtils.GetTile(proj.ToTileCoordinates().X, proj.ToTileCoordinates().Y);
+					var tile = AOUtils.GetTile(proj.ToTileCoordinates());
 					if (tile.IsTileReallySolidGround() || (!Imbue.CanBeWet && tile.LiquidAmount > 0))
 					{
 						break;
@@ -149,13 +148,13 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			float _ = 0f;
-			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, End, MathF.Sqrt((projHitbox.Width ^ 2) + (projHitbox.Height ^ 2)), ref _);
+			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, End, projHitbox.Length(), ref _);
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			if (AOPlayerOwner?.myCircle is not null)
-				modifiers.SourceDamage *= AOPlayerOwner.myCircle.Projectile.Opacity;
+				modifiers.SourceDamage *= Opacity;
 		}
 
 		public override bool PreDraw(ref Color lightColor)

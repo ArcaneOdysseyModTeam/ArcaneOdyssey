@@ -108,7 +108,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			{
 				if (player.whoAmI == Main.myPlayer)
 				{
-					var proj = AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<DevastateShockwave>(), Damage * 2, Knockback, player.whoAmI, Imbue, SecondImbue);
+					var proj = AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<DevastateShockwave>(), Damage * 2, Knockback, player.whoAmI, Imbue, SecondImbue);
 					proj.Bottom = player.Bottom;
 				}
 				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.Bottom);

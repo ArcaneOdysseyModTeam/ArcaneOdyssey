@@ -1,4 +1,3 @@
-using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
@@ -53,12 +52,12 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		public override void OnEnd(Player player)
 		{
 			int damage = 0;
-			if (source is Item item)
+			if (Source is Item item)
 			{
 				damage = item.damage;
 			}
 			scroll.ActivateAbility(player);
-			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 	}
 }

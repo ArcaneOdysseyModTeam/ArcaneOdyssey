@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			Projectile.timeLeft = 600;
 			Projectile.usesIDStaticNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
+			Projectile.penetrate = -1;
 			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 		}
 

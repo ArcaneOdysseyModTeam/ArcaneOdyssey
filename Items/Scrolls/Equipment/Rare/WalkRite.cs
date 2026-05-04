@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
-			var dash = new Walk2(source);
+			var dash = new Walk2(Source);
 			player.ArcaneOdyssey().StartDash(dash, 4 * player.direction, Imbue, true);
 		}
 
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
-			var dash = new Walk3(source);
+			var dash = new Walk3(Source);
 			player.ArcaneOdyssey().StartDash(dash, 3 * player.direction, Imbue, true);
 		}
 

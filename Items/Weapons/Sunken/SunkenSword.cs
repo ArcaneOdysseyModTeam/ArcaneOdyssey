@@ -103,7 +103,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 				//	Dust.NewDust(player.position + new Vector2(-20f + (40f * ((float)Math.Sin(dustCountInt * 3.0))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
 				//	Dust.NewDust(player.position + new Vector2(20f + (40f * ((float)Math.Sin((dustCountInt * 3.0) + 3.14))), 0f), 3, 3, DustID.DungeonWater, player.velocity.X * dustCountInt * 0.02f, -0.5f * dustCountInt * player.gravDir);
 				//}
-				AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, Vector2.UnitY * -2f, ModContent.ProjectileType<RisingTideProjectile>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue);
+				AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, Vector2.UnitY * -2f, ModContent.ProjectileType<RisingTideProjectile>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue);
 			}
 		}
 

@@ -49,9 +49,9 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		public override void OnEnd(Player player)
 		{
 			scroll.ActivateAbility(player);
-			var dash = new Selino2(source);
+			var dash = new Selino2(Source);
 			player.ArcaneOdyssey().StartDash(dash, 0, Imbue, true);
-			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 
 		public override float DashSpeed => 8;
@@ -74,9 +74,9 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
-			var dash = new Selino3(source);
+			var dash = new Selino3(Source);
 			player.ArcaneOdyssey().StartDash(dash, 0, Imbue, true);
-			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 
 		public override float DashSpeed => 8;
@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		public override void OnEnd(Player player)
 		{
 			player.velocity *= .25f;
-			AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<Selino>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<Selino>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 
 		public override float DashSpeed => 8;

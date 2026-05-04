@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.CameraModifiers;
 
 namespace ArcaneOdyssey.Projectiles.Relics
 {
@@ -18,8 +19,9 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			Projectile.width = Projectile.height = 100;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
+			Projectile.ownerHitCheck = true;
 			Projectile.timeLeft = 30;
-			SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center, null);
+			Projectile.penetrate = -1;
 		}
 
 		public override void AI()
@@ -27,12 +29,17 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center, null);
+				SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 				NetUpdate();
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), Projectile.timeLeft, ApplyKnockback(500f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
 			}
 			Projectile.velocity = Vector2.Zero;
-			Imbue?.ExplosionEffects(Projectile.Center);
-			SecondImbue?.ExplosionEffects(Projectile.Center);
+			Imbue?.ExplosionEffects(Projectile.Center, Projectile.scale);
+			SecondImbue?.ExplosionEffects(Projectile.Center, Projectile.scale);
 		}
 	}
 }

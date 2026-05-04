@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 			scroll.ActivateAbility(player);
 			if (player.whoAmI == Main.myPlayer)
 			{
-				var proj = AOUtils.ShootProjectile(source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<GreatjumpShockwave>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+				var proj = AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<GreatjumpShockwave>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 				proj.Bottom = player.Bottom;
 			}
 		}

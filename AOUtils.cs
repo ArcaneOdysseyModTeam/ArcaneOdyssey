@@ -903,6 +903,18 @@ namespace ArcaneOdyssey
 			return Main.tile[x, y];
 		}
 
+		public static float Length(this Rectangle rect)
+		{
+			return MathF.Sqrt(rect.Width.Pow() + rect.Height.Pow());
+		}
+
+		public static float Pow(this int num, float raise = 2) => MathF.Pow(num, raise);
+
+		public static float Pow(this float num, float raise = 2) => MathF.Pow(num, raise);
+
+		public static Tile GetTile(Point point) => GetTile(point.X, point.Y);
+		public static Tile GetTile(Point16 point) => GetTile(point.X, point.Y);
+
 		public static string Replace(this string text, string toRemove) => text.Replace(toRemove, null);
 
 		public static bool ImbueClassCheck(Projectile projectile)

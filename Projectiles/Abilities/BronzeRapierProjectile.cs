@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override void OnStart(Player player)
 		{
-			source.velocity = player.ArcaneOdyssey().DashVelocity;
+			Source.velocity = player.ArcaneOdyssey().DashVelocity;
 			player.PlayerItem().useStyle = ItemUseStyleID.Rapier;
 		}
 		public override void DashEffect(Player player)
@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override void OnEnd(Player player)
 		{
-			source.Kill();
+			Source.Kill();
 			player.velocity *= .65f;
 		}
 

@@ -75,14 +75,14 @@ public partial class ReadingSimulatorUI : UIState
 
 
 		Recalculate();
-		SoundEngine.PlaySound(SoundID.MenuOpen, Player.position);
+		SoundEngine.PlaySound(SoundID.MenuOpen);
 	}
 	protected void DragEnd(UIMouseEvent evt)
 	{
 		Dragging = false;
 
 		Recalculate();
-		SoundEngine.PlaySound(SoundID.MenuClose, Player.position);
+		SoundEngine.PlaySound(SoundID.MenuClose);
 	}
 
 	#endregion

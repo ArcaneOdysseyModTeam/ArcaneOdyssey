@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override void OnEnd(Player player)
 		{
 			imbuesource.ActivateAbility(player, false);
-			AOUtils.SimulateAOE(150, Damage, player.MountedCenter, Knockback, source, DamageType);
+			AOUtils.SimulateAOE(150, Damage, player.MountedCenter, Knockback, Source, DamageType);
 			player.velocity *= .01f;
 			SoundEngine.PlaySound(SoundID.Splash);
 			for (int i = 0; i < 20; i++)

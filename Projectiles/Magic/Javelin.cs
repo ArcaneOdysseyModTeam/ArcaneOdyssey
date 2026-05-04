@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
@@ -12,7 +13,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public JavelinMode Mode = JavelinMode.Charging;
 		public int PiercingNPC = -1;
 		public float charge = 1f;
-		public static int TimeLeft => 60 * 4;
+
+		public const int TimeLeft = 60 * 4;
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
@@ -30,10 +32,26 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			}
 		}
 
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write((byte)Mode);
+			writer.Write(charge);
+			writer.Write(PiercingNPC);
+			writer.Write(Projectile.rotation);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			Mode = (JavelinMode)reader.ReadByte();
+			charge = reader.ReadSingle();
+			PiercingNPC = reader.ReadInt32();
+			Projectile.rotation = reader.ReadSingle();
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.penetrate = 4;
+			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.width = 96;
 			Projectile.height = 32;
@@ -50,18 +68,13 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				if (Main.myPlayer == Projectile.owner)
-				{
-					Projectile.netUpdate = true;
-					Projectile.netSpam = 0;
-				}
+				NetUpdate();
 				Owner.ChangeDir((dir.X > 0f).ToDirectionInt());
 			}
 
-			if (Projectile.position.ToTileCoordinates() != Projectile.oldPosition.ToTileCoordinates() && Main.myPlayer == Projectile.owner)
+			if (Projectile.position != Projectile.oldPosition)
 			{
-				Projectile.netUpdate = true;
-				Projectile.netSpam = 0;
+				NetUpdate();
 			}
 
 			if (Mode == JavelinMode.Charging)
@@ -81,8 +94,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 						Owner.itemRotation += MathHelper.Pi;
 					}
 					Projectile.rotation = dir.ToRotation();
-					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter);
-					Projectile.position.Y -= 15f;
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter - new Vector2(0, 15f * Owner.gravDir));
 					Projectile.timeLeft = TimeLeft;
 				}
 				else
@@ -91,6 +103,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Mode = JavelinMode.Flying;
 					Owner.channel = false;
 					Projectile.timeLeft = TimeLeft;
+					NetUpdate();
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
 					{
 						var name = (Imbue.PrettySpellPrefix + " " + DisplayName).Trim();
@@ -119,6 +132,20 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					if (npc.active && npc.life > 0)
 					{
 						Projectile.Center = npc.Center;
+						if (Projectile.timeLeft % (TimeLeft / 4) == 0)
+						{
+							SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
+							if (!Main.dedServ)
+							{
+								for (int i = 0; i < 10; i++)
+								{
+									Imbue?.ExplosionEffects(Projectile.Center, Projectile.scale / 2f);
+									SecondImbue?.ExplosionEffects(Projectile.Center, Projectile.scale / 2f);
+								}
+								PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
+								Main.instance.CameraModifiers.Add(modifier);
+							}
+						}
 					}
 					else
 					{
@@ -153,6 +180,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Mode = JavelinMode.Piercing;
 				Projectile.timeLeft = TimeLeft;
 				PiercingNPC = target.whoAmI;
+				NetUpdate();
 			}
 			SoundEngine.PlaySound(Imbue?.ImbueSound, Projectile.Center);
 		}
@@ -178,6 +206,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Projectile.velocity = Vector2.Zero;
 				Mode = JavelinMode.Grounded;
 				Projectile.timeLeft = TimeLeft;
+				NetUpdate();
 			}
 			return false;
 		}

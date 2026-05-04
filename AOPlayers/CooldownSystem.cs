@@ -24,6 +24,12 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public static Asset<Texture2D> debuffBackground;
 
+		public override bool ReApply(Player player, int time, int buffIndex)
+		{
+			player.buffTime[buffIndex] = time; 
+			return true;
+		}
+
 		public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
 		{
 			var ogrect = drawParams.MouseRectangle;
@@ -40,11 +46,11 @@ namespace ArcaneOdyssey.AOPlayers
 				spriteBatch.Draw(debuffBackground.Value, drawParams.Position, null, drawParams.DrawColor, 0f, default, Math.Max(ogrect.Height, ogrect.Width) / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height), SpriteEffects.None, 0f);
 			}
 
-			spriteBatch.Draw(drawParams.Texture, drawParams.Position - (new Vector2(scaledx, scaledy) * 1.5f), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.None, 0f);
+			spriteBatch.Draw(drawParams.Texture, drawParams.Position - new Vector2(scaledx, scaledy), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.None, 0f);
 
 			if (this is TwinCrecsentsCooldown)
 			{
-				spriteBatch.Draw(drawParams.Texture, drawParams.Position - (new Vector2(scaledx, scaledy) * 1.5f), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.FlipHorizontally, 0f);
+				spriteBatch.Draw(drawParams.Texture, drawParams.Position - new Vector2(scaledx, scaledy), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.FlipHorizontally, 0f);
 			}
 
 			drawParams.MouseRectangle.Width = (32 * (ogrect.Width / (float)drawParams.Texture.Width)).Round();

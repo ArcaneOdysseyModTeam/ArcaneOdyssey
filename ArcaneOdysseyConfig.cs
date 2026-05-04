@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System.ComponentModel;
-using Terraria;
+﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
 namespace ArcaneOdyssey
