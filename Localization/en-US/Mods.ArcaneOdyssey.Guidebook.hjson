@@ -25,9 +25,11 @@ MagicTypes: {
 AboutGodSouls: {
 	Text:
 		'''
-		You have been granted a portion of a god's soul. With this, you can enhance your [i:ArcaneOdysseyMod/SpiritEnergy] Relics.
+		You have been granted a portion of a god's soul. With this, you can enhance your [i:ArcaneOdyssey/SpiritEnergy] Relics.
 
-		Some relics synergize from souls, modifying their stats.
+		Select a soul using the Cycle God Soul keybind.
+
+		Some relics synergize with souls, modifying their stats.
 
 		Other relics may be unstable with an incompatible soul. You may take damage when using these, and the stats are lopsided.
 		'''
@@ -41,7 +43,7 @@ FightingStyles: {
 
 		But for now, try left clicking with your fighting style. This will unleash a basic strike, which isn't too powerful.
 
-		[i:ArcaneOdyssey/BasicCombat] Basic Combat can be upgraded into other fighting styles. Try giving it to the Guide NPC to see what you can craft with it.
+		[i:ArcaneOdyssey/BasicCombat] Basic Combat can be upgraded into other fighting styles. Try giving it to the Guide NPC to see what you can craft with it!
 		'''
 	DisplayName: Fighting Styles
 }
@@ -72,12 +74,30 @@ Imbuing: {
 
 Mutating: {
 	DisplayName: Mutating
-	Text: Mutating content goes here.
+	Text: 
+		'''
+		Congrats. You have located a [i:ArcaneOdyssey/HecateShard] shard of Hecate.
+
+		With this, you can evolve your magic to the next level, Lost Magic.
+
+		There are many options for mutating your magic. Almost all lost magic have unique gimmicks, which will determine your playstyle.
+		'''
 }
 
 ObtainingScrolls: {
 	DisplayName: Obtaining Scrolls
-	Text: Obtaining Scrolls content goes here. Talk about pots and fishing.
+	Text:
+		'''
+		[i:ArcaneOdyssey/EmptyScroll] Scrolls are a medium for directly channeling your imbue.
+
+		As you progress, more powerful scrolls become obtainable using these methods.
+
+		The easiest way to find scrolls is by breaking scrolls underground. This has a pity system, making scrolls more common with every pot you break.
+
+		The second method is fishing. All crates have a chance of granting scrolls of any tier.
+
+		The final way is to naturally find scrolls in chests. This will only yield common scrolls, making it obsolete later.
+		'''
 }
 
 Relics: {
