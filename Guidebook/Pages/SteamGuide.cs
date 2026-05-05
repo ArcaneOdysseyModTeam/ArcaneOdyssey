@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	public class SteamGuide : GuidebookPage
+	internal class SteamGuide : GuidebookPage
 	{
 		public override int PageNum => Before<ForgingBronze>();
 

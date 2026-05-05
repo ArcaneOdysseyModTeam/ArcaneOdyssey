@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
 {
-	public abstract class GuidebookPage : ModTexturedType, ILocalizedModType
+	internal abstract class GuidebookPage : ModTexturedType, ILocalizedModType
 	{
 		public abstract int PageNum { get; }
 

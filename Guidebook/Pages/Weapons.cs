@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	public class Weapons : GuidebookPage
+	internal class Weapons : GuidebookPage
 	{
 		public override int PageNum => After<UsingScrolls>();
 

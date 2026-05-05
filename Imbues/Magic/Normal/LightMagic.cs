@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<LunarMagic>();
 			RegisterMutation<PrismMagic>();
 			RegisterMutation<AetherLightningMagic>();
+			RegisterMutation<RegulusMagic>();
 		}
 
 		public override bool ImmuneDash => true; // instant

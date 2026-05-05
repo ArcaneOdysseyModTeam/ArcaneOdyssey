@@ -15,15 +15,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override float Aura => .5f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
-		public override float ScrollDamage => 1.2f;
-		public override float ScrollSpeed => 1.1f;
-		public override float ScrollSize => .8f;
+		public override float ScrollDamage => .9f;
+		public override float ScrollSpeed => 1.25f;
+		public override float ScrollSize => 1.2f;
+
+		public override float DashSpeed => 1.2f;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
 		public override Color ImbueColour => new(0, 255, 0);
 		public override Color ImbueColour2 => new(0, 120, 0);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>(60 * 15)];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<HeavyBleed>()];
 		public override SoundStyle? ImbueSound => SoundID.Item71;
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -40,7 +42,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 4;
+		public override int BlastFrames => 7;
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

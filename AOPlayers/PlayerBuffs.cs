@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Guidebook;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -100,7 +101,7 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				Souls = [.. souls.Select(e => (GodSoulID)e)];
 			}
-			unlockedPages = tag.Get<List<string>>("guidebooks");
+			unlockedPages = (List<string>)(from page in tag.GetList<string>("guidebooks") select Mod.Find<GuidebookPage>(page)?.Name ?? page);
 		}
 
 		public override void SaveData(TagCompound tag)
@@ -120,7 +121,7 @@ namespace ArcaneOdyssey.AOPlayers
 				tag.Add("acumenconsumed", acumen);
 			if (Souls.Count > 1)
 				tag.Add("godsouls", Souls.Select(e => (int)e).ToList());
-			if (AvailablePages().Count > 0)
+			if (unlockedPages.Count > 0)
 				tag.Add("guidebooks", unlockedPages);
 		}
 

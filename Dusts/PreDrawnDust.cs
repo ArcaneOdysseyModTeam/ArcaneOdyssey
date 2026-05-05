@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.Dusts
 			dust.frame = new Rectangle(Texture2D.Width() / Columns * Main.rand.Next(Columns), Texture2D.Height() / Rows * Main.rand.Next(Rows), Texture2D.Width() / Columns, Texture2D.Height() / Rows);
 			dust.Centre(dust.position);
 			dust.rotation = MathHelper.PiOver2 * Main.rand.Next(4);
+			dust.noGravity = true;
 		}
 
 		public override bool PreDraw(Dust dust)

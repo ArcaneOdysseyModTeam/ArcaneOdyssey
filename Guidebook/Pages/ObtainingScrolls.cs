@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	public class ObtainingScrolls : GuidebookPage
+	internal class ObtainingScrolls : GuidebookPage
 	{
 		public override int PageNum => After<Imbuing>();
 

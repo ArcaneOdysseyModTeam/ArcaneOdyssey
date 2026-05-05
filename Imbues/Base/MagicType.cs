@@ -216,6 +216,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			return false;
 		}
 
-		public virtual int BlastFrames => 7;
+		public abstract int BlastFrames { get; }
 	}
 }

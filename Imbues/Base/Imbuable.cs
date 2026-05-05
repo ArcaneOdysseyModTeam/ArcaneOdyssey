@@ -399,6 +399,13 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override bool AltFunctionUse(Player player) => true;
 
+		/// <summary>
+		/// Whether this imbue is a:
+		/// <list>Lesser Lost Magic</list>
+		/// <list>Lost Spirit Mutation</list>
+		/// <list>Ancient Spirit Mutation</list>
+		/// <list>Dev Spirit Mutation</list>
+		/// </summary>
 		public virtual bool Special => false;
 
 		public string TooltipsPrefix
