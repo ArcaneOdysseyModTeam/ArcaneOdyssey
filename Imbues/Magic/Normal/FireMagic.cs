@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<ShadowflameMagic>();
 			RegisterMutation<FlareMagic>();
 			RegisterMutation<SunMagic>();
+			RegisterMutation<InfernoMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst
 		public override bool? Cold => false;

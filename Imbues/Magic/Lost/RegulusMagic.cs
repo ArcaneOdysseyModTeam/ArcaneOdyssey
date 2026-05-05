@@ -20,16 +20,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour2 => Color.Yellow;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 
-		public override string Texture => AOUtils.GetTexture<AetherMagic>();
-
-		public override int BlastFrames => 6;
+		public override int BlastFrames => 7;
 
 		public override void RegisterMutations()
 		{
 			RegisterDefaultMagic<LightMagic>();
 		}
 
-		public override SynergyEffects Effects => new([ClearBuff.Create<DrainedEffect>()], [Synergy.Create<DrainedEffect>(1.2f)]);
+		public override SynergyEffects Effects => new([ClearBuff.Create<DrainedEffect>()], [Synergy.Create<DrainedEffect>(1.2f), Synergy.Create<Crystallized>(1.1f)]);
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<BlindedEffect>(60 * 4)];
 

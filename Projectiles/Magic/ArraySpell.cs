@@ -93,21 +93,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			{
 				Projectile.rotation = Projectile.SafeDirectionTo(Main.MouseWorld).ToRotation();
 			}
-
-			if (Imbue is SoundMagic)
-			{
-				Imbue?.LingeringEffects(Proj1, Projectile.velocity, Projectile);
-				SecondImbue?.LingeringEffects(Proj1, Projectile.velocity, Projectile);
-				
-				Imbue?.LingeringEffects(Proj2, Projectile.velocity, Projectile);
-				SecondImbue?.LingeringEffects(Proj2, Projectile.velocity, Projectile);
-				
-				Imbue?.LingeringEffects(Proj3, Projectile.velocity, Projectile);
-				SecondImbue?.LingeringEffects(Proj3, Projectile.velocity, Projectile);
-				
-				Imbue?.LingeringEffects(Proj4, Projectile.velocity, Projectile);
-				SecondImbue?.LingeringEffects(Proj4, Projectile.velocity, Projectile);
-			}
 		}
 
 		public override void OnKill(int timeLeft)

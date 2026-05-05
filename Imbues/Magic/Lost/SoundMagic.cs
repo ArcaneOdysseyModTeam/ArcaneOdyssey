@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Frozen>(1.2f),
 			]);
 
-		public override int BlastFrames => 1;
+		public override int BlastFrames => 4;
 
 		public const int DustCount = 30;
 		public override void KillEffects(Rectangle area, Entity source = null)
