@@ -1,5 +1,7 @@
 using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdyssey.Tiles;
 using Microsoft.Xna.Framework;
@@ -132,6 +134,17 @@ namespace ArcaneOdyssey
 								if (chest.item[i] != null && chest.item[i].IsAir)
 								{
 									chest.item[i].SetDefaults(WorldGen.genRand.Next(ArcaneOdysseyMod.Sets.OldWeapons));
+									break;
+								}
+							}
+						}
+						if (WorldGen.genRand.NextBool(5))
+						{
+							for (int i = 0; i < Chest.maxItems; i++)
+							{
+								if (chest.item[i] != null && chest.item[i].IsAir)
+								{
+									chest.item[i].SetDefaults(WorldGen.genRand.Next(AOTile.GetAllCommonScrollDrops());
 									break;
 								}
 							}

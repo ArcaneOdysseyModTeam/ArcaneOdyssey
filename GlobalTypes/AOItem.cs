@@ -42,6 +42,7 @@ namespace ArcaneOdyssey.GlobalTypes
 	public class AOItem : GlobalItem, IImbuable
 	{
 		public ItemType ItemType => thisItem?.GetItemType() ?? ItemType.Item;
+
 		public float ApplySpeed(float value, bool flipfloat = false)
 		{
 			if (BenifitsFromScrollStats.HasValue)
@@ -194,6 +195,14 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			writer.Write(Imbue?.Type ?? ItemID.None);
 			writer.Write(SecondImbue?.Type ?? ItemID.None);
+			if (Boost.HasValue)
+			{
+				writer.Write((sbyte)Boost);
+			}
+			else
+			{
+				writer.Write((sbyte)-1);
+			}
 		}
 
 		public override void NetReceive(Item item, BinaryReader reader)
@@ -201,6 +210,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			Imbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
 			SecondImbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
+			var boost = reader.ReadSByte();
+			Boost = boost == -1 ? null : (RandomBoostType)boost;
 		}
 
 		public override void LoadData(Item item, TagCompound tag)
@@ -1040,12 +1051,11 @@ namespace ArcaneOdyssey.GlobalTypes
 					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
 					addedScrap = true;
 				}
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<RareScroll>(), 20));
 			}
 
 			if (ItemID.Sets.IsFishingCrate[item.type])
 			{
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<EmptyScroll>(), 10));
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<LostEmptyScroll>(), 10));
 			}
 
 			if (ItemID.Sets.BossBag[item.type])

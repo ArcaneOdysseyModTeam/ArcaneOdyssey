@@ -2,7 +2,6 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -10,7 +9,7 @@ using Terraria.Audio;
 using Terraria.ID;
 
 
-namespace ArcaneOdyssey.Imbues.Magic.Lost
+namespace ArcaneOdyssey.Imbues.Magic.Ancient
 {
 	public class InfernoMagic : MagicType
 	{
@@ -26,7 +25,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.LightBlue;
 		public override Color ImbueColour2 => Color.Blue;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Ancient;
 		public override bool CanBeWet => false;
 		public override float ImbueSpeed => 1f;
 		public override float ImbueSize => 1.15f;

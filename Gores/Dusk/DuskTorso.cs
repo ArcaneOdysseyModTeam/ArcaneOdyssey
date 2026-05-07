@@ -3,9 +3,9 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Gores
+namespace ArcaneOdyssey.Gores.Dusk
 {
-	public class EvanderLeftArm : ModGore
+	public class DuskTorso : ModGore
 	{
 		public override void SetStaticDefaults()
 		{

@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Gores;
+﻿using ArcaneOdyssey.Gores.Dusk;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossTrophies;

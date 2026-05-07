@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Gores;
+﻿using ArcaneOdyssey.Gores.Evander;
 using ArcaneOdyssey.Items.Accessories;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Weapons;

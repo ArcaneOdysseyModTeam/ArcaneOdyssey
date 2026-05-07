@@ -3,9 +3,9 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Gores
+namespace ArcaneOdyssey.Gores.Evander
 {
-	public class EvanderRightArm : ModGore
+	public class EvanderHead : ModGore
 	{
 		public override void SetStaticDefaults()
 		{

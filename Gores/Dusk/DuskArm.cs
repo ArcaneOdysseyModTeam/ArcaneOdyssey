@@ -3,9 +3,9 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Gores
+namespace ArcaneOdyssey.Gores.Dusk
 {
-	public class DuskCape : ModGore
+	public class DuskArm : ModGore
 	{
 		public override void SetStaticDefaults()
 		{
