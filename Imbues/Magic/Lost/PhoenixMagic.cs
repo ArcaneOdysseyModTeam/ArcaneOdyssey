@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -164,6 +165,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override void RegisterMutations()
 		{
 			RegisterDefaultMagic<FireMagic>();
+			RegisterMutation<InfernoMagic>();
 		}
 	}
 }

@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	internal class FightingStyles : GuidebookPage
+	public class FightingStyles : GuidebookPage
 	{
 		public override bool MetConditions(Player player) => player.HasTypeInInventory<FightingStyle>();
 		public override int PageNum => After<MagicTypes>();

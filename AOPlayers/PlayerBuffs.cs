@@ -101,7 +101,22 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				Souls = [.. souls.Select(e => (GodSoulID)e)];
 			}
-			unlockedPages = (List<string>)(from page in tag.GetList<string>("guidebooks") select Mod.Find<GuidebookPage>(page)?.Name ?? page);
+
+			unlockedPages = [];
+			foreach (var pagename in tag.GetList<string>("guidebooks"))
+			{
+				var split = pagename.Split(' ');
+				if (split.Length > 1)
+				{
+					if (ModContent.TryFind<GuidebookPage>(split[0], split[1], out var page))
+						unlockedPages.Add(page.Name);
+				}
+				else
+				{
+					if (Mod.TryFind<GuidebookPage>(pagename, out var page))
+						unlockedPages.Add(page.Name);
+				}
+			}
 		}
 
 		public override void SaveData(TagCompound tag)

@@ -102,7 +102,7 @@ namespace ArcaneOdyssey
 			NPC edgelord = NPC.NewNPCDirect(new EntitySource_WorldGen(), Main.spawnTileX * 16, Main.spawnTileY * 16, ModContent.NPCType<Edgelord>());
 			edgelord.homeTileX = Main.spawnTileX;
 			edgelord.homeTileY = Main.spawnTileY;
-			edgelord.direction = -1;
+			edgelord.direction = 1;
 			edgelord.homeless = true;
 		}
 
@@ -144,7 +144,7 @@ namespace ArcaneOdyssey
 							{
 								if (chest.item[i] != null && chest.item[i].IsAir)
 								{
-									chest.item[i].SetDefaults(WorldGen.genRand.Next(AOTile.GetAllCommonScrollDrops());
+									chest.item[i].SetDefaults(WorldGen.genRand.Next(AOTile.GetAllCommonScrollDrops()));
 									break;
 								}
 							}

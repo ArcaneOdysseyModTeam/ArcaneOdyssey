@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override void RegisterMutations()
 		{
 			RegisterMutation<IonMagic>();
+			RegisterMutation<InfernoMagic>();
 			RegisterDefaultMagic<FireMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst

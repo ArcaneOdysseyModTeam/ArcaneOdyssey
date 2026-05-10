@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void AI()
 		{
-			Projectile.Opacity = Opacity;
+			Opacity = Projectile.Opacity = Opacity;
 
 			if (++Projectile.frameCounter > 6)
 			{

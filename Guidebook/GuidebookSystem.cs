@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
 {
-	internal class GuidebookSystem : ModSystem
+	public class GuidebookSystem : ModSystem
 	{
 		public override void Unload()
 		{

@@ -377,7 +377,7 @@ namespace ArcaneOdyssey.Projectiles
 			lightColor = Imbue?.Colour ?? Color.White;
 			Lighting.AddLight(Projectile.Center, lightColor.ToVector3() * Intensity);
 
-			if (Mode != MagicCircleMode.Rotating)
+			if ((Mode != MagicCircleMode.Rotating) && (Main.LocalPlayer.gravDir == 1))
 			{
 				Main.spriteBatch.End();
 				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);

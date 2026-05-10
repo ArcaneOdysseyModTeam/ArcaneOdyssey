@@ -8,16 +8,12 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Guidebook
 {
-	internal abstract class GuidebookPage : ModTexturedType, ILocalizedModType
+	public abstract class GuidebookPage : ModTexturedType, ILocalizedModType
 	{
+		/// <summary>
+		/// use <seealso cref="Before{T}"/> or <seealso cref="After{T}"/>
+		/// </summary>
 		public abstract int PageNum { get; }
-
-		public virtual PageOrdering Position { get; }
-
-		public class PageOrdering
-		{
-			public int PageNum { get; set; }
-		}
 
 		public Asset<Texture2D> Image;
 

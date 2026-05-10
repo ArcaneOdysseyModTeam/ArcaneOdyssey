@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	internal class StrengthWeapons : GuidebookPage
+	public class StrengthWeapons : GuidebookPage
 	{
 		public override int PageNum => After<AboutGodSouls>();
 

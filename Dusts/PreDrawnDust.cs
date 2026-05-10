@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Dusts
 
 		public override bool PreDraw(Dust dust)
 		{
-			Vector2 dimensions = new(dust.frame.Width, dust.frame.Height);
+			Vector2 dimensions = dust.frame.Size();
 			Main.EntitySpriteDraw(Texture2D.Value, dust.Centre() - Main.screenPosition, dust.frame, dust.GetAlpha(dust.color), dust.rotation, dimensions / 2f, dust.scale, SpriteEffects.None);
 			return false;
 		}

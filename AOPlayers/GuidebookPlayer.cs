@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.AOPlayers
 
 		internal List<string> unlockedPages = [];
 
-		internal List<GuidebookPage> AvailablePages()
+		public List<GuidebookPage> AvailablePages()
 		{
 			List<GuidebookPage> pages = [.. GuidebookSystem.AllPages];
 			pages.Sort(new Comparison<GuidebookPage>(SortPages));

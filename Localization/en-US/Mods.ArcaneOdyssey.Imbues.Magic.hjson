@@ -13,6 +13,13 @@ Ancient: {
 		AttackPrefix: Deadly
 		SpellPrefix: Death
 	}
+
+	InfernoMagic: {
+		AttackPrefix: Promethean
+		SpellPrefix: Inferno
+		DisplayName: Inferno Magic
+		Tooltip: ""
+	}
 }
 
 Lost: {
@@ -200,6 +207,13 @@ Lost: {
 		SpellPrefix: Cursed Ash
 		Ability: Lowers enemy defense
 		Tooltip: Dedicated to [c/00ffff:KT_australis]
+	}
+
+	RegulusMagic: {
+		AttackPrefix: Purging
+		SpellPrefix: Regulus
+		DisplayName: Regulus Magic
+		Tooltip: ""
 	}
 }
 

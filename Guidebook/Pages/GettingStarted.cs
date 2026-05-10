@@ -2,7 +2,7 @@
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
-	internal class GettingStarted : GuidebookPage
+	public class GettingStarted : GuidebookPage
 	{
 		public override bool MetConditions(Player player) => true;
 

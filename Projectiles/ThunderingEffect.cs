@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
+using System.IO;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles
@@ -9,13 +11,9 @@ namespace ArcaneOdyssey.Projectiles
 	{
 		public override string Texture => AOUtils.BlankTexture;
 
-		public override bool CanHaveImbueVFX => !AOPlayerOwner.hiddenThunder;
+		private bool hidden = false;
 
-		public override bool PreAI()
-		{
-			Imbue = ModContent.GetInstance<LightningMagic>();
-			return Imbue is not null;
-		}
+		public override bool CanHaveImbueVFX => !hidden;
 
 		public override void SetDefaults()
 		{
@@ -25,6 +23,22 @@ namespace ArcaneOdyssey.Projectiles
 			Projectile.height = Projectile.width = 2;
 			Projectile.ignoreWater = true;
 			Projectile.DamageType = DamageClass.Generic;
+		}
+
+		public override void OnSpawn(IEntitySource source)
+		{
+			hidden = AOPlayerOwner.hiddenThunder;
+			Imbue = ModContent.GetInstance<LightningMagic>();
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(hidden);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			hidden = reader.ReadBoolean();
 		}
 
 		public override bool? CanCutTiles() => false;
