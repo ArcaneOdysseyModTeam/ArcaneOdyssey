@@ -424,18 +424,16 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			var drawScale = AOUtils.Average(frame.Width, frame.Height) * scale / 24f;
-
 			if (AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
 			{
 				if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
 				{
-					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .5f, 0, AtlanteanIndicator.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .8f, SpriteEffects.None, 1f);
+					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .5f, 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
 				}
 
 				if (AtlanteanApplied)
 				{
-					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .75f, 0, AtlanteanIndicator.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .8f, SpriteEffects.None, 1f);
+					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .75f, 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
 				}
 			}
 
@@ -448,18 +446,19 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (Imbue is null || !canBeAffected)
 				return;
-			var drawScale = Math.Max(frame.Width, frame.Height) * scale / 24f;
 
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
+				var imbueScale = 52f / Math.Max(texture.Width(), texture.Height());
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .3f, SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs)
 				{
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 4f), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, Vector2.Zero, drawScale * .5f, SpriteEffects.None, 0f);
+					var textScale = Main.inventoryScale * .75f;
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") * textScale / 3f), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, Vector2.Zero, textScale, SpriteEffects.None, 0f);
 				}
 
 				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
@@ -467,7 +466,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					dimensions.X *= -1f;
 					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, 52f / Math.Max(AtlanteanIndicator.Width(), AtlanteanIndicator.Height()) * drawScale * .3f, SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
 				}
 			}
 		}

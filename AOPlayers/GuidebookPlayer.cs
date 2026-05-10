@@ -15,16 +15,11 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				foreach (var page in AvailablePages())
 				{
-					if (!unlockedPages.Contains(page.Name))
+					if (!unlockedPages.Contains(page.Mod.Name + " " + page.Name))
 					{
 						Main.NewText(Mod.CustomLocalization("NewGuide", page.DisplayName.Value).Value);
+						unlockedPages.Add(page.Mod.Name + " " + page.Name);
 					}
-				}
-
-				foreach (string str in AvailablePages().Select(e => e.Name))
-				{
-					if (!unlockedPages.Contains(str))
-						unlockedPages.Add(str);
 				}
 			}
 		}

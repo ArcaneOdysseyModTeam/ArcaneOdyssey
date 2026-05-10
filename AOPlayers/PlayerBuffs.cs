@@ -109,12 +109,12 @@ namespace ArcaneOdyssey.AOPlayers
 				if (split.Length > 1)
 				{
 					if (ModContent.TryFind<GuidebookPage>(split[0], split[1], out var page))
-						unlockedPages.Add(page.Name);
+						unlockedPages.Add(page.Mod.Name + " " + page.Name);
 				}
 				else
 				{
 					if (Mod.TryFind<GuidebookPage>(pagename, out var page))
-						unlockedPages.Add(page.Name);
+						unlockedPages.Add(page.Mod.Name + " " + page.Name);
 				}
 			}
 		}

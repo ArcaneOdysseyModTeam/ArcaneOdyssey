@@ -215,6 +215,13 @@ Lost: {
 		DisplayName: Regulus Magic
 		Tooltip: ""
 	}
+
+	RuptureMagic: {
+		AttackPrefix: Rupture
+		SpellPrefix: Rupture
+		DisplayName: Rupture Magic
+		Tooltip: ""
+	}
 }
 
 Normal: {
