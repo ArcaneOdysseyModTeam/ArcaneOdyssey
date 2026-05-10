@@ -1,7 +1,6 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -20,6 +19,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<SunMagic>();
 			RegisterMutation<ShadowflameMagic>();
 			RegisterMutation<AetherLightningMagic>();
+			RegisterMutation<RuptureMagic>();
 		}
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
