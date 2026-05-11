@@ -5,6 +5,7 @@ using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Accessories.Vanity;
 using ArcaneOdyssey.Items.Armour.Vanity.Taz;
@@ -421,6 +422,14 @@ namespace ArcaneOdyssey.GlobalTypes
 		}
 
 		public static Asset<Texture2D> AtlanteanIndicator;
+
+		public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
+		{
+			if (Imbue is EnergyMagic)
+			{
+				mult *= 0;
+			}
+		}
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

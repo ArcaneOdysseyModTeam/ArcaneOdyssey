@@ -83,9 +83,10 @@ namespace ArcaneOdyssey.AOPlayers
 				imbue ??= Imbue;
 			if (imbue is not null)
 			{
-				if (imbue is EnergyMagic)
+				if (imbue is EnergyMagic) // change to wave magic later
 				{
 					Player.statMana = Utils.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
+					Player.ManaEffect(damagedone / 4);
 				}
 				if (imbue is VanishingStyle vanish)
 				{
