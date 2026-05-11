@@ -51,12 +51,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public override void Load()
-		{
-			base.Load();
-			_ = Circle.Texture;
-		}
-
 		public MagicCircle Circle 
 		{
 			get
@@ -73,11 +67,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			ArcaneOdysseyMod.Sets.Mutations[Type] = [.. ArcaneOdysseyMod.Sets.Mutations[Type].OrderBy(e => ModContent.GetModItem(e).DisplayName.Value)];
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			ArcaneOdysseyMod.Sets.BlastMaxFrames[Type] = BlastFrames;
-		}
-
-		public override void AutoStaticDefaults()
-		{
-			base.AutoStaticDefaults();
+			ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
 
 			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out ArcaneOdysseyMod.Sets.Assets.annihilationSprites[Type]) & ArcaneOdysseyMod.DevMode)
 			{
@@ -189,7 +179,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.mana = 5;
+			Item.mana = 5 * ((int)ImbuableTier + 1);
 			Item.DamageType = DamageClass.Magic;
 			Item.shoot = ModContent.ProjectileType<BlastSpell>();
 			Item.autoReuse = true;

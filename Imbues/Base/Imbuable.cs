@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Imbues.Magic.Developer;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
@@ -50,7 +49,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			var type = Type;
 			if (this is SteamImbue steam)
 			{
-				steam.Imbue ??= ModContent.GetInstance<JerminusMagic>();
 				type = steam.Imbue.Type;
 			}
 			return player.HasTypeInInventory<Imbuable>(e => e.Type == type); // because it includes equipped imbues
@@ -164,7 +162,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// <summary>
 		/// The second imbue
 		/// </summary>
-		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
+		public virtual Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
 		public virtual string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
 
@@ -299,7 +297,6 @@ namespace ArcaneOdyssey.Imbues.Base
 				var name = "";
 				if (player.Imbue() is SteamImbue steam)
 				{
-					steam.Imbue ??= ModContent.GetInstance<JerminusMagic>();
 					name = steam.Imbue.Name;
 				}
 				else if (player.Imbue() is not null)

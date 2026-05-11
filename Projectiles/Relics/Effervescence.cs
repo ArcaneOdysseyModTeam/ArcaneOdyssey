@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 
 			if (Main.myPlayer == Projectile.owner)
 			{
-				Target = AOUtils.ClosestNPCAt(Projectile.Center, ApplySpeed(12f) * 120, false, true)?.whoAmI ?? -1;
+				Target = Projectile.Center.GetMinionTarget(ApplySpeed(12f) * 120, Owner, true, true)?.whoAmI ?? -1;
 				if (Target != OldTarget)
 				{
 					NetUpdate();

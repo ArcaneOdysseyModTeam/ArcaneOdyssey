@@ -15,7 +15,7 @@ GettingStarted: {
 MagicTypes: {
 	Text:
 		'''
-		You have obtained a magic type. With this you can cast powerful spells, and greatly enhance weapons.
+		You have chosen a magic type. With this you can cast powerful spells, and greatly enhance weapons.
 
 		But for now, try left clicking with your magic. This will shoot a basic blast, which isn't too powerful.
 		'''
@@ -39,7 +39,7 @@ AboutGodSouls: {
 FightingStyles: {
 	Text:
 		'''
-		You have obtained a fighting style. With this, you can unleash skilled techniques, and wield weapons far too heavy for a regular person.
+		You have chosen a fighting style. With this, you can unleash skilled techniques, and wield weapons far too heavy for a regular person.
 
 		But for now, try left clicking with your fighting style. This will unleash a basic strike, which isn't too powerful.
 
@@ -81,6 +81,8 @@ Mutating: {
 		With this, you can evolve your magic to the next level, Lost Magic.
 
 		There are many options for mutating your magic. Almost all lost magic have unique gimmicks, which will determine your playstyle.
+
+		To mutate your magic, simply use the [i:ArcaneOdyssey/HecateShard] like any other item.
 		'''
 }
 
@@ -102,17 +104,38 @@ ObtainingScrolls: {
 
 Relics: {
 	DisplayName: Relics
-	Text: Relics content goes here.
+	Text:
+		'''
+		[i:ArcaneOdyssey/EaglePatrimony] Relics are powerful summoner-class weapons, each with unique effects. 
+		
+		All attacks from relics and items imbued with them will grant a small amount of life on hit.
+
+		Most attacks from relics will tag enemies, causing your minions to focus on the foe.
+
+		Magic weapons can also be imbued with spirit.
+		'''
 }
 
 StrengthWeapons: {
 	DisplayName: Strength Weapons
-	Text: Strength Weapons content goes here.
+	Text:
+		'''
+		You have obtained a [i:426] Strength Weapon. These weapons are too heavy to be weilded by normal people, and requires a [i:ArcaneOdyssey/BasicCombat] Fighting Style.
+
+		These items also have another power, being capable of having imbues stacked on it, as well as using the scroll stats of your fighting style for greater power.
+		'''
 }
 
 UsingScrolls: {
 	DisplayName: Using Scrolls
-	Text: Using Scrolls content goes here. Mention accessories.
+	Text:
+		'''
+		You've finally found yourself a [i:ArcaneOdyssey/EmptyScroll] scroll. This allows you to directly use your imbues.
+		
+		To use it, first check if it's an accessory by looking for if it says "Equippable". If so, put it in your accessory slots, and make sure you have a primary imbue selected.
+
+		If not, you can imbue it normally (see the Imbuing guide), then left (or sometimes also right click) to use it. If you're using a [i:ArcaneOdyssey/RegulusMagic] Magic Type, you might also need mana.
+		'''
 }
 
 Weapons: {
@@ -123,4 +146,9 @@ Weapons: {
 SteamGuide: {
 	DisplayName: Item Attributes
 	Text: Steam Guide content goes here. Mention the temperatures of items and imbues, and how they create steam.
+}
+
+ImbueStacking: {
+	DisplayName: Imbue Stacking
+	Text: Imbues stack lmao
 }

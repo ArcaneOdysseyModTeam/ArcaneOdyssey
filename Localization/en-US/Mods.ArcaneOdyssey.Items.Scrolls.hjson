@@ -154,7 +154,7 @@ Usable: {
 		EffervescenceRite: {
 			SkillName: Effervescence
 			DisplayName: Effervescence Rite
-			Tooltip: Creates a circle of auto-aiming spirit
+			Tooltip: Creates a circle of spirit that will focus on your minion target
 		}
 	}
 

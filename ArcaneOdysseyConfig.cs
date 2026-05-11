@@ -12,6 +12,7 @@ namespace ArcaneOdyssey
 		public bool AffectsOtherMods { get; set; }
 
 		[DefaultValue(true)]
+		[ReloadRequired]
 		public bool VanillaItemTemperatures { get; set; }
 
 		[DefaultValue(true)]
@@ -44,6 +45,10 @@ namespace ArcaneOdyssey
 
 		[DefaultValue(true)]
 		public bool UniqueMagicCircles { get; set; }
+
+		[DefaultValue(true)]
+		[ReloadRequired]
+		public bool PulsingImbueIcons { get; set; }
 
 
 		public static ArcaneOdysseyClientConfig Instance;

@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

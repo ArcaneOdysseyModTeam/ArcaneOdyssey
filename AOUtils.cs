@@ -963,7 +963,6 @@ namespace ArcaneOdyssey
 			{
 				if (imbue is SteamImbue steam)
 				{
-					steam.Imbue ??= ModContent.GetInstance<WindMagic>();
 					return CanHaveImbue(item, steam.Imbue);
 				}
 				if (imbue is null)

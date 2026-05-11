@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Items.Scrolls.Usable.Common;

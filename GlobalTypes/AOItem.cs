@@ -779,6 +779,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Main.myPlayer != player.whoAmI)
 				return;
 
+			if (player.ItemAnimationActive)
+				return;
+
 			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()]; 
 			options.RemoveAll(e => !item.CanHaveImbue(e));
 			bool justchangedspecificimbue = false;
@@ -885,7 +888,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				Imbue = SteamImbue.Create(Imbue);
 			}
 
-			if (justchangedspecificimbue && player == Main.LocalPlayer)
+			if (justchangedspecificimbue)
 			{
 				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, Imbue is null ? Mod.CustomLocalization("RandomWords.None") : (!settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value)]);
 				Main.NewText(chatmessage.Value, 13, 132, 168);

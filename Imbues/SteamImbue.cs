@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Imbues.Magic.Developer;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -18,9 +18,11 @@ namespace ArcaneOdyssey.Imbues
 			SteamImbue steam = ModContent.GetInstance<SteamImbue>();
 			steam.Imbue = imbue;
 			if (imbue is null)
-				steam.Imbue = ModContent.GetInstance<WindMagic>();
+				steam.Imbue = ModContent.GetInstance<JerminusMagic>();
 			return steam;
 		}
+
+		public override Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue ?? ModContent.GetInstance<JerminusMagic>(); set => Item.ArcaneOdyssey().Imbue = value; }
 
 		public override float ScrollDamage => .85f;
 		public override float ImbueDamage => .925f;
@@ -50,6 +52,8 @@ namespace ArcaneOdyssey.Imbues
 			]
 		);
 
+		
+
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 30; n++)
@@ -73,12 +77,11 @@ namespace ArcaneOdyssey.Imbues
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Smoke, 0f, 0f, (255 * .75f).Round(), default, 2f * area.RelativeScale());
 		}
 
-		public override ModItem Clone(Item newEntity)
+		public override void SetStaticDefaults()
 		{
-			var clone = (SteamImbue)base.Clone(newEntity);
-			Imbue ??= (Imbuable)new Item(ModContent.ItemType<WindMagic>()).ModItem;
-			clone.Imbue = Imbue;
-			return clone;
+			base.SetStaticDefaults();
+			ItemID.Sets.ItemNoGravity[Type] = true;
+			ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
 		}
 	}
 }

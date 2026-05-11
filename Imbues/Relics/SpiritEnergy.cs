@@ -98,7 +98,10 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetStaticDefaults();
 			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
 				ItemID.Sets.ItemNoGravity[Type] = true;
+				ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
+			}
 		}
 
 		public override Color ImbueColour => SpiritColor;

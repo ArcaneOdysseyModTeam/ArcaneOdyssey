@@ -1,7 +1,6 @@
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.Items.Consumable;
-using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdyssey.Tiles;
 using Microsoft.Xna.Framework;
