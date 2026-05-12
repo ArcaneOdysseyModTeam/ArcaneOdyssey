@@ -133,6 +133,11 @@ Configs: {
 			Label: "[i:ArcaneOdyssey/EmptyScroll] Unique Magic Circles"
 			Tooltip: Allows every magic type to have a unique magic circle design
 		}
+
+		PulsingImbueIcons: {
+			Label: Pulsing Imbue Icons
+			Tooltip: Toggles whether certain imbue icons will pulse
+		}
 	}
 }
 

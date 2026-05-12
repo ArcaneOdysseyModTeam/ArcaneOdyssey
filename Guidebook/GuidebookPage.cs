@@ -83,9 +83,9 @@ namespace ArcaneOdyssey.Guidebook
 
 		public int After<T>() where T : GuidebookPage
 		{
-			var inst = ModContent.GetInstance<T>();
 			if (!PagesOrdered.ContainsKey(Name))
 			{
+				var inst = ModContent.GetInstance<T>();
 				if (PagesOrdered.TryGetValue(inst.Name, out int value))
 				{
 					PagesOrdered[Name] = value + 1;

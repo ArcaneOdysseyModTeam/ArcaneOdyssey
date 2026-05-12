@@ -15,7 +15,7 @@ GettingStarted: {
 MagicTypes: {
 	Text:
 		'''
-		You have chosen a magic type. With this you can cast powerful spells, and greatly enhance weapons.
+		You have chosen a [i:ArcaneOdyssey/FireMagic] Magic type. With this you can cast powerful spells, and greatly enhance weapons.
 
 		But for now, try left clicking with your magic. This will shoot a basic blast, which isn't too powerful.
 		'''
@@ -29,9 +29,9 @@ AboutGodSouls: {
 
 		Select a soul using the Cycle God Soul keybind.
 
-		Some relics synergize with souls, modifying their stats.
+		Some relics [i:ArcaneOdyssey/TidestoneBand] synergize with souls, modifying their stats.
 
-		Other relics may be unstable with an incompatible soul. You may take damage when using these, and the stats are lopsided.
+		Other relics [i:ArcaneOdyssey/EaglePatrimony] may be unstable with an incompatible soul. You may take damage when using these, and the stats are lopsided.
 		'''
 	DisplayName: God Souls
 }
@@ -39,7 +39,7 @@ AboutGodSouls: {
 FightingStyles: {
 	Text:
 		'''
-		You have chosen a fighting style. With this, you can unleash skilled techniques, and wield weapons far too heavy for a regular person.
+		You have chosen a [i:ArcaneOdyssey/ThermoFist] Fighting Style. With this, you can unleash skilled techniques, and wield weapons far too heavy for a regular person.
 
 		But for now, try left clicking with your fighting style. This will unleash a basic strike, which isn't too powerful.
 
@@ -61,7 +61,7 @@ ForgingBronze: {
 Imbuing: {
 	Text:
 		'''
-		Magic types, Fighting Styles, and Relics are all imbues, and thus can all be imbued into compatible ranged/melee weapons.
+		[i:ArcaneOdyssey/FireMagic] Magic types, [i:ArcaneOdyssey/BasicCombat] Fighting Styles, and [i:ArcaneOdyssey/EaglePatrimony] Relics are all imbues, and thus can all be imbued into compatible ranged/melee weapons.
 
 		This can be done by right clicking with your imbue to select it, or you can choose an imbue per item using the Cycle Item Imbue keybind.
 
@@ -107,7 +107,7 @@ Relics: {
 	Text:
 		'''
 		[i:ArcaneOdyssey/EaglePatrimony] Relics are powerful summoner-class weapons, each with unique effects. 
-		
+
 		All attacks from relics and items imbued with them will grant a small amount of life on hit.
 
 		Most attacks from relics will tag enemies, causing your minions to focus on the foe.
@@ -131,7 +131,7 @@ UsingScrolls: {
 	Text:
 		'''
 		You've finally found yourself a [i:ArcaneOdyssey/EmptyScroll] scroll. This allows you to directly use your imbues.
-		
+
 		To use it, first check if it's an accessory by looking for if it says "Equippable". If so, put it in your accessory slots, and make sure you have a primary imbue selected.
 
 		If not, you can imbue it normally (see the Imbuing guide), then left (or sometimes also right click) to use it. If you're using a [i:ArcaneOdyssey/RegulusMagic] Magic Type, you might also need mana.
@@ -139,16 +139,50 @@ UsingScrolls: {
 }
 
 Weapons: {
-	DisplayName: Weapons
-	Text: Weapons content goes here. Mention abilities and their cooldowns.
+	DisplayName: Weapon Abilities
+	Text:
+		'''
+		Most weapons added by the mod have "abilities", which you can see in the tooltip of [i:ArcaneOdyssey/RavennaSword] such items.
+
+		Some cooldowns are "passive" [i:ArcaneOdyssey/RavennaGreatsword], and activate when using the item normally and/or under certain conditions [i:ArcaneOdyssey/BronzeMusket].
+
+		Others are "active", and require you to right click the item [i:ArcaneOdyssey/RavennaGreataxe].
+
+		Cooldowns can be reduced by finding [i:152] items that decrease them, and there are reforges that also do the same.
+		'''
 }
 
 SteamGuide: {
-	DisplayName: Item Attributes
-	Text: Steam Guide content goes here. Mention the temperatures of items and imbues, and how they create steam.
+	DisplayName: Steam Imbue
+	Text:
+		'''
+		Many items have special attributes, such as being a [i:426] Strength Weapon. But there's one more thing items can have, and that is temperature.
+
+		When a cold item is imbued with a hot imbue, or a hot item is imbued with a cold imbue, a special imbue is created.
+
+		This is [i:ArcaneOdyssey/SteamImbue] Steam Imbue, and it has unique effects, which will be listed here for convenience.
+
+		Imbue Damage: 0.925x
+		Imbue Size: 1.1x
+		Imbue Speed: 1.0x
+		Inflicts: Scalding, a damage over time debuff
+		Creates the [i:ArcaneOdyssey/AshMagic] Petrified effect when combined with the [i:ArcaneOdyssey/ExplosionMagic] Charred effect
+		'''
 }
 
 ImbueStacking: {
 	DisplayName: Imbue Stacking
-	Text: Imbues stack lmao
+	Text:
+		'''
+		Your mastery of imbues have increased, allowing you to imbue your imbues into eachother according to the criteria below.
+
+		[i:ArcaneOdyssey/FireMagic] Magic => [i:ArcaneOdyssey/SpiritEnergy] Relic
+		[i:ArcaneOdyssey/FireMagic] Magic => [i:ArcaneOdyssey/BasicCombat] Fighting Style
+		[i:ArcaneOdyssey/SpiritEnergy] Relic => [i:ArcaneOdyssey/FireMagic] Magic
+		[i:ArcaneOdyssey/SpiritEnergy] Relic => [i:ArcaneOdyssey/BasicCombat] Fighting Style
+
+		To imbue your imbues, you must use the Cycle Item Imbue keybind on it. Most items won't be affectd by having a second imbue.
+
+		Items that can have a second imbue are [i:ArcaneOdyssey/EmptyScroll] Scrolls, as well as special item types like [i:426] Strength Weapons.
+		'''
 }

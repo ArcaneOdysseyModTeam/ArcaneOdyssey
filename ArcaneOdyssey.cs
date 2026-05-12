@@ -185,7 +185,12 @@ namespace ArcaneOdyssey
 				ItemID.MoltenHelmet, 3
 			);
 
-			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0);
+			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0,
+				ItemID.NecroBreastplate, 7,
+				ItemID.NecroGreaves, 5,
+				ItemID.NecroHelmet, 3,
+				ItemID.AncientNecroHelmet, 3
+			);
 
 			public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 
