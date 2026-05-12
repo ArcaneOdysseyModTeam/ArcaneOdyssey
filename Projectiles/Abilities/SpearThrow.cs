@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			base.SetDefaults();
 			Projectile.friendly = true;
 			Projectile.DamageType = DamageClass.Melee;
+			Projectile.width = Projectile.height = 60;
 		}
 
 		public override void AI()
@@ -28,8 +29,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 					Projectile.netSpam = 0;
 				}
 			}
-
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+			Projectile.spriteDirection = Projectile.direction;
+			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver4 * Projectile.spriteDirection);
 			Projectile.velocity.Y += 0.13f;
 			if (Projectile.velocity.Y > 16f)
 			{

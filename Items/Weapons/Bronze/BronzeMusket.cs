@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 				ActivateAbility(player, true);
 				type = ProjectileID.BulletHighVelocity;
 				damage += new Item(ItemID.HighVelocityBullet).damage - new Item(ItemID.MusketBall).damage;
-				velocity = velocity.Add(new Item(ItemID.HighVelocityBullet).shootSpeed - new Item(ItemID.MusketBall).shootSpeed);
+				velocity = velocity.Add(ApplySpeed(new Item(ItemID.HighVelocityBullet).shootSpeed - new Item(ItemID.MusketBall).shootSpeed));
 			}
 		}
 

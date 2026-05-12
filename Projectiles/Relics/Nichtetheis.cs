@@ -1,18 +1,20 @@
 ﻿using ArcaneOdyssey;
 using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Relics
 {
 	public class Nichtetheis : SpiritProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[SecondImbue?.Type ?? 0]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[SecondImbue?.Type ?? ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[SecondImbue?.Type ?? ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[SecondImbue?.Type ?? ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<DrainedEffect>(60 * 5);
 		public const int TravelTime = 75;
@@ -72,12 +74,15 @@ namespace ArcaneOdyssey.Projectiles.Relics
 		{
 			if (origin != default)
 			{
+				Projectile.scale *= 1.25f;
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+				var col = SecondImbue is null ? Imbue.Colour : Color.White;
+				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(col), mode);
 				var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
-				Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(col), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
 				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
-				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(col), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Projectile.scale /= 1.25f;
 			}
 			return false;
 		}

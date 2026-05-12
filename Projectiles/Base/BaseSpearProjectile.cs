@@ -44,6 +44,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 			}
 
 			Owner.ChangeDir(Projectile.direction);
+			Projectile.spriteDirection = Projectile.direction;
 			
 			Owner.heldProj = Projectile.whoAmI;
 			Owner.itemTime = Owner.itemAnimation;
@@ -65,7 +66,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 				Projectile.ai[1] += SpearSpeed * Projectile.scale;
 			}
 
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+			Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver4 * Projectile.spriteDirection);
 			if (Owner.ItemAnimationEndingOrEnded && Projectile.owner == Main.myPlayer)
 			{
 				Kill();

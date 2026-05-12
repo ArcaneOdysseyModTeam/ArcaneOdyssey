@@ -347,6 +347,7 @@ namespace ArcaneOdyssey
 
 		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int Alpha = 0, Color newColor = default, float Scale = 1f)
 		{
+			Scale = Math.Clamp(Scale, 0f, 10f);
 			velocity ??= Vector2.Zero;
 			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, Alpha, newColor, Scale);
 		}

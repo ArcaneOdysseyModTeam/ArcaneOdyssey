@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
@@ -43,6 +44,8 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public abstract float BarValueMulti { get; }
 
+		public virtual bool SaveBar => true;
+
 		public float LerpValue => MathHelper.Clamp(BarValue * BarValueMulti / BarMax, 0f, 1f);
 
 
@@ -55,16 +58,25 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%") / 2), Color.Lerp(DisplayColor, ImbueColour, LerpValue));
+			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%") * Main.inventoryScale / 2f), Color.Lerp(DisplayColor, ImbueColour, LerpValue));
 		}
 
 		public override void UpdateInventory(Player player)
 		{
-			if (player.Imbue() is FightingStyleBarred fs1 && fs1.Name == Name)
-			{
-				BarValue = fs1.BarValue;
-			}
 			base.UpdateInventory(player);
+		}
+
+		public override void SaveData(TagCompound tag)
+		{
+			base.SaveData(tag);
+			if (SaveBar && BarValue > 1)
+				tag.Add("bar", (byte)BarValue);
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			base.LoadData(tag);
+			BarValue = tag.GetByte("bar");
 		}
 	}
 }

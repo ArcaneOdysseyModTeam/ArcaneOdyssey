@@ -32,29 +32,26 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
 		{
-			var ogrect = drawParams.MouseRectangle;
-			drawParams.MouseRectangle.Width = (32 * (drawParams.MouseRectangle.Width / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))).Round();
-			drawParams.MouseRectangle.Height = (32 * (drawParams.MouseRectangle.Height / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))).Round();
+			var uiscale = (float)drawParams.SourceRectangle.Width / (float)drawParams.MouseRectangle.Width;
 
-			var scaledx = (drawParams.Texture.Width * (drawParams.MouseRectangle.Width / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))) - drawParams.MouseRectangle.Width;
-			var scaledy = (drawParams.Texture.Height * (drawParams.MouseRectangle.Height / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height))) - drawParams.MouseRectangle.Height;
+			var scale = uiscale * (28f / Math.Max(drawParams.MouseRectangle.Width, drawParams.MouseRectangle.Height));
 
-			drawParams.TextPosition.Y = (32 * (ogrect.Height / (float)drawParams.Texture.Height)) + drawParams.Position.Y;
+			drawParams.MouseRectangle.Width = (32 * uiscale).Round();
+			drawParams.MouseRectangle.Height = (32 * uiscale).Round();
+
+			drawParams.TextPosition.Y = drawParams.Position.Y + drawParams.MouseRectangle.Height;
 
 			if (AOUtils.RequestIfExists(AOUtils.DebuffTexture, ref debuffBackground))
 			{
-				spriteBatch.Draw(debuffBackground.Value, drawParams.Position, null, drawParams.DrawColor, 0f, default, Math.Max(ogrect.Height, ogrect.Width) / (float)Math.Max(drawParams.Texture.Width, drawParams.Texture.Height), SpriteEffects.None, 0f);
+				spriteBatch.Draw(debuffBackground.Value, drawParams.MouseRectangle, drawParams.DrawColor);
 			}
 
-			spriteBatch.Draw(drawParams.Texture, drawParams.Position - new Vector2(scaledx, scaledy), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.None, 0f);
+			spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle.Center(), null, drawParams.DrawColor, 0f, drawParams.SourceRectangle.Size() / 2f, scale, SpriteEffects.None, 0f);
 
 			if (this is TwinCrecsentsCooldown)
 			{
-				spriteBatch.Draw(drawParams.Texture, drawParams.Position - new Vector2(scaledx, scaledy), null, drawParams.DrawColor, 0f, default, Math.Max(drawParams.MouseRectangle.Width / (float)drawParams.Texture.Width, drawParams.MouseRectangle.Height / (float)drawParams.Texture.Height), SpriteEffects.FlipHorizontally, 0f);
+				spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle.Center(), null, drawParams.DrawColor, 0f, drawParams.SourceRectangle.Size() / 2f, scale, SpriteEffects.FlipHorizontally, 0f);
 			}
-
-			drawParams.MouseRectangle.Width = (32 * (ogrect.Width / (float)drawParams.Texture.Width)).Round();
-			drawParams.MouseRectangle.Height = (32 * (ogrect.Height / (float)drawParams.Texture.Height)).Round();
 
 			return false;
 		}

@@ -217,7 +217,7 @@ Lost: {
 	}
 
 	RuptureMagic: {
-		AttackPrefix: Rupture
+		AttackPrefix: Fracturing
 		SpellPrefix: Rupture
 		DisplayName: Rupture Magic
 		Tooltip: ""

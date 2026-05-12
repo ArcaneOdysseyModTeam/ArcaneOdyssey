@@ -21,6 +21,8 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override float BarValueMulti => 1f;
 
+		public override bool SaveBar => false;
+
 		public override float MaxImbueSpeed => 1.3f;
 		public override float MaxImbueDamage => .85f;
 		public override float MaxImbueSize => .833f;
