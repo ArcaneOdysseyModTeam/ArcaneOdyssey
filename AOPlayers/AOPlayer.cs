@@ -19,17 +19,17 @@ namespace ArcaneOdyssey.AOPlayers
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public Imbuable Imbue { get; set; }
-		public int StatSize = 0;
+		public short StatSize = 0;
 		public Circle myCircle = null;
-		public int timeTillNextMove = 0;
+		public ushort timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 		public bool HeavySkillActive = false;
 		public bool hasLoadedWorldBefore = false;
-		public bool Immobile => Player.CCed || timeTillNextMove > 0;
+		public bool Immobile => timeTillNextMove > 0 || (!CanMoveOnGround && HeavySkillActive);
 		public bool CanMoveOnGround;
 		public bool grounded = false;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
-		public int timeSinceSoftFrozen;
+		public ushort timeSinceSoftFrozen;
 
 		/// <summary>
 		/// Imbues in equipment slots
@@ -63,6 +63,38 @@ namespace ArcaneOdyssey.AOPlayers
 				list.Add(ret);
 			}
 			return list;
+		}
+
+		public override void Load()
+		{
+			On_Player.HorizontalMovement += On_Player_HorizontalMovement;
+			On_Player.JumpMovement += On_Player_JumpMovement;
+			On_Player.WingMovement += On_Player_WingMovement;
+		}
+
+		private void On_Player_WingMovement(On_Player.orig_WingMovement orig, Player self)
+		{
+			if (!Immobile)
+				orig(self);
+		}
+
+		private void On_Player_JumpMovement(On_Player.orig_JumpMovement orig, Player self)
+		{
+			if (!Immobile)
+				orig(self);
+		}
+
+		private void On_Player_HorizontalMovement(On_Player.orig_HorizontalMovement orig, Player self)
+		{
+			if (!Immobile)
+				orig(self);
+		}
+
+		public override void Unload()
+		{
+			On_Player.HorizontalMovement -= On_Player_HorizontalMovement;
+			On_Player.JumpMovement -= On_Player_JumpMovement;
+			On_Player.WingMovement -= On_Player_WingMovement;
 		}
 
 		public bool evil = false;
@@ -204,9 +236,14 @@ namespace ArcaneOdyssey.AOPlayers
 					if (NPC.downedBoss1)
 					{
 						if (!AOUtils.BossAlive)
-							eliusArenaCounter++;
+						{
+							if (eliusArenaCounter < 60.Pow())
+								eliusArenaCounter++;
+						}
 						else
+						{
 							eliusArenaCounter = 0;
+						}
 
 						if (eliusArenaCounter >= (30 * 60)) // 30 seconds
 						{
@@ -281,11 +318,6 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				timeSinceSoftFrozen = 0;
 				CanMoveOnGround = false;
-			}
-			if (timeTillNextMove > 0)
-			{
-				Player.velocity.X *= .001f;
-				Player.velocity.Y *= .001f;
 			}
 		}
 

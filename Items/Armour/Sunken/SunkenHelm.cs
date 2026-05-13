@@ -8,14 +8,14 @@ namespace ArcaneOdyssey.Items.Armour.Sunken
 	public class SunkenHelm : Base.Armour
 	{
 		public override ItemTiers ArmourTier => ItemTiers.Good;
-		public override int AODefense => 204;
-		public override int Size => AOAttkSpd;
-		public override int AOAttkSpd => 16;
+		public override ushort AODefense => 204;
+		public override short Size => (short)AOAttkSpd;
+		public override short AOAttkSpd => 16;
 		public override ItemRarities Rarity => ItemRarities.Rare;
 		public override int Value => 675;
 
-		public override int AOPower => 7;
-		public override int AOMaxMana => 40;
+		public override short AOPower => 7;
+		public override byte MaxMana => 40;
 
 		public override void AddRecipes()
 		{

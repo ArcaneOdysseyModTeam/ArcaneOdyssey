@@ -5,25 +5,25 @@ namespace ArcaneOdyssey.AOPlayers
 {
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		private int _insanity = 0;
+		private byte _insanity = 0;
 		/// <summary>
 		/// Player insanity level, use += to increase
 		/// </summary>
-		public int Insanity
+		public byte Insanity
 		{
 			get
 			{
-				return Math.Clamp(_insanity, 0, 5);
+				return Math.Clamp(_insanity, (byte)0, (byte)5);
 			}
 			set
 			{
-				_insanity = Math.Clamp(value, 0, 5);
+				_insanity = Math.Clamp(value, (byte)0, (byte)5);
 			}
 		}
 
-		public int BronzeSealed = 0;
-		public int DarkSealed = 0;
-		public int NimbusSealed = 0;
+		public byte BronzeSealed = 0;
+		public byte DarkSealed = 0;
+		public byte NimbusSealed = 0;
 
 		public override void UpdateDead()
 		{
@@ -32,6 +32,6 @@ namespace ArcaneOdyssey.AOPlayers
 			NimbusSealed = 0;
 		}
 
-		public uint eliusArenaCounter = 0;
+		public ushort eliusArenaCounter = 0;
 	}
 }

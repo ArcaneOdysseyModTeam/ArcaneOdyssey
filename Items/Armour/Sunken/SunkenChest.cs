@@ -10,9 +10,9 @@ namespace ArcaneOdyssey.Items.Armour.Sunken
 	public class SunkenChest : Base.Armour
 	{
 		public override ItemTiers ArmourTier => ItemTiers.Good;
-		public override int AODefense => 194;
-		public override int Size => AOAttkSpd;
-		public override int AOAttkSpd => 22;
+		public override ushort AODefense => 194;
+		public override short Size => (short)AOAttkSpd;
+		public override short AOAttkSpd => 22;
 		public override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override int Value => 1350;

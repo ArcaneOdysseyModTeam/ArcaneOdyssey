@@ -17,6 +17,8 @@ namespace ArcaneOdyssey.Guidebook
 
 		public Asset<Texture2D> Image;
 
+		public virtual bool AthenaPage => false;
+
 		protected sealed override void Register()
 		{
 			ModTypeLookup<GuidebookPage>.Register(this);
@@ -42,7 +44,7 @@ namespace ArcaneOdyssey.Guidebook
 
 		public virtual string LocalizationCategory => "Guidebook";
 
-		public abstract bool MetConditions(Player player);
+		public virtual bool MetConditions(Player player) => false;
 
 		public static GuidebookPage Get(int page)
 		{

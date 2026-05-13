@@ -14,10 +14,10 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				foreach (var page in AvailablePages())
 				{
-					if (!unlockedPages.Contains(page.Mod.Name + " " + page.Name))
+					if (!unlockedPages.Contains(page.FullName))
 					{
-						Main.NewText(Mod.CustomLocalization("NewGuide", page.DisplayName.Value).Value);
-						unlockedPages.Add(page.Mod.Name + " " + page.Name);
+						Main.NewText(Mod.CustomLocalization("Guidebook.NewGuide", page.DisplayName.Value).Value);
+						unlockedPages.Add(page.FullName);
 					}
 				}
 			}
@@ -36,14 +36,30 @@ namespace ArcaneOdyssey.AOPlayers
 			return 0;
 		}
 
-		internal List<string> unlockedPages = [];
+		public List<string> unlockedPages = [];
 
 		public List<GuidebookPage> AvailablePages()
 		{
 			List<GuidebookPage> pages = [.. GuidebookSystem.AllPages];
 			pages.Sort(new Comparison<GuidebookPage>(SortPages));
-			pages.RemoveAll(e => !e.MetConditions(Player));
+			pages.RemoveAll(e => !(unlockedPages.Contains(e.FullName) || e.MetConditions(Player)));
 			return pages;
+		}
+
+		public void AddAthenaPage()
+		{
+			List<GuidebookPage> pages = [.. GuidebookSystem.AllPages];
+			pages.Sort(new Comparison<GuidebookPage>(SortPages));
+
+			foreach (var page in pages)
+			{
+				if (page.AthenaPage && !unlockedPages.Contains(page.FullName))
+				{
+					Main.NewText(Mod.CustomLocalization("Guidebook.AthenaPage", page.DisplayName.Value).Value);
+					unlockedPages.Add(page.FullName);
+					break;
+				}
+			}
 		}
 	}
 }

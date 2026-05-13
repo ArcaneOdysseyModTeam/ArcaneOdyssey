@@ -415,8 +415,6 @@ Biomes: {
 	}
 }
 
-NewGuide: Morden has a new guide available! ({0})
-
 Prefixes: {
 	Amplified.DisplayName: Amplified
 	Bursting.DisplayName: Bursting

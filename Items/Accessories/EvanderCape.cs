@@ -7,8 +7,8 @@ namespace ArcaneOdyssey.Items.Accessories
 	{
 		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override ItemTiers ArmourTier => ItemTiers.Good;
-		public override int AODefense => 170;
-		public override int AOPierce => 21;
+		public override ushort AODefense => 170;
+		public override short AOPierce => 21;
 		public override int Value => 75;
 
 		public override void SetDefaults()

@@ -8,7 +8,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey.AOPlayers
 {
@@ -93,7 +92,7 @@ namespace ArcaneOdyssey.AOPlayers
 
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public int StatHaste;
+		public short StatHaste;
 		private List<Cooldown> toremove = [];
 		private Dictionary<int, Cooldown> tochange = [];
 		public override void PreUpdate()

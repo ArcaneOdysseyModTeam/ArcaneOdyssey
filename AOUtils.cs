@@ -14,6 +14,7 @@ using ArcaneOdyssey.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ReLogic.Reflection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -292,6 +293,28 @@ namespace ArcaneOdyssey
 				}
 			}
 			return false;
+		}
+
+		public static short[] CreateShortSet(int size, short defaultState, params short[] inputs)
+		{
+
+			short[] ushortBuffer = new short[size];
+			for (int i = 0; i < ushortBuffer.Length; i++)
+			{
+				ushortBuffer[i] = defaultState;
+			}
+
+			if (inputs.Length % 2 == 0)
+			{
+				for (int j = 0; j < inputs.Length; j += 2)
+				{
+					if (!ArcaneOdysseyMod.finishedLoading && inputs[j] >= size)
+						continue;
+					ushortBuffer[inputs[j]] = inputs[j + 1];
+				}
+			}
+
+			return ushortBuffer;
 		}
 
 		public static bool NPCAlive<T>(out NPC found) where T : ModNPC
@@ -1245,6 +1268,8 @@ namespace ArcaneOdyssey
 		}
 
 		public static int FromAODefense(this int val) => (int)Math.Round(val / 15f);
+		public static int FromAODefense(this short val) => (int)Math.Round(val / 15f);
+		public static int FromAODefense(this ushort val) => (int)Math.Round(val / 15f);
 
 		public static int IndexOf<T>(this Array array, T item) => Array.IndexOf(array, item);
 
@@ -1799,9 +1824,7 @@ namespace ArcaneOdyssey
 			if (entity is Projectile projectile)
 			{
 				if (projectile.ModProjectile is PlayerProjectile proj)
-				{
 					return proj;
-				}
 				return projectile.ArcaneOdyssey();
 			}
 			if (entity is Player player)
@@ -1810,6 +1833,8 @@ namespace ArcaneOdyssey
 			{
 				if (item.ModItem is Weapon weap)
 					return weap;
+				if (item.ModItem is Armour armour)
+					return armour;
 				return item.ArcaneOdyssey();
 			}
 			return null;
@@ -1846,28 +1871,28 @@ namespace ArcaneOdyssey
 		public readonly string Tooptip => LocalizedDescription.Value;
 	}
 
-	public struct ImbueArmourStats(int size = 0, int attkspeed = 0, int power = 0, int defence = 0, int agility = 0, int pierce = 0, int haste = 0)
+	public struct ImbueArmourStats(short size = 0, short attkspeed = 0, short power = 0, ushort defence = 0, short agility = 0, short pierce = 0, short haste = 0)
 	{
-		public int Size = size;
-		public int Attkspeed = attkspeed;
-		public int Power = power;
-		public int Pierce = pierce;
-		public int Defence = defence;
-		public int Agility = agility;
-		public int Haste = haste;
+		public short Size = size;
+		public short Attkspeed = attkspeed;
+		public short Power = power;
+		public short Pierce = pierce;
+		public ushort Defence = defence;
+		public short Agility = agility;
+		public short Haste = haste;
 
 		public readonly ImbueArmourStats Corrected(Imbuable imbue)
 		{
 			if (imbue is FightingStyleBarred barred)
 			{
 				return new ImbueArmourStats(
-					MathHelper.Lerp(Size / 4f, Size, barred.LerpValue).Round(),
-					MathHelper.Lerp(Attkspeed / 4f, Attkspeed, barred.LerpValue).Round(),
-					MathHelper.Lerp(Power / 4f, Power, barred.LerpValue).Round(),
-					MathHelper.Lerp(Defence / 4f, Defence, barred.LerpValue).Round(),
-					MathHelper.Lerp(Agility / 4f, Agility, barred.LerpValue).Round(),
-					MathHelper.Lerp(Pierce / 4f, Pierce, barred.LerpValue).Round(),
-					MathHelper.Lerp(Haste / 4f, Haste, barred.LerpValue).Round()
+					(short)MathHelper.Lerp(Size / 4f, Size, barred.LerpValue).Round(),
+					(short)MathHelper.Lerp(Attkspeed / 4f, Attkspeed, barred.LerpValue).Round(),
+					(short)MathHelper.Lerp(Power / 4f, Power, barred.LerpValue).Round(),
+					(ushort)MathHelper.Lerp(Defence / 4f, Defence, barred.LerpValue).Round(),
+					(short)MathHelper.Lerp(Agility / 4f, Agility, barred.LerpValue).Round(),
+					(short)MathHelper.Lerp(Pierce / 4f, Pierce, barred.LerpValue).Round(),
+					(short)MathHelper.Lerp(Haste / 4f, Haste, barred.LerpValue).Round()
 					);
 			}
 			return this;

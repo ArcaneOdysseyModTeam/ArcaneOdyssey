@@ -92,9 +92,9 @@ namespace ArcaneOdyssey.AOPlayers
 			else
 				bloodDisease = null;
 			evil = tag.GetBool("aomentality");
-			DarkSealed = tag.GetInt("darksealedchests");
-			NimbusSealed = tag.GetInt("nimbussealedchests");
-			BronzeSealed = tag.GetInt("bronzesealedchests");
+			DarkSealed = tag.GetByte("darksealedchests");
+			NimbusSealed = tag.GetByte("nimbussealedchests");
+			BronzeSealed = tag.GetByte("bronzesealedchests");
 			acumen = tag.GetBool("acumenconsumed");
 			hasLoadedWorldBefore = tag.GetBool("wowiveloadedinbefore");
 			if (tag.TryGet<List<int>>("godsouls", out var souls) && souls.Count > 1)
@@ -103,18 +103,27 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 
 			unlockedPages = [];
-			foreach (var pagename in tag.GetList<string>("guidebooks"))
+			foreach (string pagename in tag.GetList<string>("guidebooks"))
 			{
 				var split = pagename.Split(' ');
 				if (split.Length > 1)
 				{
 					if (ModContent.TryFind<GuidebookPage>(split[0], split[1], out var page))
-						unlockedPages.Add(page.Mod.Name + " " + page.Name);
+						unlockedPages.Add(page.FullName);
 				}
 				else
 				{
-					if (Mod.TryFind<GuidebookPage>(pagename, out var page))
-						unlockedPages.Add(page.Mod.Name + " " + page.Name);
+					if (pagename.Contains('/'))
+					{
+						if (ModContent.TryFind<GuidebookPage>(pagename, out var page))
+						{
+							unlockedPages.Add(page.FullName);
+						}
+					}
+					else if (Mod.TryFind<GuidebookPage>(pagename, out var page))
+					{
+						unlockedPages.Add(page.FullName);
+					}
 				}
 			}
 		}

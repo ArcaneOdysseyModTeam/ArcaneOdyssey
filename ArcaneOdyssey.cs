@@ -64,12 +64,12 @@ namespace ArcaneOdyssey
 				case "AddSizeStat":
 				case "SetSizeStat":
 				case "SizeStat":
-					Sets.SizeStats[(int)args[1]] = (int)args[2];
+					Sets.SizeStats[(int)args[1]] = (short)args[2];
 					break;
 				case "AddHasteStat":
 				case "SetHasteStat":
 				case "HasteStat":
-					Sets.HasteStats[(int)args[1]] = (int)args[2];
+					Sets.HasteStats[(int)args[1]] = (short)args[2];
 					break;
 			}
 			return null;
@@ -175,17 +175,18 @@ namespace ArcaneOdyssey
 		[ReinitializeDuringResizeArrays]
 		public static class Sets
 		{
+
 			public static int[] OldWeapons = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>()];
 
 			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
 
-			public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet(0,
+			public static short[] SizeStats = AOUtils.CreateShortSet(ItemLoader.ItemCount, 0,
 				ItemID.MoltenBreastplate, 7,
 				ItemID.MoltenGreaves, 5,
 				ItemID.MoltenHelmet, 3
 			);
 
-			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0,
+			public static short[] HasteStats = AOUtils.CreateShortSet(ItemLoader.ItemCount, 0,
 				ItemID.NecroBreastplate, 7,
 				ItemID.NecroGreaves, 5,
 				ItemID.NecroHelmet, 3,

@@ -24,8 +24,8 @@ namespace ArcaneOdyssey.Items.Accessories
 			}
 		}
 		public override ItemTiers ArmourTier => ItemTiers.Good;
-		public override int AODefense => 226;
-		public override int AOPierce => 28;
+		public override ushort AODefense => 226;
+		public override short AOPierce => 28;
 		public override int Value => 200;
 
 		public override void SetDefaults()

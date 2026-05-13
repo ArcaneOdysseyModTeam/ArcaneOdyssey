@@ -9,51 +9,53 @@ namespace ArcaneOdyssey.Items.Base
 	/// <summary>
 	/// also works as an accessory
 	/// </summary>
-	public abstract class Armour : BaseItem
+	public abstract class Armour : BaseItem, IImbuable
 	{
 		public const float SizeDivision = 2.75f;
 		public const float HasteDivision = 2f;
 
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
-		/// <summary>
-		/// Base value
-		/// </summary>
-		public virtual int AODefense => 0;
+		public bool? BenifitsFromScrollStats => Arcanium;
 
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int AOAgility => 0;
+		public virtual ushort AODefense => 0;
 
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int AOAttkSpd => 0;
+		public virtual short AOAgility => 0;
 
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int Size => 0;
+		public virtual short AOAttkSpd => 0;
 
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int AOPierce => 0;
+		public virtual short Size => 0;
 
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int AOPower => 0;
+		public virtual short AOPierce => 0;
 
 		/// <summary>
 		/// Base value
 		/// </summary>
-		public virtual int Haste => 0;
+		public virtual short AOPower => 0;
 
-		public virtual int MinionSlots => Set.HasValue ? (int)ArmourTier / 2 : 0;
+		/// <summary>
+		/// Base value
+		/// </summary>
+		public virtual short Haste => 0;
 
-		public virtual int AOMaxMana => 0;
+		public virtual byte MinionSlots => (byte)(Set.HasValue ? (int)ArmourTier / 2 : 0);
+
+		public virtual byte MaxMana => 0;
 
 
 		/// <summary>
@@ -77,51 +79,51 @@ namespace ArcaneOdyssey.Items.Base
 			}
 		}
 
-		public int GetArmourSizeStat()
+		public short GetArmourSizeStat()
 		{
-			int val = 0;
+			short val = 0;
 			if (Imbue is not null)
-				val += Imbue.ArmourStats.Value.Corrected(Imbue).Size * (int)ArmourTier;
+				val += (short)(Imbue.ArmourStats.Value.Corrected(Imbue).Size * (int)ArmourTier);
 			return val;
 		}
 
-		public int GetArmourHasteStat()
+		public short GetArmourHasteStat()
 		{
-			int val = 0;
+			short val = 0;
 			if (Imbue is not null)
-				val += Imbue.ArmourStats.Value.Corrected(Imbue).Haste * (int)ArmourTier;
+				val += (short)(Imbue.ArmourStats.Value.Corrected(Imbue).Haste * (int)ArmourTier);
 			return val;
 		}
 
-		public int GetArmourAgilityStat()
+		public short GetArmourAgilityStat()
 		{
-			int val = AOAgility;
+			short val = AOAgility;
 			if (Imbue is not null)
-				val += Imbue.ArmourStats.Value.Corrected(Imbue).Agility * (int)ArmourTier;
+				val += (short)(Imbue.ArmourStats.Value.Corrected(Imbue).Agility * (int)ArmourTier);
 			return val;
 		}
 
-		public int GetArmourPierceStat()
+		public short GetArmourPierceStat()
 		{
-			int val = AOPierce;
+			short val = AOPierce;
 			if (Imbue is not null)
-				val += Imbue.ArmourStats.Value.Corrected(Imbue).Pierce * (int)ArmourTier;
+				val += (short)(Imbue.ArmourStats.Value.Corrected(Imbue).Pierce * (int)ArmourTier);
 			return val;
 		}
 
-		public int GetArmourPowerStat()
+		public short GetArmourPowerStat()
 		{
-			int val = AOPower;
+			short val = AOPower;
 			if (Imbue is not null)
-				val += Imbue.ArmourStats.Value.Corrected(Imbue).Power * (int)ArmourTier;
+				val += (short)(Imbue.ArmourStats.Value.Corrected(Imbue).Power * (int)ArmourTier);
 			return val;
 		}
 
-		public int GetArmourAttkSpeedStat()
+		public short GetArmourAttkSpeedStat()
 		{
-			int val = AOAttkSpd;
+			short val = AOAttkSpd;
 			if (Imbue is not null)
-				val += Imbue.ArmourStats.Value.Corrected(Imbue).Attkspeed * (int)ArmourTier;
+				val += (short)(Imbue.ArmourStats.Value.Corrected(Imbue).Attkspeed * (int)ArmourTier);
 			return val;
 		}
 
@@ -145,9 +147,9 @@ namespace ArcaneOdyssey.Items.Base
 			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 				return;
 
-			if (AOMaxMana > 0)
+			if (MaxMana > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOMaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", AOMaxMana).Value));
+				tooltips.AddTooltip(new(Mod, "AOMaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", MaxMana).Value));
 			}
 			if (MinionSlots > 0)
 			{
@@ -196,7 +198,7 @@ namespace ArcaneOdyssey.Items.Base
 			player.GetArmorPenetration(DamageClass.Generic) += GetArmourPierceStat() / 5;
 			player.GetAttackSpeed(DamageClass.Generic) += GetArmourAttkSpeedStat() / 275f;
 			player.maxMinions += MinionSlots;
-			player.statManaMax2 += AOMaxMana;
+			player.statManaMax2 += MaxMana;
 		}
 
 		public override void SetStaticDefaults()
