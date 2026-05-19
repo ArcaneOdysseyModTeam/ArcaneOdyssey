@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Items.Materials;
-using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Armour.Centurion
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class RavennaChest : Base.Armour
+	public class RavennaChest : BaseArmour
 	{
 		public override ItemTiers ArmourTier => ItemTiers.Average;
 		public override ushort AODefense => 197;
@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Items.Armour.Centurion
 			base.SetDefaults();
 		}
 
-		public override SetBonusHelper? Set => new(this, Color.Orange, "RavennaHelm", "RavennaBoots");
+		public override SetBonusHelper? Set => GetSetBonusHelper("RavennaHelm", "RavennaBoots");
 
 		public override void ArmorSetEffects(Player player)
 		{

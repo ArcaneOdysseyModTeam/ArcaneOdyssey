@@ -572,7 +572,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				damage += ((item.damage + (AOUtils.BossesKilled * 2f)) / item.damage) - 1;
 			}
-			
+
 			if (item.ModItem is Imbuable imbue)
 			{
 				damage *= imbue.ScrollDamage;
@@ -685,7 +685,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (player.ItemAnimationActive && player.PlayerItem()?.ModItem is not Imbuable)
 				return;
 
-			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()]; 
+			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()];
 			options.RemoveAll(e => !item.CanHaveImbue(e));
 			bool justchangedspecificimbue = false;
 			bool settodefault = false;
@@ -1019,10 +1019,10 @@ namespace ArcaneOdyssey.GlobalTypes
 							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 7.5).Value;
 							break;
 						case RandomBoostType.Size:
-							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", Math.Round(25 / Armour.SizeDivision, 1)).Value;
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", Math.Round(25 / BaseArmour.SizeDivision, 1)).Value;
 							break;
 						case RandomBoostType.Haste:
-							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", Math.Round(25 / Armour.HasteDivision, 1)).Value;
+							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", Math.Round(25 / BaseArmour.HasteDivision, 1)).Value;
 							break;
 						case RandomBoostType.Pierce:
 							tip.Text = Mod.CustomLocalization($"ArmourAutoTooltip.{Boost}", 3).Value;
@@ -1077,11 +1077,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (ArcaneOdysseyMod.Sets.SizeStats[item.type] > 0)
 				{
-					tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArcaneOdysseyMod.Sets.SizeStats[item.type] / Armour.SizeDivision)).Value));
+					tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(ArcaneOdysseyMod.Sets.SizeStats[item.type] / BaseArmour.SizeDivision)).Value));
 				}
 				if (ArcaneOdysseyMod.Sets.HasteStats[item.type] > 0)
 				{
-					tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArcaneOdysseyMod.Sets.HasteStats[item.type] / Armour.HasteDivision)).Value));
+					tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(ArcaneOdysseyMod.Sets.HasteStats[item.type] / BaseArmour.HasteDivision)).Value));
 				}
 			}
 

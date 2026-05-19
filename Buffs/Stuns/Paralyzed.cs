@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Stuns
 {
-	public class Paralyzed : Stun 
+	public class Paralyzed : Stun
 	{
 		public override List<int> Counterparts => [BuffID.Electrified, ModContent.BuffType<ElectrifiedToxins>()];
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Electrified}";

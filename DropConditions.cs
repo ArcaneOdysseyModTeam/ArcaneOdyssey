@@ -150,7 +150,7 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class MultiDropHelper<T>(int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : MultiDropHelper(ModContent.ItemType<T>(), denominator, minQuantity, maxQuantity, numerator) where T : ModItem 
+	public class MultiDropHelper<T>(int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : MultiDropHelper(ModContent.ItemType<T>(), denominator, minQuantity, maxQuantity, numerator) where T : ModItem
 	{
 
 	}
@@ -162,7 +162,7 @@ namespace ArcaneOdyssey
 
 		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
 		{
-			List<int> actualids = [..ids];
+			List<int> actualids = [.. ids];
 			ItemDropAttemptResult result = default;
 			if (info.rng.Next(chanceDenominator) < chanceNumerator)
 			{

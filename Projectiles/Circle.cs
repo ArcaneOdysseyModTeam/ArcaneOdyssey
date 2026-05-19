@@ -286,7 +286,7 @@ namespace ArcaneOdyssey.Projectiles
 			}
 		}
 
-		public override Texture2D Sprite 
+		public override Texture2D Sprite
 		{
 			get
 			{
@@ -375,7 +375,7 @@ namespace ArcaneOdyssey.Projectiles
 				return false;
 
 			lightColor = Imbue?.Colour ?? Color.White;
-			Lighting.AddLight(Projectile.Center, lightColor.ToVector3() * Intensity);
+			Lighting.AddLight(Projectile.Center, lightColor.ToVector3() * Intensity * (Projectile.scale / Size));
 
 			if ((Mode != MagicCircleMode.Rotating) && (Main.LocalPlayer.gravDir == 1))
 			{

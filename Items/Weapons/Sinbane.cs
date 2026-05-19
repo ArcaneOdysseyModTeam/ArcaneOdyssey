@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			knockback *= 3f;
 		}
 
-		
+
 	}
 
 	public class ToweringImpactCooldown : DisplayedCooldown

@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				ClearBuff.Create<Petrified>(),
 				ClearBuff.Create<Soaked>(),
 				ClearBuff.Create<Bleeding>(),
-				
+
 				ClearBuff.Create<FreezingEffect>(),
 				ClearBuff.Create<SandyEffect>(),
 				ClearBuff.Create<SnowyEffect>(),
@@ -54,10 +54,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Burning>(1.075f),
 				 // venom acid
 				Synergy.Create<Corroding>(1.1f),
-				
+
 				Synergy.Create<Poisoned>(1.05f),
 				Synergy.Create<Singed>(1.1f),
-				
+
 				Synergy.Create<Flammable>(1.075f),
 				Synergy.Create<FreezingEffect>(.95f),
 				Synergy.Create<SnowyEffect>(.99f),

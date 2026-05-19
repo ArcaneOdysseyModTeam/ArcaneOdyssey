@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			RegisterMutation<IonMagic>();
 			RegisterDefaultMagic<LightMagic>();
 		}
-		
+
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => Color.Yellow;

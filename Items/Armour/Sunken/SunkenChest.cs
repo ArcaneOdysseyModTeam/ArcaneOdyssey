@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Items.Materials;
-using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,16 +7,16 @@ using Terraria.ModLoader;
 namespace ArcaneOdyssey.Items.Armour.Sunken
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class SunkenChest : Base.Armour
+	public class SunkenChest : BaseArmour
 	{
 		public override ItemTiers ArmourTier => ItemTiers.Good;
 		public override ushort AODefense => 194;
-		public override short Size => (short)AOAttkSpd;
+		public override short Size => AOAttkSpd;
 		public override short AOAttkSpd => 22;
 		public override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override int Value => 1350;
-		public override SetBonusHelper? Set => new(this, Color.Aqua, "SunkenHelm", "SunkenBoots");
+		public override SetBonusHelper? Set => GetSetBonusHelper("SunkenHelm", "SunkenBoots");
 
 		public override void ArmorSetEffects(Player player)
 		{

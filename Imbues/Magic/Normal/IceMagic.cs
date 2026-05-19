@@ -39,11 +39,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<Soaked>(),
 				ClearBuff.Create<Bleeding>(),
-				
+
 				ClearBuff.Create<Burning>(),
-				
+
 				ClearBuff.Create<Corroding>(),
-				
+
 				ClearBuff.Create<Melting>(),
 				ClearBuff.Create<Scorched>(),
 				ClearBuff.Create<CharredEffect>()

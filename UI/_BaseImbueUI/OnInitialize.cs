@@ -326,7 +326,7 @@ public abstract partial class BaseImbueUI : UIState
 			product.BackGround.Width.Set(64, 0f);
 			product.BackGround.Height.Set(64, 0f);
 
-			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels), 
+			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels),
 				top = (Separation * (offsetY + 1)) + (offsetY * product.BackGround.Height.Pixels);
 			product.BackGround.Left.Set(left, 0f);
 			product.BackGround.Top.Set(top, 0f);
@@ -344,7 +344,7 @@ public abstract partial class BaseImbueUI : UIState
 				product.Icon.Width.Set(maxLength, 0f);
 				product.Icon.Left.Set(left + Separation, 0f);
 
-				product.Icon.Height.Set( height, 0f);
+				product.Icon.Height.Set(height, 0f);
 				product.Icon.Top.Set(top + topReal + Separation, 0f);
 			}
 			else // Paper Straw build
@@ -406,7 +406,7 @@ public abstract partial class BaseImbueUI : UIState
 
 		_OnInitializeExtras();
 	}
-	protected virtual void _OnInitializeExtras() {}
+	protected virtual void _OnInitializeExtras() { }
 	#endregion
 
 }

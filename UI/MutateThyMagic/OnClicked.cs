@@ -134,7 +134,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 			product.BackGround.Width.Set(64, 0f);
 			product.BackGround.Height.Set(64, 0f);
 
-			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels), 
+			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels),
 				top = (Separation * (offsetY + 1)) + (offsetY * product.BackGround.Height.Pixels);
 
 			product.BackGround.Left.Set(left, 0f);

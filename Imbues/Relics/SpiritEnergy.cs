@@ -260,7 +260,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 				return RelicDrawback;
 			}
 		}
-		
+
 		public virtual int RelicDrawback => 0;
 
 		public virtual float SynergySpeed => 1f;

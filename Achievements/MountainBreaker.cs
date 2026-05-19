@@ -13,5 +13,7 @@ namespace ArcaneOdyssey.Achievements
 		}
 
 		public override Position GetDefaultPosition() => new After("STILL_HUNGRY");
+
+		public override Position GetAdvisorPosition() => new After("HEAD_IN_THE_CLOUDS");
 	}
 }

@@ -246,7 +246,7 @@ namespace ArcaneOdyssey
 		}
 
 		public static Color GetAlpha(this Projectile projectile) => projectile.GetAlpha(Color.White);
-		
+
 
 		/// <summary>
 		/// 
@@ -1673,7 +1673,7 @@ namespace ArcaneOdyssey
 					return true;
 				}
 			}
-			
+
 			return false;
 		}
 
@@ -1801,7 +1801,7 @@ namespace ArcaneOdyssey
 			{
 				if (item.ModItem is Weapon weap)
 					return weap;
-				if (item.ModItem is Armour armour)
+				if (item.ModItem is BaseArmour armour)
 					return armour;
 				return item.ArcaneOdyssey();
 			}
@@ -1823,16 +1823,10 @@ namespace ArcaneOdyssey
 	/// </summary>
 	/// <param name="moditem">This moditem</param>
 	/// <param name="otherItems">The internal names of the other two items in this set, head then boots</param>
-	/// <param name="colour">The colour of this set</param>
-	public struct SetBonusHelper(ModItem moditem, Color colour, params string[] otherItems)
+	public struct SetBonusHelper(ModItem moditem, params string[] otherItems)
 	{
-		private Color Colour = colour;
 		public string[] OtherItems = otherItems;
-
-		public static string Key(ModItem item)
-		{
-			return $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Set";
-		}
+		public static string Key(ModItem item) => $"Mods.{item.Mod.Name}.{item.LocalizationCategory}.{item.Name}.Set";
 
 		public LocalizedText LocalizedDescription = Language.GetOrRegister(Key(moditem), () => Key(moditem));
 
@@ -1988,7 +1982,7 @@ namespace ArcaneOdyssey
 
 		public static ClearBuff Create<T>() where T : BaseBuff
 		{
-			return new(ModContent.BuffType<T>(), [..ModContent.GetInstance<T>().Counterparts]);
+			return new(ModContent.BuffType<T>(), [.. ModContent.GetInstance<T>().Counterparts]);
 		}
 	}
 
@@ -2007,12 +2001,12 @@ namespace ArcaneOdyssey
 
 		public static Combo Create<T>(int result, int duration = 60) where T : BaseBuff
 		{
-			return new(ModContent.BuffType<T>(), result, duration, [..ModContent.GetInstance<T>().Counterparts]);
+			return new(ModContent.BuffType<T>(), result, duration, [.. ModContent.GetInstance<T>().Counterparts]);
 		}
 
 		public static Combo Create<T, R>(int duration = 60) where T : BaseBuff where R : BaseBuff
 		{
-			return new(ModContent.BuffType<T>(), ModContent.BuffType<R>(), duration, [..ModContent.GetInstance<T>().Counterparts]);
+			return new(ModContent.BuffType<T>(), ModContent.BuffType<R>(), duration, [.. ModContent.GetInstance<T>().Counterparts]);
 		}
 	}
 
@@ -2029,7 +2023,7 @@ namespace ArcaneOdyssey
 
 		public static Synergy Create<T>(float multi) where T : BaseBuff
 		{
-			return new(ModContent.BuffType<T>(), multi, [..ModContent.GetInstance<T>().Counterparts]);
+			return new(ModContent.BuffType<T>(), multi, [.. ModContent.GetInstance<T>().Counterparts]);
 		}
 	}
 

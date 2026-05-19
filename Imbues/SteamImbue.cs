@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Imbues
 
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Developer;
 
-		public override SynergyEffects Effects => new([], 
+		public override SynergyEffects Effects => new([],
 			[
 				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<Petrified>(1.1f),
@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Imbues
 			]
 		);
 
-		
+
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{

@@ -39,12 +39,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				
 				ClearBuff.Create<Burning>(),
 				ClearBuff.Create<CharredEffect>(),
-				
+
 				ClearBuff.Create<Soaked>(),
 				ClearBuff.Create<Corroding>(),
 				ClearBuff.Create<Flammable>(),
 				ClearBuff.Create<FreezingEffect>(),
-				
+
 				ClearBuff.Create<Melting>(),
 				ClearBuff.Create<Scorched>(),
 				ClearBuff.Create<Scalding>(),
@@ -54,13 +54,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			[
 				Synergy.Create<Crystallized>(0.8f),
 				Synergy.Create<Bleeding>(1.05f),
-				
+
 				Synergy.Create<Burning>(.9f),
 				Synergy.Create<CharredEffect>(0.8f),
-				
+
 				Synergy.Create<Corroding>(.9f),
 				Synergy.Create<FreezingEffect>(1.1f),
-				
+
 				Synergy.Create<Melting>(.9f),
 				Synergy.Create<Scorched>(0.8f),
 				Synergy.Create<Soaked>(1.1f),

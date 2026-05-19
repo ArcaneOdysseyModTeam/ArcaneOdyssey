@@ -39,11 +39,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			[
 				Synergy.Create<Crystallized>(1.075f),
 				Synergy.Create<DrainedEffect>(0.8f),
-				
+
 				Synergy.Create<Corroding>(1.05f),
 				Synergy.Create<FreezingEffect>(1.075f),
 				Synergy.Create<SandyEffect>(1.1f),
-				
+
 				Synergy.Create<Melting>(1.05f),
 			]
 			);

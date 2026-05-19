@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				 // burning
 				Synergy.Create<CharredEffect>(.9f), // charred
 				Synergy.Create<SearedEffect>(0.8f),
-				
+
 				Synergy.Create<Melting>(.95f),
 				Synergy.Create<Scorched>( 0.8f),
 			]);

@@ -20,7 +20,7 @@ public partial class ReadingSimulatorUI : UIState
 	/// The Book, he contains the pages.
 	/// </summary>
 	protected List<GuidebookPage> TheBook;
-	
+
 	protected void CONSUMETHEPAPER()
 	{
 		if (Player is null) return;

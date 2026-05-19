@@ -20,7 +20,7 @@ namespace ArcaneOdyssey
 
 		[DefaultValue(true)]
 		[ReloadRequired]
-		public bool SyncProjectileSizes { get; set; } 
+		public bool SyncProjectileSizes { get; set; }
 
 		public override void OnLoaded()
 		{

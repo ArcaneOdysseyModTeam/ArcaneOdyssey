@@ -48,8 +48,8 @@ namespace ArcaneOdyssey.Projectiles.Base
 			get => Projectile.ArcaneOdyssey()?.Imbue;
 			set
 			{
-				if (Projectile.ArcaneOdyssey() is not null)	
-				Projectile.ArcaneOdyssey().Imbue = value;
+				if (Projectile.ArcaneOdyssey() is not null)
+					Projectile.ArcaneOdyssey().Imbue = value;
 			}
 		}
 

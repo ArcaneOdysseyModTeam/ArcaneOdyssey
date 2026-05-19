@@ -13,5 +13,7 @@ namespace ArcaneOdyssey.Achievements
 		}
 
 		public override Position GetDefaultPosition() => new After("MASTERMIND");
+
+		public override Position GetAdvisorPosition() => new Before("WHERES_MY_HONEY");
 	}
 }

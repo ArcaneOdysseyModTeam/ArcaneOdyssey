@@ -115,8 +115,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			return false;
 		}
 
-		public static Imbuable[] AllValidEnemyImbues 
-		{ 
+		public static Imbuable[] AllValidEnemyImbues
+		{
 			get
 			{
 				var imbues = ModContent.GetContent<Imbuable>().ToList();
@@ -194,7 +194,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public virtual float? DashResist => null;
 		public virtual float DashSpeed => 1f;
-		
+
 		public virtual bool ImmuneDash => false;
 
 		public override bool ShowItemTypeTooltip => false;
@@ -260,7 +260,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// Draws a solid box out of dust for walls ect
 		/// </summary>
 		/// <param name="area">The box</param>
-		public virtual void BoxEffects(Rectangle area) 
+		public virtual void BoxEffects(Rectangle area)
 		{
 			for (int X = 0; X <= area.Width; X += 4)
 			{
@@ -308,14 +308,14 @@ namespace ArcaneOdyssey.Imbues.Base
 					player.ArcaneOdyssey().Imbue = this;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
 					Main.NewText(chatmessage.Value, 13, 132, 168);
-					
+
 				}
 				else
 				{
 					player.ArcaneOdyssey().Imbue = null;
 					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
 					Main.NewText(chatmessage.Value, 13, 132, 168);
-					
+
 				}
 			}
 			else if (Drawback > 0)
@@ -479,7 +479,7 @@ namespace ArcaneOdyssey.Imbues.Base
 					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(ImbueDamage, 3)).Value));
 					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(ImbueSpeed, 3)).Value));
 					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(ImbueSize, 3)).Value));
-					
+
 					if (CombinedDebuffs.Length > 0)
 					{
 						var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(CombinedDebuffs[0].requirement), Lang.GetBuffName(CombinedDebuffs[0].result));

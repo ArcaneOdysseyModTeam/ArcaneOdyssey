@@ -13,5 +13,7 @@ namespace ArcaneOdyssey.Achievements
 		}
 
 		public override Position GetDefaultPosition() => new After("HOLD_ON_TIGHT");
+
+		public override Position GetAdvisorPosition() => new After("STAR_POWER");
 	}
 }

@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (source is EntitySource_Parent { Entity: Projectile storm} && storm.type == ModContent.ProjectileType<ArrowStorm>())
+			if (source is EntitySource_Parent { Entity: Projectile storm } && storm.type == ModContent.ProjectileType<ArrowStorm>())
 			{
 				isStormOfArrows = true;
 			}

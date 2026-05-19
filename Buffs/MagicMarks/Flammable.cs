@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 	{
 		public override int VanillaID => BuffID.Oiled;
 
-		public override List<int> Counterparts => [..base.Counterparts, BuffID.Slimed, BuffID.GelBalloonBuff];
+		public override List<int> Counterparts => [.. base.Counterparts, BuffID.Slimed, BuffID.GelBalloonBuff];
 
 		public override string Texture => AOUtils.GetTexture<Flammable>();
 

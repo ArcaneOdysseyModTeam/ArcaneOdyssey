@@ -45,11 +45,11 @@ namespace ArcaneOdyssey.Items.Consumable
 			try
 			{
 				//Main.NewText($"Can use item {!ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire()}");
-				if (ModContent.GetInstance<ModUISystem>().CanShowMutations()) 
+				if (ModContent.GetInstance<ModUISystem>().CanShowMutations())
 					return false;
 
-				foreach (var i in player.inventory) 
-					if (i.ModItem is MagicType magic && magic.ImbuableTier == ImbuableTiers.Normal) 
+				foreach (var i in player.inventory)
+					if (i.ModItem is MagicType magic && magic.ImbuableTier == ImbuableTiers.Normal)
 						return true;
 				return false;
 			}

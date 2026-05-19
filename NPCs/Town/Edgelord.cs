@@ -134,7 +134,7 @@ namespace ArcaneOdyssey.NPCs.Town
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
 		}
-		
+
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Mod.CustomLocalization("RandomWords.Guide").Value;
@@ -219,7 +219,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			{
 				AddOption("StrongWarrior");
 			}
-			
+
 			if (!Player.HasTypeInInventory<Scroll>())
 			{
 				AddOption("Pots");

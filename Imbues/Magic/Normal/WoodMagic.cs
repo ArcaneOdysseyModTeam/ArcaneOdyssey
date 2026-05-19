@@ -32,13 +32,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new([],
 			[
-				
+
 				Synergy.Create<Burning>(1.1f),
 				Synergy.Create<CharredEffect>(1.1f),
 				Synergy.Create<Singed>(1.1f),
-				
+
 				Synergy.Create<Corroding>(1.05f),
-				
+
 				Synergy.Create<Melting>(1.05f),
 				Synergy.Create<SandyEffect>(1.1f),
 				Synergy.Create<Scorched>(1.1f),

@@ -29,7 +29,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 	protected override List<MagicTypes> WhoAreWeDoing
 	{
-		get 
+		get
 		{
 			List<MagicTypes> types = [];
 			foreach (Item i in Main.LocalPlayer.inventory)
@@ -42,7 +42,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 					if (type is not MagicTypes.None) types.Add(type);
 				}
 			}
-			return types; 
+			return types;
 		}
 	}
 

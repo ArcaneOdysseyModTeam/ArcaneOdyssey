@@ -214,7 +214,7 @@ namespace ArcaneOdyssey.AOPlayers
 					{
 						Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<TitleMusicBox>());
 					}
-				} 
+				}
 			}
 			pheonixHealing = 0;
 			ArcaneOdysseyMod.Sets.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
@@ -227,7 +227,7 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 
 			Player.statDefense -= _defenseLost;
-			
+
 			if (Player.InModBiome<EliusArena>())
 			{
 				Player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
@@ -261,7 +261,7 @@ namespace ArcaneOdyssey.AOPlayers
 				if (AOUtils.NPCAlive<LordElius>())
 					Player.AddBuff(BuffID.Electrified, 2);
 			}
-			
+
 
 			if (thundering is not null && Player.RollLuck(5 * 60) == 0)
 			{
@@ -358,7 +358,7 @@ namespace ArcaneOdyssey.AOPlayers
 			HandleDashDetection();
 		}
 
-		public float SizeMulti => 1f + (StatSize / (Armour.SizeDivision * 100f));
-		public float CooldownDurationMulti => (1f + (StatHaste / (Armour.HasteDivision * 100f))).FlipFloat();
+		public float SizeMulti => 1f + (StatSize / (BaseArmour.SizeDivision * 100f));
+		public float CooldownDurationMulti => (1f + (StatHaste / (BaseArmour.HasteDivision * 100f))).FlipFloat();
 	}
 }

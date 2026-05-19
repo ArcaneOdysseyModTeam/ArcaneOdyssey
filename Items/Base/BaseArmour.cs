@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Items.Base
 	/// <summary>
 	/// also works as an accessory
 	/// </summary>
-	public abstract class Armour : BaseItem, IImbuable
+	public abstract class BaseArmour : BaseItem, IImbuable
 	{
 		public const float SizeDivision = 2.75f;
 		public const float HasteDivision = 2f;
@@ -62,6 +62,8 @@ namespace ArcaneOdyssey.Items.Base
 		/// Should only be set on chest
 		/// </summary>
 		public virtual SetBonusHelper? Set => null;
+
+		public SetBonusHelper GetSetBonusHelper(params string[] items) => new(this, items);
 
 		public virtual void ArmorSetEffects(Player player) { }
 

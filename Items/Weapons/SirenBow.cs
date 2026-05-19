@@ -63,8 +63,6 @@ namespace ArcaneOdyssey.Items.Weapons
 			}
 		}
 
-		 //unobtainable
-
 		public override void UseAnimation(Player player)
 		{
 			if (player.AltUse())

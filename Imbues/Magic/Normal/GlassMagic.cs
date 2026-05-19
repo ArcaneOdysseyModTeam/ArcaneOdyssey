@@ -34,12 +34,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			
 			],
 			[
-				
+
 				Synergy.Create<Corroding>(1.05f),
 				Synergy.Create<Crystallized>(0.92f),
 				Synergy.Create<FreezingEffect>(1.075f),
 				Synergy.Create<SandyEffect>(1.1f),
-				
+
 				Synergy.Create<Melting>(1.05f),
 			]
 			);

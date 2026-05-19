@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			if (Main.GameUpdateCount % 2 == 0) 
+			if (Main.GameUpdateCount % 2 == 0)
 			{
 				Dust.NewDust(npc.Center, 0, 0, DustID.Blood);
 			}
@@ -31,6 +31,6 @@ namespace ArcaneOdyssey.Buffs.DOT
 			player.ArcaneOdyssey().bleeding = true;
 		}
 
-		public override List<int> Counterparts => [..base.Counterparts, ModContent.BuffType<HeavyBleed>()];
+		public override List<int> Counterparts => [.. base.Counterparts, ModContent.BuffType<HeavyBleed>()];
 	}
 }

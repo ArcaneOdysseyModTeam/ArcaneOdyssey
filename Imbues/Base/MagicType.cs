@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public MagicCircle Circle 
+		public MagicCircle Circle
 		{
 			get
 			{
@@ -74,22 +74,22 @@ namespace ArcaneOdyssey.Imbues.Base
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing annihilation sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.Assets.raySprites[Type]) & ArcaneOdysseyMod.DevMode) 
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.Assets.raySprites[Type]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Type]) & ArcaneOdysseyMod.DevMode) 
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Type]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray end sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Type]) & ArcaneOdysseyMod.DevMode) 
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Type]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ArcaneOdysseyMod.Sets.Assets.blasts[Type]) & ArcaneOdysseyMod.DevMode) 
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ArcaneOdysseyMod.Sets.Assets.blasts[Type]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing blast sprite");
 			}

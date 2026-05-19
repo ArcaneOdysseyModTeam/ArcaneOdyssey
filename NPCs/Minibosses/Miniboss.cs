@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		}
 
 		public override bool? CanFallThroughPlatforms() => (NPC.HasValidTarget && ((Main.player[NPC.target].Bottom.Y - 10) > NPC.Bottom.Y)) || NPC.noTileCollide;
-		
+
 
 		public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
 		{
@@ -153,11 +153,11 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 				NPC.ai[1]++;
 				NPC.TargetClosest();
 				if (NPC.HasValidTarget && Main.player[NPC.target].Center.Distance(NPC.Center) <= 1000f)
-				{ 
+				{
 					// Limit chasing distance
 					NPC.velocity.X += NPC.direction * MoveSpeed;
 					if (NPC.ai[2] == 0 && !stuckintile && Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
-					{ 
+					{
 						// Attack meelee or stop
 						NPC.velocity.X = 0f;
 						if (NPC.ai[1] >= 60)

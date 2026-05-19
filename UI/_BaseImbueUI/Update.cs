@@ -13,7 +13,7 @@ public abstract partial class BaseImbueUI : UIState
 
 		// Spoky (2026 Jan 28): Made an oopise, thought I could just set Main.LocalPlayer.mouseInterface to = main.IsMouseHovering, but that breaks every other UI 
 		if (main.IsMouseHovering || CloseButton.IsMouseHovering || ChooseButton.IsMouseHovering) Main.LocalPlayer.mouseInterface = true;
-		
+
 		_UpdateExtras();
 
 		#region Visual Changes for the Products 

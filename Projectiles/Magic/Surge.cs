@@ -39,8 +39,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		private float opac = 0f;
 
-		public float Opacity 
-		{ 
+		public float Opacity
+		{
 			get
 			{
 				if (Projectile.owner == Main.myPlayer)

@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 				dust.noGravity = true;
 			}
 
-			
+
 			var stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
 			switch (stack)
 			{
@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 					npc.AddBuff(BuffID.Confused, 60);
 					break;
 			}
-			
+
 			if (npc.HasBuff(BuffID.Confused))
 			{
 				npc.DelBuff(buffIndex);

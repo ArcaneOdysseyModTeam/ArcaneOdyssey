@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		}
 
 		public override bool CanShoot(Player player) => player.AltUse() && player.ownedProjectileCounts[Item.shoot] < 1;
-		
+
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

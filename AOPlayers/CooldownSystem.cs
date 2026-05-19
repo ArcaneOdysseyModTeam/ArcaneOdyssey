@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 
 namespace ArcaneOdyssey.AOPlayers
 {
@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override bool ReApply(Player player, int time, int buffIndex)
 		{
-			player.buffTime[buffIndex] = time; 
+			player.buffTime[buffIndex] = time;
 			return true;
 		}
 

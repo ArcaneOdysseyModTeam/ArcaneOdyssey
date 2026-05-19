@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 33)];
 
-		
+
 
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightningMagic>();
 

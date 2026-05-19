@@ -97,7 +97,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Projectile.frame = 0;
 				}
 			}
-			
+
 			if (AOPlayerOwner.myCircle is not null && !dying)
 			{
 				dying = AOPlayerOwner.myCircle.MarkedForDeath;

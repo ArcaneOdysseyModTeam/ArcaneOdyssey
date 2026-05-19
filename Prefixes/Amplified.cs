@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Prefixes
 
 		public override IEnumerable<TooltipLine> GetTooltipLines(Item item)
 		{
-			yield return new(Mod, "PrefixAOSize", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(HasteBoost / Armour.HasteDivision, 1)).Value)
+			yield return new(Mod, "PrefixAOSize", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(HasteBoost / BaseArmour.HasteDivision, 1)).Value)
 			{
 				IsModifier = true
 			};

@@ -25,7 +25,7 @@ public partial class ImbueAcquireSequelUI : BaseImbueUI
 			if (Main.gameMenu) return list;
 			var player = Main.LocalPlayer;
 
-			foreach(var m in list)
+			foreach (var m in list)
 			{
 				int? id = MagicTypeToID(m);
 				if (id is null)
@@ -37,7 +37,7 @@ public partial class ImbueAcquireSequelUI : BaseImbueUI
 				Item item = ContentSamples.ItemsByType[(int)id];
 				if (item.ModItem is Imbuable imbue &&
 					// Spoky (2026 Apr 28): Basic Combat is exempt of this rule, as a player could want to get a second basic combat to transform one into another while using basic combat as primary
-					imbue is not BasicCombat && 
+					imbue is not BasicCombat &&
 					imbue.PlayerHasImbue(player))
 					exceptions.Add(m);
 			}

@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		}
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
-		
+
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{

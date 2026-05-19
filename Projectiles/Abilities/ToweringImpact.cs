@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			}
 		}
 
-		
+
 
 		public override void AI()
 		{

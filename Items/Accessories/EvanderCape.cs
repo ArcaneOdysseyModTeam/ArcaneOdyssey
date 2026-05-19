@@ -1,9 +1,10 @@
-﻿using Terraria.ModLoader;
+﻿using ArcaneOdyssey.Items.Base;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Accessories
 {
 	[AutoloadEquip(EquipType.Back)]
-	public class EvanderCape : Base.Armour
+	public class EvanderCape : BaseArmour
 	{
 		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override ItemTiers ArmourTier => ItemTiers.Good;

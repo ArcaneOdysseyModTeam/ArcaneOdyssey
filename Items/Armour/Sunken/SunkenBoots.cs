@@ -1,15 +1,16 @@
-﻿using ArcaneOdyssey.Items.Materials;
+﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Materials;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Armour.Sunken
 {
 	[AutoloadEquip(EquipType.Legs)]
-	public class SunkenBoots : Base.Armour
+	public class SunkenBoots : BaseArmour
 	{
 		public override ItemTiers ArmourTier => ItemTiers.Good;
 		public override ushort AODefense => 145;
-		public override short Size => (short)AOAttkSpd;
+		public override short Size => AOAttkSpd;
 		public override short AOAttkSpd => 16;
 		public override ItemRarities Rarity => ItemRarities.Rare;
 

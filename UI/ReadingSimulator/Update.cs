@@ -63,7 +63,7 @@ public partial class ReadingSimulatorUI : UIState
 			VisualCounter++;
 			if (VisualCounter >= 3)
 			{
-				VisualCounter = 0; 
+				VisualCounter = 0;
 				VisualUpdate();
 			}
 

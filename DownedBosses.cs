@@ -24,7 +24,9 @@ namespace ArcaneOdyssey
 		public static bool downedWorldEater;
 		public static bool downedEnragedEmpress;
 
-		public static bool DownedCalvus { get => _downedCalvus; set
+		public static bool DownedCalvus
+		{
+			get => _downedCalvus; set
 			{
 				if (!value)
 				{
@@ -41,7 +43,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool DownedArgos { get => _downedArgos; set
+		public static bool DownedArgos
+		{
+			get => _downedArgos; set
 			{
 				if (!value)
 				{
@@ -58,7 +62,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool DownedAllanon { get => _downedAllanon; set
+		public static bool DownedAllanon
+		{
+			get => _downedAllanon; set
 			{
 				if (!value)
 				{
@@ -75,7 +81,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool DownedElius { get => _downedElius; set
+		public static bool DownedElius
+		{
+			get => _downedElius; set
 			{
 				if (!value)
 				{
@@ -92,7 +100,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool DownedDelamere { get => _downedDelamere; set
+		public static bool DownedDelamere
+		{
+			get => _downedDelamere; set
 			{
 				if (!value)
 				{
@@ -109,7 +119,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool DownedCrone { get => _downedCrone; set
+		public static bool DownedCrone
+		{
+			get => _downedCrone; set
 			{
 				if (!value)
 				{
@@ -126,7 +138,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool DownedLaelus { get => _downedLaelus; set
+		public static bool DownedLaelus
+		{
+			get => _downedLaelus; set
 			{
 				if (!value)
 				{
@@ -143,7 +157,9 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static bool DownedDusk { get => _downedDusk; set
+		public static bool DownedDusk
+		{
+			get => _downedDusk; set
 			{
 				if (!value)
 				{

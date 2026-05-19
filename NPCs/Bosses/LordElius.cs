@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public bool sentMessage = false;
 		private bool hasSetSpawnLocation = false;
 		public Vector2 spawnLocation;
-		
+
 		public override void AI()
 		{
 			if (!sparing)
@@ -107,7 +107,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				sentMessage = true;
 			}
-			
+
 			if (!hasSetSpawnLocation) //this also is used for setup
 			{
 				spawnLocation = NPC.Center;
@@ -137,7 +137,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.ai[0] = Main.rand.Next(2) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
-			} else if (NPC.ai[0] == 2)
+			}
+			else if (NPC.ai[0] == 2)
 			{
 				if (NPC.ai[1] < 2f)
 				{
@@ -152,7 +153,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					//Main.NewText(NPC.ai[0]);
 				}
 			}
-			NPC.ai[1]+=1f;
+			NPC.ai[1] += 1f;
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -168,7 +169,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					ModContent.ItemType<StormCaller>()
 					], rolls: 2));
 			npcLoot.Add(leadingConditionRule1);
-			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>())); 
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>()));
 			leadingConditionRule1 = new(new Mastvengence());
 			leadingConditionRule1.OnSuccess(AOUtils.Common<EliusBossRelic>());
 			leadingConditionRule1.OnSuccess(AOUtils.Common<VermillionBracelet>(4));

@@ -106,7 +106,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 				}
 				//SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center); // PORT change to InstantThunder
 				return true;
-			}	
+			}
 			else
 			{
 				return true;

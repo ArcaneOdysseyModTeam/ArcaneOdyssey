@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Items.Base;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class EliusChest : Base.Armour
+	public class EliusChest : BaseArmour
 	{
 		public override void SetDefaults()
 		{
@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 			Item.width = Item.height = 30;
 		}
 
-		public override SetBonusHelper? Set => new(this, Color.MediumPurple, "EliusHelm", "EliusBoots");
+		public override SetBonusHelper? Set => GetSetBonusHelper("EliusHelm", "EliusBoots");
 
 		public override void ArmorSetEffects(Player player)
 		{

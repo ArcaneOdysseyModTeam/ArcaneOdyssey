@@ -29,9 +29,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 		public override SynergyEffects Effects => new(
 			[
-				
+
 				ClearBuff.Create<Burning>(),
-				
+
 				ClearBuff.Create<Corroding>(),
 				ClearBuff.Create<SandyEffect>(),
 				ClearBuff.Create<Soaked>(),
@@ -46,11 +46,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			[
 				Synergy.Create<CloudyEffect>(1.1f),
 				Synergy.Create<Crystallized>(0.9f),
-				
+
 				Synergy.Create<Burning>(.9f),
 				Synergy.Create<CharredEffect>(1.125f),
 				Synergy.Create<FreezingEffect>(1.1f),
-				
+
 				Synergy.Create<Poisoned>(.9f),
 				Synergy.Create<SandyEffect>(0.9f),
 				Synergy.Create<Scorched>(1.15f),

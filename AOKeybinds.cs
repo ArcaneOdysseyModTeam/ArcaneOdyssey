@@ -7,7 +7,7 @@ namespace ArcaneOdyssey
 		public static ModKeybind CycleItemImbue { get; set; }
 		public static ModKeybind DashBind { get; set; }
 		public static ModKeybind CycleAuraMode { get; set; }
-		public static ModKeybind CycleGodSoul {  get; set; }
+		public static ModKeybind CycleGodSoul { get; set; }
 
 		public override void Load()
 		{

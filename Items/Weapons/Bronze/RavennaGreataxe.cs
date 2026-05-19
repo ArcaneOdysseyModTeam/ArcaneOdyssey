@@ -115,7 +115,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			}
 			if (sound.HasValue && SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
 			{
-				activeSound.Stop();	
+				activeSound.Stop();
 			}
 		}
 	}

@@ -38,7 +38,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			],
 			[
 				Synergy.Create<Bleeding>(1.075f),
-				
+
 				Synergy.Create<Burning>(.99f),
 				Synergy.Create<Scalding>(0.9f),
 				Synergy.Create<FreezingEffect>( 1.2f), // frozen

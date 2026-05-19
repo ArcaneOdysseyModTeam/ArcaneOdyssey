@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			
+
 		}
 	}
 }

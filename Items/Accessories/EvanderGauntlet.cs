@@ -1,9 +1,10 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Items.Base;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Accessories
 {
-	public class EvanderGauntlet : Base.Armour
+	public class EvanderGauntlet : BaseArmour
 	{
 		public override ItemRarities Rarity => ItemRarities.Uncommon;
 		public override void Load()

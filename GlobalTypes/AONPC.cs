@@ -100,9 +100,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				ZapCD--;
 			}
-			else 
-			{ 
-				ZapCD = 0; 
+			else
+			{
+				ZapCD = 0;
 			}
 			if (StunDuration <= 0 && AOStunned)
 			{

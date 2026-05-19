@@ -174,7 +174,7 @@ namespace ArcaneOdyssey.Items.Base
 			{
 				SecondImbue = Imbue?.Imbue;
 			}
-		
+
 			if (HasCorrectImbue)
 			{
 				Item.color = Color.Lerp(Color.Transparent, Imbue.Colour, .75f);

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 
 		public override void RegisterMutations()
 		{
-			
+
 		}
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Imperial;

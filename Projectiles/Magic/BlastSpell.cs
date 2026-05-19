@@ -13,8 +13,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 	{
 		// ai 2 is first frame bool
 
-		public override float Size => .6f;
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

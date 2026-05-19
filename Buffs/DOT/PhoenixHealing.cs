@@ -83,7 +83,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 				}
 
 				offsetpoint += (npc.SafeDirectionTo(player.MountedCenter).ToRotation() - MathHelper.PiOver2).ToRotationVector2() * player.MountedCenter.Distance(npc.Center) * .1f * progress.FlipFloat() * Main.rand.NextFloat(-1f, 1f);
-				
+
 				if (!progressed)
 				{
 					dustpos = Vector2.Lerp(player.MountedCenter, offsetpoint, progress);

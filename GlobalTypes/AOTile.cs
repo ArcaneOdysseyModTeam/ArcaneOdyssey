@@ -122,7 +122,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					AddOption<EnchantmentSpell>();
 					AddOption<AcumenTechnique>();
 				}
-				
+
 			}
 			else
 			{

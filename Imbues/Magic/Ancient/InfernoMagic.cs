@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		{
 			RegisterDefaultMagic<FlareMagic>();
 		}
-		
+
 		public override float DashSpeed => 1.2f; // burst
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override SoundStyle? ImbueSound => SoundID.Item20;
@@ -44,19 +44,19 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 			[
 				Synergy.Create<Bleeding>(1.15f),
 				Synergy.Create<CharredEffect>(1.01f),
-				
+
 				Synergy.Create<Corroding>(1.05f),
 				Synergy.Create<Crystallized>(0.85f),
 				Synergy.Create<FreezingEffect>(0.99f),
 				Synergy.Create<SnowyEffect>(0.99f),
 				Synergy.Create<Soaked>(0.99f),
-				
+
 				Synergy.Create<Melting>(1.05f),
-				
+
 				Synergy.Create<Poisoned>(1.05f),
-				
+
 				Synergy.Create<Burning>(1.1f),
-				
+
 				Synergy.Create<Flammable>(1.075f),
 				Synergy.Create<SandyEffect>(0.98f),
 				Synergy.Create<Scalding>(1.1f),

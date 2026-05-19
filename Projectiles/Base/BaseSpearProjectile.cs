@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 			Owner.ChangeDir(Projectile.direction);
 			Projectile.spriteDirection = Projectile.direction;
-			
+
 			Owner.heldProj = Projectile.whoAmI;
 			Owner.itemTime = Owner.itemAnimation;
 			Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.ai[1]);
@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 				Kill();
 			}
 		}
-		
+
 
 		public virtual void EffectBeforeReelBack() { }
 	}

@@ -32,11 +32,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				ClearBuff.Create<FreezingEffect>()
 			],
 			[
-				
+
 				Synergy.Create<Corroding>(1.05f),
 				Synergy.Create<Crystallized>(1.05f),
 				Synergy.Create<FreezingEffect>(1.02f),
-				
+
 				Synergy.Create<Melting>(1.05f),
 				Synergy.Create<SandyEffect>(1.1f)
 			]

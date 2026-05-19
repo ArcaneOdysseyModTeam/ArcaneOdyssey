@@ -33,6 +33,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 		}
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
-		
+
 	}
 }

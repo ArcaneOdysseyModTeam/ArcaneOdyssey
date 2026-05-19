@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			],
 			[
 				Synergy.Create<Bleeding>(1.075f),
-				
+
 				Synergy.Create<Burning>(.99f),
 				Synergy.Create<Scalding>(0.9f)
 			]

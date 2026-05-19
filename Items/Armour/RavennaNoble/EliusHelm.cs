@@ -1,10 +1,11 @@
-﻿using Terraria.ID;
+﻿using ArcaneOdyssey.Items.Base;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Armour.RavennaNoble
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class EliusHelm : Base.Armour
+	public class EliusHelm : BaseArmour
 	{
 		public override void SetStaticDefaults()
 		{

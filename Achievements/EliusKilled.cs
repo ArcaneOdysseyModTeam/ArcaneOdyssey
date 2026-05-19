@@ -13,5 +13,7 @@ namespace ArcaneOdyssey.Achievements
 		}
 
 		public override Position GetDefaultPosition() => new After("EYE_ON_YOU");
+
+		public override Position GetAdvisorPosition() => new After("SMASHING_POPPET");
 	}
 }

@@ -22,8 +22,8 @@ namespace ArcaneOdyssey.Items.Base
 			}
 		}
 
-		public WeaponAbility? Ability 
-		{ 
+		public WeaponAbility? Ability
+		{
 			get
 			{
 				var ab = new WeaponAbility

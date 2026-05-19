@@ -15,8 +15,8 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		private static int _count = 0;
 
-		internal static int Count 
-		{ 
+		internal static int Count
+		{
 			get
 			{
 				return _count;
@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			set
 			{
 				_count = Utils.Clamp(value, 0, 10);
-			} 
+			}
 		}
 
 		public override float Size => .4f;

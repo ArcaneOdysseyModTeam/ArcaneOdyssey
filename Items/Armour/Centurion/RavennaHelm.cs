@@ -1,11 +1,12 @@
-﻿using ArcaneOdyssey.Items.Materials;
+﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Materials;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Armour.Centurion
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class RavennaHelm : Base.Armour
+	public class RavennaHelm : BaseArmour
 	{
 		public override ItemTiers ArmourTier => ItemTiers.Average;
 		public override ushort AODefense => 144;

@@ -47,12 +47,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			],
 			[
 				Synergy.Create<Crystallized>(0.9f),
-				
+
 				Synergy.Create<Burning>(.9f),
 				Synergy.Create<CharredEffect>(1.125f),
 				Synergy.Create<Singed>(.9f),
 				Synergy.Create<FreezingEffect>(1.1f),
-				
+
 				Synergy.Create<SandyEffect>(0.9f),
 				Synergy.Create<Scorched>(1.15f),
 				Synergy.Create<Soaked>(0.9f),
