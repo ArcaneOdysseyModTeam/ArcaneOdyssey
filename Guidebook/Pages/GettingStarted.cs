@@ -9,6 +9,6 @@ namespace ArcaneOdyssey.Guidebook.Pages
 		/// <summary>
 		/// always page 0
 		/// </summary>
-		public override int PageNum => 0;
+		public override ushort PageNum => 0;
 	}
 }

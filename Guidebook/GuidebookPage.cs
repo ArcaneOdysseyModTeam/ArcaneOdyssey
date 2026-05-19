@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Guidebook
 		/// <summary>
 		/// use <seealso cref="Before{T}"/> or <seealso cref="After{T}"/>
 		/// </summary>
-		public abstract int PageNum { get; }
+		public abstract ushort PageNum { get; }
 
 		public Asset<Texture2D> Image;
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Guidebook
 
 		public static int Count = 0;
 
-		internal static Dictionary<string, int> PagesOrdered = [];
+		internal static Dictionary<string, ushort> PagesOrdered = [];
 
 		public LocalizedText Description => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".Text", () => PrettyPrintName() + " content goes here.");
 
@@ -58,12 +58,12 @@ namespace ArcaneOdyssey.Guidebook
 			return pages.ToList().Find(e => e.Name == page);
 		}
 
-		public int Before<T>() where T : GuidebookPage
+		public ushort Before<T>() where T : GuidebookPage
 		{
 			var inst = ModContent.GetInstance<T>();
 			if (!PagesOrdered.ContainsKey(Name))
 			{
-				if (PagesOrdered.TryGetValue(inst.Name, out int value))
+				if (PagesOrdered.TryGetValue(inst.Name, out var value))
 				{
 					PagesOrdered[Name] = value;
 				}
@@ -83,18 +83,18 @@ namespace ArcaneOdyssey.Guidebook
 			return PagesOrdered[Name];
 		}
 
-		public int After<T>() where T : GuidebookPage
+		public ushort After<T>() where T : GuidebookPage
 		{
 			if (!PagesOrdered.ContainsKey(Name))
 			{
 				var inst = ModContent.GetInstance<T>();
-				if (PagesOrdered.TryGetValue(inst.Name, out int value))
+				if (PagesOrdered.TryGetValue(inst.Name, out var value))
 				{
-					PagesOrdered[Name] = value + 1;
+					PagesOrdered[Name] = (ushort)(value + 1);
 				}
 				else
 				{
-					PagesOrdered[Name] = inst.PageNum + 1;
+					PagesOrdered[Name] = (ushort)(inst.PageNum + 1);
 				}
 				var keys = PagesOrdered.Keys;
 				foreach (var val in keys)

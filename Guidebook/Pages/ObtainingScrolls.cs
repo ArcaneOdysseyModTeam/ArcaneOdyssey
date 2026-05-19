@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Guidebook.Pages
 {
 	public class ObtainingScrolls : GuidebookPage
 	{
-		public override int PageNum => After<Imbuing>();
+		public override ushort PageNum => After<Imbuing>();
 
 		public override bool MetConditions(Player player) => player.HasTypeInInventory<Imbuable>();
 	}

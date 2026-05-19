@@ -27,6 +27,8 @@ namespace ArcaneOdyssey.Items.Consumable
 
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ItemIconPulse[Type] = true;
 			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
 

@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Guidebook.Pages
 {
 	public class ImbueStacking : GuidebookPage
 	{
-		public override int PageNum => After<AboutGodSouls>();
+		public override ushort PageNum => After<AboutGodSouls>();
 
 		public override bool MetConditions(Player player)
 		{

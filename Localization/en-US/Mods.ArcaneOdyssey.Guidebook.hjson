@@ -189,3 +189,13 @@ ImbueStacking: {
 		Items that can have a second imbue are [i:ArcaneOdyssey/EmptyScroll] Scrolls, as well as special item types like [i:426] Strength Weapons.
 		'''
 }
+
+SpecialDashes: {
+	DisplayName: Special Dashes
+	Text:
+		'''
+		Certain scrolls [i:ArcaneOdyssey/CrashScroll], usually requiring a [i:ArcaneOdyssey/BasicCombat] Fighting Style, allow the user to dash in special ways.
+
+		You can activate these special dashes by equipping the [i:ArcaneOdyssey/WalkRite] scroll, making sure it's imbued, then pressing the Special Dash Bind keybind.
+		'''
+}

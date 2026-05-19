@@ -75,72 +75,6 @@ Insanity: {
 	Message4: A vision of- you are forced to stop thinking.
 }
 
-Configs: {
-	ArcaneOdysseyConfig: {
-		DisplayName: Server Config
-
-		AffectsOtherMods: {
-			Label: "[i:Cog] Affect other mods"
-			Tooltip:
-				'''
-				Allows imbues and rarity tooltips to affect items from other mods
-				Should only be disabled if your game is not functioning properly
-				'''
-		}
-
-		GroundReflexes: {
-			Label: "[i:ArcaneOdysseyMod/ReflexScroll] Ground Dodges"
-			Tooltip: Allows dashing while grounded to always have a 1x speed multiplier, in exchange for a 1.75x defense multiplier
-		}
-
-		VanillaItemTemperatures: {
-			Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
-			Tooltip:
-				'''
-				Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
-				Should only be disabled if your game is not functioning properly
-				'''
-		}
-
-		SyncProjectileSizes: {
-			Label: "[i:ArcaneOdyssey/SteamImbue] Sync Projectile Sizes"
-			Tooltip:
-				'''
-				Toggles whether projectiles have their sizes visually synced between multiplayer clients
-				Should be disabled if your game is not functioning properly
-				'''
-		}
-	}
-
-	ArcaneOdysseyClientConfig: {
-		DisplayName: Client Config
-
-		ItemTypeTooltips: {
-			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
-			Tooltip:
-				'''
-				Toggles whether to show the rarity and type of items in their tooltips
-				Should only be disabled if your items are not displaying properly
-				'''
-		}
-
-		AbilityText: {
-			Label: "[i:ArcaneOdyssey/BronzeTriasta] Ability Text"
-			Tooltip: Ability names appear above your head when you activate them
-		}
-
-		UniqueMagicCircles: {
-			Label: "[i:ArcaneOdyssey/EmptyScroll] Unique Magic Circles"
-			Tooltip: Allows every magic type to have a unique magic circle design
-		}
-
-		PulsingImbueIcons: {
-			Label: Pulsing Imbue Icons
-			Tooltip: Toggles whether certain imbue icons will pulse
-		}
-	}
-}
-
 KeybindStuff.DashHelp: Double tap a movement key
 
 NPCs: {
@@ -363,7 +297,7 @@ Achievements: {
 
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
-	DashBind.DisplayName: Dash Bind
+	DashBind.DisplayName: Special Dash Bind
 	Vanish.DisplayName: Vanish
 	CycleAuraMode.DisplayName: Cycle Aura Mode
 	PrintInfo.DisplayName: Print Info

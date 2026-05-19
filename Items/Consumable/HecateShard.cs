@@ -28,12 +28,13 @@ namespace ArcaneOdyssey.Items.Consumable
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
+			ItemID.Sets.ItemIconPulse[Type] = true;
 			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
-			Lighting.AddLight(Item.Center, 2, 0, 2);
+			Lighting.AddLight(Item.Center, new Vector3(2, 0, 2) * scale);
 			return true;
 		}
 

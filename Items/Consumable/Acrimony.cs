@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Items.Consumable
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
-			Lighting.AddLight(Item.Center, 3, 3, 3);
+			Lighting.AddLight(Item.Center, new Vector3(3, 3, 3) * scale);
 			return true;
 		}
 	}

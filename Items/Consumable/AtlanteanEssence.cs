@@ -31,6 +31,7 @@ namespace ArcaneOdyssey.Items.Consumable
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ItemNoGravity[Type] = true;
+			ItemID.Sets.ItemIconPulse[Type] = true;
 		}
 
 		public override void UseAnimation(Player player) => RightClick(player);

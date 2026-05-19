@@ -4,7 +4,7 @@ namespace ArcaneOdyssey.Guidebook.Pages
 {
 	public class ForgingBronze : GuidebookPage
 	{
-		public override int PageNum => After<UsingScrolls>();
+		public override ushort PageNum => After<SpecialDashes>();
 
 		public override bool MetConditions(Player player) => NPC.downedBoss2;
 	}

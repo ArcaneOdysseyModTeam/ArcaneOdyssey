@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.AOPlayers
 {
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public override void PreUpdateBuffs()
+		public override void PostUpdateEquips()
 		{
 			if (Main.myPlayer == Player.whoAmI)
 			{
