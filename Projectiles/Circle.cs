@@ -290,7 +290,7 @@ namespace ArcaneOdyssey.Projectiles
 		{
 			get
 			{
-				if (Mode == MagicCircleMode.Rotating)
+				if ((Mode == MagicCircleMode.Rotating) || (Main.LocalPlayer.gravDir != 1))
 				{
 					if (Imbue is MagicType magic)
 					{
@@ -404,13 +404,10 @@ namespace ArcaneOdyssey.Projectiles
 
 		public override void PostDraw(Color lightColor)
 		{
-			if (Mode != MagicCircleMode.Rotating)
+			if ((Mode != MagicCircleMode.Rotating) && (Main.LocalPlayer.gravDir == 1))
 			{
-				if (Imbue is MagicType)
-				{
-					Main.spriteBatch.End();
-					Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-				}
+				Main.spriteBatch.End();
+				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 			}
 		}
 

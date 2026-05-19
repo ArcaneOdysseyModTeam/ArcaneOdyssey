@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public class ThunderStyle : FightingStyleBarred
 	{
+		public override bool SaveBar => true;
 		public override float MaxImbueSpeed => 1.3f;
 		public override float MaxImbueDamage => .85f;
 		public override float MaxImbueSize => .833f;

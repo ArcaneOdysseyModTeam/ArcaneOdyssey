@@ -348,19 +348,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			return true;
 		}
 
-		public WeaponType _weaponsType;
-		public WeaponType WeaponsType
-		{
-			get
-			{
-				if (thisItem is not null && thisItem.ModItem is Weapon weap)
-				{
-					return weap.WeaponsType;
-				}
-				return _weaponsType;
-			}
-			set => _weaponsType = value;
-		}
+		public ref WeaponType WeaponsType => ref ArcaneOdysseyMod.Sets.weaponType[thisItem?.type ?? 0];
 
 		public bool? BenifitsFromScrollStats
 		{
@@ -393,28 +381,13 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-
-		private bool? _cold = null;
-		public bool? Cold
-		{
-			get
-			{
-				if (thisItem is not null && thisItem.ModItem is Weapon weap)
-				{
-					return weap.Cold;
-				}
-				return _cold;
-			}
-			set => _cold = value;
-		}
+		public ref bool? Cold => ref ArcaneOdysseyMod.Sets.cold[thisItem?.type ?? 0];
 
 		public override GlobalItem Clone(Item from, Item to)
 		{
 			var clone = (AOItem)base.Clone(from, to);
 			clone.Imbue = Imbue;
 			clone.SecondImbue = SecondImbue;
-			clone._cold = _cold;
-			clone._weaponsType = _weaponsType;
 			clone.thisItem = to;
 			clone.canBeAffected = canBeAffected;
 			clone.Boost = Boost;
@@ -467,7 +440,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (Imbue is FightingStyleBarred fs)
 				{
 					var textScale = Main.inventoryScale * .75f;
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location - (FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") * textScale / 3f), Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, Vector2.Zero, textScale, SpriteEffects.None, 0f);
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location, Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2f, textScale, SpriteEffects.None, 0f);
 				}
 
 				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
@@ -629,88 +602,9 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 			thisItem = item;
 			owner = null;
-			if (ArcaneOdysseyMod.excludedItems.Contains(item.type))
+			if (ArcaneOdysseyMod.Sets.excludedItem[item.type])
 			{
 				canBeAffected = false;
-				return;
-			}
-			if (ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
-			{
-				switch (item.type)
-				{
-					case ItemID.IceSickle:
-					case ItemID.IceBlade:
-					case ItemID.Frostbrand:
-					case ItemID.ChristmasTreeSword:
-					case ItemID.NorthPole:
-					case ItemID.Snowball:
-					case ItemID.SnowballCannon:
-					case ItemID.FrostDaggerfish:
-					case ItemID.IceBow:
-					case ItemID.IceBoomerang:
-					case ItemID.Flairon:
-					case ItemID.ElfMelter:
-					case ItemID.Tsunami:
-						Cold = true;
-						break;
-					case ItemID.DD2SquireBetsySword:
-					case ItemID.DD2SquireDemonSword:
-					case ItemID.ShadowFlameKnife:
-					case ItemID.FieryGreatsword:
-					case ItemID.Flamarang:
-					case ItemID.Sunfury:
-					case ItemID.FlamingMace:
-					case ItemID.DayBreak:
-					case ItemID.MoltenFury:
-					case ItemID.HellwingBow:
-					case ItemID.ShadowFlameBow:
-					case ItemID.SolarEruption:
-					case ItemID.MolotovCocktail:
-					case ItemID.PhoenixBlaster:
-					case ItemID.Flamethrower:
-					case ItemID.BluePhaseblade:
-					case ItemID.DD2BetsyBow:
-					case ItemID.GreenPhaseblade:
-					case ItemID.OrangePhaseblade:
-					case ItemID.DD2PhoenixBow:
-					case ItemID.PurplePhaseblade:
-					case ItemID.RedPhaseblade:
-					case ItemID.WhitePhaseblade:
-					case ItemID.YellowPhaseblade:
-					case ItemID.GreenPhasesaber:
-					case ItemID.OrangePhasesaber:
-					case ItemID.PurplePhasesaber:
-					case ItemID.WhitePhasesaber:
-					case ItemID.YellowPhasesaber:
-					case ItemID.RedPhasesaber:
-					case ItemID.BluePhasesaber:
-					case ItemID.HelFire:
-					case ItemID.Amarok:
-					case ItemID.Cascade:
-					case ItemID.MoltenPickaxe:
-					case ItemID.SolarFlareDrill:
-					case ItemID.SolarFlarePickaxe:
-					case ItemID.MeteorHamaxe:
-					case ItemID.MoltenHamaxe:
-					case ItemID.LunarHamaxeSolar:
-						Cold = false;
-						break;
-				}
-				switch (item.type)
-				{
-					case ItemID.Anchor:
-					case ItemID.BreakerBlade:
-						WeaponsType = WeaponType.Strength;
-						break;
-					case ItemID.Zenith:
-						WeaponsType = WeaponType.Artisinal;
-						break;
-				}
-			}
-			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods && item.ModItem is not null or BaseItem && AOUtils.ImbueClassCheck(item))
-			{
-				Cold = ExternalModSupport.CheckItemTemperature(item.ModItem);
-				WeaponsType = ExternalModSupport.CheckWeaponsType(item.ModItem);
 			}
 		}
 
@@ -788,7 +682,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Main.myPlayer != player.whoAmI)
 				return;
 
-			if (player.ItemAnimationActive)
+			if (player.ItemAnimationActive && player.PlayerItem()?.ModItem is not Imbuable)
 				return;
 
 			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()]; 
@@ -1009,11 +903,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (ArcaneOdysseyMod.Sets.SizeStats[item.type] > 0)
 				{
-					player.ArcaneOdyssey().StatSize += ArcaneOdysseyMod.Sets.SizeStats[item.type];
+					player.ArcaneOdyssey().StatSize += (short)ArcaneOdysseyMod.Sets.SizeStats[item.type];
 				}
 				if (ArcaneOdysseyMod.Sets.HasteStats[item.type] > 0)
 				{
-					player.ArcaneOdyssey().StatHaste += ArcaneOdysseyMod.Sets.HasteStats[item.type];
+					player.ArcaneOdyssey().StatHaste += (short)ArcaneOdysseyMod.Sets.HasteStats[item.type];
 				}
 			}
 		}

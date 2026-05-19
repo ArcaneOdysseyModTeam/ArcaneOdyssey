@@ -13,7 +13,6 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 {
 	public class SunkenStaff : Weapon
 	{
-		public override bool? Cold => true;
 		public override float Speed => .9f;
 		public override float Size => 1.25f;
 		public override float Damage => 1f;
@@ -51,6 +50,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 		{
 			base.SetStaticDefaults();
 			ArcaneOdysseyMod.Sets.staff[Type] = true;
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
 		}
 
 		public override bool CanUseItem(Player player)

@@ -41,7 +41,7 @@ Lost: {
 
 	EnergyMagic: {
 		DisplayName: Energy Magic
-		Ability: Mana is restored on hit
+		Ability: Spells cost no mana
 		Tooltip: ""
 		AttackPrefix: Energetic
 		SpellPrefix: Energy

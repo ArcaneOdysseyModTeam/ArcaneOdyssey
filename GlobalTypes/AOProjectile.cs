@@ -195,7 +195,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				ArcaneOdysseyMod.Sets.tombstone[projectile.type] = true;
 			}
-			if (ArcaneOdysseyMod.excludedProjectiles.Contains(projectile.type))
+			if (ArcaneOdysseyMod.Sets.excludedProjectile[projectile.type])
 			{
 				CanBeAffected = false;
 			}
@@ -243,20 +243,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-
-		private bool? _cold = null;
-		public bool? Cold
-		{
-			get
-			{
-				if (thisProjectile is not null && thisProjectile.ModProjectile is PlayerProjectile proj && proj.Cold.HasValue)
-				{
-					return proj.Cold.Value;
-				}
-				return _cold;
-			}
-			set => _cold = value;
-		}
+		public bool? Cold;
 
 		public override void OnKill(Projectile projectile, int timeLeft)
 		{
@@ -314,9 +301,13 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (source is EntitySource_Parent { Entity: Projectile proj })
 				{
-					Imbue ??= proj.ArcaneOdyssey()?.Imbue;
-					SecondImbue ??= proj.ArcaneOdyssey()?.SecondImbue;
-					Cold ??= proj.ArcaneOdyssey()?.Cold;
+					if (proj.ArcaneOdyssey() is not null)
+					{
+						Imbue ??= proj.ArcaneOdyssey().Imbue;
+						SecondImbue ??= proj.ArcaneOdyssey().SecondImbue;
+						Cold ??= proj.ArcaneOdyssey().Cold;
+						OriginWeaponType = proj.ArcaneOdyssey().OriginWeaponType;
+					}
 				}
 				else if (source is EntitySource_ItemUse { Item: Item item })
 				{
@@ -328,11 +319,11 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 					else if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
-						OriginWeaponType = aOItem.WeaponsType;
 						Imbue ??= aOItem.Imbue;
 						SecondImbue ??= aOItem.SecondImbue;
-						Cold ??= aOItem.Cold;
 					}
+					OriginWeaponType = ArcaneOdysseyMod.Sets.weaponType[item.type];
+					Cold ??= ArcaneOdysseyMod.Sets.cold[item.type];
 				}
 				else if (source is EntitySource_Parent { Entity: Player player })
 				{

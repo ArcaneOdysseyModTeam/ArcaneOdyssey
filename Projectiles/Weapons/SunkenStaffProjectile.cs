@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 {
 	public class SunkenStaffProjectile : BaseStaffProjectile
 	{
-		public override bool? Cold => true;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override float Speed => .9f;
 		public override float Size => 1.25f;
 		public override Debuff? ProjectileDebuff => Debuff.Create<Soaked>();

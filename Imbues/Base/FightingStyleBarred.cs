@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public abstract float BarValueMulti { get; }
 
-		public virtual bool SaveBar => true;
+		public virtual bool SaveBar => false;
 
 		public float LerpValue => MathHelper.Clamp(BarValue * BarValueMulti / BarMax, 0f, 1f);
 
@@ -58,12 +58,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position - (FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%") * Main.inventoryScale / 2f), Color.Lerp(DisplayColor, ImbueColour, LerpValue));
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			base.UpdateInventory(player);
+			spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position, Color.Lerp(DisplayColor, ImbueColour, LerpValue), 0f, FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%")/2f, Main.inventoryScale, SpriteEffects.None, 1f);
 		}
 
 		public override void SaveData(TagCompound tag)

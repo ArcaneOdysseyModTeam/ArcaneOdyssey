@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (imbue is MagicType or FightingStyle)
 			{
-				if (NPC.downedMoonlord || DownedBosses.DownedEnragedEmpress)
+				if (NPC.downedMoonlord || DownedBosses.downedEnragedEmpress)
 				{
 					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (!imbue.Special)) || ((imbue.ImbuableTier == ImbuableTiers.Ancient) && (imbue is MagicType) && (!imbue.Special)))
 					{
@@ -166,8 +166,6 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public virtual string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
 
-		internal Dictionary<string, int> Skills = [];
-
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
@@ -224,7 +222,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// <summary>
 		/// Leave null for neutral, true for cold, false for hot
 		/// </summary>
-		public virtual bool? Cold => null;
+		public ref bool? Cold => ref ArcaneOdysseyMod.Sets.cold[Type];
 
 		/// <summary>
 		/// magic/fs works underwater

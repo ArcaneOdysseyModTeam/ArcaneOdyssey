@@ -17,13 +17,13 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override int Value => 250;
 		public override ItemRarities Rarity => ItemRarities.Rare;
 		public override ItemTiers WeaponTier => ItemTiers.Good;
-		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Motif => Color.PaleVioletRed;
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ArcaneOdysseyMod.Sets.greatsword[Type] = true;
+			ArcaneOdysseyMod.Sets.weaponType[Type] = WeaponType.Strength;
 		}
 
 		public override void SetDefaults()

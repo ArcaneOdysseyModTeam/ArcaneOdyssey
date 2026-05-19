@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.Spears[Type] = true;
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
 		}
 		public override float Damage => 0.9f;
 		public override float Size => 1.1f;
@@ -26,7 +27,6 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override ItemTiers WeaponTier => ItemTiers.Good;
 		public override Color Motif => Color.Gold;
 		public override ItemRarities Rarity => ItemRarities.Rare;
-		public override bool? Cold => false;
 		public override Debuff? WeaponDebuff => Debuff.Create<CharredEffect>();
 		public override SoundStyle UseSound => SoundID.Item15;
 

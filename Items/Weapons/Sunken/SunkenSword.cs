@@ -15,7 +15,6 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 {
 	public class SunkenSword : Weapon
 	{
-		public override bool? Cold => true;
 		public override float Speed => 1.2f;
 		public override float Size => .9f;
 		public override float Damage => 1f;
@@ -68,6 +67,12 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 			recipe.AddIngredient<SunkenScrap>(2);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
 		}
 	}
 

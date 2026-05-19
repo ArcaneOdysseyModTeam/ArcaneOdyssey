@@ -374,7 +374,6 @@ RandomWords: {
 	Default: Default
 	Unbound: Unbound
 	None: None
-	AnyMaterial: Any {0} Material
 	Help: Help
 	Press: Press {0}
 	WeaponGel: Weapon Gel: {0}

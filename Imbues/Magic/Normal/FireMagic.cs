@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<SunMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst
-		public override bool? Cold => false;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(252, 107, 3);
 		public override bool CanBeWet => false;

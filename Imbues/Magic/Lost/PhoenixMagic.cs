@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			base.SetStaticDefaults();
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 12f, 12f);
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -79,7 +80,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
-		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(0, 115, 255);

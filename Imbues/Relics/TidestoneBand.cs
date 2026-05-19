@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.knockBack = 6.25f;
 		}
 
-		public override bool? Cold => true;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override Color ImbueColour => new(0, 30, 255);
 
 		public override void UseAnimation(Player player)

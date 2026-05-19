@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		}
 		public override bool Special => true;
 		public override bool ImmuneDash => true; // instant
-		public override bool? Cold => false;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(255, 100, 255, 255);
 		public override bool CanBeWet => false;

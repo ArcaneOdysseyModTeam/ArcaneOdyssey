@@ -215,7 +215,7 @@ namespace ArcaneOdyssey.NPCs.Town
 				AddOption("OldManTalk");
 			}
 
-			if (Player.PlayerItem()?.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength || Player.HasTypeInInventory<Weapon>(weap => weap.WeaponsType == WeaponType.Strength))
+			if (Player.HasItemInInventory(e => ArcaneOdysseyMod.Sets.weaponType[e.type] == WeaponType.Strength))
 			{
 				AddOption("StrongWarrior");
 			}

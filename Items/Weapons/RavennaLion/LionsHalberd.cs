@@ -19,13 +19,14 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 		public override int Value => 250;
 		public override ItemRarities Rarity => ItemRarities.Rare;
 		public override ItemTiers WeaponTier => ItemTiers.Good;
-		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Motif => Color.Gold;
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LanceofLoyalty>();
+			ArcaneOdysseyMod.Sets.weaponType[Type] = WeaponType.Strength;
+			ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
 		}
 
 		public override void SetDefaults()

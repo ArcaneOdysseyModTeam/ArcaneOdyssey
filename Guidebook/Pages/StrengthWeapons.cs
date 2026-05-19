@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Items.Base;
-using Terraria;
+﻿using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {
@@ -7,20 +6,6 @@ namespace ArcaneOdyssey.Guidebook.Pages
 	{
 		public override int PageNum => After<AboutGodSouls>();
 
-		public override bool MetConditions(Player player)
-		{
-			if (player is not null)
-			{
-				if (player.HasTypeInInventory<Weapon>(e => e.WeaponsType == WeaponType.Strength))
-				{
-					return true;
-				}
-				if (player.PlayerItem()?.ArcaneOdyssey() is not null)
-				{
-					return player.PlayerItem().ArcaneOdyssey().WeaponsType == WeaponType.Strength;
-				}
-			}
-			return false;
-		}
+		public override bool MetConditions(Player player) => player.HasItemInInventory(e => ArcaneOdysseyMod.Sets.weaponType[e.type] == WeaponType.Strength);
 	}
 }

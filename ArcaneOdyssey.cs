@@ -16,13 +16,14 @@ using Terraria.ModLoader;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using System.IO;
+using System;
 
 namespace ArcaneOdyssey
 {
 	public class ArcaneOdysseyMod : Mod
 	{
 		/// <summary>
-		/// disable all cooldowns and stuff lmao
+		/// misc dev stuff
 		/// </summary>
 #if VSDEBUGMODE
 		public const bool DevMode = true;
@@ -33,21 +34,19 @@ namespace ArcaneOdyssey
 
 		internal static List<string> NoticeQueue = [];
 
-		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
+		public static ArcaneOdysseyMod Instance;
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
 
-		internal static List<int> excludedItems = [];
-
 		public static bool finishedLoading = false;
 
-		internal static List<int> excludedProjectiles = [];
-
 		/// <param name="args">
-		/// BlacklistProjectile/ExcludeProjectile (<seealso cref="int"/>)
-		/// <para/>BlacklistItem/ExcludeItem (<seealso cref="int"/>)
+		/// ExcludeProjectile (<seealso cref="int"/>)
+		/// <para/>ExcludeItem (<seealso cref="int"/>)
 		/// <para/>AddSizeStat (<seealso cref="int"/>, <seealso cref="int"/>)
 		/// <para/>AddHasteStat (<seealso cref="int"/>, <seealso cref="int"/>)
+		/// <para/>SetItemTemperature (<seealso cref="int"/>, <seealso cref="Nullable"/>{<seealso cref="bool"/>}))
+		/// <para/>SetWeaponType (<seealso cref="int"/>, <seealso cref="int"/> (<seealso cref="WeaponType"/>))
 		/// </param>
 		public override object Call(params object[] args)
 		{
@@ -55,21 +54,27 @@ namespace ArcaneOdyssey
 			{
 				case "BlacklistProjectile":
 				case "ExcludeProjectile":
-					excludedProjectiles.Add((int)args[1]);
+					Sets.excludedProjectile[(int)args[1]] = true;
 					break;
 				case "BlacklistItem":
 				case "ExcludeItem":
-					excludedItems.Add((int)args[1]);
+					Sets.excludedItem[(int)args[1]] = true;
 					break;
 				case "AddSizeStat":
 				case "SetSizeStat":
 				case "SizeStat":
-					Sets.SizeStats[(int)args[1]] = (short)args[2];
+					Sets.SizeStats[(int)args[1]] = (int)args[2];
 					break;
 				case "AddHasteStat":
 				case "SetHasteStat":
 				case "HasteStat":
-					Sets.HasteStats[(int)args[1]] = (short)args[2];
+					Sets.HasteStats[(int)args[1]] = (int)args[2];
+					break;
+				case "SetItemTemperature":
+					Sets.cold[(int)args[1]] = (bool?)args[2];
+					break;
+				case "SetWeaponType":
+					Sets.weaponType[(int)args[1]] = (WeaponType)(int)args[2];
 					break;
 			}
 			return null;
@@ -77,9 +82,8 @@ namespace ArcaneOdyssey
 
 		public override void Load()
 		{
+			Instance = this;
 			finishedLoading = false;
-			excludedItems.Clear();
-			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
 
@@ -93,9 +97,8 @@ namespace ArcaneOdyssey
 
 		public override void Unload()
 		{
+			Instance = null;
 			finishedLoading = false;
-			excludedItems.Clear();
-			excludedProjectiles.Clear();
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
 			GameShaders.Misc[InternalName + ":MagicCircleBase"] = null;
@@ -106,7 +109,6 @@ namespace ArcaneOdyssey
 			this.CoolCustomLocalization("RandomWords.Default");
 			this.CoolCustomLocalization("RandomWords.Unbound");
 			this.CoolCustomLocalization("RandomWords.None");
-			this.CoolCustomLocalization("RandomWords.AnyMaterial");
 			this.CoolCustomLocalization("RandomWords.Help");
 			this.CoolCustomLocalization("RandomWords.Guide");
 			this.CoolCustomLocalization("RandomWords.Press");
@@ -140,7 +142,7 @@ namespace ArcaneOdyssey
 		{
 			/// <summary>
 			/// Create lingering visuals on all clients, best used for item swing visuals
-			/// <para/> Requires two item ids and a rectangle
+			/// <para/> Requires two imbue item ids and a rectangle
 			/// </summary>
 			public const byte LingeringVisuals = 0;
 		}
@@ -175,22 +177,91 @@ namespace ArcaneOdyssey
 		[ReinitializeDuringResizeArrays]
 		public static class Sets
 		{
+			public static bool[] excludedItem = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] excludedProjectile = ProjectileID.Sets.Factory.CreateBoolSet();
 
 			public static int[] OldWeapons = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>()];
 
 			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
 
-			public static short[] SizeStats = AOUtils.CreateShortSet(ItemLoader.ItemCount, 0,
+			public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet(0,
 				ItemID.MoltenBreastplate, 7,
 				ItemID.MoltenGreaves, 5,
 				ItemID.MoltenHelmet, 3
 			);
 
-			public static short[] HasteStats = AOUtils.CreateShortSet(ItemLoader.ItemCount, 0,
+			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0,
 				ItemID.NecroBreastplate, 7,
 				ItemID.NecroGreaves, 5,
 				ItemID.NecroHelmet, 3,
 				ItemID.AncientNecroHelmet, 3
+			);
+
+			/// <summary>
+			/// Leave null for neutral, true for cold, false for hot
+			/// </summary>
+			public static bool?[] cold = ItemID.Sets.Factory.CreateCustomSet<bool?>(null,
+				ItemID.IceSickle, true,
+				ItemID.IceBlade, true,
+				ItemID.Frostbrand, true,
+				ItemID.ChristmasTreeSword, true,
+				ItemID.NorthPole, true,
+				ItemID.Snowball, true,
+				ItemID.SnowballCannon, true,
+				ItemID.FrostDaggerfish, true,
+				ItemID.IceBow, true,
+				ItemID.IceBoomerang, true,
+				ItemID.Flairon, true,
+				ItemID.ElfMelter, true,
+				ItemID.Tsunami, true,
+
+				ItemID.DD2SquireBetsySword, false,
+				ItemID.DD2SquireDemonSword, false,
+				ItemID.ShadowFlameKnife, false,
+				ItemID.FieryGreatsword, false,
+				ItemID.Flamarang, false,
+				ItemID.Sunfury, false,
+				ItemID.FlamingMace, false,
+				ItemID.DayBreak, false,
+				ItemID.MoltenFury, false,
+				ItemID.HellwingBow, false,
+				ItemID.ShadowFlameBow, false,
+				ItemID.SolarEruption, false,
+				ItemID.MolotovCocktail, false,
+				ItemID.PhoenixBlaster, false,
+				ItemID.Flamethrower, false,
+				ItemID.BluePhaseblade, false,
+				ItemID.DD2BetsyBow, false,
+				ItemID.GreenPhaseblade, false,
+				ItemID.OrangePhaseblade, false,
+				ItemID.DD2PhoenixBow, false,
+				ItemID.PurplePhaseblade, false,
+				ItemID.RedPhaseblade, false,
+				ItemID.WhitePhaseblade, false,
+				ItemID.YellowPhaseblade, false,
+				ItemID.GreenPhasesaber, false,
+				ItemID.OrangePhasesaber, false,
+				ItemID.PurplePhasesaber, false,
+				ItemID.WhitePhasesaber, false,
+				ItemID.YellowPhasesaber, false,
+				ItemID.RedPhasesaber, false,
+				ItemID.BluePhasesaber, false,
+				ItemID.HelFire, false,
+				ItemID.Amarok, false,
+				ItemID.Cascade, false,
+				ItemID.MoltenPickaxe, false,
+				ItemID.SolarFlareDrill, false,
+				ItemID.SolarFlarePickaxe, false,
+				ItemID.MeteorHamaxe, false,
+				ItemID.MoltenHamaxe, false,
+				ItemID.LunarHamaxeSolar, false
+			);
+
+			public static WeaponType[] weaponType = ItemID.Sets.Factory.CreateCustomSet(WeaponType.Normal,
+				ItemID.BreakerBlade, WeaponType.Strength,
+				ItemID.Anchor, WeaponType.Strength,
+				ItemID.Zenith, WeaponType.Artisinal
 			);
 
 			public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
@@ -229,6 +300,8 @@ namespace ArcaneOdyssey
 
 			public static bool[] atlanteanItem = ItemID.Sets.Factory.CreateBoolSet();
 
+			public static bool[] shield = ItemID.Sets.Factory.CreateBoolSet();
+
 			[ReinitializeDuringResizeArrays]
 			public static class Assets
 			{
@@ -258,7 +331,7 @@ namespace ArcaneOdyssey
 
 	public class MessageHelper : ModSystem
 	{
-		public override void PostUpdateWorld()
+		public override void PostUpdateEverything()
 		{
 			foreach (string message in ArcaneOdysseyMod.NoticeQueue)
 			{
@@ -266,10 +339,18 @@ namespace ArcaneOdyssey
 			}
 			ArcaneOdysseyMod.NoticeQueue = [];
 		}
+	}
 
+	public class WeaponsLoader : ModSystem
+	{
 		internal static bool InArray(int i)
 		{
 			return ItemID.Sets.Deprecated[i] || ArcaneOdysseyMod.Sets.claw[i] || ArcaneOdysseyMod.Sets.spear[i] || ArcaneOdysseyMod.Sets.dualbladed[i] || ArcaneOdysseyMod.Sets.greatsword[i] || ArcaneOdysseyMod.Sets.dagger[i] || ArcaneOdysseyMod.Sets.staff[i] || ArcaneOdysseyMod.Sets.rapier[i] || ArcaneOdysseyMod.Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || ArcaneOdysseyMod.Sets.greataxe[i] || ArcaneOdysseyMod.Sets.flail[i];
+		}
+
+		public override void SetStaticDefaults()
+		{
+			ExternalModSupport.SetItemAttributes();
 		}
 
 		public override void PostSetupRecipes()
@@ -280,7 +361,7 @@ namespace ArcaneOdyssey
 			{
 				if (ProjectileID.Sets.IsAGravestone[i])
 				{
-					ArcaneOdysseyMod.Sets.tombstone[i] = true; 
+					ArcaneOdysseyMod.Sets.tombstone[i] = true;
 				}
 			}
 
@@ -289,6 +370,11 @@ namespace ArcaneOdyssey
 				if (!InArray(i))
 				{
 					var item = new Item(i);
+
+					if (item.shieldSlot != -1)
+					{
+						ArcaneOdysseyMod.Sets.shield[i] = true;
+					}
 
 					if (item.ModItem is not null)
 					{
@@ -333,7 +419,7 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	#if VSDEBUGMODE
+#if VSDEBUGMODE
 	public class DebugStuff : ModSystem
 	{
 		public static ModKeybind PrintInfo { get; set; }
@@ -348,9 +434,9 @@ namespace ArcaneOdyssey
 			PrintInfo = null;
 		}
 
-		public override void PostUpdateItems()
+		public override void PostUpdateInput()
 		{
-			if (PrintInfo.JustPressed) 
+			if (PrintInfo.JustPressed)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOUtils.BossesKilled) + " " + AOUtils.BossesKilled);
 				ArcaneOdysseyMod.NoticeQueue.Add(nameof(ScrollPitySystem.pity) + " " + ScrollPitySystem.pity);
@@ -365,5 +451,5 @@ namespace ArcaneOdyssey
 			}
 		}
 	}
-	#endif
+#endif
 }

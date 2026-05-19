@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Color ImbueColour => Color.OrangeRed;
 		public override Color ImbueColour2 => Color.Orange;
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
-		public override bool? Cold => false;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override float ScrollSpeed => 1.3f;
 		public override float ScrollSize => 1.2f;

@@ -14,7 +14,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 	public class EmberStaff : SpiritEnergy
 	{
 		public override int Value => 700;
-		public override bool? Cold => false;
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(252, 107, 3);
@@ -28,6 +27,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetStaticDefaults();
 			Item.staff[Type] = true;
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
 		}
 
 		public override void SetDefaults()

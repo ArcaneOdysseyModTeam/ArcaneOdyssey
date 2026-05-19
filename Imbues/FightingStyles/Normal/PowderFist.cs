@@ -15,7 +15,8 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	{
 		public override float Aura => .875f;
 		public override float DashSpeed => 1.2f;
-		public override bool? Cold => false;
+
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;

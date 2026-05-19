@@ -11,7 +11,6 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 	public class LanceofLoyalty : Weapon
 	{
 		public override int Value => 200;
-		public override WeaponType WeaponsType => WeaponType.Strength;
 		public override Color Motif => Color.Gold;
 
 		public override ItemTiers WeaponTier => ItemTiers.Good;
@@ -39,6 +38,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 		{
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LionsHalberd>();
+			ArcaneOdysseyMod.Sets.weaponType[Type] = WeaponType.Strength;
 		}
 
 		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;

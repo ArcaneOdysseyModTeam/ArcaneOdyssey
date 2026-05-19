@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
-		public override bool? Cold => false;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(255, 124, 43);
 		public override Color ImbueColour2 => new(227, 73, 52);

@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -68,8 +67,6 @@ namespace ArcaneOdyssey.Items.Base
 
 		public override ItemType? ItemCategory => ItemType.Weapon;
 
-		public virtual WeaponType WeaponsType => WeaponType.Normal;
-
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 		public Imbuable SecondImbue { get => Item.ArcaneOdyssey()?.SecondImbue; set => Item.ArcaneOdyssey().SecondImbue = value; }
 
@@ -86,26 +83,14 @@ namespace ArcaneOdyssey.Items.Base
 
 		public virtual SoundStyle UseSound => SoundID.Item71;
 
-
-		/// <summary>
-		/// Leave null for neutral, true for cold, false for hot
-		/// </summary>
-		public virtual bool? Cold => null;
-
-		public override void SetStaticDefaults()
-		{
-			if (WeaponsType == WeaponType.Strength)
-				ItemID.Sets.UsesBetterMeleeItemLocation[Type] = true;
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useTime = Item.useAnimation = (27 * (Speed.FlipFloat() * Speed.FlipFloat())).Round();
-			Item.knockBack = 4.5f * (Size * Size);
-			Item.scale = Size * Size;
-			Item.UseSound = UseSound with { Pitch = (Speed * Speed).MultiToPercent().Clamp(-1, 1) };
-			Item.damage = (int)Math.Round(AOUtils.WeaponDamage(WeaponTier) * (Damage * Damage));
+			Item.useTime = Item.useAnimation = (27 * Speed.FlipFloat().Pow()).Round();
+			Item.knockBack = 4.5f * Size.Pow();
+			Item.scale = Size.Pow();
+			Item.UseSound = UseSound with { Pitch = Speed.Pow().MultiToPercent().Clamp(-1, 1) };
+			Item.damage = (22 * (int)WeaponTier * Damage.Pow()).Round();
 			Item.DamageType = DamageClass.Melee;
 		}
 	}

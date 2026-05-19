@@ -14,7 +14,6 @@ using ArcaneOdyssey.Rarities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ReLogic.Reflection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -293,28 +292,6 @@ namespace ArcaneOdyssey
 				}
 			}
 			return false;
-		}
-
-		public static short[] CreateShortSet(int size, short defaultState, params short[] inputs)
-		{
-
-			short[] ushortBuffer = new short[size];
-			for (int i = 0; i < ushortBuffer.Length; i++)
-			{
-				ushortBuffer[i] = defaultState;
-			}
-
-			if (inputs.Length % 2 == 0)
-			{
-				for (int j = 0; j < inputs.Length; j += 2)
-				{
-					if (!ArcaneOdysseyMod.finishedLoading && inputs[j] >= size)
-						continue;
-					ushortBuffer[inputs[j]] = inputs[j + 1];
-				}
-			}
-
-			return ushortBuffer;
 		}
 
 		public static bool NPCAlive<T>(out NPC found) where T : ModNPC
@@ -933,7 +910,7 @@ namespace ArcaneOdyssey
 
 		public static float Pow(this int num, float raise = 2) => MathF.Pow(num, raise);
 
-		public static float Pow(this float num, float raise = 2) => MathF.Pow(num, raise);
+		public static float Pow(this float num, float raise = 2f) => MathF.Pow(num, raise);
 
 		public static Tile GetTile(Point point) => GetTile(point.X, point.Y);
 		public static Tile GetTile(Point16 point) => GetTile(point.X, point.Y);
@@ -1372,7 +1349,7 @@ namespace ArcaneOdyssey
 			{
 				int count = 0;
 				List<bool> conditions = [];
-				conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.DownedWorldEater, DownedBosses.DownedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
+				conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
 				if (ExternalModSupport.HasCalamity)
 				{
 					string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
@@ -1590,15 +1567,6 @@ namespace ArcaneOdyssey
 		/// <param name="price">Price, in Galleons</param>
 		/// <returns></returns>
 		public static int GalleonToCopper(int price) => Item.sellPrice(silver: price);
-
-
-		/// <summary>
-		/// Converts AO weapon damage to Terraria damage. Scales very heavily with weapon tier
-		/// </summary>
-		/// <param name="AODamage">AO weapon damage multiplier</param>
-		/// <param name="AOWeaponTier">AO weapon tier, use <see cref="ItemTiers"/></param>
-		/// <returns></returns>
-		public static float WeaponDamage(ItemTiers AOWeaponTier) => 22 * (int)AOWeaponTier;
 
 		public static Vector2 Centre(this Gore gore, Vector2? newCentre)
 		{

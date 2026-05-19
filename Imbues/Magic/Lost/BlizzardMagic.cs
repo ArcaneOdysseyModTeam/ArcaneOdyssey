@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override float Aura => .9f;
 		public override float? DashResist => 1.075f;
-		public override bool? Cold => true;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => Color.DarkGray;
 		public override Color ImbueColour2 => Color.White;

@@ -346,7 +346,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
 				{
-					DownedBosses.DownedEnragedEmpress = true;
+					DownedBosses.downedEnragedEmpress = true;
 					if (Main.dedServ)
 					{
 						NetMessage.SendData(MessageID.WorldData);
@@ -356,9 +356,9 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsTail || npc.type == NPCID.EaterofWorldsBody) && !AOUtils.EoWStillAlive)
 			{
-				if (!DownedBosses.DownedWorldEater)
+				if (!DownedBosses.downedWorldEater)
 				{
-					DownedBosses.DownedWorldEater = true;
+					DownedBosses.downedWorldEater = true;
 					if (Main.dedServ)
 					{
 						NetMessage.SendData(MessageID.WorldData);
@@ -368,7 +368,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (npc.type == NPCID.BrainofCthulhu)
 			{
-				DownedBosses.DownedBrain = true;
+				DownedBosses.downedBrain = true;
 				if (Main.dedServ)
 				{
 					NetMessage.SendData(MessageID.WorldData);

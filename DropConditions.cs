@@ -53,7 +53,7 @@ namespace ArcaneOdyssey
 
 	public class FirstDayEmpressKill : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.DownedEnragedEmpress && info.npc.AI_120_HallowBoss_IsGenuinelyEnraged();
+		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEnragedEmpress && info.npc.AI_120_HallowBoss_IsGenuinelyEnraged();
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstDayEmpressKillDescription", () => "First Enraged Empress of Light Defeated").Value;
 	}

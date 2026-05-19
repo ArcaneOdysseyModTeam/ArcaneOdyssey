@@ -13,6 +13,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class EnergyMagic : MagicType
 	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.mana = 0;
+		}
+
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Yellow;

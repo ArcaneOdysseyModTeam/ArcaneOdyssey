@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<StormMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst
-		public override bool? Cold => true;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override Color ImbueColour => new(0, 30, 255);
 		public override float ImbueSpeed => 1f;
 		public override float ImbueSize => 1.22f;

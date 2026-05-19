@@ -15,9 +15,11 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	{
 		public override float Aura => .875f;
 		public override float DashSpeed => BarValue > (BarMax / 2) ? 1.2f : 1f; // burst?
-		public override bool? Cold => true;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override Color ImbueColour => Color.CornflowerBlue;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
+
+		public override bool SaveBar => true;
 
 		public override float BarValueMulti => 1.25f;
 		public override float MaxImbueSpeed => 1f;

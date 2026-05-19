@@ -43,7 +43,7 @@ namespace ArcaneOdyssey
 		private static IItemDropRule GetShadowDiamondDropRule(int normal = 1, int expert = -1)
 		{
 			return (IItemDropRule)MS.Call(
-			
+
 				"Get Shadow Diamond Drop Rule",
 				normal,
 				expert
@@ -97,8 +97,7 @@ namespace ArcaneOdyssey
 
 		public static void RegisterDebuff(ModBuff buff)
 		{
-			var call = (NPC e) => e.HasBuff(buff.Type);
-			Calamity?.Call("RegisterDebuff", buff.Texture, call);
+			Calamity?.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
 		}
 
 		public static void RegisterDoT(int type)
@@ -365,221 +364,418 @@ namespace ArcaneOdyssey
 			});
 		}
 
-		public static bool? CheckItemTemperature(ModItem item)
+		public static void SetItemAttributes()
 		{
-			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
+			foreach (var item in ModContent.GetContent<ModItem>())
 			{
-				switch (item.Name)
+				if (item.Mod.Name == "ThoriumMod")
 				{
-					case "AbsoluteZero":
-					case "AbyssBlade":
-					case "AmidiasTrident":
-					case "Avalanche":
-					case "BrinyBaron":
-					case "DepthCrusher":
-					case "Floodtide":
-					case "NeptunesBounty":
-					case "Riptide":
-					case "SeashineSword":
-					case "Shimmerspark":
-					case "StarnightLance":
-					case "TenebreusTides":
-					case "TyphonsGreed":
-					case "UrchinMace":
-					case "Alluvion":
-					case "AquashardShotgun":
-					case "Archerfish":
-					case "DarkechoGreatbow":
-					case "EternalBlizzard":
-					case "FlakKraken":
-					case "FlurrystormCannon":
-					case "FrostbiteBlaster":
-					case "HoarfrostBow":
-					case "Leviatitan":
-					case "Megalodon":
-					case "Monsoon":
-					case "SDFMG":
-					case "Seadragon":
-					case "SeasSearing":
-					case "TheMaelstrom":
-					case "ShardlightPickaxe":
-					case "AbyssalWarhammer":
-					case "HalleysInferno":
-						return true;
-					case "AegisBlade":
-					case "AnarchyBlade":
-					case "BalefulHarvester":
-					case "Brimlance":
-					case "Brimlash":
-					case "BrimstoneSword":
-					case "BurningRevelation":
-					case "DevilsSunrise":
-					case "DraconicDestruction":
-					case "DragonPow":
-					case "DragonRage":
-					case "EssenceFlayer":
-					case "FaultLine":
-					case "HellfireFlamberge":
-					case "HolyCollider":
-					case "MawOfInfinity":
-					case "Mourningstar":
-					case "OldLordClaymore":
-					case "SeekingScorcher":
-					case "StreamGouge":
-					case "TheBurningSky":
-					case "UltimusCleaver":
-					case "VulcaniteLance":
-					case "AuroraBlazer":
-					case "BlissfulBombardier":
-					case "BloodBoiler":
-					case "BrimstoneFury":
-					case "ChickenCannon":
-					case "ChromaticEruption":
-					case "ContinentalGreatbow":
-					case "DaemonsFlame":
-					case "DeadSunsWind":
-					case "DragonsBreath":
-					case "Drataliornus":
-					case "FirestormCannon":
-					case "FlarewingBow":
-					case "HavocsBreath":
-					case "Hellborn":
-					case "Helstorm":
-					case "MagnomalyCannon":
-					case "Meowthrower":
-					case "PristineFury":
-					case "TelluricGlare":
-					case "DragoonDrizzlefish":
-					case "WildfireBloom":
-					case "InfernaCutter":
-					case "SeismicHampick":
-					case "TectonicTruncator":
-						return false;
-				}
-			}
-			if (item.Mod.Name == "ThoriumMod")
-			{
-				if (item.Name == "StellarSystem")
-				{
-					//save progress
+					switch (item.GetType().Namespace.Split('.')[^1])
+					{
+						case "Icy":
+							ArcaneOdysseyMod.Sets.cold[item.Type] = true;
+							return;
+					}
 				}
 
-				switch (item.Name)
+				string[] strength = [
+						"CalamityMod/ClockworkBow",
+						"CalamityMod/FlakKraken",
+						"CalamityMod/HandheldTank",
+						"CalamityMod/MarksmanBow",
+						"CalamityMod/Roxcalibur",
+						"CalamityMod/DeepcoreGK2",
+						"CalamityMod/AnarchyBlade",
+						"CalamityMod/GrandGuardian",
+						"CalamityMod/HolyCollider",
+						"CalamityMod/MajesticGuard",
+						"CalamityMod/Karasawa",
+						"CalamityMod/GrandDad",
+						"ThoriumMod/TerrariansLastKnife",
+						"ThoriumMod/WyvernSlayer",
+						"ThoriumMod/QuakeGauntlet"];
+
+				string[] arcanium = [
+						"CalamityMod/PrismaticBreaker",
+						"CalamityMod/TheBurningSky"];
+
+				string[] artisinal = [
+						"CalamityMod/TrueBiomeBlade",
+						"CalamityMod/BrokenBiomeBlade",
+						"CalamityMod/OmegaBiomeBlade",
+						"CalamityMod/Galaxia",
+						"CalamityMod/FourSeasonsGalaxia",
+						"CalamityMod/ArkoftheCosmos",
+						"CalamityMod/ArkoftheElements",
+						"CalamityMod/FracturedArk",
+						"CalamityMod/SkytideDragoon",
+						"CalamityMod/Earth",
+						"CalamityMod/TrueArkoftheAncients",
+						"CalamityMod/Orderbringer",
+						"CalamityMod/GreatswordofJudgement",
+						"ThoriumMod/MastersLibram",
+						"ThoriumMod/QuasarsFlare",
+						"ThoriumMod/SnowWhite",
+						"ThoriumMod/StellarSystem",
+						"ThoriumMod/UselessStaff",
+						"ThoriumMod/WondrousWand",
+						"ThoriumMod/EclipseFang"];
+
+				foreach (var strong in strength)
 				{
-					case "HydroPump":
-					case "TheWhirlpool":
-					case "Chum":
-					case "WhirlpoolSaber":
-					case "IcyGaze":
-					case "DeitysTrefork":
-					case "OceansJudgement":
-					case "SevenSeasDevastator":
-					case "TidalWave":
-					case "SeahorseWand":
-					case "BlobhornCoralStaff":
-					case "GeyserStaff":
-					case "SeaFoamScepter":
-					case "ClimbersIceAxe":
-					case "SpiritBreaker":
-					case "Freeze":
-					case "NitrogenVial":
-						return true;
-					case "TheSeaMine":
-					case "GodKiller":
-					case "AlmanacofAgony":
-					case "DevilsClaw":
-					case "EmberStaff":
-					case "PrometheanStaff":
-					case "DraconicMagmaStaff":
-					case "EruptingFlare":
-					case "EssenceofFlame":
-					case "GoldenLocks":
-					case "GolemsGaze":
-					case "HellishHalberd":
-					case "HellfireMinigun":
-					case "ObsidianStaff":
-					case "InfernalAnimator":
-					case "TheMassacre":
-					case "Ignite":
-					case "InfernoStaff":
-					case "DoomFireAxe":
-					case "SolScorchedSlab":
-					case "CinderString":
-					case "CometCrossfire":
-					case "MeteorHeadStaff":
-					case "CombustionFlask":
-					case "MoltenKnife":
-					case "MeteoriteClusterBomb":
-					case "PlasmaVial":
-						return false;
+					if (ModContent.TryFind<ModItem>(strong, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.weaponType[item.Type] = WeaponType.Strength;
+						}
+					}
 				}
 
-				switch (item.GetType().Namespace.Split('.')[^1])
+				foreach (var artisan in artisinal)
 				{
-					case "Icy":
-						return true;
+					if (ModContent.TryFind<ModItem>(artisan, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.weaponType[item.Type] = WeaponType.Artisinal;
+						}
+					}
 				}
-			}
-			return null;
-		}
 
-		public static WeaponType CheckWeaponsType(ModItem item)
-		{
-			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
-			{
-				switch (item.Name)
+				foreach (var arc in arcanium)
 				{
-					case "ClockworkBow":
-					case "FlakKraken":
-					case "HandheldTank":
-					case "MarksmanBow":
-					case "Roxcalibur":
-					case "DeepcoreGK2":
-					case "AnarchyBlade":
-					case "GrandGuardian":
-					case "HolyCollider":
-					case "MajesticGuard":
-					case "Karasawa":
-					case "GrandDad":
-						return WeaponType.Strength;
-					case "PrismaticBreaker":
-					case "TheBurningSky":
-						return WeaponType.Arcanium;
-					case "TrueBiomeBlade":
-					case "BrokenBiomeBlade":
-					case "OmegaBiomeBlade":
-					case "Galaxia":
-					case "FourSeasonsGalaxia":
-					case "ArkoftheCosmos":
-					case "ArkoftheElements":
-					case "FracturedArk":
-					case "SkytideDragoon":
-					case "Earth":
-					case "TrueArkoftheAncients":
-					case "Orderbringer":
-					case "GreatswordofJudgement":
-						return WeaponType.Artisinal;
+					if (ModContent.TryFind<ModItem>(arc, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.weaponType[item.Type] = WeaponType.Arcanium;
+						}
+					}
+				}
+
+				string[] cold = ["CalamityMod/AbsoluteZero",
+					"CalamityMod/AbyssBlade",
+					"CalamityMod/AmidiasTrident",
+					"CalamityMod/Avalanche",
+					"CalamityMod/BrinyBaron",
+					"CalamityMod/DepthCrusher",
+					"CalamityMod/Floodtide",
+					"CalamityMod/NeptunesBounty",
+					"CalamityMod/Riptide",
+					"CalamityMod/SeashineSword",
+					"CalamityMod/Shimmerspark",
+					"CalamityMod/StarnightLance",
+					"CalamityMod/TenebreusTides",
+					"CalamityMod/TyphonsGreed",
+					"CalamityMod/UrchinMace",
+					"CalamityMod/Alluvion",
+					"CalamityMod/AquashardShotgun",
+					"CalamityMod/Archerfish",
+					"CalamityMod/DarkechoGreatbow",
+					"CalamityMod/EternalBlizzard",
+					"CalamityMod/FlakKraken",
+					"CalamityMod/FlurrystormCannon",
+					"CalamityMod/FrostbiteBlaster",
+					"CalamityMod/HoarfrostBow",
+					"CalamityMod/Leviatitan",
+					"CalamityMod/Megalodon",
+					"CalamityMod/Monsoon",
+					"CalamityMod/SDFMG",
+					"CalamityMod/Seadragon",
+					"CalamityMod/SeasSearing",
+					"CalamityMod/TheMaelstrom",
+					"CalamityMod/ShardlightPickaxe",
+					"CalamityMod/AbyssalWarhammer",
+					"CalamityMod/HalleysInferno",
+					"ThoriumMod/HydroPump",
+					"ThoriumMod/TheWhirlpool",
+					"ThoriumMod/Chum",
+					"ThoriumMod/WhirlpoolSaber",
+					"ThoriumMod/IcyGaze",
+					"ThoriumMod/DeitysTrefork",
+					"ThoriumMod/OceansJudgement",
+					"ThoriumMod/SevenSeasDevastator",
+					"ThoriumMod/TidalWave",
+					"ThoriumMod/SeahorseWand",
+					"ThoriumMod/BlobhornCoralStaff",
+					"ThoriumMod/GeyserStaff",
+					"ThoriumMod/SeaFoamScepter",
+					"ThoriumMod/ClimbersIceAxe",
+					"ThoriumMod/SpiritBreaker",
+					"ThoriumMod/Freeze",
+					"ThoriumMod/NitrogenVial",];
+
+				string[] hot = [
+						"CalamityMod/AegisBlade",
+					"CalamityMod/AnarchyBlade",
+					"CalamityMod/BalefulHarvester",
+					"CalamityMod/Brimlance",
+					"CalamityMod/Brimlash",
+					"CalamityMod/BrimstoneSword",
+					"CalamityMod/BurningRevelation",
+					"CalamityMod/DevilsSunrise",
+					"CalamityMod/DraconicDestruction",
+					"CalamityMod/DragonPow",
+					"CalamityMod/DragonRage",
+					"CalamityMod/EssenceFlayer",
+					"CalamityMod/FaultLine",
+					"CalamityMod/HellfireFlamberge",
+					"CalamityMod/HolyCollider",
+					"CalamityMod/MawOfInfinity",
+					"CalamityMod/Mourningstar",
+					"CalamityMod/OldLordClaymore",
+					"CalamityMod/SeekingScorcher",
+					"CalamityMod/StreamGouge",
+					"CalamityMod/TheBurningSky",
+					"CalamityMod/UltimusCleaver",
+					"CalamityMod/VulcaniteLance",
+					"CalamityMod/AuroraBlazer",
+					"CalamityMod/BlissfulBombardier",
+					"CalamityMod/BloodBoiler",
+					"CalamityMod/BrimstoneFury",
+					"CalamityMod/ChickenCannon",
+					"CalamityMod/ChromaticEruption",
+					"CalamityMod/ContinentalGreatbow",
+					"CalamityMod/DaemonsFlame",
+					"CalamityMod/DeadSunsWind",
+					"CalamityMod/DragonsBreath",
+					"CalamityMod/Drataliornus",
+					"CalamityMod/FirestormCannon",
+					"CalamityMod/FlarewingBow",
+					"CalamityMod/HavocsBreath",
+					"CalamityMod/Hellborn",
+					"CalamityMod/Helstorm",
+					"CalamityMod/MagnomalyCannon",
+					"CalamityMod/Meowthrower",
+					"CalamityMod/PristineFury",
+					"CalamityMod/TelluricGlare",
+					"CalamityMod/DragoonDrizzlefish",
+					"CalamityMod/WildfireBloom",
+					"CalamityMod/InfernaCutter",
+					"CalamityMod/SeismicHampick",
+					"CalamityMod/TectonicTruncator",
+					"ThoriumMod/TheSeaMine",
+					"ThoriumMod/GodKiller",
+					"ThoriumMod/AlmanacofAgony",
+					"ThoriumMod/DevilsClaw",
+					"ThoriumMod/EmberStaff",
+					"ThoriumMod/PrometheanStaff",
+					"ThoriumMod/DraconicMagmaStaff",
+					"ThoriumMod/EruptingFlare",
+					"ThoriumMod/EssenceofFlame",
+					"ThoriumMod/GoldenLocks",
+					"ThoriumMod/GolemsGaze",
+					"ThoriumMod/HellishHalberd",
+					"ThoriumMod/HellfireMinigun",
+					"ThoriumMod/ObsidianStaff",
+					"ThoriumMod/InfernalAnimator",
+					"ThoriumMod/TheMassacre",
+					"ThoriumMod/Ignite",
+					"ThoriumMod/InfernoStaff",
+					"ThoriumMod/DoomFireAxe",
+					"ThoriumMod/SolScorchedSlab",
+					"ThoriumMod/CinderString",
+					"ThoriumMod/CometCrossfire",
+					"ThoriumMod/MeteorHeadStaff",
+					"ThoriumMod/CombustionFlask",
+					"ThoriumMod/MoltenKnife",
+					"ThoriumMod/MeteoriteClusterBomb",
+					"ThoriumMod/PlasmaVial"];
+
+				foreach (var colditem in cold)
+				{
+					if (ModContent.TryFind<ModItem>(colditem, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.cold[item.Type] = false;
+						}
+					}
+				}
+
+				foreach (var hotitem in hot)
+				{
+					if (ModContent.TryFind<ModItem>(hotitem, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.cold[item.Type] = true;
+						}
+					}
+				}
+
+
+				string[] greatswords = [
+					"CalamityMod/AegisBlade",
+				"CalamityMod/AnarchyBlade",
+				"CalamityMod/Ataraxia",
+				"CalamityMod/BlightedCleaver",
+				"CalamityMod/CelestialClaymore",
+				"CalamityMod/CometQuasher",
+				"CalamityMod/DevilsDevastation",
+				"CalamityMod/DraconicDestruction",
+				"CalamityMod/Earth",
+				"CalamityMod/GalactusBlade",
+				"CalamityMod/GrandDad",
+				"CalamityMod/GrandGuardian",
+				"CalamityMod/Hellkite",
+				"CalamityMod/HolyCollider",
+				"CalamityMod/MajesticGuard",
+				"CalamityMod/Roxcalibur",
+				"CalamityMod/StellarStriker",
+				"CalamityMod/StormRuler",
+				"CalamityMod/TheMutilator",
+				"CalamityMod/VoidEdge",
+				"ThoriumMod/WyvernSlayer"];
+
+				string[] greataxes = [
+					"CalamityMod/Avalanche",
+				"CalamityMod/SeekingScorcher",
+				"ThoriumMod/LodeStoneGreatAxe",];
+
+				string[] daggers = [
+					"CalamityMod/EmpyreanKnives",
+				"CalamityMod/IllustriousKnives",
+				"CalamityMod/TheDarkMaster"];
+
+				string[] greathammer = [
+					"CalamityMod/FallenPaladinsHammer",
+				"CalamityMod/GalaxySmasher",
+				"CalamityMod/Pwnagehammer",
+				"CalamityMod/StellarContempt",
+				"CalamityMod/TriactisTruePaladinianMageHammerofMight",
+				"ThoriumMod/MagicThorHammer",
+				"ThoriumMod/RangedThorHammer",
+				"ThoriumMod/MeleeThorHammer",];
+
+				string[] spears = [
+					"CalamityMod/GildedProboscis",
+				"CalamityMod/SkytideDragoon",
+				"CalamityMod/StreamGouge",
+				"CalamityMod/TheBurningSky",
+				"CalamityMod/Violence",
+				"ThoriumMod/Spearmint"
+					];
+
+				string[] dualblades = [
+					"CalamityMod/SaharaSlicers"];
+
+				string[] staffs = [
+					"CalamityMod/TyphonsGreed"];
+
+				string[] rapiers = ["ThoriumMod/Rapier"];
+
+				string[] claws = ["ThoriumMod/BloodyHighClaws"];
+
+
+				foreach (var igotlazy in greatswords)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.greatsword[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in greataxes)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.greataxe[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in greathammer)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.greathammer[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in daggers)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.dagger[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in rapiers)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.rapier[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in dualblades)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.dualbladed[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in claws)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.claw[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in spears)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.spear[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in staffs)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.staff[item.Type] = true;
+						}
+					}
 				}
 			}
-			if (item.Mod.Name == "ThoriumMod")
-			{
-				switch (item.Name)
-				{
-					case "MastersLibram":
-					case "QuasarsFlare":
-					case "SnowWhite":
-					case "StellarSystem":
-					case "UselessStaff":
-					case "WondrousWand":
-					case "EclipseFang":
-						return WeaponType.Artisinal;
-					case "TerrariansLastKnife":
-					case "WyvernSlayer":
-					case "QuakeGauntlet":
-						return WeaponType.Strength;
-				}
-			}
-			return WeaponType.Normal;
 		}
 
 		public static void CheckWeapon(ModItem item)
@@ -602,86 +798,6 @@ namespace ArcaneOdyssey
 				{
 					ArcaneOdysseyMod.Sets.claw[item.Type] = true;
 				}
-				switch (item.Name)
-				{
-					case "AegisBlade":
-					case "AnarchyBlade":
-					case "Ataraxia":
-					case "BlightedCleaver":
-					case "CelestialClaymore":
-					case "CometQuasher":
-					case "DevilsDevastation":
-					case "DraconicDestruction":
-					case "Earth":
-					case "GalactusBlade":
-					case "GrandDad":
-					case "GrandGuardian":
-					case "Hellkite":
-					case "HolyCollider":
-					case "MajesticGuard":
-					case "Roxcalibur":
-					case "StellarStriker":
-					case "StormRuler":
-					case "TheMutilator":
-					case "VoidEdge":
-						ArcaneOdysseyMod.Sets.greatsword[item.Type] = true;
-						break;
-					case "Avalanche":
-					case "SeekingScorcher":
-						ArcaneOdysseyMod.Sets.greataxe[item.Type] = true;
-						break;
-					case "EmpyreanKnives":
-					case "IllustriousKnives":
-					case "TheDarkMaster":
-						ArcaneOdysseyMod.Sets.dagger[item.Type] = true;
-						break;
-					case "FallenPaladinsHammer":
-					case "GalaxySmasher":
-					case "Pwnagehammer":
-					case "StellarContempt":
-					case "TriactisTruePaladinianMageHammerofMight":
-						ArcaneOdysseyMod.Sets.greathammer[item.Type] = true;
-						break;
-					case "GildedProboscis":
-					case "SkytideDragoon":
-					case "StreamGouge":
-					case "TheBurningSky":
-					case "Violence":
-						ArcaneOdysseyMod.Sets.spear[item.Type] = true;
-						break;
-					case "SaharaSlicers":
-						ArcaneOdysseyMod.Sets.dualbladed[item.Type] = true;
-						break;
-					case "TyphonsGreed":
-						ArcaneOdysseyMod.Sets.staff[item.Type] = true;
-						break;
-				}
-			}
-			if (item.Mod.Name == "ThoriumMod")
-			{
-				switch (item.Name)
-				{
-					case "Rapier":
-						ArcaneOdysseyMod.Sets.rapier[item.Type] = true;
-						break;
-					case "BloodyHighClaws":
-						ArcaneOdysseyMod.Sets.claw[item.Type] = true;
-						break;
-					case "Spearmint":
-						ArcaneOdysseyMod.Sets.spear[item.Type] = true;
-						break;
-					case "WyvernSlayer":
-						ArcaneOdysseyMod.Sets.greatsword[item.Type] = true;
-						break;
-					case "MagicThorHammer":
-					case "RangedThorHammer":
-					case "MeleeThorHammer":
-						ArcaneOdysseyMod.Sets.greathammer[item.Type] = true;
-						break;
-					case "LodeStoneGreatAxe":
-						ArcaneOdysseyMod.Sets.greataxe[item.Type] = true;
-						break;
-				}
 			}
 		}
 	}
@@ -690,7 +806,7 @@ namespace ArcaneOdyssey
 	{
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (ExternalModSupport.HasCalamity) 
+			if (ExternalModSupport.HasCalamity)
 			{
 				if (item.ModItem?.Mod == Mod)
 				{
@@ -699,7 +815,7 @@ namespace ArcaneOdyssey
 					{
 						master.Text = Language.GetTextValue("Mods.CalamityMod.Vanilla.MasterExclusive");
 					}
-				} 
+				}
 			}
 		}
 	}
