@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.YellowStarDust);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.YellowStarDust);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}
@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(player.position, player.Hitbox.Width, player.Hitbox.Height, DustID.YellowStarDust);
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.YellowStarDust);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}

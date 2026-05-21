@@ -230,6 +230,7 @@ Projectiles: {
 		LaelusBlast.DisplayName: Spirit Blast
 		LaelusExplosion.DisplayName: Spirit Burst
 		DuskBeam.DisplayName: Nichtetheis
+		Effects.EvilSun.DisplayName: Evil Sun
 	}
 
 	Pets: {

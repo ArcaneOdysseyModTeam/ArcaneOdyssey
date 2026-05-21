@@ -2,11 +2,15 @@
 using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Relics
 {
@@ -47,6 +51,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public virtual GodSoulID[] SoulSynergies => [];
 		public virtual GodSoulID[] UnstableSouls => [];
 
+		/// <summary>
+		/// true is stable, false is unstable
+		/// </summary>
 		public bool? Stability
 		{
 			get
@@ -59,10 +66,47 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
+		public override void NetSend(BinaryWriter writer)
+		{
+			base.NetSend(writer);
+			writer.Write((byte)Soul);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			base.NetReceive(reader);
+			Soul = (GodSoulID)reader.ReadByte();
+		}
+
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
 			base.Update(ref gravity, ref maxFallSpeed);
 			Soul = GodSoulID.None;
+		}
+
+		public static Asset<Texture2D> synergyAsset;
+		public static Asset<Texture2D> unstableAsset;
+
+		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			if (Stability.HasValue)
+			{
+				Asset<Texture2D> image;
+				float indscale = 1f;
+				if (Stability.Value)
+				{
+					image = AOUtils.Request(ArcaneOdysseyMod.InternalName + "/Assets/GodSoulSynergy", ref synergyAsset, AssetRequestMode.ImmediateLoad);
+					indscale = 1.1f;
+				}
+				else
+				{
+					image = AOUtils.Request(ArcaneOdysseyMod.InternalName + "/Assets/GodSoulUnstable", ref unstableAsset, AssetRequestMode.ImmediateLoad);
+				}
+
+				spriteBatch.Draw(image.Value, position, null, Item.GetAlpha(Color.White * Main.inventoryScale), 0f, image.Size() / 2f, Main.inventoryScale * indscale, SpriteEffects.None, 1f);
+			}
+
+			return true;
 		}
 
 		public override void UpdateInventory(Player player)
@@ -339,6 +383,21 @@ namespace ArcaneOdyssey.Imbues.Relics
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustType, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Alpha: 255 / 4, newColor: ImbueColour, Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
+		}
+
+		public override void SaveData(TagCompound tag)
+		{
+			base.SaveData(tag);
+			if (Soul != GodSoulID.None)
+			{
+				tag.Add("soul", (byte)Soul);
+			}
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			base.LoadData(tag);
+			Soul = (GodSoulID)tag.GetByte("soul");
 		}
 	}
 }

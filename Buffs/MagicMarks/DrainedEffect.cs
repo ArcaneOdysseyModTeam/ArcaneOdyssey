@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.Wraith);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Wraith);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}
@@ -61,6 +61,13 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 
 		public override void Update(Player player, ref int buffIndex)
 		{
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Wraith);
+				dust.velocity *= 0.1f;
+				dust.noGravity = true;
+			}
+
 			if (player.buffTime[buffIndex] <= 60 * 5)
 			{
 				player.blind = true;

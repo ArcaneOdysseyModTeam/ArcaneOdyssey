@@ -410,12 +410,12 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
 				{
-					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .5f, 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
+					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, item.GetAlpha(Color.White * .5f * Main.inventoryScale), 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
 				}
 
 				if (AtlanteanApplied)
 				{
-					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Color.White * .75f, 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
+					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, item.GetAlpha(Color.White * .75f * Main.inventoryScale), 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
 				}
 			}
 

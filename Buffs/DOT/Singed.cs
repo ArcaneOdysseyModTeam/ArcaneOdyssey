@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 			if (!Main.dedServ)
 			{
-				Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
+				Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
 			}
 		}
 
@@ -47,6 +47,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 		{
 			stack = AOUtils.GetAOBuffStack(player, buffIndex); // stacks disappear over time
 			player.ArcaneOdyssey().singe = stack;
+
+			if (!Main.dedServ)
+			{
+				Dust.NewDustDirect(player.position, player.width, player.height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
+			}
 		}
 	}
 }

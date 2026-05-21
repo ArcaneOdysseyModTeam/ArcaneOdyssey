@@ -16,7 +16,23 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			}
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.Ash, 0f, 0f, 1, default, 1f);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Ash);
+				dust.velocity *= 0.1f;
+				dust.noGravity = true;
+			}
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			if (player.wet && !player.lavaWet)
+			{
+				player.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Ash);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}

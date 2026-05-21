@@ -119,11 +119,7 @@ Accessories: {
 
 	ThunderingCape: {
 		DisplayName: Thundering Cape
-		Tooltip:
-			'''
-			Lightning randomly strikes, scaling with luck
-			Disabling visibilty makes lightning invisible
-			'''
+		Tooltip: Lightning randomly strikes, scaling with luck
 	}
 }
 

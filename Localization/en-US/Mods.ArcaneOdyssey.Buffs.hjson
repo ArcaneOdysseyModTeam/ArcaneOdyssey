@@ -12,6 +12,7 @@ DOT: {
 	HeavyBleed: {
 		DisplayName: Severe Bleeding
 		Description: You might have an artery leaking
+		Death: "{0}'s wounds exploded."
 	}
 
 	IonizedEffect: {
@@ -106,6 +107,7 @@ Helpers: {
 	AncientLightingChain: {
 		DisplayName: Ancient Lighting Chain
 		Description: Ancient Lightning streaks between enemies
+		Death: "{0} was annihilated."
 	}
 
 	ProminenceDebuff: {

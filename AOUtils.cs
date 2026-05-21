@@ -46,50 +46,44 @@ namespace ArcaneOdyssey
 		}
 
 		internal static List<string> options = [
-			"Terraria FavoriteDesc",
-			"Terraria NoTransfer",
-			"Terraria SocialDesc",
-			"Terraria Damage",
-			"Terraria CritChance",
-			"Terraria Speed",
-			"Terraria NoSpeedScaling",
-			"Terraria SpecialSpeedScaling",
-			"Terraria Knockback",
-			"Terraria FishingPower",
-			"Terraria NeedsBait",
-			"Terraria BaitPower",
-			"Terraria Equipable",
-			"Terraria WandConsumes",
-			"Terraria Quest",
-			"Terraria Vanity",
-			"Terraria Defense",
-			"Terraria PickPower",
-			"Terraria AxePower",
-			"Terraria HammerPower",
-			"Terraria TileBoost",
-			"Terraria HealLife",
-			"Terraria HealMana",
-			"Terraria UseMana",
-			"Terraria Placeable",
-			"Terraria Ammo",
-			"Terraria Consumable",
-			"Terraria Material",
-			"Terraria Tooltip",
+			"Terraria/FavoriteDesc",
+			"Terraria/NoTransfer",
+			"Terraria/SocialDesc",
+			"Terraria/Damage",
+			"Terraria/CritChance",
+			"Terraria/Speed",
+			"Terraria/NoSpeedScaling",
+			"Terraria/SpecialSpeedScaling",
+			"Terraria/Knockback",
+			"Terraria/FishingPower",
+			"Terraria/NeedsBait",
+			"Terraria/BaitPower",
+			"Terraria/Equipable",
+			"Terraria/WandConsumes",
+			"Terraria/Quest",
+			"Terraria/Vanity",
+			"Terraria/Defense",
+			"Terraria/PickPower",
+			"Terraria/AxePower",
+			"Terraria/HammerPower",
+			"Terraria/TileBoost",
+			"Terraria/HealLife",
+			"Terraria/HealMana",
+			"Terraria/UseMana",
+			"Terraria/Placeable",
+			"Terraria/Ammo",
+			"Terraria/Consumable",
+			"Terraria/Material",
+			"Terraria/Tooltip",
 		];
 
-		public static Vector2 Add(this Vector2 vec, float add)
-		{
-			return vec.SafeNormalize() * (vec.Length() + add);
-		}
+		public static Vector2 Add(this Vector2 vec, float add) => vec.SafeNormalize() * (vec.Length() + add);
 
 		public static Vector2 SafeNormalize(this Vector2 vector) => vector.SafeNormalize(Vector2.Zero);
 
 		public static int BiomeType<T>() where T : ModBiome => ModContent.GetInstance<T>()?.Type ?? 0;
 
-		public static IItemDropRule Common<T>(int chanceDenominator = 1, int minimumDropped = 1, int maximumDropped = 1) where T : ModItem
-		{
-			return ItemDropRule.Common(ModContent.ItemType<T>(), chanceDenominator, minimumDropped, maximumDropped);
-		}
+		public static IItemDropRule Common<T>(int chanceDenominator = 1, int minimumDropped = 1, int maximumDropped = 1) where T : ModItem => ItemDropRule.Common(ModContent.ItemType<T>(), chanceDenominator, minimumDropped, maximumDropped);
 
 		public static void Shuffle<T>(this IList<T> list)
 		{
@@ -101,10 +95,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static string LocalizationCategoryOf<T>() where T : class, ILocalizedModType
-		{
-			return ModContent.GetInstance<T>().LocalizationCategory;
-		}
+		public static string LocalizationCategoryOf<T>() where T : class, ILocalizedModType => ModContent.GetInstance<T>().LocalizationCategory;
 
 		/// <summary>
 		/// 
@@ -117,9 +108,9 @@ namespace ArcaneOdyssey
 			return new((rect.X / 16) - (offset / 2), (rect.Y / 16) - (offset / 2), (rect.Width / 16) + offset, (rect.Height / 16) + offset);
 		}
 
-		public static Rectangle ToWorldRect(this Rectangle rect)
+		public static Rectangle ToWorldRect(this Rectangle rect, int offset = 0)
 		{
-			return new(rect.X * 16, rect.Y * 16, rect.Width * 16, rect.Height * 16);
+			return new((rect.X * 16) - (offset / 2), (rect.Y * 16) - (offset / 2), (rect.Width * 16) + offset, (rect.Height * 16) + offset);
 		}
 
 		public static bool RequestIfExists<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class
@@ -131,6 +122,8 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
+
+		public static void AddRange<T>(this List<T> list, params T[] items) => list.AddRange(items.ToList());
 
 		public static Asset<T> Request<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class
 		{
@@ -176,13 +169,13 @@ namespace ArcaneOdyssey
 			bool found = false;
 			foreach (var option in options)
 			{
-				var index = tooltips.FindIndex((TooltipLine e) => $"{e.Mod} {e.Name}".StartsWith(option) || $"{e.Mod} {e.Name}" == option);
+				var index = tooltips.FindIndex((TooltipLine e) => e.FullName.StartsWith(option) || e.FullName == option);
 				if (index != -1)
 				{
 					tooltips.Insert(index, toAdd);
 					options.Reverse();
-					if (!options.Contains($"{toAdd.Mod} {toAdd.Name}"))
-						options.Add($"{toAdd.Mod} {toAdd.Name}");
+					if (!options.Contains(toAdd.FullName))
+						options.Add(toAdd.FullName);
 					found = true;
 					break;
 				}
@@ -194,8 +187,8 @@ namespace ArcaneOdyssey
 			{
 				tooltips.Add(toAdd);
 				options.Reverse();
-				if (!options.Contains($"{toAdd.Mod} {toAdd.Name}"))
-					options.Add($"{toAdd.Mod} {toAdd.Name}");
+				if (!options.Contains(toAdd.FullName))
+					options.Add(toAdd.FullName);
 			}
 			return tooltips.IndexOf(toAdd);
 		}
@@ -293,6 +286,31 @@ namespace ArcaneOdyssey
 			}
 			return false;
 		}
+
+		public static Vector2 RandomBorder(this Rectangle rect)
+		{
+			var pos = rect.TopLeft();
+			switch (Main.rand.Next(4))
+			{
+				case 0: // left
+					pos.Y += Main.rand.NextFloat(rect.Height);
+					break;
+				case 1: // right
+					pos.X += rect.Width;
+					pos.Y += Main.rand.NextFloat(rect.Height);
+					break;
+				case 2: // bottom
+					pos.X += Main.rand.NextFloat(rect.Width);
+					pos.Y += rect.Height;
+					break;
+				case 3: // top
+					pos.X += Main.rand.NextFloat(rect.Width);
+					break;
+			}
+			return pos;
+		}
+
+		public static Vector2 RandomArea(this Rectangle rect) => new(rect.X + Main.rand.NextFloat(rect.Width), rect.Y + Main.rand.NextFloat(rect.Height));
 
 		public static bool NPCAlive<T>(out NPC found) where T : ModNPC
 		{
@@ -1272,12 +1290,19 @@ namespace ArcaneOdyssey
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 
-		public static Rectangle ScreenRect => new(Main.screenPosition.X.Round(), Main.screenPosition.Y.Round(), Main.screenWidth, Main.screenHeight);
+		public static Rectangle ScreenRect => Main.screenPosition.ToRectangle(Main.ScreenSize);
 
-		public static bool OnScreen(this Rectangle Hitbox)
-		{
-			return Hitbox.Intersects(ScreenRect);
-		}
+		public static Rectangle ToRectangle(this Vector2 vec, Vector2 size) => new(vec.X.Round(), vec.Y.Round(), size.X.Round(), size.Y.Round());
+		public static Rectangle ToRectangle(this Vector2 vec, Point size) => new(vec.X.Round(), vec.Y.Round(), size.X, size.Y);
+		public static Rectangle ToRectangle(this Vector2 vec, Point16 size) => new(vec.X.Round(), vec.Y.Round(), size.X, size.Y);
+		public static Rectangle ToRectangle(this Point vec, Vector2 size) => new(vec.X, vec.Y, size.X.Round(), size.Y.Round());
+		public static Rectangle ToRectangle(this Point vec, Point size) => new(vec.X, vec.Y, size.X, size.Y);
+		public static Rectangle ToRectangle(this Point vec, Point16 size) => new(vec.X, vec.Y, size.X, size.Y);
+		public static Rectangle ToRectangle(this Point16 vec, Vector2 size) => new(vec.X, vec.Y, size.X.Round(), size.Y.Round());
+		public static Rectangle ToRectangle(this Point16 vec, Point size) => new(vec.X, vec.Y, size.X, size.Y);
+		public static Rectangle ToRectangle(this Point16 vec, Point16 size) => new(vec.X, vec.Y, size.X, size.Y);
+
+		public static bool OnScreen(this Rectangle Hitbox) => Hitbox.Intersects(ScreenRect);
 
 		public static void HitNPC(this NPC npc, int damage, int hitDirection, Imbuable imbue = null, Player player = null, bool crit = false, float knockBack = 0f, DamageClass damageType = null, bool damageVariation = false)
 		{
@@ -1352,7 +1377,7 @@ namespace ArcaneOdyssey
 				conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
 				if (ExternalModSupport.HasCalamity)
 				{
-					string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(" ");
+					string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(' ');
 					foreach (var boss in extrBosses)
 					{
 						conditions.Add((bool)ExternalModSupport.Calamity.Call("GetBossDowned", boss));
@@ -1360,7 +1385,7 @@ namespace ArcaneOdyssey
 				}
 				if (ExternalModSupport.HasThorium)
 				{
-					string[] extrBosses = "Lich Viscount PatchWerk StarScouter Illusionist CorpseBloom ForgottenOne BoreanStrider FallenBeholder BuriedChampion ThePrimordials QueenJellyfish GraniteEnergyStorm TheGrandThunderBird".Split(" ");
+					string[] extrBosses = "Lich Viscount PatchWerk StarScouter Illusionist CorpseBloom ForgottenOne BoreanStrider FallenBeholder BuriedChampion ThePrimordials QueenJellyfish GraniteEnergyStorm TheGrandThunderBird".Split(' ');
 					foreach (var boss in extrBosses)
 					{
 						conditions.Add((bool)ExternalModSupport.Thorium.Call("GetDownedBoss", boss));

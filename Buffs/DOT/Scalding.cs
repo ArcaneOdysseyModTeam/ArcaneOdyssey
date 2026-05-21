@@ -27,6 +27,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.SteampunkSteam);
+				dust.velocity *= 0.4f;
+			}
 			player.ArcaneOdyssey().scalded = true;
 		}
 	}

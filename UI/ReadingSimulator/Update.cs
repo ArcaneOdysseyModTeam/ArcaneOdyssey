@@ -15,7 +15,7 @@ public partial class ReadingSimulatorUI : UIState
 	protected int VisualCounter = 0;
 	public override void Update(GameTime gameTime)
 	{
-		if (Main.gameMenu)
+		if (Main.gameMenu || Main.playerInventory)
 		{
 			CommitSudoku();
 			return;

@@ -28,6 +28,10 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
+			if (Main.GameUpdateCount % 2 == 0)
+			{
+				Dust.NewDust(player.Center, 0, 0, DustID.Blood);
+			}
 			player.ArcaneOdyssey().bleeding = true;
 		}
 

@@ -29,6 +29,8 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public bool acumen = false;
 
+		public int ZapCD = 5 * 50; // ancient lightning chain
+
 		public int BloodDisease
 		{
 			get
@@ -156,6 +158,8 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool scalded = false;
 		public int singe = 0;
 		public bool seared = false;
+		public bool vesburn = false;
+		public bool oiled = false;
 
 		public override void UpdateBadLifeRegen()
 		{
@@ -186,10 +190,21 @@ namespace ArcaneOdyssey.AOPlayers
 
 			if (singe > 0)
 			{
-				subtract(5 * singe);
+				subtract(6 * singe);
 			}
 
 			if (seared)
+			{
+				subtract(10);
+			}
+			
+			if (vesburn)
+			{
+				subtract(60);
+			}
+
+			// keep at bottom!
+			if (oiled && (Player.lifeRegen < 0))
 			{
 				subtract(10);
 			}
@@ -204,6 +219,8 @@ namespace ArcaneOdyssey.AOPlayers
 			scalded = false;
 			singe = 0;
 			seared = false;
+			vesburn = false;
+			oiled = false;
 		}
 	}
 }

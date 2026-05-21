@@ -51,8 +51,8 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 				Projectile.velocity += (originPos - Projectile.Center).SafeNormalize(Vector2.Zero) * 0.4f;
 			}
 			Animate();
-			Lighting.AddLight(Projectile.Center, 2, 1, 0);
-			Dust.NewDust(Projectile.Center, 0, 0, DustID.Torch, 0, 0, 0, default, 1);
+			Lighting.AddLight(Projectile.Center, new Vector3(2, 1, 0) * Projectile.scale);
+			Dust.NewDust(Projectile.Center, 0, 0, DustID.Torch);
 		}
 
 		private void Animate()

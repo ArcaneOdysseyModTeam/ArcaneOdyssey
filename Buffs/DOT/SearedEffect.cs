@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 				buffIndex--;
 				return;
 			}
-			Dust newDust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
+			Dust newDust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
 			newDust.noGravity = true;
 			npc.ArcaneOdyssey().seared = true;
 		}
@@ -27,6 +27,14 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
+			if (player.wet && !player.lavaWet)
+			{
+				player.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
+			Dust newDust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
+			newDust.noGravity = true;
 			player.ArcaneOdyssey().seared = true;
 		}
 	}

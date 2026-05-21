@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace ArcaneOdyssey.Buffs.DOT
@@ -15,7 +16,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			totalTicks++;
 			if (Main.GameUpdateCount % 2 == 0)
 			{
-				Dust.NewDust(npc.Center, 0, 0, DustID.Blood, Alpha: 1);
+				Dust.NewDust(npc.Center, 0, 0, DustID.Blood);
 			}
 			npc.ArcaneOdyssey().bleeding = true;
 			if (npc.buffTime[buffIndex] == 2 || (totalTicks / 5) >= 250)
@@ -23,7 +24,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 				npc.HitNPC(totalTicks / 5, Main.rand.NextBool().ToDirectionInt());
 				for (int dustCountInt = 0; dustCountInt < 30; dustCountInt++)
 				{
-					Dust.NewDust(npc.Center, 0, 0, DustID.Blood, Alpha: 1);
+					Dust.NewDust(npc.Center, 0, 0, DustID.Blood);
 				}
 				totalTicks = 0;
 				npc.DelBuff(buffIndex);
@@ -40,7 +41,24 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
+			totalTicks++;
 			player.ArcaneOdyssey().bleeding = true;
+			if (Main.GameUpdateCount % 2 == 0)
+			{
+				Dust.NewDust(player.Center, 0, 0, DustID.Blood);
+			}
+			if (player.buffTime[buffIndex] == 2 || (totalTicks / 5) >= 250)
+			{
+				player.Hurt(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Death", player.name).ToNetworkText()), totalTicks/5, Main.rand.NextBool().ToDirectionInt(), quiet: true, dodgeable: false, scalingArmorPenetration: 1f, knockback: 0f);
+				for (int dustCountInt = 0; dustCountInt < 30; dustCountInt++)
+				{
+					Dust.NewDust(player.Center, 0, 0, DustID.Blood);
+				}
+				totalTicks = 0;
+				player.DelBuff(buffIndex);
+				SoundEngine.PlaySound(SoundID.NPCDeath21, player.Center);
+				buffIndex--;
+			}
 		}
 	}
 }

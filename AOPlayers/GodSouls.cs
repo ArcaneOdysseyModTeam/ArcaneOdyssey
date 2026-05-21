@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.AOPlayers
 		}
 	}
 
-	public enum GodSoulID
+	public enum GodSoulID : byte
 	{
 		None,
 		Poseidon,

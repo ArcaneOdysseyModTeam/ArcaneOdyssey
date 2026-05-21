@@ -27,6 +27,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 		public override void Update(Player player, ref int buffIndex)
 		{
 			player.ArcaneOdyssey().elecToxins = true;
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.SteampunkSteam, newColor: Color.Purple);
+				dust.velocity *= 0.4f;
+				Dust.NewDust(player.position, player.width, player.height, DustID.WitherLightning, newColor: Color.Purple);
+			}
 		}
 	}
 }

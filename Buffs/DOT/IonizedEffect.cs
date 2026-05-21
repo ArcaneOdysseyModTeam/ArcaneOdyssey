@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			}
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.Hitbox.Width, npc.Hitbox.Height, DustID.CursedTorch, 0f, -1f, 1, default, 3f);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.CursedTorch, 0f, -1f, 1, default, 3f);
 				dust.noGravity = true;
 				dust.velocity *= 0.8f;
 			}
@@ -34,7 +34,19 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-
+			player.ArcaneOdyssey().ionized = true;
+			if (player.wet && !player.lavaWet)
+			{
+				player.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.CursedTorch, 0f, -1f, 1, default, 3f);
+				dust.noGravity = true;
+				dust.velocity *= 0.8f;
+			}
 		}
 	}
 }

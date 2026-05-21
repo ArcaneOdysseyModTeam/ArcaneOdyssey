@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,8 +20,19 @@ namespace ArcaneOdyssey.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ArcaneOdyssey().thundering = Item;
-			player.ArcaneOdyssey().hiddenThunder = hideVisual;
+			if (player.whoAmI == Main.myPlayer)
+			{
+				if (player.RollLuck(5 * 60) == 0)
+				{
+					var proj = Projectile.NewProjectileDirect(player.GetSource_Accessory(Item), new Vector2(Main.screenPosition.X + Main.rand.NextFloat(Main.screenWidth), Main.screenPosition.Y - 16), Vector2.UnitY * 7f, ModContent.ProjectileType<ThunderingEffect>(), Main.rand.Next(20, 50), 0f, player.whoAmI);
+					var target = proj.Center.ClosestNPCAt(proj.timeLeft * 7f, false, true);
+					if (target is not null)
+					{
+						proj.position.X = target.Center.X;
+						proj.damage = (int)MathHelper.Clamp(target.lifeMax * 0.005f, proj.damage, 1000f);
+					}
+				}
+			}
 		}
 	}
 }

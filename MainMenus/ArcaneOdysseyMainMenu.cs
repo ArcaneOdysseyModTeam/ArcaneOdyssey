@@ -63,8 +63,8 @@ namespace ArcaneOdyssey.MainMenus
 				Colour = colour;
 				Name = name;
 				mod ??= ArcaneOdysseyMod.Instance;
-				DisplayName = mod.CoolCustomLocalization("MainMenuStyle." + Name);
-				BackgroundTexture = AOUtils.Request(mod.Name + "/" + path + "/" + Name, ref BackgroundTexture, AssetRequestMode.ImmediateLoad);
+				DisplayName = mod.CoolCustomLocalization($"MainMenuStyle.{Name}");
+				BackgroundTexture = AOUtils.Request($"{mod.Name}/{path}/{Name}", ref BackgroundTexture, AssetRequestMode.ImmediateLoad);
 			}
 		}
 
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.MainMenus
 
 		public override void SetStaticDefaults()
 		{
-			Titles.AddRange([new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"), new(MusicTrack.Djin, Color.Gray, "Djin")]);
+			Titles.AddRange(new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"), new(MusicTrack.Djin, Color.Gray, "Djin"));
 		}
 
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)

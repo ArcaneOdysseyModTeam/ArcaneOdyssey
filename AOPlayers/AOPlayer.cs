@@ -7,7 +7,6 @@ using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdysseyMusic.MusicBoxes;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -106,9 +105,6 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public float MaxPossibleSpeed => Math.Max(MaxRunSpeed, CurrentDash?.DashSpeed ?? MaxRunSpeed);
 
-		public Item thundering = null;
-		public bool hiddenThunder = false;
-
 		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
 			if (useplayerimbue)
@@ -195,7 +191,7 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				if (cooldown)
 					SetCooldown(new Cooldown("SpiritLifesteal", Mod, 60 * 2));
-				Player.Heal(Utils.Clamp(damage / 5, 1, 20));
+				Player.Heal(Utils.Clamp(damage / 5, 1, 15 + AOUtils.BossesKilled));
 			}
 		}
 
@@ -261,21 +257,6 @@ namespace ArcaneOdyssey.AOPlayers
 				if (AOUtils.NPCAlive<LordElius>())
 					Player.AddBuff(BuffID.Electrified, 2);
 			}
-
-
-			if (thundering is not null && Player.RollLuck(5 * 60) == 0)
-			{
-				if (Player.whoAmI == Main.myPlayer)
-				{
-					var proj = Projectile.NewProjectileDirect(Player.GetSource_Accessory(thundering), new Vector2(Main.screenPosition.X + Main.rand.NextFloat(Main.screenWidth), Main.screenPosition.Y - 16), Vector2.UnitY * 7f, ModContent.ProjectileType<ThunderingEffect>(), Main.rand.Next(20, 50), 0f, Player.whoAmI);
-					var target = proj.Center.ClosestNPCAt(proj.timeLeft * 7f, false, true);
-					if (target is not null)
-					{
-						proj.Center = target.Center with { Y = proj.Center.Y };
-						proj.damage = (int)MathHelper.Clamp(target.lifeMax * 0.005f, proj.damage, 1000f);
-					}
-				}
-			}
 		}
 
 		public float SpaceGravityMulti
@@ -327,10 +308,16 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				Player.noBuilding = true;
 			}
+			if (ZapCD > 0)
+			{
+				ZapCD--;
+			}
+			else
+			{
+				ZapCD = 0;
+			}
 			StatSize = 0;
 			StatHaste = 0;
-			thundering = null;
-			hiddenThunder = false;
 			Insanity = 0;
 			ResetBuffs();
 			List<int> queue = [];

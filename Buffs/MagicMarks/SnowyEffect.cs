@@ -21,5 +21,21 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 				dust.noGravity = true;
 			}
 		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			if (player.wet && !player.lavaWet)
+			{
+				player.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.SnowBlock);
+				dust.velocity *= 0.1f;
+				dust.noGravity = true;
+			}
+		}
 	}
 }

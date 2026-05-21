@@ -16,5 +16,14 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 				dust.velocity *= 0.4f;
 			}
 		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Water);
+				dust.velocity *= 0.4f;
+			}
+		}
 	}
 }
