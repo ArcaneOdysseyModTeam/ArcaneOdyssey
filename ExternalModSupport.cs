@@ -95,20 +95,11 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static void RegisterDebuff(ModBuff buff)
-		{
-			Calamity?.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
-		}
+		public static void RegisterDebuff(ModBuff buff) => Calamity?.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
 
-		public static void RegisterDoT(int type)
-		{
-			Thorium?.Call("AddPlayerDoTBuffID", type);
-		}
+		public static void RegisterDoT(int type) => Thorium?.Call("AddPlayerDoTBuffID", type);
 
-		public static void RegisterStatusBuff(int type)
-		{
-			Thorium?.Call("AddPlayerStatusBuffID", type);
-		}
+		public static void RegisterStatusBuff(int type) => Thorium?.Call("AddPlayerStatusBuffID", type);
 
 		public void MiscCalamitysStuff()
 		{
@@ -122,10 +113,7 @@ namespace ArcaneOdyssey
 				() => true);
 		}
 
-		public static void DeclareMiniboss(int type)
-		{
-			Calamity?.Call("DeclareMiniboss", type);
-		}
+		public static void DeclareMiniboss(int type) => Calamity?.Call("DeclareMiniboss", type);
 
 		public static void ThoriumStuff()
 		{
@@ -165,7 +153,7 @@ namespace ArcaneOdyssey
 		{
 			if (HasCalamity)
 			{
-				return DashBind().GetAssignedKeys().Count == 0;
+				return DashBind.GetAssignedKeys().Count == 0;
 			}
 			if (HasFargos)
 			{
@@ -174,24 +162,27 @@ namespace ArcaneOdyssey
 			return true;
 		}
 
-		public static ModKeybind DashBind()
+		public static ModKeybind DashBind
 		{
-			if (HasCalamity)
+			get
 			{
-				var a = Calamity.Code.GetType("CalamityMod.CalamityKeybinds");
-				if (a is not null)
+				if (HasCalamity)
 				{
-					return (ModKeybind)a.GetProperty("DashHotkey").GetValue(null);
+					var a = Calamity.Code.GetType("CalamityMod.CalamityKeybinds");
+					if (a is not null)
+					{
+						return (ModKeybind)a.GetProperty("DashHotkey").GetValue(null);
+					}
 				}
+				else if (HasFargos)
+				{
+					var e = Fargos.GetType().
+						GetField("DashKey").
+						GetValue(null);
+					return (ModKeybind)e;
+				}
+				return null;
 			}
-			else if (HasFargos)
-			{
-				var e = Fargos.GetType().
-					GetField("DashKey").
-					GetValue(null);
-				return (ModKeybind)e;
-			}
-			return null;
 		}
 
 		private void AddFargosStuff()
@@ -206,8 +197,28 @@ namespace ArcaneOdyssey
 			//Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
 
 			Fargos?.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.Town.{nameof(Edgelord)}");
-			Fargos?.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
 			Fargos?.Call("AddPermaUpgrade", new Item(ModContent.ItemType<AcumenTechnique>()), () => Main.LocalPlayer.ArcaneOdyssey().acumen);
+		}
+
+		private static bool rectsRegistered = false;
+
+		public override void OnWorldLoad()
+		{
+			rectsRegistered = false;
+		}
+
+		public override void OnWorldUnload()
+		{
+			rectsRegistered = false;
+		}
+
+		public override void PostUpdateEverything()
+		{
+			if (!rectsRegistered)
+			{
+				Fargos?.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
+				rectsRegistered = true;
+			}
 		}
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
@@ -379,47 +390,50 @@ namespace ArcaneOdyssey
 				}
 
 				string[] strength = [
-						"CalamityMod/ClockworkBow",
-						"CalamityMod/FlakKraken",
-						"CalamityMod/HandheldTank",
-						"CalamityMod/MarksmanBow",
-						"CalamityMod/Roxcalibur",
-						"CalamityMod/DeepcoreGK2",
-						"CalamityMod/AnarchyBlade",
-						"CalamityMod/GrandGuardian",
-						"CalamityMod/HolyCollider",
-						"CalamityMod/MajesticGuard",
-						"CalamityMod/Karasawa",
-						"CalamityMod/GrandDad",
-						"ThoriumMod/TerrariansLastKnife",
-						"ThoriumMod/WyvernSlayer",
-						"ThoriumMod/QuakeGauntlet"];
+					"CalamityMod/ClockworkBow",
+					"CalamityMod/FlakKraken",
+					"CalamityMod/HandheldTank",
+					"CalamityMod/MarksmanBow",
+					"CalamityMod/Roxcalibur",
+					"CalamityMod/DeepcoreGK2",
+					"CalamityMod/AnarchyBlade",
+					"CalamityMod/GrandGuardian",
+					"CalamityMod/HolyCollider",
+					"CalamityMod/MajesticGuard",
+					"CalamityMod/Karasawa",
+					"CalamityMod/GrandDad",
+					"ThoriumMod/TerrariansLastKnife",
+					"ThoriumMod/WyvernSlayer",
+					"ThoriumMod/QuakeGauntlet"
+				];
 
 				string[] arcanium = [
-						"CalamityMod/PrismaticBreaker",
-						"CalamityMod/TheBurningSky"];
+					"CalamityMod/PrismaticBreaker",
+					"CalamityMod/TheBurningSky"
+				];
 
 				string[] artisinal = [
-						"CalamityMod/TrueBiomeBlade",
-						"CalamityMod/BrokenBiomeBlade",
-						"CalamityMod/OmegaBiomeBlade",
-						"CalamityMod/Galaxia",
-						"CalamityMod/FourSeasonsGalaxia",
-						"CalamityMod/ArkoftheCosmos",
-						"CalamityMod/ArkoftheElements",
-						"CalamityMod/FracturedArk",
-						"CalamityMod/SkytideDragoon",
-						"CalamityMod/Earth",
-						"CalamityMod/TrueArkoftheAncients",
-						"CalamityMod/Orderbringer",
-						"CalamityMod/GreatswordofJudgement",
-						"ThoriumMod/MastersLibram",
-						"ThoriumMod/QuasarsFlare",
-						"ThoriumMod/SnowWhite",
-						"ThoriumMod/StellarSystem",
-						"ThoriumMod/UselessStaff",
-						"ThoriumMod/WondrousWand",
-						"ThoriumMod/EclipseFang"];
+					"CalamityMod/TrueBiomeBlade",
+					"CalamityMod/BrokenBiomeBlade",
+					"CalamityMod/OmegaBiomeBlade",
+					"CalamityMod/Galaxia",
+					"CalamityMod/FourSeasonsGalaxia",
+					"CalamityMod/ArkoftheCosmos",
+					"CalamityMod/ArkoftheElements",
+					"CalamityMod/FracturedArk",
+					"CalamityMod/SkytideDragoon",
+					"CalamityMod/Earth",
+					"CalamityMod/TrueArkoftheAncients",
+					"CalamityMod/Orderbringer",
+					"CalamityMod/GreatswordofJudgement",
+					"ThoriumMod/MastersLibram",
+					"ThoriumMod/QuasarsFlare",
+					"ThoriumMod/SnowWhite",
+					"ThoriumMod/StellarSystem",
+					"ThoriumMod/UselessStaff",
+					"ThoriumMod/WondrousWand",
+					"ThoriumMod/EclipseFang"
+				];
 
 				foreach (var strong in strength)
 				{
@@ -454,7 +468,8 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				string[] cold = ["CalamityMod/AbsoluteZero",
+				string[] cold = [
+					"CalamityMod/AbsoluteZero",
 					"CalamityMod/AbyssBlade",
 					"CalamityMod/AmidiasTrident",
 					"CalamityMod/Avalanche",
@@ -507,7 +522,7 @@ namespace ArcaneOdyssey
 					"ThoriumMod/NitrogenVial",];
 
 				string[] hot = [
-						"CalamityMod/AegisBlade",
+					"CalamityMod/AegisBlade",
 					"CalamityMod/AnarchyBlade",
 					"CalamityMod/BalefulHarvester",
 					"CalamityMod/Brimlance",
@@ -608,65 +623,75 @@ namespace ArcaneOdyssey
 
 				string[] greatswords = [
 					"CalamityMod/AegisBlade",
-				"CalamityMod/AnarchyBlade",
-				"CalamityMod/Ataraxia",
-				"CalamityMod/BlightedCleaver",
-				"CalamityMod/CelestialClaymore",
-				"CalamityMod/CometQuasher",
-				"CalamityMod/DevilsDevastation",
-				"CalamityMod/DraconicDestruction",
-				"CalamityMod/Earth",
-				"CalamityMod/GalactusBlade",
-				"CalamityMod/GrandDad",
-				"CalamityMod/GrandGuardian",
-				"CalamityMod/Hellkite",
-				"CalamityMod/HolyCollider",
-				"CalamityMod/MajesticGuard",
-				"CalamityMod/Roxcalibur",
-				"CalamityMod/StellarStriker",
-				"CalamityMod/StormRuler",
-				"CalamityMod/TheMutilator",
-				"CalamityMod/VoidEdge",
-				"ThoriumMod/WyvernSlayer"];
+					"CalamityMod/AnarchyBlade",
+					"CalamityMod/Ataraxia",
+					"CalamityMod/BlightedCleaver",
+					"CalamityMod/CelestialClaymore",
+					"CalamityMod/CometQuasher",
+					"CalamityMod/DevilsDevastation",
+					"CalamityMod/DraconicDestruction",
+					"CalamityMod/Earth",
+					"CalamityMod/GalactusBlade",
+					"CalamityMod/GrandDad",
+					"CalamityMod/GrandGuardian",
+					"CalamityMod/Hellkite",
+					"CalamityMod/HolyCollider",
+					"CalamityMod/MajesticGuard",
+					"CalamityMod/Roxcalibur",
+					"CalamityMod/StellarStriker",
+					"CalamityMod/StormRuler",
+					"CalamityMod/TheMutilator",
+					"CalamityMod/VoidEdge",
+					"ThoriumMod/WyvernSlayer"
+				];
 
 				string[] greataxes = [
 					"CalamityMod/Avalanche",
-				"CalamityMod/SeekingScorcher",
-				"ThoriumMod/LodeStoneGreatAxe",];
+					"CalamityMod/SeekingScorcher",
+					"ThoriumMod/LodeStoneGreatAxe",
+				];
 
 				string[] daggers = [
 					"CalamityMod/EmpyreanKnives",
-				"CalamityMod/IllustriousKnives",
-				"CalamityMod/TheDarkMaster"];
+					"CalamityMod/IllustriousKnives",
+					"CalamityMod/TheDarkMaster"
+				];
 
 				string[] greathammer = [
 					"CalamityMod/FallenPaladinsHammer",
-				"CalamityMod/GalaxySmasher",
-				"CalamityMod/Pwnagehammer",
-				"CalamityMod/StellarContempt",
-				"CalamityMod/TriactisTruePaladinianMageHammerofMight",
-				"ThoriumMod/MagicThorHammer",
-				"ThoriumMod/RangedThorHammer",
-				"ThoriumMod/MeleeThorHammer",];
+					"CalamityMod/GalaxySmasher",
+					"CalamityMod/Pwnagehammer",
+					"CalamityMod/StellarContempt",
+					"CalamityMod/TriactisTruePaladinianMageHammerofMight",
+					"ThoriumMod/MagicThorHammer",
+					"ThoriumMod/RangedThorHammer",
+					"ThoriumMod/MeleeThorHammer",
+				];
 
 				string[] spears = [
 					"CalamityMod/GildedProboscis",
-				"CalamityMod/SkytideDragoon",
-				"CalamityMod/StreamGouge",
-				"CalamityMod/TheBurningSky",
-				"CalamityMod/Violence",
-				"ThoriumMod/Spearmint"
-					];
+					"CalamityMod/SkytideDragoon",
+					"CalamityMod/StreamGouge",
+					"CalamityMod/TheBurningSky",
+					"CalamityMod/Violence",
+					"ThoriumMod/Spearmint"
+				];
 
 				string[] dualblades = [
-					"CalamityMod/SaharaSlicers"];
+					"CalamityMod/SaharaSlicers"
+				];
 
 				string[] staffs = [
-					"CalamityMod/TyphonsGreed"];
+					"CalamityMod/TyphonsGreed"
+				];
 
-				string[] rapiers = ["ThoriumMod/Rapier"];
+				string[] rapiers = [
+					"ThoriumMod/Rapier"
+				];
 
-				string[] claws = ["ThoriumMod/BloodyHighClaws"];
+				string[] claws = [
+					"ThoriumMod/BloodyHighClaws"
+				];
 
 
 				foreach (var igotlazy in greatswords)

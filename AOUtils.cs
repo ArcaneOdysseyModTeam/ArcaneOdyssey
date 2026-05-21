@@ -24,6 +24,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 
 namespace ArcaneOdyssey
 {
@@ -121,6 +122,12 @@ namespace ArcaneOdyssey
 				return true;
 			}
 			return false;
+		}
+
+		public static bool TryGetConfig(this Mod mod, string name, out ModConfig config)
+		{
+			config = mod.GetConfig(name);
+			return config is not null;
 		}
 
 		public static void AddRange<T>(this List<T> list, params T[] items) => list.AddRange(items.ToList());

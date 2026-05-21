@@ -37,14 +37,14 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				if (bloodDisease is not null)
 				{
-					if (bloodDisease.Split('.')[0] != "Terraria")
+					if (bloodDisease.Split('/')[0] != "Terraria")
 					{
-						if (ModContent.TryFind<ModBuff>(bloodDisease.Split('.')[0], bloodDisease.Split('.')[1], out var buff))
+						if (ModContent.TryFind<ModBuff>(bloodDisease, out var buff))
 							return buff.Type;
 					}
 					else
 					{
-						if (BuffID.Search.TryGetId(bloodDisease.Split(".")[1], out var id))
+						if (BuffID.Search.TryGetId(bloodDisease.Split("/")[1], out var id))
 							return id;
 					}
 				}
@@ -58,9 +58,9 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				if (bloodDisease is not null)
 				{
-					if (bloodDisease.Split('.')[0] != "Terraria")
+					if (bloodDisease.Split('/')[0] != "Terraria")
 					{
-						if (ModContent.TryFind<ModBuff>(bloodDisease.Split('.')[0], bloodDisease.Split('.')[1], out var buff))
+						if (ModContent.TryFind<ModBuff>(bloodDisease, out var buff))
 							return buff.DisplayName.Value;
 					}
 					else
@@ -89,14 +89,30 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void LoadData(TagCompound tag)
 		{
-			if (tag.TryGet<string>("aodisease", out var Disease) && Disease != "null")
+			if (tag.TryGet<string>("aodisease", out var Disease))
 				bloodDisease = Disease;
 			else
 				bloodDisease = null;
+
 			evil = tag.GetBool("aomentality");
-			DarkSealed = tag.GetByte("darksealedchests");
-			NimbusSealed = tag.GetByte("nimbussealedchests");
-			BronzeSealed = tag.GetByte("bronzesealedchests");
+
+			try
+			{
+				if (tag.TryGet<byte>("darksealedchests", out var dark))
+				{
+					DarkSealed = dark;
+				}
+				if (tag.TryGet<byte>("nimbussealedchests", out var nim))
+				{
+					NimbusSealed = nim;
+				}
+				if (tag.TryGet<byte>("bronzesealedchests", out var bronze))
+				{
+					BronzeSealed = bronze;
+				}
+			}
+			catch { }
+			
 			acumen = tag.GetBool("acumenconsumed");
 			hasLoadedWorldBefore = tag.GetBool("wowiveloadedinbefore");
 			if (tag.TryGet<List<int>>("godsouls", out var souls) && souls.Count > 1)
@@ -107,25 +123,9 @@ namespace ArcaneOdyssey.AOPlayers
 			unlockedPages = [];
 			foreach (string pagename in tag.GetList<string>("guidebooks"))
 			{
-				var split = pagename.Split(' ');
-				if (split.Length > 1)
+				if (ModContent.TryFind<GuidebookPage>(pagename, out var page))
 				{
-					if (ModContent.TryFind<GuidebookPage>(split[0], split[1], out var page))
-						unlockedPages.Add(page.FullName);
-				}
-				else
-				{
-					if (pagename.Contains('/'))
-					{
-						if (ModContent.TryFind<GuidebookPage>(pagename, out var page))
-						{
-							unlockedPages.Add(page.FullName);
-						}
-					}
-					else if (Mod.TryFind<GuidebookPage>(pagename, out var page))
-					{
-						unlockedPages.Add(page.FullName);
-					}
+					unlockedPages.Add(page.FullName);
 				}
 			}
 		}
@@ -160,6 +160,8 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool seared = false;
 		public bool vesburn = false;
 		public bool oiled = false;
+		public bool scorched = false;
+		public bool shadowflamed = false;
 
 		public override void UpdateBadLifeRegen()
 		{
@@ -202,6 +204,7 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				subtract(60);
 			}
+			// add shadowflame and scorched
 
 			// keep at bottom!
 			if (oiled && (Player.lifeRegen < 0))
@@ -221,6 +224,8 @@ namespace ArcaneOdyssey.AOPlayers
 			seared = false;
 			vesburn = false;
 			oiled = false;
+			scorched = false;
+			shadowflamed = false;
 		}
 	}
 }

@@ -429,19 +429,21 @@ namespace ArcaneOdyssey.GlobalTypes
 
 	public class AntiArenaCheese : GlobalProjectile
 	{
-		public override void AI(Projectile projectile)
-		{
-			if (ArcaneOdysseyMod.Sets.tombstone[projectile.type] && projectile.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
-			{
-				projectile.active = false;
-				return;
-			}
-		}
-
 		public override void Load()
 		{
 			On_Projectile.CanExplodeTile += EliusTileCheck;
 			On_Projectile.ShouldWallExplode += EliusWallCheck;
+			On_Player.DropTombstone += EliusArenaNoTombstones;
+		}
+
+		private void EliusArenaNoTombstones(On_Player.orig_DropTombstone orig, Player self, long coinsOwned, Terraria.Localization.NetworkText deathText, int hitDirection)
+		{
+			if (self.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			{
+				return;
+			}
+
+			orig(self, coinsOwned, deathText, hitDirection);
 		}
 
 		private bool EliusWallCheck(On_Projectile.orig_ShouldWallExplode orig, Projectile self, Microsoft.Xna.Framework.Vector2 compareSpot, int radius, int minI, int maxI, int minJ, int maxJ)
@@ -466,6 +468,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			On_Projectile.CanExplodeTile -= EliusTileCheck;
 			On_Projectile.ShouldWallExplode -= EliusWallCheck;
+			On_Player.DropTombstone -= EliusArenaNoTombstones;
 		}
 	}
 }

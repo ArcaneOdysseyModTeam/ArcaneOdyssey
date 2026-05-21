@@ -185,7 +185,7 @@ namespace ArcaneOdyssey.AOPlayers
 					DashDir = 0;
 				}
 			}
-			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind().JustPressed)
+			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind.JustPressed)
 			{
 				if (Player.controlRight && !Player.controlLeft)
 				{

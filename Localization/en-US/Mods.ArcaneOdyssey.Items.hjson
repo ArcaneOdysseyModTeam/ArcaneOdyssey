@@ -380,3 +380,8 @@ BossRelics: {
 		Tooltip: ""
 	}
 }
+
+Edgelord: {
+	DisplayName: Curse Thief
+	Tooltip: ""
+}

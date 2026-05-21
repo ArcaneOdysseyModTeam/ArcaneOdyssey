@@ -34,7 +34,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.onFire3 = true;
+			player.ArcaneOdyssey().scorched = true;
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Shadowflame);
+				dust.velocity *= 0.4f;
+			}
 		}
 	}
 }

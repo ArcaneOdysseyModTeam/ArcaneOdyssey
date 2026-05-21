@@ -1,22 +1,19 @@
-#if VSDEBUGMODE
-using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.GlobalTypes;
-#endif
 using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Weapons.Old;
+using ArcaneOdyssey.NPCs.Town;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Items.Base;
-using System.IO;
-using System;
 
 namespace ArcaneOdyssey
 {
@@ -92,6 +89,11 @@ namespace ArcaneOdyssey
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
+			}
+
+			if (ExternalModSupport.HasFargos)
+			{
+				ExternalModSupport.Fargos.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
 			}
 		}
 
@@ -418,38 +420,4 @@ namespace ArcaneOdyssey
 			}
 		}
 	}
-
-#if VSDEBUGMODE
-	public class DebugStuff : ModSystem
-	{
-		public static ModKeybind PrintInfo { get; set; }
-
-		public override void Load()
-		{
-			PrintInfo = KeybindLoader.RegisterKeybind(Mod, "PrintInfo", "P");
-		}
-
-		public override void Unload()
-		{
-			PrintInfo = null;
-		}
-
-		public override void PostUpdateInput()
-		{
-			if (PrintInfo.JustPressed)
-			{
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOUtils.BossesKilled) + " " + AOUtils.BossesKilled);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(ScrollPitySystem.pity) + " " + ScrollPitySystem.pity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.acumen) + " " + Main.LocalPlayer.ArcaneOdyssey().acumen);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.BronzeSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().BronzeSealed);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.NimbusSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.DarkSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.grounded) + " " + Main.LocalPlayer.ArcaneOdyssey().grounded);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.StatSize) + " " + Main.LocalPlayer.ArcaneOdyssey().StatSize);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Insanity) + " " + Main.LocalPlayer.ArcaneOdyssey().Insanity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.StatHaste) + " " + Main.LocalPlayer.ArcaneOdyssey().StatHaste);
-			}
-		}
-	}
-#endif
 }

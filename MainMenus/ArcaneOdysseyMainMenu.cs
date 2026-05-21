@@ -127,7 +127,7 @@ namespace ArcaneOdyssey.MainMenus
 			spriteBatch.End();
 
 			logoRotation = 0f;
-			logoScale = 1f;
+			logoScale = .85f;
 			drawColor = Color.White;
 			logoDrawCenter.Y = Logo.Height() / 2f * logoScale;
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
