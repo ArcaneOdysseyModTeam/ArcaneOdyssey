@@ -39,8 +39,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.2f;
 		public override float ScrollSpeed => 1.5f;
 
-		public override bool Special => true;
-
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<RegulusDust>(), Alpha: 60, Scale: area.RelativeScale());

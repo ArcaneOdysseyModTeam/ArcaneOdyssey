@@ -11,8 +11,8 @@ ArcaneOdysseyConfig: {
 	}
 
 	GroundReflexes: {
-		Label: "[i:ArcaneOdysseyMod/ReflexScroll] Ground Dodges"
-		Tooltip: Allows dashing while grounded to always have a 1x speed multiplier, in exchange for a 1.75x defense multiplier
+		Label: "[i:ArcaneOdyssey/ReflexScroll] Ground Dodges"
+		Tooltip: Allows reflex dashing while grounded to have no unique effects, in exchange for a 1.75x defense multiplier
 	}
 
 	VanillaItemTemperatures: {
@@ -25,11 +25,11 @@ ArcaneOdysseyConfig: {
 	}
 
 	SyncProjectileSizes: {
-		Label: "[i:ArcaneOdyssey/SteamImbue] Sync Projectile Sizes"
+		Label: "[i:ArcaneOdyssey/ColossalGreatsword] Sync Projectile Sizes"
 		Tooltip:
 			'''
 			Toggles whether projectiles have their sizes visually synced between multiplayer clients
-			Should be disabled if your game is not functioning properly
+			Should only be disabled if your game is not functioning properly
 			'''
 	}
 }
@@ -57,7 +57,7 @@ ArcaneOdysseyClientConfig: {
 	}
 
 	PulsingImbueIcons: {
-		Label: Pulsing Imbue Icons
+		Label: "[i:ArcaneOdyssey/SpiritEnergy] Pulsing Imbue Icons"
 		Tooltip: Toggles whether certain imbue icons will pulse
 	}
 }

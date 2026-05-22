@@ -82,6 +82,10 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.Update(ref gravity, ref maxFallSpeed);
 			Soul = GodSoulID.None;
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				Item.color = SpiritColor;
+			}
 		}
 
 		public static Asset<Texture2D> synergyAsset;
@@ -106,12 +110,27 @@ namespace ArcaneOdyssey.Imbues.Relics
 				spriteBatch.Draw(image.Value, position, null, Item.GetAlpha(Color.White * Main.inventoryScale), 0f, image.Size() / 2f, Main.inventoryScale * indscale, SpriteEffects.None, 1f);
 			}
 
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				if (itemColor == Color.Transparent)
+				{
+					spriteBatch.Draw(Sprite, position, frame, Item.GetAlpha(SpiritColor), 0f, origin, scale, SpriteEffects.None, 1f);
+					return false;
+				}
+			}
+
 			return true;
 		}
 
 		public override void UpdateInventory(Player player)
 		{
 			base.UpdateInventory(player);
+
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				Item.color = SpiritColor;
+			}
+
 			if (Main.myPlayer == player.whoAmI && player.PlayerItem() == Item)
 			{
 				if (AOKeybinds.CycleGodSoul.JustPressed)
@@ -144,7 +163,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
 				ItemID.Sets.ItemNoGravity[Type] = true;
+
 				ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
+				ArcaneOdysseyMod.Sets.toggleablePulse.Add(Type);
 
 				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.Assets.raySprites[Type]) & ArcaneOdysseyMod.DevMode)
 				{
@@ -383,6 +404,12 @@ namespace ArcaneOdyssey.Imbues.Relics
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustType, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Alpha: 255 / 4, newColor: ImbueColour, Scale: intensity)];
 				spawnedDust.noGravity = true;
 			}
+		}
+
+		public override void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0)
+		{
+			AOUtils.NewDustImperfect(coneCenter, ModContent.DustType<SpiritDust>(), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: SpiritColor, Scale: .2f * (coneLength / 25f), Alpha: 255 / 4);
+			AOUtils.NewDustImperfect(coneCenter, DustType, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: ImbueColour, Scale: .2f * (coneLength / 25f), Alpha: 255 / 4);
 		}
 
 		public override void SaveData(TagCompound tag)

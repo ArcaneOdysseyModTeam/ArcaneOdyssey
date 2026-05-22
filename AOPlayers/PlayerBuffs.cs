@@ -204,7 +204,16 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				subtract(60);
 			}
-			// add shadowflame and scorched
+
+			if (scorched)
+			{
+				subtract(10);
+			}
+
+			if (shadowflamed)
+			{
+				subtract(18);
+			}
 
 			// keep at bottom!
 			if (oiled && (Player.lifeRegen < 0))

@@ -207,8 +207,9 @@ Usable: {
 
 		EnchantmentSpell: {
 			DisplayName: Enchantment Spell
-			Tooltip: Buffs all other players
+			Tooltip: Buffs all players
 			SkillName: Enchantment
+			Message: "{0} has buffed all players! [i:ArcaneOdyssey/EnchantmentSpell]"
 		}
 
 		CrescendoTechnique: {

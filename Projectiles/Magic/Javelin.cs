@@ -104,7 +104,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Owner.channel = false;
 					Projectile.timeLeft = TimeLeft;
 					NetUpdate();
-					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner?.active == true && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
 					{
 						var name = (Imbue.PrettySpellPrefix + " " + DisplayName).Trim();
 						if (SecondImbue is not null)

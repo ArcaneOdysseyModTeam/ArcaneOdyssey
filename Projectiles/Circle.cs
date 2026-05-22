@@ -184,7 +184,7 @@ namespace ArcaneOdyssey.Projectiles
 				spawnedDust.noGravity = true;
 			}
 
-			MarkedForDeath |= !((Owner.channel && !originallyAltFire) || (Main.mouseRight && originallyAltFire)) || Owner.dead;
+			MarkedForDeath |= !((Owner.channel && !originallyAltFire) || (Main.mouseRight && originallyAltFire)) || Owner.DeadOrGhost;
 
 			if (!MarkedForDeath)
 			{
@@ -331,7 +331,7 @@ namespace ArcaneOdyssey.Projectiles
 			{
 				if (Main.myPlayer == Projectile.owner && ChargingProjectile != 0)
 				{
-					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost)
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner?.active == true && !Owner.DeadOrGhost)
 					{
 						var name = Lang.GetProjectileName(ChargingProjectile).Value;
 						if (ModContent.GetModProjectile(ChargingProjectile) is MagicSpell spell)

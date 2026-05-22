@@ -132,18 +132,22 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 
 		public bool CheckActive()
 		{
-			if (Owner.dead || !Owner.active)
+			if (Owner?.active == true)
 			{
-				Owner.ClearBuff(ModContent.BuffType<ElementalBuff>());
-				return false;
-			}
+				if (Owner.DeadOrGhost)
+				{
+					Owner.ClearBuff(ModContent.BuffType<ElementalBuff>());
+					return false;
+				}
 
-			if (Owner.HasBuff(ModContent.BuffType<ElementalBuff>()))
-			{
-				Projectile.timeLeft = 2;
-			}
+				if (Owner.HasBuff(ModContent.BuffType<ElementalBuff>()))
+				{
+					Projectile.timeLeft = 2;
+				}
 
-			return true;
+				return true;
+			}
+			return false;
 		}
 
 		public bool MoveToDestination(Vector2 destination)

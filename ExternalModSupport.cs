@@ -385,7 +385,7 @@ namespace ArcaneOdyssey
 					{
 						case "Icy":
 							ArcaneOdysseyMod.Sets.cold[item.Type] = true;
-							return;
+							break;
 					}
 				}
 

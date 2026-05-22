@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 				Projectile.ai[0] = 1f;
 			}
 
-			if (Owner.dead || !Owner.channel)
+			if (Owner.DeadOrGhost || !Owner.channel)
 			{
 				Kill();
 				Owner.reuseDelay = 2;

@@ -38,6 +38,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		}
 
 		public override Debuff? ProjectileDebuff => null;
+		public override bool CanHaveImbueVFX => false;
 
 		public override void OnSpawn(IEntitySource source)
 		{
@@ -104,7 +105,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
 					Main.instance.CameraModifiers.Add(modifier);
 				}
-				//SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center); // PORT change to InstantThunder
 				return true;
 			}
 			else

@@ -209,8 +209,8 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void NetReceive(Item item, BinaryReader reader)
 		{
 			thisItem = item;
-			Imbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
-			SecondImbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
+			Imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+			SecondImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
 			var boost = reader.ReadSByte();
 			Boost = boost == -1 ? null : (RandomBoostType)boost;
 		}
@@ -673,11 +673,6 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (!canBeAffected)
 				return;
-
-			if (item.type == ModContent.ItemType<SpiritEnergy>())
-			{
-				item.color = (item.ModItem as SpiritEnergy).SpiritColor;
-			}
 
 			if (Main.myPlayer != player.whoAmI)
 				return;

@@ -121,7 +121,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 						Projectile.netUpdate = true;
 						Projectile.netSpam = 0;
 					}
-					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner.active && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
+					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner?.active == true && !Owner.DeadOrGhost && Main.myPlayer == Projectile.owner)
 					{
 						var name = (DisplayName + "!").Trim();
 						name = (Imbue.PrettySpellPrefix + " " + name).Trim();

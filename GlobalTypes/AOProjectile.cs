@@ -191,10 +191,6 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void SetDefaults(Projectile projectile)
 		{
 			thisProjectile = projectile;
-			if (projectile.aiStyle == ProjAIStyleID.GraveMarker)
-			{
-				ArcaneOdysseyMod.Sets.tombstone[projectile.type] = true;
-			}
 			if (ArcaneOdysseyMod.Sets.excludedProjectile[projectile.type])
 			{
 				CanBeAffected = false;
@@ -235,8 +231,8 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
 		{
-			Imbue = AOUtils.SafeImbuable(ModContent.GetModItem(binaryReader.ReadInt32()));
-			SecondImbue = AOUtils.SafeImbuable(ModContent.GetModItem(binaryReader.ReadInt32()));
+			Imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(binaryReader.ReadInt32()));
+			SecondImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(binaryReader.ReadInt32()));
 			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
 			{
 				projectile.scale = binaryReader.ReadSingle();

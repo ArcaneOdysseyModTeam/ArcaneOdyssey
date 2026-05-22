@@ -1,6 +1,8 @@
 using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Items.Weapons.Old;
 using ArcaneOdyssey.NPCs.Town;
 using Microsoft.Xna.Framework;
@@ -10,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Chat;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
@@ -106,18 +109,6 @@ namespace ArcaneOdyssey
 			GameShaders.Misc[InternalName + ":MagicCircleBase"] = null;
 		}
 
-		public override void PostSetupContent()
-		{
-			this.CoolCustomLocalization("RandomWords.Default");
-			this.CoolCustomLocalization("RandomWords.Unbound");
-			this.CoolCustomLocalization("RandomWords.None");
-			this.CoolCustomLocalization("RandomWords.Help");
-			this.CoolCustomLocalization("RandomWords.Guide");
-			this.CoolCustomLocalization("RandomWords.Press");
-			this.CoolCustomLocalization("RandomWords.Kill");
-			this.CoolCustomLocalization("RandomWords.Spare");
-		}
-
 		public string BTitlesHook_BiomeChecker(Player player)
 		{
 			if (player.InModBiome<EliusArena>())
@@ -147,6 +138,17 @@ namespace ArcaneOdyssey
 			/// <para/> Requires two imbue item ids and a rectangle
 			/// </summary>
 			public const byte LingeringVisuals = 0;
+
+			/// <summary>
+			/// Create explosion visuals on all clients
+			/// <para/> Requires two imbue item ids, a vector2, a float, and the amount of explosions
+			/// </summary>
+			public const byte ExplosionVisuals = 1;
+
+			/// <summary>
+			/// Enchants all players
+			/// </summary>
+			public const byte Enchantment = 2;
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -157,7 +159,7 @@ namespace ArcaneOdyssey
 				if (Main.dedServ) // forward to clients
 				{
 					var packet = GetPacket();
-					packet.Write(PacketID.LingeringVisuals);
+					packet.Write(command);
 					packet.Write(reader.ReadInt32()); // imbue 1
 					packet.Write(reader.ReadInt32()); // imbue 2, if applicable
 					packet.Write(reader.ReadRectangle()); // area
@@ -165,12 +167,57 @@ namespace ArcaneOdyssey
 				}
 				else
 				{
-					var imbue = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
-					var imbue2 = AOUtils.SafeImbuable(ModContent.GetModItem(reader.ReadInt32()));
+					var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+					var imbue2 = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
 					var area = reader.ReadRectangle();
 
 					imbue?.LingeringEffects(area);
 					imbue2?.LingeringEffects(area);
+				}
+			}
+			else if (command == PacketID.ExplosionVisuals)
+			{
+				if (Main.dedServ) // forward to clients
+				{
+					var packet = GetPacket();
+					packet.Write(command);
+					packet.Write(reader.ReadInt32()); // imbue 1
+					packet.Write(reader.ReadInt32()); // imbue 2, if applicable
+					packet.Write(reader.ReadVector2()); // area
+					packet.Write(reader.ReadSingle()); // intensity
+					packet.Write(reader.ReadByte()); // explosion amount, to avoid spamming the network
+					packet.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+					var imbue2 = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+					var area = reader.ReadVector2();
+					var intensity = reader.ReadSingle();
+					var max = reader.ReadByte();
+
+					for (var i = 0; i < max; i++)
+					{
+						imbue?.ExplosionEffects(area, intensity);
+						imbue2?.ExplosionEffects(area, intensity);
+					}
+				}
+			}
+			else if (command == PacketID.Enchantment)
+			{
+				if (Main.dedServ)
+				{
+					ChatHelper.BroadcastChatMessage(ModContent.GetInstance<EnchantmentSpell>().GetLocalization("Message").ToNetworkText(Main.player[whoAmI].name), Color.AliceBlue);
+					var packet = GetPacket();
+					packet.Write(command);
+					packet.Send();
+				}
+				else
+				{
+					foreach (var player in Main.ActivePlayers)
+					{
+						player.AddBuff(ModContent.BuffType<Enchanted>(), 60 * 60 * 5); // 5 mins
+					}
 				}
 			}
 		}
@@ -192,6 +239,8 @@ namespace ArcaneOdyssey
 				ItemID.MoltenGreaves, 5,
 				ItemID.MoltenHelmet, 3
 			);
+
+			public static List<int> toggleablePulse = [];
 
 			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0,
 				ItemID.NecroBreastplate, 7,
@@ -294,11 +343,9 @@ namespace ArcaneOdyssey
 
 			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer, ItemID.PaladinsHammer);
 
-			public static bool[] flail = ItemID.Sets.Factory.CreateBoolSet(ItemID.DripplerFlail, ItemID.Mace, ItemID.FlamingMace, ItemID.Flairon, ItemID.BallOHurt, ItemID.BlueMoon, ItemID.DaoofPow, ItemID.FlowerPow, ItemID.Sunfury, ItemID.TheMeatball);
+			public static bool[] flail = ItemID.Sets.Factory.CreateBoolSet(ItemID.DripplerFlail, ItemID.Mace, ItemID.FlamingMace, ItemID.Flairon, ItemID.BallOHurt, ItemID.BlueMoon, ItemID.DaoofPow, ItemID.FlowerPow, ItemID.Sunfury, ItemID.TheMeatball); // PORT add other flairon
 
 			public static int[] baseImbues = ItemID.Sets.Factory.CreateIntSet();
-
-			public static bool[] tombstone = ProjectileID.Sets.Factory.CreateBoolSet();
 
 			public static bool[] atlanteanItem = ItemID.Sets.Factory.CreateBoolSet();
 
@@ -358,14 +405,6 @@ namespace ArcaneOdyssey
 		public override void PostSetupRecipes()
 		{
 			ArcaneOdysseyMod.finishedLoading = true;
-
-			for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
-			{
-				if (ProjectileID.Sets.IsAGravestone[i])
-				{
-					ArcaneOdysseyMod.Sets.tombstone[i] = true;
-				}
-			}
 
 			for (int i = 0; i < ItemLoader.ItemCount; i++)
 			{

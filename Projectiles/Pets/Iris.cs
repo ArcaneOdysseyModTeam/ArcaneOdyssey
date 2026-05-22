@@ -20,14 +20,25 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		private Vector2 targetPosition;
 
+		public override float Size => .75f;
+
 		public override void SetDefaults()
 		{
-			Projectile.scale = .75f;
 			base.SetDefaults();
 			Projectile.netImportant = true;
 			Projectile.tileCollide = false;
 			Projectile.width = 38;
 			Projectile.height = 50;
+		}
+
+		public override bool PreAI()
+		{
+			if (Owner is not null && !Owner.DeadOrGhost)
+			{
+				return true;
+			}
+			Kill();
+			return false;
 		}
 
 		public override void AI()

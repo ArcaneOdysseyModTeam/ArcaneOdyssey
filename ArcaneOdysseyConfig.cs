@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Terraria.ID;
 using Terraria.ModLoader.Config;
 
 namespace ArcaneOdyssey
@@ -47,8 +48,15 @@ namespace ArcaneOdyssey
 		public bool UniqueMagicCircles { get; set; }
 
 		[DefaultValue(true)]
-		[ReloadRequired]
 		public bool PulsingImbueIcons { get; set; }
+
+		public override void OnChanged()
+		{
+			foreach (var i in ArcaneOdysseyMod.Sets.toggleablePulse)
+			{
+				ItemID.Sets.ItemIconPulse[i] = PulsingImbueIcons;
+			}
+		}
 
 
 		public static ArcaneOdysseyClientConfig Instance;

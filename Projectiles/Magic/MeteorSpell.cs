@@ -24,8 +24,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			base.SetDefaults();
 			Projectile.height = Projectile.width = 64;
 			Projectile.timeLeft = 600;
-			Projectile.usesIDStaticNPCImmunity = true;
-			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 10;
 			Projectile.penetrate = -1;
 			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 		}
@@ -91,20 +91,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			}
 		}
 
-		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-		{
-			if (projHitbox.Intersects(targetHitbox))
-			{
-				var explode = Vector2.Lerp(targetHitbox.ClosestPointInRect(projHitbox.Center()), projHitbox.ClosestPointInRect(targetHitbox.Center()), .5f);
-				for (int i = 0; i < 10; i++)
-				{
-					Imbue?.ExplosionEffects(explode, Projectile.scale / Size);
-					SecondImbue?.ExplosionEffects(explode, Projectile.scale / Size);
-				}
-			}
-			return null;
-		}
-
 		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Annihilation");
 
 		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.Assets.annihilationSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
@@ -117,6 +103,30 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				Main.EntitySpriteDraw(texture.Value, Projectile.Center - (Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()) * (Projectile.width / 2f)) - Main.screenPosition, new(0, texture.Height() / 7 * BlastSpell.TrailFrame, texture.Width(), texture.Height() / 7), Projectile.GetAlpha(lightColor), Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()).ToRotation(), new Vector2(texture.Width(), texture.Height() / 7) / 2f, Projectile.scale * .9f, SpriteEffects.None);
 			}
 			return base.PreDraw(ref lightColor);
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			var explode = Vector2.Lerp(Projectile.Hitbox.ClosestPointInRect(target.Center), target.Hitbox.ClosestPointInRect(Projectile.Center), .5f);
+			if (!Main.dedServ) 
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					Imbue?.ExplosionEffects(explode, Projectile.scale / Size);
+					SecondImbue?.ExplosionEffects(explode, Projectile.scale / Size);
+				} 
+			}
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+			{
+				var packet = Mod.GetPacket();
+				packet.Write(ArcaneOdysseyMod.PacketID.ExplosionVisuals);
+				packet.Write(Imbue?.Type ?? 0);
+				packet.Write(SecondImbue?.Type ?? 0);
+				packet.Write(explode);
+				packet.Write(Projectile.scale / Size);
+				packet.Write((byte)10);
+				packet.Send();
+			}
 		}
 	}
 }

@@ -119,7 +119,7 @@ Accessories: {
 
 	ThunderingCape: {
 		DisplayName: Thundering Cape
-		Tooltip: Lightning randomly strikes, scaling with luck
+		Tooltip: Lightning randomly strikes around you
 	}
 }
 

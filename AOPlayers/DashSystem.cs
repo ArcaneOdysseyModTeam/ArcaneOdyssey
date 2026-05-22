@@ -170,7 +170,7 @@ namespace ArcaneOdyssey.AOPlayers
 				SideDash = null;
 				CurrentDash = null;
 			}
-			if (Player.whoAmI == Main.myPlayer && ExternalModSupport.CanDoubleTapDash())
+			if (Player.whoAmI == Main.myPlayer && ExternalModSupport.CanDoubleTapDash()) // PORT check for vanilla dash keybind and stuff
 			{
 				if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[2] < 15)
 				{
@@ -226,7 +226,7 @@ namespace ArcaneOdyssey.AOPlayers
 				}
 			}
 
-			if (SideDash is not null)
+			else if (SideDash is not null)
 			{
 				Player.dashType = DashID.None;
 				if (!dashing && !SideDash.OnCooldown(Player) && !Player.mount.Active && !Player.setSolar)
@@ -311,6 +311,8 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 			Player.eocDash = DashLeft;
 			DashStrikeCooldown--;
+
+			DashStrike();
 		}
 
 		public override void PostUpdateMiscEffects()
@@ -326,28 +328,9 @@ namespace ArcaneOdyssey.AOPlayers
 				}
 			}
 
-			if (Player.InModBiome<EliusArena>() && InSpace)
+			if (Player.InModBiome<EliusArena>())
 			{
-				Player.gravity = Player.defaultGravity;
-				if (Player.wet)
-				{
-					if (Player.honeyWet)
-					{
-						Player.gravity = 0.1f;
-					}
-					else if (Player.merman)
-					{
-						Player.gravity = 0.3f;
-					}
-					else if (Player.trident && !Player.lavaWet)
-					{
-						Player.gravity = Player.controlUp ? 0.1f : 0.25f;
-					}
-					else
-					{
-						Player.gravity = 0.2f;
-					}
-				}
+				Player.gravity = Player.defaultGravity; // theres no water here so checking for that doesnt matter
 			}
 		}
 
@@ -357,7 +340,7 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (CurrentDash is not null && dashing)
 			{
-				var hitbox = Utils.CenteredRectangle(Player.Center + (Player.velocity / 2f), new(Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost));
+				var hitbox = Utils.CenteredRectangle(Player.Center + Player.velocity, new(Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost));
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
 					if (DashStrikeCooldown <= 0 && hitbox.Intersects(npc.Hitbox) && (npc.noTileCollide || Player.CanHit(npc)))
@@ -377,7 +360,7 @@ namespace ArcaneOdyssey.AOPlayers
 						if (CurrentDash.ContactDamage && Main.myPlayer == Player.whoAmI)
 						{
 							var damagetype = CurrentDash.DamageType;
-							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.Next(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);
+							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.NextFloat(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);
 						}
 					}
 				}
@@ -388,7 +371,7 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (CurrentDash is null)
 				return 0;
-			var modifiers = new ModDamageHelper(null);
+			var modifiers = new ModDamageHelper();
 			modifiers = AOUtils.CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
 			modifiers = AOUtils.CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
 

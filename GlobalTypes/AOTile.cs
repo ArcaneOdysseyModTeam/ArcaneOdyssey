@@ -106,8 +106,12 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					AddOption<RaySpell>();
 					AddOption<AnnihilationScroll>();
-					AddOption<MeteorScroll>();
 					AddOption<CrescendoTechnique>();
+				}
+
+				if (NPC.downedPlantBoss)
+				{
+					AddOption<MeteorScroll>();
 				}
 
 				if (Main.netMode == NetmodeID.SinglePlayer)

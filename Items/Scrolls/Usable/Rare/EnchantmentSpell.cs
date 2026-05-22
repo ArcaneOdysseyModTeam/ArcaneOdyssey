@@ -1,10 +1,6 @@
-﻿using ArcaneOdyssey.Buffs;
-using ArcaneOdyssey.Imbues.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.EmptyScrolls;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,21 +20,21 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 
 		public override void UseAnimation(Player player)
 		{
-			if (Main.netMode != NetmodeID.SinglePlayer && Main.myPlayer == player.whoAmI)
+			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
-				ActivateAbility(player);
-				ChatHelper.SendChatMessageFromClient(new ChatMessage($"[c/{Color.AliceBlue.Hex3()}:{Mod.CustomLocalization("RandomWords.Enchantment", player.name)}]"));
-				foreach (var players in Main.ActivePlayers)
+				if (Main.myPlayer == player.whoAmI)
 				{
-					if (players.whoAmI != player.whoAmI)
-						players.AddBuff(ModContent.BuffType<Enchanted>(), 60 * 60 * 5, false); // 5 mins
+					Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Rotating, true);
+					ActivateAbility(player);
+					var packet = Mod.GetPacket();
+					packet.Write(ArcaneOdysseyMod.PacketID.Enchantment);
+					packet.Send();
 				}
 			}
 			else
 			{
-				Item.SetDefaults(ModContent.ItemType<EmptyScroll>());
+				Item.SetDefaults(ItemID.Sets.ShimmerTransformToItem[Type]);
 			}
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Rotating, true);
 		}
 	}
 }

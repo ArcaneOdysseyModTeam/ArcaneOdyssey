@@ -215,7 +215,6 @@ namespace ArcaneOdyssey.AOPlayers
 			pheonixHealing = 0;
 			ArcaneOdysseyMod.Sets.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 			HeavySkillActive = false;
-			DashStrike();
 
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
@@ -233,7 +232,7 @@ namespace ArcaneOdyssey.AOPlayers
 					{
 						if (!AOUtils.BossAlive)
 						{
-							if (eliusArenaCounter < 60.Pow())
+							if (eliusArenaCounter <= (30 * 60))
 								eliusArenaCounter++;
 						}
 						else

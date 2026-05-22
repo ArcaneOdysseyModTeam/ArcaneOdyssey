@@ -37,11 +37,11 @@ namespace ArcaneOdyssey
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
 
-		public static Imbuable SafeImbuable(ModItem item)
+		public static T Safe<T>(ModItem item) where T : ModItem
 		{
-			if (item is Imbuable)
+			if (item is T)
 			{
-				return item as Imbuable;
+				return item as T;
 			}
 			return null;
 		}
@@ -227,11 +227,10 @@ namespace ArcaneOdyssey
 
 		public static Rectangle ReadRectangle(this BinaryReader reader) => new(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
 
-		public static void Write(this BinaryWriter writer, Vector2? vec)
-		{
-			writer.WriteVector2(vec.GetValueOrDefault(Vector2.Zero));
-		}
+		/// <inheritdoc cref="BinaryWriter.Write(float)"/>
+		public static void Write(this BinaryWriter writer, Vector2? vec) => writer.WriteVector2(vec.GetValueOrDefault(Vector2.Zero));
 
+		/// <inheritdoc cref="BinaryReader.ReadSingle"/>
 		public static Vector2? ReadNullableVector2(this BinaryReader reader)
 		{
 			var vec = reader.ReadVector2();
@@ -248,14 +247,8 @@ namespace ArcaneOdyssey
 		public static Color GetAlpha(this Projectile projectile) => projectile.GetAlpha(Color.White);
 
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="rect"></param>
-		/// <param name="scale"></param>
 		/// <param name="adjustX">How many times to shift left the hitbox if it grew, or shift right if it shrunk</param>
 		/// <param name="adjustY">How many times to shift up the hitbox if it grew, or shift it down if it shrunk</param>
-		/// <returns></returns>
 		public static Rectangle Scaled(this Rectangle rectangle, float scale, int adjustX = 1, int adjustY = 1)
 		{
 			Rectangle rect = new(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
@@ -267,6 +260,8 @@ namespace ArcaneOdyssey
 			rect.Y += diffY * adjustY;
 			return rect;
 		}
+
+		public static Rectangle Inflated(this Rectangle rect, Vector2 increase) => Utils.CenteredRectangle(rect.Center(), rect.Size() + increase);
 
 		public static SynergyEffects CopySynergiesFromImbue<T>() where T : Imbuable
 		{
@@ -611,7 +606,7 @@ namespace ArcaneOdyssey
 					continue;
 				if (target.Hitbox.Distance(origin) <= range)
 				{
-					ModDamageHelper modifiers = new(null);
+					ModDamageHelper modifiers = new();
 					if (imbue is not null)
 					{
 						modifiers = CalculateImbueDamage(imbue, target, modifiers);
@@ -848,7 +843,7 @@ namespace ArcaneOdyssey
 					continue;
 				if (target.Hitbox.Intersects(hitbox))
 				{
-					ModDamageHelper modifiers = new(null);
+					ModDamageHelper modifiers = new();
 					if (imbue is not null)
 					{
 						modifiers = CalculateImbueDamage(imbue, target, modifiers);
@@ -2068,9 +2063,20 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// used so i can copy paste code
 	/// </summary>
-	public struct ModDamageHelper(StatModifier? statModifier)
+	public struct ModDamageHelper
 	{
-		public StatModifier FinalDamage = statModifier.GetValueOrDefault(StatModifier.Default);
+		public StatModifier FinalDamage;
+
+		public ModDamageHelper(StatModifier statModifier)
+		{
+			FinalDamage = statModifier;
+		}
+
+		public ModDamageHelper()
+		{
+			FinalDamage = StatModifier.Default;
+		}
+
 		public int GetDamage(int damage)
 		{
 			return FinalDamage.ApplyTo(damage).Round();
