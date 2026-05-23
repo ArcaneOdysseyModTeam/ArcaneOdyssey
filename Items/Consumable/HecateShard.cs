@@ -45,7 +45,13 @@ namespace ArcaneOdyssey.Items.Consumable
 			try
 			{
 				//Main.NewText($"Can use item {!ModContent.GetInstance<ImbueAnythingUISystem>().CanShowImbueSequelAcquire()}");
-				if (ModContent.GetInstance<ModUISystem>().CanShowMutations())
+				ModUISystem instance = ModContent.GetInstance<ModUISystem>();
+
+				// Spoky (2026 May 23): I have no idea why this gives error, but I'll just put this failsafe just in case it catches an error
+				if (instance is null) 
+					return false;
+
+				if (instance.CanShowMutations())
 					return false;
 
 				foreach (var i in player.inventory)

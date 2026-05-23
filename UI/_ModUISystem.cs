@@ -159,7 +159,13 @@ public class ModUISystem : ModSystem
 	public bool CanShowImbueAcquire() => _prevTime is not null && _ImbueAcquire?.CurrentState is not null;
 	public bool CanShowImbueSequelAcquire() => _prevTime is not null && _ImbueAcquireSequel?.CurrentState is not null;
 	public bool CanShowImbueChange() => _prevTime is not null && _ImbueChange?.CurrentState is not null;
-	public bool CanShowMutations() => _prevTime is not null && _MutateThyMagic?.CurrentState is not null;
+	public bool CanShowMutations()
+	{
+		if (_prevTime is null) return false;
+		if (_MutateThyMagic is null) return false;
+
+		return _MutateThyMagic.CurrentState is not null;
+	}
 	#endregion
 
 	#region Reading
