@@ -20,22 +20,6 @@ namespace ArcaneOdyssey.Projectiles.Base
 			return base.PreDraw(ref lightColor);
 		}
 
-		public string Tier
-		{
-			get
-			{
-				var split = GetType().FullName.Split('.');
-				foreach (var item in split)
-				{
-					if (item == ImbuableTiers.Normal.ToString() || item == ImbuableTiers.Lost.ToString() || item == ImbuableTiers.Ancient.ToString() || item == ImbuableTiers.Developer.ToString())
-					{
-						return item;
-					}
-				}
-				return "Any";
-			}
-		}
-
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

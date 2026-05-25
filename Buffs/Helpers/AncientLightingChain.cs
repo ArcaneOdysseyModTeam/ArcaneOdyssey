@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Buffs.Helpers
 				{
 					if (npcs.Center.Distance(npc.Center) <= ChainDistance && (!npc.friendly))
 					{
-						npcs.AddBuff(Type, 60);
+						npcs.AddBuff(Type, npc.buffTime[buffIndex]);
 						if (!Main.dedServ)
 						{
 							ChainVFX(npc.Center, npcs.Center);
@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Buffs.Helpers
 					}
 				}
 				if (AOUtils.ServerOrSingleplayer)
-					npc.HitNPC(50, Main.rand.NextBool().ToDirectionInt(), ModContent.GetInstance<AncientLightningMagic>(), damageType: DamageClass.Magic, damageVariation: true);
+					npc.HitNPC(npc.buffTime[buffIndex], Main.rand.NextBool().ToDirectionInt(), ModContent.GetInstance<AncientLightningMagic>(), damageType: DamageClass.Magic, damageVariation: true);
 			}
 			npc.DelBuff(buffIndex);
 			buffIndex--;
@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Buffs.Helpers
 				{
 					if (players.Center.Distance(player.Center) <= ChainDistance)
 					{
-						players.AddBuff(Type, 60);
+						players.AddBuff(Type, player.buffTime[buffIndex]);
 						if (!Main.dedServ)
 						{
 							ChainVFX(player.Center, players.Center);
@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Buffs.Helpers
 
 				if (Main.myPlayer == player.whoAmI)
 				{
-					player.Hurt(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Death", player.name).ToNetworkText()), 30, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
+					player.Hurt(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Death", player.name).ToNetworkText()), player.buffTime[buffIndex], Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
 				}
 			}
 			player.DelBuff(buffIndex);

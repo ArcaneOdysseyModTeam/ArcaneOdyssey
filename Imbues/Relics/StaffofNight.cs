@@ -10,7 +10,8 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Relics
 {
-	public class NyxStaff : SpiritEnergy
+	[LegacyName("NyxStaff")]
+	public class StaffofNight : SpiritEnergy
 	{
 		public override int Value => 700;
 		public override SoundStyle? ImbueSound => SoundID.Item8;

@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.SteampunkSteam);
 				dust.velocity *= 0.4f;
 			}
-			player.ArcaneOdyssey().scalded = true;
+			player.ArcaneOdyssey().debuffs.Add(10);
 		}
 	}
 }

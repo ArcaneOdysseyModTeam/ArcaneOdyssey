@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public int Penetrations { get => (int)Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
-		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
+		public Imbuable Imbue => ModContent.GetInstance<StaffofNight>();
 
 		public const int TimeLeftMax = 60 * 5;
 		public override void SetDefaults()

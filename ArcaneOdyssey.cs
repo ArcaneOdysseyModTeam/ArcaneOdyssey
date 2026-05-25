@@ -351,6 +351,8 @@ namespace ArcaneOdyssey
 
 			public static bool[] shield = ItemID.Sets.Factory.CreateBoolSet();
 
+			public static bool[] showItemTypeTooltip = ItemID.Sets.Factory.CreateBoolSet(true);
+
 			[ReinitializeDuringResizeArrays]
 			public static class Assets
 			{

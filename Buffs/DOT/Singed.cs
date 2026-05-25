@@ -46,8 +46,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 		public override void Update(Player player, ref int buffIndex)
 		{
 			stack = AOUtils.GetAOBuffStack(player, buffIndex); // stacks disappear over time
-			player.ArcaneOdyssey().singe = stack;
-
+			player.ArcaneOdyssey().debuffs.Add(6 * stack);
 			if (!Main.dedServ)
 			{
 				Dust.NewDustDirect(player.position, player.width, player.height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);

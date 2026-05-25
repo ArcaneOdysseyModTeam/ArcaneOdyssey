@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			if (item.Imbue() is not MagicType or SpiritEnergy)
 			{
 				modifiers.FinalDamage *= 0;
-				NPC.life += 5;
+				NPC.life = Utils.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
 			}
 		}
 
@@ -145,23 +145,12 @@ namespace ArcaneOdyssey.NPCs.Town
 		{
 			if (firstButton)
 			{
-				Main.npcChatText = Main.rand.Next(Player.ArcaneOdyssey().AvailablePages()).Description.Value; // placeholder, open up guidebook ui instead
-
-				//AOPlayer modPlayer = Player.ArcaneOdyssey();
-				//List<GuidebookPage> list = modPlayer.AvailablePages();
-				//Main.NewText($"Hmm {Player.name}, modPlayer: {modPlayer.Name}\n");
-				//foreach (var l in list)
-				//{
-				//	Main.NewText($"Name: {l.DisplayName} \n" +
-				//		$"\t{l.Description}\n");
-				//}
-
 				Main.CloseNPCChatOrSign();
 				ModContent.GetInstance<ModUISystem>().ShowReadingSimulator();
 			}
 			else
 			{
-				if (Main.LocalPlayer.PlayerItem() is not null && !Main.LocalPlayer.PlayerItem().IsAir && Main.LocalPlayer.PlayerItem().active && Main.LocalPlayer.PlayerItem().ModItem is Imbuable imbue)
+				if (Player.PlayerItem() is not null && !Player.PlayerItem().IsAir && Player.PlayerItem().active && Player.PlayerItem().ModItem is Imbuable imbue)
 				{
 					Main.npcChatText = imbue.SynergiesText();
 				}
@@ -233,7 +222,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			options.RemoveAll(e => e == LastDialogue);
 
 			if (options.Count == 0)
-				return this.GetLocalizedValue("Chat.Hello");
+				options = [this.GetLocalizedValue("Chat.Hello")];
 
 			string chosen = Main.rand.Next(options);
 			LastDialogue = chosen;

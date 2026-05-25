@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		}
 
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
-		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
+		public Imbuable Imbue => ModContent.GetInstance<StaffofNight>();
 
 		public override void SetStaticDefaults()
 		{

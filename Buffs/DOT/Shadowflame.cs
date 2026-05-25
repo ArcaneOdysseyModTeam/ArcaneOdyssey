@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.ArcaneOdyssey().shadowflamed = true;
+			player.ArcaneOdyssey().debuffs.Add(18);
 			if (!Main.dedServ)
 			{
 				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Shadowflame);

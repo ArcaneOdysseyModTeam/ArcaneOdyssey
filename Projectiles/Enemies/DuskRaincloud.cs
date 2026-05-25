@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public const int MaxTimeLeft = SpiritRaincloud.MaxTimeLeft;
 
-		public Imbuable Imbue = ModContent.GetInstance<NyxStaff>();
+		public Imbuable Imbue => ModContent.GetInstance<StaffofNight>();
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

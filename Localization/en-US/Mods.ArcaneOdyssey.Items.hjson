@@ -340,12 +340,12 @@ Potions: {
 
 Debug: {
 	EliusArenaSpawner: {
-		DisplayName: Elius Arena Spawner [DEBUG]
-		Tooltip: Forces Elius's arena to generate, or checks for multiplayer syncing
+		DisplayName: Elius Arena Spawner
+		Tooltip: Forces Elius's arena to generate, may crash your game if it fails (does not work in multiplayer)
 	}
 
 	MarketableSpoky: {
-		DisplayName: Marketable Spoky [DEBUG]
+		DisplayName: Marketable Spoky
 		Tooltip: Opens the guidebook from anywhere
 	}
 }

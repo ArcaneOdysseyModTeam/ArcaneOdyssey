@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Imbues.Magic.Developer
+namespace ArcaneOdyssey.Imbues.Magic.Dragon
 {
 	public class VesuviusMagic : MagicType
 	{
@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 		public override float ScrollSpeed => 1.2f;
 		public override float ScrollSize => 3f;
 		public override float ScrollDamage => 2f;
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Developer;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
 		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<VesuvianBurn>()];
@@ -62,23 +62,24 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, direction.X * 2f, direction.Y * 2f, 0, new Color(0, 0, 255, 0), 2.5f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, direction.X * 2f, direction.Y * 2f, 0, new Color(0, 0, 255, 0), area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0, 0, 255, 0), 1.2f);
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 0f, 0f, 0, new Color(0, 0, 255, 0), area.RelativeScale());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, area.RelativeScale());
 			Lighting.AddLight(area.Center(), 1f, 0.19f, 0f);
 		}
+
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(position, 0, 0, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (5f * intensity), (Main.rand.NextFloat() - 0.5f) * (5f * intensity), 0, new Color(0, 0, 255, 0), 2f * intensity);
-				Dust.NewDust(position, 0, 0, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (5f * intensity), (Main.rand.NextFloat() - 0.5f) * (5f * intensity), 0, Color.Blue, 2f * intensity);
+				Dust.NewDust(position, 0, 0, DustID.UltraBrightTorch, (Main.rand.NextFloat() - 0.5f) * (5f * intensity), (Main.rand.NextFloat() - 0.5f) * (5f * intensity), 0, new Color(0, 0, 255, 0), intensity);
+				Dust.NewDust(position, 0, 0, DustID.SolarFlare, (Main.rand.NextFloat() - 0.5f) * (5f * intensity), (Main.rand.NextFloat() - 0.5f) * (5f * intensity), 0, Color.Blue, intensity);
 			}
 		}
 
@@ -86,7 +87,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Developer
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, new Color(0, 0, 255, 0), 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, new Color(0, 0, 255, 0), area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

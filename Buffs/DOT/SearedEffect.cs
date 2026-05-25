@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			}
 			Dust newDust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);
 			newDust.noGravity = true;
-			player.ArcaneOdyssey().seared = true;
+			player.ArcaneOdyssey().debuffs.Add(10);
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Developer
 		public override float ImbueDamage => .8f;
 		public override float ImbueSize => 1.5f;
 		public override float ImbueSpeed => 1.6f;
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Developer;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
 		public override Color ImbueColour => new(255, 224, 228);
 	}
 }

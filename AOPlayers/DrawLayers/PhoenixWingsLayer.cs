@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 		public override void Load()
 		{
-			phoenixWingsTex = ModContent.Request<Texture2D>(AOUtils.GetTexture<PhoenixMagic>() + $"_{EquipType.Wings}Glow", AssetRequestMode.ImmediateLoad);
+			phoenixWingsTex = ModContent.Request<Texture2D>(AOUtils.GetTexture<PhoenixMagic>() + $"_{EquipType.Wings}Glow");
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Wings);
@@ -34,8 +34,6 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 			{
 				shader = player.cWings
 			};
-			//drawInfo.compBackArmFrame = new Rectangle(-10000, 100000, 100000, 19997);
-			//drawInfo.compFrontArmFrame = new Rectangle(-10000, 100000, 100000, 19997);
 			drawInfo.DrawDataCache.Add(d);
 		}
 	}

@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 				Dust.NewDust(player.position, player.width, player.height, DustID.SolarFlare, 0f, 0f, 0, Color.Blue, 1.2f);
 				Lighting.AddLight(player.Center, 1f, 0.19f, 0f);
 			}
-			player.ArcaneOdyssey().vesburn = true;
+			player.ArcaneOdyssey().debuffs.Add(60);
 		}
 	}
 }

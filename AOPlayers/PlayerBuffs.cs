@@ -151,17 +151,9 @@ namespace ArcaneOdyssey.AOPlayers
 				tag.Add("guidebooks", unlockedPages);
 		}
 
-
-		public bool bleeding = false;
-		public bool elecToxins = false;
-		public bool ionized = false;
-		public bool scalded = false;
-		public int singe = 0;
-		public bool seared = false;
-		public bool vesburn = false;
 		public bool oiled = false;
-		public bool scorched = false;
-		public bool shadowflamed = false;
+
+		public List<int> debuffs = [];
 
 		public override void UpdateBadLifeRegen()
 		{
@@ -170,49 +162,9 @@ namespace ArcaneOdyssey.AOPlayers
 				Player.lifeRegen = Math.Min(Player.lifeRegen - num, -num);
 			}
 
-			if (bleeding)
+			foreach (var debuff in debuffs)
 			{
-				subtract(6);
-			}
-
-			if (elecToxins)
-			{
-				subtract(20);
-			}
-
-			if (ionized)
-			{
-				subtract(50);
-			}
-
-			if (scalded)
-			{
-				subtract(10);
-			}
-
-			if (singe > 0)
-			{
-				subtract(6 * singe);
-			}
-
-			if (seared)
-			{
-				subtract(10);
-			}
-			
-			if (vesburn)
-			{
-				subtract(60);
-			}
-
-			if (scorched)
-			{
-				subtract(10);
-			}
-
-			if (shadowflamed)
-			{
-				subtract(18);
+				subtract(debuff);
 			}
 
 			// keep at bottom!
@@ -224,17 +176,9 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public void ResetBuffs()
 		{
-			bleeding = false;
 			Gel = null;
-			elecToxins = false;
-			ionized = false;
-			scalded = false;
-			singe = 0;
-			seared = false;
-			vesburn = false;
 			oiled = false;
-			scorched = false;
-			shadowflamed = false;
+			debuffs.Clear();
 		}
 	}
 }

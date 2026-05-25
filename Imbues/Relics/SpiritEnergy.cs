@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 						}
 						else
 						{
-							return ImbuableTiers.Developer; // unstable
+							return ImbuableTiers.Dragon; // unstable
 						}
 					}
 					else
@@ -190,7 +190,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			get
 			{
-				if (Main.netMode == NetmodeID.SinglePlayer)
+				if (Main.netMode == NetmodeID.SinglePlayer && ArcaneOdysseyMod.finishedLoading)
 				{
 					if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
 					{
@@ -346,6 +346,11 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Summon;
+
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				Item.color = SpiritColor;
+			}
 		}
 
 		public virtual int DustType => ModContent.DustType<SpiritDust>();

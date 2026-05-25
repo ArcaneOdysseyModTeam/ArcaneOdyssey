@@ -369,7 +369,7 @@ Normal: {
 	}
 }
 
-Developer: {
+Dragon: {
 	VesuviusMagic: {
 		DisplayName: Vesuvius Magic
 		Tooltip: Dedicated to [c/aa2b00:RedBirb1508]
@@ -390,5 +390,12 @@ Developer: {
 		DisplayName: Wither Lightning Magic
 		Tooltip: ""
 		Ability: Enemies with less that double your max health are instantly killed
+	}
+
+	DeliriumMagic: {
+		AttackPrefix: Delirius
+		SpellPrefix: Delirium
+		DisplayName: Delirium Magic
+		Tooltip: Dedicated to [c/9b59b6:ThyGoodBoy]
 	}
 }

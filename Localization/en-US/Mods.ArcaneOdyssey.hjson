@@ -160,28 +160,28 @@ MagicTierLines: {
 	Normal: "[c/2277ff:~ Basic magic ~]"
 	Lost: "[c/0044ff:~ Lost magic ~]"
 	Ancient: "[c/7ebcc2:~ Ancient magic ~]"
-	Developer: "[c/ff0000:~ Developer magic ~]"
+	Dragon: "[c/ff0000:~ Mythical Dragon magic ~]"
 }
 
 SpecialTierLines: {
 	Normal: "[c/2277ff:~ Lesser lost magic ~]"
 	Lost: "[c/0044ff:~ Lost spirit mutation ~]"
 	Ancient: "[c/7ebcc2:~ Ancient spirit mutation ~]"
-	Developer: "[c/ff0000:~ Power of the gods ~]"
+	Dragon: "[c/ff0000:~ Power of the gods ~]"
 }
 
 FSTierLines: {
 	Normal: "[c/2277ff:~ Fighting style ~]"
 	Lost: "[c/0044ff:~ Lost fighting style ~]"
 	Ancient: "[c/7ebcc2:~ Ancient fighting style ~]"
-	Developer: "[c/ff0000:~ Developer fighting style ~]"
+	Dragon: "[c/ff0000:~ Developer fighting style ~]"
 }
 
 RelicTierLines: {
 	Normal: "[c/2277ff:~ Relic ~]"
 	Lost: "[c/0044ff:~ Inhabited relic ~]"
 	Ancient: "[c/7ebcc2:~ Deific relic ~]"
-	Developer: "[c/ff0000:~ Unstable relic ~]"
+	Dragon: "[c/ff0000:~ Unstable relic ~]"
 }
 
 ArmourAutoTooltip: {
@@ -366,9 +366,4 @@ MainMenuStyle: {
 	Dragon: Dragon
 	MenuBack: MenuBack
 	Djin: Djin
-}
-
-Debug: {
-	Attempt: Detected an attempt to spawn EliusArena, rejected. Found location:
-	AnyString: "{0}"
 }

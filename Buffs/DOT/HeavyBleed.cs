@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 		public override void Update(Player player, ref int buffIndex)
 		{
 			totalTicks++;
-			player.ArcaneOdyssey().bleeding = true;
+			player.ArcaneOdyssey().debuffs.Add(6);
 			if (Main.GameUpdateCount % 2 == 0)
 			{
 				Dust.NewDust(player.Center, 0, 0, DustID.Blood);

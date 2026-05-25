@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSpeed => 1.4f;
 		public override float ScrollSize => 1.1f;
 		public override float ScrollDamage => .875f;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 16), Debuff.Create<AncientLightingChain>()];
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 16), Debuff.Create<AncientLightingChain>(0)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];
 
 		public override SynergyEffects Effects => new(

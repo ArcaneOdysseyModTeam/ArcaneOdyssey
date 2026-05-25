@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.MainMenus
 			public Vector2 velocity;
 			public Vector2 position;
 
-			public static Asset<Texture2D> Texture => ArcaneOdysseyMod.Instance.Assets.Request<Texture2D>("Assets/Raindrop");
+			public static Asset<Texture2D> Texture = Asset<Texture2D>.Empty;
 
 			public void Update()
 			{
@@ -72,7 +72,8 @@ namespace ArcaneOdyssey.MainMenus
 
 		public override string DisplayName => Mod.CustomLocalization("MenuStyle", SelectedTitle.DisplayName.Value).Value;
 
-		public override Asset<Texture2D> Logo => Mod.Assets.Request<Texture2D>("Assets/TitleLogo");
+		private static Asset<Texture2D> cachedLogo;
+		public override Asset<Texture2D> Logo => AOUtils.Request(Mod.Name + "/Assets/TitleLogo", ref cachedLogo);
 
 		public override int Music => SelectedTitle.Track.MusicSlot;
 
@@ -84,6 +85,7 @@ namespace ArcaneOdyssey.MainMenus
 
 		public override void SetStaticDefaults()
 		{
+			Raindrop.Texture = Mod.Assets.Request<Texture2D>("Assets/Raindrop");
 			Titles.AddRange(new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"), new(MusicTrack.Djin, Color.Gray, "Djin"));
 		}
 

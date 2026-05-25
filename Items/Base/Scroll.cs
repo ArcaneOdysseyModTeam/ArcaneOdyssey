@@ -102,8 +102,6 @@ namespace ArcaneOdyssey.Items.Base
 
 		public bool? BenifitsFromScrollStats => Item.ArcaneOdyssey()?.BenifitsFromScrollStats;
 
-		public override bool ShowItemTypeTooltip => false;
-
 		public abstract ScrollTier Tier { get; }
 
 		public Imbuable Imbue
@@ -255,6 +253,7 @@ namespace ArcaneOdyssey.Items.Base
 			base.SetStaticDefaults();
 			_ = SkillName;
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EmptyScroll>();
+			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
 		}
 	}
 }

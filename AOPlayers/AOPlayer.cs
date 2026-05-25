@@ -113,8 +113,9 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				if (imbue is EnergyMagic) // change to wave magic later
 				{
-					Player.statMana = Utils.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
-					Player.ManaEffect(damagedone / 4);
+					var dam = damagedone / 4;
+					Player.statMana = Utils.Clamp(Player.statMana + dam, 0, Player.statManaMax2);
+					Player.ManaEffect(dam);
 				}
 				if (imbue is VanishingStyle vanish)
 				{
@@ -130,18 +131,20 @@ namespace ArcaneOdyssey.AOPlayers
 						}
 					}
 				}
-				foreach (var buff in imbue.ImbueDebuffs)
+				foreach (Debuff buff in imbue.ImbueDebuffs)
 				{
-					var instance = DebuffHelpers.Find(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
-					if (DebuffHelpers.Contains(instance))
+					var dur = buff.debuffDuration != 0 ? buff.debuffDuration : damagedone;
+					var index = DebuffHelpers.FindIndex(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
+					if (index != -1)
 					{
-						int damage = instance.damagedone + damagedone;
-						if (canAddBuffs && (float)damage / npc.lifeMax > buff.debuffPercent)
+						var instance = DebuffHelpers[index];
+						var damage = instance.damagedone + damagedone;
+						if (canAddBuffs && (((float)damage / npc.lifeMax) > buff.debuffPercent))
 						{
-							npc.AddBuff(buff.debuffID, buff.debuffDuration);
+							npc.AddBuff(buff.debuffID, dur);
 							damage = 0;
 						}
-						DebuffHelpers[DebuffHelpers.IndexOf(instance)] = instance with { damagedone = damage };
+						DebuffHelpers[index] = instance with { damagedone = damage };
 					}
 					else
 					{
@@ -345,6 +348,6 @@ namespace ArcaneOdyssey.AOPlayers
 		}
 
 		public float SizeMulti => 1f + (StatSize / (BaseArmour.SizeDivision * 100f));
-		public float CooldownDurationMulti => (1f + (StatHaste / (BaseArmour.HasteDivision * 100f))).FlipFloat();
+		public float CooldownDurationMulti => Math.Max(1f - (StatHaste / (BaseArmour.HasteDivision * 100f)), .25f);
 	}
 }

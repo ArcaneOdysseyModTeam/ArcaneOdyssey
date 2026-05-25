@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			{
 				Dust.NewDust(player.Center, 0, 0, DustID.Blood);
 			}
-			player.ArcaneOdyssey().bleeding = true;
+			player.ArcaneOdyssey().debuffs.Add(6);
 		}
 
 		public override List<int> Counterparts => [.. base.Counterparts, ModContent.BuffType<HeavyBleed>()];

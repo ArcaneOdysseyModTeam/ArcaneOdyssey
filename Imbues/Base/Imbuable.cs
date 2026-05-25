@@ -154,10 +154,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public override void UpdateEquip(Player player)
-		{
-			player.ArcaneOdyssey()?.AddEquippedImbue(this);
-		}
+		public override void UpdateEquip(Player player) => player.ArcaneOdyssey()?.AddEquippedImbue(this);
 
 		/// <summary>
 		/// The second imbue
@@ -169,6 +166,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
+			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 		}
@@ -197,8 +195,6 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public virtual bool ImmuneDash => false;
 
-		public override bool ShowItemTypeTooltip => false;
-
 		public virtual float ImbueSpeed => ScrollSpeed != 1f ? MathF.Round(ScrollSpeed <= 1f ? ScrollSpeed * 1.1f : ScrollSpeed * .85f, 3) : 1f;
 		public virtual float ImbueSize => ScrollSize != 1f ? MathF.Round(ScrollSize <= 1f ? ScrollSize * 1.1f : ScrollSize * .85f, 3) : 1f;
 		public virtual float ImbueDamage => ScrollDamage != 1f ? MathF.Round(ScrollDamage <= 1f ? ScrollDamage * 1.1f : ScrollDamage * .85f, 3) : 1f;
@@ -212,7 +208,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		public virtual ImbuableTiers ImbuableTier => ImbuableTiers.Normal;
 		public virtual Debuff[] ImbueDebuffs => [];
-		public virtual SynergyEffects Effects => new([], []);
+		public virtual SynergyEffects Effects => new();
 		public abstract Color ImbueColour { get; }
 		public virtual Color ImbueColour2 => Color.White;
 		public virtual ColourTransitionStyle TransitionStyle => ColourTransitionStyle.None;
@@ -241,7 +237,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
 
-		public virtual int[] Dusts => [];
+		public virtual int[] Dusts => [DustID.ShimmerSpark];
 
 		/// <summary>
 		/// Called after a projectile is killed usually
@@ -262,18 +258,13 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// <param name="area">The box</param>
 		public virtual void BoxEffects(Rectangle area)
 		{
-			for (int X = 0; X <= area.Width; X += 4)
+			for (int i = 0; i <= area.Length(); i++)
 			{
-				Dust.NewDustPerfect(area.TopLeft() with { X = area.X + X }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
-				Dust.NewDustPerfect(area.BottomLeft() with { X = area.X + X }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
-			}
-			for (int Y = 0; Y <= area.Height; Y += 4)
-			{
-				Dust.NewDustPerfect(area.TopLeft() with { Y = area.Y + Y }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
-				Dust.NewDustPerfect(area.TopRight() with { X = area.Y + Y }, DustID.ShimmerSpark, Vector2.Zero, newColor: Colour);
+				Dust.NewDustPerfect(area.RandomBorder(), Main.rand.Next(Dusts), Vector2.Zero, newColor: Colour);
+				Dust.NewDustPerfect(area.RandomBorder(), Main.rand.Next(Dusts), Vector2.Zero, newColor: Colour);
 			}
 
-			LingeringEffects(area, Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2());
+			LingeringEffects(area);
 		}
 
 
@@ -284,7 +275,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				AOUtils.NewDustImperfect(coneCenter, DustID.ShimmerSpark, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: Colour, Scale: .2f * (coneLength / 25f));
+				AOUtils.NewDustImperfect(coneCenter, Main.rand.Next(Dusts), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: Colour, Scale: .2f * (coneLength / 25f));
 			}
 		}
 

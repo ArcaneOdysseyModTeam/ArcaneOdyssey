@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Items.Base;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,12 +10,13 @@ namespace ArcaneOdyssey.Items.Debug
 	{
 		public override ItemRarities Rarity => ItemRarities.Special;
 
-		public override string Texture => AOUtils.GelTexture;
+		public override string Texture => ModContent.GetInstance<EliusArena>().BestiaryIcon;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.width = Item.height = 30;
 		}
 
 		public override void UseAnimation(Player player)
@@ -25,16 +24,7 @@ namespace ArcaneOdyssey.Items.Debug
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
 				WorldGenStuff.SpawnEliusArena();
-			}
-			else if (Main.dedServ)
-			{
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("Debug.Attempt").ToNetworkText(), Color.White);
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("Debug.AnyString", EliusArenaLoader.eliusArena.ToString()).ToNetworkText(), Color.White);
-			}
-			else
-			{
-				Main.NewText("Location found on your client:");
-				Main.NewText(EliusArenaLoader.eliusArena.ToString());
+				Item.TurnToAir();
 			}
 		}
 	}

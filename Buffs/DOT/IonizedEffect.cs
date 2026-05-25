@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.ArcaneOdyssey().ionized = true;
+			player.ArcaneOdyssey().debuffs.Add(50);
 			if (player.wet && !player.lavaWet)
 			{
 				player.DelBuff(buffIndex);

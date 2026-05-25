@@ -1,7 +1,9 @@
-﻿using ArcaneOdysseyMusic;
+﻿using ArcaneOdyssey.Items.Debug;
+using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -35,9 +37,11 @@ namespace ArcaneOdyssey.Biomes
 		/// Area of the elius arena, in tile coordinates
 		/// </summary>
 		public static Rectangle eliusArena;
+		internal bool givenEliusSpawner = false;
 
 		public override void LoadWorldData(TagCompound tag)
 		{
+			givenEliusSpawner = tag.GetBool("giveneliusitem");
 			if (tag.ContainsKey("eliusarena"))
 			{
 				eliusArena = tag.GetIntArray("eliusarena").FromIntArray();
@@ -54,36 +58,56 @@ namespace ArcaneOdyssey.Biomes
 		public override void SaveWorldData(TagCompound tag)
 		{
 			tag.Add("eliusarena", eliusArena.ToIntArray());
+			if (givenEliusSpawner)
+				tag.Add("giveneliusitem", givenEliusSpawner);
 		}
 
 		public override void NetSend(BinaryWriter writer)
 		{
 			writer.Write(eliusArena);
+			writer.Write(givenEliusSpawner);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			eliusArena = reader.ReadRectangle();
+			givenEliusSpawner = reader.ReadBoolean();
 		}
 
 		public override void Load()
 		{
 			eliusArena = default;
+			givenEliusSpawner = false;
 		}
 
 		public override void Unload()
 		{
 			eliusArena = default;
+			givenEliusSpawner = false;
 		}
 
 		public override void OnWorldLoad()
 		{
 			eliusArena = default;
+			givenEliusSpawner = false;
 		}
 
 		public override void OnWorldUnload()
 		{
 			eliusArena = default;
+			givenEliusSpawner = false;
+		}
+
+		public override void PreUpdateWorld()
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer && eliusArena == default)
+			{
+				if (!givenEliusSpawner)
+				{
+					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_FromThis(), ModContent.ItemType<EliusArenaSpawner>());
+					givenEliusSpawner = true;
+				}
+			}
 		}
 	}
 }

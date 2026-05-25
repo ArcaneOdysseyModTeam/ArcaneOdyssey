@@ -1932,7 +1932,7 @@ namespace ArcaneOdyssey
 		Normal,
 		Lost,
 		Ancient,
-		Developer,
+		Dragon,
 	}
 
 	/// <summary>
@@ -1991,10 +1991,22 @@ namespace ArcaneOdyssey
 	/// <summary>
 	/// Imbue status effects
 	/// </summary>
-	public struct SynergyEffects(ClearBuff[] buffsToClear, List<Synergy> buffMultipliers)
+	public struct SynergyEffects
 	{
-		public ClearBuff[] clearBuffs = buffsToClear;
-		public List<Synergy> magicBuffMultipliers = buffMultipliers;
+		public ClearBuff[] clearBuffs;
+		public List<Synergy> magicBuffMultipliers;
+
+		public SynergyEffects(ClearBuff[] buffsToClear, List<Synergy> buffMultipliers)
+		{
+			clearBuffs = buffsToClear;
+			magicBuffMultipliers = buffMultipliers;
+		}
+
+		public SynergyEffects()
+		{
+			clearBuffs = [];
+			magicBuffMultipliers = [];
+		}
 
 		public static SynergyEffects operator +(SynergyEffects one, SynergyEffects two)
 		{

@@ -949,7 +949,6 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (!addedScrap)
 				{
 					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 5));
-					addedScrap = true;
 				}
 			}
 
@@ -1059,7 +1058,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					tooltips.Find(e => e.Name == "Consumable" && e.Mod == "Terraria")?.Hide();
 				}
 
-				if (item.ModItem is not BaseItem || (item.ModItem is BaseItem based && based.ShowItemTypeTooltip))
+				if (ArcaneOdysseyMod.Sets.showItemTypeTooltip[item.type])
 				{
 					var line = item.GetItemRare().ToString();
 					line += " ";
