@@ -586,6 +586,11 @@ namespace ArcaneOdyssey.Imbues.Base
 			return circle;
 		}
 
+		public override void Load()
+		{
+			ModTypeLookup<Imbuable>.Register(this);
+		}
+
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)
 		public override void RightClick(Player player)
 		{

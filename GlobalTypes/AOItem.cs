@@ -112,6 +112,16 @@ namespace ArcaneOdyssey.GlobalTypes
 			return false;
 		}
 
+		public override bool CanStack(Item destination, Item source)
+		{
+			return Boost == destination.ArcaneOdyssey().Boost;
+		}
+
+		public override bool CanStackInWorld(Item destination, Item source)
+		{
+			return CanStack(destination, source);
+		}
+
 		public bool CanHaveAtlanteanEssence()
 		{
 			if (thisItem is not null)
@@ -367,7 +377,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		public bool canBeAffected = true;
+		public ref bool CannotBeAffected => ref ArcaneOdysseyMod.Sets.excludedItem[thisItem?.type ?? 0];
 
 		public override void ApplyPrefix(Item item, int pre)
 		{
@@ -389,7 +399,6 @@ namespace ArcaneOdyssey.GlobalTypes
 			clone.Imbue = Imbue;
 			clone.SecondImbue = SecondImbue;
 			clone.thisItem = to;
-			clone.canBeAffected = canBeAffected;
 			clone.Boost = Boost;
 			return clone;
 		}
@@ -426,7 +435,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 
-			if (Imbue is null || !canBeAffected)
+			if (Imbue is null || CannotBeAffected)
 				return;
 
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
@@ -457,7 +466,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 
 			if (item.ModItem is Imbuable imbue)
@@ -493,7 +502,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 
 			if (item.ModItem is Imbuable imbue)
@@ -530,7 +539,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 
 			if (item.ModItem is Imbuable imbue)
@@ -566,7 +575,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 			if (item.ModItem is Scroll)
 			{
@@ -602,17 +611,13 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 			thisItem = item;
 			owner = null;
-			if (ArcaneOdysseyMod.Sets.excludedItem[item.type])
-			{
-				canBeAffected = false;
-			}
 		}
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
 			thisItem = item;
 			owner = player;
-			if (item.noMelee || !canBeAffected)
+			if (item.noMelee || CannotBeAffected)
 				return;
 			if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 			{
@@ -625,7 +630,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			owner = player;
 			float mult = 1f;
-			if (canBeAffected)
+			if (CannotBeAffected)
 			{
 				if (item.ModItem is Imbuable imbue)
 				{
@@ -671,7 +676,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				WeaponsType = WeaponType.Normal;
 			}
 
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 
 			if (Main.myPlayer != player.whoAmI)
@@ -815,7 +820,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (player.ArcaneOdyssey().GelDebuff != 0)
 					target.AddBuff(player.ArcaneOdyssey().GelDebuff, 60 * Main.rand.Next(5, 10));
 			}
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 			if (Imbue is SpiritEnergy)
 			{
@@ -842,7 +847,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			owner = player;
 
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 
 			int imbue1 = 0;
@@ -874,7 +879,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisItem = item;
 			owner = player;
-			if (!canBeAffected)
+			if (CannotBeAffected)
 				return;
 
 			if (item.ModItem is Weapon weap)
@@ -1034,7 +1039,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (item.ModItem is UnloadedItem || !item.ArcaneOdyssey().canBeAffected)
+			if (item.ModItem is UnloadedItem || !item.ArcaneOdyssey().CannotBeAffected)
 			{
 				return;
 			}

@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Imbues.Base
 	{
 		public abstract MagicCircleTypes CircleType { get; }
 
-		public class MagicCircle
+		public class MagicCircle(ImbuableTiers tier, MagicCircleTypes type)
 		{
 			public override string ToString()
 			{
@@ -29,9 +29,9 @@ namespace ArcaneOdyssey.Imbues.Base
 				return $"{ArcaneOdysseyMod.InternalName}/Effects/MagicCircles/{Type}_{Tier}";
 			}
 
-			public MagicCircleTypes Type;
+			public MagicCircleTypes Type = type;
 
-			public ImbuableTiers Tier;
+			public ImbuableTiers Tier = tier;
 
 			public Asset<Texture2D> Texture
 			{
@@ -51,13 +51,16 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public MagicCircle Circle
+		public MagicCircle Circle => new(ImbuableTier, CircleType);
+
+		public override bool CanStack(Item source)
 		{
-			get
-			{
-				return new MagicCircle { Tier = ImbuableTier, Type = CircleType };
-			}
+			var magic = source.ModItem as MagicType;
+
+			return OriginalImbue.Type == magic.OriginalImbue.Type;
 		}
+
+		public override bool CanStackInWorld(Item source) => CanStack(source);
 
 		public override void SetStaticDefaults()
 		{
@@ -97,73 +100,44 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public const string DefaultOriginalImbue = ArcaneOdysseyMod.InternalName + "." + nameof(WindMagic);
+		public static int DefaultOriginalImbue => ModContent.ItemType<WindMagic>();
 
-		public string BaseImbue
-		{
-			get
-			{
-				var type = ArcaneOdysseyMod.Sets.baseImbues[Type];
-				if (type != -1)
-				{
-					var item = ModContent.GetModItem(type);
-					if (item != null)
-					{
-						return item.Mod.Name + "." + item.Name;
-					}
-				}
-				return DefaultOriginalImbue;
-			}
-		}
-
-		public string OriginalImbue = DefaultOriginalImbue;
+		private Imbuable _og = null;
+		public Imbuable OriginalImbue { get => _og ?? AOUtils.Safe<Imbuable>(ModContent.GetModItem(ArcaneOdysseyMod.Sets.baseImbues[Type] ?? DefaultOriginalImbue)); set => _og = value; }
+		private string cachedUnloadedBase = null;
 
 		public override void SaveData(TagCompound tag)
 		{
 			base.SaveData(tag);
-			if (OriginalImbue != DefaultOriginalImbue)
-				tag.Add("original", OriginalImbue);
+			if (_og is not null || cachedUnloadedBase is not null)
+				tag.Add("baseimbue", _og?.FullName ?? cachedUnloadedBase);
 		}
 
 		public override void LoadData(TagCompound tag)
 		{
 			base.LoadData(tag);
-			var str = tag.GetString("original");
-			if (!string.IsNullOrEmpty(str))
-				OriginalImbue = str;
+
+			var imbuename = tag.GetString("baseimbue");
+			if (ModContent.TryFind<Imbuable>(imbuename, out var value))
+			{
+				OriginalImbue = value;
+			}
 			else
-				OriginalImbue = BaseImbue;
+			{
+				cachedUnloadedBase = imbuename;
+			}
 		}
 
 		public override void NetSend(BinaryWriter writer)
 		{
 			base.NetSend(writer);
-			writer.Write(OriginalImbue);
+			writer.Write(OriginalImbue.Type);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			base.NetReceive(reader);
-			OriginalImbue = reader.ReadString();
-		}
-
-		/// <summary>
-		/// Will be useful for using hecate essense with lost/ancient magic later
-		/// </summary>
-		/// <returns></returns>
-		public MagicType GetBaseImbue()
-		{
-			if (ModLoader.TryGetMod(OriginalImbue.Split('.')[0], out var mod))
-			{
-				if (mod.TryFind<ModItem>(OriginalImbue.Split('.')[1], out var item))
-				{
-					if (item is MagicType)
-					{
-						return item as MagicType;
-					}
-				}
-			}
-			return ModContent.GetInstance<WindMagic>();
+			OriginalImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
 		}
 
 		public abstract void RegisterMutations();

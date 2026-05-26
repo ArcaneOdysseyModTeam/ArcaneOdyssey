@@ -961,7 +961,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.canBeAffected == true) && (item.ammo == AmmoID.None))
+			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.CannotBeAffected == false) && (item.ammo == AmmoID.None))
 			{
 				if (item.ArcaneOdyssey()?.WeaponsType != WeaponType.Artisinal)
 				{

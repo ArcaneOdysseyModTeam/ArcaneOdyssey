@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override void Load()
 		{
+			base.Load();
 			if (Main.netMode != NetmodeID.Server)
 			{
 				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.HandsOn}", EquipType.HandsOn, this);

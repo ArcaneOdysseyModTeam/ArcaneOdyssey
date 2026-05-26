@@ -345,7 +345,7 @@ namespace ArcaneOdyssey
 
 			public static bool[] flail = ItemID.Sets.Factory.CreateBoolSet(ItemID.DripplerFlail, ItemID.Mace, ItemID.FlamingMace, ItemID.Flairon, ItemID.BallOHurt, ItemID.BlueMoon, ItemID.DaoofPow, ItemID.FlowerPow, ItemID.Sunfury, ItemID.TheMeatball); // PORT add other flairon
 
-			public static int[] baseImbues = ItemID.Sets.Factory.CreateIntSet();
+			public static int?[] baseImbues = ItemID.Sets.Factory.CreateCustomSet<int?>(null);
 
 			public static bool[] atlanteanItem = ItemID.Sets.Factory.CreateBoolSet();
 

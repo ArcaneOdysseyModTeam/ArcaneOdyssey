@@ -60,8 +60,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			width = Projectile.width / 4;
-			height = Projectile.height / 4;
+			width = 1;
+			height = 1;
 			fallThrough = true;
 			return true;
 		}

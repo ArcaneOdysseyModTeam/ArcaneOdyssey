@@ -37,9 +37,8 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 				if (newItem.ModItem is MagicType magic)
 				{
-					var og = ModContent.GetModItem((int)MagicTypeToID(WhoWeMutating));
-					if (og != null)
-						magic.OriginalImbue = og.Mod.Name + "." + og.Name;
+					var og = AOUtils.Safe<Imbuable>(ModContent.GetModItem((int)MagicTypeToID(WhoWeMutating)));
+					magic.OriginalImbue = og;
 				}
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();

@@ -44,7 +44,7 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 					else
 					{
-						if (BuffID.Search.TryGetId(bloodDisease.Split("/")[1], out var id))
+						if (BuffID.Search.TryGetId(bloodDisease.Split('/')[1], out var id))
 							return id;
 					}
 				}
@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 					else
 					{
-						if (BuffID.Search.TryGetId(bloodDisease.Split(".")[1], out var id))
+						if (BuffID.Search.TryGetId(bloodDisease.Split('/')[1], out var id))
 							return Lang.GetBuffName(id);
 					}
 				}
@@ -96,22 +96,9 @@ namespace ArcaneOdyssey.AOPlayers
 
 			evil = tag.GetBool("aomentality");
 
-			try
-			{
-				if (tag.TryGet<byte>("darksealedchests", out var dark))
-				{
-					DarkSealed = dark;
-				}
-				if (tag.TryGet<byte>("nimbussealedchests", out var nim))
-				{
-					NimbusSealed = nim;
-				}
-				if (tag.TryGet<byte>("bronzesealedchests", out var bronze))
-				{
-					BronzeSealed = bronze;
-				}
-			}
-			catch { }
+			DarkSealed = tag.GetByte("darkchests");
+			NimbusSealed = tag.GetByte("nimbuschests");
+			BronzeSealed = tag.GetByte("bronzechests");
 			
 			acumen = tag.GetBool("acumenconsumed");
 			hasLoadedWorldBefore = tag.GetBool("wowiveloadedinbefore");
@@ -120,12 +107,15 @@ namespace ArcaneOdyssey.AOPlayers
 				Souls = [.. souls.Select(e => (GodSoulID)e)];
 			}
 
-			unlockedPages = [];
-			foreach (string pagename in tag.GetList<string>("guidebooks"))
+			foreach (var pagename in tag.GetList<string>("guidebooks"))
 			{
 				if (ModContent.TryFind<GuidebookPage>(pagename, out var page))
 				{
 					unlockedPages.Add(page.FullName);
+				}
+				else
+				{
+					unlockedPages.Add(pagename);
 				}
 			}
 		}
@@ -138,11 +128,11 @@ namespace ArcaneOdyssey.AOPlayers
 			if (evil)
 				tag.Add("aomentality", true);
 			if (DarkSealed > 0)
-				tag.Add("darksealedchests", DarkSealed);
+				tag.Add("darkchests", DarkSealed);
 			if (NimbusSealed > 0)
-				tag.Add("nimbussealedchests", NimbusSealed);
+				tag.Add("nimbuschests", NimbusSealed);
 			if (BronzeSealed > 0)
-				tag.Add("bronzesealedchests", BronzeSealed);
+				tag.Add("bronzechests", BronzeSealed);
 			if (acumen)
 				tag.Add("acumenconsumed", acumen);
 			if (Souls.Count > 1)

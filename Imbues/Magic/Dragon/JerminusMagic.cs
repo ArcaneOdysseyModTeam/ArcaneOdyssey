@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Dragon
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Trauma>()];
 
-		public override int BlastFrames => 1;
+		public override int BlastFrames => 3;
 
 		public override void RegisterMutations()
 		{
