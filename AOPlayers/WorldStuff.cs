@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArcaneOdyssey.Buffs;
+using System;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers
@@ -21,6 +22,19 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
+		private byte _banishment = 0;
+		public byte Banishment
+		{
+			get
+			{
+				return Math.Clamp(_banishment, (byte)0, (byte)5);
+			}
+			set
+			{
+				_banishment = Math.Clamp(value, (byte)0, (byte)5);
+			}
+		}
+
 		public byte BronzeSealed = 0;
 		public byte DarkSealed = 0;
 		public byte NimbusSealed = 0;
@@ -33,5 +47,27 @@ namespace ArcaneOdyssey.AOPlayers
 		}
 
 		public ushort eliusArenaCounter = 0;
+
+		public void AddInsanityDebuff()
+		{
+			switch (Insanity)
+			{
+				case 1:
+					Player.AddBuff(ModContent.BuffType<InsanityOne>(), 2);
+					break;
+				case 2:
+					Player.AddBuff(ModContent.BuffType<InsanityTwo>(), 2);
+					break;
+				case 3:
+					Player.AddBuff(ModContent.BuffType<InsanityThree>(), 2);
+					break;
+				case 4:
+					Player.AddBuff(ModContent.BuffType<InsanityFour>(), 2);
+					break;
+				case 5:
+					Player.AddBuff(ModContent.BuffType<InsanityFive>(), 2);
+					break;
+			}
+		}
 	}
 }

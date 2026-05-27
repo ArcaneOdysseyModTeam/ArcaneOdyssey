@@ -14,7 +14,6 @@ namespace ArcaneOdyssey.Buffs.Base
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
-			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 			ExternalModSupport.RegisterDebuff(this);
 		}
 	}

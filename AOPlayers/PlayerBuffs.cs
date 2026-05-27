@@ -1,10 +1,12 @@
-﻿using ArcaneOdyssey.Buffs.Base;
+﻿using ArcaneOdyssey.Buffs;
+using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Guidebook;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -162,6 +164,15 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				subtract(10);
 			}
+		}
+
+		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
+		{
+			if ((hitDirection == 0) && (Player.HasBuff<InsanityFour>() || Player.HasBuff<InsanityFive>()))
+			{
+				damageSource.CustomReason ??= Mod.CustomLocalization("Insanity.Death" + Main.rand.Next(5), Player.name).ToNetworkText();
+			}
+			return true;
 		}
 
 		public void ResetBuffs()

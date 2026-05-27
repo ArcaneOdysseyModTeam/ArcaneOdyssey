@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 				}
 			}
+			AddInsanityDebuff();
 		}
 
 		private static int SortPages(GuidebookPage x, GuidebookPage y)

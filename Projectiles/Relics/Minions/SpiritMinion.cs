@@ -245,5 +245,11 @@ namespace ArcaneOdyssey.Projectiles.Relics.Minions
 			fallThrough = Projectile.Bottom.Y < Owner.Top.Y;
 			return true;
 		}
+
+		public override bool TouchingWater()
+		{
+			Projectile.Center = Owner.Center;
+			return true;
+		}
 	}
 }

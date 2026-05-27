@@ -168,3 +168,28 @@ Enchanted: {
 	DisplayName: Enchanted
 	Description: Damage, attack size, and health have been boosted
 }
+
+InsanityFive: {
+	DisplayName: Insanity Five
+	Description: You are too insane to survive
+}
+
+InsanityFour: {
+	DisplayName: Insanity Four
+	Description: You are highly insane, and usually could not survive
+}
+
+InsanityOne: {
+	DisplayName: Insanity One
+	Description: You are slightly insane
+}
+
+InsanityThree: {
+	DisplayName: Insanity Three
+	Description: You are moderately insane
+}
+
+InsanityTwo: {
+	DisplayName: Insanity Two
+	Description: You are mildly insane
+}

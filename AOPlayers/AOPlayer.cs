@@ -321,6 +321,7 @@ namespace ArcaneOdyssey.AOPlayers
 			StatSize = 0;
 			StatHaste = 0;
 			Insanity = 0;
+			Banishment = 0;
 			ResetBuffs();
 			List<int> queue = [];
 			foreach (int type in EquippedImbues)

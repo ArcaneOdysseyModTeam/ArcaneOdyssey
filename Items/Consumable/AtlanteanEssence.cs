@@ -1,6 +1,8 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.GlobalTypes;
+using ArcaneOdyssey.Items.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
 
@@ -25,6 +27,17 @@ namespace ArcaneOdyssey.Items.Consumable
 		{
 			Lighting.AddLight(Item.Center, 1, 0, 1);
 			return true;
+		}
+
+		public static ref Asset<Texture2D> AtlanteanIndicator => ref AOItem.AtlanteanIndicator;
+
+		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			if (AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
+			{
+				spriteBatch.Draw(AtlanteanIndicator.Value, position, null, Item.GetAlpha(Color.White), 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
+			}
+			return base.PreDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
 		}
 
 		public override void SetStaticDefaults()
