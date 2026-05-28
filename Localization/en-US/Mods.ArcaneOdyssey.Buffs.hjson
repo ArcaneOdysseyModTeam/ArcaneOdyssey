@@ -175,26 +175,26 @@ Enchanted: {
 }
 
 InsanityFive: {
-	DisplayName: Insanity Five
+	DisplayName: Insanity V
 	Description: You are too insane to survive
 }
 
 InsanityFour: {
-	DisplayName: Insanity Four
+	DisplayName: Insanity IV
 	Description: You are highly insane, and usually could not survive
 }
 
 InsanityOne: {
-	DisplayName: Insanity One
+	DisplayName: Insanity I
 	Description: You are slightly insane
 }
 
 InsanityThree: {
-	DisplayName: Insanity Three
+	DisplayName: Insanity III
 	Description: You are moderately insane
 }
 
 InsanityTwo: {
-	DisplayName: Insanity Two
+	DisplayName: Insanity II
 	Description: You are mildly insane
 }

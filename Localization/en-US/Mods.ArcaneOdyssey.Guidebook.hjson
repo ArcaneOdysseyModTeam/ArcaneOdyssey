@@ -199,3 +199,19 @@ SpecialDashes: {
 		You can activate these special dashes by equipping the [i:ArcaneOdyssey/WalkRite] scroll, making sure it's imbued, then pressing the Special Dash Bind keybind.
 		'''
 }
+
+InsanityGuide: {
+	DisplayName: Insanity & Banishment
+	Text:
+		'''
+		Insanity is a stat gained in a variety of ways. The higher your insanity, the more illusions you see until it tears you apart.
+
+		Certain areas, such as the Dark Sea will naturally give insanity. This limits how far you can travel normally.
+
+		Insanity can also be granted by accessories with Atlantean Essence [i:ArcaneOdyssey/AtlanteanEssence] applied, in exchange for powerful buffs.
+
+		The most effective way to avoid insanity is by gaining Banishment. Banishment is provided by potions and equipment.
+
+		Having more banishment than insanity will make you immune to all insanity effects, barring the highest tier of insanity.
+		'''
+}
