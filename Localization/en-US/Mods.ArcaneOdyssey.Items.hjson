@@ -138,6 +138,11 @@ Equipment: {
 				'A bracelet made out of red titanium'
 				'''
 		}
+
+		RedsFork: {
+			DisplayName: Reds Fork
+			Tooltip: ""
+		}
 	}
 
 	Mounts: {

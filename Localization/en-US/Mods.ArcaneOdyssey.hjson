@@ -236,6 +236,7 @@ Projectiles: {
 	Pets: {
 		ElfPetProjectile.DisplayName: Aether
 		Iris.DisplayName: Iris
+		ScorchedFork.DisplayName: Scorched Fork
 	}
 
 	Weapons: {
