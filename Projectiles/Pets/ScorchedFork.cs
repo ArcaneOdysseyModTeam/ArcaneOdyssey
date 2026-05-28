@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		private Vector2 targetPosition;
 
-		public override float Size => .3f;
+		public override float Size => .4f;
 
 		public override void SetDefaults()
 		{
