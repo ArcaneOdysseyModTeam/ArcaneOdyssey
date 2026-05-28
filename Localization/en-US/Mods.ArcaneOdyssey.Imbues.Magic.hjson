@@ -398,4 +398,11 @@ Dragon: {
 		DisplayName: Delirium Magic
 		Tooltip: Dedicated to [c/9b59b6:ThyGoodBoy]
 	}
+
+	UmbralIceMagic: {
+		AttackPrefix: Sun-Eating
+		SpellPrefix: Umbral Ice
+		DisplayName: Umbral Ice Magic
+		Tooltip: ""
+	}
 }

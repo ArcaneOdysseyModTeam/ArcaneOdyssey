@@ -20,15 +20,15 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		private Vector2 targetPosition;
 
-		public override float Size => .4f;
+		public override float Size => .5f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.netImportant = true;
 			Projectile.tileCollide = false;
-			Projectile.width = 44;
-			Projectile.height = 154;
+			Projectile.width = 30;
+			Projectile.height = 102;
 		}
 
 		public override bool PreAI()

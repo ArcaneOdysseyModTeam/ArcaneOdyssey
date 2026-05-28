@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float? DashResist => 1.3f;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override SoundStyle? ImbueSound => SoundID.Item27;
-		public override Color ImbueColour => new(30, 200, 255, 255);
+		public override Color ImbueColour => new(30, 200, 255);
 		public override bool CanBeWet => false;
 		public override float ImbueSpeed => .925f;
 		public override float ImbueSize => 1.15f;
