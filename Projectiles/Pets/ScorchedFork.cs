@@ -20,13 +20,14 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		private Vector2 targetPosition;
 
-		public override float Size => .4f;
+		public override float Size => .3f;
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.netImportant = true;
 			Projectile.tileCollide = false;
+			Projectile.alpha = 100;
 			Projectile.width = 44;
 			Projectile.height = 154;
 		}
@@ -43,13 +44,14 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		public override void AI()
 		{
+			Lighting.AddLight(Projectile.Center,0,1,1);
 			if (Owner.HasBuff<ForkPetBuff>())
 				Projectile.timeLeft = 2;
-			targetPosition = Owner.Center + new Vector2(Owner.direction * 50f, -17f);
+			targetPosition = Owner.Center + new Vector2(Owner.direction * -50f, -30f);
 			if (Projectile.Center.Distance(targetPosition) > 5f)
 			{
 				Projectile.velocity = Vector2.Zero;
-				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, Projectile.Distance(targetPosition) / 40f);
+				Projectile.Center = Projectile.Center.MoveTowards(targetPosition+new Vector2(0f,(10f * MathF.Sin(Main.GameUpdateCount / 100f))), Projectile.Distance(targetPosition+new Vector2(0f,(10f * MathF.Sin(Main.GameUpdateCount / 100f)))) / 40f);
 				var velocity = Projectile.SafeDirectionTo(targetPosition); // fake velocity
 				Projectile.spriteDirection = (velocity.X < 0).ToDirectionInt();
 				if (Projectile.Center.Distance(targetPosition) > 120f)
@@ -109,8 +111,9 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			}
 			else
 			{
-				Projectile.rotation = Projectile.rotation.AngleTowards(0f, (MathHelper.Pi / 6f) / 20f);
-				Projectile.spriteDirection = Owner.direction * -1;
+				Projectile.Center = Projectile.Center.MoveTowards(targetPosition+new Vector2(0f,(10f * MathF.Sin(Main.GameUpdateCount / 100f))), Projectile.Distance(targetPosition+new Vector2(0f,(10f * MathF.Sin(Main.GameUpdateCount / 100f)))) / 40f);
+				//Projectile.rotation = Projectile.rotation.AngleTowards(0f, (MathHelper.Pi / 6f) / 20f);
+				//Projectile.spriteDirection = Owner.direction;
 			}
 		}
 

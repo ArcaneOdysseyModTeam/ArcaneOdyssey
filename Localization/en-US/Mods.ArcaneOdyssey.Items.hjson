@@ -141,7 +141,11 @@ Equipment: {
 
 		RedsFork: {
 			DisplayName: Reds Fork
-			Tooltip: ""
+			Tooltip:
+				'''
+				Did someone put this fork in the microwave?
+				Dedicated to [c/ff2b00:RedBirb1508]
+				'''
 		}
 	}
 

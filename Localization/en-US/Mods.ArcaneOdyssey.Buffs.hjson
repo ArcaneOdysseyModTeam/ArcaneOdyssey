@@ -148,7 +148,7 @@ Pets: {
 
 	ForkPetBuff: {
 		DisplayName: Fork Pet Buff
-		Description: Mods.ArcaneOdyssey.Buffs.Pets.ForkPetBuff.Description
+		Description: The ghostly vissage of a scorched fork follows you...
 	}
 }
 
