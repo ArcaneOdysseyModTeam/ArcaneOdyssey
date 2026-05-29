@@ -1577,7 +1577,7 @@ namespace ArcaneOdyssey
 		}
 		#endregion
 
-		#region Random Math Functions
+		#region Math Functions
 		public static int GetAOBuffStack(NPC npc, int index)
 		{
 			return (npc.buffTime[index] / 60 / 5) + 1;
@@ -1612,7 +1612,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="input">Input</param>
 		/// <returns></returns>
-		public static float FlipFloat(this float input) => MathHelper.Clamp(2f - input, .01f, 2f);
+		public static float FlipFloat(this float input) => input.Pow(-1);
 
 		public static float MultiToPercent(this float multiplier) => multiplier - 1f; // wow simplest function on the earth
 

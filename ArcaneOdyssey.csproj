@@ -3,6 +3,10 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DefineConstants>$(DefineConstants);VSDEBUGMODE</DefineConstants>
 	</PropertyGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 	<ItemGroup>
 		<AdditionalFiles Remove="references\**" />
 		<Compile Remove="**\*.py" />
@@ -25,6 +29,9 @@
 		<None Remove="references\**" />
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>references\ArcaneOdysseyMusic.dll</HintPath>
+		</Reference>
+		<Reference Include="MagicStorage">
+		  <HintPath>references\MagicStorage.dll</HintPath>
 		</Reference>
 		<Reference Include="StructureHelper">
 		  <HintPath>references\StructureHelper.dll</HintPath>

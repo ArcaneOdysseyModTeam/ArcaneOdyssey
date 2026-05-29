@@ -7,7 +7,7 @@ namespace ArcaneOdyssey
 {
 	public abstract class ModDash(Entity source) : ModType, IImbuable
 	{
-		public Entity Source { get; private set; } = source;
+		public Entity Source { get; } = source;
 		public Imbuable Imbue { get; set; }
 		public Imbuable SecondImbue { get; set; }
 

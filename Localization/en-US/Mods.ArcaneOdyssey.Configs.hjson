@@ -10,11 +10,6 @@ ArcaneOdysseyConfig: {
 			'''
 	}
 
-	GroundReflexes: {
-		Label: "[i:ArcaneOdyssey/ReflexScroll] Ground Dodges"
-		Tooltip: Allows reflex dashing while grounded to have no unique effects, in exchange for a 1.75x defense multiplier
-	}
-
 	VanillaItemTemperatures: {
 		Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
 		Tooltip:

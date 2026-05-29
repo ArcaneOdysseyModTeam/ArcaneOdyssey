@@ -8,7 +8,7 @@ Ancient: {
 
 	DeathMagic: {
 		DisplayName: Death Magic
-		Ability: Enemies with less that double your max health are instantly killed
+		Ability: Enemies with less than double your max health are instantly killed
 		Tooltip: ""
 		AttackPrefix: Deadly
 		SpellPrefix: Death
@@ -389,7 +389,7 @@ Mythical: {
 		SpellPrefix: Wither Lightning
 		DisplayName: Wither Lightning Magic
 		Tooltip: ""
-		Ability: Enemies with less that double your max health are instantly killed
+		Ability: Enemies with less than double your max health are instantly killed
 	}
 
 	DeliriumMagic: {

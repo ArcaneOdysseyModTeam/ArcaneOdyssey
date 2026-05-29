@@ -298,15 +298,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.ScrollSize * Imbue.ScrollSize;
+							value *= Imbue.ScrollSize.Pow();
 							if (SecondImbue is not null)
-								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+								value *= SecondImbue.ImbueSize.Pow();
 						}
 						else
 						{
-							value *= Imbue.ScrollSize.FlipFloat() * Imbue.ScrollSize.FlipFloat();
+							value *= Imbue.ScrollSize.FlipFloat().Pow();
 							if (SecondImbue is not null)
-								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+								value *= SecondImbue.ImbueSize.FlipFloat().Pow();
 						}
 					}
 				}
@@ -316,15 +316,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.ImbueSize * Imbue.ImbueSize;
+							value *= Imbue.ImbueSize.Pow();
 							if (SecondImbue is not null)
-								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+								value *= SecondImbue.ImbueSize.Pow();
 						}
 						else
 						{
 							value *= Imbue.ImbueSize.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+								value *= SecondImbue.ImbueSize.FlipFloat().Pow();
 						}
 					}
 				}
@@ -454,6 +454,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
 				{
+					imbueScale = 52f / Math.Max(texture2.Width(), texture2.Height());
 					dimensions.X *= -1f;
 					location = position + (dimensions * .5f * scale);
 
@@ -544,9 +545,9 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (item.ModItem is Imbuable imbue)
 			{
-				knockback *= imbue.ScrollSize * imbue.ScrollSize;
+				knockback *= imbue.ScrollSize.Pow();
 				if (imbue.Imbue is not null)
-					knockback *= imbue.Imbue.ScrollSize * imbue.Imbue.ScrollSize;
+					knockback *= imbue.Imbue.ScrollSize.Pow();
 				knockback *= imbue.KBMulti;
 				if (imbue.Imbue is not null)
 					knockback *= imbue.Imbue.KBMulti;
@@ -555,15 +556,15 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
-					knockback *= Imbue.ScrollSize * Imbue.ScrollSize;
+					knockback *= Imbue.ScrollSize.Pow();
 					if (SecondImbue is not null)
-						knockback *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						knockback *= SecondImbue.ImbueSize.Pow();
 				}
 				else if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
 				{
-					knockback *= Imbue.ImbueSize * Imbue.ImbueSize;
+					knockback *= Imbue.ImbueSize.Pow();
 					if (SecondImbue is not null)
-						knockback *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						knockback *= SecondImbue.ImbueSize.Pow();
 				}
 				knockback *= Imbue.KBMulti;
 				if (SecondImbue is not null)

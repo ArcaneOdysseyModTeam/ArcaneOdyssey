@@ -17,9 +17,6 @@ namespace ArcaneOdyssey
 		public bool VanillaItemTemperatures { get; set; }
 
 		[DefaultValue(true)]
-		public bool GroundReflexes { get; set; }
-
-		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool SyncProjectileSizes { get; set; }
 

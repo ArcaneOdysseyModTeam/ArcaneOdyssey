@@ -38,7 +38,7 @@ namespace ArcaneOdyssey
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
 
-		public static bool finishedLoading = false;
+		internal static bool finishedLoading = false;
 
 		/// <param name="args">
 		/// ExcludeProjectile (<seealso cref="int"/>)

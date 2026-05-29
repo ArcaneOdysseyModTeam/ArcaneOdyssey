@@ -15,10 +15,17 @@ namespace ArcaneOdyssey.Guidebook
 		/// </summary>
 		public abstract ushort PageNum { get; }
 
+		/// <summary>
+		/// The optional image that comes with this page
+		/// </summary>
 		public Asset<Texture2D> Image;
 
+		/// <summary>
+		/// Whether this page is obtainable from finding Athena pages, rather than any specific condition
+		/// </summary>
 		public virtual bool AthenaPage => false;
 
+		/// <inheritdoc/>
 		protected sealed override void Register()
 		{
 			ModTypeLookup<GuidebookPage>.Register(this);
@@ -26,15 +33,14 @@ namespace ArcaneOdyssey.Guidebook
 			ModContent.RequestIfExists(Texture, out Image, AssetRequestMode.ImmediateLoad);
 		}
 
+		/// <inheritdoc/>
 		public sealed override void SetupContent()
 		{
 			GuidebookSystem.AllPages[PageNum] = this;
-			_ = DisplayName;
+			_ = DisplayName; // forces these to generate if they don't exist
 			_ = Description;
 			SetStaticDefaults();
 		}
-
-		public static int Count = 0;
 
 		internal static Dictionary<string, ushort> PagesOrdered = [];
 
@@ -42,22 +48,44 @@ namespace ArcaneOdyssey.Guidebook
 
 		public LocalizedText DisplayName => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".DisplayName", PrettyPrintName);
 
+		/// <inheritdoc/>
 		public virtual string LocalizationCategory => "Guidebook";
 
+		/// <summary>
+		/// Allows you to set conditions for unlocking pages
+		/// <para/>Called every frame, so don't do too much here
+		/// </summary>
+		/// <param name="player">The local player</param>
+		/// <returns>Whether the page should be unlocked</returns>
 		public virtual bool MetConditions(Player player) => false;
 
+		/// <summary>
+		/// Gets a guidebook page by page number
+		/// </summary>
+		/// <param name="page"></param>
+		/// <returns></returns>
 		public static GuidebookPage Get(int page)
 		{
 			var pages = ModContent.GetContent<GuidebookPage>();
 			return pages.ToList().Find(e => e.PageNum == page);
 		}
 
+		/// <summary>
+		/// Gets a guidebook page by internal name
+		/// </summary>
+		/// <param name="page"></param>
+		/// <returns></returns>
 		public static GuidebookPage Get(string page)
 		{
 			var pages = ModContent.GetContent<GuidebookPage>();
 			return pages.ToList().Find(e => e.Name == page);
 		}
 
+		/// <summary>
+		/// Gets the page number before the provided page
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
 		public ushort Before<T>() where T : GuidebookPage
 		{
 			var inst = ModContent.GetInstance<T>();
@@ -83,6 +111,11 @@ namespace ArcaneOdyssey.Guidebook
 			return PagesOrdered[Name];
 		}
 
+		/// <summary>
+		/// Gets the page number after the provided page
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
 		public ushort After<T>() where T : GuidebookPage
 		{
 			if (!PagesOrdered.ContainsKey(Name))

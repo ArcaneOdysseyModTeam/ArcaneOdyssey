@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
@@ -12,6 +13,8 @@ using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdysseyMusic.MusicBoxes;
+using MagicStorage.CrossMod;
+using MagicStorage.Sorting;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -843,5 +846,15 @@ namespace ArcaneOdyssey
 				}
 			}
 		}
+	}
+
+	[ExtendsFromMod("MagicStorage")]
+	public class ImbuesFilter : FilteringOption
+	{
+		public override ItemFilter.Filter Filter => item => item.ModItem is Imbuable;
+
+		public override string Texture => Mod.Name + "/Assets/ImbuesFilter";
+
+		public override Position GetDefaultPosition() => new AfterParent(FilteringOptionLoader.Definitions.MiscGameplayItems); // might not work till aqua finishes his update
 	}
 }

@@ -1,0 +1,1073 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MagicStorage</name>
+    </assembly>
+    <members>
+        <member name="T:MagicStorage.Common.CircularDependencyChecker`1">
+            <summary>
+            A utility class to check for circular dependencies in a directed graph of items
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.CircularDependencyChecker`1.Run(`0)">
+            <summary>
+            Checks if there are circular dependencies starting from the given initial item
+            </summary>
+            <param name="initial">The initial item to start the check from</param>
+            <returns><see langword="true"/> if no circular dependency was found, <see langword="false"/> otherwise</returns>
+        </member>
+        <member name="M:MagicStorage.Common.CircularDependencyChecker`1.GetCircularDependencyPath">
+            <summary>
+            Walks from the initial item to the item which triggered the circular dependency, returning the identifier for each item in the path.<br/>
+            If <see cref="M:MagicStorage.Common.CircularDependencyChecker`1.Run(`0)"/> has not been called, or if it returned <see langword="true"/>, this method will throw an exception.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.CircularDependencyChecker`1.Copy">
+            <summary>
+            Creates a copy of this <see cref="T:MagicStorage.Common.CircularDependencyChecker`1"/> with the same configuration of functions but without any state
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.ClampedArithmetic">
+            <summary>
+            A wrapper structure over an integer used to facilitate overflow checks when calculating a sum or difference
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.ClampedArithmetic.#ctor(System.Int32)">
+            <summary>
+            A wrapper structure over an integer used to facilitate overflow checks when calculating a sum or difference
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.ClampedLongArithmetic">
+            <summary>
+            A wrapper structure over a long integer used to facilitate overflow checks when calculating a sum or difference
+            </summary>
+            <param name="Value"></param>
+        </member>
+        <member name="M:MagicStorage.Common.ClampedLongArithmetic.#ctor(System.Int64)">
+            <summary>
+            A wrapper structure over a long integer used to facilitate overflow checks when calculating a sum or difference
+            </summary>
+            <param name="Value"></param>
+        </member>
+        <member name="P:MagicStorage.Common.ClampedLongArithmetic.Value">
+            <summary></summary>
+        </member>
+        <member name="T:MagicStorage.Common.ConsoleColorLock">
+            <summary>
+            A mutex that allows multiple threads to safely change the console color
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.FlagSwitch">
+            <summary>
+            A structure used to temporarily overwrite the value in a boolean variable.  This type is intended to be used in <see langword="using"/> contexts
+            </summary>
+        </member>
+        <member name="P:MagicStorage.Common.IO.IDataSizeTracker.BitCount">
+            <summary>
+            How many bits are required to store the data for this tracker
+            </summary>
+        </member>
+        <member name="P:MagicStorage.Common.IO.DataSizeTracker.BitCount">
+            <inheritdoc/>
+        </member>
+        <member name="P:MagicStorage.Common.IO.DataSizeTracker`1.BitCount">
+            <inheritdoc/>
+        </member>
+        <member name="T:MagicStorage.Common.IO.NetCompression">
+            <summary>
+            This helper class contains methods for maximizing compression of data for I/O
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.IO.NetCompression.Compress(System.Byte[],Ionic.Zlib.CompressionLevel)">
+            <summary>
+            Compresses <paramref name="data"/> at the provided <paramref name="level"/>
+            </summary>
+            <param name="data">The decompressed byte array</param>
+            <param name="level">The compression level</param>
+            <returns>The compressed byte array</returns>
+        </member>
+        <member name="M:MagicStorage.Common.IO.NetCompression.Decompress(System.Byte[],Ionic.Zlib.CompressionLevel)">
+            <summary>
+            Decompresses <paramref name="data"/> at the provided <paramref name="level"/>
+            </summary>
+            <param name="data">The compressed byte array</param>
+            <param name="level">The compression level</param>
+            <returns>The decompressed byte array</returns>
+        </member>
+        <member name="T:MagicStorage.Common.ObjectSwitch`1">
+            <summary>
+            A structure used to temporarily overwrite the value in a variable.  This type is intended to be used in <see langword="using"/> contexts
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.ObjectSwitch">
+            <inheritdoc cref="T:MagicStorage.Common.ObjectSwitch`1"/>/>
+        </member>
+        <member name="P:MagicStorage.Common.Players.SecurityPlayer.UniqueID">
+            <summary>
+            The unique identifier for this player for identifying authors of networks
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.RefContainer`1">
+            <summary>
+            A structure containing a reference to a value type
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.IRefreshUIWatchTarget">
+            <summary>
+            An interface for objects which can be watched for changes to determine if the UI should be refreshed
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.IRefreshUIWatchTarget.GetCurrentState">
+            <summary>
+            Determine the current state of the target here.  If the state has changed, the UI will be refreshed.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MagicStorage.Common.IRefreshUIWatchTarget.OnStateChange(System.Boolean@)" -->
+        <member name="T:MagicStorage.Common.RefreshUIWatchdog">
+            <summary>
+            A class which can be used to watch for changes to determine if the UI should be refreshed
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.LambdaWatchTarget`1">
+            <summary>
+            A wrapper for a lambda function which can be used to watch for changes to determine if the UI should be refreshed
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.LambdaWatchTarget`1.#ctor(`0,System.Func{`0,System.Boolean},System.Func{`0,System.Boolean})">
+            <summary>
+            Creates a new <see cref="T:MagicStorage.Common.LambdaWatchTarget`1"/> which can be used to watch for changes in <paramref name="target"/>
+            </summary>
+            <param name="target">The target object</param>
+            <param name="observer">The function used to observe changes in the target</param>
+            <param name="forceFullRefresh">The function used to set whether a full refresh should be performed</param>
+        </member>
+        <member name="T:MagicStorage.Common.SharedCounter">
+            <summary>
+            An object used to share the craft target between subrecipe options when performing recursion crafting
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.Systems.HiddenRecipes">
+            <summary>
+            A class used to register recipes that should never appear in the Crafting Interface.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.HiddenRecipes.HideRecipe(Terraria.Recipe)">
+            <summary>
+            Adds the given recipe to the list of hidden recipes.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.HiddenRecipes.HideRecipeResult(System.Int32)">
+            <summary>
+            Adds the given item ID to the list of hidden recipe results.<br/>
+            All recipes that create this item will be hidden.
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.Systems.InfiniteItemsForCrafting">
+            <summary>
+            A class used to track item IDs which should not be consumed when crafting in a Crafting Interface.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.InfiniteItemsForCrafting.AddInfiniteIngredient(System.Int32)">
+            <summary>
+            Adds the item with the given ID to the list of infinite items.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.InfiniteItemsForCrafting.IsConsideredInfinite(System.Int32)">
+            <summary>
+            Whether the item with the given ID is considered infinite.
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.Systems.IValidateAtPostSetupContent">
+            <summary>
+            An interface for an alterative to <see cref="M:Terraria.ModLoader.ModType.ValidateType"/> that's called later in the mod loading process
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.IValidateAtPostSetupContent.ValidateType">
+            <summary>
+            Called during <see cref="M:Terraria.ModLoader.ModSystem.PostSetupContent"/>
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.Systems.IValidateAtPostSetupRecipes">
+            <summary>
+            An interface for an alterative to <see cref="M:Terraria.ModLoader.ModType.ValidateType"/> that's called later in the mod loading process
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.IValidateAtPostSetupRecipes.ValidateType">
+            <summary>
+            Called during <see cref="M:Terraria.ModLoader.ModSystem.PostSetupRecipes"/>
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.MagicCache.RecalculateRecipeCaches">
+            <summary>
+            Clears the dictionaries, arrays and lists for recipes and repopulates them with the current state of the <see cref="F:Terraria.Main.recipe"/> array.<br/>
+            Also forces the active crafting UI to refresh if applicable.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.MagicUI.SetRefresh(System.Boolean)">
+            <summary>
+            Shorthand for setting <see cref="P:MagicStorage.Common.Systems.MagicUI.RefreshUI"/> to <see langword="true"/> and also setting <see cref="P:MagicStorage.Common.Systems.MagicUI.ForceNextRefreshToBeFull"/>
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.RecurrentRecipes.OrderedRecipeTree.TrimBranches(MagicStorage.Common.Systems.RecurrentRecipes.AvailableRecipeObjects)">
+            <summary>
+            Trims the branches of any trees whose ingredient requirement is met or does not have its crafting station and recipe condition requirements met.<br/>
+            Use <see cref="M:MagicStorage.Common.Systems.RecurrentRecipes.OrderedRecipeTree.GetProcessingOrder"/> to get the updated order of the recipe contexts.
+            </summary>
+            <param name="available"></param>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.RecurrentRecipes.OrderedRecipeTree.GetAllRecipes">
+            <summary>
+            Returns an enumeration of every recipe used in this recursion tree
+            </summary>
+        </member>
+        <member name="P:MagicStorage.Common.Systems.RecurrentRecipes.RecipeIngredientInfo.RecipeCount">
+            <summary>
+            How many recipes can create this ingredient
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.RecurrentRecipes.RecipeIngredientInfo.EnumerateValidRecipes(MagicStorage.Common.Systems.RecurrentRecipes.AvailableRecipeObjects,System.Int32)">
+            <summary>
+            Returns all possible recipes that can craft this ingredient, given the available inventory
+            </summary>
+            <param name="available">
+            An optional object indicating which item types are available and their quantities, which crafting stations are available and which recipe conditions have been met.<br/>
+            If <see langword="null"/>, all recipes are returned.
+            </param>
+            <param name="blockedRecipeIngredient">
+            An optional item ID representing a recipe ingredient that should not be used when finding the best match.<br/>
+            If this parameter is greater than 0, then any recipes using the blocked item ID as a possible ingredient will be skipped.
+            </param>
+        </member>
+        <member name="T:MagicStorage.Common.Systems.RecurrentRecipes.RecursionTree">
+            <summary>
+            An object representing the full recursive tree for a recipe
+            </summary>
+        </member>
+        <member name="P:MagicStorage.Common.Systems.RecurrentRecipes.RecursionTree.Root">
+            <summary>
+            The node containing the branches for this recursion tree.  If <see cref="F:MagicStorage.Common.Systems.RecurrentRecipes.RecursionTree.originalRecipe"/> is disabled, this will be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.Common.Systems.RecurrentRecipes.RecursiveRecipe.original">
+            <summary>
+            The base recipe object
+            </summary>
+        </member>
+        <member name="F:MagicStorage.Common.Systems.RecurrentRecipes.RecursiveRecipe.tree">
+            <summary>
+            The tree representing the recipes used to recursive craft this recipe
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.RecurrentRecipes.RecursiveRecipe.GetCraftingTree(System.Int32,MagicStorage.Common.Systems.RecurrentRecipes.AvailableRecipeObjects,System.Int32)">
+            <summary>
+            Returns a tree representing the recipes this recursive recipe will use and their expected crafted quantities
+            </summary>
+            <param name="amountToCraft">How many items are expected to be crafted.  Defaults to 1</param>
+            <param name="available">An optional object indicating which item types are available and their quantities, which crafting stations are available and which recipe conditions have been met</param>
+            <param name="blockedSubrecipeIngredient">An optional item ID representing ingredient trees that should be ignored</param>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.RecurrentRecipes.RecursiveRecipe.GetCraftingInformation(System.Int32,MagicStorage.Common.Systems.RecurrentRecipes.CraftResult@,MagicStorage.Common.Systems.RecurrentRecipes.AvailableRecipeObjects,System.Int32)">
+            <summary>
+            Returns a list of materials needed to craft this recursive recipe
+            </summary>
+            <param name="amountToCraft">How many items are expected to be crafted</param>
+            <param name="result">A structure containing information about the recipes used</param>
+            <param name="available">
+            An optional object indicating which item types are available and their quantities, which crafting stations are available and which recipe conditions have been met.<br/>
+            This dictionary is used to trim the crafting tree before getting its required materials.
+            </param>
+            <param name="blockedSubrecipeIngredient">An optional item ID representing ingredient trees that should be ignored</param>
+        </member>
+        <member name="M:MagicStorage.Common.Systems.RecurrentRecipes.RecursiveRecipe.GetMaxCraftable(MagicStorage.Common.Systems.RecurrentRecipes.AvailableRecipeObjects)">
+            <summary>
+            Iterate's through this recursive recipe's crafting tree and calculates the maximum amount of this recipe that can be crafted
+            </summary>
+            <param name="available">
+            An object indicating which item types are available and their quantities, which crafting stations are available and which recipe conditions have been met.<br/>
+            <b>NOTE:</b> the contents of this object may be modified by the time this method call returns
+            </param>
+            <returns>The maximum amount of this recipe that can be crafted, or 0 if the information in <paramref name="available"/> could not satisfy any recipes</returns>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="T:MagicStorage.Common.Systems.Shimmering.IShimmerResult">
+            <summary>
+            An interface representing a result from shimmering an item in the Decrafting UI
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.Systems.Shimmering.IShimmerResultReport">
+            <summary>
+            An interface representing a report of the results of a shimmering operation
+            </summary>
+        </member>
+        <member name="P:MagicStorage.Common.Systems.Shimmering.IShimmerResultReport.Label">
+            <summary>
+            The label for this report
+            </summary>
+        </member>
+        <member name="P:MagicStorage.Common.Systems.Shimmering.IShimmerResultReport.Texture">
+            <summary>
+            The texture that appears next to the label
+            </summary>
+        </member>
+        <member name="P:MagicStorage.Common.Systems.Shimmering.IShimmerResultReport.Parent">
+            <summary>
+            The object that this report is bound to
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.Threading.Work">
+            <summary>
+            An object wrapping over a working <see cref="P:MagicStorage.Common.Threading.Work.Task"/>
+            </summary>
+        </member>
+        <member name="T:MagicStorage.Common.Threading.WorkManager">
+            <summary>
+            A class responsible for managing work threads while allowing for state reading while the work is being done.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Utility.Evaluate``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Forces an enumeration to be evaluated, then returns the result
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Utility.ComputeDataHash(System.Byte[])">
+            <summary>
+            Generates a hash for a byte array.  This method is <b>NOT</b> optimized for <see cref="M:System.Object.GetHashCode"/> usage!
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.GetCraftingTree(Terraria.Recipe,System.Int32,System.Int32)">
+            <summary>
+            Returns the recursion crafting tree for <paramref name="recipe"/> if it exists and recursion is enabled, or <see langword="null"/> otherwise.
+            </summary>
+            <param name="recipe">The recipe</param>
+            <param name="toCraft">The quantity of the final recipe's crafted item to create</param>
+            <param name="blockedSubrecipeIngredient">An optional item ID representing ingredient trees that should be ignored</param>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.Craft(MagicStorage.Components.TECraftingAccess,System.Int32)">
+            <summary>
+            Attempts to craft a certain amount of items from a Crafting Interface
+            </summary>
+            <param name="craftingAccess">The tile entity for the Crafting Interface to craft items from</param>
+            <param name="toCraft">How many items should be crafted</param>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.Craft(System.Int32)">
+            <summary>
+            Attempts to craft a certain amount of items from the currently assigned Crafting Interface.
+            </summary>
+            <param name="toCraft">How many items should be crafted</param>
+        </member>
+        <member name="P:MagicStorage.CraftingGUI.SimulatingCrafts">
+            <summary>
+            Whether crafting simulations are currently being performed.  Use of this property is encouraged if a recipe does more than spawn items on the player.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.IsCurrentRecipeFullyAvailable">
+            <summary>
+            Returns <see langword="true"/> if the current recipe is available and passes the "blocked ingredients" filter
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.SetNextDefaultRecipeCollectionToRefresh(Terraria.Recipe[])">
+            <summary>
+            Adds <paramref name="recipes"/> to the collection of recipes to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="recipes">An array of recipes to update.  If <see langword="null"/>, then nothing happens</param>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.SetNextDefaultRecipeCollectionToRefresh(System.Int32)">
+            <summary>
+            Adds all recipes which use <paramref name="affectedItemType"/> as an ingredient or result to the collection of recipes to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="affectedItemType">The item type to use when checking <see cref="P:MagicStorage.Common.Systems.MagicCache.RecipesUsingItemType"/></param>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.SetNextDefaultRecipeCollectionToRefresh(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Adds all recipes which use the IDs in <paramref name="affectedItemTypes"/> as an ingredient or result to the collection of recipes to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="affectedItemTypes">A collection of item types to use when checking <see cref="P:MagicStorage.Common.Systems.MagicCache.RecipesUsingItemType"/></param>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.SetNextDefaultRecipeCollectionToRefreshFromTile(System.Int32)">
+            <summary>
+            Adds all recipes which use <paramref name="affectedTileType"/> as a required tile to the collection of recipes to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="affectedTileType">The tile type to use when checking <see cref="P:MagicStorage.Common.Systems.MagicCache.RecipesUsingTileType"/></param>
+        </member>
+        <member name="M:MagicStorage.CraftingGUI.SetNextDefaultRecipeCollectionToRefreshFromTile(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Adds all recipes which the IDs in <paramref name="affectedTileTypes"/> as a required tile to the collection of recipes to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="affectedTileTypes">A collection of the tile type to use when checking <see cref="P:MagicStorage.Common.Systems.MagicCache.RecipesUsingTileType"/></param>
+        </member>
+        <member name="T:MagicStorage.CrossMod.Calls.BaseCallFunction">
+            <summary>
+            The base class for <see cref="M:Terraria.ModLoader.Mod.Call(System.Object[])"/> handlers
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunction.Call(System.ReadOnlySpan{System.Object})">
+            <summary>
+            The function which handles the arguments and return value for the call function
+            </summary>
+        </member>
+        <member name="T:MagicStorage.CrossMod.Calls.BaseCallFunctionNoArgs">
+            <summary>
+            The base implementation of a <see cref="T:MagicStorage.CrossMod.Calls.BaseCallFunction"/> which does not take any arguments.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoArgs.Handle">
+            <inheritdoc cref="M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoArgs.Call(System.ReadOnlySpan{System.Object})"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoReturn.Handle(System.ReadOnlySpan{System.Object})">
+            <inheritdoc cref="M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoReturn.Call(System.ReadOnlySpan{System.Object})"/>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoReturn`1.Handle(`0)" -->
+        <!-- Badly formed XML comment ignored for member "M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoReturn`2.Handle(`0,`1)" -->
+        <!-- Badly formed XML comment ignored for member "M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoReturn`3.Handle(`0,`1,`2)" -->
+        <!-- Badly formed XML comment ignored for member "M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoReturn`4.Handle(`0,`1,`2,`3)" -->
+        <!-- Badly formed XML comment ignored for member "M:MagicStorage.CrossMod.Calls.BaseCallFunctionNoReturn`5.Handle(`0,`1,`2,`3,`4)" -->
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunction`2.Handle(`0)">
+            <inheritdoc cref="M:MagicStorage.CrossMod.Calls.BaseCallFunction`2.Call(System.ReadOnlySpan{System.Object})"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunction`3.Handle(`0,`1)">
+            <inheritdoc cref="M:MagicStorage.CrossMod.Calls.BaseCallFunction`3.Call(System.ReadOnlySpan{System.Object})"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunction`4.Handle(`0,`1,`2)">
+            <inheritdoc cref="M:MagicStorage.CrossMod.Calls.BaseCallFunction`4.Call(System.ReadOnlySpan{System.Object})"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunction`5.Handle(`0,`1,`2,`3)">
+            <inheritdoc cref="M:MagicStorage.CrossMod.Calls.BaseCallFunction`5.Call(System.ReadOnlySpan{System.Object})"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Calls.BaseCallFunction`6.Handle(`0,`1,`2,`3,`4)">
+            <inheritdoc cref="M:MagicStorage.CrossMod.Calls.BaseCallFunction`6.Call(System.ReadOnlySpan{System.Object})"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.ExtraCraftItemsSystem.RegisterDrop(Terraria.Recipe,Terraria.GameContent.ItemDropRules.IItemDropRule)">
+            <summary>
+            Registers an excess item drop that is directly related to crafting a specific recipe
+            </summary>
+            <param name="recipe">The recipe that would be crafted</param>
+            <param name="rule">The drop rule</param>
+        </member>
+        <member name="M:MagicStorage.CrossMod.ExtraCraftItemsSystem.RegisterDrop(System.Func{Terraria.Recipe,System.Boolean},Terraria.GameContent.ItemDropRules.IItemDropRule)">
+            <summary>
+            Registers an excess item drop that is indirectly related to crafting any recipe that satisfies the condition
+            </summary>
+            <param name="condition">A delegate that returns whether a recipe can be used to drop <paramref name="rule"/></param>
+            <param name="rule">The drop rule</param>
+        </member>
+        <member name="P:MagicStorage.CrossMod.FilteringOption.Filter">
+            <summary>
+            The delegate that this filter uses.  <see cref="T:MagicStorage.Sorting.ItemFilter.Filter"/> takes an <see cref="T:Terraria.Item"/> as input and returns a <see langword="bool"/>
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.FilteringOption.FiltersDamageClass">
+            <summary>
+            Whether this filter is for a damage class of items<br/>
+            If this property returns true, this filter is blacklisted by <see cref="F:MagicStorage.Sorting.ItemFilter.WeaponOther"/>
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.FilteringOption.UsesFilterCache">
+            <summary>
+            Whether this filter uses its cached list of valid recipes from <see cref="P:MagicStorage.Common.Systems.MagicCache.FilteredRecipesCache"/>
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.FilteringOption.IsGeneralFilter">
+            <summary>
+            Whether this filter is considered a "general" filter.<br/>
+            Multiple general filters can be selected at once, and each acts as a whitelist for items rather than a blacklist.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.FilteringOption.OnSelected(MagicStorage.UI.NewUIButtonChoice,System.Int32)">
+            <summary>
+            This method executes whenever this option is clicked in the UI
+            </summary>
+            <param name="choiceIndex">Which button set this option is currently assigned to</param>
+            <param name="source">Which button index this option refers to</param>
+        </member>
+        <member name="M:MagicStorage.CrossMod.FilteringOption.GetDefaultVisibility(System.Boolean)">
+            <summary> Returns the option's default visibility. This is usually called as an option is read for refreshing logic, but modders can call it too for information. </summary>
+            <returns> Whether or not this option will be visible by default. Modders can hide options later, if needed.</returns>
+        </member>
+        <member name="M:MagicStorage.CrossMod.FilteringOption.GetDefaultPosition">
+            <summary>
+            Returns the option's default position in regards to other options.
+            Make use of e.g <see cref="T:MagicStorage.CrossMod.FilteringOption.BeforeParent"/>/<see cref="T:MagicStorage.CrossMod.FilteringOption.AfterParent"/>, and provide an option (usually a default one from <see cref="T:MagicStorage.CrossMod.FilteringOptionLoader"/>).
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.SortingOption.SortAgainAfterFuzzy">
+            <summary>
+            Whether <see cref="P:MagicStorage.CrossMod.SortingOption.Sorter"/> is used again after calculating sort order from fuzzy sorting
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.SortingOption.CacheFuzzySorting">
+            <summary>
+            Whether <see cref="P:MagicStorage.CrossMod.SortingOption.Sorter"/> is used during mod loading to initialze a collection for fuzzy sorting.<br/>
+            <b>NOTE:</b> Not performing fuzzy sorting will usually slow down sorting.  Please use this property only when necessary.
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.SortingOption.SortInDescendingOrder">
+            <summary>
+            Whether <see cref="P:MagicStorage.CrossMod.SortingOption.Sorter"/> orders items in descending order.  Defaults to <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.SortingOption.OnSelected(MagicStorage.UI.NewUIButtonChoice,System.Int32)">
+            <summary>
+            This method executes whenever this option is clicked in the UI
+            </summary>
+            <param name="choiceIndex">Which button set this option is currently assigned to</param>
+            <param name="source">Which button index this option refers to</param>
+        </member>
+        <member name="M:MagicStorage.CrossMod.SortingOption.GetDefaultVisibility(System.Boolean)">
+            <summary> Returns the option's default visibility. This is usually called as an option is read for refreshing logic, but modders can call it too for information. </summary>
+            <returns> Whether or not this option will be visible by default. Modders can hide options later, if needed.</returns>
+        </member>
+        <member name="M:MagicStorage.CrossMod.SortingOption.GetDefaultPosition">
+            <summary>
+            Returns the option's default position in regards to other options.
+            Make use of e.g <see cref="T:MagicStorage.CrossMod.SortingOption.BeforeParent"/>/<see cref="T:MagicStorage.CrossMod.SortingOption.AfterParent"/>, and provide an option (usually a default one from <see cref="T:MagicStorage.CrossMod.SortingOptionLoader"/>).
+            </summary>
+        </member>
+        <member name="T:MagicStorage.CrossMod.SellingDuplicateFinder">
+            <summary>
+            This class is used to detect whether an item is a duplicate of another item when selling items via Item Selling Mode in the Storage UI
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.SellingDuplicateFinder.Label">
+            <summary>
+            The label for this <see cref="T:MagicStorage.CrossMod.SellingDuplicateFinder"/> that is rendered in the Sell Duplicates menu
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.SellingDuplicateFinder.IsValidForDuplicateSelling(Terraria.Item,Terraria.Item)">
+            <summary>
+            Return <see langword="true"/> if <paramref name="check"/> is a duplicate of <paramref name="orig"/>.<br/>
+            The type for the two items will always be the same.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.SellingDuplicateFinder.GetBetterItem(Terraria.Item,Terraria.Item)">
+            <summary>
+            Return which of the two items, <paramref name="item1"/> or <paramref name="item2"/>, should be preserved when selling duplicates.<br/>
+            The type for the two items will always be the same.
+            </summary>
+        </member>
+        <member name="T:MagicStorage.CrossMod.StorageAggregator">
+            <summary>
+            A singleton type that allows hooking into the logic responsible for aggregating items in storage.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.StorageAggregator.AppliesToItem(Terraria.Item)">
+            <summary>
+            Whether this aggregator applies to the given item.
+            </summary>
+            <param name="item">The item being aggregated</param>
+        </member>
+        <member name="M:MagicStorage.CrossMod.StorageAggregator.CanAggregateItems(Terraria.Item,Terraria.Item)">
+            <summary>
+            Check if <paramref name="checking"/> can be aggregated into <paramref name="destination"/> here.<br/>
+            Both items are guaranteed to have the same <see cref="F:Terraria.Item.type"/> value.
+            </summary>
+            <param name="destination">The aggregating item stack</param>
+            <param name="checking">The item being aggregated</param>
+            <returns>
+            <see langword="null"/> to use the default behavior which uses data comparisons, <see langword="false"/> to prevent the aggregation of the two items or <see langword="true"/> to force it.<br/>
+            Returns <see langword="null"/> by default.
+            </returns>
+        </member>
+        <member name="M:MagicStorage.CrossMod.StorageAggregator.CanCombineItems(Terraria.Item,Terraria.Item,System.Boolean)">
+            <summary>
+            Checks whether <paramref name="checking"/> can be aggregated into <paramref name="destination"/>.
+            </summary>
+            <param name="destination">The aggregating item stack</param>
+            <param name="checking">The item being aggregated</param>
+            <param name="checkPrefix">Whether to check the prefixes of the items</param>
+            <returns>If the items can be aggregated together.</returns>
+        </member>
+        <member name="M:MagicStorage.CrossMod.StorageAggregator.CanCombineItems(Terraria.Item,Terraria.Item,System.Boolean,System.Boolean,System.Runtime.CompilerServices.ConditionalWeakTable{Terraria.Item,System.Byte[]})">
+            <summary>
+            Checks whether <paramref name="checking"/> can be aggregated into <paramref name="destination"/>.
+            </summary>
+            <param name="destination">The aggregating item stack</param>
+            <param name="checking">The item being aggregated</param>
+            <param name="checkPrefix">Whether to check the prefixes of the items</param>
+            <param name="strict">Whether the data for both items should be compared.  This parameter is forced to <see langword="true"/> if <paramref name="savedItemTagIO"/> is not <see langword="null"/>.</param>
+            <param name="savedItemTagIO">An optional cache for item data</param>
+            <returns>If the items can be aggregated together</returns>
+        </member>
+        <member name="M:MagicStorage.CrossMod.StorageAggregator.SelectData(Terraria.ModLoader.ModItem,Terraria.ModLoader.IO.TagCompound)">
+            <summary>
+            Remove data from <paramref name="tag"/> that is not needed for item comparisons.
+            </summary>
+            <param name="item">The modded item instance</param>
+            <param name="tag">The TagCompound which <see cref="M:Terraria.ModLoader.ModItem.SaveData(Terraria.ModLoader.IO.TagCompound)"/> saved data into.</param>
+            <returns>Whether <paramref name="tag"/> was modified</returns>
+        </member>
+        <member name="M:MagicStorage.CrossMod.StorageAggregator.SelectGlobalData(Terraria.ModLoader.GlobalItem,Terraria.ModLoader.IO.TagCompound)">
+            <summary>
+            Remove data from <paramref name="tag"/> that is not needed for item comparisons.
+            </summary>
+            <param name="item">The global item instance</param>
+            <param name="tag">The TagCompound which <see cref="M:Terraria.ModLoader.GlobalItem.SaveData(Terraria.Item,Terraria.ModLoader.IO.TagCompound)"/> saved data into.</param>
+            <returns>Whether <paramref name="tag"/> was modified</returns>
+        </member>
+        <member name="T:MagicStorage.CrossMod.Storage.StorageTierModifier">
+            <summary>
+            The base class for modifiers that can change the loaded <see cref="T:MagicStorage.CrossMod.Storage.StorageUnitTier"/> instances
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageTierModifier.Type">
+            <summary>
+            The ID of this <see cref="T:MagicStorage.CrossMod.Storage.StorageTierModifier"/>
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageTierModifier.ModifyUpgradeConnections(MagicStorage.CrossMod.Storage.StorageUnitTier)">
+            <summary>
+            Modify which tiers can be upgraded to/from the given <paramref name="tier"/>.<br/>
+            To add connections between tiers, use <see cref="M:MagicStorage.CrossMod.Storage.StorageUnitTier.SetUpgradeableTo(MagicStorage.CrossMod.Storage.StorageUnitTier)"/> and <see cref="M:MagicStorage.CrossMod.Storage.StorageUnitTier.SetUpgradeableFrom(MagicStorage.CrossMod.Storage.StorageUnitTier)"/><br/>
+            To remove connections, use <see cref="M:MagicStorage.CrossMod.Storage.StorageUnitTier.RemoveConnections(MagicStorage.CrossMod.Storage.StorageUnitTier)"/> and <see cref="M:MagicStorage.CrossMod.Storage.StorageUnitTier.RemoveAllConnections"/>
+            </summary>
+        </member>
+        <member name="T:MagicStorage.CrossMod.Storage.StorageUnitTier">
+            <summary>
+            The base class containing information about a Storage Unit tier
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.Type">
+            <summary>
+            The ID of this <see cref="T:MagicStorage.CrossMod.Storage.StorageUnitTier"/>
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.UpgradeItemType">
+            <summary>
+            The <see cref="M:Terraria.ModLoader.ModContent.ItemType``1"/> of the <see cref="T:MagicStorage.Items.BaseStorageUpgradeItem"/> item that is used to apply this tier's upgrade to a Storage Unit.
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.CoreItemType">
+            <summary>
+            The <see cref="M:Terraria.ModLoader.ModContent.ItemType``1"/> of the <see cref="T:MagicStorage.Items.BaseStorageCore"/> item that is dropped when using a Storage Core Wrench on a Storage Unit with this tier.
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.Capacity">
+            <summary>
+            How many item stacks can be stored in a Storage Unit with this tier.
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.StorageUnitItemType">
+            <summary>
+            The <see cref="M:Terraria.ModLoader.ModContent.ItemType``1"/> of the <see cref="T:MagicStorage.Items.BaseStorageUnitItem"/> item that is dropped when destroying a Storage Unit with this tier.
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.StorageUnitTileType">
+            <summary>
+            The <see cref="M:Terraria.ModLoader.ModContent.TileType``1"/> of the <see cref="T:MagicStorage.Components.StorageUnit"/> tile that is used to represent a Storage Unit with this tier.
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.ItemPlaceStyle">
+            <summary>
+            The <see cref="F:Terraria.Item.placeStyle"/> for the <see cref="T:MagicStorage.Items.BaseStorageUnitItem"/> that places the Storage Unit with this tier.<br/>
+            This property defaults to zero.
+            </summary>
+        </member>
+        <member name="P:MagicStorage.CrossMod.Storage.StorageUnitTier.NextTiers">
+            <summary>
+            A read-only list of tiers which this tier can be upgraded to.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.CanUpgradeTo(MagicStorage.CrossMod.Storage.StorageUnitTier)">
+            <summary>
+            Returns whether a Storage Unit with <see langword="this"/> tier can be upgraded to <paramref name="other"/>
+            </summary>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.SetUpgradeableTo(MagicStorage.CrossMod.Storage.StorageUnitTier)">
+            <summary>
+            Marks <see langword="this"/> as upgradeable by <paramref name="nextTier"/> (<see langword="this"/> --&gt; <paramref name="nextTier"/>).<br/>
+            Does nothing if the connection was previously destroyed
+            </summary>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+            <exception cref="T:System.Exception"/>
+            <exception cref="T:System.InvalidOperationException"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.SetUpgradeableFrom(MagicStorage.CrossMod.Storage.StorageUnitTier)">
+            <summary>
+            Marks <paramref name="previousTier"/> as upgradeable by <see langword="this"/> (<paramref name="previousTier"/> --&gt; <see langword="this"/>).
+            </summary>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+            <exception cref="T:System.Exception"/>
+            <exception cref="T:System.InvalidOperationException"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.RemoveConnections(MagicStorage.CrossMod.Storage.StorageUnitTier)">
+            <summary>
+            Permanently removes the upgrade path from <see langword="this"/> to <paramref name="adjacentTier"/>, even if it currently does not exist.<br/>
+            Attempting to reconnect the upgrade tiers again will not restore the connection.<br/>
+            </summary>
+            <exception cref="T:System.ArgumentNullException"/>
+            <exception cref="T:System.Exception"/>
+            <exception cref="T:System.InvalidOperationException"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.RemoveAllConnections">
+            <summary>
+            Permanently removes all existing upgrade paths for this upgrade tier.<br/>
+            Attempting to reconnect any of the affected upgrade tiers will not restore the connections.<br/>
+            </summary>
+            <exception cref="T:System.Exception"/>
+            <exception cref="T:System.InvalidOperationException"/>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.IsValidTile(System.Int32,System.Int32)">
+            <summary>
+            Return whether a tile with the given <see cref="P:Terraria.Tile.TileFrameX"/> and <see cref="P:Terraria.Tile.TileFrameY"/> has this upgrade tier.<br/>
+            The ID of the tile will always be equal to <see cref="P:MagicStorage.CrossMod.Storage.StorageUnitTier.StorageUnitTileType"/>
+            </summary>
+            <param name="frameX">The X-coordinate of the top-leftmost corner of the Storage Unit</param>
+            <param name="frameY">The Y-coordinate of the top-leftmost corner of the Storage Unit</param>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.Frame(MagicStorage.CrossMod.Storage.StorageUnitFullness,System.Boolean,System.Int32@,System.Int32@)">
+            <summary>
+            Set <paramref name="frameX"/> and <paramref name="frameY"/> based on the fullness of the Storage Unit and whether it is disabled.
+            </summary>
+            <param name="fullness">The fullness state of the Storage Unit</param>
+            <param name="active"><see langword="true"/> if the Storage Unit is not disabled, <see langword="false"/> otherwise</param>
+            <param name="frameX">The X-coordinate of the top-leftmost corner of the Storage Unit</param>
+            <param name="frameY">The Y-coordinate of the top-leftmost corner of the Storage Unit</param>
+        </member>
+        <member name="M:MagicStorage.CrossMod.Storage.StorageUnitTier.GetState(System.Int32,System.Int32,MagicStorage.CrossMod.Storage.StorageUnitFullness@,System.Boolean@)">
+            <summary>
+            Get the fullness state and whether the Storage Unit is disabled based on its tile frame coordinates.
+            </summary>
+            <param name="frameX">The X-coordinate of the top-leftmost corner of the Storage Unit</param>
+            <param name="frameY">The Y-coordinate of the top-leftmost corner of the Storage Unit</param>
+            <param name="fullness">The fullness state of the Storage Unit</param>
+            <param name="active"><see langword="true"/> if the Storage Unit is not disabled, <see langword="false"/> otherwise</param>
+        </member>
+        <member name="T:MagicStorage.EnvironmentModule">
+            <summary>
+            A module of information for use in a Storage Configuration Interface. Only one instance is assumed to be active at once.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.GetAdditionalItems(MagicStorage.EnvironmentSandbox)">
+            <summary>
+            Allows you to specify what additional items are used in the Crafting GUI
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.GetInfiniteItems(MagicStorage.EnvironmentSandbox)">
+            <summary>
+            Allows you to specify what ingredients are considered "infinite" and, thus, aren't consumed when crafting in the Crafting GUI.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.GetRecipesToRefresh(Terraria.Item)">
+            <summary>
+            Allows you to specify which additional recipes should be refreshed when depositing or withdrawing <paramref name="stationItem"/> from the Station Slots in the Crafting UI.<br/>
+            Use of the various collections in <see cref="T:MagicStorage.Common.Systems.MagicCache"/> or your own cached recipe collections is recommended.
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.ModifyCraftingZones(MagicStorage.EnvironmentSandbox,MagicStorage.CraftingInformation@)">
+            <summary>
+            Allows you to modify the crafting information for the Crafting GUI<br/>
+            You could also use this hook to set whether "sandbox.player" is in a modded biome for recipe purposes
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.OnConsumeItemForRecipe(MagicStorage.EnvironmentSandbox,Terraria.Item,System.Int32)">
+            <summary>
+            Allows you to specify what happens when an item is consumed for a recipe
+            </summary>
+            <param name="item">The original item instance retrieved from <see cref="M:MagicStorage.EnvironmentModule.GetAdditionalItems(MagicStorage.EnvironmentSandbox)"/> or the storage system</param>
+            <param name="stack">How many items were consumed</param>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.OnConsumeItemsForRecipe(MagicStorage.EnvironmentSandbox,Terraria.Recipe,System.Collections.Generic.List{Terraria.Item})">
+            <summary>
+            Allows you to specify what happens when items are consumed for a recipe
+            </summary>
+            <param name="recipe">The recipe used</param>
+            <param name="items">The items consumed for the recipe</param>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.ConsumeItemForRecipe(MagicStorage.EnvironmentSandbox,Terraria.Recipe,System.Int32,System.Int32@)">
+            <summary>
+            Allows you to modify how much of an item is consumed when it is used in a recipe
+            </summary>
+            <param name="recipe">The recipe used</param>
+            <param name="type">The ID of the required item from the recipe</param>
+            <param name="stack">The quantity of the item that should be consumed</param>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.ResetPlayer(MagicStorage.EnvironmentSandbox)">
+            <summary>
+            Allows you to reset information in the sandbox's player after processing recipes
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.IsAvailable">
+            <summary>
+            Allows you to determine when this module is available for use
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.PreRefreshRecipes(MagicStorage.EnvironmentSandbox)">
+            <summary>
+            Allows you to run logic before recipes are refreshed
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.PostRefreshRecipes(MagicStorage.EnvironmentSandbox)">
+            <summary>
+            Allows you to run logic after recipes are refreshed
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.PreUpdateUI">
+            <summary>
+            Allows you to run logic before the UIs in Magic Storage are updated
+            </summary>
+        </member>
+        <member name="M:MagicStorage.EnvironmentModule.PostUpdateUI">
+            <summary>
+            Allows you to run logic after the UIs in Magic Storage are updated
+            </summary>
+        </member>
+        <member name="T:MagicStorage.ItemCombining">
+            <summary>
+            A class used on items for preventing item combining in a Magic Storage storage system
+            </summary>
+        </member>
+        <member name="M:MagicStorage.DecraftingGUI.SetNextDefaultItemCollectionToRefresh(System.Int32)">
+            <summary>
+            Adds <paramref name="itemType"/> to the list of items to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="itemType">An item ID to refresh</param>
+        </member>
+        <member name="M:MagicStorage.DecraftingGUI.SetNextDefaultItemCollectionToRefresh(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Adds <paramref name="itemTypes"/> to the list of items to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="itemTypes">An enumeration of item IDs to refresh.  If <see langword="null"/> or empty, then nothing happens</param>
+        </member>
+        <member name="M:MagicStorage.DecraftingGUI.SetNextDefaultItemCollectionToRefresh(System.Int32[])">
+            <summary>
+            Adds <paramref name="itemTypes"/> to the list of items to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="itemTypes">An array of item IDs to refresh.  If <see langword="null"/>, then nothing happens</param>
+        </member>
+        <member name="M:MagicStorage.DecraftingGUI.Shimmer(System.Int32)">
+            <summary>
+            Attempts to shimmer a certain amount of items from the currently assigned Aether Interface
+            </summary>
+            <param name="toShimmer">How many items should be shimmered</param>
+        </member>
+        <member name="M:MagicStorage.Items.PortableAccess.GetEffectiveRange(System.Single@,System.Int32@)">
+            <summary>
+            This method determines if this portable access has a limited range and, if it does, what the range is
+            </summary>
+            <returns><see langword="true"/> to indicate that this portable access has a limited range, <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="T:MagicStorage.Sorting.SortingCache">
+            <summary>
+                A helper class that stores a cache of sorting order for every item ID
+            </summary>
+        </member>
+        <member name="M:MagicStorage.Sorting.SortingCacheDictionary.SortFuzzy``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,Terraria.Item},System.Int32)">
+            <summary>
+            	Sorts a collection based on a <see cref="T:Terraria.Item"/> selector
+            </summary>
+            <returns>A sorted collection</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.TryDespoit(MagicStorage.Components.TEStorageCenter,Terraria.Item)">
+            <summary>
+            Simulates a deposit attempt into a storage center (Storage Heart, Storage Access, etc.).
+            </summary>
+            <param name="center">The tile entity used to attempt to retrieve a Storage Heart</param>
+            <param name="item">The item to deposit</param>
+            <returns>Whether the deposit was successful</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.TryDeposit(Terraria.Item)">
+            <summary>
+            Simulates a deposit attempt into the currently assigned Storage Heart.
+            </summary>
+            <param name="item">The item to deposit</param>
+            <returns>Whether the deposit was successful</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.TryDeposit(MagicStorage.Components.TEStorageCenter,System.Collections.Generic.List{Terraria.Item})">
+            <summary>
+            Simulates a deposit attempt into a storage center (Storage Heart, Storage Access, etc.).
+            </summary>
+            <param name="center">The tile entity used to attempt to retrieve a Storage Heart</param>
+            <param name="items">The items to deposit</param>
+            <returns>Whether the deposit was successful</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.TryDeposit(MagicStorage.Components.TEStorageCenter,System.Collections.Generic.List{Terraria.Item},System.Boolean)">
+            <summary>
+            Simulates a deposit attempt into a storage center (Storage Heart, Storage Access, etc.).
+            </summary>
+            <param name="center">The tile entity used to attempt to retrieve a Storage Heart</param>
+            <param name="items">The items to deposit</param>
+            <param name="quickStack">Whether the operation is a quick stack</param>
+            <returns>Whether the deposit was successful</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.TryDeposit(System.Collections.Generic.List{Terraria.Item})">
+            <summary>
+            Simulates a deposit attempt into the currently assigned Storage Heart.
+            </summary>
+            <param name="items">The items to deposit</param>
+            <returns>Whether the deposit was successful</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.DoWithdraw(MagicStorage.Components.TEStorageCenter,Terraria.Item,System.Boolean,System.Boolean)">
+            <summary>
+            Attempts to withdraw an item from a storage center (Storage Heart, Storage Access, etc.).
+            </summary>
+            <param name="center">The tile entity used to attempt to retrieve a Storage Heart</param>
+            <param name="item">The item to withdraw</param>
+            <param name="toInventory">
+            Whether the item goes into the player inventory.
+            This parameter is only used if <see cref="F:Terraria.Main.netMode"/> is <see cref="F:Terraria.ID.NetmodeID.MultiplayerClient"/>
+            </param>
+            <param name="keepOneIfFavorite">Whether at least one item should remain in the storage if it's favourited</param>
+            <returns>A valid item instance if the withdrawal was succesful, an air item otherwise.</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.DoWithdraw(Terraria.Item,System.Boolean,System.Boolean)">
+            <summary>
+            Attempts to withdraw an item from the currently assigned Storage Heart.
+            </summary>
+            <param name="item">The item to withdraw</param>
+            <param name="toInventory">
+            Whether the item goes into the player inventory.
+            This parameter is only used if <see cref="F:Terraria.Main.netMode"/> is <see cref="F:Terraria.ID.NetmodeID.MultiplayerClient"/>
+            </param>
+            <param name="keepOneIfFavorite">Whether at least one item should remain in the storage if it's favourited</param>
+            <returns>A valid item instance if the withdrawal was succesful, an air item otherwise.</returns>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.SetRefresh(System.Boolean)">
+            <inheritdoc cref="M:MagicStorage.Common.Systems.MagicUI.SetRefresh(System.Boolean)"/>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.SetNextItemTypeToRefresh(System.Int32)">
+            <summary>
+            Adds <paramref name="itemType"/> to the list of items to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="itemType">An item ID to refresh</param>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.SetNextItemTypesToRefresh(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Adds <paramref name="itemTypes"/> to the list of items to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="itemTypes">An enumeration of item IDs to refresh.  If <see langword="null"/> or empty, then nothing happens</param>
+        </member>
+        <member name="M:MagicStorage.StorageGUI.SetNextItemTypesToRefresh(System.Int32[])">
+            <summary>
+            Adds <paramref name="itemTypes"/> to the list of items to refresh when calling <see cref="M:MagicStorage.Common.Systems.MagicUI.RefreshItems"/>
+            </summary>
+            <param name="itemTypes">An array of item IDs to refresh.  If <see langword="null"/> or empty, then nothing happens</param>
+        </member>
+        <member name="F:MagicStorage.StorageGUI.ActionMode.Normal">
+            <summary>
+            Standard behavior.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.StorageGUI.ActionMode.Deletion">
+            <summary>
+            Deletion mode.  Clicking an item slot twice will delete the item in it.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.StorageGUI.ActionMode.Selling">
+            <summary>
+            Selling mode.  Clicking a non-selected item slot or right clicking a selected slot will open a quantity popup.  Contains additional buttons for handling selling items.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.StorageGUI.ActionMode.Info">
+            <summary>
+            Information mode.  Hovering over certain areas of the UI will display information about them.
+            </summary>
+        </member>
+        <member name="T:MagicStorage.UI.MagicSlotContext">
+            <summary>
+            Redirections of <see cref="T:Terraria.UI.ItemSlot.Context"/> constants to more sensible internal names
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.Normal">
+            <summary>
+            Standard item slot context
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.SpecialStorageMode">
+            <summary>
+            Default context for when the Storage UI is currently in a special viewing mode
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.SelectedActionItem">
+            <summary>
+            Currently focused item slot when the Storage UI is in a special viewing mode
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.SelectedForSelling">
+            <summary>
+            Storage UI is in Selling mode and the item is selected for selling
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.SellActionPreview">
+            <summary>
+            The preview item for the Selling mode quantity pop-up
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.IngredientNotCraftable">
+            <summary>
+            Recipe ingredient item is not present in storage and cannot be crafted
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.IngredientPartiallyInStock">
+            <summary>
+            Recipe ingredient item is present in storage, but there isn't enough to fulfil the current recipe's requirements
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.IngredientCraftable">
+            <summary>
+            Recipe ingredient can be crafted
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.IngredientBlocked">
+            <summary>
+            Recipe ingredient in storage was manually blocked from being used in crafting
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.SelectedRecipe">
+            <summary>
+            Recipe item is the currently selected recipe
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.SelectedRecipeNotAvailable">
+            <summary>
+            Recipe item is the current selected recipe, and its requirements are not met
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.MagicSlotContext.RecipeNotAvailable">
+            <summary>
+            Recipe item is not the currently selected recipe and its requirements are not met
+            </summary>
+        </member>
+        <member name="M:MagicStorage.UI.MagicStorageItemSlot.#ctor(System.Int32,System.Int32,System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MagicStorage.UI.States.BaseStorageUI">
+            <summary>
+            A base class for common elements in Magic Storage's GUIs
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.States.ButtonConfigurationMode.Legacy">
+            <summary>
+            The layout of the buttons from v0.5.6.5 and previous versions, modified slightly to account for new buttons.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.States.ButtonConfigurationMode.ModernPaged">
+            <summary>
+            All sorting and filtering buttons are moved to the Sorting and Filtering tabs.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.States.ButtonConfigurationMode.ModernConfigurable">
+            <summary>
+            Which buttons appear in the Storage and Crafting pages can be configured via the Sorting and Filtering pages.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.States.ButtonConfigurationMode.LegacyWithGear">
+            <summary>
+            The layout of the buttons is set to the layout from v0.5.6.5 and previous versions, with an extra gear button added.<br/>
+            Clicking the gear button opens a separate panel for choosing which sorting/filtering option is desired.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.States.ButtonConfigurationMode.LegacyBasicWithPaged">
+            <summary>
+            The layout of the buttons is set to the layout from v0.5.6.5 and previous versions.<br/>
+            Any additional buttons are moved to the Sorting and Filtering pages.
+            </summary>
+        </member>
+        <member name="F:MagicStorage.UI.States.ButtonConfigurationMode.ModernDropdown">
+            <summary>
+            The buttons are replaced with dropdown menus which contains all buttons in a list.
+            </summary>
+        </member>
+    </members>
+</doc>

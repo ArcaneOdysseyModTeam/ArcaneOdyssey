@@ -161,7 +161,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 	public class ScrollPitySystem : ModSystem
 	{
-		public static byte pity = 0;
+		internal static byte pity = 0;
 
 		public override void SaveWorldData(TagCompound tag)
 		{
