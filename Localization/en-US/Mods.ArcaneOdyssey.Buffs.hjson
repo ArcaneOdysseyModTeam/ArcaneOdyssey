@@ -69,6 +69,11 @@ DOT: {
 		DisplayName: Infernal Burn
 		Description: Mods.ArcaneOdyssey.Buffs.DOT.InfernalBurn.Description
 	}
+
+	NecroFlame: {
+		DisplayName: Necro Flame
+		Description: Mods.ArcaneOdyssey.Buffs.DOT.NecroFlame.Description
+	}
 }
 
 MagicMarks: {

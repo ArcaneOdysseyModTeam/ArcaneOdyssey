@@ -160,7 +160,7 @@ MagicTierLines: {
 	Normal: "[c/2277ff:~ Basic magic ~]"
 	Lost: "[c/0044ff:~ Lost magic ~]"
 	Ancient: "[c/7ebcc2:~ Ancient magic ~]"
-	Dragon: "[c/ff0000:~ Mythical Dragon magic ~]"
+	Dragon: "[c/ff0000:~ Mythical magic ~]"
 }
 
 SpecialTierLines: {
@@ -174,7 +174,7 @@ FSTierLines: {
 	Normal: "[c/2277ff:~ Fighting style ~]"
 	Lost: "[c/0044ff:~ Lost fighting style ~]"
 	Ancient: "[c/7ebcc2:~ Ancient fighting style ~]"
-	Dragon: "[c/ff0000:~ Developer fighting style ~]"
+	Dragon: "[c/ff0000:~ Mthical fighting style ~]"
 }
 
 RelicTierLines: {

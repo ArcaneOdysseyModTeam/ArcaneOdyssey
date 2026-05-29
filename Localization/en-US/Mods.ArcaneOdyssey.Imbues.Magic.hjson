@@ -405,4 +405,11 @@ Dragon: {
 		DisplayName: Umbral Ice Magic
 		Tooltip: ""
 	}
+
+	NecroBlazeMagic: {
+		AttackPrefix: Necro Blaze
+		SpellPrefix: Necro Blaze
+		DisplayName: Necro Blaze Magic
+		Tooltip: ""
+	}
 }
