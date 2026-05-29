@@ -2,7 +2,7 @@ using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
 
-namespace ArcaneOdyssey.Imbues.Magic.Dragon
+namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class JerminusMagic : MagicType
 	{
@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Dragon
 		public override float ScrollSize => 3.5f;
 		public override bool ImmuneDash => true;
 		public override float ScrollDamage => .2f;
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Trauma>()];
 
 		public override int BlastFrames => 3;

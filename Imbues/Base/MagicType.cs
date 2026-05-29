@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					return $"{ArcaneOdysseyMod.InternalName}/Effects/MagicCircles/Familiar";
 				}
-				return $"{ArcaneOdysseyMod.InternalName}/Effects/MagicCircles/{Type}_{Tier}";
+				return $"{ArcaneOdysseyMod.InternalName}/Effects/MagicCircles/{Type}_{Tier.ToString().Replace("Mythical", "Dragon")}";
 			}
 
 			public MagicCircleTypes Type = type;

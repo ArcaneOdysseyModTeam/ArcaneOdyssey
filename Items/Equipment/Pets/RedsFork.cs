@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 {
 	public class RedsFork : BaseItem
 	{
-		public override ItemRarities Rarity => ItemRarities.Uncommon;
+		public override ItemRarities Rarity => ItemRarities.Special;
 
 		public override void SetDefaults()
 		{
@@ -22,7 +22,6 @@ namespace ArcaneOdyssey.Items.Equipment.Pets
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.buffType = ModContent.BuffType<ForkPetBuff>();
 			Item.shoot = ModContent.ProjectileType<ScorchedFork>();
-			Item.master = true;
 		}
 
 		public override int Value => 60;

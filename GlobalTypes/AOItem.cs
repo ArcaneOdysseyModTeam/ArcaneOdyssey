@@ -853,12 +853,12 @@ namespace ArcaneOdyssey.GlobalTypes
 			int imbue1 = 0;
 			int imbue2 = 0;
 
-			if (Imbue is not null && Imbue.PreEffects(item))
+			if (Imbue is not null && Imbuable.PreEffects(item))
 			{
 				imbue1 = Imbue.Type;
 				Imbue.LingeringEffects(hitbox, Vector2.Zero, item);
 			}
-			if (SecondImbue is not null && SecondImbue.PreEffects(item))
+			if (SecondImbue is not null && Imbuable.PreEffects(item))
 			{
 				imbue2 = SecondImbue.Type;
 				SecondImbue.LingeringEffects(hitbox, Vector2.Zero, item);
@@ -967,10 +967,10 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (!ItemID.Sets.PreHardmodeLikeBossBag[item.type])
 				{
 					LeadingConditionRule devItems1 = new(new Conditions.TenthAnniversaryIsNotUp());
-					devItems1.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>()], 16), true);
+					devItems1.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>(), ModContent.ItemType<RedsFork>()], 16), true);
 					itemLoot.Add(devItems1);
 					LeadingConditionRule devItems2 = new(new Conditions.TenthAnniversaryIsUp());
-					devItems2.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>()], 8), true);
+					devItems2.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>(), ModContent.ItemType<RedsFork>()], 8), true);
 					itemLoot.Add(devItems2);
 				}
 				else

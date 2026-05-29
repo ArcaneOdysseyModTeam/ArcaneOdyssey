@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 						}
 						else
 						{
-							return ImbuableTiers.Dragon; // unstable
+							return ImbuableTiers.Mythical; // unstable
 						}
 					}
 					else

@@ -110,11 +110,6 @@ Accessories: {
 			DisplayName: Kindra's Blade
 			Tooltip: Dedicated to [c/ff69b4:Guard Boi]
 		}
-
-		VesuvianSigil: {
-			DisplayName: Vesuvian Sigil
-			Tooltip: Dedicated to [c/ff2b00:RedBirb1508]
-		}
 	}
 
 	ThunderingCape: {

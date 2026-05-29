@@ -247,13 +247,13 @@ namespace ArcaneOdyssey.GlobalTypes
 			Death(projectile, timeLeft);
 			if (CanBeAffected && !Main.dedServ)
 			{
-				if (Imbue is not null && Imbue.PreEffects(projectile))
+				if (Imbue is not null && Imbuable.PreEffects(projectile))
 				{
-					Imbue.KillEffects(projectile.Hitbox, projectile);
+					Imbue.KillEffects(projectile.Hitbox, ArcaneOdysseyMod.Sets.imbueEffect[projectile.type] ? null : projectile);
 				}
-				if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
+				if (SecondImbue is not null && Imbuable.PreEffects(projectile))
 				{
-					SecondImbue.KillEffects(projectile.Hitbox, projectile);
+					SecondImbue.KillEffects(projectile.Hitbox, ArcaneOdysseyMod.Sets.imbueEffect[projectile.type] ? null : projectile);
 				}
 			}
 		}
@@ -340,11 +340,11 @@ namespace ArcaneOdyssey.GlobalTypes
 
 				if (projectile.ModProjectile is not ExplosionSpell)
 				{
-					if (Imbue is not null && Imbue.PreEffects(projectile))
+					if (Imbue is not null && Imbuable.PreEffects(projectile))
 					{
 						Imbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
 					}
-					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
+					if (SecondImbue is not null && Imbuable.PreEffects(projectile))
 						SecondImbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
 				}
 			}
@@ -373,11 +373,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			if (!CanBeAffected)
 				return;
-			if (Imbue is not null && Imbue.PreEffects(projectile))
+			if (Imbue is not null && Imbuable.PreEffects(projectile))
 			{
 				Imbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 			}
-			if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
+			if (SecondImbue is not null && Imbuable.PreEffects(projectile))
 			{
 				SecondImbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 			}

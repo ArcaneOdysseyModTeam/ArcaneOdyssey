@@ -1,12 +1,10 @@
 ﻿using ArcaneOdyssey.Buffs.Pets;
-using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Pets
 {
@@ -28,8 +26,8 @@ namespace ArcaneOdyssey.Projectiles.Pets
 			Projectile.netImportant = true;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 100;
-			Projectile.width = 44;
-			Projectile.height = 154;
+			Projectile.width = 30;
+			Projectile.height = 102;
 		}
 
 		public override bool PreAI()
@@ -44,7 +42,6 @@ namespace ArcaneOdyssey.Projectiles.Pets
 
 		public override void AI()
 		{
-			Lighting.AddLight(Projectile.Center,0,1,1);
 			if (Owner.HasBuff<ForkPetBuff>())
 				Projectile.timeLeft = 2;
 			targetPosition = Owner.Center + new Vector2(Owner.direction * -50f, -30f);
@@ -121,5 +118,11 @@ namespace ArcaneOdyssey.Projectiles.Pets
 		public override bool? CanDamage() => false;
 
 		public override SpriteEffects FlippedMode => SpriteEffects.FlipHorizontally;
+
+		public override void PostDraw(Color lightColor)
+		{
+			Lighting.AddLight(Projectile.Center, new Vector3(0, 1, 1) * (Projectile.scale / Size));
+			base.PostDraw(lightColor);
+		}
 	}
 }

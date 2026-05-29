@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		{
 			base.SetStaticDefaults();
 			Main.projFrames[Type] = 3;
+			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
 		}
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<Poisoned>(60 * 3);
@@ -30,7 +31,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 120;
-			Projectile.DamageType = DamageClass.Magic;
+			Projectile.DamageType = DamageClass.Generic;
 			Projectile.rotation = Main.rand.NextFloat(-MathHelper.TwoPi, MathHelper.TwoPi);
 		}
 

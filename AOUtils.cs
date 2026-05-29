@@ -1932,7 +1932,7 @@ namespace ArcaneOdyssey
 		Normal,
 		Lost,
 		Ancient,
-		Dragon,
+		Mythical,
 	}
 
 	/// <summary>

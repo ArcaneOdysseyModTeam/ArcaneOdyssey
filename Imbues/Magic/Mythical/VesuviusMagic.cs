@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Imbues.Magic.Dragon
+namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class VesuviusMagic : MagicType
 	{
@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Dragon
 		public override float ScrollSpeed => 1.2f;
 		public override float ScrollSize => 3f;
 		public override float ScrollDamage => 2f;
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<VesuvianBurn>()];

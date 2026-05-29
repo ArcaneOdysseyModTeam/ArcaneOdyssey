@@ -72,6 +72,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Type] = 13;
+			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
 		}
 
 		public override void AI()

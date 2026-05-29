@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Dragon;
+using ArcaneOdyssey.Imbues.Magic.Mythical;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Imbues
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.LiquidsWaterLava;
 
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 
 		public override SynergyEffects Effects => new([],
 			[

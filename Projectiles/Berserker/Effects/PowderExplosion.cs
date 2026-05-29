@@ -51,5 +51,10 @@ namespace ArcaneOdyssey.Projectiles.Berserker.Effects
 		public override bool? CanDamage() => Projectile.ai[0] >= 59;
 
 		public override bool PreDraw(ref Color lightColor) => false;
+
+		public override void SetStaticDefaults()
+		{
+			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
+		}
 	}
 }

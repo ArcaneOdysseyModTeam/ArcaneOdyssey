@@ -160,28 +160,28 @@ MagicTierLines: {
 	Normal: "[c/2277ff:~ Basic magic ~]"
 	Lost: "[c/0044ff:~ Lost magic ~]"
 	Ancient: "[c/7ebcc2:~ Ancient magic ~]"
-	Dragon: "[c/ff0000:~ Mythical magic ~]"
+	Mythical: "[c/ff0000:~ Mythical magic ~]"
 }
 
 SpecialTierLines: {
 	Normal: "[c/2277ff:~ Lesser lost magic ~]"
 	Lost: "[c/0044ff:~ Lost spirit mutation ~]"
 	Ancient: "[c/7ebcc2:~ Ancient spirit mutation ~]"
-	Dragon: "[c/ff0000:~ Power of the gods ~]"
+	Mythical: "[c/ff0000:~ Power of the gods ~]"
 }
 
 FSTierLines: {
 	Normal: "[c/2277ff:~ Fighting style ~]"
 	Lost: "[c/0044ff:~ Lost fighting style ~]"
 	Ancient: "[c/7ebcc2:~ Ancient fighting style ~]"
-	Dragon: "[c/ff0000:~ Mthical fighting style ~]"
+	Mythical: "[c/ff0000:~ Mythical fighting style ~]"
 }
 
 RelicTierLines: {
 	Normal: "[c/2277ff:~ Relic ~]"
 	Lost: "[c/0044ff:~ Inhabited relic ~]"
 	Ancient: "[c/7ebcc2:~ Deific relic ~]"
-	Dragon: "[c/ff0000:~ Unstable relic ~]"
+	Mythical: "[c/ff0000:~ Unstable relic ~]"
 }
 
 ArmourAutoTooltip: {
@@ -364,7 +364,8 @@ MenacingMessages.EliusAvailable: Thunder rumbles to the east...
 MainMenuStyle: {
 	Classic: Classic
 	Pixel: Pixel
-	Dragon: Dragon
+	Mythical: Mythical
 	MenuBack: MenuBack
 	Djin: Djin
+	Dragon: Dragon
 }

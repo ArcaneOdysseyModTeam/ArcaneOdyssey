@@ -108,14 +108,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<PrismLinger>(), projectile.damage / 6, 0, projectile.owner);
 		}
 
-		public override bool PreEffects(Entity entity = null)
-		{
-			if (entity is Projectile projectile)
-				if (projectile.ModProjectile is PrismLinger)
-					return false;
-			return base.PreEffects(entity);
-		}
-
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			if (Main.dedServ)

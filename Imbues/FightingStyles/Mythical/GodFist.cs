@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using Microsoft.Xna.Framework;
 
-namespace ArcaneOdyssey.Imbues.FightingStyles.Developer
+namespace ArcaneOdyssey.Imbues.FightingStyles.Mythical
 {
 	public class GodFist : FightingStyle
 	{
@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Developer
 		public override float ImbueDamage => .8f;
 		public override float ImbueSize => 1.5f;
 		public override float ImbueSpeed => 1.6f;
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override Color ImbueColour => new(255, 224, 228);
 	}
 }

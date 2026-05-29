@@ -2,32 +2,35 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
-using System;
 using Terraria.Audio;
 using Terraria.ID;
 
 
-namespace ArcaneOdyssey.Imbues.Magic.Dragon
+namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class NecroBlazeMagic : MagicType
 	{
-
 		public override float DashSpeed => 1.2f; // burst
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override void SetStaticDefaults() 
+		{ 
+			base.SetStaticDefaults(); 
+			ArcaneOdysseyMod.Sets.cold[Type] = false; 
+		}
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
-		public override Color ImbueColour => Color.Lerp(new(0, 200, 150), Color.Black, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
+		public override Color ImbueColour => Color.Black;
+		public override Color ImbueColour2 => new(0, 200, 150);
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override bool CanBeWet => false;
 		public override float ImbueSpeed => 1f;
 		public override float ImbueSize => 1.15f;
+		public override bool Special => true;
 		public override float ImbueDamage => .85f;
 
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<NecroFlame>()]; // create custom debuff later
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<NecroFlame>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
@@ -104,6 +107,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Dragon
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
+
 		public override void RegisterMutations()
 		{
 

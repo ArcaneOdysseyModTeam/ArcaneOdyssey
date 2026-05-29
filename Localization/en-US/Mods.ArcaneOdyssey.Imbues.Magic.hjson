@@ -369,7 +369,7 @@ Normal: {
 	}
 }
 
-Dragon: {
+Mythical: {
 	VesuviusMagic: {
 		DisplayName: Vesuvius Magic
 		Tooltip: Dedicated to [c/aa2b00:RedBirb1508]

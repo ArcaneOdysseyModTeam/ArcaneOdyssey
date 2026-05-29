@@ -5,7 +5,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Imbues.Magic.Dragon
+namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class WitherLightningMagic : DeathMagic
 	{
@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Dragon
 		public override float ScrollSpeed => base.ScrollSpeed * 1.5f;
 		public override float ScrollSize => base.ScrollSize * 1.5f;
 
-		public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 
 		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<DeathMagic>() + AOUtils.CopySynergiesFromImbue<AncientLightningMagic>();
 

@@ -92,14 +92,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override bool PreEffects(Entity entity = null)
-		{
-			if (entity is Projectile projectile)
-				if (projectile.ModProjectile is FrostmetalShard)
-					return false;
-			return base.PreEffects(entity);
-		}
-
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			if (Main.dedServ)

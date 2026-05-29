@@ -353,6 +353,8 @@ namespace ArcaneOdyssey
 
 			public static bool[] showItemTypeTooltip = ItemID.Sets.Factory.CreateBoolSet(true);
 
+			public static bool[] imbueEffect = ProjectileID.Sets.Factory.CreateBoolSet();
+
 			[ReinitializeDuringResizeArrays]
 			public static class Assets
 			{

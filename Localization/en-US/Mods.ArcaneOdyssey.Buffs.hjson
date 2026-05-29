@@ -57,22 +57,22 @@ DOT: {
 
 	Convulsed: {
 		DisplayName: Convulsed
-		Description: Mods.ArcaneOdyssey.Buffs.DOT.Convulsed.Description
+		Description: ""
 	}
 
 	FrostDrained: {
 		DisplayName: Frost Drained
-		Description: Mods.ArcaneOdyssey.Buffs.DOT.FrostDrained.Description
+		Description: ""
 	}
 
 	InfernalBurn: {
-		DisplayName: Infernal Burn
-		Description: Mods.ArcaneOdyssey.Buffs.DOT.InfernalBurn.Description
+		DisplayName: Infernal Blaze
+		Description: ""
 	}
 
 	NecroFlame: {
 		DisplayName: Necro Flame
-		Description: Mods.ArcaneOdyssey.Buffs.DOT.NecroFlame.Description
+		Description: ""
 	}
 }
 

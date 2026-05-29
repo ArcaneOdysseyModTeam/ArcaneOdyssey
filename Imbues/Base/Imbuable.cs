@@ -352,7 +352,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		/// <param name="entity">The entity to check</param>
 		/// <returns></returns>
-		public virtual bool PreEffects(Entity entity)
+		public static bool PreEffects(Entity entity)
 		{
 			if (Main.dedServ || entity.velocity.Length() == 1)
 			{

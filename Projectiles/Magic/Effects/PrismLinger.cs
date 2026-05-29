@@ -32,5 +32,10 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.AncientLight, newColor: PrismMagic.rainbowColors[Main.GameUpdateCount % 3], Scale: 1.25f);
 			dust.noGravity = true;
 		}
+
+		public override void SetStaticDefaults()
+		{
+			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
+		}
 	}
 }

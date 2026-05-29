@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Imbues.Magic.Dragon
+namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
     public class DeliriumMagic : MagicType
     {
@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Dragon
         public override float ScrollDamage => 0.5f;
         public override float ScrollSize => 5f;
         public override float ScrollSpeed => 2.3f;
-        public override ImbuableTiers ImbuableTier => ImbuableTiers.Dragon;
+        public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
         public override Debuff[] ImbueDebuffs => [new(BuffID.Confused, 60)];
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;

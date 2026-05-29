@@ -64,14 +64,14 @@ Normal: {
 		AttackPrefix: Static
 		SpellPrefix: Thundering Style
 		DisplayName: Thundering Style
+		Ability: Moving across the ground improves strength
 		Tooltip: ""
 	}
 }
 
-Developer: {
+Mythical: {
 	GodFist: {
 		DisplayName: God Fist
-		Ability: Moving across the ground improves strength
 		AttackPrefix: Godly
 		SpellPrefix: God Fist
 		Tooltip: ""
