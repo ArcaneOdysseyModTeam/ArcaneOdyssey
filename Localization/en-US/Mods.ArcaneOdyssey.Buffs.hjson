@@ -54,6 +54,21 @@ DOT: {
 		DisplayName: Scorched
 		Description: Plasma burns your skin
 	}
+
+	Convulsed: {
+		DisplayName: Convulsed
+		Description: Mods.ArcaneOdyssey.Buffs.DOT.Convulsed.Description
+	}
+
+	FrostDrained: {
+		DisplayName: Frost Drained
+		Description: Mods.ArcaneOdyssey.Buffs.DOT.FrostDrained.Description
+	}
+
+	InfernalBurn: {
+		DisplayName: Infernal Burn
+		Description: Mods.ArcaneOdyssey.Buffs.DOT.InfernalBurn.Description
+	}
 }
 
 MagicMarks: {
