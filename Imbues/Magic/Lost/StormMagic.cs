@@ -5,6 +5,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
+using System;
 using Terraria.Audio;
 using Terraria.ID;
 
@@ -75,9 +76,21 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BubbleBurst_White, 0f, 0f, 0, Color.DimGray, 1.5f * area.RelativeScale())];
-			spawnedDust.noGravity = true;
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BubbleBurst_White, 0f, 0f, 0, Color.DimGray, 1.5f * area.RelativeScale())];
+			spawnedDust2.noGravity = true;
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.75f * area.RelativeScale());
+			var updates = (float)Main.GameUpdateCount;
+			if (source is Projectile projectile && projectile.extraUpdates > 0)
+			{
+				updates += projectile.numUpdates;
+			}
+			float waveVal = 10f * MathF.Abs(updates % 5f % 10f - 2.5f) - 12.5f;
+			Vector2 baseVec = new(0f, waveVal);
+			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
+			spawnedDust.noGravity = true;
+
+			Lighting.AddLight(area.Center(), 2, 1, 2);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.4f * area.RelativeScale());
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
