@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			base.SetDefaults();
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.DamageType = AOUtils.TrueMelee();
-			Item.width = Item.height = 76;
+			Item.width = Item.height = 60;
 			Item.shoot = ModContent.ProjectileType<ToweringImpact>();
 			Item.shootSpeed = 3f;
 		}

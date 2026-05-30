@@ -5,7 +5,7 @@ Sunken: {
 
 		Ability: {
 			DisplayName: Fury of the Sea
-			Description: Shoots blasts of water
+			Description: Shoots cyclones of water
 		}
 	}
 
@@ -15,7 +15,7 @@ Sunken: {
 
 		Ability: {
 			DisplayName: Rising Tide
-			Description: Launch yourself upwards
+			Description: Propel yourself upwards
 		}
 	}
 }
@@ -26,7 +26,7 @@ BronzeTriasta: {
 
 	Ability: {
 		DisplayName: Ethereal Flash
-		Description: Leap towards the target
+		Description: Burst towards the target
 	}
 }
 
@@ -97,7 +97,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Mountain Wind
-			Description: Unleash three tornados
+			Description: Unleash triple tornados
 		}
 	}
 
@@ -210,7 +210,7 @@ RavennaNoble: {
 
 Sinbane: {
 	DisplayName: Sinbane
-	Tooltip: "'Also known as the Oathkeeper'"
+	Tooltip: ""
 
 	Ability: {
 		DisplayName: Towering Impact
