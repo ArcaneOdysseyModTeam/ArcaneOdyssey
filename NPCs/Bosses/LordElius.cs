@@ -8,6 +8,7 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
@@ -20,6 +21,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	[AutoloadBossHead]
 	public class LordElius : BaseNPC
 	{
+		private int hptoheal;
+		private Vector2 previousLocation;
 		private Vector2[] podiumPos = [new(-645.5f, 69f), new(-305.5f, 53f), new(0f, 0f), new(380.5f, 53f), new(698.5f, 69f)];
 		public override void SetStaticDefaults()
 		{
@@ -114,6 +117,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				hasSetSpawnLocation = true;
 				NPC.ai[0] = 1f;
 				NPC.ai[1] = 0f;
+				NPC.ai[2] = 0f;
 			}
 			else if (!NPC.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
 			{
@@ -121,10 +125,22 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
-
+			NPC.TargetClosest();
 
 			// ai here, red
-			if (NPC.ai[0] == 1)
+			if(NPC.life > NPC.lifeMax / 2) //prevents healing right when he gets to half
+			{
+				NPC.ai[2] = 0f;
+			}
+			if((NPC.life < NPC.lifeMax/2)&&NPC.ai[2]>=5000f) //healing
+			{
+				NPC.ai[2] = 0f;
+				hptoheal = (int)(Main.rand.Next(150)+50);
+				NPC.life += hptoheal;
+				CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
+			}
+			NPC.ai[2] += 1f;
+			if (NPC.ai[0] == 1) //storm of arrows
 			{
 				if (NPC.ai[1] < 2f)
 				{
@@ -134,11 +150,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(2) + 1f;
+					NPC.ai[0] = Main.rand.Next(4) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
 			}
-			else if (NPC.ai[0] == 2)
+			else if (NPC.ai[0] == 2) //podium jump
 			{
 				if (NPC.ai[1] < 2f)
 				{
@@ -149,7 +165,48 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (NPC.ai[1] > 60f)
 				{
 					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(2) + 1f;
+					NPC.ai[0] = Main.rand.Next(4) + 1f;
+					//Main.NewText(NPC.ai[0]);
+				}
+			} else if (NPC.ai[0] == 3) //spear throw
+			{
+				if(NPC.ai[1] < 2f)
+				{
+					previousLocation = NPC.position;
+					NPC.ai[1] = 2f;
+				}
+				if (NPC.ai[1] < 20f && NPC.ai[1] > 2f)
+				{
+					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
+					NPC.Center += new Vector2(NPC.direction * 2f, -10f + (NPC.ai[1]/5f));
+					
+				}
+				if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)
+				{
+					
+					//throw
+					NPC.ai[1] = 30f;
+				}
+				if (NPC.ai[1] > 60f)
+				{
+					NPC.position = previousLocation;
+					NPC.ai[1] = 0f;
+					NPC.ai[0] = Main.rand.Next(4) + 1f;
+					if(NPC.ai[0] == 3f) {NPC.ai[0] = 2f;}
+					//Main.NewText(NPC.ai[0]);
+				}
+			} else if (NPC.ai[0] == 4) //twin crecents
+			{
+				if (NPC.ai[1] < 2f)
+				{
+					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
+					
+					NPC.ai[1] = 2f;
+				}
+				if (NPC.ai[1] > 60f)
+				{
+					NPC.ai[1] = 0f;
+					NPC.ai[0] = Main.rand.Next(4) + 1f;
 					//Main.NewText(NPC.ai[0]);
 				}
 			}
