@@ -1,9 +1,11 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
@@ -31,6 +33,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			Vector2 baseVec = new(0f, waveVal);
 			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.Vortex, Vector2.Zero, Scale: 2f);
 			spawnedDust.noGravity = true;
+		}
+
+		public override void KillEffects(Rectangle area, Entity source = null)
+		{
+			if (source is Projectile proj && Main.myPlayer == proj.owner)
+				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
 		}
 
 		public override void RegisterMutations()

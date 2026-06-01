@@ -86,16 +86,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		}
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			for (int n = 0; n < 3; n++)
-			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Cloud, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), 0, Color.Purple, 3f * intensity)];
-				spawnedDust.noGravity = true;
-				Dust.NewDustDirect(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.2f * intensity).noGravity = true;
-			}
+			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, ai0: intensity * 1.6f);
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
-			for (int n = 0; n < 30; n++)
+			for (int n = 0; n < 15; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, Color.Purple, 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
@@ -107,6 +102,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				proj.scale *= projectile.Hitbox.RelativeScale(max: 2f);
 				proj.Hitbox = proj.Hitbox.Scaled(projectile.Hitbox.RelativeScale(max: 2f));
 				proj.netUpdate = true;
+				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

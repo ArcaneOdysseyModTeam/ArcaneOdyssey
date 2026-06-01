@@ -3,11 +3,13 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
@@ -89,10 +91,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
-			for (int n = 0; n < 10; n++)
+			for (int n = 0; n < 5; n++)
 			{
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IchorTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
+			if (source is Projectile proj && Main.myPlayer == proj.owner)
+				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 

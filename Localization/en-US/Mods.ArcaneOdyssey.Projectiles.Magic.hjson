@@ -12,6 +12,7 @@ Effects: {
 	PrismLinger.DisplayName: Prism Shard Cloud
 	ProminenceProjectile.DisplayName: Prominent Sun
 	AetherLightningAftershock.DisplayName: Aether Lightning Aftershock
+	LightningBurst.DisplayName: Lightning Burst
 }
 
 ExplosionSpell.DisplayName: Explosion

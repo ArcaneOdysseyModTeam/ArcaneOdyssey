@@ -8,7 +8,6 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;

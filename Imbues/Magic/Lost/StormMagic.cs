@@ -3,11 +3,13 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
-using Terraria;
 using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
@@ -105,12 +107,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
-			for (int n = 0; n < 10; n++)
+			for (int n = 0; n < 5; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BubbleBurst_White, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, Color.DimGray, 4f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 1.2f * area.RelativeScale());
 			}
+			if (source is Projectile proj && Main.myPlayer == proj.owner)
+				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
