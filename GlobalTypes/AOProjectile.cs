@@ -226,6 +226,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
 			{
 				binaryWriter.Write(projectile.scale);
+				binaryWriter.Write(projectile.Size);
 			}
 		}
 
@@ -236,6 +237,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
 			{
 				projectile.scale = binaryReader.ReadSingle();
+				projectile.Size = binaryReader.ReadVector2();
 			}
 		}
 

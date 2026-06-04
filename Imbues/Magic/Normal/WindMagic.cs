@@ -7,11 +7,13 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public class WindMagic : MagicType
 	{
+		public static int ID => ModContent.ItemType<WindMagic>();
 		public override void RegisterMutations()
 		{
 			RegisterMutation<BlizzardMagic>();

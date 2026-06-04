@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public static int DefaultOriginalImbue => ModContent.ItemType<WindMagic>();
+		public static int DefaultOriginalImbue => WindMagic.ID;
 
 		private Imbuable _og = null;
 		public Imbuable OriginalImbue { get => _og ?? AOUtils.Safe<Imbuable>(ModContent.GetModItem(ArcaneOdysseyMod.Sets.baseImbues[Type] ?? DefaultOriginalImbue)); set => _og = value; }

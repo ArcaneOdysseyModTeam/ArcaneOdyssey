@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Projectiles.Base;
+﻿using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

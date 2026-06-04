@@ -1,6 +1,11 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using Microsoft.Xna.Framework;
+using System;
+using System.Linq;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
+using Terraria.UI.Chat;
 
 namespace ArcaneOdyssey.Buffs
 {
@@ -25,7 +30,14 @@ namespace ArcaneOdyssey.Buffs
 		{
 			if (player.ArcaneOdyssey().Banishment < BanishmentReq)
 			{
-
+				if (Main.dedServ && AOUtils.PlayerCount > 1)
+				{
+					if (Main.rand.NextBool(60 * 60 * 2))
+					{
+						var randplayer = Main.rand.Next(Array.FindAll(Main.player, e => e.active && e.whoAmI != player.whoAmI && !string.IsNullOrEmpty(e.name)));
+						ChatHelper.SendChatMessageToClientAs((byte)randplayer.whoAmI, Mod.CustomLocalization("Insanity.FakeMessage" + Main.rand.Next(6)).ToNetworkText(), Color.Purple, player.whoAmI);
+					}
+				}
 			}
 		}
 	}
@@ -38,6 +50,13 @@ namespace ArcaneOdyssey.Buffs
 			if (player.ArcaneOdyssey().Banishment < BanishmentReq)
 			{
 				base.Update(player, ref buffIndex);
+				if (Main.myPlayer == player.whoAmI)
+				{
+					if (Main.rand.NextBool(60 * 60))
+					{
+						Main.NewText(Mod.CustomLocalization("Insanity.Message" + Main.rand.Next(5)), Color.Purple);
+					}
+				}
 			}
 		}
 	}

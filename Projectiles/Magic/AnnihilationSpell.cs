@@ -152,7 +152,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Annihilation");
 
-		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.Assets.annihilationSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.Assets.annihilationSprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? base.Sprite;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

@@ -73,6 +73,12 @@ Insanity: {
 	Message2: Save me!
 	Message3: Who am I?
 	Message4: A vision of- you are forced to stop thinking.
+	FakeMessage0: bro what is that
+	FakeMessage1: this reminds me of france
+	FakeMessage2: where are you?
+	FakeMessage3: theres something in our storage
+	FakeMessage4: join red team
+	FakeMessage5: am i the only one hearing that noise?
 }
 
 KeybindStuff.DashHelp: Double tap a movement key

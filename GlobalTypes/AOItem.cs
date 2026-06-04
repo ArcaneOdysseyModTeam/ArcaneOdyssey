@@ -204,6 +204,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void NetSend(Item item, BinaryWriter writer)
 		{
 			thisItem = item;
+			writer.Write(scale);
 			writer.Write(Imbue?.Type ?? ItemID.None);
 			writer.Write(SecondImbue?.Type ?? ItemID.None);
 			if (Boost.HasValue)
@@ -219,6 +220,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void NetReceive(Item item, BinaryReader reader)
 		{
 			thisItem = item;
+			scale = reader.ReadNullableSingle();
 			Imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
 			SecondImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
 			var boost = reader.ReadSByte();
@@ -614,15 +616,26 @@ namespace ArcaneOdyssey.GlobalTypes
 			owner = null;
 		}
 
+		private float? scale = null;
+
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
 		{
 			thisItem = item;
 			owner = player;
-			if (item.noMelee || CannotBeAffected)
-				return;
-			if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+			if (!item.noMelee && !CannotBeAffected)
 			{
-				scale = ApplySize(scale);
+				if (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) // do not touch items from other mods
+				{
+					scale = ApplySize(scale);
+				}
+			}
+			if (Main.myPlayer == player.whoAmI)
+			{
+				this.scale = scale;
+			}
+			else
+			{
+				scale = this.scale.GetValueOrDefault(scale);
 			}
 		}
 

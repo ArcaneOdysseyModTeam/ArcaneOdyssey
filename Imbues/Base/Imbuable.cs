@@ -198,9 +198,9 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual float ImbueSpeed => ScrollSpeed != 1f ? MathF.Round(ScrollSpeed <= 1f ? ScrollSpeed * 1.075f : ScrollSpeed * .85f, 2) : 1f;
 		public virtual float ImbueSize => ScrollSize != 1f ? MathF.Round(ScrollSize <= 1f ? ScrollSize * 1.075f : ScrollSize * .85f, 2) : 1f;
 		public virtual float ImbueDamage => ScrollDamage != 1f ? MathF.Round(ScrollDamage <= 1f ? ScrollDamage * 1.075f : ScrollDamage * .85f, 2) : 1f;
-		public virtual float ScrollSpeed => ImbueSpeed != 1f ? MathF.Round(ImbueSpeed <= 1f ? ImbueSpeed * 1.075f : ImbueSpeed * ImbueSpeed, 2) : 1f;
-		public virtual float ScrollSize => ImbueSize != 1f ? MathF.Round(ImbueSize <= 1f ? ImbueSize * 1.075f : ImbueSize * ImbueSize, 2) : 1f;
-		public virtual float ScrollDamage => ImbueDamage != 1f ? MathF.Round(ImbueDamage <= 1f ? ImbueDamage * 1.075f : ImbueDamage * ImbueDamage, 2) : 1f;
+		public virtual float ScrollSpeed => ImbueSpeed != 1f ? MathF.Round(ImbueSpeed <= 1f ? ImbueSpeed * 1.075f : ImbueSpeed.Pow(), 2) : 1f;
+		public virtual float ScrollSize => ImbueSize != 1f ? MathF.Round(ImbueSize <= 1f ? ImbueSize * 1.075f : ImbueSize.Pow(), 2) : 1f;
+		public virtual float ScrollDamage => ImbueDamage != 1f ? MathF.Round(ImbueDamage <= 1f ? ImbueDamage * 1.075f : ImbueDamage.Pow(), 2) : 1f;
 
 		/// <summary>
 		/// For magics or fighing styles, you may return any value
@@ -297,7 +297,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				if (Name != name)
 				{
 					player.ArcaneOdyssey().Imbue = this;
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", [Item.Name]);
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", DisplayName.Value);
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 
 				}

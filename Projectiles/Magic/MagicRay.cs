@@ -43,8 +43,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			dying = reader.ReadBoolean();
 			Opacity = reader.ReadSingle();
+			dying = reader.ReadBoolean();
 		}
 
 		private float opac = 0f;
@@ -88,7 +88,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		public override void AI()
 		{
 			Opacity = Projectile.Opacity = Opacity;
-
 			if (++Projectile.frameCounter > 6)
 			{
 				Projectile.frameCounter = 0;
@@ -141,9 +140,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		}
 
 		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
-		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArcaneOdysseyMod.Sets.Assets.raySprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArcaneOdysseyMod.Sets.Assets.rayEndSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Imbue?.Type ?? ModContent.ItemType<WindMagic>()]?.Value ?? ArcaneOdysseyMod.Sets.Assets.rayStartSprites[ModContent.ItemType<WindMagic>()]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? ArcaneOdysseyMod.Sets.Assets.raySprites[WindMagic.ID]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? ArcaneOdysseyMod.Sets.Assets.rayEndSprites[WindMagic.ID]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? ArcaneOdysseyMod.Sets.Assets.rayStartSprites[WindMagic.ID]?.Value ?? base.Sprite;
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{

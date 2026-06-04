@@ -130,6 +130,10 @@ namespace ArcaneOdyssey
 			return config is not null;
 		}
 
+		public static byte PlayerCount => (byte)Main.player.FindAll(e => e.active).Length;
+
+		public static T[] FindAll<T>(this T[] array, Predicate<T> match) => Array.FindAll(array, match);
+
 		public static void AddRange<T>(this List<T> list, params T[] items) => list.AddRange(items.ToList());
 
 		public static Asset<T> Request<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class
@@ -223,6 +227,17 @@ namespace ArcaneOdyssey
 			writer.Write(rect.Y);
 			writer.Write(rect.Width);
 			writer.Write(rect.Height);
+		}
+
+		public static void Write(this BinaryWriter writer, float? num) => writer.Write(num.GetValueOrDefault(0f));
+		public static float? ReadNullableSingle(this BinaryReader reader)
+		{
+			var val = reader.ReadSingle();
+			if (val == 0f)
+			{
+				return null;
+			}
+			return val;
 		}
 
 		public static Rectangle ReadRectangle(this BinaryReader reader) => new(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
@@ -384,28 +399,28 @@ namespace ArcaneOdyssey
 				if (typeof(T).IsSubclassOf(typeof(ModItem)))
 				{
 					var inst = ModContent.GetInstance<T>() as ModItem;
-					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					var tex = inst.Texture;
 					if (ModContent.HasAsset(tex))
 						return tex;
 				}
 				if (typeof(T).IsSubclassOf(typeof(ModProjectile)))
 				{
 					var inst = ModContent.GetInstance<T>() as ModProjectile;
-					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					var tex = inst.Texture;
 					if (ModContent.HasAsset(tex))
 						return tex;
 				}
 				if (typeof(T).IsSubclassOf(typeof(ModGore)))
 				{
 					var inst = ModContent.GetInstance<T>() as ModGore;
-					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					var tex = inst.Texture;
 					if (ModContent.HasAsset(tex))
 						return tex;
 				}
 				if (typeof(T).IsSubclassOf(typeof(ModBuff)))
 				{
 					var inst = ModContent.GetInstance<T>() as ModBuff;
-					var tex = inst.Mod.Name + "/" + inst.Texture.Replace(inst.Mod.Name + "/");
+					var tex = inst.Texture;
 					if (ModContent.HasAsset(tex))
 						return tex;
 				}
