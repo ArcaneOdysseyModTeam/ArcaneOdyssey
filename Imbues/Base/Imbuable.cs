@@ -297,14 +297,14 @@ namespace ArcaneOdyssey.Imbues.Base
 				if (Name != name)
 				{
 					player.ArcaneOdyssey().Imbue = this;
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.ImbueChatMessage", DisplayName.Value);
+					LocalizedText chatmessage = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ImbueChatMessage", DisplayName.Value);
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 
 				}
 				else
 				{
 					player.ArcaneOdyssey().Imbue = null;
-					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.UnimbueText");
+					LocalizedText chatmessage = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.UnimbueText");
 					Main.NewText(chatmessage.Value, 13, 132, 168);
 
 				}
@@ -313,7 +313,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				if ((!player.AltUse()) && Main.myPlayer == player.whoAmI)
 				{
-					player.Hurt(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
+					player.Hurt(PlayerDeathReason.ByCustomReason(ArcaneOdysseyMod.Instance.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
 				}
 			}
 		}
@@ -425,7 +425,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (!tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 			{
-				TooltipLine tip = new(Mod, "Drawback", Mod.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
+				TooltipLine tip = new(Mod, "Drawback", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
 				if (Drawback < 1)
 				{
 					tip.Hide();
@@ -434,18 +434,18 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				if (!Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
-					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(ScrollDamage, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(ScrollSpeed, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(ScrollSize, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ScrollDamage", MathF.Round(ScrollDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ScrollSpeed", MathF.Round(ScrollSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ScrollSize", MathF.Round(ScrollSize, 3)).Value));
 
 					if (ImbueDebuffs.Length > 0)
 					{
 						string req = "";
 						if (ImbueDebuffs[0].debuffPercent > 0)
 						{
-							req = Mod.CustomLocalization("ImbueStuff.Requirement", (ImbueDebuffs[0].debuffPercent * 100f).Round()).Value;
+							req = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Requirement", (ImbueDebuffs[0].debuffPercent * 100f).Round()).Value;
 						}
-						var debufftext = Mod.CustomLocalization("ImbueStuff.Debuffs", Lang.GetBuffName(ImbueDebuffs[0].debuffID) + req).Value;
+						var debufftext = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Debuffs", Lang.GetBuffName(ImbueDebuffs[0].debuffID) + req).Value;
 						foreach (var debuff in ImbueDebuffs)
 						{
 							req = "";
@@ -453,44 +453,44 @@ namespace ArcaneOdyssey.Imbues.Base
 							{
 								if (debuff.debuffPercent > 0)
 								{
-									req = Mod.CustomLocalization("ImbueStuff.Requirement", (debuff.debuffPercent * 100f).Round()).Value;
+									req = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Requirement", (debuff.debuffPercent * 100f).Round()).Value;
 								}
-								debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, Lang.GetBuffName(debuff.debuffID) + req).Value;
+								debufftext = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Conjoined", debufftext, Lang.GetBuffName(debuff.debuffID) + req).Value;
 							}
 						}
 						tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
 					}
 					else
 					{
-						tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoDebuffs").Value));
+						tooltips.AddTooltip(new(Mod, "DebuffInfo", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.NoDebuffs").Value));
 					}
 				}
 				else
 				{
-					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", Mod.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(ImbueDamage, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", Mod.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(ImbueSpeed, 3)).Value));
-					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", Mod.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(ImbueSize, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAODamage", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ImbueDamage", MathF.Round(ImbueDamage, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSpeed", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ImbueSpeed", MathF.Round(ImbueSpeed, 3)).Value));
+					tooltips.AddTooltip(new(Mod, "DisplayedAOSize", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ImbueSize", MathF.Round(ImbueSize, 3)).Value));
 
 					if (CombinedDebuffs.Length > 0)
 					{
-						var aaaaa = Mod.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(CombinedDebuffs[0].requirement), Lang.GetBuffName(CombinedDebuffs[0].result));
-						var debufftext = Mod.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
+						var aaaaa = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(CombinedDebuffs[0].requirement), Lang.GetBuffName(CombinedDebuffs[0].result));
+						var debufftext = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Combined", aaaaa).Value;
 						foreach (var debuff in CombinedDebuffs)
 						{
 							if (debuff.requirement != CombinedDebuffs[0].requirement)
 							{
-								aaaaa = Mod.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(debuff.requirement), Lang.GetBuffName(debuff.result));
-								debufftext = Mod.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
+								aaaaa = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Result", Lang.GetBuffName(debuff.requirement), Lang.GetBuffName(debuff.result));
+								debufftext = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Conjoined", debufftext, aaaaa).Value;
 							}
 						}
 						tooltips.AddTooltip(new(Mod, "DebuffInfo", debufftext));
 					}
 					else
 					{
-						tooltips.AddTooltip(new(Mod, "DebuffInfo", Mod.CustomLocalization("ImbueStuff.NoCombinedDebuffs").Value));
+						tooltips.AddTooltip(new(Mod, "DebuffInfo", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.NoCombinedDebuffs").Value));
 					}
 				}
-				tooltips.AddTooltip(new(Mod, "ShiftNotice", Mod.CustomLocalization("ImbueStuff.ShiftNotice").Value));
+				tooltips.AddTooltip(new(Mod, "ShiftNotice", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ShiftNotice").Value));
 
 				if (Ability.HasValue)
 				{
@@ -504,7 +504,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 
 			if (TooltipsPrefix is not null)
-				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", Mod.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
+				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", ArcaneOdysseyMod.Instance.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
 
 		private static int SortMultipliers(Synergy x, Synergy y)
@@ -522,18 +522,18 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public string SynergiesText()
 		{
-			var text = Mod.CustomLocalization("ImbueStuff.NoSynergies").Value;
+			var text = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.NoSynergies").Value;
 
 			var syns = Effects.magicBuffMultipliers.Sorted(new Comparison<Synergy>(SortMultipliers));
 			if (syns.Count > 0)
 			{
-				text = Mod.CustomLocalization("ImbueStuff.SynergiesInfo", DisplayName.Value, Lang.GetBuffName(syns[0].buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", syns[0].multiplier).Value).Value;
+				text = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.SynergiesInfo", DisplayName.Value, Lang.GetBuffName(syns[0].buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", syns[0].multiplier).Value).Value;
 
 				foreach (var effect in syns)
 				{
 					if (effect.buffID != syns[0].buffID)
 					{
-						text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(effect.buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", effect.multiplier).Value).Value;
+						text = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(effect.buffID) + Mod.CustomLocalization("ImbueStuff.SynergyMulti", effect.multiplier).Value).Value;
 					}
 				}
 			}
@@ -543,19 +543,19 @@ namespace ArcaneOdyssey.Imbues.Base
 				var clear = Effects.clearBuffs.OrderBy(e => Lang.GetBuffName(e.id)).ToArray();
 				if (clear.Length > 0)
 				{
-					text = Mod.CustomLocalization("ImbueStuff.ClearsInfo", text, Lang.GetBuffName(clear[0].id)).Value;
+					text = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ClearsInfo", text, Lang.GetBuffName(clear[0].id)).Value;
 
 					foreach (var buff in clear)
 					{
 						if (buff.id != clear[0].id)
 						{
-							text = Mod.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(buff.id)).Value;
+							text = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Conjoined", text, Lang.GetBuffName(buff.id)).Value;
 						}
 					}
 				}
 			}
 
-			text = Mod.CustomLocalization("ImbueStuff.SentenceEnd", text).Value;
+			text = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.SentenceEnd", text).Value;
 
 			return text;
 		}

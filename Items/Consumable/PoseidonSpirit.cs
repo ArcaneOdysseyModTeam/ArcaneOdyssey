@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.GodSouls;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,7 +44,7 @@ public class PoseidonSpirit : BaseItem
 
 	public override void UpdateInventory(Player player)
 	{
-		player.ArcaneOdyssey().AddSoul(AOPlayers.GodSoulID.Poseidon);
+		player.ArcaneOdyssey().AddSoul(ModContent.GetInstance<PoseidonSoul>());
 	}
 
 	#region UI system

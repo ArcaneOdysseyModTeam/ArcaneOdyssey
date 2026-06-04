@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Dusts;
+﻿using ArcaneOdyssey.Dusts;
+using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			get
 			{
-				if (Soul != GodSoulID.None)
+				if (Soul.Type > 0)
 				{
 					if (Stability.HasValue)
 					{
@@ -45,11 +45,18 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public GodSoulID Soul = GodSoulID.None;
+		private GodSoul soul = null;
+		public GodSoul Soul { get => soul ?? GodSoul.None; set => soul = value; }
+
 		private int soulindex = 0;
 
-		public virtual GodSoulID[] SoulSynergies => [];
-		public virtual GodSoulID[] UnstableSouls => [];
+		/// <summary>
+		/// The <seealso cref="AOUtils.GodSoulType{T}"/> of each
+		/// </summary>
+		public virtual byte[] SoulSynergies => [];
+		
+		/// <inheritdoc cref="SoulSynergies"/>
+		public virtual byte[] UnstableSouls => [];
 
 		/// <summary>
 		/// true is stable, false is unstable
@@ -58,9 +65,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			get
 			{
-				if (SoulSynergies.Contains(Soul))
+				if (SoulSynergies.Contains(Soul.Type))
 					return true;
-				if (UnstableSouls.Contains(Soul))
+				if (UnstableSouls.Contains(Soul.Type))
 					return false;
 				return null;
 			}
@@ -69,19 +76,19 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override void NetSend(BinaryWriter writer)
 		{
 			base.NetSend(writer);
-			writer.Write((byte)Soul);
+			writer.Write(Soul.Type);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			base.NetReceive(reader);
-			Soul = (GodSoulID)reader.ReadByte();
+			Soul = GodSoul.GetSoul(reader.ReadByte());
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
 			base.Update(ref gravity, ref maxFallSpeed);
-			Soul = GodSoulID.None;
+			Soul = GodSoul.None;
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
 				Item.color = SpiritColor;
@@ -151,7 +158,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 							else
 								colour = Color.Red;
 						}
-						Main.NewText(Mod.CustomLocalization("GodSouls.Changed", DisplayName.Value, Mod.CustomLocalization($"GodSouls.Soul{(int)Soul}").Value), colour);
+						Main.NewText(ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.SpecificImbue", DisplayName.Value, Soul.DisplayName.Value, colour));
 					}
 				}
 			}
@@ -420,16 +427,19 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override void SaveData(TagCompound tag)
 		{
 			base.SaveData(tag);
-			if (Soul != GodSoulID.None)
+			if (Soul.Type > 0)
 			{
-				tag.Add("soul", (byte)Soul);
+				tag.Add("godsoul", Soul.FullName);
 			}
 		}
 
 		public override void LoadData(TagCompound tag)
 		{
 			base.LoadData(tag);
-			Soul = (GodSoulID)tag.GetByte("soul");
+			if (ModContent.TryFind<GodSoul>(tag.GetString("godsoul"), out var soul))
+			{
+				Soul = soul;
+			}
 		}
 	}
 }

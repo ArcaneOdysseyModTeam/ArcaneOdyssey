@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Guidebook;
 using Microsoft.Xna.Framework;
 using System;
@@ -101,13 +102,22 @@ namespace ArcaneOdyssey.AOPlayers
 			DarkSealed = tag.GetByte("darkchests");
 			NimbusSealed = tag.GetByte("nimbuschests");
 			BronzeSealed = tag.GetByte("bronzechests");
-			
+
 			acumen = tag.GetBool("acumenconsumed");
 			hasLoadedWorldBefore = tag.GetBool("wowiveloadedinbefore");
-			if (tag.TryGet<List<int>>("godsouls", out var souls) && souls.Count > 1)
+
+			GodSoul GetSoul(string name)
 			{
-				Souls = [.. souls.Select(e => (GodSoulID)e)];
+				if (ModContent.TryFind<GodSoul>(name, out var soul) && soul is not NoneSoul)
+				{
+					return soul;
+				}
+				cachedUnloadedSouls.Add(name);
+				return null;
 			}
+
+			Souls = [GodSoul.None, .. tag.GetList<string>("souls").Select(GetSoul)];
+			Souls.RemoveAll(e => e is null);
 
 			foreach (var pagename in tag.GetList<string>("guidebooks"))
 			{
@@ -138,7 +148,7 @@ namespace ArcaneOdyssey.AOPlayers
 			if (acumen)
 				tag.Add("acumenconsumed", acumen);
 			if (Souls.Count > 1)
-				tag.Add("godsouls", Souls.Select(e => (int)e).ToList());
+				tag.Add("souls", Souls.Select(e => e.FullName).ToList());
 			if (unlockedPages.Count > 0)
 				tag.Add("guidebooks", unlockedPages);
 		}

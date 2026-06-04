@@ -259,11 +259,11 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			Downed = true;
 			if (!Main.dedServ)
 			{
-				Main.NewText(Mod.CustomLocalization($"RandomWords.Downed", DisplayName.Value).Value, new Color(175, 75, 255));
+				Main.NewText(ArcaneOdysseyMod.Instance.CustomLocalization($"RandomWords.Downed", DisplayName.Value).Value, new Color(175, 75, 255));
 			}
 			else
 			{
-				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"RandomWords.Downed", DisplayName.Value).ToNetworkText(), new Color(175, 75, 255));
+				ChatHelper.BroadcastChatMessage(ArcaneOdysseyMod.Instance.CustomLocalization($"RandomWords.Downed", DisplayName.Value).ToNetworkText(), new Color(175, 75, 255));
 			}
 		}
 

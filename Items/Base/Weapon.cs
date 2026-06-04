@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Items.Base
 			{
 				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
 				{
-					CombatText.NewText(player.Hitbox, Ability.Value.Colour, (Ability.Value.Name + "!").Trim(), !passive);
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Exclaim", Ability.Value.Name).Value.Trim(), !passive);
 				}
 			}
 		}
@@ -36,11 +36,11 @@ namespace ArcaneOdyssey.Items.Base
 					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description").Value;
 					if (Imbue is not null)
 					{
-						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+						ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", Imbue.PrettyAttackPrefix, ab.Name).Value.Trim();
 					}
 					if (SecondImbue is not null)
 					{
-						ab.Name = (SecondImbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+						ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", SecondImbue.PrettyAttackPrefix, ab.Name).Value.Trim();
 					}
 					return ab;
 				}
@@ -49,12 +49,13 @@ namespace ArcaneOdyssey.Items.Base
 					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability").Value;
 					ab.Description = null;
 					if (Imbue is not null)
-					{
-						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
-					}
+						if (Imbue is not null)
+						{
+							ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", Imbue.PrettyAttackPrefix, ab.Name).Value.Trim();
+						}
 					if (SecondImbue is not null)
 					{
-						ab.Name = (SecondImbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+						ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", SecondImbue.PrettyAttackPrefix, ab.Name).Value.Trim();
 					}
 					return ab;
 				}

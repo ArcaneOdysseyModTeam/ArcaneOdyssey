@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
@@ -23,8 +24,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<WaterMagic>();
 
-		public override GodSoulID[] SoulSynergies => [GodSoulID.Poseidon];
-		public override GodSoulID[] UnstableSouls => [GodSoulID.Athena];
+		public override byte[] SoulSynergies => [AOUtils.GodSoulType<PoseidonSoul>()];
+		public override byte[] UnstableSouls => [AOUtils.GodSoulType<AthenaSoul>()];
 
 		public override void SetDefaults()
 		{

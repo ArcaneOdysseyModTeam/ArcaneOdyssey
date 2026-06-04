@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.GlobalTypes;
+using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
@@ -258,6 +259,8 @@ namespace ArcaneOdyssey
 				return vec;
 			}
 		}
+
+		public static byte GodSoulType<T>() where T : GodSoul => ModContent.GetInstance<T>().Type;
 
 		public static Color GetAlpha(this Projectile projectile) => projectile.GetAlpha(Color.White);
 
@@ -697,7 +700,7 @@ namespace ArcaneOdyssey
 					}
 				}
 			}
-			return new ChainEndInfo(frame, start, length, rotation);
+			return new ChainEndInfo(frame, start, length * width, rotation);
 		}
 
 		public static NPC GetMinionTarget(this Vector2 origin, float maxDistanceToCheck, Player owner, bool ignoreTiles = true, bool checksRange = false)
@@ -1853,11 +1856,11 @@ namespace ArcaneOdyssey
 		#endregion
 	}
 
-	public struct WeaponAbility
+	public struct WeaponAbility(string name, string description, Color colour)
 	{
-		public string Name;
-		public string Description;
-		public Color Colour;
+		public string Name = name;
+		public string Description = description;
+		public Color Colour = colour;
 	}
 
 	/// <summary>
@@ -2122,15 +2125,15 @@ namespace ArcaneOdyssey
 		Lost
 	}
 
-	public readonly struct ChainEndInfo(int finalFrame, Vector2 ending, int length, float rotation)
+	public readonly struct ChainEndInfo(int finalFrame, Vector2 ending, float length, float rotation)
 	{
-		public readonly int FinalFrame = finalFrame;
+		public int FinalFrame { get; } = finalFrame;
 
-		public readonly Vector2 Ending = ending;
+		public Vector2 Ending { get; } = ending;
 
-		public readonly int Length = length;
+		public float Length { get; } = length;
 
-		public readonly float Rotation = rotation;
+		public float Rotation { get; } = rotation;
 	}
 
 	public enum MagicCircleTypes

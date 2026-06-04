@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Items.Base
 			{
 				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
 				{
-					CombatText.NewText(player.Hitbox, Ability.Value.Colour, (Ability.Value.Name + "!").Trim(), true);
+					CombatText.NewText(player.Hitbox, Ability.Value.Colour, ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Exclaim", Ability.Value.Name).Value.Trim(), true);
 				}
 			}
 		}
@@ -32,15 +32,10 @@ namespace ArcaneOdyssey.Items.Base
 			{
 				if (HasCorrectImbue)
 				{
-					var ab = new WeaponAbility
-					{
-						Colour = Imbue.Colour,
-						Description = null,
-						Name = SkillName.Value
-					};
+					var ab = new WeaponAbility(SkillName.Value, null, Imbue.Colour);
 					if (Imbue is not FightingStyle)
 					{
-						ab.Name = (Imbue.PrettySpellPrefix + " " + ab.Name).Trim();
+						ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", Imbue.PrettySpellPrefix, ab.Name).Value.Trim();
 					}
 					else if (SecondImbue is not null)
 					{
@@ -48,7 +43,7 @@ namespace ArcaneOdyssey.Items.Base
 					}
 					if (SecondImbue is not null)
 					{
-						ab.Name = (SecondImbue.PrettyAttackPrefix + " " + ab.Name).Trim();
+						ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", SecondImbue.PrettyAttackPrefix, ab.Name).Value.Trim();
 					}
 					return ab;
 				}
@@ -187,7 +182,7 @@ namespace ArcaneOdyssey.Items.Base
 			var text = "";
 			if (CanHaveFS)
 			{
-				text += Mod.CustomLocalization("ScrollTiers.Technique");
+				text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Technique");
 			}
 			if (CanHaveMagic)
 			{
@@ -195,7 +190,7 @@ namespace ArcaneOdyssey.Items.Base
 				{
 					text += "/";
 				}
-				text += Mod.CustomLocalization("ScrollTiers.Spell");
+				text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Spell");
 			}
 			if (CanHaveRelic)
 			{
@@ -203,7 +198,7 @@ namespace ArcaneOdyssey.Items.Base
 				{
 					text += "/";
 				}
-				text += Mod.CustomLocalization("ScrollTiers.Rite");
+				text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Rite");
 			}
 			return text;
 		}
@@ -213,7 +208,7 @@ namespace ArcaneOdyssey.Items.Base
 			var text = "";
 			if (CanHaveFS)
 			{
-				text += Mod.CustomLocalization("ScrollTiers.FightingStyle");
+				text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.FightingStyle");
 			}
 			if (CanHaveMagic)
 			{
@@ -221,7 +216,7 @@ namespace ArcaneOdyssey.Items.Base
 				{
 					text += "/";
 				}
-				text += Mod.CustomLocalization("ScrollTiers.Magic");
+				text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Magic");
 			}
 			if (CanHaveRelic)
 			{
@@ -229,7 +224,7 @@ namespace ArcaneOdyssey.Items.Base
 				{
 					text += "/";
 				}
-				text += Mod.CustomLocalization("ScrollTiers.Relic");
+				text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Relic");
 			}
 			return text;
 		}
@@ -237,10 +232,10 @@ namespace ArcaneOdyssey.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.AddTooltip(new(Mod, "ScrollTier", Mod.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
+			tooltips.AddTooltip(new(Mod, "ScrollTier", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
 			if (!HasCorrectImbue)
 			{
-				tooltips.AddTooltip(new(Mod, "ScrollReq", Mod.CustomLocalization($"ScrollTiers.NeedsImbue", GetReqFormatting()).Value));
+				tooltips.AddTooltip(new(Mod, "ScrollReq", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.NeedsImbue", GetReqFormatting()).Value));
 			}
 		}
 

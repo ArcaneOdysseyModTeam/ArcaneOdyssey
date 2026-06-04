@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Dusts;
+using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Relics;
 using Microsoft.Xna.Framework;
@@ -23,8 +24,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override float SynergySize => .8f;
 		public override float SynergySpeed => 1.2f;
 
-		public override GodSoulID[] SoulSynergies => [GodSoulID.Athena];
-		public override GodSoulID[] UnstableSouls => [GodSoulID.Poseidon];
+		public override byte[] SoulSynergies => [AOUtils.GodSoulType<AthenaSoul>()];
+		public override byte[] UnstableSouls => [AOUtils.GodSoulType<PoseidonSoul>()];
 
 
 		public override Color ImbueColour => SpiritColor with { A = 255, G = (byte)(SpiritColor.G * 1.1f), B = (byte)(SpiritColor.B * .9f) };

@@ -21,8 +21,8 @@ namespace ArcaneOdyssey.Buffs.Base
 
 		public abstract int DebuffID { get; }
 
-		public override LocalizedText DisplayName => Mod.CustomLocalization("RandomWords.WeaponGel", ModContent.GetModBuff(DebuffID).DisplayName.Value);
-		public override LocalizedText Description => Mod.CustomLocalization("RandomWords.GelTooltip", ModContent.GetModBuff(DebuffID).DisplayName.Value);
+		public override LocalizedText DisplayName => ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.WeaponGel", ModContent.GetModBuff(DebuffID).DisplayName.Value);
+		public override LocalizedText Description => ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.GelTooltip", ModContent.GetModBuff(DebuffID).DisplayName.Value);
 
 		public override void Update(Player player, ref int buffIndex)
 		{

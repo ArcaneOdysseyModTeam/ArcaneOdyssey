@@ -151,35 +151,35 @@ namespace ArcaneOdyssey.Items.Base
 
 			if (MaxMana > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOMaxMana", Mod.CustomLocalization("ArmourAutoTooltip.Mana", MaxMana).Value));
+				tooltips.AddTooltip(new(Mod, "AOMaxMana", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Mana", MaxMana).Value));
 			}
 			if (MinionSlots > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "MinionSlots", Mod.CustomLocalization("ArmourAutoTooltip.Minions", MinionSlots).Value));
+				tooltips.AddTooltip(new(Mod, "MinionSlots", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Minions", MinionSlots).Value));
 			}
 			if (GetArmourAgilityStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOAgility", Mod.CustomLocalization("ArmourAutoTooltip.Agility", Math.Round(GetArmourAgilityStat() / 5f)).Value));
+				tooltips.AddTooltip(new(Mod, "AOAgility", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Agility", Math.Round(GetArmourAgilityStat() / 5f)).Value));
 			}
 			if (GetArmourSizeStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "Size", Mod.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / SizeDivision)).Value));
+				tooltips.AddTooltip(new(Mod, "Size", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / SizeDivision)).Value));
 			}
 			if (GetArmourPowerStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOPower", Mod.CustomLocalization("ArmourAutoTooltip.Power", GetArmourPowerStat(), (GetArmourPowerStat() / 4f).Round()).Value));
+				tooltips.AddTooltip(new(Mod, "AOPower", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Power", GetArmourPowerStat(), (GetArmourPowerStat() / 4f).Round()).Value));
 			}
 			if (GetArmourAttkSpeedStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOAttkSpd", Mod.CustomLocalization("ArmourAutoTooltip.Speed", Math.Round(GetArmourAttkSpeedStat() / 2.75f)).Value));
+				tooltips.AddTooltip(new(Mod, "AOAttkSpd", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Speed", Math.Round(GetArmourAttkSpeedStat() / 2.75f)).Value));
 			}
 			if (GetArmourPierceStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "AOPierce", Mod.CustomLocalization("ArmourAutoTooltip.Pierce", GetArmourPierceStat() / 5).Value));
+				tooltips.AddTooltip(new(Mod, "AOPierce", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Pierce", GetArmourPierceStat() / 5).Value));
 			}
 			if (GetArmourHasteStat() > 0)
 			{
-				tooltips.AddTooltip(new(Mod, "Haste", Mod.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(GetArmourHasteStat() / HasteDivision)).Value));
+				tooltips.AddTooltip(new(Mod, "Haste", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(GetArmourHasteStat() / HasteDivision)).Value));
 			}
 		}
 

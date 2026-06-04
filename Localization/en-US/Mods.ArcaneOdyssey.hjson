@@ -15,11 +15,10 @@ Bestiary: {
 }
 
 GodSouls: {
-	Changed: You have imbued the {0} with {1}'s soul
-	Obtained: You have been granted the soul of {0}
-	Soul0: nobody
-	Soul1: Poseidon
-	Soul2: Athena
+	Obtained: You have been granted {0}
+	AthenaSoul.DisplayName: Athena's Soul
+	NoneSoul.DisplayName: None
+	PoseidonSoul.DisplayName: Poseidon's Soul
 }
 
 MenuStyle: Odyssey ({0} Style)
@@ -53,6 +52,8 @@ ImbueStuff: {
 	Conjoined: "{0}, {1}"
 	Result: "{0} => {1}"
 	Requirement: " ({0}%)"
+	Space: "{0} {1}"
+	Exclaim: "{0}!"
 }
 
 Drawback: {

@@ -1,11 +1,9 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using Microsoft.Xna.Framework;
 using System;
-using System.Linq;
 using Terraria;
 using Terraria.Chat;
 using Terraria.ID;
-using Terraria.UI.Chat;
 
 namespace ArcaneOdyssey.Buffs
 {
