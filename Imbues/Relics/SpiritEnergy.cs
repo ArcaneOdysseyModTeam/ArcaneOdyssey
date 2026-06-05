@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class SpiritEnergy : Imbuable
 	{
-		public override ImbuableTiers ImbuableTier
+		public sealed override ImbuableTiers ImbuableTier
 		{
 			get
 			{
@@ -257,7 +257,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override float ImbueDamage => 1f;
 		public override float ImbueSize => 1f;
 
-		public override float ScrollSpeed
+		public sealed override float ScrollSpeed
 		{
 			get
 			{
@@ -276,7 +276,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public override float ScrollDamage
+		public sealed override float ScrollDamage
 		{
 			get
 			{
@@ -295,7 +295,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public override float ScrollSize
+		public sealed override float ScrollSize
 		{
 			get
 			{
@@ -314,7 +314,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public override int Drawback
+		public sealed override int Drawback
 		{
 			get
 			{
@@ -345,9 +345,9 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public virtual float UnstableSize => 1f;
 		public virtual int UnstableDrawback => 0;
 
-		public override float? DashResist => 1.2f;
+		public sealed override float? DashResist => 1.2f;
 
-		public override string AttackPrefix => "Spirit";
+		public sealed override string AttackPrefix => "Spirit";
 
 		public override void SetDefaults()
 		{

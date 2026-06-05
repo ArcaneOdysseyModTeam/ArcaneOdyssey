@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Items.Base
 		public float ApplySpeed(float value, bool flipfloat = false) => Item.ArcaneOdyssey().ApplySpeed(value, flipfloat);
 		public float ApplySize(float value, bool flipfloat = false) => Item.ArcaneOdyssey().ApplySize(value, flipfloat);
 
-		public override ItemType? ItemCategory => ItemType.Weapon;
+		public sealed override ItemType? ItemCategory => ItemType.Weapon;
 
 		public Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 		public Imbuable SecondImbue { get => Item.ArcaneOdyssey()?.SecondImbue; set => Item.ArcaneOdyssey().SecondImbue = value; }

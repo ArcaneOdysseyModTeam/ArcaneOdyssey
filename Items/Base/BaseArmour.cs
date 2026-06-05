@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Items.Base
 		public abstract ItemTiers ArmourTier { get; }
 
 
-		public override void UpdateArmorSet(Player player)
+		public sealed override void UpdateArmorSet(Player player)
 		{
 			if (Set.HasValue)
 			{
@@ -129,7 +129,7 @@ namespace ArcaneOdyssey.Items.Base
 			return val;
 		}
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
+		public sealed override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			if (Set.HasValue && head.ModItem is not null && head.ModItem.Mod.Name == Mod.Name && legs.ModItem is not null && legs.ModItem.Mod.Name == Mod.Name)
 			{

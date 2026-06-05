@@ -203,15 +203,18 @@ namespace ArcaneOdyssey.AOPlayers
 			if (!hasLoadedWorldBefore)
 			{
 				hasLoadedWorldBefore = true;
-				if (Main.myPlayer == Player.whoAmI)
+				if (!ModLoader.HasMod("NMMSI"))
 				{
-					if (!Player.HasTypeInInventory<EagleLegacy>())
+					if (Main.myPlayer == Player.whoAmI)
 					{
-						Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<EagleLegacy>());
-					}
-					if (!Player.HasTypeInInventory<TitleMusicBox>())
-					{
-						Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<TitleMusicBox>());
+						if (!Player.HasTypeInInventory<EagleLegacy>())
+						{
+							Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<EagleLegacy>());
+						}
+						if (!Player.HasTypeInInventory<TitleMusicBox>())
+						{
+							Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<TitleMusicBox>());
+						}
 					}
 				}
 			}

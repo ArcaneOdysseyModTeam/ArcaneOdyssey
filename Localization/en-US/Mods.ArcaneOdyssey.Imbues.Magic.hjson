@@ -76,6 +76,7 @@ Lost: {
 		Tooltip: ""
 		AttackPrefix: Growing
 		SpellPrefix: Plant
+		Ability: Certain wands no longer require wood
 	}
 
 	PoisonLightningMagic: {

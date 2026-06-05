@@ -12,20 +12,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public const float BarMax = 100f;
 		public const float BarMin = 0f;
 
-		protected float _barValue = BarMin;
-		public float BarValue { get => UpdateBar(); set => UpdateBar(value); }
-
-		/// <summary>
-		/// Allows extra stuff to happen when the bar value changes or is requested
-		/// </summary>
-		/// <param name="value">The new bar value, if any</param>
-		/// <returns>The bar, after any changes</returns>
-		public virtual float UpdateBar(float? value = null)
-		{
-			if (value.HasValue)
-				_barValue = MathHelper.Clamp(value.Value, BarMin, BarMax);
-			return _barValue;
-		}
+		public float BarValue { get; set; } = BarMin;
 
 		public abstract Color DisplayColor { get; }
 
@@ -48,13 +35,12 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public float LerpValue => MathHelper.Clamp(BarValue * BarValueMulti / BarMax, 0f, 1f);
 
-
-		public override float ImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, LerpValue); }
-		public override float ScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, LerpValue); }
-		public override float ImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, LerpValue); }
-		public override float ScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, LerpValue); }
-		public override float ImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, LerpValue); }
-		public override float ScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, LerpValue); }
+		public sealed override float ImbueDamage { get => MathHelper.Lerp(MinImbueDamage, MaxImbueDamage, LerpValue); }
+		public sealed override float ScrollDamage { get => MathHelper.Lerp(MinScrollDamage, MaxScrollDamage, LerpValue); }
+		public sealed override float ImbueSpeed { get => MathHelper.Lerp(MinImbueSpeed, MaxImbueSpeed, LerpValue); }
+		public sealed override float ScrollSpeed { get => MathHelper.Lerp(MinScrollSpeed, MaxScrollSpeed, LerpValue); }
+		public sealed override float ImbueSize { get => MathHelper.Lerp(MinImbueSize, MaxImbueSize, LerpValue); }
+		public sealed override float ScrollSize { get => MathHelper.Lerp(MinScrollSize, MaxScrollSize, LerpValue); }
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

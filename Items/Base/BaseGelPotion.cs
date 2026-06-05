@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public abstract Color LiquidColour { get; }
 
-		public override ItemRarities Rarity => ItemRarities.Rare;
+		public sealed override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override void SetDefaults()
 		{
@@ -29,9 +29,9 @@ namespace ArcaneOdyssey.Items.Base
 			Item.buffTime = 60 * 60 * 20;
 		}
 
-		public override int Value => 7;
+		public sealed override int Value => 7;
 
-		public override string Texture => Mod.Name + "/Assets/GelBottle";
+		public sealed override string Texture => Mod.Name + "/Assets/GelBottle";
 		public Texture2D LiquidSprite => Mod.Assets.Request<Texture2D>("Assets/GelLiquid").Value;
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

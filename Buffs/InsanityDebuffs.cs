@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Buffs
 {
 	public class InsanityOne : BaseBuff
 	{
-		public override void SetStaticDefaults()
+		public sealed override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			Main.debuff[Type] = true;
@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Buffs
 			ExternalModSupport.RegisterDebuff(this);
 		}
 
-		public override string Texture => AOUtils.GetTexture<InsanityOne>();
+		public sealed override string Texture => AOUtils.GetTexture<InsanityOne>();
 
 		public virtual byte BanishmentReq => 2;
 

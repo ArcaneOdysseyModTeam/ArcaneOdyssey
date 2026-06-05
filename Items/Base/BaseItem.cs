@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Base
 {
 	public abstract class BaseItem : ModItem, ILocalizedModType
 	{
-		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
+		public sealed override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
 		public abstract ItemRarities Rarity { get; }
 

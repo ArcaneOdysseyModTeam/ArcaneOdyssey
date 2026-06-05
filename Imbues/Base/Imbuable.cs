@@ -185,6 +185,7 @@ namespace ArcaneOdyssey.Imbues.Base
 					ImbuableTiers.Normal => ItemRarities.Rare,
 					ImbuableTiers.Lost => ItemRarities.Mystic,
 					ImbuableTiers.Ancient => ItemRarities.Legendary,
+					ImbuableTiers.Mythical => ItemRarities.Mythical,
 					_ => ItemRarities.Special,
 				};
 			}
@@ -204,7 +205,6 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		/// <summary>
 		/// For magics or fighing styles, you may return any value
-		/// <para>Relics are always Normal for now</para>
 		/// </summary>
 		public virtual ImbuableTiers ImbuableTier => ImbuableTiers.Normal;
 		public virtual Debuff[] ImbueDebuffs => [];

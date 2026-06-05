@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues
 {
-	public class SteamImbue : Imbuable
+	public sealed class SteamImbue : Imbuable
 	{
 		public static SteamImbue Create(Imbuable imbue)
 		{

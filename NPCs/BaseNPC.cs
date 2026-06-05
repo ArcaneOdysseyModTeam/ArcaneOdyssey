@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.NPCs
 {
 	public abstract class BaseNPC : ModNPC, ILocalizedModType
 	{
-		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
+		public sealed override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
 		public virtual MusicTrack Theme => null;
 

@@ -25,7 +25,6 @@ namespace ArcaneOdyssey.Items.Base
 
 		public LocalizedText SkillName => Language.GetOrRegister(this.GetLocalizationKey("SkillName"), PrettyPrintName);
 
-
 		public WeaponAbility? Ability
 		{
 			get
@@ -228,7 +227,6 @@ namespace ArcaneOdyssey.Items.Base
 			}
 			return text;
 		}
-
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

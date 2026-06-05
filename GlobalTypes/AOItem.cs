@@ -684,6 +684,18 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			owner = player;
 
+			if (ArcaneOdysseyMod.Sets.woodWand[item.type])
+			{
+				if (player.HasTypeInInventory<PlantMagic>())
+				{
+					item.tileWand = ItemID.None;
+				}
+				else
+				{
+					item.tileWand = ArcaneOdysseyMod.Sets.wandWoodType[item.type];
+				}
+			}
+
 			if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
 				Cold = null;

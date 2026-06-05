@@ -47,6 +47,7 @@ namespace ArcaneOdyssey
 		/// <para/>AddHasteStat (<seealso cref="int"/>, <seealso cref="int"/>)
 		/// <para/>SetItemTemperature (<seealso cref="int"/>, <seealso cref="Nullable"/>{<seealso cref="bool"/>}))
 		/// <para/>SetWeaponType (<seealso cref="int"/>, <seealso cref="int"/> (<seealso cref="WeaponType"/>))
+		/// <para/>RegisterWoodWand (<seealso cref="int"/>, <seealso cref="int"/>)
 		/// </param>
 		public override object Call(params object[] args)
 		{
@@ -62,12 +63,10 @@ namespace ArcaneOdyssey
 					break;
 				case "AddSizeStat":
 				case "SetSizeStat":
-				case "SizeStat":
 					Sets.SizeStats[(int)args[1]] = (int)args[2];
 					break;
 				case "AddHasteStat":
 				case "SetHasteStat":
-				case "HasteStat":
 					Sets.HasteStats[(int)args[1]] = (int)args[2];
 					break;
 				case "SetItemTemperature":
@@ -75,6 +74,10 @@ namespace ArcaneOdyssey
 					break;
 				case "SetWeaponType":
 					Sets.weaponType[(int)args[1]] = (WeaponType)(int)args[2];
+					break;
+				case "RegisterWoodWand":
+					Sets.woodWand[(int)args[1]] = true;
+					Sets.wandWoodType[(int)args[1]] = (int)args[2];
 					break;
 			}
 			return null;
@@ -354,6 +357,10 @@ namespace ArcaneOdyssey
 			public static bool[] showItemTypeTooltip = ItemID.Sets.Factory.CreateBoolSet(true);
 
 			public static bool[] imbueEffect = ProjectileID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] woodWand = ItemID.Sets.Factory.CreateBoolSet(ItemID.LivingWoodWand, ItemID.LeafWand, ItemID.LivingMahoganyLeafWand, ItemID.LivingMahoganyWand);
+
+			public static int[] wandWoodType = ItemID.Sets.Factory.CreateIntSet(-1, ItemID.LivingWoodWand, ItemID.Wood, ItemID.LeafWand, ItemID.Wood, ItemID.LivingMahoganyLeafWand, ItemID.RichMahogany, ItemID.LivingMahoganyWand, ItemID.RichMahogany);
 
 			[ReinitializeDuringResizeArrays]
 			public static class Assets

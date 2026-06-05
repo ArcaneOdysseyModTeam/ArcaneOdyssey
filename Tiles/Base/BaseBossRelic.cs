@@ -16,23 +16,23 @@ namespace ArcaneOdyssey.Tiles.Base
 	{
 		public const int FrameWidth = 18 * 3;
 		public const int FrameHeight = 18 * 4;
-		public override string Texture => $"{Mod.Name}/Assets/RelicBase";
+		public sealed override string Texture => $"{Mod.Name}/Assets/RelicBase";
 
 		public Asset<Texture2D> FloaterTexture;
 
-		public override void Load()
+		public sealed override void Load()
 		{
 			FloaterTexture = ModContent.Request<Texture2D>(base.Texture, AssetRequestMode.ImmediateLoad);
 		}
 
-		public override void Unload()
+		public sealed override void Unload()
 		{
 			FloaterTexture = null;
 		}
 
-		public override bool CreateDust(int i, int j, ref int type) => false;
+		public sealed override bool CreateDust(int i, int j, ref int type) => false;
 
-		public override void SetStaticDefaults()
+		public sealed override void SetStaticDefaults()
 		{
 			Main.tileShine[Type] = 400;
 			Main.tileFrameImportant[Type] = true;
@@ -56,13 +56,13 @@ namespace ArcaneOdyssey.Tiles.Base
 			AddMapEntry(new Color(233, 207, 94), Language.GetText("MapObject.Relic"));
 		}
 
-		public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+		public sealed override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
 		{
 			tileFrameX %= FrameWidth;
 			tileFrameY %= FrameHeight * 2;
 		}
 
-		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+		public sealed override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
 		{
 			if (drawData.tileFrameX % FrameWidth == 0 && drawData.tileFrameY % FrameHeight == 0)
 			{
@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Tiles.Base
 			}
 		}
 
-		public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch)
+		public sealed override void SpecialDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			Point p = new(i, j);
 			Tile tile = Main.tile[p.X, p.Y];
@@ -106,5 +106,4 @@ namespace ArcaneOdyssey.Tiles.Base
 			}
 		}
 	}
-
 }

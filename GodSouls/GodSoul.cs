@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.GodSouls
 		public byte Type { get; private set; }
 
 		/// <inheritdoc/>
-		public string LocalizationCategory => "GodSouls";
+		public virtual string LocalizationCategory => "GodSouls";
 
 		public static NoneSoul None => ModContent.GetInstance<NoneSoul>();
 

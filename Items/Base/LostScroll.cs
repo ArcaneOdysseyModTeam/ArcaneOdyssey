@@ -6,9 +6,9 @@ namespace ArcaneOdyssey.Items.Base
 {
 	public abstract class LostScroll : Scroll
 	{
-		public override ScrollTier Tier => ScrollTier.Lost;
-		public override int Value => 2500;
-		public override ItemRarities Rarity => ItemRarities.Mystic;
+		public sealed override ScrollTier Tier => ScrollTier.Lost;
+		public sealed override int Value => 2500;
+		public sealed override ItemRarities Rarity => ItemRarities.Mystic;
 
 		public override void SetStaticDefaults()
 		{

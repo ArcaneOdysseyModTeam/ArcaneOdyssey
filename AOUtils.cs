@@ -172,6 +172,8 @@ namespace ArcaneOdyssey
 			return 0;
 		}
 
+		public static void LightTiles(Rectangle tiles) => Lighting.LightTiles(tiles.Left, tiles.Right, tiles.Top, tiles.Bottom);
+
 		public static int AddTooltip(this List<TooltipLine> tooltips, TooltipLine toAdd, Color? colour = null)
 		{
 			toAdd.OverrideColor = colour;
@@ -1206,18 +1208,21 @@ namespace ArcaneOdyssey
 					}
 				}
 
-				foreach (var buff in imbue.Effects.clearBuffs)
+				if (Main.netMode == NetmodeID.SinglePlayer) // things would get chaotic in multiplayer if everyone kept clearing eachothers debuffs
 				{
-					if (target.HasBuff(buff.id))
+					foreach (var buff in imbue.Effects.clearBuffs)
 					{
-						target.DelBuff(target.FindBuffIndex(buff.id));
-					}
-
-					foreach (var alt in buff.alternatives)
-					{
-						if (target.HasBuff(alt))
+						if (target.HasBuff(buff.id))
 						{
-							target.DelBuff(target.FindBuffIndex(alt));
+							target.DelBuff(target.FindBuffIndex(buff.id));
+						}
+
+						foreach (var alt in buff.alternatives)
+						{
+							if (target.HasBuff(alt))
+							{
+								target.DelBuff(target.FindBuffIndex(alt));
+							}
 						}
 					}
 				}

@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 {
 	public abstract class BaseProjectile : ModProjectile, ILocalizedModType
 	{
-		public override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
+		public sealed override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
 		public virtual Texture2D Sprite => (Texture != $"{Mod.Name}/{TextureAssets.Projectile[Type]?.Name.Replace("\\", "/") ?? Texture}" ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Projectile[Type])?.Value;
 

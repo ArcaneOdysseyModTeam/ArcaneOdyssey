@@ -15,7 +15,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		{
 			base.SetDefaults();
 			Projectile.width = Projectile.height = AetherExplosion.SpriteSize;
-			Projectile.light = 1f;
 			Projectile.hide = true;
 			Projectile.timeLeft = 60;
 			Projectile.DamageType = DamageClass.Magic;
@@ -40,18 +39,17 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			}
 		}
 
-
 		public struct Branch(Vector2 start, float rotation, float length)
 		{
 			public Vector2 Start { get; } = start;
 			public float Rotation { get; } = rotation;
-			public float Length { get; } = length + 2f;
+			public float Length { get; } = length;
 
 			public Vector2 End => Start + (Rotation.ToRotationVector2() * Length);
 
 			public Branch[] children = new Branch[2];
 
-			public override string ToString() => $"{{{Start}, {End}}}";
+			public override string ToString() => $"{Start} {End}";
 		}
 
 		private Branch[] branches = new Branch[Main.rand.Next(3, 6)];
@@ -61,12 +59,12 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			if (!setDrawInfo)
 			{
 				Vector2 pos = Projectile.Center;
-				float length = 50f * Projectile.scale;
+				float length = Projectile.width;
 				float rot = Main.rand.NextFloat(MathHelper.TwoPi);
 				for (int i = 0; i < branches.Length; i++)
 				{
 					var angle = Main.rand.NextFloat(-(MathHelper.Pi / 8f), MathHelper.Pi / 8f);
-					branches[i] = new(pos - ((rot + angle).ToRotationVector2() * 2f), rot + angle, length);
+					branches[i] = new(pos - ((rot + angle).ToRotationVector2() * (2f * Projectile.scale)), rot + angle, length / 4f);
 					rot += MathHelper.TwoPi / branches.Length;
 				}
 				foreach (var branch in branches)
@@ -74,14 +72,14 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 					for (int i = 0; i < branch.children.Length; i++)
 					{
 						rot = branch.Rotation + Main.rand.NextFloat(-MathHelper.PiOver2, MathHelper.PiOver2);
-						branch.children[i] = new(branch.End, rot, length / 2f);
+						branch.children[i] = new(branch.End, rot, length / 6f);
 					}
 					foreach (var branch2 in branch.children)
 					{
 						for (int i = 0; i < branch2.children.Length; i++)
 						{
-							rot = branch.Rotation + Main.rand.NextFloat(-MathHelper.PiOver2, MathHelper.PiOver2);
-							branch2.children[i] = new(branch2.End, rot, length / 4f);
+							rot = branch2.Rotation + Main.rand.NextFloat(-MathHelper.PiOver2, MathHelper.PiOver2);
+							branch2.children[i] = new(branch2.End, rot, length / 8f);
 						}
 					}
 				}
@@ -92,13 +90,22 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Color colour = Projectile.GetAlpha(Imbue?.Colour ?? lightColor);
 			foreach (var branch in branches)
 			{
-				AOUtils.DrawChain(branch.Start, branch.End, Sprite, Projectile.scale * .75f, colour: colour);
+				var chain = AOUtils.DrawChain(branch.Start, branch.End, Sprite, Projectile.scale * .75f, colour: colour);
+				var mid = Vector2.Lerp(branch.Start, chain.Ending, .5f);
+				Lighting.AddLight(mid, colour.ToVector3() * Projectile.scale);
+				Lighting.AddLight(chain.Ending, colour.ToVector3() * Projectile.scale);
 				foreach (var branch2 in branch.children)
 				{
-					AOUtils.DrawChain(branch2.Start, branch2.End, Sprite, Projectile.scale / 2f, colour: colour);
+					chain = AOUtils.DrawChain(branch2.Start, branch2.End, Sprite, Projectile.scale / 2f, colour: colour);
+					mid = Vector2.Lerp(branch.Start, chain.Ending, .5f);
+					Lighting.AddLight(mid, colour.ToVector3() * Projectile.scale);
+					Lighting.AddLight(chain.Ending, colour.ToVector3() * Projectile.scale);
 					foreach (var branch3 in branch2.children)
 					{
-						AOUtils.DrawChain(branch3.Start, branch3.End, Sprite, Projectile.scale / 3f, colour: colour);
+						chain = AOUtils.DrawChain(branch3.Start, branch3.End, Sprite, Projectile.scale / 3f, colour: colour);
+						mid = Vector2.Lerp(branch.Start, chain.Ending, .5f);
+						Lighting.AddLight(mid, colour.ToVector3() * Projectile.scale);
+						Lighting.AddLight(chain.Ending, colour.ToVector3() * Projectile.scale);
 					}
 				}
 			}

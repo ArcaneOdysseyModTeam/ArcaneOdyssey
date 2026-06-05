@@ -12,8 +12,8 @@ namespace ArcaneOdyssey.Buffs.Base
 
 		public override List<int> Counterparts => [VanillaID];
 
-		public override LocalizedText Description => Language.GetText($"BuffDescription.{BuffID.Search.GetName(VanillaID)}");
+		public sealed override LocalizedText Description => Language.GetText($"BuffDescription.{BuffID.Search.GetName(VanillaID)}");
 
-		public override LocalizedText DisplayName => Language.GetText($"BuffName.{BuffID.Search.GetName(VanillaID)}");
+		public sealed override LocalizedText DisplayName => Language.GetText($"BuffName.{BuffID.Search.GetName(VanillaID)}");
 	}
 }
