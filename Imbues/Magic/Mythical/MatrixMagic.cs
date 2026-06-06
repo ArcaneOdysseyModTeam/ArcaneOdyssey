@@ -63,8 +63,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			if (Main.projectile.Find(e => e.active && (e.type == ModContent.ProjectileType<AetherLightningAftershock>()) && (e.Center.ToTileCoordinates16() == position.ToTileCoordinates16()) && (e.ai[0] != 0)) is null)
-				Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), 0, 0, ai0: intensity * .8f);
+			for (int n = 0; n < 3; n++)
+			{
+				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.Firework_Green, (Main.rand.NextFloat() - 0.5f) * (13f * intensity), (Main.rand.NextFloat() - 0.5f) * (13f * intensity), Scale: 2.3f * intensity);
+				dust.noGravity = true;
+			}
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
