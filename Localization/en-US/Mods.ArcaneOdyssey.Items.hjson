@@ -352,6 +352,21 @@ Debug: {
 		DisplayName: Marketable Spoky
 		Tooltip: Opens the guidebook from anywhere
 	}
+
+	MatrixTerminal: {
+		DisplayName: Matrix Terminal
+		Tooltip: Left click to increase stat, right click to decerase stat
+	}
+
+	MatrixCycler: {
+		DisplayName: Matrix Cycler
+		Tooltip: Left click to cycle stats to change, Right click to reset multiplier
+	}
+
+	MatrixMultiplier: {
+		DisplayName: Matrix Multiplier
+		Tooltip: Left click to mult by 10, right click to divide by 10
+	}
 }
 
 EmptyScrolls: {
