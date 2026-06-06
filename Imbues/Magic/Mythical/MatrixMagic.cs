@@ -74,13 +74,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-			if (source is Projectile projectile && projectile.ModProjectile is not AetherLightningAftershock)
-			{
-				if (projectile.owner == Main.myPlayer)
-				{
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage / 4, 0, projectile.owner);
-				}
-			}
 		}
 
 		public override void RegisterMutations()
