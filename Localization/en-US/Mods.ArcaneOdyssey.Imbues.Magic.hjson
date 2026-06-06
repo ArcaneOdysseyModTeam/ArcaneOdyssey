@@ -418,6 +418,6 @@ Mythical: {
 		AttackPrefix: Matrix
 		SpellPrefix: Matrix
 		DisplayName: Matrix Magic
-		Tooltip: For balance testing
+		Tooltip: DEBUG - [c/00aaaa:For balance testing]
 	}
 }
