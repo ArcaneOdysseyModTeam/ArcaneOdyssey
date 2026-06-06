@@ -413,4 +413,11 @@ Mythical: {
 		DisplayName: Necro Blaze Magic
 		Tooltip: ""
 	}
+
+	MatrixMagic: {
+		AttackPrefix: Matrix
+		SpellPrefix: Matrix
+		DisplayName: Matrix Magic
+		Tooltip: ""
+	}
 }
