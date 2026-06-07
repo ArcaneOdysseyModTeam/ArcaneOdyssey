@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
@@ -15,6 +16,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class EnergyMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<InfiniteMana>();
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

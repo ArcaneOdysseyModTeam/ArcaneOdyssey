@@ -3,11 +3,9 @@ using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Magic;
 using System;
 using System.IO;
 using Terraria;
@@ -247,16 +245,20 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisProjectile = projectile;
 			Death(projectile, timeLeft);
-			if (CanBeAffected && !Main.dedServ)
+			if (!CanBeAffected)
+				return;
+			if (!Main.dedServ)
 			{
-				if (Imbue is not null && Imbuable.PreEffects(projectile))
+				if (Imbuable.PreEffects(projectile))
 				{
-					Imbue.KillEffects(projectile.Hitbox, ArcaneOdysseyMod.Sets.imbueEffect[projectile.type] ? null : projectile);
+					Imbue?.KillEffects(projectile.Hitbox, projectile);
+					SecondImbue?.KillEffects(projectile.Hitbox, projectile);
 				}
-				if (SecondImbue is not null && Imbuable.PreEffects(projectile))
-				{
-					SecondImbue.KillEffects(projectile.Hitbox, ArcaneOdysseyMod.Sets.imbueEffect[projectile.type] ? null : projectile);
-				}
+			}
+			if (projectile.owner == Main.myPlayer && !ArcaneOdysseyMod.Sets.imbueEffect[projectile.type])
+			{
+				Imbue?.Gimmick?.KillEffects(projectile);
+				SecondImbue?.Gimmick?.KillEffects(projectile);
 			}
 		}
 
@@ -265,6 +267,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisProjectile = projectile;
 			if (!CanBeAffected)
 				return;
+
+			Imbue?.Gimmick?.ModifyHitNPC(projectile, target, ref modifiers);
 
 			if (projectile.ModProjectile is PlayerProjectile proj)
 			{
@@ -340,15 +344,14 @@ namespace ArcaneOdyssey.GlobalTypes
 					Imbue.Imbue = SteamImbue.Create(Imbue);
 				}
 
-				if (projectile.ModProjectile is not ExplosionSpell)
+				if (Imbuable.PreEffects(projectile))
 				{
-					if (Imbue is not null && Imbuable.PreEffects(projectile))
-					{
-						Imbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
-					}
-					if (SecondImbue is not null && Imbuable.PreEffects(projectile))
-						SecondImbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
+					Imbue?.SpawningEffects(projectile.Hitbox, projectile.velocity);
+					SecondImbue?.SpawningEffects(projectile.Hitbox, projectile.velocity);
 				}
+
+				Imbue?.Gimmick?.SpawningEffects(projectile);
+				SecondImbue?.Gimmick?.SpawningEffects(projectile);
 			}
 
 			var mult = ApplySize(1f);
@@ -406,6 +409,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected)
 				return;
 
+			Imbue?.Gimmick?.OnHitNPC(projectile, target, hit, damageDone);
+
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;
 
@@ -416,11 +421,6 @@ namespace ArcaneOdyssey.GlobalTypes
 					if (!target.immortal)
 						owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
 				}
-			}
-
-			if (Main.netMode == NetmodeID.SinglePlayer && (Imbue is DeathMagic || SecondImbue is DeathMagic) && (target.lifeMax < (Main.player[projectile.owner].statLifeMax2 * 2)))
-			{
-				target.StrikeInstantKill();
 			}
 		}
 	}

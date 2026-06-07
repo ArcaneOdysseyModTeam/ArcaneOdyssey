@@ -163,8 +163,9 @@ namespace ArcaneOdyssey.Imbues.Base
 			Item.shootSpeed = 7f * ScrollSpeed;
 		}
 
-		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		public sealed override void ModifyManaCost(Player player, ref float reduce, ref float mult)
 		{
+			base.ModifyManaCost(player, ref reduce, ref mult);
 			if (player.AltUse())
 				mult *= 0;
 		}

@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Ancient;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
@@ -11,13 +13,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class WitherLightningMagic : DeathMagic
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<InstantDeath>();
 		public override float ScrollDamage => base.ScrollDamage * 1.5f;
 		public override float ScrollSpeed => base.ScrollSpeed * 2.5f;
 		public override float ScrollSize => base.ScrollSize * 1.5f;
 
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 
-		public override SynergyEffects Effects => AOUtils.CopySynergiesFromImbue<DeathMagic>() + AOUtils.CopySynergiesFromImbue<AncientLightningMagic>();
+		public override SynergyEffects Effects => base.Effects + AOUtils.CopySynergiesFromImbue<AncientLightningMagic>();
 
 		public override int BlastFrames => 6;
 

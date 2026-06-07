@@ -9,7 +9,6 @@ using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -67,7 +66,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private bool hasSetSpawnLocation = false;
 		public Vector2 spawnLocation;
 
-		private int spareTimer = 60 * 60; // 1 minut
+		private int spareTimer = 60 * 60; // 1 minute
 
 		public override void AI()
 		{
@@ -88,6 +87,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				if (spareTimer-- <= 0)
 				{
+					Main.NewText(this.GetLocalizedValue("Spared"), SpiritEnergy.Instance.Colour);
 					NPC.active = false;
 					NPC.netUpdate = true;
 					NPC.NPCLoot();

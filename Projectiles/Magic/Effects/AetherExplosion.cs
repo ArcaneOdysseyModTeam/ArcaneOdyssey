@@ -13,20 +13,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 	{
 		public const int SpriteSize = 128;
 
-		private static int _count = 0;
-
-		internal static int Count
-		{
-			get
-			{
-				return _count;
-			}
-			set
-			{
-				_count = Utils.Clamp(value, 0, 10);
-			}
-		}
-
 		public override float Size => .4f;
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -52,15 +38,14 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent { Entity: Projectile projectile })
-			{
-				Count++;
-				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / 2f / SpriteSize, Size));
-				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
-			}
-			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherMagic)
+			if (Projectile.ai[0] != 0)
 			{
 				Projectile.scale = Projectile.ai[0];
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
+			}
+			else if (source is EntitySource_Parent { Entity: Projectile projectile })
+			{
+				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / 2f / SpriteSize, Size));
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else
@@ -85,11 +70,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 					Kill();
 				}
 			}
-		}
-
-		public override void OnKill(int timeLeft)
-		{
-			Count--;
 		}
 
 		public override bool PreDraw(ref Color lightColor)

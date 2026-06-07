@@ -62,11 +62,11 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public void ActivateAbility(Player player, bool passive)
 		{
-			if (Ability.HasValue)
+			if (Property.HasValue)
 			{
 				if (ArcaneOdysseyClientConfig.Instance.AbilityText && player is not null && player.active && !player.DeadOrGhost && Main.myPlayer == player.whoAmI)
 				{
-					CombatText.NewText(player.Hitbox, Ability.Value.Colour, (Ability.Value.Name + "!").Trim(), !passive);
+					CombatText.NewText(player.Hitbox, Property.Value.Colour, (Property.Value.Name + "!").Trim(), !passive);
 				}
 			}
 		}
@@ -125,7 +125,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public WeaponAbility? Ability
+		public WeaponAbility? Property
 		{
 			get
 			{
@@ -134,19 +134,19 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					ab.Colour = Imbue.ImbueColour;
 				}
-				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability.Description"))
+				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Property.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Property.Description"))
 				{
-					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.DisplayName").Value;
-					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability.Description").Value;
+					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Property.DisplayName").Value;
+					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Property.Description").Value;
 					if (Imbue is not null)
 					{
 						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
 					}
 					return ab;
 				}
-				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
+				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Property"))
 				{
-					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability").Value;
+					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Property").Value;
 					ab.Description = null;
 					return ab;
 				}
@@ -170,6 +170,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 		}
+
+		public virtual ImbueGimmick Gimmick => null;
 
 		/// <summary>
 		/// Sets the armour stats of this magic, will be multiplied by the armour tier
@@ -238,6 +240,11 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
 
 		public virtual int[] Dusts => [DustID.ShimmerSpark];
+
+		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		{
+			Gimmick?.ModifyManaCost(Item, player, ref reduce, ref mult);
+		}
 
 		/// <summary>
 		/// Called after a projectile is killed usually
@@ -492,14 +499,15 @@ namespace ArcaneOdyssey.Imbues.Base
 				}
 				tooltips.AddTooltip(new(Mod, "ShiftNotice", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.ShiftNotice").Value));
 
-				if (Ability.HasValue)
+				if (Property.HasValue)
 				{
-					string text = Ability?.Name;
-					if (Ability?.Description is not null)
-					{
-						text += $": {Ability?.Description}";
-					}
-					tooltips.AddTooltip(new TooltipLine(Mod, "AOAbility", text), Ability?.Colour);
+					tooltips.AddTooltip(new TooltipLine(Mod, "Property", Property?.Name), Property?.Colour);
+				}
+
+				if (Gimmick is not null)
+				{
+					string text = $"{Gimmick.DisplayName.Value}: {Gimmick.Description}";
+					tooltips.AddTooltip(new TooltipLine(Mod, "Gimmick", text), Colour);
 				}
 			}
 

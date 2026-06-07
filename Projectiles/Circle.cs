@@ -20,6 +20,11 @@ namespace ArcaneOdyssey.Projectiles
 {
 	public class Circle : PlayerProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
+		}
+
 		public int ChargingProjectile;
 		public float charge = 1f;
 		public bool MarkedForDeath = false;

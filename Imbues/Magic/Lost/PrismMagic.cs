@@ -1,8 +1,8 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Normal;
-using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class PrismMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<ShardCloud>();
 		public override float Aura => .3f;
 		public override float? DashResist => 1.15f;
 
@@ -104,8 +105,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Glass, Scale: 1.2f * area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-			if (source is Projectile projectile && projectile.owner == Main.myPlayer && projectile.GetOwner().ownedProjectileCounts[ModContent.ProjectileType<PrismLinger>()] < 3)
-				Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<PrismLinger>(), projectile.damage / 6, 0, projectile.owner);
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)

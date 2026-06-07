@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
@@ -16,6 +17,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class PoisonLightningMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<PoisonClouds>();
 		public override float Aura => .8f;
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
@@ -98,11 +100,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
 			{
-				var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<PoisonCloud>(), 15 * (AOUtils.BossesKilled + 1), 0f);
-				proj.scale *= projectile.Hitbox.RelativeScale(max: 2f);
-				proj.Hitbox = proj.Hitbox.Scaled(projectile.Hitbox.RelativeScale(max: 2f));
-				proj.netUpdate = true;
-				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
+				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, projectile.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

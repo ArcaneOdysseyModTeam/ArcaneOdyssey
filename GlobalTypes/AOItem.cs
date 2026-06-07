@@ -4,8 +4,7 @@ using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Accessories.Vanity;
 using ArcaneOdyssey.Items.Armour.Vanity.Taz;
@@ -18,7 +17,6 @@ using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Items.Weapons.Atlantean;
 using ArcaneOdyssey.Prefixes;
 using ArcaneOdyssey.Projectiles;
-using ArcaneOdyssey.Projectiles.Berserker.Effects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -409,10 +407,8 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
 		{
-			if (Imbue is EnergyMagic)
-			{
-				mult *= 0;
-			}
+			if (!CannotBeAffected)
+			Imbue?.Gimmick?.ModifyManaCost(item, player, ref reduce, ref mult);
 		}
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -686,7 +682,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (ArcaneOdysseyMod.Sets.woodWand[item.type])
 			{
-				if (player.HasTypeInInventory<PlantMagic>())
+				if (player.HasTypeInInventory<Imbuable>(e => e.Gimmick is InfiniteWoodWands))
 				{
 					item.tileWand = ItemID.None;
 				}
@@ -707,6 +703,11 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (Main.myPlayer != player.whoAmI)
 				return;
+
+			foreach (var imbue in player.inventory.FindAll(e => e.ModItem is Imbuable imbue && imbue.Gimmick is not null).Select(e => e.ModItem as Imbuable))
+			{
+				imbue.Gimmick.InventoryEffects(item, player);
+			}
 
 			if (player.ItemAnimationActive && player.PlayerItem()?.ModItem is not Imbuable)
 				return;
@@ -848,19 +849,12 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			if (CannotBeAffected)
 				return;
-			if (Imbue is SpiritEnergy)
+			if (Imbue is SpiritEnergy) // not a gimmick, since all relics have this
 			{
 				if (!target.immortal)
 					player.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage));
 			}
-			if (Main.netMode == NetmodeID.SinglePlayer && (Imbue is DeathMagic || SecondImbue is DeathMagic) && (target.lifeMax < (player.statLifeMax2 * 2)))
-			{
-				target.StrikeInstantKill();
-			}
-			if (Imbue is PowderFist)
-			{
-				Projectile.NewProjectile(item.GetSource_ItemUse(player), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), damageDone / 2, 3f, player.whoAmI);
-			}
+			Imbue?.Gimmick?.OnHitNPC(item,player,target, hit, damageDone);
 		}
 
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
@@ -907,6 +901,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			owner = player;
 			if (CannotBeAffected)
 				return;
+
+			Imbue?.Gimmick?.ModifyHitNPC(item, player, target, ref modifiers);
 
 			if (item.ModItem is Weapon weap)
 			{

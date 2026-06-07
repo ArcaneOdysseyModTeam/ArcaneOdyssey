@@ -111,7 +111,5 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
-
-
 	}
 }

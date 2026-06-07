@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class MatrixMagic : MagicType
 	{
-		public static float MatrixSize = 1,MatrixSpeed = 1,MatrixDamage = 1;
+		public static float MatrixSize = 1, MatrixSpeed = 1, MatrixDamage = 1;
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Turquoise;

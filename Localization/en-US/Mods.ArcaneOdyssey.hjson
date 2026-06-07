@@ -299,3 +299,60 @@ MainMenuStyle: {
 }
 
 FilteringOption.ImbuesFilter.Tooltip: Filter Imbues
+
+ImbueGimmicks: {
+	AetherLightningShocks: {
+		DisplayName: Aether Lightning Shocks
+		Description: Creates a delayed explosion
+	}
+
+	AetherShocks: {
+		DisplayName: Aether Shocks
+		Description: Creates brilliant explosions
+	}
+
+	AshClouds: {
+		DisplayName: Ash Clouds
+		Description: Creates a lingering damage cloud
+	}
+
+	FrostShards: {
+		DisplayName: Frost Shards
+		Description: Explodes into harmful shards
+	}
+
+	InfiniteMana: {
+		DisplayName: Infinite Mana
+		Description: Imbued items require no mana
+	}
+
+	InfiniteWoodWands: {
+		DisplayName: Infinite Wood Wands
+		Description: Certain wands no longer require wood
+	}
+
+	InstantDeath: {
+		DisplayName: Instant Death
+		Description: Enemies with less than double your max health are killed
+	}
+
+	PoisonClouds: {
+		DisplayName: Poison Clouds
+		Description: Creates a lingering damage cloud
+	}
+
+	PowderBurst: {
+		DisplayName: Powder Burst
+		Description: Creates a delayed explosion
+	}
+
+	ReverseGravity: {
+		DisplayName: Reverse Gravity
+		Description: Knockback is inverted
+	}
+
+	ShardCloud: {
+		DisplayName: Shard Cloud
+		Description: Creates a lingering damage cloud
+	}
+}

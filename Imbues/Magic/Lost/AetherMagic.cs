@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
@@ -14,6 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class AetherMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<AetherShocks>();
 		public override void RegisterMutations()
 		{
 			RegisterMutation<IonMagic>();
@@ -95,13 +97,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-			if (source is Projectile projectile && projectile.ModProjectile is not AetherExplosion)
-			{
-				if (projectile.owner == Main.myPlayer && AetherExplosion.Count < 4)
-				{
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), projectile.damage / 4, 0, projectile.owner);
-				}
-			}
 		}
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Monolith;

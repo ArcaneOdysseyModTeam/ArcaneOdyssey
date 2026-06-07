@@ -1,16 +1,19 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class PlantMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<InfiniteWoodWands>();
 		public override float Aura => .8f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float? DashResist => 1.05f;

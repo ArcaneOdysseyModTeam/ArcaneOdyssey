@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
-	public class VanishingStyle : FightingStyleBarred
+	public sealed class VanishingStyle : FightingStyleBarred
 	{
 		public override float Aura => 1.25f;
 		public static bool HasYou => ModLoader.HasMod("YouBoss");

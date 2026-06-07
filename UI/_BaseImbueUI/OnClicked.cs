@@ -43,7 +43,7 @@ public abstract partial class BaseImbueUI : UIState
 			}
 			else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
 
-			var abiliytext = magic.Ability.HasValue ? magic.Ability.Value.Name + "\n" : "";
+			var abiliytext = magic.Property.HasValue ? magic.Property.Value.Name + "\n" : "";
 
 			SpotStats.SetText(abiliytext +
 				$"Size: {magic.ScrollSize} \n" +

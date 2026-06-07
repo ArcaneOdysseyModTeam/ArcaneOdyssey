@@ -9,6 +9,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
 	public class LightningBurst : PlayerProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
+		}
+
 		public override bool? CanDamage() => false;
 
 		public override void SetDefaults()

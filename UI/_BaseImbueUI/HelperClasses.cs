@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Imbues.Relics;
+﻿using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.UI.MutateThyMagic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

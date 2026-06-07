@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
@@ -15,6 +16,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class AetherLightningMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<AetherLightningShocks>();
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Turquoise;
@@ -83,14 +85,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
+			if (source is Projectile proj && Main.myPlayer == proj.owner)
+				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-			if (source is Projectile projectile && projectile.ModProjectile is not AetherLightningAftershock)
-			{
-				if (projectile.owner == Main.myPlayer)
-				{
-					Projectile.NewProjectile(projectile.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage / 4, 0, projectile.owner);
-				}
-			}
 		}
 
 		public override void RegisterMutations()

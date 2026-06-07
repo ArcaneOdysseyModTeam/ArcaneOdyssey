@@ -42,16 +42,16 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent { Entity: Projectile projectile })
-			{
-				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / 2f / (SpriteSize / 2f), Size));
-				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
-			}
-			else if (source is EntitySource_Parent { Entity: Item item } && item.ModItem is AetherLightningMagic)
+			if (Projectile.ai[0] != 0)
 			{
 				Projectile.scale = Projectile.ai[0];
 				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 				Projectile.ai[1] = 44;
+			}
+			else if (source is EntitySource_Parent { Entity: Projectile projectile })
+			{
+				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / 2f / (SpriteSize / 2f), Size));
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
 			}
 			else
 			{

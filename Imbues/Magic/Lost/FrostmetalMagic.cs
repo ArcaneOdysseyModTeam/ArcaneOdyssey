@@ -2,8 +2,8 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Normal;
-using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class FrostmetalMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<FrostShards>();
 		public override float Aura => 1.3f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
@@ -96,19 +97,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			if (Main.dedServ)
 				return;
-			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
-			{
-				for (int i = 0; i < 3; i++)
-				{
-					var angle = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * 7f;
-					angle.Y *= 0.35f;
-					if (Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<FrostmetalShard>()] < 3)
-					{
-						var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), area.Center(), angle, ModContent.ProjectileType<FrostmetalShard>(), projectile.damage / 6, projectile.knockBack / 6, projectile.owner);
-						proj.frame = i;
-					}
-				}
-			}
 			for (int n = 0; n < 15; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.SnowflakeIce, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: area.RelativeScale())];

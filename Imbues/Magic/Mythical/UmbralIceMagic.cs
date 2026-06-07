@@ -1,16 +1,19 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class UmbralIceMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<FrostShards>();
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Collision;
 
 		public override int BlastFrames => 4;

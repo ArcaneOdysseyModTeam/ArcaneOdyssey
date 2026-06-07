@@ -1,20 +1,24 @@
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Ancient
 {
 	public class DeathMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<InstantDeath>();
 		public override float DashSpeed => 1.2f; // burst
 		public override bool Special => true;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit54;
-		public override Color ImbueColour => Color.Lerp(new(0, 200, 150), Color.Black, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
+		public override Color ImbueColour => Color.Black;
+		public override Color ImbueColour2 => new(0, 200, 150);
+		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.5f;

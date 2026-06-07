@@ -8,7 +8,6 @@ Ancient: {
 
 	DeathMagic: {
 		DisplayName: Death Magic
-		Ability: Enemies with less than double your max health are instantly killed
 		Tooltip: ""
 		AttackPrefix: Deadly
 		SpellPrefix: Death
@@ -25,7 +24,6 @@ Ancient: {
 Lost: {
 	AetherMagic: {
 		DisplayName: Aether Magic
-		Ability: Creates brilliant explosions
 		Tooltip: ""
 		AttackPrefix: Aetherial
 		SpellPrefix: Aether
@@ -41,7 +39,6 @@ Lost: {
 
 	EnergyMagic: {
 		DisplayName: Energy Magic
-		Ability: Spells cost no mana
 		Tooltip: ""
 		AttackPrefix: Energetic
 		SpellPrefix: Energy
@@ -49,7 +46,6 @@ Lost: {
 
 	FrostmetalMagic: {
 		DisplayName: Frostmetal Magic
-		Ability: Explodes into hazardous shards
 		Tooltip: ""
 		AttackPrefix: Hardy
 		SpellPrefix: Frostmetal
@@ -57,7 +53,6 @@ Lost: {
 
 	GravityMagic: {
 		DisplayName: Gravity Magic
-		Ability: Reverses knockback
 		Tooltip: ""
 		AttackPrefix: Attractive
 		SpellPrefix: Gravity
@@ -76,12 +71,10 @@ Lost: {
 		Tooltip: ""
 		AttackPrefix: Growing
 		SpellPrefix: Plant
-		Ability: Certain wands no longer require wood
 	}
 
 	PoisonLightningMagic: {
 		DisplayName: Poison Lightning Magic
-		Ability: Creates poison clouds
 		Tooltip: ""
 		AttackPrefix: Toxic Electic
 		SpellPrefix: Poison Lightning
@@ -90,7 +83,6 @@ Lost: {
 	PrismMagic: {
 		DisplayName: Prism Magic
 		Tooltip: Dedicated to [c/00ffff:KT_australis]
-		Ability: Creates lingering shard clouds
 		AttackPrefix: Prismatic
 		SpellPrefix: Prism
 	}
@@ -198,7 +190,6 @@ Lost: {
 		DisplayName: Aether Lightning Magic
 		AttackPrefix: Unstable
 		SpellPrefix: Aether Lightning
-		Ability: Attacks have large, penetrating aftershocks
 		Tooltip: ""
 	}
 
@@ -228,7 +219,6 @@ Lost: {
 Normal: {
 	AshMagic: {
 		DisplayName: Ash Magic
-		Ability: Creates ash clouds
 		Tooltip: ""
 		AttackPrefix: Ashen
 		SpellPrefix: Ash
@@ -244,7 +234,6 @@ Normal: {
 
 	PoisonMagic: {
 		DisplayName: Poison Magic
-		Ability: Creates poison clouds
 		Tooltip: ""
 		AttackPrefix: Toxic
 		SpellPrefix: Poison
@@ -390,7 +379,6 @@ Mythical: {
 		SpellPrefix: Wither Lightning
 		DisplayName: Wither Lightning Magic
 		Tooltip: ""
-		Ability: Enemies with less than double your max health are instantly killed
 	}
 
 	DeliriumMagic: {
@@ -408,7 +396,7 @@ Mythical: {
 	}
 
 	NecroBlazeMagic: {
-		AttackPrefix: Necro Blaze
+		AttackPrefix: Necroblaze
 		SpellPrefix: Necro Blaze
 		DisplayName: Necro Blaze Magic
 		Tooltip: ""

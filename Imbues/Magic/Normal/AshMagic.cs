@@ -2,8 +2,8 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -14,6 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public class AshMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<AshClouds>();
 		public override void RegisterMutations()
 		{
 			RegisterMutation<AetherMagic>();
@@ -109,13 +110,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.RedTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale());
 				spawnedDust2.noGravity = true;
-			}
-			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
-			{
-				var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<AshCloud>(), 3 * (AOUtils.BossesKilled + 1), 0f);
-				proj.scale *= projectile.Hitbox.RelativeScale(max: 2f);
-				proj.Hitbox = proj.Hitbox.Scaled(projectile.Hitbox.RelativeScale(max: 2f));
-				proj.netUpdate = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

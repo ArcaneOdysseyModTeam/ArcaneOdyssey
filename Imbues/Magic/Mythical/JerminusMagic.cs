@@ -1,11 +1,14 @@
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class JerminusMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<ReverseGravity>();
 		public override Color ImbueColour => new(255, 0, 0);
 		public override float ScrollSpeed => 3f;
 		public override float ScrollSize => 3.5f;

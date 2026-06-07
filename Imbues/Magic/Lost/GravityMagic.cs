@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -13,6 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class GravityMagic : MagicType
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<ReverseGravity>();
 		public override float Aura => 1f;
 		public override float DashSpeed => 1.2f; // burst
 		public override float KBMulti => 3f;
