@@ -1,0 +1,77 @@
+Town: {
+	Edgelord: {
+		DisplayName: Curse Thief
+		DeathCurse: Morden's Curse has left...
+		Census.SpawnCondition: Always available, spawned on world creation
+		DyingText: HELP!
+		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy.
+
+		Chat: {
+			Intro: Hello, {0}.
+			Grave: That grave. It once belonged to a good friend of ours, Tucker.
+			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
+			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he immortal like me.
+			Hello: Hello again.
+			Pots: If you need help finding new scrolls, just go break some pots or fish up some crates.
+			Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
+			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior. Talk to me if you need help using it.
+			CloudsShift: There's a storm coming in...
+			DeathMagic: Are you mocking me with that magic?
+			EasterEgg: Mimhere island... is real...
+		}
+
+		TownNPCMood: {
+			Content: I have no issues at the moment.
+			NoHome: Although I'm usually travelling, it would be nice to have a place to rest.
+			FarFromHome: I'm quite far from camp, aren't I?
+			LoveSpace: It's quite peaceful here.
+			DislikeCrowded: There are quite a lot of people here.
+			HateCrowded: This place is absolutely crammed.
+			LoveBiome: I love {BiomeName}, it's so open and free.
+			LikeBiome: Hm, {BiomeName} reminds me of Sameria, not a bad thing at all.
+			DislikeBiome: I must complain, {BiomeName} is so cold.
+			HateBiome: You would really put me in {BiomeName}, after everything we've been through?!
+			LikeNPC: "{NPCName} is a kind old man, like Enzior."
+			LoveNPC: "{NPCName} and I have quite a few things in common, we get along very well."
+			DislikeNPC: "{NPCName} is a pirate, something that I've had some negative experiences with out at sea."
+			HateNPC: "{NPCName} disgusts me with such experiments."
+			LikeNPC_Princess: "{NPCName} really shows me that not all royalty are wicked, quite respectable."
+			Princess_LovesNPC: "{NPCName} used to look at me funny, but we get along quite well now!"
+		}
+	}
+}
+
+Minibosses: {
+	Evander: {
+		DisplayName: Evander, the Mountainbreaker
+		SpawnInfo: Spawns naturally in Hardmode, in the outer thirds of the world.
+		SpawnMessage: I will cleave your bones into pieces...
+	}
+
+	Dusk: {
+		DisplayName: Dusk, the Dark Oracle
+		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer thirds of the world.
+		SpawnMessage: Tell me, how much is your head worth?
+	}
+
+	Laelus: {
+		DisplayName: Laelus, the Thief
+		SpawnInfo: Spawns naturally during the day, in the outer thirds of the world.
+		SpawnMessage: You are no match for my powers...
+	}
+}
+
+DebuffDummy.DisplayName: Debuff Dummy
+
+Bosses: {
+	LordElius: {
+		SpawnInfo: Spawns in the Djin Ruins after defeating the Eye of Cthulhu.
+		DisplayName: Lord Elius
+		SpawnMessage: What are you, some sort of rat?
+		DoomMessage: Go on, finish it...
+		MPMessage: "{0} has chosen to {1} Lord Elius!"
+		Killed: Your spirit darkens...
+		Spared: Lord Elius has left!
+		Refight: It's you again!
+	}
+}

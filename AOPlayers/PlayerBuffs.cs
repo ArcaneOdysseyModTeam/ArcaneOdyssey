@@ -97,8 +97,6 @@ namespace ArcaneOdyssey.AOPlayers
 			else
 				bloodDisease = null;
 
-			evil = tag.GetBool("aomentality");
-
 			DarkSealed = tag.GetByte("darkchests");
 			NimbusSealed = tag.GetByte("nimbuschests");
 			BronzeSealed = tag.GetByte("bronzechests");
@@ -137,8 +135,6 @@ namespace ArcaneOdyssey.AOPlayers
 			tag.Add("wowiveloadedinbefore", true);
 			if (bloodDisease is not null)
 				tag.Add("aodisease", bloodDisease);
-			if (evil)
-				tag.Add("aomentality", true);
 			if (DarkSealed > 0)
 				tag.Add("darkchests", DarkSealed);
 			if (NimbusSealed > 0)

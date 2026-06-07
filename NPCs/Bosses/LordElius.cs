@@ -67,6 +67,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private bool hasSetSpawnLocation = false;
 		public Vector2 spawnLocation;
 
+		private int spareTimer = 60 * 60; // 1 minut
+
 		public override void AI()
 		{
 			if (!sparing)
@@ -81,31 +83,34 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				Main.windSpeedTarget = -.1f;
 				if (!sentMessage)
 				{
-					NPC.NPCDialogue(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".DoomMessage").Value, Color.MediumPurple);
+					NPC.NPCDialogue(this.GetLocalizedValue("DoomMessage"), Color.MediumPurple);
 					sentMessage = true;
+				}
+				if (spareTimer-- <= 0)
+				{
+					NPC.active = false;
+					NPC.netUpdate = true;
+					NPC.NPCLoot();
 				}
 				return;
 			}
 
 			if (!sentMessage)
 			{
-				if (!Main.dedServ)
+				if (DownedBosses.DownedElius)
 				{
-					if (DownedBosses.DownedElius)
+					if (EliusSpareSystem.spared)
 					{
-						if (!Main.LocalPlayer.ArcaneOdyssey().evil)
-						{
-							NPC.NPCDialogue(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Refight").Value, Color.MediumPurple);
-						}
-						else
-						{
-							NPC.Opacity = .5f;
-						}
+						NPC.NPCDialogue(this.GetLocalizedValue("Refight"), Color.MediumPurple);
 					}
 					else
 					{
-						NPC.NPCDialogue(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".SpawnMessage").Value, Color.MediumPurple);
+						NPC.Opacity = .5f;
 					}
+				}
+				else
+				{
+					NPC.NPCDialogue(this.GetLocalizedValue("SpawnMessage"), Color.MediumPurple);
 				}
 				sentMessage = true;
 			}
@@ -235,46 +240,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void OnKill()
 		{
 			Main.windSpeedTarget = -.1f;
-			if (!DownedBosses.DownedElius)
-			{
-				if (justKilled) // kill
-				{
-					// gore goes here
-					for (int n = 0; n < 17; n++)
-					{
-						Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
-					}
-					ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Killed").ToNetworkText(), Color.Purple);
-				}
-				else
-				{
-					for (int n = 0; n < 17; n++)
-					{
-						Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
-					}
-					ChatHelper.BroadcastChatMessage(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Spared").ToNetworkText(), new(0, 183, 255));
-				}
-			}
 			DownedBosses.DownedElius = true;
 		}
-
-		// probably not needed
-		//public override void SendExtraAI(BinaryWriter writer)
-		//{
-		//	writer.Write(sparing);
-		//}
-
-		//public override void ReceiveExtraAI(BinaryReader reader)
-		//{
-		//	sparing = reader.ReadBoolean();
-		//}
 
 
 		public bool sparing = false;
 
 		public override bool CheckDead()
 		{
-			if (Main.netMode != NetmodeID.SinglePlayer || DownedBosses.DownedElius)
+			if (DownedBosses.DownedElius)
 			{
 				return true;
 			}
@@ -299,10 +273,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			button2 = Mod.CustomLocalization("RandomWords.Spare").Value;
 		}
 
-		public override string GetChat()
-		{
-			return Mod.CustomLocalization(LocalizationCategory + "." + Name + ".DoomMessage").Value;
-		}
+		public override string GetChat() => this.GetLocalizedValue("DoomMessage");
 
 		public override void OnGoToStatue(bool toKingStatue)
 		{
@@ -315,18 +286,32 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override bool UsesPartyHat() => false;
 
-		public bool justKilled;
-
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
-			foreach (var player in Main.ActivePlayers)
-			{
-				player.ArcaneOdyssey().evil = firstButton;
-			}
-			justKilled = firstButton;
 			NPC.active = false;
 			NPC.netUpdate = true;
-			NPC.NPCLoot();
+
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+			{
+				var packet = Mod.GetPacket();
+				packet.Write(ArcaneOdysseyMod.PacketID.EliusSpare);
+				packet.Write(!firstButton);
+				packet.Write(NPC.whoAmI);
+				packet.Send();
+			}
+			else
+			{
+				EliusSpareSystem.spared = !firstButton;
+				if (firstButton) // kill
+				{
+					Main.NewText(this.GetLocalizedValue("Killed"), Color.Purple);
+				}
+				else
+				{
+					Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
+				}
+				NPC.NPCLoot();
+			}
 		}
 
 		public override void HitEffect(NPC.HitInfo hit)
@@ -335,18 +320,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				for (int n = 0; n < 3; n++)
 				{
-					Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, Scale: 1f);
+					Dust.NewDust(NPC.Center, 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
 				}
 				if (NPC.life <= 0)
 				{
 					if (DownedBosses.DownedElius)
 					{
-						if (Main.netMode == NetmodeID.SinglePlayer)
+						if (EliusSpareSystem.spared)
 						{
-							if (!Main.LocalPlayer.ArcaneOdyssey().evil)
-							{
-								Main.NewText(Mod.CustomLocalization(LocalizationCategory + "." + Name + ".Spared").Value, SpiritEnergy.Instance.Colour);
-							}
+							Main.NewText(this.GetLocalizedValue("Spared"), SpiritEnergy.Instance.Colour);
 						}
 					}
 				}

@@ -1,9 +1,6 @@
-﻿using System.Security;
-using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Items.Base;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using ArcaneOdyssey.Imbues.Magic.Mythical;
 
 namespace ArcaneOdyssey.Items.Debug

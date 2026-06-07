@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Buffs.MagicMarks;
+﻿using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.GodSouls;

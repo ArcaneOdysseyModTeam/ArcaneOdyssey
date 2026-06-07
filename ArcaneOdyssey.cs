@@ -1,9 +1,11 @@
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Items.Weapons.Old;
+using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Town;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -152,6 +154,11 @@ namespace ArcaneOdyssey
 			/// Enchants all players
 			/// </summary>
 			public const byte Enchantment = 2;
+			/// <summary>
+			/// Marks elius as killed or spared, and spawns vfx on all clients
+			/// <para/> Requires a spared bool, and a rectangle
+			/// </summary>
+			public const byte EliusSpare = 3;
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -220,6 +227,54 @@ namespace ArcaneOdyssey
 					foreach (var player in Main.ActivePlayers)
 					{
 						player.AddBuff(ModContent.BuffType<Enchanted>(), 60 * 60 * 5); // 5 mins
+					}
+				}
+			}
+			else if (command == PacketID.EliusSpare)
+			{
+				var spared = reader.ReadBoolean();
+				EliusSpareSystem.spared = spared;
+				var npc = Main.npc[reader.ReadInt32()];
+				if (Main.dedServ)
+				{
+					var elius = npc.ModNPC as LordElius;
+					var player = Main.player[whoAmI];
+					if (!spared) // kill
+					{
+						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Kill").Value.ToLower()).ToNetworkText(), Color.Purple);
+						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Killed").ToNetworkText(), Color.Purple);
+					}
+					else
+					{
+						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Spare").Value.ToLower()).ToNetworkText(), new(0, 183, 255));
+						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Spared").ToNetworkText(), new(0, 183, 255));
+					}
+
+					var packet = GetPacket();
+					packet.Write(PacketID.EliusSpare);
+					packet.Write(spared);
+					packet.Write(npc.whoAmI);
+					packet.Send();
+
+					npc.NPCLoot();
+				}
+				else
+				{
+					var hitbox = npc.Hitbox;
+					if (!spared) // kill
+					{
+						// gore goes here
+						for (int n = 0; n < 17; n++)
+						{
+							Dust.NewDust(hitbox.Center(), 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
+						}
+					}
+					else
+					{
+						for (int n = 0; n < 17; n++)
+						{
+							Dust.NewDust(hitbox.Center(), 0, 0, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
+						}
 					}
 				}
 			}

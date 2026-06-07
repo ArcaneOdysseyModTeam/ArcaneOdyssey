@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		/// The <seealso cref="AOUtils.GodSoulType{T}"/> of each
 		/// </summary>
 		public virtual byte[] SoulSynergies => [];
-		
+
 		/// <inheritdoc cref="SoulSynergies"/>
 		public virtual byte[] UnstableSouls => [];
 
@@ -197,25 +197,22 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			get
 			{
-				if (Main.netMode == NetmodeID.SinglePlayer && ArcaneOdysseyMod.finishedLoading)
+				if (!EliusSpareSystem.spared)
 				{
-					if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
+					if (Imbue is MagicType)
 					{
-						if (Imbue is MagicType)
-						{
-							return Color.Red;
-						}
-						return Color.Purple;
+						return Color.Red;
 					}
-					else
-					{
-						if (Imbue is MagicType)
-						{
-							return Color.Gold;
-						}
-					}
+					return Color.Purple;
 				}
-				return new(0, 183, 255);
+				else
+				{
+					if (Imbue is MagicType)
+					{
+						return Color.Gold;
+					}
+					return new(0, 183, 255);
+				}
 			}
 		}
 
@@ -225,24 +222,21 @@ namespace ArcaneOdyssey.Imbues.Relics
 			{
 				if (Type == ModContent.ItemType<SpiritEnergy>())
 				{
-					if (!Main.dedServ && Main.LocalPlayer.active)
+					if (!EliusSpareSystem.spared)
 					{
-						if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
+						if (Imbue is MagicType)
 						{
-							if (Imbue is MagicType)
-							{
-								return Texture + "_Evil_Magic";
-							}
-							return Texture + "_Evil_Normal";
+							return Texture + "_Evil_Magic";
 						}
-						else
+						return Texture + "_Evil_Normal";
+					}
+					else
+					{
+						if (Imbue is MagicType)
 						{
-							if (Imbue is MagicType)
-							{
-								return Texture + "_Good_Magic";
-							}
-							return Texture + "_Good_Normal";
+							return Texture + "_Good_Magic";
 						}
+						return Texture + "_Good_Normal";
 					}
 				}
 				return base.ImbueUISprite;
@@ -440,6 +434,41 @@ namespace ArcaneOdyssey.Imbues.Relics
 			{
 				Soul = soul;
 			}
+		}
+	}
+
+	public class EliusSpareSystem : ModSystem
+	{
+		public static bool spared = true;
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(spared);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			spared = reader.ReadBoolean();
+		}
+
+		public override void SaveWorldData(TagCompound tag)
+		{
+			tag.Add("spared", spared);
+		}
+
+		public override void LoadWorldData(TagCompound tag)
+		{
+			spared = tag.GetBool("spared");
+		}
+
+		public override void OnWorldLoad()
+		{
+			spared = true;
+		}
+
+		public override void OnWorldUnload()
+		{
+			spared = true;
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
@@ -96,7 +97,7 @@ namespace ArcaneOdyssey.AOPlayers
 			On_Player.WingMovement -= On_Player_WingMovement;
 		}
 
-		public bool evil = false;
+		public static bool evil => !EliusSpareSystem.spared;
 
 
 		public List<ImbueDebuffHelper> DebuffHelpers = [];

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.UI.MutateThyMagic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -135,27 +136,7 @@ public abstract partial class BaseImbueUI : UIState
 			void EdgeCase()
 			{
 				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
-				//Main.NewText($"Testing edge");
-				if (Main.LocalPlayer is not null)
-				{
-					Player player = Main.LocalPlayer;
-					AOPlayer modPlayer = player.GetModPlayer<AOPlayer>();
-
-					Color color = new(255, 255, 255);
-					if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
-					{
-						//color = Color.Red;
-						color = Color.Purple;
-					}
-					else
-					{
-						//color = Color.Gold;
-						color = new(0, 183, 255);
-					}
-
-					Icon.Color = color;
-				}
-				//else Main.NewText($"Player is null");
+				Icon.Color = SpiritEnergy.Instance.SpiritColor;
 			}
 			#endregion
 		}
@@ -300,7 +281,7 @@ public abstract partial class BaseImbueUI : UIState
 			Mutation = item;
 		}
 
-		protected int EdgeCounter = 0;
+		protected int EdgeCounter = 5;
 		public void Update()
 		{
 			#region Edge Case
@@ -314,27 +295,7 @@ public abstract partial class BaseImbueUI : UIState
 			void EdgeCase()
 			{
 				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
-				//Main.NewText($"Testing edge");
-				if (Main.LocalPlayer is not null)
-				{
-					Player player = Main.LocalPlayer;
-					AOPlayer modPlayer = player.GetModPlayer<AOPlayer>();
-
-					Color color = new(255, 255, 255);
-					if (Main.LocalPlayer?.ArcaneOdyssey()?.evil == true)
-					{
-						//color = Color.Red;
-						color = Color.Purple;
-					}
-					else
-					{
-						//color = Color.Gold;
-						color = new(0, 183, 255);
-					}
-
-					Icon.Color = color;
-				}
-				//else Main.NewText($"Player is null");
+				Icon.Color = SpiritEnergy.Instance.SpiritColor;
 			}
 			#endregion
 		}
