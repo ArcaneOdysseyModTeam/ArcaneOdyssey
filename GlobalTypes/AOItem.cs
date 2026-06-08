@@ -4,7 +4,6 @@ using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Imbues.Gimmicks;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Accessories.Vanity;
 using ArcaneOdyssey.Items.Armour.Vanity.Taz;
@@ -408,7 +407,10 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
 		{
 			if (!CannotBeAffected)
-			Imbue?.Gimmick?.ModifyManaCost(item, player, ref reduce, ref mult);
+			{
+				Imbue?.Gimmick?.ModifyManaCost(item, player, ref reduce, ref mult);
+				SecondImbue?.Gimmick?.ModifyManaCost(item, player, ref reduce, ref mult);
+			}
 		}
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -675,22 +677,16 @@ namespace ArcaneOdyssey.GlobalTypes
 			return mult;
 		}
 
+		internal static IEnumerable<ImbueGimmick> antiInventories;
+		public override void SetStaticDefaults()
+		{
+			antiInventories = ModContent.GetContent<ImbueGimmick>();
+		}
+
 		public override void UpdateInventory(Item item, Player player)
 		{
 			thisItem = item;
 			owner = player;
-
-			if (ArcaneOdysseyMod.Sets.woodWand[item.type])
-			{
-				if (player.HasTypeInInventory<Imbuable>(e => e.Gimmick is InfiniteWoodWands))
-				{
-					item.tileWand = ItemID.None;
-				}
-				else
-				{
-					item.tileWand = ArcaneOdysseyMod.Sets.wandWoodType[item.type];
-				}
-			}
 
 			if (item.ModItem is null && !ArcaneOdysseyConfig.Instance.VanillaItemTemperatures)
 			{
@@ -704,45 +700,105 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Main.myPlayer != player.whoAmI)
 				return;
 
-			foreach (var imbue in player.inventory.FindAll(e => e.ModItem is Imbuable imbue && imbue.Gimmick is not null).Select(e => e.ModItem as Imbuable))
+			var othergimicks = antiInventories.ToArray();
+			var playerGimmicks = player.inventory.FindAll(e => e.ModItem is Imbuable imbue && imbue.Gimmick is not null).Select(e => e.ModItem as Imbuable).Select(e => e.Gimmick);
+			othergimicks = othergimicks.FindAll(e => !playerGimmicks.Select(a => a.Type).Contains(e.Type));
+			foreach (var gimmick in playerGimmicks)
 			{
-				imbue.Gimmick.InventoryEffects(item, player);
+				gimmick.InventoryEffects(item, player);
+			}
+			foreach (var gimmick in othergimicks)
+			{
+				gimmick.NoInventoryEffects(item, player);
 			}
 
-			if (player.ItemAnimationActive && player.PlayerItem()?.ModItem is not Imbuable)
-				return;
-
-			List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()];
-			options.RemoveAll(e => !item.CanHaveImbue(e));
-			bool justchangedspecificimbue = false;
-			bool settodefault = false;
-
-			if (item.TryGetSecondImbue(Imbue, out var second5))
-				SecondImbue = second5;
-
-			if (SecondImbue is not null)
+			if (!player.ItemAnimationActive || player.PlayerItem()?.ModItem is Imbuable)
 			{
-				if (Imbue?.Imbue != SecondImbue)
-					SecondImbue = Imbue?.Imbue;
-			}
+				List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()];
+				options.RemoveAll(e => !item.CanHaveImbue(e));
+				bool justchangedspecificimbue = false;
+				bool settodefault = false;
 
-			if (Imbue is not null && !Imbue.PlayerHasImbue(player))
-			{
-				if (specificImbue)
+				if (item.TryGetSecondImbue(Imbue, out var second5))
+					SecondImbue = second5;
+
+				if (SecondImbue is not null)
 				{
-					settodefault = true;
+					if (Imbue?.Imbue != SecondImbue)
+						SecondImbue = Imbue?.Imbue;
+				}
+
+				if (Imbue is not null && !Imbue.PlayerHasImbue(player))
+				{
+					if (specificImbue)
+					{
+						settodefault = true;
+						specificImbue = false;
+					}
+				}
+
+				if (Imbue?.Type == player.Imbue()?.Type)
+				{
 					specificImbue = false;
 				}
-			}
 
-			if (Imbue?.Type == player.Imbue()?.Type)
-			{
-				specificImbue = false;
-			}
+				if (options.Count > 0 && AOUtils.ImbueClassCheck(item))
+				{
+					if ((!specificImbue) || (item.accessory && item.ModItem is not Imbuable))
+					{
+						if (item.CanHaveImbue(player.Imbue()))
+						{
+							Imbue = player.Imbue();
+							if (item.TryGetSecondImbue(Imbue, out var second))
+								SecondImbue = second;
+							else
+								SecondImbue = null;
+						}
+						else
+						{
+							Imbue = null;
+							SecondImbue = null;
+						}
+					}
 
-			if (options.Count > 0 && AOUtils.ImbueClassCheck(item))
-			{
-				if ((!specificImbue) || (item.accessory && item.ModItem is not Imbuable))
+					if (((!item.accessory) || item.ModItem is Imbuable) && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
+					{
+						if (options.Count > 1)
+						{
+							specificImbue = true;
+							player.ArcaneOdyssey()?.SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
+							if (++imbueIndex >= options.Count)
+							{
+								imbueIndex = 0;
+							}
+							Imbue = options[imbueIndex];
+							SoundEngine.PlaySound(Imbue?.ImbueSound, player.MountedCenter);
+							if (item.TryGetSecondImbue(Imbue, out var second))
+								SecondImbue = second;
+							else
+								SecondImbue = null;
+							justchangedspecificimbue = true;
+							if (Imbue?.Type == player.Imbue()?.Type)
+							{
+								settodefault = true;
+								specificImbue = false;
+							}
+
+							if (Imbue is MagicType magic)
+							{
+								Imbuable.CreateMagicCircle(Imbue.Item, player, MagicCircleMode.Rotating, true);
+							}
+						}
+					}
+				}
+				else
+				{
+					Imbue = null;
+					SecondImbue = null;
+					specificImbue = false;
+				}
+
+				if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
 				{
 					if (item.CanHaveImbue(player.Imbue()))
 					{
@@ -759,69 +815,16 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 				}
 
-				if (((!item.accessory) || item.ModItem is Imbuable) && player.PlayerItem() == item && AOKeybinds.CycleItemImbue.JustPressed && !player.ArcaneOdyssey().OnCooldown("CycleImbueCooldown"))
+				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
 				{
-					if (options.Count > 1)
-					{
-						specificImbue = true;
-						player.ArcaneOdyssey()?.SetCooldown(new Cooldown("CycleImbueCooldown", AOKeybinds.CycleItemImbue.DisplayName, 60));
-						if (++imbueIndex >= options.Count)
-						{
-							imbueIndex = 0;
-						}
-						Imbue = options[imbueIndex];
-						SoundEngine.PlaySound(Imbue?.ImbueSound, player.MountedCenter);
-						if (item.TryGetSecondImbue(Imbue, out var second))
-							SecondImbue = second;
-						else
-							SecondImbue = null;
-						justchangedspecificimbue = true;
-						if (Imbue?.Type == player.Imbue()?.Type)
-						{
-							settodefault = true;
-							specificImbue = false;
-						}
-
-						if (Imbue is MagicType magic)
-						{
-							Imbuable.CreateMagicCircle(Imbue.Item, player, MagicCircleMode.Rotating, true);
-						}
-					}
+					Imbue = SteamImbue.Create(Imbue);
 				}
-			}
-			else
-			{
-				Imbue = null;
-				SecondImbue = null;
-				specificImbue = false;
-			}
 
-			if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
-			{
-				if (item.CanHaveImbue(player.Imbue()))
+				if (justchangedspecificimbue)
 				{
-					Imbue = player.Imbue();
-					if (item.TryGetSecondImbue(Imbue, out var second))
-						SecondImbue = second;
-					else
-						SecondImbue = null;
+					LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, Imbue is null ? Mod.CustomLocalization("RandomWords.None") : (!settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value)]);
+					Main.NewText(chatmessage.Value, 13, 132, 168);
 				}
-				else
-				{
-					Imbue = null;
-					SecondImbue = null;
-				}
-			}
-
-			if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
-			{
-				Imbue = SteamImbue.Create(Imbue);
-			}
-
-			if (justchangedspecificimbue)
-			{
-				LocalizedText chatmessage = Mod.CustomLocalization("ImbueStuff.SpecificImbue", [item.Name, Imbue is null ? Mod.CustomLocalization("RandomWords.None") : (!settodefault ? Imbue.DisplayName : Mod.CustomLocalization("RandomWords.Default").Value)]);
-				Main.NewText(chatmessage.Value, 13, 132, 168);
 			}
 		}
 
@@ -855,6 +858,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					player.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage));
 			}
 			Imbue?.Gimmick?.OnHitNPC(item,player,target, hit, damageDone);
+			SecondImbue?.Gimmick?.OnHitNPC(item, player, target, hit, damageDone);
 		}
 
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
@@ -903,6 +907,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 
 			Imbue?.Gimmick?.ModifyHitNPC(item, player, target, ref modifiers);
+			SecondImbue?.Gimmick?.ModifyHitNPC(item, player, target, ref modifiers);
 
 			if (item.ModItem is Weapon weap)
 			{

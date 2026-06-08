@@ -10,6 +10,18 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
 	public class AcumenTechnique : RareScroll
 	{
+		public override bool MetConditions()
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				return !Main.LocalPlayer.ArcaneOdyssey().acumen;
+			}
+			else
+			{
+				return true;
+			}
+		}
+
 		public override bool ExtraConditionsForImbue(Imbuable imbue) => false;
 		public override bool CanHaveFS => true;
 

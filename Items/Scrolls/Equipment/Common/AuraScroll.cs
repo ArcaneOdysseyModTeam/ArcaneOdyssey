@@ -22,6 +22,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 			Item.accessory = true;
 		}
 
+		public override bool MetConditions() => NPC.downedBoss3;
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			if (!HasCorrectImbue)

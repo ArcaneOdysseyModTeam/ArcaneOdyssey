@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 {
 	public class ReflexScroll : CommonScroll
 	{
+		public override bool MetConditions() => (NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3;
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveFS => true;
 		public override bool CanHaveMagic => true;

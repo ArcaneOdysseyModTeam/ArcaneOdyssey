@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using ArcaneOdyssey.Items.Scrolls.Usable.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +13,18 @@ namespace ArcaneOdyssey.GlobalTypes
 {
 	public class AOTile : GlobalTile
 	{
+		internal static IEnumerable<Scroll> allScrolls;
+		internal static IEnumerable<CommonScroll> commonScrolls;
+		internal static IEnumerable<RareScroll> rareScrolls;
+		internal static IEnumerable<LostScroll> lostScrolls;
+		public override void SetStaticDefaults()
+		{
+			allScrolls = ModContent.GetContent<Scroll>();
+			commonScrolls = ModContent.GetContent<CommonScroll>();
+			rareScrolls = ModContent.GetContent<RareScroll>();
+			lostScrolls = ModContent.GetContent<LostScroll>();
+		}
+
 		public override void Drop(int i, int j, int type)
 		{
 			if (type == TileID.Pots || (ExternalModSupport.HasCalamity && ExternalModSupport.Calamity.TryFind<ModTile>("AbyssalPots", out var tile) && type == tile.Type))
@@ -36,41 +45,22 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : CommonScroll
+			foreach (var scroll in commonScrolls)
 			{
-				options.Add(ModContent.ItemType<T>());
+				if (scroll.MetConditions())
+				{
+					options.Add(scroll.Type);
+				}
 			}
 
-			AddOption<BlastScroll>();
-			AddOption<ExplosionScroll>();
-			AddOption<RainRite>();
-			AddOption<CrashScroll>();
-			AddOption<LeapScroll>();
-			AddOption<HoverScroll>();
-
-			if (AOUtils.BossesKilled > 0)
+			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				AddOption<EffervescenceRite>();
-				AddOption<SmashScroll>();
-				AddOption<HoundRite>();
-				AddOption<CannonScroll>();
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
 			}
 
-			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
+			if (options.Count == 0)
 			{
-				AddOption<ReflexScroll>();
-			}
-
-			if (NPC.downedBoss2)
-			{
-				AddOption<BeamScroll>();
-				AddOption<BarrageSpell>();
-				AddOption<BreathtakerTechnique>();
-			}
-
-			if (NPC.downedBoss3)
-			{
-				AddOption<AuraScroll>();
+				options.Add(ModContent.ItemType<BlastScroll>());
 			}
 
 			return [.. options];
@@ -85,50 +75,21 @@ namespace ArcaneOdyssey.GlobalTypes
 			List<int> options = [];
 			if (Main.hardMode)
 			{
-				void AddOption<T>() where T : RareScroll
+				foreach (var scroll in rareScrolls)
 				{
-					options.Add(ModContent.ItemType<T>());
-				}
-
-				AddOption<ShotScroll>();
-				AddOption<WalkRite>();
-				AddOption<AxeTechnique>();
-				AddOption<SelinoTechnique>();
-				AddOption<ArrayScroll>();
-				AddOption<PulsarScroll>();
-				AddOption<JavelinSpell>();
-				AddOption<FlightScroll>();
-				AddOption<GreatjumpTechnique>();
-				AddOption<ElementalSpell>();
-				AddOption<SurgeSpell>();
-
-				if (NPC.downedMechBossAny)
-				{
-					AddOption<RaySpell>();
-					AddOption<AnnihilationScroll>();
-					AddOption<CrescendoTechnique>();
-				}
-
-				if (NPC.downedPlantBoss)
-				{
-					AddOption<MeteorScroll>();
-				}
-
-				if (Main.netMode == NetmodeID.SinglePlayer)
-				{
-					if (!Main.LocalPlayer.ArcaneOdyssey().acumen)
+					if (scroll.MetConditions())
 					{
-						AddOption<AcumenTechnique>();
+						options.Add(scroll.Type);
 					}
 				}
-				else
-				{
-					AddOption<EnchantmentSpell>();
-					AddOption<AcumenTechnique>();
-				}
-
 			}
-			else
+
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
+			}
+
+			if (options.Count == 0)
 			{
 				options.AddRange(GetAllCommonScrollDrops());
 			}
@@ -143,16 +104,72 @@ namespace ArcaneOdyssey.GlobalTypes
 		public static int[] GetAllLostScrollDrops()
 		{
 			List<int> options = [];
-			if (false)
+			if (NPC.downedMoonlord)
 			{
-				void AddOption<T>() where T : LostScroll
+				foreach (var scroll in lostScrolls)
 				{
-					options.Add(ModContent.ItemType<T>());
+					if (scroll.MetConditions())
+					{
+						options.Add(scroll.Type);
+					}
 				}
 			}
-			else
+
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
+			}
+
+			if (options.Count == 0)
 			{
 				options.AddRange(GetAllRareScrollDrops());
+			}
+
+			return [.. options];
+		}
+
+		public static int[] GetAllScrollDrops()
+		{
+			List<int> options = [];
+
+			foreach (var scroll in commonScrolls)
+			{
+				if (scroll.MetConditions())
+				{
+					options.Add(scroll.Type);
+				}
+			}
+
+			if (Main.hardMode)
+			{
+				foreach (var scroll in rareScrolls)
+				{
+					if (scroll.MetConditions())
+					{
+						options.Add(scroll.Type);
+					}
+				}
+			}
+
+			if (NPC.downedMoonlord)
+			{
+				foreach (var scroll in lostScrolls)
+				{
+					if (scroll.MetConditions())
+					{
+						options.Add(scroll.Type);
+					}
+				}
+			}
+
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
+			}
+
+			if (options.Count == 0)
+			{
+				options.Add(ModContent.ItemType<BlastScroll>());
 			}
 
 			return [.. options];

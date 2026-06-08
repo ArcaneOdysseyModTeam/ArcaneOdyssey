@@ -269,6 +269,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 
 			Imbue?.Gimmick?.ModifyHitNPC(projectile, target, ref modifiers);
+			SecondImbue?.Gimmick?.ModifyHitNPC(projectile, target, ref modifiers);
 
 			if (projectile.ModProjectile is PlayerProjectile proj)
 			{
@@ -410,6 +411,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 
 			Imbue?.Gimmick?.OnHitNPC(projectile, target, hit, damageDone);
+			SecondImbue?.Gimmick?.OnHitNPC(projectile, target, hit, damageDone);
 
 			if (Imbue is VanishingStyle && hit.Crit)
 				projectile.CritChance = projectile.OriginalCritChance;

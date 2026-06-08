@@ -26,6 +26,11 @@ namespace ArcaneOdyssey.Imbues.Base
 	/// </summary>
 	public abstract class Imbuable : BaseItem, IImbuable
 	{
+		public override void Load()
+		{
+			ModTypeLookup<Imbuable>.Register(this);
+		}
+
 		public virtual float Aura => .7f;
 
 		public virtual int Drawback => 0;
@@ -592,11 +597,6 @@ namespace ArcaneOdyssey.Imbues.Base
 				player.ArcaneOdyssey().myCircle = circle;
 			}
 			return circle;
-		}
-
-		public override void Load()
-		{
-			ModTypeLookup<Imbuable>.Register(this);
 		}
 
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)

@@ -16,6 +16,12 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class SpiritEnergy : Imbuable
 	{
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<SpiritEnergy>.Register(this);
+		}
+
 		public sealed override ImbuableTiers ImbuableTier
 		{
 			get

@@ -8,8 +8,12 @@ namespace ArcaneOdyssey.Imbues.Base
 	{
 		public virtual string LocalizationCategory => "ImbueGimmicks";
 
+		public int Type { get; private set; }
+		private static int count = 0;
+
 		protected sealed override void Register()
 		{
+			Type = count++;
 			ModTypeLookup<ImbueGimmick>.Register(this);
 		}
 
@@ -29,6 +33,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual void KillEffects(Projectile projectile) { }
 		public virtual void SpawningEffects(Projectile projectile) { }
 		public virtual void InventoryEffects(Item item, Player player) { }
+		public virtual void NoInventoryEffects(Item item, Player player) { }
 
 		public virtual LocalizedText DisplayName => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".DisplayName", PrettyPrintName);
 		public virtual LocalizedText Description => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".Description");

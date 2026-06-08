@@ -16,6 +16,12 @@ namespace ArcaneOdyssey.Imbues.Base
 {
 	public abstract class MagicType : Imbuable
 	{
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<MagicType>.Register(this);
+		}
+
 		public abstract MagicCircleTypes CircleType { get; }
 
 		public class MagicCircle(ImbuableTiers tier, MagicCircleTypes type)

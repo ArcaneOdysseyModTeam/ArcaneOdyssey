@@ -10,6 +10,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
 	public class CrescendoTechnique : RareScroll
 	{
+		public override bool MetConditions() => NPC.downedMechBossAny;
 		public override bool CanHaveFS => true;
 		public override void SetDefaults()
 		{

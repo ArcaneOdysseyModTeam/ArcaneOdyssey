@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
 	public class CannonScroll : CommonScroll
 	{
+		public override bool MetConditions() => AOUtils.BossesKilled>0;
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()

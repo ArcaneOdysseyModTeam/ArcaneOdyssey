@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
-using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;

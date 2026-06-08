@@ -3,12 +3,19 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
 	public abstract class FightingStyleBarred : FightingStyle
 	{
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<FightingStyleBarred>.Register(this);
+		}
+
 		public const float BarMax = 100f;
 		public const float BarMin = 0f;
 

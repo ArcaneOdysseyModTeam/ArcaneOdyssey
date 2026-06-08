@@ -12,6 +12,11 @@ namespace ArcaneOdyssey.Items.Base
 {
 	public abstract class Scroll : BaseItem, IImbuable
 	{
+		public override void Load()
+		{
+			ModTypeLookup<Scroll>.Register(this);
+		}
+
 		public void ActivateAbility(Player player)
 		{
 			if (Ability.HasValue)
@@ -22,6 +27,8 @@ namespace ArcaneOdyssey.Items.Base
 				}
 			}
 		}
+
+		public virtual bool MetConditions() => true;
 
 		public LocalizedText SkillName => Language.GetOrRegister(this.GetLocalizationKey("SkillName"), PrettyPrintName);
 

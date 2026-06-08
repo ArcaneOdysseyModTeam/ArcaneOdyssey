@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
 	public class AnnihilationScroll : RareScroll
 	{
+		public override bool MetConditions() => NPC.downedMechBossAny;
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()

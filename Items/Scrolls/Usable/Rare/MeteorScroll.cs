@@ -10,6 +10,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
 	public class MeteorScroll : RareScroll
 	{
+		public override bool MetConditions() => NPC.downedPlantBoss;
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()

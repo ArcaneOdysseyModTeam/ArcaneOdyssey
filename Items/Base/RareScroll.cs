@@ -15,5 +15,10 @@ namespace ArcaneOdyssey.Items.Base
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<RareEmptyScroll>();
 		}
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<RareScroll>.Register(this);
+		}
 	}
 }

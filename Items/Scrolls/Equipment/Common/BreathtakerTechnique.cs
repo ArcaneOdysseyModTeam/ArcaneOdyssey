@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 	{
 		public override bool CanHaveFS => true;
 		public const int Cooldown = 60 * 10;
+		public override bool MetConditions() => NPC.downedBoss2;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

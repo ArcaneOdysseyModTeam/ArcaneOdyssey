@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
 	public class BarrageSpell : CommonScroll
 	{
+		public override bool MetConditions() => NPC.downedBoss2;
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()

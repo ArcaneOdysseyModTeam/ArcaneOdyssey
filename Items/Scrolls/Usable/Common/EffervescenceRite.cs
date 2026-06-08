@@ -9,6 +9,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
 	public class EffervescenceRite : CommonScroll
 	{
+		public override bool MetConditions() => AOUtils.BossesKilled>0;
 		public override bool CanHaveRelic => true;
 
 		public override void SetDefaults()

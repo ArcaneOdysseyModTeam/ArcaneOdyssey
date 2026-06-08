@@ -6,6 +6,11 @@ namespace ArcaneOdyssey.Imbues.Base
 {
 	public abstract class FightingStyle : Imbuable
 	{
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<FightingStyle>.Register(this);
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

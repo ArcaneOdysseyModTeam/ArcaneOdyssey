@@ -8,6 +8,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
 	public class EnchantmentSpell : RareScroll
 	{
+		public override bool MetConditions() => Main.netMode != NetmodeID.SinglePlayer;
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()

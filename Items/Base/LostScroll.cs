@@ -15,5 +15,10 @@ namespace ArcaneOdyssey.Items.Base
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LostEmptyScroll>();
 		}
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<LostScroll>.Register(this);
+		}
 	}
 }
