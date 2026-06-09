@@ -1315,7 +1315,17 @@ namespace ArcaneOdyssey
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 
-		public static Rectangle ScreenRect => Main.screenPosition.ToRectangle(Main.ScreenSize);
+		public static Rectangle ScreenRect
+		{
+			get
+			{
+				return Main.screenPosition.ToRectangle(Main.ScreenSize);
+			}
+			set
+			{
+				Main.screenPosition = value.TopLeft();
+			}
+		}
 
 		public static Rectangle ToRectangle(this Vector2 vec, Vector2 size) => new(vec.X.Round(), vec.Y.Round(), size.X.Round(), size.Y.Round());
 		public static Rectangle ToRectangle(this Vector2 vec, Point size) => new(vec.X.Round(), vec.Y.Round(), size.X, size.Y);

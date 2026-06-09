@@ -8,8 +8,8 @@ namespace ArcaneOdyssey.Imbues.Base
 	{
 		public virtual string LocalizationCategory => "ImbueGimmicks";
 
-		public int Type { get; private set; }
-		private static int count = 0;
+		public ushort Type { get; private set; }
+		private static ushort count = 0;
 
 		protected sealed override void Register()
 		{

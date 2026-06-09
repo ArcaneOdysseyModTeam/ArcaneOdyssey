@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.AOPlayers
 {
 	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{
-		public override void SetStaticDefaults()
+		public sealed override void SetStaticDefaults()
 		{
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
@@ -23,13 +23,13 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public static Asset<Texture2D> debuffBackground;
 
-		public override bool ReApply(Player player, int time, int buffIndex)
+		public sealed override bool ReApply(Player player, int time, int buffIndex)
 		{
 			player.buffTime[buffIndex] = time;
 			return true;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
+		public sealed override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
 		{
 			var uiscale = (float)drawParams.SourceRectangle.Width / (float)drawParams.MouseRectangle.Width;
 

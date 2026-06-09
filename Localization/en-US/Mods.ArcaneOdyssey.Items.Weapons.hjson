@@ -252,5 +252,20 @@ Atlantean: {
 	AtlanteanGreatsword: {
 		DisplayName: Atlantean Greatsword
 		Tooltip: ""
+
+		Ability: {
+			DisplayName: Tempest
+			Description: Spin around and create a tornado
+		}
+	}
+
+	AtlanteanClaws: {
+		DisplayName: Atlantean Claws
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Beast Instinct
+			Description: Rapidly dash around, damaging foes
+		}
 	}
 }

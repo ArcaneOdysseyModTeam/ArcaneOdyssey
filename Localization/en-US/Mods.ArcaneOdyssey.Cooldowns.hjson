@@ -127,3 +127,13 @@ ColossalCleaveCooldown: {
 	DisplayName: Colossal Cleave Cooldown
 	Description: Colossal Cleave is on cooldown
 }
+
+BeastInstinctCooldown: {
+	DisplayName: Beast Instinct Cooldown
+	Description: Beast Instinct is on cooldown
+}
+
+TempestCooldown: {
+	DisplayName: Tempest Cooldown
+	Description: Tempest is on cooldown
+}

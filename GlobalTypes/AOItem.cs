@@ -104,6 +104,11 @@ namespace ArcaneOdyssey.GlobalTypes
 						thisItem.SetDefaults(ModContent.ItemType<AtlanteanGreatsword>());
 						return true;
 					}
+					if (ArcaneOdysseyMod.Sets.claw[thisItem.type])
+					{
+						thisItem.SetDefaults(ModContent.ItemType<AtlanteanClaws>());
+						return true;
+					}
 				}
 			}
 			return false;

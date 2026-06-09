@@ -6,6 +6,13 @@ WorldGen: {
 	EliusArena: Generating a mysterious sky island
 }
 
+GameTips: {
+	AOTip0: Talk to Morden if you ever need help!
+	AOTip1: Becoming a strong warrior tends to attract unwanted attention, watch your back.
+	AOTip2: Scrolls can be found in pots underground.
+	AOTip3: When thunder rumbles, take to the skies...
+}
+
 Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
 	Evander: A bounty hunter born and raised in a faraway land, Evander gained the title 'Mountainbreaker' for his great strength. Using his colossal greatsword, he can send enormous slashes at his enemies, and use his overwhelming strength and reach to dominate at both long and close ranges.
@@ -195,6 +202,9 @@ Projectiles: {
 		SanguineThrow.DisplayName: Sanguine
 		RisingTideProjectile.DisplayName: Rising Tide
 		SpearThrow.DisplayName: Bronze Spear
+		BeastInstinct.DisplayName: Beast Instinct
+		Tempest.DisplayName: Tempest
+		TempestSpawner.DisplayName: Tempest Core
 	}
 
 	DeathCurse.DisplayName: The Death Curse
@@ -354,5 +364,10 @@ ImbueGimmicks: {
 	ShardCloud: {
 		DisplayName: Shard Cloud
 		Description: Creates a lingering damage cloud
+	}
+
+	DeathShock: {
+		DisplayName: Death Shock
+		Description: Creates aftershocks that deal massive damage
 	}
 }
