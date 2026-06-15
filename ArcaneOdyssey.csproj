@@ -8,25 +8,6 @@
 		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<AdditionalFiles Remove="references\**" />
-		<Compile Remove="**\*.py" />
-		<Compile Remove="**\*.kra" />
-		<Compile Remove="**\*.kra~" />
-		<Compile Remove="**\*.png~" />
-		<Compile Remove="**\*.md" />
-		<Compile Remove="**\*.tmod" />
-		<Compile Remove="**\*.dll" />
-		<Compile Remove="**\*.pdb" />
-		<Compile Remove="**\*.kra" />
-		<Compile Remove="references\**" />
-		<EmbeddedResource Remove="references\**" />
-		<None Remove="**\*.py" />
-		<None Remove="**\*.kra~" />
-		<None Remove="**\*.png~" />
-		<None Remove="**\*.md" />
-		<None Remove="**\*.tmod" />
-		<None Remove="**\*.kra" />
-		<None Remove="references\**" />
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
