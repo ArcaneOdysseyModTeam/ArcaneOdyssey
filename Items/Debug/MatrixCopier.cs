@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Items.Debug
 		}
 
 		private static int index = 0;
-		private static MagicType[] allMagics = [];
+		private static Imbuable[] allMagics = [];
 
 		public override bool AltFunctionUse(Player player) => true;
 
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.Items.Debug
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			allMagics = ModContent.GetContent<MagicType>().ToArray();
+			allMagics = ModContent.GetContent<Imbuable>().ToArray();
 		}
 	}
 }
