@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks.Bars;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -15,25 +16,14 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	{
 		public override float Aura => .875f;
 		public override float DashSpeed => BarValue > (BarMax / 2) ? 1.2f : 1f; // burst?
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
+		public override void SetStaticDefaults() 
+		{ 
+			base.SetStaticDefaults(); 
+			ArcaneOdysseyMod.Sets.cold[Type] = true; 
+		}
 		public override Color ImbueColour => Color.CornflowerBlue;
 		public override SoundStyle? ImbueSound => SoundID.Splash;
-
-		public override bool SaveBar => true;
-
-		public override float BarValueMulti => 1.25f;
-		public override float MaxImbueSpeed => 1f;
-		public override float MaxImbueDamage => .925f;
-		public override float MaxImbueSize => 1.278f;
-		public override float MinImbueSpeed => 1f;
-		public override float MinImbueDamage => .85f;
-		public override float MinImbueSize => .833f;
-		public override float MaxScrollSpeed => 1f;
-		public override float MaxScrollDamage => .85f;
-		public override float MaxScrollSize => 1.2f;
-		public override float MinScrollSpeed => 1f;
-		public override float MinScrollDamage => .775f;
-		public override float MinScrollSize => .8f;
+		public override BarGimmick Bar => ModContent.GetInstance<SailorBar>();
 		public override Color DisplayColor => Color.PaleVioletRed;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Soaked>()];
 		public override SynergyEffects Effects => new(
@@ -117,42 +107,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 				rec.AddIngredient(ItemID.Coral, 15);
 			}
 			rec.Register();
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			if (player.wet && !player.honeyWet && !player.lavaWet)
-			{
-				BarValue += BarMax / (BarMax * .6f * 2.5f);
-			}
-			base.UpdateInventory(player);
-		}
-	}
-
-	public class SailorBars : GlobalItem
-	{
-		public override void UseAnimation(Item item, Player player)
-		{
-			if (item.Imbue() is SailorStyle imbue)
-			{
-				imbue.BarValue -= FightingStyleBarred.BarMax / 100f;
-			}
-		}
-
-		public override void OnConsumeItem(Item item, Player player)
-		{
-			if (item.potion)
-			{
-				if (player.Imbue() is SailorStyle imbue)
-				{
-					imbue.BarValue = FightingStyleBarred.BarMax;
-				}
-				if (player.PlayerItem()?.Imbue() is SailorStyle imbue2)
-				{
-					imbue2.BarValue = FightingStyleBarred.BarMax;
-				}
-
-			}
 		}
 	}
 }

@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
@@ -106,50 +104,40 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public float MaxPossibleSpeed => Math.Max(MaxRunSpeed, CurrentDash?.DashSpeed ?? MaxRunSpeed);
 
-		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
+		public void UpdateDebuffHelpers(int damageDone, NPC target, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
 			if (useplayerimbue)
 				imbue ??= Imbue;
-			if (imbue is not null)
+			if (!(target.CountsAsACritter || target.friendly || Main.npcCatchable[target.type]))
 			{
-				if (imbue is EnergyMagic) // change to wave magic later
+				if (imbue is not null)
 				{
-					var dam = damagedone / 4;
-					Player.statMana = Utils.Clamp(Player.statMana + dam, 0, Player.statManaMax2);
-					Player.ManaEffect(dam);
-				}
-				if (imbue is VanishingStyle vanish)
-				{
-					if (!(npc.CountsAsACritter || npc.friendly || Main.npcCatchable[npc.type]))
+					foreach (Debuff buff in imbue.ImbueDebuffs)
 					{
-						if (npc.boss || !AOUtils.BossAlive)
+						var dur = buff.debuffDuration != 0 ? buff.debuffDuration : damageDone;
+						var index = DebuffHelpers.FindIndex(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == target.type);
+						if (index != -1)
 						{
-							Player.ArcaneOdyssey()?.SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
-							if (npc.boss)
-								vanish.BarValue += damagedone / (npc.lifeMax / 10f) * FightingStyleBarred.BarMax;
+							var instance = DebuffHelpers[index];
+							var damage = instance.damagedone + damageDone;
+							if (canAddBuffs && (((float)damage / target.lifeMax) >= buff.debuffPercent))
+							{
+								target.AddBuff(buff.debuffID, dur);
+								damage = 0;
+							}
+							DebuffHelpers[index] = instance with { damagedone = damage };
+						}
+						else
+						{
+							if (canAddBuffs && (((float)damageDone / target.lifeMax) >= buff.debuffPercent))
+							{
+								target.AddBuff(buff.debuffID, dur);
+							}
 							else
-								vanish.BarValue += damagedone / (npc.lifeMax * 2f) * FightingStyleBarred.BarMax;
+							{
+								DebuffHelpers.Add(new(imbue, damageDone, target, buff.debuffID));
+							}
 						}
-					}
-				}
-				foreach (Debuff buff in imbue.ImbueDebuffs)
-				{
-					var dur = buff.debuffDuration != 0 ? buff.debuffDuration : damagedone;
-					var index = DebuffHelpers.FindIndex(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
-					if (index != -1)
-					{
-						var instance = DebuffHelpers[index];
-						var damage = instance.damagedone + damagedone;
-						if (canAddBuffs && (((float)damage / npc.lifeMax) > buff.debuffPercent))
-						{
-							npc.AddBuff(buff.debuffID, dur);
-							damage = 0;
-						}
-						DebuffHelpers[index] = instance with { damagedone = damage };
-					}
-					else
-					{
-						DebuffHelpers.Add(new(imbue, damagedone, npc, buff.debuffID));
 					}
 				}
 			}
@@ -166,7 +154,6 @@ namespace ArcaneOdyssey.AOPlayers
 			UpdateDebuffHelpers(damageDone, target, proj.Imbue(), false, true);
 			UpdateDebuffHelpers(damageDone, target, proj.SecondImbue(), false, true);
 		}
-
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{

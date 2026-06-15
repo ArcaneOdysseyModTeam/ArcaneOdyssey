@@ -7,7 +7,7 @@ using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
-	public class MatrixMagic : MagicType
+	public sealed class MatrixMagic : MagicType
 	{
 		public static float MatrixSize = 1, MatrixSpeed = 1, MatrixDamage = 1;
 		public override bool ImmuneDash => true; // instant
@@ -19,19 +19,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override float ScrollSpeed => MatrixSpeed;
 		public override float ScrollSize => MatrixSize;
 		public override float ScrollDamage => MatrixDamage;
-		public override Debuff[] ImbueDebuffs => [];
-		public override Combo[] CombinedDebuffs => [];
-
+		public static Debuff[] MatrixDebuffs = [];
+		public static Combo[] MatrixCombos = [];
+		public override Debuff[] ImbueDebuffs => MatrixDebuffs;
+		public override Combo[] CombinedDebuffs => MatrixCombos;
+		public static SynergyEffects MatrixEffects = new();
+		public static ImbueGimmick MatrixGimmick = null;
+		public override ImbueGimmick Gimmick => MatrixGimmick is not BarGimmick ? MatrixGimmick : null;
 		public override int BlastFrames => 6;
 
-		public override SynergyEffects Effects => new(
-			[ // these are debuffs cleared on hit
-				
-			],
-			[
-				
-			]
-			);
+		public override SynergyEffects Effects => MatrixEffects;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

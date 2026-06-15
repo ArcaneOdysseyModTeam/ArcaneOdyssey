@@ -30,6 +30,12 @@
 		<Reference Include="ArcaneOdysseyMusic">
 			<HintPath>references\ArcaneOdysseyMusic.dll</HintPath>
 		</Reference>
+		<Reference Include="CalamityMod">
+		  <HintPath>references\CalamityMod.dll</HintPath>
+		</Reference>
+		<Reference Include="Fargowiltas">
+		  <HintPath>references\Fargowiltas.dll</HintPath>
+		</Reference>
 		<Reference Include="MagicStorage">
 		  <HintPath>references\MagicStorage.dll</HintPath>
 		</Reference>

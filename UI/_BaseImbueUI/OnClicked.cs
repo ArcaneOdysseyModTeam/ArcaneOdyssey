@@ -23,7 +23,7 @@ public abstract partial class BaseImbueUI : UIState
 		var item = MagicTypeToItem(p.CurrentType).Clone();
 
 		SpotTitle.SetText(item.Name, 1, true);
-		if (item.ModItem is MagicType magic)
+		if (item.ModItem is Imbuable magic)
 		{
 			// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
 			string prefix = magic.ImbueDebuffs.Length switch
@@ -43,19 +43,23 @@ public abstract partial class BaseImbueUI : UIState
 			}
 			else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
 
-			var abiliytext = magic.Property.HasValue ? magic.Property.Value.Name + "\n" : "";
+			var abiliytext = "";
+
+			if (magic.Gimmick is not null)
+			{
+				abiliytext += $"{magic.Gimmick.DisplayName.Value}: {magic.Gimmick.Description.Value}\n";
+			}
+
+			if (magic.Property.HasValue)
+			{
+				abiliytext += magic.Property.Value.Name + "\n";
+			}
 
 			SpotStats.SetText(abiliytext +
 				$"Size: {magic.ScrollSize} \n" +
 				$"Speed: {magic.ScrollSpeed} \n" +
 				$"Damage: {magic.ScrollDamage} \n" +
 				$"{prefix} {text}");
-		}
-		else if (item.ModItem is Imbuable other)
-		{
-			SpotStats.SetText($"Size: {other.ScrollSize} \n" +
-				$"Speed: {other.ScrollSpeed} \n" +
-				$"Damage: {other.ScrollDamage} ");
 		}
 		else
 		{

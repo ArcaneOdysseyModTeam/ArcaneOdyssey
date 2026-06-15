@@ -44,9 +44,9 @@ namespace ArcaneOdyssey.Guidebook
 
 		internal static Dictionary<string, ushort> PagesOrdered = [];
 
-		public virtual LocalizedText Description => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".Text", () => PrettyPrintName() + " content goes here.");
+		public virtual LocalizedText Description => this.GetLocalization("Text");
 
-		public virtual LocalizedText DisplayName => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".DisplayName", PrettyPrintName);
+		public virtual LocalizedText DisplayName => this.GetLocalization("DisplayName", PrettyPrintName);
 
 		/// <inheritdoc/>
 		public virtual string LocalizationCategory => "Guidebook";

@@ -49,6 +49,11 @@ namespace ArcaneOdyssey.Imbues.Base
 			return (int)Math.Round(aura / 5f, MidpointRounding.AwayFromZero) * 5;
 		}
 
+		public override void UpdateInventory(Player player)
+		{
+			Gimmick?.UpdateInventory(player);
+		}
+
 		public bool PlayerHasImbue(Player player)
 		{
 			var type = Type;
@@ -335,7 +340,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			get
 			{
 				var colour = ImbueColour2;
-				if (this is FightingStyleBarred bar)
+				if (this is IBarrableImbue bar)
 				{
 					if (Imbue is not null)
 					{

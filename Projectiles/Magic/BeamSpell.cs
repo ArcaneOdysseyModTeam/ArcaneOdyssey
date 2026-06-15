@@ -46,12 +46,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 
 		public override float Size => .75f;
+		public override bool CanHaveImbueVFX => !dying;
 
 
 		internal Vector2 origin = default;
 		internal Vector2? end = null;
-		public override bool CanHaveImbueVFX => !dying;
-
 		public bool dying = false;
 
 		public override void SendExtraAI(BinaryWriter writer)

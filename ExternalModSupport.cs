@@ -13,6 +13,8 @@ using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdysseyMusic.MusicBoxes;
+using CalamityMod;
+using FargosMod = Fargowiltas.Fargowiltas;
 using MagicStorage.CrossMod;
 using MagicStorage.Sorting;
 using System;
@@ -21,6 +23,7 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using CalamityCalls = CalamityMod.ModCalls;
 
 namespace ArcaneOdyssey
 {
@@ -89,7 +92,7 @@ namespace ArcaneOdyssey
 			{
 				if (HasCalamity)
 				{
-					if ((bool)Calamity.Call("DifficultyActive", "revengeance"))
+					if (RevengenceMode)
 					{
 						return true;
 					}
@@ -97,6 +100,12 @@ namespace ArcaneOdyssey
 				return Main.masterMode;
 			}
 		}
+
+		/// <summary>
+		/// Whether revengence mode is enabled
+		/// </summary>
+		[JITWhenModsEnabled("CalamityMod")]
+		public static bool RevengenceMode => CalamityCalls.GetDifficultyActive("revengeance");
 
 		public static void RegisterDebuff(ModBuff buff) => Calamity?.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
 
@@ -156,7 +165,7 @@ namespace ArcaneOdyssey
 		{
 			if (HasCalamity)
 			{
-				return DashBind.GetAssignedKeys().Count == 0;
+				return CalamityDash.GetAssignedKeys().Count == 0;
 			}
 			if (HasFargos)
 			{
@@ -171,22 +180,21 @@ namespace ArcaneOdyssey
 			{
 				if (HasCalamity)
 				{
-					var a = Calamity.Code.GetType("CalamityMod.CalamityKeybinds");
-					if (a is not null)
-					{
-						return (ModKeybind)a.GetProperty("DashHotkey").GetValue(null);
-					}
+					return CalamityDash;
 				}
 				else if (HasFargos)
 				{
-					var e = Fargos.GetType().
-						GetField("DashKey").
-						GetValue(null);
-					return (ModKeybind)e;
+					return FargosDash;
 				}
 				return null;
 			}
 		}
+
+		[JITWhenModsEnabled("CalamityMod")]
+		public static ModKeybind CalamityDash => CalamityKeybinds.DashHotkey;
+
+		[JITWhenModsEnabled("Fargowiltas")]
+		public static ModKeybind FargosDash => FargosMod.DashKey;
 
 		private void AddFargosStuff()
 		{

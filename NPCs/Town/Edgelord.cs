@@ -41,8 +41,7 @@ namespace ArcaneOdyssey.NPCs.Town
 		{
 			Main.npcFrameCount[Type] = 25;
 			NPCID.Sets.ExtraFramesCount[Type] = 9;
-			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+			NPCID.Sets.NPCBestiaryDrawOffset[Type] = NPCID.Sets.NPCBestiaryDrawOffset[NPCID.Guide];
 			NPC.Happiness.
 				SetBiomeAffection<DungeonBiome>(AffectionLevel.Hate).
 				SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike).
@@ -62,7 +61,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			if (item.Imbue() is not MagicType or SpiritEnergy)
+			if (item.Imbue() is not (MagicType or SpiritEnergy))
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life = Utils.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
@@ -135,13 +134,13 @@ namespace ArcaneOdyssey.NPCs.Town
 			]);
 		}
 
-		public override void SetChatButtons(ref string button, ref string button2)
+		public override void SetChatButtons(ref string button, ref string button2) // PORT change to new method
 		{
 			button = Mod.CustomLocalization("RandomWords.Guide").Value;
 			button2 = Mod.CustomLocalization("ImbueStuff.SynergiesButton").Value;
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName) // PORT change to new method
 		{
 			if (firstButton)
 			{

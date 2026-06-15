@@ -75,21 +75,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 			player.ArcaneOdyssey()?.StartDash(new Smash(Source) { Imbue = Imbue, SecondImbue = SecondImbue }, 2);
 		}
 
-		public override void OnStart(Player player)
-		{
-			if (Imbue is not null)
-			{
-				if (Imbue is ThermoFist thermo)
-				{
-					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
-				}
-				if (Imbue is SailorStyle sailor)
-				{
-					sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
-				}
-			}
-		}
-
 		public override int DisplayedCooldownID => ModContent.BuffType<CrashCooldown>();
 	}
 
@@ -107,21 +92,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override bool Immune => true;
 
 		public override bool ExtraCheck(Player player) => !player.wet;
-
-		public override void OnStart(Player player)
-		{
-			if (player.TryGetImbue(out Imbuable imbue))
-			{
-				if (imbue is ThermoFist thermo)
-				{
-					thermo.BarValue += FightingStyleBarred.BarMax / 20f;
-				}
-				if (imbue is SailorStyle sailor)
-				{
-					sailor.BarValue -= FightingStyleBarred.BarMax / 10f;
-				}
-			}
-		}
 		public override bool OnHit(Player player, NPC target)
 		{
 			var gore = Gore.NewGorePerfect(player.GetSource_Misc("OmniDash"), player.velocity + player.Center, Vector2.Zero, ModContent.GoreType<Impact>(), player.Imbue().ImbueSize);

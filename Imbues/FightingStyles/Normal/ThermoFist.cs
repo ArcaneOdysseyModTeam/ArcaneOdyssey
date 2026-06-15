@@ -3,6 +3,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks.Bars;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -18,21 +19,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override Color ImbueColour => Color.Orange;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-
-		public override float BarValueMulti => 1f;
-
-		public override float MaxImbueSpeed => 1.3f;
-		public override float MaxImbueDamage => .85f;
-		public override float MaxImbueSize => .833f;
-		public override float MinImbueSpeed => 1f;
-		public override float MinImbueDamage => .85f;
-		public override float MinImbueSize => .833f;
-		public override float MaxScrollSpeed => 1.3f;
-		public override float MaxScrollDamage => .75f;
-		public override float MaxScrollSize => .8f;
-		public override float MinScrollSpeed => 1f;
-		public override float MinScrollDamage => .75f;
-		public override float MinScrollSize => .8f;
+		public override BarGimmick Bar => ModContent.GetInstance<ThermoBar>();
 		public override Color DisplayColor => Color.Blue;
 		public override bool ImmuneDash => BarValue > (BarMax / 2);
 
@@ -100,48 +87,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Hellstone, 10).Register();
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			if (!player.ArcaneOdyssey().OnCooldown(Name))
-				BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-			base.UpdateInventory(player);
-		}
-
-		public override void Update(ref float gravity, ref float maxFallSpeed)
-		{
-			BarValue = BarMin;
-		}
-	}
-
-	public class ThermoBars : GlobalItem
-	{
-		public const float BarMax = FightingStyleBarred.BarMax;
-		public const float BarMin = FightingStyleBarred.BarMin;
-
-		public override void UseAnimation(Item item, Player player)
-		{
-			if (item.Imbue() is ThermoFist thermo)
-			{
-				thermo.BarValue += BarMax / 20f;
-				player.ArcaneOdyssey().SetCooldown(new Cooldown(thermo.Name, thermo.DisplayName, 60));
-			}
-		}
-	}
-
-	public class ThermoFallOff : ModPlayer
-	{
-		public const float BarMax = FightingStyleBarred.BarMax;
-		public const float BarMin = FightingStyleBarred.BarMin;
-
-		public override void PostUpdate()
-		{
-			if (Player.HasTypeInInventory<ThermoFist>(out var thermo))
-			{
-				if (!Player.ArcaneOdyssey().OnCooldown(thermo.Name))
-					thermo.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-			}
 		}
 	}
 }

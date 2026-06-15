@@ -9,7 +9,6 @@ Normal: {
 
 	ThermoFist: {
 		DisplayName: Thermo Fist
-		Ability: Attacking improves strength
 		Tooltip: ""
 		AttackPrefix: Searing
 		SpellPrefix: Thermo Fist
@@ -17,7 +16,6 @@ Normal: {
 
 	VanishingStyle: {
 		DisplayName: Vanishing Style
-		Ability: Strike while the bar falls for guaranteed crits
 		Tooltip: ""
 		AttackPrefix: Spectral
 		SpellPrefix: Vanishing Style
@@ -25,7 +23,6 @@ Normal: {
 
 	SailorStyle: {
 		DisplayName: Sailor Style
-		Ability: Drinking healing potions or submerging in water improves strength
 		Tooltip: ""
 		AttackPrefix: Rippling
 		SpellPrefix: Sailor Style
@@ -58,14 +55,6 @@ Normal: {
 		Tooltip: ""
 		AttackPrefix: Gunpowder
 		SpellPrefix: Powder Fist
-	}
-
-	ThunderStyle: {
-		AttackPrefix: Static
-		SpellPrefix: Thundering Style
-		DisplayName: Thundering Style
-		Ability: Moving across the ground improves strength
-		Tooltip: ""
 	}
 }
 

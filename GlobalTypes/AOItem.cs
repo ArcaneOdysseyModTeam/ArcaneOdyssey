@@ -3,7 +3,6 @@ using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Accessories.Vanity;
 using ArcaneOdyssey.Items.Armour.Vanity.Taz;
@@ -420,17 +419,9 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			if (AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator))
+			if (AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator) && AtlanteanApplied)
 			{
-				if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
-				{
-					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, item.GetAlpha(Color.White * .5f * Main.inventoryScale), 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
-				}
-
-				if (AtlanteanApplied)
-				{
-					spriteBatch.Draw(AtlanteanIndicator.Value, position, null, item.GetAlpha(Color.White * .75f * Main.inventoryScale), 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
-				}
+				spriteBatch.Draw(AtlanteanIndicator.Value, position, null, item.GetAlpha(Color.White * .75f), 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
 			}
 
 			return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
@@ -451,7 +442,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
 
-				if (Imbue is FightingStyleBarred fs)
+				if (Imbue is FightingStyleBarred fs) // dont bother with others for now
 				{
 					var textScale = Main.inventoryScale * .75f;
 					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location, Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2f, textScale, SpriteEffects.None, 0f);
@@ -516,11 +507,9 @@ namespace ArcaneOdyssey.GlobalTypes
 				crit *= imbue.ScrollDamage;
 				if (imbue.Imbue is not null)
 					crit *= imbue.Imbue.ImbueDamage;
-				if (imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
-					if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
-						crit = 100;
+				imbue.Gimmick?.ModifyWeaponCrit(item, player, ref crit);
 			}
-			else if (Imbue is not null)
+			if (Imbue is not null)
 			{
 				if (BenifitsFromScrollStats.GetValueOrDefault())
 				{
@@ -534,10 +523,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					if (SecondImbue is not null)
 						crit *= SecondImbue.ImbueDamage;
 				}
-
-				if (Imbue is VanishingStyle vanish && vanish.BarValue > FightingStyleBarred.BarMin)
-					if (!player.ArcaneOdyssey().OnCooldown(vanish.Name))
-						crit = 100;
+				Imbue.Gimmick?.ModifyWeaponCrit(item, player, ref crit);
 			}
 		}
 
@@ -705,6 +691,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Main.myPlayer != player.whoAmI)
 				return;
 
+			Imbue?.Gimmick?.UpdateInventory(item, player);
+
 			var othergimicks = antiInventories.ToArray();
 			var playerGimmicks = player.inventory.FindAll(e => e.ModItem is Imbuable imbue && imbue.Gimmick is not null).Select(e => e.ModItem as Imbuable).Select(e => e.Gimmick);
 			othergimicks = othergimicks.FindAll(e => !playerGimmicks.Select(a => a.Type).Contains(e.Type));
@@ -835,6 +823,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
 		{
+			Imbue?.Gimmick?.Update(item);
 			owner = null;
 			thisItem = item;
 			Imbue = null;
@@ -862,8 +851,11 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (!target.immortal)
 					player.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(item.OriginalDamage, item.damage));
 			}
-			Imbue?.Gimmick?.OnHitNPC(item,player,target, hit, damageDone);
-			SecondImbue?.Gimmick?.OnHitNPC(item, player, target, hit, damageDone);
+			if (!(target.CountsAsACritter || target.friendly || Main.npcCatchable[target.type]))
+			{
+				Imbue?.Gimmick?.OnHitNPC(item, player, target, hit, damageDone);
+				SecondImbue?.Gimmick?.OnHitNPC(item, player, target, hit, damageDone);
+			}
 		}
 
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
@@ -1024,6 +1016,18 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
+		public override void UseAnimation(Item item, Player player)
+		{
+			Imbue?.Gimmick?.UseAnimation(item, player);
+			SecondImbue?.Gimmick?.UseAnimation(item, player);
+		}
+
+		public override void OnConsumeItem(Item item, Player player)
+		{
+			Imbue?.Gimmick?.OnConsumeItem(item, player);
+			SecondImbue?.Gimmick?.OnConsumeItem(item, player);
+		}
+
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
 			var dashline = tooltips.Find(e => e.Text.Contains("{AODASHBIND}"));
@@ -1032,6 +1036,10 @@ namespace ArcaneOdyssey.GlobalTypes
 				tooltips[tooltips.IndexOf(dashline)].Text = dashline.Text.Replace("{AODASHBIND}", AOKeybinds.DashBind.GetAssignedKeys(InputMode.Keyboard).FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value));
 			}
 
+			if (Main.LocalPlayer.HasTypeInInventory<AtlanteanEssence>() && CanHaveAtlanteanEssence())
+			{
+				tooltips.AddTooltip(new(Mod, nameof(AtlanteanEssence), ModContent.GetInstance<AtlanteanEssence>().GetLocalizedValue("CanBeAdded")), Color.Purple);
+			}
 
 			if (AtlanteanApplied && Boost.HasValue)
 			{
@@ -1071,7 +1079,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (item.ModItem is UnloadedItem || !item.ArcaneOdyssey().CannotBeAffected)
+			if (item.ModItem is UnloadedItem || CannotBeAffected)
 			{
 				return;
 			}

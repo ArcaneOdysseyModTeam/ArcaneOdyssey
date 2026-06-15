@@ -2,15 +2,18 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public class PowderFist : FightingStyle
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<PowderBurst>();
 		public override float Aura => .875f;
 		public override float DashSpeed => 1.2f;
 

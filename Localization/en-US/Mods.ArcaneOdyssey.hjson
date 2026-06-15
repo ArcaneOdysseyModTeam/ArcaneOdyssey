@@ -285,6 +285,8 @@ Biomes: {
 		DisplayName: Djin Ruins
 		TownNPCDialogueName: the Djin Ruins
 	}
+
+	Sky: Sky
 }
 
 Prefixes: {
@@ -369,5 +371,25 @@ ImbueGimmicks: {
 	DeathShock: {
 		DisplayName: Death Shock
 		Description: Creates aftershocks that deal massive damage
+	}
+
+	SailorBar: {
+		DisplayName: Sailor Bar
+		Description: Liquids improve strength
+	}
+
+	ThermoBar: {
+		DisplayName: Thermo Bar
+		Description: Attacking improves strength
+	}
+
+	VanishBar: {
+		DisplayName: Vanish Bar
+		Description: Strike while the bar falls to crit
+	}
+
+	ManaSiphon: {
+		DisplayName: Mana Siphon
+		Description: Attacks steal mana from foes
 	}
 }

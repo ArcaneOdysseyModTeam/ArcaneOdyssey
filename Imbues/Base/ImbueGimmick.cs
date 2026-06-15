@@ -34,8 +34,14 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual void SpawningEffects(Projectile projectile) { }
 		public virtual void InventoryEffects(Item item, Player player) { }
 		public virtual void NoInventoryEffects(Item item, Player player) { }
+		public virtual void ModifyWeaponCrit(Item item, Player player, ref float crit) { }
+		public virtual void UseAnimation(Item item, Player player) { }
+		public virtual void OnConsumeItem(Item item, Player player) { }
+		public virtual void UpdateInventory(Player player) { }
+		public virtual void Update(Item item) { }
+		public virtual void UpdateInventory(Item item, Player player) { }
 
-		public virtual LocalizedText DisplayName => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".DisplayName", PrettyPrintName);
-		public virtual LocalizedText Description => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".Description");
+		public virtual LocalizedText DisplayName => this.GetLocalization("DisplayName", PrettyPrintName);
+		public virtual LocalizedText Description => this.GetLocalization("Description");
 	}
 }

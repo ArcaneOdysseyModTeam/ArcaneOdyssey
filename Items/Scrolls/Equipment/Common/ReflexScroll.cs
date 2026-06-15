@@ -88,8 +88,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 				{
 					invisbase = player.opacityForAnimation;
 				}
-				if (Imbue is SailorStyle sailor)
-					sailor.BarValue -= FightingStyleBarred.BarMax / 20f;
 			}
 		}
 

@@ -22,6 +22,7 @@ using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -38,7 +39,7 @@ namespace ArcaneOdyssey
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
 
-		public static T Safe<T>(ModItem item) where T : ModItem
+		public static T Safe<T>(object item) where T : class
 		{
 			if (item is T)
 			{
@@ -153,6 +154,15 @@ namespace ArcaneOdyssey
 			}
 			return list;
 		}
+
+		public class SkyBiome : IShoppingBiome, ILoadable
+		{
+			public bool IsInBiome(Player player) => player.ZoneSkyHeight;
+			public string NameKey => ExternalModSupport.HasFargos ? "Mods.Fargowiltas.Biome.Sky" : ArcaneOdysseyMod.Instance.GetLocalizationKey("Biomes.Sky");
+			void ILoadable.Load(Mod mod) { }
+			void ILoadable.Unload() { }
+		}
+
 
 		public static bool? ToNullableBool(this int value)
 		{
@@ -387,7 +397,7 @@ namespace ArcaneOdyssey
 
 		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int Alpha = 0, Color newColor = default, float Scale = 1f)
 		{
-			Scale = Math.Clamp(Scale, 0f, 10f);
+			Scale = Math.Clamp(Scale, 0.0001f, 10f);
 			velocity ??= Vector2.Zero;
 			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, Alpha, newColor, Scale);
 		}
@@ -1247,10 +1257,7 @@ namespace ArcaneOdyssey
 		/// <param name="array"></param>
 		/// <param name="predicate"></param>
 		/// <returns><inheritdoc cref="Array.Find{T}(T[], Predicate{T})"/></returns>
-		public static T Find<T>(this T[] array, Predicate<T> predicate)
-		{
-			return Array.Find(array, predicate);
-		}
+		public static T Find<T>(this T[] array, Predicate<T> predicate) => Array.Find(array, predicate);
 
 		/// <summary>
 		/// <inheritdoc cref="Projectile.NewProjectile(IEntitySource, float, float, float, float, int, int, float, int, float, float, float)"/>
@@ -1678,7 +1685,7 @@ namespace ArcaneOdyssey
 		#endregion
 
 		#region Player Inventory Helpers
-		public static bool HasTypeInInventory<T>(this Player player, Predicate<T> check = null) where T : ModItem
+		public static bool HasTypeInInventory<T>(this Player player, Predicate<T> check = null) where T : class
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
 			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
@@ -1905,7 +1912,7 @@ namespace ArcaneOdyssey
 
 		public readonly ImbueArmourStats Corrected(Imbuable imbue)
 		{
-			if (imbue is FightingStyleBarred barred)
+			if (imbue is IBarrableImbue barred)
 			{
 				return new ImbueArmourStats(
 					(short)MathHelper.Lerp(Size / 4f, Size, barred.LerpValue).Round(),
@@ -2168,5 +2175,15 @@ namespace ArcaneOdyssey
 		Monolith,
 		Draconic,
 		Demonic
+	}
+
+	public interface IBarrableImbue : IModType
+	{
+		float BarValue { get; set; }
+		BarGimmick Bar { get; }
+		float LerpValue { get; }
+
+		public const float BarMax = 100f;
+		public const float BarMin = 0f;
 	}
 }

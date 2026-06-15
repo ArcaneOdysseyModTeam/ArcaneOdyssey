@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Debug
 		public override ItemRarities Rarity => ItemRarities.Special;
 		public static int statToMod = 0;
 		public static float statMult = 1f;
-		public static string[] statsList = {"Size","Speed","Damage"};
+		public static string[] statsList = { "Size", "Speed", "Damage" };
 
 		public override void SetDefaults()
 		{
@@ -21,60 +21,62 @@ namespace ArcaneOdyssey.Items.Debug
 			Item.useAnimation = 15;
 			Item.width = Item.height = 30;
 		}
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
+
+		public override bool AltFunctionUse(Player player) => true;
+
 		public static void RoundMatrixStats()
 		{
-			MatrixMagic.MatrixDamage = MathF.Round(MatrixMagic.MatrixDamage * 100)/100;
-			MatrixMagic.MatrixSpeed = MathF.Round(MatrixMagic.MatrixSpeed * 100)/100;
-			MatrixMagic.MatrixSize = MathF.Round(MatrixMagic.MatrixSize * 100)/100;
-			MatrixTerminal.statMult = MathF.Round(MatrixTerminal.statMult * 100)/100;
+			MatrixMagic.MatrixDamage = MathF.Round(MatrixMagic.MatrixDamage, 2);
+			MatrixMagic.MatrixSpeed = MathF.Round(MatrixMagic.MatrixSpeed, 2);
+			MatrixMagic.MatrixSize = MathF.Round(MatrixMagic.MatrixSize, 2);
+			statMult = MathF.Round(statMult, 2);
 		}
-		public override bool CanUseItem(Player player)
+
+		public override void UseAnimation(Player player)
 		{
-			if(player.altFunctionUse == 2)
+			if (player.altFunctionUse == 2)
 			{
-				switch (MatrixTerminal.statToMod) {
+				switch (statToMod)
+				{
 					case 0:
-						MatrixMagic.MatrixSize -= MatrixTerminal.statMult;
+						MatrixMagic.MatrixSize -= statMult;
 						RoundMatrixStats();
 						Main.NewText("Size set to: " + MatrixMagic.MatrixSize);
-					break;
+						break;
 					case 1:
-						MatrixMagic.MatrixSpeed -= MatrixTerminal.statMult;
+						MatrixMagic.MatrixSpeed -= statMult;
 						RoundMatrixStats();
 						Main.NewText("Speed set to: " + MatrixMagic.MatrixSpeed);
-					break;
+						break;
 					case 2:
-						MatrixMagic.MatrixDamage -= MatrixTerminal.statMult;
+						MatrixMagic.MatrixDamage -= statMult;
 						RoundMatrixStats();
 						Main.NewText("Damage set to: " + MatrixMagic.MatrixDamage);
-					break;
+						break;
 				}
-			} else
-			{
-				switch (MatrixTerminal.statToMod) {
-					case 0:
-						MatrixMagic.MatrixSize += MatrixTerminal.statMult;
-						RoundMatrixStats();
-						Main.NewText("Size set to: " + MatrixMagic.MatrixSize);
-					break;
-					case 1:
-						MatrixMagic.MatrixSpeed += MatrixTerminal.statMult;
-						RoundMatrixStats();
-						Main.NewText("Speed set to: " + MatrixMagic.MatrixSpeed);
-					break;
-					case 2:
-						MatrixMagic.MatrixDamage += MatrixTerminal.statMult;
-						RoundMatrixStats();
-						Main.NewText("Damage set to: " + MatrixMagic.MatrixDamage);
-					break;
-				}
-				
 			}
-			return true;
+			else
+			{
+				switch (statToMod)
+				{
+					case 0:
+						MatrixMagic.MatrixSize += statMult;
+						RoundMatrixStats();
+						Main.NewText("Size set to: " + MatrixMagic.MatrixSize);
+						break;
+					case 1:
+						MatrixMagic.MatrixSpeed += statMult;
+						RoundMatrixStats();
+						Main.NewText("Speed set to: " + MatrixMagic.MatrixSpeed);
+						break;
+					case 2:
+						MatrixMagic.MatrixDamage += statMult;
+						RoundMatrixStats();
+						Main.NewText("Damage set to: " + MatrixMagic.MatrixDamage);
+						break;
+				}
+
+			}
 		}
 	}
 }

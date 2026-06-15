@@ -185,6 +185,7 @@ Consumable: {
 			Can be applied to accessories to grant a random stat in exchange for a level of insanity
 			Prioritizes the first applicable item in your inventory, be careful not to mess up
 			'''
+		CanBeAdded: Can have Atlantean Essence applied
 	}
 }
 
@@ -345,12 +346,12 @@ Potions: {
 Debug: {
 	EliusArenaSpawner: {
 		DisplayName: Elius Arena Spawner
-		Tooltip: Forces Elius's arena to generate, may crash your game if it fails (does not work in multiplayer)
+		Tooltip: DEBUG - Forces Elius's arena to generate, may crash your game if it fails (does not work in multiplayer)
 	}
 
 	MarketableSpoky: {
 		DisplayName: Marketable Spoky
-		Tooltip: Opens the guidebook from anywhere
+		Tooltip: DEBUG - Opens the guidebook from anywhere
 	}
 
 	MatrixTerminal: {
@@ -366,6 +367,11 @@ Debug: {
 	MatrixMultiplier: {
 		DisplayName: Matrix Multiplier
 		Tooltip: DEBUG - Left click to mult by 10, right click to divide by 10
+	}
+
+	MatrixCopier: {
+		DisplayName: Matrix Copier
+		Tooltip: DEBUG - Left click to copy misc stats, right click to fully copy magic
 	}
 }
 

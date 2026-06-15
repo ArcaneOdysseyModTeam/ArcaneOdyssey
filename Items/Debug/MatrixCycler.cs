@@ -17,20 +17,23 @@ namespace ArcaneOdyssey.Items.Debug
 			Item.useAnimation = 15;
 			Item.width = Item.height = 30;
 		}
-		public override bool AltFunctionUse(Player player)
+
+		public override bool AltFunctionUse(Player player) => true;
+
+		public override void UseAnimation(Player player)
 		{
-			return true;
-		}
-		public override bool CanUseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
+			if (player.altFunctionUse == 2)
 			{
 				MatrixTerminal.statMult = 1f;
 				MatrixMagic.MatrixDamage = 1f;
 				MatrixMagic.MatrixSpeed = 1f;
 				MatrixMagic.MatrixSize = 1f;
-				Main.NewText("Stat multiplier and stats have been reset");
-			} else
+				MatrixMagic.MatrixDebuffs = [];
+				MatrixMagic.MatrixEffects = new();
+				MatrixMagic.MatrixCombos = [];
+				Main.NewText("Matrix reset");
+			}
+			else
 			{
 				MatrixTerminal.statToMod++;
 				if (MatrixTerminal.statToMod > 2)
@@ -39,7 +42,6 @@ namespace ArcaneOdyssey.Items.Debug
 				}
 				Main.NewText("Stat to mod set to: " + MatrixTerminal.statsList[MatrixTerminal.statToMod]);
 			}
-			return true;
 		}
 	}
 }

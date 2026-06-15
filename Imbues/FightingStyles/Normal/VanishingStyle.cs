@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks.Bars;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -15,22 +16,10 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item64;
 		public override Color DisplayColor => Color.White;
-		public override float MinImbueSpeed => !HasYou ? 1.1f : 1.5f;
 
 		public override ImbuableTiers ImbuableTier => !HasYou ? base.ImbuableTier : ImbuableTiers.Ancient;
 
-		public override float BarValueMulti => 1.111f;
-		public override float MinImbueDamage => !HasYou ? .85f : 1f;
-		public override float MinImbueSize => !HasYou ? 1.056f : 1.2f;
-		public override float MinScrollSize => !HasYou ? 1.0f : 1.125f;
-		public override float MaxScrollSpeed => MinScrollSpeed;
-		public override float MaxScrollDamage => MinScrollDamage;
-		public override float MaxScrollSize => MinScrollSize;
-		public override float MinScrollSpeed => MinImbueSpeed;
-		public override float MinScrollDamage => MinImbueDamage;
-		public override float MaxImbueSpeed => MinImbueSpeed;
-		public override float MaxImbueDamage => MinImbueDamage;
-		public override float MaxImbueSize => MinImbueSize;
+		public override BarGimmick Bar => ModContent.GetInstance<VanishBar>();
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
@@ -72,33 +61,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.SoulofNight, 5).Register();
 			else
 				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ModLoader.GetMod("YouBoss").Find<ModItem>("FirstFractal")).Register();
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			if (!player.ArcaneOdyssey().OnCooldown(Name))
-				BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-			base.UpdateInventory(player);
-		}
-
-		public override void Update(ref float gravity, ref float maxFallSpeed)
-		{
-			BarValue = BarMin;
-		}
-	}
-
-	public class VanishingPlayer : ModPlayer
-	{
-		public const float BarMax = FightingStyleBarred.BarMax;
-		public const float BarMin = FightingStyleBarred.BarMin;
-		public override void PreUpdate()
-		{
-			if (Player.HasTypeInInventory<VanishingStyle>(out var vanish))
-			{
-				Player.opacityForAnimation = vanish.LerpValue.FlipFloat() - 1f;
-				if (!Player.ArcaneOdyssey().OnCooldown(vanish.Name))
-					vanish.BarValue -= BarMax / (BarMax * .6f * (BarMax / 10f));
-			}
 		}
 	}
 }

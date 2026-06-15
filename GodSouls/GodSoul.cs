@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.GodSouls
 			SetStaticDefaults();
 		}
 
-		public virtual LocalizedText DisplayName => Mod.CoolCustomLocalization(LocalizationCategory + "." + Name + ".DisplayName", PrettyPrintName);
+		public virtual LocalizedText DisplayName => this.GetLocalization("DisplayName", PrettyPrintName);
 	}
 
 	public sealed class NoneSoul : GodSoul

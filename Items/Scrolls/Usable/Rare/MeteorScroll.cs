@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	public class MeteorScroll : RareScroll
 	{
 		public override bool MetConditions() => NPC.downedPlantBoss;
+
 		public override bool CanHaveMagic => true;
 
 		public override void SetDefaults()
@@ -26,7 +27,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		}
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
-
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{

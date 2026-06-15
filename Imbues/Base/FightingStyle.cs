@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
 			Item.shoot = ModContent.ProjectileType<BasicStrike>();
 			Item.autoReuse = true;
-			Item.damage = 15 + (100 * (int)ImbuableTier);
+			Item.damage = 15 + (120 * (int)ImbuableTier);
 			Item.shootSpeed = 2f;
 			Item.knockBack = 10f;
 		}

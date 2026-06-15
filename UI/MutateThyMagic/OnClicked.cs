@@ -220,7 +220,17 @@ public partial class MutateThyMagicUI : BaseImbueUI
 			}
 			else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
 
-			var abiliytext = magic.Property.HasValue ? magic.Property.Value.Name + "\n" : "";
+			var abiliytext = "";
+
+			if (magic.Gimmick is not null)
+			{
+				abiliytext += $"{magic.Gimmick.DisplayName.Value}: {magic.Gimmick.Description.Value}\n";
+			}
+
+			if (magic.Property.HasValue)
+			{
+				abiliytext += magic.Property.Value.Name + "\n";
+			}
 
 			SpotStats.SetText(abiliytext +
 				$"Size: {magic.ScrollSize} \n" +

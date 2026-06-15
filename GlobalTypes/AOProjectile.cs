@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
@@ -412,9 +411,6 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			Imbue?.Gimmick?.OnHitNPC(projectile, target, hit, damageDone);
 			SecondImbue?.Gimmick?.OnHitNPC(projectile, target, hit, damageDone);
-
-			if (Imbue is VanishingStyle && hit.Crit)
-				projectile.CritChance = projectile.OriginalCritChance;
 
 			if (projectile.TryGetOwner(out var owner))
 			{
