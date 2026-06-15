@@ -98,6 +98,8 @@ namespace ArcaneOdyssey
 			}
 		}
 
+		public static float CleanRound(this float value) => (value.Round(3) * 1000f / 5f).Round() * 5f / 1000f;
+
 		public static string LocalizationCategoryOf<T>() where T : class, ILocalizedModType => ModContent.GetInstance<T>().LocalizationCategory;
 
 		/// <summary>
@@ -397,15 +399,15 @@ namespace ArcaneOdyssey
 
 		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int Alpha = 0, Color newColor = default, float Scale = 1f)
 		{
-			Scale = Math.Clamp(Scale, 0.0001f, 10f);
 			velocity ??= Vector2.Zero;
-			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, Alpha, newColor, Scale);
+			return Dust.NewDustDirect(position, 0, 0, type, velocity.Value.X, velocity.Value.Y, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
 		}
 
 		public static EntitySource_ItemUse GetSource_ItemUse(this Entity item, Player player, string context = null) => new(player, item as Item, context);
 		public static EntitySource_ItemUse GetSource_ItemUse(this Item item, Player player, string context = null) => new(player, item, context);
 
-		public static int Round(this float num) => (int)Math.Round(num);
+		public static int Round(this float num) => (int)MathF.Round(num);
+		public static float Round(this float num, int spaces) => MathF.Round(num, spaces);
 
 		public static string GetTexture<T>(bool usemodtype = true) where T : class
 		{
@@ -785,6 +787,12 @@ namespace ArcaneOdyssey
 			return closestTarget;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ID"><see cref="ItemID"/></param>
+		/// <returns></returns>
+		public static string TerrariaItemTexture(short ID) => $"Terraria/Images/Item_{ID}";
 
 		public static void NPCDialogue(this NPC npc, string message, Color? colour = null)
 		{

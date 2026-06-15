@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Gimmicks.FightingStyle;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

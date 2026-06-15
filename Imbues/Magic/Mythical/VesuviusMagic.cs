@@ -12,9 +12,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 	public class VesuviusMagic : MagicType
 	{
 		public override Color ImbueColour => new(0, 130, 255);
-		public override float ImbueSpeed => 1.2f;
-		public override float ImbueSize => 3f;
-		public override float ImbueDamage => 2f;
 		public override float ScrollSpeed => 1.2f;
 		public override float ScrollSize => 3f;
 		public override float ScrollDamage => 2f;

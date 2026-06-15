@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override int Value => 140;
 		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override float Speed => .8f;
-		public override float Damage => 1.2f;
+		public override float Damage => 1.1f;
 		public override SoundStyle UseSound => SoundID.Item11; // PORT change to 133
 
 		public override Color Motif => Color.Orange;

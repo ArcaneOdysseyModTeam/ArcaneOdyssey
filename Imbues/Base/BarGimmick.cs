@@ -5,12 +5,6 @@
 	/// </summary>
 	public abstract class BarGimmick : ImbueGimmick
 	{
-		public abstract float MaxImbueSpeed { get; }
-		public abstract float MaxImbueDamage { get; }
-		public abstract float MaxImbueSize { get; }
-		public abstract float MinImbueSpeed { get; }
-		public abstract float MinImbueDamage { get; }
-		public abstract float MinImbueSize { get; }
 		public abstract float MaxScrollSpeed { get; }
 		public abstract float MaxScrollDamage { get; }
 		public abstract float MaxScrollSize { get; }

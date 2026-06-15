@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Debug;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -146,6 +147,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
 			if (tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 				return;
 
@@ -157,29 +159,41 @@ namespace ArcaneOdyssey.Items.Base
 			{
 				tooltips.AddTooltip(new(Mod, "MinionSlots", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Minions", MinionSlots).Value));
 			}
-			if (GetArmourAgilityStat() > 0)
+			if (GetArmourAgilityStat() != 0)
 			{
 				tooltips.AddTooltip(new(Mod, "AOAgility", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Agility", Math.Round(GetArmourAgilityStat() / 5f)).Value));
+				if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+					tooltips.AddTooltip(new(Mod, "DebugAgility", nameof(AOAgility) + " " + AOAgility));
 			}
-			if (GetArmourSizeStat() > 0)
+			if (GetArmourSizeStat() != 0)
 			{
 				tooltips.AddTooltip(new(Mod, "Size", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Size", Math.Round(GetArmourSizeStat() / SizeDivision)).Value));
+				if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+					tooltips.AddTooltip(new(Mod, "DebugSize", nameof(Size) + " " + Size));
 			}
-			if (GetArmourPowerStat() > 0)
+			if (GetArmourPowerStat() != 0)
 			{
 				tooltips.AddTooltip(new(Mod, "AOPower", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Power", GetArmourPowerStat(), (GetArmourPowerStat() / 4f).Round()).Value));
+				if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+					tooltips.AddTooltip(new(Mod, "DebugPower", nameof(AOPower) + " " + AOPower));
 			}
-			if (GetArmourAttkSpeedStat() > 0)
+			if (GetArmourAttkSpeedStat() != 0)
 			{
 				tooltips.AddTooltip(new(Mod, "AOAttkSpd", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Speed", Math.Round(GetArmourAttkSpeedStat() / 2.75f)).Value));
+				if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+					tooltips.AddTooltip(new(Mod, "DebugSpeed", nameof(AOAttkSpd) + " " + AOAttkSpd));
 			}
-			if (GetArmourPierceStat() > 0)
+			if (GetArmourPierceStat() != 0)
 			{
 				tooltips.AddTooltip(new(Mod, "AOPierce", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Pierce", GetArmourPierceStat() / 5).Value));
+				if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+					tooltips.AddTooltip(new(Mod, "DebugPierce", nameof(AOPierce) + " " + AOPierce));
 			}
-			if (GetArmourHasteStat() > 0)
+			if (GetArmourHasteStat() != 0)
 			{
 				tooltips.AddTooltip(new(Mod, "Haste", ArcaneOdysseyMod.Instance.CustomLocalization("ArmourAutoTooltip.Haste", Math.Round(GetArmourHasteStat() / HasteDivision)).Value));
+				if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+					tooltips.AddTooltip(new(Mod, "DebugHaste", nameof(Haste) + " " + Haste));
 			}
 		}
 

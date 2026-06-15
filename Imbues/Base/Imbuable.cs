@@ -208,12 +208,12 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public virtual bool ImmuneDash => false;
 
-		public virtual float ImbueSpeed => ScrollSpeed != 1f ? MathF.Round(ScrollSpeed <= 1f ? ScrollSpeed * 1.075f : ScrollSpeed * .85f, 2) : 1f;
-		public virtual float ImbueSize => ScrollSize != 1f ? MathF.Round(ScrollSize <= 1f ? ScrollSize * 1.075f : ScrollSize * .85f, 2) : 1f;
-		public virtual float ImbueDamage => ScrollDamage != 1f ? MathF.Round(ScrollDamage <= 1f ? ScrollDamage * 1.075f : ScrollDamage * .85f, 2) : 1f;
-		public virtual float ScrollSpeed => ImbueSpeed != 1f ? MathF.Round(ImbueSpeed <= 1f ? ImbueSpeed * 1.075f : ImbueSpeed.Pow(), 2) : 1f;
-		public virtual float ScrollSize => ImbueSize != 1f ? MathF.Round(ImbueSize <= 1f ? ImbueSize * 1.075f : ImbueSize.Pow(), 2) : 1f;
-		public virtual float ScrollDamage => ImbueDamage != 1f ? MathF.Round(ImbueDamage <= 1f ? ImbueDamage * 1.075f : ImbueDamage.Pow(), 2) : 1f;
+		public virtual float ImbueSpeed => ((ScrollSpeed * .5f) + .5f).CleanRound();
+		public virtual float ImbueSize => ScrollSize < 1f ? ScrollSize : ScrollSize - .1f;
+		public virtual float ImbueDamage => ScrollDamage + 0.075f;
+		public abstract float ScrollSpeed { get; }
+		public abstract float ScrollSize { get; }
+		public abstract float ScrollDamage { get; }
 
 		/// <summary>
 		/// For magics or fighing styles, you may return any value
@@ -440,6 +440,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
 			if (!tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 			{
 				TooltipLine tip = new(Mod, "Drawback", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);

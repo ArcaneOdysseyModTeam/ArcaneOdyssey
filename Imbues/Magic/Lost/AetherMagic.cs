@@ -1,7 +1,7 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;

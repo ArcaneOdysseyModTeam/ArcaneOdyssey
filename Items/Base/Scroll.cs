@@ -237,6 +237,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
 			tooltips.AddTooltip(new(Mod, "ScrollTier", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Tier}", GetTierFormatting()).Value));
 			if (!HasCorrectImbue)
 			{

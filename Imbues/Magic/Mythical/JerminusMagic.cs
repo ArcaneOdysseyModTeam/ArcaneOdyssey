@@ -1,6 +1,6 @@
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 

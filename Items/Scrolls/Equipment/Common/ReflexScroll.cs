@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Items.Base;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -30,6 +29,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
 			var tool = tooltips.Find(e => e.Mod == "Terraria" && e.Name == "Tooltip1"); // second line of tooltip
 			if (tool != null && HasCorrectImbue)
 			{

@@ -1,11 +1,10 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Buffs.DOT;
+﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Gimmicks.FightingStyle;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,12 +12,13 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public class CannonFist : FightingStyle
 	{
+		public override ImbueGimmick Gimmick => ModContent.GetInstance<CannonFrenzy>();
 		public override float Aura => .875f;
 		public override Color ImbueColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
 		public override float ImbueDamage => 1.085f;
-		public override float ImbueSpeed => 1f;
+		
 		public override float ImbueSize => 1.056f;
 		public override float ScrollDamage => 0.7f;
 		public override float ScrollSize => 1f;
@@ -28,14 +28,15 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			base.SetDefaults();
 			Item.shoot = ProjectileID.CannonballFriendly;
-			Item.shootSpeed = 8f * ScrollSpeed;
+			Item.shootSpeed = 8f;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.DamageType = DamageClass.MeleeNoSpeed;
+			Item.DamageType = DamageClass.Melee;
 			Item.knockBack = 2f;
 		}
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
+			velocity *= ScrollSpeed;
 			if (player.ConsumeItem(ItemID.Cannonball))
 			{
 				velocity *= 2;
@@ -97,61 +98,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb, 15).Register();
-		}
-	}
-
-	public class CannonFistShooter : GlobalProjectile
-	{
-		public override void OnSpawn(Projectile projectile, IEntitySource source)
-		{
-			if (source is not EntitySource_Parent { Entity: NPC })
-			{
-				if (projectile.TryGetOwner(out Player player))
-				{
-					if (Main.myPlayer == player.whoAmI)
-					{
-						if (projectile.TryGetImbue(out var imbue) && imbue is CannonFist cfist)
-						{
-							if (!player.ArcaneOdyssey().OnCooldown(cfist.Name))
-							{
-								if (!projectile.DamageType.Name.Contains("TrueMelee") && projectile.type != ProjectileID.CannonballFriendly)
-								{
-									if (player.ConsumeItem(ItemID.Cannonball))
-									{
-										Projectile.NewProjectile(source, player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (projectile.damage * .5f).Round(), projectile.knockBack * .5f, player.whoAmI);
-									}
-									else
-										Projectile.NewProjectile(source, player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (projectile.damage * .25f).Round(), projectile.knockBack * .25f, player.whoAmI);
-									player.ArcaneOdyssey().SetCooldown(new Cooldown(cfist.Name, Mod, 60));
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public class CannonFistItemShot : GlobalItem
-	{
-		public override void UseAnimation(Item item, Player player)
-		{
-			if (Main.myPlayer == player.whoAmI)
-			{
-				if (item.Imbue() is CannonFist cfist && item.ArcaneOdyssey().WeaponsType == WeaponType.Arcanium)
-				{
-					if (!player.ArcaneOdyssey().OnCooldown(cfist.Name))
-					{
-						if (player.ConsumeItem(ItemID.Cannonball))
-						{
-							Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 20, ProjectileID.CannonballFriendly, (item.damage * .5f).Round(), item.knockBack * .5f, player.whoAmI);
-						}
-						else
-							Projectile.NewProjectile(item.GetSource_ItemUse(player), player.MountedCenter, player.SafeDirectionTo(Main.MouseWorld) * 10, ProjectileID.CannonballFriendly, (item.damage * .25f).Round(), item.knockBack * .25f, player.whoAmI);
-						player.ArcaneOdyssey().SetCooldown(new Cooldown(cfist.Name, Mod, 60));
-					}
-				}
-			}
 		}
 	}
 }

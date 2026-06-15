@@ -25,10 +25,8 @@ namespace ArcaneOdyssey.Imbues
 		public override Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue ?? ModContent.GetInstance<JerminusMagic>(); set => Item.ArcaneOdyssey().Imbue = value; }
 
 		public override float ScrollDamage => .85f;
-		public override float ImbueDamage => .925f;
 		public override float ScrollSize => 1.15f;
-		public override float ImbueSize => 1.1f;
-		public override float ImbueSpeed => 1;
+		public override float ScrollSpeed => 1f;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Scalding>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 
@@ -51,8 +49,6 @@ namespace ArcaneOdyssey.Imbues
 				Synergy.Create<SandyEffect>(.8f),
 			]
 		);
-
-
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{

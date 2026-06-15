@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ID;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks
+namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 {
 	public class InfiniteWoodWands : ImbueGimmick
 	{

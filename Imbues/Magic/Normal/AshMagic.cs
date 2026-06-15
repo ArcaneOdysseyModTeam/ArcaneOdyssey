@@ -2,7 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -28,9 +28,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(235, 40, 0, 0);
-		public override float ImbueSpeed => 0.975f;
-		public override float ImbueSize => 1.22f;
-		public override float ImbueDamage => 0.95f;
+		
+		
+		
 		public override float ScrollSpeed => 0.95f;
 		public override float ScrollSize => 1.25f;
 		public override float ScrollDamage => 0.875f;

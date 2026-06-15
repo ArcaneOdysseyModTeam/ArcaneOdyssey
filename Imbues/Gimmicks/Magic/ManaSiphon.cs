@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks
+namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 {
 	public class ManaSiphon : ImbueGimmick
 	{

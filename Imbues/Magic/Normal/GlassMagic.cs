@@ -22,9 +22,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float? DashResist => 1.05f;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override Color ImbueColour => new(255, 255, 255);
-		public override float ImbueSpeed => 1f;
-		public override float ImbueSize => 1.053f;
-		public override float ImbueDamage => 1f;
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.1f;
 		public override float ScrollDamage => 0.9f;

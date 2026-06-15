@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.Purple;
-		public override float ImbueSpeed => 0.925f;
-		public override float ImbueSize => 1f;
-		public override float ImbueDamage => 1f;
+		
+		
+		
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.05f;
 		public override float ScrollDamage => 0.875f;

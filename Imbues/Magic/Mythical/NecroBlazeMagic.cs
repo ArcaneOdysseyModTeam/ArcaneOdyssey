@@ -25,10 +25,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override bool CanBeWet => false;
-		public override float ImbueSpeed => 1f;
-		public override float ImbueSize => 1.15f;
+		public override float ScrollSpeed => 1f;
+		public override float ScrollSize => 1.15f;
 		public override bool Special => true;
-		public override float ImbueDamage => .85f;
+		public override float ScrollDamage => .85f;
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<NecroFlame>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];

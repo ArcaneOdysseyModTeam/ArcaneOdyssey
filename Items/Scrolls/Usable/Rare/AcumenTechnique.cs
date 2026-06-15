@@ -63,10 +63,11 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 			return true;
 		}
 
-		public override void ModifyTooltips(List<TooltipLine> list)
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
 			if (Main.LocalPlayer.ArcaneOdyssey().acumen)
-				list.AddTooltip(new(Mod, "AlreadyConsumed", Mod.CustomLocalization("RandomWords.Acumen").Value), Color.MediumVioletRed);
+				tooltips.AddTooltip(new(Mod, "AlreadyConsumed", Mod.CustomLocalization("RandomWords.Acumen").Value), Color.MediumVioletRed);
 		}
 	}
 }

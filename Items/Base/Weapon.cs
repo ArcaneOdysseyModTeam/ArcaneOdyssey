@@ -1,6 +1,9 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Debug;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -88,11 +91,23 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			base.SetDefaults();
 			Item.useTime = Item.useAnimation = (27 * Speed.FlipFloat().Pow()).Round();
-			Item.knockBack = 4.5f * Size.Pow();
+			Item.knockBack = MathF.Round(4.5f * Size.Pow(), 2);
 			Item.scale = Size.Pow();
 			Item.UseSound = UseSound with { Pitch = Speed.Pow().MultiToPercent().Clamp(-1, 1) };
 			Item.damage = (22 * (int)WeaponTier * Damage.Pow()).Round();
 			Item.DamageType = DamageClass.Melee;
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			base.ModifyTooltips(tooltips);
+			if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+			{
+				tooltips.AddTooltip(new(Mod, "DebugSpeed", nameof(Speed) + " " + Speed));
+				tooltips.AddTooltip(new(Mod, "DebugSize", nameof(Size) + " " + Size));
+				tooltips.AddTooltip(new(Mod, "DebugDamage", nameof(Damage) + " " + Damage));
+				tooltips.AddTooltip(new(Mod, "DebugTier", nameof(WeaponTier) + " " + ((int)WeaponTier)));
+			}
 		}
 	}
 }

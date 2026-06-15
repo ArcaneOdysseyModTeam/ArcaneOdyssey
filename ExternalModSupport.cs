@@ -24,6 +24,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using CalamityCalls = CalamityMod.ModCalls;
+using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey
 {
@@ -834,6 +835,41 @@ namespace ArcaneOdyssey
 				{
 					ArcaneOdysseyMod.Sets.claw[item.Type] = true;
 				}
+			}
+		}
+
+		public override void Load()
+		{
+			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				On_Dust.NewDust += DustScaleFixer;
+				On_Dust.NewDustDirect += DirectDustScaleFixer;
+				On_Dust.NewDustPerfect += PerfectDustScaleFixer;
+			}
+		}
+
+		private Dust PerfectDustScaleFixer(On_Dust.orig_NewDustPerfect orig, Vector2 Position, int Type, Vector2? Velocity, int Alpha, Color newColor, float Scale)
+		{
+			return orig(Position, Type, Velocity, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+		}
+
+		private Dust DirectDustScaleFixer(On_Dust.orig_NewDustDirect orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+		{
+			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+		}
+
+		private int DustScaleFixer(On_Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+		{
+			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+		}
+
+		public override void Unload()
+		{
+			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				On_Dust.NewDust -= DustScaleFixer;
+				On_Dust.NewDustDirect -= DirectDustScaleFixer;
+				On_Dust.NewDustPerfect -= PerfectDustScaleFixer;
 			}
 		}
 	}

@@ -9,12 +9,6 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
 		public override bool SaveBar => true;
 
 		public override float BarValueMulti => 1.25f;
-		public override float MaxImbueSpeed => 1f;
-		public override float MaxImbueDamage => .925f;
-		public override float MaxImbueSize => 1.278f;
-		public override float MinImbueSpeed => 1f;
-		public override float MinImbueDamage => .85f;
-		public override float MinImbueSize => .833f;
 		public override float MaxScrollSpeed => 1f;
 		public override float MaxScrollDamage => .85f;
 		public override float MaxScrollSize => 1.2f;

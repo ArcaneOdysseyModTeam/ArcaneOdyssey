@@ -2,7 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Microsoft.Xna.Framework;

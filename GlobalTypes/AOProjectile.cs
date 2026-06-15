@@ -350,8 +350,11 @@ namespace ArcaneOdyssey.GlobalTypes
 					SecondImbue?.SpawningEffects(projectile.Hitbox, projectile.velocity);
 				}
 
-				Imbue?.Gimmick?.SpawningEffects(projectile);
-				SecondImbue?.Gimmick?.SpawningEffects(projectile);
+				if (projectile.owner == Main.myPlayer)
+				{
+					Imbue?.Gimmick?.SpawningEffects(projectile);
+					SecondImbue?.Gimmick?.SpawningEffects(projectile);
+				}
 			}
 
 			var mult = ApplySize(1f);

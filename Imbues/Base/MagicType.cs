@@ -22,6 +22,10 @@ namespace ArcaneOdyssey.Imbues.Base
 			ModTypeLookup<MagicType>.Register(this);
 		}
 
+		public sealed override float ImbueDamage => base.ImbueDamage;
+		public sealed override float ImbueSize => base.ImbueSize;
+		public sealed override float ImbueSpeed => base.ImbueSpeed;
+
 		public abstract MagicCircleTypes CircleType { get; }
 
 		public class MagicCircle(ImbuableTiers tier, MagicCircleTypes type)
@@ -138,12 +142,14 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			base.NetSend(writer);
 			writer.Write(OriginalImbue.Type);
+			writer.Write(cachedUnloadedBase ?? "");
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			base.NetReceive(reader);
 			OriginalImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+			cachedUnloadedBase = reader.ReadString();
 		}
 
 		public abstract void RegisterMutations();

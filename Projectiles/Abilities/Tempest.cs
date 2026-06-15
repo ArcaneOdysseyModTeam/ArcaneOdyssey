@@ -44,6 +44,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.usesIDStaticNPCImmunity = true;
 			Projectile.idStaticNPCHitCooldown = 25;
 			Projectile.ownerHitCheck = true;
+			Projectile.penetrate = -1;
 		}
 
 		public override bool PreDraw(ref Color lightColor)

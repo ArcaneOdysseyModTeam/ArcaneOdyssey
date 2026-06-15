@@ -1,6 +1,6 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -22,9 +22,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item17;
 		public override Color ImbueColour => new(105, 0, 105, 255);
-		public override float ImbueSpeed => 1f;
-		public override float ImbueSize => 1.11f;
-		public override float ImbueDamage => 0.825f;
+		
+		
+		
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 0.75f;

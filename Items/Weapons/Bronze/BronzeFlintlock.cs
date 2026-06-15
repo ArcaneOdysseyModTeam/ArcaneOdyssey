@@ -16,6 +16,8 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 		public override ItemTiers WeaponTier => ItemTiers.Average;
 		public override SoundStyle UseSound => SoundID.Item11; // PORT change to 134
 
+		public override float Damage => .8f;
+
 		public override Color Motif => Color.Orange;
 
 		public override ItemRarities Rarity => ItemRarities.Uncommon;
@@ -50,7 +52,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 				{
 					var offset = MathHelper.TwoPi / 16f;
 					var velo = (velocity.ToRotation() - offset + (offset * 2 * Main.rand.NextFloat())).ToRotationVector2() * velocity.Length();
-					Projectile.NewProjectile(source, position, velo, type, damage / 4, knockback / 4, player.whoAmI);
+					Projectile.NewProjectile(source, position, velo, type, damage / 3, knockback / 4, player.whoAmI);
 				}
 				return false;
 			}

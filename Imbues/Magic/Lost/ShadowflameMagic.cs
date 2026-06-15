@@ -30,9 +30,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override bool CanBeWet => true;
-		public override float ImbueSpeed => 1.1f;
-		public override float ImbueSize => 1.15f;
-		public override float ImbueDamage => 1.1f;
+		public override float ScrollSpeed => 1.1f;
+		public override float ScrollSize => 1.15f;
+		public override float ScrollDamage => 1.1f;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Shadowflame>()];

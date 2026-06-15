@@ -23,6 +23,8 @@ namespace ArcaneOdyssey.Items.Weapons.Atlantean
 
 		public override float Damage => .925f;
 
+		public override int Value => 20;
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

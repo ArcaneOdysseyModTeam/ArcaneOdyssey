@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks;
+using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -22,9 +22,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Poisoned>(60 * 10),];
 		public override SoundStyle? ImbueSound => SoundID.Grass;
-		public override float ImbueSpeed => 1.05f;
-		public override float ImbueSize => 1.2f;
-		public override float ImbueDamage => .95f;
+		public override float ScrollSpeed => 1.05f;
+		public override float ScrollSize => 1.2f;
+		public override float ScrollDamage => .95f;
 		public override SynergyEffects Effects => new([],
 			[
 				Synergy.Create<Scorched>(1.15f),

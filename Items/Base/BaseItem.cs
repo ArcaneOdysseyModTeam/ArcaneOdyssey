@@ -1,5 +1,8 @@
-﻿using ArcaneOdyssey.Rarities;
+﻿using ArcaneOdyssey.Items.Debug;
+using ArcaneOdyssey.Rarities;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
@@ -24,6 +27,13 @@ namespace ArcaneOdyssey.Items.Base
 				Item.rare = ModContent.RarityType<HotPinkRare>();
 			}
 			Item.value = AOUtils.GalleonToCopper(Value);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			base.ModifyTooltips(tooltips);
+			if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+				tooltips.AddTooltip(new(Mod, "DebugValue", nameof(Value) + " " + Value));
 		}
 
 		public virtual int Value => 0;

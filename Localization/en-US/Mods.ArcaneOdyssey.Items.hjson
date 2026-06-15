@@ -373,6 +373,11 @@ Debug: {
 		DisplayName: Matrix Copier
 		Tooltip: DEBUG - Left click to copy misc stats, right click to fully copy magic
 	}
+
+	TesterGoggles: {
+		DisplayName: Tester Goggles
+		Tooltip: DEBUG - Allows you to see hidden item data
+	}
 }
 
 EmptyScrolls: {

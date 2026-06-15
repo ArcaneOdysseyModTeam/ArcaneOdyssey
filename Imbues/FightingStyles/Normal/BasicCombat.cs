@@ -11,8 +11,8 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override float Aura => 1f;
 		public override Color ImbueColour => Color.White;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
-		public override float ImbueDamage => 1.075f;
-		public override float ImbueSpeed => 1f;
+		
+		
 		public override float ImbueSize => 1.06f;
 		public override float ScrollDamage => .925f;
 		public override float ScrollSize => 1f;

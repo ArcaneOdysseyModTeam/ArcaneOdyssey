@@ -24,6 +24,8 @@ namespace ArcaneOdyssey.Items.Weapons.Atlantean
 
 		public override float Speed => .9f;
 
+		public override int Value => 80;
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

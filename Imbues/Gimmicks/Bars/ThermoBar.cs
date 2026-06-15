@@ -8,13 +8,6 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
 	public sealed class ThermoBar : BarGimmick
 	{
 		public override float BarValueMulti => 1f;
-
-		public override float MaxImbueSpeed => 1.3f;
-		public override float MaxImbueDamage => .85f;
-		public override float MaxImbueSize => .833f;
-		public override float MinImbueSpeed => 1f;
-		public override float MinImbueDamage => .85f;
-		public override float MinImbueSize => .833f;
 		public override float MaxScrollSpeed => 1.3f;
 		public override float MaxScrollDamage => .75f;
 		public override float MaxScrollSize => .8f;

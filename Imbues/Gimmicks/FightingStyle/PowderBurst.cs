@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks
+namespace ArcaneOdyssey.Imbues.Gimmicks.FightingStyle
 {
 	public class PowderBurst : ImbueGimmick
 	{
@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Imbues.Gimmicks
 		{
 			Projectile.NewProjectile(item.GetSource_ItemUse(player), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), damageDone / 2, 3f, player.whoAmI);
 		}
+
 		public override void KillEffects(Projectile projectile)
 		{
 			Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), projectile.damage / 2, 3f, projectile.owner);

@@ -22,9 +22,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override Color ImbueColour => new(0, 30, 255);
-		public override float ImbueSpeed => 1f;
-		public override float ImbueSize => 1.22f;
-		public override float ImbueDamage => 0.975f;
+		
+		
+		
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.25f;
 		public override float ScrollDamage => 0.9f;

@@ -27,11 +27,8 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public float LerpValue => MathHelper.Clamp(BarValue * Bar.BarValueMulti / BarMax, 0f, 1f);
 
-		public sealed override float ImbueDamage { get => MathHelper.Lerp(Bar.MinImbueDamage, Bar.MaxImbueDamage, LerpValue); }
 		public sealed override float ScrollDamage { get => MathHelper.Lerp(Bar.MinScrollDamage, Bar.MaxScrollDamage, LerpValue); }
-		public sealed override float ImbueSpeed { get => MathHelper.Lerp(Bar.MinImbueSpeed, Bar.MaxImbueSpeed, LerpValue); }
 		public sealed override float ScrollSpeed { get => MathHelper.Lerp(Bar.MinScrollSpeed, Bar.MaxScrollSpeed, LerpValue); }
-		public sealed override float ImbueSize { get => MathHelper.Lerp(Bar.MinImbueSize, Bar.MaxImbueSize, LerpValue); }
 		public sealed override float ScrollSize { get => MathHelper.Lerp(Bar.MinScrollSize, Bar.MaxScrollSize, LerpValue); }
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

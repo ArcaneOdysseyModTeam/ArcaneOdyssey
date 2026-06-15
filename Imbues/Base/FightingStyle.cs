@@ -11,10 +11,11 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.Load();
 			ModTypeLookup<FightingStyle>.Register(this);
 		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
+			Item.DamageType = AOUtils.TrueMelee();
 			Item.shoot = ModContent.ProjectileType<BasicStrike>();
 			Item.autoReuse = true;
 			Item.damage = 15 + (120 * (int)ImbuableTier);

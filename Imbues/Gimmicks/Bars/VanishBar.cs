@@ -8,20 +8,13 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
 {
 	public sealed class VanishBar : BarGimmick
 	{
-		public override float MinImbueSpeed => !VanishingStyle.HasYou ? 1.1f : 1.5f;
-
 		public override float BarValueMulti => 1.111f;
-		public override float MinImbueDamage => !VanishingStyle.HasYou ? .85f : 1f;
-		public override float MinImbueSize => !VanishingStyle.HasYou ? 1.056f : 1.2f;
 		public override float MinScrollSize => !VanishingStyle.HasYou ? 1.0f : 1.125f;
-		public override float MaxScrollSpeed => MinScrollSpeed;
-		public override float MaxScrollDamage => MinScrollDamage;
-		public override float MaxScrollSize => MinScrollSize;
-		public override float MinScrollSpeed => MinImbueSpeed;
-		public override float MinScrollDamage => MinImbueDamage;
-		public override float MaxImbueSpeed => MinImbueSpeed;
-		public override float MaxImbueDamage => MinImbueDamage;
-		public override float MaxImbueSize => MinImbueSize;
+		public override float MinScrollSpeed => MinScrollSpeed;
+		public override float MinScrollDamage => MaxScrollDamage;
+		public override float MaxScrollSpeed => !VanishingStyle.HasYou ? 1.1f : 1.5f;
+		public override float MaxScrollDamage => !VanishingStyle.HasYou ? .85f : 1f;
+		public override float MaxScrollSize => !VanishingStyle.HasYou ? 1.056f : 1.2f;
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{
