@@ -125,15 +125,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			return false;
 		}
 
-		public static Imbuable[] AllValidEnemyImbues
-		{
-			get
-			{
-				var imbues = ModContent.GetContent<Imbuable>().ToList();
-				imbues.RemoveAll(e => !IsValidEnemyImbue(e));
-				return [.. imbues];
-			}
-		}
+		public static IEnumerable<Imbuable> AllValidEnemyImbues => ModContent.GetContent<Imbuable>().Where(IsValidEnemyImbue);
 
 		public WeaponAbility? Property
 		{
@@ -144,19 +136,9 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					ab.Colour = Imbue.ImbueColour;
 				}
-				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Property.DisplayName") && Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Property.Description"))
+				if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Ability"))
 				{
-					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Property.DisplayName").Value;
-					ab.Description = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Property.Description").Value;
-					if (Imbue is not null)
-					{
-						ab.Name = (Imbue.PrettyAttackPrefix + " " + ab.Name).Trim();
-					}
-					return ab;
-				}
-				else if (Language.Exists($"Mods.{Mod.Name}.{LocalizationCategory}.{Name}.Property"))
-				{
-					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Property").Value;
+					ab.Name = Mod.CustomLocalization($"{LocalizationCategory}.{Name}.Ability").Value;
 					ab.Description = null;
 					return ab;
 				}
@@ -223,7 +205,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual SynergyEffects Effects => new();
 		public abstract Color ImbueColour { get; }
 		public virtual Color ImbueColour2 => Color.White;
-		public virtual ColourTransitionStyle TransitionStyle => ColourTransitionStyle.None;
+		public virtual bool AnimatedColours => false;
 		public virtual Combo[] CombinedDebuffs => [];
 		public virtual SoundStyle? ImbueSound => null;
 
@@ -253,7 +235,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
 		{
-			Gimmick?.ModifyManaCost(Item, player, ref reduce, ref mult);
+			Gimmick?.ModifyManaCost(player, ref reduce, ref mult);
 		}
 
 		/// <summary>
@@ -348,17 +330,9 @@ namespace ArcaneOdyssey.Imbues.Base
 					}
 					return Color.Lerp(colour, ImbueColour, bar.LerpValue);
 				}
-				if (TransitionStyle == ColourTransitionStyle.Smooth)
+				if (AnimatedColours)
 				{
-					return Color.Lerp(ImbueColour, colour, Math.Abs(MathF.Sin(AOUtils.UpdateCount)));
-				}
-				else if (TransitionStyle == ColourTransitionStyle.Tangent)
-				{
-					return Color.Lerp(colour, ImbueColour, Math.Abs(MathF.Tan(AOUtils.UpdateCount)));
-				}
-				else if (TransitionStyle == ColourTransitionStyle.Linear)
-				{
-					return Color.Lerp(ImbueColour, colour, Math.Abs((AOUtils.UpdateCount % 2f) - 1f));
+					return Color.Lerp(ImbueColour, colour, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
 				}
 				return ImbueColour;
 			}
@@ -644,13 +618,5 @@ namespace ArcaneOdyssey.Imbues.Base
 		}
 		public override bool ConsumeItem(Player player) => false;
 		#endregion
-	}
-
-	public enum ColourTransitionStyle
-	{
-		None,
-		Smooth,
-		Tangent,
-		Linear
 	}
 }

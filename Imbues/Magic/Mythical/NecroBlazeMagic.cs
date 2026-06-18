@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
 		public override Color ImbueColour => Color.Black;
 		public override Color ImbueColour2 => new(0, 200, 150);
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override bool CanBeWet => false;
 		public override float ScrollSpeed => 1f;

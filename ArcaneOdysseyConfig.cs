@@ -49,12 +49,12 @@ namespace ArcaneOdyssey
 
 		public override void OnChanged()
 		{
-			foreach (var i in ArcaneOdysseyMod.Sets.toggleablePulse)
+			for (int i = 0; i < ArcaneOdysseyMod.Sets.toggleablePulse.Length; i++)
 			{
-				ItemID.Sets.ItemIconPulse[i] = PulsingImbueIcons;
+				if (ArcaneOdysseyMod.Sets.toggleablePulse[i])
+					ItemID.Sets.ItemIconPulse[i] = PulsingImbueIcons;
 			}
 		}
-
 
 		public static ArcaneOdysseyClientConfig Instance;
 	}

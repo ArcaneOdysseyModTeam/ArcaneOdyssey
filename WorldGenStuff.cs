@@ -132,7 +132,7 @@ namespace ArcaneOdyssey
 							{
 								if (chest.item[i] != null && chest.item[i].IsAir)
 								{
-									chest.item[i].SetDefaults(WorldGen.genRand.Next(ArcaneOdysseyMod.Sets.OldWeapons));
+									chest.item[i].SetDefaults(WorldGen.genRand.Next(AOItem.oldWeapons));
 									break;
 								}
 							}

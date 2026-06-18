@@ -178,7 +178,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 				ItemID.Sets.ItemNoGravity[Type] = true;
 
 				ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
-				ArcaneOdysseyMod.Sets.toggleablePulse.Add(Type);
+				ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
 
 				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.Assets.raySprites[Type]) & ArcaneOdysseyMod.DevMode)
 				{

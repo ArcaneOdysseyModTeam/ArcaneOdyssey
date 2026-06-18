@@ -415,3 +415,10 @@ Edgelord: {
 	DisplayName: Curse Thief
 	Tooltip: ""
 }
+
+SealedChests: {
+	DarkSealedChest: {
+		DisplayName: Dark unsealed chest
+		Tooltip: ""
+	}
+}

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ArcaneOdyssey.Items.SealedChests;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs.Town
@@ -80,20 +80,26 @@ namespace ArcaneOdyssey.NPCs.Town
 		public override void SetChatButtons(ref string button, ref string button2) // PORT change to new method
 		{
 			button = Mod.CustomLocalization("RandomWords.Travel").Value;
-			button2 = Language.GetTextValue("LegacyInterface.28");
+			button2 = Mod.CustomLocalization("RandomWords.Unseal").Value;
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName) // PORT change to new method
 		{
 			if (firstButton)
 			{
-				// open odyssey system
-				Main.npcChatText = "Odyssey System!";
+				// open odyssey system and ship shop
+				Main.npcChatText = "Odyssey System! (maybe also ship shop later)";
 			}
 			else
 			{
-				// buy ships for dark sea
-				shopName = "Shop";
+				// change to cycle first button later?
+				// unbox sealed crates
+				Main.npcChatText = $"Unsealed {/*Main.LocalPlayer.ArcaneOdyssey().BronzeSealed + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed + */Main.LocalPlayer.ArcaneOdyssey().DarkSealed} chests";
+				if (Main.LocalPlayer.ArcaneOdyssey().DarkSealed > 0)
+				{
+					Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_FromThis(), ModContent.ItemType<DarkSealedChest>(), Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
+				}
+				Main.LocalPlayer.ArcaneOdyssey().DarkSealed = 0;
 			}
 		}
 
@@ -101,7 +107,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override string GetChat()
 		{
-			return "Greetings, " + Main.LocalPlayer.name + ".";
+			return $"Greetings, {Main.LocalPlayer.name}.";
 
 			List<string> options = [];
 

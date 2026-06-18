@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(255, 124, 43);
 		public override Color ImbueColour2 => new(227, 73, 52);
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
+		public override bool AnimatedColours => true;
 		public override bool CanBeWet => false;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
@@ -106,7 +106,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void RegisterMutations()
 		{
-			RegisterDefaultMagic<MagmaMagic>();
+			RegisterDefaultMagic<PlasmaMagic>();
 		}
 	}
 }

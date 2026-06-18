@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
     {
         public override Color ImbueColour => Color.White;
 		public override Color ImbueColour2 => Color.Black;
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
         public override float ScrollDamage => 0.5f;
         public override float ScrollSize => 5f;
         public override float ScrollSpeed => 2.3f;

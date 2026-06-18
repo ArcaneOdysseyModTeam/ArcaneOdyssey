@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.Violet;
 		public override Color ImbueColour2 => Color.PaleVioletRed;
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
+		public override bool AnimatedColours => true;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override float ScrollSpeed => (0.95f * 1.1f).CleanRound();

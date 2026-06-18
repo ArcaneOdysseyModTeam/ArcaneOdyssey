@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override Color ImbueColour => Color.DarkGray;
 		public override Color ImbueColour2 => Color.LightGray;
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 

@@ -276,4 +276,37 @@ namespace ArcaneOdyssey
 
 		public string GetConditionDescription() => description;
 	}
+
+	public class GalleonsRule(int min, int max) : IItemDropRule
+	{
+		public int min = AOUtils.GalleonToCopper(min);
+		public int max = AOUtils.GalleonToCopper(max);
+
+		public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; }
+
+		public bool CanDrop(DropAttemptInfo info) => true;
+
+		public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
+		{
+			var avg = (min + max) / 2;
+
+			foreach ((int itemId, int count) in CoinsRule.ToCoins(avg))
+			{
+				drops.Add(new DropRateInfo(itemId, count, count, ratesInfo.parentDroprateChance, ratesInfo.conditions));
+			}
+
+			Chains.ReportDroprates(ChainedRules, 1, drops, ratesInfo);
+		}
+
+		public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			var amount = Main.rand.Next(min, max + 1);
+			foreach ((int itemId, int count) in CoinsRule.ToCoins(amount))
+			{
+				CommonCode.DropItem(info, itemId, count);
+			}
+
+			return new() { State = ItemDropAttemptResultState.Success };
+		}
+	}
 }

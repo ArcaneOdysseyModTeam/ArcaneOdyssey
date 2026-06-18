@@ -200,7 +200,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		ProductSpotLight.ChangeType(product.Item);
 
 		SpotTitle.SetText(product.Item.Item.Name);
-		if (product.Item is MagicType magic)
+		if (product.Item is Imbuable magic)
 		{
 			// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
 			string prefix = magic.ImbueDebuffs.Length switch
@@ -232,7 +232,8 @@ public partial class MutateThyMagicUI : BaseImbueUI
 				abiliytext += magic.Property.Value.Name + "\n";
 			}
 
-			SpotStats.SetText(abiliytext +
+			SpotStats.SetText(
+				abiliytext +
 				$"Size: {magic.ScrollSize} \n" +
 				$"Speed: {magic.ScrollSpeed} \n" +
 				$"Damage: {magic.ScrollDamage} \n" +

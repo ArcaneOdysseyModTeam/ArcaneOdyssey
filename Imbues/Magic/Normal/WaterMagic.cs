@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<LunarMagic>();
 			RegisterMutation<OilMagic>();
 			RegisterMutation<StormMagic>();
+			RegisterMutation<PlantMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }

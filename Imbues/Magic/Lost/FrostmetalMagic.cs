@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 		public override Color ImbueColour => new(65, 150, 177);
 		public override Color ImbueColour2 => new(100, 100, 100);
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override float ScrollSpeed => 0.65f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.2f;

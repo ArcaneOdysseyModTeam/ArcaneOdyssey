@@ -18,7 +18,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<BlizzardMagic>();
 			RegisterMutation<CloudMagic>();
 			RegisterMutation<FrostmetalMagic>();
-			RegisterMutation<StormMagic>();
 		}
 		public override bool Special => true;
 		public override float? DashResist => 1.05f;

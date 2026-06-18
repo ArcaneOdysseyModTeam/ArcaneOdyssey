@@ -17,7 +17,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<HeatMagic>();
 			RegisterMutation<PhoenixMagic>();
 			RegisterMutation<SunMagic>();
-			RegisterMutation<ShadowflameMagic>();
 			RegisterMutation<AetherLightningMagic>();
 			RegisterMutation<RuptureMagic>();
 		}

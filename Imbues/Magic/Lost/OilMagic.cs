@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(20, 20, 20); // lerp between purple and gray quickly, more commonly gray
 		public override Color ImbueColour2 => Color.Black;
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override float ScrollSpeed => 1.1f;
 		public override float ScrollSize => 1.25f;
 		public override float ScrollDamage => 1.28f;

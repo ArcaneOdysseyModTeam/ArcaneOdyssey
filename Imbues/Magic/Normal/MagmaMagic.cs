@@ -15,10 +15,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float Aura => 1f;
 		public override void RegisterMutations()
 		{
-			RegisterMutation<DiamondMagic>();
 			RegisterMutation<GravityMagic>();
 			RegisterMutation<HeatMagic>();
-			RegisterMutation<ShadowflameMagic>();
 			RegisterMutation<SunMagic>();
 			RegisterMutation<PhoenixMagic>();
 		}

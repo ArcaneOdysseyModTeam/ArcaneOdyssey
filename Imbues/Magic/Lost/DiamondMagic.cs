@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollDamage => 1.1f;
 		public override Color ImbueColour => new(0, 210, 217);
 		public override Color ImbueColour2 => new(158, 252, 255);
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
+		public override bool AnimatedColours => true;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];

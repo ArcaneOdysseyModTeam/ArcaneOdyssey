@@ -214,6 +214,13 @@ Lost: {
 		DisplayName: Rupture Magic
 		Tooltip: ""
 	}
+
+	WaveMagic: {
+		AttackPrefix: Surging
+		SpellPrefix: Wave
+		DisplayName: Wave Magic
+		Tooltip: ""
+	}
 }
 
 Normal: {

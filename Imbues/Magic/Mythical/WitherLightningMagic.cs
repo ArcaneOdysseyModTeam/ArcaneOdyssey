@@ -18,6 +18,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override float ScrollSpeed => base.ScrollSpeed * 2.5f;
 		public override float ScrollSize => base.ScrollSize * 1.5f;
 
+		public override bool AnimatedColours => true;
+
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 
 		public override SynergyEffects Effects => base.Effects + AOUtils.CopySynergiesFromImbue<AncientLightningMagic>();

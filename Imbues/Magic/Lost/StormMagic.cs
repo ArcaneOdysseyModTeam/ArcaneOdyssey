@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.Thunder with { Volume = .6f }; // PORT change to InstantThunder
 		public override Color ImbueColour => Color.DarkGray;
 		public override Color ImbueColour2 => Color.Purple;
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override float ScrollSpeed => 1.275f;
 		public override float ScrollSize => 1.265f;
 		public override float ScrollDamage => .95f;
@@ -120,7 +120,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void RegisterMutations()
 		{
-			RegisterDefaultMagic<SnowMagic>();
+			RegisterDefaultMagic<WaterMagic>();
 		}
 	}
 }

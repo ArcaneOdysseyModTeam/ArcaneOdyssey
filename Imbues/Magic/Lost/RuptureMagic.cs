@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override Color ImbueColour2 => Color.Black;
 
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 
 		public override void RegisterMutations()
 		{

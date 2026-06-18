@@ -47,6 +47,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldSword>();
 			ArcaneOdysseyMod.Sets.rapier[Type] = true;
+			ArcaneOdysseyMod.Sets.OldWeapon[Type] = true;
 		}
 	}
 }

@@ -23,6 +23,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<HeatMagic>();
 			RegisterMutation<SoundMagic>();
 			RegisterMutation<StormMagic>();
+			RegisterMutation<RegulusMagic>();
 		}
 		public override bool ImmuneDash => true; // instant
 		public override float KBMulti => 2f;

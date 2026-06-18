@@ -27,6 +27,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			Item.hammer = 90;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -36,8 +37,6 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override int Value => 600;
 
 		public override Debuff? WeaponDebuff => null;
-
-
 
 		public override bool AltFunctionUse(Player player) => true;
 

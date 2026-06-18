@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Purple;
 		public override Color ImbueColour2 => new(105, 0, 105, 255);
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
+		public override bool AnimatedColours => true;
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 0.9f;
 		public override float ScrollSpeed => 1.4f;

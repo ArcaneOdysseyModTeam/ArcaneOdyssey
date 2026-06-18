@@ -4,7 +4,6 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
-using ArcaneOdyssey.Items.Weapons.Old;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Town;
 using Microsoft.Xna.Framework;
@@ -282,15 +281,23 @@ namespace ArcaneOdyssey
 
 
 		[ReinitializeDuringResizeArrays]
-		public static class Sets
+		public class Sets : ModSystem
 		{
 			public static bool[] excludedItem = ItemID.Sets.Factory.CreateBoolSet();
 
 			public static bool[] excludedProjectile = ProjectileID.Sets.Factory.CreateBoolSet();
 
-			public static int[] OldWeapons = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>()];
+			public static bool[] OldWeapon = ItemID.Sets.Factory.CreateBoolSet();
 
 			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
+			public override void ResizeArrays()
+			{
+				// manually change default value
+				for (int i = 0; i < Mutations.Length; i++)
+				{
+					Mutations[i] = [];
+				}
+			}
 
 			public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet(0,
 				ItemID.MoltenBreastplate, 7,
@@ -298,7 +305,7 @@ namespace ArcaneOdyssey
 				ItemID.MoltenHelmet, 3
 			);
 
-			public static List<int> toggleablePulse = [];
+			public static bool[] toggleablePulse = ItemID.Sets.Factory.CreateBoolSet();
 
 			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0,
 				ItemID.NecroBreastplate, 7,

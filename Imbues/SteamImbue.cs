@@ -79,7 +79,7 @@ namespace ArcaneOdyssey.Imbues
 			ItemID.Sets.ItemNoGravity[Type] = true;
 
 			ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
-			ArcaneOdysseyMod.Sets.toggleablePulse.Add(Type);
+			ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
 		}
 	}
 }

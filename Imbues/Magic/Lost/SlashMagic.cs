@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
 		public override Color ImbueColour => new(0, 255, 0);
 		public override Color ImbueColour2 => new(0, 120, 0);
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<HeavyBleed>()];
 		public override SoundStyle? ImbueSound => SoundID.Item71;
 		public override SynergyEffects Effects => new(

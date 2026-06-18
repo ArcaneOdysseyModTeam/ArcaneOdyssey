@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => Color.LightBlue;
 		public override Color ImbueColour2 => Color.Blue;
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Ancient;
 		public override bool CanBeWet => false;
 		public override float ScrollSpeed => 1f;

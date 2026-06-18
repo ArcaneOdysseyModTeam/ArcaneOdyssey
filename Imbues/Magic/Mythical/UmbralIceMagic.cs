@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override float? DashResist => 1.3f;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override float Aura => 1.1f;

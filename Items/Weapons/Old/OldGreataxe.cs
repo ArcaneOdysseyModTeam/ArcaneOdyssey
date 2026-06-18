@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 			base.SetStaticDefaults();
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<OldGreatsword>();
 			ArcaneOdysseyMod.Sets.greataxe[Type] = true;
+			ArcaneOdysseyMod.Sets.OldWeapon[Type] = true;
 		}
 
 		public override void SetDefaults()

@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float? DashResist => 1.05f;
 		public override Color ImbueColour => Color.ForestGreen;
 		public override Color ImbueColour2 => Color.PaleGreen;
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Tangent;
+		public override bool AnimatedColours => true;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Poisoned>(60 * 10),];
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override float ScrollSpeed => 1.05f;

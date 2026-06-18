@@ -75,14 +75,13 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ArcaneOdysseyMod.Sets.Mutations[Type] = [];
 			RegisterMutations();
 			ArcaneOdysseyMod.Sets.Mutations[Type] = [.. ArcaneOdysseyMod.Sets.Mutations[Type].OrderBy(e => ModContent.GetModItem(e).DisplayName.Value)];
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			ArcaneOdysseyMod.Sets.BlastMaxFrames[Type] = BlastFrames;
 
 			ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
-			ArcaneOdysseyMod.Sets.toggleablePulse.Add(Type);
+			ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
 
 			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out ArcaneOdysseyMod.Sets.Assets.annihilationSprites[Type]) & ArcaneOdysseyMod.DevMode)
 			{

@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override Color ImbueColour => new(217, 0, 255);
 		public override Color ImbueColour2 => new(0, 196, 52);
-		public override ColourTransitionStyle TransitionStyle => ColourTransitionStyle.Smooth;
+		public override bool AnimatedColours => true;
 
 		public override float ScrollSpeed => 1.1f;
 		public override float ScrollDamage => 1.125f;

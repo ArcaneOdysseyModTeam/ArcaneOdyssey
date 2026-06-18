@@ -936,8 +936,22 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
+		internal static List<int> oldWeapons = null;
+
 		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
+			if (oldWeapons is null)
+			{
+				oldWeapons = new List<int>(ArcaneOdysseyMod.Sets.OldWeapon.Length);
+				for (int i = 0; i < ArcaneOdysseyMod.Sets.OldWeapon.Length; i++)
+				{
+					if (ArcaneOdysseyMod.Sets.OldWeapon[i])
+					{
+						oldWeapons.Add(i);
+					}
+				}
+			}
+			
 			bool addedScrap = false;
 
 			if (item.type == ItemID.WoodenCrateHard)
@@ -960,7 +974,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (item.type == ItemID.GoldenCrate)
 			{
-				itemLoot.Add(new AnyDropHelper(ArcaneOdysseyMod.Sets.OldWeapons, 5));
+				itemLoot.Add(new AnyDropHelper([.. oldWeapons], 5));
 			}
 
 			if (item.type == ItemID.GoldenCrateHard)
@@ -970,7 +984,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunkenScrap>(), 15));
 					addedScrap = true;
 				}
-				itemLoot.Add(new AnyDropHelper(ArcaneOdysseyMod.Sets.OldWeapons, 5));
+				itemLoot.Add(new AnyDropHelper([.. oldWeapons], 5));
 			}
 
 			if (ItemID.Sets.IsFishingCrateHardmode[item.type])

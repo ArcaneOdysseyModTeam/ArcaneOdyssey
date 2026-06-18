@@ -33,6 +33,14 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// <param name="reduce"></param>
 		/// <param name="mult"></param>
 		public virtual void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult) { }
+
+		/// <summary>
+		/// Modifies the mana cost of the imbue
+		/// </summary>
+		/// <param name="player"></param>
+		/// <param name="reduce"></param>
+		/// <param name="mult"></param>
+		public virtual void ModifyManaCost(Player player, ref float reduce, ref float mult) { }
 		/// <summary>
 		/// Called when an imbued projectile hits an NPC
 		/// </summary>
