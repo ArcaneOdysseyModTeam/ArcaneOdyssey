@@ -899,6 +899,6 @@ namespace ArcaneOdyssey
 
 		public override string Texture => Mod.Name + "/Assets/ImbuesFilter";
 
-		public override Position GetDefaultPosition() => new AfterParent(FilteringOptionLoader.Definitions.MiscGameplayItems); // might not work till aqua finishes his update
+		public override Position GetDefaultPosition() => new Between(FilteringOptionLoader.Definitions.Magic, FilteringOptionLoader.Definitions.Summon); // might not work till aqua finishes his update
 	}
 }

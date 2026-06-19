@@ -90,7 +90,7 @@ namespace ArcaneOdyssey.Items.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useTime = Item.useAnimation = (27 * Speed.FlipFloat().Pow()).Round();
+			Item.useTime = Item.useAnimation = (27 * Speed.FlipFloat()).Round();
 			Item.knockBack = MathF.Round(4.5f * Size.Pow(), 2);
 			Item.scale = Size.Pow();
 			Item.UseSound = UseSound with { Pitch = Speed.Pow().MultiToPercent().Clamp(-1, 1) };
