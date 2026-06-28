@@ -1,0 +1,81 @@
+﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Items.Base;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ArcaneOdyssey.Items.Accessories.Helpers
+{
+	[AutoloadEquip(EquipType.Wings)]
+	public class PhoenixWings : BaseItem
+	{
+		public override ItemRarities Rarity => ItemRarities.Unknown;
+
+		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+		{
+			ascentWhenFalling = PhoenixMagic.AscentWhenFalling;
+			ascentWhenRising = PhoenixMagic.AscentWhenRising;
+			maxCanAscendMultiplier = PhoenixMagic.MaxCanAscendMultiplier;
+			maxAscentMultiplier = PhoenixMagic.MaxAscentMultiplier;
+			constantAscend = PhoenixMagic.ConstantAscend;
+
+			if (player.TryingToHoverDown && player.controlJump && player.wingTime > 0f && !player.merman)
+			{
+				player.wingTime += 0.5f;
+				player.velocity.Y *= 0.8f;
+				if (player.velocity.Y > -2f && player.velocity.Y < 1f)
+					player.velocity.Y = 0.00001f;
+				ascentWhenFalling *= 0f;
+				ascentWhenRising *= 0f;
+				constantAscend *= 0f;
+			}
+		}
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			base.UpdateAccessory(player, hideVisual);
+			if (player.HasTypeInInventory<PhoenixMagic>())
+			{
+				player.noFallDmg = true;
+				if (!hideVisual)
+				{
+					Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
+					Lighting.AddLight(spawnPos, PhoenixMagic.Instance.Colour.ToVector3() * 1.5f);
+				}
+			}
+			else
+			{
+				Item.TurnToAir();
+			}
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			base.UpdateInventory(player);
+			if (!player.HasTypeInInventory<PhoenixMagic>())
+			{
+				Item.TurnToAir();
+			}
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 12f, 12f);
+			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.accessory = true;
+		}
+
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			Item.TurnToAir();
+		}
+	}
+}

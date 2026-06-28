@@ -4,40 +4,36 @@ using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Items.Accessories.Helpers;
+using ArcaneOdyssey.Spells.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Imbues.Magic.Lost
+namespace ArcaneOdyssey.Imbues.Magic.Lost 
 {
-	[AutoloadEquip(EquipType.Wings)]
 	public class PhoenixMagic : MagicType
 	{
+		public static PhoenixMagic Instance;
+
+		public override void Load()
+		{
+			base.Load();
+			Instance = this;
+		}
+
+		public override void Unload()
+		{
+			base.Unload();
+			Instance = null;
+		}
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 12f, 12f);
 			ArcaneOdysseyMod.Sets.cold[Type] = false;
-		}
-
-		public override void UpdateEquip(Player player)
-		{
-			base.UpdateEquip(player);
-			player.noFallDmg = true;
-		}
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-		}
-
-		public override void UpdateVanity(Player player)
-		{
-			base.UpdateEquip(player);
 		}
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Imperial;
@@ -47,36 +43,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public static float MaxCanAscendMultiplier => 1f;
 		public static float MaxAscentMultiplier => 1.805f;
 		public static float ConstantAscend => 0.125f;
-
-		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-		{
-			ascentWhenFalling = AscentWhenFalling;
-			ascentWhenRising = AscentWhenRising;
-			maxCanAscendMultiplier = MaxCanAscendMultiplier;
-			maxAscentMultiplier = MaxAscentMultiplier;
-			constantAscend = ConstantAscend;
-
-			if (player.TryingToHoverDown && player.controlJump && player.wingTime > 0f && !player.merman)
-			{
-				player.wingTime += 0.5f;
-				player.velocity.Y *= 0.8f;
-				if (player.velocity.Y > -2f && player.velocity.Y < 1f)
-					player.velocity.Y = 0.00001f;
-				ascentWhenFalling *= 0f;
-				ascentWhenRising *= 0f;
-				constantAscend *= 0f;
-			}
-		}
-
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			base.UpdateAccessory(player, hideVisual);
-			if (!hideVisual)
-			{
-				Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
-				Lighting.AddLight(spawnPos, ImbueColour.ToVector3() * 1.5f);
-			}
-		}
 
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
@@ -166,6 +132,21 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			RegisterDefaultMagic<FireMagic>();
 			RegisterMutation<InfernoMagic>();
+		}
+
+		public override ModSkill DefaultMobility => ModContent.GetInstance<PhoenixFlight>();
+	}
+
+	public class PhoenixFlight : ModSkill
+	{
+		public override SkillType SkillSlot => SkillType.Mobility;
+
+		public override void Activate(Player player, Imbuable imbue)
+		{
+			if (!player.HasTypeInInventory<PhoenixWings>())
+			{
+				player.QuickSpawnItemDirect(imbue.Item.GetSource_FromThis(), ModContent.ItemType<PhoenixWings>());
+			}
 		}
 	}
 }

@@ -245,10 +245,20 @@ namespace ArcaneOdyssey
 		}
 
 		public static void Write(this BinaryWriter writer, float? num) => writer.Write(num.GetValueOrDefault(0f));
+		public static void Write(this BinaryWriter writer, int? num) => writer.Write(num.GetValueOrDefault(0));
 		public static float? ReadNullableSingle(this BinaryReader reader)
 		{
 			var val = reader.ReadSingle();
 			if (val == 0f)
+			{
+				return null;
+			}
+			return val;
+		}
+		public static int? ReadNullableInt32(this BinaryReader reader)
+		{
+			var val = reader.ReadInt32();
+			if (val == 0)
 			{
 				return null;
 			}
@@ -999,7 +1009,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.CannotBeAffected == false) && (item.ammo == AmmoID.None))
+			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is IImbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.CannotBeAffected == false) && (item.ammo == AmmoID.None))
 			{
 				if (item.ArcaneOdyssey()?.WeaponsType != WeaponType.Artisinal)
 				{

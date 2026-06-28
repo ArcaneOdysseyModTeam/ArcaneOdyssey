@@ -4,11 +4,13 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
+using ArcaneOdyssey.Spells.Base;
 using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Terraria;
@@ -17,6 +19,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
@@ -31,9 +34,152 @@ namespace ArcaneOdyssey.Imbues.Base
 			ModTypeLookup<Imbuable>.Register(this);
 		}
 
+		/// <summary>
+		/// Aura spell coefficient
+		/// </summary>
 		public virtual float Aura => .7f;
 
 		public virtual int Drawback => 0;
+
+		public virtual (ModSkill, ModSkill, ModSkill) DefaultAttacks => (null, null, null);
+		public virtual ModSkill DefaultMobility => null;
+		public virtual ModSkill DefaultDash => null;
+
+		public (ModSkill, ModSkill, ModSkill) Attacks;
+		public ModSkill Mobility;
+		public ModSkill Dash;
+
+		internal string[] cachedSpells = new string[5];
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			base.NetSend(writer);
+			writer.Write(Attacks.Item1?.Type);
+			writer.Write(Attacks.Item2?.Type);
+			writer.Write(Attacks.Item3?.Type);
+			writer.Write(Mobility?.Type);
+			writer.Write(Dash?.Type);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			base.NetReceive(reader);
+			Attacks = (ModSkill.Sets.All[reader.ReadInt32()], ModSkill.Sets.All[reader.ReadInt32()], ModSkill.Sets.All[reader.ReadInt32()]);
+			Mobility = ModSkill.Sets.All[reader.ReadInt32()];
+			Dash = ModSkill.Sets.All[reader.ReadInt32()];
+		}
+
+		public override void SaveData(TagCompound tag)
+		{
+			base.SaveData(tag);
+
+			string[] attackSpells = new string[3];
+
+			if (Attacks.Item1 is not null)
+			{
+				attackSpells[0] = Attacks.Item1.FullName;
+			}
+			else if (cachedSpells[0] != null) 
+			{
+				attackSpells[0] = cachedSpells[0];
+			}
+
+			if (Attacks.Item2 is not null)
+			{
+				attackSpells[1] = Attacks.Item2.FullName;
+			}
+			else if (cachedSpells[1] != null)
+			{
+				attackSpells[1] = cachedSpells[1];
+			}
+
+			if (Attacks.Item3 is not null)
+			{
+				attackSpells[2] = Attacks.Item3.FullName;
+			}
+			else if (cachedSpells[2] != null)
+			{
+				attackSpells[2] = cachedSpells[2];
+			}
+
+			if (attackSpells.Any())
+			{
+				tag.Add("attackspells", attackSpells.ToList());
+			}
+
+			if (Mobility is not null)
+			{
+				tag.Add("mobilityspell", Mobility.FullName);
+			}
+			else if (cachedSpells[3] != null)
+			{
+				tag.Add("mobilityspell", cachedSpells[3]);
+			}
+
+			if (Dash is not null)
+			{
+				tag.Add("dashspell", Dash.FullName);
+			}
+			else if (cachedSpells[4] != null)
+			{
+				tag.Add("dashspell", cachedSpells[4]);
+			}
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			base.LoadData(tag);
+
+			Attacks = DefaultAttacks;
+			Mobility = DefaultMobility;
+			Dash = DefaultDash;
+
+			var attacks = tag.GetList<string>("attackspells");
+
+			if (!string.IsNullOrWhiteSpace(attacks[0]))
+			{
+				if (!ModContent.TryFind(attacks[0], out Attacks.Item1))
+				{
+					cachedSpells[0] = attacks[0];
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(attacks[1]))
+			{
+				if (!ModContent.TryFind(attacks[1], out Attacks.Item2))
+				{
+					cachedSpells[1] = attacks[1];
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(attacks[2]))
+			{
+				if (!ModContent.TryFind(attacks[2], out Attacks.Item3))
+				{
+					cachedSpells[2] = attacks[2];
+				}
+			}
+
+			var mobility = tag.GetString("mobilityspell");
+
+			if (!string.IsNullOrWhiteSpace(mobility))
+			{
+				if (!ModContent.TryFind(mobility, out Mobility))
+				{
+					cachedSpells[3] = mobility;
+				}
+			}
+
+			var dash = tag.GetString("dashspell");
+
+			if (!string.IsNullOrWhiteSpace(dash))
+			{
+				if (!ModContent.TryFind(dash, out Dash))
+				{
+					cachedSpells[4] = dash;
+				}
+			}
+		}
 
 		public int AuraHP(Player player)
 		{
@@ -52,6 +198,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void UpdateInventory(Player player)
 		{
 			Gimmick?.UpdateInventory(player);
+			Mobility?.Activate(player, this);
 		}
 
 		public bool PlayerHasImbue(Player player)
@@ -61,7 +208,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				type = steam.Imbue.Type;
 			}
-			return player.HasTypeInInventory<Imbuable>(e => e.Type == type); // because it includes equipped imbues
+			return player.HasTypeInInventory<Imbuable>(e => e.Type == type);
 		}
 
 		public virtual void UpdateProjectile(Projectile Projectile)
@@ -146,8 +293,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public override void UpdateEquip(Player player) => player.ArcaneOdyssey()?.AddEquippedImbue(this);
-
 		/// <summary>
 		/// The second imbue
 		/// </summary>
@@ -170,20 +315,14 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		public virtual ImbueArmourStats? ArmourStats => null;
 
-		public override ItemRarities Rarity
+		public override ItemRarities Rarity => ImbuableTier switch
 		{
-			get
-			{
-				return ImbuableTier switch
-				{
-					ImbuableTiers.Normal => ItemRarities.Rare,
-					ImbuableTiers.Lost => ItemRarities.Mystic,
-					ImbuableTiers.Ancient => ItemRarities.Legendary,
-					ImbuableTiers.Mythical => ItemRarities.Mythical,
-					_ => ItemRarities.Special,
-				};
-			}
-		}
+			ImbuableTiers.Normal => ItemRarities.Rare,
+			ImbuableTiers.Lost => ItemRarities.Mystic,
+			ImbuableTiers.Ancient => ItemRarities.Legendary,
+			ImbuableTiers.Mythical => ItemRarities.Mythical,
+			_ => ItemRarities.Special,
+		};
 
 		public virtual float? DashResist => null;
 		public virtual float DashSpeed => 1f;
@@ -374,7 +513,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			Item.UseSound = ImbueSound;
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public sealed override bool AltFunctionUse(Player player) => true;
 
 		/// <summary>
 		/// Whether this imbue is a:

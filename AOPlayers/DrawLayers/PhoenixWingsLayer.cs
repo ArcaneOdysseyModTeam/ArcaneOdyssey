@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Items.Accessories.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -14,12 +14,12 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 		public override void Load()
 		{
-			phoenixWingsTex = ModContent.Request<Texture2D>(AOUtils.GetTexture<PhoenixMagic>() + $"_{EquipType.Wings}Glow");
+			phoenixWingsTex = ModContent.Request<Texture2D>(AOUtils.GetTexture<PhoenixWings>() + $"_{EquipType.Wings}Glow");
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Wings);
 
-		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.wings == EquipLoader.GetEquipSlot(Mod, nameof(PhoenixMagic), EquipType.Wings);
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.wings == EquipLoader.GetEquipSlot(Mod, nameof(PhoenixWings), EquipType.Wings);
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
