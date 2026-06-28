@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override bool AnimatedColours => true;
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 0.9f;
-		public override float ScrollSpeed => 1.4f;
+		public override float ScrollSpeed => 1.35f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<ElectrifiedToxins>(), Debuff.Create<Paralyzed>(60, 25)];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>()];

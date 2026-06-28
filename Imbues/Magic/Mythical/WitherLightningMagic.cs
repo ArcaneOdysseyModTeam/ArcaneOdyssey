@@ -14,9 +14,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 	public class WitherLightningMagic : DeathMagic
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<DeathShock>();
-		public override float ScrollDamage => base.ScrollDamage * 1.5f;
-		public override float ScrollSpeed => base.ScrollSpeed * 2.5f;
-		public override float ScrollSize => base.ScrollSize * 1.5f;
+		public override float ScrollDamage => 2.25f;
+		public override float ScrollSpeed => 2.5f;
+		public override float ScrollSize => 1.8f;
 
 		public override bool AnimatedColours => true;
 

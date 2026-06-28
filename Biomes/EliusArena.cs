@@ -98,11 +98,11 @@ namespace ArcaneOdyssey.Biomes
 			givenEliusSpawner = false;
 		}
 
-		public override void PreUpdateWorld()
+		public override void PreUpdateEntities()
 		{
-			if (Main.netMode == NetmodeID.SinglePlayer && eliusArena == default)
+			if (Main.netMode == NetmodeID.SinglePlayer || NetMessage.DoesPlayerSlotCountAsAHost(Main.myPlayer))
 			{
-				if (!givenEliusSpawner)
+				if (!Main.dedServ && eliusArena == default && ExternalModSupport.NotInSubworld && !givenEliusSpawner)
 				{
 					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_FromThis(), ModContent.ItemType<EliusArenaSpawner>());
 					givenEliusSpawner = true;

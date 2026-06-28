@@ -18,9 +18,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override bool AnimatedColours => true;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
-		public override float ScrollSpeed => (0.95f * 1.1f).CleanRound();
-		public override float ScrollSize => (1.25f * 1.1f).CleanRound();
-		public override float ScrollDamage => (0.875f * 1.1f).CleanRound();
+		public override float ScrollDamage => 0.9f;
+
+		public override float ScrollSpeed => 1f;
+
+		public override float ScrollSize => 1.3f;
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CursedAshes>(60 * 5), Debuff.Create<Petrified>(60, 25)];
 

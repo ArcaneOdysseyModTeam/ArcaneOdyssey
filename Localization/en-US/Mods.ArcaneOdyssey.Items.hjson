@@ -345,8 +345,8 @@ Potions: {
 
 Debug: {
 	EliusArenaSpawner: {
-		DisplayName: Elius Arena Spawner
-		Tooltip: DEBUG - Forces Elius's arena to generate, may crash your game if it fails (does not work in multiplayer)
+		DisplayName: Djin Spawner
+		Tooltip: Forces Elius's arena to generate, may crash your game if it fails
 	}
 
 	MarketableSpoky: {

@@ -158,6 +158,11 @@ namespace ArcaneOdyssey
 			/// <para/> Requires a spared bool, and a rectangle
 			/// </summary>
 			public const byte EliusSpare = 3;
+
+			/// <summary>
+			/// Spawns Elius's arena
+			/// </summary>
+			public const byte SpawnEliusArena = 4;
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -275,6 +280,14 @@ namespace ArcaneOdyssey
 							Dust.NewDust(hitbox.Center(), 0, 0, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
 						}
 					}
+				}
+			}
+			else if (command == PacketID.SpawnEliusArena)
+			{
+				if (Main.dedServ)
+				{
+					WorldGenStuff.SpawnEliusArena();
+					NetMessage.SendData(MessageID.WorldData);
 				}
 			}
 		}

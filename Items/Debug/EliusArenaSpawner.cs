@@ -3,6 +3,7 @@ using ArcaneOdyssey.Items.Base;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ArcaneOdyssey.ArcaneOdysseyMod;
 
 namespace ArcaneOdyssey.Items.Debug
 {
@@ -24,6 +25,16 @@ namespace ArcaneOdyssey.Items.Debug
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
 				WorldGenStuff.SpawnEliusArena();
+				Item.TurnToAir();
+			}
+			else if (Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
+			{
+				if (EliusArenaLoader.eliusArena == default)
+				{
+					var packet = Mod.GetPacket();
+					packet.Write(PacketID.SpawnEliusArena);
+					packet.Send();
+				}
 				Item.TurnToAir();
 			}
 		}

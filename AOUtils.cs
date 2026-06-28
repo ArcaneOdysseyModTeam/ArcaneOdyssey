@@ -1660,7 +1660,7 @@ namespace ArcaneOdyssey
 		/// </summary>
 		/// <param name="input">Input</param>
 		/// <returns></returns>
-		public static float FlipFloat(this float input) => input.Pow(-1);
+		public static float FlipFloat(this float input, bool alt = false) => alt ? (2f - input).Clamp(0.005f, 2f) : input.Pow(-1);
 
 		public static float MultiToPercent(this float multiplier) => multiplier - 1f; // wow simplest function on the earth
 

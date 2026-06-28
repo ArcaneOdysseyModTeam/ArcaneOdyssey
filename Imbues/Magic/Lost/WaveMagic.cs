@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f;
 		public override float Aura => .4f;
-		public override int BlastFrames => 3;
+		public override int BlastFrames => 6;
 
 		public override void RegisterMutations()
 		{
