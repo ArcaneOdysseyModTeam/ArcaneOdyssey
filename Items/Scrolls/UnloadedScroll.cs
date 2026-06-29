@@ -1,4 +1,7 @@
 ﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.EmptyScrolls;
+using ArcaneOdyssey.Spells.Base;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,6 +14,8 @@ namespace ArcaneOdyssey.Items.Scrolls
 		public override ItemRarities Rarity => ItemRarities.Unknown;
 
 		public string CachedFullName = ArcaneOdysseyMod.InternalName + "/BlastScroll";
+
+		public override string Texture => AOUtils.GetTexture<EmptyScroll>();
 
 		public override void NetSend(BinaryWriter writer)
 		{
@@ -34,9 +39,9 @@ namespace ArcaneOdyssey.Items.Scrolls
 		{
 			base.LoadData(tag);
 			var name = tag.GetString("name");
-			if (ModContent.TryFind<Scroll>(name, out var scroll))
+			if (ModContent.TryFind<ModSkill>(name, out var skill))
 			{
-				Item.SetDefaults(scroll.Type);
+				Item.SetDefaults(skill.Scroll);
 			}
 			else
 			{
@@ -47,5 +52,17 @@ namespace ArcaneOdyssey.Items.Scrolls
 		public override bool CanStack(Item source) => (source.ModItem as UnloadedScroll).CachedFullName == CachedFullName;
 
 		public override bool CanStackInWorld(Item source) => CanStack(source);
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			base.ModifyTooltips(tooltips);
+			tooltips.AddTooltip(new(Mod, "InternalSkillName", CachedFullName));
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
+		}
 	}
 }

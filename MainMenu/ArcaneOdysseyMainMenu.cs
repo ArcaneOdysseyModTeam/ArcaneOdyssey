@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.MainMenus
+namespace ArcaneOdyssey.MainMenu
 {
 	public class ArcaneOdysseyMainMenu : ModMenu
 	{
@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.MainMenus
 
 			public void Draw()
 			{
-				Main.spriteBatch.Draw(Texture.Value, position, null, SelectedTitle.Colour, 0, Texture.Size() / 2f, (3f * depth) - (2f * depth.Pow()), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Texture.Value, position, null, SelectedTitle.Colour, 0, Texture.Size() / 2f, ((3f * depth) - (2f * depth.Pow())) / 2f, SpriteEffects.None, 0f);
 			}
 
 			public Raindrop()
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.MainMenus
 			public LocalizedText DisplayName;
 			public Asset<Texture2D> BackgroundTexture;
 
-			public MainMenuStyle(MusicTrack track, Color colour, string name, Mod mod = null, string path = "MainMenus/Images")
+			public MainMenuStyle(MusicTrack track, Color colour, string name, Mod mod = null, string path = "MainMenu/Images")
 			{
 				Track = track;
 				Colour = colour;

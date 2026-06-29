@@ -27,16 +27,11 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false, spread: ApplySpeed(MathHelper.PiOver4 / 2f));
+			//Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false, spread: ApplySpeed(MathHelper.PiOver4 / 2f));
 			ActivateAbility(player);
 			return true;
 		}
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
-
-		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
-		{
-			mult = ApplySpeed(mult, true);
-		}
 	}
 }

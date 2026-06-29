@@ -707,7 +707,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (!player.ItemAnimationActive || player.PlayerItem()?.ModItem is Imbuable)
 			{
-				List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()];
+				List<Imbuable> options = [null, .. player.GetAllImbues()];
 				options.RemoveAll(e => !item.CanHaveImbue(e));
 				bool justchangedspecificimbue = false;
 				bool settodefault = false;

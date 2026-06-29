@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			Player player = drawInfo.drawPlayer;
-			if (player.dead)
+			if (player.DeadOrGhost)
 				return;
 			Texture2D texture = phoenixWingsTex.Value;
 			Vector2 Position = drawInfo.Position;

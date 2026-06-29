@@ -242,6 +242,8 @@ Keybinds: {
 	CycleAuraMode.DisplayName: Cycle Aura Mode
 	PrintInfo.DisplayName: Print Info
 	CycleGodSoul.DisplayName: Cycle God Soul
+	CycleImbueAttack.DisplayName: Cycle Imbue Attack
+	ActivateImbuePassive.DisplayName: Activate Imbue Passive
 }
 
 RandomWords: {
@@ -396,5 +398,32 @@ ImbueGimmicks: {
 	CannonFrenzy: {
 		DisplayName: Cannon Frenzy
 		Description: You throw cannonballs as you attack
+	}
+}
+
+Skills: {
+	MagicBlastSkill: {
+		DisplayName: Magic Blast Skill
+		Description: Mods.ArcaneOdyssey.Skills.MagicBlastSkill.Description
+	}
+
+	PhoenixFlight: {
+		DisplayName: Phoenix Flight
+		Description: Mods.ArcaneOdyssey.Skills.PhoenixFlight.Description
+	}
+
+	BasicFlight: {
+		DisplayName: Basic Flight
+		Description: Mods.ArcaneOdyssey.Skills.BasicFlight.Description
+	}
+
+	BarrageSkill: {
+		DisplayName: Barrage Skill
+		Description: Mods.ArcaneOdyssey.Skills.BarrageSkill.Description
+	}
+
+	BasicStrike: {
+		DisplayName: Basic Strike
+		Description: Mods.ArcaneOdyssey.Skills.BasicStrike.Description
 	}
 }

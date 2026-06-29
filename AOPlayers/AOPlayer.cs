@@ -29,40 +29,6 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public ushort timeSinceSoftFrozen;
 
-		/// <summary>
-		/// Imbues in equipment slots
-		/// </summary>
-		public List<int> EquippedImbues = [];
-		public List<int> EquippedSecondImbues = [];
-		public List<int> EquippedImbuesTimers = [];
-
-		public void AddEquippedImbue(Imbuable imbue)
-		{
-			var index = EquippedImbues.IndexOf(imbue.Type);
-			if (index != -1)
-			{
-				EquippedImbuesTimers[index] = 3;
-			}
-			else
-			{
-				EquippedImbues.Add(imbue.Type);
-				EquippedSecondImbues.Add(imbue.Imbue?.Type ?? 0);
-				EquippedImbuesTimers.Add(3);
-			}
-		}
-
-		public List<Imbuable> AllEquippedImbues()
-		{
-			List<Imbuable> list = [];
-			for (int i = 0; i < EquippedImbues.Count; i++)
-			{
-				var ret = (Imbuable)ModContent.GetModItem(EquippedImbues[i]);
-				ret.Imbue = (Imbuable)ModContent.GetModItem(EquippedSecondImbues[i]);
-				list.Add(ret);
-			}
-			return list;
-		}
-
 		public override void Load()
 		{
 			On_Player.HorizontalMovement += On_Player_HorizontalMovement;
@@ -314,28 +280,6 @@ namespace ArcaneOdyssey.AOPlayers
 			Insanity = 0;
 			Banishment = 0;
 			ResetBuffs();
-			List<int> queue = [];
-			foreach (int type in EquippedImbues)
-			{
-				var index = EquippedImbues.IndexOf(type);
-				if (index >= 0)
-				{
-					if (EquippedImbuesTimers[index] <= 0)
-					{
-						queue.Add(index);
-					}
-					else
-					{
-						EquippedImbuesTimers[index]--;
-					}
-				}
-			}
-			foreach (var i in queue)
-			{
-				EquippedImbues.RemoveAt(i);
-				EquippedSecondImbues.RemoveAt(i);
-				EquippedImbuesTimers.RemoveAt(i);
-			}
 			HandleDashDetection();
 		}
 

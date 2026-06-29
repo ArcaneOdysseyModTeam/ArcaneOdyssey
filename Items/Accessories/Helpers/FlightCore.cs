@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.EmptyScrolls;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -11,8 +11,6 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 	[AutoloadEquip(EquipType.Wings)]
 	public class FlightCore : BaseItem, IImbuable
 	{
-		public override string Texture => AOUtils.GetTexture<EmptyScroll>();
-
 		public Imbuable Imbue
 		{
 			get

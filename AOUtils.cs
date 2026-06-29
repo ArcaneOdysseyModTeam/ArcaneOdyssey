@@ -246,6 +246,7 @@ namespace ArcaneOdyssey
 
 		public static void Write(this BinaryWriter writer, float? num) => writer.Write(num.GetValueOrDefault(0f));
 		public static void Write(this BinaryWriter writer, int? num) => writer.Write(num.GetValueOrDefault(0));
+		public static void Write(this BinaryWriter writer, uint? num) => writer.Write(num.GetValueOrDefault(0));
 		public static float? ReadNullableSingle(this BinaryReader reader)
 		{
 			var val = reader.ReadSingle();
@@ -255,6 +256,7 @@ namespace ArcaneOdyssey
 			}
 			return val;
 		}
+
 		public static int? ReadNullableInt32(this BinaryReader reader)
 		{
 			var val = reader.ReadInt32();
@@ -1038,22 +1040,6 @@ namespace ArcaneOdyssey
 				{
 					return true;
 				}
-				if (item.ModItem is Scroll scroll)
-				{
-					if (scroll.CanHaveMagic && imbue is MagicType && scroll.ExtraConditionsForImbue(imbue))
-					{
-						return true;
-					}
-					if (scroll.CanHaveFS && imbue is FightingStyle && scroll.ExtraConditionsForImbue(imbue))
-					{
-						return true;
-					}
-					if (scroll.CanHaveRelic && imbue is SpiritEnergy && scroll.ExtraConditionsForImbue(imbue))
-					{
-						return true;
-					}
-					return false;
-				}
 				if (item.ModItem is SpiritEnergy)
 				{
 					return imbue is MagicType && Main.hardMode;
@@ -1706,10 +1692,6 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory<T>(this Player player, Predicate<T> check = null) where T : class
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
-			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
-			{
-				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
-			}
 			if (player.useVoidBag())
 			{
 				no.AddRange(player.bank4.item);
@@ -1739,11 +1721,6 @@ namespace ArcaneOdyssey
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
 
-			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
-			{
-				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
-			}
-
 			if (player.useVoidBag())
 			{
 				no.AddRange(player.bank4.item);
@@ -1768,11 +1745,6 @@ namespace ArcaneOdyssey
 
 			List<Item> no = [.. player.inventory, player.trashItem];
 
-			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
-			{
-				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
-			}
-
 			if (player.useVoidBag())
 			{
 				no.AddRange(player.bank4.item);
@@ -1795,13 +1767,6 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory<T>(this Player player, out T item, Predicate<T> check = null) where T : ModItem
 		{
 			item = null;
-			if (player?.ArcaneOdyssey() is not null)
-			{
-				if (player.ArcaneOdyssey().EquippedImbues.Contains(ModContent.ItemType<T>()) || player.ArcaneOdyssey().EquippedSecondImbues.Contains(ModContent.ItemType<T>()))
-				{
-					item ??= ModContent.GetInstance<T>();
-				}
-			}
 			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var items in no)

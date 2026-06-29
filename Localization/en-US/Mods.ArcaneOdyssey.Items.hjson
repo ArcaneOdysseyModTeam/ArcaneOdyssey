@@ -116,6 +116,18 @@ Accessories: {
 		DisplayName: Thundering Cape
 		Tooltip: Lightning randomly strikes around you
 	}
+
+	Helpers: {
+		FlightCore: {
+			DisplayName: Flight Core
+			Tooltip: ""
+		}
+
+		PhoenixWings: {
+			DisplayName: Phoenix Wings
+			Tooltip: ""
+		}
+	}
 }
 
 Equipment: {

@@ -243,3 +243,8 @@ Usable: {
 		}
 	}
 }
+
+UnloadedScroll: {
+	DisplayName: Unloaded Scroll
+	Tooltip: ""
+}

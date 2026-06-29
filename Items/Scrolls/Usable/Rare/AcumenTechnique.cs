@@ -8,22 +8,9 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 {
-	public class AcumenTechnique : RareScroll
+	public class AcumenTechnique : BaseItem
 	{
-		public override bool MetConditions()
-		{
-			if (Main.netMode == NetmodeID.SinglePlayer)
-			{
-				return !Main.LocalPlayer.ArcaneOdyssey().acumen;
-			}
-			else
-			{
-				return true;
-			}
-		}
-
-		public override bool ExtraConditionsForImbue(Imbuable imbue) => false;
-		public override bool CanHaveFS => true;
+		public override ItemRarities Rarity => ItemRarities.Rare;
 
 		public override void SetDefaults()
 		{
@@ -34,14 +21,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 			Item.useTime = Item.useAnimation = 30;
 		}
 
-		public override bool CanUseItem(Player player)
-		{
-			if (player.ArcaneOdyssey().acumen)
-			{
-				return false;
-			}
-			return true;
-		}
+		public override bool CanUseItem(Player player) => !player.ArcaneOdyssey().acumen;
 
 		public override bool? UseItem(Player player)
 		{
@@ -55,8 +35,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 				player.ArcaneOdyssey().acumen = true;
 				if (Main.myPlayer == player.whoAmI)
 				{
-					if (ArcaneOdysseyClientConfig.Instance.AbilityText)
-						CombatText.NewText(player.Hitbox, Color.White, SkillName + "!", true); // manually do since its never imbued
 					Main.NewText(Mod.CustomLocalization("RandomWords.Acumen"), Color.MediumVioletRed);
 				}
 			}

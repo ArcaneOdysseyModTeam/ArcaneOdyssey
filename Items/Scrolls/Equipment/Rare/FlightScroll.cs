@@ -11,11 +11,15 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 	{
 		public override bool CanHaveMagic => true;
 		public override bool CanHaveRelic => true;
+
+		public override ModSkill Skill => ModContent.GetInstance<BasicFlight>();
 	}
 
 	public class BasicFlight : ModSkill
 	{
 		public override SkillType SkillSlot => SkillType.Mobility;
+
+		public override int Scroll => ModContent.ItemType<FlightScroll>();
 
 		public override void Activate(Player player, Imbuable imbue)
 		{

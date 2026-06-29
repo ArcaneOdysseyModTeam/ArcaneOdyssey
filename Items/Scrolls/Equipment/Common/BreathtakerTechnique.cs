@@ -52,7 +52,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override void OnEnd(Player player)
 		{
 			player.velocity *= .01f;
-			scroll.ActivateAbility(player);
 		}
 
 		public override bool ContactDamage => false;

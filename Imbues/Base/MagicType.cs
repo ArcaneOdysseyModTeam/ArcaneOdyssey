@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Spells.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -21,6 +22,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.Load();
 			ModTypeLookup<MagicType>.Register(this);
 		}
+
+		public override (AttackSkill, AttackSkill, AttackSkill) DefaultAttacks => (ModContent.GetInstance<MagicBlastSkill>(), ModContent.GetInstance<MagicBlastSkill>(), ModContent.GetInstance<MagicBlastSkill>());
 
 		public sealed override float ImbueDamage => base.ImbueDamage;
 		public sealed override float ImbueSize => base.ImbueSize;
@@ -174,26 +177,29 @@ namespace ArcaneOdyssey.Imbues.Base
 			Item.shootSpeed = 7f * ScrollSpeed;
 		}
 
-		public sealed override void ModifyManaCost(Player player, ref float reduce, ref float mult)
-		{
-			base.ModifyManaCost(player, ref reduce, ref mult);
-			if (player.AltUse())
-				mult *= 0;
-		}
-
 		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (!player.AltUse())
+			if (player.AltUse())
 			{
-				CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, type);
+				CreateMagicCircle(Item, player, MagicCircleMode.Rotating, true);
 			}
 			else
 			{
-				CreateMagicCircle(Item, player, MagicCircleMode.Rotating, true);
+				return base.Shoot(player, source, position, velocity, type, damage, knockback);
 			}
 			return false;
 		}
 
 		public abstract int BlastFrames { get; }
+	}
+
+	public class MagicBlastSkill : AttackSkill
+	{
+		public override int Damage => 5;
+
+		public override void Activate(Player player, Imbuable imbue)
+		{
+			Imbuable.CreateMagicCircle(this, imbue, player, MagicCircleMode.Basic, true, ModContent.ProjectileType<BlastSpell>());
+		}
 	}
 }

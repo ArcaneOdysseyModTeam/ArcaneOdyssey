@@ -34,10 +34,5 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		}
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
-
-		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
-		{
-			mult = ApplySpeed(mult, true);
-		}
 	}
 }

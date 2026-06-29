@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Spells.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -25,16 +26,18 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 			Item.useTime = Item.useAnimation = 10;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
 		}
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class BarrageSkill : AttackSkill
+	{
+		public override int Damage => 5;
+
+
+		public override void Activate(Player player, Imbuable imbue)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false, ModContent.ProjectileType<BlastSpell>(), spread: ApplySpeed(MathHelper.PiOver4 / 2f));
-			return false;
+			Imbuable.CreateMagicCircle(this, imbue, player, Projectiles.MagicCircleMode.Barrage, false, ModContent.ProjectileType<BlastSpell>(), spread: imbue.ApplySpeed(MathHelper.PiOver4 / 2f));
 		}
 
-		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
-		{
-			mult = ApplySpeed(mult, true);
-		}
+		public override int ManaCost => base.ManaCost;
 	}
 }
