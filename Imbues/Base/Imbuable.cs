@@ -131,10 +131,13 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public void SetSkill(byte slotIndex, ModSkill skill)
+		public void SetSkill(byte slotIndex, ModSkill skill, bool refund = true)
 		{
-			RemoveSkill(slotIndex);
-			Skills[slotIndex] = skill;
+			if (refund)
+				RemoveSkill(slotIndex);
+			var skills = Skills;
+			skills[slotIndex] = skill;
+			Skills = skills;
 		}
 
 		public override void NetSend(BinaryWriter writer)
@@ -304,18 +307,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			CycleAttack();
 		}
 
-		public override void OnCreated(ItemCreationContext context)
-		{
-			base.OnCreated(context);
-			Attacks = DefaultAttacks;
-			Passive = DefaultPassive;
-			Mobility = DefaultMobility;
-			Dash = DefaultDash;
-
-			selectedIndex = 80;
-			CycleAttack();
-		}
-
 		public override bool CanShoot(Player player) => !player.AltUse();
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -343,6 +334,15 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void UpdateInventory(Player player)
 		{
+			for (int i = 0; i < Skills.Length; i++)
+			{
+				if (Skills[i] == null)
+				{
+					SetSkill((byte)i, DefaultSkills[i], false);
+				}
+			}
+			if (selectedAttack == null)
+				CycleAttack();
 			if (Main.myPlayer == player.whoAmI)
 			{
 				if (AOKeybinds.CycleImbueAttack.JustPressed)

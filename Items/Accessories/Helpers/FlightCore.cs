@@ -80,12 +80,15 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			base.SetStaticDefaults();
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(150);
 			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
+			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
+			ItemID.Sets.CanGetPrefixes[Type] = false;
 		}
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.accessory = true;
+			Item.uniqueStack = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -94,6 +97,10 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			{
 				player.noFallDmg = true;
 				Item.color = Imbue.Colour * .75f;
+			}
+			else
+			{
+				Item.TurnToAir();
 			}
 		}
 
@@ -114,9 +121,11 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			return false;
 		}
 
+		private int airTime = 1;
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
-			Item.TurnToAir();
+			if (airTime-- <= 0)
+				Item.TurnToAir();
 		}
 	}
 }

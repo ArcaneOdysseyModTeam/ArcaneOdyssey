@@ -29,15 +29,33 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers.SpellSlotSystem
 				if (Main.gameMenu)
 					return;
 
+				if (player.whoAmI != Main.myPlayer)
+					return;
+
 				if (player.PlayerItem().ModItem is Imbuable imbue)
 				{
+					Vector2 offset;
+					if (ExternalModSupport.HasFargos)
+					{
+						offset = new Vector2(Player.defaultWidth / 2f, -64);
+					}
+					else
+					{
+						offset = new Vector2(Player.defaultWidth / 2f, -32);
+					}
+					var pos = drawInfo.Position + offset;
+					Texture2D texture = backgroundSprite.Value;
 
+					DrawData a = new(texture, pos - Main.screenPosition, texture.Frame(), Color.White, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+
+					DrawData b = new(texture, pos - new Vector2(32, -3) - Main.screenPosition, texture.Frame(), Color.White * .75f, 0f, texture.Size() / 2f, .75f, SpriteEffects.None, 0);
+
+					DrawData c = new(texture, pos - new Vector2(-32, -3) - Main.screenPosition, texture.Frame(), Color.White * .75f, 0f, texture.Size() / 2f, .75f, SpriteEffects.None, 0);
+
+					var spell = imbue.selectedAttack;
+
+					drawInfo.DrawDataCache.AddRange(a, b, c);
 				}
-
-				var pos = drawInfo.Position;
-				Texture2D texture = backgroundSprite.Value;
-				DrawData d = new(texture, pos, texture.Frame(), Color.White, 0f, texture.Size()/2f, 1f, SpriteEffects.None, 0);
-				drawInfo.DrawDataCache.Add(d);
 			}
 		}
 	}

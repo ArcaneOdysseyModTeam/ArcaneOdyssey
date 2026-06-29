@@ -65,17 +65,22 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			base.SetStaticDefaults();
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 12f, 12f);
 			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
+			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
+			ItemID.Sets.CanGetPrefixes[Type] = false;
 		}
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.accessory = true;
+			Item.uniqueStack = true;
 		}
 
+		private int airTime = 1;
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
-			Item.TurnToAir();
+			if (airTime-- <= 0)
+				Item.TurnToAir();
 		}
 	}
 }

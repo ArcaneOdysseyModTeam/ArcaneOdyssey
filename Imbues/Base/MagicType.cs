@@ -195,7 +195,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 	public class MagicBlastSkill : AttackSkill
 	{
-		public override int Damage => 5;
+		public override int Damage => 15;
 
 		public override void Activate(Player player, Imbuable imbue)
 		{
