@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Items.Base;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;

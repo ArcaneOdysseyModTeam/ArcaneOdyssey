@@ -4,8 +4,6 @@ using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Spells.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
@@ -14,18 +12,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 	{
 		public override bool MetConditions() => NPC.downedBoss2;
 		public override bool CanHaveMagic => true;
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 5;
-			Item.mana = 5;
-			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 7;
-			Item.channel = true;
-			Item.useTime = Item.useAnimation = 10;
-			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually shoot
-		}
 	}
 
 	public class BarrageSkill : AttackSkill
@@ -38,6 +24,10 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 			Imbuable.CreateMagicCircle(this, imbue, player, Projectiles.MagicCircleMode.Barrage, false, ModContent.ProjectileType<BlastSpell>(), spread: imbue.ApplySpeed(MathHelper.PiOver4 / 2f));
 		}
 
-		public override int ManaCost => base.ManaCost;
+		public override int ManaCost => 5;
+
+		public override bool Channel => true;
+
+		public override int Scroll => ModContent.ItemType<BarrageSpell>();
 	}
 }

@@ -143,7 +143,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void Activate(Player player, Imbuable imbue)
 		{
-			if (!player.HasTypeInInventory<PhoenixWings>())
+			if (!player.HasTypeInInventory<PhoenixWings>() && player.ArcaneOdyssey().hasWings <= 0)
 			{
 				player.QuickSpawnItemDirect(imbue.Item.GetSource_FromThis(), ModContent.ItemType<PhoenixWings>());
 			}

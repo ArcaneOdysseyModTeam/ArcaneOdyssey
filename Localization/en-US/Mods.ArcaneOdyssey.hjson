@@ -276,7 +276,7 @@ ScrollTiers: {
 	Spell: spell
 	Rite: rite
 	Technique: technique
-	NeedsImbue: Requires a {0}
+	NeedsImbue: Can be applied to a {0}
 	Magic: "[c/0000ff:magic type]"
 	FightingStyle: "[c/ff0000:fighting style]"
 	Relic: "[c/2277ff:relic]"

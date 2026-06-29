@@ -1,4 +1,3 @@
-using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
 using Microsoft.Xna.Framework;

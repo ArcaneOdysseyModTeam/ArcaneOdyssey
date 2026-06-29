@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool grounded = false;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public ushort timeSinceSoftFrozen;
+		public sbyte hasWings = 2;
 
 		public override void Load()
 		{
@@ -279,6 +280,8 @@ namespace ArcaneOdyssey.AOPlayers
 			StatHaste = 0;
 			Insanity = 0;
 			Banishment = 0;
+			if (hasWings > 0)
+				hasWings--;
 			ResetBuffs();
 			HandleDashDetection();
 		}

@@ -33,9 +33,18 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			var result = base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+			if (result)
+				player.ArcaneOdyssey().hasWings = 2;
+			return result;
+		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
+			player.ArcaneOdyssey().hasWings = 2;
 			if (player.HasTypeInInventory<PhoenixMagic>(e => e.Mobility is PhoenixFlight))
 			{
 				player.noFallDmg = true;

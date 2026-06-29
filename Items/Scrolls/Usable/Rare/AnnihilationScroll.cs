@@ -2,6 +2,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Spells.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,28 +14,27 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	{
 		public override bool MetConditions() => NPC.downedMechBossAny;
 		public override bool CanHaveMagic => true;
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 60;
-			Item.mana = 200;
-			Item.useTime = Item.useAnimation = 40;
-			Item.DamageType = DamageClass.Magic;
-			Item.shoot = ModContent.ProjectileType<AnnihilationSpell>(); // does not actually shoot
-		}
-
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			player.ArcaneOdyssey()?.StartDash(new Annihilation(this), -2, Imbue, false);
-			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
-			return false;
-		}
-
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1;
+		public override ModSkill Skill => ModContent.GetInstance<AnnihilationSkill>();
 	}
 
-	public class Annihilation(AnnihilationScroll scroll) : ModDash(scroll.Item)
+	public class AnnihilationSkill : AttackSkill
+	{
+		public override int Damage => 60;
+		public override int ManaCost => 200;
+		public override float Knockback => 0;
+		public override int Scroll => ModContent.ItemType<AnnihilationScroll>();
+
+		public override void Activate(Player player, Imbuable imbue)
+		{
+			player.ArcaneOdyssey()?.StartDash(new Annihilation(imbue), -2, imbue, false);
+			Imbuable.CreateMagicCircle(this, imbue, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
+		}
+
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1
+
+	}
+
+	public class Annihilation(Imbuable scroll) : ModDash(scroll.Item)
 	{
 		public override bool Immune => false;
 
@@ -52,13 +52,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 
 		public override void OnEnd(Player player)
 		{
-			int damage = 0;
-			if (Source is Item item)
-			{
-				damage = item.damage;
-			}
-			scroll.ActivateAbility(player);
-			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
 		}
 	}
 }

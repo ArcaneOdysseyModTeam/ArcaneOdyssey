@@ -1,9 +1,12 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.EmptyScrolls;
+using Fargowiltas.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers.DrawLayers.SpellSlotSystem
@@ -17,6 +20,9 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers.SpellSlotSystem
 		{
 			backgroundSprite = Mod.Assets.Request<Texture2D>("Assets/GelBuffBackground");
 		}
+
+		[JITWhenModsEnabled("FargoWiltas")]
+		public static float Opacity => FargoClientConfig.Instance.DebuffOpacity;
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
@@ -34,27 +40,37 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers.SpellSlotSystem
 
 				if (player.PlayerItem().ModItem is Imbuable imbue)
 				{
-					Vector2 offset;
-					if (ExternalModSupport.HasFargos)
-					{
-						offset = new Vector2(Player.defaultWidth / 2f, -64);
-					}
-					else
-					{
-						offset = new Vector2(Player.defaultWidth / 2f, -32);
-					}
-					var pos = drawInfo.Position + offset;
-					Texture2D texture = backgroundSprite.Value;
-
-					DrawData a = new(texture, pos - Main.screenPosition, texture.Frame(), Color.White, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
-
-					DrawData b = new(texture, pos - new Vector2(32, -3) - Main.screenPosition, texture.Frame(), Color.White * .75f, 0f, texture.Size() / 2f, .75f, SpriteEffects.None, 0);
-
-					DrawData c = new(texture, pos - new Vector2(-32, -3) - Main.screenPosition, texture.Frame(), Color.White * .75f, 0f, texture.Size() / 2f, .75f, SpriteEffects.None, 0);
-
 					var spell = imbue.selectedAttack;
+					if (spell is not null)
+					{
+						Vector2 offset;
 
-					drawInfo.DrawDataCache.AddRange(a, b, c);
+						var colour = Color.White;
+
+						if (ExternalModSupport.HasFargos)
+						{
+							offset = new Vector2(Player.defaultWidth / 2f, -64);
+							colour *= Opacity;
+						}
+						else
+						{
+							offset = new Vector2(Player.defaultWidth / 2f, -32);
+							colour *= .75f;
+						}
+						var pos = drawInfo.Position + offset;
+
+						Texture2D texture = backgroundSprite.Value;
+						DrawData a = new(texture, pos - Main.screenPosition, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+
+						Asset<Texture2D> tex;
+						if (spell.Scroll != 0)
+							tex = TextureAssets.Item[spell.Scroll];
+						else
+							tex = TextureAssets.Item[ModContent.ItemType<EmptyScroll>()];
+
+						DrawData d = new(tex.Value, pos - Main.screenPosition, tex.Frame(), colour, 0f, tex.Size() / 2f, 28f / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+						drawInfo.DrawDataCache.AddRange(a, d);
+					}
 				}
 			}
 		}

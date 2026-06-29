@@ -1,9 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Spells.Base;
-using MagicStorage;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -13,14 +10,12 @@ namespace ArcaneOdyssey.Items.Base
 {
 	public abstract class Scroll : BaseItem
 	{
-		public virtual ModSkill Skill => null;
+		public abstract ModSkill Skill { get; }
 
 		public override void Load()
 		{
 			ModTypeLookup<Scroll>.Register(this);
 		}
-
-		public bool? BenifitsFromScrollStats => Item.ArcaneOdyssey()?.BenifitsFromScrollStats;
 
 		public void ActivateAbility(Player player) { }
 
@@ -33,6 +28,16 @@ namespace ArcaneOdyssey.Items.Base
 		public virtual bool MetConditions() => true;
 
 		public override bool CanUseItem(Player player) => base.CanUseItem(player) && MetConditions();
+
+		public override void RightClick(Player player)
+		{
+			base.RightClick(player);
+		}
+
+		public override bool CanRightClick()
+		{
+			return Main.LocalPlayer.PlayerItem().ModItem is Imbuable;
+		}
 
 		public virtual bool CanHaveMagic => false;
 		public virtual bool CanHaveRelic => false;

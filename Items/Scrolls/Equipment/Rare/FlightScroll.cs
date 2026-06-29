@@ -11,7 +11,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 	{
 		public override bool CanHaveMagic => true;
 		public override bool CanHaveRelic => true;
-
 		public override ModSkill Skill => ModContent.GetInstance<BasicFlight>();
 	}
 
@@ -23,7 +22,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 		public override void Activate(Player player, Imbuable imbue)
 		{
-			if (!player.HasTypeInInventory<FlightCore>(out var core, e => e.Imbue.Type == imbue.Type))
+			if (!player.HasTypeInInventory<FlightCore>(out var core, e => e.Imbue.Type == imbue.Type) && player.ArcaneOdyssey().hasWings <= 0)
 			{
 				core = player.QuickSpawnItemDirect(imbue.Item.GetSource_FromThis(), ModContent.ItemType<FlightCore>()).ModItem as FlightCore;
 			}

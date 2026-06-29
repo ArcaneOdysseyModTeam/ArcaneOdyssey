@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -91,8 +90,17 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			Item.uniqueStack = true;
 		}
 
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			var result = base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+			if (result)
+				player.ArcaneOdyssey().hasWings = 2;
+			return result;
+		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			player.ArcaneOdyssey().hasWings = 2;
 			if (Imbue is not null)
 			{
 				player.noFallDmg = true;

@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Spells.Base
 
 		public virtual string LocalizationCategory => "Skills";
 
+		public virtual bool PreActivate(Player player, Imbuable imbue) => true;
 		public abstract void Activate(Player player, Imbuable imbue);
 
 		protected sealed override void Register()
