@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 	{
 		public override void KillEffects(Projectile projectile)
 		{
-			Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<AetherLightningAftershock>(), projectile.damage * 10, 0, projectile.owner);
+			Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<DeathShockProjectile>(), projectile.damage * 10, 0, projectile.owner);
 		}
 	}
 }

@@ -13,6 +13,7 @@ Effects: {
 	ProminenceProjectile.DisplayName: Prominent Sun
 	AetherLightningAftershock.DisplayName: Aether Lightning Aftershock
 	LightningBurst.DisplayName: Lightning Burst
+	DeathShockProjectile.DisplayName: Death Shock
 }
 
 ExplosionSpell.DisplayName: Explosion
