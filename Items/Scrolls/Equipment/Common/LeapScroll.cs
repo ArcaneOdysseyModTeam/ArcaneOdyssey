@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -13,27 +14,26 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveMagic => true;
 		public override bool CanHaveFS => true;
-		public override void SetDefaults()
+
+		public override ModSkill Skill => ModContent.GetInstance<LeapSkill>();
+	}
+
+	public class LeapSkill : ModSkill
+	{
+		public override SkillType SkillSlot => SkillType.Mobility;
+
+		public override void Activate(Player player, Imbuable imbue)
 		{
-			base.SetDefaults();
-			Item.accessory = true;
+			player.GetJumpState<LeapAirStep>().Enable();
 		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			if (HasCorrectImbue)
-			{
-				player.GetJumpState<LeapAirStep>().Enable();
-			}
-		}
+		public override int Scroll => ModContent.ItemType<LeapScroll>();
 	}
 
 	public class LeapAirStep : ExtraJump
 	{
-		public override Position GetDefaultPosition()
-		{
-			return BeforeBottleJumps;
-		}
+		public override Position GetDefaultPosition() => BeforeBottleJumps;
+
 		public override void ShowVisuals(Player player)
 		{
 			player.Imbue()?.LingeringEffects(player.Hitbox);

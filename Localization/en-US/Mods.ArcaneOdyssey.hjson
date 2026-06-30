@@ -426,4 +426,39 @@ Skills: {
 		DisplayName: Basic Strike
 		Description: Mods.ArcaneOdyssey.Skills.BasicStrike.Description
 	}
+
+	AuraSkill: {
+		DisplayName: Aura Skill
+		Description: Mods.ArcaneOdyssey.Skills.AuraSkill.Description
+	}
+
+	BreathtakerSkill: {
+		DisplayName: Breathtaker Skill
+		Description: Mods.ArcaneOdyssey.Skills.BreathtakerSkill.Description
+	}
+
+	CrashSkill: {
+		DisplayName: Crash Skill
+		Description: Mods.ArcaneOdyssey.Skills.CrashSkill.Description
+	}
+
+	HoverSkill: {
+		DisplayName: Hover Skill
+		Description: Mods.ArcaneOdyssey.Skills.HoverSkill.Description
+	}
+
+	LeapSkill: {
+		DisplayName: Leap Skill
+		Description: Mods.ArcaneOdyssey.Skills.LeapSkill.Description
+	}
+
+	ReflexSkill: {
+		DisplayName: Reflex Skill
+		Description: Mods.ArcaneOdyssey.Skills.ReflexSkill.Description
+	}
+
+	AnnihilationSkill: {
+		DisplayName: Annihilation Skill
+		Description: Mods.ArcaneOdyssey.Skills.AnnihilationSkill.Description
+	}
 }

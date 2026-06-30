@@ -30,6 +30,11 @@ namespace ArcaneOdyssey.AOPlayers
 		public ushort timeSinceSoftFrozen;
 		public sbyte hasWings = 2;
 
+		public override void OnEnterWorld()
+		{
+			hasWings = 2;
+		}
+
 		public override void Load()
 		{
 			On_Player.HorizontalMovement += On_Player_HorizontalMovement;

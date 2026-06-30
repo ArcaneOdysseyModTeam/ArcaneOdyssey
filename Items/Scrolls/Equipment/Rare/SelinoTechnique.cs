@@ -1,8 +1,9 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,34 +12,27 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 	public class SelinoTechnique : RareScroll
 	{
 		public const int Cooldown = 60 * 10;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-			Item.damage = 50;
-			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
-			Item.knockBack = 8f;
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			base.ModifyTooltips(tooltips);
-			tooltips.RemoveAll((TooltipLine line) => line.Name == "Speed");
-		}
-
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			if (HasCorrectImbue)
-			{
-				player.ArcaneOdyssey()?.SetDash(new Selino1(this));
-			}
-		}
 
 		public override bool CanHaveFS => true;
+
+		public override ModSkill Skill => ModContent.GetInstance<SelinoSkill>();
 	}
 
-	public class Selino1(Scroll scroll) : ModDash(scroll.Item)
+	public class SelinoSkill : DashSkill
 	{
+		public override int Damage => 50;
+		public override int Scroll => ModContent.ItemType<SelinoTechnique>();
+		public override float Knockback => 8f;
+
+		public override void Activate(Player player, Imbuable imbue)
+		{
+			player.ArcaneOdyssey()?.SetDash(new Selino1(imbue));
+		}
+	}
+
+	public class Selino1(Imbuable scroll) : ModDash(scroll.Item)
+	{
+		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
@@ -48,7 +42,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 		public override void OnEnd(Player player)
 		{
-			scroll.ActivateAbility(player);
+			Imbue?.Dash?.ActivateAbility(player, Imbue);
 			var dash = new Selino2(Source);
 			player.ArcaneOdyssey().StartDash(dash, 0, Imbue, true);
 			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld, Vector2.UnitX), ModContent.ProjectileType<ShockwaveSmash>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
@@ -65,6 +59,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 	public class Selino2(Entity source) : ModDash(source)
 	{
+		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
@@ -90,6 +85,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 	public class Selino3(Entity source) : ModDash(source)
 	{
+		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 

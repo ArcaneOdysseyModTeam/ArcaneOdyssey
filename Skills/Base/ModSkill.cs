@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ArcaneOdyssey.Spells.Base
+namespace ArcaneOdyssey.Skills.Base
 {
 	public abstract class ModSkill : ModType, ILocalizedModType
 	{
@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Spells.Base
 
 		public abstract SkillType SkillSlot { get; }
 
-		public virtual int Scroll => 0;
+		public abstract int Scroll { get; }
 
 		public virtual string LocalizationCategory => "Skills";
 

@@ -1,5 +1,7 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Relics;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -9,26 +11,32 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
 	public class EffervescenceRite : CommonScroll
 	{
-		public override bool MetConditions() => AOUtils.BossesKilled>0;
+		public override bool MetConditions() => AOUtils.BossesKilled > 0;
 		public override bool CanHaveRelic => true;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 50;
-			Item.useTime = Item.useAnimation = 40;
-			Item.DamageType = DamageClass.Summon;
-			Item.shoot = ModContent.ProjectileType<Effervescence>();
-			Item.autoReuse = true;
-			Item.shootSpeed = 1f;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<EffervescenceSkill>();
+	}
 
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+	public class EffervescenceSkill : AttackSkill
+	{
+		public override int Damage => 50;
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override int Time => 40;
+
+		public override int Shoot => ModContent.ProjectileType<Effervescence>();
+
+		public override int Scroll => ModContent.ItemType<EffervescenceRite>();
+
+		public override DamageClass DamageType => DamageClass.Summon;
+
+		public override float Speed => 1f;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			ActivateAbility(player);
+			imbue.selectedAttack.ActivateAbility(player, imbue);
 			return true;
 		}
+
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 	}
 }

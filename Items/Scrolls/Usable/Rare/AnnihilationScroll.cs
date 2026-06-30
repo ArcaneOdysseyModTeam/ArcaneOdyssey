@@ -2,10 +2,9 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
-using ArcaneOdyssey.Spells.Base;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
@@ -27,10 +26,10 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		public override void Activate(Player player, Imbuable imbue)
 		{
 			player.ArcaneOdyssey()?.StartDash(new Annihilation(imbue), -2, imbue, false);
-			Imbuable.CreateMagicCircle(this, imbue, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
+			imbue.CreateMagicCircle(this, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
 		}
 
-		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1;
 
 	}
 

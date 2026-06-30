@@ -1,9 +1,10 @@
 ﻿using ArcaneOdyssey;
 using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,38 +15,32 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 	public class BreathtakerTechnique : CommonScroll
 	{
 		public override bool CanHaveFS => true;
+
+		public override ModSkill Skill => ModContent.GetInstance<BreathtakerSkill>();
+
 		public const int Cooldown = 60 * 10;
 		public override bool MetConditions() => NPC.downedBoss2;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-			Item.damage = 20;
-			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
-		}
+	}
 
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			base.ModifyTooltips(tooltips);
-			tooltips.RemoveAll((TooltipLine line) => line.Name == "Speed");
-		}
+	public class BreathtakerSkill : DashSkill
+	{
+		public override int Scroll => ModContent.ItemType<BreathtakerTechnique>();
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override void Activate(Player player, Imbuable imbue)
 		{
-			if (HasCorrectImbue)
-			{
-				player.ArcaneOdyssey()?.SetDash(new Breathtaker(this));
-			}
+			player.ArcaneOdyssey()?.SetDash(new Breathtaker(imbue));
 		}
 	}
 
-	public class Breathtaker(Scroll scroll) : ModDash(scroll.Item)
+	public class Breathtaker(Imbuable scroll) : ModDash(scroll.Item)
 	{
 		public override bool Immune => true;
+		public override int Damage => 20;
 		public override float DashSpeed => 120;
 		public override int DashMax => 2;
 		public override bool LocksPlayer => true;
 		public override int Cooldown => BreathtakerTechnique.Cooldown;
+		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 
 		public override bool OnHit(Player player, NPC target) => true;
 

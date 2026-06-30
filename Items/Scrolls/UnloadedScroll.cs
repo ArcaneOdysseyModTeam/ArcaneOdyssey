@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
-using ArcaneOdyssey.Spells.Base;
+using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;

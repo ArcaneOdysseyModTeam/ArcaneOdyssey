@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Spells.Base;
+using ArcaneOdyssey.Skills.Base;
 using Terraria;
 
-namespace ArcaneOdyssey.Spells.Generic
+namespace ArcaneOdyssey.Skills.Generic
 {
 	public class BasicStrike : AttackSkill
 	{

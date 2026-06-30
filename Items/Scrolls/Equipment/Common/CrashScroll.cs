@@ -1,9 +1,10 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Gores;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,31 +16,25 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 	public class CrashScroll : CommonScroll
 	{
 		public override bool CanHaveFS => true;
+
+		public override ModSkill Skill => ModContent.GetInstance<CrashSkill>();
+
 		public const int Cooldown = 60 * 5;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-			Item.damage = 50;
-			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			base.ModifyTooltips(tooltips);
-			tooltips.RemoveAll((TooltipLine line) => line.Name == "Speed");
-		}
-
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			if (HasCorrectImbue)
-			{
-				player.ArcaneOdyssey()?.SetDash(new Crash(this));
-			}
-		}
 	}
 
-	public class Crash(Scroll scroll) : ModDash(scroll.Item)
+	public class CrashSkill : DashSkill
+	{
+		public override void Activate(Player player, Imbuable imbue)
+		{
+			player.ArcaneOdyssey()?.SetDash(new Crash(imbue));
+		}
+
+		public override int Damage => 50;
+
+		public override int Scroll => ModContent.ItemType<CrashScroll>();
+	}
+
+	public class Crash(Imbuable scroll) : ModDash(scroll.Item)
 	{
 		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
 		public override int Cooldown => CrashScroll.Cooldown;
@@ -56,7 +51,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override void OnEnd(Player player)
 		{
 			player.velocity = Vector2.Zero;
-			scroll.ActivateAbility(player);
 			SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.MountedCenter + player.velocity);
 		}
 

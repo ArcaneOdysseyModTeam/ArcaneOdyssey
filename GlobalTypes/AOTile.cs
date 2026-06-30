@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Usable.Common;
+using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
@@ -75,6 +76,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			List<int> options = [];
 			if (Main.hardMode)
 			{
+				options.Add(ModContent.ItemType<AcumenTechnique>());
 				foreach (var scroll in rareScrolls)
 				{
 					if (scroll.MetConditions())
@@ -87,6 +89,10 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
 				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
+				if (Main.LocalPlayer.ArcaneOdyssey().acumen)
+				{
+					options.RemoveAll(e => e == ModContent.ItemType<AcumenTechnique>());
+				}
 			}
 
 			if (options.Count == 0)
@@ -142,6 +148,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (Main.hardMode)
 			{
+				options.Add(ModContent.ItemType<AcumenTechnique>());
 				foreach (var scroll in rareScrolls)
 				{
 					if (scroll.MetConditions())

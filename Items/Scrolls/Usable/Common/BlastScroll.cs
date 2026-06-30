@@ -1,5 +1,8 @@
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Relics;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,19 +14,26 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 	{
 		public override bool CanHaveRelic => true;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.useTime = Item.useAnimation = 67;
-			Item.damage = 20;
-			Item.DamageType = DamageClass.Summon;
-			Item.shoot = ModContent.ProjectileType<SpiritBlast>();
-			Item.shootSpeed = 7f;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<BlastSkill>();
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class BlastSkill : AttackSkill
+	{
+		public override int Time => 67;
+
+		public override DamageClass DamageType => DamageClass.Summon;
+
+		public override int Damage => 20;
+
+		public override int Scroll => ModContent.ItemType<BlastScroll>();
+
+		public override int Shoot => ModContent.ProjectileType<SpiritBlast>();
+
+		public override float Speed => 7f;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			ActivateAbility(player);
+			imbue.selectedAttack.ActivateAbility(player, imbue);
 			return true;
 		}
 	}

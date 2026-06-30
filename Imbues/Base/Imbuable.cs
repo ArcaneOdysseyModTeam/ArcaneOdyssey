@@ -3,9 +3,10 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Scrolls;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Spells.Base;
+using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -55,7 +56,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				Attacks.Item3 = value[2] as AttackSkill;
 				Passive =  value[3];
 				Mobility = value[4];
-				Dash = value[5];
+				Dash = value[5] as DashSkill;
 			}
 		}
 
@@ -64,7 +65,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual (AttackSkill, AttackSkill, AttackSkill) DefaultAttacks => (null, null, null);
 		public virtual ModSkill DefaultPassive => null;
 		public virtual ModSkill DefaultMobility => null;
-		public virtual ModSkill DefaultDash => null;
+		public virtual DashSkill DefaultDash => null;
 
 
 		public (AttackSkill, AttackSkill, AttackSkill) Attacks;
@@ -74,7 +75,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		public int PassiveTime;
 
 		public ModSkill Mobility;
-		public ModSkill Dash;
+		public DashSkill Dash;
 
 		public AttackSkill selectedAttack;
 		public byte selectedIndex;
@@ -101,11 +102,16 @@ namespace ArcaneOdyssey.Imbues.Base
 
 			if (selectedAttack is not null)
 			{
-				Item.mana = selectedAttack.ManaCost;
+				if (this is MagicType)
+				{
+					Item.mana = selectedAttack.ManaCost;
+				}
 				Item.damage = selectedAttack.Damage;
 				Item.knockBack = selectedAttack.Knockback;
 				Item.channel = selectedAttack.Channel;
-				Item.DamageType = selectedAttack.DamageType;
+				Item.useAnimation = Item.useTime = selectedAttack.Time;
+				Item.shoot = selectedAttack.Shoot;
+				Item.shootSpeed = selectedAttack.Speed;
 			}
 		}
 
@@ -126,8 +132,14 @@ namespace ArcaneOdyssey.Imbues.Base
 						item.CachedFullName = cachedSpells[slotIndex];
 						cachedSpells[slotIndex] = null;
 					}
-					Skills[slotIndex] = DefaultSkills[slotIndex];
 				}
+				else
+				{
+					Main.LocalPlayer.QuickSpawnItem(Item.GetSource_FromThis(), skill.Scroll);
+				}
+				var skills = Skills;
+				skills[slotIndex] = DefaultSkills[slotIndex];
+				Skills = skills;
 			}
 		}
 
@@ -159,7 +171,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			Attacks = (ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill, ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill, ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill);
 			Passive = ModSkill.Sets.All[reader.ReadInt32()];
 			Mobility = ModSkill.Sets.All[reader.ReadInt32()];
-			Dash = ModSkill.Sets.All[reader.ReadInt32()];
+			Dash = ModSkill.Sets.All[reader.ReadInt32()] as DashSkill;
 			selectedAttack = ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill;
 			selectedIndex = reader.ReadByte();
 		}
@@ -311,10 +323,8 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (!player.AltUse())
-			{
-				selectedAttack?.Activate(player, this);
-			}
+			if (selectedAttack != null)
+				return selectedAttack.Attack(player, this, source, position, velocity, damage, knockback);
 			return false;
 		}
 
@@ -690,10 +700,10 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.SetDefaults();
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.width = Item.height = 52;
-			Item.useAnimation = Item.useTime = 30;
 			Item.noUseGraphic = true;
 			Item.noMelee = true;
 			Item.UseSound = ImbueSound;
+			Item.autoReuse = true;
 		}
 
 		public sealed override bool AltFunctionUse(Player player) => true;
@@ -739,12 +749,12 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.ModifyTooltips(tooltips);
 			if (!tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 			{
-				TooltipLine tip = new(Mod, "Drawback", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
+				TooltipLine drawback = new(Mod, "Drawback", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
 				if (Drawback < 1)
 				{
-					tip.Hide();
+					drawback.Hide();
 				}
-				tooltips.AddTooltip(tip, Color.Red);
+				tooltips.AddTooltip(drawback, Color.Red);
 
 				if (!Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
@@ -816,10 +826,67 @@ namespace ArcaneOdyssey.Imbues.Base
 					string text = $"{Gimmick.DisplayName.Value}: {Gimmick.Description}";
 					tooltips.AddTooltip(new TooltipLine(Mod, "Gimmick", text), Colour);
 				}
+
+				if (Passive is AuraSkill aura)
+				{
+					tooltips.AddTooltip(new(Mod, "CycleKeybind", ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.AuraMode", aura.Mode, AOKeybinds.CycleAuraMode.GetAssignedKeys().FirstOrDefault(ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.Unbound").Value)).Value));
+				}
+
+				if (Dash is ReflexSkill reflex)
+				{
+					var scroll = ModContent.GetModItem(reflex.Scroll);
+
+					var tool = new TooltipLine(Mod, "ReflexInfo", scroll.GetLocalizedValue("Special.Generic")); // second line of tooltip
+
+					if (DashSpeed > 1f)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Fast");
+					}
+
+					if (DashResist.HasValue)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Resist");
+					}
+
+					if (ImmuneDash)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Instant");
+					}
+
+					if (this is VanishingStyle)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Vanish");
+					}
+
+					if (this is ThermoFist)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Thermo");
+					}
+
+					if (this is SailorStyle)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Sailor");
+					}
+					tooltips.AddTooltip(tool, Colour);
+				}
+
+				foreach (var action in ExtraTooltips)
+				{
+					var tip = action(this);
+					if (tip is not null)
+						tooltips.AddTooltip(tip);
+				}
 			}
 
 			if (TooltipsPrefix is not null)
 				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", ArcaneOdysseyMod.Instance.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
+		}
+
+		public static List<Func<Imbuable, TooltipLine>> ExtraTooltips = [];
+
+		public override void Unload()
+		{
+			ExtraTooltips.Clear();
 		}
 
 		private static int SortMultipliers(Synergy x, Synergy y)
@@ -914,6 +981,31 @@ namespace ArcaneOdyssey.Imbues.Base
 				rotation ??= 0;
 			}
 			Circle circle = Projectile.NewProjectileDirect(imbue.Item.GetSource_ItemUse(player), position.Value, Vector2.Zero, ModContent.ProjectileType<Circle>(), (int)player.GetTotalDamage(skill.DamageType).ApplyTo(skill.Damage), player.GetTotalKnockback(skill.DamageType).ApplyTo(skill.Knockback), player.whoAmI, ai2: (int)mode).ModProjectile as Circle;
+			circle.ProjectileSpread = spread;
+			circle.MarkedForDeath = markedfordeath;
+			circle.originallyAltFire = altfire;
+			circle.ChargingProjectile = chargingProjectile;
+			circle.Projectile.rotation = rotation.Value;
+			if ((chargingProjectile != 0) || (!markedfordeath))
+			{
+				player.ArcaneOdyssey().myCircle = circle;
+			}
+			return circle;
+		}
+
+		public Circle CreateMagicCircle(AttackSkill skill, Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f, Vector2? position = null, float? rotation = null)
+		{
+			if (mode != MagicCircleMode.Rotating)
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter) + (player.SafeDirectionTo(Main.MouseWorld) * 30f);
+				rotation ??= player.AngleTo(Main.MouseWorld);
+			}
+			else
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter);
+				rotation ??= 0;
+			}
+			Circle circle = Projectile.NewProjectileDirect(Item.GetSource_ItemUse(player), position.Value, Vector2.Zero, ModContent.ProjectileType<Circle>(), player.GetWeaponDamage(Item), player.GetWeaponKnockback(Item), player.whoAmI, ai2: (int)mode).ModProjectile as Circle;
 			circle.ProjectileSpread = spread;
 			circle.MarkedForDeath = markedfordeath;
 			circle.originallyAltFire = altfire;

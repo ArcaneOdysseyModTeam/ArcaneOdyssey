@@ -1,8 +1,9 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,33 +13,26 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 	{
 		public override bool CanHaveFS => true;
 		public const int Cooldown = 60 * 10;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-			Item.damage = 40;
-			Item.DamageType = AOUtils.TrueMelee();
-		}
+		public override ModSkill Skill => ModContent.GetInstance<GreatjumpSkill>();
+	}
 
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			base.ModifyTooltips(tooltips);
-			tooltips.RemoveAll((TooltipLine line) => line.Name == "Speed");
-		}
+	public class GreatjumpSkill : DashSkill
+	{
+		public override int Scroll => ModContent.ItemType<GreatjumpTechnique>();
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override int Damage => 40;
+
+		public override void Activate(Player player, Imbuable imbue)
 		{
-			if (HasCorrectImbue)
-			{
-				var dash = new Greatjump(this);
-				player.ArcaneOdyssey().OmniDash = dash;
-				player.ArcaneOdyssey().OmniDashDir = -2;
-			}
+			var dash = new Greatjump(imbue);
+			player.ArcaneOdyssey().OmniDash = dash;
+			player.ArcaneOdyssey().OmniDashDir = -2;
 		}
 	}
 
-	public class Greatjump(Scroll scroll) : ModDash(scroll.Item)
+	public class Greatjump(Imbuable scroll) : ModDash(scroll.Item)
 	{
+		public override DamageClass DamageType => AOUtils.TrueMelee();
 		public override bool ContactDamage => false;
 		public override float DashSpeed => 30;
 		public override int DashMax => 60;
@@ -49,7 +43,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 		public override void OnStart(Player player)
 		{
-			scroll.ActivateAbility(player);
 			if (player.whoAmI == Main.myPlayer)
 			{
 				var proj = AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<GreatjumpShockwave>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);

@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,22 +14,28 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 		public override bool MetConditions() => NPC.downedBoss2;
 		public override bool CanHaveMagic => true;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 100;
-			Item.channel = true;
-			Item.InterruptChannelOnHurt = true;
-			Item.mana = 30;
-			Item.knockBack = 0f;
-			Item.DamageType = DamageClass.Magic;
-			Item.shoot = ModContent.ProjectileType<BeamSpell>(); // does not actually shoot
-			Item.useAnimation = Item.useTime = 40;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<BeamSkill>();
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class BeamSkill : AttackSkill
+	{
+		public override int Damage => 100;
+
+		public override int Scroll => ModContent.ItemType<BeamScroll>();
+
+		public override float Knockback => 0f;
+
+		public override bool Channel => true;
+
+		public override int ManaCost => 30;
+
+		public override int Time => 40;
+
+		public override int Shoot => ModContent.ProjectileType<BeamSpell>();
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Basic, false, type);
+			imbue.CreateMagicCircle(this, player, Projectiles.MagicCircleMode.Basic, false, Shoot);
 			return false;
 		}
 	}

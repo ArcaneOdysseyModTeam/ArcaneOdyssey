@@ -1,9 +1,10 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
@@ -11,32 +12,28 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 	public class HoverScroll : CommonScroll
 	{
 		public override bool CanHaveMagic => true;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override ModSkill Skill => ModContent.GetInstance<HoverSkill>();
+	}
+
+	public class HoverSkill : ModSkill
+	{
+		public override SkillType SkillSlot => SkillType.Mobility;
+
+		public override void Activate(Player player, Imbuable Imbue)
 		{
-			if (HasCorrectImbue)
+			player.carpet = true;
+			player.GetModPlayer<HoverPlayer>().hasHoverEquipped = true;
+			if (player.carpetTime > 0 && player.controlJump)
 			{
-				player.carpet = true;
-				player.GetModPlayer<HoverPlayer>().hasHoverEquipped = true;
-				if (player.carpetTime > 0 && player.controlJump)
-				{
-					player.moveSpeed += Imbue.ScrollSpeed.MultiToPercent();
-					Imbue.LingeringEffects(player.Hitbox);
-				}
-				else
-					player.carpetTime = (player.carpetTime * Imbue.ScrollDamage).Round();
+				player.moveSpeed += Imbue.ScrollSpeed.MultiToPercent();
+				Imbue.LingeringEffects(player.Hitbox);
 			}
+			else
+				player.carpetTime = (player.carpetTime * Imbue.ScrollDamage).Round();
 		}
 
-		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
-		{
-			return incomingItem.type != ItemID.FlyingCarpet;
-		}
+		public override int Scroll => ModContent.ItemType<HoverScroll>();
 	}
 
 	public class HoverPlayer : ModPlayer

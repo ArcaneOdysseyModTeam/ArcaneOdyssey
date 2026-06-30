@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.EmptyScrolls;
-using ArcaneOdyssey.Spells.Base;
+using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -17,8 +18,6 @@ namespace ArcaneOdyssey.Items.Base
 			ModTypeLookup<Scroll>.Register(this);
 		}
 
-		public void ActivateAbility(Player player) { }
-
 		public bool HasCorrectImbue = false;
 		public Imbuable Imbue = null;
 		public Imbuable SecondImbue = null;
@@ -27,17 +26,31 @@ namespace ArcaneOdyssey.Items.Base
 
 		public virtual bool MetConditions() => true;
 
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && MetConditions();
-
 		public override void RightClick(Player player)
 		{
-			base.RightClick(player);
+			if (Main.LocalPlayer.PlayerItem().ModItem is Imbuable imbue && CanBeAppliedTo(imbue))
+			{
+				switch (Skill.SkillSlot)
+				{
+					case ModSkill.SkillType.Attack:
+						imbue.SetSkill(imbue.selectedIndex, Skill);
+						break;
+					case ModSkill.SkillType.Passive:
+						imbue.SetSkill(3, Skill);
+						break;
+					case ModSkill.SkillType.Mobility:
+						imbue.SetSkill(4, Skill);
+						break;
+					case ModSkill.SkillType.Dash:
+						imbue.SetSkill(5, Skill);
+						break;
+				}
+			}
 		}
 
-		public override bool CanRightClick()
-		{
-			return Main.LocalPlayer.PlayerItem().ModItem is Imbuable;
-		}
+		public override bool CanRightClick() => MetConditions() && Main.LocalPlayer.PlayerItem().ModItem is Imbuable imbue && CanBeAppliedTo(imbue);
+
+		public bool CanBeAppliedTo(Imbuable imbue) => (CanHaveMagic && imbue is MagicType) || (CanHaveRelic && imbue is SpiritEnergy) || (CanHaveFS && imbue is FightingStyle);
 
 		public virtual bool CanHaveMagic => false;
 		public virtual bool CanHaveRelic => false;
@@ -47,7 +60,6 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			base.SetDefaults();
 			Item.width = Item.height = 32;
-			Item.useStyle = ItemUseStyleID.HoldUp;
 		}
 
 		public string TierFormatting

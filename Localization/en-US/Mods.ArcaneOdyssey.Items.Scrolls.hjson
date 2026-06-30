@@ -44,14 +44,11 @@ Equipment: {
 
 		ReflexScroll: {
 			DisplayName: Reflex Scroll
-			Tooltip:
-				'''
-				Channels your imbue to dash
-				Some imbues have special effects
-				'''
+			Tooltip: Channels your imbue to dash
 			SkillName: Reflex
 
 			Special: {
+				Generic: Some imbues have special effects
 				Instant: Ignores enemy contact damage
 				Fast: Dashes are faster than usual
 				Resist: Provides defense while dashing

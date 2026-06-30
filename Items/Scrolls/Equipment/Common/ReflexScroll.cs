@@ -1,7 +1,8 @@
-﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -15,57 +16,17 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override bool CanHaveFS => true;
 		public override bool CanHaveMagic => true;
 
-		public override void SetDefaults()
+		public override ModSkill Skill => ModContent.GetInstance<ReflexSkill>();
+	}
+
+	public class ReflexSkill : DashSkill
+	{
+		public override void Activate(Player player, Imbuable imbue)
 		{
-			base.SetDefaults();
-			Item.accessory = true;
+			player.ArcaneOdyssey()?.SetDash(new Reflex(imbue.Item));
 		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			if (HasCorrectImbue)
-				player.ArcaneOdyssey()?.SetDash(new Reflex(Item));
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			base.ModifyTooltips(tooltips);
-			var tool = tooltips.Find(e => e.Mod == "Terraria" && e.Name == "Tooltip1"); // second line of tooltip
-			if (tool != null && HasCorrectImbue)
-			{
-				tool.OverrideColor = Imbue.Colour;
-
-				if (Imbue.DashSpeed > 1f)
-				{
-					tool.Text = this.GetLocalizedValue("Special.Fast");
-				}
-
-				if (Imbue.DashResist.HasValue)
-				{
-					tool.Text = this.GetLocalizedValue("Special.Resist");
-				}
-
-				if (Imbue.ImmuneDash)
-				{
-					tool.Text = this.GetLocalizedValue("Special.Instant");
-				}
-
-				if (Imbue is VanishingStyle)
-				{
-					tool.Text = this.GetLocalizedValue("Special.Vanish");
-				}
-
-				if (Imbue is ThermoFist)
-				{
-					tool.Text = this.GetLocalizedValue("Special.Thermo");
-				}
-
-				if (Imbue is SailorStyle)
-				{
-					tool.Text = this.GetLocalizedValue("Special.Sailor");
-				}
-			}
-		}
+		public override int Scroll => ModContent.ItemType<ReflexScroll>();
 	}
 
 	public class Reflex(Entity source) : ModDash(source)

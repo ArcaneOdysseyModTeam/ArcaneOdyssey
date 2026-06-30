@@ -1,10 +1,8 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
-using System.Collections.Generic;
-using System.Linq;
+using ArcaneOdyssey.Skills.Base;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 {
@@ -14,22 +12,21 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override bool CanHaveFS => true;
 		public override bool CanHaveMagic => true;
 
-		public AuraMode Mode = AuraMode.Resistance;
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<AuraSkill>();
 
 		public override bool MetConditions() => NPC.downedBoss3;
+	}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+	public class AuraSkill : ModSkill
+	{
+		public override int Scroll => ModContent.ItemType<AuraScroll>();
+
+		public AuraMode Mode = AuraMode.Resistance;
+		public override SkillType SkillSlot => SkillType.Passive;
+
+		public override void Activate(Player player, Imbuable Imbue)
 		{
-			if (!HasCorrectImbue)
-				return;
-
-			if (!hideVisual && Main.GameUpdateCount % 2 == 0)
+			if (Main.GameUpdateCount % 2 == 0)
 			{
 				Imbue?.LingeringEffects(player.Hitbox.Scaled(2f), player.velocity, player);
 			}
@@ -73,23 +70,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 					player.ArcaneOdyssey().StatSize += 15;
 				}
 			}
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.AddTooltip(new(Mod, "CycleKeybind", Mod.CustomLocalization("RandomWords.AuraMode", Mode, AOKeybinds.CycleAuraMode.GetAssignedKeys().FirstOrDefault(Mod.CustomLocalization("RandomWords.Unbound").Value)).Value));
-			base.ModifyTooltips(tooltips);
-		}
-
-		public override void SaveData(TagCompound tag)
-		{
-			if (Mode != AuraMode.Resistance)
-				tag.Add("AuraMode", (int)Mode);
-		}
-
-		public override void LoadData(TagCompound tag)
-		{
-			Mode = (AuraMode)tag.GetInt("AuraMode");
 		}
 	}
 

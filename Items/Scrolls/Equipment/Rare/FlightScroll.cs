@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Accessories.Helpers;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Spells.Base;
+using ArcaneOdyssey.Skills.Base;
 using Terraria;
 using Terraria.ModLoader;
 

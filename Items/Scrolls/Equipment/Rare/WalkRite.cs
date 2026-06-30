@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Skills.Base;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -11,23 +13,23 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 	public class WalkRite : RareScroll
 	{
 		public override bool CanHaveRelic => true;
-		public const int Cooldown = 60 * 5;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.accessory = true;
-		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override ModSkill Skill => ModContent.GetInstance<WalkSkill>();
+
+		public const int Cooldown = 60 * 5;
+	}
+
+	public class WalkSkill : DashSkill
+	{
+		public override int Scroll => ModContent.ItemType<WalkRite>();
+
+		public override void Activate(Player player, Imbuable imbue)
 		{
-			if (HasCorrectImbue)
-			{
-				player.ArcaneOdyssey()?.SetDash(new Walk1(this), 3 * Math.Sign(player.velocity.X));
-			}
+			player.ArcaneOdyssey()?.SetDash(new Walk1(imbue), 3 * Math.Sign(player.velocity.X));
 		}
 	}
 
-	public class Walk1(WalkRite scroll) : ModDash(scroll.Item)
+	public class Walk1(Imbuable imbue) : ModDash(imbue.Item)
 	{
 		public override bool ContactDamage => false;
 		public override int Cooldown => WalkRite.Cooldown;
@@ -45,7 +47,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 		public override void OnStart(Player player)
 		{
 			SoundEngine.PlaySound(Imbue?.ImbueSound, player.Center);
-			scroll.ActivateAbility(player);
+			imbue.Dash.ActivateAbility(player, imbue);
 		}
 
 		public override float DashSpeed => 15;

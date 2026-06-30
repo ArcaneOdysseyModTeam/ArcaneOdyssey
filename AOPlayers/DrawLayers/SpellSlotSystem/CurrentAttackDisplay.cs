@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers.SpellSlotSystem
 			backgroundSprite = Mod.Assets.Request<Texture2D>("Assets/GelBuffBackground");
 		}
 
-		[JITWhenModsEnabled("FargoWiltas")]
+		[JITWhenModsEnabled("Fargowiltas")]
 		public static float Opacity => FargoClientConfig.Instance.DebuffOpacity;
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)

@@ -2,6 +2,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,29 +12,33 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 {
 	public class CannonScroll : CommonScroll
 	{
-		public override bool MetConditions() => AOUtils.BossesKilled>0;
+		public override bool MetConditions() => AOUtils.BossesKilled > 0;
 		public override bool CanHaveMagic => true;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 23;
-			Item.mana = 30;
-			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 7f;
-			Item.useTime = Item.useAnimation = 20;
-			Item.shoot = ModContent.ProjectileType<CannonSpell>();
-			Item.channel = true;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<CannonSkill>();
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class CannonSkill : AttackSkill
+	{
+		public override int Damage => 23;
+
+		public override bool Channel => true;
+
+		public override int ManaCost => 30;
+
+		public override int Time => 20;
+
+		public override int Scroll => ModContent.ItemType<CannonScroll>();
+
+		public override int Shoot => ModContent.ProjectileType<CannonSpell>();
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Basic, false);
-			Projectile.NewProjectile(source, player.MountedCenter + (player.SafeDirectionTo(Main.MouseWorld) * 94), Vector2.Zero, type, damage, knockback, player.whoAmI);
+			imbue.CreateMagicCircle(this, player, MagicCircleMode.Basic, false);
+			Projectile.NewProjectile(source, player.MountedCenter + (player.SafeDirectionTo(Main.MouseWorld) * 94), velocity, Shoot, damage, knockback, player.whoAmI);
 			return false;
 		}
 
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
-
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[ModContent.ProjectileType<CannonSpell>()] < 1;
 	}
 }
