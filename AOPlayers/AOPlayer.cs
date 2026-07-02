@@ -282,9 +282,7 @@ namespace ArcaneOdyssey.AOPlayers
 				}
 				if (!CanMoveOnGround)
 				{
-					Player.gravity = 0f;
-					Player.velocity.X *= .001f;
-					Player.velocity.Y *= .001f;
+					Player.SetCCed();
 				}
 				timeSinceSoftFrozen++;
 			}

@@ -12,11 +12,6 @@ namespace ArcaneOdyssey.Buffs.Stuns
 		public override List<int> Counterparts => [BuffID.Electrified, ModContent.BuffType<ElectrifiedToxins>()];
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.Electrified}";
 
-		public override void Update(Player player, ref int buffIndex)
-		{
-			player.electrified = true;
-		}
-
 		public override bool ReApply(Player player, int time, int buffIndex) => false;
 	}
 }

@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Buffs.Base
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.canFloatInWater = false;
+			player.SetCCed();
 		}
 
 		public override bool ReApply(Player player, int time, int buffIndex) => !LiterallyCheating;
