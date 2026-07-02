@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Buffs.Stuns
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.stoned = true;
+			player.SetCCed();
 		}
 	}
 }

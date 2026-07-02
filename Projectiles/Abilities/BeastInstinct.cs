@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
+using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -58,7 +59,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			{
 				for (int i = 0; i < spots.Length; i++)
 				{
-					spots[i] = AOUtils.RandomBorder(Projectile.Hitbox);
+					spots[i] = Projectile.Center + (Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (AOUtils.Average(Projectile.width, Projectile.height) / 2f));
 				}
 				Projectile.ai[0] = 1;
 				NetUpdate();
@@ -76,10 +77,11 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				if (spot >= spots.Length)
 					spot = 0;
 				dist = spots[spot].Distance(Owner.Center) / 3f;
+				Owner.ChangeDir(Math.Sign(Owner.SafeDirectionTo(spots[spot], Vector2.One).X));
 				NetUpdate();
 				if (Main.myPlayer == Projectile.owner)
 				{
-					AOUtils.SimulateAOE(Projectile.Hitbox, Projectile.damage/10, Projectile.knockBack, Projectile, Projectile.DamageType, false);
+					AOUtils.SimulateAOE(Projectile.Hitbox, Projectile.damage / 10, Projectile.knockBack, Projectile, Projectile.DamageType, false);
 				}
 			}
 		}
