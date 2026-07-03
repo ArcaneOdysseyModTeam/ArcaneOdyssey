@@ -274,9 +274,11 @@ ScrollTiers: {
 	Common: "[c/2277ff:Common {0} scroll]"
 	Rare: "[c/0044ff:Rare {0} scroll]"
 	Lost: "[c/7ebcc2:Lost {0} scroll]"
-	Spell: spell
-	Rite: rite
-	Technique: technique
+	Attack: attack
+	Passive: passive
+	Mobility: mobility
+	Dash: dash
+	Other: misc
 	NeedsImbue: Can be applied to a {0}
 	Magic: "[c/0000ff:magic type]"
 	FightingStyle: "[c/ff0000:fighting style]"

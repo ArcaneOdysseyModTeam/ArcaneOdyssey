@@ -62,35 +62,6 @@ namespace ArcaneOdyssey.Items.Base
 			Item.width = Item.height = 32;
 		}
 
-		public string TierFormatting
-		{
-			get
-			{
-				var text = "";
-				if (CanHaveFS)
-				{
-					text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Technique");
-				}
-				if (CanHaveMagic)
-				{
-					if (!string.IsNullOrEmpty(text))
-					{
-						text += "|";
-					}
-					text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Spell");
-				}
-				if (CanHaveRelic)
-				{
-					if (!string.IsNullOrEmpty(text))
-					{
-						text += "|";
-					}
-					text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Rite");
-				}
-				return text;
-			}
-		}
-
 		public string ReqFormatting
 		{
 			get
@@ -123,7 +94,7 @@ namespace ArcaneOdyssey.Items.Base
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			base.ModifyTooltips(tooltips);
-			tooltips.AddTooltip(new(Mod, "ScrollTier", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Tier}", TierFormatting).Value));
+			tooltips.AddTooltip(new(Mod, "ScrollTier", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Tier}", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Skill.SkillSlot}").Value).Value));
 			tooltips.AddTooltip(new(Mod, "ScrollReq", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.NeedsImbue", ReqFormatting).Value));
 		}
 

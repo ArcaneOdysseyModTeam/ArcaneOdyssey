@@ -195,6 +195,11 @@ namespace ArcaneOdyssey.Imbues.Base
 			var skills = Skills;
 			skills[slotIndex] = skill;
 			Skills = skills;
+
+			if (slotIndex == selectedIndex)
+			{
+				selectedAttack = skill as AttackSkill;
+			}
 		}
 
 		public override void NetSend(BinaryWriter writer)
@@ -412,7 +417,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 			if (selectedAttack == null)
 				CycleAttack();
-			if (Main.myPlayer == player.whoAmI)
+			if (Main.myPlayer == player.whoAmI && player.PlayerItem().type == Type)
 			{
 				if (player.ItemAnimationEndingOrEnded)
 				{

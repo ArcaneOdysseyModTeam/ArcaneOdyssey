@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers.SpellSlotSystem
 						if (spell.Scroll != 0)
 							tex = TextureAssets.Item[spell.Scroll];
 						else
-							tex = TextureAssets.Item[ModContent.ItemType<EmptyScroll>()];
+							tex = TextureAssets.Item[imbue.Type];
 
 						DrawData d = new(tex.Value, pos - Main.screenPosition, tex.Frame(), colour, 0f, tex.Size() / 2f, 28f / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 						drawInfo.DrawDataCache.AddRange(a, d);

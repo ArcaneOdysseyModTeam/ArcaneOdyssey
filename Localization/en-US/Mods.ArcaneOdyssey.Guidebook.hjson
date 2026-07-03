@@ -1,5 +1,5 @@
 NewGuide: Morden has a new guide available! ({0})
-AthenaPage: "{0} has been added to the guidebook..."
+AthenaPage: "'{0}' has been added to the guidebook..."
 
 GettingStarted: {
 	Text:
@@ -20,7 +20,7 @@ MagicTypes: {
 		'''
 		You have chosen a [i:ArcaneOdyssey/FireMagic] Magic type. With this you can cast powerful spells, and greatly enhance weapons.
 
-		But for now, try left clicking with your magic. This will shoot a basic blast, which isn't too powerful.
+		But for now, try left clicking with your magic. This will shoot a basic blast by default, which isn't too powerful.
 		'''
 	DisplayName: Magic Types
 }
@@ -69,8 +69,6 @@ Imbuing: {
 		This can be done by right clicking with your imbue to select it, or you can choose an imbue per item using the Cycle Item Imbue keybind.
 
 		Imbued items normally use the Imbue stats of your imbue, rebalancing the stats of the item slightly. Debuffs from your imbue are also applied to the item.
-
-		To imbue compatible accessories, you must right click the magic to select it as your primary imbue.
 		'''
 	DisplayName: Imbuing
 }
@@ -135,9 +133,13 @@ UsingScrolls: {
 		'''
 		You've finally found yourself a [i:ArcaneOdyssey/EmptyScroll] scroll. This allows you to directly use your imbues.
 
-		To use it, first check if it's an accessory by looking for if it says "Equippable". If so, put it in your accessory slots, and make sure you have a primary imbue selected.
+		Your imbues can hold up to 3 attack scrolls, and one of the other types. You can apply a scroll to an imbue by right clicking a compatible scroll while holding your imbue or having it on your mouse.
 
-		If not, you can imbue it normally (see the Imbuing guide), then left (or sometimes also right click) to use it. If you're using a [i:ArcaneOdyssey/RegulusMagic] Magic Type, you might also need mana.
+		When applying a scroll, you will be refunded any previous scroll in that slot if applicable. When applying to attacks, it uses your currently selected attack slot, which is displayed above your head.
+
+		Some scroll have alternative usage. You can access these by holding down the Alt Skill Use keybind as you use the attack.
+
+		If you're using a [i:ArcaneOdyssey/RegulusMagic] Magic Type, you will also need mana to use skills.
 		'''
 }
 
