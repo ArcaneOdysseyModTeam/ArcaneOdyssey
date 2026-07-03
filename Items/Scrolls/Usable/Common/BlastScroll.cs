@@ -1,6 +1,5 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Relics;
 using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
@@ -21,8 +20,6 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 	{
 		public override int Time => 67;
 
-		public override DamageClass DamageType => DamageClass.Summon;
-
 		public override int Damage => 20;
 
 		public override int Scroll => ModContent.ItemType<BlastScroll>();
@@ -33,7 +30,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			imbue.selectedAttack.ActivateAbility(player, imbue);
+			ActivateAbility(player, imbue);
 			return true;
 		}
 	}

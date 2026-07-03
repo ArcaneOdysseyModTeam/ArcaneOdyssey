@@ -69,7 +69,8 @@ namespace ArcaneOdyssey.NPCs.Town
 				"Homer Creed",
 				"Shayna Stillwater",
 				"Kindra",
-				"Minty"
+				"Minty",
+				"Lemon"
 			];
 		}
 

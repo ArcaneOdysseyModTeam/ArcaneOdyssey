@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework.Input;
+using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
@@ -11,6 +12,7 @@ namespace ArcaneOdyssey
 
 		public static ModKeybind CycleImbueAttack { get; set; }
 		public static ModKeybind ActivateImbuePassive { get; set; }
+		public static ModKeybind AltSkillUse { get; set; }
 
 		public override void Load()
 		{
@@ -20,6 +22,7 @@ namespace ArcaneOdyssey
 			CycleGodSoul = KeybindLoader.RegisterKeybind(Mod, nameof(CycleGodSoul), "K");
 			CycleImbueAttack = KeybindLoader.RegisterKeybind(Mod, nameof(CycleImbueAttack), "Q");
 			ActivateImbuePassive = KeybindLoader.RegisterKeybind(Mod, nameof(ActivateImbuePassive), "L");
+			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.Enter);
 		}
 
 		public override void Unload()
@@ -28,6 +31,9 @@ namespace ArcaneOdyssey
 			DashBind = null;
 			CycleAuraMode = null;
 			CycleGodSoul = null;
+			CycleImbueAttack = null;
+			ActivateImbuePassive = null;
+			AltSkillUse = null;
 		}
 	}
 }

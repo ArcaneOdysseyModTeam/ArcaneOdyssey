@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,25 +14,30 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	{
 		public override bool CanHaveMagic => true;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 55;
-			Item.mana = 45;
-			Item.channel = true;
-			Item.useTime = Item.useAnimation = 20;
-			Item.DamageType = DamageClass.Magic;
-			Item.InterruptChannelOnHurt = true;
-			Item.shoot = ModContent.ProjectileType<Javelin>();
-			Item.useStyle = ItemUseStyleID.Swing;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<JavelinSkill>();
+	}
+	public class JavelinSkill : AttackSkill
+	{
+		public override int Damage => 55;
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override int Time => 20;
+
+		public override int ManaCost => 45;
+
+		public override bool Channel => true;
+
+		public override int Shoot => ModContent.ProjectileType<Javelin>();
+
+		public override int Scroll => ModContent.ItemType<JavelinSpell>();
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Rotating, false);
+			imbue.CreateMagicCircle(player, Projectiles.MagicCircleMode.Rotating, false);
 			return true;
 		}
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+		public override int UseStyleID => ItemUseStyleID.Swing;
+
 	}
 }

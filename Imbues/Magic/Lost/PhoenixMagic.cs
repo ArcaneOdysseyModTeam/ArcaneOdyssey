@@ -141,6 +141,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override SkillType SkillSlot => SkillType.Mobility;
 
+		public override int Scroll => 0;
+
 		public override void Activate(Player player, Imbuable imbue)
 		{
 			if (!player.HasTypeInInventory<PhoenixWings>() && player.ArcaneOdyssey().hasWings <= 0)

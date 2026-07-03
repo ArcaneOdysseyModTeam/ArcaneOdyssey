@@ -1,5 +1,7 @@
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,26 +13,32 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	{
 		public override bool CanHaveMagic => true;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.mana = 15;
-			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 7f;
-			Item.channel = true;
-			Item.damage = 15;
-			Item.useTime = Item.useAnimation = 5;
-			Item.knockBack = 0f;
-			Item.shoot = ModContent.ProjectileType<Surge>();
-		}
+		public override ModSkill Skill => ModContent.GetInstance<SurgeSkill>();
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class SurgeSkill : AttackSkill
+	{
+		public override int Damage => 15;
+
+		public override int Shoot => ModContent.ProjectileType<Surge>();
+
+		public override float Knockback => 0f;
+
+		public override int Scroll => ModContent.ItemType<SurgeSpell>();
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			//Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false, spread: ApplySpeed(MathHelper.PiOver4 / 2f));
-			ActivateAbility(player);
+			imbue.CreateMagicCircle(player, Projectiles.MagicCircleMode.Barrage, false, spread: imbue.ApplySpeed(MathHelper.PiOver4 / 2f));
+			ActivateAbility(player, imbue);
 			return true;
 		}
 
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool Channel => true;
+
+		public override int ManaCost => 15;
+
+		public override float Speed => 7f;
+
+		public override int Time => 5;
 	}
 }

@@ -2,8 +2,10 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,24 +16,27 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	{
 		public override bool CanHaveMagic => true;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 190;
-			Item.mana = 50;
-			Item.useTime = Item.useAnimation = 40;
-			Item.DamageType = DamageClass.Magic;
-			Item.shoot = ModContent.ProjectileType<ArraySpell>();
-			Item.autoReuse = true;
-			Item.UseSound = SoundID.DD2_GhastlyGlaiveImpactGhost;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<ArraySkill>();
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class ArraySkill : AttackSkill
+	{
+		public override int Damage => 190;
+		public override int ManaCost => 50;
+
+		public override int Time => 40;
+		public override int Shoot => ModContent.ProjectileType<ArraySpell>();
+
+		public override int Scroll => ModContent.ItemType<ArrayScroll>();
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, type, position: player.Top, rotation: -MathHelper.PiOver2);
+			imbue.CreateMagicCircle(player, MagicCircleMode.Basic, true, Shoot, position: player.Top, rotation: -MathHelper.PiOver2);
 			return false;
 		}
 
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
+
+		public override SoundStyle? ExtraSound => SoundID.DD2_GhastlyGlaiveImpactGhost;
 	}
 }

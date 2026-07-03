@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			ModTypeLookup<MagicType>.Register(this);
 		}
 
-		public override (AttackSkill, AttackSkill, AttackSkill) DefaultAttacks => (ModContent.GetInstance<MagicBlastSkill>(), ModContent.GetInstance<MagicBlastSkill>(), ModContent.GetInstance<MagicBlastSkill>());
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<MagicBlastSkill>();
 
 		public sealed override float ImbueDamage => base.ImbueDamage;
 		public sealed override float ImbueSize => base.ImbueSize;
@@ -166,17 +166,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			ArcaneOdysseyMod.Sets.baseImbues[Type] = ModContent.ItemType<T>();
 		}
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.mana = 5 * ((int)ImbuableTier + 1);
-			Item.DamageType = DamageClass.Magic;
-			Item.shoot = ModContent.ProjectileType<BlastSpell>();
-			Item.autoReuse = true;
-			Item.damage = 15 + (100 * (int)ImbuableTier);
-			Item.shootSpeed = 7f * ScrollSpeed;
-		}
-
 		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			if (player.AltUse())
@@ -197,9 +186,18 @@ namespace ArcaneOdyssey.Imbues.Base
 	{
 		public override int Damage => 15;
 
-		public override void Activate(Player player, Imbuable imbue)
+		public override int Shoot => ModContent.ProjectileType<BlastSpell>();
+
+		public override int Scroll => 0;
+
+		public override int ManaCost => 5;
+
+		public override float Speed => 7f;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(this, imbue, player, MagicCircleMode.Basic, true, ModContent.ProjectileType<BlastSpell>());
+			imbue.CreateMagicCircle(player, MagicCircleMode.Basic, true, Shoot);
+			return false;
 		}
 	}
 }

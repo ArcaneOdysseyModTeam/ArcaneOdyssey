@@ -1,7 +1,9 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Relics;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -23,6 +25,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<FireMagic>();
 
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<FlogSkill>();
+
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -33,24 +37,32 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = Item.height = 56;
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.shoot = ModContent.ProjectileType<Floganymai>();
-			Item.damage = 120;
-			Item.shootSpeed = 1f;
 			Item.noUseGraphic = false;
 		}
+	}
 
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+	public class FlogSkill : AttackSkill
+	{
+		public override int Damage => 120;
+
+		public override int Shoot => ModContent.ProjectileType<Floganymai>();
+
+		public override int Scroll => 0;
+
+		public override int UseStyleID => ItemUseStyleID.Shoot;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
+		{
+			ActivateAbility(player, imbue);
+			return true;
+		}
+
+		public override void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback)
 		{
 			position = Main.MouseWorld;
 			player.LimitPointToPlayerReachableArea(ref position);
 		}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			ActivateAbility(player, false);
-			return true;
-		}
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 	}
 }

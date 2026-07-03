@@ -27,13 +27,9 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 
 		public override int Scroll => ModContent.ItemType<EffervescenceRite>();
 
-		public override DamageClass DamageType => DamageClass.Summon;
-
-		public override float Speed => 1f;
-
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			imbue.selectedAttack.ActivateAbility(player, imbue);
+			ActivateAbility(player, imbue);
 			return true;
 		}
 

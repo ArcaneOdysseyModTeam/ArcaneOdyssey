@@ -17,12 +17,13 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 		public override bool MetConditions() => NPC.downedBoss3;
 	}
 
-	public class AuraSkill : ModSkill
+	public class AuraSkill : PassiveSkill
 	{
 		public override int Scroll => ModContent.ItemType<AuraScroll>();
 
 		public AuraMode Mode = AuraMode.Resistance;
-		public override SkillType SkillSlot => SkillType.Passive;
+
+		public override int Length => 60 * 60;
 
 		public override void Activate(Player player, Imbuable Imbue)
 		{

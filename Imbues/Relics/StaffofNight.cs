@@ -1,5 +1,7 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Relics;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -34,18 +36,26 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.autoReuse = true;
 			Item.width = Item.height = 46;
-			Item.shoot = ModContent.ProjectileType<Nichtetheis>();
 			Item.noUseGraphic = false;
-			Item.damage = 30;
-			Item.shootSpeed = 7f * ImbueSpeed;
 		}
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class SpiritBeamSkill : AttackSkill
+	{
+		public override int Damage => 30;
+
+		public override int Shoot => ModContent.ProjectileType<Nichtetheis>();
+
+		public override int Scroll => 0;
+
+		public override float Speed => 7f;
+
+		public override int UseStyleID => ItemUseStyleID.Shoot;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			ActivateAbility(player, true);
+			ActivateAbility(player, imbue);
 			return true;
 		}
-
-		public override bool CanShoot(Player player) => !player.AltUse();
 	}
 }

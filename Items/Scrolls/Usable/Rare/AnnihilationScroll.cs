@@ -5,6 +5,7 @@ using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
@@ -20,16 +21,19 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	{
 		public override int Damage => 60;
 		public override int ManaCost => 200;
-		public override float Knockback => 0;
+		public override float Knockback => 0f;
 		public override int Scroll => ModContent.ItemType<AnnihilationScroll>();
 
-		public override void Activate(Player player, Imbuable imbue)
+		public override int Shoot => ModContent.ProjectileType<AnnihilationSpell>();
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
 			player.ArcaneOdyssey()?.StartDash(new Annihilation(imbue), -2, imbue, false);
-			imbue.CreateMagicCircle(this, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
+			imbue.CreateMagicCircle(player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
+			return false;
 		}
 
-		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[ModContent.ProjectileType<AnnihilationSpell>()] < 1;
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 
 	}
 

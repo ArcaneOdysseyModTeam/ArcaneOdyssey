@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Skills.Base
 
 		public abstract int Scroll { get; }
 
-		public virtual string LocalizationCategory => "Skills";
+		public virtual string LocalizationCategory => $"Skills.{SkillSlot}";
 
 		public virtual bool PreActivate(Player player, Imbuable imbue) => true;
 		public abstract void Activate(Player player, Imbuable imbue);
@@ -32,7 +32,8 @@ namespace ArcaneOdyssey.Skills.Base
 		}
 
 		public virtual LocalizedText Description => this.GetLocalization("Description");
-		public virtual LocalizedText DisplayName => this.GetLocalization("DisplayName", PrettyPrintName);
+		public virtual LocalizedText DisplayName => this.GetLocalization("DisplayName", () => PrettyPrintName().Replace("Skill").Trim());
+		public virtual LocalizedText Popup => this.GetLocalization("Popup", () => PrettyPrintName().Replace("Skill").Trim());
 
 		public sealed override void SetupContent()
 		{
@@ -40,6 +41,7 @@ namespace ArcaneOdyssey.Skills.Base
 
 			_ = DisplayName; // forces these to generate if they don't exist
 			_ = Description;
+			_ = Popup;
 
 			switch (SkillSlot)
 			{
@@ -79,7 +81,7 @@ namespace ArcaneOdyssey.Skills.Base
 			if (Imbue is not null)
 			{
 				var SecondImbue = Imbue.Imbue;
-				var ab = new WeaponAbility(DisplayName.Value, null, Imbue.Colour);
+				var ab = new WeaponAbility(Popup.Value, null, Imbue.Colour);
 				if (Imbue is not FightingStyle)
 				{
 					ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", Imbue.PrettySpellPrefix, ab.Name).Value.Trim();

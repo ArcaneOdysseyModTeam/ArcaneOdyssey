@@ -1,5 +1,6 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
@@ -23,7 +24,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			imbue.CreateMagicCircle(this, player, Projectiles.MagicCircleMode.Barrage, false, Shoot, spread: imbue.ApplySpeed(MathHelper.PiOver4 / 2f));
+			imbue.CreateMagicCircle(player, MagicCircleMode.Barrage, false, Shoot, spread: imbue.ApplySpeed(MathHelper.PiOver4 / 2f));
 			return false;
 		}
 

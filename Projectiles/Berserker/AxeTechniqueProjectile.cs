@@ -2,7 +2,9 @@
 using ArcaneOdyssey.Projectiles.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
 using Terraria.ID;
 
@@ -22,7 +24,12 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			ProjectileID.Sets.TrailingMode[Type] = 0;
 		}
 
-		public bool CanCutTrees = !Main.mouseRight;
+		public bool CanCutTrees;
+
+		public override void OnSpawn(IEntitySource source)
+		{
+			CanCutTrees = !AOKeybinds.AltSkillUse.Current;
+		}
 
 		public override void SetDefaults()
 		{
@@ -70,5 +77,15 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 		}
 
 		public override bool? CanCutTiles() => CanCutTrees;
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(CanCutTrees);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			CanCutTrees = reader.ReadBoolean();
+		}
 	}
 }

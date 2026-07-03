@@ -4,10 +4,10 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Projectiles.Relics;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
@@ -16,59 +16,43 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 	{
 		public override bool CanHaveMagic => true;
 		public override bool CanHaveRelic => true;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.damage = 60;
-			Item.reuseDelay = 60;
-			Item.InterruptChannelOnHurt = true;
-			Item.channel = true;
-			Item.DamageType = DamageClass.MagicSummonHybrid;
-			Item.UseSound = SoundID.Item84;
-			Item.mana = 25;
-			Item.shoot = ModContent.ProjectileType<ExplosionSpell>();
-			Item.useAnimation = Item.useTime = 40;
-		}
 
-		public override void UpdateInventory(Player player)
-		{
-			base.UpdateInventory(player);
-			if (Imbue is SpiritEnergy)
-			{
-				Item.DamageType = DamageClass.Summon;
-			}
-			else if (Imbue is MagicType)
-			{
-				Item.DamageType = DamageClass.Magic;
-			}
-			else
-			{
-				Item.DamageType = DamageClass.MagicSummonHybrid;
-			}
-		}
+		public override ModSkill Skill => ModContent.GetInstance<ExplosionSkill>();
+	}
 
-		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
-		{
-			if (Imbue is SpiritEnergy)
-				mult *= 0;
-		}
+	public class ExplosionSkill : AttackSkill
+	{
+		public override int Damage => 60;
 
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		public override int Shoot => ModContent.ProjectileType<ExplosionSpell>();
+
+		public override int Scroll => ModContent.ItemType<ExplosionScroll>();
+
+		public override int ManaCost => 25;
+
+		public override bool Channel => true;
+
+		public override int Time => 40;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			if (Imbue is SpiritEnergy)
+			var type = Shoot;
+			if (imbue is SpiritEnergy)
 			{
 				type = ModContent.ProjectileType<SpiritExplosion>();
 			}
+			imbue.CreateMagicCircle(player, MagicCircleMode.Rotating, false, type, AltUsing);
+			return false;
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
-
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1 && player.ArcaneOdyssey().myCircle == null;
-
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool PreActivate(Player player, Imbuable imbue)
 		{
-			Imbuable.CreateMagicCircle(Item, player, MagicCircleMode.Rotating, false, type, player.AltUse());
-			return false;
+			var type = Shoot;
+			if (imbue is SpiritEnergy)
+			{
+				type = ModContent.ProjectileType<SpiritExplosion>();
+			}
+			return player.ownedProjectileCounts[type] < 1 && player.ArcaneOdyssey().myCircle == null;
 		}
 	}
 }

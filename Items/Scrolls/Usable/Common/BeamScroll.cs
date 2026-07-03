@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			imbue.CreateMagicCircle(this, player, Projectiles.MagicCircleMode.Basic, false, Shoot);
+			imbue.CreateMagicCircle(player, Projectiles.MagicCircleMode.Basic, false, Shoot);
 			return false;
 		}
 	}

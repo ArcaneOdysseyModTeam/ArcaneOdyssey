@@ -244,6 +244,7 @@ Keybinds: {
 	CycleGodSoul.DisplayName: Cycle God Soul
 	CycleImbueAttack.DisplayName: Cycle Imbue Attack
 	ActivateImbuePassive.DisplayName: Activate Imbue Passive
+	AltSkillUse.DisplayName: Alt Skill Use
 }
 
 RandomWords: {
@@ -402,63 +403,251 @@ ImbueGimmicks: {
 }
 
 Skills: {
-	MagicBlastSkill: {
-		DisplayName: Magic Blast Skill
-		Description: Mods.ArcaneOdyssey.Skills.MagicBlastSkill.Description
+	Attack: {
+		MagicBlastSkill: {
+			DisplayName: Magic Blast
+			Description: Mods.ArcaneOdyssey.Skills.Attack.MagicBlastSkill.Description
+			Popup: Magic Blast
+		}
+
+		CannonFistSkill: {
+			DisplayName: Cannon Fist
+			Description: Mods.ArcaneOdyssey.Skills.Attack.CannonFistSkill.Description
+			Popup: Cannon Fist
+		}
+
+		AstrapikisSkill: {
+			DisplayName: Astrapikis
+			Description: Mods.ArcaneOdyssey.Skills.Attack.AstrapikisSkill.Description
+			Popup: Astrapikis
+		}
+
+		FlogSkill: {
+			DisplayName: Flog
+			Description: Mods.ArcaneOdyssey.Skills.Attack.FlogSkill.Description
+			Popup: Flog
+		}
+
+		SpiritBeamSkill: {
+			DisplayName: Spirit Beam
+			Description: Mods.ArcaneOdyssey.Skills.Attack.SpiritBeamSkill.Description
+			Popup: Spirit Beam
+		}
+
+		SpiritCloneSkill: {
+			DisplayName: Spirit Clone
+			Description: Mods.ArcaneOdyssey.Skills.Attack.SpiritCloneSkill.Description
+			Popup: Spirit Clone
+		}
+
+		BarrageSkill: {
+			DisplayName: Barrage
+			Description: Mods.ArcaneOdyssey.Skills.Attack.BarrageSkill.Description
+			Popup: Barrage
+		}
+
+		BeamSkill: {
+			DisplayName: Beam
+			Description: Mods.ArcaneOdyssey.Skills.Attack.BeamSkill.Description
+			Popup: Beam
+		}
+
+		BlastSkill: {
+			DisplayName: Blast
+			Description: Mods.ArcaneOdyssey.Skills.Attack.BlastSkill.Description
+			Popup: Blast
+		}
+
+		CannonSkill: {
+			DisplayName: Cannon
+			Description: Mods.ArcaneOdyssey.Skills.Attack.CannonSkill.Description
+			Popup: Cannon
+		}
+
+		EffervescenceSkill: {
+			DisplayName: Effervescence
+			Description: Mods.ArcaneOdyssey.Skills.Attack.EffervescenceSkill.Description
+			Popup: Effervescence
+		}
+
+		ExplosionSkill: {
+			DisplayName: Explosion
+			Description: Mods.ArcaneOdyssey.Skills.Attack.ExplosionSkill.Description
+			Popup: Explosion
+		}
+
+		HoundSkill: {
+			DisplayName: Hound
+			Description: Mods.ArcaneOdyssey.Skills.Attack.HoundSkill.Description
+			Popup: Hound
+		}
+
+		RainSkill: {
+			DisplayName: Rain
+			Description: Mods.ArcaneOdyssey.Skills.Attack.RainSkill.Description
+			Popup: Rain
+		}
+
+		SmashSkill: {
+			DisplayName: Smash
+			Description: Mods.ArcaneOdyssey.Skills.Attack.SmashSkill.Description
+			Popup: Smash
+		}
+
+		AnnihilationSkill: {
+			DisplayName: Annihilation
+			Description: Mods.ArcaneOdyssey.Skills.Attack.AnnihilationSkill.Description
+			Popup: Annihilation
+		}
+
+		ArraySkill: {
+			DisplayName: Array
+			Description: Mods.ArcaneOdyssey.Skills.Attack.ArraySkill.Description
+			Popup: Array
+		}
+
+		AxeSkill: {
+			DisplayName: Axe
+			Description: Mods.ArcaneOdyssey.Skills.Attack.AxeSkill.Description
+			Popup: Axe
+		}
+
+		CrescendoSkill: {
+			DisplayName: Crescendo
+			Description: Mods.ArcaneOdyssey.Skills.Attack.CrescendoSkill.Description
+			Popup: Crescendo
+		}
+
+		ElementalSkill: {
+			DisplayName: Elemental
+			Description: Mods.ArcaneOdyssey.Skills.Attack.ElementalSkill.Description
+			Popup: Elemental
+		}
+
+		JavelinSkill: {
+			DisplayName: Javelin
+			Description: Mods.ArcaneOdyssey.Skills.Attack.JavelinSkill.Description
+			Popup: Javelin
+		}
+
+		MeteorSkill: {
+			DisplayName: Meteor
+			Description: Mods.ArcaneOdyssey.Skills.Attack.MeteorSkill.Description
+			Popup: Meteor
+		}
+
+		PulsarSkill: {
+			DisplayName: Pulsar
+			Description: Mods.ArcaneOdyssey.Skills.Attack.PulsarSkill.Description
+			Popup: Pulsar
+		}
+
+		RaySkill: {
+			DisplayName: Ray
+			Description: Mods.ArcaneOdyssey.Skills.Attack.RaySkill.Description
+			Popup: Ray
+		}
+
+		ShotSkill: {
+			DisplayName: Shot
+			Description: Mods.ArcaneOdyssey.Skills.Attack.ShotSkill.Description
+			Popup: Shot
+		}
+
+		SurgeSkill: {
+			DisplayName: Surge
+			Description: Mods.ArcaneOdyssey.Skills.Attack.SurgeSkill.Description
+			Popup: Surge
+		}
+
+		StrikeSkill: {
+			DisplayName: Strike
+			Description: Mods.ArcaneOdyssey.Skills.Attack.StrikeSkill.Description
+			Popup: Strike
+		}
 	}
 
-	PhoenixFlight: {
-		DisplayName: Phoenix Flight
-		Description: Mods.ArcaneOdyssey.Skills.PhoenixFlight.Description
+	Mobility: {
+		PhoenixFlight: {
+			DisplayName: Phoenix Flight
+			Description: Mods.ArcaneOdyssey.Skills.Mobility.PhoenixFlight.Description
+			Popup: Phoenix Flight
+		}
+
+		HoverSkill: {
+			DisplayName: Hover
+			Description: Mods.ArcaneOdyssey.Skills.Mobility.HoverSkill.Description
+			Popup: Hover
+		}
+
+		LeapSkill: {
+			DisplayName: Leap
+			Description: Mods.ArcaneOdyssey.Skills.Mobility.LeapSkill.Description
+			Popup: Leap
+		}
+
+		BasicFlight: {
+			DisplayName: Basic Flight
+			Description: Mods.ArcaneOdyssey.Skills.Mobility.BasicFlight.Description
+			Popup: Basic Flight
+		}
 	}
 
-	BasicFlight: {
-		DisplayName: Basic Flight
-		Description: Mods.ArcaneOdyssey.Skills.BasicFlight.Description
+	Dash: {
+		ThakrousiSkill: {
+			DisplayName: Thakrousi
+			Description: Mods.ArcaneOdyssey.Skills.Dash.ThakrousiSkill.Description
+			Popup: Thakrousi
+		}
+
+		BreathtakerSkill: {
+			DisplayName: Breathtaker
+			Description: Mods.ArcaneOdyssey.Skills.Dash.BreathtakerSkill.Description
+			Popup: Breathtaker
+		}
+
+		CrashSkill: {
+			DisplayName: Crash
+			Description: Mods.ArcaneOdyssey.Skills.Dash.CrashSkill.Description
+			Popup: Crash
+		}
+
+		ReflexSkill: {
+			DisplayName: Reflex
+			Description: Mods.ArcaneOdyssey.Skills.Dash.ReflexSkill.Description
+			Popup: Reflex
+		}
+
+		GreatjumpSkill: {
+			DisplayName: Greatjump
+			Description: Mods.ArcaneOdyssey.Skills.Dash.GreatjumpSkill.Description
+			Popup: Greatjump
+		}
+
+		SelinoSkill: {
+			DisplayName: Selino
+			Description: Mods.ArcaneOdyssey.Skills.Dash.SelinoSkill.Description
+			Popup: Selino
+		}
+
+		WalkSkill: {
+			DisplayName: Walk
+			Description: Mods.ArcaneOdyssey.Skills.Dash.WalkSkill.Description
+			Popup: Walk
+		}
 	}
 
-	BarrageSkill: {
-		DisplayName: Barrage Skill
-		Description: Mods.ArcaneOdyssey.Skills.BarrageSkill.Description
-	}
+	Passive: {
+		AuraSkill: {
+			DisplayName: Aura
+			Description: Mods.ArcaneOdyssey.Skills.Passive.AuraSkill.Description
+			Popup: Aura
+		}
 
-	BasicStrike: {
-		DisplayName: Basic Strike
-		Description: Mods.ArcaneOdyssey.Skills.BasicStrike.Description
-	}
-
-	AuraSkill: {
-		DisplayName: Aura Skill
-		Description: Mods.ArcaneOdyssey.Skills.AuraSkill.Description
-	}
-
-	BreathtakerSkill: {
-		DisplayName: Breathtaker Skill
-		Description: Mods.ArcaneOdyssey.Skills.BreathtakerSkill.Description
-	}
-
-	CrashSkill: {
-		DisplayName: Crash Skill
-		Description: Mods.ArcaneOdyssey.Skills.CrashSkill.Description
-	}
-
-	HoverSkill: {
-		DisplayName: Hover Skill
-		Description: Mods.ArcaneOdyssey.Skills.HoverSkill.Description
-	}
-
-	LeapSkill: {
-		DisplayName: Leap Skill
-		Description: Mods.ArcaneOdyssey.Skills.LeapSkill.Description
-	}
-
-	ReflexSkill: {
-		DisplayName: Reflex Skill
-		Description: Mods.ArcaneOdyssey.Skills.ReflexSkill.Description
-	}
-
-	AnnihilationSkill: {
-		DisplayName: Annihilation Skill
-		Description: Mods.ArcaneOdyssey.Skills.AnnihilationSkill.Description
+		EnchantmentSkill: {
+			DisplayName: Enchantment
+			Description: Mods.ArcaneOdyssey.Skills.Passive.EnchantmentSkill.Description
+			Popup: Enchantment
+		}
 	}
 }

@@ -437,6 +437,8 @@ namespace ArcaneOdyssey
 
 			public static int[] wandWoodType = ItemID.Sets.Factory.CreateIntSet(-1, ItemID.LivingWoodWand, ItemID.Wood, ItemID.LeafWand, ItemID.Wood, ItemID.LivingMahoganyLeafWand, ItemID.RichMahogany, ItemID.LivingMahoganyWand, ItemID.RichMahogany);
 
+			public static int[] imbuableDefaultUseID = ItemID.Sets.Factory.CreateIntSet(ItemUseStyleID.Rapier);
+
 			[ReinitializeDuringResizeArrays]
 			public static class Assets
 			{

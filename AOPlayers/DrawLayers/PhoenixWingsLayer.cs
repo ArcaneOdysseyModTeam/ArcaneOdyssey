@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers.DrawLayers
 {
-	public class PhoenixWingsLayer : PlayerDrawLayer
+	public class PhoenixWingsLayer : PlayerDrawLayer // PORT use new item equipment draw hooks
 	{
 		public static Asset<Texture2D> phoenixWingsTex;
 

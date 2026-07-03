@@ -34,11 +34,11 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Common
 
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			imbue.CreateMagicCircle(this, player, MagicCircleMode.Basic, false);
+			imbue.CreateMagicCircle(player, MagicCircleMode.Basic, false);
 			Projectile.NewProjectile(source, player.MountedCenter + (player.SafeDirectionTo(Main.MouseWorld) * 94), velocity, Shoot, damage, knockback, player.whoAmI);
 			return false;
 		}
 
-		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[ModContent.ProjectileType<CannonSpell>()] < 1;
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 	}
 }

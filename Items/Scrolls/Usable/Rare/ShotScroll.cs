@@ -1,5 +1,7 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -10,19 +12,22 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	public class ShotScroll : RareScroll
 	{
 		public override bool CanHaveFS => true;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.useTime = Item.useAnimation = 30;
-			Item.damage = 50;
-			Item.shoot = ModContent.ProjectileType<ShotTechnique>();
-			Item.shootSpeed = 5f;
-			Item.DamageType = DamageClass.Melee;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<ShotSkill>();
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class ShotSkill : AttackSkill
+	{
+		public override int Damage => 50;
+
+		public override int Shoot => ModContent.ProjectileType<ShotTechnique>();
+
+		public override int Scroll => ModContent.ItemType<ShotScroll>();
+
+		public override float Speed => 5f;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			ActivateAbility(player);
+			ActivateAbility(player, imbue);
 			return true;
 		}
 	}

@@ -1,7 +1,10 @@
-﻿using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,23 +15,29 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	{
 		public override bool MetConditions() => NPC.downedMechBossAny;
 		public override bool CanHaveFS => true;
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.useTime = Item.useAnimation = 60;
-			Item.damage = 70;
-			Item.shoot = ModContent.ProjectileType<Crescendo>();
-			Item.shootSpeed = 7.5f;
-			Item.DamageType = DamageClass.Melee;
-			Item.UseSound = SoundID.DD2_ExplosiveTrapExplode;
-		}
+		public override ModSkill Skill => ModContent.GetInstance<CrescendoSkill>();
+	}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	public class CrescendoSkill : AttackSkill
+	{
+		public override int Damage => 70;
+
+		public override int Shoot => ModContent.ProjectileType<Crescendo>();
+
+		public override int Scroll => ModContent.ItemType<CrescendoTechnique>();
+
+		public override float Speed => 7.5f;
+
+		public override int Time => 60;
+
+		public override SoundStyle? ExtraSound => SoundID.DD2_ExplosiveTrapExplode;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			ActivateAbility(player);
+			ActivateAbility(player, imbue);
 			return true;
 		}
 
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 	}
 }

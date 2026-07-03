@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,27 +13,31 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 	{
 		public override bool MetConditions() => NPC.downedMechBossAny;
 		public override bool CanHaveMagic => true;
+		public override ModSkill Skill => ModContent.GetInstance<RaySkill>();
+	}
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.mana = 12;
-			Item.DamageType = DamageClass.Magic;
-			Item.shootSpeed = 7f;
-			Item.channel = true;
-			Item.damage = 22;
-			Item.useTime = Item.useAnimation = 5;
-			Item.knockBack = 1f;
-			Item.shoot = ModContent.ProjectileType<MagicRay>();
-		}
+	public class RaySkill : AttackSkill
+	{
+		public override int Damage => 22;
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override int Shoot => ModContent.ProjectileType<MagicRay>();
+
+		public override int Scroll => ModContent.ItemType<RaySpell>();
+
+		public override int ManaCost => 12;
+
+		public override int Time => 5;
+
+		public override float Knockback => 1f;
+		public override bool Channel => true;
+		public override float Speed => 7f;
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
-			Imbuable.CreateMagicCircle(Item, player, Projectiles.MagicCircleMode.Barrage, false);
-			ActivateAbility(player);
+			imbue.CreateMagicCircle(player, Projectiles.MagicCircleMode.Barrage, false);
+			ActivateAbility(player, imbue);
 			return true;
 		}
-
-		public override bool CanUseItem(Player player) => base.CanUseItem(player) && player.ownedProjectileCounts[Item.shoot] < 1;
 	}
 }

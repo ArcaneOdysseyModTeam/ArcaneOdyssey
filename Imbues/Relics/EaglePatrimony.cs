@@ -2,8 +2,10 @@
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.GodSouls;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Relics;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -22,6 +24,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override float SynergyDamage => 1.15f;
 		public override float SynergySize => .8f;
 		public override float SynergySpeed => 1.2f;
+
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<AstrapikisSkill>();
 
 		public override byte[] SoulSynergies => [AOUtils.GodSoulType<AthenaSoul>()];
 		public override byte[] UnstableSouls => [AOUtils.GodSoulType<PoseidonSoul>()];
@@ -42,11 +46,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.width = Item.height = 40;
-			Item.shoot = ModContent.ProjectileType<Astrapikis>();
-			Item.shootSpeed = .9f;
-			Item.damage = 20;
-			Item.knockBack = 3.75f;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 
@@ -57,5 +56,28 @@ namespace ArcaneOdyssey.Imbues.Relics
 		}
 
 		public override int DustType => ModContent.DustType<SpiritTentacle>();
+	}
+
+	public class AstrapikisSkill : AttackSkill
+	{
+		public override int Damage => 20;
+
+		public override int Shoot => ModContent.ProjectileType<Astrapikis>();
+
+		public override int Scroll => 0;
+
+		public override float Knockback => 3.75f;
+
+		public override float Speed => .9f;
+
+		public override int UseStyleID => ItemUseStyleID.Swing;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
+		{
+			ActivateAbility(player, imbue);
+			return true;
+		}
+
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 	}
 }

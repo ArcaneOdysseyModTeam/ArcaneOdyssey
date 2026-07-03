@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				Attacks.Item1 = value[0] as AttackSkill;
 				Attacks.Item2 = value[1] as AttackSkill;
 				Attacks.Item3 = value[2] as AttackSkill;
-				Passive =  value[3];
+				Passive =  value[3] as PassiveSkill;
 				Mobility = value[4];
 				Dash = value[5] as DashSkill;
 			}
@@ -62,15 +62,16 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public ModSkill[] DefaultSkills => [DefaultAttacks.Item1, DefaultAttacks.Item2, DefaultAttacks.Item3, DefaultPassive, DefaultMobility, DefaultDash];
 
-		public virtual (AttackSkill, AttackSkill, AttackSkill) DefaultAttacks => (null, null, null);
-		public virtual ModSkill DefaultPassive => null;
+		public virtual AttackSkill DefaultAttack => null;
+		public (AttackSkill, AttackSkill, AttackSkill) DefaultAttacks => (DefaultAttack, DefaultAttack, DefaultAttack);
+		public virtual PassiveSkill DefaultPassive => null;
 		public virtual ModSkill DefaultMobility => null;
 		public virtual DashSkill DefaultDash => null;
 
 
 		public (AttackSkill, AttackSkill, AttackSkill) Attacks;
 
-		public ModSkill Passive;
+		public PassiveSkill Passive;
 		public bool PassiveActive;
 		public int PassiveTime;
 
@@ -112,7 +113,44 @@ namespace ArcaneOdyssey.Imbues.Base
 				Item.useAnimation = Item.useTime = selectedAttack.Time;
 				Item.shoot = selectedAttack.Shoot;
 				Item.shootSpeed = selectedAttack.Speed;
+				Item.useStyle = selectedAttack.UseStyleID;
 			}
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player.AltUse())
+			{
+				if (Item.useStyle != ArcaneOdysseyMod.Sets.imbuableDefaultUseID[Type])
+				{
+					Item.useStyle = ArcaneOdysseyMod.Sets.imbuableDefaultUseID[Type];
+					return false;
+				}
+				else return true;
+			}
+			else
+			{
+				if (selectedAttack is null)
+				{
+					return false;
+				}
+				else if (Item.useStyle != selectedAttack.UseStyleID)
+				{
+					Item.useStyle = selectedAttack.UseStyleID;
+					return false;
+				}
+				else return true;
+			}
+		}
+
+		public static class SlotIndexID
+		{
+			public const byte Attack1 = 0;
+			public const byte Attack2 = 1;
+			public const byte Attack3 = 2;
+			public const byte Passive = 3;
+			public const byte Mobility = 4;
+			public const byte Dash = 5;
 		}
 
 		/// <summary>
@@ -147,6 +185,13 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (refund)
 				RemoveSkill(slotIndex);
+
+			if (slotIndex == 3)
+			{
+				PassiveActive = false;
+				PassiveTime = 0;
+			}
+
 			var skills = Skills;
 			skills[slotIndex] = skill;
 			Skills = skills;
@@ -169,7 +214,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			base.NetReceive(reader);
 			Attacks = (ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill, ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill, ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill);
-			Passive = ModSkill.Sets.All[reader.ReadInt32()];
+			Passive = ModSkill.Sets.All[reader.ReadInt32()] as PassiveSkill;
 			Mobility = ModSkill.Sets.All[reader.ReadInt32()];
 			Dash = ModSkill.Sets.All[reader.ReadInt32()] as DashSkill;
 			selectedAttack = ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill;
@@ -319,7 +364,21 @@ namespace ArcaneOdyssey.Imbues.Base
 			CycleAttack();
 		}
 
-		public override bool CanShoot(Player player) => !player.AltUse();
+		public override bool CanShoot(Player player)
+		{
+			bool condition = true;
+			condition &= !player.AltUse();
+			if (selectedAttack != null)
+			{
+				condition &= selectedAttack.PreActivate(player, this);
+			}
+			return condition;
+		}
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			selectedAttack?.AttackStats(player, this, ref position, ref velocity, ref damage, ref knockback);
+		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -346,7 +405,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			for (int i = 0; i < Skills.Length; i++)
 			{
-				if (Skills[i] == null)
+				if (Skills[i] == null && string.IsNullOrWhiteSpace(cachedSpells[i]))
 				{
 					SetSkill((byte)i, DefaultSkills[i], false);
 				}
@@ -355,14 +414,21 @@ namespace ArcaneOdyssey.Imbues.Base
 				CycleAttack();
 			if (Main.myPlayer == player.whoAmI)
 			{
-				if (AOKeybinds.CycleImbueAttack.JustPressed)
+				if (player.ItemAnimationEndingOrEnded)
 				{
-					CycleAttack();
+					if (AOKeybinds.CycleImbueAttack.JustPressed)
+					{
+						CycleAttack();
+					}
 				}
-				if (AOKeybinds.ActivateImbuePassive.JustPressed && Passive is not null && !PassiveActive)
+
+				if (AOKeybinds.ActivateImbuePassive.JustPressed && Passive is not null)
 				{
-					PassiveActive = true;
-					PassiveTime = 60 * 30;
+					if (Passive.PreActivate(player, this))
+					{
+						PassiveActive = true;
+						PassiveTime = Passive.Length;
+					}
 				}
 
 				if (PassiveActive)
@@ -373,20 +439,29 @@ namespace ArcaneOdyssey.Imbues.Base
 					}
 					else
 					{
-						Passive?.Activate(player, this);
+						if (Passive is not null)
+						{
+							Passive.Activate(player, this);
+						}
+						else
+						{
+							PassiveActive = false;
+							PassiveTime = 0;
+						}
 					}
 				}
 
-				Dash?.Activate(player, this);
+				if (Dash is not null && Dash.PreActivate(player, this))
+				{
+					Dash.Activate(player, this);
+				}
 			}
 			Gimmick?.UpdateInventory(player);
-			if (PreMobility(player))
+			if (Mobility is not null && Mobility.PreActivate(player, this))
 			{
-				Mobility?.Activate(player, this);
+				Mobility.Activate(player, this);
 			}
 		}
-
-		public virtual bool PreMobility(Player player) => true;
 
 		public bool PlayerHasImbue(Player player)
 		{
@@ -491,6 +566,8 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
+			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 		}
@@ -640,11 +717,18 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				}
 			}
-			else if (Drawback > 0)
+			else 
 			{
-				if ((!player.AltUse()) && Main.myPlayer == player.whoAmI)
+				if (!Main.dedServ)
 				{
-					player.Hurt(PlayerDeathReason.ByCustomReason(ArcaneOdysseyMod.Instance.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
+					SoundEngine.PlaySound(selectedAttack?.ExtraSound, player.MountedCenter);
+				}
+				if (Drawback > 0)
+				{
+					if ((!player.AltUse()) && Main.myPlayer == player.whoAmI)
+					{
+						player.Hurt(PlayerDeathReason.ByCustomReason(ArcaneOdysseyMod.Instance.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
+					}
 				}
 			}
 		}
@@ -968,32 +1052,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			return circle;
 		}
 
-		public static Circle CreateMagicCircle(AttackSkill skill, Imbuable imbue, Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f, Vector2? position = null, float? rotation = null)
-		{
-			if (mode != MagicCircleMode.Rotating)
-			{
-				position ??= player.RotatedRelativePoint(player.MountedCenter) + (player.SafeDirectionTo(Main.MouseWorld) * 30f);
-				rotation ??= player.AngleTo(Main.MouseWorld);
-			}
-			else
-			{
-				position ??= player.RotatedRelativePoint(player.MountedCenter);
-				rotation ??= 0;
-			}
-			Circle circle = Projectile.NewProjectileDirect(imbue.Item.GetSource_ItemUse(player), position.Value, Vector2.Zero, ModContent.ProjectileType<Circle>(), (int)player.GetTotalDamage(skill.DamageType).ApplyTo(skill.Damage), player.GetTotalKnockback(skill.DamageType).ApplyTo(skill.Knockback), player.whoAmI, ai2: (int)mode).ModProjectile as Circle;
-			circle.ProjectileSpread = spread;
-			circle.MarkedForDeath = markedfordeath;
-			circle.originallyAltFire = altfire;
-			circle.ChargingProjectile = chargingProjectile;
-			circle.Projectile.rotation = rotation.Value;
-			if ((chargingProjectile != 0) || (!markedfordeath))
-			{
-				player.ArcaneOdyssey().myCircle = circle;
-			}
-			return circle;
-		}
-
-		public Circle CreateMagicCircle(AttackSkill skill, Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f, Vector2? position = null, float? rotation = null)
+		public Circle CreateMagicCircle(Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f, Vector2? position = null, float? rotation = null)
 		{
 			if (mode != MagicCircleMode.Rotating)
 			{
@@ -1017,6 +1076,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 			return circle;
 		}
+
+		public static bool AltUsing => AOKeybinds.AltSkillUse.Current;
 
 		public float ApplySpeed(float value, bool flipfloat = false)
 		{

@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.Minions;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Relics.Minions;
+using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -20,6 +22,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 			ItemID.Sets.StaffMinionSlotsRequired[Type] = 1;
 		}
 
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<SpiritCloneSkill>();
+
 		public override Color ImbueColour => new(255, 255, 0, 255);
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override float ImbueSpeed => 1.2f;
@@ -37,24 +41,30 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.holdStyle = ItemHoldStyleID.HoldGolfClub;
 			Item.scale = .5f;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.buffType = ModContent.BuffType<SpiritMinionBuff>();
-			Item.shoot = ModContent.ProjectileType<SpiritMinion>();
-			Item.damage = 30;
+		}
+	}
+
+	public class SpiritCloneSkill : AttackSkill
+	{
+		public override int Damage => 30;
+
+		public override int Shoot => ModContent.ProjectileType<SpiritMinion>();
+
+		public override int Scroll => 0;
+
+		public override int UseStyleID => ItemUseStyleID.Swing;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
+		{
+			ActivateAbility(player, imbue);
+			player.AddBuff(ModContent.BuffType<SpiritMinionBuff>(), 2);
+			return true;
 		}
 
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		public override void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback)
 		{
 			position = Main.MouseWorld;
 			player.LimitPointToPlayerReachableArea(ref position);
 		}
-
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			ActivateAbility(player, false);
-			player.AddBuff(Item.buffType, 2);
-			return true;
-		}
-
-		public override bool CanShoot(Player player) => !player.AltUse();
 	}
 }

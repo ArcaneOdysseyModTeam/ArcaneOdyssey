@@ -362,8 +362,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public virtual int DustType => ModContent.DustType<SpiritDust>();
 
-		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1 && !player.AltUse();
-
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (float i = 0; i < 5; i++)

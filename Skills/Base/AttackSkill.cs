@@ -1,8 +1,9 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace ArcaneOdyssey.Skills.Base
 {
@@ -14,11 +15,19 @@ namespace ArcaneOdyssey.Skills.Base
 		public virtual int ManaCost => 0;
 		public virtual float Knockback => 4.5f;
 		public virtual bool Channel => false;
-		public virtual float Speed => 0f;
+		public virtual float Speed => 1f;
+		public virtual SoundStyle? ExtraSound => null;
+
 		public sealed override SkillType SkillSlot => SkillType.Attack;
 
 		public abstract bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback);
 
+		public virtual void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback) { }
+
 		public sealed override void Activate(Player player, Imbuable imbue) { }
+
+		public static bool AltUsing => AOKeybinds.AltSkillUse.Current;
+
+		public virtual int UseStyleID => ItemUseStyleID.Rapier;
 	}
 }
