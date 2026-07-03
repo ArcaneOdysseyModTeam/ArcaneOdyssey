@@ -25,9 +25,17 @@ namespace ArcaneOdyssey.Skills.Base
 		{
 			Type = ++count;
 			ModTypeLookup<ModSkill>.Register(this);
-			if (this is AttackSkill skill)
+			if (this is AttackSkill attack)
 			{
-				ModTypeLookup<AttackSkill>.Register(skill);
+				ModTypeLookup<AttackSkill>.Register(attack);
+			}
+			if (this is DashSkill dash)
+			{
+				ModTypeLookup<DashSkill>.Register(dash);
+			}
+			if (this is PassiveSkill passive)
+			{
+				ModTypeLookup<PassiveSkill>.Register(passive);
 			}
 		}
 

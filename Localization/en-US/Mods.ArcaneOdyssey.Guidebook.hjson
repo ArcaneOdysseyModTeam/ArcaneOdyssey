@@ -135,9 +135,11 @@ UsingScrolls: {
 
 		Your imbues can hold up to 3 attack scrolls, and one of the other types. You can apply a scroll to an imbue by right clicking a compatible scroll while holding your imbue or having it on your mouse.
 
-		When applying a scroll, you will be refunded any previous scroll in that slot if applicable. When applying to attacks, it uses your currently selected attack slot, which is displayed above your head.
+		When applying a scroll, you will be refunded any previous scroll in that slot if applicable. When applying to attacks, it uses your currently selected attack slot, which is displayed above your head more clearly.
 
 		Some scroll have alternative usage. You can access these by holding down the Alt Skill Use keybind as you use the attack.
+
+		In order to use dashes or mobility scrolls, you must have the imbue selected as your main imbue (right click with the magic).
 
 		If you're using a [i:ArcaneOdyssey/RegulusMagic] Magic Type, you will also need mana to use skills.
 		'''

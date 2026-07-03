@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Projectiles.Berserker;
-using ArcaneOdyssey.Skills.Base;
+﻿using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.Skills.Generic;
 using Terraria;
 using Terraria.ModLoader;

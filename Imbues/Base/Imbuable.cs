@@ -198,7 +198,8 @@ namespace ArcaneOdyssey.Imbues.Base
 
 			if (slotIndex == selectedIndex)
 			{
-				selectedAttack = skill as AttackSkill;
+				selectedIndex--;
+				CycleAttack();
 			}
 		}
 
@@ -455,16 +456,20 @@ namespace ArcaneOdyssey.Imbues.Base
 						}
 					}
 				}
+			}
 
+			Gimmick?.UpdateInventory(player);
+
+			if (player.Imbue()?.Type == Type)
+			{
+				if (Mobility is not null && Mobility.PreActivate(player, this))
+				{
+					Mobility.Activate(player, this);
+				}
 				if (Dash is not null && Dash.PreActivate(player, this))
 				{
 					Dash.Activate(player, this);
 				}
-			}
-			Gimmick?.UpdateInventory(player);
-			if (Mobility is not null && Mobility.PreActivate(player, this))
-			{
-				Mobility.Activate(player, this);
 			}
 		}
 
