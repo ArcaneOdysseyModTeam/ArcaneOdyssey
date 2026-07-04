@@ -49,12 +49,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			ActivateAbility(player, false);
-			return true;
-		}
-
 		public override int DustType => ModContent.DustType<SpiritTentacle>();
 	}
 

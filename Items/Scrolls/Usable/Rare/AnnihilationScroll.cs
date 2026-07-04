@@ -29,6 +29,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
 			player.ArcaneOdyssey()?.StartDash(new Annihilation(imbue), -2, imbue, false);
+			ActivateAbility(player, imbue);
 			imbue.CreateMagicCircle(player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2);
 			return false;
 		}

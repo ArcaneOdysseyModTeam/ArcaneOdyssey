@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -90,7 +91,7 @@ namespace ArcaneOdyssey.Skills.Base
 			{
 				var SecondImbue = Imbue.Imbue;
 				var ab = new WeaponAbility(Popup.Value, null, Imbue.Colour);
-				if (Imbue is not FightingStyle)
+				if (Imbue is not (FightingStyle or SpiritEnergy))
 				{
 					ab.Name = ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Space", Imbue.PrettySpellPrefix, ab.Name).Value.Trim();
 				}
