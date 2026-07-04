@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -40,7 +41,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
-		public override ItemRarities Rarity => ItemRarities.Unknown;
+		public override ItemRarities Rarity => ItemRarities.Special;
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
@@ -101,9 +102,22 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.ArcaneOdyssey().hasWings = 2;
-			if (Imbue is not null)
+			if (player.Imbue() is not null && player.Imbue().Mobility is BasicFlight)
 			{
-				player.noFallDmg = true;
+				Imbue = player.Imbue();
+				Item.color = Imbue.Colour * .75f;
+			}
+			else
+			{
+				Item.TurnToAir(true);
+			}
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			if (player.Imbue() is not null && player.Imbue().Mobility is BasicFlight)
+			{
+				Imbue = player.Imbue();
 				Item.color = Imbue.Colour * .75f;
 			}
 			else
@@ -112,18 +126,12 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
-		public override void UpdateInventory(Player player)
-		{
-			if (Imbue is not null)
-				Item.color = Imbue.Colour * .75f;
-		}
-
 		public override bool WingUpdate(Player player, bool inUse)
 		{
 			if (inUse)
 			{
-				Imbue?.LingeringEffects(player.Hitbox.Scaled(3f));
-				SecondImbue?.LingeringEffects(player.Hitbox.Scaled(3f));
+				player.Imbue()?.LingeringEffects(player.Hitbox.Scaled(3f));
+				player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox.Scaled(3f));
 			}
 
 			return false;

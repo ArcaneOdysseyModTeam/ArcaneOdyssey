@@ -4,6 +4,7 @@ using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Accessories.Helpers;
 using ArcaneOdyssey.Items.Accessories.Vanity;
 using ArcaneOdyssey.Items.Armour.Vanity.Taz;
 using ArcaneOdyssey.Items.Base;
@@ -741,7 +742,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 				if (options.Count > 0 && AOUtils.ImbueClassCheck(item))
 				{
-					if ((!specificImbue) || (item.accessory && item.ModItem is not Imbuable))
+					if (!specificImbue)
 					{
 						if (item.CanHaveImbue(player.Imbue()))
 						{
@@ -790,9 +791,12 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 				else
 				{
-					Imbue = null;
-					SecondImbue = null;
-					specificImbue = false;
+					if (item.ModItem is not FlightCore)
+					{
+						Imbue = null;
+						SecondImbue = null;
+						specificImbue = false;
+					}
 				}
 
 				if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
@@ -807,8 +811,11 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 					else
 					{
-						Imbue = null;
-						SecondImbue = null;
+						if (item.ModItem is not FlightCore)
+						{
+							Imbue = null;
+							SecondImbue = null;
+						}
 					}
 				}
 

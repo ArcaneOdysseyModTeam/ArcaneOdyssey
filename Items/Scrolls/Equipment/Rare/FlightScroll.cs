@@ -22,13 +22,19 @@ namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare
 
 		public override void Activate(Player player, Imbuable imbue)
 		{
-			if (!player.HasTypeInInventory<FlightCore>(out var core, e => e.Imbue.Type == imbue.Type) && player.ArcaneOdyssey().hasWings <= 0)
+			if (player.HasTypeInInventory<FlightCore>(out var core) || player.ArcaneOdyssey().hasWings > 0)
 			{
-				core = player.QuickSpawnItemDirect(imbue.Item.GetSource_FromThis(), ModContent.ItemType<FlightCore>()).ModItem as FlightCore;
+				if (core is not null)
+				{
+					core.Imbue = imbue;
+					core.SecondImbue = imbue.Imbue;
+				}
 			}
-
-			core.Imbue = imbue;
-			core.SecondImbue = imbue.Imbue;
+			else
+			{
+				player.QuickSpawnItemDirect(imbue.Item.GetSource_FromThis(), ModContent.ItemType<FlightCore>());
+				player.ArcaneOdyssey().hasWings++;
+			}
 		}
 	}
 }

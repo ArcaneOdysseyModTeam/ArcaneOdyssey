@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		{
 			base.UpdateAccessory(player, hideVisual);
 			player.ArcaneOdyssey().hasWings = 2;
-			if (player.HasTypeInInventory<PhoenixMagic>(e => e.Mobility is PhoenixFlight))
+			if (player.Imbue() is PhoenixMagic && player.HasTypeInInventory<PhoenixMagic>(e => e.Mobility is PhoenixFlight))
 			{
 				player.noFallDmg = true;
 				if (!hideVisual)
@@ -56,14 +56,14 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 			else
 			{
-				Item.TurnToAir();
+				Item.TurnToAir(true);
 			}
 		}
 
 		public override void UpdateInventory(Player player)
 		{
 			base.UpdateInventory(player);
-			if (!player.HasTypeInInventory<PhoenixMagic>(e => e.Mobility is PhoenixFlight))
+			if (player.Imbue() is not PhoenixMagic || !player.HasTypeInInventory<PhoenixMagic>(e => e.Mobility is PhoenixFlight))
 			{
 				Item.TurnToAir();
 			}

@@ -577,7 +577,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
-			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 		}

@@ -62,7 +62,11 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					{
 						var pos = startingPos with { X = secondaryItemPosX };
 						
-						var colour = Color.White * .5f;
+						var colour = Color.White;
+						if (!imbue.PassiveActive)
+						{
+							colour *= .5f;
+						}	
 
 						Texture2D texture = backgroundSprite.Value;
 						DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);

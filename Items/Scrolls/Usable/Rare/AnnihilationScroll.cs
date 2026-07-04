@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 
 	}
 
-	public class Annihilation(Imbuable scroll) : ModDash(scroll.Item)
+	public class Annihilation(Imbuable imbue) : ModDash(imbue.Item)
 	{
 		public override bool Immune => false;
 
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Usable.Rare
 
 		public override void OnEnd(Player player)
 		{
-			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), Damage, Knockback, player.whoAmI, Imbue, SecondImbue, true);
+			AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, player.SafeDirectionTo(Main.MouseWorld) * 10, ModContent.ProjectileType<AnnihilationSpell>(), Damage, Knockback, player.whoAmI, imbue, imbue.Imbue, true);
 		}
 	}
 }

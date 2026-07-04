@@ -1021,7 +1021,7 @@ namespace ArcaneOdyssey
 						|| item.DamageType.CountsAsClass(DamageClass.Magic)
 						||
 						(
-							item.ModItem is Scroll or Imbuable
+							item.ModItem is Imbuable
 						);
 				}
 			}

@@ -282,7 +282,7 @@ namespace ArcaneOdyssey.AOPlayers
 						{
 							if (CurrentDash.Imbue is not null)
 							{
-								CurrentDash.Imbue.ExplosionEffects(Player.MountedCenter);
+								CurrentDash.Imbue?.ExplosionEffects(Player.MountedCenter);
 								CurrentDash.SecondImbue?.ExplosionEffects(Player.MountedCenter);
 							}
 						}
