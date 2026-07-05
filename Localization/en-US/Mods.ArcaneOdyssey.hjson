@@ -567,6 +567,12 @@ Skills: {
 			Description: Mods.ArcaneOdyssey.Skills.Attack.StrikeSkill.Description
 			Popup: Strike
 		}
+
+		ILegKick: {
+			DisplayName: I Leg Kick
+			Description: Mods.ArcaneOdyssey.Skills.Attack.ILegKick.Description
+			Popup: I Leg Kick
+		}
 	}
 
 	Mobility: {

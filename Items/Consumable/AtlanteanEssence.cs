@@ -51,8 +51,11 @@ namespace ArcaneOdyssey.Items.Consumable
 
 		public override bool CanRightClick() => true;
 
+		private bool consumerism = false;
+
 		public override void RightClick(Player player)
 		{
+			consumerism = false;
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
 				var item = player.inventory[i];
@@ -66,11 +69,11 @@ namespace ArcaneOdyssey.Items.Consumable
 					continue;
 				}
 
-				Item.stack--;
+				consumerism = true;
 				break;
 			}
 		}
 
-		public override bool ConsumeItem(Player player) => false;
+		public override bool ConsumeItem(Player player) => consumerism;
 	}
 }

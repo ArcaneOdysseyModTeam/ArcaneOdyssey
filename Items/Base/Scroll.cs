@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.EmptyScrolls;
+using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
 using Terraria;
@@ -101,7 +102,7 @@ namespace ArcaneOdyssey.Items.Base
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EmptyScroll>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<DevouringScroll>();
 			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
 		}
 	}

@@ -3,7 +3,8 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Scrolls;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
+using ArcaneOdyssey.Items.Scrolls.Passive.Common;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Skills.Base;
@@ -35,6 +36,9 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			ModTypeLookup<Imbuable>.Register(this);
 		}
+		public sealed override bool CanStack(Item source) => false;
+
+		public sealed override bool CanStackInWorld(Item source) => false;
 
 		/// <summary>
 		/// Aura spell coefficient

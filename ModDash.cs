@@ -32,13 +32,13 @@ namespace ArcaneOdyssey
 				}
 				if (Source is Item item)
 				{
-					if (item.ModItem is Imbuable imbue)
+					if (item.ArcaneOdyssey()?.owner is not null)
 					{
-						if (item.ArcaneOdyssey()?.owner is not null)
-							if (imbue.Dash is not null)
+						if (item.ModItem is Imbuable imbue && imbue.Dash is not null)
+						{
 							return (int)item.ArcaneOdyssey().owner.GetTotalDamage(DamageType).ApplyTo(imbue.Dash.Damage);
-						else
-								return item.damage;
+						}
+						return (int)item.ArcaneOdyssey().owner.GetTotalDamage(item.DamageType).ApplyTo(item.damage);
 					}
 					return item.damage;
 				}
@@ -63,13 +63,14 @@ namespace ArcaneOdyssey
 				}
 				if (Source is Item item)
 				{
-					if (item.ModItem is Imbuable imbue)
+					if (item.ArcaneOdyssey()?.owner is not null)
 					{
-						if (item.ArcaneOdyssey()?.owner is not null)
+						if (item.ModItem is Imbuable imbue)
+						{
 							if (imbue.Dash is not null)
-								return (int)item.ArcaneOdyssey().owner.GetTotalDamage(DamageType).ApplyTo(imbue.Dash.Knockback);
-							else
-								return item.knockBack;
+								return item.ArcaneOdyssey().owner.GetTotalKnockback(DamageType).ApplyTo(imbue.Dash.Knockback);
+						}
+						return  item.ArcaneOdyssey().owner.GetTotalKnockback(item.DamageType).ApplyTo(item.knockBack);
 					}
 					return item.knockBack;
 				}

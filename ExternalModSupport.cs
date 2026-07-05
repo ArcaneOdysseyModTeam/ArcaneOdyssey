@@ -5,8 +5,6 @@ using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Equipment.Pets;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;
@@ -25,6 +23,8 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using CalamityCalls = CalamityMod.ModCalls;
 using Microsoft.Xna.Framework;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
+using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
 
 namespace ArcaneOdyssey
 {

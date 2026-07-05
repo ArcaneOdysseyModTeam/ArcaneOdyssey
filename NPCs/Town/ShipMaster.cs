@@ -70,7 +70,8 @@ namespace ArcaneOdyssey.NPCs.Town
 				"Shayna Stillwater",
 				"Kindra",
 				"Minty",
-				"Lemon"
+				"Lemon",
+				"Hisaka Kagemori"
 			];
 		}
 

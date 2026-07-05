@@ -80,7 +80,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb, 15).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb, 15).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
 		}
 	}
 

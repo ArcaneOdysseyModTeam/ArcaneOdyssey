@@ -12,7 +12,7 @@ using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Materials;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Items.Scrolls.Passive.Common;
 using ArcaneOdyssey.Items.Weapons.Atlantean;
 using ArcaneOdyssey.Prefixes;
 using ArcaneOdyssey.Projectiles;

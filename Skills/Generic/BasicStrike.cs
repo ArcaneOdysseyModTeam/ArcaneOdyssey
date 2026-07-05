@@ -21,5 +21,10 @@ namespace ArcaneOdyssey.Skills.Generic
 		public override float Knockback => 10f;
 
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback) => true;
+
+		public override void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback)
+		{
+			position += velocity.SafeNormalize(Vector2.Zero) * 10f;
+		}
 	}
 }

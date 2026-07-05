@@ -3,7 +3,7 @@ using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Town;
 using Microsoft.Xna.Framework;

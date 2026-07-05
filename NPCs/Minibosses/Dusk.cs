@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossTrophies;
-using ArcaneOdyssey.Items.Scrolls.Usable.Common;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
 using ArcaneOdyssey.Projectiles.Enemies;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;

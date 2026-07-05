@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Usable.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;

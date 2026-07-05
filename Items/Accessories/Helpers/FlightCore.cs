@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Rare;
+using ArcaneOdyssey.Items.Scrolls.Mobility.Rare;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

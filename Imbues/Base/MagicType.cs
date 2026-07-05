@@ -66,15 +66,6 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public MagicCircle Circle => new(ImbuableTier, CircleType);
 
-		public override bool CanStack(Item source)
-		{
-			var magic = source.ModItem as MagicType;
-
-			return OriginalImbue.Type == magic.OriginalImbue.Type;
-		}
-
-		public override bool CanStackInWorld(Item source) => CanStack(source);
-
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();

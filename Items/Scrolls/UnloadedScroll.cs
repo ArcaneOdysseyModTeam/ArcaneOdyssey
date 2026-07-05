@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Items.Scrolls
 {
 	public class UnloadedScroll : BaseItem
 	{
-		public override ItemRarities Rarity => ItemRarities.Unknown;
+		public override ItemRarities Rarity => ItemRarities.Junk;
 
 		public string CachedFullName = ArcaneOdysseyMod.InternalName + "/BlastScroll";
 

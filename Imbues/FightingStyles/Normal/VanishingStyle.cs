@@ -58,9 +58,9 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override void AddRecipes()
 		{
 			if (!HasYou)
-				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.SoulofNight, 5).Register();
+				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.SoulofNight, 5).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
 			else
-				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ModLoader.GetMod("YouBoss").Find<ModItem>("FirstFractal")).Register();
+				CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ModLoader.GetMod("YouBoss").Find<ModItem>("FirstFractal")).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
 		}
 	}
 }

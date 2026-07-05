@@ -86,7 +86,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Hellstone, 10).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Hellstone, 10).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
 		}
 	}
 }

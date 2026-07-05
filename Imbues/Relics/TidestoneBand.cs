@@ -81,10 +81,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override void Activate(Player player, Imbuable imbue)
 		{
-			if (!player.ArcaneOdyssey().OnCooldown<ThakrousiCooldown>())
-			{
-				player.ArcaneOdyssey().StartDash(new Thakrousi(imbue), imbue: imbue);
-			}
+			player.ArcaneOdyssey()?.SetDash(new Thakrousi(imbue));
 		}
 	}
 }

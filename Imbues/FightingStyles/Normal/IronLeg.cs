@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Skills.Base;
+using ArcaneOdyssey.Skills.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -40,6 +42,8 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override float ScrollDamage => .95f;
 		public override float ScrollSize => 1.1f;
 		public override float ScrollSpeed => 0.75f;
+
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<ILegKick>();
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
@@ -86,7 +90,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
 		}
 	}
 
@@ -94,10 +98,21 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	{
 		public override void FrameEffects()
 		{
-			if (Player?.ArcaneOdyssey()?.Imbue is IronLeg || Player?.PlayerItem()?.type != ItemID.None && Player?.PlayerItem()?.ArcaneOdyssey()?.Imbue is IronLeg)
+			if (Player?.Imbue() is IronLeg || Player?.PlayerItem()?.Imbue() is IronLeg)
 			{
 				Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
 			}
+		}
+	}
+
+	public class ILegKick : StrikeSkill
+	{
+		public override int UseStyleID => ItemUseStyleID.HiddenAnimation;
+
+		public override void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback)
+		{
+			base.AttackStats(player, imbue, ref position, ref velocity, ref damage, ref knockback);
+			position.Y += Player.defaultHeight / 2f;
 		}
 	}
 }

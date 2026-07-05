@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,8 +12,8 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override float Aura => 1f;
 		public override Color ImbueColour => Color.White;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
-		
-		
+
+
 		public override float ImbueSize => 1.06f;
 		public override float ScrollDamage => .925f;
 		public override float ScrollSize => 1f;
@@ -50,6 +51,31 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public static void ReuseSkills(Recipe recipe, Item item, List<Item> consumedItems, Item destinationStack)
+		{
+			if (item.ModItem is Imbuable imbue)
+			{
+				foreach (var usedItem in consumedItems)
+				{
+					if (usedItem.ModItem is BasicCombat combat)
+					{
+						for (var i = 0; i < combat.Skills.Length; i++)
+						{
+							var skill = combat.Skills[i];
+							if (skill.Scroll != 0)
+							{
+								imbue.Skills[i] = skill;
+							}
+						}
+						imbue.cachedSpells = combat.cachedSpells;
+						imbue.selectedIndex = 80;
+						imbue.CycleAttack();
+						break;
+					}
+				}
+			}
 		}
 	}
 }

@@ -106,7 +106,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			{
 				rec.AddIngredient(ItemID.Coral, 15);
 			}
-			rec.Register();
+			rec.AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
 		}
 	}
 }

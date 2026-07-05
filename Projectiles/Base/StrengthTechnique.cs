@@ -30,10 +30,6 @@ namespace ArcaneOdyssey.Projectiles.Base
 				Kill();
 				return false;
 			}
-			if (Imbue is IronLeg)
-			{
-				Owner.position.Y -= .001f;
-			}
 			return true;
 		}
 	}

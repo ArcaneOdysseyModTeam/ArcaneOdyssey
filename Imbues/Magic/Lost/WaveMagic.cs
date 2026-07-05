@@ -40,7 +40,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			RegisterDefaultMagic<PlasmaMagic>();
 		}
 
-		public const int DustCount = 30;
+		public const int DustCount = 15;
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			if (!Main.dedServ)
