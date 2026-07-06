@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
-using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
@@ -95,7 +94,7 @@ namespace ArcaneOdyssey.Items.Base
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			base.ModifyTooltips(tooltips);
-			tooltips.AddTooltip(new(Mod, "ScrollTier", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Tier}", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Skill.SkillSlot}").Value).Value));
+			tooltips.AddTooltip(new(Mod, "ScrollTier", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Tier}", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Skill?.SkillSlot ?? ModSkill.SkillType.Other}").Value).Value));
 			tooltips.AddTooltip(new(Mod, "ScrollReq", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.NeedsImbue", ReqFormatting).Value));
 		}
 

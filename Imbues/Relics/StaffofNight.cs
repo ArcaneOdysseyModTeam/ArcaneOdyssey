@@ -22,6 +22,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override float ImbueSize => 1.1f;
 		public override float ImbueSpeed => 1.1f;
 
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<SpiritBeamSkill>();
+
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<ShadowMagic>();
 
 		public override void SetStaticDefaults()

@@ -40,14 +40,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 33)];
 
 
-
 		public override SynergyEffects Effects => AOUtils.CopyDamageSynergiesFromImbue<LightningMagic>();
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.useStyle = ItemUseStyleID.Swing;
-		}
 
 		public override int DustType => ModContent.DustType<SpiritTentacle>();
 	}

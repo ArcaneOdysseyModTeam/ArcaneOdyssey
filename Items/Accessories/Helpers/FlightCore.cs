@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Mobility.Rare;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -132,6 +133,13 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			{
 				player.Imbue()?.LingeringEffects(player.Hitbox.Scaled(3f));
 				player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox.Scaled(3f));
+
+				if (!player.flapSound && player.Imbue()?.ImbueSound.HasValue == true)
+				{
+					SoundEngine.PlaySound(player.Imbue().ImbueSound.Value with { MaxInstances = 1, Volume = player.Imbue().ImbueSound.Value.Volume / 2f, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+				}
+
+				player.flapSound = true;
 			}
 
 			return false;

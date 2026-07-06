@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
@@ -79,6 +80,40 @@ namespace ArcaneOdyssey
 			"Terraria/Material",
 			"Terraria/Tooltip",
 		];
+
+		public static int GetShimmerEquivalentType(this Item item)
+		{
+			if (ItemID.Sets.ShimmerCountsAsItem[item.type] != -1)
+			{
+				return ItemID.Sets.ShimmerCountsAsItem[item.type];
+			}
+			return item.type;
+		}
+		public static int FindDecraftAmount(this Item item)
+		{
+			int decraftingRecipeIndex = ShimmerTransforms.GetDecraftingRecipeIndex(item.GetShimmerEquivalentType());
+			if (decraftingRecipeIndex < 0)
+			{
+				return -1;
+			}
+			return item.stack / Main.recipe[decraftingRecipeIndex].createItem.stack;
+		}
+
+		public static IEntitySource GetItemSource_Misc(this Item item, int itemSourceId) => item.GetSource_Misc(ToContextString(itemSourceId));
+
+		public static string ToContextString(int itemSourceId) => itemSourceId switch
+		{
+			1 => "SetBonus_Nebula",
+			2 => "LuckyCoin",
+			4 => "ThrowItem",
+			5 => "GrandDesignOrMultiColorWrench",
+			6 => "TorchGod",
+			7 => "SortingWithNoSpace",
+			8 => "Shimmer",
+			9 => "Digesting",
+			_ => null,
+		};
+
 
 		public static Vector2 Add(this Vector2 vec, float add) => vec.SafeNormalize() * (vec.Length() + add);
 

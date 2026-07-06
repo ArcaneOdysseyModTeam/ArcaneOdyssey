@@ -120,12 +120,12 @@ Accessories: {
 	Helpers: {
 		FlightCore: {
 			DisplayName: Flight Core
-			Tooltip: ""
+			Tooltip: Connected to your imbue, equip to fly!
 		}
 
 		PhoenixWings: {
 			DisplayName: Phoenix Wings
-			Tooltip: ""
+			Tooltip: Connected to your imbue, equip to fly!
 		}
 	}
 }

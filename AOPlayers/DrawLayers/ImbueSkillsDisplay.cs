@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using Fargowiltas;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -30,6 +31,9 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 			&& !Main.gameMenu;
 		}
 
+		[JITWhenModsEnabled("Fargowiltas")]
+		public bool FargosBuffDisplayActive(PlayerDrawSet drawInfo) => ModContent.GetInstance<FargoPlayerBuffDrawLayer>().GetDefaultVisibility(drawInfo);
+
 		public override bool IsHeadLayer => false;
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
@@ -41,7 +45,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				List<DrawData> drawDatas = [];
 				Vector2 startingPos;
 
-				if (ExternalModSupport.HasFargos)
+				if (ExternalModSupport.HasFargos && FargosBuffDisplayActive(drawInfo))
 				{
 					startingPos = drawInfo.Position + new Vector2(Player.defaultWidth / 2f, -32f - backgroundSprite.Height()) - Main.screenPosition;
 				}

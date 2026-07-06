@@ -353,6 +353,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Summon;
+			Item.useStyle = ItemUseStyleID.HiddenAnimation;
 
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{

@@ -12,6 +12,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.Load();
 			ModTypeLookup<FightingStyle>.Register(this);
 		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

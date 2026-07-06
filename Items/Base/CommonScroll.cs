@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.Items.EmptyScrolls;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {

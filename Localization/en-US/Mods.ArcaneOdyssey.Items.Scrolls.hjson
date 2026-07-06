@@ -163,7 +163,7 @@ Dashes: {
 
 DevouringScroll: {
 	DisplayName: Devouring Scroll
-	Tooltip: ""
+	Tooltip: Whan applied to an imbue, remove all scrolls from the imbue
 }
 
 Mobility: {

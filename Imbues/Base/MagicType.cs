@@ -152,6 +152,11 @@ namespace ArcaneOdyssey.Imbues.Base
 			ArcaneOdysseyMod.Sets.Mutations[Type].Add(ModContent.ItemType<T>());
 		}
 
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.DamageType = DamageClass.Magic;
+		}
 		public void RegisterDefaultMagic<T>() where T : MagicType
 		{
 			ArcaneOdysseyMod.Sets.baseImbues[Type] = ModContent.ItemType<T>();

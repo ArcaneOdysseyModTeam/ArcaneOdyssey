@@ -6,6 +6,7 @@ using ArcaneOdyssey.Skills.Base;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
@@ -35,6 +36,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 		}
 
 		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
+
+		public override int UseStyleID => ItemUseStyleID.HiddenAnimation;
 
 	}
 

@@ -17,9 +17,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<ManaSiphon>();
 
-		public override float ScrollSpeed => 1f;
+		public override float ScrollSpeed => 1.35f;
 
-		public override float ScrollSize => 1.15f;
+		public override float ScrollSize => 1.35f;
 
 		public override float ScrollDamage => .8f;
 
