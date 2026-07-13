@@ -89,8 +89,37 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		{
 			if (self.ModItem is Imbuable imbue)
 			{
-				var decraftingRecipeIndex = ShimmerTransforms.GetDecraftingRecipeIndex(self.GetShimmerEquivalentType());
-				if (decraftingRecipeIndex >= 0)
+				var shimmerEquivalentType = self.GetShimmerEquivalentType();
+				var decraftingRecipeIndex = ShimmerTransforms.GetDecraftingRecipeIndex(shimmerEquivalentType);
+				if (ItemID.Sets.ShimmerTransformToItem[shimmerEquivalentType] > 0)
+				{
+					int itemCounter = 1;
+					var enumerable = AddSkillsToShimmerOutput(imbue);
+					foreach (Item item in enumerable)
+					{
+						if (item.type <= 0)
+						{
+							break;
+						}
+						itemCounter++;
+						int tempItemID = Item.NewItem(self.GetItemSource_Misc(8), (int)self.position.X, (int)self.position.Y, self.width, self.height, item.type);
+						Item tempItem = Main.item[tempItemID];
+						tempItem.shimmerTime = 1f;
+						tempItem.shimmered = true;
+						tempItem.shimmerWet = true;
+						tempItem.wet = true;
+						tempItem.velocity *= 0.1f;
+						tempItem.playerIndexTheItemIsReservedFor = Main.myPlayer;
+						tempItem.velocity.X = 1f * itemCounter;
+						tempItem.velocity.X *= 1f + itemCounter * 0.05f;
+						if (itemCounter % 2 == 0)
+						{
+							tempItem.velocity.X *= -1f;
+						}
+						NetMessage.SendData(MessageID.SyncItemsWithShimmer, -1, -1, null, tempItemID, 1f);
+					}
+				}
+				else if (decraftingRecipeIndex >= 0)
 				{
 					Recipe recipe = Main.recipe[decraftingRecipeIndex];
 					IEnumerable<Item> enumerable = recipe.requiredItem;

@@ -1402,6 +1402,7 @@ namespace ArcaneOdyssey
 				{
 					player.ApplyDamageToNPC(npc, damage, knockBack, hitDirection, crit, damageType, damageVariation);
 					player.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
+					imbue?.Gimmick?.OnHitNPC(imbue, player, npc, npc.CalculateHitInfo(damage, hitDirection, crit, knockBack, damageType, damageVariation), damage);
 				}
 			}
 			else

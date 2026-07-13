@@ -9,5 +9,9 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 		{
 			mult *= 0f;
 		}
+		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		{
+			mult *= 0f;
+		}
 	}
 }

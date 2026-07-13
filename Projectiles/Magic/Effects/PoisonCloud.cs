@@ -33,6 +33,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.timeLeft = 120;
 			Projectile.DamageType = DamageClass.Generic;
 			Projectile.rotation = Main.rand.NextFloat(-MathHelper.TwoPi, MathHelper.TwoPi);
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override void AI()

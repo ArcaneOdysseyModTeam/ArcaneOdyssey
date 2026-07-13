@@ -74,6 +74,15 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// <param name="damageDone"></param>
 		public virtual void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) { }
 		/// <summary>
+		/// Used while simulating AoE
+		/// </summary>
+		/// <param name="imbue"></param>
+		/// <param name="player"></param>
+		/// <param name="target"></param>
+		/// <param name="hit"></param>
+		/// <param name="damageDone"></param>
+		public virtual void OnHitNPC(Imbuable imbue, Player player, NPC target, NPC.HitInfo hit, int damageDone) { }
+		/// <summary>
 		/// Called when an imbued projectile dies
 		/// </summary>
 		/// <param name="projectile"></param>

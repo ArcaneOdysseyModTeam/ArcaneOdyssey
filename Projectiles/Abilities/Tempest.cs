@@ -1,5 +1,8 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
+using CalamityMod;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
@@ -8,6 +11,12 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	{
 		public override void AI()
 		{
+			if (Projectile.ai[0] == 0)
+			{
+				Projectile.ai[0]++;
+				NetUpdate();
+				Projectile.spriteDirection *= Main.rand.Next([-1, 1]);
+			}
 			Projectile.velocity = -(Vector2.UnitY * ApplySize(3f));
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			if (Projectile.frameCounter++ >= 5)
@@ -19,6 +28,11 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				}
 			}
 			Projectile.Opacity = .5f + (Projectile.frame / (float)Main.projFrames[Type]);
+		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
 		}
 
 		public override void SetStaticDefaults()
@@ -45,7 +59,10 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.idStaticNPCHitCooldown = 25;
 			Projectile.ownerHitCheck = true;
 			Projectile.penetrate = -1;
+			Projectile.hide = true;
 		}
+
+		public override SpriteEffects FlippedMode => SpriteEffects.FlipHorizontally;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

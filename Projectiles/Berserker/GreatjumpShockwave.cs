@@ -25,6 +25,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.friendly = true;
 			Projectile.DamageType = AOUtils.TrueMelee();
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override void AI()

@@ -23,6 +23,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.timeLeft = 120;
 			Projectile.localNPCHitCooldown = (Projectile.timeLeft / 3) - 1;
 			Projectile.DamageType = DamageClass.Magic;
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override void AI()

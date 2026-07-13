@@ -15,10 +15,18 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 	{
 		public override Position GetDefaultPosition() => new Between();
 
-		public static Asset<Texture2D> backgroundSprite;
+		public static (Asset<Texture2D>, Asset<Texture2D>) backgroundSprites;
+		public static Rectangle dimensions;
+		public static float spriteSize;
 		public override void Load()
 		{
-			backgroundSprite = Mod.Assets.Request<Texture2D>("Assets/GelBuffBackground");
+			backgroundSprites = (Mod.Assets.Request<Texture2D>("Assets/SelectedScrollIcon"), Mod.Assets.Request<Texture2D>("Assets/UnsellectedScrollIcon"));
+		}
+
+		public override void SetStaticDefaults()
+		{
+			dimensions = backgroundSprites.Item1.Frame();
+			spriteSize = dimensions.Width - 4f;
 		}
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
@@ -47,11 +55,11 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 				if (ExternalModSupport.HasFargos && FargosBuffDisplayActive(drawInfo))
 				{
-					startingPos = drawInfo.Position + new Vector2(Player.defaultWidth / 2f, -32f - backgroundSprite.Height()) - Main.screenPosition;
+					startingPos = drawInfo.Position + new Vector2(Player.defaultWidth / 2f, -32f - dimensions.Height) - Main.screenPosition;
 				}
 				else
 				{
-					startingPos = drawInfo.Position + new Vector2(Player.defaultWidth / 2f, -backgroundSprite.Height()) - Main.screenPosition;
+					startingPos = drawInfo.Position + new Vector2(Player.defaultWidth / 2f, -dimensions.Height) - Main.screenPosition;
 				}
 
 				var count = 0;
@@ -62,19 +70,19 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				if (imbue.Dash is not null)
 					count++;
 
-				var secondaryItemPosX = startingPos.X - (backgroundSprite.Width() * (count - 1f) / 2f);
+				var secondaryItemPosX = startingPos.X - (dimensions.Width * (count - 1f) / 2f);
 
 				if (imbue.Passive is not null)
 				{
 					var pos = startingPos with { X = secondaryItemPosX };
+					var texture = backgroundSprites.Item1.Value;
 						
 					var colour = Color.White;
 					if (!imbue.PassiveActive)
 					{
-						colour *= .5f;
-					}	
-
-					Texture2D texture = backgroundSprite.Value;
+						colour *= .75f;
+						texture = backgroundSprites.Item2.Value;
+					}
 					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex;
@@ -83,17 +91,17 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 						tex = TextureAssets.Item[imbue.Type];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, 28f / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += backgroundSprite.Width();
+					secondaryItemPosX += dimensions.Width;
 				}
 				if (imbue.Mobility is not null)
 				{
 					var pos = startingPos with { X = secondaryItemPosX };
 
-					var colour = Color.White * .5f;
+					var colour = Color.White * .75f;
 
-					Texture2D texture = backgroundSprite.Value;
+					Texture2D texture = backgroundSprites.Item2.Value;
 					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex;
@@ -102,17 +110,17 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 						tex = TextureAssets.Item[imbue.Type];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, 28f / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += backgroundSprite.Width();
+					secondaryItemPosX += dimensions.Width;
 				}
 				if (imbue.Dash is not null)
 				{
 					var pos = startingPos with { X = secondaryItemPosX };
 
-					var colour = Color.White * .5f;
+					var colour = Color.White * .75f;
 
-					Texture2D texture = backgroundSprite.Value;
+					Texture2D texture = backgroundSprites.Item2.Value;
 					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex;
@@ -121,13 +129,13 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 						tex = TextureAssets.Item[imbue.Type];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, 28f / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += backgroundSprite.Width();
+					secondaryItemPosX += dimensions.Width;
 				}
 
 				if (count > 0)
-					startingPos.Y -= backgroundSprite.Height();
+					startingPos.Y -= dimensions.Height;
 
 				for (int i = 0; i < 3; i++)
 				{
@@ -135,22 +143,25 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					switch (i)
 					{
 						case 0:
-							pos.X -= backgroundSprite.Width();
+							pos.X -= dimensions.Width;
 							break;
 						case 2:
-							pos.X += backgroundSprite.Width();
+							pos.X += dimensions.Width;
 							break;
 					}
 					var spell = imbue.Skills[i];
 					if (spell is not null)
 					{
 						var colour = Color.White;
+
+						Texture2D texture = backgroundSprites.Item1.Value;
+
 						if (imbue.selectedIndex != i)
 						{
-							colour *= .5f;
+							colour *= .75f;
+							texture = backgroundSprites.Item2.Value;
 						}
 
-						Texture2D texture = backgroundSprite.Value;
 						DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 						Asset<Texture2D> tex;
@@ -159,7 +170,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 						else
 							tex = TextureAssets.Item[imbue.Type];
 
-						DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, (MathHelper.Min(backgroundSprite.Height(), backgroundSprite.Width()) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+						DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, (MathHelper.Min(dimensions.Height, dimensions.Width) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 						drawDatas.AddRange(a, d);
 					}
 				}
