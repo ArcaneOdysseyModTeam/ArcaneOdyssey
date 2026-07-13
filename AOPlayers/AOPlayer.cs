@@ -63,38 +63,6 @@ namespace ArcaneOdyssey.AOPlayers
 			return list;
 		}
 
-		public override void Load()
-		{
-			On_Player.HorizontalMovement += On_Player_HorizontalMovement;
-			On_Player.JumpMovement += On_Player_JumpMovement;
-			On_Player.WingMovement += On_Player_WingMovement;
-		}
-
-		private void On_Player_WingMovement(On_Player.orig_WingMovement orig, Player self)
-		{
-			if (!Immobile)
-				orig(self);
-		}
-
-		private void On_Player_JumpMovement(On_Player.orig_JumpMovement orig, Player self)
-		{
-			if (!Immobile)
-				orig(self);
-		}
-
-		private void On_Player_HorizontalMovement(On_Player.orig_HorizontalMovement orig, Player self)
-		{
-			if (!Immobile)
-				orig(self);
-		}
-
-		public override void Unload()
-		{
-			On_Player.HorizontalMovement -= On_Player_HorizontalMovement;
-			On_Player.JumpMovement -= On_Player_JumpMovement;
-			On_Player.WingMovement -= On_Player_WingMovement;
-		}
-
 		public static bool evil => !EliusSpareSystem.spared;
 
 
