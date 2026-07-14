@@ -26,6 +26,21 @@ namespace ArcaneOdyssey.Items.Scrolls
 		public override bool CanHaveRelic => true;
 		public override bool CanHaveFS => true;
 
+		public override bool CanRightClick()
+		{
+			if (base.CanRightClick() && Main.LocalPlayer.PlayerItem()?.ModItem is Imbuable imbue)
+			{
+				for (byte i = 0; i < imbue.Skills.Length; i++)
+				{
+					if (imbue.Skills[i].Type != imbue.DefaultSkills[i].Type)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
 		public override void RightClick(Player player)
 		{
 			if (player.PlayerItem()?.ModItem is Imbuable imbue)

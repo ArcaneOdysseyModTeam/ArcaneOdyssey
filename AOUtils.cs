@@ -49,6 +49,8 @@ namespace ArcaneOdyssey
 			return null;
 		}
 
+		public static bool IsNullOrWhiteSpace(this string text) => string.IsNullOrWhiteSpace(text);
+
 		internal static List<string> options = [
 			"Terraria/FavoriteDesc",
 			"Terraria/NoTransfer",

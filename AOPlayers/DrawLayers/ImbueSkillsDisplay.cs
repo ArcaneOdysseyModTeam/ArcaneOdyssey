@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Default;
 
 namespace ArcaneOdyssey.AOPlayers.DrawLayers
 {
@@ -63,12 +64,13 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				}
 
 				var count = 0;
-				if (imbue.Passive is not null)
-					count++;
-				if (imbue.Mobility is not null)
-					count++;
-				if (imbue.Dash is not null)
-					count++;
+				for (var i = Imbuable.SlotIndexID.Passive; i < imbue.Skills.Length; i++)
+				{ 
+					if (imbue.Skills[i] is not null || !imbue.cachedSpells[i].IsNullOrWhiteSpace())
+					{
+						count++;
+					}
+				}
 
 				var secondaryItemPosX = startingPos.X - (dimensions.Width * (count - 1f) / 2f);
 
@@ -95,6 +97,22 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					drawDatas.AddRange(a, d);
 					secondaryItemPosX += dimensions.Width;
 				}
+				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Passive].IsNullOrWhiteSpace())
+				{
+					var pos = startingPos with { X = secondaryItemPosX };
+
+					var colour = Color.White * .75f;
+
+					Texture2D texture = backgroundSprites.Item2.Value;
+					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+
+					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
+
+					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					drawDatas.AddRange(a, d);
+					secondaryItemPosX += dimensions.Width;
+				}
+
 				if (imbue.Mobility is not null)
 				{
 					var pos = startingPos with { X = secondaryItemPosX };
@@ -114,6 +132,22 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					drawDatas.AddRange(a, d);
 					secondaryItemPosX += dimensions.Width;
 				}
+				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Mobility].IsNullOrWhiteSpace())
+				{
+					var pos = startingPos with { X = secondaryItemPosX };
+
+					var colour = Color.White * .75f;
+
+					Texture2D texture = backgroundSprites.Item2.Value;
+					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+
+					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
+
+					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					drawDatas.AddRange(a, d);
+					secondaryItemPosX += dimensions.Width;
+				}
+
 				if (imbue.Dash is not null)
 				{
 					var pos = startingPos with { X = secondaryItemPosX };
@@ -128,6 +162,21 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 						tex = TextureAssets.Item[imbue.Dash.Scroll];
 					else
 						tex = TextureAssets.Item[imbue.Type];
+
+					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					drawDatas.AddRange(a, d);
+					secondaryItemPosX += dimensions.Width;
+				}
+				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Dash].IsNullOrWhiteSpace())
+				{
+					var pos = startingPos with { X = secondaryItemPosX };
+
+					var colour = Color.White * .75f;
+
+					Texture2D texture = backgroundSprites.Item2.Value;
+					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+
+					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
 
 					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
@@ -169,6 +218,25 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 							tex = TextureAssets.Item[spell.Scroll];
 						else
 							tex = TextureAssets.Item[imbue.Type];
+
+						DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, (MathHelper.Min(dimensions.Height, dimensions.Width) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+						drawDatas.AddRange(a, d);
+					}
+					else if (!imbue.cachedSpells[i].IsNullOrWhiteSpace())
+					{
+						var colour = Color.White;
+
+						Texture2D texture = backgroundSprites.Item1.Value;
+
+						if (imbue.selectedIndex != i)
+						{
+							colour *= .75f;
+							texture = backgroundSprites.Item2.Value;
+						}
+
+						DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+
+						Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
 
 						DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, (MathHelper.Min(dimensions.Height, dimensions.Width) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 						drawDatas.AddRange(a, d);

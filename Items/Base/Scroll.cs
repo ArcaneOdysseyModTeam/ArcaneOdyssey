@@ -48,7 +48,7 @@ namespace ArcaneOdyssey.Items.Base
 			}
 		}
 
-		public override bool CanRightClick() => Main.LocalPlayer.PlayerItem().ModItem is Imbuable imbue && CanBeAppliedTo(imbue);
+		public override bool CanRightClick() => Main.LocalPlayer.PlayerItem()?.ModItem is Imbuable imbue && CanBeAppliedTo(imbue);
 
 		public bool CanBeAppliedTo(Imbuable imbue) => (CanHaveMagic && imbue is MagicType) || (CanHaveRelic && imbue is SpiritEnergy) || (CanHaveFS && imbue is FightingStyle);
 

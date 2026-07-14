@@ -1,13 +1,11 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.Skills.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
@@ -15,23 +13,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	{
 		public override float Aura => 1.5f;
 		public override float? DashResist => 1.35f;
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			if (Main.netMode != NetmodeID.Server)
-			{
-				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shoes);
-			}
-		}
-
-		public override void Load()
-		{
-			base.Load();
-			if (Main.netMode != NetmodeID.Server)
-			{
-				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Shoes}", EquipType.Shoes, this);
-			}
-		}
 
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
@@ -42,8 +23,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override float ScrollDamage => .95f;
 		public override float ScrollSize => 1.1f;
 		public override float ScrollSpeed => 0.75f;
-
-		public override AttackSkill DefaultAttack => ModContent.GetInstance<ILegKick>();
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
@@ -91,17 +70,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override void AddRecipes()
 		{
 			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
-		}
-	}
-
-	public class ILegLegHelper : ModPlayer
-	{
-		public override void FrameEffects()
-		{
-			if (Player?.Imbue() is IronLeg || Player?.PlayerItem()?.Imbue() is IronLeg)
-			{
-				Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
-			}
 		}
 	}
 
