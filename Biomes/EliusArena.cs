@@ -98,14 +98,20 @@ namespace ArcaneOdyssey.Biomes
 			givenEliusSpawner = false;
 		}
 
-		public override void PreUpdateEntities()
+		public override void PreUpdateWorld()
 		{
-			if (Main.netMode == NetmodeID.SinglePlayer || NetMessage.DoesPlayerSlotCountAsAHost(Main.myPlayer))
+			if (!givenEliusSpawner)
 			{
-				if (!Main.dedServ && eliusArena == default && ExternalModSupport.NotInSubworld && !givenEliusSpawner)
+				foreach (var player in Main.ActivePlayers)
 				{
-					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_FromThis(), ModContent.ItemType<EliusArenaSpawner>());
-					givenEliusSpawner = true;
+					if (Main.netMode == NetmodeID.SinglePlayer || NetMessage.DoesPlayerSlotCountAsAHost(player.whoAmI))
+					{
+						if (eliusArena == default && ExternalModSupport.NotInSubworld)
+						{
+							player.QuickSpawnItem(Main.LocalPlayer.GetSource_FromThis(), ModContent.ItemType<EliusArenaSpawner>());
+							givenEliusSpawner = true;
+						}
+					}
 				}
 			}
 		}
