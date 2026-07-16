@@ -1,7 +1,9 @@
 ﻿using ArcaneOdyssey.Guidebook;
+using CalamityMod.Tiles.DraedonStructures.CagedLights;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
@@ -10,7 +12,6 @@ using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.ReadingSimulator;
 
-// Spoky (2026 Apr 08): If this isn't deleted after the UI is done, then I forgot to delete this
 public partial class ReadingSimulatorUI : UIState
 {
 	/// <summary>
@@ -67,7 +68,7 @@ public partial class ReadingSimulatorUI : UIState
 		}
 	}
 
-	public class ImageButtonButWithAFewExtraThingsForVerySpecificPurposesInTheGuideBookThatShouldNotBeUsedForAnythingElseJeezThisIsALongNameWonderHowMuchCanIPadTheLengthOfThisClass : UIImageButton
+	public class ImageButtonButWithAFewExtraThingsForVerySpecificPurposesInTheGuideBookThatShouldNotBeUsedForAnythingElseJeezThisIsALongNameWonderHowMuchCanIPadTheLengthOfThisClass: UIPanel
 	{
 		public readonly ReadingSimulatorUI main;
 		/// <summary>
@@ -76,41 +77,72 @@ public partial class ReadingSimulatorUI : UIState
 		public int Number { get; protected set; }
 
 		public GuidebookPage Page;
-		public UIText Label = new("") { IgnoresMouseInteraction = true };
+		protected UIText Label = new("") { IgnoresMouseInteraction = true };
 
 		public ImageButtonButWithAFewExtraThingsForVerySpecificPurposesInTheGuideBookThatShouldNotBeUsedForAnythingElseJeezThisIsALongNameWonderHowMuchCanIPadTheLengthOfThisClass(
-			ReadingSimulatorUI main, int number, Asset<Texture2D> texture) : base(texture)
+			ReadingSimulatorUI main, int number, GuidebookPage page, Vector2 size) : base()
 		{
 			this.main = main;
 			main.PageButtons.Add(this);
 			Number = number;
 
-			Width.Set(144f, 0f);
-			Height.Set(32f, 0f);
+			Page = page;
+			if (Page is null)
+			{
+				Main.NewText($"{nameof(Page)} is null for Page n°{Number}; Big sad", new Color(255, 0, 255));
+				return;
+			}
+
+			Width.Set(size.X, 0f);
+			Height.Set(size.Y, 0f);
+
+			Append(Label);
+
+			// Spoky 2026 Jul 15: It seems that maybe panels have a base padding, which breaks all of the operations below, thus I set them all to 0
+			PaddingBottom = 0;
+			PaddingLeft = 0;
+			PaddingRight = 0;
+			PaddingTop = 0;
 
 			Left.Set(separation, 0f);
 			Top.Set(separation + main.CloseButton.Height.Pixels + (separation * 2) + ((Height.Pixels + separation) * number), 0f);
 
-			Label.Width.Set(Width.Pixels - (separation * 2), 0f);
+
+			Label.Left.Set(separation * 3f, 0f);
+			Label.Top.Set(separation * 2, 0f);
+
+			Label.VAlign = 0;
+			Label.HAlign = 0;
+
+			//Label.IsWrapped = true;
+			Label.DynamicallyScaleDownToWidth = true;
+
+			Label.SetText(Page.DisplayName.Value);
+
+			Label.Recalculate();
+			Height.Set(Label.MinHeight.Pixels + (separation * 4), 0f);
+
+			// Spoky [2026 Jul 15]: Had the left of Label be multiplied by 2 (to account for the padding from both sides), changed it to 3 to be a bit more strict
+			float testLines = Label.MinWidth.Pixels / (Width.Pixels - (Label.Left.Pixels * 2));
+			double expectedLines = Math.Ceiling(testLines);
+			int linesReal = expectedLines < 1 ? 1 : (int)expectedLines;
+
+			//Main.NewText($"Checking for {Page.DisplayName.Value}\n" +
+			//	$"\tHmm left {Left.Pixels} top {Top.Pixels}; size {Width.Pixels}, {Height.Pixels} \n" +
+			//	$"\tLabel left {Label.Left.Pixels} top {Label.Top.Pixels}; size {Label.Width.Pixels}, {Label.Height.Pixels} \n" +
+			//	$"\tHeight? {Label.MinHeight.Pixels}, Width? {Label.MinWidth.Pixels}; LinesReal: {linesReal}; Expected: {expectedLines}; test {testLines}");
+
+			Label.IsWrapped = true;
+			Height.Set(size.Y * linesReal, 0f);
+
+			Label.Width.Set(Width.Pixels - (separation * 4f), 0f);
 			Label.Height.Set(Height.Pixels - (separation * 2), 0f);
 
-			Label.Left.Set(separation, 0f);
-			Label.Top.Set(separation + 2, 0f);
 
-			Append(Label);
+
+			Recalculate();
 		}
 
-		public void NewPage(GuidebookPage page)
-		{
-			Page = page;
-			if (Page is null)
-			{
-				Main.NewText($"{nameof(Page)} is null for Page n°{Number}");
-				return;
-			}
-
-			Label.SetText(Page.DisplayName);
-		}
 
 		public override void LeftClick(UIMouseEvent evt)
 		{
