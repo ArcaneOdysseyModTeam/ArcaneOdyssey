@@ -20,8 +20,10 @@ namespace ArcaneOdyssey.Buffs.DOT
 			npc.ArcaneOdyssey().melting = true;
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Lava);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.SolarFlare);
 				dust.velocity *= 0.4f;
+				var dust2 = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.InfernoFork);
+				dust2.velocity *= 0.4f;
 			}
 		}
 
