@@ -4,9 +4,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 
@@ -41,7 +44,22 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 		}
 
 		[JITWhenModsEnabled("Fargowiltas")]
-		public bool FargosBuffDisplayActive(PlayerDrawSet drawInfo) => ModContent.GetInstance<FargoPlayerBuffDrawLayer>().GetDefaultVisibility(drawInfo);
+		public static bool FargosBuffDisplayActive(PlayerDrawSet drawInfo) => ModContent.GetInstance<FargoPlayerBuffDrawLayer>().GetDefaultVisibility(drawInfo);
+
+		public static readonly int[] FargosIgnoredDebuffs = [
+			BuffID.Campfire,
+			BuffID.HeartLamp,
+			BuffID.Sunflower,
+			BuffID.PeaceCandle,
+			BuffID.StarInBottle,
+			BuffID.Tipsy,
+			BuffID.MonsterBanner,
+			BuffID.Werewolf,
+			BuffID.Merfolk,
+			BuffID.CatBast,
+			BuffID.BrainOfConfusionBuff,
+			BuffID.NeutralHunger
+		];
 
 		public override bool IsHeadLayer => false;
 
@@ -52,16 +70,21 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 			if (player.PlayerItem().ModItem is Imbuable imbue)
 			{
 				List<DrawData> drawDatas = [];
-				Vector2 startingPos;
 
-				if (ExternalModSupport.HasFargos && FargosBuffDisplayActive(drawInfo))
+				int yOffset = dimensions.Height;
+				if (ExternalModSupport.HasFargos)
 				{
-					startingPos = drawInfo.Position + new Vector2(Player.defaultWidth / 2f, -32f - dimensions.Height) - Main.screenPosition;
+					yOffset += (player.buffType.Where(d => Main.debuff[d]).Except(FargosIgnoredDebuffs).Count() / 10) * 32;
 				}
-				else
-				{
-					startingPos = drawInfo.Position + new Vector2(Player.defaultWidth / 2f, -dimensions.Height) - Main.screenPosition;
-				}
+
+				Vector2 drawPos = (player.gravDir > 0 ? player.Top : player.Bottom);
+				drawPos.Y -= (32f + yOffset) * player.gravDir;
+
+				drawPos -= player.MountedCenter;
+				drawPos = drawPos.RotatedBy(-player.fullRotation);
+				drawPos += player.MountedCenter;
+				drawPos += Vector2.UnitY * player.gfxOffY; 
+				float rotation = (player.gravDir > 0 ? 0 : MathHelper.Pi) - player.fullRotation;
 
 				var count = 0;
 				for (var i = Imbuable.SlotIndexID.Passive; i < imbue.Skills.Length; i++)
@@ -72,11 +95,10 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					}
 				}
 
-				var secondaryItemPosX = startingPos.X - (dimensions.Width * (count - 1f) / 2f);
+				var secondaryItemPos = drawPos - new Vector2(dimensions.Width * (count - 1f) / 2f, 0).RotatedBy(-player.fullRotation);
 
 				if (imbue.Passive is not null)
 				{
-					var pos = startingPos with { X = secondaryItemPosX };
 					var texture = backgroundSprites.Item1.Value;
 						
 					var colour = Color.White;
@@ -85,7 +107,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 						colour *= .75f;
 						texture = backgroundSprites.Item2.Value;
 					}
-					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex;
 					if (imbue.Passive.Scroll != 0)
@@ -93,34 +115,30 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 						tex = TextureAssets.Item[imbue.Type];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, secondaryItemPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += dimensions.Width;
+					secondaryItemPos += new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 				}
 				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Passive].IsNullOrWhiteSpace())
 				{
-					var pos = startingPos with { X = secondaryItemPosX };
-
 					var colour = Color.White * .75f;
 
 					Texture2D texture = backgroundSprites.Item2.Value;
-					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, secondaryItemPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += dimensions.Width;
+					secondaryItemPos += new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 				}
 
 				if (imbue.Mobility is not null)
 				{
-					var pos = startingPos with { X = secondaryItemPosX };
-
 					var colour = Color.White * .75f;
 
 					Texture2D texture = backgroundSprites.Item2.Value;
-					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex;
 					if (imbue.Mobility.Scroll != 0)
@@ -128,34 +146,30 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 						tex = TextureAssets.Item[imbue.Type];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, secondaryItemPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += dimensions.Width;
+					secondaryItemPos += new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 				}
 				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Mobility].IsNullOrWhiteSpace())
 				{
-					var pos = startingPos with { X = secondaryItemPosX };
-
 					var colour = Color.White * .75f;
 
 					Texture2D texture = backgroundSprites.Item2.Value;
-					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, secondaryItemPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += dimensions.Width;
+					secondaryItemPos += new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 				}
 
 				if (imbue.Dash is not null)
 				{
-					var pos = startingPos with { X = secondaryItemPosX };
-
 					var colour = Color.White * .75f;
 
 					Texture2D texture = backgroundSprites.Item2.Value;
-					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex;
 					if (imbue.Dash.Scroll != 0)
@@ -163,39 +177,37 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 						tex = TextureAssets.Item[imbue.Type];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, secondaryItemPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += dimensions.Width;
+					secondaryItemPos += new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 				}
 				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Dash].IsNullOrWhiteSpace())
 				{
-					var pos = startingPos with { X = secondaryItemPosX };
-
 					var colour = Color.White * .75f;
 
 					Texture2D texture = backgroundSprites.Item2.Value;
-					DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
 
-					DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+					DrawData d = new(tex.Value, secondaryItemPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 					drawDatas.AddRange(a, d);
-					secondaryItemPosX += dimensions.Width;
+					secondaryItemPos += new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 				}
 
 				if (count > 0)
-					startingPos.Y -= dimensions.Height;
+					drawPos.Y -= dimensions.Height;
 
 				for (int i = 0; i < 3; i++)
 				{
-					var pos = startingPos;
+					var pos = drawPos;
 					switch (i)
 					{
 						case 0:
-							pos.X -= dimensions.Width;
+							pos -= new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 							break;
 						case 2:
-							pos.X += dimensions.Width;
+							pos += new Vector2(dimensions.Width, 0).RotatedBy(-player.fullRotation);
 							break;
 					}
 					var spell = imbue.Skills[i];
@@ -211,7 +223,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 							texture = backgroundSprites.Item2.Value;
 						}
 
-						DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+						DrawData a = new(texture, pos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 						Asset<Texture2D> tex;
 						if (spell.Scroll != 0)
@@ -219,7 +231,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 						else
 							tex = TextureAssets.Item[imbue.Type];
 
-						DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, (MathHelper.Min(dimensions.Height, dimensions.Width) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+						DrawData d = new(tex.Value, pos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, (MathHelper.Min(dimensions.Height, dimensions.Width) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 						drawDatas.AddRange(a, d);
 					}
 					else if (!imbue.cachedSpells[i].IsNullOrWhiteSpace())
@@ -234,11 +246,11 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 							texture = backgroundSprites.Item2.Value;
 						}
 
-						DrawData a = new(texture, pos, texture.Frame(), colour, 0f, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
+						DrawData a = new(texture, pos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, SpriteEffects.None, 0);
 
 						Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedItem>()];
 
-						DrawData d = new(tex.Value, pos, tex.Frame(), colour, 0f, tex.Size() / 2f, (MathHelper.Min(dimensions.Height, dimensions.Width) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
+						DrawData d = new(tex.Value, pos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, (MathHelper.Min(dimensions.Height, dimensions.Width) - 4f) / MathHelper.Max(tex.Width(), tex.Height()), SpriteEffects.None, 0);
 						drawDatas.AddRange(a, d);
 					}
 				}

@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 		protected override void Draw(ref PlayerDrawSet drawinfo)
 		{
-			DrawData item = new(sprite.Value, new Vector2((int)(drawinfo.Position.X - Main.screenPosition.X - (drawinfo.drawPlayer.legFrame.Width / 2) + (drawinfo.drawPlayer.width / 2)), (int)(drawinfo.Position.Y - Main.screenPosition.Y + drawinfo.drawPlayer.height - drawinfo.drawPlayer.legFrame.Height + 4f)) + drawinfo.drawPlayer.legPosition + drawinfo.legVect, drawinfo.drawPlayer.legFrame, Color.White * .9f * (1f - drawinfo.shadow), drawinfo.drawPlayer.legRotation, drawinfo.legVect, 1f, drawinfo.playerEffect);
+			DrawData item = new(sprite.Value, new Vector2((int)(drawinfo.Position.X - Main.screenPosition.X - (drawinfo.drawPlayer.legFrame.Width / 2) + (drawinfo.drawPlayer.width / 2)), (int)(drawinfo.Position.Y - Main.screenPosition.Y + drawinfo.drawPlayer.height - drawinfo.drawPlayer.legFrame.Height + 4f)) + drawinfo.drawPlayer.legPosition + drawinfo.legVect, drawinfo.drawPlayer.legFrame, Color.White * .6f * (1f - drawinfo.shadow), drawinfo.drawPlayer.legRotation, drawinfo.legVect, 1f, drawinfo.playerEffect);
 			drawinfo.DrawDataCache.Add(item);
 		}
 	}

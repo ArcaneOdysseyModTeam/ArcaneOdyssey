@@ -235,10 +235,13 @@ namespace ArcaneOdyssey
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
 		public static Mod Calamity => HasCalamity ? ModLoader.GetMod("CalamityMod") : null;
+
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
+
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
 		public static Mod Thorium => HasThorium ? ModLoader.GetMod("ThoriumMod") : null;
+
 		public static bool HasMS => ModLoader.HasMod("MagicStorage");
 		public static Mod MS => HasMS ? ModLoader.GetMod("MagicStorage") : null;
 
