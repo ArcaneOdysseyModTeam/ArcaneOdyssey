@@ -436,6 +436,16 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
+				if (ItemID.Sets.ItemIconPulse[item.type])
+				{
+					scale = frame.Width > 32 || frame.Height > 32 ? 32f / Math.Max(frame.Width, frame.Height) : Math.Max(frame.Width, frame.Height) / 32f;
+					scale *= Main.inventoryScale;
+				}
+				else if (frame.Width <= 32 || frame.Height <= 32)
+				{ 
+					scale = 32f / Math.Max(frame.Width, frame.Height) * Main.inventoryScale;
+				}
+				
 				var imbueScale = 52f / Math.Max(texture.Width(), texture.Height());
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
