@@ -22,7 +22,7 @@ namespace ArcaneOdyssey
 			CycleGodSoul = KeybindLoader.RegisterKeybind(Mod, nameof(CycleGodSoul), "K");
 			CycleImbueAttack = KeybindLoader.RegisterKeybind(Mod, nameof(CycleImbueAttack), "Q");
 			ActivateImbuePassive = KeybindLoader.RegisterKeybind(Mod, nameof(ActivateImbuePassive), "L");
-			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.Enter);
+			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.LeftAlt);
 		}
 
 		public override void Unload()
