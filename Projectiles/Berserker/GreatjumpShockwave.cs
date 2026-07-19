@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
-using Terraria;
 
 namespace ArcaneOdyssey.Projectiles.Berserker
 {

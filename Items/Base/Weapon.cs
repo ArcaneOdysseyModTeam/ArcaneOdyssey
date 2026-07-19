@@ -1,14 +1,9 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Debug;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {

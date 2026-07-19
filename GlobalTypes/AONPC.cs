@@ -3,12 +3,8 @@ using ArcaneOdyssey.Items.Blocks;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Projectiles;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.GlobalTypes
 {

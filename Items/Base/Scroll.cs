@@ -3,9 +3,6 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {

@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
 using System.IO;
-using Terraria;
 
 namespace ArcaneOdyssey.Projectiles.Magic
 {

@@ -1,9 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Tiles.Bronze;
-using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Materials
 {

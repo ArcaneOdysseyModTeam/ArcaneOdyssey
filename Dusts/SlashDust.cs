@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-
-
-namespace ArcaneOdyssey.Dusts
+﻿namespace ArcaneOdyssey.Dusts
 {
 	public class SlashDust : PreDrawnDust
 	{

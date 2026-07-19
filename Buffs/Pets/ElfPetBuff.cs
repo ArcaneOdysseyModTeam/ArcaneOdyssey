@@ -1,9 +1,6 @@
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Projectiles.Pets;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Pets
 {

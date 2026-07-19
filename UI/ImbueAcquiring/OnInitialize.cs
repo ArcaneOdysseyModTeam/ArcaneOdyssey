@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.UI._BaseImbueUI;
 using System.Collections.Generic;
-using Terraria.Localization;
 
 
 

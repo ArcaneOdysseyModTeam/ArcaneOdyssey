@@ -1,9 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {

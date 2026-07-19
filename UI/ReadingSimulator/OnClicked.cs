@@ -1,14 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using Terraria;
+﻿using System;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.ReadingSimulator;
 
-// Spoky (2026 Apr 08): If this isn't deleted after the UI is done, then I forgot to delete this
 public partial class ReadingSimulatorUI : UIState
 {
 	#region Closing and Closing Button clicked
@@ -43,19 +38,6 @@ public partial class ReadingSimulatorUI : UIState
 			{
 				Main.NewText($"Error getting Player at {nameof(RebootPages)}; error:\n{ex}", new Color(255, 0, 255));
 				CommitSudoku();
-			}
-		}
-
-		for (int i = 0; i < PageButtons.Count; i++)
-		{
-			if (i >= TheBook.Count)
-			{
-				PageButtons[i].SetImage(ButtonTextures.Page.Evil);
-			}
-			else
-			{
-				PageButtons[i].SetImage(ChosenPage == i ? ButtonTextures.Page.Good : ButtonTextures.Page.Neutral);
-				PageButtons[i].NewPage(TheBook[i]);
 			}
 		}
 	}

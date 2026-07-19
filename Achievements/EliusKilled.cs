@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.NPCs.Bosses;
 using Terraria.Achievements;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Achievements
 {

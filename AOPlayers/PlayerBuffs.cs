@@ -2,14 +2,10 @@
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Guidebook;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.AOPlayers

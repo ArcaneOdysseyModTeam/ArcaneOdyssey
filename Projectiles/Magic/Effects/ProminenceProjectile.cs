@@ -1,8 +1,5 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {

@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Gels;
 using ArcaneOdyssey.Items.Base;
-using Microsoft.Xna.Framework;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Potions.Gels
 {

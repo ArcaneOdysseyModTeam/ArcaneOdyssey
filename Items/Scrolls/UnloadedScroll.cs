@@ -3,8 +3,6 @@ using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
 using System.IO;
-using Terraria;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Scrolls

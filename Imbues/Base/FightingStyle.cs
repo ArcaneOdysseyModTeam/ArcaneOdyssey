@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.Skills.Generic;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Base
 {

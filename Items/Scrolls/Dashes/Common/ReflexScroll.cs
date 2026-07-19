@@ -2,10 +2,7 @@
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Skills.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 {

@@ -1,11 +1,7 @@
 ﻿using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
 {
@@ -39,7 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 				AOPlayerOwner.SetCooldown<SparrowThrustCooldown>();
 				SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 
-				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, (Projectile.rotation - MathHelper.PiOver4).ToRotationVector2() * 7.5f, ModContent.ProjectileType<SparrowThrust>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue);
+				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 7.5f, ModContent.ProjectileType<SparrowThrust>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue);
 			}
 		}
 	}

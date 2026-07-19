@@ -1,10 +1,6 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Abilities
 {

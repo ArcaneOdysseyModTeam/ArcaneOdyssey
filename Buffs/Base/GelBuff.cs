@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Buffs.Base
+﻿namespace ArcaneOdyssey.Buffs.Base
 {
 	public abstract class GelBuff : BaseBuff
 	{

@@ -1,9 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
-using Microsoft.Xna.Framework;
 using System;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 {

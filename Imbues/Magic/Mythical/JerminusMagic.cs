@@ -1,8 +1,6 @@
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Gimmicks.Magic;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {

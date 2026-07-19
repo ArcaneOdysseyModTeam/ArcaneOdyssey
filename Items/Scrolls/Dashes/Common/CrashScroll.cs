@@ -3,12 +3,8 @@ using ArcaneOdyssey.Gores;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Skills.Base;
-using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common

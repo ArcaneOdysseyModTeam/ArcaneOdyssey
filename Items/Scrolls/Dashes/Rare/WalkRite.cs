@@ -3,9 +3,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Skills.Base;
 using System;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Items.Scrolls.Dashes.Rare

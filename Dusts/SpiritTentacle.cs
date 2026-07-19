@@ -1,6 +1,3 @@
-using Terraria;
-using Terraria.ID;
-
 namespace ArcaneOdyssey.Dusts
 {
 	public class SpiritTentacle : PreDrawnDust

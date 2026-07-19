@@ -1,7 +1,4 @@
-﻿using Terraria;
-using Terraria.ID;
-
-namespace ArcaneOdyssey.Dusts
+﻿namespace ArcaneOdyssey.Dusts
 {
 	public class FlareDust : PreDrawnDust
 	{

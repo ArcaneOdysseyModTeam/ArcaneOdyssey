@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Projectiles.Magic.Minions;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Minions
 {

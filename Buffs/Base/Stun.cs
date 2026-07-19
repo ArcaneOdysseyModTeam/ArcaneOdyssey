@@ -1,7 +1,4 @@
-﻿using Terraria;
-using Terraria.ID;
-
-namespace ArcaneOdyssey.Buffs.Base
+﻿namespace ArcaneOdyssey.Buffs.Base
 {
 	/// <summary>
 	/// nobody will tell its a custom debuff thats the point lol

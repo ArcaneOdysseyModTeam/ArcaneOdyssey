@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.GameContent;
-using Terraria.ModLoader;
+﻿using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {

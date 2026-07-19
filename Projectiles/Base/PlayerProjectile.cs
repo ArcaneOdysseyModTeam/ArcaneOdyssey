@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Imbues.Base;
-using Terraria;
 using Terraria.Audio;
 
 

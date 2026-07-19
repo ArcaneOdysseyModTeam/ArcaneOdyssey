@@ -5,10 +5,7 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Projectiles.Relics;
 using ArcaneOdyssey.Skills.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Attacks.Common
 {

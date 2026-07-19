@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Armour.Sunken
 {

@@ -1,11 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Minions;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey.Projectiles.Relics.Minions

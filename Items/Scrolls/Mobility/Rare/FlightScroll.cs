@@ -2,8 +2,6 @@
 using ArcaneOdyssey.Items.Accessories.Helpers;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Skills.Base;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Mobility.Rare
 {

@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Buffs.Stuns;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {

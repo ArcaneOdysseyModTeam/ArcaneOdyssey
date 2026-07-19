@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {

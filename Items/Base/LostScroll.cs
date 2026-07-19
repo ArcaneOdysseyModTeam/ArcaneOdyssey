@@ -1,6 +1,4 @@
-﻿using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Items.Base
+﻿namespace ArcaneOdyssey.Items.Base
 {
 	public abstract class LostScroll : Scroll
 	{

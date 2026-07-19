@@ -1,13 +1,9 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.GlobalTypes

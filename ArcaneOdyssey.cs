@@ -1,3 +1,11 @@
+global using Microsoft.Xna.Framework;
+global using Microsoft.Xna.Framework.Graphics;
+global using ReLogic.Content;
+global using Terraria;
+global using Terraria.ID;
+global using Terraria.Localization;
+global using Terraria.ModLoader;
+
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Imbues.Base;
@@ -5,19 +13,11 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.NPCs.Bosses;
-using ArcaneOdyssey.NPCs.Town;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Terraria;
 using Terraria.Chat;
 using Terraria.Graphics.Shaders;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
@@ -96,11 +96,6 @@ namespace ArcaneOdyssey
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
-			}
-
-			if (ExternalModSupport.HasFargos)
-			{
-				ExternalModSupport.Fargos.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
 			}
 		}
 

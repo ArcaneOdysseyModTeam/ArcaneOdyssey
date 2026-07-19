@@ -1,12 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Berserker
 {

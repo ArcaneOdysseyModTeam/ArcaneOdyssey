@@ -1,8 +1,6 @@
 ﻿using System;
 using ArcaneOdyssey.Items.Base;
-using Terraria;
 using ArcaneOdyssey.Imbues.Magic.Mythical;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Items.Debug
 {

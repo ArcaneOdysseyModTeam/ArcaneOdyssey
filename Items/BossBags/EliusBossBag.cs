@@ -3,10 +3,7 @@ using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.NPCs.Bosses;
-using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.BossBags
 {

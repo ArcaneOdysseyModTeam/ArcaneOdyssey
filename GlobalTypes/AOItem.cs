@@ -16,22 +16,15 @@ using ArcaneOdyssey.Items.Scrolls.Passive.Common;
 using ArcaneOdyssey.Items.Weapons.Atlantean;
 using ArcaneOdyssey.Prefixes;
 using ArcaneOdyssey.Projectiles;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameInput;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 
@@ -437,6 +430,16 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
 			{
+				if (ItemID.Sets.ItemIconPulse[item.type])
+				{
+					scale = frame.Width > 32 || frame.Height > 32 ? 32f / Math.Max(frame.Width, frame.Height) : Math.Max(frame.Width, frame.Height) / 32f;
+					scale *= Main.inventoryScale;
+				}
+				else if (frame.Width <= 32 || frame.Height <= 32)
+				{ 
+					scale = 32f / Math.Max(frame.Width, frame.Height) * Main.inventoryScale;
+				}
+				
 				var imbueScale = 52f / Math.Max(texture.Width(), texture.Height());
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);

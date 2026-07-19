@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Terraria.ID;
-using Terraria.Localization;
 
 namespace ArcaneOdyssey.Buffs.Base
 {

@@ -1,15 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.ReadingSimulator;
 
-// Spoky (2026 Apr 08): If this isn't deleted after the UI is done, then I forgot to delete this
 public partial class ReadingSimulatorUI : UIState
 {
 	#region UI Panel declarations and some stuff related to it
@@ -137,7 +132,7 @@ public partial class ReadingSimulatorUI : UIState
 		PageScroller.Left.Set(separation, 0f);
 		PageScroller.Top.Set(top, 0f);
 
-		Pages.Width.Set(164f, 0f);
+		Pages.Width.Set(254f, 0f);
 		Pages.Height.Set(height, 0f);
 
 		Pages.Left.Set(separation + PageScroller.Left.Pixels + PageScroller.Width.Pixels + (separation * 2), 0f);
@@ -145,9 +140,10 @@ public partial class ReadingSimulatorUI : UIState
 
 		for (int i = 0; i < TheBook.Count; i++)
 		{
+			var page = TheBook[i];
+
 			ImageButtonButWithAFewExtraThingsForVerySpecificPurposesInTheGuideBookThatShouldNotBeUsedForAnythingElseJeezThisIsALongNameWonderHowMuchCanIPadTheLengthOfThisClass
-				button = new(this, i, ButtonTextures.Page.Neutral);
-			button.NewPage(TheBook[i]);
+				button = new(this, i, page, new(Pages.Width.Pixels - 20, 32));
 			Pages.Add(button);
 
 			//main.Append(button);

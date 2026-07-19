@@ -2,10 +2,7 @@
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Skills.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Mobility.Common
 {

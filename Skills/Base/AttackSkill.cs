@@ -1,9 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Skills.Base
 {

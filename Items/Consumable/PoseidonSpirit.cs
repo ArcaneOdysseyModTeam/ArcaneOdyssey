@@ -1,14 +1,9 @@
 ﻿using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.UI;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Consumable;

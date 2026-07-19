@@ -4,11 +4,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Gimmicks.FightingStyle;
 using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.Skills.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {

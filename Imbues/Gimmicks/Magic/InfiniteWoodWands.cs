@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using Terraria;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 {

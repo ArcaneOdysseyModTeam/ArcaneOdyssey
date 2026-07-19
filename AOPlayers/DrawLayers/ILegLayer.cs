@@ -1,10 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers.DrawLayers
 {

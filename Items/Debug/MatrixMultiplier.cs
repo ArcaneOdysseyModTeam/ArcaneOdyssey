@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Items.Base;
-using Terraria;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Items.Debug
 {

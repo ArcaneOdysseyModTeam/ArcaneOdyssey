@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
 using ArcaneOdyssey.Skills.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Skills.Generic
 {

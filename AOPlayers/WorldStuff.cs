@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs;
 using System;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers
 {

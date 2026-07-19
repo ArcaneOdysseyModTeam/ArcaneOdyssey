@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Imbues;
-using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {

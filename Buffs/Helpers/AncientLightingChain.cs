@@ -1,11 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using Microsoft.Xna.Framework;
 using System;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Helpers
 {

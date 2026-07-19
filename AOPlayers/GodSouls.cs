@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.GodSouls;
 using System.Collections.Generic;
 using System.Linq;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers
 {

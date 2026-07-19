@@ -2,11 +2,7 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Abilities;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.Atlantean
 {

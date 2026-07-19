@@ -1,10 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Mounts;
-using Microsoft.Xna.Framework;
 using System.Linq;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Mounts
 {

@@ -3,10 +3,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Magic.Minions;
 using ArcaneOdyssey.Skills.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 {

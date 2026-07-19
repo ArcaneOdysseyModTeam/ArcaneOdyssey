@@ -4,10 +4,7 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
 {

@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Walls.Bronze
+﻿namespace ArcaneOdyssey.Walls.Bronze
 {
 	public class BronzeSlabWall : ModWall
 	{

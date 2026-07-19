@@ -1,7 +1,4 @@
-﻿using Terraria.Localization;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.GodSouls
+﻿namespace ArcaneOdyssey.GodSouls
 {
 	public abstract class GodSoul : ModType, ILocalizedModType
 	{

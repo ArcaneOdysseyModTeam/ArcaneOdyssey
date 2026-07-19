@@ -1,6 +1,4 @@
-﻿using Terraria;
-
-namespace ArcaneOdyssey.Guidebook.Pages
+﻿namespace ArcaneOdyssey.Guidebook.Pages
 {
 	public class StrengthWeapons : GuidebookPage
 	{

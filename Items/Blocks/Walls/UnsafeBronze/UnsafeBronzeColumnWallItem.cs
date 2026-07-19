@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Walls.UnsafeBronze;
-using Terraria;
 using Terraria.GameContent.Creative;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Blocks.Walls.UnsafeBronze
 {

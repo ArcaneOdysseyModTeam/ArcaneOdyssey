@@ -1,7 +1,4 @@
-﻿using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Guidebook
+﻿namespace ArcaneOdyssey.Guidebook
 {
 	public class GuidebookSystem : ModSystem
 	{

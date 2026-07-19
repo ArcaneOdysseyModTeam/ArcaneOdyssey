@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Tiles.BossRelics;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.BossRelics
 {

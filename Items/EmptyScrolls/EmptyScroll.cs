@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.Items.Base;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.EmptyScrolls
 {

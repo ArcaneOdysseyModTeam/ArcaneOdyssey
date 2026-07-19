@@ -1,11 +1,7 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.UI;
-using Microsoft.Xna.Framework;
 using System;
-using Terraria;
 using Terraria.GameContent.Creative;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Debug;
 

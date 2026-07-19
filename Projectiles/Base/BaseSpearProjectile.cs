@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Projectiles.Base
+﻿namespace ArcaneOdyssey.Projectiles.Base
 {
 	public abstract class BaseSpearProjectile : PlayerProjectile
 	{
