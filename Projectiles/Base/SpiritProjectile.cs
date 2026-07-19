@@ -1,7 +1,4 @@
 ﻿using ArcaneOdyssey.Imbues.Relics;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {

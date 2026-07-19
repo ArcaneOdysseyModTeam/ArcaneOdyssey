@@ -3,10 +3,7 @@ using ArcaneOdyssey.UI.ImbueAcquiringSequel;
 using ArcaneOdyssey.UI.ImbueChange;
 using ArcaneOdyssey.UI.MutateThyMagic;
 using ArcaneOdyssey.UI.ReadingSimulator;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI;

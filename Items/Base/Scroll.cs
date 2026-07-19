@@ -1,12 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {

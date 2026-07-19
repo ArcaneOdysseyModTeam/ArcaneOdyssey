@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Tiles;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Blocks
 {

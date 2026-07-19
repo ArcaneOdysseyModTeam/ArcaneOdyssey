@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
 {

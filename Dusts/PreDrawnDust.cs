@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Dusts
+﻿namespace ArcaneOdyssey.Dusts
 {
 	public abstract class PreDrawnDust : ModDust
 	{

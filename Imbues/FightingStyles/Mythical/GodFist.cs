@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Mythical;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
-using Terraria;
 using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Mythical

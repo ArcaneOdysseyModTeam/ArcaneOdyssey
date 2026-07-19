@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
 
 namespace ArcaneOdyssey.Buffs.Stuns
 {

@@ -2,10 +2,6 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Items.Weapons.Old;
 using ArcaneOdyssey.Projectiles.Weapons;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Weapons.Bronze
 {

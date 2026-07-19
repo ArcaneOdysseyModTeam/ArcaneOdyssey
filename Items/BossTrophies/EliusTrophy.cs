@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Tiles.BossTrophies;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.BossTrophies
 {

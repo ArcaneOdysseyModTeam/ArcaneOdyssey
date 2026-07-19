@@ -1,12 +1,9 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
 using System;
-using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
 {

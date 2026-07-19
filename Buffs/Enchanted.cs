@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs
 {

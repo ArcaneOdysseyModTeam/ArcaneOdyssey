@@ -1,10 +1,5 @@
 ﻿using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.Items.Base;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
-using Terraria.ID;
 
 namespace ArcaneOdyssey.Items.Consumable
 {

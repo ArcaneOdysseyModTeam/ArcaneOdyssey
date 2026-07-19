@@ -1,6 +1,4 @@
-﻿using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Prefixes
+﻿namespace ArcaneOdyssey.Prefixes
 {
 	public abstract class BasePrefix : ModPrefix, ILocalizedModType
 	{

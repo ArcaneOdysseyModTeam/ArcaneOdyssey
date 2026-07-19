@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.UI;
+﻿using Terraria.UI;
 
 namespace ArcaneOdyssey.UI._BaseImbueUI;
 

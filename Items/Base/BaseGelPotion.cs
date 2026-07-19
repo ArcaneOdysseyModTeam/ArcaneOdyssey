@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Items.Base
+﻿namespace ArcaneOdyssey.Items.Base
 {
 	public abstract class BaseGelPotion : BaseItem
 	{

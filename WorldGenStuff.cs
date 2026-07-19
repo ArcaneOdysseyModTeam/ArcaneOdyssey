@@ -3,15 +3,11 @@ using ArcaneOdyssey.GlobalTypes;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdyssey.Tiles;
-using Microsoft.Xna.Framework;
 using StructureHelper.API;
 using System;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Generation;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
 namespace ArcaneOdyssey

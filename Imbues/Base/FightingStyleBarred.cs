@@ -1,9 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using Terraria;
+﻿using ReLogic.Graphics;
 using Terraria.GameContent;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Base

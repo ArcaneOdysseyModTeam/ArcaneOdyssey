@@ -1,11 +1,7 @@
 ﻿using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {

@@ -1,10 +1,6 @@
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Weapons;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Items.Weapons.Old

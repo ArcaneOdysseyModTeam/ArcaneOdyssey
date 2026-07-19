@@ -1,6 +1,4 @@
-﻿using Terraria;
-
-namespace ArcaneOdyssey.Dusts
+﻿namespace ArcaneOdyssey.Dusts
 {
 	public class SpiritDust : PreDrawnDust
 	{

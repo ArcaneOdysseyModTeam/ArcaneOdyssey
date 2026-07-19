@@ -1,9 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Buffs.MagicMarks;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Buffs.Gels
 {

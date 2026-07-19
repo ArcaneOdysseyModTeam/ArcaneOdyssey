@@ -2,8 +2,6 @@
 using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
 {

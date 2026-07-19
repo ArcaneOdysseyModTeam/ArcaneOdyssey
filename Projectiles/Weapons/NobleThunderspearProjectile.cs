@@ -1,12 +1,7 @@
-﻿using System;
-using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+﻿using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
 {

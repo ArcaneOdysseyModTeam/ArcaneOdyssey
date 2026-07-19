@@ -1,6 +1,4 @@
-﻿using Terraria.ModLoader;
-
-namespace ArcaneOdyssey
+﻿namespace ArcaneOdyssey
 {
 	public class AOKeybinds : ModSystem
 	{

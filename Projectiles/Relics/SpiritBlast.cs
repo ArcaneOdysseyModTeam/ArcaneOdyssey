@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Projectiles.Relics

@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Projectiles.Berserker;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Base
 {

@@ -1,5 +1,4 @@
-﻿using Terraria;
-using Terraria.UI;
+﻿using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.ReadingSimulator;
 

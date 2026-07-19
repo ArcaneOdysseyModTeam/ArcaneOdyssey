@@ -1,9 +1,7 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Guidebook;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.ReadingSimulator;

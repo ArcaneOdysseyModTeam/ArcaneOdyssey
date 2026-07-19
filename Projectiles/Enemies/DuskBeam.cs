@@ -2,12 +2,8 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
 using System.Linq;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {

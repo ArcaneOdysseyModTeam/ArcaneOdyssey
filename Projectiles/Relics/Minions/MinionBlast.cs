@@ -1,6 +1,4 @@
-﻿using Terraria;
-
-namespace ArcaneOdyssey.Projectiles.Relics.Minions
+﻿namespace ArcaneOdyssey.Projectiles.Relics.Minions
 {
 	public class MinionBlast : SpiritBlast
 	{

@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Items.Debug;
 using ArcaneOdyssey.Rarities;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.GameContent;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {

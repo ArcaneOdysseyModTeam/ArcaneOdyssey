@@ -1,8 +1,4 @@
-﻿using Terraria;
-using Terraria.Localization;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Imbues.Base
+﻿namespace ArcaneOdyssey.Imbues.Base
 {
 	public abstract class ImbueGimmick : ModType, ILocalizedModType
 	{

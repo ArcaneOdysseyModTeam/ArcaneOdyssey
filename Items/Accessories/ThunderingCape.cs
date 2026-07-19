@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Accessories
 {

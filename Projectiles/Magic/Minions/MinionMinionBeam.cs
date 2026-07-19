@@ -1,10 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Minions
 {

@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Items.SealedChests;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs.Town
 {

@@ -2,12 +2,8 @@
 using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Magic;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.CameraModifiers;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.GlobalTypes
 {

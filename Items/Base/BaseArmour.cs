@@ -2,8 +2,6 @@
 using ArcaneOdyssey.Items.Debug;
 using System;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Base
 {

@@ -1,6 +1,4 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
 {

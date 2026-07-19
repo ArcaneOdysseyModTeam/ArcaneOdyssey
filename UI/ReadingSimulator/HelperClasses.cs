@@ -1,13 +1,7 @@
 ﻿using ArcaneOdyssey.Guidebook;
-using CalamityMod.Tiles.DraedonStructures.CagedLights;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
-using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.ReadingSimulator;

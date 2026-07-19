@@ -1,7 +1,4 @@
 ﻿using ArcaneOdyssey.Items.Base;
-using Microsoft.Xna.Framework;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Items.Weapons.Old

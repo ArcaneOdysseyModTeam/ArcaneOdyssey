@@ -1,6 +1,4 @@
 ﻿using ArcaneOdysseyMusic;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.NPCs
 {

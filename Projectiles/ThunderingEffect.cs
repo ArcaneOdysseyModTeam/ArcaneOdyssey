@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles
 {

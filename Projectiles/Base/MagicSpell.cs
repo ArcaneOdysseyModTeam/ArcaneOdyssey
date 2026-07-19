@@ -1,7 +1,4 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Normal;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {

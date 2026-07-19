@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Items.Base;
-using Terraria;
 
 namespace ArcaneOdyssey.Guidebook.Pages
 {

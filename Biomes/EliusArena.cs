@@ -1,10 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Debug;
 using ArcaneOdysseyMusic;
-using Microsoft.Xna.Framework;
 using System.IO;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Biomes

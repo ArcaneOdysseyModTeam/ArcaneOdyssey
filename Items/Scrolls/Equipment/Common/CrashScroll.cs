@@ -1,13 +1,9 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Gores;
 using ArcaneOdyssey.Items.Base;
-using Microsoft.Xna.Framework;
 using ReLogic.Utilities;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common

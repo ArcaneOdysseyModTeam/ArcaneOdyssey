@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Scrolls.Equipment.Common
 {

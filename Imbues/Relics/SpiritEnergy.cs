@@ -1,15 +1,9 @@
 ﻿using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Imbues.Base;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System.IO;
 using System.Linq;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Relics

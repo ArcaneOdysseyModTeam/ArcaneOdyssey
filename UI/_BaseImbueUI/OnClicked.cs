@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI._BaseImbueUI;

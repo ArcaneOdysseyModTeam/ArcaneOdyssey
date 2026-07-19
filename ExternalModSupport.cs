@@ -19,12 +19,8 @@ using MagicStorage.CrossMod;
 using MagicStorage.Sorting;
 using System;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using CalamityCalls = CalamityMod.ModCalls;
-using Microsoft.Xna.Framework;
 
 namespace ArcaneOdyssey
 {
@@ -845,6 +841,11 @@ namespace ArcaneOdyssey
 				On_Dust.NewDust += DustScaleFixer;
 				On_Dust.NewDustDirect += DirectDustScaleFixer;
 				On_Dust.NewDustPerfect += PerfectDustScaleFixer;
+			}
+
+			if (HasFargos)
+			{
+				Fargos.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
 			}
 		}
 

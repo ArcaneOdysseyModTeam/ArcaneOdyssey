@@ -1,10 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Graphics.CameraModifiers;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {

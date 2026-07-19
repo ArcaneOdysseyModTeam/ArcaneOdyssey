@@ -1,8 +1,4 @@
 ﻿using ArcaneOdyssey.Walls.Bronze;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Walls.UnsafeBronze
 {

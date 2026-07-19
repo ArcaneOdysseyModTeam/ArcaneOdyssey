@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-
-namespace ArcaneOdyssey.Projectiles.Base
+﻿namespace ArcaneOdyssey.Projectiles.Base
 {
 	public abstract class BaseStaffProjectile : PlayerProjectile
 	{

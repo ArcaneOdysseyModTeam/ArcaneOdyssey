@@ -1,8 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Projectiles.Berserker.Effects;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Imbues.Gimmicks.FightingStyle
 {

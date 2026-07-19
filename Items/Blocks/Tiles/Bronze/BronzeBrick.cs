@@ -2,10 +2,7 @@
 using ArcaneOdyssey.Items.Blocks.Walls.Bronze;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Tiles.Bronze;
-using Terraria;
 using Terraria.GameContent.Creative;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Items.Blocks.Tiles.Bronze
 {

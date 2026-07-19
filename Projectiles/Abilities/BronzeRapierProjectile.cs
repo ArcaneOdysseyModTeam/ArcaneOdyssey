@@ -1,10 +1,6 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.Projectiles.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Projectiles.Abilities

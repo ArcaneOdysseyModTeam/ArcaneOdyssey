@@ -1,9 +1,7 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Items.Base;
 using System;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 
 namespace ArcaneOdyssey.Items.Scrolls.Equipment.Rare

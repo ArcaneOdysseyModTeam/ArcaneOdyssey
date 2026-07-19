@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace ArcaneOdyssey.Tiles.Bronze
+﻿namespace ArcaneOdyssey.Tiles.Bronze
 {
 	public class BronzeBrickTile : ModTile
 	{

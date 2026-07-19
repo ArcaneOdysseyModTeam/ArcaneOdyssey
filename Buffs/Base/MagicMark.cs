@@ -1,6 +1,4 @@
-﻿using Terraria;
-
-namespace ArcaneOdyssey.Buffs.Base
+﻿namespace ArcaneOdyssey.Buffs.Base
 {
 	/// <summary>
 	/// basic debuff for things like Snowy
