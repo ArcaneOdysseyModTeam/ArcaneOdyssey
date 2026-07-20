@@ -14,7 +14,6 @@ namespace ArcaneOdyssey.Items.Scrolls
 		}
 
 		public override ItemRarities Rarity => ItemRarities.Common;
-		public override string Texture => AOUtils.GetTexture<EmptyScroll>();
 
 		public override ModSkill Skill => null;
 

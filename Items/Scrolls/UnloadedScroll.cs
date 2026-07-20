@@ -1,19 +1,19 @@
 ﻿using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
 using System.IO;
+using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Scrolls
 {
-	public class UnloadedScroll : BaseItem
+	public sealed class UnloadedScroll : BaseItem
 	{
 		public override ItemRarities Rarity => ItemRarities.Junk;
 
-		public string CachedFullName = ArcaneOdysseyMod.InternalName + "/BlastScroll";
+		public string CachedFullName { get; private set; } = ArcaneOdysseyMod.InternalName + "/StrikeSkill";
 
-		public override string Texture => AOUtils.GetTexture<EmptyScroll>();
+		public override string Texture => AOUtils.GetTexture<UnloadedItem>();
 
 		public override void NetSend(BinaryWriter writer)
 		{
