@@ -49,6 +49,8 @@ public partial class ReadingSimulatorUI : UIState
 	public UIList Pages = [];
 	public UIScrollbar PageScroller = new();
 
+	public UIScrollbar BigScrollBarLmao = new();
+	public UIList BigScrollAreaLmao = new();
 	public UIPanel BigPanelLmao = new();
 	public UIText BigTextLmao = new("", 1.25f);
 
@@ -62,7 +64,8 @@ public partial class ReadingSimulatorUI : UIState
 		main.SetPadding(0);
 		main.BackgroundColor = new(50, 70, 130);
 
-		main.Width.Set(1024f, 0f);
+		float bigTextScrollBarSpace = 20f + (separation * 2);
+		main.Width.Set(1024f + bigTextScrollBarSpace, 0f);
 		main.Height.Set(640f, 0f);
 
 		main.HAlign = 0.5f; main.VAlign = 0.4f;
@@ -159,27 +162,55 @@ public partial class ReadingSimulatorUI : UIState
 		#endregion
 
 		#region Big Text Lmao
+		#region Scroll Bar
+		BigScrollBarLmao.Width.Set(20f, 0f);
+		BigScrollBarLmao.Height.Set(height - 8f, 0f);
+
+		BigScrollBarLmao.Left.Set(Pages.Left.Pixels + Pages.Width.Pixels + separation, 0f);
+		BigScrollBarLmao.Top.Set(top, 0f);
+
+		main.Append(BigScrollBarLmao);
+		#endregion
+
+		#region UI panel (for background)
 		BigPanelLmao.SetPadding(0);
 		BigPanelLmao.BackgroundColor = new(73, 94, 171);
 
-		BigPanelLmao.Width.Set(main.Width.Pixels - (Pages.Left.Pixels + Pages.Width.Pixels + (separation * 2) + separation), 0f);
+		BigPanelLmao.Width.Set(main.Width.Pixels - (Pages.Left.Pixels + Pages.Width.Pixels + (separation * 2) + separation + bigTextScrollBarSpace), 0f);
 		BigPanelLmao.Height.Set(height, 0f);
 
-		BigPanelLmao.Left.Set(Pages.Left.Pixels + Pages.Width.Pixels + separation, 0f);
+		BigPanelLmao.Left.Set(BigScrollBarLmao.Left.Pixels + BigScrollBarLmao.Width.Pixels + separation, 0f);
 		BigPanelLmao.Top.Set(top, 0f);
 
 		main.Append(BigPanelLmao);
+		#endregion
+
+		#region Scroll Area (will be the same area as UI panel
+		BigScrollAreaLmao.Width.Set(BigPanelLmao.Width.Pixels - (separation * 4), 0f);
+		BigScrollAreaLmao.Height.Set(BigPanelLmao.Height.Pixels - (separation * 4), 0f);
+
+		BigScrollAreaLmao.Left.Set(separation * 2, 0f);
+		BigScrollAreaLmao.Top.Set(separation * 2, 0f);
+
+		BigPanelLmao.Append(BigScrollAreaLmao);
+		#endregion
+
+		#region Text
 
 		BigTextLmao.Width.Set(BigPanelLmao.Width.Pixels - (separation * 4), 0f);
-		BigTextLmao.Height.Set(BigPanelLmao.Width.Pixels - (separation * 4), 0f);
+		BigTextLmao.Height.Set(BigPanelLmao.Height.Pixels - (separation * 4), 0f);
 
-		BigTextLmao.Left.Set(BigPanelLmao.Left.Pixels + separation * 2, 0f);
-		BigTextLmao.Top.Set(BigPanelLmao.Top.Pixels + separation * 2, 0f);
+		//BigTextLmao.Left.Set(separation, 0f);
+		//BigTextLmao.Top.Set(separation, 0f);
 
 		BigTextLmao.IsWrapped = true;
 
-		main.Append(BigTextLmao);
+		BigScrollAreaLmao.Add(BigTextLmao);
 		#endregion
+
+		#endregion
+
+		BigScrollAreaLmao.SetScrollbar(BigScrollBarLmao);
 	}
 
 	#endregion
