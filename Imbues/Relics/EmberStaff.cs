@@ -29,12 +29,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.staff[Type] = true;
 			ArcaneOdysseyMod.Sets.cold[Type] = false;
 		}
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.noUseGraphic = false;
-		}
 	}
 
 	public class FlogSkill : AttackSkill

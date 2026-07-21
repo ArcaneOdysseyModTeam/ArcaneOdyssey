@@ -129,16 +129,26 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 			else
 			{
-				if (selectedAttack is null)
+				if (selectedAttack is null || !selectedAttack.PreActivate(player, this))
 				{
 					return false;
 				}
-				else if (Item.useStyle != selectedAttack.UseStyleID)
+
+				var attack = selectedAttack.UseStyleID;
+				
+				if (Item.staff[Type] && attack == ItemUseStyleID.Rapier)
 				{
-					Item.useStyle = selectedAttack.UseStyleID;
+					attack = ItemUseStyleID.Shoot;
+				}
+				if (Item.useStyle == attack)
+				{
+					return true;
+				}
+				else
+				{
+					Item.useStyle = attack;
 					return false;
 				}
-				else return true;
 			}
 		}
 
@@ -171,8 +181,9 @@ namespace ArcaneOdyssey.Imbues.Base
 					}
 				}
 				else
-				{
-					Main.LocalPlayer.QuickSpawnItem(Item.GetSource_FromThis(), skill.Scroll);
+				{ 
+					if (skill.Scroll != 0)
+						Main.LocalPlayer.QuickSpawnItem(Item.GetSource_FromThis(), skill.Scroll);
 				}
 				var skills = Skills;
 				skills[slotIndex] = DefaultSkills[slotIndex];
@@ -576,6 +587,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
+			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;
+			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 		}
@@ -790,9 +803,12 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.useStyle = ItemUseStyleID.HiddenAnimation;
 			Item.width = Item.height = 52;
-			Item.noUseGraphic = true;
+			if (!Item.staff[Type])
+			{
+				Item.noUseGraphic = true;
+			}
 			Item.noMelee = true;
 			Item.UseSound = ImbueSound;
 			Item.autoReuse = true;

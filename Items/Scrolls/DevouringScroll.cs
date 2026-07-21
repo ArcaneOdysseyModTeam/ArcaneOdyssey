@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Items.Scrolls
 			{
 				for (byte i = 0; i < imbue.Skills.Length; i++)
 				{
-					if (imbue.Skills[i].Type != imbue.DefaultSkills[i].Type)
+					if (imbue.Skills[i]?.Type != imbue.DefaultSkills[i]?.Type)
 					{
 						return true;
 					}

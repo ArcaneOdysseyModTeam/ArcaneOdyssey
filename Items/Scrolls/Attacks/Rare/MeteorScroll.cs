@@ -28,6 +28,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 
 		public override float Speed => 6f;
 
+		public override int UseStyleID => ItemUseStyleID.Swing;
+
 		public override SoundStyle? ExtraSound => SoundID.Item82;
 
 		public override int ManaCost => 100;

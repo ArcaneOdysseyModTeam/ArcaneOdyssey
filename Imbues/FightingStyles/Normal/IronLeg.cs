@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.Skills.Generic;
 using Terraria.Audio;
 
@@ -13,6 +14,8 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
+
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<ILegKick>();
 
 		public override float ImbueDamage => 1.125f;
 		public override float ImbueSpeed => 0.75f;

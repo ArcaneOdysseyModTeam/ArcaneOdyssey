@@ -10,14 +10,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 {
 	public class CrystalOrb : SpiritEnergy
 	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;
-			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
-			ItemID.Sets.StaffMinionSlotsRequired[Type] = 1;
-		}
-
 		public override AttackSkill DefaultAttack => ModContent.GetInstance<SpiritCloneSkill>();
 
 		public override Color ImbueColour => new(255, 255, 0, 255);

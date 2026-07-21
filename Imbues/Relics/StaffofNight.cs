@@ -27,15 +27,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 			base.SetStaticDefaults();
 			Item.staff[Type] = true;
 		}
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.autoReuse = true;
-			Item.width = Item.height = 46;
-			Item.noUseGraphic = false;
-		}
 	}
 
 	public class SpiritBeamSkill : AttackSkill

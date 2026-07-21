@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
 using System.IO;
-using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Scrolls
@@ -11,9 +10,9 @@ namespace ArcaneOdyssey.Items.Scrolls
 	{
 		public override ItemRarities Rarity => ItemRarities.Junk;
 
-		public string CachedFullName { get; private set; } = ArcaneOdysseyMod.InternalName + "/StrikeSkill";
+		public string CachedFullName { get; internal set; } = ArcaneOdysseyMod.InternalName + "/StrikeSkill";
 
-		public override string Texture => AOUtils.GetTexture<UnloadedItem>();
+		public override string Texture => "ModLoader/UnloadedItem";
 
 		public override void NetSend(BinaryWriter writer)
 		{
