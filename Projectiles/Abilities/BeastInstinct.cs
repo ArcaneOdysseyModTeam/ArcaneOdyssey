@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			AOPlayerOwner.HeavySkillActive = true;
 			AOPlayerOwner.CanMoveOnGround = false;
 			Projectile.Opacity = Projectile.timeLeft / 50f;
-			Owner.Center = Owner.Center.MoveTowards(spots[spot], dist.GetValueOrDefault(40f));
+			Owner.Center = Owner.Center.MoveTowards(spots[spot], ApplySpeed(dist.GetValueOrDefault(30f)));
 			if (Owner.Center == spots[spot])
 			{
 				if (!Main.dedServ)
@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				spot++;
 				if (spot >= spots.Length)
 					spot = 0;
-				dist = spots[spot].Distance(Owner.Center) / 3f;
+				dist = spots[spot].Distance(Owner.Center) / 4f;
 				Owner.ChangeDir(Math.Sign(Owner.SafeDirectionTo(spots[spot], Vector2.One).X));
 				NetUpdate();
 				if (Main.myPlayer == Projectile.owner)
