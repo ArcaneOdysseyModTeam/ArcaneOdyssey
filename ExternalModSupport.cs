@@ -21,6 +21,7 @@ using Terraria.GameContent.ItemDropRules;
 using CalamityCalls = CalamityMod.ModCalls;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
+using ArcaneOdyssey.Items.Base;
 
 namespace ArcaneOdyssey
 {
@@ -896,13 +897,13 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	[ExtendsFromMod("MagicStorage")]
-	public class ImbuesFilter : FilteringOption
-	{
-		public override ItemFilter.Filter Filter => item => item.ModItem is Imbuable;
+	//[ExtendsFromMod("MagicStorage")]
+	//public class ImbuesFilter : FilteringOption
+	//{
+	//	public override ItemFilter.Filter Filter => item => item.ModItem is Imbuable or Scroll;
 
-		public override string Texture => Mod.Name + "/Assets/ImbuesFilter";
+	//	public override string Texture => Mod.Name + "/Assets/ImbuesFilter";
 
-		public override Position GetDefaultPosition() => new Between(FilteringOptionLoader.Definitions.Magic, FilteringOptionLoader.Definitions.Summon); // might not work till aqua finishes his update
-	}
+	//	public override Position GetDefaultPosition() => new Between(FilteringOptionLoader.Definitions.Magic, FilteringOptionLoader.Definitions.Summon); // might not work till aqua finishes his update
+	//}
 }

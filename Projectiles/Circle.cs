@@ -184,7 +184,7 @@ namespace ArcaneOdyssey.Projectiles
 				spawnedDust.noGravity = true;
 			}
 
-			MarkedForDeath |= (!Owner.channel && !originallyAltFire) || (!AOKeybinds.AltSkillUse.Current && originallyAltFire) || Owner.DeadOrGhost;
+			MarkedForDeath |= !Owner.channel || Owner.DeadOrGhost;
 
 			if (!MarkedForDeath)
 			{

@@ -66,8 +66,9 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.Colour ?? lightColor;
-			lightColor = SecondImbue?.Colour ?? lightColor;
+			var oglight = lightColor;
+			lightColor = Imbue?.Colour.MultiplyRGB(lightColor) ?? lightColor;
+			lightColor = SecondImbue?.Colour.MultiplyRGB(oglight) ?? lightColor;
 			var realkmax = ApplySpeed(12f).Round();
 			for (int k = realkmax; k >= 0; k--)
 			{

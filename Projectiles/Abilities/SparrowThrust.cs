@@ -74,10 +74,11 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override bool PreDraw(ref Color lightColor)
 		{
 			var realkmax = ApplySpeed(9f).Round();
+			lightColor = Colour.MultiplyRGB(lightColor);
 			for (int k = realkmax; k >= 0; k--)
 			{
 				Vector2 drawPos = Projectile.Center - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Colour * (1f - ((realkmax - k) / (float)realkmax)));
+				var colour2 = Projectile.GetAlpha(lightColor * (1f - ((realkmax - k) / (float)realkmax)));
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - (Projectile.scale * .075f * k), SpriteEffects.None, 0);
 			}
 			return false;

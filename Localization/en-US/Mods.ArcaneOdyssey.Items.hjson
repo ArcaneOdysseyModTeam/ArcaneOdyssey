@@ -247,17 +247,17 @@ Blocks: {
 		UnsafeBronze: {
 			UnsafeBronzeBrickWallItem: {
 				DisplayName: Ravennan Bronze Brick Wall
-				Tooltip: ""
+				Tooltip: Allows enemies to spawn
 			}
 
 			UnsafeBronzeColumnWallItem: {
 				DisplayName: Ravennan Bronze Column Wall
-				Tooltip: ""
+				Tooltip: Allows enemies to spawn
 			}
 
 			UnsafeBronzeSlabWallItem: {
 				DisplayName: Ravennan Bronze Slab Wall
-				Tooltip: ""
+				Tooltip: Allows enemies to spawn
 			}
 		}
 	}
@@ -394,17 +394,17 @@ Debug: {
 
 EmptyScrolls: {
 	LostEmptyScroll: {
-		DisplayName: Empty Scroll
+		DisplayName: Random Scroll
 		Tooltip: ""
 	}
 
 	RareEmptyScroll: {
-		DisplayName: Empty Scroll
+		DisplayName: Random Scroll
 		Tooltip: ""
 	}
 
 	EmptyScroll: {
-		DisplayName: Empty Scroll
+		DisplayName: Random Scroll
 		Tooltip: ""
 	}
 }

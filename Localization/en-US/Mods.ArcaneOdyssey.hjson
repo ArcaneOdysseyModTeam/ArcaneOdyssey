@@ -238,9 +238,7 @@ Achievements: {
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Special Dash Bind
-	Vanish.DisplayName: Vanish
 	CycleAuraMode.DisplayName: Cycle Aura Mode
-	PrintInfo.DisplayName: Print Info
 	CycleGodSoul.DisplayName: Cycle God Soul
 	CycleImbueAttack.DisplayName: Cycle Imbue Attack
 	ActivateImbuePassive.DisplayName: Activate Imbue Passive
@@ -315,7 +313,7 @@ MainMenuStyle: {
 	Dragon: Dragon
 }
 
-FilteringOption.ImbuesFilter.Tooltip: Filter Imbues
+FilteringOption.ImbuesFilter.Tooltip: Filter Imbues & Scrolls
 
 ImbueGimmicks: {
 	AetherLightningShocks: {

@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				int yOffset = 0;
 				if (ExternalModSupport.HasFargos && FargosBuffDisplayActive(drawInfo))
 				{
-					yOffset += ((player.buffType.Where(d => Main.debuff[d]).Except(FargosIgnoredDebuffs).Count() / 10) + 1) * 32;
+					yOffset += ((player.buffType.Where(d => Main.debuff[d]).Except(FargosIgnoredDebuffs).Count() / 10) + 1) * 32 * (int)player.gravDir;
 				}
 
 				Vector2 drawPos;
@@ -139,9 +139,16 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 				if (imbue.Mobility is not null)
 				{
-					var colour = Color.White * .75f;
+					var colour = Color.White;
 
-					Texture2D texture = backgroundSprites.Item2.Value;
+					Texture2D texture = backgroundSprites.Item1.Value;
+
+					if (Main.LocalPlayer.ArcaneOdyssey()?.Imbue?.Type != imbue?.Type)
+					{
+						colour *= .75f;
+						texture = backgroundSprites.Item2.Value;
+					}
+
 					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, effects, 0);
 
 					Asset<Texture2D> tex;
@@ -167,9 +174,15 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 				if (imbue.Dash is not null)
 				{
-					var colour = Color.White * .75f;
+					var colour = Color.White;
 
-					Texture2D texture = backgroundSprites.Item2.Value;
+					Texture2D texture = backgroundSprites.Item1.Value;
+
+					if (Main.LocalPlayer.ArcaneOdyssey()?.Imbue?.Type != imbue?.Type)
+					{
+						colour *= .75f;
+						texture = backgroundSprites.Item2.Value;
+					}
 					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, effects, 0);
 
 					Asset<Texture2D> tex;

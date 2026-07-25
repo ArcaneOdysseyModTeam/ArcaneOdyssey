@@ -100,7 +100,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Color.Red;
+			lightColor = Color.Red.MultiplyRGB(lightColor);
 			return base.PreDraw(ref lightColor);
 		}
 

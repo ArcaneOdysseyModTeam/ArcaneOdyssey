@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 
 		public override void SetStaticDefaults()
 		{
-			base.SetStaticDefaults();
+			base.SetStaticDefaults(); 
 			Main.projPet[Type] = true;
 			ProjectileID.Sets.MinionSacrificable[Type] = true;
 			Main.projFrames[Type] = 4;
