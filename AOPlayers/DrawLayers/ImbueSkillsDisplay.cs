@@ -67,7 +67,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				int yOffset = 0;
 				if (ExternalModSupport.HasFargos && FargosBuffDisplayActive(drawInfo))
 				{
-					yOffset += ((player.buffType.Where(d => Main.debuff[d]).Except(FargosIgnoredDebuffs).Count() / 10) + 1) * 32 * (int)player.gravDir;
+					yOffset += ((player.buffType.Where(d => Main.debuff[d]).Except(FargosIgnoredDebuffs).Count() / 10) + 1) * 32;
 				}
 
 				Vector2 drawPos;
@@ -207,7 +207,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				}
 
 				if (count > 0)
-					drawPos -= new Vector2(0, dimensions.Height).RotatedBy(-drawInfo.rotation);
+					drawPos -= new Vector2(0, dimensions.Height * player.gravDir).RotatedBy(-drawInfo.rotation);
 
 				for (int i = 0; i < 3; i++)
 				{

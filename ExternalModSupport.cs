@@ -155,7 +155,7 @@ namespace ArcaneOdyssey
 		{
 			if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
 			{
-				shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
+				//shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
 			}
 		}
 

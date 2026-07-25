@@ -79,11 +79,13 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public AttackSkill selectedAttack;
 		public byte selectedIndex;
+		private int actualShoot = 0;
 
 		internal string[] cachedSpells = new string[6];
 
 		public void CycleAttack()
 		{
+			
 			switch (selectedIndex)
 			{
 				case 0:
@@ -100,17 +102,19 @@ namespace ArcaneOdyssey.Imbues.Base
 					break;
 			}
 
+			if (Attacks.Item1 is null && Attacks.Item2 is null && Attacks.Item3 is null)
+			{
+				RemoveSkill(selectedIndex);
+			}
+
 			if (selectedAttack is not null)
 			{
-				if (this is MagicType)
-				{
-					Item.mana = selectedAttack.ManaCost;
-				}
+				Item.mana = selectedAttack.ManaCost;
 				Item.damage = selectedAttack.Damage;
 				Item.knockBack = selectedAttack.Knockback;
 				Item.channel = selectedAttack.Channel;
 				Item.useAnimation = Item.useTime = selectedAttack.Time;
-				Item.shoot = selectedAttack.Shoot;
+				actualShoot = selectedAttack.Shoot;
 				Item.shootSpeed = selectedAttack.Speed;
 				Item.useStyle = selectedAttack.UseStyleID;
 			}
@@ -188,6 +192,10 @@ namespace ArcaneOdyssey.Imbues.Base
 				var skills = Skills;
 				skills[slotIndex] = DefaultSkills[slotIndex];
 				Skills = skills;
+				if (selectedIndex == slotIndex)
+				{
+					selectedAttack = Skills[slotIndex] as AttackSkill;
+				}
 			}
 		}
 
@@ -393,7 +401,12 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			selectedAttack?.AttackStats(player, this, ref position, ref velocity, ref damage, ref knockback);
+			if (selectedAttack is not null)
+			{
+				if (actualShoot != 0)
+					type = actualShoot;
+				selectedAttack.AttackStats(player, this, ref position, ref velocity, ref damage, ref knockback);
+			}
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -666,6 +679,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				return;
 			}
 			Gimmick?.ModifyManaCost(player, ref reduce, ref mult);
+			selectedAttack?.ModifyManaCost(player, ref reduce, ref mult);
 		}
 
 		/// <summary>
@@ -812,6 +826,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			Item.noMelee = true;
 			Item.UseSound = ImbueSound;
 			Item.autoReuse = true;
+			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually fire
 		}
 
 		public sealed override bool AltFunctionUse(Player player) => true;

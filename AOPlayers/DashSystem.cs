@@ -121,6 +121,7 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 					else
 					{
+						direction *= (int)Player.gravDir;
 						if (Math.Sign(Player.velocity.X) != direction)
 						{
 							Player.velocity.X = 0f;

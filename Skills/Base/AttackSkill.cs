@@ -26,5 +26,7 @@ namespace ArcaneOdyssey.Skills.Base
 		public static bool AltUsing => AOKeybinds.AltSkillUse.Current;
 
 		public virtual int UseStyleID => ItemUseStyleID.Rapier;
+
+		public virtual void ModifyManaCost(Player player, ref float reduce, ref float mult) { }
 	}
 }

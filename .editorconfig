@@ -1,7 +1,7 @@
 ﻿[*.cs]
 
 # CS0162: Unreachable code detected
-dotnet_diagnostic.CS0162.severity = none
+dotnet_diagnostic.CS0162.severity = suggestion
 
 # Top-most EditorConfig file
 root = true
