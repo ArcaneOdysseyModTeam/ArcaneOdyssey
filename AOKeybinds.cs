@@ -10,7 +10,6 @@ namespace ArcaneOdyssey
 		public static ModKeybind CycleGodSoul { get; set; }
 
 		public static ModKeybind CycleImbueAttack { get; set; }
-		public static ModKeybind ActivateImbuePassive { get; set; }
 		public static ModKeybind AltSkillUse { get; set; }
 
 		public override void Load()
@@ -20,7 +19,6 @@ namespace ArcaneOdyssey
 			CycleAuraMode = KeybindLoader.RegisterKeybind(Mod, nameof(CycleAuraMode), "J");
 			CycleGodSoul = KeybindLoader.RegisterKeybind(Mod, nameof(CycleGodSoul), "K");
 			CycleImbueAttack = KeybindLoader.RegisterKeybind(Mod, nameof(CycleImbueAttack), "Q");
-			ActivateImbuePassive = KeybindLoader.RegisterKeybind(Mod, nameof(ActivateImbuePassive), "L");
 			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.LeftAlt);
 		}
 
@@ -31,7 +29,6 @@ namespace ArcaneOdyssey
 			CycleAuraMode = null;
 			CycleGodSoul = null;
 			CycleImbueAttack = null;
-			ActivateImbuePassive = null;
 			AltSkillUse = null;
 		}
 	}

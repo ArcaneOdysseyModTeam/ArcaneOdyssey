@@ -109,7 +109,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					var texture = backgroundSprites.Item1.Value;
 						
 					var colour = Color.White;
-					if (!imbue.PassiveActive)
+					if (Main.LocalPlayer.ArcaneOdyssey()?.Imbue?.Type != imbue?.Type)
 					{
 						colour *= .75f;
 						texture = backgroundSprites.Item2.Value;

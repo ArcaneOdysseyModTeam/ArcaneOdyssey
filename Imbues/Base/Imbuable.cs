@@ -69,11 +69,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 
 		public (AttackSkill, AttackSkill, AttackSkill) Attacks;
-
 		public PassiveSkill Passive;
-		public bool PassiveActive;
-		public int PassiveTime;
-
 		public ModSkill Mobility;
 		public DashSkill Dash;
 
@@ -203,12 +199,6 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (refund)
 				RemoveSkill(slotIndex);
-
-			if (slotIndex == 3)
-			{
-				PassiveActive = false;
-				PassiveTime = 0;
-			}
 
 			var skills = Skills;
 			skills[slotIndex] = skill;
@@ -450,35 +440,6 @@ namespace ArcaneOdyssey.Imbues.Base
 						CycleAttack();
 					}
 				}
-
-				if (AOKeybinds.ActivateImbuePassive.JustPressed && Passive is not null)
-				{
-					if (Passive.PreActivate(player, this))
-					{
-						PassiveActive = true;
-						PassiveTime = Passive.Length;
-					}
-				}
-
-				if (PassiveActive)
-				{
-					if (PassiveTime-- <= 0)
-					{
-						PassiveActive = false;
-					}
-					else
-					{
-						if (Passive is not null)
-						{
-							Passive.Activate(player, this);
-						}
-						else
-						{
-							PassiveActive = false;
-							PassiveTime = 0;
-						}
-					}
-				}
 			}
 
 			Gimmick?.UpdateInventory(player);
@@ -492,6 +453,10 @@ namespace ArcaneOdyssey.Imbues.Base
 				if (Dash is not null && Dash.PreActivate(player, this))
 				{
 					Dash.Activate(player, this);
+				}
+				if (Passive is not null && Passive.PreActivate(player, this))
+				{
+					Passive.Activate(player, this);
 				}
 			}
 		}
