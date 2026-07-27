@@ -18,6 +18,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 			if (normieIndex >= 0 && hecateIndex >= 0 && ProductSpotLight.Mutation is not null)
 			{
+				var og = player.inventory[normieIndex].ModItem as MagicType;
 				player.inventory[normieIndex].SetDefaults(ProductSpotLight.Mutation.Type);
 				player.inventory[hecateIndex].TurnToAir();
 
@@ -33,8 +34,8 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 				if (newItem.ModItem is MagicType magic)
 				{
-					var og = AOUtils.Safe<Imbuable>(ModContent.GetModItem((int)MagicTypeToID(WhoWeMutating)));
 					magic.OriginalImbue = og;
+					magic.Skills = og.Skills;
 				}
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();

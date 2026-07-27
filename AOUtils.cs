@@ -106,7 +106,7 @@ namespace ArcaneOdyssey
 			7 => "SortingWithNoSpace",
 			8 => "Shimmer",
 			9 => "Digesting",
-			_ => null,
+			_ => "",
 		};
 
 
@@ -128,7 +128,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static float CleanRound(this float value) => (value.Round(3) * 1000f / 5f).Round() * 5f / 1000f;
+		public static float CleanRound(this float value, int digits = 3) => (value.Round(digits) * 10f.Pow(digits) / 5f).Round() * 5f / 10f.Pow(digits);
 
 		public static string LocalizationCategoryOf<T>() where T : class, ILocalizedModType => ModContent.GetInstance<T>().LocalizationCategory;
 
@@ -1386,9 +1386,6 @@ namespace ArcaneOdyssey
 				return;
 			if (player is not null)
 			{
-				if (imbue is SpiritEnergy)
-					if (!npc.immortal)
-						player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
 				if (npc.immune[player.whoAmI] > 0 || player.whoAmI != Main.myPlayer)
@@ -1396,8 +1393,6 @@ namespace ArcaneOdyssey
 				if (npc.noTileCollide || player.CanHit(npc))
 				{
 					player.ApplyDamageToNPC(npc, damage, knockBack, hitDirection, crit, damageType, damageVariation);
-					player.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
-					imbue?.Gimmick?.OnHitNPC(imbue, player, npc, npc.CalculateHitInfo(damage, hitDirection, crit, knockBack, damageType, damageVariation), damage);
 				}
 			}
 			else

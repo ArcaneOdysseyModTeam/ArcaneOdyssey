@@ -80,6 +80,30 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
+		public override void Load()
+		{
+			On_Player.ApplyDamageToNPC += AoEHelper;
+		}
+
+		private static void AoEHelper(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC npc, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
+		{
+			Imbuable imbue = null;
+			imbue ??= AOUtils.Safe<Imbuable>(self.PlayerItem()?.ModItem);
+			imbue ??= self.PlayerItem().Imbue();
+			imbue ??= self.Imbue();
+			imbue?.Gimmick?.OnHitNPC(imbue, self, npc, npc.CalculateHitInfo(damage, direction, crit, knockback, damageType, damageVariation), damage);
+			if (imbue is SpiritEnergy)
+				if (!npc.immortal)
+					self.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
+			self.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
+			orig(self, npc, damage, knockback, direction, crit, damageType, damageVariation);
+		}
+
+		public override void Unload()
+		{
+			On_Player.ApplyDamageToNPC -= AoEHelper;
+		}
+
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			UpdateDebuffHelpers(damageDone, target, item.Imbue(), false, true);

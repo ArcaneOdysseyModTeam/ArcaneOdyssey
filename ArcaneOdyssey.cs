@@ -407,6 +407,10 @@ namespace ArcaneOdyssey
 			public static bool[] greataxe = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteGreataxe, ItemID.TitaniumWaraxe, ItemID.WarAxeoftheNight, ItemID.AdamantiteWaraxe);
 
 			public static bool[] rapier = ItemID.Sets.Factory.CreateBoolSet();
+			/// <summary>
+			/// whether the item is dual bladed
+			/// <para/>also affects how it's drawn
+			/// </summary>
 
 			public static bool[] dualbladed = ItemID.Sets.Factory.CreateBoolSet();
 

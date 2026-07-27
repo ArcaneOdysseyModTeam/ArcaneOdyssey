@@ -18,6 +18,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 	{
 		public override int Damage => 70;
 
+		public override float Speed => 120;
+
 		public override int Shoot => ModContent.ProjectileType<PulsarSpell>();
 
 		public override int ManaCost => 50;
