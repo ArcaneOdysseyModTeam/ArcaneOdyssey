@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	{
 		private int hptoheal;
 		private Vector2 previousLocation;
-		private Vector2[] podiumPos = [new(-645.5f, 69f), new(-305.5f, 53f), new(0f, 0f), new(380.5f, 53f), new(698.5f, 69f)];
+		private Vector2[] podiumPos = [new(-660f,16f),new(-330f,0f),new(0*16f,0f),new(376f,0f),new(696f,16f)];
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;
@@ -127,7 +127,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
 			NPC.TargetClosest();
 
-			// ai here, red
+			
 			if(NPC.life > NPC.lifeMax / 2) //prevents healing right when he gets to half
 			{
 				NPC.ai[2] = 0f;
@@ -139,6 +139,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.life += hptoheal;
 				CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
 			}
+			// State Machine
+			// ai[1] is the state frame, ai[0] is the state ID
 			NPC.ai[2] += 1f;
 			if (NPC.ai[0] == 1) //storm of arrows
 			{
@@ -177,8 +179,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				if (NPC.ai[1] < 20f && NPC.ai[1] > 2f)
 				{
-					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
-					NPC.Center += new Vector2(NPC.direction * 2f, -10f + (NPC.ai[1]/5f));
+					//movement
 					
 				}
 				if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)

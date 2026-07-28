@@ -203,7 +203,8 @@ namespace ArcaneOdyssey.AOPlayers
 						{
 							if (Main.raining || !DownedBosses.DownedElius)
 							{
-								NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, EliusArenaLoader.eliusArena.Center.Y * 16, ModContent.NPCType<LordElius>(), Player.whoAmI);
+								//elius spawn location
+								NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 25) * 16, (EliusArenaLoader.eliusArena.Center.Y + 2) * 16, ModContent.NPCType<LordElius>(), Player.whoAmI);
 							}
 						}
 					}
