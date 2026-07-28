@@ -132,86 +132,20 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				NPC.ai[2] = 0f;
 			}
-			if((NPC.life < NPC.lifeMax/2)&&NPC.ai[2]>=5000f) //healing
+			if((NPC.life < NPC.lifeMax/2)&&NPC.ai[2]>=5f*60f) //healing
 			{
 				NPC.ai[2] = 0f;
 				hptoheal = (int)(Main.rand.Next(150)+50);
 				NPC.life += hptoheal;
 				CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
 			}
-			// State Machine
-			// ai[1] is the state frame, ai[0] is the state ID
 			NPC.ai[2] += 1f;
-			if (NPC.ai[0] == 1) //storm of arrows
-			{
-				if (NPC.ai[1] < 2f)
-				{
-					//Main.NewText("Storm of arrows or something idk");
-					NPC.ai[1] = 2f;
-				}
-				if (NPC.ai[1] > 60f)
-				{
-					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(4) + 1f;
-					//Main.NewText(NPC.ai[0]);
-				}
-			}
-			else if (NPC.ai[0] == 2) //podium jump
-			{
-				if (NPC.ai[1] < 2f)
-				{
-					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
-					NPC.Center = spawnLocation + podiumPos[Main.rand.Next(5)];
-					NPC.ai[1] = 2f;
-				}
-				if (NPC.ai[1] > 60f)
-				{
-					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(4) + 1f;
-					//Main.NewText(NPC.ai[0]);
-				}
-			} else if (NPC.ai[0] == 3) //spear throw
-			{
-				if(NPC.ai[1] < 2f)
-				{
-					previousLocation = NPC.position;
-					NPC.ai[1] = 2f;
-				}
-				if (NPC.ai[1] < 20f && NPC.ai[1] > 2f)
-				{
-					//movement
-					
-				}
-				if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)
-				{
-					
-					//throw
-					NPC.ai[1] = 30f;
-				}
-				if (NPC.ai[1] > 60f)
-				{
-					NPC.position = previousLocation;
-					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(4) + 1f;
-					if(NPC.ai[0] == 3f) {NPC.ai[0] = 2f;}
-					//Main.NewText(NPC.ai[0]);
-				}
-			} else if (NPC.ai[0] == 4) //twin crecents
-			{
-				if (NPC.ai[1] < 2f)
-				{
-					//NPC.Center += new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f)); //lmao hes just leaving fuck you
-					
-					NPC.ai[1] = 2f;
-				}
-				if (NPC.ai[1] > 60f)
-				{
-					NPC.ai[1] = 0f;
-					NPC.ai[0] = Main.rand.Next(4) + 1f;
-					//Main.NewText(NPC.ai[0]);
-				}
-			}
-			NPC.ai[1] += 1f;
+
+			// IMPORTANT LINE: NPC.Center = spawnLocation + podiumPos[Main.rand.Next(5)];
+
+			// State Machine
+			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched
+			
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
