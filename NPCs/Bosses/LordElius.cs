@@ -205,7 +205,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if(NPC.ai[1] > 30f)
 				{
-					if (NPC.ai[2] > 4f || Main.player[NPC.target].Center.Distance(NPC.Center) > 128f) {
+					if (NPC.ai[2] > 4f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f) {
 						NPC.ai[2] = 0f;
 						hptoheal = (int)(Main.rand.Next(150)+50);
 						NPC.life += hptoheal;
