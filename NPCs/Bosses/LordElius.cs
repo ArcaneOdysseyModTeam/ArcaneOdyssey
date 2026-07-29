@@ -284,7 +284,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if((int)NPC.ai[1]%60 == 0)
 					{
-						Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*20f,ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
+						Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
 					}
 				} else if(NPC.ai[1] < 316f)
 				{
