@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private Vector2 previousPodiumLocation,nextPodiumLocation;
 		private float[] dashSelectArray = {0f,4f};
 		private float[] moveSelectArrayOne = {1f,4f,1f,1f};
-		private float[] moveSelectArrayTwo = {6f,6f,6f};
+		private float[] moveSelectArrayTwo = {2f,2f,6f};
 		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
 		public override void SetStaticDefaults()
 		{
