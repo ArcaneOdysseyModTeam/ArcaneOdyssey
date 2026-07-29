@@ -184,7 +184,7 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public static bool OnCooldown(this Player player, int ID) => player.ArcaneOdyssey().OnCooldown(ID);
 
-		public static bool OnCooldown<T>(this Player player) where T : DisplayedCooldown => player.OnCooldown<T>();
+		public static bool OnCooldown<T>(this Player player) where T : DisplayedCooldown => player.ArcaneOdyssey().OnCooldown<T>();
 
 		public static Cooldown GetCooldown(this Player player, string ID) => player.ArcaneOdyssey().GetCooldown(ID);
 	}
