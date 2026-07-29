@@ -213,7 +213,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						Gore.NewGorePerfect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*5f,-1f),ModContent.GoreType<EmptyHealthPotion>(),1f);
 						SoundEngine.PlaySound(SoundID.Item3,NPC.Center);
 						NPC.ai[1] = -1f;
-						NPC.ai[0] = 1;
+						NPC.ai[0] = 0;
 						if(NPC.life > NPC.lifeMax)
 						{
 							NPC.life = NPC.lifeMax;
@@ -221,7 +221,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						} else
 						{
 							NPC.ai[1] = -1f;
-							NPC.ai[0] = 0;
+							NPC.ai[0] = 1;
 						}
 				}
 			}
