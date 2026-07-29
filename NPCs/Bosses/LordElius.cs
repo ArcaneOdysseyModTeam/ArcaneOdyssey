@@ -139,12 +139,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			// State Machine
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
-			if (NPC.ai[0] == 0) //wait
+			if (NPC.ai[0] == 0) //heal explosion
 			{
-				if(NPC.ai[1] > 20f)
+				if(NPC.ai[1] > 120f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
+					//insert explosion code here if under half health
 				}
 			}
 			else if(NPC.ai[0] == 1) //Hop move
