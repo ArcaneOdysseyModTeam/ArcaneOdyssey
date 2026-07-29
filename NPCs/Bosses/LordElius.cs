@@ -194,7 +194,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.ai[1] = -1f;
 						NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
 						NPC.ai[2]+=1f; //increment heal cooldown
-						if(NPC.ai[2] >= 4f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+						if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
 						{
 							NPC.ai[0] = 3f;
 						}
@@ -220,7 +220,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if(NPC.ai[1] > 30f)
 				{
-					if (NPC.ai[2] > 4f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f) {
+					if (NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f) {
 						NPC.ai[2] = 0f;
 						hptoheal = (int)(Main.rand.Next(150)+50);
 						NPC.life += hptoheal;
