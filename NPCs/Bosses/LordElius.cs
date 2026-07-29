@@ -7,8 +7,10 @@ using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using ArcaneOdyssey.Projectiles.Enemies;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -16,6 +18,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	public class LordElius : BaseNPC
 	{
 		private int hptoheal;
+		private bool lockedByMove;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation,nextPodiumLocation;
 		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
@@ -117,7 +120,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				spawnLocation = NPC.position;
 				hasSetSpawnLocation = true;
 				NPC.position = spawnLocation + podiumPos[2];
-				NPC.ai[0] = 0f;
+				NPC.ai[0] = 1f;
 				NPC.ai[1] = 0f;
 				NPC.ai[2] = 0f;
 				NPC.ai[3] = 0f;
@@ -135,7 +138,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				NPC.ai[2] = 0f;
 			}
-			if((NPC.life < NPC.lifeMax/2)&&NPC.ai[2]>=5f*60f) //healing
+			if(!lockedByMove&&(NPC.life < NPC.lifeMax/2)&&NPC.ai[2]>=5f*60f) //healing
 			{
 				NPC.ai[2] = 0f;
 				hptoheal = (int)(Main.rand.Next(150)+50);
@@ -147,10 +150,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			// State Machine
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
-			if(NPC.ai[0] == 0) //Hop move
+			if(NPC.ai[0] == 1) //Hop move
 			{
 				if(NPC.ai[1] < 2f) //Choose the podium
 				{
+					lockedByMove = false;
 					tempPodiumID = NPC.ai[3];
 					while(tempPodiumID == NPC.ai[3]) 
 					{
@@ -163,21 +167,42 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if(NPC.ai[1] < 20f) //Rise
 					{
+						lockedByMove = true;
 						NPC.position.Y-= 3f;
 					} else if(NPC.ai[1] <52f) //Dash
 					{
+						lockedByMove = true;
 						NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
 					}
 					if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
 					{
+						lockedByMove = false;
 						NPC.position.Y += 4f;
 					}
 					if (NPC.ai[1] >= 80f) //Break out of this ai cycle
 					{
 						NPC.position = nextPodiumLocation;
+						lockedByMove = false;
 						NPC.ai[1] = -1f;
-						NPC.ai[0] = 0;
+						NPC.ai[0] = 2;
 					}
+				}
+			} else if(NPC.ai[0] == 2) //spear throw
+			{
+				if(NPC.ai[1] < 40f)
+				{
+					lockedByMove = true;
+					//charge vfx goes here
+				} else if (NPC.ai[1] < 42f)
+				{
+					lockedByMove = true;
+					NPC.ai[1] = 42f;
+					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*15f,ModContent.ProjectileType<EliusSpear>(),30,1f,-1);
+				} else if (NPC.ai[1] > 70f)
+				{
+					lockedByMove = false;
+					NPC.ai[1] = -1f;
+					NPC.ai[0] = 1;
 				}
 			}
 			NPC.ai[1]+= 1f; //increment frame

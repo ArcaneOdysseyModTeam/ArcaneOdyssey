@@ -166,6 +166,7 @@ Projectiles: {
 		LaelusExplosion.DisplayName: Spirit Burst
 		DuskBeam.DisplayName: Nichtetheis
 		Effects.EvilSun.DisplayName: Evil Sun
+		EliusSpear.DisplayName: Noble Thunderspear
 	}
 
 	Pets: {
