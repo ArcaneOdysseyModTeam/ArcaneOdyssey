@@ -16,8 +16,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	public class LordElius : BaseNPC
 	{
 		private int hptoheal;
-		private Vector2 previousLocation;
-		private Vector2[] podiumPos = [new(-660f,16f),new(-330f,0f),new(0*16f,0f),new(376f,0f),new(696f,16f)];
+		private float tempPodiumID;
+		private Vector2 previousPodiumLocation,nextPodiumLocation;
+		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;
@@ -113,11 +114,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			if (!hasSetSpawnLocation) //this also is used for setup
 			{
-				spawnLocation = NPC.Center;
+				spawnLocation = NPC.position;
 				hasSetSpawnLocation = true;
-				NPC.ai[0] = 1f;
+				NPC.position = spawnLocation + podiumPos[2];
+				NPC.ai[0] = 0f;
 				NPC.ai[1] = 0f;
 				NPC.ai[2] = 0f;
+				NPC.ai[3] = 0f;
 			}
 			else if (!NPC.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
 			{
@@ -141,10 +144,44 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			NPC.ai[2] += 1f;
 
-			// IMPORTANT LINE: NPC.Center = spawnLocation + podiumPos[Main.rand.Next(5)];
 
 			// State Machine
-			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched
+			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
+			if(NPC.ai[0] == 0) //Hop move
+			{
+				if(NPC.ai[1] < 2f) //Choose the podium
+				{
+					tempPodiumID = NPC.ai[3];
+					while(tempPodiumID == NPC.ai[3]) 
+					{
+						NPC.ai[3] = (float)Main.rand.Next(5);
+					}
+					NPC.ai[1] = 2f;
+					previousPodiumLocation = NPC.position;
+					nextPodiumLocation = spawnLocation+podiumPos[(int)NPC.ai[3]];
+				} else //prevent skipping to the next parts
+				{
+					if(NPC.ai[1] < 20f) //Rise
+					{
+						NPC.position.Y-= 3f;
+					} else if(NPC.ai[1] <52f) //Dash
+					{
+						NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+					}
+					if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+					{
+						NPC.position.Y += 4f;
+					}
+					if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+					{
+						NPC.position = nextPodiumLocation;
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 0;
+					}
+				}
+			}
+			NPC.ai[1]+= 1f; //increment frame
+			
 			
 		}
 
