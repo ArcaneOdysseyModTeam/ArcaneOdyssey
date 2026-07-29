@@ -171,4 +171,21 @@ namespace ArcaneOdyssey.AOPlayers
 			SetCooldown(ModContent.BuffType<T>(), length);
 		}
 	}
+
+	public static class EasyAOPlayerMethods
+	{
+		public static void SetCooldown<T>(this Player player, int length = -1) where T : DisplayedCooldown => player.ArcaneOdyssey().SetCooldown<T>(length);
+
+		public static void SetCooldown(this Player player, int cooldown, int length) => player.ArcaneOdyssey().SetCooldown(cooldown, length);
+
+		public static void SetCooldown(this Player player, Cooldown cooldown) => player.ArcaneOdyssey().SetCooldown(cooldown);
+
+		public static bool OnCooldown(this Player player, string ID) => player.ArcaneOdyssey().OnCooldown(ID);
+
+		public static bool OnCooldown(this Player player, int ID) => player.ArcaneOdyssey().OnCooldown(ID);
+
+		public static bool OnCooldown<T>(this Player player) where T : DisplayedCooldown => player.OnCooldown<T>();
+
+		public static Cooldown GetCooldown(this Player player, string ID) => player.ArcaneOdyssey().GetCooldown(ID);
+	}
 }

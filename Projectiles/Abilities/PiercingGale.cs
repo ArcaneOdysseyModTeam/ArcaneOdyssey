@@ -93,7 +93,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override bool PreDraw(ref Color lightColor)
 		{
 			var oldPos = cache.ToArray();
-			lightColor = Colour;
+			lightColor = Colour.MultiplyRGB(lightColor);
 			if (Projectile.localAI[0] > 2) Projectile.localAI[0] = 0;
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 			for (int k = oldPos.Length - 1; k > -1; k--)

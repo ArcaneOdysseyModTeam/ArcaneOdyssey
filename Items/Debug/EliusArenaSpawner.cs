@@ -35,5 +35,7 @@ namespace ArcaneOdyssey.Items.Debug
 				Item.TurnToAir();
 			}
 		}
+
+		public override bool CanUseItem(Player player) => ExternalModSupport.NotInSubworld;
 	}
 }

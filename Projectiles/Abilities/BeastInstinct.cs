@@ -96,7 +96,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			var colour = Projectile.GetAlpha(Imbue?.Colour ?? lightColor);
+			var colour = Projectile.GetAlpha(Imbue?.Colour.MultiplyRGB(lightColor) ?? lightColor);
 			Vector2 lastpoint = Projectile.Center;
 			foreach (var point in spots)
 			{

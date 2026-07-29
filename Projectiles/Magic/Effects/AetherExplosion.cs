@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.tileCollide = false;
 			Projectile.light = 1f;
 			Projectile.hide = true;
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<CharredEffect>(60 * 5);

@@ -50,6 +50,16 @@ namespace ArcaneOdyssey.Projectiles.Magic
 				var targetnpc = Main.npc[Target];
 				Projectile.velocity = Projectile.velocity.ToRotation().AngleTowards(Projectile.SafeDirectionTo(targetnpc.Center).ToRotation(), ApplySpeed(MathHelper.TwoPi) / 100f).ToRotationVector2() * Projectile.velocity.Length();
 			}
+
+			if (Projectile.frameCounter++ > 5)
+			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= ArcaneOdysseyMod.Sets.BlastMaxFrames[Imbue?.Type ?? WindMagic.ID])
+				{
+					Projectile.frame = 0;
+				}
+			}
+
 			Imbue?.UpdateProjectile(Projectile);
 		}
 

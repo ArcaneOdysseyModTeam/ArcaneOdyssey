@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
+using ArcaneOdyssey.Skills.Base;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
@@ -15,6 +16,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.Load();
 			ModTypeLookup<MagicType>.Register(this);
 		}
+
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<MagicBlastSkill>();
 
 		public sealed override float ImbueDamage => base.ImbueDamage;
 		public sealed override float ImbueSize => base.ImbueSize;
@@ -57,15 +60,6 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public MagicCircle Circle => new(ImbuableTier, CircleType);
 
-		public override bool CanStack(Item source)
-		{
-			var magic = source.ModItem as MagicType;
-
-			return OriginalImbue.Type == magic.OriginalImbue.Type;
-		}
-
-		public override bool CanStackInWorld(Item source) => CanStack(source);
-
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
@@ -106,7 +100,18 @@ namespace ArcaneOdyssey.Imbues.Base
 		public static int DefaultOriginalImbue => WindMagic.ID;
 
 		private Imbuable _og = null;
-		public Imbuable OriginalImbue { get => _og ?? AOUtils.Safe<Imbuable>(ModContent.GetModItem(ArcaneOdysseyMod.Sets.baseImbues[Type] ?? DefaultOriginalImbue)); set => _og = value; }
+		public Imbuable OriginalImbue
+		{
+			get
+			{
+				return _og ?? AOUtils.Safe<Imbuable>(ModContent.GetModItem(ArcaneOdysseyMod.Sets.baseImbues[Type] ?? DefaultOriginalImbue));
+			}
+
+			set
+			{
+				_og = AOUtils.Safe<Imbuable>(ModContent.Find<Imbuable>(value.FullName));
+			}
+		}
 		private string cachedUnloadedBase = null;
 
 		public override void SaveData(TagCompound tag)
@@ -152,42 +157,48 @@ namespace ArcaneOdyssey.Imbues.Base
 			ArcaneOdysseyMod.Sets.Mutations[Type].Add(ModContent.ItemType<T>());
 		}
 
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.DamageType = DamageClass.Magic;
+		}
 		public void RegisterDefaultMagic<T>() where T : MagicType
 		{
 			ArcaneOdysseyMod.Sets.baseImbues[Type] = ModContent.ItemType<T>();
 		}
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.mana = 5 * ((int)ImbuableTier + 1);
-			Item.DamageType = DamageClass.Magic;
-			Item.shoot = ModContent.ProjectileType<BlastSpell>();
-			Item.autoReuse = true;
-			Item.damage = 15 + (100 * (int)ImbuableTier);
-			Item.shootSpeed = 7f * ScrollSpeed;
-		}
-
-		public sealed override void ModifyManaCost(Player player, ref float reduce, ref float mult)
-		{
-			base.ModifyManaCost(player, ref reduce, ref mult);
-			if (player.AltUse())
-				mult *= 0;
-		}
-
 		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			if (!player.AltUse())
+			if (player.AltUse())
 			{
-				CreateMagicCircle(Item, player, MagicCircleMode.Basic, true, type);
+				CreateMagicCircle(Item, player, MagicCircleMode.Rotating, true);
 			}
 			else
 			{
-				CreateMagicCircle(Item, player, MagicCircleMode.Rotating, true);
+				return base.Shoot(player, source, position, velocity, type, damage, knockback);
 			}
 			return false;
 		}
 
 		public abstract int BlastFrames { get; }
+	}
+
+	public class MagicBlastSkill : AttackSkill
+	{
+		public override int Damage => 15;
+
+		public override int Shoot => ModContent.ProjectileType<BlastSpell>();
+
+		public override int Scroll => 0;
+
+		public override int ManaCost => 5;
+
+		public override float Speed => 7f;
+
+		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
+		{
+			imbue.CreateMagicCircle(player, MagicCircleMode.Basic, true, Shoot);
+			return false;
+		}
 	}
 }

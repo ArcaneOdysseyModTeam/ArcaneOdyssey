@@ -100,6 +100,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			return base.PreDraw(ref lightColor);
 		}
 
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.FinalDamage /= 5f;
+		}
+
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			var explode = Vector2.Lerp(Projectile.Hitbox.ClosestPointInRect(target.Center), target.Hitbox.ClosestPointInRect(Projectile.Center), .5f);

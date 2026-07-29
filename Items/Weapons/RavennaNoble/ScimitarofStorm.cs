@@ -16,12 +16,9 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 		public override float Damage => 1.05f;
 		public override float Size => .85f;
 
-		public int noUseCounter = 0;
-
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<StormCaller>();
 			ArcaneOdysseyMod.Sets.dualbladed[Type] = true;
 		}
 
@@ -35,7 +32,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 			Item.shootSpeed = 7f;
 		}
 
-		public override bool CanShoot(Player player) => swings == 1;
+		public override bool CanShoot(Player player) => usingWithAbility;
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
@@ -45,43 +42,20 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 
 		public override Color Motif => Color.MediumPurple;
 
-		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-		{
-			spriteBatch.Draw(Sprite, position, frame, drawColor, 0, origin, scale, SpriteEffects.FlipHorizontally, 1f);
-		}
-
-		public int swings = 0;
+		private bool usingWithAbility = false;
 
 		public override void UseAnimation(Player player)
 		{
-			noUseCounter = 0;
-			if (swings == 0)
+			if (!player.OnCooldown<TwinCrecsentsCooldown>())
+			{
 				ActivateAbility(player, true);
-			if (++swings > 2)
-			{
-				swings = 0;
+				usingWithAbility = true;
+				player.SetCooldown<TwinCrecsentsCooldown>();
 			}
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			if (!Main.mouseLeft && noUseCounter < 100)
+			else
 			{
-				noUseCounter++;
-			}
-
-			if (noUseCounter > 60 || player.PlayerItem().type != Type)
-			{
-				swings = 0;
-			}
-		}
-
-		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-		{
-			Main.GetItemDrawFrame(Type, out var itemTexture, out var itemFrame);
-			Vector2 drawOrigin = itemFrame.Size() / 2f;
-			Vector2 drawPosition = Item.Bottom - Main.screenPosition - new Vector2(0, drawOrigin.Y);
-			spriteBatch.Draw(itemTexture, drawPosition, itemFrame, lightColor, rotation, drawOrigin, scale, SpriteEffects.FlipHorizontally, 0f);
+				usingWithAbility = false;
+			}	
 		}
 	}
 
@@ -89,6 +63,6 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 	{
 		public override string Texture => AOUtils.GetTexture<ScimitarofStorm>();
 
-		public override int CooldownLength => 60;
+		public override int CooldownLength => 75;
 	}
 }

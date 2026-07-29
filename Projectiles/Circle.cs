@@ -107,7 +107,7 @@ namespace ArcaneOdyssey.Projectiles
 			{
 				dir = Projectile.rotation.ToRotationVector2();
 			}
-
+			
 			if (Projectile.ai[0] == 0)
 			{
 				NetUpdate();
@@ -184,7 +184,7 @@ namespace ArcaneOdyssey.Projectiles
 				spawnedDust.noGravity = true;
 			}
 
-			MarkedForDeath |= !((Owner.channel && !originallyAltFire) || (Main.mouseRight && originallyAltFire)) || Owner.DeadOrGhost;
+			MarkedForDeath |= !Owner.channel || Owner.DeadOrGhost;
 
 			if (!MarkedForDeath)
 			{

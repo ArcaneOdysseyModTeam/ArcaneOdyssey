@@ -2,6 +2,7 @@
 using ArcaneOdyssey.GodSouls;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.Skills.Base;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Relics
@@ -23,28 +24,14 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override byte[] SoulSynergies => [AOUtils.GodSoulType<PoseidonSoul>()];
 		public override byte[] UnstableSouls => [AOUtils.GodSoulType<AthenaSoul>()];
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.width = Item.height = 56;
-			Item.damage = 20;
-			Item.knockBack = 6.25f;
-		}
+		public override DashSkill DefaultDash => ModContent.GetInstance<ThakrousiSkill>();
 
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
+		public override void SetStaticDefaults()
+		{ 
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
+		}
 		public override Color ImbueColour => new(0, 30, 255);
-
-		public override void UseAnimation(Player player)
-		{
-			base.UseAnimation(player);
-			if (!player.AltUse())
-			{
-				if (!player.ArcaneOdyssey().OnCooldown<ThakrousiCooldown>())
-				{
-					player.ArcaneOdyssey().StartDash(new Thakrousi(this), imbue: this);
-				}
-			}
-		}
 	}
 
 	public class Thakrousi(Imbuable imbuesource) : ModDash(imbuesource.Item)
@@ -78,5 +65,19 @@ namespace ArcaneOdyssey.Imbues.Relics
 	public class ThakrousiCooldown : DisplayedCooldown
 	{
 		public override string Texture => AOUtils.GetTexture<TidestoneBand>();
+	}
+
+	public class ThakrousiSkill : DashSkill
+	{
+		public override int Damage => 20;
+
+		public override float Knockback => 6.25f;
+
+		public override int Scroll => 0;
+
+		public override void Activate(Player player, Imbuable imbue)
+		{
+			player.ArcaneOdyssey()?.SetDash(new Thakrousi(imbue));
+		}
 	}
 }

@@ -2,6 +2,8 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Gimmicks.FightingStyle;
+using ArcaneOdyssey.Skills.Base;
+using ArcaneOdyssey.Skills.Generic;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
@@ -13,33 +15,14 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<CannonFistSkill>();
+
 		public override float ImbueDamage => 1.085f;
 		
 		public override float ImbueSize => 1.056f;
 		public override float ScrollDamage => 0.7f;
 		public override float ScrollSize => 1f;
 		public override float ScrollSpeed => 1f;
-
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Item.shoot = ProjectileID.CannonballFriendly;
-			Item.shootSpeed = 8f;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.DamageType = DamageClass.Melee;
-			Item.knockBack = 2f;
-		}
-
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-		{
-			velocity *= ScrollSpeed;
-			if (player.ConsumeItem(ItemID.Cannonball))
-			{
-				velocity *= 2;
-				damage *= 2;
-				knockback *= 2;
-			}
-		}
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
 		public override SynergyEffects Effects => new(
@@ -93,7 +76,28 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb, 15).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Bomb, 15).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
+		}
+	}
+
+	public class CannonFistSkill : StrikeSkill
+	{
+		public override int Shoot => ProjectileID.CannonballFriendly;
+
+		public override float Knockback => 2f;
+
+		public override float Speed => 8f;
+
+		public override int UseStyleID => ItemUseStyleID.Swing;
+
+		public override void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback)
+		{
+			if (player.ConsumeItem(ItemID.Cannonball))
+			{
+				velocity *= 2;
+				damage *= 2;
+				knockback *= 2;
+			}
 		}
 	}
 }

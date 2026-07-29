@@ -4,6 +4,7 @@ using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Accessories.Helpers;
 using ArcaneOdyssey.Items.Accessories.Vanity;
 using ArcaneOdyssey.Items.Armour.Vanity.Taz;
 using ArcaneOdyssey.Items.Base;
@@ -11,7 +12,7 @@ using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.EmptyScrolls;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Materials;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
+using ArcaneOdyssey.Items.Scrolls.Passive.Common;
 using ArcaneOdyssey.Items.Weapons.Atlantean;
 using ArcaneOdyssey.Prefixes;
 using ArcaneOdyssey.Projectiles;
@@ -410,14 +411,39 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
+		public Texture2D Sprite => TextureAssets.Item[thisItem?.type ?? ItemID.None]?.Value;
+
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
+			thisItem = item;
+
 			if (AOUtils.RequestIfExists(Mod.Name + "/Assets/AtlanteanIndicator", ref AtlanteanIndicator) && AtlanteanApplied)
 			{
 				spriteBatch.Draw(AtlanteanIndicator.Value, position, null, item.GetAlpha(Color.White * .75f), 0, AtlanteanIndicator.Size() / 2f, Main.inventoryScale * 1.1f, SpriteEffects.None, 1f);
 			}
 
+			if (ArcaneOdysseyMod.Sets.dualbladed[item.type] && item.ModItem is null or BaseItem)
+			{
+				spriteBatch.Draw(Sprite, position, frame, drawColor, 0, origin, scale, SpriteEffects.FlipHorizontally, 1f);
+			}
+
 			return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+		}
+
+		public override bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+		{
+			thisItem = item;
+
+			Main.GetItemDrawFrame(item.type, out var itemTexture, out var itemFrame);
+			Vector2 drawOrigin = itemFrame.Size() / 2f;
+			Vector2 drawPosition = item.Bottom - Main.screenPosition - new Vector2(0, drawOrigin.Y);
+
+			if (ArcaneOdysseyMod.Sets.dualbladed[item.type] && item.ModItem is null or BaseItem)
+			{
+				spriteBatch.Draw(itemTexture, drawPosition, itemFrame, alphaColor, rotation, drawOrigin, scale, SpriteEffects.FlipHorizontally, 0f);
+			}
+
+			return base.PreDrawInWorld(item, spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
 		}
 
 		public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -604,6 +630,10 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			if (!item.active || item.IsAir || string.IsNullOrWhiteSpace(item.Name))
 				return;
+			if (Main.gameMenu && item.ModItem is Imbuable)
+			{
+				ArcaneOdysseyMod.Sets.imbuableDefaultUseID[item.type] = item.useStyle;
+			}
 			thisItem = item;
 			owner = null;
 		}
@@ -710,7 +740,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (!player.ItemAnimationActive || player.PlayerItem()?.ModItem is Imbuable)
 			{
-				List<Imbuable> options = [null, .. player.GetAllImbues(), .. player.ArcaneOdyssey().AllEquippedImbues()];
+				List<Imbuable> options = [null, .. player.GetAllImbues()];
 				options.RemoveAll(e => !item.CanHaveImbue(e));
 				bool justchangedspecificimbue = false;
 				bool settodefault = false;
@@ -740,7 +770,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 				if (options.Count > 0 && AOUtils.ImbueClassCheck(item))
 				{
-					if ((!specificImbue) || (item.accessory && item.ModItem is not Imbuable))
+					if (!specificImbue)
 					{
 						if (item.CanHaveImbue(player.Imbue()))
 						{
@@ -789,9 +819,12 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 				else
 				{
-					Imbue = null;
-					SecondImbue = null;
-					specificImbue = false;
+					if (item.ModItem is not FlightCore)
+					{
+						Imbue = null;
+						SecondImbue = null;
+						specificImbue = false;
+					}
 				}
 
 				if (!specificImbue || (item.accessory && item.ModItem is not Imbuable))
@@ -806,8 +839,11 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 					else
 					{
-						Imbue = null;
-						SecondImbue = null;
+						if (item.ModItem is not FlightCore)
+						{
+							Imbue = null;
+							SecondImbue = null;
+						}
 					}
 				}
 

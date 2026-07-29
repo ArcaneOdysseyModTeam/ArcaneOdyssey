@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Skills.Base;
+using ArcaneOdyssey.Skills.Generic;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
@@ -9,26 +11,11 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	{
 		public override float Aura => 1.5f;
 		public override float? DashResist => 1.35f;
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			if (Main.netMode != NetmodeID.Server)
-			{
-				EquipLoader.GetEquipSlot(Mod, Name, EquipType.Shoes);
-			}
-		}
-
-		public override void Load()
-		{
-			base.Load();
-			if (Main.netMode != NetmodeID.Server)
-			{
-				EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Shoes}", EquipType.Shoes, this);
-			}
-		}
 
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;
+
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<ILegKick>();
 
 		public override float ImbueDamage => 1.125f;
 		public override float ImbueSpeed => 0.75f;
@@ -82,18 +69,18 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).Register();
+			CreateRecipe().AddIngredient<BasicCombat>().AddRecipeGroup(RecipeGroupID.IronBar, 15).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
 		}
 	}
 
-	public class ILegLegHelper : ModPlayer
+	public class ILegKick : StrikeSkill
 	{
-		public override void FrameEffects()
+		public override int UseStyleID => ItemUseStyleID.HiddenAnimation;
+
+		public override void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback)
 		{
-			if (Player?.PlayerItem()?.ModItem is IronLeg || Player?.Imbue() is IronLeg || Player?.PlayerItem()?.Imbue() is IronLeg)
-			{
-				Player.shoe = EquipLoader.GetEquipSlot(Mod, typeof(IronLeg).Name, EquipType.Shoes);
-			}
+			base.AttackStats(player, imbue, ref position, ref velocity, ref damage, ref knockback);
+			position.Y += Player.defaultHeight / 2f;
 		}
 	}
 }

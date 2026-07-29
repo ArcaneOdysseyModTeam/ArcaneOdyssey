@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker.Effects
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.DamageType = DamageClass.Melee;
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override void AI()

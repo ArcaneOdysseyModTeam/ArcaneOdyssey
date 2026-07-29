@@ -16,11 +16,10 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.ownerHitCheck = true;
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override bool? CanCutTiles() => false;
-
-		public override bool? CanHitNPC(NPC target) => target.active && target.Hitbox.Distance(Owner.Center) < 100f && !target.friendly && target.immune[Owner.whoAmI] == 0 && !target.dontTakeDamage;
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{

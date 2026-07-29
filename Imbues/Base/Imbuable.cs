@@ -2,16 +2,22 @@
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Scrolls;
+using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
+using ArcaneOdyssey.Items.Scrolls.Passive.Common;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
+using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.UI;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
@@ -25,10 +31,388 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			ModTypeLookup<Imbuable>.Register(this);
 		}
+		public sealed override bool CanStack(Item source) => false;
 
+		public sealed override bool CanStackInWorld(Item source) => false;
+
+		/// <summary>
+		/// Aura spell coefficient
+		/// </summary>
 		public virtual float Aura => .7f;
 
 		public virtual int Drawback => 0;
+
+		public ModSkill[] Skills
+		{
+			get
+			{
+				return [Attacks.Item1, Attacks.Item2, Attacks.Item3, Passive, Mobility, Dash];
+			}
+			set
+			{
+				Attacks.Item1 = value[0] as AttackSkill;
+				Attacks.Item2 = value[1] as AttackSkill;
+				Attacks.Item3 = value[2] as AttackSkill;
+				Passive =  value[3] as PassiveSkill;
+				Mobility = value[4];
+				Dash = value[5] as DashSkill;
+			}
+		}
+
+		public ModSkill[] DefaultSkills => [DefaultAttacks.Item1, DefaultAttacks.Item2, DefaultAttacks.Item3, DefaultPassive, DefaultMobility, DefaultDash];
+
+		public virtual AttackSkill DefaultAttack => null;
+		public (AttackSkill, AttackSkill, AttackSkill) DefaultAttacks => (DefaultAttack, DefaultAttack, DefaultAttack);
+		public virtual PassiveSkill DefaultPassive => null;
+		public virtual ModSkill DefaultMobility => null;
+		public virtual DashSkill DefaultDash => null;
+
+
+		public (AttackSkill, AttackSkill, AttackSkill) Attacks;
+		public PassiveSkill Passive;
+		public ModSkill Mobility;
+		public DashSkill Dash;
+
+		public AttackSkill selectedAttack;
+		public byte selectedIndex;
+		private int actualShoot = 0;
+
+		internal string[] cachedSpells = new string[6];
+
+		public void CycleAttack()
+		{
+			
+			switch (selectedIndex)
+			{
+				case 0:
+					selectedAttack = Attacks.Item2;
+					selectedIndex++;
+					break;
+				case 1:
+					selectedAttack = Attacks.Item3;
+					selectedIndex++;
+					break;
+				default:
+					selectedAttack = Attacks.Item1;
+					selectedIndex = 0;
+					break;
+			}
+
+			if (Attacks.Item1 is null && Attacks.Item2 is null && Attacks.Item3 is null)
+			{
+				RemoveSkill(selectedIndex);
+			}
+
+			if (selectedAttack is not null)
+			{
+				Item.mana = selectedAttack.ManaCost;
+				Item.damage = selectedAttack.Damage;
+				Item.knockBack = selectedAttack.Knockback;
+				Item.channel = selectedAttack.Channel;
+				Item.useAnimation = Item.useTime = selectedAttack.Time;
+				actualShoot = selectedAttack.Shoot;
+				Item.shootSpeed = selectedAttack.Speed;
+				Item.useStyle = selectedAttack.UseStyleID;
+			}
+		}
+		
+		public override bool CanUseItem(Player player)
+		{
+			if (player.AltUse())
+			{
+				if (Item.useStyle != ArcaneOdysseyMod.Sets.imbuableDefaultUseID[Type])
+				{
+					Item.useStyle = ArcaneOdysseyMod.Sets.imbuableDefaultUseID[Type];
+					return false;
+				}
+				else return true;
+			}
+			else
+			{
+				if (selectedAttack is null || !selectedAttack.PreActivate(player, this))
+				{
+					return false;
+				}
+
+				var attack = selectedAttack.UseStyleID;
+				
+				if (Item.staff[Type] && attack == ItemUseStyleID.Rapier)
+				{
+					attack = ItemUseStyleID.Shoot;
+				}
+				if (Item.useStyle == attack)
+				{
+					return true;
+				}
+				else
+				{
+					Item.useStyle = attack;
+					return false;
+				}
+			}
+		}
+
+		public static class SlotIndexID
+		{
+			public const byte Attack1 = 0;
+			public const byte Attack2 = 1;
+			public const byte Attack3 = 2;
+			public const byte Passive = 3;
+			public const byte Mobility = 4;
+			public const byte Dash = 5;
+		}
+
+		/// <summary>
+		/// Removes a skill from the imbue
+		/// </summary>
+		/// <param name="slotIndex">0 - 5</param>
+		public void RemoveSkill(byte slotIndex)
+		{
+			if (slotIndex < Skills.Length)
+			{
+				ModSkill skill = Skills[slotIndex];
+				if (skill is null)
+				{
+					if (!string.IsNullOrWhiteSpace(cachedSpells[slotIndex]))
+					{
+						var item = Main.LocalPlayer.QuickSpawnItemDirect(Item.GetSource_FromThis(), ModContent.ItemType<UnloadedScroll>()).ModItem as UnloadedScroll;
+						item.CachedFullName = cachedSpells[slotIndex];
+						cachedSpells[slotIndex] = null;
+					}
+				}
+				else
+				{ 
+					if (skill.Scroll != 0)
+						Main.LocalPlayer.QuickSpawnItem(Item.GetSource_FromThis(), skill.Scroll);
+				}
+				var skills = Skills;
+				skills[slotIndex] = DefaultSkills[slotIndex];
+				Skills = skills;
+				if (selectedIndex == slotIndex)
+				{
+					selectedAttack = Skills[slotIndex] as AttackSkill;
+				}
+			}
+		}
+
+		public void RemoveAllSkills()
+		{
+			for (byte i = 0; i < Skills.Length; i++)
+			{
+				RemoveSkill(i);
+			}
+		}
+
+		public void SetSkill(byte slotIndex, ModSkill skill, bool refund = true)
+		{
+			if (refund)
+				RemoveSkill(slotIndex);
+
+			var skills = Skills;
+			skills[slotIndex] = skill;
+			Skills = skills;
+
+			if (slotIndex == selectedIndex)
+			{
+				selectedIndex--;
+				CycleAttack();
+			}
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			base.NetSend(writer);
+			writer.Write(Attacks.Item1?.Type);
+			writer.Write(Attacks.Item2?.Type);
+			writer.Write(Attacks.Item3?.Type);
+			writer.Write(Passive?.Type);
+			writer.Write(Mobility?.Type);
+			writer.Write(Dash?.Type);
+			writer.Write(selectedAttack?.Type);
+			writer.Write(selectedIndex);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			base.NetReceive(reader);
+			Attacks = (ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill, ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill, ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill);
+			Passive = ModSkill.Sets.All[reader.ReadInt32()] as PassiveSkill;
+			Mobility = ModSkill.Sets.All[reader.ReadInt32()];
+			Dash = ModSkill.Sets.All[reader.ReadInt32()] as DashSkill;
+			selectedAttack = ModSkill.Sets.All[reader.ReadInt32()] as AttackSkill;
+			selectedIndex = reader.ReadByte();
+		}
+
+		public override void SaveData(TagCompound tag)
+		{
+			base.SaveData(tag);
+
+			string[] attackSpells = new string[3];
+
+			if (Attacks.Item1 is not null)
+			{
+				attackSpells[0] = Attacks.Item1.FullName;
+			}
+			else if (cachedSpells[0] != null) 
+			{
+				attackSpells[0] = cachedSpells[0];
+			}
+
+			if (Attacks.Item2 is not null)
+			{
+				attackSpells[1] = Attacks.Item2.FullName;
+			}
+			else if (cachedSpells[1] != null)
+			{
+				attackSpells[1] = cachedSpells[1];
+			}
+
+			if (Attacks.Item3 is not null)
+			{
+				attackSpells[2] = Attacks.Item3.FullName;
+			}
+			else if (cachedSpells[2] != null)
+			{
+				attackSpells[2] = cachedSpells[2];
+			}
+
+			if (attackSpells.Any(e => e is not null))
+			{
+				tag.Add("attackspells", attackSpells.Select(e => string.IsNullOrWhiteSpace(e) ? "" : e).ToList());
+			}
+
+			if (Passive is not null)
+			{
+				tag.Add("passivespell", Passive.FullName);
+			}
+			else if (cachedSpells[3] != null)
+			{
+				tag.Add("passivespell", cachedSpells[3]);
+			}
+
+			if (Mobility is not null)
+			{
+				tag.Add("mobilityspell", Mobility.FullName);
+			}
+			else if (cachedSpells[4] != null)
+			{
+				tag.Add("mobilityspell", cachedSpells[4]);
+			}
+
+			if (Dash is not null)
+			{
+				tag.Add("dashspell", Dash.FullName);
+			}
+			else if (cachedSpells[5] != null)
+			{
+				tag.Add("dashspell", cachedSpells[5]);
+			}
+
+			selectedIndex = 80;
+			CycleAttack();
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			base.LoadData(tag);
+
+			Attacks = DefaultAttacks;
+			Passive = DefaultPassive;
+			Mobility = DefaultMobility;
+			Dash = DefaultDash;
+
+			var attacks = tag.GetList<string>("attackspells").ToArray();
+
+			if (attacks.Length == 0)
+			{
+				attacks = new string[3];
+			}
+
+			if (!string.IsNullOrWhiteSpace(attacks[0]))
+			{
+				if (!ModContent.TryFind(attacks[0], out Attacks.Item1))
+				{
+					cachedSpells[0] = attacks[0];
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(attacks[1]))
+			{
+				if (!ModContent.TryFind(attacks[1], out Attacks.Item2))
+				{
+					cachedSpells[1] = attacks[1];
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(attacks[2]))
+			{
+				if (!ModContent.TryFind(attacks[2], out Attacks.Item3))
+				{
+					cachedSpells[2] = attacks[2];
+				}
+			}
+
+			var passive = tag.GetString("passivespell");
+
+			if (!string.IsNullOrWhiteSpace(passive))
+			{
+				if (!ModContent.TryFind(passive, out Passive))
+				{
+					cachedSpells[3] = passive;
+				}
+			}
+
+			var mobility = tag.GetString("mobilityspell");
+
+			if (!string.IsNullOrWhiteSpace(mobility))
+			{
+				if (!ModContent.TryFind(mobility, out Mobility))
+				{
+					cachedSpells[4] = mobility;
+				}
+			}
+
+			var dash = tag.GetString("dashspell");
+
+			if (!string.IsNullOrWhiteSpace(dash))
+			{
+				if (!ModContent.TryFind(dash, out Dash))
+				{
+					cachedSpells[5] = dash;
+				}
+			}
+
+			selectedIndex = 80;
+			CycleAttack();
+		}
+
+		public override bool CanShoot(Player player)
+		{
+			bool condition = true;
+			condition &= !player.AltUse();
+			if (selectedAttack != null)
+			{
+				condition &= selectedAttack.PreActivate(player, this);
+			}
+			return condition;
+		}
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			if (selectedAttack is not null)
+			{
+				if (actualShoot != 0)
+					type = actualShoot;
+				selectedAttack.AttackStats(player, this, ref position, ref velocity, ref damage, ref knockback);
+			}
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			if (selectedAttack != null)
+				return selectedAttack.Attack(player, this, source, position, velocity, damage, knockback);
+			return false;
+		}
 
 		public int AuraHP(Player player)
 		{
@@ -46,7 +430,43 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override void UpdateInventory(Player player)
 		{
+			for (int i = 0; i < Skills.Length; i++)
+			{
+				if (Skills[i] == null && string.IsNullOrWhiteSpace(cachedSpells[i]))
+				{
+					SetSkill((byte)i, DefaultSkills[i], false);
+				}
+			}
+			if (selectedAttack == null)
+				CycleAttack();
+			if (Main.myPlayer == player.whoAmI && player.PlayerItem().type == Type)
+			{
+				if (player.ItemAnimationEndingOrEnded)
+				{
+					if (AOKeybinds.CycleImbueAttack.JustPressed)
+					{
+						CycleAttack();
+					}
+				}
+			}
+
 			Gimmick?.UpdateInventory(player);
+
+			if (player.Imbue()?.Type == Type)
+			{
+				if (Mobility is not null && Mobility.PreActivate(player, this))
+				{
+					Mobility.Activate(player, this);
+				}
+				if (Dash is not null && Dash.PreActivate(player, this))
+				{
+					Dash.Activate(player, this);
+				}
+				if (Passive is not null && Passive.PreActivate(player, this))
+				{
+					Passive.Activate(player, this);
+				}
+			}
 		}
 
 		public bool PlayerHasImbue(Player player)
@@ -56,7 +476,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				type = steam.Imbue.Type;
 			}
-			return player.HasTypeInInventory<Imbuable>(e => e.Type == type); // because it includes equipped imbues
+			return player.HasTypeInInventory<Imbuable>(e => e.Type == type);
 		}
 
 		public virtual void UpdateProjectile(Projectile Projectile)
@@ -141,8 +561,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public override void UpdateEquip(Player player) => player.ArcaneOdyssey()?.AddEquippedImbue(this);
-
 		/// <summary>
 		/// The second imbue
 		/// </summary>
@@ -154,6 +572,9 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
 			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
+			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
+			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;
+			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 		}
@@ -165,20 +586,14 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		public virtual ImbueArmourStats? ArmourStats => null;
 
-		public override ItemRarities Rarity
+		public sealed override ItemRarities Rarity => ImbuableTier switch
 		{
-			get
-			{
-				return ImbuableTier switch
-				{
-					ImbuableTiers.Normal => ItemRarities.Rare,
-					ImbuableTiers.Lost => ItemRarities.Mystic,
-					ImbuableTiers.Ancient => ItemRarities.Legendary,
-					ImbuableTiers.Mythical => ItemRarities.Mythical,
-					_ => ItemRarities.Special,
-				};
-			}
-		}
+			ImbuableTiers.Normal => ItemRarities.Rare,
+			ImbuableTiers.Lost => ItemRarities.Mystic,
+			ImbuableTiers.Ancient => ItemRarities.Legendary,
+			ImbuableTiers.Mythical => ItemRarities.Mythical,
+			_ => ItemRarities.Special,
+		};
 
 		public virtual float? DashResist => null;
 		public virtual float DashSpeed => 1f;
@@ -228,9 +643,16 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public virtual int[] Dusts => [DustID.ShimmerSpark];
 
-		public override void ModifyManaCost(Player player, ref float reduce, ref float mult)
+		public sealed override void ModifyManaCost(Player player, ref float reduce, ref float mult)
 		{
+			base.ModifyManaCost(player, ref reduce, ref mult);
+			if (player.AltUse())
+			{
+				mult *= 0;
+				return;
+			}
 			Gimmick?.ModifyManaCost(player, ref reduce, ref mult);
+			selectedAttack?.ModifyManaCost(player, ref reduce, ref mult);
 		}
 
 		/// <summary>
@@ -303,11 +725,18 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				}
 			}
-			else if (Drawback > 0)
+			else 
 			{
-				if ((!player.AltUse()) && Main.myPlayer == player.whoAmI)
+				if (!Main.dedServ)
 				{
-					player.Hurt(PlayerDeathReason.ByCustomReason(ArcaneOdysseyMod.Instance.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
+					SoundEngine.PlaySound(selectedAttack?.ExtraSound, player.MountedCenter);
+				}
+				if (Drawback > 0)
+				{
+					if ((!player.AltUse()) && Main.myPlayer == player.whoAmI)
+					{
+						player.Hurt(PlayerDeathReason.ByCustomReason(ArcaneOdysseyMod.Instance.CustomLocalization($"Drawback.Death{Main.rand.Next(4)}", player.name).ToNetworkText()), player.statLifeMax / 100 * Drawback, Main.rand.NextBool().ToDirectionInt(), dodgeable: false, knockback: 0f, scalingArmorPenetration: 1f);
+					}
 				}
 			}
 		}
@@ -361,15 +790,19 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.useStyle = ItemUseStyleID.HiddenAnimation;
 			Item.width = Item.height = 52;
-			Item.useAnimation = Item.useTime = 30;
-			Item.noUseGraphic = true;
+			if (!Item.staff[Type])
+			{
+				Item.noUseGraphic = true;
+			}
 			Item.noMelee = true;
 			Item.UseSound = ImbueSound;
+			Item.autoReuse = true;
+			Item.shoot = ProjectileID.WoodenArrowFriendly; // does not actually fire
 		}
 
-		public override bool AltFunctionUse(Player player) => true;
+		public sealed override bool AltFunctionUse(Player player) => true;
 
 		/// <summary>
 		/// Whether this imbue is a:
@@ -412,12 +845,12 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.ModifyTooltips(tooltips);
 			if (!tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 			{
-				TooltipLine tip = new(Mod, "Drawback", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
+				TooltipLine drawback = new(Mod, "Drawback", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
 				if (Drawback < 1)
 				{
-					tip.Hide();
+					drawback.Hide();
 				}
-				tooltips.AddTooltip(tip, Color.Red);
+				tooltips.AddTooltip(drawback, Color.Red);
 
 				if (!Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
@@ -489,10 +922,67 @@ namespace ArcaneOdyssey.Imbues.Base
 					string text = $"{Gimmick.DisplayName.Value}: {Gimmick.Description}";
 					tooltips.AddTooltip(new TooltipLine(Mod, "Gimmick", text), Colour);
 				}
+
+				if (Passive is AuraSkill aura)
+				{
+					tooltips.AddTooltip(new(Mod, "CycleKeybind", ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.AuraMode", aura.Mode, AOKeybinds.CycleAuraMode.GetAssignedKeys().FirstOrDefault(ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.Unbound").Value)).Value));
+				}
+
+				if (Dash is ReflexSkill reflex)
+				{
+					var scroll = ModContent.GetModItem(reflex.Scroll);
+
+					var tool = new TooltipLine(Mod, "ReflexInfo", scroll.GetLocalizedValue("Special.Generic")); // second line of tooltip
+
+					if (DashSpeed > 1f)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Fast");
+					}
+
+					if (DashResist.HasValue)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Resist");
+					}
+
+					if (ImmuneDash)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Instant");
+					}
+
+					if (this is VanishingStyle)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Vanish");
+					}
+
+					if (this is ThermoFist)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Thermo");
+					}
+
+					if (this is SailorStyle)
+					{
+						tool.Text = scroll.GetLocalizedValue("Special.Sailor");
+					}
+					tooltips.AddTooltip(tool, Colour);
+				}
+
+				foreach (var action in ExtraTooltips)
+				{
+					var tip = action(this);
+					if (tip is not null)
+						tooltips.AddTooltip(tip);
+				}
 			}
 
 			if (TooltipsPrefix is not null)
 				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", ArcaneOdysseyMod.Instance.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
+		}
+
+		public static List<Func<Imbuable, TooltipLine>> ExtraTooltips = [];
+
+		public override void Unload()
+		{
+			ExtraTooltips.Clear();
 		}
 
 		private static int SortMultipliers(Synergy x, Synergy y)
@@ -572,6 +1062,111 @@ namespace ArcaneOdyssey.Imbues.Base
 				player.ArcaneOdyssey().myCircle = circle;
 			}
 			return circle;
+		}
+
+		public Circle CreateMagicCircle(Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f, Vector2? position = null, float? rotation = null)
+		{
+			if (mode != MagicCircleMode.Rotating)
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter) + (player.SafeDirectionTo(Main.MouseWorld) * 30f);
+				rotation ??= player.AngleTo(Main.MouseWorld);
+			}
+			else
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter);
+				rotation ??= 0;
+			}
+			Circle circle = Projectile.NewProjectileDirect(Item.GetSource_ItemUse(player), position.Value, Vector2.Zero, ModContent.ProjectileType<Circle>(), player.GetWeaponDamage(Item), player.GetWeaponKnockback(Item), player.whoAmI, ai2: (int)mode).ModProjectile as Circle;
+			circle.ProjectileSpread = spread;
+			circle.MarkedForDeath = markedfordeath;
+			circle.originallyAltFire = altfire;
+			circle.ChargingProjectile = chargingProjectile;
+			circle.Projectile.rotation = rotation.Value;
+			if ((chargingProjectile != 0) || (!markedfordeath))
+			{
+				player.ArcaneOdyssey().myCircle = circle;
+			}
+			return circle;
+		}
+
+		public static bool AltUsing => AOKeybinds.AltSkillUse.Current;
+
+		public float ApplySpeed(float value, bool flipfloat = false)
+		{
+			if (!flipfloat)
+			{
+				value *= ScrollSpeed;
+				if (Imbue is not null)
+					value *= Imbue.ImbueSpeed;
+			}
+			else
+			{
+				value *= ScrollSpeed.FlipFloat();
+				if (Imbue is not null)
+					value *= Imbue.ImbueSpeed.FlipFloat();
+			}
+			return value;
+		}
+
+		public int ApplyDamage(float value, bool flipfloat = false)
+		{
+			if (!flipfloat)
+			{
+				value *= Item.ArcaneOdyssey()?.owner?.GetTotalDamage(Item.DamageType).ApplyTo(1f) ?? 1f;
+				value *= ScrollDamage;
+				if (Imbue is not null)
+					value *= Imbue.ImbueDamage;
+			}
+			else
+			{
+				value *= (Item.ArcaneOdyssey()?.owner?.GetTotalDamage(Item.DamageType).ApplyTo(1f) ?? 1f).FlipFloat();
+				value *= ScrollDamage.FlipFloat();
+				if (Imbue is not null)
+					value *= Imbue.ImbueDamage.FlipFloat();
+			}
+			return (int)value;
+		}
+
+		public float ApplySize(float value, bool flipfloat = false)
+		{
+			if (!flipfloat)
+			{
+				value *= Item.ArcaneOdyssey()?.owner?.ArcaneOdyssey()?.SizeMulti ?? 1f;
+				value *= ScrollSize;
+				if (Imbue is not null)
+					value *= Imbue.ImbueSize;
+			}
+			else
+			{
+				value *= (Item.ArcaneOdyssey()?.owner?.ArcaneOdyssey()?.SizeMulti ?? 1f).FlipFloat();
+				value *= ScrollSize.FlipFloat();
+				if (Imbue is not null)
+					value *= Imbue.ImbueSize.FlipFloat();
+			}
+			return value;
+		}
+
+		public float ApplyKnockback(float value, bool flipfloat = false)
+		{
+			if (!flipfloat)
+			{
+				value *= ScrollSize.Pow();
+				if (Imbue is not null)
+					value *= Imbue.ImbueSize.Pow();
+				value *= KBMulti;
+				if (Imbue is not null)
+					value *= Imbue.KBMulti;
+			}
+			else
+			{
+				value *= ScrollSize.FlipFloat().Pow();
+				if (Imbue is not null)
+					value *= Imbue.ImbueSize.FlipFloat().Pow();
+				value *= KBMulti.FlipFloat();
+				if (Imbue is not null)
+					value *= Imbue.KBMulti.FlipFloat();
+			}
+			return value;
 		}
 
 		#region Acrimony Handling, here are the methods for right clicking in inventory (in case they are needed for something else)

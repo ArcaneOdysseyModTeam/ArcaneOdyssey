@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
 	{
 		public override float BarValueMulti => 1.111f;
 		public override float MinScrollSize => !VanishingStyle.HasYou ? 1.0f : 1.125f;
-		public override float MinScrollSpeed => MinScrollSpeed;
+		public override float MinScrollSpeed => MaxScrollSpeed;
 		public override float MinScrollDamage => MaxScrollDamage;
 		public override float MaxScrollSpeed => !VanishingStyle.HasYou ? 1.1f : 1.5f;
 		public override float MaxScrollDamage => !VanishingStyle.HasYou ? .85f : 1f;

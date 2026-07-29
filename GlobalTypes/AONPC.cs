@@ -21,11 +21,11 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private int _defenseLost = 0;
 
-		public void LowerDefense(int defense, Rectangle? location = null)
+		public void LowerDefense(int defense, Rectangle location = default)
 		{
 			_defenseLost += defense;
-			if (location.HasValue)
-				CombatText.NewText(location.Value, Color.Gray, -defense, true);
+			if (location != default)
+				CombatText.NewText(location, Color.Gray, -defense, true);
 		}
 
 		#region Debuff bools

@@ -5,8 +5,6 @@ using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Equipment.Pets;
-using ArcaneOdyssey.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;
@@ -21,6 +19,9 @@ using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 using CalamityCalls = CalamityMod.ModCalls;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
+using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
+using ArcaneOdyssey.Items.Base;
 
 namespace ArcaneOdyssey
 {
@@ -154,7 +155,7 @@ namespace ArcaneOdyssey
 		{
 			if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
 			{
-				shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
+				//shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
 			}
 		}
 
@@ -231,10 +232,13 @@ namespace ArcaneOdyssey
 
 		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
 		public static Mod Calamity => HasCalamity ? ModLoader.GetMod("CalamityMod") : null;
+
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
+
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
 		public static Mod Thorium => HasThorium ? ModLoader.GetMod("ThoriumMod") : null;
+
 		public static bool HasMS => ModLoader.HasMod("MagicStorage");
 		public static Mod MS => HasMS ? ModLoader.GetMod("MagicStorage") : null;
 
@@ -893,13 +897,13 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	[ExtendsFromMod("MagicStorage")]
-	public class ImbuesFilter : FilteringOption
-	{
-		public override ItemFilter.Filter Filter => item => item.ModItem is Imbuable;
+	//[ExtendsFromMod("MagicStorage")]
+	//public class ImbuesFilter : FilteringOption
+	//{
+	//	public override ItemFilter.Filter Filter => item => item.ModItem is Imbuable or Scroll;
 
-		public override string Texture => Mod.Name + "/Assets/ImbuesFilter";
+	//	public override string Texture => Mod.Name + "/Assets/ImbuesFilter";
 
-		public override Position GetDefaultPosition() => new Between(FilteringOptionLoader.Definitions.Magic, FilteringOptionLoader.Definitions.Summon); // might not work till aqua finishes his update
-	}
+	//	public override Position GetDefaultPosition() => new Between(FilteringOptionLoader.Definitions.Magic, FilteringOptionLoader.Definitions.Summon); // might not work till aqua finishes his update
+	//}
 }

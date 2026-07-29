@@ -1,7 +1,7 @@
 ﻿[*.cs]
 
 # CS0162: Unreachable code detected
-dotnet_diagnostic.CS0162.severity = none
+dotnet_diagnostic.CS0162.severity = suggestion
 
 # Top-most EditorConfig file
 root = true
@@ -17,6 +17,9 @@ dotnet_diagnostic.CS8321.severity = suggestion
 
 # CS1573: Parameter has no matching param tag in the XML comment (but other parameters do)
 dotnet_diagnostic.CS1573.severity = suggestion
+
+# ChangeMagicNumberToID: Change magic numbers into appropriate ID values
+dotnet_diagnostic.ChangeMagicNumberToID.severity = suggestion
 
 [*]
 # 4 space indentation for all files

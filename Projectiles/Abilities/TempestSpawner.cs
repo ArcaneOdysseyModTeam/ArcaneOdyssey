@@ -34,6 +34,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.timeLeft = 60 * 2;
+			Projectile.noEnchantmentVisuals = true;
 		}
 	}
 }

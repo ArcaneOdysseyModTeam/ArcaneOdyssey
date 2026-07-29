@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Projectiles.Berserker;
+﻿using ArcaneOdyssey.Skills.Base;
+using ArcaneOdyssey.Skills.Generic;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
@@ -13,14 +14,9 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = AOUtils.TrueMelee();
-			Item.shoot = ModContent.ProjectileType<BasicStrike>();
-			Item.autoReuse = true;
-			Item.damage = 15 + (120 * (int)ImbuableTier);
-			Item.shootSpeed = 2f;
-			Item.knockBack = 10f;
+			Item.DamageType = DamageClass.Melee;
 		}
 
-		public override bool CanShoot(Player player) => !player.AltUse();
+		public override AttackSkill DefaultAttack => ModContent.GetInstance<StrikeSkill>();
 	}
 }

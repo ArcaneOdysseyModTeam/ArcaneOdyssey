@@ -70,10 +70,11 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			lightColor = Colour.MultiplyRGB(lightColor);
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-				var colour2 = Projectile.GetAlpha(Colour) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				var colour2 = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 				var rotaitoneoffset = SpriteEffects.None;
 				if (OriginalDir == -1)
 				{

@@ -21,6 +21,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.timeLeft = 60;
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.tileCollide = false;
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override bool CanHaveImbueVFX => false;

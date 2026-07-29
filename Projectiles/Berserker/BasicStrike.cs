@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Gores;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 
 namespace ArcaneOdyssey.Projectiles.Berserker
@@ -38,9 +39,11 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			{
 				Projectile.ai[0] = 1;
 				Imbue?.SpawningEffects(Projectile.Hitbox, Projectile.velocity);
-				Projectile.Center = Owner.Center + (Projectile.velocity.SafeNormalize(Vector2.Zero) * 10f);
-				initPos = Projectile.Center;
 				Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+			}
+			if (Imbue is IronLeg)
+			{
+				Owner.position.Y -= .001f;
 			}
 			initPos ??= Projectile.Center;
 			Projectile.Opacity = Projectile.timeLeft / 10f;

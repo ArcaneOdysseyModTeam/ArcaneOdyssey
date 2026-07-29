@@ -30,6 +30,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 			Projectile.light = 2f;
 			Projectile.hide = true;
+			Projectile.noEnchantmentVisuals = true;
 		}
 
 		public override Debuff? ProjectileDebuff => null;

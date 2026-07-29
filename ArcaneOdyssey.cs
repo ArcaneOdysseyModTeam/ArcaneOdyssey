@@ -11,7 +11,7 @@ using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Usable.Rare;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Town;
 using System;
@@ -98,6 +98,9 @@ namespace ArcaneOdyssey
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
 			}
+
+			// idk why but it has to be here
+			ExternalModSupport.Fargos?.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
 		}
 
 		public override void Unload()
@@ -408,6 +411,10 @@ namespace ArcaneOdyssey
 			public static bool[] greataxe = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteGreataxe, ItemID.TitaniumWaraxe, ItemID.WarAxeoftheNight, ItemID.AdamantiteWaraxe);
 
 			public static bool[] rapier = ItemID.Sets.Factory.CreateBoolSet();
+			/// <summary>
+			/// whether the item is dual bladed
+			/// <para/>also affects how it's drawn
+			/// </summary>
 
 			public static bool[] dualbladed = ItemID.Sets.Factory.CreateBoolSet();
 
@@ -432,6 +439,8 @@ namespace ArcaneOdyssey
 			public static bool[] woodWand = ItemID.Sets.Factory.CreateBoolSet(ItemID.LivingWoodWand, ItemID.LeafWand, ItemID.LivingMahoganyLeafWand, ItemID.LivingMahoganyWand);
 
 			public static int[] wandWoodType = ItemID.Sets.Factory.CreateIntSet(-1, ItemID.LivingWoodWand, ItemID.Wood, ItemID.LeafWand, ItemID.Wood, ItemID.LivingMahoganyLeafWand, ItemID.RichMahogany, ItemID.LivingMahoganyWand, ItemID.RichMahogany);
+
+			public static int[] imbuableDefaultUseID = ItemID.Sets.Factory.CreateIntSet(ItemUseStyleID.Rapier);
 
 			[ReinitializeDuringResizeArrays]
 			public static class Assets

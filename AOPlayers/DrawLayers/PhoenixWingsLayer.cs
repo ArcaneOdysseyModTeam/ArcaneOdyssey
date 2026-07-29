@@ -1,25 +1,25 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Lost;
+﻿using ArcaneOdyssey.Items.Accessories.Helpers;
 using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.AOPlayers.DrawLayers
 {
-	public class PhoenixWingsLayer : PlayerDrawLayer
+	public class PhoenixWingsLayer : PlayerDrawLayer // PORT use new item equipment draw hooks
 	{
 		public static Asset<Texture2D> phoenixWingsTex;
 
 		public override void Load()
 		{
-			phoenixWingsTex = ModContent.Request<Texture2D>(AOUtils.GetTexture<PhoenixMagic>() + $"_{EquipType.Wings}Glow");
+			phoenixWingsTex = ModContent.Request<Texture2D>(AOUtils.GetTexture<PhoenixWings>() + $"_{EquipType.Wings}Glow");
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Wings);
 
-		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.wings == EquipLoader.GetEquipSlot(Mod, nameof(PhoenixMagic), EquipType.Wings);
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.wings == EquipLoader.GetEquipSlot(Mod, nameof(PhoenixWings), EquipType.Wings);
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			Player player = drawInfo.drawPlayer;
-			if (player.dead)
+			if (player.DeadOrGhost)
 				return;
 			Texture2D texture = phoenixWingsTex.Value;
 			Vector2 Position = drawInfo.Position;

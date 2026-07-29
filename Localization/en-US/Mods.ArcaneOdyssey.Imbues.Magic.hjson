@@ -60,7 +60,6 @@ Lost: {
 
 	PhoenixMagic: {
 		DisplayName: Phoenix Magic
-		Ability: Can be equipped as wings
 		Tooltip: ""
 		AttackPrefix: Resplendent
 		SpellPrefix: Phoenix

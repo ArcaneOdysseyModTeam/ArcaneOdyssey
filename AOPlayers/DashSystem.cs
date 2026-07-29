@@ -121,6 +121,7 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 					else
 					{
+						direction *= (int)Player.gravDir;
 						if (Math.Sign(Player.velocity.X) != direction)
 						{
 							Player.velocity.X = 0f;
@@ -278,7 +279,7 @@ namespace ArcaneOdyssey.AOPlayers
 						{
 							if (CurrentDash.Imbue is not null)
 							{
-								CurrentDash.Imbue.ExplosionEffects(Player.MountedCenter);
+								CurrentDash.Imbue?.ExplosionEffects(Player.MountedCenter);
 								CurrentDash.SecondImbue?.ExplosionEffects(Player.MountedCenter);
 							}
 						}

@@ -1,7 +1,9 @@
-﻿using ArcaneOdyssey.Items.Consumable;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using Terraria.Audio;
 using Terraria.UI;
+using static MagicStorage.UI.UISlotZone;
 
 namespace ArcaneOdyssey.UI.ImbueChange;
 
@@ -31,12 +33,23 @@ public partial class ImbueChangeUI : BaseImbueUI
 
 			if (acrIndex >= 0 && imbuIndex >= 0)
 			{
+				var og = player.inventory[imbuIndex].ModItem as Imbuable;
+				player.inventory[imbuIndex].SetDefaults(MagicTypeToItem(ProductSpotLight.CurrentType).type);
 				player.inventory[acrIndex].TurnToAir();
-				player.inventory[imbuIndex].TurnToAir();
-				if (player.GetItem(player.whoAmI, MagicTypeToItem(ProductSpotLight.CurrentType), GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
+
+
+				var newItem = player.inventory[imbuIndex];
+
+				if (newItem.ModItem is MagicType magic && og is MagicType)
 				{
-					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
+					magic.Skills = og.Skills;
+					magic.selectedIndex = og.selectedIndex;
 				}
+				else
+				{
+					og.RemoveAllSkills();
+				}
+
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();
 			}

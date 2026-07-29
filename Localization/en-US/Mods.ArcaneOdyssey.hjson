@@ -84,7 +84,7 @@ Insanity: {
 	FakeMessage0: bro what is that
 	FakeMessage1: this reminds me of france
 	FakeMessage2: where are you?
-	FakeMessage3: theres something in our storage
+	FakeMessage3: theres something in our storage room
 	FakeMessage4: join red team
 	FakeMessage5: am i the only one hearing that noise?
 }
@@ -241,10 +241,11 @@ Achievements: {
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Special Dash Bind
-	Vanish.DisplayName: Vanish
 	CycleAuraMode.DisplayName: Cycle Aura Mode
-	PrintInfo.DisplayName: Print Info
 	CycleGodSoul.DisplayName: Cycle God Soul
+	CycleImbueAttack.DisplayName: Cycle Imbue Attack
+	ActivateImbuePassive.DisplayName: Activate Imbue Passive
+	AltSkillUse.DisplayName: Alt Skill Use
 }
 
 RandomWords: {
@@ -255,7 +256,7 @@ RandomWords: {
 	Press: Press {0}
 	WeaponGel: Weapon Gel: {0}
 	GelTooltip: Melee attacks inflict {0}
-	AuraMode: Current mode: {0}, press {1} to cycle
+	AuraMode: Current aura mode: {0}, press {1} to cycle
 	ModeCycled: Swapped mode to {0}
 	Downed: "{0} has been defeated!"
 	Acumen: Your aura scroll effect has been boosted while using fighting styles
@@ -274,10 +275,12 @@ ScrollTiers: {
 	Common: "[c/2277ff:Common {0} scroll]"
 	Rare: "[c/0044ff:Rare {0} scroll]"
 	Lost: "[c/7ebcc2:Lost {0} scroll]"
-	Spell: spell
-	Rite: rite
-	Technique: technique
-	NeedsImbue: Requires a {0}
+	Attack: attack
+	Passive: passive
+	Mobility: mobility
+	Dash: dash
+	Other: misc
+	NeedsImbue: Can be applied to a {0}
 	Magic: "[c/0000ff:magic type]"
 	FightingStyle: "[c/ff0000:fighting style]"
 	Relic: "[c/2277ff:relic]"
@@ -313,7 +316,7 @@ MainMenuStyle: {
 	Dragon: Dragon
 }
 
-FilteringOption.ImbuesFilter.Tooltip: Filter Imbues
+FilteringOption.ImbuesFilter.Tooltip: Filter Imbues & Scrolls
 
 ImbueGimmicks: {
 	AetherLightningShocks: {

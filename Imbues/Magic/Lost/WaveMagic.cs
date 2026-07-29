@@ -13,9 +13,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<ManaSiphon>();
 
-		public override float ScrollSpeed => 1f;
+		public override float ScrollSpeed => 1.35f;
 
-		public override float ScrollSize => 1.15f;
+		public override float ScrollSize => 1.35f;
 
 		public override float ScrollDamage => .8f;
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			RegisterDefaultMagic<PlasmaMagic>();
 		}
 
-		public const int DustCount = 30;
+		public const int DustCount = 15;
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			if (!Main.dedServ)

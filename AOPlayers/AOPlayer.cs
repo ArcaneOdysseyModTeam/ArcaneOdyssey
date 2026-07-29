@@ -25,39 +25,11 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool grounded = false;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public ushort timeSinceSoftFrozen;
+		public sbyte hasWings = 2;
 
-		/// <summary>
-		/// Imbues in equipment slots
-		/// </summary>
-		public List<int> EquippedImbues = [];
-		public List<int> EquippedSecondImbues = [];
-		public List<int> EquippedImbuesTimers = [];
-
-		public void AddEquippedImbue(Imbuable imbue)
+		public override void OnEnterWorld()
 		{
-			var index = EquippedImbues.IndexOf(imbue.Type);
-			if (index != -1)
-			{
-				EquippedImbuesTimers[index] = 3;
-			}
-			else
-			{
-				EquippedImbues.Add(imbue.Type);
-				EquippedSecondImbues.Add(imbue.Imbue?.Type ?? 0);
-				EquippedImbuesTimers.Add(3);
-			}
-		}
-
-		public List<Imbuable> AllEquippedImbues()
-		{
-			List<Imbuable> list = [];
-			for (int i = 0; i < EquippedImbues.Count; i++)
-			{
-				var ret = (Imbuable)ModContent.GetModItem(EquippedImbues[i]);
-				ret.Imbue = (Imbuable)ModContent.GetModItem(EquippedSecondImbues[i]);
-				list.Add(ret);
-			}
-			return list;
+			hasWings = 2;
 		}
 
 		public static bool evil => !EliusSpareSystem.spared;
@@ -106,6 +78,30 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 				}
 			}
+		}
+
+		public override void Load()
+		{
+			On_Player.ApplyDamageToNPC += AoEHelper;
+		}
+
+		private static void AoEHelper(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC npc, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
+		{
+			Imbuable imbue = null;
+			imbue ??= AOUtils.Safe<Imbuable>(self.PlayerItem()?.ModItem);
+			imbue ??= self.PlayerItem().Imbue();
+			imbue ??= self.Imbue();
+			imbue?.Gimmick?.OnHitNPC(imbue, self, npc, npc.CalculateHitInfo(damage, direction, crit, knockback, damageType, damageVariation), damage);
+			if (imbue is SpiritEnergy)
+				if (!npc.immortal)
+					self.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
+			self.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
+			orig(self, npc, damage, knockback, direction, crit, damageType, damageVariation);
+		}
+
+		public override void Unload()
+		{
+			On_Player.ApplyDamageToNPC -= AoEHelper;
 		}
 
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
@@ -279,29 +275,9 @@ namespace ArcaneOdyssey.AOPlayers
 			StatHaste = 0;
 			Insanity = 0;
 			Banishment = 0;
+			if (hasWings > 0)
+				hasWings--;
 			ResetBuffs();
-			List<int> queue = [];
-			foreach (int type in EquippedImbues)
-			{
-				var index = EquippedImbues.IndexOf(type);
-				if (index >= 0)
-				{
-					if (EquippedImbuesTimers[index] <= 0)
-					{
-						queue.Add(index);
-					}
-					else
-					{
-						EquippedImbuesTimers[index]--;
-					}
-				}
-			}
-			foreach (var i in queue)
-			{
-				EquippedImbues.RemoveAt(i);
-				EquippedSecondImbues.RemoveAt(i);
-				EquippedImbuesTimers.RemoveAt(i);
-			}
 			HandleDashDetection();
 		}
 

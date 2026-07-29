@@ -1,6 +1,4 @@
-﻿using ArcaneOdyssey.Items.EmptyScrolls;
-
-namespace ArcaneOdyssey.Items.Base
+﻿namespace ArcaneOdyssey.Items.Base
 {
 	public abstract class CommonScroll : Scroll
 	{
@@ -8,11 +6,6 @@ namespace ArcaneOdyssey.Items.Base
 		public sealed override int Value => 100;
 		public sealed override ItemRarities Rarity => ItemRarities.Uncommon;
 
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EmptyScroll>();
-		}
 		public override void Load()
 		{
 			base.Load();

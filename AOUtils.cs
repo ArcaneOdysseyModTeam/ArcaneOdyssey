@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Personalities;
 using Terraria.ModLoader.Config;
@@ -40,6 +41,8 @@ namespace ArcaneOdyssey
 			}
 			return null;
 		}
+
+		public static bool IsNullOrWhiteSpace(this string text) => string.IsNullOrWhiteSpace(text);
 
 		internal static List<string> options = [
 			"Terraria/FavoriteDesc",
@@ -73,6 +76,40 @@ namespace ArcaneOdyssey
 			"Terraria/Tooltip",
 		];
 
+		public static int GetShimmerEquivalentType(this Item item)
+		{
+			if (ItemID.Sets.ShimmerCountsAsItem[item.type] != -1)
+			{
+				return ItemID.Sets.ShimmerCountsAsItem[item.type];
+			}
+			return item.type;
+		}
+		public static int FindDecraftAmount(this Item item)
+		{
+			int decraftingRecipeIndex = ShimmerTransforms.GetDecraftingRecipeIndex(item.GetShimmerEquivalentType());
+			if (decraftingRecipeIndex < 0)
+			{
+				return -1;
+			}
+			return item.stack / Main.recipe[decraftingRecipeIndex].createItem.stack;
+		}
+
+		public static IEntitySource GetItemSource_Misc(this Item item, int itemSourceId) => item.GetSource_Misc(ToContextString(itemSourceId));
+
+		public static string ToContextString(int itemSourceId) => itemSourceId switch
+		{
+			1 => "SetBonus_Nebula",
+			2 => "LuckyCoin",
+			4 => "ThrowItem",
+			5 => "GrandDesignOrMultiColorWrench",
+			6 => "TorchGod",
+			7 => "SortingWithNoSpace",
+			8 => "Shimmer",
+			9 => "Digesting",
+			_ => "",
+		};
+
+
 		public static Vector2 Add(this Vector2 vec, float add) => vec.SafeNormalize() * (vec.Length() + add);
 
 		public static Vector2 SafeNormalize(this Vector2 vector) => vector.SafeNormalize(Vector2.Zero);
@@ -91,7 +128,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static float CleanRound(this float value) => (value.Round(3) * 1000f / 5f).Round() * 5f / 1000f;
+		public static float CleanRound(this float value, int digits = 3) => (value.Round(digits) * 10f.Pow(digits) / 5f).Round() * 5f / 10f.Pow(digits);
 
 		public static string LocalizationCategoryOf<T>() where T : class, ILocalizedModType => ModContent.GetInstance<T>().LocalizationCategory;
 
@@ -238,10 +275,22 @@ namespace ArcaneOdyssey
 		}
 
 		public static void Write(this BinaryWriter writer, float? num) => writer.Write(num.GetValueOrDefault(0f));
+		public static void Write(this BinaryWriter writer, int? num) => writer.Write(num.GetValueOrDefault(0));
+		public static void Write(this BinaryWriter writer, uint? num) => writer.Write(num.GetValueOrDefault(0));
 		public static float? ReadNullableSingle(this BinaryReader reader)
 		{
 			var val = reader.ReadSingle();
 			if (val == 0f)
+			{
+				return null;
+			}
+			return val;
+		}
+
+		public static int? ReadNullableInt32(this BinaryReader reader)
+		{
+			var val = reader.ReadInt32();
+			if (val == 0)
 			{
 				return null;
 			}
@@ -992,7 +1041,7 @@ namespace ArcaneOdyssey
 
 		public static bool ImbueClassCheck(Item item)
 		{
-			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is Scroll or Imbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.CannotBeAffected == false) && (item.ammo == AmmoID.None))
+			if ((item is not null) && item.active && ((!item.accessory) || item.ModItem is IImbuable) && (item.ModItem is null or BaseItem || ArcaneOdysseyConfig.Instance.AffectsOtherMods) && (item.ArcaneOdyssey()?.CannotBeAffected == false) && (item.ammo == AmmoID.None))
 			{
 				if (item.ArcaneOdyssey()?.WeaponsType != WeaponType.Artisinal)
 				{
@@ -1002,7 +1051,7 @@ namespace ArcaneOdyssey
 						|| item.DamageType.CountsAsClass(DamageClass.Magic)
 						||
 						(
-							item.ModItem is Scroll or Imbuable
+							item.ModItem is Imbuable
 						);
 				}
 			}
@@ -1020,22 +1069,6 @@ namespace ArcaneOdyssey
 				if (imbue is null)
 				{
 					return true;
-				}
-				if (item.ModItem is Scroll scroll)
-				{
-					if (scroll.CanHaveMagic && imbue is MagicType && scroll.ExtraConditionsForImbue(imbue))
-					{
-						return true;
-					}
-					if (scroll.CanHaveFS && imbue is FightingStyle && scroll.ExtraConditionsForImbue(imbue))
-					{
-						return true;
-					}
-					if (scroll.CanHaveRelic && imbue is SpiritEnergy && scroll.ExtraConditionsForImbue(imbue))
-					{
-						return true;
-					}
-					return false;
 				}
 				if (item.ModItem is SpiritEnergy)
 				{
@@ -1353,9 +1386,6 @@ namespace ArcaneOdyssey
 				return;
 			if (player is not null)
 			{
-				if (imbue is SpiritEnergy)
-					if (!npc.immortal)
-						player.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 				if (player.dontHurtCritters && NPCID.Sets.CountsAsCritter[npc.type])
 					return;
 				if (npc.immune[player.whoAmI] > 0 || player.whoAmI != Main.myPlayer)
@@ -1363,7 +1393,6 @@ namespace ArcaneOdyssey
 				if (npc.noTileCollide || player.CanHit(npc))
 				{
 					player.ApplyDamageToNPC(npc, damage, knockBack, hitDirection, crit, damageType, damageVariation);
-					player.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
 				}
 			}
 			else
@@ -1689,10 +1718,6 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory<T>(this Player player, Predicate<T> check = null) where T : class
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
-			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
-			{
-				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
-			}
 			if (player.useVoidBag())
 			{
 				no.AddRange(player.bank4.item);
@@ -1722,11 +1747,6 @@ namespace ArcaneOdyssey
 		{
 			List<Item> no = [.. player.inventory, player.trashItem];
 
-			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
-			{
-				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
-			}
-
 			if (player.useVoidBag())
 			{
 				no.AddRange(player.bank4.item);
@@ -1751,11 +1771,6 @@ namespace ArcaneOdyssey
 
 			List<Item> no = [.. player.inventory, player.trashItem];
 
-			if (player.ArcaneOdyssey()?.EquippedImbues is not null)
-			{
-				no.AddRange(player.ArcaneOdyssey().EquippedImbues.Select(e => new Item(e)));
-			}
-
 			if (player.useVoidBag())
 			{
 				no.AddRange(player.bank4.item);
@@ -1778,13 +1793,6 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory<T>(this Player player, out T item, Predicate<T> check = null) where T : ModItem
 		{
 			item = null;
-			if (player?.ArcaneOdyssey() is not null)
-			{
-				if (player.ArcaneOdyssey().EquippedImbues.Contains(ModContent.ItemType<T>()) || player.ArcaneOdyssey().EquippedSecondImbues.Contains(ModContent.ItemType<T>()))
-				{
-					item ??= ModContent.GetInstance<T>();
-				}
-			}
 			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var items in no)

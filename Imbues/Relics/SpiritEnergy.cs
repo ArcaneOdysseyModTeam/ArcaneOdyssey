@@ -347,7 +347,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Summon;
-
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
 				Item.color = SpiritColor;
@@ -355,8 +354,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 		}
 
 		public virtual int DustType => ModContent.DustType<SpiritDust>();
-
-		public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1 && !player.AltUse();
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
@@ -414,8 +411,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0)
 		{
-			AOUtils.NewDustImperfect(coneCenter, ModContent.DustType<SpiritDust>(), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: SpiritColor, Scale: .2f * (coneLength / 25f), Alpha: 255 / 4);
-			AOUtils.NewDustImperfect(coneCenter, DustType, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: ImbueColour, Scale: .2f * (coneLength / 25f), Alpha: 255 / 4);
+			AOUtils.NewDustImperfect(coneCenter, ModContent.DustType<SpiritDust>(), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: SpiritColor, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
+			AOUtils.NewDustImperfect(coneCenter, DustType, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: ImbueColour, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
 		}
 
 		public override void SaveData(TagCompound tag)

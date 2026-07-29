@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Projectiles.Base;
+using System.IO;
+using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
 
 namespace ArcaneOdyssey.Projectiles.Berserker
@@ -18,7 +20,12 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			ProjectileID.Sets.TrailingMode[Type] = 0;
 		}
 
-		public bool CanCutTrees = !Main.mouseRight;
+		public bool CanCutTrees;
+
+		public override void OnSpawn(IEntitySource source)
+		{
+			CanCutTrees = !AOKeybinds.AltSkillUse.Current;
+		}
 
 		public override void SetDefaults()
 		{
@@ -54,8 +61,9 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.Colour ?? lightColor;
-			lightColor = SecondImbue?.Colour ?? lightColor;
+			var oglight = lightColor;
+			lightColor = Imbue?.Colour.MultiplyRGB(lightColor) ?? lightColor;
+			lightColor = SecondImbue?.Colour.MultiplyRGB(oglight) ?? lightColor;
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
@@ -66,5 +74,15 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 		}
 
 		public override bool? CanCutTiles() => CanCutTrees;
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(CanCutTrees);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			CanCutTrees = reader.ReadBoolean();
+		}
 	}
 }
