@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using ArcaneOdyssey.Projectiles.Enemies;
+using ArcaneOdyssey.Gores;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -18,7 +19,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	public class LordElius : BaseNPC
 	{
 		private int hptoheal;
-		private bool lockedByMove;
+		private bool lockedByMove,directionLocked;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation,nextPodiumLocation;
 		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
@@ -130,7 +131,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.position = spawnLocation;
 			}
 
+			
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
+			
+			directionLocked = false;
 			NPC.TargetClosest();
 
 			
@@ -144,6 +148,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				hptoheal = (int)(Main.rand.Next(150)+50);
 				NPC.life += hptoheal;
 				CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
+				Gore.NewGorePerfect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*5f,-1f),ModContent.GoreType<EmptyHealthPotion>(),1f);
 			}
 			NPC.ai[2] += 1f;
 
@@ -167,10 +172,12 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if(NPC.ai[1] < 20f) //Rise
 					{
+						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
 						lockedByMove = true;
 						NPC.position.Y-= 3f;
 					} else if(NPC.ai[1] <52f) //Dash
 					{
+						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
 						lockedByMove = true;
 						NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
 					}
