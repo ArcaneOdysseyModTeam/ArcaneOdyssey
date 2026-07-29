@@ -92,6 +92,8 @@ Bosses: {
 		SpawnInfo: Spawns in the Djin Ruins after defeating the Eye of Cthulhu.
 		DisplayName: Lord Elius
 		SpawnMessage: What are you, some sort of rat?
+		StormOfArrowsMessage: Storm of Arrows!
+		FlyingSlashMessage: Flying Slash!
 		DoomMessage: Go on, finish it...
 		MPMessage: "{0} has chosen to {1} Lord Elius!"
 		Killed: Your spirit darkens...

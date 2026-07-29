@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private Vector2 previousPodiumLocation,nextPodiumLocation;
 		private float[] dashSelectArray = {0f,4f};
 		private float[] moveSelectArrayOne = {1f,4f,1f,1f};
-		private float[] moveSelectArrayTwo = {2f,6f,2f};
+		private float[] moveSelectArrayTwo = {6f,6f,6f};
 		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
 		public override void SetStaticDefaults()
 		{
@@ -284,6 +284,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if((int)NPC.ai[1]%60 == 0)
 					{
+						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), Color.Gold);
 						Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
 					}
 				} else if(NPC.ai[1] < 316f)
@@ -299,7 +300,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if(NPC.ai[1] > 20f && NPC.ai[1] < 22f)
 				{
-					Main.NewText("Storm of arrows move");
+					NPC.NPCDialogue(this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusArrowStorm>(),30,0f,-1,0f,Main.player[NPC.target].Center.X,Main.player[NPC.target].Center.Y - 600f);
 					NPC.ai[1] = 22f;
 				} else if(NPC.ai[1] > 50f)
 				{
