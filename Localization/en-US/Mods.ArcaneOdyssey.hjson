@@ -167,8 +167,8 @@ Projectiles: {
 		DuskBeam.DisplayName: Nichtetheis
 		Effects.EvilSun.DisplayName: Evil Sun
 		EliusSpear.DisplayName: Noble Thunderspear
-		EliusSlash.DisplayName: Elius Slash
-		EliusArrowStorm.DisplayName: Elius Arrow Storm
+		EliusSlash.DisplayName: Flying Slash
+		EliusArrowStorm.DisplayName: Bronze Arrow
 	}
 
 	Pets: {
