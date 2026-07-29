@@ -13,6 +13,7 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.NPCs.Town;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -97,6 +98,9 @@ namespace ArcaneOdyssey
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
 			}
+
+			// idk why but it has to be here
+			ExternalModSupport.Fargos?.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
 		}
 
 		public override void Unload()

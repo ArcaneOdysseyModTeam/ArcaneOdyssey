@@ -846,11 +846,6 @@ namespace ArcaneOdyssey
 				On_Dust.NewDustDirect += DirectDustScaleFixer;
 				On_Dust.NewDustPerfect += PerfectDustScaleFixer;
 			}
-
-			if (HasFargos)
-			{
-				Fargos.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
-			}
 		}
 
 		private Dust PerfectDustScaleFixer(On_Dust.orig_NewDustPerfect orig, Vector2 Position, int Type, Vector2? Velocity, int Alpha, Color newColor, float Scale)

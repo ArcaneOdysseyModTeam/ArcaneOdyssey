@@ -33,16 +33,21 @@ public partial class ImbueChangeUI : BaseImbueUI
 
 			if (acrIndex >= 0 && imbuIndex >= 0)
 			{
-				var og = player.inventory[imbuIndex].ModItem as MagicType;
+				var og = player.inventory[imbuIndex].ModItem as Imbuable;
 				player.inventory[imbuIndex].SetDefaults(MagicTypeToItem(ProductSpotLight.CurrentType).type);
 				player.inventory[acrIndex].TurnToAir();
 
 
 				var newItem = player.inventory[imbuIndex];
 
-				if (newItem.ModItem is MagicType magic)
+				if (newItem.ModItem is MagicType magic && og is MagicType)
 				{
 					magic.Skills = og.Skills;
+					magic.selectedIndex = og.selectedIndex;
+				}
+				else
+				{
+					og.RemoveAllSkills();
 				}
 
 				SoundEngine.PlaySound(SoundID.Unlock);

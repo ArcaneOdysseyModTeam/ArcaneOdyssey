@@ -41,10 +41,7 @@ namespace ArcaneOdyssey.Items.Scrolls
 		{
 			if (player.PlayerItem()?.ModItem is Imbuable imbue)
 			{
-				for (byte i = 0; i < imbue.Skills.Length; i++)
-				{
-					imbue.RemoveSkill(i);
-				}
+				imbue.RemoveAllSkills();
 			}
 		}
 	}

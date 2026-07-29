@@ -115,7 +115,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				Item.useStyle = selectedAttack.UseStyleID;
 			}
 		}
-
+		
 		public override bool CanUseItem(Player player)
 		{
 			if (player.AltUse())
@@ -192,6 +192,14 @@ namespace ArcaneOdyssey.Imbues.Base
 				{
 					selectedAttack = Skills[slotIndex] as AttackSkill;
 				}
+			}
+		}
+
+		public void RemoveAllSkills()
+		{
+			for (byte i = 0; i < Skills.Length; i++)
+			{
+				RemoveSkill(i);
 			}
 		}
 
