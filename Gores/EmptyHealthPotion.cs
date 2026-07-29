@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Gores
 
 		public override void OnSpawn(Gore gore, IEntitySource source)
 		{
-			gore.sticky = true;
+			gore.sticky = false;
 			gore.timeLeft = 120;
 		}
 	}
