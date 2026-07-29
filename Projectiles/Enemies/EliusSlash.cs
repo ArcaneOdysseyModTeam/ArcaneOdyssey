@@ -3,17 +3,16 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Relics;
 using Terraria.Audio;
-using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
-	public class EliusSpear : BaseProjectile
+	public class EliusSlash : BaseProjectile
 	{
-		public override string Texture => AOUtils.GetTexture<NobleThunderspear>();
+		public override string Texture => AOUtils.SlashTexture;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.DamageType = DamageClass.Melee;
 			Projectile.timeLeft = 500;
 			Projectile.hostile = true;
 			Projectile.friendly = false;
@@ -21,10 +20,17 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.height = Projectile.width = 70;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
+			Projectile.scale = 0.6f;
+		}
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Color.Gold;
+			return base.PreDraw(ref lightColor);
 		}
 		public override void AI()
 		{
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+			base.AI();
+			Projectile.rotation = Projectile.velocity.ToRotation();
 		}
 	}
 }

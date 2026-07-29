@@ -22,6 +22,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private int hptoheal;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation,nextPodiumLocation;
+		private float[] dashSelectArray = {0f,4f};
+		private float[] moveSelectArrayOne = {1f,4f,1f,1f};
+		private float[] moveSelectArrayTwo = {2f,6f,2f};
 		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
 		public override void SetStaticDefaults()
 		{
@@ -122,7 +125,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				hasSetSpawnLocation = true;
 				NPC.position = spawnLocation + podiumPos[2];
 				tempPodiumID = 2;
-				NPC.ai[0] = 1f;
+				NPC.ai[0] = -1f;
 				NPC.ai[1] = 0f;
 				NPC.ai[2] = 0f;
 				NPC.ai[3] = 2f;
@@ -139,7 +142,16 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			// State Machine
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
-			if (NPC.ai[0] == 0) //heal explosion
+			if (NPC.ai[0] == -1) //Spawn In
+			{
+				if(NPC.ai[1] > 120f)
+				{
+					NPC.ai[1] = -1f;
+					NPC.ai[0] = 1;
+					NPC.ai[3] = 2;
+				}
+			}
+			else if (NPC.ai[0] == 0) //heal explosion
 			{
 				if(NPC.ai[1] > 120f)
 				{
@@ -179,15 +191,17 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					{
 						NPC.position = nextPodiumLocation;
 						NPC.ai[1] = -1f;
-						NPC.ai[0] = 2;
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
 						NPC.ai[2]+=1f; //increment heal cooldown
-						if(NPC.ai[2] >= 4f) //override to heal if cooldown is expended
+						if(NPC.ai[2] >= 4f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
 						{
 							NPC.ai[0] = 3f;
 						}
 					}
 				}
-			} else if(NPC.ai[0] == 2) //spear throw
+			} 
+			else if(NPC.ai[0] == 2) //spear throw
 			{
 				if(NPC.ai[1] < 40f)
 				{
@@ -199,9 +213,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				} else if (NPC.ai[1] > 70f)
 				{
 					NPC.ai[1] = -1f;
-					NPC.ai[0] = 1;
+					NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
 				}
-			} else if (NPC.ai[0] == 3) //healing
+			} 
+			else if (NPC.ai[0] == 3) //healing
 			{
 				if(NPC.ai[1] > 30f)
 				{
@@ -223,6 +238,73 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.ai[1] = -1f;
 							NPC.ai[0] = 1;
 						}
+				}
+			} 
+			else if(NPC.ai[0] == 4) //Hop move into sword move
+			{
+				if(NPC.ai[1] < 2f) //Choose the podium
+				{
+					tempPodiumID = NPC.ai[3];
+					while(tempPodiumID == NPC.ai[3]) 
+					{
+						NPC.ai[3] = dashSelectArray[Main.rand.Next(2)];
+					}
+					NPC.ai[1] = 2f;
+					previousPodiumLocation = NPC.position;
+					nextPodiumLocation = spawnLocation+podiumPos[(int)NPC.ai[3]];
+				} else //prevent skipping to the next parts
+				{
+					if(NPC.ai[1] < 20f) //Rise
+					{
+						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+						NPC.position.Y-= 3f;
+					} else if(NPC.ai[1] <52f) //Dash
+					{
+						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+						NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+					}
+					if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+					{
+						NPC.position.Y += 4f;
+					}
+					if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+					{
+						NPC.position = nextPodiumLocation;
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 5;
+					}
+				}
+			} 
+			else if(NPC.ai[0] == 5) //sword move
+			{
+				if(NPC.ai[1] < 16f)
+				{
+					NPC.position.Y += 128f/15f;
+				} else if(NPC.ai[1] < 300f)
+				{
+					if((int)NPC.ai[1]%60 == 0)
+					{
+						Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*20f,ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
+					}
+				} else if(NPC.ai[1] < 316f)
+				{
+					NPC.position.Y -= 128f/15f;
+				} else if(NPC.ai[1] > 360f)
+				{
+					NPC.ai[1] = -1f;
+					NPC.ai[0] = 1;
+				}
+			} 
+			else if(NPC.ai[0] == 6) //storm of arrows
+			{
+				if(NPC.ai[1] > 20f && NPC.ai[1] < 22f)
+				{
+					Main.NewText("Storm of arrows move");
+					NPC.ai[1] = 22f;
+				} else if(NPC.ai[1] > 50f)
+				{
+					NPC.ai[1] = -1f;
+					NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
 				}
 			}
 			NPC.ai[1]+= 1f; //increment frame
