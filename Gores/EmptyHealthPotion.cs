@@ -7,12 +7,12 @@ namespace ArcaneOdyssey.Gores
 	{
 		public override void SetStaticDefaults()
 		{
-			ChildSafety.SafeGore[Type] = false;
+			ChildSafety.SafeGore[Type] = true;
 		}
 
 		public override void OnSpawn(Gore gore, IEntitySource source)
 		{
-			gore.sticky = false;
+			gore.sticky = true;
 			gore.timeLeft = 120;
 		}
 	}

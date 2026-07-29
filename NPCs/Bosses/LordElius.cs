@@ -12,6 +12,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using ArcaneOdyssey.Projectiles.Enemies;
 using ArcaneOdyssey.Gores;
+using Terraria.Audio;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -19,7 +20,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	public class LordElius : BaseNPC
 	{
 		private int hptoheal;
-		private bool lockedByMove,directionLocked;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation,nextPodiumLocation;
 		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
@@ -121,10 +121,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				spawnLocation = NPC.position;
 				hasSetSpawnLocation = true;
 				NPC.position = spawnLocation + podiumPos[2];
+				tempPodiumID = 2;
 				NPC.ai[0] = 1f;
 				NPC.ai[1] = 0f;
 				NPC.ai[2] = 0f;
-				NPC.ai[3] = 0f;
+				NPC.ai[3] = 2f;
 			}
 			else if (!NPC.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
 			{
@@ -133,33 +134,23 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
-			
-			directionLocked = false;
 			NPC.TargetClosest();
-
-			
-			if(NPC.life > NPC.lifeMax / 2) //prevents healing right when he gets to half
-			{
-				NPC.ai[2] = 0f;
-			}
-			if(!lockedByMove&&(NPC.life < NPC.lifeMax/2)&&NPC.ai[2]>=5f*60f) //healing
-			{
-				NPC.ai[2] = 0f;
-				hptoheal = (int)(Main.rand.Next(150)+50);
-				NPC.life += hptoheal;
-				CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
-				Gore.NewGorePerfect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*5f,-1f),ModContent.GoreType<EmptyHealthPotion>(),1f);
-			}
-			NPC.ai[2] += 1f;
 
 
 			// State Machine
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
-			if(NPC.ai[0] == 1) //Hop move
+			if (NPC.ai[0] == 0) //wait
+			{
+				if(NPC.ai[1] > 20f)
+				{
+					NPC.ai[1] = -1f;
+					NPC.ai[0] = 1;
+				}
+			}
+			else if(NPC.ai[0] == 1) //Hop move
 			{
 				if(NPC.ai[1] < 2f) //Choose the podium
 				{
-					lockedByMove = false;
 					tempPodiumID = NPC.ai[3];
 					while(tempPodiumID == NPC.ai[3]) 
 					{
@@ -173,43 +164,64 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if(NPC.ai[1] < 20f) //Rise
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-						lockedByMove = true;
 						NPC.position.Y-= 3f;
 					} else if(NPC.ai[1] <52f) //Dash
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-						lockedByMove = true;
 						NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
 					}
 					if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
 					{
-						lockedByMove = false;
 						NPC.position.Y += 4f;
 					}
 					if (NPC.ai[1] >= 80f) //Break out of this ai cycle
 					{
 						NPC.position = nextPodiumLocation;
-						lockedByMove = false;
 						NPC.ai[1] = -1f;
 						NPC.ai[0] = 2;
+						NPC.ai[2]+=1f; //increment heal cooldown
+						if(NPC.ai[2] >= 3f) //override to heal if cooldown is expended
+						{
+							NPC.ai[0] = 3f;
+						}
 					}
 				}
 			} else if(NPC.ai[0] == 2) //spear throw
 			{
 				if(NPC.ai[1] < 40f)
 				{
-					lockedByMove = true;
 					//charge vfx goes here
 				} else if (NPC.ai[1] < 42f)
 				{
-					lockedByMove = true;
 					NPC.ai[1] = 42f;
 					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*15f,ModContent.ProjectileType<EliusSpear>(),30,1f,-1);
 				} else if (NPC.ai[1] > 70f)
 				{
-					lockedByMove = false;
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
+				}
+			} else if (NPC.ai[0] == 3) //healing
+			{
+				if(NPC.ai[1] > 30f)
+				{
+					if (NPC.ai[2] > 3f || Main.player[NPC.target].Center.Distance(NPC.Center) > 128f) {
+						NPC.ai[2] = 0f;
+						hptoheal = (int)(Main.rand.Next(150)+50);
+						NPC.life += hptoheal;
+						CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
+						Gore.NewGorePerfect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*5f,-1f),ModContent.GoreType<EmptyHealthPotion>(),1f);
+						SoundEngine.PlaySound(SoundID.Item3,NPC.Center);
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 1;
+						if(NPC.life > NPC.lifeMax)
+						{
+							NPC.life = NPC.lifeMax;
+						}
+						} else
+						{
+							NPC.ai[1] = -1f;
+							NPC.ai[0] = 0;
+						}
 				}
 			}
 			NPC.ai[1]+= 1f; //increment frame
