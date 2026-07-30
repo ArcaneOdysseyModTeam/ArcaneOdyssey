@@ -99,7 +99,7 @@ Bosses: {
 		Killed: Your spirit darkens...
 		Spared: Lord Elius has left!
 		Refight: It's you again!
-		SecondPhaseMessage: ENOUGH!
+		SecondPhaseMessage: ENOUGH! It's time to start trying.
 		MoveElementName: "Electric " 
 	}
 }
