@@ -346,7 +346,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.position.Y += 128f/15f;
 				} else if(NPC.ai[1] < 300f)
 				{
-					int swordTiming = NPC.localAI[0]<1f ? 60 : 30;
+					int swordTiming = NPC.localAI[0]<1f ? 60 : 40;
 					if((int)NPC.ai[1]%swordTiming == 0)
 					{
 						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), Color.Gold);
