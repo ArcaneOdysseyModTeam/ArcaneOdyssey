@@ -156,13 +156,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.ai[3] = 2;
 				}
 			}
-			else if (NPC.ai[0] == 0) //heal explosion
+			else if (NPC.ai[0] == 0)
 			{
 				if(NPC.ai[1] > 120f)
 				{
+
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
-					//insert explosion code here if under half health
 				}
 			}
 			else if(NPC.ai[0] == 1) //Hop move
@@ -179,29 +179,59 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					nextPodiumLocation = spawnLocation+podiumPos[(int)NPC.ai[3]];
 				} else //prevent skipping to the next parts
 				{
-					if(NPC.ai[1] < 20f) //Rise
+					if(NPC.localAI[0] < 1f)
 					{
-						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-						NPC.position.Y-= 3f;
-					} else if(NPC.ai[1] <52f) //Dash
-					{
-						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-						NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
-					}
-					if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
-					{
-						NPC.position.Y += 4f;
-					}
-					if (NPC.ai[1] >= 80f) //Break out of this ai cycle
-					{
-						NPC.position = nextPodiumLocation;
-						NPC.ai[1] = -1f;
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
-						NPC.ai[2]+=1f; //increment heal cooldown
-						if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+						if(NPC.ai[1] < 20f) //Rise
 						{
-							NPC.ai[0] = 3f;
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.Y-= 3f;
+						} else if(NPC.ai[1] <52f) //Dash
+						{
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+						}
+						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+						{
+							NPC.position.Y += 4f;
+						}
+						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+						{
+							NPC.position = nextPodiumLocation;
+							NPC.ai[1] = -1f;
+							NPC.ai[1] = -1f;
+							NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
+							NPC.ai[2]+=1f; //increment heal cooldown
+							if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+							{
+								NPC.ai[0] = 3f;
+							}
+						}
+					} else //phase 2
+					{
+						if(NPC.ai[1] < 20f) //Rise
+						{
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.Y-= 3f;
+						} else if(NPC.ai[1] <52f) //Dash
+						{
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+						}
+						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+						{
+							NPC.position.Y += 4f;
+						}
+						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+						{
+							NPC.position = nextPodiumLocation;
+							NPC.ai[1] = -1f;
+							NPC.ai[1] = -1f;
+							NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
+							NPC.ai[2]+=1f; //increment heal cooldown
+							if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+							{
+								NPC.ai[0] = 3f;
+							}
 						}
 					}
 				}
@@ -263,24 +293,48 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					nextPodiumLocation = spawnLocation+podiumPos[(int)NPC.ai[3]];
 				} else //prevent skipping to the next parts
 				{
-					if(NPC.ai[1] < 20f) //Rise
+					if(NPC.localAI[0] < 1f)
 					{
-						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-						NPC.position.Y-= 3f;
-					} else if(NPC.ai[1] <52f) //Dash
+						if(NPC.ai[1] < 20f) //Rise
+						{
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.Y-= 3f;
+						} else if(NPC.ai[1] <52f) //Dash
+						{
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+						}
+						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+						{
+							NPC.position.Y += 4f;
+						}
+						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+						{
+							NPC.position = nextPodiumLocation;
+							NPC.ai[1] = -1f;
+							NPC.ai[0] = 5;
+						}
+					} else // Second Phase
 					{
-						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-						NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
-					}
-					if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
-					{
-						NPC.position.Y += 4f;
-					}
-					if (NPC.ai[1] >= 80f) //Break out of this ai cycle
-					{
-						NPC.position = nextPodiumLocation;
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 5;
+						if(NPC.ai[1] < 20f) //Rise
+						{
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.Y-= 3f;
+						} else if(NPC.ai[1] <52f) //Dash
+						{
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+						}
+						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+						{
+							NPC.position.Y += 4f;
+						}
+						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+						{
+							NPC.position = nextPodiumLocation;
+							NPC.ai[1] = -1f;
+							NPC.ai[0] = 5;
+						}
 					}
 				}
 			} 
