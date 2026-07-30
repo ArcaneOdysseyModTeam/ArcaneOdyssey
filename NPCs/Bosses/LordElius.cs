@@ -244,6 +244,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				} else if (NPC.ai[1] < 42f)
 				{
 					NPC.ai[1] = 42f;
+					SoundEngine.PlaySound(SoundID.Item1,NPC.Center);
 					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*15f,ModContent.ProjectileType<EliusSpear>(),30,1f,-1);
 				} else if (NPC.ai[1] > 70f)
 				{
@@ -350,6 +351,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if((int)NPC.ai[1]%swordTiming == 0)
 					{
 						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), Color.Gold);
+						SoundEngine.PlaySound(SoundID.Item1,NPC.Center);
 						Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
 					}
 				} else if(NPC.ai[1] < 316f)
@@ -366,6 +368,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if(NPC.ai[1] > 20f && NPC.ai[1] < 22f)
 				{
 					NPC.NPCDialogue(this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple);
+					SoundEngine.PlaySound(SoundID.Item5,NPC.Center);
 					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusArrowStorm>(),30,0f,-1,0f,Main.player[NPC.target].Center.X,Main.player[NPC.target].Center.Y - 600f);
 					NPC.ai[1] = 22f;
 				} else if(NPC.ai[1] > 50f)
