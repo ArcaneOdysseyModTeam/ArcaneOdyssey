@@ -10,6 +10,11 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 	public class EliusSlash : BaseProjectile
 	{
 		public override string Texture => AOUtils.SlashTexture;
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.TrailingMode[Type] = 0;
+			ProjectileID.Sets.TrailCacheLength[Type] = 5;
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -31,7 +36,13 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			{
 				lightColor = Color.Plum;
 			}
-			return base.PreDraw(ref lightColor);
+			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+			{
+				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
+				var colour2 = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (k * .01f), SpriteEffects.None, 0);
+			}
+			return false;
 		}
 		public override void AI()
 		{
