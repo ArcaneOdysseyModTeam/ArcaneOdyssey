@@ -74,6 +74,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void AI()
 		{
+			if(NPC.life < NPC.lifeMax/2)
+			{
+				NPC.localAI[0] = 1f;
+			}
 			if (!sparing)
 			{
 				Main.raining = true;
@@ -129,6 +133,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.ai[1] = 0f;
 				NPC.ai[2] = 0f;
 				NPC.ai[3] = 2f;
+				NPC.localAI[0] = 0f;
 			}
 			else if (!NPC.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
 			{
@@ -224,6 +229,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.ai[2] = 0f;
 						hptoheal = (int)(Main.rand.Next(150)+50);
 						NPC.life += hptoheal;
+						if(NPC.localAI[0] > 0f)
+						{
+							Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusExplosion>(),30,1f,-1);
+						}
 						CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
 						Gore.NewGorePerfect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*5f,-1f),ModContent.GoreType<EmptyHealthPotion>(),1f);
 						SoundEngine.PlaySound(SoundID.Item3,NPC.Center);
@@ -282,7 +291,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.position.Y += 128f/15f;
 				} else if(NPC.ai[1] < 300f)
 				{
-					if((int)NPC.ai[1]%60 == 0)
+					int swordTiming = NPC.localAI[0]<1f ? 60 : 30;
+					if((int)NPC.ai[1]%swordTiming == 0)
 					{
 						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), Color.Gold);
 						Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
