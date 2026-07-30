@@ -17,7 +17,8 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.hostile = true;
 			Projectile.friendly = false;
 			Projectile.penetrate = -1;
-			Projectile.height = Projectile.width = 70;
+			Projectile.height = 200;
+			Projectile.width = 70;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.scale = 0.6f;
