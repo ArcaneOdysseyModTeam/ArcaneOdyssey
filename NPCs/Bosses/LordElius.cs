@@ -362,7 +362,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					int swordTiming = NPC.localAI[0]<1f ? 60 : 40;
 					if((int)NPC.ai[1]%swordTiming == 0)
 					{
-						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), NPC.localAI[0]<1f ? Color.Gold : Color.Purple);
+						NPC.NPCDialogue(NPC.localAI[0]<1f ? "" : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("FlyingSlashMessage"), NPC.localAI[0]<1f ? Color.Gold : Color.MediumPurple);
 						SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f },NPC.Center);
 						Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
 						if (NPC.localAI[0] > 0f)
@@ -383,7 +383,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if(NPC.ai[1] > 20f && NPC.ai[1] < 22f)
 				{
-					NPC.NPCDialogue(this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple);
+					NPC.NPCDialogue(NPC.localAI[0]<1f ? "" : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple);
 					SoundEngine.PlaySound(SoundID.Item5,NPC.Center);
 					Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusArrowStorm>(),30,0f,-1,0f,Main.player[NPC.target].Center.X,Main.player[NPC.target].Center.Y - 600f);
 					if (NPC.localAI[0] > 0f)

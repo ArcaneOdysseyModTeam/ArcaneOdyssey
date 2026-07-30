@@ -100,5 +100,6 @@ Bosses: {
 		Spared: Lord Elius has left!
 		Refight: It's you again!
 		SecondPhaseMessage: ENOUGH!
+		MoveElementName: "Electric " 
 	}
 }
