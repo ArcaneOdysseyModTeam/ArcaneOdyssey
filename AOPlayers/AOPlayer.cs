@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles;
@@ -180,6 +181,8 @@ namespace ArcaneOdyssey.AOPlayers
 
 			if (Player.InModBiome<EliusArena>())
 			{
+				if (AOUtils.NPCAlive<LordElius>())
+					Player.AddBuff(ModContent.BuffType<ThunderingPresence>(), 9999999);
 				Player.AddBuff(BuffID.NoBuilding, 2); // entirely visual
 				if (AOUtils.ServerOrSingleplayer)
 				{
@@ -210,7 +213,10 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				eliusArenaCounter = 0;
 				if (AOUtils.NPCAlive<LordElius>())
-					Player.AddBuff(BuffID.Electrified, 2);
+					if(Player.HasBuff(ModContent.BuffType<ThunderingPresence>()))
+					{
+						Player.AddBuff(BuffID.Electrified, 2);
+					}
 			}
 		}
 

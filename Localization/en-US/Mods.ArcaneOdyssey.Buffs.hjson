@@ -218,3 +218,8 @@ InsanityTwo: {
 	DisplayName: Insanity II
 	Description: You are mildly insane
 }
+
+ThunderingPresence: {
+	DisplayName: Thundering Presence
+	Description: You feel as if you should not leave the arena
+}
