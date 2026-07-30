@@ -170,6 +170,7 @@ Projectiles: {
 		EliusSlash.DisplayName: Flying Slash
 		EliusArrowStorm.DisplayName: Bronze Arrow
 		EliusExplosion.DisplayName: Elius Explosion
+		EliusTrail.DisplayName: Elius Trail
 	}
 
 	Pets: {

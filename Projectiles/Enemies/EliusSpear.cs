@@ -4,6 +4,7 @@ using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Relics;
 using Terraria.Audio;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+using System;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
 {
@@ -25,6 +26,19 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		public override void AI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+			if(Projectile.localAI[0] > 0f)
+			{
+				var updates = (float)Main.GameUpdateCount;
+				Rectangle area = new Rectangle((int)Projectile.Center.X,(int)Projectile.Center.Y,1,1);
+				updates += Projectile.numUpdates;
+				float waveVal = 4f*(MathF.Abs(MathF.Abs(((updates+110))%10)-5f)-2.5f);
+				Vector2 baseVec = new(0f, waveVal);
+				Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
+				spawnedDust.noGravity = true;
+
+				Lighting.AddLight(area.Center(), 2, 1, 2);
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.4f * area.RelativeScale());
+			}
 		}
 	}
 }

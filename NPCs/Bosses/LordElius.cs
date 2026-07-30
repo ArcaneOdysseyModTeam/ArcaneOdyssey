@@ -76,6 +76,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			if(NPC.life < NPC.lifeMax/2)
 			{
+				if(NPC.localAI[0] < 1f)
+				{
+					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Color.MediumPurple);
+				}
 				NPC.localAI[0] = 1f;
 			}
 			if (!sparing)
@@ -208,29 +212,29 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					} else //phase 2
 					{
-						if(NPC.ai[1] < 20f) //Rise
+						if(NPC.ai[1] < 50f)
 						{
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							NPC.position.Y-= 3f;
-						} else if(NPC.ai[1] <52f) //Dash
-						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+							Dust.NewDustDirect(nextPodiumLocation+new Vector2(-10f,35f),50,3,DustID.WitherLightning,0f,-0.1f).noGravity = true;
 						}
-						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+						if (NPC.ai[1] >= 50f) //Break out of this ai cycle
 						{
-							NPC.position.Y += 4f;
-						}
-						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
-						{
-							NPC.position = nextPodiumLocation;
-							NPC.ai[1] = -1f;
-							NPC.ai[1] = -1f;
-							NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
-							NPC.ai[2]+=1f; //increment heal cooldown
-							if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+							if(NPC.ai[1] == 50f)
 							{
-								NPC.ai[0] = 3f;
+								Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusTrail>(),0,0f,-1,nextPodiumLocation.X+10f,nextPodiumLocation.Y+21f);
+								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f },NPC.Center);
+							}
+							if(NPC.ai[1] > 55f)
+							{
+								NPC.position = nextPodiumLocation;
+								NPC.ai[1] = -1f;
+								NPC.ai[1] = -1f;
+								NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
+								NPC.ai[2]+=1f; //increment heal cooldown
+								if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+								{
+									NPC.ai[0] = 3f;
+								}
 							}
 						}
 					}
@@ -245,7 +249,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					NPC.ai[1] = 42f;
 					SoundEngine.PlaySound(SoundID.Item1,NPC.Center);
-					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*15f,ModContent.ProjectileType<EliusSpear>(),30,1f,-1);
+					Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*15f,ModContent.ProjectileType<EliusSpear>(),30,1f,-1);
+					if (NPC.localAI[0] > 0f)
+					{
+						attackProj.localAI[0] = 1f;
+					}
 				} else if (NPC.ai[1] > 70f)
 				{
 					NPC.ai[1] = -1f;
@@ -256,12 +264,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if(NPC.ai[1] > 30f)
 				{
-					if (NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f) {
+					if (NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || NPC.localAI[0] > 0f) {
 						NPC.ai[2] = 0f;
 						hptoheal = (int)(Main.rand.Next(150)+50);
 						NPC.life += hptoheal;
 						if(NPC.localAI[0] > 0f)
 						{
+							Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center+new Vector2(0,-1000),Vector2.Zero,ModContent.ProjectileType<EliusTrail>(),0,0f,-1,NPC.Center.X,NPC.Center.Y);
 							Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusExplosion>(),30,1f,-1);
 							SoundEngine.PlaySound(SoundID.Thunder,NPC.Center);
 						}
@@ -318,24 +327,27 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					} else // Second Phase
 					{
-						if(NPC.ai[1] < 20f) //Rise
+						if(NPC.ai[1] < 50f)
 						{
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							NPC.position.Y-= 3f;
-						} else if(NPC.ai[1] <52f) //Dash
-						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
+							Dust.NewDustDirect(nextPodiumLocation+new Vector2(-10f,35f),50,3,DustID.WitherLightning,0f,-0.1f).noGravity = true;
 						}
-						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
+						if (NPC.ai[1] >= 50f) //Break out of this ai cycle
 						{
-							NPC.position.Y += 4f;
-						}
-						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
-						{
-							NPC.position = nextPodiumLocation;
-							NPC.ai[1] = -1f;
-							NPC.ai[0] = 5;
+							if(NPC.ai[1] == 50f)
+							{
+								Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusTrail>(),0,0f,-1,nextPodiumLocation.X+10f,nextPodiumLocation.Y+21f);
+								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f },NPC.Center);
+							}
+							if(NPC.ai[1] > 55f) 
+							{
+								NPC.position = nextPodiumLocation;
+							}
+							if(NPC.ai[1] > 85f)
+							{
+								NPC.ai[1] = -1f;
+								NPC.ai[0] = 5;
+							}
 						}
 					}
 				}
@@ -351,8 +363,12 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if((int)NPC.ai[1]%swordTiming == 0)
 					{
 						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), Color.Gold);
-						SoundEngine.PlaySound(SoundID.Item1,NPC.Center);
-						Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
+						SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f },NPC.Center);
+						Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
+						if (NPC.localAI[0] > 0f)
+						{
+							attackProj.localAI[0] = 1f;
+						}
 					}
 				} else if(NPC.ai[1] < 316f)
 				{
@@ -369,7 +385,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					NPC.NPCDialogue(this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple);
 					SoundEngine.PlaySound(SoundID.Item5,NPC.Center);
-					Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusArrowStorm>(),30,0f,-1,0f,Main.player[NPC.target].Center.X,Main.player[NPC.target].Center.Y - 600f);
+					Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusArrowStorm>(),30,0f,-1,0f,Main.player[NPC.target].Center.X,Main.player[NPC.target].Center.Y - 600f);
+					if (NPC.localAI[0] > 0f)
+					{
+						attackProj.localAI[0] = 1f;
+					}
 					NPC.ai[1] = 22f;
 				} else if(NPC.ai[1] > 50f)
 				{
