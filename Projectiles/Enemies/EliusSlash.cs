@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 				var updates = (float)Main.GameUpdateCount;
 				Rectangle area = new Rectangle((int)Projectile.Center.X,(int)Projectile.Center.Y,1,1);
 				updates += Projectile.numUpdates;
-				float waveVal = 25f*(MathF.Abs(MathF.Abs(((updates+110)/2f)%10)-5f)-2.5f);
+				float waveVal = 15f*(MathF.Abs(MathF.Abs((updates+110)%10)-5f)-2.5f);
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
 				spawnedDust.noGravity = true;
