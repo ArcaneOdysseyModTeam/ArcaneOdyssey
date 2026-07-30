@@ -362,7 +362,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					int swordTiming = NPC.localAI[0]<1f ? 60 : 40;
 					if((int)NPC.ai[1]%swordTiming == 0)
 					{
-						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), Color.Gold);
+						NPC.NPCDialogue(this.GetLocalizedValue("FlyingSlashMessage"), NPC.localAI[0]<1f ? Color.Gold : Color.Purple);
 						SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f },NPC.Center);
 						Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),30,1f,-1);
 						if (NPC.localAI[0] > 0f)
