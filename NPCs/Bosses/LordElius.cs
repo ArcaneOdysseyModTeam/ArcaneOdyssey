@@ -262,6 +262,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						if(NPC.localAI[0] > 0f)
 						{
 							Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusExplosion>(),30,1f,-1);
+							SoundEngine.PlaySound(SoundID.Thunder,NPC.Center);
 						}
 						CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
 						Gore.NewGorePerfect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*5f,-1f),ModContent.GoreType<EmptyHealthPotion>(),1f);
