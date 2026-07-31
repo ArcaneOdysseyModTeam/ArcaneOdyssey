@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
@@ -13,15 +12,11 @@ using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdysseyMusic.MusicBoxes;
 using CalamityMod;
 using FargosMod = Fargowiltas.Fargowiltas;
-using MagicStorage.CrossMod;
-using MagicStorage.Sorting;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 using CalamityCalls = CalamityMod.ModCalls;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
-using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
-using ArcaneOdyssey.Items.Base;
 
 namespace ArcaneOdyssey
 {

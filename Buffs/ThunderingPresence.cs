@@ -1,7 +1,4 @@
-﻿using ArcaneOdyssey.Buffs.Base;
-using ArcaneOdyssey;
-using Terraria.ModLoader;
-using ArcaneOdyssey.NPCs.Bosses;
+﻿using ArcaneOdyssey.NPCs.Bosses;
 
 namespace ArcaneOdyssey.Buffs
 {

@@ -7,13 +7,11 @@ using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdysseyMusic;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using ArcaneOdyssey.Projectiles.Enemies;
 using ArcaneOdyssey.Gores;
 using Terraria.Audio;
-using System.IO;
+using ArcaneOdyssey.Projectiles.Enemies.Elius;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -37,19 +35,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
-			bestiaryEntry.Info.AddRange([
-				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
-			]);
-		}
-
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			base.SendExtraAI(writer);
-		}
-
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			base.ReceiveExtraAI(reader);
+			bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}"));
 		}
 
 		public override void SetDefaults()
@@ -85,7 +71,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void AI()
 		{
-			if(NPC.life < NPC.lifeMax/2)
+			if (NPC.life < NPC.lifeMax / 2)
 			{
 				if(NPC.localAI[0] < 1f)
 				{
@@ -108,12 +94,26 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.NPCDialogue(this.GetLocalizedValue("DoomMessage"), Color.MediumPurple);
 					sentMessage = true;
 				}
-				if (spareTimer-- <= 0)
+				if (!Main.dedServ)
 				{
-					Main.NewText(this.GetLocalizedValue("Spared"), SpiritEnergy.Instance.Colour);
-					NPC.active = false;
-					NPC.netUpdate = true;
-					NPC.NPCLoot();
+					if (spareTimer-- <= 0)
+					{
+						Main.NewText(this.GetLocalizedValue("Spared"), SpiritEnergy.Instance.Colour);
+						NPC.active = false;
+						if (Main.netMode == NetmodeID.SinglePlayer)
+						{
+							NPC.netUpdate = true;
+							NPC.NPCLoot();
+						}
+						else
+						{
+							var packet = Mod.GetPacket();
+							packet.Write(ArcaneOdysseyMod.PacketID.EliusSpare);
+							packet.Write(true);
+							packet.Write(NPC.whoAmI);
+							packet.Send();
+						}
+					}
 				}
 				return;
 			}
@@ -158,7 +158,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
 			NPC.TargetClosest();
-			if(NPC.localAI[0] > 0f && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0 && (Main.expertMode||Main.masterMode))))
+			if (NPC.localAI[0] > 0f && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0 && (Main.expertMode || Main.masterMode))))
 			{
 				Projectile.NewProjectile(NPC.GetSource_FromThis(),Main.player[NPC.target].Center,Vector2.Zero,ModContent.ProjectileType<EliusPlacedExplosion>(),0,0f,-1);
 			}
@@ -167,7 +167,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
 			if (NPC.ai[0] == -1) //Spawn In
 			{
-				if(NPC.ai[1] > 120f)
+				if (NPC.ai[1] > 120f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
@@ -176,36 +176,38 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 0)
 			{
-				if(NPC.ai[1] > 120f)
+				if (NPC.ai[1] > 120f)
 				{
 
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
 				}
 			}
-			else if(NPC.ai[0] == 1) //Hop move
+			else if (NPC.ai[0] == 1) //Hop move
 			{
-				if(NPC.ai[1] < 2f) //Choose the podium
+				if (NPC.ai[1] < 2f) //Choose the podium
 				{
 					tempPodiumID = NPC.ai[3];
-					while(tempPodiumID == NPC.ai[3]) 
+					while (tempPodiumID == NPC.ai[3])
 					{
 						NPC.ai[3] = (float)Main.rand.Next(5);
 					}
 					NPC.ai[1] = 2f;
 					previousPodiumLocation = NPC.position;
-					nextPodiumLocation = spawnLocation+podiumPos[(int)NPC.ai[3]];
-				} else //prevent skipping to the next parts
+					nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
+				}
+				else //prevent skipping to the next parts
 				{
-					if(NPC.localAI[0] < 1f)
+					if (NPC.localAI[0] < 1f)
 					{
-						if(NPC.ai[1] < 20f) //Rise
+						if (NPC.ai[1] < 20f) //Rise
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							NPC.position.Y-= 3f;
-						} else if(NPC.ai[1] <52f) //Dash
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+							NPC.position.Y -= 3f;
+						}
+						else if (NPC.ai[1] < 52f) //Dash
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
 						}
 						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
@@ -218,34 +220,35 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.ai[1] = -1f;
 							NPC.ai[1] = -1f;
 							NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
-							NPC.ai[2]+=1f; //increment heal cooldown
-							if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+							NPC.ai[2] += 1f; //increment heal cooldown
+							if (NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax - 100) //override to heal if cooldown is expended and hp is low enough
 							{
 								NPC.ai[0] = 3f;
 							}
 						}
-					} else //phase 2
+					}
+					else //phase 2
 					{
-						if(NPC.ai[1] < 50f)
+						if (NPC.ai[1] < 50f)
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							Dust.NewDustDirect(nextPodiumLocation+new Vector2(-10f,35f),50,3,DustID.WitherLightning,0f,-0.1f).noGravity = true;
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+							Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
 						}
 						if (NPC.ai[1] >= 50f) //Break out of this ai cycle
 						{
-							if(NPC.ai[1] == 50f)
+							if (NPC.ai[1] == 50f)
 							{
-								Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusTrail>(),0,0f,-1,nextPodiumLocation.X+10f,nextPodiumLocation.Y+21f);
-								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f },NPC.Center);
+								Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, nextPodiumLocation.X + 10f, nextPodiumLocation.Y + 21f);
+								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 							}
-							if(NPC.ai[1] > 55f)
+							if (NPC.ai[1] > 55f)
 							{
 								NPC.position = nextPodiumLocation;
 								NPC.ai[1] = -1f;
 								NPC.ai[1] = -1f;
 								NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
-								NPC.ai[2]+=1f; //increment heal cooldown
-								if(NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax-100) //override to heal if cooldown is expended and hp is low enough
+								NPC.ai[2] += 1f; //increment heal cooldown
+								if (NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax - 100) //override to heal if cooldown is expended and hp is low enough
 								{
 									NPC.ai[0] = 3f;
 								}
@@ -253,80 +256,86 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					}
 				}
-			} 
-			else if(NPC.ai[0] == 2) //spear throw
+			}
+			else if (NPC.ai[0] == 2) //spear throw
 			{
-				if(NPC.ai[1] < 40f)
+				if (NPC.ai[1] < 40f)
 				{
 					//charge vfx goes here
-				} else if (NPC.ai[1] < 42f)
+				}
+				else if (NPC.ai[1] < 42f)
 				{
 					NPC.ai[1] = 42f;
-					SoundEngine.PlaySound(SoundID.Item1,NPC.Center);
-					Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize()*15f,ModContent.ProjectileType<EliusSpear>(),15,1f,-1);
+					SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
+					Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize() * 15f, ModContent.ProjectileType<EliusSpear>(), 15, 1f, -1);
 					if (NPC.localAI[0] > 0f)
 					{
 						attackProj.localAI[0] = 1f;
 					}
-				} else if (NPC.ai[1] > 70f)
+				}
+				else if (NPC.ai[1] > 70f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
 				}
-			} 
+			}
 			else if (NPC.ai[0] == 3) //healing
 			{
-				if(NPC.ai[1] > 30f)
+				if (NPC.ai[1] > 30f)
 				{
-					if (NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || NPC.localAI[0] > 0f) {
+					if (NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || NPC.localAI[0] > 0f)
+					{
 						NPC.ai[2] = 0f;
-						hptoheal = (int)(Main.rand.Next(150)+50);
+						hptoheal = (int)(Main.rand.Next(150) + 50);
 						NPC.life += hptoheal;
-						if(NPC.localAI[0] > 0f)
+						if (NPC.localAI[0] > 0f)
 						{
-							Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center+new Vector2(0,-1000),Vector2.Zero,ModContent.ProjectileType<EliusTrail>(),0,0f,-1,NPC.Center.X,NPC.Center.Y);
-							Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusExplosion>(),30,1f,-1);
-							SoundEngine.PlaySound(SoundID.Thunder,NPC.Center);
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + new Vector2(0, -1000), Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y);
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusExplosion>(), 30, 1f, -1);
+							SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
 						}
-						CombatText.NewText(new Rectangle((int)NPC.position.X,(int)NPC.position.Y,0,0),CombatText.HealLife,hptoheal,false,false);
-						Gore.NewGorePerfect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*5f,-1f),ModContent.GoreType<EmptyHealthPotion>(),1f);
-						SoundEngine.PlaySound(SoundID.Item3,NPC.Center);
+						CombatText.NewText(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, 0, 0), CombatText.HealLife, hptoheal, false, false);
+						Gore.NewGorePerfect(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 1f);
+						SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
 						NPC.ai[1] = -1f;
 						NPC.ai[0] = 0;
-						if(NPC.life > NPC.lifeMax)
+						if (NPC.life > NPC.lifeMax)
 						{
 							NPC.life = NPC.lifeMax;
 						}
-						} else
-						{
-							NPC.ai[1] = -1f;
-							NPC.ai[0] = 1;
-						}
+					}
+					else
+					{
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 1;
+					}
 				}
-			} 
-			else if(NPC.ai[0] == 4) //Hop move into sword move
+			}
+			else if (NPC.ai[0] == 4) //Hop move into sword move
 			{
-				if(NPC.ai[1] < 2f) //Choose the podium
+				if (NPC.ai[1] < 2f) //Choose the podium
 				{
 					tempPodiumID = NPC.ai[3];
-					while(tempPodiumID == NPC.ai[3]) 
+					while (tempPodiumID == NPC.ai[3])
 					{
 						NPC.ai[3] = dashSelectArray[Main.rand.Next(2)];
 					}
 					NPC.ai[1] = 2f;
 					previousPodiumLocation = NPC.position;
-					nextPodiumLocation = spawnLocation+podiumPos[(int)NPC.ai[3]];
-				} else //prevent skipping to the next parts
+					nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
+				}
+				else //prevent skipping to the next parts
 				{
-					if(NPC.localAI[0] < 1f)
+					if (NPC.localAI[0] < 1f)
 					{
-						if(NPC.ai[1] < 20f) //Rise
+						if (NPC.ai[1] < 20f) //Rise
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							NPC.position.Y-= 3f;
-						} else if(NPC.ai[1] <52f) //Dash
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+							NPC.position.Y -= 3f;
+						}
+						else if (NPC.ai[1] < 52f) //Dash
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
 						}
 						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
@@ -339,25 +348,26 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.ai[1] = -1f;
 							NPC.ai[0] = 5;
 						}
-					} else // Second Phase
+					}
+					else // Second Phase
 					{
-						if(NPC.ai[1] < 50f)
+						if (NPC.ai[1] < 50f)
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X? 1 : -1;
-							Dust.NewDustDirect(nextPodiumLocation+new Vector2(-10f,35f),50,3,DustID.WitherLightning,0f,-0.1f).noGravity = true;
+							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+							Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
 						}
 						if (NPC.ai[1] >= 50f) //Break out of this ai cycle
 						{
-							if(NPC.ai[1] == 50f)
+							if (NPC.ai[1] == 50f)
 							{
-								Projectile.NewProjectile(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusTrail>(),0,0f,-1,nextPodiumLocation.X+10f,nextPodiumLocation.Y+21f);
-								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f },NPC.Center);
+								Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, nextPodiumLocation.X + 10f, nextPodiumLocation.Y + 21f);
+								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 							}
-							if(NPC.ai[1] > 55f) 
+							if (NPC.ai[1] > 55f)
 							{
 								NPC.position = nextPodiumLocation;
 							}
-							if(NPC.ai[1] > 85f)
+							if (NPC.ai[1] > 85f)
 							{
 								NPC.ai[1] = -1f;
 								NPC.ai[0] = 5;
@@ -365,47 +375,51 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					}
 				}
-			} 
-			else if(NPC.ai[0] == 5) //sword move
+			}
+			else if (NPC.ai[0] == 5) //sword move
 			{
-				if(NPC.ai[1] < 16f)
+				if (NPC.ai[1] < 16f)
 				{
-					NPC.position.Y += 128f/15f;
-				} else if(NPC.ai[1] < 300f)
+					NPC.position.Y += 128f / 15f;
+				}
+				else if (NPC.ai[1] < 300f)
 				{
-					int swordTiming = NPC.localAI[0]<1f ? 60 : 40;
-					if((int)NPC.ai[1]%swordTiming == 0)
+					int swordTiming = NPC.localAI[0] < 1f ? 60 : 40;
+					if ((int)NPC.ai[1] % swordTiming == 0)
 					{
-						NPC.NPCDialogue(NPC.localAI[0]<1f ? "" : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("FlyingSlashMessage"), NPC.localAI[0]<1f ? Color.Gold : Color.MediumPurple);
-						SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f },NPC.Center);
-						Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,new Vector2(NPC.spriteDirection*20f,0f),ModContent.ProjectileType<EliusSlash>(),16,1f,-1);
+						NPC.NPCDialogue(NPC.localAI[0] < 1f ? "" : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("FlyingSlashMessage"), NPC.localAI[0] < 1f ? Color.Gold : Color.MediumPurple);
+						SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f }, NPC.Center);
+						Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.spriteDirection * 20f, 0f), ModContent.ProjectileType<EliusSlash>(), 16, 1f, -1);
 						if (NPC.localAI[0] > 0f)
 						{
 							attackProj.localAI[0] = 1f;
 						}
 					}
-				} else if(NPC.ai[1] < 316f)
+				}
+				else if (NPC.ai[1] < 316f)
 				{
-					NPC.position.Y -= 128f/15f;
-				} else if(NPC.ai[1] > 360f)
+					NPC.position.Y -= 128f / 15f;
+				}
+				else if (NPC.ai[1] > 360f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
 				}
-			} 
-			else if(NPC.ai[0] == 6) //storm of arrows
+			}
+			else if (NPC.ai[0] == 6)  //storm of arrows
 			{
-				if(NPC.ai[1] > 20f && NPC.ai[1] < 22f)
+				if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)
 				{
-					NPC.NPCDialogue(NPC.localAI[0]<1f ? "" : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple);
-					SoundEngine.PlaySound(SoundID.Item5,NPC.Center);
-					Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),NPC.Center,Vector2.Zero,ModContent.ProjectileType<EliusArrowStorm>(),20,0f,-1,0f,Main.player[NPC.target].Center.X,Main.player[NPC.target].Center.Y - 600f);
+					NPC.NPCDialogue(NPC.localAI[0] < 1f ? "" : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple);
+					SoundEngine.PlaySound(SoundID.Item5, NPC.Center);
+					Projectile attackProj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), 20, 0f, -1, 0f, Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f);
 					if (NPC.localAI[0] > 0f)
 					{
-						attackProj.localAI[0] = 1f;
+						attackProj.ai[0] = 1f;
 					}
 					NPC.ai[1] = 22f;
-				} else if(NPC.ai[1] > 50f)
+				}
+				else if (NPC.ai[1] > 50f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
@@ -440,6 +454,22 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			Main.windSpeedTarget = -.1f;
 			DownedBosses.DownedElius = true;
+			var hitbox = NPC.Hitbox;
+			if (!EliusSpareSystem.spared) // kill
+			{
+				// gore goes here
+				for (int n = 0; n < 17; n++)
+				{
+					Dust.NewDust(hitbox.Center(), 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
+				}
+			}
+			else
+			{
+				for (int n = 0; n < 17; n++)
+				{
+					Dust.NewDust(hitbox.Center(), 0, 0, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
+				}
+			}
 		}
 
 

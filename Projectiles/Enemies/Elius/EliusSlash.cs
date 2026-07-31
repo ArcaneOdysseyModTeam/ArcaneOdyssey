@@ -1,11 +1,10 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Relics;
-using Terraria.Audio;
 using System;
+using System.IO;
 
-namespace ArcaneOdyssey.Projectiles.Enemies
+namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
 	public class EliusSlash : BaseProjectile
 	{
@@ -31,10 +30,10 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Color.Gold;
+			lightColor = Color.Gold.MultiplyRGB(lightColor);
 			if(Projectile.localAI[0] > 0f)
 			{
-				lightColor = Color.Plum;
+				lightColor = Color.Plum.MultiplyRGB(lightColor);
 			}
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
@@ -44,6 +43,24 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			}
 			return false;
 		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(Projectile.localAI[0]);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			Projectile.localAI[0] = reader.ReadSingle();
+		}
+
+		public Imbuable Imbue => Projectile.localAI[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
+
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+		}
+
 		public override void AI()
 		{
 			base.AI();

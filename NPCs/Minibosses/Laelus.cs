@@ -3,7 +3,6 @@ using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Projectiles.Enemies;
-using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 
@@ -18,14 +17,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public override int WalkingSpriteCount => 15;
 		public const int MeleeIndex = 15, RangedIndex = 25;
-
-		public override void SetStaticDefaults()
-		{
-			Main.npcFrameCount[Type] = 38;
-			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-			ExternalModSupport.DeclareMiniboss(Type);
-		}
+		public override int AttackingSpriteCount => 23;
 
 		public override void SetDefaults()
 		{

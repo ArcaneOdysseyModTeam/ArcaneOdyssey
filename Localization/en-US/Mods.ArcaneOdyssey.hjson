@@ -172,6 +172,15 @@ Projectiles: {
 		EliusExplosion.DisplayName: Lightning Strike
 		EliusTrail.DisplayName: Elius Trail
 		EliusPlacedExplosion.DisplayName: Elius Placed Explosion
+
+		Elius: {
+			EliusArrowStorm.DisplayName: Elius Arrow Storm
+			EliusExplosion.DisplayName: Elius Explosion
+			EliusPlacedExplosion.DisplayName: Elius Placed Explosion
+			EliusSlash.DisplayName: Elius Slash
+			EliusSpear.DisplayName: Elius Spear
+			EliusTrail.DisplayName: Elius Trail
+		}
 	}
 
 	Pets: {

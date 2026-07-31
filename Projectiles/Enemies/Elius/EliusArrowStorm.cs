@@ -1,11 +1,10 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Relics;
-using Terraria.Audio;
 using System;
+using System.IO;
 
-namespace ArcaneOdyssey.Projectiles.Enemies
+namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
 	public class EliusArrowStorm : BaseProjectile
 	{
@@ -26,31 +25,51 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			ProjectileID.Sets.TrailingMode[Type] = 0;
 			ProjectileID.Sets.TrailCacheLength[Type] = 3;
 		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(Projectile.localAI[0]);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			Projectile.localAI[0] = reader.ReadSingle();
+		}
+
+		public Imbuable Imbue => Projectile.localAI[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
+
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+		}
+
 		public override void AI()
 		{
-			if(Projectile.ai[0] == 0)
+			if (Projectile.ai[0] == 0)
 			{
-				Projectile.velocity = Projectile.Center.DirectionTo(new Vector2(Projectile.ai[1],Projectile.ai[2])).SafeNormalize() * 20f;
-				if(Projectile.Center.Distance(new Vector2(Projectile.ai[1],Projectile.ai[2])) < 25f)
+				Projectile.velocity = Projectile.Center.DirectionTo(new Vector2(Projectile.ai[1], Projectile.ai[2])).SafeNormalize() * 20f;
+				if (Projectile.Center.Distance(new Vector2(Projectile.ai[1], Projectile.ai[2])) < 25f)
 				{
 					Projectile.Center = new Vector2(Projectile.ai[1],Projectile.ai[2]);
-					for(int i = -5;i<=5;i++) {
-						Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(),Projectile.position,new Vector2(i*3f,0f),ModContent.ProjectileType<EliusArrowStorm>(),Projectile.damage,0f,-1,1f).localAI[0] = Projectile.localAI[0];
+					for (int i = -5; i <= 5; i++)
+					{
+						Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(i * 3f, 0f), ModContent.ProjectileType<EliusArrowStorm>(), Projectile.damage, 0f, -1, 1f).localAI[0] = Projectile.localAI[0];
 					}
 					Projectile.Kill();
 				}
-			} else
+			}
+			else
 			{
 				Projectile.velocity.Y += 0.4f;
 				Projectile.velocity *= 0.98f;
 			}
 			Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.PiOver2;
-			if(Projectile.localAI[0] > 0f)
+			if (Projectile.localAI[0] > 0f)
 			{
 				var updates = (float)Main.GameUpdateCount;
-				Rectangle area = new Rectangle((int)Projectile.Center.X,(int)Projectile.Center.Y,1,1);
+				Rectangle area = new Rectangle((int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 1);
 				updates += Projectile.numUpdates;
-				float waveVal = 4f*(MathF.Abs(MathF.Abs(((updates+110))%10)-5f)-2.5f);
+				float waveVal = 4f * (MathF.Abs(MathF.Abs(((updates + 110)) % 10) - 5f) - 2.5f);
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
 				spawnedDust.noGravity = true;

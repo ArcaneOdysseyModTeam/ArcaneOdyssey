@@ -3,7 +3,6 @@ using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using Terraria.Audio;
 using Terraria.UI;
-using static MagicStorage.UI.UISlotZone;
 
 namespace ArcaneOdyssey.UI.ImbueChange;
 

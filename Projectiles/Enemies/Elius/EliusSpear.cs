@@ -1,12 +1,11 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
-using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Relics;
-using Terraria.Audio;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+using ArcaneOdyssey.Projectiles.Base;
 using System;
+using System.IO;
 
-namespace ArcaneOdyssey.Projectiles.Enemies
+namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
 	public class EliusSpear : BaseProjectile
 	{
@@ -54,6 +53,23 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (k * .01f), SpriteEffects.None, 0);
 			}
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(Projectile.localAI[0]);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			Projectile.localAI[0] = reader.ReadSingle();
+		}
+
+		public Imbuable Imbue => Projectile.localAI[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
+
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
 		}
 	}
 }

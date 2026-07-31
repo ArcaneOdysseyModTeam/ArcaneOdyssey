@@ -1,11 +1,7 @@
-﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
-using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Relics;
-using Terraria.Audio;
+﻿using ArcaneOdyssey.Projectiles.Base;
 using System;
 
-namespace ArcaneOdyssey.Projectiles.Enemies
+namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
 	public class EliusTrail : BaseProjectile
 	{

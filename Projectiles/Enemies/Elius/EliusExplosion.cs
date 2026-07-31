@@ -1,11 +1,8 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Relics;
-using Terraria.Audio;
-using Terraria.DataStructures;
 
-namespace ArcaneOdyssey.Projectiles.Enemies
+namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
 	public class EliusExplosion : BaseProjectile
 	{
@@ -28,6 +25,13 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			{
 				Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, Scale: 1.2f).noGravity = true;
 			}
+		}
+
+		public Imbuable Imbue => ModContent.GetInstance<LightningMagic>();
+
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
 		}
 	}
 }
