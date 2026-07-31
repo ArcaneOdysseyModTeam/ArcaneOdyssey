@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		public override void OnKill(int timeLeft)
 		{
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center+new Vector2(0,-1000),Vector2.Zero,ModContent.ProjectileType<EliusTrail>(),0,0f,-1,Projectile.Center.X,Projectile.Center.Y);
-			Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center,Vector2.Zero,ModContent.ProjectileType<EliusExplosion>(),50,1f,-1);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center,Vector2.Zero,ModContent.ProjectileType<EliusExplosion>(),50,8f,-1);
 			SoundEngine.PlaySound(SoundID.Thunder,Projectile.Center);
 			base.OnKill(timeLeft);
 		}
