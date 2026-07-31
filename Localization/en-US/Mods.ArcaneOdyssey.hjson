@@ -171,6 +171,7 @@ Projectiles: {
 		EliusArrowStorm.DisplayName: Bronze Arrow
 		EliusExplosion.DisplayName: Elius Explosion
 		EliusTrail.DisplayName: Elius Trail
+		EliusPlacedExplosion.DisplayName: Elius Placed Explosion
 	}
 
 	Pets: {
