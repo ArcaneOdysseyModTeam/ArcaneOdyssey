@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Items.Accessories
 			{
 				if (Main.rand.NextBool(5 * 60))
 				{
-					Projectile.NewProjectile(player.GetSource_Accessory(Item), new Vector2(Main.screenPosition.X + Main.rand.NextFloat(Main.screenWidth), Main.screenPosition.Y - 16), Vector2.UnitY, ModContent.ProjectileType<ThunderingEffect>(), Main.rand.Next(20, 50), 0f, player.whoAmI);
+					Projectile.NewProjectile(player.GetSource_Accessory(Item), new Vector2(Main.screenPosition.X + Main.rand.NextFloat(Main.screenWidth), Main.screenPosition.Y - 16), Vector2.UnitY * 7f, ModContent.ProjectileType<ThunderingEffect>(), Main.rand.Next(20, 50), 0f, player.whoAmI);
 				}
 			}
 		}

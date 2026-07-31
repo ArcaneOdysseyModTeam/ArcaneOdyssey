@@ -30,10 +30,13 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Color.Gold.MultiplyRGB(lightColor);
-			if(Projectile.localAI[0] > 0f)
+			if (Projectile.ai[0] > 0f)
 			{
 				lightColor = Color.Plum.MultiplyRGB(lightColor);
+			}
+			else
+			{
+				lightColor = Color.Gold.MultiplyRGB(lightColor);
 			}
 			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 			{
@@ -44,17 +47,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			return false;
 		}
 
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			writer.Write(Projectile.localAI[0]);
-		}
-
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			Projectile.localAI[0] = reader.ReadSingle();
-		}
-
-		public Imbuable Imbue => Projectile.localAI[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
+		public Imbuable Imbue => Projectile.ai[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
@@ -65,12 +58,12 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		{
 			base.AI();
 			Projectile.rotation = Projectile.velocity.ToRotation();
-			if(Projectile.localAI[0] > 0f)
+			if (Projectile.ai[0] > 0f)
 			{
 				var updates = (float)Main.GameUpdateCount;
-				Rectangle area = new Rectangle((int)Projectile.Center.X,(int)Projectile.Center.Y,1,1);
+				Rectangle area = new Rectangle((int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 1);
 				updates += Projectile.numUpdates;
-				float waveVal = 15f*(MathF.Abs(MathF.Abs((updates+110)%10)-5f)-2.5f);
+				float waveVal = 15f * (MathF.Abs(MathF.Abs((updates + 110) % 10) - 5f) - 2.5f);
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
 				spawnedDust.noGravity = true;

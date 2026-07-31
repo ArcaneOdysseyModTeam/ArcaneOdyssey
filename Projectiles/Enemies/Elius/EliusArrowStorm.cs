@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			Projectile.hostile = true;
 			Projectile.friendly = false;
 			Projectile.penetrate = -1;
-			Projectile.height = Projectile.width = 30;
+			Projectile.height = Projectile.width = 2;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 		}
@@ -26,17 +26,19 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			ProjectileID.Sets.TrailCacheLength[Type] = 3;
 		}
 
+		internal bool secondphase = false;
+
 		public override void SendExtraAI(BinaryWriter writer)
 		{
-			writer.Write(Projectile.localAI[0]);
+			writer.Write(secondphase);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Projectile.localAI[0] = reader.ReadSingle();
+			secondphase = reader.ReadBoolean();
 		}
 
-		public Imbuable Imbue => Projectile.localAI[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
+		public Imbuable Imbue => secondphase ? ModContent.GetInstance<LightningMagic>() : null;
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
@@ -50,12 +52,15 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 				Projectile.velocity = Projectile.Center.DirectionTo(new Vector2(Projectile.ai[1], Projectile.ai[2])).SafeNormalize() * 20f;
 				if (Projectile.Center.Distance(new Vector2(Projectile.ai[1], Projectile.ai[2])) < 25f)
 				{
-					Projectile.Center = new Vector2(Projectile.ai[1],Projectile.ai[2]);
-					for (int i = -5; i <= 5; i++)
+					Projectile.Center = new Vector2(Projectile.ai[1], Projectile.ai[2]);
+					if (AOUtils.ServerOrSingleplayer)
 					{
-						Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(i * 3f, 0f), ModContent.ProjectileType<EliusArrowStorm>(), Projectile.damage, 0f, -1, 1f).localAI[0] = Projectile.localAI[0];
+						for (int i = -5; i <= 5; i++)
+						{
+							(Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(i * 3f, 0f), ModContent.ProjectileType<EliusArrowStorm>(), Projectile.damage, 0f, Projectile.owner, 1f).ModProjectile as EliusArrowStorm).secondphase = secondphase;
+						}
+						Projectile.Kill();
 					}
-					Projectile.Kill();
 				}
 			}
 			else
@@ -64,7 +69,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 				Projectile.velocity *= 0.98f;
 			}
 			Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.PiOver2;
-			if (Projectile.localAI[0] > 0f)
+			if (secondphase)
 			{
 				var updates = (float)Main.GameUpdateCount;
 				Rectangle area = new Rectangle((int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 1);

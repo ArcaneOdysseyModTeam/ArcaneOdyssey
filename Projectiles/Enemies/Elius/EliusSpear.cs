@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		public override void AI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-			if(Projectile.localAI[0] > 0f)
+			if(Projectile.ai[0] > 0f)
 			{
 				var updates = (float)Main.GameUpdateCount;
 				Rectangle area = new Rectangle((int)Projectile.Center.X,(int)Projectile.Center.Y,1,1);
@@ -55,17 +55,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			return false;
 		}
 
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			writer.Write(Projectile.localAI[0]);
-		}
-
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			Projectile.localAI[0] = reader.ReadSingle();
-		}
-
-		public Imbuable Imbue => Projectile.localAI[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
+		public Imbuable Imbue => Projectile.ai[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{

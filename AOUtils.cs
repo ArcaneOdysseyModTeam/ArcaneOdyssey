@@ -836,9 +836,12 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public static string TerrariaItemTexture(short ID) => $"Terraria/Images/Item_{ID}";
 
-		public static void NPCDialogue(this NPC npc, string message, Color? colour = null)
+		public static void NPCDialogue(this NPC npc, string message, Color? colour = null, bool spamchat = true)
 		{
-			Main.NewText(message, colour);
+			if (spamchat)
+			{
+				Main.NewText(message, colour);
+			}
 			CombatText.NewText(npc.Hitbox, colour.GetValueOrDefault(Color.White), message, true);
 		}
 
