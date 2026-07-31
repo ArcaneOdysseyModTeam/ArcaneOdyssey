@@ -93,7 +93,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!secondphase)
 				{
-					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Color.MediumPurple);
+					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Color.MediumPurple,true);
 				}
 				secondphase = true;
 			}
