@@ -174,11 +174,11 @@ Projectiles: {
 		EliusPlacedExplosion.DisplayName: Elius Placed Explosion
 
 		Elius: {
-			EliusArrowStorm.DisplayName: Elius Arrow Storm
-			EliusExplosion.DisplayName: Elius Explosion
+			EliusArrowStorm.DisplayName: Storm of Arrows
+			EliusExplosion.DisplayName: Lightning Strike
 			EliusPlacedExplosion.DisplayName: Elius Placed Explosion
-			EliusSlash.DisplayName: Elius Slash
-			EliusSpear.DisplayName: Elius Spear
+			EliusSlash.DisplayName: Flying Slash
+			EliusSpear.DisplayName: Noble Thunderspear
 			EliusTrail.DisplayName: Elius Trail
 		}
 	}
