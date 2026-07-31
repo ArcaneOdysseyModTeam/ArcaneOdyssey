@@ -182,7 +182,7 @@ namespace ArcaneOdyssey.AOPlayers
 			if (Player.InModBiome<EliusArena>())
 			{
 				if (AOUtils.NPCAlive<LordElius>())
-					Player.AddBuff(ModContent.BuffType<ThunderingPresence>(), 2);
+					Player.AddBuff(ModContent.BuffType<ThunderingPresence>(), 999999999);
 				if (AOUtils.ServerOrSingleplayer)
 				{
 					if (NPC.downedBoss1)
