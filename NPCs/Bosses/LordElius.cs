@@ -284,11 +284,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 2) //spear throw
 			{
-				if (NPC.ai[1] < 40f)
-				{
-					//charge vfx goes here
-				}
-				else if (NPC.ai[1] < 42f)
+				if (NPC.ai[1] >= 40f && NPC.ai[1] < 42f)
 				{
 					NPC.ai[1] = 42f;
 					SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
