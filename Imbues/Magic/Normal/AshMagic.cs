@@ -23,8 +23,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(235, 40, 0, 0);
-		
-		
+
+		public override float DashSpeed => 1.2f; // burst
 		
 		public override float ScrollSpeed => 0.95f;
 		public override float ScrollSize => 1.25f;
