@@ -89,7 +89,7 @@ DebuffDummy.DisplayName: Debuff Dummy
 
 Bosses: {
 	LordElius: {
-		SpawnInfo: Spawns in the Djin Ruins after defeating the Eye of Cthulhu. After being defeated, he only respawns in the rain.
+		SpawnInfo: Spawns in the Djin Ruins after defeating the Eye of Cthulhu. After being defeated, he only respawns during rain in the Djin Ruins.
 		DisplayName: Lord Elius
 		SpawnMessage: What are you, some sort of rat?
 		StormOfArrowsMessage: Storm of Arrows!
