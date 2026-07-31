@@ -163,10 +163,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.ai[3] = 2f;
 				secondphase = false;
 			}
-			else if (!NPC.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
-			{
-				NPC.position = spawnLocation;
-			}
 
 			
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
