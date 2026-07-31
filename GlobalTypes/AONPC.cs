@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Armour.Vanity;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Armour.Vanity;
 using ArcaneOdyssey.Items.Blocks;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Materials;
@@ -49,6 +50,14 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public bool AOStunned = false;
 		#endregion
+
+		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+		{
+			if (player.InModBiome<EliusArena>())
+			{
+				maxSpawns = 0;
+			}
+		}
 
 		public override bool PreAI(NPC npc)
 		{

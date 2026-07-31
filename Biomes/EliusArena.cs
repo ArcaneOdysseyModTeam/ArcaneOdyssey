@@ -42,12 +42,12 @@ namespace ArcaneOdyssey.Biomes
 			{
 				eliusArena = tag.GetIntArray("eliusarena").FromIntArray();
 				if (eliusArena == default && ExternalModSupport.NotInSubworld)
-					ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
+					ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added, his arena has not generated.");
 			}
 			else
 			{
 				if (ExternalModSupport.NotInSubworld)
-					ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added. His arena has not generated. You cannot fight him.");
+					ArcaneOdysseyMod.NoticeQueue.Add("This world was created before Lord Elius was added, his arena has not generated.");
 			}
 		}
 

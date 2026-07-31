@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Gores;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.BossBags;
@@ -6,13 +7,12 @@ using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+using ArcaneOdyssey.Projectiles.Enemies.Elius;
 using ArcaneOdysseyMusic;
+using System.IO;
+using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using ArcaneOdyssey.Gores;
-using Terraria.Audio;
-using ArcaneOdyssey.Projectiles.Enemies.Elius;
-using System.IO;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -22,13 +22,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private int hptoheal;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
-		private float[] dashSelectArray = { 0f, 4f };
-		private float[] moveSelectArrayOne = { 1f, 4f, 1f, 1f };
-		private float[] moveSelectArrayTwo = { 2f, 2f, 6f };
+		private readonly float[] dashSelectArray = { 0f, 4f };
+		private readonly float[] moveSelectArrayOne = { 1f, 4f, 1f, 1f };
+		private readonly float[] moveSelectArrayTwo = { 2f, 2f, 6f };
 		private readonly Vector2[] podiumPos = [new(-665f, 16f), new(-320f, 0f), new(0f, 0f), new(366f, 0f), new(686f, 16f)];
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 1;
+			Main.npcFrameCount[NPC.type] = 10;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -165,7 +165,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				secondphase = false;
 			}
 
-			
+
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
 			NPC.TargetClosest();
 			if (secondphase && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0 && (Main.expertMode || Main.masterMode))))
@@ -472,7 +472,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					}
 				}
 			}
-			NPC.ai[1]+= 1f; //increment frame
+			NPC.ai[1] += 1f; //increment frame
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -30,12 +30,12 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		public override void AI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-			if(Projectile.ai[0] > 0f)
+			if (Projectile.ai[0] > 0f)
 			{
 				var updates = (float)Main.GameUpdateCount;
-				Rectangle area = new Rectangle((int)Projectile.Center.X,(int)Projectile.Center.Y,1,1);
+				Rectangle area = new Rectangle((int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 1);
 				updates += Projectile.numUpdates;
-				float waveVal = 4f*(MathF.Abs(MathF.Abs(((updates+110))%10)-5f)-2.5f);
+				float waveVal = 4f * (MathF.Abs(MathF.Abs(((updates + 110)) % 10) - 5f) - 2.5f);
 				Vector2 baseVec = new(0f, waveVal);
 				Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
 				spawnedDust.noGravity = true;
@@ -60,6 +60,19 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
 			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+		}
+
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		{
+			var _ = 0f;
+			return Collision.CheckAABBvLineCollision(
+				targetHitbox.TopLeft(),
+				targetHitbox.Size(),
+				projHitbox.Center() + (Projectile.velocity * (projHitbox.Size().Length() / 2f)),
+				projHitbox.Center() - (Projectile.velocity * (projHitbox.Size().Length() / 2f)),
+				6f,
+				ref _
+			);
 		}
 	}
 }

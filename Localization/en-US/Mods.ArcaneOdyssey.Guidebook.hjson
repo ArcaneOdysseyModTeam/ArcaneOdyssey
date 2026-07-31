@@ -123,7 +123,7 @@ StrengthWeapons: {
 		'''
 		You have obtained a [i:426] Strength Weapon. These weapons are too heavy to be weilded by normal people, and requires a [i:ArcaneOdyssey/BasicCombat] Fighting Style.
 
-		These items also have another power, being capable of having imbues stacked on it, as well as using the scroll stats of your fighting style for greater power.
+		These items also have another power, being capable of having imbues stacked on them, as well as using the scroll stats of your fighting style for greater power.
 		'''
 }
 
@@ -190,7 +190,7 @@ ImbueStacking: {
 
 		To imbue your imbues, you must use the Cycle Item Imbue keybind on it. Most items won't be affectd by having a second imbue.
 
-		Items that can have a second imbue are [i:ArcaneOdyssey/EmptyScroll] Scrolls, as well as special item types like [i:426] Strength Weapons.
+		Only special item types like [i:426] Strength Weapons can have second imbues applied to them.
 		'''
 }
 
@@ -200,7 +200,7 @@ SpecialDashes: {
 		'''
 		Certain scrolls [i:ArcaneOdyssey/CrashScroll], usually requiring a [i:ArcaneOdyssey/BasicCombat] Fighting Style, allow the user to dash in special ways.
 
-		You can activate these special dashes by equipping the [i:ArcaneOdyssey/WalkRite] scroll, making sure it's imbued, then pressing the Special Dash Bind keybind.
+		You can activate these special dashes by apply the [i:ArcaneOdyssey/WalkRite] scroll to your imbue, making sure that imbue is selected as your primary imbue, then pressing the Special Dash Bind keybind.
 		'''
 }
 

@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
-using System.IO;
 
 namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
