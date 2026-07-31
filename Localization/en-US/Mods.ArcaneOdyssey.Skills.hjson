@@ -104,7 +104,7 @@ Attack: {
 	AxeSkill: {
 		DisplayName: Axe
 		Description: Mods.ArcaneOdyssey.Skills.Attack.AxeSkill.Description
-		Popup: Axe
+		Popup: Axe Slash
 	}
 
 	CrescendoSkill: {

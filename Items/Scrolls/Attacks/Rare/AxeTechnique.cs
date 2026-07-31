@@ -22,6 +22,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 
 		public override int Shoot => ModContent.ProjectileType<AxeTechniqueProjectile>();
 
+		public override int UseStyleID => ItemUseStyleID.Swing;
+
 		public override int Scroll => ModContent.ItemType<AxeTechnique>();
 
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)

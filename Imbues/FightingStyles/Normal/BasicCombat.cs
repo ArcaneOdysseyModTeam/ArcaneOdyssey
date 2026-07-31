@@ -62,7 +62,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 						for (var i = 0; i < combat.Skills.Length; i++)
 						{
 							var skill = combat.Skills[i];
-							if (skill.Scroll != 0)
+							if (skill?.Scroll != 0)
 							{
 								imbue.Skills[i] = skill;
 							}

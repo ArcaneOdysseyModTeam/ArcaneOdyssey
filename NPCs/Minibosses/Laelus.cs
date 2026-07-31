@@ -3,6 +3,7 @@ using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Projectiles.Enemies;
+using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 
@@ -15,9 +16,16 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<LaelusExplosion>()];
 		public override List<int> RangedProjectiles => [ModContent.ProjectileType<LaelusBlast>()];
 
-		public override int AttackingSpriteCount => 1;
-		public override int WalkingSpriteCount => 1;
+		public override int WalkingSpriteCount => 15;
+		public const int MeleeIndex = 15, RangedIndex = 25;
 
+		public override void SetStaticDefaults()
+		{
+			Main.npcFrameCount[Type] = 38;
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+			ExternalModSupport.DeclareMiniboss(Type);
+		}
 
 		public override void SetDefaults()
 		{
@@ -33,6 +41,91 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			NPC.value = Item.buyPrice(gold: 10);
 			//NPC.ai[0] state
 			//NPC.ai[1] state time
+		}
+		public override void FindFrame(int frameHeight)
+		{
+			if (NPC.HasValidTarget)
+			{
+				if (NPC.ai[0] == 0) // walking
+				{
+					if (Main.player[NPC.target].Center.Distance(NPC.Center) > 1000f)
+					{
+						NPC.frame.Y = 0;
+					}
+					else if (Main.player[NPC.target].Center.Distance(NPC.Center) <= 50f)
+					{
+						NPC.frame.Y = 0;
+					}
+					else
+					{
+						if (NPC.frameCounter > 3)
+						{
+							if (NPC.frame.Y < ((WalkingSpriteCount - 1) * frameHeight) && NPC.frame.Y >= 0)
+							{
+								NPC.frame.Y += frameHeight;
+							}
+							else
+							{
+								NPC.frame.Y = frameHeight;
+							}
+							NPC.frameCounter = 0;
+						}
+						NPC.frameCounter++;
+					}
+				}
+				else if (NPC.ai[0] == 2) // melee
+				{
+					if (NPC.frameCounter++ > 2)
+					{
+						if (NPC.frame.Y < (RangedIndex * frameHeight) && NPC.frame.Y >= (MeleeIndex * frameHeight))
+						{
+							NPC.frame.Y += frameHeight;
+						}
+						else
+						{
+							if (NPC.frame.Y < (RangedIndex * frameHeight))
+							{
+								NPC.frame.Y = MeleeIndex * frameHeight;
+							}
+							else
+							{
+								NPC.ai[0] = 0;
+								NPC.ai[1] = 0;
+								NPC.frameCounter = 0;
+							}
+						}
+						NPC.frameCounter = 0;
+					}
+				}
+				else if (NPC.ai[0] == 1) // ranged
+				{
+					if (NPC.frameCounter++ > 2)
+					{
+						if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight) && NPC.frame.Y >= (RangedIndex * frameHeight))
+						{
+							NPC.frame.Y += frameHeight;
+						}
+						else
+						{
+							if (NPC.frame.Y < ((Main.npcFrameCount[Type] - 1) * frameHeight))
+							{
+								NPC.frame.Y = RangedIndex * frameHeight;
+							}
+							else
+							{
+								NPC.ai[0] = 0;
+								NPC.ai[1] = 0;
+								NPC.frameCounter = 0;
+							}
+						}
+						NPC.frameCounter = 0;
+					}
+				}
+			}
+			else
+			{
+				NPC.frame.Y = 0;
+			}
 		}
 
 		public override bool Downed { get => DownedBosses.DownedLaelus; set => DownedBosses.DownedLaelus = value; }

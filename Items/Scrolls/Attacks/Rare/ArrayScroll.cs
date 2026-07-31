@@ -25,6 +25,11 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 
 		public override int Scroll => ModContent.ItemType<ArrayScroll>();
 
+		public override void AttackStats(Player player, Imbuable imbue, ref Vector2 position, ref Vector2 velocity, ref int damage, ref float knockback)
+		{
+			velocity = velocity.Length() * -Vector2.UnitY;
+		}
+
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
 			imbue.CreateMagicCircle(player, MagicCircleMode.Basic, true, Shoot, position: player.Top, rotation: -MathHelper.PiOver2);

@@ -13,6 +13,7 @@ using Terraria.GameContent.ItemDropRules;
 using ArcaneOdyssey.Projectiles.Enemies;
 using ArcaneOdyssey.Gores;
 using Terraria.Audio;
+using System.IO;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -21,11 +22,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	{
 		private int hptoheal;
 		private float tempPodiumID;
-		private Vector2 previousPodiumLocation,nextPodiumLocation;
-		private float[] dashSelectArray = {0f,4f};
-		private float[] moveSelectArrayOne = {1f,4f,1f,1f};
-		private float[] moveSelectArrayTwo = {2f,2f,6f};
-		private Vector2[] podiumPos = [new(-665f,16f),new(-320f,0f),new(0f,0f),new(366f,0f),new(686f,16f)];
+		private Vector2 previousPodiumLocation, nextPodiumLocation;
+		private float[] dashSelectArray = { 0f, 4f };
+		private float[] moveSelectArrayOne = { 1f, 4f, 1f, 1f };
+		private float[] moveSelectArrayTwo = { 2f, 2f, 6f };
+		private readonly Vector2[] podiumPos = [new(-665f, 16f), new(-320f, 0f), new(0f, 0f), new(366f, 0f), new(686f, 16f)];
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;
@@ -39,6 +40,16 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			bestiaryEntry.Info.AddRange([
 				new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}")
 			]);
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			base.SendExtraAI(writer);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			base.ReceiveExtraAI(reader);
 		}
 
 		public override void SetDefaults()
@@ -463,16 +474,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override string GetChat() => this.GetLocalizedValue("DoomMessage");
 
-		public override void OnGoToStatue(bool toKingStatue)
-		{
-			NPC.position = NPC.oldPosition;
-		}
-
-		public override bool CanGoToStatue(bool toKingStatue) => true;
+		public override bool CanGoToStatue(bool toKingStatue) => false;
 
 		public override bool CheckActive() => !sparing;
-
-		public override bool UsesPartyHat() => false;
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
