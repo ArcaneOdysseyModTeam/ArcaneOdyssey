@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		}
 
 		public LightningMagic Imbue => ModContent.GetInstance<LightningMagic>();
-
+		public override bool CanHitPlayer(Player target) => false;
 		public override void AI()
 		{
 			Projectile.rotation += Imbue.ApplySpeed(MathHelper.Pi / 120f);
@@ -45,7 +45,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 					if (Projectile.owner == Main.myPlayer)
 					{
 						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(0, -1000), Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, Projectile.Center.X, Projectile.Center.Y);
-						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EliusExplosion>(), 50, 8f, -1);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EliusExplosion>(), Projectile.damage, 8f, -1);
 					}
 					SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center); // PORT change to instant
 				}

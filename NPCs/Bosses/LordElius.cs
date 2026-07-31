@@ -61,7 +61,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.lifeMax = 3000;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
-			NPC.damage = 0;
+			NPC.damage = 30;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 0;
 			NPC.width = Player.defaultWidth;
@@ -77,6 +77,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			SpawnModBiomes = [AOUtils.BiomeType<EliusArena>()];
 			NPC.buffImmune[BuffID.Confused] = true;
 		}
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public override MusicTrack Theme => MusicTrack.Elius;
 
@@ -169,7 +170,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.TargetClosest();
 			if (secondphase && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0 && (Main.expertMode || Main.masterMode))))
 			{
-				Projectile.NewProjectile(NPC.GetSource_FromThis(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), 0, 0f, -1);
+				Projectile.NewProjectile(NPC.GetSource_FromThis(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 0f, -1);
 			}
 
 			// State Machine
@@ -294,7 +295,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (AOUtils.ServerOrSingleplayer)
 					{
 						NPC.netUpdate = true;
-						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize() * 15f, ModContent.ProjectileType<EliusSpear>(), 15, 1f, -1, secondphase.ToInt());
+						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize() * 15f, ModContent.ProjectileType<EliusSpear>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
 					}
 				}
 				else if (NPC.ai[1] > 70f)
@@ -324,7 +325,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						{
 							if (AOUtils.ServerOrSingleplayer)
 							{
-								Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), 30, 1f, -1).timeLeft = 200;
+								Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 1f, -1).timeLeft = 200;
 							}
 							SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
 						}
@@ -434,7 +435,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						if (AOUtils.ServerOrSingleplayer)
 						{
 							NPC.netUpdate = true;
-							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.spriteDirection * 20f, 0f), ModContent.ProjectileType<EliusSlash>(), 16, 1f, -1, secondphase.ToInt());
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.spriteDirection * 20f, 0f), ModContent.ProjectileType<EliusSlash>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
 						}
 					}
 				}
@@ -457,7 +458,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (AOUtils.ServerOrSingleplayer)
 					{
 						NPC.netUpdate = true;
-						(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), 20, 0f, -1, 0, Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f).ModProjectile as EliusArrowStorm).secondphase = secondphase;
+						(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), (int)(NPC.damage * 0.6), 0f, -1, 0, Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f).ModProjectile as EliusArrowStorm).secondphase = secondphase;
 						NPC.ai[1] = 22f;
 					}
 				}
