@@ -168,7 +168,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
 			NPC.TargetClosest();
-			if (secondphase && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0 && (Main.expertMode || Main.masterMode))))
+			if (secondphase && Main.player[NPC.target].Distance(NPC.position) < 7000 && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0 && (Main.expertMode || Main.masterMode))))
 			{
 				Projectile.NewProjectile(NPC.GetSource_FromThis(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 0f, -1);
 			}
