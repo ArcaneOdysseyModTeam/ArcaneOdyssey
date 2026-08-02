@@ -32,7 +32,7 @@ Attack: {
 	SpiritCloneSkill: {
 		DisplayName: Spirit Clone
 		Description: Mods.ArcaneOdyssey.Skills.Attack.SpiritCloneSkill.Description
-		Popup: Spirit Clone
+		Popup: Aithiraki
 	}
 
 	BarrageSkill: {
@@ -80,7 +80,7 @@ Attack: {
 	RainSkill: {
 		DisplayName: Rain
 		Description: Mods.ArcaneOdyssey.Skills.Attack.RainSkill.Description
-		Popup: Rain
+		Popup: Spirit Rain
 	}
 
 	SmashSkill: {

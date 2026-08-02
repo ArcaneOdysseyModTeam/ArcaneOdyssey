@@ -1,10 +1,13 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Abilities;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 {
-	public class ScimitarofStorm : Weapon
+	[LegacyName("ScimitarofStorm")]
+	public class ScimitarsofStorm : Weapon
 	{
 		public override int Value => 210;
 
@@ -55,13 +58,26 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaNoble
 			else
 			{
 				usingWithAbility = false;
-			}	
+			}
+		}
+
+		public override void Load()
+		{
+			scimitar = ModContent.Request<Texture2D>(Texture + "_Swing");
+		}
+
+		public static Asset<Texture2D> scimitar;
+
+		public override bool ModifyItemDraw(ref PlayerDrawSet drawInfo, ref DrawData drawData, ref DrawData? coloredDrawData, ref DrawData? glowMaskDrawData)
+		{
+			drawData.texture = scimitar.Value;
+			return base.ModifyItemDraw(ref drawInfo, ref drawData, ref coloredDrawData, ref glowMaskDrawData);
 		}
 	}
 
 	public class TwinCrecsentsCooldown : DisplayedCooldown
 	{
-		public override string Texture => AOUtils.GetTexture<ScimitarofStorm>();
+		public override string Texture => AOUtils.GetTexture<ScimitarsofStorm>();
 
 		public override int CooldownLength => 75;
 	}

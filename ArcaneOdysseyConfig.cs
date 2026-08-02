@@ -46,6 +46,9 @@ namespace ArcaneOdyssey
 		[DefaultValue(true)]
 		public bool PulsingImbueIcons { get; set; }
 
+		[DefaultValue(.75f)]
+		public float UnselectedScrollOpacity { get; set; }
+
 		public override void OnChanged()
 		{
 			for (int i = 0; i < ArcaneOdysseyMod.Sets.toggleablePulse.Length; i++)

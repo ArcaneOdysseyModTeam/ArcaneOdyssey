@@ -111,7 +111,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					var colour = Color.White;
 					if (Main.LocalPlayer.ArcaneOdyssey()?.Imbue?.Type != imbue?.Type)
 					{
-						colour *= .75f;
+						colour *= ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 						texture = backgroundSprites.Item2.Value;
 					}
 					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, effects, 0);
@@ -128,7 +128,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				}
 				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Passive].IsNullOrWhiteSpace())
 				{
-					var colour = Color.White * .75f;
+					var colour = Color.White * ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 
 					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedScroll>()];
 
@@ -145,7 +145,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 					if (Main.LocalPlayer.ArcaneOdyssey()?.Imbue?.Type != imbue?.Type)
 					{
-						colour *= .75f;
+						colour *= ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 						texture = backgroundSprites.Item2.Value;
 					}
 
@@ -163,7 +163,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				}
 				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Mobility].IsNullOrWhiteSpace())
 				{
-					var colour = Color.White * .75f;
+					var colour = Color.White * ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 
 					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedScroll>()];
 
@@ -180,7 +180,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 					if (Main.LocalPlayer.ArcaneOdyssey()?.Imbue?.Type != imbue?.Type)
 					{
-						colour *= .75f;
+						colour *= ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 						texture = backgroundSprites.Item2.Value;
 					}
 					DrawData a = new(texture, secondaryItemPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, effects, 0);
@@ -197,7 +197,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				}
 				else if (!imbue.cachedSpells[Imbuable.SlotIndexID.Dash].IsNullOrWhiteSpace())
 				{
-					var colour = Color.White * .75f;
+					var colour = Color.White * ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 
 					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedScroll>()];
 
@@ -230,7 +230,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 						if (imbue.selectedIndex != i)
 						{
-							colour *= .75f;
+							colour *= ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 							texture = backgroundSprites.Item2.Value;
 						}
 
@@ -251,7 +251,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 						if (imbue.selectedIndex != i)
 						{
-							colour *= .75f;
+							colour *= ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
 						}
 
 						Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedScroll>()];

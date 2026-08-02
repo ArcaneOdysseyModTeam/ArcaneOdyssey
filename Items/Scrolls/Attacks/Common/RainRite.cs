@@ -34,5 +34,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Common
 			ActivateAbility(player, imbue);
 			return true;
 		}
+
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 	}
 }

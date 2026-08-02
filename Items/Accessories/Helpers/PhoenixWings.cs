@@ -56,6 +56,12 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
+		public override bool ModifyEquipTextureDraw(ref PlayerDrawSet drawInfo, ref DrawData drawData, EquipTexture equipTexture, string methodName)
+		{
+			drawData.color = Color.White * (1f-drawInfo.shadow);
+			return true;
+		}
+
 		public override void UpdateInventory(Player player)
 		{
 			base.UpdateInventory(player);

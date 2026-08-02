@@ -55,4 +55,9 @@ ArcaneOdysseyClientConfig: {
 		Label: "[i:ArcaneOdyssey/SpiritEnergy] Pulsing Imbue Icons"
 		Tooltip: Toggles whether certain imbue icons will pulse
 	}
+
+	UnselectedScrollOpacity: {
+		Tooltip: ""
+		Label: Unselected Scroll Opacity
+	}
 }

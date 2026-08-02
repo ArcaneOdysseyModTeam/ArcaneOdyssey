@@ -259,6 +259,7 @@ namespace ArcaneOdyssey
 					packet.Write(npc.whoAmI);
 					packet.Send();
 
+					npc.active = false;
 					npc.NPCLoot();
 				}
 				else

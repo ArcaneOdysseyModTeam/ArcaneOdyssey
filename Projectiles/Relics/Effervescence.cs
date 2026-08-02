@@ -105,20 +105,40 @@ namespace ArcaneOdyssey.Projectiles.Relics
 				{
 					Projectile.rotation = Proj1.Center().DirectionTo(defaultTargetPos).ToRotation();
 				}
+				else
+				{
+					var targetnpc = Main.npc[Target];
+					Projectile.rotation = Proj1.Center().DirectionTo(targetnpc.Center).ToRotation();
+				}
 				AOUtils.ShootProjectile(Projectile.GetSource_Death(), Proj1.Center(), Projectile.rotation.ToRotationVector2() * 12f, ModContent.ProjectileType<SpiritBlast>(), Projectile.damage / 4, Projectile.knockBack / 4f, Projectile.owner, Imbue, SecondImbue, true);
 				if (Target == -1)
 				{
 					Projectile.rotation = Proj2.Center().DirectionTo(defaultTargetPos).ToRotation();
+				}
+				else
+				{
+					var targetnpc = Main.npc[Target];
+					Projectile.rotation = Proj2.Center().DirectionTo(targetnpc.Center).ToRotation();
 				}
 				AOUtils.ShootProjectile(Projectile.GetSource_Death(), Proj2.Center(), Projectile.rotation.ToRotationVector2() * 12f, ModContent.ProjectileType<SpiritBlast>(), Projectile.damage / 4, Projectile.knockBack / 4f, Projectile.owner, Imbue, SecondImbue, true);
 				if (Target == -1)
 				{
 					Projectile.rotation = Proj3.Center().DirectionTo(defaultTargetPos).ToRotation();
 				}
+				else
+				{
+					var targetnpc = Main.npc[Target];
+					Projectile.rotation = Proj3.Center().DirectionTo(targetnpc.Center).ToRotation();
+				}
 				AOUtils.ShootProjectile(Projectile.GetSource_Death(), Proj3.Center(), Projectile.rotation.ToRotationVector2() * 12f, ModContent.ProjectileType<SpiritBlast>(), Projectile.damage / 4, Projectile.knockBack / 4f, Projectile.owner, Imbue, SecondImbue, true);
 				if (Target == -1)
 				{
 					Projectile.rotation = Proj4.Center().DirectionTo(defaultTargetPos).ToRotation();
+				}
+				else
+				{
+					var targetnpc = Main.npc[Target];
+					Projectile.rotation = Proj4.Center().DirectionTo(targetnpc.Center).ToRotation();
 				}
 				AOUtils.ShootProjectile(Projectile.GetSource_Death(), Proj4.Center(), Projectile.rotation.ToRotationVector2() * 12f, ModContent.ProjectileType<SpiritBlast>(), Projectile.damage / 4, Projectile.knockBack / 4f, Projectile.owner, Imbue, SecondImbue, true);
 			}

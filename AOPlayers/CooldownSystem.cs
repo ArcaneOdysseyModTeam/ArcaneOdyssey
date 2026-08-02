@@ -41,11 +41,6 @@ namespace ArcaneOdyssey.AOPlayers
 
 			spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle.Center(), null, drawParams.DrawColor, 0f, drawParams.SourceRectangle.Size() / 2f, scale, SpriteEffects.None, 0f);
 
-			if (this is TwinCrecsentsCooldown)
-			{
-				spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle.Center(), null, drawParams.DrawColor, 0f, drawParams.SourceRectangle.Size() / 2f, scale, SpriteEffects.FlipHorizontally, 0f);
-			}
-
 			return false;
 		}
 

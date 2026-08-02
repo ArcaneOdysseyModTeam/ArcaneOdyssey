@@ -105,7 +105,8 @@ namespace ArcaneOdyssey.Imbues.Base
 
 			if (selectedAttack is not null)
 			{
-				Item.mana = selectedAttack.ManaCost;
+				if (Item.DamageType == DamageClass.Magic)
+					Item.mana = selectedAttack.ManaCost;
 				Item.damage = selectedAttack.Damage;
 				Item.knockBack = selectedAttack.Knockback;
 				Item.channel = selectedAttack.Channel;

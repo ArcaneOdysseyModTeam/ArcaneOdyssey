@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Items.BossBags
 					ModContent.ItemType<EliusChest>(),
 					ModContent.ItemType<EliusHelm>(),
 					ModContent.ItemType<NobleThunderspear>(),
-					ModContent.ItemType<ScimitarofStorm>(),
+					ModContent.ItemType<ScimitarsofStorm>(),
 					ModContent.ItemType<StormCaller>()
 					], rolls: 2)
 				);

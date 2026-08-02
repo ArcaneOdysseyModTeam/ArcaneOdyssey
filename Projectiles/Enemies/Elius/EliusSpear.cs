@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			Projectile.hostile = true;
 			Projectile.friendly = false;
 			Projectile.penetrate = -1;
-			Projectile.height = Projectile.width = 70;
+			Projectile.height = Projectile.width = 30;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 		}
@@ -60,19 +60,6 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
 			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
-		}
-
-		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-		{
-			var _ = 0f;
-			return Collision.CheckAABBvLineCollision(
-				targetHitbox.TopLeft(),
-				targetHitbox.Size(),
-				projHitbox.Center() + (Projectile.velocity * (projHitbox.Size().Length() / 2f)),
-				projHitbox.Center() - (Projectile.velocity * (projHitbox.Size().Length() / 2f)),
-				6f,
-				ref _
-			);
 		}
 	}
 }
