@@ -633,13 +633,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					}
 					if(NPC.ai[1] > 15)
 					{
-						NPC.frame.Y = frameHeight * 0;
+						NPC.frame.Y = 0;
 					}
 				} else if(NPC.ai[0] == 1 || NPC.ai[0] == 4)
 				{
 					if(secondphase)
 					{
-						// second phase dash stuff
+						NPC.frame.Y = 0;
 					} else
 					{
 						// first phase dash stuff
