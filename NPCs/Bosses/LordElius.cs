@@ -601,7 +601,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 		public override void FindFrame(int frameHeight)
 		{
-			/* //Frame test debug stuff, just ignore this, it'll be deleted when animation is done
+			/*
+			//Frame test debug stuff, just ignore this, it'll be deleted when animation is done
 			if(AOUtils.NPCAlive<LordElius>()){
 				Main.NewText("Frame " + NPC.frame.Y / frameHeight + " at " + NPC.ai[1] + " on state " + NPC.ai[0]);
 			}
@@ -630,7 +631,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frame.Y += frameHeight;	
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 16)
+					if(NPC.ai[1] > 15)
 					{
 						NPC.frame.Y = frameHeight * 0;
 					}
