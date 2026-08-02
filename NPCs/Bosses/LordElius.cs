@@ -306,10 +306,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 3) //healing
 			{
+				if (NPC.ai[1] == 0 &&(!(NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)))
+				{
+					NPC.ai[1] = -1f;
+					NPC.ai[0] = 1;
+				}
 				if (NPC.ai[1] > 30f)
 				{
-					if (NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)
-					{
 						NPC.ai[2] = 0f;
 						hptoheal = Main.rand.Next(150) + 50;
 						if (AOUtils.ServerOrSingleplayer)
@@ -326,7 +329,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
 						}
 						CombatText.NewText(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, 0, 0), CombatText.HealLife, hptoheal, false, false);
-						Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 1f);
+						Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center+new Vector2(NPC.spriteDirection * 5f, 0f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 1f);
 						SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
 						NPC.ai[1] = -1f;
 						NPC.ai[0] = 0;
@@ -334,12 +337,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						{
 							NPC.life = NPC.lifeMax;
 						}
-					}
-					else
-					{
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 1;
-					}
 				}
 			}
 			else if (NPC.ai[0] == 4) //Hop move into sword move
@@ -604,7 +601,57 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 		public override void FindFrame(int frameHeight)
 		{
-			NPC.frame.Y = 0;
+			/* //Frame test debug stuff, just ignore this, it'll be deleted when animation is done
+			if(AOUtils.NPCAlive<LordElius>()){
+				Main.NewText("Frame " + NPC.frame.Y / frameHeight + " at " + NPC.ai[1] + " on state " + NPC.ai[0]);
+			}
+			*/
+			if(NPC.HasValidTarget)
+			{
+				if(NPC.ai[0] == 3) //healing
+				{
+					if(NPC.ai[1] == 1)
+					{
+						NPC.frame.Y = frameHeight * 1;
+					}
+					if(NPC.frameCounter >= 6)
+					{
+						NPC.frame.Y += frameHeight;	
+						NPC.frameCounter = 0;
+					}
+				} else if(NPC.ai[0] == 0)
+				{
+					if(NPC.ai[1] == 0)
+					{
+						NPC.frame.Y = frameHeight * 7;
+					}
+					if(NPC.frameCounter >= 6)
+					{
+						NPC.frame.Y += frameHeight;	
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 18)
+					{
+						NPC.frame.Y = frameHeight * 0;
+					}
+				} else if(NPC.ai[0] == 1 || NPC.ai[0] == 4)
+				{
+					if(secondphase)
+					{
+						// second phase dash stuff
+					} else
+					{
+						// first phase dash stuff
+					}
+				} else
+				{
+					NPC.frame.Y = 0;
+				}
+			} else
+			{
+				NPC.frame.Y = 0;
+			}
+			NPC.frameCounter++;
 		}
 	}
 }
