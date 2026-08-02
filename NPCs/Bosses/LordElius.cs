@@ -213,14 +213,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (!secondphase)
 					{
+						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 						if (NPC.ai[1] < 20f) //Rise
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							NPC.position.Y -= 3f;
 						}
 						else if (NPC.ai[1] < 52f) //Dash
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
 						}
 						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
@@ -360,14 +359,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (!secondphase)
 					{
+						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 						if (NPC.ai[1] < 20f) //Rise
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							NPC.position.Y -= 3f;
 						}
 						else if (NPC.ai[1] < 52f) //Dash
 						{
-							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
 						}
 						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
@@ -611,9 +609,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if(NPC.ai[0] == 3) //healing
 				{
+					if(NPC.ai[1] == 0)
+					{
+						NPC.frame.Y = 0;
+					}
 					if(NPC.ai[1] == 1)
 					{
 						NPC.frame.Y = frameHeight * 1;
+						NPC.frameCounter = 0;
 					}
 					if(NPC.frameCounter >= 6)
 					{
@@ -625,6 +628,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if(NPC.ai[1] == 0)
 					{
 						NPC.frame.Y = frameHeight * 7;
+						NPC.frameCounter = 0;
 					}
 					if(NPC.frameCounter >= 6)
 					{
@@ -643,8 +647,31 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					} else
 					{
 						// first phase dash stuff
+						if (NPC.ai[1] == 0)
+						{
+							NPC.frame.Y = frameHeight * 10;
+							NPC.frameCounter = 0;
+						} else
+						{
+							if(NPC.frameCounter >= 8) {
+								NPC.frame.Y += frameHeight;
+								NPC.frameCounter = 0;
+							}
+						}
 					}
-				} else
+				} else if(NPC.ai[0] == 5)
+				{
+					if(NPC.ai[1] == 0)
+					{
+						NPC.frame.Y = 0;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] < 16)
+					{
+						//do falling animation stuff here
+					}
+					NPC.frame.Y = 0;
+				}
 				{
 					NPC.frame.Y = 0;
 				}
