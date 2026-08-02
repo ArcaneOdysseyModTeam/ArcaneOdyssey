@@ -647,11 +647,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					} else
 					{
 						// first phase dash stuff
-						if (NPC.ai[1] == 0)
+						if (NPC.ai[1] == 1)
 						{
 							NPC.frame.Y = frameHeight * 10;
 							NPC.frameCounter = 0;
-						} else
+						} else if (NPC.ai[1] > 1)
 						{
 							if(NPC.frameCounter >= 8) {
 								NPC.frame.Y += frameHeight;
