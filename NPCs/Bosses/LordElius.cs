@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private readonly Vector2[] podiumPos = [new(-665f, 16f), new(-320f, 0f), new(0f, 0f), new(366f, 0f), new(686f, 16f)];
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 10;
+			Main.npcFrameCount[NPC.type] = 20;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -601,6 +601,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
+		}
+		public override void FindFrame(int frameHeight)
+		{
+			NPC.frame.Y = 0;
 		}
 	}
 }
