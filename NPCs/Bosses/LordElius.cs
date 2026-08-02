@@ -619,7 +619,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frame.Y += frameHeight;	
 						NPC.frameCounter = 0;
 					}
-				} else if(NPC.ai[0] == 0)
+				} else if(NPC.ai[0] == 0) //healing end
 				{
 					if(NPC.ai[1] == 0)
 					{
@@ -630,7 +630,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frame.Y += frameHeight;	
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 18)
+					if(NPC.ai[1] > 16)
 					{
 						NPC.frame.Y = frameHeight * 0;
 					}
