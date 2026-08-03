@@ -639,7 +639,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					{
 						NPC.frame.Y = 0;
 					}
-				} else if(NPC.ai[0] == 1 || NPC.ai[0] == 4)
+				} else if(NPC.ai[0] == 1 || NPC.ai[0] == 4) // dashes
 				{
 					if(secondphase)
 					{
@@ -663,17 +663,24 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.frameCounter = 0;
 						}
 					}
-				} else if(NPC.ai[0] == 5)
+				} else if(NPC.ai[0] == 5) // flying slashes
 				{
 					if(NPC.ai[1] == 0)
 					{
-						NPC.frame.Y = 0;
+						NPC.frame.Y = 16 * frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] < 16)
+					if(NPC.ai[1] < 16)//dropdown for flying slashes
 					{
-						//do falling animation stuff here
+						if(NPC.frameCounter > 4)
+						{
+							NPC.frame.Y += frameHeight;
+							NPC.frameCounter = 0;
+						}
+					} else if(NPC.ai[1] > 16) 
+					{
 						NPC.frame.Y = 0;
+						NPC.frameCounter = 0;
 					}
 				} else
 				{
