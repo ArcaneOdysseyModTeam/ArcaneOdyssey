@@ -703,5 +703,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
 		}
+		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 controlPoint, float xPos)
+		{
+			return new Vector2(xPos,xPos);
+		}
 	}
 }
