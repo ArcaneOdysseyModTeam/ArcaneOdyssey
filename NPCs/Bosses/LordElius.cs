@@ -465,6 +465,109 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			NPC.ai[1] += 1f; //increment frame
 		}
+		public override void FindFrame(int frameHeight)
+		{
+			if(NPC.HasValidTarget)
+			{
+				if(NPC.ai[0] == 3) //healing
+				{
+					if(NPC.ai[1] == 0)
+					{
+						NPC.frame.Y = 0;
+					}
+					if(NPC.ai[1] == 1)
+					{
+						NPC.frame.Y = frameHeight * 1;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.frameCounter >= 6)
+					{
+						NPC.frame.Y += frameHeight;	
+						NPC.frameCounter = 0;
+					}
+				} else if(NPC.ai[0] == 0) //healing end
+				{
+					if(NPC.ai[1] == 0)
+					{
+						NPC.frame.Y = frameHeight * 7;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.frameCounter >= 6)
+					{
+						NPC.frame.Y += frameHeight;	
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 15)
+					{
+						NPC.frame.Y = 0;
+					}
+				} else if(NPC.ai[0] == 1 || NPC.ai[0] == 4) // dashes
+				{
+					if(secondphase)
+					{
+						NPC.frame.Y = 0;
+					} else
+					{
+						// first phase dash stuff
+						if (NPC.ai[1] == 0)
+						{
+							NPC.frame.Y = frameHeight * 10;
+							NPC.frameCounter = 0;
+						}
+						if (NPC.ai[1] > 1)
+						{
+							if(NPC.frameCounter >= 8) {
+								NPC.frame.Y += frameHeight;
+								NPC.frameCounter = 0;
+							}
+							if(NPC.frame.Y / frameHeight == 17)
+							{
+								NPC.frame.Y += frameHeight;
+							}
+						} 
+						if (NPC.ai[1] > 70)
+						{
+							NPC.frame.Y = 0;
+							NPC.frameCounter = 0;
+						}
+					}
+				} else if(NPC.ai[0] == 5) // flying slashes
+				{
+					if(NPC.ai[1] == 0)
+					{
+						NPC.frame.Y = 16 * frameHeight;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] < 16)//dropdown for flying slashes
+					{
+						if(NPC.frameCounter > 4)
+						{
+							NPC.frame.Y += frameHeight;
+							NPC.frameCounter = 0;
+						}
+					} else if (NPC.ai[1] < 300)
+					{
+						NPC.frame.Y = 0;
+						NPC.frameCounter = 0;
+					} else if(NPC.ai[1] < 316) //rising from flying slashes
+					{
+						NPC.frame.Y = 15 * frameHeight;
+						NPC.frameCounter = 0;
+					} else
+					{
+						NPC.frame.Y = 0;
+						NPC.frameCounter = 0;
+					}
+				} else
+				{
+					NPC.frame.Y = 0;
+				}
+			} else
+			{
+				NPC.frame.Y = 0;
+			}
+			NPC.frameCounter++;
+		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
@@ -596,109 +699,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
-		}
-		public override void FindFrame(int frameHeight)
-		{
-			if(NPC.HasValidTarget)
-			{
-				if(NPC.ai[0] == 3) //healing
-				{
-					if(NPC.ai[1] == 0)
-					{
-						NPC.frame.Y = 0;
-					}
-					if(NPC.ai[1] == 1)
-					{
-						NPC.frame.Y = frameHeight * 1;
-						NPC.frameCounter = 0;
-					}
-					if(NPC.frameCounter >= 6)
-					{
-						NPC.frame.Y += frameHeight;	
-						NPC.frameCounter = 0;
-					}
-				} else if(NPC.ai[0] == 0) //healing end
-				{
-					if(NPC.ai[1] == 0)
-					{
-						NPC.frame.Y = frameHeight * 7;
-						NPC.frameCounter = 0;
-					}
-					if(NPC.frameCounter >= 6)
-					{
-						NPC.frame.Y += frameHeight;	
-						NPC.frameCounter = 0;
-					}
-					if(NPC.ai[1] > 15)
-					{
-						NPC.frame.Y = 0;
-					}
-				} else if(NPC.ai[0] == 1 || NPC.ai[0] == 4) // dashes
-				{
-					if(secondphase)
-					{
-						NPC.frame.Y = 0;
-					} else
-					{
-						// first phase dash stuff
-						if (NPC.ai[1] == 0)
-						{
-							NPC.frame.Y = frameHeight * 10;
-							NPC.frameCounter = 0;
-						}
-						if (NPC.ai[1] > 1)
-						{
-							if(NPC.frameCounter >= 8) {
-								NPC.frame.Y += frameHeight;
-								NPC.frameCounter = 0;
-							}
-							if(NPC.frame.Y / frameHeight == 17)
-							{
-								NPC.frame.Y += frameHeight;
-							}
-						} 
-						if (NPC.ai[1] > 70)
-						{
-							NPC.frame.Y = 0;
-							NPC.frameCounter = 0;
-						}
-					}
-				} else if(NPC.ai[0] == 5) // flying slashes
-				{
-					if(NPC.ai[1] == 0)
-					{
-						NPC.frame.Y = 16 * frameHeight;
-						NPC.frameCounter = 0;
-					}
-					if(NPC.ai[1] < 16)//dropdown for flying slashes
-					{
-						if(NPC.frameCounter > 4)
-						{
-							NPC.frame.Y += frameHeight;
-							NPC.frameCounter = 0;
-						}
-					} else if (NPC.ai[1] < 300)
-					{
-						NPC.frame.Y = 0;
-						NPC.frameCounter = 0;
-					} else if(NPC.ai[1] < 316) //rising from flying slashes
-					{
-						NPC.frame.Y = 16 * frameHeight;
-						NPC.frameCounter = 0;
-					} else
-					{
-						NPC.frame.Y = 0;
-						NPC.frameCounter = 0;
-					}
-				} else
-				{
-					NPC.frame.Y = 0;
-				}
-			} else
-			{
-				NPC.frame.Y = 0;
-			}
-			NPC.frameCounter++;
 		}
 	}
 }
