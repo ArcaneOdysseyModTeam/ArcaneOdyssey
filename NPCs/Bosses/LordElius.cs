@@ -681,7 +681,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					{
 						NPC.frame.Y = 0;
 						NPC.frameCounter = 0;
-					} else if(NPC.ai[1] < 316) 
+					} else if(NPC.ai[1] < 316) //rising from flying slashes
 					{
 						NPC.frame.Y = 16 * frameHeight;
 						NPC.frameCounter = 0;
