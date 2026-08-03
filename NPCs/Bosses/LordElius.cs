@@ -186,9 +186,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 0)
 			{
-				if(NPC.ai[1] == 7f)
+				if(NPC.ai[1] == 4f)
 				{
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center+new Vector2(NPC.spriteDirection * 10f, 0f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center+new Vector2(NPC.spriteDirection * 20f, -3f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
 				}
 				if (NPC.ai[1] > 120f)
 				{
