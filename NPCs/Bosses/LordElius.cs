@@ -186,6 +186,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 0)
 			{
+				if(NPC.ai[1] == 7f)
+				{
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center+new Vector2(NPC.spriteDirection * 10f, 0f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
+				}
 				if (NPC.ai[1] > 120f)
 				{
 					NPC.ai[1] = -1f;
@@ -328,7 +332,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
 						}
 						CombatText.NewText(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, 0, 0), CombatText.HealLife, hptoheal, false, false);
-						Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center+new Vector2(NPC.spriteDirection * 5f, 0f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 1f);
 						SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
 						NPC.ai[1] = -1f;
 						NPC.ai[0] = 0;
@@ -414,7 +417,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (NPC.ai[1] < 16f)
 				{
-					NPC.position.Y += 128f / 15f;
+					NPC.position.Y += 132f / 15f;
 				}
 				else if (NPC.ai[1] < 300f)
 				{
@@ -432,7 +435,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				else if (NPC.ai[1] < 316f)
 				{
-					NPC.position.Y -= 128f / 15f;
+					NPC.position.Y -= 132f / 15f;
 				}
 				else if (NPC.ai[1] > 360f)
 				{
