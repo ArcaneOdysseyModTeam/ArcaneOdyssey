@@ -9,6 +9,7 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Projectiles.Enemies.Elius;
 using ArcaneOdysseyMusic;
+using System;
 using System.IO;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
@@ -112,21 +113,18 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.NPCDialogue(this.GetLocalizedValue("DoomMessage"), Color.MediumPurple);
 					sentMessage = true;
 				}
-				if (!Main.dedServ)
+				if (spareTimer-- <= 0)
 				{
-					if (spareTimer-- <= 0)
+					Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
+					NPC.active = false;
+					if (!DownedBosses.DownedElius)
 					{
-						Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
-						NPC.active = false;
-						if (!DownedBosses.DownedElius)
-						{
-							EliusSpareSystem.spared = true;
-						}
-						if (AOUtils.ServerOrSingleplayer)
-						{
-							NPC.netUpdate = true;
-							NPC.NPCLoot();
-						}
+						EliusSpareSystem.spared = true;
+					}
+					if (AOUtils.ServerOrSingleplayer)
+					{
+						NPC.netUpdate = true;
+						NPC.NPCLoot();
 					}
 				}
 				return;
@@ -703,9 +701,21 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
 		}
-		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 controlPoint, float xPos)
+
+		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, float xPos)
 		{
-			return new Vector2(xPos,xPos);
+			if ((pointTwo.X - pointOne.X) > 0)
+			{
+				var tile1 = pointOne / 16f;
+				var tile2 = pointTwo / 16f;
+				var xpos = xPos / 16f;
+				var x = xpos - tile1.X;
+				var offset = tile2.Y - tile1.Y;
+				var dist = tile2.X - tile1.X;
+				var y = Math.Abs((dist / 5f) * MathF.Sin(x * MathHelper.Pi)) + ((x / dist) * offset);
+				return new Vector2(xPos, pointOne.Y + (y * 16f));
+			}
+			return pointOne;
 		}
 	}
 }
