@@ -466,6 +466,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			NPC.ai[1] += 1f; //increment frame
 		}
+
 		public override void FindFrame(int frameHeight)
 		{
 			if(NPC.HasValidTarget)
@@ -702,20 +703,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
 		}
 
-		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, float xPos)
+		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 controlPoint,Vector2 pointTwo, float xPos)
 		{
-			if ((pointTwo.X - pointOne.X) > 0)
-			{
-				var tile1 = pointOne / 16f;
-				var tile2 = pointTwo / 16f;
-				var xpos = xPos / 16f;
-				var x = xpos - tile1.X;
-				var offset = tile2.Y - tile1.Y;
-				var dist = tile2.X - tile1.X;
-				var y = Math.Abs((dist / 5f) * MathF.Sin(x * MathHelper.Pi)) + ((x / dist) * offset);
-				return new Vector2(xPos, pointOne.Y + (y * 16f));
-			}
-			return pointOne;
+			return new Vector2(xPos,xPos);
 		}
 	}
 }
