@@ -216,6 +216,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (!secondphase)
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+						/*
+						// newer dash code
+						if(NPC.ai[1] < 80f)
+						{
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 80f;
+							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
+						}
+						*/
 						if (NPC.ai[1] < 20f) //Rise
 						{
 							NPC.position.Y -= 3f;
@@ -361,6 +369,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (!secondphase)
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+						/*
+						// newer dash code
+						if(NPC.ai[1] < 80f)
+						{
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 80f;
+							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
+						}
+						*/
 						if (NPC.ai[1] < 20f) //Rise
 						{
 							NPC.position.Y -= 3f;
