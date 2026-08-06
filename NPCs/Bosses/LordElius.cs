@@ -220,7 +220,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						// newer dash code
 						if(NPC.ai[1] < 40f)
 						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 38f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
 						
@@ -362,7 +362,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						// newer dash code
 						if(NPC.ai[1] < 40f)
 						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 38f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
 						
@@ -406,7 +406,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 5) //sword move
 			{
-				if (NPC.ai[1] < 61f && NPC.ai[1] > 45f)
+				if (NPC.ai[1] < 61f && NPC.ai[1] >= 45f)
 				{
 					NPC.position.Y += 132f / 15f;
 				}
