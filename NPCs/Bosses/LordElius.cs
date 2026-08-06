@@ -218,14 +218,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 						
 						// newer dash code
-						if(NPC.ai[1] < 80f)
+						if(NPC.ai[1] < 40f)
 						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 80f;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
 						
 						
-						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+						if (NPC.ai[1] >= 40f) //Break out of this ai cycle
 						{
 							if (AOUtils.ServerOrSingleplayer)
 							{
@@ -360,13 +360,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 						
 						// newer dash code
-						if(NPC.ai[1] < 80f)
+						if(NPC.ai[1] < 40f)
 						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 80f;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
 						
-						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
+						if (NPC.ai[1] >= 40f) //Break out of this ai cycle
 						{
 							NPC.position = nextPodiumLocation;
 							NPC.ai[1] = -1f;
@@ -406,11 +406,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 5) //sword move
 			{
-				if (NPC.ai[1] < 16f)
+				if (NPC.ai[1] < 61f && NPC.ai[1] > 45f)
 				{
 					NPC.position.Y += 132f / 15f;
 				}
-				else if (NPC.ai[1] < 300f)
+				else if (NPC.ai[1] < 345f && NPC.ai[1] >= 61f)
 				{
 					int swordTiming = !secondphase ? 60 : 40;
 					if ((int)NPC.ai[1] % swordTiming == 0)
@@ -424,11 +424,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					}
 				}
-				else if (NPC.ai[1] < 316f)
+				else if (NPC.ai[1] < 361f && NPC.ai[1] >= 345f)
 				{
 					NPC.position.Y -= 132f / 15f;
 				}
-				else if (NPC.ai[1] > 360f)
+				else if (NPC.ai[1] > 405f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
