@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		public override float ScrollDamage => .85f;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
-		public override Debuff[] ImbueDebuffs => [Debuff.Create<VesuvianBurn>()]; // create custom debuff later
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<InfernalBurn>()]; // create custom debuff later
 		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
