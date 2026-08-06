@@ -244,14 +244,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					}
 					else //phase 2
 					{
-						if (NPC.ai[1] < 50f)
+						if (NPC.ai[1] < 30f)
 						{
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
 						}
-						if (NPC.ai[1] >= 50f) //Break out of this ai cycle
+						if (NPC.ai[1] >= 30f) //Break out of this ai cycle
 						{
-							if (NPC.ai[1] == 50f)
+							if (NPC.ai[1] == 30f)
 							{
 								if (AOUtils.ServerOrSingleplayer)
 								{
@@ -260,7 +260,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 								}
 								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 							}
-							if (NPC.ai[1] > 55f)
+							if (NPC.ai[1] > 35f)
 							{
 								NPC.position = nextPodiumLocation;
 								if (AOUtils.ServerOrSingleplayer)
@@ -375,14 +375,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					}
 					else // Second Phase
 					{
-						if (NPC.ai[1] < 50f)
+						if (NPC.ai[1] < 30f)
 						{
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 							Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
 						}
-						if (NPC.ai[1] >= 50f) //Break out of this ai cycle
+						if (NPC.ai[1] >= 30f) //Break out of this ai cycle
 						{
-							if (NPC.ai[1] == 50f)
+							if (NPC.ai[1] == 30f)
 							{
 								if (AOUtils.ServerOrSingleplayer)
 								{
@@ -391,11 +391,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 								}
 								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 							}
-							if (NPC.ai[1] > 55f)
+							if (NPC.ai[1] > 35f)
 							{
 								NPC.position = nextPodiumLocation;
 							}
-							if (NPC.ai[1] > 85f)
+							if (NPC.ai[1] > 75f)
 							{
 								NPC.ai[1] = -1f;
 								NPC.ai[0] = 5;
