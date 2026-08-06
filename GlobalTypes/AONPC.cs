@@ -36,6 +36,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public bool scorched = false;
 		public bool poisoned = false;
 		public bool shadowflame = false;
+		public bool infernoBurning = false;
 		public bool melting = false;
 		public bool corroding = false;
 		public bool vesuvianBurn = false;
@@ -129,6 +130,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			corroding = false;
 			ionized = false;
 			ashcursed = false;
+			infernoBurning = false;
 			lesserPhoenixDrain = 0;
 		}
 
@@ -163,6 +165,14 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (burning)
 			{
 				Apply(1f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.25f, ref damage);
+				}
+			}
+			if (infernoBurning)
+			{
+				Apply(1.5f, ref damage);
 				if (npc.oiled)
 				{
 					Apply(.25f, ref damage);

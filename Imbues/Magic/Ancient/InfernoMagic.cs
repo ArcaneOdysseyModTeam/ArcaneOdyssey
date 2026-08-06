@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 				return;
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.FireworkFountain_Blue, direction.X * 2f, direction.Y * 2f, Scale: area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueFlare, direction.X * 2f, direction.Y * 2f, Scale: area.RelativeScale())];
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.4f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
@@ -81,8 +81,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 		{
 			if (Main.dedServ)
 				return;
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Shadowflame, Scale: 1.6f * area.RelativeScale());
-			Dust spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.FireworkFountain_Blue, Scale: 0.8f * area.RelativeScale());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueTorch, Scale: 1.6f * area.RelativeScale());
+			Dust spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.BlueFlare, Scale: 0.8f * area.RelativeScale());
 			spawnedDust.noGravity = true;
 		}
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 				return;
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.FireworkFountain_Blue, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.BlueFlare, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.3f * intensity)];
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.BlueTorch, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2.8f * intensity)];
 				spawnedDust2.noGravity = true;
@@ -103,7 +103,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 				return;
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.FireworkFountain_Blue, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueFlare, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.BlueTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.8f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;

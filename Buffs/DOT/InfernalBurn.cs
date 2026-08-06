@@ -15,11 +15,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 				buffIndex--;
 				return;
 			}
-			//npc.ArcaneOdyssey().melting = true;
+			npc.ArcaneOdyssey().burning = true;
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Lava);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.BlueTorch);
 				dust.velocity *= 0.4f;
+				dust.velocity.Y -= 1.7f;
 			}
 		}
 
