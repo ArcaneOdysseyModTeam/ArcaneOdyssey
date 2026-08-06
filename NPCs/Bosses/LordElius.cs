@@ -216,26 +216,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (!secondphase)
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-						/*
+						
 						// newer dash code
 						if(NPC.ai[1] < 80f)
 						{
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 80f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
-						*/
-						if (NPC.ai[1] < 20f) //Rise
-						{
-							NPC.position.Y -= 3f;
-						}
-						else if (NPC.ai[1] < 52f) //Dash
-						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
-						}
-						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
-						{
-							NPC.position.Y += 4f;
-						}
+						
+						
 						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
 						{
 							if (AOUtils.ServerOrSingleplayer)
@@ -369,26 +358,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (!secondphase)
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-						/*
+						
 						// newer dash code
 						if(NPC.ai[1] < 80f)
 						{
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 80f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
-						*/
-						if (NPC.ai[1] < 20f) //Rise
-						{
-							NPC.position.Y -= 3f;
-						}
-						else if (NPC.ai[1] < 52f) //Dash
-						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 32f;
-						}
-						if (NPC.ai[1] > 53f && NPC.position.Y < nextPodiumLocation.Y) //Fall
-						{
-							NPC.position.Y += 4f;
-						}
+						
 						if (NPC.ai[1] >= 80f) //Break out of this ai cycle
 						{
 							NPC.position = nextPodiumLocation;
@@ -719,9 +696,22 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
 		}
 
-		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 controlPoint,Vector2 pointTwo, float xPos)
+		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo,Vector2 pointThree, float xPos)
 		{
-			return new Vector2(xPos,xPos);
+			float alphaOne = ((-1*MathF.Pow(pointOne.X,2))+MathF.Pow(pointTwo.X,2));
+			float betaOne = ((-1*pointOne.X)+pointTwo.X);
+			float deltaOne = ((-1*pointOne.Y)+pointTwo.Y);
+			float alphaTwo = ((-1*MathF.Pow(pointTwo.X,2))+MathF.Pow(pointThree.X,2));
+			float betaTwo = ((-1*pointTwo.X)+pointThree.X);
+			float deltaTwo = ((-1*pointTwo.Y)+pointThree.Y);
+			float betaMult = (-1*(betaTwo/betaOne));
+			float alphaThree = ((betaMult*alphaOne)+alphaTwo);
+			float deltaThree = ((betaMult*deltaOne)+deltaTwo);
+			float alphaZero = (deltaThree/alphaThree);
+			float betaZero = ((deltaOne-(alphaOne*alphaZero))/betaOne);
+			float charlieZero = ((pointOne.Y-(alphaZero*MathF.Pow(pointOne.X,2)))-(betaZero*pointOne.X));
+			float yPos = (alphaZero*MathF.Pow(xPos,2))+(xPos*betaZero)+charlieZero;
+			return new Vector2(xPos,yPos);
 		}
 	}
 }
