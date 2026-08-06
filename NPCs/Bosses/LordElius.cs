@@ -639,6 +639,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}  else if(NPC.ai[0] == 2) //spear throw
 				{
 					NPC.frame.Y = 0;
+				} else if(NPC.ai[0] == -2) //sparing
+				{
+					NPC.frame.Y = frameHeight * 0;
 				}
 				else
 				{
