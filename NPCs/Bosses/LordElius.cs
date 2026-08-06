@@ -644,6 +644,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					// IF NOT IN THE SELECTED BEHAVIORS
 					NPC.frame.Y = 0;
+					NPC.frameCounter = 0;
 				}
 			} else
 			{
