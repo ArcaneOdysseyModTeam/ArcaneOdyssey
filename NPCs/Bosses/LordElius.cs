@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private readonly Vector2[] podiumPos = [new(-665f, 16f), new(-320f, 0f), new(0f, 0f), new(366f, 0f), new(686f, 16f)];
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 28;
+			Main.npcFrameCount[NPC.type] = 42;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -218,14 +218,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 						
 						// newer dash code
-						if(NPC.ai[1] < 40f)
+						if(NPC.ai[1] < 70f && NPC.ai[1] > 30f)
 						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 38f;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
 						
 						
-						if (NPC.ai[1] >= 40f) //Break out of this ai cycle
+						if (NPC.ai[1] >= 100f) //Break out of this ai cycle
 						{
 							if (AOUtils.ServerOrSingleplayer)
 							{
@@ -360,13 +360,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 						
 						// newer dash code
-						if(NPC.ai[1] < 40f)
+						if(NPC.ai[1] < 70f && NPC.ai[1] > 30f)
 						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 38f;
+							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
 							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
 						}
 						
-						if (NPC.ai[1] >= 40f) //Break out of this ai cycle
+						if (NPC.ai[1] >= 100f) //Break out of this ai cycle
 						{
 							NPC.position = nextPodiumLocation;
 							NPC.ai[1] = -1f;
@@ -503,24 +503,43 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frame.Y = 0;
 					} else
 					{
-						// first phase dash stuff
-						if (NPC.ai[1] == 0)
+						//first phase dash stuff
+						if(NPC.ai[1] == 0)
 						{
 							NPC.frame.Y = frameHeight * 10;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] > 1)
+						if(NPC.ai[1] < 30f && NPC.ai[1] > 15 && NPC.frameCounter >= 5f)
 						{
-							if(NPC.frameCounter >= 8) {
-								NPC.frame.Y += frameHeight;
-								NPC.frameCounter = 0;
-							}
-							if(NPC.frame.Y / frameHeight == 17)
-							{
-								NPC.frame.Y += frameHeight;
-							}
+							NPC.frame.Y += frameHeight;
+							NPC.frameCounter = 0;
+						}
+						if (NPC.ai[1] < 40 && NPC.ai[1] > 30)
+						{
+							NPC.frame.Y = frameHeight * 14;
+							NPC.frameCounter = 0;
 						} 
-						if (NPC.ai[1] > 70)
+						if (NPC.ai[1] < 60 && NPC.ai[1] > 40)
+						{
+							NPC.frame.Y = frameHeight * 15;
+							NPC.frameCounter = 0;
+						} 
+						if (NPC.ai[1] < 70 && NPC.ai[1] > 60)
+						{
+							NPC.frame.Y = frameHeight * 16;
+							NPC.frameCounter = 0;
+						}
+						if(NPC.ai[1] == 70)
+						{
+							NPC.frame.Y = frameHeight * 17;
+							NPC.frameCounter = 0;
+						}
+						if (NPC.ai[1] < 85 && NPC.ai[1] > 70 && NPC.frameCounter >= 5f)
+						{
+							NPC.frame.Y += frameHeight;
+							NPC.frameCounter = 0;
+						}
+						if(NPC.ai[1] > 85)
 						{
 							NPC.frame.Y = 0;
 							NPC.frameCounter = 0;
@@ -528,31 +547,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					}
 				} else if(NPC.ai[0] == 5) // flying slashes
 				{
-					if(NPC.ai[1] == 0)
-					{
-						NPC.frame.Y = 16 * frameHeight;
-						NPC.frameCounter = 0;
-					}
-					if(NPC.ai[1] < 16)//dropdown for flying slashes
-					{
-						if(NPC.frameCounter > 4)
-						{
-							NPC.frame.Y += frameHeight;
-							NPC.frameCounter = 0;
-						}
-					} else if (NPC.ai[1] < 300)
-					{
-						NPC.frame.Y = 0;
-						NPC.frameCounter = 0;
-					} else if(NPC.ai[1] < 316) //rising from flying slashes
-					{
-						NPC.frame.Y = 15 * frameHeight;
-						NPC.frameCounter = 0;
-					} else
-					{
-						NPC.frame.Y = 0;
-						NPC.frameCounter = 0;
-					}
+					NPC.frame.Y = 0;
 				} else
 				{
 					NPC.frame.Y = 0;
