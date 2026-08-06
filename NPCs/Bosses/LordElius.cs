@@ -410,10 +410,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					NPC.position.Y += 132f / 15f;
 				}
-				else if (NPC.ai[1] < 345f && NPC.ai[1] >= 61f)
+				else if (NPC.ai[1] < 446f && NPC.ai[1] >= 122f)
 				{
-					int swordTiming = !secondphase ? 60 : 40;
-					if ((int)NPC.ai[1] % swordTiming == 0)
+					int swordTiming = !secondphase ? 40 : 24;
+					if ((int)NPC.ai[1] % swordTiming == 4 && NPC.ai[1] < 444f)
 					{
 						NPC.NPCDialogue(!secondphase ? this.GetLocalizedValue("FlyingSlashMessage") : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("FlyingSlashMessage"), !secondphase ? Color.Gold : Color.MediumPurple, false);
 						SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f }, NPC.Center);
@@ -424,11 +424,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					}
 				}
-				else if (NPC.ai[1] < 361f && NPC.ai[1] >= 345f)
+				else if (NPC.ai[1] < 482f && NPC.ai[1] >= 466f)
 				{
 					NPC.position.Y -= 132f / 15f;
 				}
-				else if (NPC.ai[1] > 405f)
+				else if (NPC.ai[1] > 526f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
@@ -547,9 +547,102 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					}
 				} else if(NPC.ai[0] == 5) // flying slashes
 				{
-					NPC.frame.Y = 0;
-				} else
+					if(NPC.ai[1] == 0)
+					{
+						NPC.frame.Y = 0;
+					}
+					if(NPC.ai[1] == 44)
+					{
+						NPC.frame.Y = 20 * frameHeight;
+						NPC.frameCounter = 0;
+					}
+					if (NPC.ai[1] >= 45 && NPC.ai[1] < 61 && NPC.frameCounter >= 8)
+					{
+						NPC.frame.Y += frameHeight;
+						NPC.frameCounter = 0;
+					}
+					if (NPC.ai[1] == 61)
+					{
+						NPC.frame.Y = frameHeight * 22;
+						NPC.frameCounter = 0;
+					}
+					if (NPC.ai[1] < 92 && NPC.ai[1] > 61 && NPC.frameCounter >= 5)
+					{
+						NPC.frame.Y += frameHeight;
+						NPC.frameCounter = 0;
+					}
+					if (NPC.ai[1] == 92)
+					{
+						NPC.frame.Y = frameHeight * 28;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 92 && NPC.ai[1] < 122 && NPC.frameCounter >= 5)
+					{
+						NPC.frame.Y += frameHeight;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 122 && NPC.ai[1] < 446)
+					{
+						if(secondphase)
+						{
+							if(NPC.frameCounter >= 6)
+							{
+								NPC.frame.Y += frameHeight;
+								NPC.frameCounter = 0;
+							}
+						} else
+						{
+							if(NPC.frameCounter >= 10)
+							{
+								NPC.frame.Y += frameHeight;
+								NPC.frameCounter = 0;
+							}
+						}
+						if(NPC.frame.Y/frameHeight > 41)
+						{
+							NPC.frame.Y = frameHeight * 34;
+						}
+					}
+					if(NPC.ai[1] == 446) //putting weapons away
+					{
+						NPC.frame.Y = frameHeight * 33;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 448 && NPC.ai[1] < 466 && NPC.frameCounter >= 3)
+					{
+						NPC.frame.Y -= frameHeight;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] == 466) // starting to rise up
+					{
+						NPC.frame.Y = frameHeight * 0;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 466 && NPC.ai[1] < 482) //rising up
+					{
+						NPC.frame.Y = frameHeight * 0;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 482) //done rising up
+					{
+						NPC.frame.Y = frameHeight * 0;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] == 526) // done with flying slashes completely
+					{
+						NPC.frame.Y = frameHeight * 0;
+						NPC.frameCounter = 0;
+					}
+				} else if(NPC.ai[0] == 6) //storm of arrows
 				{
+					NPC.frame.Y = 0;
+				}  else if(NPC.ai[0] == 2) //spear throw
+				{
+					NPC.frame.Y = 0;
+				}
+				else
+				{
+					// IF NOT IN THE SELECTED BEHAVIORS
 					NPC.frame.Y = 0;
 				}
 			} else
