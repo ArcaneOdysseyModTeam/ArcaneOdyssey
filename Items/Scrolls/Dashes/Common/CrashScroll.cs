@@ -32,7 +32,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 
 	public class Crash(Imbuable scroll) : ModDash(scroll.Item)
 	{
-		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
+		public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
 		public override int Cooldown => CrashScroll.Cooldown;
 
 		public override bool LocksPlayer => true;
@@ -69,7 +69,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 	public class Smash(Entity source) : ModDash(source)
 	{
 		public override bool FallThrough => false;
-		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
+		public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
 
 		public override bool LocksPlayer => true;
 		public override int Cooldown => 0;

@@ -10,12 +10,10 @@ using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdysseyMusic.MusicBoxes;
-using CalamityMod;
 using FargosMod = Fargowiltas.Fargowiltas;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
-using CalamityCalls = CalamityMod.ModCalls;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 
 namespace ArcaneOdyssey
@@ -26,7 +24,6 @@ namespace ArcaneOdyssey
 		{
 			AddFargosStuff();
 			AddShieldSlots();
-			MiscCalamitysStuff();
 			AddBossChecklist();
 			MagicStorageSupport();
 		}
@@ -79,46 +76,11 @@ namespace ArcaneOdyssey
 			SetShadowDiamondDropRule(npcType, dummyRule);
 		}
 
-		public static bool Mastvengence
-		{
-			get
-			{
-				if (HasCalamity)
-				{
-					if (RevengenceMode)
-					{
-						return true;
-					}
-				}
-				return Main.masterMode;
-			}
-		}
-
-		/// <summary>
-		/// Whether revengence mode is enabled
-		/// </summary>
-		[JITWhenModsEnabled("CalamityMod")]
-		public static bool RevengenceMode => CalamityCalls.GetDifficultyActive("revengeance");
-
-		public static void RegisterDebuff(ModBuff buff) => Calamity?.Call("RegisterDebuff", buff.Texture, (NPC e) => e.HasBuff(buff.Type));
+		public static void RegisterDebuff(ModBuff buff) { } // unused
 
 		public static void RegisterDoT(int type) => Thorium?.Call("AddPlayerDoTBuffID", type);
 
 		public static void RegisterStatusBuff(int type) => Thorium?.Call("AddPlayerStatusBuffID", type);
-
-		public void MiscCalamitysStuff()
-		{
-			string[] descs = [Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description4").Value];
-			string[] descs2 = [Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description4").Value];
-			Calamity?.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Name").Value,
-				string.Join(' ', descs),
-				() => true);
-			Calamity?.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Name").Value,
-				string.Join(' ', descs2),
-				() => true);
-		}
-
-		public static void DeclareMiniboss(int type) => Calamity?.Call("DeclareMiniboss", type);
 
 		public static void ThoriumStuff()
 		{
@@ -156,10 +118,6 @@ namespace ArcaneOdyssey
 
 		public static bool CanDoubleTapDash()
 		{
-			if (HasCalamity)
-			{
-				return CalamityDash.GetAssignedKeys().Count == 0;
-			}
 			if (HasFargos)
 			{
 				return !(bool)Fargos.Call("DoubleTapDashDisabled");
@@ -171,20 +129,13 @@ namespace ArcaneOdyssey
 		{
 			get
 			{
-				if (HasCalamity)
-				{
-					return CalamityDash;
-				}
-				else if (HasFargos)
+				if (HasFargos)
 				{
 					return FargosDash;
 				}
 				return null;
 			}
 		}
-
-		[JITWhenModsEnabled("CalamityMod")]
-		public static ModKeybind CalamityDash => CalamityKeybinds.DashHotkey;
 
 		[JITWhenModsEnabled("Fargowiltas")]
 		public static ModKeybind FargosDash => FargosMod.DashKey;
@@ -224,9 +175,6 @@ namespace ArcaneOdyssey
 				rectsRegistered = true;
 			}
 		}
-
-		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
-		public static Mod Calamity => HasCalamity ? ModLoader.GetMod("CalamityMod") : null;
 
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
@@ -397,42 +345,16 @@ namespace ArcaneOdyssey
 				}
 
 				string[] strength = [
-					"CalamityMod/ClockworkBow",
-					"CalamityMod/FlakKraken",
-					"CalamityMod/HandheldTank",
-					"CalamityMod/MarksmanBow",
-					"CalamityMod/Roxcalibur",
-					"CalamityMod/DeepcoreGK2",
-					"CalamityMod/AnarchyBlade",
-					"CalamityMod/GrandGuardian",
-					"CalamityMod/HolyCollider",
-					"CalamityMod/MajesticGuard",
-					"CalamityMod/Karasawa",
-					"CalamityMod/GrandDad",
 					"ThoriumMod/TerrariansLastKnife",
 					"ThoriumMod/WyvernSlayer",
 					"ThoriumMod/QuakeGauntlet"
 				];
 
 				string[] arcanium = [
-					"CalamityMod/PrismaticBreaker",
-					"CalamityMod/TheBurningSky"
+
 				];
 
 				string[] artisinal = [
-					"CalamityMod/TrueBiomeBlade",
-					"CalamityMod/BrokenBiomeBlade",
-					"CalamityMod/OmegaBiomeBlade",
-					"CalamityMod/Galaxia",
-					"CalamityMod/FourSeasonsGalaxia",
-					"CalamityMod/ArkoftheCosmos",
-					"CalamityMod/ArkoftheElements",
-					"CalamityMod/FracturedArk",
-					"CalamityMod/SkytideDragoon",
-					"CalamityMod/Earth",
-					"CalamityMod/TrueArkoftheAncients",
-					"CalamityMod/Orderbringer",
-					"CalamityMod/GreatswordofJudgement",
 					"ThoriumMod/MastersLibram",
 					"ThoriumMod/QuasarsFlare",
 					"ThoriumMod/SnowWhite",
@@ -476,40 +398,6 @@ namespace ArcaneOdyssey
 				}
 
 				string[] cold = [
-					"CalamityMod/AbsoluteZero",
-					"CalamityMod/AbyssBlade",
-					"CalamityMod/AmidiasTrident",
-					"CalamityMod/Avalanche",
-					"CalamityMod/BrinyBaron",
-					"CalamityMod/DepthCrusher",
-					"CalamityMod/Floodtide",
-					"CalamityMod/NeptunesBounty",
-					"CalamityMod/Riptide",
-					"CalamityMod/SeashineSword",
-					"CalamityMod/Shimmerspark",
-					"CalamityMod/StarnightLance",
-					"CalamityMod/TenebreusTides",
-					"CalamityMod/TyphonsGreed",
-					"CalamityMod/UrchinMace",
-					"CalamityMod/Alluvion",
-					"CalamityMod/AquashardShotgun",
-					"CalamityMod/Archerfish",
-					"CalamityMod/DarkechoGreatbow",
-					"CalamityMod/EternalBlizzard",
-					"CalamityMod/FlakKraken",
-					"CalamityMod/FlurrystormCannon",
-					"CalamityMod/FrostbiteBlaster",
-					"CalamityMod/HoarfrostBow",
-					"CalamityMod/Leviatitan",
-					"CalamityMod/Megalodon",
-					"CalamityMod/Monsoon",
-					"CalamityMod/SDFMG",
-					"CalamityMod/Seadragon",
-					"CalamityMod/SeasSearing",
-					"CalamityMod/TheMaelstrom",
-					"CalamityMod/ShardlightPickaxe",
-					"CalamityMod/AbyssalWarhammer",
-					"CalamityMod/HalleysInferno",
 					"ThoriumMod/HydroPump",
 					"ThoriumMod/TheWhirlpool",
 					"ThoriumMod/Chum",
@@ -529,54 +417,6 @@ namespace ArcaneOdyssey
 					"ThoriumMod/NitrogenVial",];
 
 				string[] hot = [
-					"CalamityMod/AegisBlade",
-					"CalamityMod/AnarchyBlade",
-					"CalamityMod/BalefulHarvester",
-					"CalamityMod/Brimlance",
-					"CalamityMod/Brimlash",
-					"CalamityMod/BrimstoneSword",
-					"CalamityMod/BurningRevelation",
-					"CalamityMod/DevilsSunrise",
-					"CalamityMod/DraconicDestruction",
-					"CalamityMod/DragonPow",
-					"CalamityMod/DragonRage",
-					"CalamityMod/EssenceFlayer",
-					"CalamityMod/FaultLine",
-					"CalamityMod/HellfireFlamberge",
-					"CalamityMod/HolyCollider",
-					"CalamityMod/MawOfInfinity",
-					"CalamityMod/Mourningstar",
-					"CalamityMod/OldLordClaymore",
-					"CalamityMod/SeekingScorcher",
-					"CalamityMod/StreamGouge",
-					"CalamityMod/TheBurningSky",
-					"CalamityMod/UltimusCleaver",
-					"CalamityMod/VulcaniteLance",
-					"CalamityMod/AuroraBlazer",
-					"CalamityMod/BlissfulBombardier",
-					"CalamityMod/BloodBoiler",
-					"CalamityMod/BrimstoneFury",
-					"CalamityMod/ChickenCannon",
-					"CalamityMod/ChromaticEruption",
-					"CalamityMod/ContinentalGreatbow",
-					"CalamityMod/DaemonsFlame",
-					"CalamityMod/DeadSunsWind",
-					"CalamityMod/DragonsBreath",
-					"CalamityMod/Drataliornus",
-					"CalamityMod/FirestormCannon",
-					"CalamityMod/FlarewingBow",
-					"CalamityMod/HavocsBreath",
-					"CalamityMod/Hellborn",
-					"CalamityMod/Helstorm",
-					"CalamityMod/MagnomalyCannon",
-					"CalamityMod/Meowthrower",
-					"CalamityMod/PristineFury",
-					"CalamityMod/TelluricGlare",
-					"CalamityMod/DragoonDrizzlefish",
-					"CalamityMod/WildfireBloom",
-					"CalamityMod/InfernaCutter",
-					"CalamityMod/SeismicHampick",
-					"CalamityMod/TectonicTruncator",
 					"ThoriumMod/TheSeaMine",
 					"ThoriumMod/GodKiller",
 					"ThoriumMod/AlmanacofAgony",
@@ -629,67 +469,33 @@ namespace ArcaneOdyssey
 
 
 				string[] greatswords = [
-					"CalamityMod/AegisBlade",
-					"CalamityMod/AnarchyBlade",
-					"CalamityMod/Ataraxia",
-					"CalamityMod/BlightedCleaver",
-					"CalamityMod/CelestialClaymore",
-					"CalamityMod/CometQuasher",
-					"CalamityMod/DevilsDevastation",
-					"CalamityMod/DraconicDestruction",
-					"CalamityMod/Earth",
-					"CalamityMod/GalactusBlade",
-					"CalamityMod/GrandDad",
-					"CalamityMod/GrandGuardian",
-					"CalamityMod/Hellkite",
-					"CalamityMod/HolyCollider",
-					"CalamityMod/MajesticGuard",
-					"CalamityMod/Roxcalibur",
-					"CalamityMod/StellarStriker",
-					"CalamityMod/StormRuler",
-					"CalamityMod/TheMutilator",
-					"CalamityMod/VoidEdge",
 					"ThoriumMod/WyvernSlayer"
 				];
 
 				string[] greataxes = [
-					"CalamityMod/Avalanche",
-					"CalamityMod/SeekingScorcher",
 					"ThoriumMod/LodeStoneGreatAxe",
 				];
 
 				string[] daggers = [
-					"CalamityMod/EmpyreanKnives",
-					"CalamityMod/IllustriousKnives",
-					"CalamityMod/TheDarkMaster"
+
 				];
 
 				string[] greathammer = [
-					"CalamityMod/FallenPaladinsHammer",
-					"CalamityMod/GalaxySmasher",
-					"CalamityMod/Pwnagehammer",
-					"CalamityMod/StellarContempt",
-					"CalamityMod/TriactisTruePaladinianMageHammerofMight",
 					"ThoriumMod/MagicThorHammer",
 					"ThoriumMod/RangedThorHammer",
 					"ThoriumMod/MeleeThorHammer",
 				];
 
 				string[] spears = [
-					"CalamityMod/GildedProboscis",
-					"CalamityMod/SkytideDragoon",
-					"CalamityMod/StreamGouge",
-					"CalamityMod/TheBurningSky",
-					"CalamityMod/Violence",
 					"ThoriumMod/Spearmint"
 				];
 
 				string[] dualblades = [
-					"CalamityMod/SaharaSlicers"
+
 				];
 
 				string[] staffs = [
-					"CalamityMod/TyphonsGreed"
+
 				];
 
 				string[] rapiers = [
@@ -810,28 +616,7 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static void CheckWeapon(ModItem item)
-		{
-			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
-			{
-				if (item.Name.Contains("greatsword", StringComparison.CurrentCultureIgnoreCase) || item.Name.Contains("claymore", StringComparison.CurrentCultureIgnoreCase))
-				{
-					ArcaneOdysseyMod.Sets.greatsword[item.Type] = true;
-				}
-				if (item.Name.Contains("greataxe", StringComparison.CurrentCultureIgnoreCase))
-				{
-					ArcaneOdysseyMod.Sets.greataxe[item.Type] = true;
-				}
-				if (item.Name.Contains("knives", StringComparison.CurrentCultureIgnoreCase))
-				{
-					ArcaneOdysseyMod.Sets.dagger[item.Type] = true;
-				}
-				if (item.Name.Contains("claws", StringComparison.CurrentCultureIgnoreCase))
-				{
-					ArcaneOdysseyMod.Sets.claw[item.Type] = true;
-				}
-			}
-		}
+		public static void CheckWeapon(ModItem item) { } // unused
 
 		public override void Load()
 		{
@@ -870,24 +655,6 @@ namespace ArcaneOdyssey
 				On_Dust.NewDust -= DustScaleFixer;
 				On_Dust.NewDustDirect -= DirectDustScaleFixer;
 				On_Dust.NewDustPerfect -= PerfectDustScaleFixer;
-			}
-		}
-	}
-
-	public class TooltipTweaks : GlobalItem
-	{
-		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-		{
-			if (ExternalModSupport.HasCalamity)
-			{
-				if (item.ModItem?.Mod == Mod)
-				{
-					var master = tooltips.Find(e => e.Mod == "Terraria" && e.Name == "Master");
-					if (master is not null)
-					{
-						master.Text = Language.GetTextValue("Mods.CalamityMod.Vanilla.MasterExclusive");
-					}
-				}
 			}
 		}
 	}

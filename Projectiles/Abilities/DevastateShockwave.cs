@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.friendly = true;
-			Projectile.DamageType = AOUtils.TrueMelee();
+			Projectile.DamageType = DamageClass.Melee;
 		}
 
 		public override void AI()

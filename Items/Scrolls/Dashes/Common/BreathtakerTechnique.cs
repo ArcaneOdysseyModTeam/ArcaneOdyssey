@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 		public override int DashMax => 2;
 		public override bool LocksPlayer => true;
 		public override int Cooldown => BreathtakerTechnique.Cooldown;
-		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
+		public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
 
 		public override bool OnHit(Player player, NPC target) => true;
 

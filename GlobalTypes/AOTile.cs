@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override void Drop(int i, int j, int type)
 		{
-			if (type == TileID.Pots || (ExternalModSupport.HasCalamity && ExternalModSupport.Calamity.TryFind<ModTile>("AbyssalPots", out var tile) && type == tile.Type))
+			if (type == TileID.Pots)
 			{
 				if (Player.GetClosestRollLuck(i, j, 50 - (ScrollPitySystem.pity++ / 2)) == 0)
 				{

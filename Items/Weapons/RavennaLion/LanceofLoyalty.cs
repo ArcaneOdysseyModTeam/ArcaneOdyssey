@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Items.Weapons.RavennaLion
 			Item.width = Item.height = 60;
 			Item.StopAnimationOnHurt = true;
 			Item.channel = true;
-			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
+			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.shoot = ModContent.ProjectileType<LanceofLoyaltyProjectile>();
 			Item.shootSpeed = BaseLanceProjectile.LanceSpeed;

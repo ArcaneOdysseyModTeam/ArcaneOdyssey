@@ -24,7 +24,6 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 			Main.npcFrameCount[Type] = WalkingSpriteCount + AttackingSpriteCount;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-			ExternalModSupport.DeclareMiniboss(Type);
 		}
 
 		public Texture2D Sprite => ModContent.Request<Texture2D>(Texture).Value;

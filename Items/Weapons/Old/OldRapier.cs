@@ -15,10 +15,10 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.height = Item.height = 46;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.useTurn = true;
 		}
 

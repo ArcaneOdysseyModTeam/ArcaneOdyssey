@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			base.SetDefaults();
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.shootSpeed = BaseSpearProjectile.SpearSpeed;
 			Item.noUseGraphic = true;
 			Item.width = Item.height = 52;

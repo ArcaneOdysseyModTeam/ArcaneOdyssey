@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Items.Weapons.Sunken
 			Item.width = 50;
 			Item.height = 54;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
 		}
 

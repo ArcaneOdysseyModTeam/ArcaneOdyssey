@@ -12,7 +12,7 @@
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
+			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.height = Projectile.width = 175;
 			Projectile.friendly = true;
 			Projectile.usesLocalNPCImmunity = true;

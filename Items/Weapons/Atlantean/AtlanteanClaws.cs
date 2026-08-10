@@ -34,7 +34,7 @@ namespace ArcaneOdyssey.Items.Weapons.Atlantean
 			Item.height = Item.height = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.shoot = ModContent.ProjectileType<BeastInstinct>();
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.shootSpeed = 1f;
 		}
 

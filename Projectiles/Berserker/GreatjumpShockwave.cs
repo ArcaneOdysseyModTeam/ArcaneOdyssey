@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.friendly = true;
-			Projectile.DamageType = AOUtils.TrueMelee();
+			Projectile.DamageType = DamageClass.Melee;
 			Projectile.noEnchantmentVisuals = true;
 		}
 

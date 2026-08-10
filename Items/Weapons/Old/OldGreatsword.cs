@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 		{
 			base.SetDefaults();
 			Item.height = Item.height = 60;
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 

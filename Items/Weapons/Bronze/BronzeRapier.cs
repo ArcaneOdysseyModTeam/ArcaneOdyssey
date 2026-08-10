@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			Item.height = Item.width = 46;
 			Item.useTurn = true;
 			Item.useStyle = ItemUseStyleID.Rapier;
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.shoot = ModContent.ProjectileType<BronzeRapierProjectile>();
 			Item.shootSpeed = 1f;
 		}

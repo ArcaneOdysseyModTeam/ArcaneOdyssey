@@ -563,24 +563,6 @@ namespace ArcaneOdyssey
 			}
 		}
 
-		public static DamageClass TrueMelee()
-		{
-			if (ExternalModSupport.HasCalamity)
-			{
-				return ExternalModSupport.Calamity.Find<DamageClass>("TrueMeleeDamageClass");
-			}
-			return DamageClass.Melee;
-		}
-
-		public static DamageClass TrueMeleeNoSpeed()
-		{
-			if (ExternalModSupport.HasCalamity)
-			{
-				return ExternalModSupport.Calamity.Find<DamageClass>("TrueMeleeNoSpeedDamageClass");
-			}
-			return DamageClass.MeleeNoSpeed;
-		}
-
 		public static float Clamp(this float num, float min, float max) => MathHelper.Clamp(num, min, max);
 		public static int Clamp(this int num, int min, int max) => Math.Clamp(num, min, max);
 
@@ -1450,14 +1432,6 @@ namespace ArcaneOdyssey
 				int count = 0;
 				List<bool> conditions = [];
 				conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
-				if (ExternalModSupport.HasCalamity)
-				{
-					string[] extrBosses = "desertscourge giantclam crabulon hivemind perforator slimegod cryogen aquaticscourge cragmawmire brimstoneelemental calamitasclone greatsandshark anahitaleviathan astrumaureus plaguebringergoliath ravager astrumdeus guardians dragonfolly providence polterghast mauler nuclearterror oldduke ceaselessvoid stormweaver signus devourerofgods yharon exomechs calamitas primordialwyrm".Split(' ');
-					foreach (var boss in extrBosses)
-					{
-						conditions.Add((bool)ExternalModSupport.Calamity.Call("GetBossDowned", boss));
-					}
-				}
 				if (ExternalModSupport.HasThorium)
 				{
 					string[] extrBosses = "Lich Viscount PatchWerk StarScouter Illusionist CorpseBloom ForgottenOne BoreanStrider FallenBeholder BuriedChampion ThePrimordials QueenJellyfish GraniteEnergyStorm TheGrandThunderBird".Split(' ');
@@ -1566,15 +1540,12 @@ namespace ArcaneOdyssey
 
 		public static ItemRarities GetItemRare(this Item item)
 		{
-			if (ExternalModSupport.HasCalamity)
+			if (item.rare == ModContent.RarityType<DarkOrange>())
 			{
-				if (item.rare == ExternalModSupport.Calamity.Find<ModRarity>("DarkOrange").Type)
-				{
-					return ItemRarities.Unknown;
-				}
+				return ItemRarities.Unknown;
 			}
 
-			if (item.rare == ModContent.RarityType<HotPinkRare>())
+			if (item.rare == ModContent.RarityType<HotPink>())
 			{
 				return ItemRarities.Special;
 			}

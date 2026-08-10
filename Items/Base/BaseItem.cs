@@ -21,7 +21,7 @@ namespace ArcaneOdyssey.Items.Base
 				Item.rare = (int)Rarity;
 			if (Rarity == ItemRarities.Special)
 			{
-				Item.rare = ModContent.RarityType<HotPinkRare>();
+				Item.rare = ModContent.RarityType<HotPink>();
 			}
 			Item.value = AOUtils.GalleonToCopper(Value);
 		}

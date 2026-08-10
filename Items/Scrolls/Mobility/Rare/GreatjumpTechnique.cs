@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Mobility.Rare
 
 	public class Greatjump(Imbuable scroll) : ModDash(scroll.Item)
 	{
-		public override DamageClass DamageType => AOUtils.TrueMelee();
+		public override DamageClass DamageType => DamageClass.Melee;
 		public override bool ContactDamage => false;
 		public override float DashSpeed => 30;
 		public override int DashMax => 60;

@@ -20,7 +20,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.ownerHitCheck = true;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
-			Projectile.DamageType = AOUtils.TrueMelee();
+			Projectile.DamageType = DamageClass.Melee;
 			Projectile.penetrate = -1;
 		}
 

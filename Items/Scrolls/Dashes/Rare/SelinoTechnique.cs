@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Rare
 
 	public class Selino1(Imbuable scroll) : ModDash(scroll.Item)
 	{
-		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
+		public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
@@ -56,7 +56,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Rare
 
 	public class Selino2(Entity source) : ModDash(source)
 	{
-		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
+		public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 
@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Rare
 
 	public class Selino3(Entity source) : ModDash(source)
 	{
-		public override DamageClass DamageType => AOUtils.TrueMeleeNoSpeed();
+		public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
 		public override bool ContactDamage => false;
 		public override int Cooldown => SelinoTechnique.Cooldown;
 

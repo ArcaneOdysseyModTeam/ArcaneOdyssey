@@ -21,7 +21,7 @@
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
 			Projectile.ownerHitCheck = true;
-			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
+			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.ignoreWater = true;
 			Projectile.ownerHitCheck = true;
 			Projectile.width = Projectile.height = 90;

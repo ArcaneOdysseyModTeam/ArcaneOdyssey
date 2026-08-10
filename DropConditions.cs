@@ -243,21 +243,6 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class Mastvengence : IItemDropRuleCondition
-	{
-		public bool CanDrop(DropAttemptInfo info) => ExternalModSupport.Mastvengence;
-
-		public bool CanShowItemDropInUI() => ExternalModSupport.Mastvengence;
-
-		public string GetConditionDescription()
-		{
-			if (ExternalModSupport.HasCalamity && !Main.masterMode)
-				return Language.GetTextValue("Mods.CalamityMod.Condition.InRev");
-
-			return Language.GetTextValue("Bestiary_ItemDropConditions.IsMasterMode");
-		}
-	}
-
 	public class QuickDropRule(Predicate<DropAttemptInfo> lambda, bool ui = true, string desc = null) : IItemDropRuleCondition
 	{
 		private readonly Predicate<DropAttemptInfo> condition = lambda;

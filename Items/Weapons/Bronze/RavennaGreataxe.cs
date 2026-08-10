@@ -25,7 +25,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			Item.height = 40;
 			Item.height = 40;
 			Item.useTurn = true;
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.axe = 90 / 5;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.autoReuse = true;

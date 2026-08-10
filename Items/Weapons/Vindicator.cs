@@ -19,7 +19,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = AOUtils.TrueMelee();
+			Item.DamageType = DamageClass.Melee;
 			Item.hammer = 90;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}

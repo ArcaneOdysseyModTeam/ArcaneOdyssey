@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Projectiles.Berserker
 			Projectile.ownerHitCheck = true;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
-			Projectile.DamageType = AOUtils.TrueMeleeNoSpeed();
+			Projectile.DamageType = DamageClass.MeleeNoSpeed;
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.Opacity = .5f;
 		}

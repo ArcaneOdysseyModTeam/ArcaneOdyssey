@@ -27,7 +27,7 @@ namespace ArcaneOdyssey.Items.Weapons.Old
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Item.DamageType = AOUtils.TrueMeleeNoSpeed();
+			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.shoot = ModContent.ProjectileType<WoodenStaffProjectile>();
 			Item.width = Item.height = 60;
 			Item.channel = true;

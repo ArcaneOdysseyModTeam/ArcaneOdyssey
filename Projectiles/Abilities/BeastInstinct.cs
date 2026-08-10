@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Projectile.width = Projectile.height = 250;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
-			Projectile.DamageType = AOUtils.TrueMelee();
+			Projectile.DamageType = DamageClass.Melee;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 		}

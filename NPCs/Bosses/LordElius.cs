@@ -671,7 +671,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					], rolls: 2));
 			npcLoot.Add(leadingConditionRule1);
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<EliusBossBag>()));
-			leadingConditionRule1 = new(new Mastvengence());
+			leadingConditionRule1 = new(new Conditions.IsMasterMode());
 			leadingConditionRule1.OnSuccess(AOUtils.Common<EliusBossRelic>());
 			leadingConditionRule1.OnSuccess(AOUtils.Common<VermillionBracelet>(4));
 			npcLoot.Add(leadingConditionRule1);
