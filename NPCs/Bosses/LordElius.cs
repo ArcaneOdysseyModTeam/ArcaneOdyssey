@@ -29,7 +29,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private readonly Vector2[] podiumPos = [new(-665f, 16f), new(-320f, 0f), new(0f, 0f), new(366f, 0f), new(686f, 16f)];
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 42;
+			Main.npcFrameCount[NPC.type] = 53;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -424,11 +424,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					}
 				}
-				else if (NPC.ai[1] < 482f && NPC.ai[1] >= 466f)
+				else if (NPC.ai[1] < 532f && NPC.ai[1] >= 516f)
 				{
 					NPC.position.Y -= 132f / 15f;
 				}
-				else if (NPC.ai[1] > 526f)
+				else if (NPC.ai[1] > 593f)
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
@@ -613,24 +613,52 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frame.Y -= frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] == 466) // starting to rise up
+					if(NPC.ai[1] == 495) // starting to rise up prep
 					{
-						NPC.frame.Y = frameHeight * 0;
+						NPC.frame.Y = frameHeight * 42;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 466 && NPC.ai[1] < 482) //rising up
+					if(NPC.ai[1] > 495 && NPC.ai[1] < 516 && NPC.frameCounter >= 5) //rising up prep
 					{
-						NPC.frame.Y = frameHeight * 0;
+						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 482) //done rising up
+					if(NPC.ai[1] == 516) //starting rise up
 					{
-						NPC.frame.Y = frameHeight * 0;
+						NPC.frame.Y = frameHeight * 46;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] == 526) // done with flying slashes completely
+					if(NPC.ai[1] > 516 && NPC.ai[1] < 532) //rising up
 					{
-						NPC.frame.Y = frameHeight * 0;
+						if(NPC.ai[1] < 520)
+						{
+							NPC.frame.Y = frameHeight * 46;
+							NPC.frameCounter = 0;
+						}
+						else if(NPC.ai[1] < 528)
+						{
+							NPC.frame.Y = frameHeight * 47;
+							NPC.frameCounter = 0;
+						}
+						else
+						{
+							NPC.frame.Y = frameHeight * 48;
+							NPC.frameCounter = 0;
+						}
+					}
+					if(NPC.ai[1] == 532)
+					{
+						NPC.frame.Y = frameHeight * 49;
+						NPC.frameCounter = 0;
+					}
+					if(NPC.ai[1] > 532 && NPC.ai[1] < 552 && NPC.frameCounter >= 5)
+					{
+						NPC.frame.Y += frameHeight;
+						NPC.frameCounter = 0;	
+					}
+					if(NPC.ai[1] > 557) //completing
+					{
+						NPC.frame.Y = 0;
 						NPC.frameCounter = 0;
 					}
 				} else if(NPC.ai[0] == 6) //storm of arrows
