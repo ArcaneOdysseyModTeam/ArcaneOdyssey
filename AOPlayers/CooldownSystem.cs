@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Items.Weapons.RavennaNoble;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 

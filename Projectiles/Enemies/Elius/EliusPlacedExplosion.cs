@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using System.Collections.Generic;
 using Terraria.Audio;

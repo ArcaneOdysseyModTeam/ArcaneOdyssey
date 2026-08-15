@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Relics;
 using Terraria.Audio;
@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 {
 	public class LaelusBlast : BaseProjectile
 	{
-		public Imbuable Imbue = ModContent.GetInstance<TidestoneBand>();
+		public Imbuable Imbue = ModContent.GetInstance<LaelusBand>();
 
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
 

@@ -78,3 +78,19 @@ SteamImbue: {
 	AttackPrefix: Scalding
 	SpellPrefix: Steam
 }
+
+Enemies: {
+	DuskStaff: {
+		AttackPrefix: Spirit
+		SpellPrefix: Spirit
+		DisplayName: Dusk Staff
+		Tooltip: ""
+	}
+
+	LaelusBand: {
+		AttackPrefix: Spirit
+		SpellPrefix: Spirit
+		DisplayName: Laelus Band
+		Tooltip: ""
+	}
+}

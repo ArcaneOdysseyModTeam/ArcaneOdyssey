@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Projectiles.Base;
 using Terraria.Graphics.CameraModifiers;
 
@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			Projectile.tileCollide = false;
 		}
 
-		public Imbuable Imbue = ModContent.GetInstance<TidestoneBand>();
+		public Imbuable Imbue = ModContent.GetInstance<LaelusBand>();
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{

@@ -3,7 +3,6 @@ using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
-using System.IO;
 
 namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {

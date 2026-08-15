@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Relics;
 using Terraria.Audio;
@@ -14,7 +14,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public int Penetrations { get => (int)Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
-		public Imbuable Imbue => ModContent.GetInstance<StaffofNight>();
+		public Imbuable Imbue => ModContent.GetInstance<DuskStaff>();
 
 		public const int TimeLeftMax = 60 * 5;
 		public override void SetDefaults()

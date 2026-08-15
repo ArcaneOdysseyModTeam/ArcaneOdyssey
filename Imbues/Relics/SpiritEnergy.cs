@@ -46,7 +46,21 @@ namespace ArcaneOdyssey.Imbues.Relics
 		}
 
 		private GodSoul soul = null;
-		public GodSoul Soul { get => soul ?? GodSoul.None; set => soul = value; }
+		public GodSoul Soul
+		{
+			get => soul ?? GodSoul.None;
+			set
+			{
+				if (value is not NoneSoul)
+				{
+					soul = value;
+				}
+				else
+				{
+					soul = null;
+				}
+			}
+		}
 
 		private int soulindex = 0;
 
@@ -91,7 +105,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Soul = GodSoul.None;
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
-				Item.color = SpiritColor;
+				Item.color = SpiritColour;
 			}
 		}
 
@@ -103,25 +117,25 @@ namespace ArcaneOdyssey.Imbues.Relics
 			if (Stability.HasValue)
 			{
 				Asset<Texture2D> image;
-				float indscale = 1f;
+				float imgscale = 1f;
 				if (Stability.Value)
 				{
 					image = AOUtils.Request(ArcaneOdysseyMod.InternalName + "/Assets/GodSoulSynergy", ref synergyAsset, AssetRequestMode.ImmediateLoad);
-					indscale = 1.1f;
+					imgscale = 1.1f;
 				}
 				else
 				{
 					image = AOUtils.Request(ArcaneOdysseyMod.InternalName + "/Assets/GodSoulUnstable", ref unstableAsset, AssetRequestMode.ImmediateLoad);
 				}
 
-				spriteBatch.Draw(image.Value, position, null, Item.GetAlpha(Color.White * Main.inventoryScale), 0f, image.Size() / 2f, Main.inventoryScale * indscale, SpriteEffects.None, 1f);
+				spriteBatch.Draw(image.Value, position, null, Item.GetAlpha(Color.White * Main.inventoryScale), 0f, image.Size() / 2f, Main.inventoryScale * imgscale, SpriteEffects.None, 1f);
 			}
 
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
 				if (itemColor == Color.Transparent)
 				{
-					spriteBatch.Draw(Sprite, position, frame, Item.GetAlpha(SpiritColor), 0f, origin, scale, SpriteEffects.None, 1f);
+					spriteBatch.Draw(Sprite, position, frame, Item.GetAlpha(SpiritColour), 0f, origin, scale, SpriteEffects.None, 1f);
 					return false;
 				}
 			}
@@ -135,7 +149,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
-				Item.color = SpiritColor;
+				Item.color = SpiritColour;
 			}
 
 			if (Main.myPlayer == player.whoAmI && player.PlayerItem() == Item)
@@ -191,30 +205,39 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public override Color ImbueColour => SpiritColor;
+		public override Color ImbueColour => SpiritColour;
 
-		public Color SpiritColor
+		public Color SpiritColour
 		{
 			get
 			{
-				if (!EliusSpareSystem.spared)
+				if (SpiritColourOverride.HasValue)
 				{
-					if (Imbue is MagicType)
-					{
-						return Color.Red;
-					}
-					return Color.Purple;
+					return SpiritColourOverride.Value;
 				}
-				else
+				if (EliusSpareSystem.spared)
 				{
 					if (Imbue is MagicType)
 					{
 						return Color.Gold;
 					}
-					return new(0, 183, 255);
+					return GoodColour;
+				}
+				else
+				{
+					if (Imbue is MagicType)
+					{
+						return Color.Red;
+					}
+					return EvilColour;
 				}
 			}
 		}
+
+		protected virtual Color? SpiritColourOverride => null;
+
+		public static Color GoodColour => new(0, 183, 255);
+		public static Color EvilColour => Color.Purple;
 
 		public override string ImbueUISprite
 		{
@@ -349,7 +372,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Item.DamageType = DamageClass.Summon;
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
-				Item.color = SpiritColor;
+				Item.color = SpiritColour;
 			}
 		}
 
@@ -359,7 +382,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			for (float i = 0; i < 5; i++)
 			{
-				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColor).noGravity = true;
+				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColour).noGravity = true;
 			}
 			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustType, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
 		}
@@ -370,7 +393,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			for (float i = 0; i < amount; i++)
 			{
 				var centre = (MathHelper.TwoPi / amount * i).ToRotationVector2() * 20 * area.RelativeScale();
-				AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritDust>(), centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColor).noGravity = true;
+				AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritDust>(), centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColour).noGravity = true;
 			}
 			amount = 12 * 2;
 			for (float i = 0; i < amount; i++)
@@ -385,7 +408,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColor)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColour)];
 				spawnedDust.noGravity = true;
 			}
 			for (int n = 0; n < 2; n++)
@@ -399,7 +422,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: intensity, Alpha: 255 / 4, newColor: SpiritColor)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: intensity, Alpha: 255 / 4, newColor: SpiritColour)];
 				spawnedDust.noGravity = true;
 			}
 			for (int n = 0; n < 3; n++)
@@ -411,7 +434,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public override void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0)
 		{
-			AOUtils.NewDustImperfect(coneCenter, ModContent.DustType<SpiritDust>(), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: SpiritColor, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
+			AOUtils.NewDustImperfect(coneCenter, ModContent.DustType<SpiritDust>(), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: SpiritColour, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
 			AOUtils.NewDustImperfect(coneCenter, DustType, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: ImbueColour, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
 		}
 

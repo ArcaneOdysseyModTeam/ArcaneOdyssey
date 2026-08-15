@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Relics;
 
@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 		}
 
 		public override string Texture => AOUtils.GetTexture<SpiritBlast>();
-		public Imbuable Imbue => ModContent.GetInstance<StaffofNight>();
+		public Imbuable Imbue => ModContent.GetInstance<DuskStaff>();
 
 		public override void SetStaticDefaults()
 		{
@@ -70,7 +70,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Imbue.ImbueColour), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Imbue.Colour), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				return false;
 			}
 			return true;

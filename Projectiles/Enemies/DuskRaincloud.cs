@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Relics;
@@ -14,7 +14,8 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 
 		public const int MaxTimeLeft = SpiritRaincloud.MaxTimeLeft;
 
-		public Imbuable Imbue => ModContent.GetInstance<StaffofNight>();
+		public Imbuable Imbue => ModContent.GetInstance<DuskStaff>();
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -69,7 +70,8 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 				{
 					Projectile.hostile = true;
 					Projectile.velocity = Vector2.Zero;
-					AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(2f)), ModContent.ProjectileType<DuskRaindrop>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, null, true);
+					if (AOUtils.ServerOrSingleplayer)
+						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(2f)), ModContent.ProjectileType<DuskRaindrop>(), Projectile.damage / 2, 0f, Projectile.owner, Imbue, null, true);
 				}
 
 
@@ -99,7 +101,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 			if (ModContent.RequestIfExists<Texture2D>(Texture, out var tex))
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Imbue.ImbueColour), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, new(0, tex.Height() / Main.projFrames[Type] * Projectile.frame, tex.Width(), tex.Height() / Main.projFrames[Type]), Projectile.GetAlpha(Imbue.Colour), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				return false;
 			}
 			return true;

@@ -129,7 +129,7 @@ public abstract partial class BaseImbueUI : UIState
 			void EdgeCase()
 			{
 				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
-				Icon.Color = SpiritEnergy.Instance.SpiritColor;
+				Icon.Color = SpiritEnergy.Instance.SpiritColour;
 			}
 			#endregion
 		}
@@ -288,7 +288,7 @@ public abstract partial class BaseImbueUI : UIState
 			void EdgeCase()
 			{
 				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
-				Icon.Color = SpiritEnergy.Instance.SpiritColor;
+				Icon.Color = SpiritEnergy.Instance.SpiritColour;
 			}
 			#endregion
 		}

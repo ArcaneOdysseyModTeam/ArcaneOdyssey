@@ -20,7 +20,10 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			Projectile.ignoreWater = true;
 			Projectile.ownerHitCheck = true;
 			Projectile.penetrate = -1;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 15;
 			Projectile.timeLeft = MaxTimeLeft;
+			Projectile.ArmorPenetration += 100;
 		}
 
 		public override void SetStaticDefaults()
@@ -51,6 +54,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			if (Projectile.timeLeft <= (MaxTimeLeft - 60))
 			{
 				Projectile.velocity = Vector2.Zero;
+				if (AOUtils.ServerOrSingleplayer)
 				AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(2f)), ModContent.ProjectileType<SpiritRaindrop>(), Projectile.damage / 10, 0f, Projectile.owner, Imbue, SecondImbue, true);
 			}
 

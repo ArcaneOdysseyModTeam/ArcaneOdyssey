@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Abilities;
 using Terraria.DataStructures;
