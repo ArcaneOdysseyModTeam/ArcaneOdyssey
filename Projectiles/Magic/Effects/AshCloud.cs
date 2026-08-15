@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
 using System;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
@@ -9,9 +10,15 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 
 		public override float Size => 5f;
 
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
+		}
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
+			Projectile.hide = true;
 			Projectile.width = Projectile.height = 25;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;

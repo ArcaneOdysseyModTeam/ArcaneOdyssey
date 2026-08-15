@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Effects
 {
@@ -13,6 +14,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
 		}
 
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
+		}
+
 		public override Debuff? ProjectileDebuff => Debuff.Create<Poisoned>(60 * 3);
 
 		public override float Size => 4f;
@@ -20,6 +26,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
+			Projectile.hide = true;
 			Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
 			Projectile.width = Projectile.height = 20;
 			Projectile.friendly = true;

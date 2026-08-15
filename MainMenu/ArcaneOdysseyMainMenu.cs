@@ -1,4 +1,5 @@
-﻿using ArcaneOdysseyMusic;
+﻿using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdysseyMusic;
 using System;
 using System.Collections.Generic;
 
@@ -51,11 +52,14 @@ namespace ArcaneOdyssey.MainMenu
 			public LocalizedText DisplayName;
 			public Asset<Texture2D> BackgroundTexture;
 
-			public MainMenuStyle(MusicTrack track, Color colour, string name, Mod mod = null, string path = "MainMenu/Images")
+			public Func<bool> Requirement;
+
+			public MainMenuStyle(MusicTrack track, Color colour, string name, Func<bool> condition = null, Mod mod = null, string path = "MainMenu/Images")
 			{
 				Track = track;
 				Colour = colour;
 				Name = name;
+				Requirement = condition;
 				mod ??= ArcaneOdysseyMod.Instance;
 				DisplayName = mod.CoolCustomLocalization($"MainMenuStyle.{Name}");
 				BackgroundTexture = AOUtils.Request($"{mod.Name}/{path}/{Name}", ref BackgroundTexture, AssetRequestMode.ImmediateLoad);
@@ -71,6 +75,8 @@ namespace ArcaneOdyssey.MainMenu
 
 		public override int Music => SelectedTitle.Track.MusicSlot;
 
+		public override bool IsAvailable => Titles.Count > 0;
+
 		public override void Update(bool isOnTitleScreen)
 		{
 			Main.time = 27000.0;
@@ -80,7 +86,8 @@ namespace ArcaneOdyssey.MainMenu
 		public override void SetStaticDefaults()
 		{
 			Raindrop.Texture = Mod.Assets.Request<Texture2D>("Assets/Raindrop");
-			Titles.AddRange(new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"), new(MusicTrack.Djin, Color.Gray, "Djin"));
+			Titles.AddRange(new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"));
+			Titles.Add(new(MusicTrack.Djin, Color.Gray, "Djin", GlobalData.IsDefeated<LordElius>));
 		}
 
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
@@ -135,7 +142,7 @@ namespace ArcaneOdyssey.MainMenu
 
 		public override void OnSelected()
 		{
-			SelectedTitle = Main.rand.Next(Titles);
+			SelectedTitle = Main.rand.Next(Titles.FindAll(e => e.Requirement is null || e.Requirement()));
 		}
 	}
 }

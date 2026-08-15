@@ -6,5 +6,10 @@ namespace ArcaneOdyssey.Imbues.Enemies
 	{
 		public override string Texture => AOUtils.GetTexture<TidestoneBand>();
 		protected override Color? SpiritColourOverride => GoodColour;
+
+		public override void UpdateInventory(Player player)
+		{
+			Item.TurnToAir(true);
+		}
 	}
 }

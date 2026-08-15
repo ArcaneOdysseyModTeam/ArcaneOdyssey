@@ -98,9 +98,6 @@ namespace ArcaneOdyssey
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
 			}
-
-			// idk why but it has to be here
-			ExternalModSupport.Fargos?.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
 		}
 
 		public override void Unload()
@@ -162,6 +159,12 @@ namespace ArcaneOdyssey
 			/// Spawns Elius's arena
 			/// </summary>
 			public const byte SpawnEliusArena = 4;
+
+			/// <summary>
+			/// Marks an NPC as defeated on all clients
+			/// <para/> Requires an npc ID, which should be consistant between all clients
+			/// </summary>
+			public const byte MarkGlobalDowned = 5;
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -288,6 +291,18 @@ namespace ArcaneOdyssey
 				{
 					WorldGenStuff.SpawnEliusArena();
 					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+			else if (command == PacketID.MarkGlobalDowned)
+			{
+				if (!Main.dedServ)
+				{
+					var npcid = reader.ReadInt32();
+					var npc = ModContent.GetModNPC(npcid);
+					if (npc is null)
+						GlobalData.MarkDefeated(npcid);
+					else
+						GlobalData.MarkDefeated(npc);
 				}
 			}
 		}

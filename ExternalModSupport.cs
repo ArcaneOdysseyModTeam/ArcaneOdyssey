@@ -28,6 +28,11 @@ namespace ArcaneOdyssey
 			MagicStorageSupport();
 		}
 
+		public override void OnModLoad()
+		{
+			Fargos?.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Mod.Name);
+		}
+
 		public static void MagicStorageSupport()
 		{
 			if (!HasMS)

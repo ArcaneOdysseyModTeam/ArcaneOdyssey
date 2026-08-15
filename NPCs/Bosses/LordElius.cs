@@ -709,6 +709,17 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			Main.windSpeedTarget = -.1f;
 			DownedBosses.DownedElius = true;
+			if (Main.dedServ)
+			{
+				var packet = Mod.GetPacket();
+				packet.Write(ArcaneOdysseyMod.PacketID.MarkGlobalDowned);
+				packet.Write(Type);
+				packet.Send();
+			}
+			else
+			{
+				GlobalData.MarkDefeated(this);
+			}
 			var hitbox = NPC.Hitbox;
 			if (!EliusSpareSystem.spared) // kill in singeplayer
 			{
