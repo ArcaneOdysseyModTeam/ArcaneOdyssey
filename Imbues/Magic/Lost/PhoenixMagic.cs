@@ -141,7 +141,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void Activate(Player player, Imbuable imbue)
 		{
-			player.ApplyEquipFunctional(new Item(ModContent.ItemType<PhoenixWings>()), false);
+			var item = new Item(ModContent.ItemType<PhoenixWings>());
+			item.active = false;
+			player.ApplyEquipFunctional(item, false);
 		}
 	}
 }

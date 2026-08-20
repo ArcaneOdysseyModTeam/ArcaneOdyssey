@@ -20,7 +20,9 @@ namespace ArcaneOdyssey.Items.Scrolls.Mobility.Rare
 
 		public override void Activate(Player player, Imbuable imbue)
 		{
-			player.ApplyEquipFunctional(new Item(ModContent.ItemType<FlightCore>()), false);
+			var item = new Item(ModContent.ItemType<FlightCore>());
+			item.active = false;
+			player.ApplyEquipFunctional(item, false);
 		}
 	}
 }

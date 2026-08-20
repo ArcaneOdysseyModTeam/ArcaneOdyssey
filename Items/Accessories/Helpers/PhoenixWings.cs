@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 	[AutoloadEquip(EquipType.Wings)]
 	public class PhoenixWings : BaseItem
 	{
-		public override ItemRarities Rarity => ItemRarities.Unknown;
+		public override ItemRarities Rarity => ItemRarities.Legendary;
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
@@ -29,14 +29,23 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
+		public override bool WingUpdate(Player player, bool inUse)
+		{
+			Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
+			Lighting.AddLight(spawnPos, PhoenixMagic.Instance.Colour.ToVector3() * 1.5f);
+			return base.WingUpdate(player, inUse);
+		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			player.noFallDmg = true;
-			if (!hideVisual)
+			if (Item.active)
 			{
-				Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
-				Lighting.AddLight(spawnPos, PhoenixMagic.Instance.Colour.ToVector3() * 1.5f);
+				player.wingsLogic = 0;
+			}
+			else
+			{
+				player.noFallDmg = true;
 			}
 		}
 
@@ -56,6 +65,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		{
 			base.SetDefaults();
 			Item.accessory = true;
+			Item.vanity = true;
 		}
 	}
 }

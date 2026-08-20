@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Mobility.Rare;
 using Terraria.Audio;
@@ -9,7 +10,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 	[AutoloadEquip(EquipType.Wings)]
 	public class FlightCore : BaseItem
 	{
-		public override ItemRarities Rarity => ItemRarities.Unknown;
+		public override ItemRarities Rarity => ItemRarities.Mystic;
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
@@ -52,13 +53,21 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			player.noFallDmg = true;
+			if (Item.active)
+			{
+				player.wingsLogic = 0;
+			}
+			else
+			{
+				player.noFallDmg = true;
+			}
 		}
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.accessory = true;
+			Item.vanity = true;
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)
@@ -66,6 +75,12 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			if (inUse)
 			{
 				Imbuable.RequestMobilityCircle(player.Imbue()?.Item, player, Projectiles.MobilityCircleMode.Flight, false);
+
+				if (player.Imbue() is SpiritEnergy imbue)
+				{
+					player.Imbue()?.LingeringEffects(player.Hitbox.Scaled(3f));
+					player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox.Scaled(3f));
+				}
 
 				if (!player.flapSound && player.Imbue()?.ImbueSound.HasValue == true)
 				{
@@ -75,6 +90,11 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 				player.flapSound = true;
 			}
 
+			return false;
+		}
+
+		public override bool ModifyEquipTextureDraw(ref PlayerDrawSet drawInfo, ref DrawData drawData, EquipTexture equipTexture, string methodName)
+		{
 			return false;
 		}
 	}

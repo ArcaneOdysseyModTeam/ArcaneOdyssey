@@ -120,12 +120,12 @@ Accessories: {
 	Helpers: {
 		FlightCore: {
 			DisplayName: Flight Core
-			Tooltip: ""
+			Tooltip: Makes you appear to fly using a magic circle
 		}
 
 		PhoenixWings: {
 			DisplayName: Phoenix Wings
-			Tooltip: ""
+			Tooltip: Makes you appear to fly using phoenix flame wings
 		}
 	}
 }
