@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Projectiles
 
 		public override bool? CanDamage() => false;
 
-		public override float Size => .6f;
+		public override float Size => .3f;
 		public override void SetStaticDefaults()
 		{
 			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;

@@ -438,6 +438,7 @@ namespace ArcaneOdyssey
 
 		public static Imbuable SecondImbue(this Projectile projectile) => projectile?.ArcaneOdyssey()?.SecondImbue;
 		public static Imbuable SecondImbue(this Item item) => item?.ArcaneOdyssey()?.SecondImbue;
+		public static Imbuable SecondImbue(this Player player) => player?.Imbue()?.Imbue;
 
 		public static Dust NewDustImperfect(Vector2 position, int type, Vector2? velocity = null, int Alpha = 0, Color newColor = default, float Scale = 1f)
 		{
@@ -1118,7 +1119,7 @@ namespace ArcaneOdyssey
 				}
 				if (entity is Player)
 				{
-					secondimbue = imbue.Imbue;
+					secondimbue = imbue?.Imbue;
 					return true;
 				}
 			}

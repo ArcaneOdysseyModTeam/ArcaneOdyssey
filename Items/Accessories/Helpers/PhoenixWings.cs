@@ -29,69 +29,33 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
-		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
-		{
-			var result = base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
-			if (result)
-				player.ArcaneOdyssey().hasWings = 2;
-			return result;
-		}
-
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			player.ArcaneOdyssey().hasWings = 2;
-			if (player.Imbue() is PhoenixMagic && player.HasTypeInInventory<PhoenixMagic>(e => e.Mobility is PhoenixFlight))
+			player.noFallDmg = true;
+			if (!hideVisual)
 			{
-				player.noFallDmg = true;
-				if (!hideVisual)
-				{
-					Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
-					Lighting.AddLight(spawnPos, PhoenixMagic.Instance.Colour.ToVector3() * 1.5f);
-				}
-			}
-			else
-			{
-				Item.TurnToAir(true);
+				Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
+				Lighting.AddLight(spawnPos, PhoenixMagic.Instance.Colour.ToVector3() * 1.5f);
 			}
 		}
 
 		public override bool ModifyEquipTextureDraw(ref PlayerDrawSet drawInfo, ref DrawData drawData, EquipTexture equipTexture, string methodName)
 		{
-			drawData.color = Color.White * (1f-drawInfo.shadow);
+			drawData.color = Color.White * (1f - drawInfo.shadow);
 			return true;
-		}
-
-		public override void UpdateInventory(Player player)
-		{
-			base.UpdateInventory(player);
-			if (player.Imbue() is not PhoenixMagic || !player.HasTypeInInventory<PhoenixMagic>(e => e.Mobility is PhoenixFlight))
-			{
-				Item.TurnToAir();
-			}
 		}
 
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 12f, 12f);
-			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
-			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
-			ItemID.Sets.CanGetPrefixes[Type] = false;
 		}
 
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Item.accessory = true;
-			Item.uniqueStack = true;
-		}
-
-		private int airTime = 1;
-		public override void Update(ref float gravity, ref float maxFallSpeed)
-		{
-			if (airTime-- <= 0)
-				Item.TurnToAir();
 		}
 	}
 }
