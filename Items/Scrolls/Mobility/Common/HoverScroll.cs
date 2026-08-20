@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Mobility.Common
 			if (player.carpetTime > 0 && player.controlJump)
 			{
 				player.moveSpeed += Imbue.ScrollSpeed.MultiToPercent();
-				Imbue.LingeringEffects(player.Hitbox);
+				Imbuable.RequestMobilityCircle(Imbue.Item, player, Projectiles.MobilityCircleMode.Hover, false);
 			}
 			else
 				player.carpetTime = (player.carpetTime * Imbue.ScrollDamage).Round();

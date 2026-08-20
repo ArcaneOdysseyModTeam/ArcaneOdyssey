@@ -1065,6 +1065,41 @@ namespace ArcaneOdyssey.Imbues.Base
 			return circle;
 		}
 
+		public static MobilityCircle RequestMobilityCircle(Item item, Player player, MobilityCircleMode mode, bool markedfordeath, Vector2? position = null, float? rotation = null)
+		{
+			if (mode == MobilityCircleMode.Dash && player.ArcaneOdyssey().dashing)
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter) + (player.ArcaneOdyssey().DashVelocity.SafeNormalize() * -15f);
+			}
+			else
+			{
+				position ??= player.RotatedRelativePoint(player.MountedCenter) + new Vector2(0, 15f);
+			}
+			rotation ??= player.AngleTo(position.Value);
+
+			MobilityCircle circle;
+			if (player.ArcaneOdyssey().myMobilityCircle is not null)
+			{
+				circle = player.ArcaneOdyssey().myMobilityCircle;
+			}
+			else
+			{
+				circle = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), position.Value, Vector2.Zero, ModContent.ProjectileType<MobilityCircle>(), 0, 0, player.whoAmI, ai2: (int)mode).ModProjectile as MobilityCircle;
+			}
+
+			circle.Mode = mode;
+			circle.MarkedForDeath = markedfordeath;
+			circle.dir = rotation.Value.ToRotationVector2();
+			circle.Projectile.Center = position.Value;
+
+			if (!markedfordeath)
+			{
+				player.ArcaneOdyssey().myMobilityCircle = circle;
+			}
+
+			return circle;
+		}
+
 		public Circle CreateMagicCircle(Player player, MagicCircleMode mode, bool markedfordeath, int chargingProjectile = 0, bool altfire = false, float spread = 0f, Vector2? position = null, float? rotation = null)
 		{
 			if (mode != MagicCircleMode.Rotating)

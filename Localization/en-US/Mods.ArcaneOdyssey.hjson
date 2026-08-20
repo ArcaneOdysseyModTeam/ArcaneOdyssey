@@ -208,6 +208,7 @@ Projectiles: {
 	LeapFix.DisplayName: Jump
 	Circle.DisplayName: Magic Circle
 	ThunderingEffect.DisplayName: Lightning Strike
+	MobilityCircle.DisplayName: Magic Circle
 }
 
 Achievements: {

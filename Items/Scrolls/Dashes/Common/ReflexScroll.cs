@@ -53,6 +53,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 
 		public override void DashEffect(Player player)
 		{
+			Imbuable.RequestMobilityCircle(Source as Item, player, Projectiles.MobilityCircleMode.Dash, false);
+
 			if (Imbue?.DashResist.HasValue == true)
 				player.statDefense *= Imbue.DashResist.Value;
 

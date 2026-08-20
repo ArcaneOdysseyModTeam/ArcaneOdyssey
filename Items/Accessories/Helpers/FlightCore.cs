@@ -128,8 +128,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		{
 			if (inUse)
 			{
-				player.Imbue()?.LingeringEffects(player.Hitbox.Scaled(3f));
-				player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox.Scaled(3f));
+				Imbuable.RequestMobilityCircle(player.Imbue()?.Item, player, Projectiles.MobilityCircleMode.Flight, false);
 
 				if (!player.flapSound && player.Imbue()?.ImbueSound.HasValue == true)
 				{

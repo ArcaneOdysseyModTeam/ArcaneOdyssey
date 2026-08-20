@@ -17,6 +17,7 @@ namespace ArcaneOdyssey.AOPlayers
 		public Imbuable Imbue { get; set; }
 		public short StatSize = 0;
 		public Circle myCircle = null;
+		public MobilityCircle myMobilityCircle = null;
 		public ushort timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 		public bool HeavySkillActive = false;

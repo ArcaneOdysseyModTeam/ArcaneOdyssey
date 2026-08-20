@@ -176,7 +176,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					if (OriginWeaponType == WeaponType.Artisinal)
 						return null;
 					if (thisProjectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-						return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or Circle || OriginWeaponType != WeaponType.Normal;
+						return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or Circle or MobilityCircle || OriginWeaponType != WeaponType.Normal;
 				}
 				return null;
 			}

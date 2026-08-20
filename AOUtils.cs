@@ -1013,7 +1013,7 @@ namespace ArcaneOdyssey
 							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Throwing)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Magic)
-							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or Circle
+							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or Circle or MobilityCircle
 						)
 						&& projectile.owner != 255
 						&& !projectile.hostile

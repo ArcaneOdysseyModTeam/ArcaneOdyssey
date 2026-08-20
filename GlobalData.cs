@@ -5,7 +5,7 @@ namespace ArcaneOdyssey
 {
 	public class GlobalData : ModSystem
 	{
-		private static List<string> globalDefeatCache = [];
+		public static List<string> globalDefeatCache { get; private set; } = [];
 		public static string GlobalDefeatFile => Path.Combine(Main.SavePath, "GlobalAOModDefeatList.txt");
 
 		public override void OnModLoad()
