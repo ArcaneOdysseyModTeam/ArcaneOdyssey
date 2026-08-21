@@ -269,3 +269,15 @@ Atlantean: {
 		}
 	}
 }
+
+Arcanium: {
+	ArcaniumSword: {
+		DisplayName: Arcanium Sword
+		Tooltip: ""
+	}
+
+	ArcaniumBow: {
+		DisplayName: Arcanium Bow
+		Tooltip: ""
+	}
+}

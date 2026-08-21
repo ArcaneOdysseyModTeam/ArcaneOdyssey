@@ -398,3 +398,8 @@ ImbueGimmicks: {
 		Description: You throw cannonballs as you attack
 	}
 }
+
+DamageClasses: {
+	ArcaniumDamageClass.DisplayName: arcanium damage
+	RangedArcaniumDamageClass.DisplayName: ranged arcanium damage
+}

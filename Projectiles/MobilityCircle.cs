@@ -4,13 +4,8 @@ using ArcaneOdyssey.Projectiles.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Projectiles
 {

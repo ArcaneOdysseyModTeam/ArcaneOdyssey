@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls;
 using Fargowiltas;
 using System.Collections.Generic;
@@ -59,11 +60,94 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			Player player = drawInfo.drawPlayer;
-
-			if (player.PlayerItem().ModItem is Imbuable imbue)
+			List<DrawData> drawDatas = [];
+			if (player.PlayerItem().ModItem is ArcaniumWeapon weapon)
 			{
-				List<DrawData> drawDatas = [];
+				int yOffset = 0;
+				if (ExternalModSupport.HasFargos && FargosBuffDisplayActive(drawInfo))
+				{
+					yOffset += ((player.buffType.Where(d => Main.debuff[d]).Except(FargosIgnoredDebuffs).Count() / 10) + 1) * 32;
+				}
 
+				Vector2 drawPos;
+				float rotation;
+				SpriteEffects effects;
+				if (player.gravDir > 0)
+				{
+					drawPos = player.Top;
+					effects = SpriteEffects.None;
+					rotation = 0;
+				}
+				else
+				{
+					drawPos = player.Bottom;
+					effects = SpriteEffects.FlipHorizontally;
+					rotation = MathHelper.Pi;
+				}
+				rotation -= drawInfo.rotation;
+				drawPos.Y -= (32f + yOffset) * player.gravDir;
+
+				drawPos -= player.MountedCenter;
+				drawPos = drawPos.RotatedBy(-drawInfo.rotation);
+				drawPos += player.MountedCenter;
+				drawPos += Vector2.UnitY * player.gfxOffY;
+				var spell = weapon.Attack;
+				if (spell is not null)
+				{
+					var colour = Color.White;
+
+					Texture2D texture = backgroundSprites.Item1.Value;
+
+					if (weapon.Imbue is null)
+					{
+						colour *= ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
+						texture = backgroundSprites.Item2.Value;
+					}
+
+					DrawData a = new(texture, drawPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, effects, 0);
+
+					Asset<Texture2D> tex;
+					if (spell.Scroll != 0)
+						tex = TextureAssets.Item[spell.Scroll];
+					else
+						tex = TextureAssets.Item[weapon.Type];
+
+					DrawData d = new(tex.Value, drawPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), effects, 0);
+					drawDatas.AddRange(a, d);
+				}
+				else if (!weapon.cachedSpell.IsNullOrWhiteSpace())
+				{
+					var colour = Color.White * ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
+
+					Asset<Texture2D> tex = TextureAssets.Item[ModContent.ItemType<UnloadedScroll>()];
+
+					DrawData d = new(tex.Value, drawPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, MathHelper.Min(dimensions.Height, dimensions.Width) / MathHelper.Max(tex.Width(), tex.Height()), effects, 0);
+					drawDatas.Add(d);
+				}
+				else
+				{
+					var colour = Color.White;
+
+					Texture2D texture = backgroundSprites.Item1.Value;
+
+					if (weapon.Imbue is null)
+					{
+						colour *= ArcaneOdysseyClientConfig.Instance.UnselectedScrollOpacity;
+						texture = backgroundSprites.Item2.Value;
+					}
+
+					DrawData a = new(texture, drawPos - Main.screenPosition, texture.Frame(), colour, rotation, texture.Size() / 2f, 1f, effects, 0);
+
+					Asset<Texture2D> tex = TextureAssets.Item[weapon.Type];
+
+					colour = colour.MultiplyRGBA(weapon.Colour);
+
+					DrawData d = new(tex.Value, drawPos - Main.screenPosition, tex.Frame(), colour, rotation, tex.Size() / 2f, spriteSize / MathHelper.Max(tex.Width(), tex.Height()), effects, 0);
+					drawDatas.AddRange(a, d);
+				}
+			}
+			else if (player.PlayerItem().ModItem is Imbuable imbue)
+			{
 				int yOffset = 0;
 				if (ExternalModSupport.HasFargos && FargosBuffDisplayActive(drawInfo))
 				{
@@ -260,9 +344,9 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 						drawDatas.Add(d);
 					}
 				}
-					
-				drawInfo.DrawDataCache.AddRange(drawDatas);
 			}
+
+			drawInfo.DrawDataCache.AddRange(drawDatas);
 		}
 	}
 }

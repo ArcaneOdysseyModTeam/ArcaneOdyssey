@@ -102,7 +102,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				RemoveSkill(selectedIndex);
 			}
-
+			
 			if (selectedAttack is not null)
 			{
 				if (Item.DamageType == DamageClass.Magic)
@@ -121,9 +121,10 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (player.AltUse())
 			{
-				if (Item.useStyle != ArcaneOdysseyMod.Sets.imbuableDefaultUseID[Type])
+				var instance = new Item(Type);
+				if (Item.useStyle != instance.useStyle)
 				{
-					Item.useStyle = ArcaneOdysseyMod.Sets.imbuableDefaultUseID[Type];
+					Item.useStyle = instance.useStyle;
 					return false;
 				}
 				else return true;
@@ -308,9 +309,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				tag.Add("dashspell", cachedSpells[5]);
 			}
-
-			selectedIndex = 80;
-			CycleAttack();
 		}
 
 		public override void LoadData(TagCompound tag)

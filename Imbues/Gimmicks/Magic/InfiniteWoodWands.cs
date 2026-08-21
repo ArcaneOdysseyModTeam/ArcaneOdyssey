@@ -6,18 +6,12 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 	{
 		public override void InventoryEffects(Item item, Player player)
 		{
-			if (ArcaneOdysseyMod.Sets.woodWand[item.type])
-			{
-				item.tileWand = ItemID.None;
-			}
+			item.tileWand = ItemID.None;
 		}
 
 		public override void NoInventoryEffects(Item item, Player player)
 		{
-			if (ArcaneOdysseyMod.Sets.woodWand[item.type])
-			{
-				item.tileWand = ArcaneOdysseyMod.Sets.wandWoodType[item.type];
-			}
+			item.tileWand = new Item(item.type).tileWand;
 		}
 	}
 }

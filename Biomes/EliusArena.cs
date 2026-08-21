@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Debug;
+﻿using ArcaneOdyssey.Biomes.Base;
+using ArcaneOdyssey.Items.Debug;
 using ArcaneOdysseyMusic;
 using System.IO;
 using Terraria.ModLoader.IO;
@@ -8,7 +9,7 @@ namespace ArcaneOdyssey.Biomes
 	/// <summary>
 	/// Djin Ruins
 	/// </summary>
-	public class EliusArena : ModBiome
+	public class EliusArena : BaseBiome
 	{
 		public override bool IsBiomeActive(Player player)
 		{

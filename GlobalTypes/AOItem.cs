@@ -609,10 +609,6 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			if (!item.active || item.IsAir || string.IsNullOrWhiteSpace(item.Name))
 				return;
-			if (Main.gameMenu && item.ModItem is Imbuable)
-			{
-				ArcaneOdysseyMod.Sets.imbuableDefaultUseID[item.type] = item.useStyle;
-			}
 			thisItem = item;
 			owner = null;
 		}

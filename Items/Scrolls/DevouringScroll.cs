@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Items.Scrolls
 
 		public override bool CanRightClick()
 		{
-			if (base.CanRightClick() && Main.LocalPlayer.PlayerItem()?.ModItem is Imbuable imbue)
+			if (Main.LocalPlayer.PlayerItem()?.ModItem is Imbuable imbue)
 			{
 				for (byte i = 0; i < imbue.Skills.Length; i++)
 				{
@@ -34,6 +34,10 @@ namespace ArcaneOdyssey.Items.Scrolls
 					}
 				}
 			}
+			else if (Main.LocalPlayer.PlayerItem()?.ModItem is ArcaniumWeapon weapon)
+			{
+				return weapon.Attack is not null;
+			}
 			return false;
 		}
 
@@ -42,6 +46,10 @@ namespace ArcaneOdyssey.Items.Scrolls
 			if (player.PlayerItem()?.ModItem is Imbuable imbue)
 			{
 				imbue.RemoveAllSkills();
+			}
+			else if (player.PlayerItem().ModItem is ArcaniumWeapon weapon)
+			{
+				weapon.RemoveSkill();
 			}
 		}
 	}

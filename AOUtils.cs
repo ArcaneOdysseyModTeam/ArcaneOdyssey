@@ -1070,7 +1070,7 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is MagicType)
 				{
-					if (item.DamageType.CountsAsClass(DamageClass.Magic))
+					if (item.DamageType.CountsAsClass(DamageClass.Magic) && ArcaneOdysseyMod.Sets.weaponType[item.type] != WeaponType.Arcanium)
 					{
 						return false;
 					}

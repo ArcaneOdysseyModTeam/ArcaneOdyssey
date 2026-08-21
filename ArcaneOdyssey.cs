@@ -13,7 +13,6 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.NPCs.Bosses;
-using ArcaneOdyssey.NPCs.Town;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,10 +75,6 @@ namespace ArcaneOdyssey
 					break;
 				case "SetWeaponType":
 					Sets.weaponType[(int)args[1]] = (WeaponType)(int)args[2];
-					break;
-				case "RegisterWoodWand":
-					Sets.woodWand[(int)args[1]] = true;
-					Sets.wandWoodType[(int)args[1]] = (int)args[2];
 					break;
 			}
 			return null;
@@ -318,6 +313,7 @@ namespace ArcaneOdyssey
 			public static bool[] OldWeapon = ItemID.Sets.Factory.CreateBoolSet();
 
 			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
+
 			public override void ResizeArrays()
 			{
 				// manually change default value
@@ -452,11 +448,6 @@ namespace ArcaneOdyssey
 
 			public static bool[] imbueEffect = ProjectileID.Sets.Factory.CreateBoolSet();
 
-			public static bool[] woodWand = ItemID.Sets.Factory.CreateBoolSet(ItemID.LivingWoodWand, ItemID.LeafWand, ItemID.LivingMahoganyLeafWand, ItemID.LivingMahoganyWand);
-
-			public static int[] wandWoodType = ItemID.Sets.Factory.CreateIntSet(-1, ItemID.LivingWoodWand, ItemID.Wood, ItemID.LeafWand, ItemID.Wood, ItemID.LivingMahoganyLeafWand, ItemID.RichMahogany, ItemID.LivingMahoganyWand, ItemID.RichMahogany);
-
-			public static int[] imbuableDefaultUseID = ItemID.Sets.Factory.CreateIntSet(ItemUseStyleID.Rapier);
 
 			[ReinitializeDuringResizeArrays]
 			public static class Assets

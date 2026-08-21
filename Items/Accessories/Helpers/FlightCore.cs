@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
-using ArcaneOdyssey.Items.Scrolls.Mobility.Rare;
 using Terraria.Audio;
 using Terraria.DataStructures;
 

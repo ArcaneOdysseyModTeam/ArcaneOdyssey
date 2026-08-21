@@ -43,11 +43,15 @@ namespace ArcaneOdyssey.Items.Base
 						break;
 				}
 			}
+			else if (Main.LocalPlayer.PlayerItem().ModItem is ArcaniumWeapon arcanium && Skill.SkillSlot == ModSkill.SkillType.Attack)
+			{
+				arcanium.SetSkill(Skill as AttackSkill);
+			}
 		}
 
-		public override bool CanRightClick() => Main.LocalPlayer.PlayerItem()?.ModItem is Imbuable imbue && CanBeAppliedTo(imbue);
+		public override bool CanRightClick() => ((Main.LocalPlayer.PlayerItem()?.ModItem is ArcaniumWeapon && Skill.SkillSlot == ModSkill.SkillType.Attack) || Main.LocalPlayer.PlayerItem()?.ModItem is Imbuable imbue) && CanBeAppliedTo(Main.LocalPlayer.PlayerItem()?.ModItem);
 
-		public bool CanBeAppliedTo(Imbuable imbue) => (CanHaveMagic && imbue is MagicType) || (CanHaveRelic && imbue is SpiritEnergy) || (CanHaveFS && imbue is FightingStyle);
+		public bool CanBeAppliedTo(ModItem imbue) => (CanHaveMagic && imbue is MagicType or ArcaniumWeapon) || (CanHaveRelic && imbue is SpiritEnergy) || (CanHaveFS && imbue is FightingStyle);
 
 		public virtual bool CanHaveMagic => false;
 		public virtual bool CanHaveRelic => false;
