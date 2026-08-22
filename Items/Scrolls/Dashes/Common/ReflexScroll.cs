@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 			player.opacityForAnimation = 1f;
 		}
 
-		public override float DashSpeed => 15;
+		public override float DashSpeed => 18;
 
 		public override int DashMax => 30;
 

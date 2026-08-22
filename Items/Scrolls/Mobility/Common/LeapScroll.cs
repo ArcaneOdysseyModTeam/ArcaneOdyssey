@@ -37,20 +37,17 @@ namespace ArcaneOdyssey.Items.Scrolls.Mobility.Common
 			player.Imbue()?.Imbue?.LingeringEffects(player.Hitbox);
 		}
 
-		public override float GetDurationMultiplier(Player player) => player.Imbue().ScrollSize * 2;
+		public override float GetDurationMultiplier(Player player) => player.Imbue().ScrollSize * 2f;
 
 		public override void UpdateHorizontalSpeeds(Player player)
 		{
-			player.runAcceleration *= (player.Imbue().ScrollSpeed + 1) * 2;
-			player.maxRunSpeed *= player.Imbue().ScrollSpeed + 1;
-			player.jumpSpeedBoost *= player.Imbue().ScrollSpeed;
 			base.UpdateHorizontalSpeeds(player);
+			player.runAcceleration *= player.Imbue().ScrollSpeed;
+			player.maxRunSpeed *= player.Imbue().ScrollSpeed;
+			player.jumpSpeedBoost *= player.Imbue().ScrollSpeed * 2f;
 		}
 
-		public override bool CanStart(Player player)
-		{
-			return player.Imbue() is not null;
-		}
+		public override bool CanStart(Player player) => player.Imbue() is not null;
 
 		public override void OnStarted(Player player, ref bool playSound)
 		{
@@ -59,6 +56,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Mobility.Common
 			item.ArcaneOdyssey().Imbue = player.Imbue();
 			if (player.whoAmI == Main.myPlayer)
 			{
+				Projectile.NewProjectile(player.GetSource_FromThis(), player.position, Vector2.Zero, ModContent.ProjectileType<LeapFix>(), 0, 0, player.whoAmI, player.direction);
 				var proj = Imbuable.CreateMagicCircle(item, player, MagicCircleMode.Basic, true, position: player.Bottom, rotation: -MathHelper.PiOver2).Projectile;
 				for (int i = 0; i < 15; i++)
 				{
@@ -66,10 +64,16 @@ namespace ArcaneOdyssey.Items.Scrolls.Mobility.Common
 					player.Imbue()?.Imbue?.ExplosionEffects(proj.Center);
 				}
 			}
+			else
+			{
+				for (int i = 0; i < 15; i++)
+				{
+					player.Imbue()?.ExplosionEffects(player.Bottom);
+					player.Imbue()?.Imbue?.ExplosionEffects(player.Bottom);
+				}
+			}
 			SoundEngine.PlaySound(player.Imbue().ImbueSound, player.Center);
 			playSound = !player.Imbue().ImbueSound.HasValue;
-			Projectile.NewProjectile(player.GetSource_FromThis(), player.position, Vector2.Zero, ModContent.ProjectileType<LeapFix>(), 0, 0, player.whoAmI, player.direction);
-			// vfx here
 		}
 	}
 }
