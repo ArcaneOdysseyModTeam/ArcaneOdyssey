@@ -684,7 +684,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.frame.Y = frameHeight * 0;
 			}
 		}
-
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			return base.PreDraw(spriteBatch, screenPos, drawColor);
+		}
+		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			base.PostDraw(spriteBatch, screenPos, drawColor);
+		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(AOUtils.Common<EliusTrophy>(10));
