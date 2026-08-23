@@ -199,7 +199,7 @@ namespace ArcaneOdyssey.AOPlayers
 							eliusArenaCounter = 0;
 						}
 
-						if (eliusArenaCounter >= (30 * 60)) // 30 seconds
+						if (eliusArenaCounter >= (1 * 60)) // 30 seconds
 						{
 							if (Main.raining || !DownedBosses.DownedElius)
 							{
