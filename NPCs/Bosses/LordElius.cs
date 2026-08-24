@@ -9,6 +9,7 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Projectiles.Enemies.Elius;
 using ArcaneOdysseyMusic;
+using AssGen;
 using System;
 using System.IO;
 using Terraria.Audio;
@@ -20,6 +21,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	[AutoloadBossHead]
 	public class LordElius : BaseNPC
 	{
+		private Texture2D frontBowArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBowFrontArm").Value;
+		private Texture2D backBowArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBowBackArm").Value;
+		private Texture2D bowTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBow").Value;
+		private Texture2D spearArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusSpearThrowArm").Value;
+		private Texture2D spearTexture = ModContent.Request<Texture2D>(AOUtils.GetTexture<NobleThunderspear>()).Value;
 		private int hptoheal;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
@@ -686,11 +692,23 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
+			if(NPC.ai[0] == 6) //bow rendering
+			{
+				
+			}
 			return true;
 		}
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			
+			if(NPC.ai[0] == 2 && NPC.HasValidTarget) //spear rendering and spear arm rendering
+			{
+				Main.EntitySpriteDraw(spearArmTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearArmTexture.Width,spearArmTexture.Height/7),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation(),new Vector2(spearArmTexture.Width/2,spearArmTexture.Height/14),1f,NPC.Center.X<Main.player[NPC.target].Center.X?SpriteEffects.None:SpriteEffects.FlipHorizontally);
+				Main.EntitySpriteDraw(spearTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearTexture.Width,spearTexture.Height),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation()+MathHelper.PiOver4,new Vector2(spearTexture.Width/2,spearTexture.Height/2),1f,SpriteEffects.None);
+			}
+			if(NPC.ai[0] == 6) //bow rendering
+			{
+				
+			}
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
