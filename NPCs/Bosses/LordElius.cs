@@ -672,7 +672,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.frame.Y = 0;
 				}  else if(NPC.ai[0] == 2) //spear throw
 				{
-					NPC.frame.Y = 0;
+					NPC.frame.Y = 59 * frameHeight;
 				}
 				else
 				{
@@ -702,8 +702,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			if(NPC.ai[0] == 2 && NPC.HasValidTarget) //spear rendering and spear arm rendering
 			{
+				//Main.EntitySpriteDraw(spearTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearTexture.Width,spearTexture.Height),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation()+MathHelper.PiOver4,new Vector2(spearTexture.Width/2,spearTexture.Height/2),1f,SpriteEffects.None);
 				Main.EntitySpriteDraw(spearArmTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearArmTexture.Width,spearArmTexture.Height/7),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation(),new Vector2(spearArmTexture.Width/2,spearArmTexture.Height/14),1f,NPC.Center.X<Main.player[NPC.target].Center.X?SpriteEffects.None:SpriteEffects.FlipHorizontally);
-				Main.EntitySpriteDraw(spearTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearTexture.Width,spearTexture.Height),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation()+MathHelper.PiOver4,new Vector2(spearTexture.Width/2,spearTexture.Height/2),1f,SpriteEffects.None);
+				
 			}
 			if(NPC.ai[0] == 6) //bow rendering
 			{
