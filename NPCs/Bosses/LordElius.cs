@@ -137,6 +137,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.NPCLoot();
 					}
 				}
+				NPC.ai[0] == -2;
 				return;
 			}
 
@@ -823,7 +824,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			return false;
 		}
 
-		public override bool CanChat() => sparing;
+		public override bool CanChat() => sparing && NPC.ai[1] != -3;
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
@@ -860,6 +861,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				else
 				{
 					Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
+					NPC.ai[0] = -3;
 				}
 				NPC.NPCLoot();
 			}
