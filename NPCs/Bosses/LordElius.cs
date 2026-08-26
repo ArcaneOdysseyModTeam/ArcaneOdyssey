@@ -137,7 +137,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.NPCLoot();
 					}
 				}
-				NPC.ai[0] == -2;
+				NPC.ai[0] = -2;
 				return;
 			}
 
@@ -799,7 +799,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			Gore.NewGore(npc.GetSource_Death(), npc.BottomRight, npc.velocity, ModContent.GoreType<EliusLeg>());
 			for (int n = 0; n < 15; n++)
 				{
-					Dust.NewDust(NPC.Center, 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
+					Dust.NewDust(npc.Center, 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
 				}
 		}
 
