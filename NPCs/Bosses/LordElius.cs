@@ -796,6 +796,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			Gore.NewGore(npc.GetSource_Death(), npc.Center, npc.velocity, ModContent.GoreType<EliusTorso>());
 			Gore.NewGore(npc.GetSource_Death(), npc.BottomLeft, npc.velocity, ModContent.GoreType<EliusLeg>());
 			Gore.NewGore(npc.GetSource_Death(), npc.BottomRight, npc.velocity, ModContent.GoreType<EliusLeg>());
+			for (int n = 0; n < 15; n++)
+				{
+					Dust.NewDust(NPC.Center, 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
+				}
 		}
 
 		public bool sparing = false;
