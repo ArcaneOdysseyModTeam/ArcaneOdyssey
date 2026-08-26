@@ -39,7 +39,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private readonly Vector2[] podiumPos = [new(-665f, 16f), new(-320f, 0f), new(0f, 0f), new(366f, 0f), new(686f, 16f)];
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 65;
+			Main.npcFrameCount[NPC.type] = 89;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -183,6 +183,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			// State Machine
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
+			if(NPC.HasValidTarget)
+			{
 			if (NPC.ai[0] == -1) //Spawn In
 			{
 				if (NPC.ai[1] > 120f)
@@ -468,6 +470,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 			}
 			NPC.ai[1] += 1f; //increment frame
+			}
 		}
 
 		public override void FindFrame(int frameHeight)
