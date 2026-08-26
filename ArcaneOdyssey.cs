@@ -265,7 +265,7 @@ namespace ArcaneOdyssey
 					var hitbox = npc.Hitbox;
 					if (!spared) // kill
 					{
-						// gore goes here
+						LordElius.SpawnGore(npc);
 						for (int n = 0; n < 17; n++)
 						{
 							Dust.NewDust(hitbox.Center(), 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);

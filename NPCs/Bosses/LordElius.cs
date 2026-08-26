@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Gores;
+using ArcaneOdyssey.Gores.Elius;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.BossBags;
@@ -103,7 +104,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!secondphase)
 				{
-					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Color.MediumPurple,true);
+					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Color.MediumPurple, true);
 				}
 				secondphase = true;
 			}
@@ -193,9 +194,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 0)
 			{
-				if(NPC.ai[1] == 4f)
+				if (NPC.ai[1] == 4f)
 				{
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center+new Vector2(NPC.spriteDirection * 20f, -3f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
+					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(NPC.spriteDirection * 20f, -3f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
 				}
 				if (NPC.ai[1] > 120f)
 				{
@@ -225,15 +226,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (!secondphase)
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-						
+
 						// newer dash code
-						if(NPC.ai[1] < 70f && NPC.ai[1] > 30f)
+						if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
 						{
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
-							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
+							NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
 						}
-						
-						
+
+
 						if (NPC.ai[1] >= 100f) //Break out of this ai cycle
 						{
 							if (AOUtils.ServerOrSingleplayer)
@@ -313,36 +314,36 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else if (NPC.ai[0] == 3) //healing
 			{
-				if (NPC.ai[1] == 0 &&(!(NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)))
+				if (NPC.ai[1] == 0 && (!(NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)))
 				{
 					NPC.ai[1] = -1f;
 					NPC.ai[0] = 1;
 				}
 				if (NPC.ai[1] > 30f)
 				{
-						NPC.ai[2] = 0f;
-						hptoheal = Main.rand.Next(150) + 50;
+					NPC.ai[2] = 0f;
+					hptoheal = Main.rand.Next(150) + 50;
+					if (AOUtils.ServerOrSingleplayer)
+					{
+						NPC.netUpdate = true;
+						NPC.life += hptoheal;
+					}
+					if (secondphase)
+					{
 						if (AOUtils.ServerOrSingleplayer)
 						{
-							NPC.netUpdate = true;
-							NPC.life += hptoheal;
+							Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 1f, -1).timeLeft = 200;
 						}
-						if (secondphase)
-						{
-							if (AOUtils.ServerOrSingleplayer)
-							{
-								Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 1f, -1).timeLeft = 200;
-							}
-							SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
-						}
-						CombatText.NewText(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, 0, 0), CombatText.HealLife, hptoheal, false, false);
-						SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 0;
-						if (NPC.life > NPC.lifeMax)
-						{
-							NPC.life = NPC.lifeMax;
-						}
+						SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
+					}
+					CombatText.NewText(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, 0, 0), CombatText.HealLife, hptoheal, false, false);
+					SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
+					NPC.ai[1] = -1f;
+					NPC.ai[0] = 0;
+					if (NPC.life > NPC.lifeMax)
+					{
+						NPC.life = NPC.lifeMax;
+					}
 				}
 			}
 			else if (NPC.ai[0] == 4) //Hop move into sword move
@@ -367,14 +368,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					if (!secondphase)
 					{
 						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-						
+
 						// newer dash code
-						if(NPC.ai[1] < 70f && NPC.ai[1] > 30f)
+						if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
 						{
 							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
-							NPC.position = FindPointInCurve(previousPodiumLocation,nextPodiumLocation,new Vector2((nextPodiumLocation.X+previousPodiumLocation.X)/2f,(nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y: previousPodiumLocation.Y) - 30),NPC.position.X);
+							NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
 						}
-						
+
 						if (NPC.ai[1] >= 100f) //Break out of this ai cycle
 						{
 							NPC.position = nextPodiumLocation;
@@ -471,54 +472,57 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void FindFrame(int frameHeight)
 		{
-			if(NPC.HasValidTarget)
+			if (NPC.HasValidTarget)
 			{
-				if(NPC.ai[0] == 3) //healing
+				if (NPC.ai[0] == 3) //healing
 				{
-					if(NPC.ai[1] == 0)
+					if (NPC.ai[1] == 0)
 					{
 						NPC.frame.Y = 0;
 					}
-					if(NPC.ai[1] == 1)
+					if (NPC.ai[1] == 1)
 					{
 						NPC.frame.Y = frameHeight * 1;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.frameCounter >= 6)
+					if (NPC.frameCounter >= 6)
 					{
-						NPC.frame.Y += frameHeight;	
+						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-				} else if(NPC.ai[0] == 0) //healing end
+				}
+				else if (NPC.ai[0] == 0) //healing end
 				{
-					if(NPC.ai[1] == 0)
+					if (NPC.ai[1] == 0)
 					{
 						NPC.frame.Y = frameHeight * 7;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.frameCounter >= 6)
+					if (NPC.frameCounter >= 6)
 					{
-						NPC.frame.Y += frameHeight;	
+						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 15)
+					if (NPC.ai[1] > 15)
 					{
 						NPC.frame.Y = 0;
 					}
-				} else if(NPC.ai[0] == 1 || NPC.ai[0] == 4) // dashes
+				}
+				else if (NPC.ai[0] == 1 || NPC.ai[0] == 4) // dashes
 				{
-					if(secondphase)
+					if (secondphase)
 					{
 						NPC.frame.Y = 0;
-					} else
+					}
+					else
 					{
 						//first phase dash stuff
-						if(NPC.ai[1] == 0)
+						if (NPC.ai[1] == 0)
 						{
 							NPC.frame.Y = frameHeight * 10;
 							NPC.frameCounter = 0;
 						}
-						if(NPC.ai[1] < 30f && NPC.ai[1] > 15 && NPC.frameCounter >= 5f)
+						if (NPC.ai[1] < 30f && NPC.ai[1] > 15 && NPC.frameCounter >= 5f)
 						{
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
@@ -527,18 +531,18 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						{
 							NPC.frame.Y = frameHeight * 14;
 							NPC.frameCounter = 0;
-						} 
+						}
 						if (NPC.ai[1] < 60 && NPC.ai[1] > 40)
 						{
 							NPC.frame.Y = frameHeight * 15;
 							NPC.frameCounter = 0;
-						} 
+						}
 						if (NPC.ai[1] < 70 && NPC.ai[1] > 60)
 						{
 							NPC.frame.Y = frameHeight * 16;
 							NPC.frameCounter = 0;
 						}
-						if(NPC.ai[1] == 70)
+						if (NPC.ai[1] == 70)
 						{
 							NPC.frame.Y = frameHeight * 17;
 							NPC.frameCounter = 0;
@@ -548,19 +552,20 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
 						}
-						if(NPC.ai[1] > 85)
+						if (NPC.ai[1] > 85)
 						{
 							NPC.frame.Y = 0;
 							NPC.frameCounter = 0;
 						}
 					}
-				} else if(NPC.ai[0] == 5) // flying slashes
+				}
+				else if (NPC.ai[0] == 5) // flying slashes
 				{
-					if(NPC.ai[1] == 0)
+					if (NPC.ai[1] == 0)
 					{
 						NPC.frame.Y = 0;
 					}
-					if(NPC.ai[1] == 44)
+					if (NPC.ai[1] == 44)
 					{
 						NPC.frame.Y = 20 * frameHeight;
 						NPC.frameCounter = 0;
@@ -585,66 +590,67 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frame.Y = frameHeight * 28;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 92 && NPC.ai[1] < 122 && NPC.frameCounter >= 5)
+					if (NPC.ai[1] > 92 && NPC.ai[1] < 122 && NPC.frameCounter >= 5)
 					{
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 122 && NPC.ai[1] < 446)
+					if (NPC.ai[1] > 122 && NPC.ai[1] < 446)
 					{
-						if(secondphase)
+						if (secondphase)
 						{
-							if(NPC.frameCounter >= 6)
-							{
-								NPC.frame.Y += frameHeight;
-								NPC.frameCounter = 0;
-							}
-						} else
-						{
-							if(NPC.frameCounter >= 10)
+							if (NPC.frameCounter >= 6)
 							{
 								NPC.frame.Y += frameHeight;
 								NPC.frameCounter = 0;
 							}
 						}
-						if(NPC.frame.Y/frameHeight > 41)
+						else
+						{
+							if (NPC.frameCounter >= 10)
+							{
+								NPC.frame.Y += frameHeight;
+								NPC.frameCounter = 0;
+							}
+						}
+						if (NPC.frame.Y / frameHeight > 41)
 						{
 							NPC.frame.Y = frameHeight * 34;
 						}
 					}
-					if(NPC.ai[1] == 446) //putting weapons away
+					if (NPC.ai[1] == 446) //putting weapons away
 					{
 						NPC.frame.Y = frameHeight * 33;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 448 && NPC.ai[1] < 466 && NPC.frameCounter >= 3)
+					if (NPC.ai[1] > 448 && NPC.ai[1] < 466 && NPC.frameCounter >= 3)
 					{
 						NPC.frame.Y -= frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] == 495) // starting to rise up prep
+					if (NPC.ai[1] == 495) // starting to rise up prep
 					{
 						NPC.frame.Y = frameHeight * 42;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 495 && NPC.ai[1] < 516 && NPC.frameCounter >= 5) //rising up prep
+					if (NPC.ai[1] > 495 && NPC.ai[1] < 516 && NPC.frameCounter >= 5) //rising up prep
 					{
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] == 516) //starting rise up
+					if (NPC.ai[1] == 516) //starting rise up
 					{
 						NPC.frame.Y = frameHeight * 46;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 516 && NPC.ai[1] < 532) //rising up
+					if (NPC.ai[1] > 516 && NPC.ai[1] < 532) //rising up
 					{
-						if(NPC.ai[1] < 520)
+						if (NPC.ai[1] < 520)
 						{
 							NPC.frame.Y = frameHeight * 46;
 							NPC.frameCounter = 0;
 						}
-						else if(NPC.ai[1] < 528)
+						else if (NPC.ai[1] < 528)
 						{
 							NPC.frame.Y = frameHeight * 47;
 							NPC.frameCounter = 0;
@@ -655,25 +661,27 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.frameCounter = 0;
 						}
 					}
-					if(NPC.ai[1] == 532)
+					if (NPC.ai[1] == 532)
 					{
 						NPC.frame.Y = frameHeight * 49;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 532 && NPC.ai[1] < 552 && NPC.frameCounter >= 5)
+					if (NPC.ai[1] > 532 && NPC.ai[1] < 552 && NPC.frameCounter >= 5)
 					{
 						NPC.frame.Y += frameHeight;
-						NPC.frameCounter = 0;	
+						NPC.frameCounter = 0;
 					}
-					if(NPC.ai[1] > 557) //completing
+					if (NPC.ai[1] > 557) //completing
 					{
 						NPC.frame.Y = 0;
 						NPC.frameCounter = 0;
 					}
-				} else if(NPC.ai[0] == 6) //storm of arrows
+				}
+				else if (NPC.ai[0] == 6) //storm of arrows
 				{
 					NPC.frame.Y = 64 * frameHeight;
-				}  else if(NPC.ai[0] == 2) //spear throw
+				}
+				else if (NPC.ai[0] == 2) //spear throw
 				{
 					NPC.frame.Y = 59 * frameHeight;
 				}
@@ -683,12 +691,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					NPC.frame.Y = 0;
 					NPC.frameCounter = 0;
 				}
-			} else
+			}
+			else
 			{
 				NPC.frame.Y = 0;
 			}
 			NPC.frameCounter++;
-			if(sparing)
+			if (sparing)
 			{
 				NPC.frame.Y = frameHeight * 0;
 			}
@@ -696,31 +705,31 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			//Elius position tests
-			Main.EntitySpriteDraw(eliusTestTexture,(((spawnLocation+podiumPos[0])+new Vector2(NPC.width/2,(NPC.height/2)-4))-screenPos),new Rectangle(0,0,eliusTestTexture.Width,eliusTestTexture.Height/65),new Color(255,255,255,170),0f,new Vector2(eliusTestTexture.Width/2,(eliusTestTexture.Height/65)/2),1f,SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture,(((spawnLocation+podiumPos[1])+new Vector2(NPC.width/2,(NPC.height/2)-4))-screenPos),new Rectangle(0,0,eliusTestTexture.Width,eliusTestTexture.Height/65),new Color(255,255,255,170),0f,new Vector2(eliusTestTexture.Width/2,(eliusTestTexture.Height/65)/2),1f,SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture,(((spawnLocation+podiumPos[2])+new Vector2(NPC.width/2,(NPC.height/2)-4))-screenPos),new Rectangle(0,0,eliusTestTexture.Width,eliusTestTexture.Height/65),new Color(255,255,255,170),0f,new Vector2(eliusTestTexture.Width/2,(eliusTestTexture.Height/65)/2),1f,SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture,(((spawnLocation+podiumPos[3])+new Vector2(NPC.width/2,(NPC.height/2)-4))-screenPos),new Rectangle(0,0,eliusTestTexture.Width,eliusTestTexture.Height/65),new Color(255,255,255,170),0f,new Vector2(eliusTestTexture.Width/2,(eliusTestTexture.Height/65)/2),1f,SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture,(((spawnLocation+podiumPos[4])+new Vector2(NPC.width/2,(NPC.height/2)-4))-screenPos),new Rectangle(0,0,eliusTestTexture.Width,eliusTestTexture.Height/65),new Color(255,255,255,170),0f,new Vector2(eliusTestTexture.Width/2,(eliusTestTexture.Height/65)/2),1f,SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture,(((spawnLocation+podiumPos[0]+new Vector2(0,132))+new Vector2(NPC.width/2,(NPC.height/2)-4))-screenPos),new Rectangle(0,0,eliusTestTexture.Width,eliusTestTexture.Height/65),new Color(255,255,255,170),0f,new Vector2(eliusTestTexture.Width/2,(eliusTestTexture.Height/65)/2),1f,SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture,(((spawnLocation+podiumPos[4]+new Vector2(0,132))+new Vector2(NPC.width/2,(NPC.height/2)-4))-screenPos),new Rectangle(0,0,eliusTestTexture.Width,eliusTestTexture.Height/65),new Color(255,255,255,170),0f,new Vector2(eliusTestTexture.Width/2,(eliusTestTexture.Height/65)/2),1f,SpriteEffects.None);
+			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[0]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
+			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[1]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
+			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[2]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
+			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[3]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
+			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[4]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
+			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[0] + new Vector2(0, 132)) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
+			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[4] + new Vector2(0, 132)) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
 			//End elius position tests
-			if(NPC.ai[0] == 6) //bow rendering
+			if (NPC.ai[0] == 6) //bow rendering
 			{
-				
+
 			}
 			return true;
 		}
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			if(NPC.ai[0] == 2 && NPC.HasValidTarget) //spear rendering and spear arm rendering
+			if (NPC.ai[0] == 2 && NPC.HasValidTarget) //spear rendering and spear arm rendering
 			{
 				//Main.EntitySpriteDraw(spearTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearTexture.Width,spearTexture.Height),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation()+MathHelper.PiOver4,new Vector2(spearTexture.Width/2,spearTexture.Height/2),1f,SpriteEffects.None);
-				Main.EntitySpriteDraw(spearArmTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearArmTexture.Width,spearArmTexture.Height/7),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation(),new Vector2(spearArmTexture.Width/2,spearArmTexture.Height/14),1f,NPC.Center.X<Main.player[NPC.target].Center.X?SpriteEffects.None:SpriteEffects.FlipHorizontally);
-				
+				Main.EntitySpriteDraw(spearArmTexture, (NPC.Center - screenPos) + new Vector2(0, 0), new Rectangle(0, 0, spearArmTexture.Width, spearArmTexture.Height / 7), drawColor, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation(), new Vector2(spearArmTexture.Width / 2, spearArmTexture.Height / 14), 1f, NPC.Center.X < Main.player[NPC.target].Center.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+
 			}
-			if(NPC.ai[0] == 6) //bow rendering
+			if (NPC.ai[0] == 6) //bow rendering
 			{
-				
+
 			}
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -761,7 +770,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			var hitbox = NPC.Hitbox;
 			if (!EliusSpareSystem.spared) // kill in singeplayer
 			{
-				// gore goes here
+				SpawnGore(NPC);
 				for (int n = 0; n < 17; n++)
 				{
 					Dust.NewDust(hitbox.Center(), 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
@@ -776,6 +785,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 		}
 
+		public static void SpawnGore(NPC npc)
+		{
+			Gore.NewGore(npc.GetSource_Death(), npc.Top, npc.velocity, ModContent.GoreType<EliusHead>());
+			Gore.NewGore(npc.GetSource_Death(), npc.Left, npc.velocity, ModContent.GoreType<EliusLeftArm>());
+			Gore.NewGore(npc.GetSource_Death(), npc.Right, npc.velocity, ModContent.GoreType<EliusRightArm>());
+			Gore.NewGore(npc.GetSource_Death(), npc.Center, npc.velocity, ModContent.GoreType<EliusTorso>());
+			Gore.NewGore(npc.GetSource_Death(), npc.BottomLeft, npc.velocity, ModContent.GoreType<EliusLeg>());
+			Gore.NewGore(npc.GetSource_Death(), npc.BottomRight, npc.velocity, ModContent.GoreType<EliusLeg>());
+		}
 
 		public bool sparing = false;
 
@@ -856,6 +874,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						{
 							Main.NewText(this.GetLocalizedValue("Spared"), SpiritEnergy.Instance.Colour);
 						}
+						else
+						{
+							SpawnGore(NPC);
+						}
 					}
 				}
 			}
@@ -866,22 +888,22 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
 		}
 
-		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo,Vector2 pointThree, float xPos)
+		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 pointThree, float xPos)
 		{
-			float alphaOne = ((-1*MathF.Pow(pointOne.X,2))+MathF.Pow(pointTwo.X,2));
-			float betaOne = ((-1*pointOne.X)+pointTwo.X);
-			float deltaOne = ((-1*pointOne.Y)+pointTwo.Y);
-			float alphaTwo = ((-1*MathF.Pow(pointTwo.X,2))+MathF.Pow(pointThree.X,2));
-			float betaTwo = ((-1*pointTwo.X)+pointThree.X);
-			float deltaTwo = ((-1*pointTwo.Y)+pointThree.Y);
-			float betaMult = (-1*(betaTwo/betaOne));
-			float alphaThree = ((betaMult*alphaOne)+alphaTwo);
-			float deltaThree = ((betaMult*deltaOne)+deltaTwo);
-			float alphaZero = (deltaThree/alphaThree);
-			float betaZero = ((deltaOne-(alphaOne*alphaZero))/betaOne);
-			float charlieZero = ((pointOne.Y-(alphaZero*MathF.Pow(pointOne.X,2)))-(betaZero*pointOne.X));
-			float yPos = (alphaZero*MathF.Pow(xPos,2))+(xPos*betaZero)+charlieZero;
-			return new Vector2(xPos,yPos);
+			float alphaOne = ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2));
+			float betaOne = ((-1 * pointOne.X) + pointTwo.X);
+			float deltaOne = ((-1 * pointOne.Y) + pointTwo.Y);
+			float alphaTwo = ((-1 * MathF.Pow(pointTwo.X, 2)) + MathF.Pow(pointThree.X, 2));
+			float betaTwo = ((-1 * pointTwo.X) + pointThree.X);
+			float deltaTwo = ((-1 * pointTwo.Y) + pointThree.Y);
+			float betaMult = (-1 * (betaTwo / betaOne));
+			float alphaThree = ((betaMult * alphaOne) + alphaTwo);
+			float deltaThree = ((betaMult * deltaOne) + deltaTwo);
+			float alphaZero = (deltaThree / alphaThree);
+			float betaZero = ((deltaOne - (alphaOne * alphaZero)) / betaOne);
+			float charlieZero = ((pointOne.Y - (alphaZero * MathF.Pow(pointOne.X, 2))) - (betaZero * pointOne.X));
+			float yPos = (alphaZero * MathF.Pow(xPos, 2)) + (xPos * betaZero) + charlieZero;
+			return new Vector2(xPos, yPos);
 		}
 	}
 }
