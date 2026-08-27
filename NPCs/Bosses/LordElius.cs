@@ -25,18 +25,16 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private Texture2D frontBowArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBowFrontArm").Value;
 		private Texture2D backBowArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBowBackArm").Value;
 		private Texture2D bowTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBow").Value;
-		//for elius position tests
-		private Texture2D eliusTestTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/LordElius").Value;
-		//end for elius position tests
 		private Texture2D spearArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusSpearThrowArm").Value;
 		private Texture2D spearTexture = ModContent.Request<Texture2D>(AOUtils.GetTexture<NobleThunderspear>()).Value;
 		private int hptoheal;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
+		private readonly Vector2[] spearPositions = {};
 		private readonly float[] dashSelectArray = { 0f, 4f };
 		private readonly float[] moveSelectArrayOne = { 1f, 4f, 1f, 1f };
 		private readonly float[] moveSelectArrayTwo = { 2f, 2f, 6f };
-		private readonly Vector2[] podiumPos = [new(-665f, 16f), new(-320f, 0f), new(0f, 0f), new(366f, 0f), new(686f, 16f)];
+		private readonly Vector2[] podiumPos = [new(-655f, 12f), new(-320f, -4f), new(0f, -4f), new(370f, -4f), new(690f, 12f)];
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 89;
@@ -421,7 +419,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (NPC.ai[1] < 61f && NPC.ai[1] >= 45f)
 				{
-					NPC.position.Y += 132f / 16f;
+					NPC.position.Y += 145f / 16f;
 				}
 				else if (NPC.ai[1] < 446f && NPC.ai[1] >= 122f)
 				{
@@ -439,7 +437,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				else if (NPC.ai[1] < 532f && NPC.ai[1] >= 516f)
 				{
-					NPC.position.Y -= 132f / 16f;
+					NPC.position.Y -= 145f / 16f;
 				}
 				else if (NPC.ai[1] > 593f)
 				{
@@ -708,16 +706,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			//Elius position tests
-			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[0]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[1]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[2]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[3]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[4]) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[0] + new Vector2(0, 132)) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
-			Main.EntitySpriteDraw(eliusTestTexture, (((spawnLocation + podiumPos[4] + new Vector2(0, 132)) + new Vector2(NPC.width / 2, (NPC.height / 2) - 4)) - screenPos), new Rectangle(0, 0, eliusTestTexture.Width, eliusTestTexture.Height / 65), new Color(255, 255, 255, 170), 0f, new Vector2(eliusTestTexture.Width / 2, (eliusTestTexture.Height / 65) / 2), 1f, SpriteEffects.None);
-			//End elius position tests
-			if (NPC.ai[0] == 6) //bow rendering
+			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
 			{
 
 			}
@@ -731,7 +720,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				Main.EntitySpriteDraw(spearArmTexture, (NPC.Center - screenPos) + new Vector2(0, 0), new Rectangle(0, 0, spearArmTexture.Width, spearArmTexture.Height / 7), drawColor, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation(), new Vector2(spearArmTexture.Width / 2, spearArmTexture.Height / 14), 1f, NPC.Center.X < Main.player[NPC.target].Center.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
 			}
-			if (NPC.ai[0] == 6) //bow rendering
+			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
 			{
 
 			}
