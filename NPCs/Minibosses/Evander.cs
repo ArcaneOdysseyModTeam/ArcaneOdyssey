@@ -49,12 +49,12 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 				}
 				if (NPC.life <= 0)
 				{
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Top, NPC.velocity, ModContent.GoreType<EvanderHead>());
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Right, NPC.velocity, ModContent.GoreType<EvanderRightArm>());
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Left, NPC.velocity, ModContent.GoreType<EvanderLeftArm>());
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderTorso>());
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.BottomLeft, NPC.velocity, ModContent.GoreType<EvanderLeg>());
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.BottomRight, NPC.velocity, ModContent.GoreType<EvanderLeg>());
+					Gore.NewGore(NPC.GetSource_Death(), NPC.Top, NPC.velocity, ModContent.GoreType<EvanderHead>());
+					Gore.NewGore(NPC.GetSource_Death(), NPC.Right, NPC.velocity, ModContent.GoreType<EvanderRightArm>());
+					Gore.NewGore(NPC.GetSource_Death(), NPC.Left, NPC.velocity, ModContent.GoreType<EvanderLeftArm>());
+					Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<EvanderTorso>());
+					Gore.NewGore(NPC.GetSource_Death(), NPC.BottomLeft, NPC.velocity, ModContent.GoreType<EvanderLeg>());
+					Gore.NewGore(NPC.GetSource_Death(), NPC.BottomRight, NPC.velocity, ModContent.GoreType<EvanderLeg>());
 					for (int n = 0; n < 17; n++)
 					{
 						Dust.NewDust(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, Scale: 1f);
