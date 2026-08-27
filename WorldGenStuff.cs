@@ -31,7 +31,7 @@ namespace ArcaneOdyssey
 			int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
 			if (guide != -1)
 			{
-				tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
+				tasks.Insert(guide + 1, new PassLegacy("Morden", (progress, config) =>
 				{
 					progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
 					SpawnMorden();
@@ -161,7 +161,7 @@ namespace ArcaneOdyssey
 
 		public static void SpawnEliusArena()
 		{
-			var eliusArenaStruct = Generator.GetStructureData("Structures/EliusArena", ArcaneOdysseyMod.Instance);
+			var eliusArenaStruct = Generator.GetStructureData("Structures/EliusRuins", ArcaneOdysseyMod.Instance);
 
 			int x = Main.maxTilesX;
 			int eliusArenaStructPosX;

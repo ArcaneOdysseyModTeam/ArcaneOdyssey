@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (Main.netMode == NetmodeID.SinglePlayer)
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
 			{
 				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
 			}
@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (Main.netMode == NetmodeID.SinglePlayer)
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
 			{
 				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
 				if (Main.LocalPlayer.ArcaneOdyssey().acumen)
@@ -117,7 +117,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (Main.netMode == NetmodeID.SinglePlayer)
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
 			{
 				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
 			}
@@ -165,7 +165,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			if (Main.netMode == NetmodeID.SinglePlayer)
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
 			{
 				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
 			}
