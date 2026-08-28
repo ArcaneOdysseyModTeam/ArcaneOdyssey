@@ -1,15 +1,24 @@
 ﻿using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Projectiles.Base;
+using ArcaneOdyssey.Projectiles.Berserker;
+using System;
+using System.Collections.Generic;
+using Terraria.Audio;
+using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Projectiles.Weapons
 {
 	public class GildedMusketProjectile : PlayerProjectile
 	{
+		public static int AfterimagesType => ModContent.ProjectileType<Crescendo>();
+		public static Texture2D Afterimages => TextureAssets.Projectile[AfterimagesType].Value;
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 10;
 		}
 
 		public override void SetDefaults()
@@ -29,16 +38,16 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 
 		public ref float RotationVelocity => ref Projectile.ai[1];
 		private float savedRot;
+		private bool thrusting;
 
 		public override void AI()
 		{
-			bool hasRot = true;
 			Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter);
 			Owner.heldProj = Projectile.whoAmI;
 			Projectile.direction = Owner.direction;
 			Projectile.spriteDirection = Projectile.direction;
 
-			Owner.itemRotation = (Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection));
+			Owner.itemRotation = Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection);
 			if (Owner.direction != 1)
 			{
 				Owner.itemRotation += MathHelper.Pi;
@@ -59,49 +68,48 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 				{
 					Owner.GetModPlayer<GildedPlayer>().swingCount++;
 				}
+				if (Owner.GetModPlayer<GildedPlayer>().swingCount > 3)
+					Owner.GetModPlayer<GildedPlayer>().swingCount = 1;
 				if (Owner.GetModPlayer<GildedPlayer>().swingCount == 1)
 				{
 					if (Projectile.ai[0] == 1)
 					{
-						Projectile.rotation = Projectile.velocity.ToRotation() - (MathHelper.PiOver4 * Projectile.direction);
+						Projectile.rotation = Projectile.velocity.ToRotation() - (MathHelper.Pi / 8f * Projectile.direction);
 						RotationVelocity = MathHelper.Pi / Owner.itemAnimationMax;
 						Projectile.ai[0]++;
+						Projectile.localAI[1] = -Projectile.width / 4f;
 					}
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + ((Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection)).ToRotationVector2() * Projectile.localAI[1]);
+
+					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .8f;
+					RotationVelocity *= .95f;
 				}
 				else if (Owner.GetModPlayer<GildedPlayer>().swingCount == 2)
 				{
 					Projectile.spriteDirection *= -1;
 					if (Projectile.ai[0] == 1)
 					{
-						Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.PiOver4 * Projectile.direction);
+						Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.Pi / 8f * Projectile.direction);
 						RotationVelocity = -MathHelper.Pi / Owner.itemAnimationMax;
 						Projectile.ai[0]++;
+						Projectile.localAI[1] = -Projectile.width / 4f;
 					}
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + ((Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection)).ToRotationVector2() * Projectile.localAI[1]);
+
+					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .8f;
+					RotationVelocity *= .95f;
 				}
 				else if (Owner.GetModPlayer<GildedPlayer>().swingCount == 3)
 				{
-					hasRot = false;
+					thrusting = true;
 					if (Projectile.ai[0] == 1)
 					{
 						Projectile.ai[0]++;
-						Projectile.ai[1] = -Projectile.width / 3f;
+						Projectile.localAI[1] = -Projectile.width / 3f;
 					}
-					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.ai[1]);
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.localAI[1]);
 	
-					Projectile.ai[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale;
-
-					if (!Main.dedServ)
-					{
-						var imaginedHitbox = Projectile.Hitbox;
-						ModifyDamageHitbox(ref imaginedHitbox);
-						for (float i = 0; i < 15; i++)
-						{
-							var centre2 = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2() * (imaginedHitbox.Width / 2f);
-							var dust2 = Dust.NewDustPerfect(centre2 + imaginedHitbox.Center(), DustID.BubbleBurst_White, centre2 / 6f, 0, Imbue?.Colour ?? Color.Gold, 1.5f);
-							dust2.noLight = true;
-							dust2.noGravity = true;
-						}
-					}
+					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .8f;
 				}
 				else
 				{
@@ -129,6 +137,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 						proj.Hitbox = proj.Hitbox.Scaled(5f);
 						Owner.velocity += proj.velocity * -1f;
 					}
+					SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
 
 					Projectile.ai[0]++;
 					Owner.GetModPlayer<GildedPlayer>().BarProgress = 0f;
@@ -154,8 +163,7 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 			{
 				Kill();
 			}
-			if (hasRot)
-				Projectile.rotation += RotationVelocity * Projectile.direction;
+			Projectile.rotation += RotationVelocity * Projectile.direction;
 		}
 
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
@@ -169,6 +177,27 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 		{
 			base.OnHitNPC(target, hit, damageDone);
 			Owner.GetModPlayer<GildedPlayer>().BarProgress += .1f;
+		}
+
+		public Color Colour => Imbue?.Colour ?? Color.Gold;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (thrusting)
+			{
+				lightColor = Colour.MultiplyRGB(lightColor);
+				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+				for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+				{
+					if (k % 3 == 0)
+					{
+						Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
+						var colour2 = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+						Main.EntitySpriteDraw(Afterimages, drawPos + (Projectile.velocity * (Projectile.width / 4f)) - (Projectile.velocity * 5f * k) - Main.screenPosition, new(0, 0, Afterimages.Width, Afterimages.Height / Main.projFrames[AfterimagesType]), colour2 * .5f, Projectile.rotation - (MathHelper.PiOver4 * Projectile.direction), new Vector2(Afterimages.Width, Afterimages.Height / Main.projFrames[AfterimagesType]) / 2f, Projectile.scale - (k * .05f), mode);
+					}
+				}
+			}
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

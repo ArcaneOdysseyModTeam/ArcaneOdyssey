@@ -3,6 +3,7 @@ using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Debug;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
@@ -420,6 +421,25 @@ namespace ArcaneOdyssey.GlobalTypes
 						owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
 				}
 			}
+		}
+
+		public override void Load()
+		{
+			On_Projectile.Damage_GetHitbox += DrawDebugHitboxes;
+		}
+
+		private Rectangle DrawDebugHitboxes(On_Projectile.orig_Damage_GetHitbox orig, Projectile self)
+		{
+			var box = orig(self);
+			if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+			{
+				Dust.DrawDebugBox(box);
+			}
+			return box;
+		}
+		public override void Unload()
+		{
+			On_Projectile.Damage_GetHitbox -= DrawDebugHitboxes;
 		}
 	}
 

@@ -30,6 +30,7 @@ namespace ArcaneOdyssey.Items.Weapons
 			Item.shoot = ModContent.ProjectileType<GildedMusketProjectile>();
 			Item.useAmmo = AmmoID.Bullet;
 			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.autoReuse = true;
 			Item.shootSpeed = 1f;
 		}
 
