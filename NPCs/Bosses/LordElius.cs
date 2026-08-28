@@ -513,7 +513,24 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (secondphase)
 					{
-						NPC.frame.Y = 0;
+						if(NPC.ai[1] < 35)
+						{
+							NPC.frame.Y = frameHeight * 13;
+						}
+						if(NPC.ai[1] == 35)
+						{
+							NPC.frame.Y = frameHeight * 17;
+							NPC.frameCounter = 0;
+						}
+						if(NPC.ai[1] > 35 && NPC.frameCounter >= 13)
+						{
+							NPC.frame.Y += frameHeight;
+							NPC.frameCounter = 0;
+							if(NPC.frame.Y/frameHeight > 19)
+							{
+								NPC.frame.Y = frameHeight * 19;
+							}
+						}
 					}
 					else
 					{
