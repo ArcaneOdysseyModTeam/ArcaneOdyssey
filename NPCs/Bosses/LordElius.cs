@@ -270,13 +270,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 								}
 								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 							}
-							if (NPC.ai[1] > 35f)
+							if(NPC.ai[1] > 35)
+								{
+									NPC.position = nextPodiumLocation;
+								}
+							if (NPC.ai[1] > 105f)
 							{
-								NPC.position = nextPodiumLocation;
 								if (AOUtils.ServerOrSingleplayer)
 								{
 									NPC.netUpdate = true;
-									NPC.ai[1] = -1f;
 									NPC.ai[1] = -1f;
 									NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
 									NPC.ai[2] += 1f; //increment heal cooldown
@@ -405,7 +407,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							{
 								NPC.position = nextPodiumLocation;
 							}
-							if (NPC.ai[1] > 75f)
+							if (NPC.ai[1] > 105f)
 							{
 								NPC.ai[1] = -1f;
 								NPC.ai[0] = 5;
@@ -513,9 +515,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (secondphase)
 					{
-						if(NPC.ai[1] < 35)
+						if(NPC.ai[1] < 16)
 						{
-							NPC.frame.Y = frameHeight * 13;
+							NPC.frame.Y = frameHeight * 10;
+							NPC.frameCounter = 0;
+						}
+						if(NPC.ai[1] < 35 && NPC.frameCounter > 5)
+						{
+							NPC.frame.Y += frameHeight;
+							NPC.frameCounter = 0;
 						}
 						if(NPC.ai[1] == 35)
 						{
