@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Weapons;
+using ArcaneOdyssey.Projectiles.Weapons.Bronze;
 using Terraria.Audio;
 
 

@@ -10,7 +10,6 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.Projectiles.Enemies.Elius;
 using ArcaneOdysseyMusic;
-using AssGen;
 using System;
 using System.IO;
 using Terraria.Audio;

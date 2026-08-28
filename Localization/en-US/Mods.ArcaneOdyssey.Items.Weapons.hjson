@@ -281,3 +281,12 @@ Arcanium: {
 		Tooltip: ""
 	}
 }
+
+GildedMusket: {
+	DisplayName: Gilded Musket
+	Tooltip:
+		'''
+		Attacking with the bayonet fills up the bar
+		Filling the bar allows the user to unleash a powerful shot by alt firing
+		'''
+}

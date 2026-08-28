@@ -1038,7 +1038,8 @@ namespace ArcaneOdyssey
 						||
 						(
 							item.ModItem is Imbuable
-						);
+						)
+						|| ArcaneOdysseyMod.Sets.weaponType[item.type] != WeaponType.Normal;
 				}
 			}
 			return false;
@@ -1062,19 +1063,15 @@ namespace ArcaneOdyssey
 				}
 				if (imbue is FightingStyle)
 				{
-					if (item.DamageType.CountsAsClass(DamageClass.Magic))
-					{
-						return false;
-					}
-					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength) && item.ModItem is not Imbuable;
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength
+						|| (!item.DamageType.CountsAsClass(DamageClass.Magic) && (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal
+						|| item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength) && item.ModItem is not Imbuable);
 				}
 				if (imbue is MagicType)
 				{
-					if (item.DamageType.CountsAsClass(DamageClass.Magic) && ArcaneOdysseyMod.Sets.weaponType[item.type] != WeaponType.Arcanium)
-					{
-						return false;
-					}
-					return (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal || item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || (item.ModItem is SpiritEnergy or FightingStyle && Main.hardMode));
+					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium
+						|| (!item.DamageType.CountsAsClass(DamageClass.Magic) && (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal
+						|| item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || (item.ModItem is SpiritEnergy or FightingStyle && Main.hardMode)));
 				}
 				if (imbue is SpiritEnergy)
 				{

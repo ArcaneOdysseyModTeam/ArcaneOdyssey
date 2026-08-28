@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		{
 			base.SetStaticDefaults();
 			Main.projFrames[Type] = 4;
+			ProjectileID.Sets.MinionShot[Type] = true;
 		}
 
 		public override void SetDefaults()

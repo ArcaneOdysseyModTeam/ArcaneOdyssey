@@ -3,7 +3,7 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
-using ArcaneOdyssey.Projectiles.Weapons;
+using ArcaneOdyssey.Projectiles.Weapons.Bronze;
 
 namespace ArcaneOdyssey.Items.Weapons.Bronze
 {

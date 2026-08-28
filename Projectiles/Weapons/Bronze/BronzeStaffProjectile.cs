@@ -3,7 +3,7 @@ using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Base;
 
-namespace ArcaneOdyssey.Projectiles.Weapons
+namespace ArcaneOdyssey.Projectiles.Weapons.Bronze
 {
 	public class BronzeStaffProjectile : BaseStaffProjectile
 	{

@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			Main.projPet[Type] = true;
 			ProjectileID.Sets.MinionSacrificable[Type] = true;
 			Main.projFrames[Type] = 4;
+			ProjectileID.Sets.MinionCannotBeFreed[Type] = true;
 		}
 
 		public override string Texture => AOUtils.GetTexture<SpiritMinion>();

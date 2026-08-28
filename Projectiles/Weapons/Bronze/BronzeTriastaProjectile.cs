@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Projectiles.Base;
 
-namespace ArcaneOdyssey.Projectiles.Weapons
+namespace ArcaneOdyssey.Projectiles.Weapons.Bronze
 {
 	public class BronzeTriastaProjectile : BaseSpearProjectile
 	{

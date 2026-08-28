@@ -9,7 +9,6 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
-using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.AOPlayers
 {

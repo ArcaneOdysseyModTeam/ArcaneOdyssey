@@ -172,13 +172,17 @@ Projectiles: {
 	}
 
 	Weapons: {
-		BronzeStaffProjectile.DisplayName: Bronze Staff
-		BronzeTriastaProjectile.DisplayName: Bronze Triasta
-		BronzeSpearProjectile.DisplayName: Bronze Spear
+		Bronze: {
+			BronzeSpearProjectile.DisplayName: Bronze Spear
+			BronzeStaffProjectile.DisplayName: Bronze Staff
+			BronzeTriastaProjectile.DisplayName: Triasta of Bronze
+		}
+
 		LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
 		NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 		SunkenStaffProjectile.DisplayName: Sunken Staff
 		WoodenStaffProjectile.DisplayName: Wooden Staff
+		GildedMusketProjectile.DisplayName: Gilded Musket
 	}
 
 	Abilities: {
