@@ -85,8 +85,8 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 				drawPos += player.MountedCenter;
 				drawPos += Vector2.UnitY * player.gfxOffY;
 
-				drawDatas.Add(new(backgroundSprites.Item1.Value, drawPos - Main.screenPosition, null, Color.White, rotation, backgroundSprites.Item1.Size() / 2f, scale, effects));
-				drawDatas.Add(new(backgroundSprites.Item2.Value, drawPos - Main.screenPosition, new Rectangle(0, 0, (backgroundSprites.Item2.Width() * barvalue).Round(), backgroundSprites.Item2.Height()), Color.White, rotation, backgroundSprites.Item2.Size() / 2f, scale, effects));
+				drawDatas.Add(new(backgroundSprites.Item1.Value, drawPos - Main.screenPosition + (Main.ScreenSize.ToVector2() * ArcaneOdysseyClientConfig.Instance.GildedMusketBarOffset), null, Color.White, rotation, backgroundSprites.Item1.Size() / 2f, scale, effects));
+				drawDatas.Add(new(backgroundSprites.Item2.Value, drawPos - Main.screenPosition + (Main.ScreenSize.ToVector2() * ArcaneOdysseyClientConfig.Instance.GildedMusketBarOffset), new Rectangle(0, 0, (backgroundSprites.Item2.Width() * barvalue).Round(), backgroundSprites.Item2.Height()), Color.White, rotation, backgroundSprites.Item2.Size() / 2f, scale, effects));
 			}
 			drawInfo.DrawDataCache.AddRange(drawDatas);
 		}

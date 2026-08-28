@@ -49,6 +49,14 @@ namespace ArcaneOdyssey
 		[DefaultValue(.75f)]
 		public float UnselectedScrollOpacity { get; set; }
 
+		private Vector2 imbueSkillsDisplayLocationOffset;
+		[Range(-.5f, .5f)]
+		public Vector2 ImbueSkillsDisplayLocationOffset { get => imbueSkillsDisplayLocationOffset with { Y = imbueSkillsDisplayLocationOffset.Y * -1f }; set => imbueSkillsDisplayLocationOffset = value with { Y = value.Y * -1f }; }
+
+		private Vector2 gildedMusketBarOffset;
+		[Range(-.5f, .5f)]
+		public Vector2 GildedMusketBarOffset { get => gildedMusketBarOffset with { Y = gildedMusketBarOffset.Y * -1f }; set => gildedMusketBarOffset = value with { Y = value.Y * -1f }; }
+
 		public override void OnChanged()
 		{
 			for (int i = 0; i < ArcaneOdysseyMod.Sets.toggleablePulse.Length; i++)

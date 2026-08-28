@@ -57,7 +57,17 @@ ArcaneOdysseyClientConfig: {
 	}
 
 	UnselectedScrollOpacity: {
+		Label: "[i:ArcaneOdyssey/DevouringScroll] Unselected Scroll Opacity"
 		Tooltip: ""
-		Label: Unselected Scroll Opacity
+	}
+
+	ImbueSkillsDisplayLocationOffset: {
+		Label: "[i:ArcaneOdyssey/AuraScroll] Imbue Display Offset"
+		Tooltip: ""
+	}
+
+	GildedMusketBarOffset: {
+		Label: "[i:ArcaneOdyssey/GildedMusket] Gilded Musket Bar Offset"
+		Tooltip: ""
 	}
 }
