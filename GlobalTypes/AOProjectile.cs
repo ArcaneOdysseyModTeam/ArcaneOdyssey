@@ -428,7 +428,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			On_Projectile.Damage_GetHitbox += DrawDebugHitboxes;
 		}
 
-		private Rectangle DrawDebugHitboxes(On_Projectile.orig_Damage_GetHitbox orig, Projectile self)
+		private static Rectangle DrawDebugHitboxes(On_Projectile.orig_Damage_GetHitbox orig, Projectile self)
 		{
 			var box = orig(self);
 			if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())

@@ -58,14 +58,6 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 				CombatText.NewText(Projectile.Hitbox, Imbue?.Colour ?? Color.White, (DisplayName + "!").Trim(), true);
 			}
 
-			foreach (var pos in Projectile.oldPos.Reverse())
-			{
-				if (Projectile.numUpdates == 0)
-				{
-					Imbue.LingeringEffects(Projectile.Hitbox with { Location = pos.ToPoint() }, Projectile.velocity, Projectile);
-				}
-			}
-
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;

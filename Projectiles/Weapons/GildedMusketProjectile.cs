@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Projectiles.Berserker;
-using System;
-using System.Collections.Generic;
 using Terraria.Audio;
 using Terraria.GameContent;
 
@@ -74,14 +72,14 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 				{
 					if (Projectile.ai[0] == 1)
 					{
-						Projectile.rotation = Projectile.velocity.ToRotation() - (MathHelper.Pi / 8f * Projectile.direction);
-						RotationVelocity = MathHelper.Pi / Owner.itemAnimationMax;
+						Projectile.rotation = Projectile.velocity.ToRotation() - (MathHelper.TwoPi / 8f * Projectile.direction);
+						RotationVelocity = MathHelper.TwoPi / Owner.itemAnimationMax;
 						Projectile.ai[0]++;
 						Projectile.localAI[1] = -Projectile.width / 4f;
 					}
 					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + ((Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection)).ToRotationVector2() * Projectile.localAI[1]);
 
-					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .8f;
+					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .7f;
 					RotationVelocity *= .95f;
 				}
 				else if (Owner.GetModPlayer<GildedPlayer>().swingCount == 2)
@@ -89,26 +87,27 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 					Projectile.spriteDirection *= -1;
 					if (Projectile.ai[0] == 1)
 					{
-						Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.Pi / 8f * Projectile.direction);
-						RotationVelocity = -MathHelper.Pi / Owner.itemAnimationMax;
+						Projectile.rotation = Projectile.velocity.ToRotation() + (MathHelper.TwoPi / 8f * Projectile.direction);
+						RotationVelocity = -MathHelper.TwoPi / Owner.itemAnimationMax;
 						Projectile.ai[0]++;
 						Projectile.localAI[1] = -Projectile.width / 4f;
 					}
 					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + ((Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection)).ToRotationVector2() * Projectile.localAI[1]);
 
-					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .8f;
+					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .7f;
 					RotationVelocity *= .95f;
 				}
 				else if (Owner.GetModPlayer<GildedPlayer>().swingCount == 3)
 				{
 					thrusting = true;
+					Projectile.localAI[0]++;
 					if (Projectile.ai[0] == 1)
 					{
 						Projectile.ai[0]++;
 						Projectile.localAI[1] = -Projectile.width / 3f;
 					}
 					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + (Projectile.velocity * Projectile.localAI[1]);
-	
+
 					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .8f;
 				}
 				else
@@ -130,13 +129,14 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 						Projectile.ai[2] = ProjectileID.GoldenBullet;
 					}
 
+					var velo = (Projectile.rotation - (MathHelper.PiOver4 * Projectile.direction)).ToRotationVector2() * 7f;
 					if (Main.myPlayer == Owner.whoAmI)
 					{
-						var proj = Projectile.NewProjectileDirect(Owner.PlayerItem().GetSource_ItemUse(Owner), Projectile.Center, (Projectile.rotation - (MathHelper.PiOver4 * Projectile.direction)).ToRotationVector2() * 7f, (int)Projectile.ai[2], Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
+						var proj = Projectile.NewProjectileDirect(Owner.PlayerItem().GetSource_ItemUse(Owner), Projectile.Center, velo, (int)Projectile.ai[2], Projectile.damage * 3, Projectile.knockBack, Projectile.owner);
 						proj.scale *= 5f;
 						proj.Hitbox = proj.Hitbox.Scaled(5f);
-						Owner.velocity += proj.velocity * -1f;
 					}
+					Owner.velocity += velo * -1f;
 					SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
 
 					Projectile.ai[0]++;
@@ -149,9 +149,13 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 					Projectile.rotation = savedRot - (MathHelper.PiOver2 * Projectile.direction);
 					RotationVelocity = MathHelper.PiOver2 / (Owner.itemAnimationMax * .75f);
 					Projectile.ai[0]++;
+					Projectile.localAI[1] = -Projectile.width / 4f;
 				}
 				else if (Projectile.ai[0] == 2)
 				{
+					Projectile.Center = Owner.RotatedRelativePoint(Owner.MountedCenter) + ((Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection)).ToRotationVector2() * Projectile.localAI[1]);
+
+					Projectile.localAI[1] += BaseSpearProjectile.SpearSpeed * Projectile.scale * .8f;
 					if (Owner.itemAnimation <= (Owner.itemAnimationMax / 4f))
 					{
 						Projectile.ai[0]++;
@@ -185,15 +189,16 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 		{
 			if (thrusting)
 			{
-				lightColor = Colour.MultiplyRGB(lightColor);
+				if (Projectile.localAI[0] > 2) Projectile.localAI[0] = 0;
+				var colour = Colour.MultiplyRGB(lightColor);
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 				for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
 				{
-					if (k % 3 == 0)
+					if (k % 4 == Projectile.localAI[0])
 					{
 						Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
-						var colour2 = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-						Main.EntitySpriteDraw(Afterimages, drawPos + (Projectile.velocity * (Projectile.width / 4f)) - (Projectile.velocity * 5f * k) - Main.screenPosition, new(0, 0, Afterimages.Width, Afterimages.Height / Main.projFrames[AfterimagesType]), colour2 * .5f, Projectile.rotation - (MathHelper.PiOver4 * Projectile.direction), new Vector2(Afterimages.Width, Afterimages.Height / Main.projFrames[AfterimagesType]) / 2f, Projectile.scale - (k * .05f), mode);
+						var colour2 = Projectile.GetAlpha(colour) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+						Main.EntitySpriteDraw(Afterimages, drawPos + (Projectile.velocity.SafeNormalize() * (Projectile.width / 3f)) - Main.screenPosition, Afterimages.Frame(1, Main.projFrames[AfterimagesType]), colour2 * .5f, Projectile.rotation - (MathHelper.PiOver4 * Projectile.direction), new Vector2(Afterimages.Width, Afterimages.Height / Main.projFrames[AfterimagesType]) / 2f, (Projectile.scale + (10-k) * (Projectile.scale * .05f)) * .5f, mode);
 					}
 				}
 			}

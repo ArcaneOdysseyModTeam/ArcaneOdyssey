@@ -147,21 +147,15 @@ Projectiles: {
 		LaelusBlast.DisplayName: Spirit Blast
 		LaelusExplosion.DisplayName: Spirit Burst
 		DuskBeam.DisplayName: Nichtetheis
-		Effects.EvilSun.DisplayName: Evil Sun
-		EliusSpear.DisplayName: Noble Thunderspear
-		EliusSlash.DisplayName: Flying Slash
-		EliusArrowStorm.DisplayName: Bronze Arrow
-		EliusExplosion.DisplayName: Lightning Strike
-		EliusTrail.DisplayName: Elius Trail
-		EliusPlacedExplosion.DisplayName: Elius Placed Explosion
+		Effects.EvilSun.DisplayName: Prominent Sun
 
 		Elius: {
 			EliusArrowStorm.DisplayName: Storm of Arrows
 			EliusExplosion.DisplayName: Lightning Strike
-			EliusPlacedExplosion.DisplayName: Elius Placed Explosion
+			EliusPlacedExplosion.DisplayName: Explosion Spell
 			EliusSlash.DisplayName: Flying Slash
 			EliusSpear.DisplayName: Noble Thunderspear
-			EliusTrail.DisplayName: Elius Trail
+			EliusTrail.DisplayName: Lightning Trail
 		}
 	}
 
