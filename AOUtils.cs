@@ -1057,25 +1057,17 @@ namespace ArcaneOdyssey
 				{
 					return true;
 				}
-				if (item.ModItem is SpiritEnergy)
-				{
-					return imbue is MagicType && Main.hardMode;
-				}
 				if (imbue is FightingStyle)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength
-						|| (!item.DamageType.CountsAsClass(DamageClass.Magic) && (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal
-						|| item.ArcaneOdyssey()?.WeaponsType == WeaponType.Strength) && item.ModItem is not Imbuable);
+					return (item.ArcaneOdyssey()?.WeaponsType is WeaponType.Normal && !item.DamageType.CountsAsClass(DamageClass.Magic) || item.ArcaneOdyssey()?.WeaponsType is WeaponType.Strength or WeaponType.Savant) && item.ModItem is not Imbuable;
 				}
 				if (imbue is MagicType)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium
-						|| (!item.DamageType.CountsAsClass(DamageClass.Magic) && (item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal
-						|| item.ArcaneOdyssey()?.WeaponsType == WeaponType.Arcanium) && (item.ModItem is not Imbuable || (item.ModItem is SpiritEnergy or FightingStyle && Main.hardMode)));
+					return (item.ArcaneOdyssey()?.WeaponsType is WeaponType.Normal && !item.DamageType.CountsAsClass(DamageClass.Magic) || item.ArcaneOdyssey()?.WeaponsType is WeaponType.Arcanium or WeaponType.Savant) && (item.ModItem is not Imbuable || (item.ModItem is SpiritEnergy or FightingStyle && Main.hardMode));
 				}
 				if (imbue is SpiritEnergy)
 				{
-					return item.ArcaneOdyssey()?.WeaponsType == WeaponType.Normal && (item.ModItem is not Imbuable || (item.ModItem is MagicType or FightingStyle && Main.hardMode));
+					return (item.ArcaneOdyssey()?.WeaponsType is WeaponType.Normal && !item.DamageType.CountsAsClass(DamageClass.Summon) || item.ArcaneOdyssey()?.WeaponsType is WeaponType.Spiritual or WeaponType.Savant) && (item.ModItem is not Imbuable || (item.ModItem is MagicType or FightingStyle && Main.hardMode));
 				}
 			}
 			return false;
@@ -1945,7 +1937,9 @@ namespace ArcaneOdyssey
 		Normal,
 		Arcanium,
 		Strength,
-		Artisinal
+		Artisinal,
+		Savant,
+		Spiritual
 	}
 
 	public enum ImbuableTiers

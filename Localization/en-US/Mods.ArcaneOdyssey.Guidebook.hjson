@@ -121,7 +121,7 @@ StrengthWeapons: {
 	DisplayName: Strength Weapons
 	Text:
 		'''
-		You have obtained a [i:426] Strength Weapon. These weapons are too heavy to be weilded by normal people, and requires a [i:ArcaneOdyssey/BasicCombat] Fighting Style.
+		You have obtained a [i:426] Strength Weapon. These weapons are too heavy to be weilded by normal people, and require a [i:ArcaneOdyssey/BasicCombat] Fighting Style.
 
 		These items also have another power, being capable of having imbues stacked on them, as well as using the scroll stats of your fighting style for greater power.
 		'''
@@ -217,5 +217,25 @@ InsanityGuide: {
 		The most effective way to avoid insanity is by gaining Banishment. Banishment is provided by potions and equipment.
 
 		Having more banishment than insanity will make you immune to all insanity effects, barring the highest tier of insanity.
+		'''
+}
+
+SavantWeapons: {
+	DisplayName: Savant Weapons
+	Text:
+		'''
+		You have obtained a [i:ArcaneOdyssey/GildedMusket] Savant Weapon. These weapons are powerful, capable of having any imbue, and have unique effects depending on the imbue.
+
+		These items also have another power, being capable of having imbues stacked on them, as well as using the scroll stats of your imbue for greater power.
+		'''
+}
+
+SpiritWeapons: {
+	DisplayName: Spirit Weapons
+	Text:
+		'''
+		You have obtained a [i:1513] Spirit Weapon. These weapons are incomplete, and thus require a [i:ArcaneOdyssey/EaglePatrimony] Relic to be used.
+
+		These items also have another power, being capable of having imbues stacked on them, as well as using the scroll stats of your relic for greater power.
 		'''
 }

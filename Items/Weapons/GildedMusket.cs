@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ArcaneOdysseyMod.Sets.weaponType[Type] = WeaponType.Strength;
+			ArcaneOdysseyMod.Sets.weaponType[Type] = WeaponType.Savant;
 			ItemID.Sets.gunProj[Type] = true;
 			ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
 		}

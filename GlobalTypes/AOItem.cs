@@ -352,6 +352,11 @@ namespace ArcaneOdyssey.GlobalTypes
 				return Imbue is FightingStyle;
 			}
 
+			if (WeaponsType == WeaponType.Spiritual)
+			{
+				return Imbue is SpiritEnergy;
+			}
+
 			return true;
 		}
 
@@ -1165,17 +1170,9 @@ namespace ArcaneOdyssey.GlobalTypes
 				}
 			}
 
-			switch (item.ArcaneOdyssey().WeaponsType)
+			if (item.ArcaneOdyssey().WeaponsType != WeaponType.Normal)
 			{
-				case WeaponType.Artisinal:
-					tooltips.AddTooltip(new TooltipLine(Mod, "ArtisinalIndicator", Mod.CustomLocalization("ImbueStuff.ArtisinalIndicator").Value));
-					return;
-				case WeaponType.Arcanium:
-					tooltips.AddTooltip(new TooltipLine(Mod, "ArcaniumIndicator", Mod.CustomLocalization("ImbueStuff.ArcaniumIndicator").Value));
-					return;
-				case WeaponType.Strength:
-					tooltips.AddTooltip(new TooltipLine(Mod, "StrengthIndicator", Mod.CustomLocalization("ImbueStuff.StrengthIndicator").Value));
-					return;
+				tooltips.AddTooltip(new TooltipLine(Mod, "WeaponTypeIndicator", Mod.CustomLocalization($"WeaponTypeIndicators.{item.ArcaneOdyssey().WeaponsType}").Value));
 			}
 		}
 	}

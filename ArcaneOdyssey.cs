@@ -401,7 +401,8 @@ namespace ArcaneOdyssey
 			public static WeaponType[] weaponType = ItemID.Sets.Factory.CreateCustomSet(WeaponType.Normal,
 				ItemID.BreakerBlade, WeaponType.Strength,
 				ItemID.Anchor, WeaponType.Strength,
-				ItemID.Zenith, WeaponType.Artisinal
+				ItemID.Zenith, WeaponType.Artisinal,
+				ItemID.PaladinsHammer, WeaponType.Spiritual
 			);
 
 			public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
@@ -423,10 +424,7 @@ namespace ArcaneOdyssey
 			public static bool[] greataxe = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteGreataxe, ItemID.TitaniumWaraxe, ItemID.WarAxeoftheNight, ItemID.AdamantiteWaraxe);
 
 			public static bool[] rapier = ItemID.Sets.Factory.CreateBoolSet();
-			/// <summary>
-			/// whether the item is dual bladed
-			/// <para/>also affects how it's drawn
-			/// </summary>
+
 
 			public static bool[] dualbladed = ItemID.Sets.Factory.CreateBoolSet();
 

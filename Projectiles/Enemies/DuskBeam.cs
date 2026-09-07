@@ -3,7 +3,6 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
-using System.Linq;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Projectiles.Enemies
