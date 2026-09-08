@@ -11,5 +11,11 @@ namespace ArcaneOdyssey.Imbues.Enemies
 		{
 			Item.TurnToAir(true);
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ItemsThatShouldNotBeInInventory[Type] = true;
+		}
 	}
 }

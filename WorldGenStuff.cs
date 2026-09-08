@@ -171,10 +171,10 @@ namespace ArcaneOdyssey
 			do
 			{
 				eliusArenaStructPosX = WorldGen.genRand.Next((x * 0.6f).Round(), (x * 0.9f).Round());
-				eliusArenaStructPosY = WorldGen.genRand.Next((eliusArenaStruct.height / 2) + 25, 250);
+				eliusArenaStructPosY = WorldGen.genRand.Next(eliusArenaStruct.height, 250);
 				if (GenVars.worldSurfaceLow != 0)
 					eliusArenaStructPosY = Math.Min(eliusArenaStructPosY, (int)GenVars.worldSurfaceLow - 50);
-				arenaBounds = new(eliusArenaStructPosX, eliusArenaStructPosY, eliusArenaStruct.width, eliusArenaStruct.height);
+				arenaBounds = new(eliusArenaStructPosX, eliusArenaStructPosY - (eliusArenaStruct.height / 2), eliusArenaStruct.width, eliusArenaStruct.height * 2);
 			}
 			while (!IsValidSkyPlacementArea(arenaBounds));
 
