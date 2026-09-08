@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles.Base;
 using System.Collections.Generic;
 using Terraria.Audio;
@@ -29,7 +31,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			Projectile.scale = 100 / 2000f;
 		}
 
-		public LightningMagic Imbue => ModContent.GetInstance<LightningMagic>();
+		public MagicType Imbue => LordElius.Imbue;
 		public override bool CanHitPlayer(Player target) => false;
 		public override void AI()
 		{
@@ -55,7 +57,10 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			}
 			else
 			{
-				Dust.NewDustDirect(Projectile.Center - new Vector2(25, 25), 50, 50, DustID.WitherLightning, 0f, -0.1f, 0, default, (200f - (Projectile.timeLeft - 200f)) * 0.005f).noGravity = true;
+				if (Main.getGoodWorld)
+					Dust.NewDustDirect(Projectile.Center - new Vector2(25, 25), 50, 50, DustID.Firework_Red, 0f, -0.1f, 0, default, (200f - (Projectile.timeLeft - 200f)) * 0.005f).noGravity = true;
+				else
+					Dust.NewDustDirect(Projectile.Center - new Vector2(25, 25), 50, 50, DustID.WitherLightning, 0f, -0.1f, 0, default, (200f - (Projectile.timeLeft - 200f)) * 0.005f).noGravity = true;
 				Projectile.Opacity += Circle.GlobalChargeSpeed / Circle.GlobalMaxCharge;
 			}
 		}

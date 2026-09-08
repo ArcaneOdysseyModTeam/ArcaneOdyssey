@@ -1,5 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
 
@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		{
 			if (Projectile.ai[0] > 0f)
 			{
-				lightColor = Color.Plum.MultiplyRGB(lightColor);
+				lightColor = Imbue.Colour.MultiplyRGB(lightColor);
 			}
 			else
 			{
@@ -46,7 +46,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			return false;
 		}
 
-		public Imbuable Imbue => Projectile.ai[0] > 0 ? ModContent.GetInstance<LightningMagic>() : null;
+		public Imbuable Imbue => Projectile.ai[0] > 0 ? LordElius.Imbue : null;
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
@@ -64,11 +64,22 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 				updates += Projectile.numUpdates;
 				float waveVal = 15f * (MathF.Abs(MathF.Abs((updates + 110) % 10) - 5f) - 2.5f);
 				Vector2 baseVec = new(0f, waveVal);
-				Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
-				spawnedDust.noGravity = true;
+				if (!Main.getGoodWorld)
+				{
+					Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
+					spawnedDust.noGravity = true;
 
-				Lighting.AddLight(area.Center(), 2, 1, 2);
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.4f * area.RelativeScale());
+					Lighting.AddLight(area.Center(), 2, 1, 2);
+					Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.4f * area.RelativeScale());
+				}
+				else
+				{
+					Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(Projectile.velocity.ToRotation()), DustID.LifeDrain, Vector2.Zero, Scale: 1.2f);
+					spawnedDust.noGravity = true;
+
+					Lighting.AddLight(area.Center(), 2, 1, 1);
+					Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Firework_Red, Scale: 0.4f * area.RelativeScale());
+				}
 			}
 		}
 	}

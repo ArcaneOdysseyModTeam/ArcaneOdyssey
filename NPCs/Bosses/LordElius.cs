@@ -1,6 +1,9 @@
 ﻿using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Gores;
 using ArcaneOdyssey.Gores.Elius;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.RavennaNoble;
 using ArcaneOdyssey.Items.BossBags;
@@ -13,6 +16,7 @@ using ArcaneOdysseyMusic;
 using System;
 using System.IO;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 
@@ -25,11 +29,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private Texture2D backBowArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBowBackArm").Value;
 		private Texture2D bowTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBow").Value;
 		private Texture2D spearArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusSpearThrowArm").Value;
-		private Texture2D spearTexture = ModContent.Request<Texture2D>(AOUtils.GetTexture<NobleThunderspear>()).Value;
+		private Texture2D spearTexture = TextureAssets.Projectile[ModContent.ProjectileType<EliusSpear>()].Value;
 		private int hptoheal;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
-		private readonly Vector2[] spearPositions = {};
+		private readonly Vector2[] spearPositions = { };
 		private readonly float[] dashSelectArray = { 0f, 4f };
 		private readonly float[] moveSelectArrayOne = { 1f, 4f, 1f, 1f };
 		private readonly float[] moveSelectArrayTwo = { 2f, 2f, 6f };
@@ -48,6 +52,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 
 		private bool secondphase = false;
+
+		public static MagicType Imbue => Main.getGoodWorld ? ModContent.GetInstance<AncientLightningMagic>() : ModContent.GetInstance<LightningMagic>();
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -101,7 +107,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!secondphase)
 				{
-					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Color.MediumPurple, true);
+					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Imbue.Colour, true);
 				}
 				secondphase = true;
 			}
@@ -117,7 +123,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				Main.windSpeedTarget = -.1f;
 				if (!sentMessage)
 				{
-					NPC.NPCDialogue(this.GetLocalizedValue("DoomMessage"), Color.MediumPurple);
+					NPC.NPCDialogue(this.GetLocalizedValue("DoomMessage"), Imbue.Colour);
 					sentMessage = true;
 				}
 				if (spareTimer-- <= 0)
@@ -144,7 +150,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (EliusSpareSystem.spared)
 					{
-						NPC.NPCDialogue(this.GetLocalizedValue("Refight"), Color.MediumPurple);
+						NPC.NPCDialogue(this.GetLocalizedValue("Refight"), Imbue.Colour);
 					}
 					else
 					{
@@ -153,7 +159,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				else
 				{
-					NPC.NPCDialogue(this.GetLocalizedValue("SpawnMessage"), Color.MediumPurple);
+					NPC.NPCDialogue(this.GetLocalizedValue("SpawnMessage"), Imbue.Colour);
 				}
 				sentMessage = true;
 			}
@@ -181,104 +187,67 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			// State Machine
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
-			if(NPC.HasValidTarget)
+			if (NPC.HasValidTarget)
 			{
-			if (NPC.ai[0] == -1) //Spawn In
-			{
-				if (NPC.ai[1] > 120f)
+				if (NPC.ai[0] == -1) //Spawn In
 				{
-					NPC.ai[1] = -1f;
-					NPC.ai[0] = 1;
-					NPC.ai[3] = 2;
-				}
-			}
-			else if (NPC.ai[0] == 0)
-			{
-				if (NPC.ai[1] == 4f)
-				{
-					Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(NPC.spriteDirection * 20f, -3f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
-				}
-				if (NPC.ai[1] > 120f)
-				{
-					NPC.ai[1] = -1f;
-					NPC.ai[0] = 1;
-				}
-			}
-			else if (NPC.ai[0] == 1) //Hop move
-			{
-				if (NPC.ai[1] < 2f) //Choose the podium
-				{
-					if (AOUtils.ServerOrSingleplayer)
+					if (NPC.ai[1] > 120f)
 					{
-						NPC.netUpdate = true;
-						tempPodiumID = NPC.ai[3];
-						while (tempPodiumID == NPC.ai[3])
-						{
-							NPC.ai[3] = (float)Main.rand.Next(5);
-						}
-						NPC.ai[1] = 2f;
-						previousPodiumLocation = NPC.position;
-						nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 1;
+						NPC.ai[3] = 2;
 					}
 				}
-				else //prevent skipping to the next parts
+				else if (NPC.ai[0] == 0)
 				{
-					if (!secondphase)
+					if (NPC.ai[1] == 4f)
 					{
-						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-
-						// newer dash code
-						if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
+						Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(NPC.spriteDirection * 20f, -3f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
+					}
+					if (NPC.ai[1] > 120f)
+					{
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 1;
+					}
+				}
+				else if (NPC.ai[0] == 1) //Hop move
+				{
+					if (NPC.ai[1] < 2f) //Choose the podium
+					{
+						if (AOUtils.ServerOrSingleplayer)
 						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
-							NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
-						}
-
-
-						if (NPC.ai[1] >= 100f) //Break out of this ai cycle
-						{
-							if (AOUtils.ServerOrSingleplayer)
+							NPC.netUpdate = true;
+							tempPodiumID = NPC.ai[3];
+							while (tempPodiumID == NPC.ai[3])
 							{
-								NPC.netUpdate = true;
-								NPC.position = nextPodiumLocation;
-								NPC.ai[1] = -1f;
-								NPC.ai[1] = -1f;
-								NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
-								NPC.ai[2] += 1f; //increment heal cooldown
-								if (NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax - 100) //override to heal if cooldown is expended and hp is low enough
-								{
-									NPC.ai[0] = 3f;
-								}
+								NPC.ai[3] = (float)Main.rand.Next(5);
 							}
+							NPC.ai[1] = 2f;
+							previousPodiumLocation = NPC.position;
+							nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
 						}
 					}
-					else //phase 2
+					else //prevent skipping to the next parts
 					{
-						if (NPC.ai[1] < 30f)
+						if (!secondphase)
 						{
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-							Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
-						}
-						if (NPC.ai[1] >= 30f) //Break out of this ai cycle
-						{
-							if (NPC.ai[1] == 30f)
+
+							// newer dash code
+							if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
 							{
-								if (AOUtils.ServerOrSingleplayer)
-								{
-									NPC.netUpdate = true;
-									Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, nextPodiumLocation.X + 10f, nextPodiumLocation.Y + 21f);
-								}
-								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
+								NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
+								NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
 							}
-							if(NPC.ai[1] > 35)
-								{
-									NPC.position = nextPodiumLocation;
-								}
-							if (NPC.ai[1] > 105f)
+
+
+							if (NPC.ai[1] >= 100f) //Break out of this ai cycle
 							{
 								if (AOUtils.ServerOrSingleplayer)
 								{
 									NPC.netUpdate = true;
+									NPC.position = nextPodiumLocation;
+									NPC.ai[1] = -1f;
 									NPC.ai[1] = -1f;
 									NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
 									NPC.ai[2] += 1f; //increment heal cooldown
@@ -289,187 +258,227 @@ namespace ArcaneOdyssey.NPCs.Bosses
 								}
 							}
 						}
+						else //phase 2
+						{
+							if (NPC.ai[1] < 30f)
+							{
+								NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+								if (Main.getGoodWorld)
+									Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.Firework_Red, 0f, -0.1f).noGravity = true;
+								else
+									Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
+							}
+							if (NPC.ai[1] >= 30f) //Break out of this ai cycle
+							{
+								if (NPC.ai[1] == 30f)
+								{
+									if (AOUtils.ServerOrSingleplayer)
+									{
+										NPC.netUpdate = true;
+										Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, nextPodiumLocation.X + 10f, nextPodiumLocation.Y + 21f);
+									}
+									SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
+								}
+								if (NPC.ai[1] > 35)
+								{
+									NPC.position = nextPodiumLocation;
+								}
+								if (NPC.ai[1] > 105f)
+								{
+									if (AOUtils.ServerOrSingleplayer)
+									{
+										NPC.netUpdate = true;
+										NPC.ai[1] = -1f;
+										NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
+										NPC.ai[2] += 1f; //increment heal cooldown
+										if (NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax - 100) //override to heal if cooldown is expended and hp is low enough
+										{
+											NPC.ai[0] = 3f;
+										}
+									}
+								}
+							}
+						}
 					}
 				}
-			}
-			else if (NPC.ai[0] == 2) //spear throw
-			{
-				if (NPC.ai[1] >= 40f && NPC.ai[1] < 42f)
+				else if (NPC.ai[0] == 2) //spear throw
 				{
-					NPC.ai[1] = 42f;
-					SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
-					if (AOUtils.ServerOrSingleplayer)
+					if (NPC.ai[1] >= 40f && NPC.ai[1] < 42f)
 					{
-						NPC.netUpdate = true;
-						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize() * 15f, ModContent.ProjectileType<EliusSpear>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
+						NPC.ai[1] = 42f;
+						SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
+						if (AOUtils.ServerOrSingleplayer)
+						{
+							NPC.netUpdate = true;
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize() * 15f, ModContent.ProjectileType<EliusSpear>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
+						}
 					}
-				}
-				else if (NPC.ai[1] > 70f)
-				{
-					if (AOUtils.ServerOrSingleplayer)
-					{
-						NPC.netUpdate = true;
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
-					}
-				}
-			}
-			else if (NPC.ai[0] == 3) //healing
-			{
-				if (NPC.ai[1] == 0 && (!(NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)))
-				{
-					NPC.ai[1] = -1f;
-					NPC.ai[0] = 1;
-				}
-				if (NPC.ai[1] > 30f)
-				{
-					NPC.ai[2] = 0f;
-					hptoheal = Main.rand.Next(150) + 50;
-					if (AOUtils.ServerOrSingleplayer)
-					{
-						NPC.netUpdate = true;
-						NPC.life += hptoheal;
-					}
-					if (secondphase)
+					else if (NPC.ai[1] > 70f)
 					{
 						if (AOUtils.ServerOrSingleplayer)
 						{
-							Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 1f, -1).timeLeft = 200;
-						}
-						SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
-					}
-					CombatText.NewText(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, 0, 0), CombatText.HealLife, hptoheal, false, false);
-					SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
-					NPC.ai[1] = -1f;
-					NPC.ai[0] = 0;
-					if (NPC.life > NPC.lifeMax)
-					{
-						NPC.life = NPC.lifeMax;
-					}
-				}
-			}
-			else if (NPC.ai[0] == 4) //Hop move into sword move
-			{
-				if (NPC.ai[1] < 2f) //Choose the podium
-				{
-					if (AOUtils.ServerOrSingleplayer)
-					{
-						NPC.netUpdate = true;
-						tempPodiumID = NPC.ai[3];
-						while (tempPodiumID == NPC.ai[3])
-						{
-							NPC.ai[3] = dashSelectArray[Main.rand.Next(2)];
-						}
-						NPC.ai[1] = 2f;
-						previousPodiumLocation = NPC.position;
-						nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
-					}
-				}
-				else //prevent skipping to the next parts
-				{
-					if (!secondphase)
-					{
-						NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-
-						// newer dash code
-						if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
-						{
-							NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
-							NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
-						}
-
-						if (NPC.ai[1] >= 100f) //Break out of this ai cycle
-						{
-							NPC.position = nextPodiumLocation;
+							NPC.netUpdate = true;
 							NPC.ai[1] = -1f;
-							NPC.ai[0] = 5;
+							NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
 						}
 					}
-					else // Second Phase
+				}
+				else if (NPC.ai[0] == 3) //healing
+				{
+					if (NPC.ai[1] == 0 && (!(NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)))
 					{
-						if (NPC.ai[1] < 30f)
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 1;
+					}
+					if (NPC.ai[1] > 30f)
+					{
+						NPC.ai[2] = 0f;
+						if (AOUtils.ServerOrSingleplayer)
+						{
+							hptoheal = Main.rand.Next(150) + 50;
+							NPC.netUpdate = true;
+							NPC.life = Math.Min(NPC.life + hptoheal, NPC.lifeMax);
+							NPC.HealEffect(hptoheal);
+						}
+						if (secondphase)
+						{
+							if (AOUtils.ServerOrSingleplayer)
+							{
+								Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 1f, -1).timeLeft = 200;
+							}
+							SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
+						}
+						SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
+						NPC.ai[1] = -1f;
+						NPC.ai[0] = 0;
+						if (NPC.life > NPC.lifeMax)
+						{
+							NPC.life = NPC.lifeMax;
+						}
+					}
+				}
+				else if (NPC.ai[0] == 4) //Hop move into sword move
+				{
+					if (NPC.ai[1] < 2f) //Choose the podium
+					{
+						if (AOUtils.ServerOrSingleplayer)
+						{
+							NPC.netUpdate = true;
+							tempPodiumID = NPC.ai[3];
+							while (tempPodiumID == NPC.ai[3])
+							{
+								NPC.ai[3] = dashSelectArray[Main.rand.Next(2)];
+							}
+							NPC.ai[1] = 2f;
+							previousPodiumLocation = NPC.position;
+							nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
+						}
+					}
+					else //prevent skipping to the next parts
+					{
+						if (!secondphase)
 						{
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-							Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
-						}
-						if (NPC.ai[1] >= 30f) //Break out of this ai cycle
-						{
-							if (NPC.ai[1] == 30f)
+
+							// newer dash code
+							if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
 							{
-								if (AOUtils.ServerOrSingleplayer)
-								{
-									NPC.netUpdate = true;
-									Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, nextPodiumLocation.X + 10f, nextPodiumLocation.Y + 21f);
-								}
-								SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
+								NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
+								NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
 							}
-							if (NPC.ai[1] > 35f)
+
+							if (NPC.ai[1] >= 100f) //Break out of this ai cycle
 							{
 								NPC.position = nextPodiumLocation;
-							}
-							if (NPC.ai[1] > 105f)
-							{
 								NPC.ai[1] = -1f;
 								NPC.ai[0] = 5;
 							}
 						}
-					}
-				}
-			}
-			else if (NPC.ai[0] == 5) //sword move
-			{
-				if (NPC.ai[1] < 61f && NPC.ai[1] >= 45f)
-				{
-					NPC.position.Y += 145f / 16f;
-				}
-				else if (NPC.ai[1] < 446f && NPC.ai[1] >= 122f)
-				{
-					int swordTiming = !secondphase ? 40 : 24;
-					if ((int)NPC.ai[1] % swordTiming == 4 && NPC.ai[1] < 444f)
-					{
-						NPC.NPCDialogue(!secondphase ? this.GetLocalizedValue("FlyingSlashMessage") : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("FlyingSlashMessage"), !secondphase ? Color.Gold : Color.MediumPurple, false);
-						SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f }, NPC.Center);
-						if (AOUtils.ServerOrSingleplayer)
+						else // Second Phase
 						{
-							NPC.netUpdate = true;
-							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.spriteDirection * 20f, 0f), ModContent.ProjectileType<EliusSlash>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
+							if (NPC.ai[1] < 30f)
+							{
+								NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
+								Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
+							}
+							if (NPC.ai[1] >= 30f) //Break out of this ai cycle
+							{
+								if (NPC.ai[1] == 30f)
+								{
+									if (AOUtils.ServerOrSingleplayer)
+									{
+										NPC.netUpdate = true;
+										Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, nextPodiumLocation.X + 10f, nextPodiumLocation.Y + 21f);
+									}
+									SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
+								}
+								if (NPC.ai[1] > 35f)
+								{
+									NPC.position = nextPodiumLocation;
+								}
+								if (NPC.ai[1] > 105f)
+								{
+									NPC.ai[1] = -1f;
+									NPC.ai[0] = 5;
+								}
+							}
 						}
 					}
 				}
-				else if (NPC.ai[1] < 532f && NPC.ai[1] >= 516f)
+				else if (NPC.ai[0] == 5) //sword move
 				{
-					NPC.position.Y -= 145f / 16f;
-				}
-				else if (NPC.ai[1] > 593f)
-				{
-					NPC.ai[1] = -1f;
-					NPC.ai[0] = 1;
-				}
-			}
-			else if (NPC.ai[0] == 6)  //storm of arrows
-			{
-				if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)
-				{
-					NPC.NPCDialogue(!secondphase ? this.GetLocalizedValue("StormOfArrowsMessage") : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("StormOfArrowsMessage"), Color.MediumPurple, false);
-					SoundEngine.PlaySound(SoundID.Item5, NPC.Center);
-					if (AOUtils.ServerOrSingleplayer)
+					if (NPC.ai[1] < 61f && NPC.ai[1] >= 45f)
 					{
-						NPC.netUpdate = true;
-						(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), (int)(NPC.damage * 0.6), 0f, -1, 0, Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f).ModProjectile as EliusArrowStorm).secondphase = secondphase;
-						NPC.ai[1] = 22f;
+						NPC.position.Y += 145f / 16f;
 					}
-				}
-				else if (NPC.ai[1] > 50f)
-				{
-					if (AOUtils.ServerOrSingleplayer)
+					else if (NPC.ai[1] < 446f && NPC.ai[1] >= 122f)
 					{
-						NPC.netUpdate = true;
+						int swordTiming = !secondphase ? 40 : 24;
+						if ((int)NPC.ai[1] % swordTiming == 4 && NPC.ai[1] < 444f)
+						{
+							NPC.NPCDialogue(!secondphase ? this.GetLocalizedValue("FlyingSlashMessage") : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("FlyingSlashMessage"), !secondphase ? Color.Gold : Imbue.Colour, false);
+							SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f }, NPC.Center);
+							if (AOUtils.ServerOrSingleplayer)
+							{
+								NPC.netUpdate = true;
+								Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.spriteDirection * 20f, 0f), ModContent.ProjectileType<EliusSlash>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
+							}
+						}
+					}
+					else if (NPC.ai[1] < 532f && NPC.ai[1] >= 516f)
+					{
+						NPC.position.Y -= 145f / 16f;
+					}
+					else if (NPC.ai[1] > 593f)
+					{
 						NPC.ai[1] = -1f;
-						NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
+						NPC.ai[0] = 1;
 					}
 				}
-			}
-			NPC.ai[1] += 1f; //increment frame
+				else if (NPC.ai[0] == 6)  //storm of arrows
+				{
+					if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)
+					{
+						NPC.NPCDialogue(!secondphase ? this.GetLocalizedValue("StormOfArrowsMessage") : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("StormOfArrowsMessage"), Imbue.Colour, false);
+						SoundEngine.PlaySound(SoundID.Item5, NPC.Center);
+						if (AOUtils.ServerOrSingleplayer)
+						{
+							NPC.netUpdate = true;
+							(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), (int)(NPC.damage * 0.6), 0f, -1, 0, Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f).ModProjectile as EliusArrowStorm).secondphase = secondphase;
+							NPC.ai[1] = 22f;
+						}
+					}
+					else if (NPC.ai[1] > 50f)
+					{
+						if (AOUtils.ServerOrSingleplayer)
+						{
+							NPC.netUpdate = true;
+							NPC.ai[1] = -1f;
+							NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
+						}
+					}
+				}
+				NPC.ai[1] += 1f; //increment frame
 			}
 		}
 
@@ -515,26 +524,26 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (secondphase)
 					{
-						if(NPC.ai[1] < 16)
+						if (NPC.ai[1] < 16)
 						{
 							NPC.frame.Y = frameHeight * 10;
 							NPC.frameCounter = 0;
 						}
-						if(NPC.ai[1] < 35 && NPC.frameCounter > 5)
+						if (NPC.ai[1] < 35 && NPC.frameCounter > 5)
 						{
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
 						}
-						if(NPC.ai[1] == 35)
+						if (NPC.ai[1] == 35)
 						{
 							NPC.frame.Y = frameHeight * 17;
 							NPC.frameCounter = 0;
 						}
-						if(NPC.ai[1] > 35 && NPC.frameCounter >= 13)
+						if (NPC.ai[1] > 35 && NPC.frameCounter >= 13)
 						{
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
-							if(NPC.frame.Y/frameHeight > 19 || NPC.frame.Y/frameHeight < 15)
+							if (NPC.frame.Y / frameHeight > 19 || NPC.frame.Y / frameHeight < 15)
 							{
 								NPC.frame.Y = frameHeight * 0;
 							}
@@ -811,9 +820,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			Gore.NewGore(npc.GetSource_Death(), npc.BottomLeft, npc.velocity, ModContent.GoreType<EliusLeg>());
 			Gore.NewGore(npc.GetSource_Death(), npc.BottomRight, npc.velocity, ModContent.GoreType<EliusLeg>());
 			for (int n = 0; n < 15; n++)
-				{
-					Dust.NewDust(npc.Center, 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
-				}
+			{
+				Dust.NewDust(npc.Center, 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
+			}
 		}
 
 		public bool sparing = false;

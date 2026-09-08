@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles.Base;
 
 namespace ArcaneOdyssey.Projectiles.Enemies.Elius
@@ -21,13 +22,23 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		}
 		public override void AI()
 		{
-			for (int n = 0; n < 3; n++)
+			if (Main.getGoodWorld)
 			{
-				Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, Scale: 1.2f).noGravity = true;
+				for (int n = 0; n < 3; n++)
+				{
+					Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Firework_Red, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, Scale: 1.2f).noGravity = true;
+				}
+			}
+			else
+			{
+				for (int n = 0; n < 3; n++)
+				{
+					Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, Scale: 1.2f).noGravity = true;
+				}
 			}
 		}
 
-		public Imbuable Imbue => ModContent.GetInstance<LightningMagic>();
+		public Imbuable Imbue => LordElius.Imbue;
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
