@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Gimmicks.FightingStyle;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks.FightingStyle;
 using ArcaneOdyssey.Skills.Base;
 using ArcaneOdyssey.Skills.Generic;
 using Terraria.Audio;

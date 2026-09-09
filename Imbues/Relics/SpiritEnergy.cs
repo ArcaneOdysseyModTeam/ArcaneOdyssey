@@ -133,14 +133,21 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 			if (Type == ModContent.ItemType<SpiritEnergy>())
 			{
-				if (itemColor == Color.Transparent)
-				{
-					spriteBatch.Draw(Sprite, position, frame, Item.GetAlpha(SpiritColour), 0f, origin, scale, SpriteEffects.None, 1f);
-					return false;
-				}
+				spriteBatch.Draw(Sprite, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 1f);
+				return false;
 			}
 
 			return true;
+		}
+
+		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+		{
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				spriteBatch.Draw(Sprite, Item.Center - Main.screenPosition, null, Item.GetAlpha(Color.White), 0f, Sprite.Size() / 2f, scale, SpriteEffects.None, 1f);
+				return false;
+			}
+			return base.PreDrawInWorld(spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
 		}
 
 		public override void UpdateInventory(Player player)
@@ -239,30 +246,33 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public static Color GoodColour => new(0, 183, 255);
 		public static Color EvilColour => Color.Purple;
 
-		public override string ImbueUISprite
+		public override string Texture
 		{
 			get
 			{
-				if (Type == ModContent.ItemType<SpiritEnergy>())
+				if (Type == ModContent.ItemType<SpiritEnergy>() && !Main.gameMenu)
 				{
+					var tex = base.Texture;
 					if (!EliusSpareSystem.spared)
 					{
-						if (Imbue is MagicType)
-						{
-							return Texture + "_Evil_Magic";
-						}
-						return Texture + "_Evil_Normal";
+						tex += "_Evil";
 					}
 					else
 					{
-						if (Imbue is MagicType)
-						{
-							return Texture + "_Good_Magic";
-						}
-						return Texture + "_Good_Normal";
+						tex += "_Good";
 					}
+
+					if (Imbue is MagicType)
+					{
+						tex += "_Magic";
+					}
+					else
+					{
+						tex += "_Normal";
+					}
+					return tex;
 				}
-				return base.ImbueUISprite;
+				return base.Texture;
 			}
 		}
 

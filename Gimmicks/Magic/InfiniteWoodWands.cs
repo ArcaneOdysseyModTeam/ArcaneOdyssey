@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
+namespace ArcaneOdyssey.Gimmicks.Magic
 {
 	public class InfiniteWoodWands : ImbueGimmick
 	{
@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
 
 		public override void NoInventoryEffects(Item item, Player player)
 		{
-			item.tileWand = new Item(item.type).tileWand;
+			item.tileWand = ArcaneOdysseyMod.Sets.tileWand[item.type];
 		}
 	}
 }

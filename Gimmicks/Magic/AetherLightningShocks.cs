@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
+namespace ArcaneOdyssey.Gimmicks.Magic
 {
 	public class AetherLightningShocks : ImbueGimmick
 	{

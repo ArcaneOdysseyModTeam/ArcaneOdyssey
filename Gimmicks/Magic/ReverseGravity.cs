@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
+namespace ArcaneOdyssey.Gimmicks.Magic
 {
 	public class ReverseGravity : ImbueGimmick
 	{

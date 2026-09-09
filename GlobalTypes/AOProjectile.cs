@@ -297,6 +297,11 @@ namespace ArcaneOdyssey.GlobalTypes
 				projectile.velocity *= proj1.Speed;
 			}
 
+			if (source is EntitySource_ItemUse { Item: Item weap })
+			{
+				OriginWeaponType = ArcaneOdysseyMod.Sets.weaponType[weap.type];
+			}
+
 			if (AOUtils.ImbueClassCheck(projectile))
 			{
 				if (source is EntitySource_Parent { Entity: Projectile proj })
@@ -322,7 +327,6 @@ namespace ArcaneOdyssey.GlobalTypes
 						Imbue ??= aOItem.Imbue;
 						SecondImbue ??= aOItem.SecondImbue;
 					}
-					OriginWeaponType = ArcaneOdysseyMod.Sets.weaponType[item.type];
 					Cold ??= ArcaneOdysseyMod.Sets.cold[item.type];
 				}
 				else if (source is EntitySource_Parent { Entity: Player player })

@@ -446,6 +446,8 @@ namespace ArcaneOdyssey
 
 			public static bool[] imbueEffect = ProjectileID.Sets.Factory.CreateBoolSet();
 
+			public static int[] tileWand = ItemID.Sets.Factory.CreateIntSet();
+
 
 			[ReinitializeDuringResizeArrays]
 			public static class Assets

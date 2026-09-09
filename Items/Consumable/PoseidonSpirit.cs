@@ -32,8 +32,7 @@ public class PoseidonSpirit : BaseItem
 
 	public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 	{
-		Texture2D texture = TextureAssets.Item[Type].Value;
-		spriteBatch.Draw(texture, Item.Center - Main.screenPosition, null, Item.GetAlpha(Color.White), rotation, Vector2.Zero, scale / 2f, SpriteEffects.None, 0f);
+		spriteBatch.Draw(Sprite, Item.Center - Main.screenPosition, null, Item.GetAlpha(Color.White), rotation, Sprite.Size() / 2f, scale, SpriteEffects.None, 0f);
 		return false;
 	}
 

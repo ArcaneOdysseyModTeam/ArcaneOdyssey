@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using System;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.Magic
+namespace ArcaneOdyssey.Gimmicks.Magic
 {
 	public class ManaSiphon : ImbueGimmick
 	{

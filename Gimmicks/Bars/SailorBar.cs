@@ -1,6 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
+namespace ArcaneOdyssey.Gimmicks.Bars
 {
 	public sealed class SailorBar : BarGimmick
 	{

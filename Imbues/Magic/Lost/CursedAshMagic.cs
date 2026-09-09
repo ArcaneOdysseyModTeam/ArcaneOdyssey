@@ -2,9 +2,9 @@
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Terraria.Audio;
+using ArcaneOdyssey.Gimmicks.Magic;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {

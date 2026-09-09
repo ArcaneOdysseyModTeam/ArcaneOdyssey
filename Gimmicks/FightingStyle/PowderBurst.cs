@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Projectiles.Berserker.Effects;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.FightingStyle
+namespace ArcaneOdyssey.Gimmicks.FightingStyle
 {
 	public class PowderBurst : ImbueGimmick
 	{

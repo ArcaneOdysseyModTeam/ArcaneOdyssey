@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using Terraria.Audio;
 

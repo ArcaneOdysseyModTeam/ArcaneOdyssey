@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.AOPlayers;
 using ArcaneOdyssey.Imbues.Base;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.FightingStyle
+namespace ArcaneOdyssey.Gimmicks.FightingStyle
 {
 	public class CannonFrenzy : ImbueGimmick
 	{

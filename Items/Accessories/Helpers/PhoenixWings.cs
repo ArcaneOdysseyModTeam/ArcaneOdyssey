@@ -59,6 +59,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		{
 			base.SetStaticDefaults();
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 8f, 2f, true, 12f, 12f);
+			ItemID.Sets.ItemNoGravity[Type] = true;
 		}
 
 		public override void SetDefaults()
@@ -66,6 +67,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			base.SetDefaults();
 			Item.accessory = true;
 			Item.vanity = true;
+			Item.width = Item.height = 40;
 		}
 	}
 }

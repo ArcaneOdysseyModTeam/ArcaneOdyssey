@@ -1,6 +1,6 @@
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks.Magic;
 
 namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {

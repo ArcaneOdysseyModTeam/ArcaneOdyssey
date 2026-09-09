@@ -453,7 +453,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Value.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
+				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
 
 				if (Imbue is FightingStyleBarred fs) // dont bother with others for now
 				{
@@ -467,7 +467,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					dimensions.X *= -1f;
 					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Value.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
 				}
 			}
 		}
@@ -616,6 +616,24 @@ namespace ArcaneOdyssey.GlobalTypes
 				return;
 			thisItem = item;
 			owner = null;
+		}
+
+		private static void SetWoodWandDefault(On_Item.orig_RebuildTooltip orig, Item item)
+		{
+			orig(item);
+			if (!item.active || item.IsAir || string.IsNullOrWhiteSpace(item.Name))
+				return;
+			ArcaneOdysseyMod.Sets.tileWand[item.type] = item.tileWand;
+		}
+
+		public override void Load()
+		{
+			On_Item.RebuildTooltip += SetWoodWandDefault;
+		}
+
+		public override void Unload()
+		{
+			On_Item.RebuildTooltip -= SetWoodWandDefault;
 		}
 
 		private float? scale = null;

@@ -1,5 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks.Bars;
+﻿using ArcaneOdyssey.Gimmicks.Bars;
+using ArcaneOdyssey.Imbues.Base;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.FightingStyles.Normal

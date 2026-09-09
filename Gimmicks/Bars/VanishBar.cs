@@ -2,7 +2,7 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 
-namespace ArcaneOdyssey.Imbues.Gimmicks.Bars
+namespace ArcaneOdyssey.Gimmicks.Bars
 {
 	public sealed class VanishBar : BarGimmick
 	{

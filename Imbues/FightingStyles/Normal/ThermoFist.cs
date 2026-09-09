@@ -2,8 +2,8 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Gimmicks.Bars;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Gimmicks.Bars;
 using System;
 using Terraria.Audio;
 
