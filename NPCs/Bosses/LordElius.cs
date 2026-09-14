@@ -25,11 +25,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	[AutoloadBossHead]
 	public class LordElius : BaseNPC
 	{
-		private Texture2D frontBowArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBowFrontArm").Value;
-		private Texture2D backBowArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBowBackArm").Value;
-		private Texture2D bowTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusBow").Value;
-		private Texture2D spearArmTexture = ModContent.Request<Texture2D>("ArcaneOdyssey/NPCs/Bosses/EliusSpearThrowArm").Value;
-		private Texture2D spearTexture = TextureAssets.Projectile[ModContent.ProjectileType<EliusSpear>()].Value;
 		private int hptoheal;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
@@ -91,6 +86,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			SpawnModBiomes = [AOUtils.BiomeType<EliusArena>()];
 			NPC.buffImmune[BuffID.Confused] = true;
 		}
+
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public override MusicTrack Theme => MusicTrack.Elius;
@@ -111,7 +107,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				secondphase = true;
 			}
-			if (!sparing)
+			if (!Sparing)
 			{
 				Main.raining = true;
 				Main.rainTime = 2;
@@ -129,18 +125,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (spareTimer-- <= 0)
 				{
 					Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
+					EliusSpareSystem.spared = true;
 					NPC.active = false;
-					if (!DownedBosses.DownedElius)
-					{
-						EliusSpareSystem.spared = true;
-					}
 					if (AOUtils.ServerOrSingleplayer)
 					{
 						NPC.netUpdate = true;
 						NPC.NPCLoot();
 					}
 				}
-				NPC.ai[0] = -2;
 				return;
 			}
 
@@ -310,7 +302,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						if (AOUtils.ServerOrSingleplayer)
 						{
 							NPC.netUpdate = true;
-							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize() * 15f, ModContent.ProjectileType<EliusSpear>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (new Vector2(0, 12) * NPC.scale), NPC.SafeDirectionTo(Main.player[NPC.target].Center) * 15f, ModContent.ProjectileType<EliusSpear>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
 						}
 					}
 					else if (NPC.ai[1] > 70f)
@@ -464,7 +456,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						if (AOUtils.ServerOrSingleplayer)
 						{
 							NPC.netUpdate = true;
-							(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), (int)(NPC.damage * 0.6), 0f, -1, 0, Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f).ModProjectile as EliusArrowStorm).secondphase = secondphase;
+							(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), (int)(NPC.damage * 0.6), 0f, -1, 0, bowAimPosition.X, bowAimPosition.Y).ModProjectile as EliusArrowStorm).secondphase = secondphase;
 							NPC.ai[1] = 22f;
 						}
 					}
@@ -715,49 +707,184 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				else if (NPC.ai[0] == 6) //storm of arrows
 				{
 					NPC.frame.Y = 64 * frameHeight;
+					if (NPC.ai[1] < 22f)
+					{
+						if (NPC.frameCounter >= 5)
+						{
+							NPC.frameCounter = 0;
+							if (bowArmFrame < 2)
+							{
+								bowArmFrame++;
+							}
+							if (bowFrame < 3)
+							{
+								bowFrame++;
+							}
+						}
+					}
+					else
+					{
+						bowFrame = 2;
+					}
 				}
 				else if (NPC.ai[0] == 2) //spear throw
 				{
 					NPC.frame.Y = 59 * frameHeight;
+
+					if (NPC.frameCounter >= 5)
+					{
+						NPC.frameCounter = 0;
+						if (NPC.ai[1] < 40)
+						{
+							if (spearArmFrame < 3)
+							{
+								spearArmFrame++;
+							}
+						}
+						else
+						{
+							if (spearArmFrame < 6)
+							{
+								spearArmFrame++;
+							}
+						}
+					}
 				}
-				else
+				else if (!Sparing)
 				{
 					// IF NOT IN THE SELECTED BEHAVIORS
 					NPC.frame.Y = 0;
 					NPC.frameCounter = 0;
+					spearArmFrame = 0;
+					bowArmFrame = 0;
+					bowFrame = 0;
 				}
 			}
-			else
+			else if (!Sparing)
 			{
 				NPC.frame.Y = 0;
 			}
 			NPC.frameCounter++;
-			if (sparing)
+			if (NPC.ai[0] != 2 && NPC.ai[0] != 6)
 			{
-				NPC.frame.Y = frameHeight * 0;
+				spearArmFrame = 0;
+				bowArmFrame = 0;
+				bowFrame = 0;
+			}
+			if (Sparing)
+			{
+				if (NPC.velocity.Y == 0)
+				{
+					if (ChildSafety.Disabled)
+					{
+						if (NPC.frame.Y < frameHeight * 65)
+						{
+							NPC.frame.Y = frameHeight * 65;
+						}
+						if (NPC.frameCounter >= 5)
+						{
+							NPC.frameCounter = 0;
+							if (NPC.ai[0] != -3)
+							{
+								if (NPC.frame.Y < frameHeight * 74)
+								{
+									NPC.frame.Y += frameHeight;
+								}
+							}
+							else
+							{
+								if (NPC.frame.Y < frameHeight * 76)
+								{
+									spareTimer = 60;
+									NPC.frame.Y += frameHeight;
+								}
+							}
+						}
+					}
+					else
+					{
+						if (NPC.frame.Y < frameHeight * 77)
+						{
+							NPC.frame.Y = frameHeight * 77;
+						}
+						if (NPC.frameCounter >= 5)
+						{
+							NPC.frameCounter = 0;
+							if (NPC.ai[0] != -3)
+							{
+								if (NPC.frame.Y < frameHeight * 86)
+								{
+									NPC.frame.Y += frameHeight;
+								}
+							}
+							else
+							{
+								if (NPC.frame.Y < frameHeight * 88)
+								{
+									spareTimer = 60;
+									NPC.frame.Y += frameHeight;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					if (ChildSafety.Disabled)
+						NPC.frame.Y = frameHeight * 65;
+					else
+						NPC.frame.Y = frameHeight * 77;
+				}
 			}
 		}
+
+		private Vector2 bowAimPosition => new(Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f);
+		private static Asset<Texture2D> backBowArmTexture, spearArmTexture, frontBowArmTexture, bowTexture;
+		private static Texture2D SpearTexture => ModContent.GetInstance<EliusSpear>().Sprite;
+
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
+			var dir = NPC.spriteDirection != 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
 			{
-
+				var frame = backBowArmTexture.Frame(1, 3, 0, bowArmFrame);
+				spriteBatch.Draw(backBowArmTexture.Value, NPC.Center - screenPos, frame, drawColor, NPC.Center.AngleTo(bowAimPosition), frame.Size() / 2f, NPC.scale, dir, 0f);
 			}
 			return true;
 		}
+
+		public override void Load()
+		{
+			backBowArmTexture = ModContent.Request<Texture2D>(Texture + "BowBackArm");
+			frontBowArmTexture = ModContent.Request<Texture2D>(Texture + "BowFrontArm");
+			bowTexture = ModContent.Request<Texture2D>(Texture + "Bow");
+			spearArmTexture = ModContent.Request<Texture2D>(Texture + "SpearThrowArm");
+		}
+
+		private int spearArmFrame, bowArmFrame, bowFrame;
+
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
+			var dir = NPC.spriteDirection != 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 			if (NPC.ai[0] == 2 && NPC.HasValidTarget) //spear rendering and spear arm rendering
 			{
-				//Main.EntitySpriteDraw(spearTexture,(NPC.Center-screenPos)+new Vector2(0,0),new Rectangle(0,0,spearTexture.Width,spearTexture.Height),drawColor,(Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation()+MathHelper.PiOver4,new Vector2(spearTexture.Width/2,spearTexture.Height/2),1f,SpriteEffects.None);
-				Main.EntitySpriteDraw(spearArmTexture, (NPC.Center - screenPos) + new Vector2(0, 0), new Rectangle(0, 0, spearArmTexture.Width, spearArmTexture.Height / 7), drawColor, (Main.player[NPC.target].Center - NPC.Center).SafeNormalize().ToRotation(), new Vector2(spearArmTexture.Width / 2, spearArmTexture.Height / 14), 1f, NPC.Center.X < Main.player[NPC.target].Center.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+				if (NPC.ai[1] < 40)
+				{
+					spriteBatch.Draw(SpearTexture, NPC.Center - screenPos - (new Vector2(0, 12) * NPC.scale), null, drawColor, NPC.Center.AngleTo(Main.player[NPC.target].Center) + (MathHelper.PiOver4 * -NPC.spriteDirection) + (NPC.spriteDirection == 1 ? MathF.PI : 0), SpearTexture.Size() / 2f, NPC.scale, dir, 0f);
+				}
+				var spearframe = spearArmTexture.Frame(1, 7, 0, spearArmFrame);
+				spriteBatch.Draw(spearArmTexture.Value, NPC.Center - screenPos, spearframe, drawColor, NPC.Center.AngleTo(Main.player[NPC.target].Center) + (NPC.spriteDirection == -1 ? MathF.PI : 0), spearframe.Size() / 2f, NPC.scale, dir, 1f);
 
 			}
 			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
 			{
-
+				var bowframe = bowTexture.Frame(1, 4, 0, bowFrame);
+				spriteBatch.Draw(bowTexture.Value, NPC.Center - screenPos, bowframe, drawColor, NPC.Center.AngleTo(bowAimPosition) + (NPC.spriteDirection == -1 ? MathF.PI : 0), bowframe.Size() / 2f, NPC.scale, dir, 0f);
+				var armframe = frontBowArmTexture.Frame(1, 3, 0, bowArmFrame);
+				spriteBatch.Draw(frontBowArmTexture.Value, NPC.Center - screenPos - (new Vector2(5, 0) * NPC.spriteDirection * NPC.scale), armframe, drawColor, NPC.Center.AngleTo(bowAimPosition) + (NPC.spriteDirection == -1 ? MathF.PI : 0), armframe.Size() / 2f, NPC.scale, dir, 0f);
 			}
 		}
+
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(AOUtils.Common<EliusTrophy>(10));
@@ -825,7 +952,20 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 		}
 
-		public bool sparing = false;
+		public bool Sparing
+		{
+			get
+			{
+				return NPC.ai[0] == -2 || NPC.ai[0] == -3;
+			}
+			set
+			{
+				if (value)
+					NPC.ai[0] = -2;
+				else
+					NPC.ai[0] = -1;
+			}
+		}
 
 		public override bool CheckDead()
 		{
@@ -833,7 +973,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				return true;
 			}
-			sparing = true;
+			Sparing = true;
 			NPC.life = 1;
 			NPC.active = true;
 			NPC.dontTakeDamage = true;
@@ -846,7 +986,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			return false;
 		}
 
-		public override bool CanChat() => sparing && NPC.ai[1] != -3;
+		public override bool CanChat() => Sparing && NPC.ai[1] != -3;
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
@@ -858,13 +998,12 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override bool CanGoToStatue(bool toKingStatue) => false;
 
-		public override bool CheckActive() => !sparing;
+		public override bool CheckActive() => !Sparing;
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
-			NPC.active = false;
+			Main.CloseNPCChatOrSign();
 			NPC.netUpdate = true;
-
 			if (Main.netMode == NetmodeID.MultiplayerClient)
 			{
 				var packet = Mod.GetPacket();
@@ -879,13 +1018,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				if (firstButton) // kill
 				{
 					Main.NewText(this.GetLocalizedValue("Killed"), Color.Purple);
+					NPC.active = false;
+					NPC.NPCLoot();
 				}
 				else
 				{
-					Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
 					NPC.ai[0] = -3;
 				}
-				NPC.NPCLoot();
 			}
 		}
 

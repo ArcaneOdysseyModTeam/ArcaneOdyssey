@@ -244,11 +244,14 @@ namespace ArcaneOdyssey
 					{
 						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Kill").Value.ToLower()).ToNetworkText(), Color.Purple);
 						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Killed").ToNetworkText(), Color.Purple);
+
+						npc.active = false;
+						npc.NPCLoot();
 					}
 					else
 					{
+						npc.ai[0] = -3;
 						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Spare").Value.ToLower()).ToNetworkText(), new(0, 183, 255));
-						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Spared").ToNetworkText(), new(0, 183, 255));
 					}
 
 					var packet = GetPacket();
@@ -256,9 +259,6 @@ namespace ArcaneOdyssey
 					packet.Write(spared);
 					packet.Write(npc.whoAmI);
 					packet.Send();
-
-					npc.active = false;
-					npc.NPCLoot();
 				}
 				else
 				{

@@ -170,11 +170,18 @@ namespace ArcaneOdyssey.Projectiles.Weapons
 			Projectile.rotation += RotationVelocity * Projectile.direction;
 		}
 
+		public override bool CanHaveImbueVFX => false;
+
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
 		{
 			hitbox.X += ((Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection)).ToRotationVector2().X * (Projectile.width / 2f)).Round();
 			hitbox.Y += ((Projectile.rotation - (MathHelper.PiOver4 * Projectile.spriteDirection)).ToRotationVector2().Y * (Projectile.width / 2f)).Round();
 			AOUtils.ScaleRectangle(ref hitbox, 1 / 3f);
+			if (!Main.dedServ)
+			{
+				Imbue?.LingeringEffects(hitbox, source: Projectile);
+				SecondImbue?.LingeringEffects(hitbox, source: Projectile);
+			}
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

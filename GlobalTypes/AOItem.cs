@@ -1042,10 +1042,10 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (!ItemID.Sets.PreHardmodeLikeBossBag[item.type])
 				{
 					LeadingConditionRule devItems1 = new(new Conditions.TenthAnniversaryIsNotUp());
-					devItems1.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>(), ModContent.ItemType<RedsFork>()], 16), true);
+					devItems1.OnSuccess(new AnyDropHelper([ModContent.ItemType<ElfPetItem>()], 16), true);
 					itemLoot.Add(devItems1);
 					LeadingConditionRule devItems2 = new(new Conditions.TenthAnniversaryIsUp());
-					devItems2.OnSuccess(new AnyDropHelper([ModContent.ItemType<KindraBlade>(), ModContent.ItemType<ElfPetItem>(), ModContent.ItemType<RedsFork>()], 8), true);
+					devItems2.OnSuccess(new AnyDropHelper([ModContent.ItemType<ElfPetItem>()], 8), true);
 					itemLoot.Add(devItems2);
 				}
 				else
