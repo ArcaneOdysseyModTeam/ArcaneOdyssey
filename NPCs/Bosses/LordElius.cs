@@ -1066,7 +1066,20 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 pointThree, float xPos)
 		{
-			return new Vector2(xPos, (((((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * pointOne.Y) + pointTwo.Y)) + ((-1 * pointTwo.Y) + pointThree.Y)) / (((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2))) + ((-1 * MathF.Pow(pointTwo.X, 2)) + MathF.Pow(pointThree.X, 2)))) * MathF.Pow(xPos, 2)) + (xPos * ((((-1 * pointOne.Y) + pointTwo.Y) - (((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2)) * ((((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * pointOne.Y) + pointTwo.Y)) + ((-1 * pointTwo.Y) + pointThree.Y)) / (((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2))) + ((-1 * MathF.Pow(pointTwo.X, 2)) + MathF.Pow(pointThree.X, 2)))))) / ((-1 * pointOne.X) + pointTwo.X))) + ((pointOne.Y - (((((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * pointOne.Y) + pointTwo.Y)) + ((-1 * pointTwo.Y) + pointThree.Y)) / (((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2))) + ((-1 * MathF.Pow(pointTwo.X, 2)) + MathF.Pow(pointThree.X, 2)))) * MathF.Pow(pointOne.X, 2))) - (((((-1 * pointOne.Y) + pointTwo.Y) - (((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2)) * ((((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * pointOne.Y) + pointTwo.Y)) + ((-1 * pointTwo.Y) + pointThree.Y)) / (((-1 * (((-1 * pointTwo.X) + pointThree.X) / ((-1 * pointOne.X) + pointTwo.X))) * ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2))) + ((-1 * MathF.Pow(pointTwo.X, 2)) + MathF.Pow(pointThree.X, 2)))))) / ((-1 * pointOne.X) + pointTwo.X)) * pointOne.X)));
+			float alphaOne = ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2));
+			float betaOne = ((-1 * pointOne.X) + pointTwo.X);
+			float deltaOne = ((-1 * pointOne.Y) + pointTwo.Y);
+			float alphaTwo = ((-1 * MathF.Pow(pointTwo.X, 2)) + MathF.Pow(pointThree.X, 2));
+			float betaTwo = ((-1 * pointTwo.X) + pointThree.X);
+			float deltaTwo = ((-1 * pointTwo.Y) + pointThree.Y);
+			float betaMult = (-1 * (betaTwo / betaOne));
+			float alphaThree = ((betaMult * alphaOne) + alphaTwo);
+			float deltaThree = ((betaMult * deltaOne) + deltaTwo);
+			float alphaZero = (deltaThree / alphaThree);
+			float betaZero = ((deltaOne - (alphaOne * alphaZero)) / betaOne);
+			float charlieZero = ((pointOne.Y - (alphaZero * MathF.Pow(pointOne.X, 2))) - (betaZero * pointOne.X));
+			float yPos = (alphaZero * MathF.Pow(xPos, 2)) + (xPos * betaZero) + charlieZero;
+			return new Vector2(xPos, yPos);
 		}
 	}
 }
