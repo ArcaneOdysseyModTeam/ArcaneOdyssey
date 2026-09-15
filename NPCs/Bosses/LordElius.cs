@@ -1066,6 +1066,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 pointThree, float xPos)
 		{
+			//via https://www.desmos.com/calculator/lac2i0bgum
 			float alphaOne = ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2));
 			float betaOne = ((-1 * pointOne.X) + pointTwo.X);
 			float deltaOne = ((-1 * pointOne.Y) + pointTwo.Y);
