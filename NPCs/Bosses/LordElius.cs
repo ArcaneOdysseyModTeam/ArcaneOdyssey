@@ -934,7 +934,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				for (int n = 0; n < 17; n++)
 				{
 					Dust.NewDust(hitbox.Center(), 0, 0, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
+
 				}
+				if(AOUtils.ServerOrSingleplayer)
+				{
+					NPC.netUpdate = true;
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
+				}
+				SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 			}
 		}
 
