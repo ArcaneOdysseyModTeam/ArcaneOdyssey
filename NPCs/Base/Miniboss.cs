@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 
-namespace ArcaneOdyssey.NPCs.Minibosses
+namespace ArcaneOdyssey.NPCs.Base
 {
 	public abstract class Miniboss : BaseNPC
 	{
@@ -16,7 +16,7 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance);
+			NPC.lifeMax = (int)(NPC.lifeMax * balance);
 		}
 
 		public override void SetStaticDefaults()

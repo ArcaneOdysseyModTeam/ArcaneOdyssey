@@ -21,6 +21,8 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 
 		public override int Scroll => ModContent.ItemType<ElementalSpell>();
 
+		public override DamageClass DamageTypeOverride => DamageClass.MagicSummonHybrid;
+
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
 			player.AddBuff(ModContent.BuffType<ElementalBuff>(), 2);

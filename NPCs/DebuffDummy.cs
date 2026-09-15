@@ -1,4 +1,5 @@
-﻿using ArcaneOdysseyMusic;
+﻿using ArcaneOdyssey.NPCs.Base;
+using ArcaneOdysseyMusic;
 
 namespace ArcaneOdyssey.NPCs
 {

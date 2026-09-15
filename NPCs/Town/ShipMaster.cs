@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Items.SealedChests;
+using ArcaneOdyssey.NPCs.Base;
 using System.Collections.Generic;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;

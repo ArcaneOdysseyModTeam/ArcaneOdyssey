@@ -15,6 +15,8 @@ namespace ArcaneOdyssey.Skills.Base
 		public virtual float Speed => 1f;
 		public virtual SoundStyle? ExtraSound => null;
 
+		public virtual DamageClass DamageTypeOverride => null;
+
 		public sealed override SkillType SkillSlot => SkillType.Attack;
 
 		public abstract bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback);

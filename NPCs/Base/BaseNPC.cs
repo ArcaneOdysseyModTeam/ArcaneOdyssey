@@ -1,6 +1,6 @@
 ﻿using ArcaneOdysseyMusic;
 
-namespace ArcaneOdyssey.NPCs
+namespace ArcaneOdyssey.NPCs.Base
 {
 	public abstract class BaseNPC : ModNPC, ILocalizedModType
 	{

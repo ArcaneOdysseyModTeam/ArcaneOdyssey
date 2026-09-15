@@ -68,6 +68,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			Item.accessory = true;
 			Item.vanity = true;
 			Item.width = Item.height = 40;
+			Item.master = true;
 		}
 	}
 }

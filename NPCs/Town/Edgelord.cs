@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.UI;
 using System.Collections.Generic;

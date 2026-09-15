@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles.Base;
 

@@ -12,7 +12,16 @@ namespace ArcaneOdyssey.Gimmicks.FightingStyle
 
 		public override void KillEffects(Projectile projectile)
 		{
-			Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), projectile.damage / 2, 3f, projectile.owner);
+			if (Main.player[projectile.owner].heldProj != projectile.whoAmI)
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), projectile.damage / 2, 3f, projectile.owner);
+		}
+
+		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (Main.player[projectile.owner].heldProj == projectile.whoAmI)
+			{
+				Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), damageDone / 2, 3f, projectile.owner);
+			}
 		}
 	}
 }

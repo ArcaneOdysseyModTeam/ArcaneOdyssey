@@ -105,6 +105,10 @@ namespace ArcaneOdyssey.Imbues.Base
 			
 			if (selectedAttack is not null)
 			{
+				if (selectedAttack.DamageTypeOverride is not null && Item.DamageType != selectedAttack.DamageTypeOverride)
+					Item.DamageType = selectedAttack.DamageTypeOverride;
+				else
+					Item.DamageType = new Item(Type).DamageType;
 				if (Item.DamageType == DamageClass.Magic)
 					Item.mana = selectedAttack.ManaCost;
 				Item.damage = selectedAttack.Damage;

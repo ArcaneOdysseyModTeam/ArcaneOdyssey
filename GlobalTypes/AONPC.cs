@@ -60,6 +60,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
+		public override void SetupTravelShop(int[] shop, ref int nextSlot)
+		{
+			base.SetupTravelShop(shop, ref nextSlot);
+		}
+
 		public override bool PreAI(NPC npc)
 		{
 			if (Main.dedServ || Main.netMode == NetmodeID.SinglePlayer)

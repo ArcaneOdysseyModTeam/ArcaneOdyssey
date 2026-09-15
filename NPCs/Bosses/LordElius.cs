@@ -11,6 +11,7 @@ using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Weapons.RavennaNoble;
+using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Projectiles.Enemies.Elius;
 using ArcaneOdysseyMusic;
 using System;
@@ -124,6 +125,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				if (spareTimer-- <= 0)
 				{
+					if (AOUtils.ServerOrSingleplayer)
+					{
+						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
+					}
 					Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
 					EliusSpareSystem.spared = true;
 					NPC.active = false;
@@ -172,7 +177,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 			NPC.spriteDirection = (NPC.SafeDirectionTo(Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].Center).X > 0).ToDirectionInt();
 			NPC.TargetClosest();
-			if (secondphase && AOUtils.ServerOrSingleplayer && Main.player[NPC.target].Distance(NPC.position) < 7000 && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0 && (Main.expertMode || Main.masterMode))))
+			if (secondphase && Main.expertMode && AOUtils.ServerOrSingleplayer && Main.player[NPC.target].Distance(NPC.position) < 7000 && (Main.GameUpdateCount % 300 == 0 || (Main.GameUpdateCount % 150 == 0)))
 			{
 				Projectile.NewProjectile(NPC.GetSource_FromThis(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), (int)(NPC.damage * 1.5), 0f, -1);
 			}
@@ -848,7 +853,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
 			{
 				var frame = backBowArmTexture.Frame(1, 3, 0, bowArmFrame);
-				spriteBatch.Draw(backBowArmTexture.Value, NPC.Center - screenPos, frame, drawColor, NPC.Center.AngleTo(bowAimPosition), frame.Size() / 2f, NPC.scale, dir, 0f);
+				spriteBatch.Draw(backBowArmTexture.Value, NPC.Center - screenPos, frame, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(bowAimPosition), frame.Size() / 2f, NPC.scale, dir, 0f);
 			}
 			return true;
 		}
@@ -873,15 +878,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					spriteBatch.Draw(SpearTexture, NPC.Center - screenPos - (new Vector2(0, 12) * NPC.scale), null, drawColor, NPC.Center.AngleTo(Main.player[NPC.target].Center) + (MathHelper.PiOver4 * -NPC.spriteDirection) + (NPC.spriteDirection == 1 ? MathF.PI : 0), SpearTexture.Size() / 2f, NPC.scale, dir, 0f);
 				}
 				var spearframe = spearArmTexture.Frame(1, 7, 0, spearArmFrame);
-				spriteBatch.Draw(spearArmTexture.Value, NPC.Center - screenPos, spearframe, drawColor, NPC.Center.AngleTo(Main.player[NPC.target].Center) + (NPC.spriteDirection == -1 ? MathF.PI : 0), spearframe.Size() / 2f, NPC.scale, dir, 1f);
+				spriteBatch.Draw(spearArmTexture.Value, NPC.Center - screenPos, spearframe, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(Main.player[NPC.target].Center) + (NPC.spriteDirection == -1 ? MathF.PI : 0), spearframe.Size() / 2f, NPC.scale, dir, 1f);
 
 			}
 			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
 			{
 				var bowframe = bowTexture.Frame(1, 4, 0, bowFrame);
-				spriteBatch.Draw(bowTexture.Value, NPC.Center - screenPos, bowframe, drawColor, NPC.Center.AngleTo(bowAimPosition) + (NPC.spriteDirection == -1 ? MathF.PI : 0), bowframe.Size() / 2f, NPC.scale, dir, 0f);
+				spriteBatch.Draw(bowTexture.Value, NPC.Center - screenPos, bowframe, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(bowAimPosition) + (NPC.spriteDirection == -1 ? MathF.PI : 0), bowframe.Size() / 2f, NPC.scale, dir, 0f);
 				var armframe = frontBowArmTexture.Frame(1, 3, 0, bowArmFrame);
-				spriteBatch.Draw(frontBowArmTexture.Value, NPC.Center - screenPos - (new Vector2(5, 0) * NPC.spriteDirection * NPC.scale), armframe, drawColor, NPC.Center.AngleTo(bowAimPosition) + (NPC.spriteDirection == -1 ? MathF.PI : 0), armframe.Size() / 2f, NPC.scale, dir, 0f);
+				spriteBatch.Draw(frontBowArmTexture.Value, NPC.Center - screenPos - (new Vector2(5, 0) * NPC.spriteDirection * NPC.scale), armframe, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(bowAimPosition) + (NPC.spriteDirection == -1 ? MathF.PI : 0), armframe.Size() / 2f, NPC.scale, dir, 0f);
 			}
 		}
 
@@ -931,14 +936,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else
 			{
-				for (int n = 0; n < 17; n++)
+				if (AOUtils.ServerOrSingleplayer)
 				{
-					Dust.NewDust(hitbox.Center(), 0, 0, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
-
-				}
-				if(AOUtils.ServerOrSingleplayer)
-				{
-					NPC.netUpdate = true;
 					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
 				}
 				SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
@@ -1062,7 +1061,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
+			NPC.lifeMax = (int)(NPC.lifeMax * balance * bossAdjustment);
 		}
 
 		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 pointThree, float xPos)

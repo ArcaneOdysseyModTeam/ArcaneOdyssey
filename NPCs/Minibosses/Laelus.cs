@@ -3,6 +3,7 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
 using ArcaneOdyssey.Items.Weapons;
+using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Projectiles.Enemies;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;

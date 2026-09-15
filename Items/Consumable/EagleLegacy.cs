@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.UI;
 using System;
-using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Items.Consumable
 {

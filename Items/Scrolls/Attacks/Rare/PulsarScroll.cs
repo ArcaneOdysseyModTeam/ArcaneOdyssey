@@ -33,5 +33,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 			imbue.CreateMagicCircle(player, Projectiles.MagicCircleMode.Basic, true, Shoot, AltUsing);
 			return false;
 		}
+
+		public override bool PreActivate(Player player, Imbuable imbue) => player.ownedProjectileCounts[Shoot] < 1;
 	}
 }

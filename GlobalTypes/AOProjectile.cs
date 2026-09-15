@@ -314,6 +314,31 @@ namespace ArcaneOdyssey.GlobalTypes
 						OriginWeaponType = proj.ArcaneOdyssey().OriginWeaponType;
 					}
 				}
+				else if (source is EntitySource_OnHit { Entity : Projectile proj2})
+				{
+					if (proj2.ArcaneOdyssey() is not null)
+					{
+						Imbue ??= proj2.ArcaneOdyssey().Imbue;
+						SecondImbue ??= proj2.ArcaneOdyssey().SecondImbue;
+						Cold ??= proj2.ArcaneOdyssey().Cold;
+						OriginWeaponType = proj2.ArcaneOdyssey().OriginWeaponType;
+					}
+				}
+				else if (source is EntitySource_OnHit { Entity: Item item1 })
+				{
+					if (item1.ModItem is Imbuable relic)
+					{
+						Imbue ??= relic;
+						SecondImbue ??= relic.Imbue;
+						Cold = relic.Cold;
+					}
+					else if (item1.TryGetGlobalItem<AOItem>(out var aOItem))
+					{
+						Imbue ??= aOItem.Imbue;
+						SecondImbue ??= aOItem.SecondImbue;
+					}
+					Cold ??= ArcaneOdysseyMod.Sets.cold[item1.type];
+				}
 				else if (source is EntitySource_ItemUse { Item: Item item })
 				{
 					if (item.ModItem is Imbuable relic)

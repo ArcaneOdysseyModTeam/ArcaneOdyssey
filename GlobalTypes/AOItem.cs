@@ -5,7 +5,6 @@ using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Accessories.Helpers;
-using ArcaneOdyssey.Items.Accessories.Vanity;
 using ArcaneOdyssey.Items.Armour.Vanity.Taz;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
