@@ -1066,6 +1066,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 pointThree, float xPos)
 		{
+			//via https://en.wikipedia.org/wiki/Newton_polynomial
 			float coEfOne = (pointTwo.Y-pointOne.Y)/(pointTwo.X-pointOne.X);
 			float coEfTwo = (((pointThree.Y-pointTwo.Y)/(pointThree.X-pointTwo.X))-coEfOne)/(pointThree.X-pointOne.X);
 			float yPos = pointOne.Y + coEfOne*(xPos-pointOne.X) + coEfTwo*(xPos-pointOne.X)*(xPos-pointTwo.X);
