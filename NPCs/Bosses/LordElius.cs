@@ -1066,20 +1066,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 pointThree, float xPos)
 		{
-			//via https://www.desmos.com/calculator/lac2i0bgum
-			float alphaOne = ((-1 * MathF.Pow(pointOne.X, 2)) + MathF.Pow(pointTwo.X, 2));
-			float betaOne = ((-1 * pointOne.X) + pointTwo.X);
-			float deltaOne = ((-1 * pointOne.Y) + pointTwo.Y);
-			float alphaTwo = ((-1 * MathF.Pow(pointTwo.X, 2)) + MathF.Pow(pointThree.X, 2));
-			float betaTwo = ((-1 * pointTwo.X) + pointThree.X);
-			float deltaTwo = ((-1 * pointTwo.Y) + pointThree.Y);
-			float betaMult = (-1 * (betaTwo / betaOne));
-			float alphaThree = ((betaMult * alphaOne) + alphaTwo);
-			float deltaThree = ((betaMult * deltaOne) + deltaTwo);
-			float alphaZero = (deltaThree / alphaThree);
-			float betaZero = ((deltaOne - (alphaOne * alphaZero)) / betaOne);
-			float charlieZero = ((pointOne.Y - (alphaZero * MathF.Pow(pointOne.X, 2))) - (betaZero * pointOne.X));
-			float yPos = (alphaZero * MathF.Pow(xPos, 2)) + (xPos * betaZero) + charlieZero;
+			float coEfOne = (pointTwo.Y-pointOne.Y)/(pointTwo.X-pointOne.X);
+			float coEfTwo = (((pointThree.Y-pointTwo.Y)/(pointThree.X-pointTwo.X))-coEfOne)/(pointThree.X-pointOne.X);
+			float yPos = pointOne.Y + coEfOne*(xPos-pointOne.X) + coEfTwo*(xPos-pointOne.X)*(xPos-pointTwo.X);
 			return new Vector2(xPos, yPos);
 		}
 	}
