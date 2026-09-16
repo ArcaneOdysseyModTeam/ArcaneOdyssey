@@ -249,6 +249,7 @@ namespace ArcaneOdyssey
 						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Killed").ToNetworkText(), Color.Purple);
 
 						npc.active = false;
+						npc.netUpdate = true;
 						npc.NPCLoot();
 					}
 					else
