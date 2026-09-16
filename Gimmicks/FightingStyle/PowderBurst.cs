@@ -1,0 +1,27 @@
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Projectiles.Berserker.Effects;
+
+namespace ArcaneOdyssey.Gimmicks.FightingStyle
+{
+	public class PowderBurst : ImbueGimmick
+	{
+		public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Projectile.NewProjectile(item.GetSource_ItemUse(player), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), damageDone / 2, 3f, player.whoAmI);
+		}
+
+		public override void KillEffects(Projectile projectile)
+		{
+			if (Main.player[projectile.owner].heldProj != projectile.whoAmI)
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), projectile.damage / 2, 3f, projectile.owner);
+		}
+
+		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (Main.player[projectile.owner].heldProj == projectile.whoAmI)
+			{
+				Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<PowderExplosion>(), damageDone / 2, 3f, projectile.owner);
+			}
+		}
+	}
+}

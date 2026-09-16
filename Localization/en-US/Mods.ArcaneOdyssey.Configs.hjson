@@ -1,0 +1,73 @@
+ArcaneOdysseyConfig: {
+	DisplayName: Server Config
+
+	AffectsOtherMods: {
+		Label: "[i:Cog] Affect other mods"
+		Tooltip:
+			'''
+			Allows imbues and rarity tooltips to affect items from other mods
+			Should only be disabled if your game is not functioning properly
+			'''
+	}
+
+	VanillaItemTemperatures: {
+		Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
+		Tooltip:
+			'''
+			Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
+			Should only be disabled if your game is not functioning properly
+			'''
+	}
+
+	SyncProjectileSizes: {
+		Label: "[i:ArcaneOdyssey/ColossalGreatsword] Sync Projectile Sizes"
+		Tooltip:
+			'''
+			Toggles whether projectiles have their sizes visually synced between multiplayer clients
+			Should only be disabled if your game is not functioning properly
+			'''
+	}
+}
+
+ArcaneOdysseyClientConfig: {
+	DisplayName: Client Config
+
+	ItemTypeTooltips: {
+		Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
+		Tooltip:
+			'''
+			Toggles whether to show the rarity and type of items in their tooltips
+			Should only be disabled if your items are not displaying properly
+			'''
+	}
+
+	AbilityText: {
+		Label: "[i:ArcaneOdyssey/BronzeTriasta] Ability Text"
+		Tooltip: Ability names appear above your head when you activate them
+	}
+
+	UniqueMagicCircles: {
+		Label: "[i:ArcaneOdyssey/EmptyScroll] Unique Magic Circles"
+		Tooltip: Allows every magic type to have a unique magic circle design
+	}
+
+	PulsingImbueIcons: {
+		Label: "[i:ArcaneOdyssey/SpiritEnergy] Pulsing Imbue Icons"
+		Tooltip: Toggles whether certain imbue icons will pulse
+	}
+
+	UnselectedScrollOpacity: {
+		Label: "[i:ArcaneOdyssey/DevouringScroll] Unselected Scroll Opacity"
+		Tooltip: ""
+	}
+
+	ImbueSkillsDisplayLocationOffset: {
+		Label: "[i:ArcaneOdyssey/AuraScroll] Imbue Display Offset"
+		Tooltip: ""
+	}
+
+	GildedMusketBarOffset: {
+		Label: "[i:ArcaneOdyssey/GildedMusket] Gilded Musket Bar Offset"
+		Tooltip: ""
+	}
+}

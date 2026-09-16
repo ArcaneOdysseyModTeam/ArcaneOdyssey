@@ -1,0 +1,49 @@
+﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+
+namespace ArcaneOdyssey.Projectiles.Base
+{
+	public abstract class MagicSpell : PlayerProjectile
+	{
+		public override Debuff? ProjectileDebuff => null;
+
+		public virtual bool DrawWithImbueColours => false;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (DrawWithImbueColours)
+			{
+				lightColor = Imbue?.Colour.MultiplyRGB(lightColor) ?? Color.White;
+			}
+			return base.PreDraw(ref lightColor);
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.friendly = true;
+		}
+
+		public override bool PreAI()
+		{
+			Imbue ??= ModContent.GetInstance<WindMagic>();
+			if (Main.myPlayer == Projectile.owner && Imbue?.CanBeWet == false && Projectile.wet)
+			{
+				return TouchingWater();
+			}
+			return true;
+		}
+
+
+		/// <summary>
+		/// Override for custom behaviour on touching water
+		/// <para/>By default, cancels ai and kills the projectile
+		/// </summary>
+		/// <returns></returns>
+		public virtual bool TouchingWater()
+		{
+			Kill();
+			return false;
+		}
+	}
+}

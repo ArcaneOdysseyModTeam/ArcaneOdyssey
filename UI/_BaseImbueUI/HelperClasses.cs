@@ -1,13 +1,8 @@
-﻿using ArcaneOdyssey.UI.MutateThyMagic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
+﻿using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.UI.MutateThyMagic;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI._BaseImbueUI;
@@ -48,6 +43,7 @@ public abstract partial class BaseImbueUI : UIState
 			BackGround = new(ModContent.Request<Texture2D>($"{TexturePath}Neutral"));
 		}
 
+		protected int EdgeCounter = 0;
 		public virtual void Update()
 		{
 			Color color = new(80, 80, 80, 80);
@@ -84,35 +80,58 @@ public abstract partial class BaseImbueUI : UIState
 				texture = ModContent.Request<Texture2D>($"{TexturePath}Neutral");
 			}
 
+
+
 			Icon = new(texture)
 			{
-				ScaleToFit = true
+				ScaleToFit = true,
 			};
 		}
 
 		public override void Update()
 		{
-			var magicType = MainUI is MutateThyMagicUI mui ? mui.WhoWeMutating : MainUI.ProductSpotLight.CurrentType;
-			if (CurrentType == magicType)
-			{
-				BackGround.Color = Color.White;
-				return;
-			}
+			MagicTypes magicType = MainUI is MutateThyMagicUI mui ? mui.WhoWeMutating : MainUI.ProductSpotLight.CurrentType;
 
-			Color color = new(80, 80, 80, 80);
-
-			if (BackGround.IsMouseHovering)
+			#region BackGround Logic
+			BackGroundLogic(); void BackGroundLogic()
 			{
-				color = new(160, 160, 160, 160);
-				if (!HasPlayedSound)
+				if (CurrentType == magicType)
 				{
-					SoundEngine.PlaySound(SoundID.MenuTick, Main.LocalPlayer.position);
-					HasPlayedSound = true;
+					BackGround.Color = Color.White;
+					return;
 				}
-			}
-			else HasPlayedSound = false;
 
-			BackGround.Color = color;
+				Color color = new(80, 80, 80, 80);
+
+				if (BackGround.IsMouseHovering)
+				{
+					color = new(160, 160, 160, 160);
+					if (!HasPlayedSound)
+					{
+						SoundEngine.PlaySound(SoundID.MenuTick, Main.LocalPlayer.position);
+						HasPlayedSound = true;
+					}
+				}
+				else HasPlayedSound = false;
+
+				BackGround.Color = color;
+			}
+			#endregion
+
+			#region Edge Case
+			EdgeCounter++;
+			if (EdgeCounter >= 5)
+			{
+				EdgeCounter = 0;
+				EdgeCase();
+			}
+
+			void EdgeCase()
+			{
+				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
+				Icon.Color = SpiritEnergy.Instance.SpiritColour;
+			}
+			#endregion
 		}
 	}
 
@@ -122,7 +141,7 @@ public abstract partial class BaseImbueUI : UIState
 		public CustomProduct(BaseImbueUI mainUI, ModItem item) : base(mainUI)
 		{
 			Item = item;
-			Icon = new(Terraria.GameContent.TextureAssets.Item[Item.Type]) { ScaleToFit = true };
+			Icon = new(TextureAssets.Item[Item.Type]) { ScaleToFit = true };
 		}
 
 		public override void Update()
@@ -167,9 +186,35 @@ public abstract partial class BaseImbueUI : UIState
 
 		protected void SetIconSizes()
 		{
+			//Main.NewText($"Hmming, {Icon.Width.Pixels}, {Icon.Height.Pixels}, left {Icon.Left.Pixels}, {Icon.Top.Pixels}");
 
-			Icon.Width.Set(128, 0f);
-			Icon.Height.Set(128, 0f);
+			#region Warning! Math!
+			float maxLength = 128;
+			float ratio = Icon.Width.Pixels / Icon.Height.Pixels;
+
+			if (ratio >= 1f) // Fat and Short; Tragedy
+			{
+				float height = (int)(maxLength / ratio), topReal = (maxLength - height) / 2;
+				//Main.NewText($"On est gros; height: {height}, expected: {topReal}");
+				Icon.Width.Set(maxLength, 0f);
+				Icon.Left.Set(0, 0f);
+
+				Icon.Height.Set(height, 0f);
+				Icon.Top.Set(topReal, 0f);
+			}
+			else // Paper Straw build
+			{
+				float width = (int)(maxLength * ratio), leftReal = (maxLength - width) / 2;
+				//Main.NewText($"On est grand; width: {width}, expected: {leftReal}");
+
+				Icon.Height.Set(maxLength, 0f);
+				Icon.Top.Set(0, 0f);
+
+				Icon.Width.Set((int)(maxLength * ratio), 0f);
+				Icon.Left.Set(leftReal, 0f);
+			}
+
+			#endregion
 
 			Icon.IgnoresMouseInteraction = true;
 
@@ -227,6 +272,25 @@ public abstract partial class BaseImbueUI : UIState
 			else ChangeType(MagicTypes.None);
 			SetIconSizes();
 			Mutation = item;
+		}
+
+		protected int EdgeCounter = 5;
+		public void Update()
+		{
+			#region Edge Case
+			EdgeCounter++;
+			if (EdgeCounter >= 5)
+			{
+				EdgeCounter = 0;
+				EdgeCase();
+			}
+
+			void EdgeCase()
+			{
+				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
+				Icon.Color = SpiritEnergy.Instance.SpiritColour;
+			}
+			#endregion
 		}
 	}
 }

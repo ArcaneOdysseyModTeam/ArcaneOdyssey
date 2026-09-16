@@ -1,12 +1,11 @@
-﻿using ArcaneOdyssey.Content.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Armour.Vanity;
-using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Materials;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Armour.Vanity;
+using ArcaneOdyssey.Items.Blocks;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Projectiles;
+using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
@@ -23,11 +22,11 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private int _defenseLost = 0;
 
-		public void LowerDefense(int defense, Rectangle? location = null)
+		public void LowerDefense(int defense, Rectangle location = default)
 		{
 			_defenseLost += defense;
-			if (location.HasValue)
-				CombatText.NewText(location.Value, Color.Gray, -defense, true);
+			if (location != default)
+				CombatText.NewText(location, Color.Gray, -defense, true);
 		}
 
 		#region Debuff bools
@@ -37,6 +36,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public bool scorched = false;
 		public bool poisoned = false;
 		public bool shadowflame = false;
+		public bool infernoBurning = false;
 		public bool melting = false;
 		public bool corroding = false;
 		public bool vesuvianBurn = false;
@@ -47,8 +47,23 @@ namespace ArcaneOdyssey.GlobalTypes
 		public int lesserPhoenixDrain = 0;
 		public bool ionized = false;
 
+		public bool ashcursed = false;
+
 		public bool AOStunned = false;
 		#endregion
+
+		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+		{
+			if (player.InModBiome<EliusArena>())
+			{
+				maxSpawns = 0;
+			}
+		}
+
+		public override void SetupTravelShop(int[] shop, ref int nextSlot)
+		{
+			base.SetupTravelShop(shop, ref nextSlot);
+		}
 
 		public override bool PreAI(NPC npc)
 		{
@@ -80,20 +95,13 @@ namespace ArcaneOdyssey.GlobalTypes
 			return !AOStunned;
 		}
 
-		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
-		{
-			player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, item.Imbue(), false);
-		}
-
-		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
-		{
-			if (projectile.TryGetOwner(out var player))
-				player.ArcaneOdyssey().UpdateDebuffHelpers(damageDone, npc, projectile.Imbue(), false);
-		}
-
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.ArmorPenetration += _defenseLost;
+			if (ashcursed)
+			{
+				modifiers.ScalingArmorPenetration += .1f;
+			}
 		}
 
 		public override void ResetEffects(NPC npc)
@@ -102,9 +110,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				ZapCD--;
 			}
-			else 
-			{ 
-				ZapCD = 0; 
+			else
+			{
+				ZapCD = 0;
 			}
 			if (StunDuration <= 0 && AOStunned)
 			{
@@ -126,6 +134,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			scorched = false;
 			corroding = false;
 			ionized = false;
+			ashcursed = false;
+			infernoBurning = false;
 			lesserPhoenixDrain = 0;
 		}
 
@@ -134,12 +144,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			void Apply(float percentPerSecond, ref int damage, int? min = null, int? max = null)
 			{
 				var damagepercentage = percentPerSecond / 50f;
-				npc.GetLifeStats(out _, out int npcMaxLife);
-				var loss = Utils.Clamp((int)(npcMaxLife * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
 				if (npc.boss)
 				{
-					loss /= 6;
+					damagepercentage /= 6;
 				}
+				var loss = Utils.Clamp((int)(npc.lifeMax * damagepercentage), min.GetValueOrDefault(percentPerSecond.Round()), max.GetValueOrDefault((1500 * percentPerSecond).Round()));
 				npc.lifeRegen -= loss;
 				if (damage < 0)
 					damage = loss / 4;
@@ -161,6 +170,14 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (burning)
 			{
 				Apply(1f, ref damage);
+				if (npc.oiled)
+				{
+					Apply(.25f, ref damage);
+				}
+			}
+			if (infernoBurning)
+			{
+				Apply(1.5f, ref damage);
 				if (npc.oiled)
 				{
 					Apply(.25f, ref damage);
@@ -268,7 +285,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			if (vesuvianBurn)
 			{
-				Apply(4f, ref damage, 10, 10000);
+				Apply(8f, ref damage, 10, 10000);
 				if (npc.oiled)
 				{
 					Apply(.25f, ref damage);
@@ -281,20 +298,8 @@ namespace ArcaneOdyssey.GlobalTypes
 		}
 	}
 
-	public class AOGlobalNPC : GlobalNPC
+	public class NPCLootManager : GlobalNPC
 	{
-		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
-		{
-			if (item.Imbue() is GravityMagic)
-				modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
-		}
-
-		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
-		{
-			if (projectile.Imbue() is GravityMagic)
-				modifiers.HitDirectionOverride = modifiers.HitDirection * -1;
-		}
-
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
 			if (npc.type == NPCID.WallofFlesh)
@@ -329,13 +334,79 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			if (npc.type == NPCID.SkeletronPrime || npc.type == NPCID.TheDestroyer || npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
 			{
-				LeadingConditionRule leadingConditionRule = new(new DownedAllMechBossesFirstTime());
-				leadingConditionRule.OnSuccess(new MultiDropHelper<PoseidonSpirit>());
+				LeadingConditionRule leadingConditionRule = new(new SpiritMechDropCondition());
+				leadingConditionRule.OnSuccess(new MechBossSpiritDropper());
 				npcLoot.Add(leadingConditionRule);
 			}
+		}
+
+		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
+		{
 			LeadingConditionRule AcrimonyCondition = new(new NoShowNoConditon());
 			AcrimonyCondition.OnSuccess(AOUtils.Common<Acrimony>(3000));
-			npcLoot.Add(AcrimonyCondition);
+			globalLoot.Add(AcrimonyCondition);
+		}
+
+		public override void OnKill(NPC npc)
+		{
+			if (npc.type == NPCID.HallowBoss)
+			{
+				if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+				{
+					DownedBosses.downedEnragedEmpress = true;
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+
+			if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsTail || npc.type == NPCID.EaterofWorldsBody) && !AOUtils.EoWStillAlive)
+			{
+				if (!DownedBosses.downedWorldEater)
+				{
+					DownedBosses.downedWorldEater = true;
+					if (Main.dedServ)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+			}
+
+			if (npc.type == NPCID.BrainofCthulhu)
+			{
+				DownedBosses.downedBrain = true;
+				if (Main.dedServ)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
+			if (npc.type == NPCID.EyeofCthulhu)
+			{
+				if (!NPC.downedBoss1)
+				{
+					if (Main.dedServ)
+					{
+						ChatHelper.BroadcastChatMessage(Mod.CustomLocalization("MenacingMessages.EliusAvailable").ToNetworkText(), Color.MediumPurple);
+					}
+					else
+					{
+						Main.NewText(Mod.CustomLocalization("MenacingMessages.EliusAvailable").Value, Color.MediumPurple);
+					}
+				}
+			}
+
+			if (npc.type == NPCID.TownSlimePurple)
+				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);
+		}
+
+		public override void ModifyShop(NPCShop shop)
+		{
+			if (shop.NpcType == NPCID.Clothier)
+			{
+				shop.Add<WhiteEyesPlush>();
+			}
 		}
 	}
 }

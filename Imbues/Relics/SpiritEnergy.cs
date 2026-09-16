@@ -1,0 +1,504 @@
+﻿using ArcaneOdyssey.Dusts;
+using ArcaneOdyssey.GodSouls;
+using ArcaneOdyssey.Imbues.Base;
+using System.IO;
+using System.Linq;
+using Terraria.Audio;
+using Terraria.ModLoader.IO;
+
+namespace ArcaneOdyssey.Imbues.Relics
+{
+	public class SpiritEnergy : Imbuable
+	{
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<SpiritEnergy>.Register(this);
+		}
+
+		public sealed override ImbuableTiers ImbuableTier
+		{
+			get
+			{
+				if (Soul.Type > 0)
+				{
+					if (Stability.HasValue)
+					{
+						if (Stability.Value)
+						{
+							return ImbuableTiers.Ancient; // deific
+						}
+						else
+						{
+							return ImbuableTiers.Mythical; // unstable
+						}
+					}
+					else
+					{
+						return ImbuableTiers.Lost; // inhabited
+					}
+				}
+				else
+				{
+					return ImbuableTiers.Normal; // normal
+				}
+			}
+		}
+
+		private GodSoul soul = null;
+		public GodSoul Soul
+		{
+			get => soul ?? GodSoul.None;
+			set
+			{
+				if (value is not NoneSoul)
+				{
+					soul = value;
+				}
+				else
+				{
+					soul = null;
+				}
+			}
+		}
+
+		private int soulindex = 0;
+
+		/// <summary>
+		/// The <seealso cref="AOUtils.GodSoulType{T}"/> of each
+		/// </summary>
+		public virtual byte[] SoulSynergies => [];
+
+		/// <inheritdoc cref="SoulSynergies"/>
+		public virtual byte[] UnstableSouls => [];
+
+		/// <summary>
+		/// true is stable, false is unstable
+		/// </summary>
+		public bool? Stability
+		{
+			get
+			{
+				if (SoulSynergies.Contains(Soul.Type))
+					return true;
+				if (UnstableSouls.Contains(Soul.Type))
+					return false;
+				return null;
+			}
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			base.NetSend(writer);
+			writer.Write(Soul.Type);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			base.NetReceive(reader);
+			Soul = GodSoul.GetSoul(reader.ReadByte());
+		}
+
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			base.Update(ref gravity, ref maxFallSpeed);
+			Soul = GodSoul.None;
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				Item.color = SpiritColour;
+			}
+		}
+
+		public static Asset<Texture2D> synergyAsset;
+		public static Asset<Texture2D> unstableAsset;
+
+		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			if (Stability.HasValue)
+			{
+				Asset<Texture2D> image;
+				float imgscale = 1f;
+				if (Stability.Value)
+				{
+					image = AOUtils.Request(ArcaneOdysseyMod.InternalName + "/Assets/GodSoulSynergy", ref synergyAsset, AssetRequestMode.ImmediateLoad);
+					imgscale = 1.1f;
+				}
+				else
+				{
+					image = AOUtils.Request(ArcaneOdysseyMod.InternalName + "/Assets/GodSoulUnstable", ref unstableAsset, AssetRequestMode.ImmediateLoad);
+				}
+
+				spriteBatch.Draw(image.Value, position, null, Item.GetAlpha(Color.White * Main.inventoryScale), 0f, image.Size() / 2f, Main.inventoryScale * imgscale, SpriteEffects.None, 1f);
+			}
+
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				spriteBatch.Draw(Sprite, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 1f);
+				return false;
+			}
+
+			return true;
+		}
+
+		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+		{
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				spriteBatch.Draw(Sprite, Item.Center - Main.screenPosition, null, Item.GetAlpha(Color.White), 0f, Sprite.Size() / 2f, scale, SpriteEffects.None, 1f);
+				return false;
+			}
+			return base.PreDrawInWorld(spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			base.UpdateInventory(player);
+
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				Item.color = SpiritColour;
+			}
+
+			if (Main.myPlayer == player.whoAmI && player.PlayerItem() == Item)
+			{
+				if (AOKeybinds.CycleGodSoul.JustPressed)
+				{
+					var souls = player.ArcaneOdyssey().Souls;
+					if (souls.Count > 1)
+					{
+						if (++soulindex >= souls.Count)
+						{
+							soulindex = 0;
+						}
+						Soul = souls[soulindex];
+						Color colour = Color.White;
+						if (Stability.HasValue)
+						{
+							if (Stability.Value)
+								colour = Color.Green;
+							else
+								colour = Color.Red;
+						}
+						Main.NewText(ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.SpecificImbue", DisplayName.Value, Soul.DisplayName.Value, colour));
+					}
+				}
+			}
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				ItemID.Sets.ItemNoGravity[Type] = true;
+
+				ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
+				ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
+
+				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.Assets.raySprites[Type]) & ArcaneOdysseyMod.DevMode)
+				{
+					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray sprite");
+				}
+
+				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Type]) & ArcaneOdysseyMod.DevMode)
+				{
+					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray end sprite");
+				}
+
+				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Type]) & ArcaneOdysseyMod.DevMode)
+				{
+					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
+				}
+			}
+		}
+
+		public override Color ImbueColour => SpiritColour;
+
+		public Color SpiritColour
+		{
+			get
+			{
+				if (SpiritColourOverride.HasValue)
+				{
+					return SpiritColourOverride.Value;
+				}
+				if (EliusSpareSystem.spared)
+				{
+					if (Imbue is MagicType)
+					{
+						return Color.Gold;
+					}
+					return GoodColour;
+				}
+				else
+				{
+					if (Imbue is MagicType)
+					{
+						return Color.Red;
+					}
+					return EvilColour;
+				}
+			}
+		}
+
+		protected virtual Color? SpiritColourOverride => null;
+
+		public static Color GoodColour => new(0, 183, 255);
+		public static Color EvilColour => Color.Purple;
+
+		public override string Texture
+		{
+			get
+			{
+				if (Type == ModContent.ItemType<SpiritEnergy>() && !Main.gameMenu)
+				{
+					var tex = base.Texture;
+					if (!EliusSpareSystem.spared)
+					{
+						tex += "_Evil";
+					}
+					else
+					{
+						tex += "_Good";
+					}
+
+					if (Imbue is MagicType)
+					{
+						tex += "_Magic";
+					}
+					else
+					{
+						tex += "_Normal";
+					}
+					return tex;
+				}
+				return base.Texture;
+			}
+		}
+
+		public static SpiritEnergy Instance => ModContent.GetInstance<SpiritEnergy>();
+
+		public override SoundStyle? ImbueSound => SoundID.NPCDeath6;
+
+		public override float ImbueSpeed => 1f;
+		public override float ImbueDamage => 1f;
+		public override float ImbueSize => 1f;
+
+		public sealed override float ScrollSpeed
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergySpeed;
+					}
+					else
+					{
+						return UnstableSpeed;
+					}
+				}
+				return ImbueSpeed;
+			}
+		}
+
+		public sealed override float ScrollDamage
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergyDamage;
+					}
+					else
+					{
+						return UnstableDamage;
+					}
+				}
+				return ImbueDamage;
+			}
+		}
+
+		public sealed override float ScrollSize
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergySize;
+					}
+					else
+					{
+						return UnstableSize;
+					}
+				}
+				return ImbueSize;
+			}
+		}
+
+		public sealed override int Drawback
+		{
+			get
+			{
+				if (Stability.HasValue)
+				{
+					if (Stability.Value)
+					{
+						return SynergyDrawback;
+					}
+					else
+					{
+						return UnstableDrawback;
+					}
+				}
+				return RelicDrawback;
+			}
+		}
+
+		public virtual int RelicDrawback => 0;
+
+		public virtual float SynergySpeed => 1f;
+		public virtual float SynergyDamage => 1f;
+		public virtual float SynergySize => 1f;
+		public virtual int SynergyDrawback => 0;
+
+		public virtual float UnstableSpeed => 1f;
+		public virtual float UnstableDamage => 1f;
+		public virtual float UnstableSize => 1f;
+		public virtual int UnstableDrawback => 0;
+
+		public sealed override float? DashResist => 1.2f;
+
+		public sealed override string AttackPrefix => "Spirit";
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.DamageType = DamageClass.Summon;
+			if (Type == ModContent.ItemType<SpiritEnergy>())
+			{
+				Item.color = SpiritColour;
+			}
+		}
+
+		public virtual int DustType => ModContent.DustType<SpiritDust>();
+
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		{
+			for (float i = 0; i < 5; i++)
+			{
+				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColour).noGravity = true;
+			}
+			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustType, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
+		}
+
+		public override void KillEffects(Rectangle area, Entity source = null)
+		{
+			int amount = 25 * 3;
+			for (float i = 0; i < amount; i++)
+			{
+				var centre = (MathHelper.TwoPi / amount * i).ToRotationVector2() * 20 * area.RelativeScale();
+				AOUtils.NewDustImperfect(area.Center(), ModContent.DustType<SpiritDust>(), centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColour).noGravity = true;
+			}
+			amount = 12 * 2;
+			for (float i = 0; i < amount; i++)
+			{
+				var centre = (MathHelper.TwoPi / amount * i).ToRotationVector2() * 20 * area.RelativeScale();
+				AOUtils.NewDustImperfect(area.Center(), DustType, centre * area.RelativeScale() / (13 + (Main.rand.NextFloat() * 2)), newColor: ImbueColour, Alpha: 255 / 4, Scale: area.RelativeScale()).noGravity = true;
+			}
+			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<SpiritDust>(), direction.X * 0.5f, direction.Y * 0.5f, Scale: area.RelativeScale(), Alpha: 255 / 4, newColor: SpiritColour)];
+				spawnedDust.noGravity = true;
+			}
+			for (int n = 0; n < 2; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustType, direction.X * 0.5f, direction.Y * 0.5f, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale())];
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		{
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<SpiritDust>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: intensity, Alpha: 255 / 4, newColor: SpiritColour)];
+				spawnedDust.noGravity = true;
+			}
+			for (int n = 0; n < 3; n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustType, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Alpha: 255 / 4, newColor: ImbueColour, Scale: intensity)];
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0)
+		{
+			AOUtils.NewDustImperfect(coneCenter, ModContent.DustType<SpiritDust>(), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: SpiritColour, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
+			AOUtils.NewDustImperfect(coneCenter, DustType, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: ImbueColour, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
+		}
+
+		public override void SaveData(TagCompound tag)
+		{
+			base.SaveData(tag);
+			if (Soul.Type > 0)
+			{
+				tag.Add("godsoul", Soul.FullName);
+			}
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			base.LoadData(tag);
+			if (ModContent.TryFind<GodSoul>(tag.GetString("godsoul"), out var soul))
+			{
+				Soul = soul;
+			}
+		}
+	}
+
+	public class EliusSpareSystem : ModSystem
+	{
+		public static bool spared = true;
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(spared);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			spared = reader.ReadBoolean();
+		}
+
+		public override void SaveWorldData(TagCompound tag)
+		{
+			tag.Add("spared", spared);
+		}
+
+		public override void LoadWorldData(TagCompound tag)
+		{
+			spared = tag.GetBool("spared");
+		}
+
+		public override void OnWorldLoad()
+		{
+			spared = true;
+		}
+
+		public override void OnWorldUnload()
+		{
+			spared = true;
+		}
+	}
+}

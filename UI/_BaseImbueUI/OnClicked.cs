@@ -1,7 +1,5 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using Terraria;
+﻿using ArcaneOdyssey.Imbues.Base;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI._BaseImbueUI;
@@ -23,7 +21,7 @@ public abstract partial class BaseImbueUI : UIState
 		var item = MagicTypeToItem(p.CurrentType).Clone();
 
 		SpotTitle.SetText(item.Name, 1, true);
-		if (item.ModItem is AOMagic magic)
+		if (item.ModItem is Imbuable magic)
 		{
 			// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
 			string prefix = magic.ImbueDebuffs.Length switch
@@ -43,16 +41,23 @@ public abstract partial class BaseImbueUI : UIState
 			}
 			else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
 
-			SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
-				$"Speed: {magic.AOScrollSpeed} \n" +
-				$"Damage: {magic.AOScrollDamage} \n" +
+			var abiliytext = "";
+
+			if (magic.Gimmick is not null)
+			{
+				abiliytext += $"{magic.Gimmick.DisplayName.Value}: {magic.Gimmick.Description.Value}\n";
+			}
+
+			if (magic.Property.HasValue)
+			{
+				abiliytext += magic.Property.Value.Name + "\n";
+			}
+
+			SpotStats.SetText(abiliytext +
+				$"Size: {magic.ScrollSize} \n" +
+				$"Speed: {magic.ScrollSpeed} \n" +
+				$"Damage: {magic.ScrollDamage} \n" +
 				$"{prefix} {text}");
-		}
-		else if (item.ModItem is Imbuable other)
-		{
-			SpotStats.SetText($"Size: {other.AOScrollSize} \n" +
-				$"Speed: {other.AOScrollSpeed} \n" +
-				$"Damage: {other.AOScrollDamage} ");
 		}
 		else
 		{
@@ -63,12 +68,12 @@ public abstract partial class BaseImbueUI : UIState
 	{
 		bool changed = false;
 		foreach (MagicProduct p in TheShop) if (p.BackGround.IsMouseHovering || p.Icon.IsMouseHovering)
-			{
-				OptionChosen(p);
+		{
+			OptionChosen(p);
 
-				changed = true;
-				break;
-			}
+			changed = true;
+			break;
+		}
 		if (!changed && ProductSpotLight.CurrentType is not MagicTypes.None)
 		{
 			ProductSpotLight.ChangeType(MagicTypes.None);

@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System.ComponentModel;
-using Terraria;
+﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
 namespace ArcaneOdyssey
@@ -14,13 +12,12 @@ namespace ArcaneOdyssey
 		public bool AffectsOtherMods { get; set; }
 
 		[DefaultValue(true)]
-		public bool EnableMorden { get; set; }
-
-		[DefaultValue(true)]
+		[ReloadRequired]
 		public bool VanillaItemTemperatures { get; set; }
 
 		[DefaultValue(true)]
-		public bool PredictiveArray { get; set; }
+		[ReloadRequired]
+		public bool SyncProjectileSizes { get; set; }
 
 		public override void OnLoaded()
 		{
@@ -38,41 +35,37 @@ namespace ArcaneOdyssey
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 
 		[DefaultValue(true)]
-		public bool GenerateTucker { get; set; }
-
-		[DefaultValue(false)]
-		public bool AlternatePhoenixEffectVFX { get; set; }
-
-		[DefaultValue(true)]
 		public bool ItemTypeTooltips { get; set; }
 
 		[DefaultValue(true)]
 		public bool AbilityText { get; set; }
 
-		[DefaultValue(MagicCircleTypes.Familiar)]
-		public MagicCircleTypes MagicCircleType { get; set; }
+		[DefaultValue(true)]
+		public bool UniqueMagicCircles { get; set; }
 
-		public static ArcaneOdysseyClientConfig Instance;
+		[DefaultValue(true)]
+		public bool PulsingImbueIcons { get; set; }
+
+		[DefaultValue(.75f)]
+		public float UnselectedScrollOpacity { get; set; }
+
+		private Vector2 imbueSkillsDisplayLocationOffset;
+		[Range(-.5f, .5f)]
+		public Vector2 ImbueSkillsDisplayLocationOffset { get => imbueSkillsDisplayLocationOffset with { Y = imbueSkillsDisplayLocationOffset.Y * -1f }; set => imbueSkillsDisplayLocationOffset = value with { Y = value.Y * -1f }; }
+
+		private Vector2 gildedMusketBarOffset;
+		[Range(-.5f, .5f)]
+		public Vector2 GildedMusketBarOffset { get => gildedMusketBarOffset with { Y = gildedMusketBarOffset.Y * -1f }; set => gildedMusketBarOffset = value with { Y = value.Y * -1f }; }
 
 		public override void OnChanged()
 		{
-			if (!Main.dedServ)
+			for (int i = 0; i < ArcaneOdysseyMod.Sets.toggleablePulse.Length; i++)
 			{
-				ArcaneOdysseyMod.MagicCircleSprite = Mod.Assets?.Request<Texture2D>($"Effects/MagicCircles/{MagicCircleType}", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+				if (ArcaneOdysseyMod.Sets.toggleablePulse[i])
+					ItemID.Sets.ItemIconPulse[i] = PulsingImbueIcons;
 			}
 		}
-	}
 
-	public enum MagicCircleTypes
-	{
-		Familiar,
-		Ancient,
-		Collision,
-		Ornamental,
-		Penta,
-		Reminiscent,
-		Segmented,
-		Singularity,
-		Solar
+		public static ArcaneOdysseyClientConfig Instance;
 	}
 }

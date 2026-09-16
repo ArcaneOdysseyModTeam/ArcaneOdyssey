@@ -1,16 +1,27 @@
 ﻿[*.cs]
 
 # CS0162: Unreachable code detected
-dotnet_diagnostic.CS0162.severity = none
+dotnet_diagnostic.CS0162.severity = suggestion
 
 # Top-most EditorConfig file
 root = true
 
-# 4 space indentation for all files
-
 # CA2211: Non-constant fields should not be visible
 dotnet_diagnostic.CA2211.severity = none
 
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = suggestion
+
+# CS8321: Local function is declared but never used
+dotnet_diagnostic.CS8321.severity = suggestion
+
+# CS1573: Parameter has no matching param tag in the XML comment (but other parameters do)
+dotnet_diagnostic.CS1573.severity = suggestion
+
+# ChangeMagicNumberToID: Change magic numbers into appropriate ID values
+dotnet_diagnostic.ChangeMagicNumberToID.severity = suggestion
+
 [*]
+# 4 space indentation for all files
 indent_style = tab
 indent_size = 4

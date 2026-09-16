@@ -2,22 +2,18 @@ Armour: {
 	Sunken: {
 		SunkenChest: {
 			DisplayName: Sunken Breastplate
-			Tooltip: It seems to constantly produce water
-
-			Set: {
-				DisplayName: Aquatic Rebuttal
-				Description: Enemies that strike you are Wet
-			}
+			Tooltip: "'It seems to constantly produce water'"
+			Set: Enemies that strike you are inflicted with Wet
 		}
 
 		SunkenBoots: {
 			DisplayName: Sunken Boots
-			Tooltip: It seems to constantly produce water
+			Tooltip: "'It seems to constantly produce water'"
 		}
 
 		SunkenHelm: {
 			DisplayName: Sunken Helmet
-			Tooltip: It seems to constantly produce water
+			Tooltip: "'It seems to constantly produce water'"
 		}
 	}
 
@@ -38,6 +34,23 @@ Armour: {
 				Tooltip: ""
 			}
 		}
+
+		Taz: {
+			TazHat: {
+				DisplayName: Insane Warlord Hat
+				Tooltip: "'The man who weilds only strength weapons'"
+			}
+
+			TazBoots: {
+				DisplayName: Insane Warlord Pants
+				Tooltip: "'The man who came back from the Dark Sea with children'"
+			}
+
+			TazChest: {
+				DisplayName: Insane Warlord Shirt
+				Tooltip: "'The man who dominates without a drop of mana'"
+			}
+		}
 	}
 
 	Centurion: {
@@ -49,11 +62,7 @@ Armour: {
 		RavennaChest: {
 			DisplayName: Ravenna Centurion Breastplate
 			Tooltip: ""
-
-			Set: {
-				DisplayName: Ravenna Bulwark
-				Description: Slows your movement for extra defense
-			}
+			Set: Activate to slow your movement for extra defense
 		}
 
 		RavennaHelm: {
@@ -71,11 +80,11 @@ Armour: {
 		EliusChest: {
 			DisplayName: Ravenna Noble Armour
 			Tooltip: ""
-
-			Set: {
-				DisplayName: Lightning Speed
-				Description: Higher jumps and 25% increased movement speed
-			}
+			Set:
+				'''
+				25% increased movement speed
+				Increased jump height
+				'''
 		}
 
 		EliusHelm: {
@@ -101,10 +110,22 @@ Accessories: {
 			DisplayName: Kindra's Blade
 			Tooltip: Dedicated to [c/ff69b4:Guard Boi]
 		}
+	}
 
-		VesuvianSigil: {
-			DisplayName: Vesuvian Sigil
-			Tooltip: Dedicated to [c/ff2b00:RedBirb1508]
+	ThunderingCape: {
+		DisplayName: Thundering Cape
+		Tooltip: Lightning randomly strikes around you
+	}
+
+	Helpers: {
+		FlightCore: {
+			DisplayName: Flight Core
+			Tooltip: Makes you appear to fly using a magic circle
+		}
+
+		PhoenixWings: {
+			DisplayName: Phoenix Wings
+			Tooltip: Makes you appear to fly using phoenix flame wings
 		}
 	}
 }
@@ -114,6 +135,24 @@ Equipment: {
 		ElfPetItem: {
 			DisplayName: Aether's Heart
 			Tooltip: Dedicated to [c/9b59b6:ThyGoodBoy]
+		}
+
+		VermillionBracelet: {
+			DisplayName: Vermillion Bracelet
+			Tooltip:
+				'''
+				Summons a miniature Iris
+				'A bracelet made out of red titanium'
+				'''
+		}
+
+		RedsFork: {
+			DisplayName: Reds Fork
+			Tooltip:
+				'''
+				Did someone put this fork in the microwave?
+				Dedicated to [c/ff2b00:RedBirb1508]
+				'''
 		}
 	}
 
@@ -148,6 +187,17 @@ Consumable: {
 	HecateShard: {
 		DisplayName: Hecate Shard
 		Tooltip: Mutates a [c/2277ff:Standard Magic] into a [c/0044ff:Lost Magic]
+	}
+
+	AtlanteanEssence: {
+		DisplayName: Atlantean Essence
+		Tooltip:
+			'''
+			'Prolonged exposure to magic has mutated them, becoming mindless beasts'
+			Can be applied to accessories to grant a random stat in exchange for a level of insanity
+			Prioritizes the first applicable item in your inventory, be careful not to mess up
+			'''
+		CanBeAdded: Can have Atlantean Essence applied
 	}
 }
 
@@ -197,19 +247,28 @@ Blocks: {
 		UnsafeBronze: {
 			UnsafeBronzeBrickWallItem: {
 				DisplayName: Ravennan Bronze Brick Wall
-				Tooltip: ""
+				Tooltip: Allows enemies to spawn
 			}
 
 			UnsafeBronzeColumnWallItem: {
 				DisplayName: Ravennan Bronze Column Wall
-				Tooltip: ""
+				Tooltip: Allows enemies to spawn
 			}
 
 			UnsafeBronzeSlabWallItem: {
 				DisplayName: Ravennan Bronze Slab Wall
-				Tooltip: ""
+				Tooltip: Allows enemies to spawn
 			}
 		}
+	}
+
+	WhiteEyesPlush: {
+		DisplayName: White Eyes Plush
+		Tooltip:
+			'''
+			The cutest predator?
+			Can be squeezed
+			'''
 	}
 }
 
@@ -221,6 +280,16 @@ BossTrophies: {
 
 	DuskTrophy: {
 		DisplayName: Dusk Trophy
+		Tooltip: ""
+	}
+
+	EliusTrophy: {
+		DisplayName: Lord Elius Trophy
+		Tooltip: ""
+	}
+
+	LaelusTrophy: {
+		DisplayName: Laelus Trophy
 		Tooltip: ""
 	}
 }
@@ -238,7 +307,7 @@ Materials: {
 
 	SunkenScrap: {
 		DisplayName: Sunken Scrap
-		Tooltip: ""
+		Tooltip: "'It has spent centuries submerged in water'"
 	}
 }
 
@@ -286,7 +355,82 @@ Potions: {
 	}
 }
 
-EmptyScroll: {
-	DisplayName: Empty Scroll
+Debug: {
+	EliusArenaSpawner: {
+		DisplayName: Djin Spawner
+		Tooltip: Forces Elius's arena to generate, may crash your game if it fails
+	}
+
+	MarketableSpoky: {
+		DisplayName: Marketable Spoky
+		Tooltip: DEBUG - Opens the guidebook from anywhere
+	}
+
+	MatrixTerminal: {
+		DisplayName: Matrix Terminal
+		Tooltip: DEBUG - Left click to increase stat, right click to decerase stat
+	}
+
+	MatrixCycler: {
+		DisplayName: Matrix Cycler
+		Tooltip: DEBUG - Left click to cycle stats to change, Right click to reset multiplier
+	}
+
+	MatrixMultiplier: {
+		DisplayName: Matrix Multiplier
+		Tooltip: DEBUG - Left click to mult by 10, right click to divide by 10
+	}
+
+	MatrixCopier: {
+		DisplayName: Matrix Copier
+		Tooltip: DEBUG - Left click to copy misc stats, right click to fully copy magic
+	}
+
+	TesterGoggles: {
+		DisplayName: Tester Goggles
+		Tooltip: DEBUG - Allows you to see hidden item data
+	}
+}
+
+EmptyScrolls: {
+	LostEmptyScroll: {
+		DisplayName: Random Scroll
+		Tooltip: ""
+	}
+
+	RareEmptyScroll: {
+		DisplayName: Random Scroll
+		Tooltip: ""
+	}
+
+	EmptyScroll: {
+		DisplayName: Random Scroll
+		Tooltip: ""
+	}
+}
+
+BossBags: {
+	EliusBossBag: {
+		DisplayName: Treasure Bag (Lord Elius)
+		Tooltip: ""
+	}
+}
+
+BossRelics: {
+	EliusBossRelic: {
+		DisplayName: Lord Elius Relic
+		Tooltip: ""
+	}
+}
+
+Edgelord: {
+	DisplayName: Curse Thief
 	Tooltip: ""
+}
+
+SealedChests: {
+	DarkSealedChest: {
+		DisplayName: Dark unsealed chest
+		Tooltip: ""
+	}
 }

@@ -3,29 +3,25 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DefineConstants>$(DefineConstants);VSDEBUGMODE</DefineConstants>
 	</PropertyGroup>
-	<ItemGroup>
-		<Compile Remove="**\*.py" />
-		<Compile Remove="**\*.kra" />
-		<Compile Remove="**\*.kra~" />
-		<Compile Remove="**\*.png~" />
-		<Compile Remove="**\*.md" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Remove="**\*.py" />
-		<None Remove="**\*.kra" />
-		<None Remove="**\*.kra~" />
-		<None Remove="**\*.png~" />
-		<None Remove="**\*.md" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Effects\MagicCircles" />
-	</ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="ArcaneOdysseyMusic">
-			<HintPath>..\references\ArcaneOdysseyMusic.dll</HintPath>
+			<HintPath>references\ArcaneOdysseyMusic.dll</HintPath>
+		</Reference>
+		<Reference Include="CalamityMod">
+		  <HintPath>references\CalamityMod.dll</HintPath>
+		</Reference>
+		<Reference Include="Fargowiltas">
+		  <HintPath>references\Fargowiltas.dll</HintPath>
+		</Reference>
+		<Reference Include="MagicStorage">
+		  <HintPath>references\MagicStorage.dll</HintPath>
+		</Reference>
+		<Reference Include="StructureHelper">
+		  <HintPath>references\StructureHelper.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-
-	<!-- References -->
-
 </Project>

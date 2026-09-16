@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.UI;
+﻿using Terraria.UI;
 
 namespace ArcaneOdyssey.UI._BaseImbueUI;
 
@@ -13,7 +11,7 @@ public abstract partial class BaseImbueUI : UIState
 
 		// Spoky (2026 Jan 28): Made an oopise, thought I could just set Main.LocalPlayer.mouseInterface to = main.IsMouseHovering, but that breaks every other UI 
 		if (main.IsMouseHovering || CloseButton.IsMouseHovering || ChooseButton.IsMouseHovering) Main.LocalPlayer.mouseInterface = true;
-		
+
 		_UpdateExtras();
 
 		#region Visual Changes for the Products 
@@ -26,6 +24,7 @@ public abstract partial class BaseImbueUI : UIState
 			//VisualUpdateCounter = 0;
 
 			foreach (var p in TheShop) p.Update();
+			ProductSpotLight?.Update();
 			_VisualUpdateExtras();
 		}
 		#endregion

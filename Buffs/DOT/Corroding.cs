@@ -1,0 +1,31 @@
+﻿using ArcaneOdyssey.Buffs.Base;
+using System.Collections.Generic;
+
+namespace ArcaneOdyssey.Buffs.DOT
+{
+	public class Corroding : MagicMark
+	{
+		public override List<int> Counterparts => [BuffID.Venom];
+
+		public override void Update(NPC npc, ref int buffIndex)
+		{
+			npc.ArcaneOdyssey().corroding = true;
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Water_Corruption);
+				dust.velocity *= 0.4f;
+			}
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.venom = true;
+		}
+	}
+}

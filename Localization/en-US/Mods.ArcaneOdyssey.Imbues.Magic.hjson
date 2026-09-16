@@ -2,11 +2,21 @@ Ancient: {
 	IonMagic: {
 		DisplayName: Ion Magic
 		Tooltip: Dedicated to [c/1eff00:Gammaboy45]
+		AttackPrefix: Nuclear
+		SpellPrefix: Ion
 	}
 
 	DeathMagic: {
 		DisplayName: Death Magic
-		Ability: Enemies with less that half your max health are instantly killed
+		Tooltip: ""
+		AttackPrefix: Deadly
+		SpellPrefix: Death
+	}
+
+	InfernoMagic: {
+		AttackPrefix: Promethean
+		SpellPrefix: Inferno
+		DisplayName: Inferno Magic
 		Tooltip: ""
 	}
 }
@@ -14,125 +24,200 @@ Ancient: {
 Lost: {
 	AetherMagic: {
 		DisplayName: Aether Magic
-		Ability: Creates brilliant explosions
 		Tooltip: ""
+		AttackPrefix: Aetherial
+		SpellPrefix: Aether
 	}
 
 	AncientLightningMagic: {
 		DisplayName: Ancient Lightning Magic
 		Ability: Lightning chains between enemies
 		Tooltip: ""
+		AttackPrefix: Chaining
+		SpellPrefix: Ancient Lightning
 	}
 
 	EnergyMagic: {
 		DisplayName: Energy Magic
-		Ability: Mana is restored on hit
 		Tooltip: ""
+		AttackPrefix: Energetic
+		SpellPrefix: Energy
 	}
 
 	FrostmetalMagic: {
 		DisplayName: Frostmetal Magic
-		Ability: Projectiles explode into hazardous shards
 		Tooltip: ""
+		AttackPrefix: Hardy
+		SpellPrefix: Frostmetal
 	}
 
 	GravityMagic: {
 		DisplayName: Gravity Magic
-		Ability: Reverses knockback
 		Tooltip: ""
+		AttackPrefix: Attractive
+		SpellPrefix: Gravity
 	}
 
 	PhoenixMagic: {
 		DisplayName: Phoenix Magic
-		Ability: Can be equipped as wings
 		Tooltip: ""
+		AttackPrefix: Resplendent
+		SpellPrefix: Phoenix
 	}
 
 	PlantMagic: {
 		DisplayName: Plant Magic
 		Tooltip: ""
+		AttackPrefix: Growing
+		SpellPrefix: Plant
 	}
 
 	PoisonLightningMagic: {
 		DisplayName: Poison Lightning Magic
-		Ability: Creates poison clouds
 		Tooltip: ""
+		AttackPrefix: Toxic Electic
+		SpellPrefix: Poison Lightning
 	}
 
 	PrismMagic: {
 		DisplayName: Prism Magic
 		Tooltip: Dedicated to [c/00ffff:KT_australis]
-		Ability: Creates lingering shard clouds
+		AttackPrefix: Prismatic
+		SpellPrefix: Prism
 	}
 
 	ShadowflameMagic: {
 		DisplayName: Shadowflame Magic
 		Tooltip: Dedicated to [c/2f5e5e:rambunctious_scallywag]
+		AttackPrefix: Shadowburning
+		SpellPrefix: Shadowflame
 	}
 
 	SunMagic: {
 		DisplayName: Sun Magic
 		Ability: Summons solar flares on enemies
 		Tooltip: ""
+		AttackPrefix: Solar
+		SpellPrefix: Sun
 	}
 
 	ThreadMagic: {
 		DisplayName: Thread Magic
 		Tooltip: Dedicated to [c/dd00ff:JannisCreep1]
+		AttackPrefix: Sticky
+		SpellPrefix: Thread
 	}
 
 	BlizzardMagic: {
 		DisplayName: Blizzard Magic
 		Tooltip: ""
+		AttackPrefix: Frigid
+		SpellPrefix: Blizzard
 	}
 
 	CloudMagic: {
 		DisplayName: Cloud Magic
 		Tooltip: ""
+		AttackPrefix: Cloudy
+		SpellPrefix: Cloud
 	}
 
 	DarknessMagic: {
 		DisplayName: Darkness Magic
 		Tooltip: ""
+		AttackPrefix: Null
+		SpellPrefix: Darkness
 	}
 
 	DiamondMagic: {
 		DisplayName: Diamond Magic
 		Tooltip: ""
+		AttackPrefix: Unbreakable
+		SpellPrefix: Diamond
 	}
 
 	FlareMagic: {
 		DisplayName: Flare Magic
 		Tooltip: ""
+		AttackPrefix: Singing
+		SpellPrefix: Flare
 	}
 
 	HeatMagic: {
 		DisplayName: Heat Magic
 		Tooltip: ""
+		AttackPrefix: Hot
+		SpellPrefix: Heat
 	}
 
 	LunarMagic: {
 		DisplayName: Lunar Magic
 		Tooltip: ""
+		AttackPrefix: Glowing
+		SpellPrefix: Lunar
 	}
 
 	OilMagic: {
 		DisplayName: Oil Magic
 		Tooltip: ""
+		AttackPrefix: Flammable
+		SpellPrefix: Oil
 	}
 
 	SlashMagic: {
 		DisplayName: Slash Magic
 		Tooltip: ""
+		AttackPrefix: Cutting
+		SpellPrefix: Slash
 	}
 
 	SoundMagic: {
 		DisplayName: Sound Magic
 		Tooltip: ""
+		AttackPrefix: Loud
+		SpellPrefix: Sound
 	}
 
 	StormMagic: {
 		DisplayName: Storm Magic
+		Tooltip: ""
+		AttackPrefix: Tempestuous
+		SpellPrefix: Storm
+	}
+
+	AetherLightningMagic: {
+		DisplayName: Aether Lightning Magic
+		AttackPrefix: Unstable
+		SpellPrefix: Aether Lightning
+		Tooltip: ""
+	}
+
+	CursedAshMagic: {
+		DisplayName: Cursed Ash Magic
+		AttackPrefix: Cursed
+		SpellPrefix: Cursed Ash
+		Ability: Lowers enemy defense
+		Tooltip: Dedicated to [c/00ffff:KT_australis]
+	}
+
+	RegulusMagic: {
+		AttackPrefix: Purging
+		SpellPrefix: Regulus
+		DisplayName: Regulus Magic
+		Tooltip: ""
+	}
+
+	RuptureMagic: {
+		AttackPrefix: Fracturing
+		SpellPrefix: Rupture
+		DisplayName: Rupture Magic
+		Tooltip: ""
+	}
+
+	WaveMagic: {
+		AttackPrefix: Surging
+		SpellPrefix: Wave
+		DisplayName: Wave Magic
 		Tooltip: ""
 	}
 }
@@ -140,116 +225,193 @@ Lost: {
 Normal: {
 	AshMagic: {
 		DisplayName: Ash Magic
-		Ability: Creates ash clouds
 		Tooltip: ""
+		AttackPrefix: Ashen
+		SpellPrefix: Ash
 	}
 
 	CrystalMagic: {
 		DisplayName: Crystal Magic
 		Ability: Every few hits deal bonus damage
 		Tooltip: ""
+		AttackPrefix: Crystalline
+		SpellPrefix: Crystal
 	}
 
 	PoisonMagic: {
 		DisplayName: Poison Magic
-		Ability: Creates poison clouds
 		Tooltip: ""
+		AttackPrefix: Toxic
+		SpellPrefix: Poison
 	}
 
 	AcidMagic: {
 		DisplayName: Acid Magic
 		Tooltip: ""
+		AttackPrefix: Acidic
+		SpellPrefix: Acid
 	}
 
 	EarthMagic: {
 		DisplayName: Earth Magic
 		Tooltip: ""
+		AttackPrefix: Rocky
+		SpellPrefix: Earth
 	}
 
 	ExplosionMagic: {
 		DisplayName: Explosion Magic
 		Tooltip: ""
+		AttackPrefix: Explosive
+		SpellPrefix: Explosion
 	}
 
 	FireMagic: {
 		DisplayName: Fire Magic
 		Tooltip: ""
+		AttackPrefix: Burning
+		SpellPrefix: Fire
 	}
 
 	GlassMagic: {
 		DisplayName: Glass Magic
 		Tooltip: ""
+		AttackPrefix: Shattering
+		SpellPrefix: Glass
 	}
 
 	IceMagic: {
 		DisplayName: Ice Magic
 		Tooltip: ""
+		AttackPrefix: Freezing
+		SpellPrefix: Ice
 	}
 
 	LightMagic: {
 		DisplayName: Light Magic
 		Tooltip: ""
+		AttackPrefix: Bright
+		SpellPrefix: Light
 	}
 
 	LightningMagic: {
 		DisplayName: Lightning Magic
 		Tooltip: ""
+		AttackPrefix: Electric
+		SpellPrefix: Lightning
 	}
 
 	MagmaMagic: {
 		DisplayName: Magma Magic
 		Tooltip: ""
+		AttackPrefix: Melting
+		SpellPrefix: Magma
 	}
 
 	MetalMagic: {
 		DisplayName: Metal Magic
 		Tooltip: ""
+		AttackPrefix: Dense
+		SpellPrefix: Metal
 	}
 
 	PlasmaMagic: {
 		DisplayName: Plasma Magic
 		Tooltip: ""
+		AttackPrefix: Scorching
+		SpellPrefix: Plasma
 	}
 
 	SandMagic: {
 		DisplayName: Sand Magic
 		Tooltip: ""
+		AttackPrefix: Sandy
+		SpellPrefix: Sand
 	}
 
 	ShadowMagic: {
 		DisplayName: Shadow Magic
 		Tooltip: ""
+		AttackPrefix: Dark
+		SpellPrefix: Shadow
 	}
 
 	SnowMagic: {
 		DisplayName: Snow Magic
 		Tooltip: ""
+		AttackPrefix: Cold
+		SpellPrefix: Snow
 	}
 
 	WaterMagic: {
 		DisplayName: Water Magic
 		Tooltip: ""
+		AttackPrefix: Wet
+		SpellPrefix: Water
 	}
 
 	WindMagic: {
 		DisplayName: Wind Magic
 		Tooltip: ""
+		AttackPrefix: Breezy
+		SpellPrefix: Wind
 	}
 
 	WoodMagic: {
 		DisplayName: Wood Magic
 		Tooltip: ""
+		AttackPrefix: Forest
+		SpellPrefix: Wood
 	}
 }
 
-Developer: {
+Mythical: {
 	VesuviusMagic: {
 		DisplayName: Vesuvius Magic
-		Tooltip: Dedicated to [c/ff2b00:RedBirb1508]
+		Tooltip: Dedicated to [c/aa2b00:RedBirb1508]
+		AttackPrefix: Vesuvian
+		SpellPrefix: Vesuvius
 	}
 
 	JerminusMagic: {
 		DisplayName: Jerminus Magic
 		Tooltip: Dedicated to [c/ff69b4:Guard Boi]
+		AttackPrefix: Jerminal
+		SpellPrefix: Jerminus
+	}
+
+	WitherLightningMagic: {
+		AttackPrefix: Withering
+		SpellPrefix: Wither Lightning
+		DisplayName: Wither Lightning Magic
+		Tooltip: ""
+	}
+
+	DeliriumMagic: {
+		AttackPrefix: Delirius
+		SpellPrefix: Delirium
+		DisplayName: Delirium Magic
+		Tooltip: Dedicated to [c/9b59b6:ThyGoodBoy]
+	}
+
+	UmbralIceMagic: {
+		AttackPrefix: Sun-Eating
+		SpellPrefix: Umbral Ice
+		DisplayName: Umbral Ice Magic
+		Tooltip: ""
+	}
+
+	NecroBlazeMagic: {
+		AttackPrefix: Necroblaze
+		SpellPrefix: Necro Blaze
+		DisplayName: Necro Blaze Magic
+		Tooltip: ""
+	}
+
+	MatrixMagic: {
+		AttackPrefix: Matrix
+		SpellPrefix: Matrix
+		DisplayName: Matrix Magic
+		Tooltip: DEBUG - [c/00aaaa:For balance testing]
 	}
 }

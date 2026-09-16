@@ -1,0 +1,136 @@
+﻿using ArcaneOdyssey.Projectiles.Base;
+using System.Collections.Generic;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.Graphics.CameraModifiers;
+
+namespace ArcaneOdyssey.Projectiles.Magic.Effects
+{
+	public class AetherLightningAftershock : PlayerProjectile
+	{
+		public const int SpriteSize = 256;
+
+		public override float Size => .4f;
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.height = Projectile.width = SpriteSize;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+			Projectile.light = 2f;
+			Projectile.hide = true;
+			Projectile.noEnchantmentVisuals = true;
+		}
+
+		public override Debuff? ProjectileDebuff => null;
+		public override bool CanHaveImbueVFX => false;
+
+		public override void OnSpawn(IEntitySource source)
+		{
+			if (Projectile.ai[0] != 0)
+			{
+				Projectile.scale = Projectile.ai[0];
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
+				Projectile.ai[1] = 44;
+			}
+			else if (source is EntitySource_Parent { Entity: Projectile projectile })
+			{
+				Projectile.scale = ApplySize(MathHelper.Max((projectile.width + projectile.height) / 2f / (SpriteSize / 2f), Size));
+				Projectile.Hitbox = Utils.CenteredRectangle(Projectile.Center, new(SpriteSize)).Scaled(Projectile.scale);
+			}
+			else
+			{
+				Kill();
+			}
+			Projectile.scale /= 5f;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			Main.projFrames[Type] = 14;
+			ArcaneOdysseyMod.Sets.imbueEffect[Type] = true;
+		}
+
+		public override void AI()
+		{
+			if (++Projectile.frameCounter >= 3)
+			{
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= Main.projFrames[Type])
+				{
+					Kill();
+				}
+			}
+		}
+
+		private bool playedSound = false;
+
+		public override bool PreAI()
+		{
+			if (Projectile.ai[0] != 0 && Projectile.owner != Main.myPlayer)
+			{
+				return false;
+			}
+			Projectile.ai[1]++;
+			if (Projectile.ai[1] < 45)
+			{
+				if (!playedSound)
+				{
+					SoundEngine.PlaySound(SoundID.Item121 with { MaxInstances = 0 }, Projectile.Center);
+					playedSound = true;
+				}
+				return false;
+			}
+			else if (Projectile.ai[1] == 45)
+			{
+				Projectile.scale *= 5f;
+				Projectile.netUpdate = true;
+				Projectile.netSpam = 0;
+				if (!Main.dedServ)
+				{
+					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(10f), ApplyKnockback(4f), 10, ApplyKnockback(500f), FullName);
+					Main.instance.CameraModifiers.Add(modifier);
+				}
+				return true;
+			}
+			else
+			{
+				return true;
+			}
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.ScalingArmorPenetration += 1f;
+		}
+		public override bool PreDraw(ref Color lightColor)
+		{
+			lightColor = Color.White;
+			if (Projectile.ai[0] != 0 && Projectile.owner != Main.myPlayer)
+			{
+				return false;
+			}
+			return base.PreDraw(ref lightColor);
+		}
+
+		public override bool? CanCutTiles() => false;
+
+		public override bool? CanDamage()
+		{
+			if (Projectile.ai[1] >= 60)
+				return null;
+			return false;
+		}
+	}
+}

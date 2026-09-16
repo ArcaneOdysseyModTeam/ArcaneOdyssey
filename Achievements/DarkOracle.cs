@@ -1,6 +1,5 @@
-﻿using ArcaneOdyssey.Content.NPCS.Minibosses;
+﻿using ArcaneOdyssey.NPCs.Minibosses;
 using Terraria.Achievements;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.Achievements
 {
@@ -13,5 +12,7 @@ namespace ArcaneOdyssey.Achievements
 		}
 
 		public override Position GetDefaultPosition() => new After("MASTERMIND");
+
+		public override Position GetAdvisorPosition() => new Before("WHERES_MY_HONEY");
 	}
 }

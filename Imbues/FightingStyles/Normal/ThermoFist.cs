@@ -1,0 +1,88 @@
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.DOT;
+using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Gimmicks.Bars;
+using ArcaneOdyssey.Imbues.Base;
+using System;
+using Terraria.Audio;
+
+namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
+{
+	public class ThermoFist : FightingStyleBarred
+	{
+		public override float Aura => .75f;
+		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override Color ImbueColour => Color.Orange;
+		public override SoundStyle? ImbueSound => SoundID.Item20;
+		public override BarGimmick Bar => ModContent.GetInstance<ThermoBar>();
+		public override Color DisplayColor => Color.Blue;
+		public override bool ImmuneDash => BarValue > (BarMax / 2);
+
+		public override Debuff[] ImbueDebuffs => [Debuff.Create<SearedEffect>()];
+		public override Combo[] CombinedDebuffs => [Combo.Create<CharredEffect, Petrified>()];
+		public override SynergyEffects Effects => new(
+			[
+				ClearBuff.Create<Soaked>(),
+				ClearBuff.Create<Bleeding>(),
+				ClearBuff.Create<FreezingEffect>()
+			],
+			[
+				Synergy.Create<Crystallized>(0.85f),
+				Synergy.Create<SnowyEffect>(0.95f),
+				Synergy.Create<FreezingEffect>(0.95f),
+				Synergy.Create<Bleeding>(1.15f),
+				Synergy.Create<CharredEffect>(1.1f),
+				Synergy.Create<Melting>(1.075f),
+				Synergy.Create<Corroding>(1.075f),
+				Synergy.Create<SearedEffect>(1.1f),
+				Synergy.Create<Scorched>(1.1f),
+				Synergy.Create<SandyEffect>(0.8f),
+				Synergy.Create<Burning>(1.1f),
+				Synergy.Create<Scalding>(1.1f),
+			]
+		);
+
+		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		{
+			BarValue += BarMax / 40f; // nerfed lmao
+			Item.ArcaneOdyssey()?.owner?.ArcaneOdyssey()?.SetCooldown(new Cooldown(Name, DisplayName, 60));
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 10)), 1); n++)
+			{
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CrimsonTorch, direction.X * 0.4f, direction.Y * 0.4f, Scale: LerpValue * area.RelativeScale());
+			}
+		}
+
+		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		{
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
+			{
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CrimsonTorch, Scale: LerpValue * 2f * area.RelativeScale())];
+				spawnedDust.noGravity = true;
+			}
+		}
+
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		{
+			Item.ArcaneOdyssey()?.owner?.ArcaneOdyssey()?.SetCooldown(new Cooldown(Name, DisplayName, 60));
+			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
+			{
+				Dust.NewDust(position, 0, 0, DustID.CrimsonTorch, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: LerpValue * 3f * intensity);
+			}
+		}
+
+		public override void KillEffects(Rectangle area, Entity source = null)
+		{
+			for (int n = 0; n < 30; n++)
+			{
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.CrimsonTorch, 2f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 2f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: LerpValue * 2f * area.RelativeScale());
+			}
+			SoundEngine.PlaySound(ImbueSound, area.Center());
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe().AddIngredient<BasicCombat>().AddIngredient(ItemID.Hellstone, 10).AddOnCraftCallback(BasicCombat.ReuseSkills).Register();
+		}
+	}
+}

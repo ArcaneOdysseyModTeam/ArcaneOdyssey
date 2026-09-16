@@ -1,12 +1,8 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Consumable;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.MutateThyMagic;
@@ -22,13 +18,29 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 			if (normieIndex >= 0 && hecateIndex >= 0 && ProductSpotLight.Mutation is not null)
 			{
-				player.inventory[normieIndex].TurnToAir(); 
-				player.inventory[hecateIndex].TurnToAir(); 
+				var og = player.inventory[normieIndex].ModItem as Imbuable;
+				player.inventory[normieIndex].SetDefaults(ProductSpotLight.Mutation.Type);
+				player.inventory[hecateIndex].TurnToAir();
 
-				if (player.GetItem(player.whoAmI, ContentSamples.ItemsByType[ProductSpotLight.Mutation.Type].Clone() , GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
+				var newItem = player.inventory[normieIndex];
+
+				//if (player.GetItem(player.whoAmI, ContentSamples.ItemsByType[ProductSpotLight.Mutation.Type].Clone(), GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item)
+				//{
+				//	if (newItem.netID != ItemID.None)
+				//	{
+				//		newItem = player.QuickSpawnItemDirect(player.GetSource_FromThis(), newItem, newItem.stack);
+				//	}
+				//}
+
+				if (newItem.ModItem is MagicType magic)
 				{
-					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
-					player.ArcaneOdyssey().allChosenImbues.Add(newItem.ModItem.Name);
+					magic.OriginalImbue = og;
+					magic.Skills = og.Skills;
+					magic.selectedIndex = og.selectedIndex;
+				}
+				else
+				{
+					og.RemoveAllSkills();
 				}
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();
@@ -36,7 +48,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 			else if (normieIndex < 0)
 			{
 				SoundEngine.PlaySound(SoundID.Tink);
-				Main.NewText($"Have you managed to lose your [i:{(int)MagicTypeToID(WhoWeMutating)}]? ? ?");
+				Main.NewText($"Have you managed to lose your [i:{(int)MagicTypeToID(WhoWeMutating)}]? What a fool.");
 			}
 			else if (hecateIndex < 0)
 			{
@@ -56,7 +68,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 	{
 		SoundEngine.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
 		Item item = MagicTypeToItem(p.CurrentType).Clone();
-		if (item.ModItem is not AOMagic magic)
+		if (item.ModItem is not MagicType magic)
 		{
 			Main.NewText($"Item {item.Name}([i:{item.type}]) is not a magic? ? ?");
 			return;
@@ -74,15 +86,15 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		{
 			suffix = p.CurrentType switch
 			{
-				MagicTypes.Acid or MagicTypes.Sand or MagicTypes.Sand or MagicTypes.Shadow => PickOne(["AndJustGoingToTheToilet", "ANDORDERING54NUGGETS"]),
+				MagicTypes.Acid or MagicTypes.Sand or MagicTypes.Sand or MagicTypes.Shadow => Main.rand.Next(["AndJustGoingToTheToilet", "ANDORDERING54NUGGETS"]),
 
-				MagicTypes.Ash or MagicTypes.Crystal or MagicTypes.Magma or MagicTypes.Glass => PickOne(["AndScanning500Coupons", "AndJustBuyingABigMac", "AndJustGoingToTheToilet"]),
+				MagicTypes.Ash or MagicTypes.Crystal or MagicTypes.Magma or MagicTypes.Glass => Main.rand.Next(["AndScanning500Coupons", "AndJustBuyingABigMac", "AndJustGoingToTheToilet"]),
 
-				MagicTypes.Earth or MagicTypes.Explosion or MagicTypes.Fire or MagicTypes.Lightning or MagicTypes.Earth => PickOne(["AndOrderingSomethingActuallyInteresting", "ANDORDERING54NUGGETS"]),
+				MagicTypes.Earth or MagicTypes.Explosion or MagicTypes.Fire or MagicTypes.Lightning or MagicTypes.Earth => Main.rand.Next(["AndOrderingSomethingActuallyInteresting", "ANDORDERING54NUGGETS"]),
 
-				MagicTypes.Light or MagicTypes.Metal or MagicTypes.Plasma or MagicTypes.Poison => PickOne(["AndJustBuyingABigMac", "ANDORDERING54NUGGETS", "AndJustGoingToTheToilet"]),
+				MagicTypes.Light or MagicTypes.Metal or MagicTypes.Plasma or MagicTypes.Poison => Main.rand.Next(["AndJustBuyingABigMac", "ANDORDERING54NUGGETS", "AndJustGoingToTheToilet"]),
 
-				MagicTypes.Ice or MagicTypes.Snow or MagicTypes.Water or MagicTypes.Wind or MagicTypes.Wood => PickOne(["AndOrderingSodaWITHEXTRAICE"]),
+				MagicTypes.Ice or MagicTypes.Snow or MagicTypes.Water or MagicTypes.Wind or MagicTypes.Wood => Main.rand.Next(["AndOrderingSodaWITHEXTRAICE"]),
 
 				MagicTypes.None or MagicTypes.ReturnToMonke or MagicTypes.MonkLife or MagicTypes.HeHasAcceptedChristInHisHeart or _ => "AndWaitWaitWhat",
 			};
@@ -104,7 +116,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		TodaysOffers = [];
 		#endregion
 
-		List<int> mutations = ArrayCollections.Mutations[magic.Type];
+		List<int> mutations = ArcaneOdysseyMod.Sets.Mutations[magic.Type];
 
 		int total = mutations.Count, totalRows = (total / ProductsPerRow) + (total % ProductsPerRow > 0 ? +1 : 0);
 		AuxPanel.Height.Set(((64 + Separation) * totalRows) + Separation, 0f);
@@ -122,16 +134,45 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 			product.BackGround.Width.Set(64, 0f);
 			product.BackGround.Height.Set(64, 0f);
-			product.Icon.Width.Set(64 - (Separation * 2), 0f);
-			product.Icon.Height.Set(64 - (Separation * 2), 0f);
 
-			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels), 
+			float left = (Separation * (counting + 1)) + (counting * product.BackGround.Width.Pixels),
 				top = (Separation * (offsetY + 1)) + (offsetY * product.BackGround.Height.Pixels);
 
 			product.BackGround.Left.Set(left, 0f);
 			product.BackGround.Top.Set(top, 0f);
-			product.Icon.Left.Set(left + Separation, 0f);
-			product.Icon.Top.Set(top + Separation, 0f);
+
+			#region Mathing math to make the images not squished whilst being increased in size if needed
+			float maxLength = (64 - (Separation * 2));
+			float ratio = product.Icon.Width.Pixels / product.Icon.Height.Pixels;
+
+			//Main.NewText($"Product: {mType}, ratio: {ratio}, width{product.Icon.Width.Pixels}, height: {product.Icon.Height.Pixels}");
+
+			if (ratio >= 1f) // Fat and Short; Tragedy
+			{
+				float height = (int)(maxLength / ratio), topReal = (maxLength - height) / 2;
+				//Main.NewText($"On est gros; height: {height}, expected: {topReal}");
+				product.Icon.Width.Set(maxLength, 0f);
+				product.Icon.Left.Set(left + Separation, 0f);
+
+				product.Icon.Height.Set(height, 0f);
+				product.Icon.Top.Set(top + topReal + Separation, 0f);
+			}
+			else // Paper Straw build
+			{
+				float width = (int)(maxLength * ratio), leftReal = (maxLength - width) / 2;
+				//Main.NewText($"On est grand; width: {width}, expected: {leftReal}");
+
+				product.Icon.Height.Set(maxLength, 0f);
+				product.Icon.Top.Set(top + Separation, 0f);
+
+				product.Icon.Width.Set((int)(maxLength * ratio), 0f);
+				product.Icon.Left.Set(left + leftReal + Separation, 0f);
+			}
+
+			//Main.NewText($"\tNew, width{product.Icon.Width.Pixels}, height: {product.Icon.Height.Pixels}");
+			//product.Icon.Left.Set(left + Separation, 0f);
+			//product.Icon.Top.Set(top + Separation, 0f);
+			#endregion
 
 			product.BackGround.OnLeftClick += MutationSelected;
 			product.Icon.IgnoresMouseInteraction = true;
@@ -153,8 +194,6 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		//string text = "";
 		//foreach (var s in mutations) text += $"[i:{s}], ";
 		//Main.NewText($"Hmming {text}, {mutations.Count}, {magic.Name}");
-
-		static string PickOne(List<string> strings) => strings[Main.rand.Next(strings.Count)];
 	}
 
 	protected void MutationChosen(CustomProduct product)
@@ -163,7 +202,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		ProductSpotLight.ChangeType(product.Item);
 
 		SpotTitle.SetText(product.Item.Item.Name);
-		if (product.Item is AOMagic magic)
+		if (product.Item is Imbuable magic)
 		{
 			// Spoky (2026 Feb 05): Doesn't work? Maybe it does?
 			string prefix = magic.ImbueDebuffs.Length switch
@@ -183,9 +222,23 @@ public partial class MutateThyMagicUI : BaseImbueUI
 			}
 			else if (magic.ImbueDebuffs.Length == 1) text = $"{Lang.GetBuffName(magic.ImbueDebuffs[0].debuffID)}";
 
-			SpotStats.SetText($"Size: {magic.AOScrollSize} \n" +
-				$"Speed: {magic.AOScrollSpeed} \n" +
-				$"Damage: {magic.AOScrollDamage} \n" +
+			var abiliytext = "";
+
+			if (magic.Gimmick is not null)
+			{
+				abiliytext += $"{magic.Gimmick.DisplayName.Value}: {magic.Gimmick.Description.Value}\n";
+			}
+
+			if (magic.Property.HasValue)
+			{
+				abiliytext += magic.Property.Value.Name + "\n";
+			}
+
+			SpotStats.SetText(
+				abiliytext +
+				$"Size: {magic.ScrollSize} \n" +
+				$"Speed: {magic.ScrollSpeed} \n" +
+				$"Damage: {magic.ScrollDamage} \n" +
 				$"{prefix} {text}");
 		}
 	}

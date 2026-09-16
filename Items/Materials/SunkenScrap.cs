@@ -1,0 +1,24 @@
+﻿using ArcaneOdyssey.Items.Base;
+
+namespace ArcaneOdyssey.Items.Materials
+{
+	[LegacyName("ArcaniumScrap")]
+	public class SunkenScrap : BaseItem
+	{
+		public override int Value => 400;
+		public override ItemRarities Rarity => ItemRarities.Rare;
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = Item.height = 28;
+			Item.maxStack = Item.CommonMaxStack;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Item.ResearchUnlockCount = 25;
+		}
+	}
+}

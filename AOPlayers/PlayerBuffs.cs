@@ -1,8 +1,11 @@
-﻿using ArcaneOdyssey.Content.Buffs.Base;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using ArcaneOdyssey.Buffs;
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.GodSouls;
+using ArcaneOdyssey.Guidebook;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.AOPlayers
@@ -25,20 +28,22 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public bool acumen = false;
 
+		public int ZapCD = 5 * 50; // ancient lightning chain
+
 		public int BloodDisease
 		{
 			get
 			{
 				if (bloodDisease is not null)
 				{
-					if (bloodDisease.Split('.')[0] != "Terraria")
+					if (bloodDisease.Split('/')[0] != "Terraria")
 					{
-						if (ModContent.TryFind<ModBuff>(bloodDisease.Split('.')[0], bloodDisease.Split('.')[1], out var buff))
+						if (ModContent.TryFind<ModBuff>(bloodDisease, out var buff))
 							return buff.Type;
 					}
 					else
 					{
-						if (BuffID.Search.TryGetId(bloodDisease.Split(".")[1], out var id))
+						if (BuffID.Search.TryGetId(bloodDisease.Split('/')[1], out var id))
 							return id;
 					}
 				}
@@ -52,14 +57,14 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				if (bloodDisease is not null)
 				{
-					if (bloodDisease.Split('.')[0] != "Terraria")
+					if (bloodDisease.Split('/')[0] != "Terraria")
 					{
-						if (ModContent.TryFind<ModBuff>(bloodDisease.Split('.')[0], bloodDisease.Split('.')[1], out var buff))
+						if (ModContent.TryFind<ModBuff>(bloodDisease, out var buff))
 							return buff.DisplayName.Value;
 					}
 					else
 					{
-						if (BuffID.Search.TryGetId(bloodDisease.Split(".")[1], out var id))
+						if (BuffID.Search.TryGetId(bloodDisease.Split('/')[1], out var id))
 							return Lang.GetBuffName(id);
 					}
 				}
@@ -83,29 +88,100 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void LoadData(TagCompound tag)
 		{
-			if (tag.TryGet<string>("aodisease", out var Disease) && Disease != "null")
+			if (tag.TryGet<string>("aodisease", out var Disease))
 				bloodDisease = Disease;
 			else
 				bloodDisease = null;
-			evil = tag.GetBool("aomentality");
-			allChosenImbues = tag.GetList<string>("allimbues");
-			DarkSealed = tag.GetInt("darksealedchests");
-			NimbusSealed = tag.GetInt("nimbussealedchests");
-			BronzeSealed = tag.GetInt("bronzesealedchests");
+
+			DarkSealed = tag.GetByte("darkchests");
+			NimbusSealed = tag.GetByte("nimbuschests");
+			BronzeSealed = tag.GetByte("bronzechests");
+
 			acumen = tag.GetBool("acumenconsumed");
 			hasLoadedWorldBefore = tag.GetBool("wowiveloadedinbefore");
+
+			GodSoul GetSoul(string name)
+			{
+				if (ModContent.TryFind<GodSoul>(name, out var soul) && soul is not NoneSoul)
+				{
+					return soul;
+				}
+				cachedUnloadedSouls.Add(name);
+				return null;
+			}
+
+			Souls = [GodSoul.None, .. tag.GetList<string>("souls").Select(GetSoul)];
+			Souls.RemoveAll(e => e is null);
+
+			foreach (var pagename in tag.GetList<string>("guidebooks"))
+			{
+				if (ModContent.TryFind<GuidebookPage>(pagename, out var page))
+				{
+					unlockedPages.Add(page.FullName);
+				}
+				else
+				{
+					unlockedPages.Add(pagename);
+				}
+			}
 		}
 
 		public override void SaveData(TagCompound tag)
 		{
-			tag.Add("aodisease", bloodDisease ?? "null");
-			tag.Add("aomentality", evil);
-			tag.Add("allimbues", allChosenImbues);
-			tag.Add("darksealedchests", DarkSealed);
-			tag.Add("nimbussealedchests", NimbusSealed);
-			tag.Add("bronzesealedchests", BronzeSealed);
-			tag.Add("acumenconsumed", acumen);
 			tag.Add("wowiveloadedinbefore", true);
+			if (bloodDisease is not null)
+				tag.Add("aodisease", bloodDisease);
+			if (DarkSealed > 0)
+				tag.Add("darkchests", DarkSealed);
+			if (NimbusSealed > 0)
+				tag.Add("nimbuschests", NimbusSealed);
+			if (BronzeSealed > 0)
+				tag.Add("bronzechests", BronzeSealed);
+			if (acumen)
+				tag.Add("acumenconsumed", acumen);
+			if (Souls.Count > 1)
+				tag.Add("souls", Souls.Select(e => e.FullName).ToList());
+			if (unlockedPages.Count > 0)
+				tag.Add("guidebooks", unlockedPages);
+		}
+
+		public bool oiled = false;
+
+		public List<int> debuffs = [];
+
+		public override void UpdateBadLifeRegen()
+		{
+			void subtract(int num)
+			{
+				Player.lifeRegen = Math.Min(Player.lifeRegen - num, -num);
+			}
+
+			foreach (var debuff in debuffs)
+			{
+				subtract(debuff);
+			}
+
+			// keep at bottom!
+			if (oiled && (Player.lifeRegen < 0))
+			{
+				subtract(10);
+			}
+		}
+
+		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
+		{
+			if ((hitDirection == 0) && (Player.HasBuff<InsanityFour>() || Player.HasBuff<InsanityFive>()))
+			{
+				damageSource.CustomReason ??= Mod.CustomLocalization("Insanity.Death" + Main.rand.Next(5), Player.name).ToNetworkText();
+			}
+			return true;
+		}
+
+		public void ResetBuffs()
+		{
+			Gel = null;
+			oiled = false;
+			debuffs.Clear();
 		}
 	}
 }

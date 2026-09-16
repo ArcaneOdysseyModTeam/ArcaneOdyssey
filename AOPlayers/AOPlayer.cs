@@ -1,54 +1,40 @@
-﻿using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Imbues.Magic.Lost;
-using ArcaneOdyssey.Content.Items.Armour.RavennaNoble;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Consumable;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Buffs;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.Projectiles;
 using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers
 {
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
 		public Imbuable Imbue { get; set; }
-		public int AOSizeStat = 0;
-		public Projectile myCircle = null;
-		public int timeTillNextMove = 0;
+		public short StatSize = 0;
+		public Circle myCircle = null;
+		public MobilityCircle myMobilityCircle = null;
+		public ushort timeTillNextMove = 0;
 		public List<Cooldown> Cooldowns = [];
 		public bool HeavySkillActive = false;
 		public bool hasLoadedWorldBefore = false;
-		public bool Immobile => Player.CCed || timeTillNextMove > 0;
+		public bool Immobile => timeTillNextMove > 0 || (!CanMoveOnGround && HeavySkillActive);
 		public bool CanMoveOnGround;
-		public int groundedCounter = 0;
-		public bool Grounded => groundedCounter >= 15;
+		public bool grounded = false;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
-		public int timeSinceSoftFrozen;
+		public ushort timeSinceSoftFrozen;
+		public sbyte hasWings = 2;
 
-		/// <summary>
-		/// Imbues in equipment slots
-		/// </summary>
-		public List<int> EquippedImbues = [];
-		public List<int> EquippedImbuesTimers = [];
-
-		public void AddEquippedImbue(Item imbue)
+		public override void OnEnterWorld()
 		{
-			var index = EquippedImbues.IndexOf(imbue.type);
-			if (index != -1)
-			{
-				EquippedImbuesTimers[index] = 3;
-			}
-			else
-			{
-				EquippedImbues.Add(imbue.type);
-				EquippedImbuesTimers.Add(3);
-			}
+			hasWings = 2;
 		}
 
-		public bool evil = false;
+		public static bool evil => !EliusSpareSystem.spared;
 
 
 		public List<ImbueDebuffHelper> DebuffHelpers = [];
@@ -57,73 +43,100 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public float MaxPossibleSpeed => Math.Max(MaxRunSpeed, CurrentDash?.DashSpeed ?? MaxRunSpeed);
 
-		public override void FrameEffects()
-		{
-			if (Player.body == EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Body) && Player.back == -1)
-			{
-				Player.back = EquipLoader.GetEquipSlot(Mod, typeof(EliusChest).Name, EquipType.Back);
-			}
-		}
-
-		public void UpdateDebuffHelpers(int damagedone, NPC npc, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
+		public void UpdateDebuffHelpers(int damageDone, NPC target, Imbuable imbue = null, bool useplayerimbue = true, bool canAddBuffs = true)
 		{
 			if (useplayerimbue)
 				imbue ??= Imbue;
-			if (imbue is not null)
+			if (!(target.CountsAsACritter || target.friendly || Main.npcCatchable[target.type]))
 			{
-				if (imbue is EnergyMagic)
+				if (imbue is not null)
 				{
-					Player.statMana = Utils.Clamp(Player.statMana + (damagedone / 4), 0, Player.statManaMax2);
-				}
-				if (imbue is VanishingStyle vanish)
-				{
-					if (!(npc.CountsAsACritter || npc.friendly || Main.npcCatchable[npc.type]))
+					foreach (Debuff buff in imbue.ImbueDebuffs)
 					{
-						if (npc.boss || !AOUtils.BossAlive())
+						var dur = buff.debuffDuration != 0 ? buff.debuffDuration : damageDone;
+						var index = DebuffHelpers.FindIndex(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == target.type);
+						if (index != -1)
 						{
-							Player.ArcaneOdyssey()?.SetCooldown(new Cooldown(vanish.Name, vanish.DisplayName, 60));
-							if (npc.boss)
-								vanish.BarValue += damagedone / (npc.lifeMax / 10f) * FightingStyleBarred.BarMax;
+							var instance = DebuffHelpers[index];
+							var damage = instance.damagedone + damageDone;
+							if (canAddBuffs && (((float)damage / target.lifeMax) >= buff.debuffPercent))
+							{
+								target.AddBuff(buff.debuffID, dur);
+								damage = 0;
+							}
+							DebuffHelpers[index] = instance with { damagedone = damage };
+						}
+						else
+						{
+							if (canAddBuffs && (((float)damageDone / target.lifeMax) >= buff.debuffPercent))
+							{
+								target.AddBuff(buff.debuffID, dur);
+							}
 							else
-								vanish.BarValue += damagedone / (npc.lifeMax * 2f) * FightingStyleBarred.BarMax;
+							{
+								DebuffHelpers.Add(new(imbue, damageDone, target, buff.debuffID));
+							}
 						}
-					}
-				}
-				foreach (var buff in imbue.ImbueDebuffs)
-				{
-					var instance = DebuffHelpers.Find(e => e.buffID == buff.debuffID && e.imbue.Type == imbue.Type && e.npc.type == npc.type);
-					if (DebuffHelpers.Contains(instance))
-					{
-						int damage = instance.damagedone + damagedone;
-						if (canAddBuffs && (float)damage / npc.lifeMax > buff.debuffPercent)
-						{
-							npc.AddBuff(buff.debuffID, buff.debuffDuration);
-							damage = 0;
-						}
-						DebuffHelpers[DebuffHelpers.IndexOf(instance)] = instance with { damagedone = damage };
-					}
-					else
-					{
-						DebuffHelpers.Add(new(imbue, damagedone, npc, buff.debuffID));
 					}
 				}
 			}
 		}
 
+		public override void Load()
+		{
+			On_Player.ApplyDamageToNPC += AoEHelper;
+		}
 
-		internal IList<string> allChosenImbues = [];
+		private static void AoEHelper(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC npc, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
+		{
+			Imbuable imbue = null;
+			imbue ??= AOUtils.Safe<Imbuable>(self.PlayerItem()?.ModItem);
+			imbue ??= self.PlayerItem().Imbue();
+			imbue ??= self.Imbue();
+			imbue?.Gimmick?.OnHitNPC(imbue, self, npc, npc.CalculateHitInfo(damage, direction, crit, knockback, damageType, damageVariation), damage);
+			if (imbue is SpiritEnergy)
+				if (!npc.immortal)
+					self.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
+			self.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
+			orig(self, npc, damage, knockback, direction, crit, damageType, damageVariation);
+		}
+
+		public override void Unload()
+		{
+			On_Player.ApplyDamageToNPC -= AoEHelper;
+		}
+
+		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			UpdateDebuffHelpers(damageDone, target, item.Imbue(), false, true);
+			UpdateDebuffHelpers(damageDone, target, item.SecondImbue(), false, true);
+		}
+
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			UpdateDebuffHelpers(damageDone, target, proj.Imbue(), false, true);
+			UpdateDebuffHelpers(damageDone, target, proj.SecondImbue(), false, true);
+		}
 
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
 		{
+			List<Item> items = [];
 			if (!mediumCoreDeath)
 			{
-				List<Item> items = [
-						new Item(ModContent.ItemType<EagleLegacy>()),
-						new Item(ModContent.ItemType<TitleMusicBox>())
-					];
-				return items;
+				items.Add(new Item(ModContent.ItemType<EagleLegacy>()));
+				items.Add(new Item(ModContent.ItemType<TitleMusicBox>()));
 			}
-			return [];
+			else
+			{
+				foreach (var imbue in Player.inventory)
+				{
+					if (imbue.ModItem is Imbuable)
+					{
+						items.Add(new Item(imbue.type));
+					}
+				}
+			}
+			return items;
 		}
 
 		public void TrySpiritLifesteal(int damage, bool cooldown = true)
@@ -132,7 +145,7 @@ namespace ArcaneOdyssey.AOPlayers
 			{
 				if (cooldown)
 					SetCooldown(new Cooldown("SpiritLifesteal", Mod, 60 * 2));
-				Player.Heal(Utils.Clamp(damage / 5, 1, 20));
+				Player.Heal(Utils.Clamp(damage / 5, 1, 15 + AOUtils.BossesKilled));
 			}
 		}
 
@@ -141,43 +154,98 @@ namespace ArcaneOdyssey.AOPlayers
 			if (!hasLoadedWorldBefore)
 			{
 				hasLoadedWorldBefore = true;
-				if (Main.myPlayer == Player.whoAmI && AOUtils.BossesKilled < 1)
+				if (!ModLoader.HasMod("NMMSI"))
 				{
-					if (!Player.HasTypeInInventory<EagleLegacy>())
+					if (Main.myPlayer == Player.whoAmI)
 					{
-						Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<EagleLegacy>(), noBroadcast: true, noGrabDelay: true);
+						if (!Player.HasTypeInInventory<EagleLegacy>())
+						{
+							Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<EagleLegacy>());
+						}
+						if (!Player.HasTypeInInventory<TitleMusicBox>())
+						{
+							Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<TitleMusicBox>());
+						}
 					}
-					if (!Player.HasTypeInInventory<TitleMusicBox>())
-					{
-						Item.NewItem(Player.GetSource_FromThis(), Player.Hitbox, ModContent.ItemType<TitleMusicBox>(), noBroadcast: true, noGrabDelay: true);
-					}
-				} 
+				}
 			}
 			pheonixHealing = 0;
-			ArrayCollections.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
+			ArcaneOdysseyMod.Sets.phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 			HeavySkillActive = false;
-			DashStrike();
+
 			if (Imbue is not null && !Imbue.PlayerHasImbue(Player))
 			{
 				Imbue = null;
 			}
+
 			Player.statDefense -= _defenseLost;
+
+			if (Player.InModBiome<EliusArena>())
+			{
+				if (AOUtils.NPCAlive<LordElius>())
+					Player.AddBuff(ModContent.BuffType<ThunderingPresence>(), 999999999);
+				if (AOUtils.ServerOrSingleplayer)
+				{
+					if (NPC.downedBoss1)
+					{
+						if (!AOUtils.BossAlive)
+						{
+							if (eliusArenaCounter <= (30 * 60))
+								eliusArenaCounter++;
+						}
+						else
+						{
+							eliusArenaCounter = 0;
+						}
+
+						if (eliusArenaCounter >= (30 * 60)) // 30 seconds
+						{
+							if (Main.raining || !DownedBosses.DownedElius)
+							{
+								//elius spawn location
+								NPC.SpawnBoss((EliusArenaLoader.eliusArena.Center.X + 24) * 16, (EliusArenaLoader.eliusArena.Center.Y - 14) * 16, ModContent.NPCType<LordElius>(), Player.whoAmI);
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				eliusArenaCounter = 0;
+				if (Player.HasBuff(ModContent.BuffType<ThunderingPresence>()))
+				{
+					Player.AddBuff(BuffID.Electrified, 2);
+				}
+			}
 		}
+
+		public float SpaceGravityMulti
+		{
+			get
+			{
+				float x = Main.maxTilesX / 4200f;
+				x *= x;
+				return (float)((Player.position.Y / 16f - (60f + 10f * x)) / (Main.worldSurface / (Main.remixWorld ? 1.0 : 6.0)));
+			}
+		}
+
+		public bool InSpace => SpaceGravityMulti < 1f;
 
 		public void FreezeMovement()
 		{
-			if (Math.Abs(Player.velocity.Y) < 1f && Player.wingTime == Player.wingTimeMax && !Player.controlJump)
+			if (Math.Abs(Player.velocity.Y) < .5f && Player.wingTime == Player.wingTimeMax && Player.wingFrame == 0 && !Player.controlJump && !Player.TryingToHoverDown && !Player.TryingToHoverUp)
 			{
-				if (groundedCounter < 60)
-					groundedCounter++;
+				grounded = true;
 			}
 			else
-				groundedCounter = 0;
+			{
+				grounded = false;
+			}
 			if (HeavySkillActive)
 			{
 				if (FirstFrozenFrame)
 				{
-					CanMoveOnGround = Grounded;
+					CanMoveOnGround = grounded;
 				}
 				if (!CanMoveOnGround)
 				{
@@ -196,35 +264,29 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void ResetEffects()
 		{
-			AOSizeStat = 0;
-			AOHasteStat = 0;
+			if (Player.InModBiome<EliusArena>())
+			{
+				Player.noBuilding = true;
+			}
+			if (ZapCD > 0)
+			{
+				ZapCD--;
+			}
+			else
+			{
+				ZapCD = 0;
+			}
+			StatSize = 0;
+			StatHaste = 0;
 			Insanity = 0;
-			Gel = null;
-			List<int> queue = [];
-			foreach (int type in EquippedImbues)
-			{
-				var index = EquippedImbues.IndexOf(type);
-				if (index >= 0)
-				{
-					if (EquippedImbuesTimers[index] <= 0)
-					{
-						queue.Add(index);
-					}
-					else
-					{
-						EquippedImbuesTimers[index]--;
-					}
-				}
-			}
-			foreach (var i in queue)
-			{
-				EquippedImbues.RemoveAt(i);
-				EquippedImbuesTimers.RemoveAt(i);
-			}
+			Banishment = 0;
+			if (hasWings > 0)
+				hasWings--;
+			ResetBuffs();
 			HandleDashDetection();
 		}
 
-		public float SizeMulti => 1f + (AOSizeStat / 275f);
-		public float CooldownDurationMulti => (1f + (AOHasteStat / 200f)).FlipFloat();
+		public float SizeMulti => 1f + (StatSize / (BaseArmour.SizeDivision * 100f));
+		public float CooldownDurationMulti => Math.Max(1f - (StatHaste / (BaseArmour.HasteDivision * 100f)), .25f);
 	}
 }

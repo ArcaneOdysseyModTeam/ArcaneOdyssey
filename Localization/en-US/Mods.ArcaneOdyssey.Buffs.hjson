@@ -12,6 +12,7 @@ DOT: {
 	HeavyBleed: {
 		DisplayName: Severe Bleeding
 		Description: You might have an artery leaking
+		Death: "{0}'s wounds exploded."
 	}
 
 	IonizedEffect: {
@@ -52,6 +53,26 @@ DOT: {
 	Scorched: {
 		DisplayName: Scorched
 		Description: Plasma burns your skin
+	}
+
+	Convulsed: {
+		DisplayName: Convulsed
+		Description: ""
+	}
+
+	FrostDrained: {
+		DisplayName: Frost Drained
+		Description: ""
+	}
+
+	InfernalBurn: {
+		DisplayName: Infernal Blaze
+		Description: ""
+	}
+
+	NecroFlame: {
+		DisplayName: Necro Flame
+		Description: ""
 	}
 }
 
@@ -95,12 +116,18 @@ MagicMarks: {
 		DisplayName: Drained
 		Description: You feel drained and fatigued
 	}
+
+	CursedAshes: {
+		DisplayName: Cursed Ashes
+		Description: Defense reduced
+	}
 }
 
 Helpers: {
 	AncientLightingChain: {
 		DisplayName: Ancient Lighting Chain
 		Description: Ancient Lightning streaks between enemies
+		Death: "{0} was annihilated."
 	}
 
 	ProminenceDebuff: {
@@ -133,14 +160,19 @@ Pets: {
 		DisplayName: Aether The Elf
 		Description: Aether is now following you around, boosting your morale and determination
 	}
+
+	IrisBuff: {
+		DisplayName: Iris
+		Description: The Anomaly follows you
+	}
+
+	ForkPetBuff: {
+		DisplayName: Fork Pet Buff
+		Description: The ghostly vissage of a scorched fork follows you...
+	}
 }
 
 Stuns: {
-	AOFrozen: {
-		DisplayName: Frozen
-		Description: You can't move
-	}
-
 	Paralyzed: {
 		DisplayName: Paralyzed
 		Description: You can't move
@@ -151,11 +183,6 @@ Stuns: {
 		Description: You can't move
 	}
 
-	Tangled: {
-		DisplayName: Tangled
-		Description: Sticky webs slowly restrict your movement
-	}
-
 	Trauma: {
 		DisplayName: Traumatized
 		Description: whatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthatwhatisthat
@@ -164,5 +191,35 @@ Stuns: {
 
 Enchanted: {
 	DisplayName: Enchanted
-	Description: Damage, attack size, and health have been boosted by an ally
+	Description: Damage, attack size, and health have been boosted
+}
+
+InsanityFive: {
+	DisplayName: Insanity V
+	Description: You are too insane to survive
+}
+
+InsanityFour: {
+	DisplayName: Insanity IV
+	Description: You are highly insane, and usually could not survive
+}
+
+InsanityOne: {
+	DisplayName: Insanity I
+	Description: You are slightly insane
+}
+
+InsanityThree: {
+	DisplayName: Insanity III
+	Description: You are moderately insane
+}
+
+InsanityTwo: {
+	DisplayName: Insanity II
+	Description: You are mildly insane
+}
+
+ThunderingPresence: {
+	DisplayName: Thundering Presence
+	Description: You feel as if you should not leave the arena
 }

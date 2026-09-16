@@ -1,25 +1,22 @@
-using ArcaneOdyssey.Content.Items.Consumable;
-using ArcaneOdyssey.Content.Items.Weapons.Old;
-using ArcaneOdyssey.Content.NPCS.Town;
-using ArcaneOdyssey.Content.Tiles;
-#if VSDEBUGMODE
-using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.GlobalTypes;
-#endif
-using Microsoft.Xna.Framework;
-using ReLogic.Content;
-using Microsoft.Xna.Framework.Graphics;
+global using Microsoft.Xna.Framework;
+global using Microsoft.Xna.Framework.Graphics;
+global using ReLogic.Content;
+global using Terraria;
+global using Terraria.ID;
+global using Terraria.Localization;
+global using Terraria.ModLoader;
+
+using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Buffs;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
+using ArcaneOdyssey.NPCs.Bosses;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent.Generation;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.WorldBuilding;
+using System.IO;
+using Terraria.Chat;
 using Terraria.Graphics.Shaders;
 
 namespace ArcaneOdyssey
@@ -27,27 +24,31 @@ namespace ArcaneOdyssey
 	public class ArcaneOdysseyMod : Mod
 	{
 		/// <summary>
-		/// disable all cooldowns and stuff lmao
+		/// misc dev stuff
 		/// </summary>
-		public static bool DevMode => ArcaneOdyssey.DevMode.devMode;
+#if VSDEBUGMODE
+		public const bool DevMode = true;
+#else
+		public const bool DevMode = false;
+#endif
 		public const string InternalName = "ArcaneOdyssey";
-
-		public static Asset<Texture2D> MagicCircleSprite;
 
 		internal static List<string> NoticeQueue = [];
 
-		public static ArcaneOdysseyMod Instance => ModContent.GetInstance<ArcaneOdysseyMod>();
+		public static ArcaneOdysseyMod Instance;
 
 		internal static Dictionary<string, LocalizedText> staticLocalizer = [];
 
-		internal static List<int> excludedItems = [];
-
-		internal static List<int> excludedProjectiles = [];
+		internal static bool finishedLoading = false;
 
 		/// <param name="args">
-		/// BlacklistProjectile/ExcludeProjectile (<seealso cref="int"/>)
-		/// <para>BlacklistItem/ExcludeItem (<seealso cref="int"/>)</para>
-		/// <para>AddMordenDialogue (<seealso cref="string"/>, <seealso cref="Func{bool}"/>)</para>
+		/// ExcludeProjectile (<seealso cref="int"/>)
+		/// <para/>ExcludeItem (<seealso cref="int"/>)
+		/// <para/>AddSizeStat (<seealso cref="int"/>, <seealso cref="int"/>)
+		/// <para/>AddHasteStat (<seealso cref="int"/>, <seealso cref="int"/>)
+		/// <para/>SetItemTemperature (<seealso cref="int"/>, <seealso cref="Nullable"/>{<seealso cref="bool"/>}))
+		/// <para/>SetWeaponType (<seealso cref="int"/>, <seealso cref="int"/> (<seealso cref="WeaponType"/>))
+		/// <para/>RegisterWoodWand (<seealso cref="int"/>, <seealso cref="int"/>)
 		/// </param>
 		public override object Call(params object[] args)
 		{
@@ -55,14 +56,25 @@ namespace ArcaneOdyssey
 			{
 				case "BlacklistProjectile":
 				case "ExcludeProjectile":
-					excludedProjectiles.Add((int)args[1]);
+					Sets.excludedProjectile[(int)args[1]] = true;
 					break;
 				case "BlacklistItem":
 				case "ExcludeItem":
-					excludedItems.Add((int)args[1]);
+					Sets.excludedItem[(int)args[1]] = true;
 					break;
-				case "AddMordenDialogue":
-					Edgelord.AddHelpOption((string)args[1], (Func<bool>)args[2]);
+				case "AddSizeStat":
+				case "SetSizeStat":
+					Sets.SizeStats[(int)args[1]] = (int)args[2];
+					break;
+				case "AddHasteStat":
+				case "SetHasteStat":
+					Sets.HasteStats[(int)args[1]] = (int)args[2];
+					break;
+				case "SetItemTemperature":
+					Sets.cold[(int)args[1]] = (bool?)args[2];
+					break;
+				case "SetWeaponType":
+					Sets.weaponType[(int)args[1]] = (WeaponType)(int)args[2];
 					break;
 			}
 			return null;
@@ -70,239 +82,407 @@ namespace ArcaneOdyssey
 
 		public override void Load()
 		{
-			excludedItems.Clear();
-			excludedProjectiles.Clear();
+			Instance = this;
+			finishedLoading = false;
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
 
 			if (!Main.dedServ)
 			{
-				MagicCircleSprite = Assets.Request<Texture2D>($"Effects/MagicCircles/{ArcaneOdysseyClientConfig.Instance.MagicCircleType}", AssetRequestMode.ImmediateLoad);
-
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
-
 			}
+#if VSDEBUGMODE
+			NoticeQueue.Add("Project has been built in Debug mode (rather than Release), do not release publicly until this has been amended.");
+#endif
 		}
 
 		public override void Unload()
 		{
-			excludedItems.Clear();
-			excludedProjectiles.Clear();
+			Instance = null;
+			finishedLoading = false;
 			staticLocalizer.Clear();
 			NoticeQueue.Clear();
+			GameShaders.Misc[InternalName + ":MagicCircleBase"] = null;
 		}
 
-		public override void PostSetupContent()
+		public string BTitlesHook_BiomeChecker(Player player)
 		{
-			this.CoolCustomLocalization("RandomWords.Default");
-			this.CoolCustomLocalization("RandomWords.Unbound");
-			this.CoolCustomLocalization("RandomWords.None");
-			this.CoolCustomLocalization("RandomWords.AnyMaterial");
-			this.CoolCustomLocalization("RandomWords.Help");
-			this.CoolCustomLocalization("RandomWords.Press");
-		}
-	}
+			if (player.InModBiome<EliusArena>())
+				return "EliusArena";
 
-	public class WorldGenStuff : ModSystem
-	{
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
+			return "";
+		}
+
+		public IEnumerable<dynamic> BTitlesHook_GetBiomes()
 		{
-			// Tucker died lmao
-			int Stalac = tasks.FindIndex(genpass => genpass.Name == "Stalac");
-			if (ArcaneOdysseyClientConfig.Instance.GenerateTucker && Stalac != -1)
+			var icon = ModContent.Request<Texture2D>(AOUtils.GetTexture<EliusArena>() + "_Icon", AssetRequestMode.ImmediateLoad);
+			yield return new
 			{
-				tasks.Insert(Stalac + 1, new PassLegacy("Tucker Grave", (progress, config) =>
+				Key = "EliusArena",
+				Title = "Djin Ruins",
+				SubTitle = DisplayNameClean,
+				TitleColor = Color.LightGray,
+				TitleStroke = Color.MediumPurple,
+				Icon = icon.Value,
+			};
+		}
+
+		public class PacketID
+		{
+			/// <summary>
+			/// Create lingering visuals on all clients, best used for item swing visuals
+			/// <para/> Requires two imbue item ids and a rectangle
+			/// </summary>
+			public const byte LingeringVisuals = 0;
+
+			/// <summary>
+			/// Create explosion visuals on all clients
+			/// <para/> Requires two imbue item ids, a vector2, a float, and the amount of explosions
+			/// </summary>
+			public const byte ExplosionVisuals = 1;
+
+			/// <summary>
+			/// Enchants all players
+			/// </summary>
+			public const byte Enchantment = 2;
+			/// <summary>
+			/// Marks elius as killed or spared, and spawns vfx on all clients
+			/// <para/> Requires a spared bool, and a rectangle
+			/// </summary>
+			public const byte EliusSpare = 3;
+
+			/// <summary>
+			/// Spawns Elius's arena
+			/// </summary>
+			public const byte SpawnEliusArena = 4;
+
+			/// <summary>
+			/// Marks an NPC as defeated on all clients
+			/// <para/> Requires an npc ID, which should be consistant between all clients
+			/// </summary>
+			public const byte MarkGlobalDowned = 5;
+		}
+
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+			var command = reader.ReadByte();
+			if (command == PacketID.LingeringVisuals)
+			{
+				if (Main.dedServ) // forward to clients
 				{
-					progress.Message = Mod.CustomLocalization("WorldGen.Tucker").Value;
-					KillTucker(Main.spawnTileX - 20, Main.spawnTileY - 5, Main.spawnTileX + 20, Main.spawnTileY + 5, ModContent.TileType<TuckerGrave>());
-				}));
+					var packet = GetPacket();
+					packet.Write(command);
+					packet.Write(reader.ReadInt32()); // imbue 1
+					packet.Write(reader.ReadInt32()); // imbue 2, if applicable
+					packet.Write(reader.ReadRectangle()); // area
+					packet.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+					var imbue2 = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+					var area = reader.ReadRectangle();
+
+					imbue?.LingeringEffects(area);
+					imbue2?.LingeringEffects(area);
+				}
 			}
-
-			int guide = tasks.FindIndex(genpass => genpass.Name == "Guide");
-			if (ArcaneOdysseyConfig.Instance.EnableMorden && guide != -1)
+			else if (command == PacketID.ExplosionVisuals)
 			{
-				tasks.Insert(Stalac + 1, new PassLegacy("Morden", (progress, config) =>
+				if (Main.dedServ) // forward to clients
 				{
-					progress.Message = Mod.CustomLocalization("WorldGen.Morden").Value;
-					SpawnMorden();
-				}));
-			}
-		}
+					var packet = GetPacket();
+					packet.Write(command);
+					packet.Write(reader.ReadInt32()); // imbue 1
+					packet.Write(reader.ReadInt32()); // imbue 2, if applicable
+					packet.Write(reader.ReadVector2()); // area
+					packet.Write(reader.ReadSingle()); // intensity
+					packet.Write(reader.ReadByte()); // explosion amount, to avoid spamming the network
+					packet.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+					var imbue2 = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+					var area = reader.ReadVector2();
+					var intensity = reader.ReadSingle();
+					var max = reader.ReadByte();
 
-		public static void KillTucker(int left, int top, int right, int bottom, int tile)
-		{
-			bool success = false;
-			while (!success)
-			{
-				int attempts = 0;
-				while (!success && attempts <= 1000)
-				{
-					attempts++;
-					int x = WorldGen.genRand.Next(left, right + 1);
-					int y = WorldGen.genRand.Next(top, bottom + 1);
-					if (Framing.GetTileSafely(x, y).TileType != tile)
+					for (var i = 0; i < max; i++)
 					{
-						WorldGen.PlaceObject(x, y, tile);
+						imbue?.ExplosionEffects(area, intensity);
+						imbue2?.ExplosionEffects(area, intensity);
 					}
-					Tile tile1 = Framing.GetTileSafely(x, y); // maybe use later for something
-					success = tile1.TileType == tile;
-				}
-				if (attempts > 1000)
-				{
-					break;
 				}
 			}
-		}
-
-		public static void SpawnMorden()
-		{
-			NPC edgelord = NPC.NewNPCDirect(new EntitySource_WorldGen(), Main.spawnTileX * 16, Main.spawnTileY * 16, ModContent.NPCType<Edgelord>());
-			edgelord.homeTileX = Main.spawnTileX;
-			edgelord.homeTileY = Main.spawnTileY;
-			edgelord.direction = 1;
-			edgelord.homeless = true;
-		}
-
-		public override void PostWorldGen()
-		{
-			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
+			else if (command == PacketID.Enchantment)
 			{
-				Chest chest = Main.chest[chestIndex];
-				if (chest != null)
+				if (Main.dedServ)
 				{
-					if (WorldGen.genRand.NextBool(100))
+					ChatHelper.BroadcastChatMessage(ModContent.GetInstance<EnchantmentSpell>().GetLocalization("Message").ToNetworkText(Main.player[whoAmI].name), Color.AliceBlue);
+					var packet = GetPacket();
+					packet.Write(command);
+					packet.Send();
+				}
+				else
+				{
+					foreach (var player in Main.ActivePlayers)
 					{
-						for (int i = 0; i < Chest.maxItems; i++)
+						player.AddBuff(ModContent.BuffType<Enchanted>(), 60 * 60 * 5); // 5 mins
+					}
+				}
+			}
+			else if (command == PacketID.EliusSpare)
+			{
+				var spared = reader.ReadBoolean();
+				EliusSpareSystem.spared = spared;
+				var npc = Main.npc[reader.ReadInt32()];
+				npc.active = false;
+				npc.netUpdate = true;
+				if (Main.dedServ)
+				{
+					var elius = npc.ModNPC as LordElius;
+					var player = Main.player[whoAmI];
+					if (!spared) // kill
+					{
+						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Kill").Value.ToLower()).ToNetworkText(), Color.Purple);
+						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Killed").ToNetworkText(), Color.Purple);
+
+						npc.NPCLoot();
+					}
+					else
+					{
+						npc.ai[0] = -3;
+						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Spare").Value.ToLower()).ToNetworkText(), new(0, 183, 255));
+					}
+
+					var packet = GetPacket();
+					packet.Write(PacketID.EliusSpare);
+					packet.Write(spared);
+					packet.Write(npc.whoAmI);
+					packet.Send();
+				}
+				else
+				{
+					var hitbox = npc.Hitbox;
+					if (!spared) // kill
+					{
+						LordElius.SpawnGore(npc);
+						for (int n = 0; n < 17; n++)
 						{
-							if (chest.item[i] != null && chest.item[i].IsAir)
-							{
-								chest.item[i].SetDefaults(ModContent.ItemType<Acrimony>());
-								break;
-							}
+							Dust.NewDust(hitbox.Center(), 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
 						}
 					}
-
-					int[] oldItems = [ModContent.ItemType<OldRapier>(), ModContent.ItemType<OldSword>(), ModContent.ItemType<OldGreataxe>(), ModContent.ItemType<OldGreatsword>(), ModContent.ItemType<WoodenStaff>(),];
-					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && !chest.IsLocked()) // cavern chests probably
+					else
 					{
-						if (WorldGen.genRand.Next(Enumerable.Range(0, oldItems.Length).ToArray()) != 0)
+						for (int n = 0; n < 17; n++)
 						{
-							for (int i = 0; i < Chest.maxItems; i++)
-							{
-								if (chest.item[i] != null && chest.item[i].IsAir)
-								{
-									chest.item[i].SetDefaults(WorldGen.genRand.Next(oldItems));
-									break;
-								}
-							}
+							Dust.NewDust(hitbox.Center(), 0, 0, DustID.Smoke, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, 255 / 2);
 						}
-					}
-
-					if (chest.y > Main.rockLayer && chest.y < Main.UnderworldLayer && chest.IsLocked()) // dungeon/calamity abyss chests probably
-					{
-
-					}
-
-					if (chest.y > Main.UnderworldLayer && chest.IsLocked()) // shadow chests
-					{
-
-					}
-
-					if (chest.y > Main.UnderworldLayer && !chest.IsLocked()) // probably only thing this could be is calamity brimstone crags chests
-					{
-
 					}
 				}
 			}
+			else if (command == PacketID.SpawnEliusArena)
+			{
+				if (Main.dedServ)
+				{
+					WorldGenStuff.SpawnEliusArena();
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+			else if (command == PacketID.MarkGlobalDowned)
+			{
+				if (!Main.dedServ)
+				{
+					var npcid = reader.ReadInt32();
+					var npc = ModContent.GetModNPC(npcid);
+					if (npc is null)
+						GlobalData.MarkDefeated(npcid);
+					else
+						GlobalData.MarkDefeated(npc);
+				}
+			}
 		}
-	}
 
-	public class DevMode : ModSystem 
-	{
-		#if VSDEBUGMODE
-		public static bool devMode = true;
-		#else
-		public static bool devMode = false;
-		#endif
+
+		[ReinitializeDuringResizeArrays]
+		public class Sets : ModSystem
+		{
+			public static bool[] excludedItem = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] excludedProjectile = ProjectileID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] OldWeapon = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
+
+			public override void ResizeArrays()
+			{
+				// manually change default value
+				for (int i = 0; i < Mutations.Length; i++)
+				{
+					Mutations[i] = [];
+				}
+			}
+
+			public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet(0,
+				ItemID.MoltenBreastplate, 7,
+				ItemID.MoltenGreaves, 5,
+				ItemID.MoltenHelmet, 3
+			);
+
+			public static bool[] toggleablePulse = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet(0,
+				ItemID.NecroBreastplate, 7,
+				ItemID.NecroGreaves, 5,
+				ItemID.NecroHelmet, 3,
+				ItemID.AncientNecroHelmet, 3
+			);
+
+			/// <summary>
+			/// Leave null for neutral, true for cold, false for hot
+			/// </summary>
+			public static bool?[] cold = ItemID.Sets.Factory.CreateCustomSet<bool?>(null,
+				ItemID.IceSickle, true,
+				ItemID.IceBlade, true,
+				ItemID.Frostbrand, true,
+				ItemID.ChristmasTreeSword, true,
+				ItemID.NorthPole, true,
+				ItemID.Snowball, true,
+				ItemID.SnowballCannon, true,
+				ItemID.FrostDaggerfish, true,
+				ItemID.IceBow, true,
+				ItemID.IceBoomerang, true,
+				ItemID.Flairon, true,
+				ItemID.ElfMelter, true,
+				ItemID.Tsunami, true,
+
+				ItemID.DD2SquireBetsySword, false,
+				ItemID.DD2SquireDemonSword, false,
+				ItemID.ShadowFlameKnife, false,
+				ItemID.FieryGreatsword, false,
+				ItemID.Flamarang, false,
+				ItemID.Sunfury, false,
+				ItemID.FlamingMace, false,
+				ItemID.DayBreak, false,
+				ItemID.MoltenFury, false,
+				ItemID.HellwingBow, false,
+				ItemID.ShadowFlameBow, false,
+				ItemID.SolarEruption, false,
+				ItemID.MolotovCocktail, false,
+				ItemID.PhoenixBlaster, false,
+				ItemID.Flamethrower, false,
+				ItemID.BluePhaseblade, false,
+				ItemID.DD2BetsyBow, false,
+				ItemID.GreenPhaseblade, false,
+				ItemID.OrangePhaseblade, false,
+				ItemID.DD2PhoenixBow, false,
+				ItemID.PurplePhaseblade, false,
+				ItemID.RedPhaseblade, false,
+				ItemID.WhitePhaseblade, false,
+				ItemID.YellowPhaseblade, false,
+				ItemID.GreenPhasesaber, false,
+				ItemID.OrangePhasesaber, false,
+				ItemID.PurplePhasesaber, false,
+				ItemID.WhitePhasesaber, false,
+				ItemID.YellowPhasesaber, false,
+				ItemID.RedPhasesaber, false,
+				ItemID.BluePhasesaber, false,
+				ItemID.HelFire, false,
+				ItemID.Amarok, false,
+				ItemID.Cascade, false,
+				ItemID.MoltenPickaxe, false,
+				ItemID.SolarFlareDrill, false,
+				ItemID.SolarFlarePickaxe, false,
+				ItemID.MeteorHamaxe, false,
+				ItemID.MoltenHamaxe, false,
+				ItemID.LunarHamaxeSolar, false
+			);
+
+			public static WeaponType[] weaponType = ItemID.Sets.Factory.CreateCustomSet(WeaponType.Normal,
+				ItemID.BreakerBlade, WeaponType.Strength,
+				ItemID.Anchor, WeaponType.Strength,
+				ItemID.Zenith, WeaponType.Artisinal,
+				ItemID.PaladinsHammer, WeaponType.Spiritual
+			);
+
+			public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
+
+			public static int[] BlastMaxFrames = ItemID.Sets.Factory.CreateIntSet(1);
+
+			public static bool[] staff = ItemID.Sets.Factory.CreateBoolSet(ItemID.MonkStaffT1, ItemID.MonkStaffT3);
+
+			public static bool[] claw = ItemID.Sets.Factory.CreateBoolSet(ItemID.FetidBaghnakhs);
+
+			public static bool[] bow = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] spear = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] greatsword = ItemID.Sets.Factory.CreateBoolSet(ItemID.FieryGreatsword, ItemID.BreakerBlade, ItemID.AdamantiteSword, ItemID.TitaniumSword, ItemID.ChlorophyteClaymore, ItemID.StarWrath, ItemID.Seedler, ItemID.TerraBlade);
+
+			public static bool[] sword = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] greataxe = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteGreataxe, ItemID.TitaniumWaraxe, ItemID.WarAxeoftheNight, ItemID.AdamantiteWaraxe);
+
+			public static bool[] rapier = ItemID.Sets.Factory.CreateBoolSet();
+
+
+			public static bool[] dualbladed = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] dagger = ItemID.Sets.Factory.CreateBoolSet(ItemID.ThrowingKnife, ItemID.VampireKnives, ItemID.PoisonedKnife, ItemID.FrostDaggerfish, ItemID.BoneDagger, ItemID.FlyingKnife, ItemID.ShadowFlameKnife, ItemID.PsychoKnife);
+
+			public static bool[] gun = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer, ItemID.PaladinsHammer);
+
+			public static bool[] flail = ItemID.Sets.Factory.CreateBoolSet(ItemID.DripplerFlail, ItemID.Mace, ItemID.FlamingMace, ItemID.Flairon, ItemID.BallOHurt, ItemID.BlueMoon, ItemID.DaoofPow, ItemID.FlowerPow, ItemID.Sunfury, ItemID.TheMeatball); // PORT add other flairon
+
+			public static int?[] baseImbues = ItemID.Sets.Factory.CreateCustomSet<int?>(null);
+
+			public static bool[] atlanteanItem = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] shield = ItemID.Sets.Factory.CreateBoolSet();
+
+			public static bool[] showItemTypeTooltip = ItemID.Sets.Factory.CreateBoolSet(true);
+
+			public static bool[] imbueEffect = ProjectileID.Sets.Factory.CreateBoolSet();
+
+			public static int[] tileWand = ItemID.Sets.Factory.CreateIntSet();
+
+
+			[ReinitializeDuringResizeArrays]
+			public static class Assets
+			{
+
+				public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+
+				public static Dictionary<string, Asset<Texture2D>> MagicCircles = [];
+			}
+		}
 	}
 
 	public class AODebuffManager : GlobalBuff
 	{
 		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
 		{
-			buffName = buffName.Replace("Imbue", "GelDebuff");
+			buffName = buffName.Replace("Imbue", "Gel");
 		}
 	}
 
-	public class DownedBosses : ModSystem
+	public class MessageHelper : ModSystem
 	{
-		public static bool downedEvander;
-		public static bool downedDusk;
-		public static bool downedLaelus;
-		public static bool downedCrone;
-		public static bool downedDelamere;
-
-
-		public static bool downedEnragedEmpress;
-		public static bool downedWorldEater;
-		public static bool downedBrain;
-
-		public static void ResetDefaults()
-		{
-			downedEvander = false;
-			downedEnragedEmpress = false;
-			downedDusk = false;
-			downedLaelus = false;
-			downedCrone = false;
-			downedDelamere = false;
-			downedLaelus = false;
-			downedWorldEater = false;
-			downedBrain = false;
-		}
-
-		public override void OnWorldLoad() => ResetDefaults();
-
-		public override void OnWorldUnload() => ResetDefaults();
-
-		public override void SaveWorldData(TagCompound tag)
-		{
-			List<string> downed = [];
-			if (downedEvander)
-				downed.Add("Evander");
-			if (downedEnragedEmpress)
-				downed.Add("EnragedEoL");
-			if (downedDelamere)
-				downed.Add("Delamere");
-			if (downedDusk)
-				downed.Add("Dusk");
-			if (downedCrone)
-				downed.Add("Crone");
-			if (downedLaelus)
-				downed.Add("Laelus");
-			if (downedBrain)
-				downed.Add("Brain");
-			if (downedWorldEater)
-				downed.Add("EoW");
-
-			tag["downed"] = downed;
-		}
-
-		public override void LoadWorldData(TagCompound tag)
-		{
-			var downed = tag.GetList<string>("downed");
-			downedEvander = downed.Contains("Evander");
-			downedDusk = downed.Contains("Dusk");
-			downedCrone = downed.Contains("Crone");
-			downedLaelus = downed.Contains("Laelus");
-			downedDelamere = downed.Contains("Delamere");
-			downedEnragedEmpress = downed.Contains("EnragedEoL");
-			downedBrain = downed.Contains("Brain");
-			downedWorldEater = downed.Contains("EoW");
-		}
-
-		public override void PostUpdateWorld()
+		public override void PostUpdateEverything()
 		{
 			foreach (string message in ArcaneOdysseyMod.NoticeQueue)
 			{
@@ -312,92 +492,73 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	[ReinitializeDuringResizeArrays]
-	public static class ArrayCollections
+	public class WeaponsLoader : ModSystem
 	{
-		public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
-
-		public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet([
-			ItemID.MoltenBreastplate, 7,
-			ItemID.MoltenGreaves, 5,
-			ItemID.MoltenHelmet, 3,
-		]);
-
-		public static int[] HasteStats = ItemID.Sets.Factory.CreateIntSet();
-
-		public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
-	}
-
-	public class DownedNPCTracker : GlobalNPC
-	{
-		public override void OnKill(NPC npc)
+		internal static bool InArray(int i)
 		{
-			if (npc.type == NPCID.HallowBoss)
+			return ItemID.Sets.Deprecated[i] || ArcaneOdysseyMod.Sets.claw[i] || ArcaneOdysseyMod.Sets.spear[i] || ArcaneOdysseyMod.Sets.dualbladed[i] || ArcaneOdysseyMod.Sets.greatsword[i] || ArcaneOdysseyMod.Sets.dagger[i] || ArcaneOdysseyMod.Sets.staff[i] || ArcaneOdysseyMod.Sets.rapier[i] || ArcaneOdysseyMod.Sets.greathammer[i] || ItemID.Sets.Yoyo[i] || ArcaneOdysseyMod.Sets.greataxe[i] || ArcaneOdysseyMod.Sets.flail[i];
+		}
+
+		public override void SetStaticDefaults()
+		{
+			ExternalModSupport.SetItemAttributes();
+		}
+
+		public override void PostSetupRecipes()
+		{
+			ArcaneOdysseyMod.finishedLoading = true;
+
+			for (int i = 0; i < ItemLoader.ItemCount; i++)
 			{
-				if (npc.AI_120_HallowBoss_IsGenuinelyEnraged())
+				if (!InArray(i))
 				{
-					DownedBosses.downedEnragedEmpress = true;
-					if (Main.dedServ)
+					var item = new Item(i);
+
+					if (item.shieldSlot != -1)
 					{
-						NetMessage.SendData(MessageID.WorldData);
+						ArcaneOdysseyMod.Sets.shield[i] = true;
+					}
+
+					if (item.ModItem is not null)
+					{
+						if (AOUtils.ImbueClassCheck(item) || item.ArcaneOdyssey().WeaponsType is WeaponType.Arcanium)
+						{
+							ExternalModSupport.CheckWeapon(item.ModItem);
+						}
+					}
+
+					if (!InArray(i))
+					{
+						if (Item.claw[i])
+						{
+							ArcaneOdysseyMod.Sets.claw[i] = true;
+						}
+
+						else if (ItemID.Sets.Spears[i])
+						{
+							ArcaneOdysseyMod.Sets.spear[i] = true;
+						}
+
+						if (!InArray(i))
+						{
+							if (item.DamageType.CountsAsClass(DamageClass.Melee) && item.axe == 0 && item.hammer == 0 && item.pick == 0 && item.ModItem is not (Imbuable or Scroll) && !item.accessory)
+							{
+								ArcaneOdysseyMod.Sets.sword[i] = true;
+							}
+
+							else if (item.useAmmo == AmmoID.Arrow)
+							{
+								ArcaneOdysseyMod.Sets.bow[i] = true;
+							}
+
+							else if (item.useAmmo == AmmoID.Bullet)
+							{
+								ArcaneOdysseyMod.Sets.gun[i] = true;
+							}
+						}
 					}
 				}
 			}
-
-			if (npc.type == NPCID.EaterofWorldsHead)
-			{
-				DownedBosses.downedWorldEater = true;
-				if (Main.dedServ)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-			}
-
-			if (npc.type == NPCID.BrainofCthulhu)
-			{
-				DownedBosses.downedBrain = true;
-				if (Main.dedServ)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-			}
 		}
 	}
-
-	#if VSDEBUGMODE
-	public class DebugStuff : ModSystem
-	{
-		public static ModKeybind PrintInfo { get; set; }
-
-		public override void Load()
-		{
-			PrintInfo = KeybindLoader.RegisterKeybind(Mod, "PrintInfo", "P");
-		}
-
-		public override void Unload()
-		{
-			PrintInfo = null;
-		}
-
-		public override void PostUpdateItems()
-		{
-			if (PrintInfo.JustPressed) 
-			{
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOUtils.BossesKilled) + " " + AOUtils.BossesKilled);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.commonpity) + " " + AOTile.commonpity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.rarepity) + " " + AOTile.rarepity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOTile.lostpity) + " " + AOTile.lostpity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.acumen) + " " + Main.LocalPlayer.ArcaneOdyssey().acumen);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.BronzeSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().BronzeSealed);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.NimbusSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.DarkSealed) + " " + Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Grounded) + " " + Main.LocalPlayer.ArcaneOdyssey().Grounded);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOSizeStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOSizeStat);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.Insanity) + " " + Main.LocalPlayer.ArcaneOdyssey().Insanity);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(AOPlayer.AOHasteStat) + " " + Main.LocalPlayer.ArcaneOdyssey().AOHasteStat);
-				ArcaneOdysseyMod.NoticeQueue.Add(nameof(ArcaneOdysseyMod.DevMode) + " " + ArcaneOdysseyMod.DevMode);
-			}
-		}
-	}
-	#endif
 }

@@ -1,0 +1,18 @@
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Projectiles.Magic.Effects;
+using System;
+
+namespace ArcaneOdyssey.Gimmicks.Magic
+{
+	public class PoisonClouds : ImbueGimmick
+	{
+		public override void KillEffects(Projectile projectile)
+		{
+			var area = projectile.Hitbox;
+			var proj = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), new(area.X + area.Width * Main.rand.NextFloat(), area.Y + area.Height * Main.rand.NextFloat()), Vector2.Zero, ModContent.ProjectileType<PoisonCloud>(), (int)MathF.Ceiling(projectile.damage / 10f), 0f);
+			proj.scale *= projectile.Hitbox.RelativeScale(max: 2f);
+			proj.Hitbox = proj.Hitbox.Scaled(projectile.Hitbox.RelativeScale(max: 2f));
+			proj.netUpdate = true;
+		}
+	}
+}

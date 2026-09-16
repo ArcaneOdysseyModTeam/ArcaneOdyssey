@@ -1,41 +1,35 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Common;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
-using ArcaneOdyssey.Content.Items.Scrolls.Usable.Common;
-using ArcaneOdyssey.Content.Items.Scrolls.Usable.Lost;
-using ArcaneOdyssey.Content.Items.Scrolls.Usable.Rare;
-using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using System.Collections.Generic;
-using Terraria;
+using System.IO;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.GlobalTypes
 {
 	public class AOTile : GlobalTile
 	{
-		public static int commonpity = 0;
-		public static int rarepity = 0;
-		public static int lostpity = 0;
+		internal static IEnumerable<Scroll> allScrolls;
+		internal static IEnumerable<CommonScroll> commonScrolls;
+		internal static IEnumerable<RareScroll> rareScrolls;
+		internal static IEnumerable<LostScroll> lostScrolls;
+		public override void SetStaticDefaults()
+		{
+			allScrolls = ModContent.GetContent<Scroll>();
+			commonScrolls = ModContent.GetContent<CommonScroll>();
+			rareScrolls = ModContent.GetContent<RareScroll>();
+			lostScrolls = ModContent.GetContent<LostScroll>();
+		}
+
 		public override void Drop(int i, int j, int type)
 		{
-			if (type == TileID.Pots || (ExternalModSupport.HasCalamity && ExternalModSupport.Calamity.TryFind<ModTile>("AbyssalPots", out var tile) && type == tile.Type))
+			if (type == TileID.Pots)
 			{
-				if (Player.GetClosestRollLuck(i, j, 50 - (commonpity++ / 2)) == 0)
+				if (Player.GetClosestRollLuck(i, j, 50 - (ScrollPitySystem.pity++ / 2)) == 0)
 				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllCommonScrollDrops()));
-					commonpity = 0;
-				}
-				if (AOUtils.BossesKilled > 0 && Player.GetClosestRollLuck(i, j, 150 - (rarepity++ / 2)) == 0)
-				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllRareScrollDrops()));
-					rarepity = 0;
-				}
-				if (Main.hardMode && Player.GetClosestRollLuck(i, j, 300 - (lostpity++ / 2)) == 0)
-				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16, Main.rand.Next(GetAllLostScrollDrops()));
-					lostpity = 0;
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j).ToWorldCoordinates(), Main.rand.Next(GetAllLostScrollDrops())); // will output the highest tier you can obtain
+					ScrollPitySystem.pity = 0;
 				}
 			}
 		}
@@ -48,119 +42,168 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			List<int> options = [];
 
-			void AddOption<T>() where T : CommonScroll
+			foreach (var scroll in commonScrolls)
 			{
-				options.Add(ModContent.ItemType<T>());
+				if (scroll.MetConditions())
+				{
+					options.Add(scroll.Type);
+				}
 			}
 
-			AddOption<BlastScroll>();
-			AddOption<ExplosionScroll>();
-			AddOption<RainRite>();
-			AddOption<CrashScroll>();
-			AddOption<LeapScroll>();
-
-			if (AOUtils.BossesKilled > 0)
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
 			{
-				AddOption<SmashScroll>();
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
 			}
 
-			if (NPC.downedBoss2)
+			if (options.Count == 0)
 			{
-				AddOption<BeamScroll>();
-				AddOption<HoverScroll>();
-			}
-
-			if (NPC.downedBoss3)
-			{
-				AddOption<AuraScroll>();
-			}
-
-			if (Main.hardMode)
-			{
-				AddOption<ShotScroll>();
+				options.Add(ModContent.ItemType<BlastScroll>());
 			}
 
 			return [.. options];
 		}
 
 		/// <summary>
-		/// Drops after at least one boss defeated
+		/// Drops hardmode
 		/// </summary>
 		/// <returns></returns>
 		public static int[] GetAllRareScrollDrops()
 		{
 			List<int> options = [];
-
-			void AddOption<T>() where T : RareScroll
-			{
-				options.Add(ModContent.ItemType<T>());
-			}
-
-			AddOption<HoundRite>();
-			AddOption<WalkRite>();
-			AddOption<AxeTechnique>();
-			AddOption<BarrageSpell>();
-			AddOption<BreathtakerTechnique>();
-
-			if ((NPC.downedBoss1 && Main.expertMode) || NPC.downedBoss3)
-			{
-				AddOption<ReflexScroll>();
-			}
-
-			if (NPC.downedBoss2)
-			{
-				AddOption<SelinoTechnique>();
-			}
-
-			if (NPC.downedBoss3)
-			{
-				AddOption<ArrayScroll>();
-				AddOption<PulsarScroll>();
-				AddOption<JavelinSpell>();
-				AddOption<SelinoTechnique>();
-			}
-
 			if (Main.hardMode)
 			{
-				AddOption<RaySpell>();
-				AddOption<MeteorScroll>();
-				AddOption<FlightScroll>();
-				AddOption<GreatjumpTechnique>();
+				options.Add(ModContent.ItemType<AcumenTechnique>());
+				foreach (var scroll in rareScrolls)
+				{
+					if (scroll.MetConditions())
+					{
+						options.Add(scroll.Type);
+					}
+				}
+			}
+
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
+			{
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
+				if (Main.LocalPlayer.ArcaneOdyssey().acumen)
+				{
+					options.RemoveAll(e => e == ModContent.ItemType<AcumenTechnique>());
+				}
+			}
+
+			if (options.Count == 0)
+			{
+				options.AddRange(GetAllCommonScrollDrops());
 			}
 
 			return [.. options];
 		}
 
 		/// <summary>
-		/// Drops in hardmode
+		/// Drops post ml
 		/// </summary>
 		/// <returns></returns>
 		public static int[] GetAllLostScrollDrops()
 		{
 			List<int> options = [];
-
-			void AddOption<T>() where T : LostScroll
+			if (NPC.downedMoonlord)
 			{
-				options.Add(ModContent.ItemType<T>());
-			}
-
-			AddOption<AnnihilationScroll>();
-			if (Main.netMode == NetmodeID.SinglePlayer) 
-			{
-				if (!Main.LocalPlayer.ArcaneOdyssey().acumen)
+				foreach (var scroll in lostScrolls)
 				{
-					AddOption<AcumenTechnique>();
+					if (scroll.MetConditions())
+					{
+						options.Add(scroll.Type);
+					}
 				}
 			}
-			else
+
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
 			{
-				AddOption<EnchantmentSpell>();
-				AddOption<AcumenTechnique>();
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
 			}
-			AddOption<CrescendoTechnique>();
-			AddOption<ElementalSpell>();
+
+			if (options.Count == 0)
+			{
+				options.AddRange(GetAllRareScrollDrops());
+			}
 
 			return [.. options];
+		}
+
+		public static int[] GetAllScrollDrops()
+		{
+			List<int> options = [];
+
+			foreach (var scroll in commonScrolls)
+			{
+				if (scroll.MetConditions())
+				{
+					options.Add(scroll.Type);
+				}
+			}
+
+			if (Main.hardMode)
+			{
+				options.Add(ModContent.ItemType<AcumenTechnique>());
+				foreach (var scroll in rareScrolls)
+				{
+					if (scroll.MetConditions())
+					{
+						options.Add(scroll.Type);
+					}
+				}
+			}
+
+			if (NPC.downedMoonlord)
+			{
+				foreach (var scroll in lostScrolls)
+				{
+					if (scroll.MetConditions())
+					{
+						options.Add(scroll.Type);
+					}
+				}
+			}
+
+			if (Main.netMode == NetmodeID.SinglePlayer && !Main.gameMenu)
+			{
+				options.RemoveAll(Main.LocalPlayer.HasItemInAnyInventory);
+			}
+
+			if (options.Count == 0)
+			{
+				options.Add(ModContent.ItemType<BlastScroll>());
+			}
+
+			return [.. options];
+		}
+	}
+
+	public class ScrollPitySystem : ModSystem
+	{
+		internal static byte pity = 0;
+
+		public override void SaveWorldData(TagCompound tag)
+		{
+			if (pity > 0)
+			{
+				tag.Add("pity", pity);
+			}
+		}
+
+		public override void LoadWorldData(TagCompound tag)
+		{
+			pity = tag.GetByte("pity");
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(pity);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			pity = reader.ReadByte();
 		}
 	}
 }

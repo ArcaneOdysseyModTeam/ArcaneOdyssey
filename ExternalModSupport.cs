@@ -1,15 +1,20 @@
-﻿using ArcaneOdyssey.Content.Items.Armour.Vanity.Masks;
-using ArcaneOdyssey.Content.Items.BossTrophies;
-using ArcaneOdyssey.Content.Items.Scrolls.Equipment.Rare;
-using ArcaneOdyssey.Content.Items.Weapons;
-using ArcaneOdyssey.Content.Items.Weapons.Sunken;
-using ArcaneOdyssey.Content.NPCS.Minibosses;
-using ArcaneOdyssey.Content.NPCS.Town;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Armour.Vanity.Masks;
+using ArcaneOdyssey.Items.BossRelics;
+using ArcaneOdyssey.Items.BossTrophies;
+using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Equipment.Pets;
+using ArcaneOdyssey.Items.Weapons;
+using ArcaneOdyssey.Items.Weapons.Sunken;
+using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.NPCs.Minibosses;
+using ArcaneOdyssey.NPCs.Town;
+using ArcaneOdysseyMusic.MusicBoxes;
+using FargosMod = Fargowiltas.Fargowiltas;
 using System;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.Localization;
-using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 
 namespace ArcaneOdyssey
 {
@@ -19,54 +24,105 @@ namespace ArcaneOdyssey
 		{
 			AddFargosStuff();
 			AddShieldSlots();
-			MiscCalamitysStuff();
 			AddBossChecklist();
+			MagicStorageSupport();
 		}
 
-		public static void RegisterDebuff(ModBuff buff)
+		public override void OnModLoad()
 		{
-			if (HasCalamity)
-			{
-				var call = (NPC e) => e.HasBuff(buff.Type);
-				Calamity.Call("RegisterDebuff", buff.Texture, call);
-			}
+			Fargos?.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Mod.Name);
 		}
 
-		public void MiscCalamitysStuff()
+		public static void MagicStorageSupport()
 		{
-			if (!HasCalamity)
+			if (!HasMS)
 				return;
 
-			string[] descs = [Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Description4").Value];
-			string[] descs2 = [Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description1").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description2").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description3").Value, Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Description4").Value];
-			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.DarkSea.Name").Value,
-				string.Join(' ', descs),
-				() => true);
-			Calamity.Call("CreateCodebreakerDialogOption", Mod.CustomLocalization("CodebreakerDialogOption.Epicentre.Name").Value,
-				string.Join(' ', descs2),
-				() => true);
+			RegisterShadowDiamondDrop(ModContent.NPCType<LordElius>());
 		}
 
-		public static void DeclareMiniboss(int type)
+		private static IItemDropRule GetShadowDiamondDropRule(int normal = 1, int expert = -1)
 		{
-			if (HasCalamity)
-				Calamity.Call("DeclareMiniboss", type);
+			return (IItemDropRule)MS.Call(
+
+				"Get Shadow Diamond Drop Rule",
+				normal,
+				expert
+			);
+		}
+
+		private static void SetShadowDiamondDropRule(int npcType, IItemDropRule rule)
+		{
+			MS.Call(
+				"Set Shadow Diamond Drop Rule",
+				npcType,
+				rule
+			);
+		}
+
+		private static void RegisterShadowDiamondDrop(int npcType, int normal = 1, int expert = -1)
+		{
+			SetShadowDiamondDropRule(npcType, GetShadowDiamondDropRule(normal, expert));
+		}
+
+		private static void RegisterShadowDiamondDropNormal(int npcType, int amount = 1)
+		{
+			IItemDropRule diamondDropRule = GetShadowDiamondDropRule(amount, -1);
+			IItemDropRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			Chains.OnSuccess(notExpertRule, diamondDropRule, false);
+			SetShadowDiamondDropRule(npcType, notExpertRule);
+		}
+
+		private static void RegisterShadowDiamondDropDummy(int npcType, int amount = 1)
+		{
+			IItemDropRule diamondDropRule = GetShadowDiamondDropRule(amount, -1);
+			IItemDropRule dummyRule = new LeadingConditionRule(new Conditions.NeverTrue());
+			dummyRule.OnSuccess(diamondDropRule, false);
+			SetShadowDiamondDropRule(npcType, dummyRule);
+		}
+
+		public static void RegisterDebuff(ModBuff buff) { } // unused
+
+		public static void RegisterDoT(int type) => Thorium?.Call("AddPlayerDoTBuffID", type);
+
+		public static void RegisterStatusBuff(int type) => Thorium?.Call("AddPlayerStatusBuffID", type);
+
+		public static void ThoriumStuff()
+		{
+			if (!HasThorium)
+				return;
+			for (int i = 0; i < ItemLoader.ItemCount; i++)
+			{
+				var item = new Item(i);
+				if ((bool)Thorium.Call("IsFlailProjectileID", item.shoot))
+				{
+					ArcaneOdysseyMod.Sets.flail[i] = true;
+				}
+			}
+
+			for (int i = 0; i < ItemLoader.ItemCount; i++)
+			{
+				if (ArcaneOdysseyMod.Sets.flail[i])
+				{
+					var item = ModContent.GetModItem(i);
+					if (item?.Mod is ArcaneOdysseyMod)
+					{
+						Thorium.Call("AddFlailProjectileID", item.Item.shoot);
+					}
+				}
+			}
 		}
 
 		public static void AddShieldSlots()
 		{
 			if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
 			{
-				shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
+				//shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
 			}
 		}
 
 		public static bool CanDoubleTapDash()
 		{
-			if (HasCalamity)
-			{
-				return DashBind().GetAssignedKeys().Count == 0;
-			}
 			if (HasFargos)
 			{
 				return !(bool)Fargos.Call("DoubleTapDashDisabled");
@@ -74,49 +130,96 @@ namespace ArcaneOdyssey
 			return true;
 		}
 
-		public static ModKeybind DashBind()
+		public static ModKeybind DashBind
 		{
-			if (HasCalamity)
+			get
 			{
-				var a = Calamity.Code.GetType("CalamityMod.CalamityKeybinds");
-				if (a is not null)
+				if (HasFargos)
 				{
-					return (ModKeybind)a.GetProperty("DashHotkey").GetValue(null);
+					return FargosDash;
 				}
+				return null;
 			}
-			else if (HasFargos)
-			{
-				var e = Fargos.GetType().
-					GetField("DashKey").
-					GetValue(null);
-				return (ModKeybind)e;
-			}
-			return null;
 		}
+
+		[JITWhenModsEnabled("Fargowiltas")]
+		public static ModKeybind FargosDash => FargosMod.DashKey;
 
 		private void AddFargosStuff()
 		{
-			if (HasFargos)
+			// stat sheet
+			Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().SizeMulti - 100f, 1)).Value;
+			Fargos?.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
+			Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Abs(Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1))).Value;
+			Fargos?.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
+
+			//Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
+			//Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
+
+			Fargos?.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.Town.{nameof(Edgelord)}");
+			Fargos?.Call("AddPermaUpgrade", new Item(ModContent.ItemType<AcumenTechnique>()), () => Main.LocalPlayer.ArcaneOdyssey().acumen);
+		}
+
+		private static bool rectsRegistered = false;
+
+		public override void OnWorldLoad()
+		{
+			rectsRegistered = false;
+		}
+
+		public override void OnWorldUnload()
+		{
+			rectsRegistered = false;
+		}
+
+		public override void PostUpdateEverything()
+		{
+			if (!rectsRegistered)
 			{
-				// stat sheet
-				Func<string> SizeText = () => Mod.CustomLocalization("FargosSheet.SizeMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().SizeMulti - 100f, 1)).Value;
-				Fargos.Call("AddStat", ModContent.ItemType<ColossalGreatsword>(), SizeText);
-				Func<string> HasteStat = () => Mod.CustomLocalization("FargosSheet.CooldownMulti", Math.Round(100f * Main.LocalPlayer.ArcaneOdyssey().CooldownDurationMulti - 100f, 1)).Value;
-				Fargos.Call("AddStat", ModContent.ItemType<SunkenSword>(), HasteStat);
-
-				//Func<string> blood = () => Mod.CustomLocalization("FargosSheet.BloodDisease", Main.LocalPlayer.ArcaneOdyssey().BloodDiseaseName).Value;
-				//Fargos.Call("AddStat", ItemID.PsychoKnife, blood);
-
-				Fargos.Call("AddDevianttHelpDialogue", "Deviantt", (byte)2, (string _) => "No Conditions", $"{Mod.Name}.NPCs.{nameof(Edgelord)}");
+				Fargos?.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
+				rectsRegistered = true;
 			}
 		}
 
-		public static bool HasCalamity => ModLoader.HasMod("CalamityMod");
-		public static Mod Calamity => ModLoader.GetMod("CalamityMod");
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
-		public static Mod Fargos => ModLoader.GetMod("Fargowiltas");
+		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
+
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
-		public static Mod Thorium => ModLoader.GetMod("ThoriumMod");
+		public static Mod Thorium => HasThorium ? ModLoader.GetMod("ThoriumMod") : null;
+
+		public static bool HasMS => ModLoader.HasMod("MagicStorage");
+		public static Mod MS => HasMS ? ModLoader.GetMod("MagicStorage") : null;
+
+		public static bool NotInSubworld
+		{
+			get
+			{
+				if (!ModLoader.TryGetMod("SubworldLibrary", out Mod subworld))
+				{
+					return true;
+				}
+				else
+				{
+					if ((bool)subworld.Call("AnyActive", null))
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+		}
+
+		public static bool InAOSubworld
+		{
+			get
+			{
+				if (ModLoader.TryGetMod("SubworldLibrary", out Mod subworld) && (bool)subworld.Call("AnyActive", ArcaneOdysseyMod.Instance))
+				{
+					return true;
+				}
+				return false;
+			}
+		}
 
 		private void AddBossChecklist()
 		{
@@ -129,10 +232,10 @@ namespace ArcaneOdyssey
 			{
 				string internalName = nameof(Evander);
 				float weight = 7.5f; // right after wof
-				Func<bool> downed = () => DownedBosses.downedEvander;
+				Func<bool> downed = () => DownedBosses.DownedEvander;
 				int bossType = ModContent.NPCType<Evander>();
 				int trophy = ModContent.ItemType<EvanderTrophy>();
-				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
 				"LogMiniBoss",
@@ -152,11 +255,11 @@ namespace ArcaneOdyssey
 			{
 				string internalName = nameof(Dusk);
 				float weight = 3.5f; // right after eow
-				Func<bool> downed = () => DownedBosses.downedDusk;
+				Func<bool> downed = () => DownedBosses.DownedDusk;
 				int bossType = ModContent.NPCType<Dusk>();
 				int trophy = ModContent.ItemType<DuskTrophy>();
 				int mask = ModContent.ItemType<DuskMask>();
-				LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
 
 				bossChecklist.Call(
 				"LogMiniBoss",
@@ -172,165 +275,402 @@ namespace ArcaneOdyssey
 				});
 			}
 
-			//void LaelusStuff()
-			//{
-			//	string internalName = nameof(Laelus);
-			//	float weight = .5f; // right away!
-			//	Func<bool> downed = () => DownedBosses.downedLaelus;
-			//	int bossType = ModContent.NPCType<Laelus>();
-			//	//int trophy = ModContent.ItemType<EvanderTrophy>();
-			//	LocalizedText spawnInfo = Mod.CustomLocalization($"NPCs.{internalName}.SpawnInfo");
+			void LaelusStuff()
+			{
+				string internalName = nameof(Laelus);
+				float weight = .5f; // right away!
+				Func<bool> downed = () => DownedBosses.DownedLaelus;
+				int bossType = ModContent.NPCType<Laelus>();
+				int trophy = ModContent.ItemType<LaelusTrophy>();
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Minibosses.{internalName}.SpawnInfo");
 
-			//	bossChecklist.Call(
-			//	"LogMiniBoss",
-			//	Mod,
-			//	internalName,
-			//	weight,
-			//	downed,
-			//	bossType,
-			//	new Dictionary<string, object>()
-			//	{
-			//		//["collectibles"] = new List<int> { trophy },
-			//		["spawnInfo"] = spawnInfo
-			//	});
-			//}
+				bossChecklist.Call(
+				"LogMiniBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					["collectibles"] = new List<int> { trophy },
+					["spawnInfo"] = spawnInfo
+				});
+			}
+
+			void EliusStuff()
+			{
+				string internalName = nameof(LordElius);
+				float weight = 2.6f; // after blood moon
+				Func<bool> downed = () => DownedBosses.DownedElius;
+				int bossType = ModContent.NPCType<LordElius>();
+				int trophy = ModContent.ItemType<EliusTrophy>();
+				int relic = ModContent.ItemType<EliusBossRelic>();
+				int pet = ModContent.ItemType<VermillionBracelet>();
+				int musicbox = ModContent.ItemType<EliusMusicBox>();
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Bosses.{internalName}.SpawnInfo");
+
+				bossChecklist.Call(
+				"LogBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					["collectibles"] = new List<int> { pet, musicbox, relic, trophy },
+					["spawnInfo"] = spawnInfo
+				});
+			}
 
 			EvanderStuff();
 			DuskStuff();
-			//LaelusStuff();
+			LaelusStuff();
+			EliusStuff();
+
+			bossChecklist.Call("SubmitEntryCollectibles", Mod, new Dictionary<string, object>()
+			{
+				{ "Terraria HallowBoss", new List<int>() { ModContent.ItemType<HecateShard>() } },
+			});
 		}
 
-		public static bool? CheckItemTemperature(ModItem item)
+		public static void SetItemAttributes()
 		{
-			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
+			foreach (var item in ModContent.GetContent<ModItem>())
 			{
-				switch (item.Name)
+				if (item.Mod.Name == "ThoriumMod")
 				{
-					case "AbsoluteZero":
-					case "AbyssBlade":
-					case "AmidiasTrident":
-					case "Avalanche":
-					case "BrinyBaron":
-					case "DepthCrusher":
-					case "Floodtide":
-					case "NeptunesBounty":
-					case "Riptide":
-					case "SeashineSword":
-					case "Shimmerspark":
-					case "StarnightLance":
-					case "TenebreusTides":
-					case "TyphonsGreed":
-					case "UrchinMace":
-					case "Alluvion":
-					case "AquashardShotgun":
-					case "Archerfish":
-					case "DarkechoGreatbow":
-					case "EternalBlizzard":
-					case "FlakKraken":
-					case "FlurrystormCannon":
-					case "FrostbiteBlaster":
-					case "HoarfrostBow":
-					case "Leviatitan":
-					case "Megalodon":
-					case "Monsoon":
-					case "SDFMG":
-					case "Seadragon":
-					case "SeasSearing":
-					case "TheMaelstrom":
-					case "ShardlightPickaxe":
-					case "AbyssalWarhammer":
-						return true;
-					case "AegisBlade":
-					case "AnarchyBlade":
-					case "BalefulHarvester":
-					case "Brimlance":
-					case "Brimlash":
-					case "BrimstoneSword":
-					case "BurningRevelation":
-					case "DevilsSunrise":
-					case "DraconicDestruction":
-					case "DragonPow":
-					case "DragonRage":
-					case "EssenceFlayer":
-					case "FaultLine":
-					case "HellfireFlamberge":
-					case "HolyCollider":
-					case "MawOfInfinity":
-					case "Mourningstar":
-					case "OldLordClaymore":
-					case "SeekingScorcher":
-					case "StreamGouge":
-					case "TheBurningSky":
-					case "UltimusCleaver":
-					case "VulcaniteLance":
-					case "AuroraBlazer":
-					case "BlissfulBombardier":
-					case "BloodBoiler":
-					case "BrimstoneFury":
-					case "ChickenCannon":
-					case "ChromaticEruption":
-					case "ContinentalGreatbow":
-					case "DaemonsFlame":
-					case "DeadSunsWind":
-					case "DragonsBreath":
-					case "Drataliornus":
-					case "FirestormCannon":
-					case "FlarewingBow":
-					case "HalleysInferno":
-					case "HavocsBreath":
-					case "Hellborn":
-					case "Helstorm":
-					case "MagnomalyCannon":
-					case "Meowthrower":
-					case "PristineFury":
-					case "TelluricGlare":
-					case "DragoonDrizzlefish":
-					case "WildfireBloom":
-					case "InfernaCutter":
-					case "SeismicHampick":
-					case "TectonicTruncator":
-						return false;
+					switch (item.GetType().Namespace.Split('.')[^1])
+					{
+						case "Icy":
+							ArcaneOdysseyMod.Sets.cold[item.Type] = true;
+							break;
+					}
+				}
+
+				string[] strength = [
+					"ThoriumMod/TerrariansLastKnife",
+					"ThoriumMod/WyvernSlayer",
+					"ThoriumMod/QuakeGauntlet"
+				];
+
+				string[] arcanium = [
+
+				];
+
+				string[] artisinal = [
+					"ThoriumMod/MastersLibram",
+					"ThoriumMod/QuasarsFlare",
+					"ThoriumMod/SnowWhite",
+					"ThoriumMod/StellarSystem",
+					"ThoriumMod/UselessStaff",
+					"ThoriumMod/WondrousWand",
+					"ThoriumMod/EclipseFang"
+				];
+
+				foreach (var strong in strength)
+				{
+					if (ModContent.TryFind<ModItem>(strong, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.weaponType[item.Type] = WeaponType.Strength;
+						}
+					}
+				}
+
+				foreach (var artisan in artisinal)
+				{
+					if (ModContent.TryFind<ModItem>(artisan, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.weaponType[item.Type] = WeaponType.Artisinal;
+						}
+					}
+				}
+
+				foreach (var arc in arcanium)
+				{
+					if (ModContent.TryFind<ModItem>(arc, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.weaponType[item.Type] = WeaponType.Arcanium;
+						}
+					}
+				}
+
+				string[] cold = [
+					"ThoriumMod/HydroPump",
+					"ThoriumMod/TheWhirlpool",
+					"ThoriumMod/Chum",
+					"ThoriumMod/WhirlpoolSaber",
+					"ThoriumMod/IcyGaze",
+					"ThoriumMod/DeitysTrefork",
+					"ThoriumMod/OceansJudgement",
+					"ThoriumMod/SevenSeasDevastator",
+					"ThoriumMod/TidalWave",
+					"ThoriumMod/SeahorseWand",
+					"ThoriumMod/BlobhornCoralStaff",
+					"ThoriumMod/GeyserStaff",
+					"ThoriumMod/SeaFoamScepter",
+					"ThoriumMod/ClimbersIceAxe",
+					"ThoriumMod/SpiritBreaker",
+					"ThoriumMod/Freeze",
+					"ThoriumMod/NitrogenVial",];
+
+				string[] hot = [
+					"ThoriumMod/TheSeaMine",
+					"ThoriumMod/GodKiller",
+					"ThoriumMod/AlmanacofAgony",
+					"ThoriumMod/DevilsClaw",
+					"ThoriumMod/EmberStaff",
+					"ThoriumMod/PrometheanStaff",
+					"ThoriumMod/DraconicMagmaStaff",
+					"ThoriumMod/EruptingFlare",
+					"ThoriumMod/EssenceofFlame",
+					"ThoriumMod/GoldenLocks",
+					"ThoriumMod/GolemsGaze",
+					"ThoriumMod/HellishHalberd",
+					"ThoriumMod/HellfireMinigun",
+					"ThoriumMod/ObsidianStaff",
+					"ThoriumMod/InfernalAnimator",
+					"ThoriumMod/TheMassacre",
+					"ThoriumMod/Ignite",
+					"ThoriumMod/InfernoStaff",
+					"ThoriumMod/DoomFireAxe",
+					"ThoriumMod/SolScorchedSlab",
+					"ThoriumMod/CinderString",
+					"ThoriumMod/CometCrossfire",
+					"ThoriumMod/MeteorHeadStaff",
+					"ThoriumMod/CombustionFlask",
+					"ThoriumMod/MoltenKnife",
+					"ThoriumMod/MeteoriteClusterBomb",
+					"ThoriumMod/PlasmaVial"];
+
+				foreach (var colditem in cold)
+				{
+					if (ModContent.TryFind<ModItem>(colditem, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.cold[item.Type] = false;
+						}
+					}
+				}
+
+				foreach (var hotitem in hot)
+				{
+					if (ModContent.TryFind<ModItem>(hotitem, out var theitem))
+					{
+						if (item.FullName == theitem.FullName)
+						{
+							ArcaneOdysseyMod.Sets.cold[item.Type] = true;
+						}
+					}
+				}
+
+
+				string[] greatswords = [
+					"ThoriumMod/WyvernSlayer"
+				];
+
+				string[] greataxes = [
+					"ThoriumMod/LodeStoneGreatAxe",
+				];
+
+				string[] daggers = [
+
+				];
+
+				string[] greathammer = [
+					"ThoriumMod/MagicThorHammer",
+					"ThoriumMod/RangedThorHammer",
+					"ThoriumMod/MeleeThorHammer",
+				];
+
+				string[] spears = [
+					"ThoriumMod/Spearmint"
+				];
+
+				string[] dualblades = [
+
+				];
+
+				string[] staffs = [
+
+				];
+
+				string[] rapiers = [
+					"ThoriumMod/Rapier"
+				];
+
+				string[] claws = [
+					"ThoriumMod/BloodyHighClaws"
+				];
+
+
+				foreach (var igotlazy in greatswords)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.greatsword[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in greataxes)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.greataxe[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in greathammer)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.greathammer[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in daggers)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.dagger[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in rapiers)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.rapier[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in dualblades)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.dualbladed[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in claws)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.claw[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in spears)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.spear[item.Type] = true;
+						}
+					}
+				}
+
+
+				foreach (var igotlazy in staffs)
+				{
+					if (ModContent.TryFind<ModItem>(igotlazy, out var theitem))
+					{
+						if (theitem.FullName == item.FullName)
+						{
+							ArcaneOdysseyMod.Sets.staff[item.Type] = true;
+						}
+					}
 				}
 			}
-			return null;
 		}
 
-		public static WeaponType CheckWeaponsType(ModItem item)
+		public static void CheckWeapon(ModItem item) { } // unused
+
+		public override void Load()
 		{
-			if (item.Mod.Name == "CalamityMod") // would do more mods but calamity is just easy since i have the source code
+			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				switch (item.Name)
-				{
-					case "ClockworkBow":
-					case "FlakKraken":
-					case "HandheldTank":
-					case "MarksmanBow":
-					case "Roxcalibur":
-					case "DeepcoreGK2":
-					case "AnarchyBlade":
-					case "GrandGuardian":
-					case "HolyCollider":
-					case "MajesticGuard":
-						return WeaponType.Strength;
-					case "Karasawa":
-					case "PrismaticBreaker":
-					case "TheBurningSky":
-						return WeaponType.Arcanium;
-					case "TrueBiomeBlade":
-					case "BrokenBiomeBlade":
-					case "OmegaBiomeBlade":
-					case "Galaxia":
-					case "FourSeasonsGalaxia":
-					case "ArkoftheCosmos":
-					case "ArkoftheElements":
-					case "FracturedArk":
-					case "SkytideDragoon":
-					case "Earth":
-					case "TrueArkoftheAncients":
-						return WeaponType.Artisinal;
-				}
+				On_Dust.NewDust += DustScaleFixer;
+				On_Dust.NewDustDirect += DirectDustScaleFixer;
+				On_Dust.NewDustPerfect += PerfectDustScaleFixer;
 			}
-			return WeaponType.Normal;
+
+			if (HasFargos)
+			{
+				Fargos.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Name);
+			}
+		}
+
+		private Dust PerfectDustScaleFixer(On_Dust.orig_NewDustPerfect orig, Vector2 Position, int Type, Vector2? Velocity, int Alpha, Color newColor, float Scale)
+		{
+			return orig(Position, Type, Velocity, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+		}
+
+		private Dust DirectDustScaleFixer(On_Dust.orig_NewDustDirect orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+		{
+			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+		}
+
+		private int DustScaleFixer(On_Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+		{
+			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+		}
+
+		public override void Unload()
+		{
+			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				On_Dust.NewDust -= DustScaleFixer;
+				On_Dust.NewDustDirect -= DirectDustScaleFixer;
+				On_Dust.NewDustPerfect -= PerfectDustScaleFixer;
+			}
 		}
 	}
+
+	//[ExtendsFromMod("MagicStorage")]
+	//public class ImbuesFilter : FilteringOption
+	//{
+	//	public override ItemFilter.Filter Filter => item => item.ModItem is Imbuable or Scroll;
+
+	//	public override string Texture => Mod.Name + "/Assets/ImbuesFilter";
+
+	//	public override Position GetDefaultPosition() => new Between(FilteringOptionLoader.Definitions.Magic, FilteringOptionLoader.Definitions.Summon); // might not work till aqua finishes his update
+	//}
 }

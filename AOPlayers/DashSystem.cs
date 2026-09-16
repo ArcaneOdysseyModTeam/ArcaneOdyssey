@@ -1,168 +1,12 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
-using Microsoft.Xna.Framework;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Imbues.Base;
 using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
 
 namespace ArcaneOdyssey.AOPlayers
 {
-	public abstract class DashSystem(Entity source) : IImbuable
-	{
-		public Entity source = source;
-		public Imbuable Imbue { get; set; }
-		public Imbuable SecondImbue { get; set; }
-
-		public string Name => GetType().Name;
-
-		public virtual bool FallThrough => true;
-
-		public virtual Mod Mod => ArcaneOdysseyMod.Instance;
-
-		/// <summary>
-		/// Whether the player is immune to contact damage while dashing, does not affect projectiles
-		/// </summary>
-		public abstract bool Immune { get; }
-
-		/// <summary>
-		/// Damage of the dash, set to 0 to disable damage
-		/// </summary>
-		public virtual int Damage
-		{
-			get
-			{
-				if (source is Projectile projectile)
-				{
-					return projectile.damage;
-				}
-				if (source is Item item)
-				{
-					return item.damage;
-				}
-				return 0;
-			}
-		}
-
-		public virtual bool ContactDamage => Damage > 0;
-
-		public virtual DamageClass DamageType => DamageClass.Default;
-
-		/// <summary>
-		/// Knockback of the dash
-		/// </summary>
-		public virtual float Knockback
-		{
-			get
-			{
-				if (source is Projectile projectile)
-				{
-					return projectile.knockBack;
-				}
-				if (source is Item item)
-				{
-					return item.knockBack;
-				}
-				return 0;
-			}
-		}
-
-		/// <summary>
-		/// Whether the dash can be trigger via hotkey, and if it can be used to go directions other than left and right
-		/// </summary>
-		public abstract bool LocksPlayer { get; }
-
-		/// <summary>
-		/// The cooldown between dash uses
-		/// </summary>
-		public abstract int Cooldown { get; }
-
-		/// <summary>
-		/// How long the dash lasts for
-		/// </summary>
-		public abstract int DashMax { get; }
-
-
-		/// <summary>
-		/// Sets the dash's cooldown
-		/// </summary>
-		/// <param name="player"></param>
-		public void SetCooldown(Player player)
-		{
-			if (DisplayedCooldownID != -1)
-			{
-				player.ArcaneOdyssey()?.SetCooldown(DisplayedCooldownID, Cooldown);
-			}
-			else
-				player.ArcaneOdyssey()?.SetCooldown(AOCooldown);
-		}
-
-		/// <summary>
-		/// Whether the dash is on cooldown
-		/// </summary>
-		/// <param name="player"></param>
-		/// <returns></returns>
-		public bool OnCooldown(Player player)
-		{
-			if (DisplayedCooldownID != -1)
-			{
-				return player.ArcaneOdyssey().OnCooldown(DisplayedCooldownID) && !ArcaneOdysseyMod.DevMode;
-			}
-			if (LocksPlayer)
-				return (player.ArcaneOdyssey().OnCooldown(GetType().Name) || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
-			else
-				return (player.ArcaneOdyssey().OnCooldown("StandardDash") || player.ArcaneOdyssey().dashing) && !ArcaneOdysseyMod.DevMode;
-		}
-
-		/// <summary>
-		/// Called every frame, and before the dash starts
-		/// </summary>
-		/// <param name="player"></param>
-		/// <returns>Whether to keep dashing</returns>
-		public virtual bool ExtraCheck(Player player) => true;
-
-		/// <summary>
-		/// The speed of the dash per tick
-		/// </summary>
-		public abstract float DashSpeed { get; }
-		public bool? UseScrollImbueStats => source.AnyArcaneOdyssey()?.BenifitsFromScrollStats;
-
-
-		/// <summary>
-		/// called every frame
-		/// </summary>
-		/// <param name="player"></param>
-		public virtual void DashEffect(Player player) { }
-
-		/// <summary>
-		/// called once at start of dash
-		/// </summary>
-		/// <param name="player"></param>
-		public virtual void OnStart(Player player) { }
-
-		/// <summary>
-		/// Called when the dash collisions a target
-		/// </summary>
-		/// <param name="player"></param>
-		/// <param name="target"></param>
-		/// <returns>Whether to end the dash</returns>
-		public abstract bool OnHit(Player player, Entity target);
-
-		public virtual void OnEnd(Player player) { }
-
-		/// <summary>
-		/// Called if the dash ends naturally without hitting any enemies
-		/// </summary>
-		public virtual void NaturalEnd(Player player) { }
-
-		public virtual int DisplayedCooldownID => -1;
-
-		public Cooldown AOCooldown => new(LocksPlayer ? Name : "StandardDash", Mod, Cooldown);
-	}
-
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public void SetDash(DashSystem dash, int dir = 0)
+		public void SetDash(ModDash dash, int dir = 0)
 		{
 			if (dash.LocksPlayer)
 			{
@@ -172,12 +16,12 @@ namespace ArcaneOdyssey.AOPlayers
 			else SideDash = dash;
 		}
 
-		private DashSystem _dash;
-		public DashSystem OmniDash { get => _dash; set => _dash = !dashing ? value : _dash; }
+		private ModDash _dash;
+		public ModDash OmniDash { get => _dash; set => _dash = !dashing ? value : _dash; }
 		public int OmniDashDir = 0;
-		private DashSystem _dash2;
-		public DashSystem SideDash { get => _dash2; set => _dash2 = !dashing ? value : _dash2; }
-		public DashSystem CurrentDash;
+		private ModDash _dash2;
+		public ModDash SideDash { get => _dash2; set => _dash2 = !dashing ? value : _dash2; }
+		public ModDash CurrentDash;
 		public int DashLeft;
 		public Vector2 DashVelocity;
 		public bool dashing;
@@ -212,7 +56,7 @@ namespace ArcaneOdyssey.AOPlayers
 		/// </summary>
 		/// <param name="dashToUse">The dash to use, otherwise use the already selected dash</param>
 		/// <param name="direction">The direction of the normal dash, leave 0 for any direction<para>-1 is left, 1 is right</para><para>-2 is up, 2 is down</para><para>-3 is left up diagonal, 3 is right up diagonal</para><para>-4 is left down diagonal, 4 is right down diagonal</para></param>
-		public void StartDash(DashSystem dashToUse, int direction = 0, Imbuable imbue = null, bool imbueAffectsSpeed = false)
+		public void StartDash(ModDash dashToUse, int direction = 0, Imbuable imbue = null, bool imbueAffectsSpeed = false)
 		{
 			if (dashToUse.ExtraCheck(Player))
 			{
@@ -220,12 +64,12 @@ namespace ArcaneOdyssey.AOPlayers
 				Player.timeSinceLastDashStarted = 0;
 				CurrentDash = dashToUse;
 				CurrentDashDir = direction;
-				if (CurrentDash.UseScrollImbueStats.HasValue || (CurrentDash.source is Item item1 && item1.ModItem is Imbuable))
+				if (CurrentDash.UseScrollImbueStats.HasValue || (CurrentDash.Source is Item item1 && item1.ModItem is Imbuable))
 				{
 					CurrentDash.Imbue = imbue;
-					if (CurrentDash.source.TryGetSecondImbue(imbue, out var second))
+					if (CurrentDash.Source.TryGetSecondImbue(imbue, out var second))
 						CurrentDash.SecondImbue = second;
-					else if (CurrentDash.source is Item item && item.ModItem is Imbuable imbue2)
+					else if (CurrentDash.Source is Item item && item.ModItem is Imbuable imbue2)
 					{
 						CurrentDash.SecondImbue = imbue2.Imbue;
 					}
@@ -233,7 +77,7 @@ namespace ArcaneOdyssey.AOPlayers
 				collisions = 0;
 				if (direction == 0)
 				{
-					DashVelocity = Player.Center.DirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
+					DashVelocity = Player.SafeDirectionTo(Main.MouseWorld) * dashToUse.DashSpeed;
 				}
 				else
 				{
@@ -277,6 +121,7 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 					else
 					{
+						direction *= (int)Player.gravDir;
 						if (Math.Sign(Player.velocity.X) != direction)
 						{
 							Player.velocity.X = 0f;
@@ -288,29 +133,8 @@ namespace ArcaneOdyssey.AOPlayers
 				dashmaxmult = 1f;
 				if (imbueAffectsSpeed && CurrentDash.Imbue is not null)
 				{
-					if (CurrentDash.UseScrollImbueStats.HasValue)
-					{
-						if (CurrentDash.UseScrollImbueStats.Value)
-						{
-							DashVelocity *= CurrentDash.Imbue.AOScrollSpeed;
-							dashmaxmult *= CurrentDash.Imbue.AOScrollSpeed;
-							if (CurrentDash.SecondImbue is not null)
-							{
-								DashVelocity *= CurrentDash.SecondImbue.AOScrollSpeed;
-								dashmaxmult *= CurrentDash.SecondImbue.AOScrollSpeed;
-							}
-						}
-						else
-						{
-							DashVelocity *= CurrentDash.Imbue.AOImbueSpeed;
-							dashmaxmult *= CurrentDash.Imbue.AOImbueSpeed;
-							if (CurrentDash.SecondImbue is not null)
-							{
-								DashVelocity *= CurrentDash.SecondImbue.AOImbueSpeed;
-								dashmaxmult *= CurrentDash.SecondImbue.AOImbueSpeed;
-							}
-						}
-					}
+					DashVelocity *= CurrentDash.ApplySpeed(1f);
+					dashmaxmult = CurrentDash.ApplySpeed(dashmaxmult);
 				}
 				DashLeft = dashToUse.DashMax;
 				dashToUse.OnStart(Player);
@@ -343,7 +167,7 @@ namespace ArcaneOdyssey.AOPlayers
 				SideDash = null;
 				CurrentDash = null;
 			}
-			if (Player.whoAmI == Main.myPlayer && ExternalModSupport.CanDoubleTapDash())
+			if (Player.whoAmI == Main.myPlayer && ExternalModSupport.CanDoubleTapDash()) // PORT check for vanilla dash keybind and stuff
 			{
 				if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[2] < 15)
 				{
@@ -358,7 +182,7 @@ namespace ArcaneOdyssey.AOPlayers
 					DashDir = 0;
 				}
 			}
-			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind().JustPressed)
+			else if (Player.whoAmI == Main.myPlayer && ExternalModSupport.DashBind.JustPressed)
 			{
 				if (Player.controlRight && !Player.controlLeft)
 				{
@@ -379,14 +203,14 @@ namespace ArcaneOdyssey.AOPlayers
 			else DashDir = 0;
 		}
 
-		public const int DashBoxExtraBoost = 8;
+		public float DashBoxExtraBoost => CurrentDash.ApplySize(8f, player: Player);
 		public int CurrentDashDir;
 
 		public override void PreUpdateMovement()
 		{
 			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
-			dashing &= !(Immobile || HeavySkillActive);
+			dashing &= !(Immobile || HeavySkillActive || Player.CCed);
 
 			if (OmniDash is not null)
 			{
@@ -399,7 +223,7 @@ namespace ArcaneOdyssey.AOPlayers
 				}
 			}
 
-			if (SideDash is not null)
+			else if (SideDash is not null)
 			{
 				Player.dashType = DashID.None;
 				if (!dashing && !SideDash.OnCooldown(Player) && !Player.mount.Active && !Player.setSolar)
@@ -455,14 +279,14 @@ namespace ArcaneOdyssey.AOPlayers
 						{
 							if (CurrentDash.Imbue is not null)
 							{
-								CurrentDash.Imbue.ExplosionEffects(Player.MountedCenter);
+								CurrentDash.Imbue?.ExplosionEffects(Player.MountedCenter);
 								CurrentDash.SecondImbue?.ExplosionEffects(Player.MountedCenter);
 							}
 						}
 						return;
 					}
-					CurrentDash.Imbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
-					CurrentDash.SecondImbue?.LingeringEffects(AOUtils.ScaleRectangleNotRef(Player.Hitbox, 1.5f), Player.velocity, Player);
+					CurrentDash.Imbue?.LingeringEffects(Player.Hitbox.Scaled(1.5f), Player.velocity, Player);
+					CurrentDash.SecondImbue?.LingeringEffects(Player.Hitbox.Scaled(1.5f), Player.velocity, Player);
 					CurrentDash.DashEffect(Player);
 					if (CurrentDash.LocksPlayer)
 					{
@@ -484,6 +308,8 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 			Player.eocDash = DashLeft;
 			DashStrikeCooldown--;
+
+			DashStrike();
 		}
 
 		public override void PostUpdateMiscEffects()
@@ -498,6 +324,11 @@ namespace ArcaneOdyssey.AOPlayers
 					}
 				}
 			}
+
+			if (Player.InModBiome<EliusArena>())
+			{
+				Player.gravity = Player.defaultGravity; // theres no water here so checking for that doesnt matter
+			}
 		}
 
 		internal int DashStrikeCooldown = 0;
@@ -506,10 +337,10 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (CurrentDash is not null && dashing)
 			{
-				var hitbox = new Rectangle((int)(Player.position.X + (Player.velocity.X * 0.5f) - (DashBoxExtraBoost / 2f)), (int)(Player.position.Y + (Player.velocity.Y * 0.5f) - (DashBoxExtraBoost / 2f)), Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost);
+				var hitbox = Utils.CenteredRectangle(Player.Center + Player.velocity, new(Player.width + DashBoxExtraBoost, Player.height + DashBoxExtraBoost));
 				foreach (NPC npc in Main.ActiveNPCs)
 				{
-					if (DashStrikeCooldown <= 0 && hitbox.Intersects(npc.getRect()) && (npc.noTileCollide || Player.CanHit(npc)))
+					if (DashStrikeCooldown <= 0 && hitbox.Intersects(npc.Hitbox) && (npc.noTileCollide || Player.CanHit(npc)))
 					{
 						DashStrikeCooldown = 10;
 						collisions++;
@@ -526,7 +357,7 @@ namespace ArcaneOdyssey.AOPlayers
 						if (CurrentDash.ContactDamage && Main.myPlayer == Player.whoAmI)
 						{
 							var damagetype = CurrentDash.DamageType;
-							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.Next(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);
+							npc.HitNPC(CalculateDashDamage(npc), Player.direction, Imbue, Player, Main.rand.NextFloat(100) < Player.GetTotalCritChance(damagetype), CalculateDashKnockback(), damagetype, true);
 						}
 					}
 				}
@@ -537,7 +368,7 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (CurrentDash is null)
 				return 0;
-			var modifiers = new ModDamageHelper(null);
+			var modifiers = new ModDamageHelper();
 			modifiers = AOUtils.CalculateImbueDamage(CurrentDash.Imbue, target, modifiers);
 			modifiers = AOUtils.CalculateImbueDamage(CurrentDash.SecondImbue, target, modifiers);
 
@@ -556,15 +387,15 @@ namespace ArcaneOdyssey.AOPlayers
 				{
 					if (CurrentDash.UseScrollImbueStats.Value)
 					{
-						knockback += Imbue.AOScrollSize.MultiToPercent();
+						knockback += Imbue.ScrollSize.MultiToPercent();
 					}
 					else
 					{
-						knockback += Imbue.AOImbueSize.MultiToPercent();
+						knockback += Imbue.ImbueSize.MultiToPercent();
 					}
 
 					if (CurrentDash.SecondImbue is not null)
-						knockback += CurrentDash.SecondImbue.AOImbueSize.MultiToPercent();
+						knockback += CurrentDash.SecondImbue.ImbueSize.MultiToPercent();
 				}
 			}
 			return knockback.ApplyTo(CurrentDash.Knockback);

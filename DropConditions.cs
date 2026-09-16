@@ -1,8 +1,8 @@
-﻿using Terraria;
+﻿using ArcaneOdyssey.Items.Consumable;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey
 {
@@ -36,20 +36,20 @@ namespace ArcaneOdyssey
 
 	public class FirstEvanderKill : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEvander;
+		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.DownedEvander;
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstEvanderKillDescription", () => "First Evander Defeated").Value;
 	}
 	public class NotFirstEvanderKill : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => DownedBosses.downedEvander;
+		public bool CanDrop(DropAttemptInfo info) => DownedBosses.DownedEvander;
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.NotFirstEvanderKillDescription", () => "Following Evanders Defeated").Value;
 	}
 
 	public class FirstDayEmpressKill : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEnragedEmpress;
+		public bool CanDrop(DropAttemptInfo info) => !DownedBosses.downedEnragedEmpress && info.npc.AI_120_HallowBoss_IsGenuinelyEnraged();
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstDayEmpressKillDescription", () => "First Enraged Empress of Light Defeated").Value;
 	}
@@ -68,24 +68,53 @@ namespace ArcaneOdyssey
 		public string GetConditionDescription() => "";
 	}
 
-	public class DownedAllMechBossesFirstTime : IItemDropRuleCondition
+	public class SpiritMechDropCondition : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info)
 		{
-			if (NPC.downedMechBoss1 && NPC.downedMechBoss2)
-				return !NPC.downedMechBoss3;
+			if (!MechBossSpiritDropSystem.dropped)
+			{
+				if (NPC.downedMechBoss1 && NPC.downedMechBoss2)
+					return !NPC.downedMechBoss3;
 
-			if (NPC.downedMechBoss1 && NPC.downedMechBoss3)
-				return (!NPC.downedMechBoss2) && !AOUtils.BothTwinsAlive();
+				if (NPC.downedMechBoss1 && NPC.downedMechBoss3)
+					return !(NPC.downedMechBoss2 || AOUtils.BothTwinsAlive);
 
-			if (NPC.downedMechBoss3 && NPC.downedMechBoss2)
-				return !NPC.downedMechBoss1;
+				if (NPC.downedMechBoss3 && NPC.downedMechBoss2)
+					return !NPC.downedMechBoss1;
+			}
 
 			return false;
 		}
 
 		public bool CanShowItemDropInUI() => true;
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.FirstMechBossesKillDescription", () => "First Mechanical Trio Defeated").Value;
+	}
+
+
+	public class MechBossSpiritDropper() : MultiDropHelper<PoseidonSpirit>()
+	{
+		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			var result = base.TryDroppingItem(info);
+
+			if (result.State == ItemDropAttemptResultState.Success)
+			{
+				MechBossSpiritDropSystem.dropped = true;
+			}
+
+			return result;
+		}
+	}
+
+
+	public class KilledABoss : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => AOUtils.BossesKilled > 0;
+
+		public bool CanShowItemDropInUI() => true;
+
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.KilledABossDescription", () => "Defeated at least one strong foe").Value;
 	}
 
 	public class MultiDropHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
@@ -117,8 +146,148 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class MultiDropHelper<T>(int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : MultiDropHelper(ModContent.ItemType<T>(), denominator, minQuantity, maxQuantity, numerator) where T : ModItem 
+	public class MultiDropHelper<T>(int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : MultiDropHelper(ModContent.ItemType<T>(), denominator, minQuantity, maxQuantity, numerator) where T : ModItem
 	{
 
+	}
+
+	public class AnyDropHelper(int[] itemIDs, int denominator = 1, int numerator = 1, int rolls = 1) : CommonDrop(itemIDs.FirstOrDefault(), denominator, chanceNumerator: numerator)
+	{
+		public int[] ids = itemIDs;
+		public int rolls = rolls;
+
+		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			List<int> actualids = [.. ids];
+			ItemDropAttemptResult result = default;
+			if (info.rng.Next(chanceDenominator) < chanceNumerator)
+			{
+				for (int i = 0; i < rolls; i++)
+				{
+					var id = Main.rand.Next(actualids);
+					actualids.Remove(id);
+					if (!(id <= 0 || id >= ItemLoader.ItemCount))
+					{
+						CommonCode.DropItem(info, id, Main.rand.Next(amountDroppedMinimum, amountDroppedMaximum + 1));
+					}
+				}
+				result.State = ItemDropAttemptResultState.Success;
+				return result;
+			}
+
+			result.State = ItemDropAttemptResultState.FailedRandomRoll;
+			return result;
+		}
+
+		public override void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
+		{
+			float num = (float)chanceNumerator / (float)chanceDenominator;
+			float dropRate = num * ratesInfo.parentDroprateChance;
+			dropRate /= ids.Length / (float)rolls;
+			foreach (var id in ids)
+			{
+				drops.Add(new DropRateInfo(id, amountDroppedMinimum, amountDroppedMaximum, dropRate, ratesInfo.conditions));
+			}
+			Chains.ReportDroprates(ChainedRules, num, drops, ratesInfo);
+		}
+
+		public static AnyDropHelper Create(params int[] ids)
+		{
+			return new AnyDropHelper(ids);
+		}
+	}
+
+	public class MultiAnyDropHelper(int[][] itemIDs, int denominator = 1, int numerator = 1) : CommonDrop(itemIDs.FirstOrDefault().FirstOrDefault(), denominator, chanceNumerator: numerator)
+	{
+		public int[][] ids = itemIDs;
+
+		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			var id = Main.rand.Next(ids);
+			ItemDropAttemptResult result = default;
+			if (info.rng.Next(chanceDenominator) < chanceNumerator)
+			{
+				foreach (var realid in id)
+				{
+					if (!(realid <= 0 || realid >= ItemLoader.ItemCount))
+					{
+						CommonCode.DropItem(info, realid, 1);
+					}
+				}
+				result.State = ItemDropAttemptResultState.Success;
+				return result;
+			}
+
+			result.State = ItemDropAttemptResultState.FailedRandomRoll;
+			return result;
+		}
+
+		public override void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
+		{
+			float num = (float)chanceNumerator / (float)chanceDenominator;
+			float dropRate = num * ratesInfo.parentDroprateChance;
+			dropRate /= (float)ids.Length;
+			foreach (var id in ids)
+			{
+				foreach (var realid in id)
+				{
+					drops.Add(new DropRateInfo(realid, amountDroppedMinimum, amountDroppedMaximum, dropRate, ratesInfo.conditions));
+				}
+			}
+			Chains.ReportDroprates(ChainedRules, num, drops, ratesInfo);
+		}
+
+		public static AnyDropHelper Create(params int[] ids)
+		{
+			return new AnyDropHelper(ids);
+		}
+	}
+
+	public class QuickDropRule(Predicate<DropAttemptInfo> lambda, bool ui = true, string desc = null) : IItemDropRuleCondition
+	{
+		private readonly Predicate<DropAttemptInfo> condition = lambda;
+
+		private readonly bool visibleInUI = ui;
+
+		private readonly string description = desc;
+
+		public bool CanDrop(DropAttemptInfo info) => condition(info);
+
+		public bool CanShowItemDropInUI() => visibleInUI;
+
+		public string GetConditionDescription() => description;
+	}
+
+	public class GalleonsRule(int min, int max) : IItemDropRule
+	{
+		public int min = AOUtils.GalleonToCopper(min);
+		public int max = AOUtils.GalleonToCopper(max);
+
+		public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; }
+
+		public bool CanDrop(DropAttemptInfo info) => true;
+
+		public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
+		{
+			var avg = (min + max) / 2;
+
+			foreach ((int itemId, int count) in CoinsRule.ToCoins(avg))
+			{
+				drops.Add(new DropRateInfo(itemId, count, count, ratesInfo.parentDroprateChance, ratesInfo.conditions));
+			}
+
+			Chains.ReportDroprates(ChainedRules, 1, drops, ratesInfo);
+		}
+
+		public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+		{
+			var amount = Main.rand.Next(min, max + 1);
+			foreach ((int itemId, int count) in CoinsRule.ToCoins(amount))
+			{
+				CommonCode.DropItem(info, itemId, count);
+			}
+
+			return new() { State = ItemDropAttemptResultState.Success };
+		}
 	}
 }

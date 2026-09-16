@@ -1,0 +1,14 @@
+﻿namespace ArcaneOdyssey.Items.Base
+{
+	public abstract class RareScroll : Scroll
+	{
+		public sealed override ScrollTier Tier => ScrollTier.Rare;
+		public sealed override int Value => 1000;
+		public sealed override ItemRarities Rarity => ItemRarities.Rare;
+		public override void Load()
+		{
+			base.Load();
+			ModTypeLookup<RareScroll>.Register(this);
+		}
+	}
+}

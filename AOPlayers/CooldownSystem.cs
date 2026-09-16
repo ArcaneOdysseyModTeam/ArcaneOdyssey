@@ -1,19 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.AOPlayers
 {
 	public abstract class DisplayedCooldown : ModBuff, ILocalizedModType
 	{
-		public override string Texture => Mod.Name + "/Assets/Debuff";
-		public virtual string ExtraIconTexture => null;
-
-		public override void SetStaticDefaults()
+		public sealed override void SetStaticDefaults()
 		{
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
@@ -21,34 +14,33 @@ namespace ArcaneOdyssey.AOPlayers
 			BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 		}
 
-		public int TypeID
+		public static Asset<Texture2D> debuffBackground;
+
+		public sealed override bool ReApply(Player player, int time, int buffIndex)
 		{
-			get
-			{
-				if (ArcaneOdysseyMod.Instance.TryFind<ModBuff>(Name, out var cooldown))
-				{
-					return cooldown.Type;
-				}
-				else
-					return Type;
-			}
+			player.buffTime[buffIndex] = time;
+			return true;
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
+		public sealed override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
 		{
-			if (ExtraIconTexture is not null)
+			var uiscale = (float)drawParams.SourceRectangle.Width / (float)drawParams.MouseRectangle.Width;
+
+			var scale = uiscale * (28f / Math.Max(drawParams.MouseRectangle.Width, drawParams.MouseRectangle.Height));
+
+			drawParams.MouseRectangle.Width = (32 * uiscale).Round();
+			drawParams.MouseRectangle.Height = (32 * uiscale).Round();
+
+			drawParams.TextPosition.Y = drawParams.Position.Y + drawParams.MouseRectangle.Height;
+
+			if (AOUtils.RequestIfExists(AOUtils.DebuffTexture, ref debuffBackground))
 			{
-				if (ModContent.RequestIfExists<Texture2D>(ExtraIconTexture, out var tex))
-				{
-					spriteBatch.Draw(tex.Value, drawParams.MouseRectangle with
-					{
-						Height = drawParams.MouseRectangle.Height - drawParams.MouseRectangle.Height / 32 * 4,
-						Width = drawParams.MouseRectangle.Width - drawParams.MouseRectangle.Width / 32 * 4,
-						X = drawParams.MouseRectangle.X + drawParams.MouseRectangle.Width / 32 * 2,
-						Y = drawParams.MouseRectangle.Y + drawParams.MouseRectangle.Height / 32 * 2
-					}, drawParams.DrawColor);
-				}
+				spriteBatch.Draw(debuffBackground.Value, drawParams.MouseRectangle, drawParams.DrawColor);
 			}
+
+			spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle.Center(), null, drawParams.DrawColor, 0f, drawParams.SourceRectangle.Size() / 2f, scale, SpriteEffects.None, 0f);
+
+			return false;
 		}
 
 		public virtual int CooldownLength => 0;
@@ -88,18 +80,17 @@ namespace ArcaneOdyssey.AOPlayers
 
 	public partial class AOPlayer : ModPlayer, IImbuable
 	{
-		public int AOHasteStat;
+		public short StatHaste;
 		private List<Cooldown> toremove = [];
 		private Dictionary<int, Cooldown> tochange = [];
 		public override void PreUpdate()
 		{
-			if (timeTillNextMove > 1)
+			if (timeTillNextMove > 0)
 			{
 				for (int i = 0; i < 4; i++)
 					Player.doubleTapCardinalTimer[i] = 0;
 				timeTillNextMove--;
 			}
-			else timeTillNextMove = 0;
 
 			foreach (var Cooldown in tochange)
 			{
@@ -109,7 +100,7 @@ namespace ArcaneOdyssey.AOPlayers
 			foreach (var Cooldown in Cooldowns)
 			{
 				var cool = Cooldown;
-				if (--cool.cooldownRemaining <= 0 || ArcaneOdysseyMod.DevMode)
+				if (--cool.cooldownRemaining <= 0)
 				{
 					if (OnCooldown(Cooldown.ID) && !toremove.Contains(Cooldown))
 						toremove.Add(Cooldown);
@@ -133,14 +124,14 @@ namespace ArcaneOdyssey.AOPlayers
 			toremove = [];
 		}
 
-		public bool OnCooldown(string ID) => GetCooldown(ID).ID is not null && !ArcaneOdysseyMod.DevMode;
+		public bool OnCooldown(string ID) => GetCooldown(ID).ID is not null;
 
-		public bool OnCooldown(int ID) => Player.HasBuff(ID) && !ArcaneOdysseyMod.DevMode;
+		public bool OnCooldown(int ID) => Player.HasBuff(ID);
 
 
 		public bool OnCooldown<T>() where T : DisplayedCooldown
 		{
-			return Player.HasBuff<T>() && !ArcaneOdysseyMod.DevMode;
+			return Player.HasBuff<T>();
 		}
 
 		public Cooldown GetCooldown(string ID)
@@ -173,5 +164,22 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 			SetCooldown(ModContent.BuffType<T>(), length);
 		}
+	}
+
+	public static class EasyAOPlayerMethods
+	{
+		public static void SetCooldown<T>(this Player player, int length = -1) where T : DisplayedCooldown => player.ArcaneOdyssey().SetCooldown<T>(length);
+
+		public static void SetCooldown(this Player player, int cooldown, int length) => player.ArcaneOdyssey().SetCooldown(cooldown, length);
+
+		public static void SetCooldown(this Player player, Cooldown cooldown) => player.ArcaneOdyssey().SetCooldown(cooldown);
+
+		public static bool OnCooldown(this Player player, string ID) => player.ArcaneOdyssey().OnCooldown(ID);
+
+		public static bool OnCooldown(this Player player, int ID) => player.ArcaneOdyssey().OnCooldown(ID);
+
+		public static bool OnCooldown<T>(this Player player) where T : DisplayedCooldown => player.ArcaneOdyssey().OnCooldown<T>();
+
+		public static Cooldown GetCooldown(this Player player, string ID) => player.ArcaneOdyssey().GetCooldown(ID);
 	}
 }

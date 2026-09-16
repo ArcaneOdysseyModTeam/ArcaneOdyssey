@@ -1,0 +1,50 @@
+﻿using ArcaneOdyssey.Buffs.Base;
+using System.Collections.Generic;
+
+namespace ArcaneOdyssey.Buffs.DOT
+{
+	public class IonizedEffect : MagicMark
+	{
+		public override void Update(NPC npc, ref int buffIndex)
+		{
+			if (npc.wet && !npc.lavaWet)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.CursedTorch, 0f, -1f, 1, default, 3f);
+				dust.noGravity = true;
+				dust.velocity *= 0.8f;
+			}
+			npc.ArcaneOdyssey().ionized = true;
+		}
+
+		public override List<int> Counterparts => [BuffID.CursedInferno];
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ExternalModSupport.RegisterDoT(Type);
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.ArcaneOdyssey().debuffs.Add(50);
+			if (player.wet && !player.lavaWet)
+			{
+				player.DelBuff(buffIndex);
+				buffIndex--;
+				return;
+			}
+			if (!Main.dedServ)
+			{
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.CursedTorch, 0f, -1f, 1, default, 3f);
+				dust.noGravity = true;
+				dust.velocity *= 0.8f;
+			}
+		}
+	}
+}

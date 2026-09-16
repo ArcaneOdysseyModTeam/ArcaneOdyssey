@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.UI._BaseImbueUI;
-using Terraria;
 
 namespace ArcaneOdyssey.UI.MutateThyMagic;
 

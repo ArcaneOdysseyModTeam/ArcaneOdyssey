@@ -1,0 +1,241 @@
+NewGuide: Morden has a new guide available! ({0})
+AthenaPage: "'{0}' has been added to the guidebook..."
+
+GettingStarted: {
+	Text:
+		'''
+		Welcome to the Arcane Odyssey Mod. To get started, find your [i:ArcaneOdyssey/EagleLegacy] Eagle Legacy. Using it will allow you to select your power.
+
+		[i:ArcaneOdyssey/BasicCombat] Fighting Styles like Basic Combat allow you to use melee style techniques.
+
+		[i:ArcaneOdyssey/FireMagic] Magic Types allow you to cast spells using scrolls, and are highly versatile.
+
+		[i:ArcaneOdyssey/EaglePatrimony] Relics allow you to summon phenomena using the power of creation, focusing your minions.
+		'''
+	DisplayName: Getting Started
+}
+
+MagicTypes: {
+	Text:
+		'''
+		You have chosen a [i:ArcaneOdyssey/FireMagic] Magic type. With this you can cast powerful spells, and greatly enhance weapons.
+
+		But for now, try left clicking with your magic. This will shoot a basic blast by default, which isn't too powerful.
+		'''
+	DisplayName: Magic Types
+}
+
+AboutGodSouls: {
+	Text:
+		'''
+		You have been granted a portion of a god's soul. With this, you can enhance your [i:ArcaneOdyssey/SpiritEnergy] Relics.
+
+		Select a soul using the Cycle God Soul keybind.
+
+		Some relics [i:ArcaneOdyssey/TidestoneBand] synergize with souls, modifying their stats.
+
+		Other relics [i:ArcaneOdyssey/EaglePatrimony] may be unstable with an incompatible soul. You may take damage when using these, and the stats are lopsided.
+		'''
+	DisplayName: God Souls
+}
+
+FightingStyles: {
+	Text:
+		'''
+		You have chosen a [i:ArcaneOdyssey/ThermoFist] Fighting Style. With this, you can unleash skilled techniques, and wield weapons far too heavy for a regular person.
+
+		But for now, try left clicking with your fighting style. This will unleash a basic strike, which isn't too powerful.
+
+		[i:ArcaneOdyssey/BasicCombat] Basic Combat can be upgraded into other fighting styles. Try giving it to the Guide NPC to see what you can craft with it!
+		'''
+	DisplayName: Fighting Styles
+}
+
+ForgingBronze: {
+	Text:
+		'''
+		[i:ArcaneOdyssey/BronzeBar] Bronze is a material used primarily by a certain nation. It combines [i:20]/[i:703], [i:19]/[i:706], and [i:86]/[i:1329] at a [i:221] Hellforge.
+
+		Old weapons can be upgraded using [i:ArcaneOdyssey/BronzeBar] to add abilities, and [i:ArcaneOdyssey/RavennaChest] heavy armour can be forged with it.
+		'''
+	DisplayName: Forging Bronze
+}
+
+Imbuing: {
+	Text:
+		'''
+		[i:ArcaneOdyssey/FireMagic] Magic types, [i:ArcaneOdyssey/BasicCombat] Fighting Styles, and [i:ArcaneOdyssey/EaglePatrimony] Relics are all imbues, and thus can all be imbued into compatible ranged/melee weapons.
+
+		This can be done by right clicking with your imbue to select it, or you can choose an imbue per item using the Cycle Item Imbue keybind.
+
+		Imbued items normally use the Imbue stats of your imbue, rebalancing the stats of the item slightly. Debuffs from your imbue are also applied to the item.
+		'''
+	DisplayName: Imbuing
+}
+
+Mutating: {
+	DisplayName: Mutating
+	Text:
+		'''
+		Congrats. You have located a [i:ArcaneOdyssey/HecateShard] shard of Hecate.
+
+		With this, you can evolve your magic to the next level, Lost Magic.
+
+		There are many options for mutating your magic. Almost all lost magic have unique gimmicks, which will determine your playstyle.
+
+		To mutate your magic, simply use the [i:ArcaneOdyssey/HecateShard] like any other item.
+		'''
+}
+
+ObtainingScrolls: {
+	DisplayName: Obtaining Scrolls
+	Text:
+		'''
+		[i:ArcaneOdyssey/EmptyScroll] Scrolls are a medium for directly channeling your imbue.
+
+		As you progress, more powerful scrolls become obtainable using these methods.
+
+		The easiest way to find scrolls is by breaking scrolls underground. This has a pity system, making scrolls more common with every pot you break.
+
+		The second method is fishing. All crates have a chance of granting scrolls of any tier.
+
+		The final way is to naturally find scrolls in chests. This will only yield common scrolls, making it obsolete later.
+		'''
+}
+
+Relics: {
+	DisplayName: Relics
+	Text:
+		'''
+		[i:ArcaneOdyssey/EaglePatrimony] Relics are powerful summoner-class weapons, each with unique effects. 
+
+		All attacks from relics and items imbued with them will grant a small amount of life on hit.
+
+		Most attacks from relics will tag enemies, causing your minions to focus on the foe.
+
+		Magic weapons can also be imbued with spirit.
+		'''
+}
+
+StrengthWeapons: {
+	DisplayName: Strength Weapons
+	Text:
+		'''
+		You have obtained a [i:426] Strength Weapon. These weapons are too heavy to be weilded by normal people, and require a [i:ArcaneOdyssey/BasicCombat] Fighting Style.
+
+		These items also have another power, being capable of having imbues stacked on them, as well as using the scroll stats of your fighting style for greater power.
+		'''
+}
+
+UsingScrolls: {
+	DisplayName: Using Scrolls
+	Text:
+		'''
+		You've finally found yourself a [i:ArcaneOdyssey/EmptyScroll] scroll. This allows you to directly use your imbues.
+
+		Your imbues can hold up to 3 attack scrolls, and one of the other types. You can apply a scroll to an imbue by right clicking a compatible scroll while holding your imbue or having it on your mouse.
+
+		When applying a scroll, you will be refunded any previous scroll in that slot if applicable. When applying to attacks, it uses your currently selected attack slot, which is displayed above your head more clearly.
+
+		Some scroll have alternative usage. You can access these by holding down the Alt Skill Use keybind as you use the attack.
+
+		In order to use dashes or mobility scrolls, you must have the imbue selected as your main imbue (right click with the magic).
+
+		If you're using a [i:ArcaneOdyssey/RegulusMagic] Magic Type, you will also need mana to use skills.
+		'''
+}
+
+Weapons: {
+	DisplayName: Weapon Abilities
+	Text:
+		'''
+		Most weapons added by the mod have "abilities", which you can see in the tooltip of [i:ArcaneOdyssey/RavennaSword] such items.
+
+		Some cooldowns are "passive" [i:ArcaneOdyssey/RavennaGreatsword], and activate when using the item normally and/or under certain conditions [i:ArcaneOdyssey/BronzeMusket].
+
+		Others are "active", and require you to right click the item [i:ArcaneOdyssey/RavennaGreataxe].
+
+		Cooldowns can be reduced by finding [i:152] items that decrease them, and there are reforges that also do the same.
+		'''
+}
+
+SteamGuide: {
+	DisplayName: Steam Imbue
+	Text:
+		'''
+		Many items have special attributes, such as being a [i:426] Strength Weapon. But there's one more thing items can have, and that is temperature.
+
+		When a cold item is imbued with a hot imbue, or a hot item is imbued with a cold imbue, a special imbue is created.
+
+		This is [i:ArcaneOdyssey/SteamImbue] Steam Imbue, and it has unique effects, which will be listed here for convenience.
+
+		Imbue Damage: 0.925x
+		Imbue Size: 1.1x
+		Imbue Speed: 1.0x
+		Inflicts: Scalding, a damage over time debuff
+		Creates the [i:ArcaneOdyssey/AshMagic] Petrified effect when combined with the [i:ArcaneOdyssey/ExplosionMagic] Charred effect
+		'''
+}
+
+ImbueStacking: {
+	DisplayName: Imbue Stacking
+	Text:
+		'''
+		Your mastery of imbues have increased, allowing you to imbue your imbues into eachother according to the criteria below.
+
+		[i:ArcaneOdyssey/FireMagic] Magic => [i:ArcaneOdyssey/SpiritEnergy] Relic
+		[i:ArcaneOdyssey/FireMagic] Magic => [i:ArcaneOdyssey/BasicCombat] Fighting Style
+		[i:ArcaneOdyssey/SpiritEnergy] Relic => [i:ArcaneOdyssey/FireMagic] Magic
+		[i:ArcaneOdyssey/SpiritEnergy] Relic => [i:ArcaneOdyssey/BasicCombat] Fighting Style
+
+		To imbue your imbues, you must use the Cycle Item Imbue keybind on it. Most items won't be affectd by having a second imbue.
+
+		Only special item types like [i:426] Strength Weapons can have second imbues applied to them.
+		'''
+}
+
+SpecialDashes: {
+	DisplayName: Special Dashes
+	Text:
+		'''
+		Certain scrolls [i:ArcaneOdyssey/CrashScroll], usually requiring a [i:ArcaneOdyssey/BasicCombat] Fighting Style, allow the user to dash in special ways.
+
+		You can activate these special dashes by apply the [i:ArcaneOdyssey/WalkRite] scroll to your imbue, making sure that imbue is selected as your primary imbue, then pressing the Special Dash Bind keybind.
+		'''
+}
+
+InsanityGuide: {
+	DisplayName: Insanity & Banishment
+	Text:
+		'''
+		Insanity is a stat gained in a variety of ways. The higher your insanity, the more illusions you see until it tears you apart.
+
+		Certain areas, such as the Dark Sea will naturally give insanity. This limits how far you can travel normally.
+
+		Insanity can also be granted by accessories with Atlantean Essence [i:ArcaneOdyssey/AtlanteanEssence] applied, in exchange for powerful buffs.
+
+		The most effective way to avoid insanity is by gaining Banishment. Banishment is provided by potions and equipment.
+
+		Having more banishment than insanity will make you immune to all insanity effects, barring the highest tier of insanity.
+		'''
+}
+
+SavantWeapons: {
+	DisplayName: Savant Weapons
+	Text:
+		'''
+		You have obtained a [i:ArcaneOdyssey/GildedMusket] Savant Weapon. These weapons are powerful, capable of having any imbue, and have unique effects depending on the imbue.
+
+		These items also have another power, being capable of having imbues stacked on them, as well as using the scroll stats of your imbue for greater power.
+		'''
+}
+
+SpiritWeapons: {
+	DisplayName: Spirit Weapons
+	Text:
+		'''
+		You have obtained a [i:1513] Spirit Weapon. These weapons are incomplete, and thus require a [i:ArcaneOdyssey/EaglePatrimony] Relic to be used.
+
+		These items also have another power, being capable of having imbues stacked on them, as well as using the scroll stats of your relic for greater power.
+		'''
+}

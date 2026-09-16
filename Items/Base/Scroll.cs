@@ -1,0 +1,109 @@
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Scrolls;
+using ArcaneOdyssey.Skills.Base;
+using System.Collections.Generic;
+
+namespace ArcaneOdyssey.Items.Base
+{
+	public abstract class Scroll : BaseItem
+	{
+		public abstract ModSkill Skill { get; }
+
+		public override void Load()
+		{
+			ModTypeLookup<Scroll>.Register(this);
+		}
+
+		public bool HasCorrectImbue = false;
+		public Imbuable Imbue = null;
+		public Imbuable SecondImbue = null;
+
+		public abstract ScrollTier Tier { get; }
+
+		public virtual bool MetConditions() => true;
+
+		public override void RightClick(Player player)
+		{
+			if (Main.LocalPlayer.PlayerItem().ModItem is Imbuable imbue && CanBeAppliedTo(imbue))
+			{
+				switch (Skill.SkillSlot)
+				{
+					case ModSkill.SkillType.Attack:
+						imbue.SetSkill(imbue.selectedIndex, Skill);
+						break;
+					case ModSkill.SkillType.Passive:
+						imbue.SetSkill(3, Skill);
+						break;
+					case ModSkill.SkillType.Mobility:
+						imbue.SetSkill(4, Skill);
+						break;
+					case ModSkill.SkillType.Dash:
+						imbue.SetSkill(5, Skill);
+						break;
+				}
+			}
+			else if (Main.LocalPlayer.PlayerItem().ModItem is ArcaniumWeapon arcanium && Skill.SkillSlot == ModSkill.SkillType.Attack)
+			{
+				arcanium.SetSkill(Skill as AttackSkill);
+			}
+		}
+
+		public override bool CanRightClick() => ((Main.LocalPlayer.PlayerItem()?.ModItem is ArcaniumWeapon && Skill.SkillSlot == ModSkill.SkillType.Attack) || Main.LocalPlayer.PlayerItem()?.ModItem is Imbuable imbue) && CanBeAppliedTo(Main.LocalPlayer.PlayerItem()?.ModItem);
+
+		public bool CanBeAppliedTo(ModItem imbue) => (CanHaveMagic && imbue is MagicType or ArcaniumWeapon) || (CanHaveRelic && imbue is SpiritEnergy) || (CanHaveFS && imbue is FightingStyle);
+
+		public virtual bool CanHaveMagic => false;
+		public virtual bool CanHaveRelic => false;
+		public virtual bool CanHaveFS => false;
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.width = Item.height = 32;
+		}
+
+		public string ReqFormatting
+		{
+			get
+			{
+				var text = "";
+				if (CanHaveFS)
+				{
+					text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.FightingStyle");
+				}
+				if (CanHaveMagic)
+				{
+					if (!string.IsNullOrEmpty(text))
+					{
+						text += "|";
+					}
+					text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Magic");
+				}
+				if (CanHaveRelic)
+				{
+					if (!string.IsNullOrEmpty(text))
+					{
+						text += "|";
+					}
+					text += ArcaneOdysseyMod.Instance.CustomLocalization("ScrollTiers.Relic");
+				}
+				return text;
+			}
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			base.ModifyTooltips(tooltips);
+			tooltips.AddTooltip(new(Mod, "ScrollTier", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Tier}", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.{Skill?.SkillSlot ?? ModSkill.SkillType.Other}").Value).Value));
+			tooltips.AddTooltip(new(Mod, "ScrollReq", ArcaneOdysseyMod.Instance.CustomLocalization($"ScrollTiers.NeedsImbue", ReqFormatting).Value));
+		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<DevouringScroll>();
+			ArcaneOdysseyMod.Sets.showItemTypeTooltip[Type] = false;
+		}
+	}
+}

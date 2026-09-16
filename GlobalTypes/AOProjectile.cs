@@ -1,22 +1,21 @@
-﻿using ArcaneOdyssey.Content.Buffs.Base;
-using ArcaneOdyssey.Content.Imbues;
-using ArcaneOdyssey.Content.Imbues.FightingStyles.Normal;
-using ArcaneOdyssey.Content.Imbues.Magic.Ancient;
-using ArcaneOdyssey.Content.Imbues.Relics;
-using ArcaneOdyssey.Content.Items.Base;
-using ArcaneOdyssey.Content.Projectiles.Base;
-using ArcaneOdyssey.Content.Projectiles.Magic;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Relics;
+using ArcaneOdyssey.Items.Debug;
+using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Projectiles.Base;
 using System;
-using Terraria;
+using System.IO;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 
 namespace ArcaneOdyssey.GlobalTypes
 {
-	public class AOProjectile : GlobalProjectile, IImbuable
+	public partial class AOProjectile : GlobalProjectile, IImbuable
 	{
 		public float ApplySpeed(float value, bool flipfloat = false)
 		{
@@ -28,15 +27,15 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOScrollSpeed;
+							value *= Imbue.ScrollSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOScrollSpeed.FlipFloat();
+							value *= Imbue.ScrollSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
 						}
 					}
 				}
@@ -46,15 +45,122 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						if (!flipfloat)
 						{
-							value *= Imbue.AOImbueSpeed;
+							value *= Imbue.ImbueSpeed;
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed;
+								value *= SecondImbue.ImbueSpeed;
 						}
 						else
 						{
-							value *= Imbue.AOImbueSpeed.FlipFloat();
+							value *= Imbue.ImbueSpeed.FlipFloat();
 							if (SecondImbue is not null)
-								value *= SecondImbue.AOImbueSpeed.FlipFloat();
+								value *= SecondImbue.ImbueSpeed.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
+		public float ApplySize(float value, bool flipfloat = false)
+		{
+			value *= Main.player[thisProjectile?.owner ?? 255]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
+			if (BenifitsFromScrollStats.HasValue)
+			{
+				if (BenifitsFromScrollStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ScrollSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ScrollSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ImbueSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ImbueSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+			}
+			return value;
+		}
+
+		public float ApplyKnockback(float value, bool flipfloat = false)
+		{
+			if (BenifitsFromScrollStats.HasValue)
+			{
+				if (!flipfloat)
+				{
+					if (Imbue is not null)
+					{
+						value *= Imbue.KBMulti;
+						if (SecondImbue is not null)
+							value *= SecondImbue.KBMulti;
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						value *= 1f / Imbue.KBMulti;
+						if (SecondImbue is not null)
+							value *= 1f / SecondImbue.KBMulti;
+					}
+				}
+				if (BenifitsFromScrollStats.Value)
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ScrollSize * Imbue.ScrollSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ScrollSize.FlipFloat() * Imbue.ScrollSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
+						}
+					}
+				}
+				else
+				{
+					if (Imbue is not null)
+					{
+						if (!flipfloat)
+						{
+							value *= Imbue.ImbueSize * Imbue.ImbueSize;
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize * SecondImbue.ImbueSize;
+						}
+						else
+						{
+							value *= Imbue.ImbueSize.FlipFloat();
+							if (SecondImbue is not null)
+								value *= SecondImbue.ImbueSize.FlipFloat() * SecondImbue.ImbueSize.FlipFloat();
 						}
 					}
 				}
@@ -66,23 +172,13 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (OriginWeaponType == WeaponType.Artisinal)
-					return null;
 				if (thisProjectile is not null)
 				{
-					if (thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or BaseMagicCircle)
-					{
-						return true;
-					}
-					else if (thisProjectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-					{
-						return false;
-					}
+					if (OriginWeaponType == WeaponType.Artisinal)
+						return null;
+					if (thisProjectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+						return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or Circle or MobilityCircle || OriginWeaponType != WeaponType.Normal;
 				}
-				if (OriginWeaponType != WeaponType.Normal)
-					return true;
-				else
-					return false;
 				return null;
 			}
 		}
@@ -90,7 +186,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void SetDefaults(Projectile projectile)
 		{
 			thisProjectile = projectile;
-			if (ArcaneOdysseyMod.excludedProjectiles.Contains(projectile.type))
+			if (ArcaneOdysseyMod.Sets.excludedProjectile[projectile.type])
 			{
 				CanBeAffected = false;
 			}
@@ -109,7 +205,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			get
 			{
-				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj)
+				if (thisProjectile is not null && thisProjectile.ModProjectile is PlayerProjectile proj)
 				{
 					return proj.CanHaveImbue;
 				}
@@ -118,37 +214,49 @@ namespace ArcaneOdyssey.GlobalTypes
 			set => _canImbue = value;
 		}
 
-
-		private bool? _cold = null;
-		public bool? Cold
+		public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
 		{
-			get
+			binaryWriter.Write(Imbue?.Type ?? ItemID.None);
+			binaryWriter.Write(SecondImbue?.Type ?? ItemID.None);
+			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
 			{
-				if (thisProjectile is not null && thisProjectile.ModProjectile is AOPlayerProjectile proj && proj.Cold.HasValue)
-				{
-					return proj.Cold.Value;
-				}
-				return _cold;
+				binaryWriter.Write(projectile.scale);
+				binaryWriter.Write(projectile.Size);
 			}
-			set => _cold = value;
 		}
 
-		public override bool PreKill(Projectile projectile, int timeLeft)
+		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
+		{
+			Imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(binaryReader.ReadInt32()));
+			SecondImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(binaryReader.ReadInt32()));
+			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
+			{
+				projectile.scale = binaryReader.ReadSingle();
+				projectile.Size = binaryReader.ReadVector2();
+			}
+		}
+
+		public bool? Cold;
+
+		public override void OnKill(Projectile projectile, int timeLeft)
 		{
 			thisProjectile = projectile;
-			if (CanBeAffected && !Main.dedServ)
+			Death(projectile, timeLeft);
+			if (!CanBeAffected)
+				return;
+			if (!Main.dedServ)
 			{
-				if (projectile.ModProjectile is not ExplosionSpell)
+				if (Imbuable.PreEffects(projectile))
 				{
-					if (Imbue is not null && Imbue.PreEffects(projectile))
-					{
-						Imbue.KillEffects(projectile.Hitbox, projectile);
-					}
-					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-						SecondImbue.KillEffects(projectile.Hitbox, projectile);
+					Imbue?.KillEffects(projectile.Hitbox, projectile);
+					SecondImbue?.KillEffects(projectile.Hitbox, projectile);
 				}
 			}
-			return true;
+			if (projectile.owner == Main.myPlayer && !ArcaneOdysseyMod.Sets.imbueEffect[projectile.type])
+			{
+				Imbue?.Gimmick?.KillEffects(projectile);
+				SecondImbue?.Gimmick?.KillEffects(projectile);
+			}
 		}
 
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
@@ -157,7 +265,10 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected)
 				return;
 
-			if (projectile.ModProjectile is AOPlayerProjectile proj)
+			Imbue?.Gimmick?.ModifyHitNPC(projectile, target, ref modifiers);
+			SecondImbue?.Gimmick?.ModifyHitNPC(projectile, target, ref modifiers);
+
+			if (projectile.ModProjectile is PlayerProjectile proj)
 			{
 				if (proj.ProjectileDebuff.HasValue) // is done here instead of under AOPlayerProjectile to have damage calculation done in the correct order
 				{
@@ -177,21 +288,56 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void OnSpawn(Projectile projectile, IEntitySource source)
 		{
 			thisProjectile = projectile;
+			Spawn(projectile, source);
 			if (!CanBeAffected || projectile.hostile || projectile.owner == 255 || !projectile.active || projectile.npcProj || projectile.trap)
 				return;
 
-			if (projectile.ModProjectile is AOPlayerProjectile proj1)
+			if (projectile.ModProjectile is PlayerProjectile proj1)
 			{
-				projectile.velocity *= proj1.AOSpeed;
+				projectile.velocity *= proj1.Speed;
+			}
+
+			if (source is EntitySource_ItemUse { Item: Item weap })
+			{
+				OriginWeaponType = ArcaneOdysseyMod.Sets.weaponType[weap.type];
 			}
 
 			if (AOUtils.ImbueClassCheck(projectile))
 			{
 				if (source is EntitySource_Parent { Entity: Projectile proj })
 				{
-					Imbue ??= proj.ArcaneOdyssey()?.Imbue;
-					SecondImbue ??= proj.ArcaneOdyssey()?.SecondImbue;
-					Cold ??= proj.ArcaneOdyssey()?.Cold;
+					if (proj.ArcaneOdyssey() is not null)
+					{
+						Imbue ??= proj.ArcaneOdyssey().Imbue;
+						SecondImbue ??= proj.ArcaneOdyssey().SecondImbue;
+						Cold ??= proj.ArcaneOdyssey().Cold;
+						OriginWeaponType = proj.ArcaneOdyssey().OriginWeaponType;
+					}
+				}
+				else if (source is EntitySource_OnHit { Entity : Projectile proj2})
+				{
+					if (proj2.ArcaneOdyssey() is not null)
+					{
+						Imbue ??= proj2.ArcaneOdyssey().Imbue;
+						SecondImbue ??= proj2.ArcaneOdyssey().SecondImbue;
+						Cold ??= proj2.ArcaneOdyssey().Cold;
+						OriginWeaponType = proj2.ArcaneOdyssey().OriginWeaponType;
+					}
+				}
+				else if (source is EntitySource_OnHit { Entity: Item item1 })
+				{
+					if (item1.ModItem is Imbuable relic)
+					{
+						Imbue ??= relic;
+						SecondImbue ??= relic.Imbue;
+						Cold = relic.Cold;
+					}
+					else if (item1.TryGetGlobalItem<AOItem>(out var aOItem))
+					{
+						Imbue ??= aOItem.Imbue;
+						SecondImbue ??= aOItem.SecondImbue;
+					}
+					Cold ??= ArcaneOdysseyMod.Sets.cold[item1.type];
 				}
 				else if (source is EntitySource_ItemUse { Item: Item item })
 				{
@@ -203,11 +349,10 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 					else if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
-						OriginWeaponType = aOItem.WeaponsType;
 						Imbue ??= aOItem.Imbue;
 						SecondImbue ??= aOItem.SecondImbue;
-						Cold ??= aOItem.Cold;
 					}
+					Cold ??= ArcaneOdysseyMod.Sets.cold[item.type];
 				}
 				else if (source is EntitySource_Parent { Entity: Player player })
 				{
@@ -226,45 +371,23 @@ namespace ArcaneOdyssey.GlobalTypes
 					Imbue.Imbue = SteamImbue.Create(Imbue);
 				}
 
-				if (projectile.ModProjectile is not ExplosionSpell)
+				if (Imbuable.PreEffects(projectile))
 				{
-					if (Imbue is not null && Imbue.PreEffects(projectile))
-					{
-						Imbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
-					}
-					if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
-						SecondImbue.SpawningEffects(projectile.Hitbox, projectile.velocity);
+					Imbue?.SpawningEffects(projectile.Hitbox, projectile.velocity);
+					SecondImbue?.SpawningEffects(projectile.Hitbox, projectile.velocity);
+				}
+
+				if (projectile.owner == Main.myPlayer)
+				{
+					Imbue?.Gimmick?.SpawningEffects(projectile);
+					SecondImbue?.Gimmick?.SpawningEffects(projectile);
 				}
 			}
 
-			float mult = 1f;
-
-			if (Imbue is not null)
+			var mult = ApplySize(1f);
+			if (projectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
 			{
-				if (BenifitsFromScrollStats.HasValue)
-				{
-					if (BenifitsFromScrollStats.Value)
-					{
-						mult *= Imbue.AOScrollSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.AOImbueSize;
-						}
-					}
-					else
-					{
-						mult *= Imbue.AOImbueSize;
-						if (SecondImbue is not null)
-						{
-							mult *= SecondImbue.AOImbueSize;
-						}
-					}
-				}
-			}
-			mult *= Main.player[projectile.owner]?.ArcaneOdyssey()?.SizeMulti ?? 1f;
-			if (projectile.ModProjectile is null or AOBaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-			{
-				projectile.Hitbox = AOUtils.ScaleRectangleNotRef(projectile.Hitbox, mult);
+				projectile.Hitbox = projectile.Hitbox.Scaled(mult);
 				projectile.scale *= mult;
 			}
 		}
@@ -278,18 +401,21 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void AI(Projectile projectile)
 		{
 			thisProjectile = projectile;
+			Update(projectile);
 			if (!Main.dedServ && projectile.TryGetOwner(out var player) && player.meleeEnchant == GelBuff.meleeEnchantID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
 			{
 				player.ArcaneOdyssey()?.Gel?.Effects(projectile.Hitbox);
 			}
 			if (!CanBeAffected)
 				return;
-			if (Imbue is not null && Imbue.PreEffects(projectile))
+			if (Imbue is not null && Imbuable.PreEffects(projectile))
 			{
 				Imbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
 			}
-			if (SecondImbue is not null && SecondImbue.PreEffects(projectile))
+			if (SecondImbue is not null && Imbuable.PreEffects(projectile))
+			{
 				SecondImbue.LingeringEffects(projectile.Hitbox, projectile.velocity, projectile);
+			}
 		}
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
@@ -313,8 +439,8 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected)
 				return;
 
-			if (Imbue is VanishingStyle && hit.Crit)
-				projectile.CritChance = projectile.OriginalCritChance;
+			Imbue?.Gimmick?.OnHitNPC(projectile, target, hit, damageDone);
+			SecondImbue?.Gimmick?.OnHitNPC(projectile, target, hit, damageDone);
 
 			if (projectile.TryGetOwner(out var owner))
 			{
@@ -324,11 +450,70 @@ namespace ArcaneOdyssey.GlobalTypes
 						owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
 				}
 			}
+		}
 
-			if (Main.netMode == NetmodeID.SinglePlayer && Imbue is DeathMagic && (target.lifeMax < (Main.player[projectile.owner].statLifeMax2 * 2)))
+		public override void Load()
+		{
+			On_Projectile.Damage_GetHitbox += DrawDebugHitboxes;
+		}
+
+		private static Rectangle DrawDebugHitboxes(On_Projectile.orig_Damage_GetHitbox orig, Projectile self)
+		{
+			var box = orig(self);
+			if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
 			{
-				target.StrikeInstantKill();
+				Dust.DrawDebugBox(box);
 			}
+			return box;
+		}
+		public override void Unload()
+		{
+			On_Projectile.Damage_GetHitbox -= DrawDebugHitboxes;
+		}
+	}
+
+	public class AntiArenaCheese : GlobalProjectile
+	{
+		public override void Load()
+		{
+			On_Projectile.CanExplodeTile += EliusTileCheck;
+			On_Projectile.ShouldWallExplode += EliusWallCheck;
+			On_Player.DropTombstone += EliusArenaNoTombstones;
+		}
+
+		private void EliusArenaNoTombstones(On_Player.orig_DropTombstone orig, Player self, long coinsOwned, Terraria.Localization.NetworkText deathText, int hitDirection)
+		{
+			if (self.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			{
+				return;
+			}
+
+			orig(self, coinsOwned, deathText, hitDirection);
+		}
+
+		private bool EliusWallCheck(On_Projectile.orig_ShouldWallExplode orig, Projectile self, Microsoft.Xna.Framework.Vector2 compareSpot, int radius, int minI, int maxI, int minJ, int maxJ)
+		{
+			if (orig(self, compareSpot, radius, minI, maxI, minJ, maxJ) && !(EliusArenaLoader.eliusArena.Intersects(Utils.CenteredRectangle(compareSpot.ToTileCoordinates().ToVector2(), new(radius))) || ExternalModSupport.InAOSubworld))
+			{
+				return true;
+			}
+			return false;
+		}
+
+		private bool EliusTileCheck(On_Projectile.orig_CanExplodeTile orig, Projectile self, int x, int y)
+		{
+			if (orig(self, x, y) && !(EliusArenaLoader.eliusArena.Contains(x, y) || ExternalModSupport.InAOSubworld))
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public override void Unload()
+		{
+			On_Projectile.CanExplodeTile -= EliusTileCheck;
+			On_Projectile.ShouldWallExplode -= EliusWallCheck;
+			On_Player.DropTombstone -= EliusArenaNoTombstones;
 		}
 	}
 }

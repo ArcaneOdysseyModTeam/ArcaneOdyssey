@@ -1,0 +1,18 @@
+﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Buffs.DOT;
+
+namespace ArcaneOdyssey.Buffs.Gels
+{
+	public class BleedGel : GelBuff
+	{
+		public override int DebuffID => ModContent.BuffType<Bleeding>();
+
+		public override void Effects(Rectangle hitbox)
+		{
+			if (Main.GameUpdateCount % 2 == 0)
+			{
+				Dust.NewDust(hitbox.Center(), 0, 0, DustID.Blood);
+			}
+		}
+	}
+}

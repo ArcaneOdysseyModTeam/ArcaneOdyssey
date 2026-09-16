@@ -1,10 +1,7 @@
-﻿using ArcaneOdyssey.Content.Items.Base;
+﻿using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace ArcaneOdyssey.UI.MutateThyMagic;
 
@@ -29,20 +26,20 @@ public partial class MutateThyMagicUI : BaseImbueUI
 
 	protected override List<MagicTypes> WhoAreWeDoing
 	{
-		get 
+		get
 		{
 			List<MagicTypes> types = [];
 			foreach (Item i in Main.LocalPlayer.inventory)
 			{
 				//Main.NewText($"hmm {i.Name}: {i.ModItem is Imbuable}, Magic?: {i.ModItem is AOMagic}");
 				ModItem item = i.ModItem;
-				if (item is AOMagic magic && magic.ImbuableTier is AOImbuableTier.Normal)
+				if (item is MagicType magic && magic.ImbuableTier is ImbuableTiers.Normal)
 				{
 					MagicTypes type = IDToMagicType(magic.Type);
 					if (type is not MagicTypes.None) types.Add(type);
 				}
 			}
-			return types; 
+			return types;
 		}
 	}
 

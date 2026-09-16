@@ -2,33 +2,42 @@
 
 WorldGen: {
 	Tucker: Burying Tucker
-	Morden: Placing Morden
-	EliusArena: Spawning a mysterious sky island
+	Morden: Cursing Morden
+	EliusArena: Generating a mysterious sky island
+}
+
+GameTips: {
+	AOTip0: Talk to Morden if you ever need help!
+	AOTip1: Becoming a strong warrior tends to attract unwanted attention, watch your back.
+	AOTip2: Scrolls can be found in pots underground.
+	AOTip3: When thunder rumbles, take to the skies...
 }
 
 Bestiary: {
 	Edgelord: A dark, mysterious man who seems to know you for longer than you remember him. Cursed with immortality and some undisclosed power, yet refuses to hurt anyone. Willing to help you on your journey.
 	Evander: A bounty hunter born and raised in a faraway land, Evander gained the title 'Mountainbreaker' for his great strength. Using his colossal greatsword, he can send enormous slashes at his enemies, and use his overwhelming strength and reach to dominate at both long and close ranges.
 	Dusk: Her true name and history are unknown. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
-	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band, and was using his popularity to amass a small following to help him in his thievery. Despite carrying an old sword, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks with the Tidestone Band.
+	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band. Despite carrying a dagger he also stole, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks.
+	LordElius: Lord Elius is a young man from a noble family in the Ravenna Realm. Despite his young age, he is talented in his usage of magic alongside his weapons.
 }
 
-MenuStyle: Odyssey Style
-AnyBasicImbue: Any Worthy Item
+GodSouls: {
+	Obtained: You have been granted {0}
+	AthenaSoul.DisplayName: Athena's Soul
+	NoneSoul.DisplayName: None
+	PoseidonSoul.DisplayName: Poseidon's Soul
+}
+
+MenuStyle: Odyssey ({0} Style)
 
 ImbueStuff: {
 	ImbueChatMessage: You have selected {0}
 	UnimbueText: Your imbue has been deselected
 	SpecificImbue: Your {0}'s imbue has been set to {1}
-	ArcaniumIndicator: "[c/327DFF:Arcanium weapon - Requires a magic type]"
-	StrengthIndicator: "[c/700013:Strength weapon - Requires a fighting atyle]"
-	ArtisinalIndicator: "[c/ADA500:Artisinal weapon - Cannot be imbued]"
 	ScrollDamage: Scroll damage: {0}x
 	ScrollSpeed: Scroll speed: {0}x
 	ScrollSize: Scroll size: {0}x
-	RelicDamage: Damage: {0}x
-	RelicSpeed: Speed: {0}x
-	RelicSize: Size: {0}x
+	Drawback: +{0}% attack drawback
 	ShiftNotice: SHIFT shows other stats
 	ImbueDamage: Imbue damage: {0}x
 	ImbueSpeed: Imbue speed: {0}x
@@ -47,249 +56,72 @@ ImbueStuff: {
 	Conjoined: "{0}, {1}"
 	Result: "{0} => {1}"
 	Requirement: " ({0}%)"
+	Space: "{0} {1}"
+	Exclaim: "{0}!"
 }
 
-Configs: {
-	ArcaneOdysseyConfig: {
-		DisplayName: Server Config
+WeaponTypeIndicators: {
+	Arcanium: "[c/327DFF:Arcanium weapon - Requires a magic type]"
+	Strength: "[c/700013:Strength weapon - Requires a fighting style]"
+	Artisinal: "[c/ADA500:Artisinal weapon - Cannot be imbued]"
+	Savant: "[c/EBCDFA:Savant weapon - All imbues grant unique effects]"
+	Spiritual: "[c/A903FC:Spirit weapon - Requires a relic]"
+}
 
-		AffectsOtherMods: {
-			Label: "[i:Cog] Affect other mods"
-			Tooltip:
-				'''
-				Allows imbues and rarity tooltips to affect items from other mods
-				Should only be disabled if your game is not functioning properly
-				'''
-		}
+Drawback: {
+	Death0: "{0} got too greedy."
+	Death1: "{0} forgot to manage their heath."
+	Death2: "{0} didn't deem the drawback relevant."
+	Death3: "{0} should've been less aggressive."
+}
 
-		EnableMorden: {
-			Label: "[i:Flymeal] Enable Morden"
-			Tooltip: Toggles Morden spawning in your world, and kills him if this is disabled
-		}
-
-		VanillaItemTemperatures: {
-			Label: "[i:ArcaneOdyssey/SteamImbue] Vanilla Item Attributes"
-			Tooltip:
-				'''
-				Toggles whether vanilla items can have the Steam imbue, be Strength/Arcanium weapons, and have other similar attributes
-				Should only be disabled if your game is not functioning properly
-				'''
-		}
-
-		PredictiveArray: {
-			Label: "[i:ArcaneOdyssey/ArrayScroll] Predictive Array"
-			Tooltip:
-				'''
-				Whether to have the Array spell predict enemy movements to aim
-				Disable if enemies are moving unpredictably
-				'''
-		}
-	}
-
-	ArcaneOdysseyClientConfig: {
-		DisplayName: Client Config
-
-		GenerateTucker: {
-			Label: "[i:ArcaneOdyssey/TuckerGraveItem] Generate Tucker's Grave"
-			Tooltip:
-				'''
-				Toggles the generation of Tucker's grave on world creation
-				Should only be disabled if your world is not generating properly
-				'''
-		}
-
-		AlternatePhoenixEffectVFX: {
-			Label: "[i:ArcaneOdyssey/PhoenixMagic] Alternate Phoenix Flames Effect"
-			Tooltip: Toggles an alternate look for the Phoenix Magic debuff's effect, resembling a bird
-		}
-
-		ItemTypeTooltips: {
-			Label: "[i:ArcaneOdyssey/SunkenScrap] Item Type Tooltips"
-			Tooltip:
-				'''
-				Toggles whether to show the rarity and type of items in their tooltips
-				Should only be disabled if your items are not displaying properly
-				'''
-		}
-
-		AbilityText: {
-			Label: "[i:ArcaneOdyssey/BronzeTriasta] Ability Text"
-			Tooltip: Ability names appear above your head when you activate them
-		}
-
-		MagicCircleType: {
-			Label: "[i:ArcaneOdyssey/EmptyScroll] Magic Circle Type"
-			Tooltip: Visually changes the appearance of oriented magic circles
-		}
-	}
-
-	MagicCircleTypes: {
-		Tooltip: ""
-
-		Ancient: {
-			Label: Ancient
-			Tooltip: ""
-		}
-
-		Collision: {
-			Label: Collision
-			Tooltip: ""
-		}
-
-		Ornamental: {
-			Label: Ornamental
-			Tooltip: ""
-		}
-
-		Penta: {
-			Label: Penta
-			Tooltip: ""
-		}
-
-		Reminiscent: {
-			Label: Reminiscent
-			Tooltip: ""
-		}
-
-		Segmented: {
-			Label: Segmented
-			Tooltip: ""
-		}
-
-		Singularity: {
-			Label: Singularity
-			Tooltip: ""
-		}
-
-		Solar: {
-			Label: Solar
-			Tooltip: ""
-		}
-
-		Familiar: {
-			Label: Familiar
-			Tooltip: ""
-		}
-	}
+Insanity: {
+	Death0: "{0} was brought to insanity."
+	Death1: "{0} was reduced to a beast."
+	Death2: "{0} forgot to equip banishment."
+	Death3: "{0} was lost in their madness."
+	Death4: "{0} was never seen again."
+	Message0: A second chance, reborn!
+	Message1: You hear a voice calling out to you...
+	Message2: Save me!
+	Message3: Who am I?
+	Message4: A vision of- you are forced to stop thinking.
+	FakeMessage0: bro what is that
+	FakeMessage1: this reminds me of france
+	FakeMessage2: where are you?
+	FakeMessage3: theres something in our storage room
+	FakeMessage4: join red team
+	FakeMessage5: am i the only one hearing that noise?
 }
 
 KeybindStuff.DashHelp: Double tap a movement key
-
-NPCs: {
-	Edgelord: {
-		DisplayName: Curse Thief
-		DisplayName1: Edgelord
-		DeathCurse: Morden's Curse has left...
-		Census.SpawnCondition: Always available, spawned on world creation
-		DyingText: HELP!
-		Deviantt: I can't help much with this arcane stuff, talk to that Morden guy.
-
-		Chat: {
-			Intro: Hello, {0}.
-			Grave: That grave. It once belonged to a good friend of ours, Tucker.
-			AskHelp: I have a great power, and a great curse. If you ever need my help, do not be afraid to ask at any time.
-			OldManTalk: I heard of a cursed old man residing in the dungeon and went to see him. His curse seems to be of a different nature than mine, but he immortal like me.
-			Hello: Hello again.
-			Pots: If you need help finding new scrolls, just go break some pots or something.
-			Water: It seems like all the water in this world is full of magic. With my curse, it's best I avoid it, but with such a large amount of magic in the enviroment, this truly has become an Arcane Adventure... no, an Odyssey.
-			StrongWarrior: That weapon you're holding... you must have become quite the Strong Warrior. Talk to me if you need help using it.
-		}
-
-		Help: {
-			Relics: Relics are quite interesting. They function as an imbue, as well as a weapon that can even channel magic.
-			Early1: According to what I've heard, those who do great deeds may be rewarded by what's left of the ancient gods in the form of a blessing, granting you knowledge or power.
-			Early2: You can imbue your items with your magic, relic, or fighting style quite easily. If you do, you'll have different weapon stats, and you may even be able to apply debuffs to your enemies.
-			EarlyMagic1: Magic can be used to enchant compatible items, but to properly use it you will have to find spell scrolls.
-			EarlyMagic2: Some spells can be charged up to increase their power. Do think before you do, as you leave yourself vulnerable while charging.
-			EarlyFighting1: You can enhance your body with trace magic to use fighting styles, but finding technique scrolls are needed to use your full power.
-			Pots: Breaking pots underground can yeild magical scrolls of various tiers.
-			Dash: Some scrolls allow you dash in a direction, depending on the type you can [{0} or {1}].
-			WorldofMagic: This World is full of Magic. However, those who can freely channel mana into non-magical items like us are paragons.
-			StackImbues: With multiple imbues, you can stack them on eachother to allow scrolls or special items to use both imbues at the same time. For example, a Relic can be imbued into a Magic, or a Magic can be imbued into a Fighting Style.
-			PreHard1: It's said there's some abomination deep, deep underground that devours magic. If left unchecked, it may bring great agony to these lands...
-			PreHard2: You should learn what goes well with your magic. Some weapons or abilities might work better or worse with it.
-			EarlyHard1: Killing that beast has granted you a god's blessing in the form of a sigil. You should use that if you haven't already.
-			EarlyHard2: Fishing in the ocean can grant you all sorts of goods, but a major find is metal that has absorbed magic that has seeped into the water.
-			DarkSeaWarning: Beware of travelling beyond the bounds of this world, going far enough out to sea might well spell your doom.
-			BronzeTip: Bronze can be created using copper/tin, gold/platinum, and some sort of chaotic material.
-			CultistTip: I can feel the presence of a powerful magic user, one whose mastery far surpasses ours. Please, check out the dungeon.
-			NothingToSay: I don't have anything to say right now.
-			SunkenWeapon: Although made of Arcanium metal, that weapon in your hand doesn't seem to conduct your magic any better than a regular weapon. Instead, it looks like it contains its own magic granted to it by centuries under the sea.
-			EvanderWarning: It seems a bounty has been placed on your head due to your actions. Do be careful venturing out too far...
-			HasStrengthWeapon: I see you've got your hands on a strength weapons. These weapons are too heavy for regular warriors, and so users must learn to use a fighting style. Coincidentally, these weapons bring out the power of your fighting style in ways not seen in anything else.
-			CannonFist: Having your own cannonballs can make Cannon Fist far more effective.
-			SailorStyle: Sailor Style relies on the magic in water to empower yourself. Try stepping in the water or drinking a healing item while using it.
-			ThermoFist: Thermo Fist collects kinetic energy and triggers your adrenaline to empower yourself. Try attacking while using it.
-			VanishingStyle: Vanishing Style is a much more advanced fighting style. You must deal damage to gain focus which increases your stealth, and while your focus is fading, unleash a critical strike!
-			WeaponSkills: Some weapons have special skills, make good use of them.
-			ArtisinalWeapon: Some weapons are made with such mastery that imbuing them with magic would be detrimental. These are known as Artisinal Weapons.
-		}
-
-		TownNPCMood: {
-			Content: I have no issues at the moment.
-			NoHome: Although I'm usually travelling, it would be nice to have a place to rest.
-			FarFromHome: I'm quite far from camp, aren't I?
-			LoveSpace: It's quite peaceful here.
-			DislikeCrowded: There are quite a lot of people here.
-			HateCrowded: This place is absolutely crammed.
-			LoveBiome: I love {BiomeName}, it's so open and free.
-			LikeBiome: Hm, {BiomeName} reminds me of Sameria, not a bad thing at all.
-			DislikeBiome: I must complain, {BiomeName} is so cold.
-			HateBiome: You would really put me in {BiomeName}, after everything we've been through?!
-			LikeNPC: "{NPCName} is a kind old man, like Enzior."
-			LoveNPC: "{NPCName} and I have quite a few things in common, we get along very well."
-			DislikeNPC: "{NPCName} is a pirate, something that I've had some negative experiences with out at sea."
-			HateNPC: "{NPCName} disgusts me with such experiments."
-			LikeNPC_Princess: "{NPCName} really shows me that not all royalty are wicked, quite respectable."
-			Princess_LovesNPC: "{NPCName} used to look at me funny, but we get along quite well now!"
-		}
-	}
-
-	Evander: {
-		DisplayName: Evander, the Mountainbreaker
-		SpawnInfo: Spawns naturally in Hardmode, in the outer thirds of the world.
-	}
-
-	DebuffDummy.DisplayName: Debuff Dummy
-
-	Dusk: {
-		DisplayName: Dusk, the Dark Oracle
-		SpawnInfo: Spawns naturally at night after defeating the evil biome boss, in the outer thirds of the world.
-	}
-
-	Laelus: {
-		DisplayName: Laelus, the Thief
-		SpawnInfo: Spawns naturally during the day, in the outer thirds of the world.
-	}
-}
 
 MagicTierLines: {
 	Normal: "[c/2277ff:~ Basic magic ~]"
 	Lost: "[c/0044ff:~ Lost magic ~]"
 	Ancient: "[c/7ebcc2:~ Ancient magic ~]"
-	Developer: "[c/ff0000:~ Developer magic ~]"
+	Mythical: "[c/ff0000:~ Mythical magic ~]"
 }
 
 SpecialTierLines: {
 	Normal: "[c/2277ff:~ Lesser lost magic ~]"
 	Lost: "[c/0044ff:~ Lost spirit mutation ~]"
 	Ancient: "[c/7ebcc2:~ Ancient spirit mutation ~]"
-	Developer: "[c/ff0000:~ Power of the gods ~]"
+	Mythical: "[c/ff0000:~ Power of the gods ~]"
 }
 
 FSTierLines: {
 	Normal: "[c/2277ff:~ Fighting style ~]"
 	Lost: "[c/0044ff:~ Lost fighting style ~]"
-	Ancient: "[c/7ebcc2:~ Advanced lost fighting style ~]"
-	Primordial: "[c/ffc2c2:~ Primordial fighing style ~]"
-	Developer: "[c/ff0000:~ Developer fighting style ~]"
+	Ancient: "[c/7ebcc2:~ Ancient fighting style ~]"
+	Mythical: "[c/ff0000:~ Mythical fighting style ~]"
 }
 
 RelicTierLines: {
 	Normal: "[c/2277ff:~ Relic ~]"
-	Lost: "[c/0044ff:~ Blessed relic ~]"
-	Ancient: "[c/7ebcc2:~ Inhabited relic ~]"
-	Developer: "[c/ff0000:~ Developer relic ~]"
+	Lost: "[c/0044ff:~ Inhabited relic ~]"
+	Ancient: "[c/7ebcc2:~ Deific relic ~]"
+	Mythical: "[c/ff0000:~ Unstable relic ~]"
 }
 
 ArmourAutoTooltip: {
@@ -305,24 +137,9 @@ ArmourAutoTooltip: {
 	Size: "{0}% increased attack size"
 	Pierce: Increases armour penetration by {0}
 	Haste: "{0}% reduced ability cooldown"
-}
-
-CodebreakerDialogOption: {
-	DarkSea: {
-		Name: The Dark Sea
-		Description1: This planet is abundant with magic, to a scale of which has never been recorded even among auric dragons and true gods.
-		Description2: A majority of the world has been devastated by this magic. This may have not always been the case however, as the erotion patterns suggest the large amount of mana manifested a mere eight hundred years ago.
-		Description3: Long before my creation, the only ones left that still know the answers would be: The cursed ones of old, who are scattered across the world - Xeroc, who has been unaccounted for - Yharon, who still needs much more time to revive.
-		Description4: As a Paragon, I regret to convey that you possess more knowledge about magic than I.
-	}
-
-	Epicentre: {
-		Name: Dark Sea Origins
-		Description1: While observing you, I have learned many things about the past of this planet. The amount of energy needed to create the "fracture" far exceeds what any current living being can output, barring the traitor almighty.
-		Description2: A majority of the world has been devastated by this "fracture", and it continues to expand. Of course, I had no issue finding the source of the great mana storm. This is known as the Epicentre.
-		Description3: Attempts to approach the Dark Sea Epicentre have been unsuccessful, as I lose control of my machines due to the interference and magical corruption.
-		Description4: As a "legacy", I regret to convey that you possess more knowledge about methods to approach such a place than I.
-	}
+	Insanity: Insanity increased by {0}
+	Defense: "{0} defense"
+	Regen: Increased life regeneration
 }
 
 Projectiles: {
@@ -335,18 +152,36 @@ Projectiles: {
 		LaelusBlast.DisplayName: Spirit Blast
 		LaelusExplosion.DisplayName: Spirit Burst
 		DuskBeam.DisplayName: Nichtetheis
+		Effects.EvilSun.DisplayName: Prominent Sun
+
+		Elius: {
+			EliusArrowStorm.DisplayName: Storm of Arrows
+			EliusExplosion.DisplayName: Lightning Strike
+			EliusPlacedExplosion.DisplayName: Explosion Spell
+			EliusSlash.DisplayName: Flying Slash
+			EliusSpear.DisplayName: Noble Thunderspear
+			EliusTrail.DisplayName: Lightning Trail
+		}
 	}
 
-	Pets.ElfPetProjectile.DisplayName: Aether
+	Pets: {
+		ElfPetProjectile.DisplayName: Aether
+		Iris.DisplayName: Iris
+		ScorchedFork.DisplayName: Scorched Fork
+	}
 
 	Weapons: {
-		BronzeStaffProjectile.DisplayName: Bronze Staff
-		BronzeTriastaProjectile.DisplayName: Bronze Triasta
-		BronzeTridentProjectile.DisplayName: Bronze Trident
+		Bronze: {
+			BronzeSpearProjectile.DisplayName: Bronze Spear
+			BronzeStaffProjectile.DisplayName: Bronze Staff
+			BronzeTriastaProjectile.DisplayName: Triasta of Bronze
+		}
+
 		LanceofLoyaltyProjectile.DisplayName: Lance of Loyalty
 		NobleThunderspearProjectile.DisplayName: Noble Thunderspear
 		SunkenStaffProjectile.DisplayName: Sunken Staff
 		WoodenStaffProjectile.DisplayName: Wooden Staff
+		GildedMusketProjectile.DisplayName: Gilded Musket
 	}
 
 	Abilities: {
@@ -361,24 +196,27 @@ Projectiles: {
 		TwinCrescent.DisplayName: Twin Crescent
 		Whirlwind.DisplayName: Whirlwind
 		ToweringImpact.DisplayName: Towering Impact
-		DevastateShockwave.DisplayName: Devastate Shockwave
+		DevastateShockwave.DisplayName: Devastate
 		ArrowStorm.DisplayName: Storm of Arrows
 		ArrowRain.DisplayName: Rain of Arrows
+		SanguineThrow.DisplayName: Sanguine
+		RisingTideProjectile.DisplayName: Rising Tide
+		SpearThrow.DisplayName: Bronze Spear
+		BeastInstinct.DisplayName: Beast Instinct
+		Tempest.DisplayName: Tempest
+		TempestSpawner.DisplayName: Tempest Core
 	}
 
 	DeathCurse.DisplayName: The Death Curse
-	LeapFix.DisplayName: Leap Spell
-
-	Circles: {
-		BarrageMagicCircle.DisplayName: Magic Circle
-		BasicMagicCircle.DisplayName: Magic Circle
-		RotatingMagicCircle.DisplayName: Magic Circle
-	}
+	LeapFix.DisplayName: Jump
+	Circle.DisplayName: Magic Circle
+	ThunderingEffect.DisplayName: Lightning Strike
+	MobilityCircle.DisplayName: Magic Circle
 }
 
 Achievements: {
 	MountainBreaker: {
-		FriendlyName: Mountain Broker
+		FriendlyName: Our Mountain, it's Broken!
 		Description: Defeat Evander the Mountainbreaker, a greatsword-wielding bounty hunter after the price on your head.
 	}
 
@@ -391,30 +229,37 @@ Achievements: {
 		FriendlyName: Petty Theft
 		Description: Defeat Laelus the Thief, a bandit that foolishly wields a stolen relic.
 	}
+
+	EliusKilled: {
+		FriendlyName: Prince of Storm
+		Description: Defeat Lord Elius, the thundering magic-casting noble.
+	}
 }
 
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
-	DashBind.DisplayName: Dash Bind
-	Vanish.DisplayName: Vanish
+	DashBind.DisplayName: Special Dash Bind
 	CycleAuraMode.DisplayName: Cycle Aura Mode
-	PrintInfo.DisplayName: Print Info
+	CycleGodSoul.DisplayName: Cycle God Soul
+	CycleImbueAttack.DisplayName: Cycle Imbue Attack
+	AltSkillUse.DisplayName: Alt Skill Use
 }
 
 RandomWords: {
 	Default: Default
 	Unbound: Unbound
 	None: None
-	AnyMaterial: Any {0} Material
 	Help: Help
 	Press: Press {0}
 	WeaponGel: Weapon Gel: {0}
 	GelTooltip: Melee attacks inflict {0}
-	AuraMode: Current mode: {0}, press {1} to cycle
+	AuraMode: Current aura mode: {0}, press {1} to cycle
 	ModeCycled: Swapped mode to {0}
 	Downed: "{0} has been defeated!"
 	Acumen: Your aura scroll effect has been boosted while using fighting styles
-	Enchantment: "{0} has buffed all players! [i:ArcaneOdyssey/EnchantmentSpell]"
+	Guide: Guidebook
+	Kill: Kill
+	Spare: Spare
 }
 
 FargosSheet: {
@@ -427,7 +272,137 @@ ScrollTiers: {
 	Common: "[c/2277ff:Common {0} scroll]"
 	Rare: "[c/0044ff:Rare {0} scroll]"
 	Lost: "[c/7ebcc2:Lost {0} scroll]"
-	Spell: spell
-	Rite: rite
-	Technique: technique
+	Attack: attack
+	Passive: passive
+	Mobility: mobility
+	Dash: dash
+	Other: misc
+	NeedsImbue: Can be applied to a {0}
+	Magic: "[c/0000ff:magic type]"
+	FightingStyle: "[c/ff0000:fighting style]"
+	Relic: "[c/2277ff:relic]"
+}
+
+Biomes: {
+	EliusArena: {
+		DisplayName: Djin Ruins
+		TownNPCDialogueName: the Djin Ruins
+	}
+
+	Sky: Sky
+}
+
+Prefixes: {
+	Amplified.DisplayName: Amplified
+	Bursting.DisplayName: Bursting
+	Enhanced.DisplayName: Enhanced
+	Explosive.DisplayName: Explosive
+	AtlanteanPrefix.DisplayName: Atlantean
+	Healing.DisplayName: Healing
+	Piercing.DisplayName: Piercing
+}
+
+MenacingMessages.EliusAvailable: Thunder rumbles to the east...
+
+MainMenuStyle: {
+	Classic: Classic
+	Pixel: Pixel
+	Mythical: Mythical
+	MenuBack: MenuBack
+	Djin: Djin
+	Dragon: Dragon
+}
+
+FilteringOption.ImbuesFilter.Tooltip: Filter Imbues & Scrolls
+
+ImbueGimmicks: {
+	AetherLightningShocks: {
+		DisplayName: Aether Lightning Shocks
+		Description: Creates a delayed explosion
+	}
+
+	AetherShocks: {
+		DisplayName: Aether Shocks
+		Description: Creates brilliant explosions
+	}
+
+	AshClouds: {
+		DisplayName: Ash Clouds
+		Description: Creates a lingering damage cloud
+	}
+
+	FrostShards: {
+		DisplayName: Frost Shards
+		Description: Explodes into harmful shards
+	}
+
+	InfiniteMana: {
+		DisplayName: Infinite Mana
+		Description: Imbued items require no mana
+	}
+
+	InfiniteWoodWands: {
+		DisplayName: Infinite Wood Wands
+		Description: Certain wands no longer require wood
+	}
+
+	InstantDeath: {
+		DisplayName: Instant Death
+		Description: Enemies with less than double your max health are killed
+	}
+
+	PoisonClouds: {
+		DisplayName: Poison Clouds
+		Description: Creates a lingering damage cloud
+	}
+
+	PowderBurst: {
+		DisplayName: Powder Burst
+		Description: Creates a delayed explosion
+	}
+
+	ReverseGravity: {
+		DisplayName: Reverse Gravity
+		Description: Knockback is inverted
+	}
+
+	ShardCloud: {
+		DisplayName: Shard Cloud
+		Description: Creates a lingering damage cloud
+	}
+
+	DeathShock: {
+		DisplayName: Death Shock
+		Description: Creates aftershocks that deal massive damage
+	}
+
+	SailorBar: {
+		DisplayName: Sailor Bar
+		Description: Liquids improve strength
+	}
+
+	ThermoBar: {
+		DisplayName: Thermo Bar
+		Description: Attacking improves strength
+	}
+
+	VanishBar: {
+		DisplayName: Vanish Bar
+		Description: Strike while the bar falls to crit
+	}
+
+	ManaSiphon: {
+		DisplayName: Mana Siphon
+		Description: Attacks steal mana from foes
+	}
+
+	CannonFrenzy: {
+		DisplayName: Cannon Frenzy
+		Description: You throw cannonballs as you attack
+	}
+}
+
+DamageClasses: {
+	ArcaniumDamageClass.DisplayName: arcanium damage
+	RangedArcaniumDamageClass.DisplayName: ranged arcanium damage
 }

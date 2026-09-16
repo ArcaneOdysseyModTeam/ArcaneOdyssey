@@ -1,0 +1,29 @@
+﻿namespace ArcaneOdyssey.Buffs.Base
+{
+	public abstract class GelBuff : BaseBuff
+	{
+		public const int meleeEnchantID = 99;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			Main.pvpBuff[Type] = true;
+			Main.meleeBuff[Type] = true;
+			Main.persistentBuff[Type] = true;
+			BuffID.Sets.IsAFlaskBuff[Type] = true;
+		}
+
+		public abstract int DebuffID { get; }
+
+		public sealed override LocalizedText DisplayName => ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.WeaponGel", ModContent.GetModBuff(DebuffID).DisplayName.Value);
+		public sealed override LocalizedText Description => ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.GelTooltip", ModContent.GetModBuff(DebuffID).DisplayName.Value);
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.ArcaneOdyssey().Gel = this;
+			player.meleeEnchant = meleeEnchantID;
+		}
+
+		public abstract void Effects(Rectangle hitbox);
+	}
+}

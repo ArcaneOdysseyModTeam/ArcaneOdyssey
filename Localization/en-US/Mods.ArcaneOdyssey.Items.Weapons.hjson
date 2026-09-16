@@ -1,21 +1,21 @@
 Sunken: {
 	SunkenStaff: {
 		DisplayName: Sunken Staff
-		Tooltip: It seems to constantly produce water
+		Tooltip: "'It seems to constantly produce water'"
 
 		Ability: {
 			DisplayName: Fury of the Sea
-			Description: Shoots blasts of water
+			Description: Shoots cyclones of water
 		}
 	}
 
 	SunkenSword: {
 		DisplayName: Sunken Sword
-		Tooltip: It seems to constantly produce water
+		Tooltip: "'It seems to constantly produce water'"
 
 		Ability: {
 			DisplayName: Rising Tide
-			Description: Launch yourself upwards
+			Description: Propel yourself upwards
 		}
 	}
 }
@@ -26,7 +26,7 @@ BronzeTriasta: {
 
 	Ability: {
 		DisplayName: Ethereal Flash
-		Description: Leap towards the target
+		Description: Burst towards the target
 	}
 }
 
@@ -71,12 +71,12 @@ Bronze: {
 		}
 	}
 
-	BronzeTrident: {
-		DisplayName: Bronze Trident
+	BronzeSpear: {
+		DisplayName: Bronze Spear
 		Tooltip: ""
 
 		Ability: {
-			DisplayName: Trident Throw
+			DisplayName: Spear Throw
 			Description: Throw your weapon
 		}
 	}
@@ -97,7 +97,7 @@ Bronze: {
 
 		Ability: {
 			DisplayName: Mountain Wind
-			Description: Unleash three tornados
+			Description: Unleash triple tornados
 		}
 	}
 
@@ -187,7 +187,7 @@ RavennaNoble: {
 		}
 	}
 
-	ScimitarofStorm: {
+	ScimitarsofStorm: {
 		DisplayName: Scimitars of Storm
 		Tooltip: ""
 
@@ -210,7 +210,7 @@ RavennaNoble: {
 
 Sinbane: {
 	DisplayName: Sinbane
-	Tooltip: Also called the Oathkeeper
+	Tooltip: ""
 
 	Ability: {
 		DisplayName: Towering Impact
@@ -226,4 +226,67 @@ SirenBow: {
 		DisplayName: Rain of Arrows
 		Description: Launch arrows into the sky
 	}
+}
+
+Sanguine: {
+	DisplayName: Sanguine
+	Tooltip: ""
+
+	Ability: {
+		DisplayName: Sanguine Throw
+		Description: Throw the weapon on use
+	}
+}
+
+Vindicator: {
+	DisplayName: Vindicator
+	Tooltip: ""
+
+	Ability: {
+		DisplayName: Crushing Judgement
+		Description: Jump towards the cursor and release a shockwave
+	}
+}
+
+Atlantean: {
+	AtlanteanGreatsword: {
+		DisplayName: Atlantean Greatsword
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Tempest
+			Description: Spin around and create a tornado
+		}
+	}
+
+	AtlanteanClaws: {
+		DisplayName: Atlantean Claws
+		Tooltip: ""
+
+		Ability: {
+			DisplayName: Beast Instinct
+			Description: Rapidly dash around, damaging foes
+		}
+	}
+}
+
+Arcanium: {
+	ArcaniumSword: {
+		DisplayName: Arcanium Sword
+		Tooltip: ""
+	}
+
+	ArcaniumBow: {
+		DisplayName: Arcanium Bow
+		Tooltip: ""
+	}
+}
+
+GildedMusket: {
+	DisplayName: Gilded Musket
+	Tooltip:
+		'''
+		Attacking with the bayonet fills up the bar
+		Filling the bar allows the user to unleash a powerful shot by alt firing
+		'''
 }
