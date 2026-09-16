@@ -106,6 +106,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if(despawnTimer > 40)
 				{
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
 					NPC.active = false;
 					NPC.netUpdate = true;
 				}
