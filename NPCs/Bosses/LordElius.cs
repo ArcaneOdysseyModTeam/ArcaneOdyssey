@@ -125,6 +125,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				
 			}
+			if(despawnTimer > 160) 
+			{
+				SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
+			}
 			if (NPC.life < NPC.lifeMax / 2)
 			{
 				if (!secondphase)
@@ -152,7 +156,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (AOUtils.ServerOrSingleplayer)
 					{
-						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
+						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 1000f);
 					}
 					Main.NewText(this.GetLocalizedValue("Spared"), new Color(0, 183, 255));
 					EliusSpareSystem.spared = true;
@@ -963,7 +967,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (AOUtils.ServerOrSingleplayer)
 				{
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 1000f);
 				}
 				SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 			}
