@@ -239,6 +239,8 @@ namespace ArcaneOdyssey
 				var spared = reader.ReadBoolean();
 				EliusSpareSystem.spared = spared;
 				var npc = Main.npc[reader.ReadInt32()];
+				npc.active = false;
+				npc.netUpdate = true;
 				if (Main.dedServ)
 				{
 					var elius = npc.ModNPC as LordElius;
@@ -248,8 +250,6 @@ namespace ArcaneOdyssey
 						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Kill").Value.ToLower()).ToNetworkText(), Color.Purple);
 						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Killed").ToNetworkText(), Color.Purple);
 
-						npc.active = false;
-						npc.netUpdate = true;
 						npc.NPCLoot();
 					}
 					else
