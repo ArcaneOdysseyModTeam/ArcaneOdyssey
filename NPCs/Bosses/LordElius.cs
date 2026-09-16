@@ -113,7 +113,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					despawnTimer++;
 					NPC.netUpdate = true;
-				} else if(Main.player[NPC.target].Center.Distance(NPC.Center) > 3500)
+				} else if(Main.player[NPC.target].Center.Distance(NPC.Center) > 6500)
 				{
 					despawnTimer++;
 					NPC.netUpdate = true;
