@@ -104,7 +104,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			if(AOUtils.ServerOrSingleplayer)
 			{
-				if(despawnTimer > 40)
+				if(despawnTimer > 160)
 				{
 					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
 					NPC.active = false;
@@ -114,7 +114,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					despawnTimer++;
 					NPC.netUpdate = true;
-				} else if(Main.player[NPC.target].Center.Distance(NPC.Center) > 6500)
+				} else if(Main.player[NPC.target].Center.Distance(NPC.Center) > 3500)
 				{
 					despawnTimer++;
 					NPC.netUpdate = true;
