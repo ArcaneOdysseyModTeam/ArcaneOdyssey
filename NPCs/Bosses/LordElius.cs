@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	[AutoloadBossHead]
 	public class LordElius : BaseNPC
 	{
-		private int hptoheal;
+		private int hptoheal, despawnTimer;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
 		private readonly Vector2[] spearPositions = { };
@@ -56,6 +56,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			writer.Write(previousPodiumLocation);
 			writer.Write(nextPodiumLocation);
 			writer.Write(secondphase);
+			writer.Write(despawnTimer);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -63,6 +64,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			previousPodiumLocation = reader.ReadVector2();
 			nextPodiumLocation = reader.ReadVector2();
 			secondphase = reader.ReadBoolean();
+			despawnTimer = reader.ReadInt32();
 		}
 
 		public override void SetDefaults()
@@ -100,6 +102,28 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void AI()
 		{
+			if(AOUtils.ServerOrSingleplayer)
+			{
+				if(despawnTimer > 40)
+				{
+					NPC.active = false;
+					NPC.netUpdate = true;
+				}
+				if(!NPC.HasValidTarget)
+				{
+					despawnTimer++;
+					NPC.netUpdate = true;
+				} else if(Main.player[NPC.target].Center.Distance(NPC.Center) > 3500)
+				{
+					despawnTimer++;
+					NPC.netUpdate = true;
+				} else if(despawnTimer != 0)
+				{
+					despawnTimer = 0;
+					NPC.netUpdate = true;
+				}
+				
+			}
 			if (NPC.life < NPC.lifeMax / 2)
 			{
 				if (!secondphase)
