@@ -29,7 +29,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private int hptoheal, despawnTimer;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
-		private readonly Vector2[] spearPositions = { };
 		private readonly float[] dashSelectArray = { 0f, 4f };
 		private readonly float[] moveSelectArrayOne = { 1f, 4f, 1f, 1f };
 		private readonly float[] moveSelectArrayTwo = { 2f, 2f, 6f };
@@ -56,7 +55,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			writer.Write(previousPodiumLocation);
 			writer.Write(nextPodiumLocation);
 			writer.Write(secondphase);
-			writer.Write(despawnTimer);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -64,7 +62,6 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			previousPodiumLocation = reader.ReadVector2();
 			nextPodiumLocation = reader.ReadVector2();
 			secondphase = reader.ReadBoolean();
-			despawnTimer = reader.ReadInt32();
 		}
 
 		public override void SetDefaults()
@@ -102,28 +99,23 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void AI()
 		{
-			if(AOUtils.ServerOrSingleplayer)
+			if (AOUtils.ServerOrSingleplayer)
 			{
-				if(despawnTimer > 160)
+				if (despawnTimer > 160)
 				{
 					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 800f);
 					NPC.active = false;
 					NPC.netUpdate = true;
 				}
-				if(!NPC.HasValidTarget)
+				if (!NPC.HasValidTarget)
 				{
 					despawnTimer++;
-					NPC.netUpdate = true;
-				} else if(despawnTimer != 0)
+				}
+				else if (despawnTimer != 0)
 				{
 					despawnTimer = 0;
-					NPC.netUpdate = true;
 				}
-				
-			}
-			if(despawnTimer > 160) 
-			{
-				SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
+
 			}
 			if (NPC.life < NPC.lifeMax / 2)
 			{
@@ -950,22 +942,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				GlobalData.MarkDefeated(this);
 			}
-			var hitbox = NPC.Hitbox;
-			if (!EliusSpareSystem.spared) // kill in singeplayer
+			if (EliusSpareSystem.spared)
 			{
-				SpawnGore(NPC);
-				for (int n = 0; n < 17; n++)
-				{
-					Dust.NewDust(hitbox.Center(), 0, 0, DustID.Blood, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f);
-				}
-			}
-			else
-			{
-				if (AOUtils.ServerOrSingleplayer)
-				{
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 1000f);
-				}
-				SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
+				Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, NPC.Center.X, NPC.Center.Y - 1000f);
 			}
 		}
 
@@ -1029,7 +1008,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override bool CanGoToStatue(bool toKingStatue) => false;
 
-		public override bool CheckActive() => !Sparing;
+		public override bool CheckActive() => false;
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
@@ -1074,6 +1053,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						if (EliusSpareSystem.spared)
 						{
 							Main.NewText(this.GetLocalizedValue("Spared"), SpiritEnergy.Instance.Colour);
+							SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 						}
 						else
 						{
@@ -1092,9 +1072,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private static Vector2 FindPointInCurve(Vector2 pointOne, Vector2 pointTwo, Vector2 pointThree, float xPos)
 		{
 			//via https://en.wikipedia.org/wiki/Newton_polynomial
-			float coEfOne = (pointTwo.Y-pointOne.Y)/(pointTwo.X-pointOne.X);
-			float coEfTwo = (((pointThree.Y-pointTwo.Y)/(pointThree.X-pointTwo.X))-coEfOne)/(pointThree.X-pointOne.X);
-			float yPos = pointOne.Y + coEfOne*(xPos-pointOne.X) + coEfTwo*(xPos-pointOne.X)*(xPos-pointTwo.X);
+			float coEfOne = (pointTwo.Y - pointOne.Y) / (pointTwo.X - pointOne.X);
+			float coEfTwo = (((pointThree.Y - pointTwo.Y) / (pointThree.X - pointTwo.X)) - coEfOne) / (pointThree.X - pointOne.X);
+			float yPos = pointOne.Y + coEfOne * (xPos - pointOne.X) + coEfTwo * (xPos - pointOne.X) * (xPos - pointTwo.X);
 			return new Vector2(xPos, yPos);
 		}
 	}

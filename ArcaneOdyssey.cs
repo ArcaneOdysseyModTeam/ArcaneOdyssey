@@ -93,6 +93,9 @@ namespace ArcaneOdyssey
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
 			}
+#if VSDEBUGMODE
+			NoticeQueue.Add("Project has been built in Debug mode (rather than Release), do not release publicly until this has been amended.");
+#endif
 		}
 
 		public override void Unload()
