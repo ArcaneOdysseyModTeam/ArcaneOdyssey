@@ -85,6 +85,7 @@ namespace ArcaneOdyssey.AOPlayers
 		public override void Load()
 		{
 			On_Player.ApplyDamageToNPC += AoEHelper;
+			On_Player.ItemCheck_UseTeleportRod += DarkSeaNoTeleport;
 		}
 
 		private static void AoEHelper(On_Player.orig_ApplyDamageToNPC orig, Player self, NPC npc, int damage, float knockback, int direction, bool crit, DamageClass damageType, bool damageVariation)
@@ -104,6 +105,7 @@ namespace ArcaneOdyssey.AOPlayers
 		public override void Unload()
 		{
 			On_Player.ApplyDamageToNPC -= AoEHelper;
+			On_Player.ItemCheck_UseTeleportRod -= DarkSeaNoTeleport;
 		}
 
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)

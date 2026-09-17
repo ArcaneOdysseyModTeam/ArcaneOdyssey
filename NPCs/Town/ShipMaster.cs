@@ -25,8 +25,6 @@ namespace ArcaneOdyssey.NPCs.Town
 			AnimationType = NPCID.Guide;
 		}
 
-		public override bool IsLoadingEnabled(Mod mod) => ArcaneOdysseyMod.DevMode; // dev mode only right now
-
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 25;
@@ -38,8 +36,8 @@ namespace ArcaneOdyssey.NPCs.Town
 				SetBiomeAffection<ForestBiome>(AffectionLevel.Like).
 				SetBiomeAffection<OceanBiome>(AffectionLevel.Love).
 				SetNPCAffection(NPCID.Steampunker, AffectionLevel.Hate).
-				SetNPCAffection(NPCID.Pirate, AffectionLevel.Dislike).
-				SetNPCAffection(NPCID.Mechanic, AffectionLevel.Like).
+				SetNPCAffection(NPCID.Mechanic, AffectionLevel.Dislike).
+				SetNPCAffection(NPCID.Pirate, AffectionLevel.Like).
 				SetNPCAffection(NPCID.Clothier, AffectionLevel.Love);
 			NPCID.Sets.AttackFrameCount[Type] = 4;
 		}
@@ -75,7 +73,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override bool CanTownNPCSpawn(int numTownNPCs) => DownedBosses.DownedElius;
 
-		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
+		public override bool CanGoToStatue(bool toKingStatue) => true;
 
 		public override void SetChatButtons(ref string button, ref string button2) // PORT change to new method
 		{

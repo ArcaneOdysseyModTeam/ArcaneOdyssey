@@ -68,5 +68,29 @@ namespace ArcaneOdyssey.AOPlayers
 					break;
 			}
 		}
+		public override void PostUpdateMiscEffects()
+		{
+			if (AOUtils.InAOSubworld)
+			{
+				Player.noBuilding = true;
+				Player.noFallDmg = false;
+				Player.equippedWings = null;
+				Player.slowFall = false;
+				Player.rocketBoots = 0;
+				Player.blockExtraJumps = true;
+				Player.breathEffectiveness *= 0f;
+				Player.waterWalk = false;
+				Player.waterWalk2 = false;
+				Player.canFloatInWater = false;
+				Player.wingsLogic = 0;
+				Player.wings = 0;
+			}
+		}
+
+		private static void DarkSeaNoTeleport(On_Player.orig_ItemCheck_UseTeleportRod orig, Player self, Item sItem)
+		{
+			if (!AOUtils.InAOSubworld)
+				orig.Invoke(self, sItem);
+		}
 	}
 }

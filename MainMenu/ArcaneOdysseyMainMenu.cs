@@ -90,7 +90,7 @@ namespace ArcaneOdyssey.MainMenu
 			Titles.Add(new(MusicTrack.Djin, Color.Gray, "Djin", GlobalData.IsDefeated<LordElius>));
 		}
 
-		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
+		public static void DrawAOBackground(SpriteBatch spriteBatch)
 		{
 			Vector2 drawOffset = Vector2.Zero;
 			float xScale = (float)Main.screenWidth / SelectedTitle.BackgroundTexture.Width();
@@ -126,7 +126,11 @@ namespace ArcaneOdyssey.MainMenu
 				drop.Update();
 				drop.Draw();
 			}
+		}
 
+		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
+		{
+			DrawAOBackground(spriteBatch);
 			spriteBatch.End();
 
 			logoRotation = 0f;

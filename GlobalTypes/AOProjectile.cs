@@ -493,7 +493,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private bool EliusWallCheck(On_Projectile.orig_ShouldWallExplode orig, Projectile self, Microsoft.Xna.Framework.Vector2 compareSpot, int radius, int minI, int maxI, int minJ, int maxJ)
 		{
-			if (orig(self, compareSpot, radius, minI, maxI, minJ, maxJ) && !(EliusArenaLoader.eliusArena.Intersects(Utils.CenteredRectangle(compareSpot.ToTileCoordinates().ToVector2(), new(radius))) || ExternalModSupport.InAOSubworld))
+			if (orig(self, compareSpot, radius, minI, maxI, minJ, maxJ) && !(EliusArenaLoader.eliusArena.Intersects(Utils.CenteredRectangle(compareSpot.ToTileCoordinates().ToVector2(), new(radius))) || AOUtils.InAOSubworld))
 			{
 				return true;
 			}
@@ -502,7 +502,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private bool EliusTileCheck(On_Projectile.orig_CanExplodeTile orig, Projectile self, int x, int y)
 		{
-			if (orig(self, x, y) && !(EliusArenaLoader.eliusArena.Contains(x, y) || ExternalModSupport.InAOSubworld))
+			if (orig(self, x, y) && !(EliusArenaLoader.eliusArena.Contains(x, y) || AOUtils.InAOSubworld))
 			{
 				return true;
 			}

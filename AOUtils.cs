@@ -12,6 +12,8 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Rarities;
+using ArcaneOdyssey.Subworlds.Base;
+using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,6 +77,8 @@ namespace ArcaneOdyssey
 			"Terraria/Material",
 			"Terraria/Tooltip",
 		];
+
+		public static bool InAOSubworld => SubworldSystem.Current is AOSubworld;
 
 		public static int GetShimmerEquivalentType(this Item item)
 		{
