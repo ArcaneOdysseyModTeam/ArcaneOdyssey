@@ -3,7 +3,7 @@ using System;
 
 namespace ArcaneOdyssey.AOPlayers
 {
-	public partial class AOPlayer : ModPlayer, IImbuable
+	public partial class AOPlayer
 	{
 		private byte _insanity = 0;
 		/// <summary>
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.AOPlayers
 					break;
 			}
 		}
-		public override void PostUpdateMiscEffects()
+		public void SubworldEffects()
 		{
 			if (AOUtils.InAOSubworld)
 			{

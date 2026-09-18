@@ -6,7 +6,9 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Subworlds;
 using ArcaneOdysseyMusic.MusicBoxes;
+using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 
@@ -27,12 +29,6 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool grounded = false;
 		public bool FirstFrozenFrame => timeSinceSoftFrozen < 1;
 		public ushort timeSinceSoftFrozen;
-		public sbyte hasWings = 2;
-
-		public override void OnEnterWorld()
-		{
-			hasWings = 2;
-		}
 
 		public static bool evil => !EliusSpareSystem.spared;
 
@@ -282,8 +278,6 @@ namespace ArcaneOdyssey.AOPlayers
 			StatHaste = 0;
 			Insanity = 0;
 			Banishment = 0;
-			if (hasWings > 0)
-				hasWings--;
 			ResetBuffs();
 			HandleDashDetection();
 		}

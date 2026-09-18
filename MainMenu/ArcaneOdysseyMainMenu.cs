@@ -146,6 +146,11 @@ namespace ArcaneOdyssey.MainMenu
 
 		public override void OnSelected()
 		{
+			RandomSelect();
+		}
+
+		public static void RandomSelect()
+		{
 			SelectedTitle = Main.rand.Next(Titles.FindAll(e => e.Requirement is null || e.Requirement()));
 		}
 	}

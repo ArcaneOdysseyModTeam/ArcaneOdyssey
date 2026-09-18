@@ -4,7 +4,7 @@ using System;
 
 namespace ArcaneOdyssey.AOPlayers
 {
-	public partial class AOPlayer : ModPlayer, IImbuable
+	public partial class AOPlayer
 	{
 		public void SetDash(ModDash dash, int dir = 0)
 		{
@@ -314,6 +314,8 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void PostUpdateMiscEffects()
 		{
+			SubworldEffects();
+
 			if (CurrentDash is not null)
 			{
 				if (dashing)

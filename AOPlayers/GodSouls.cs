@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ArcaneOdyssey.AOPlayers
 {
-	public partial class AOPlayer : ModPlayer, IImbuable
+	public partial class AOPlayer
 	{
 		public List<GodSoul> Souls = [];
 		private static List<string> cachedUnloadedSouls = [];

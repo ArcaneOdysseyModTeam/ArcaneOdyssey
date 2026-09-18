@@ -11,7 +11,8 @@ namespace ArcaneOdyssey.Subworlds.Base
 		public const int MaxSeed = 2147483647;
 		public override void DrawMenu(GameTime gameTime)
 		{
-			Main.spriteBatch.DrawString(FontAssets.DeathText.Value, message, new Vector2(Main.screenWidth, Main.screenHeight) / 2f - FontAssets.DeathText.Value.MeasureString(message) / 2f, Color.White);
+			Main.spriteBatch.DrawString(FontAssets.DeathText.Value, message, new Vector2(Main.screenWidth, Main.screenHeight) / 2f - FontAssets.DeathText.Value.MeasureString(message) / 2f, Color.Black, 0, default, 1f, SpriteEffects.None, 0);
+			Main.spriteBatch.DrawString(FontAssets.DeathText.Value, message, new Vector2(Main.screenWidth, Main.screenHeight) / 2f - FontAssets.DeathText.Value.MeasureString(message) / 2f, Color.White, 0, default, 1f, SpriteEffects.None, 0);
 		}
 
 		public override void DrawSetup(GameTime gameTime)
@@ -29,6 +30,7 @@ namespace ArcaneOdyssey.Subworlds.Base
 
 		public override void OnEnter()
 		{
+			ArcaneOdysseyMainMenu.RandomSelect();
 			SubworldSystem.noReturn = true;
 			SubworldSystem.hideUnderworld = true;
 			message = $"Traveling to {DisplayName}...";

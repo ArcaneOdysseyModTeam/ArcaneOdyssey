@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.AOPlayers
 		}
 	}
 
-	public partial class AOPlayer : ModPlayer, IImbuable
+	public partial class AOPlayer
 	{
 		public short StatHaste;
 		private List<Cooldown> toremove = [];

@@ -10,7 +10,7 @@ using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.AOPlayers
 {
-	public partial class AOPlayer : ModPlayer, IImbuable
+	public partial class AOPlayer
 	{
 		private int _defenseLost = 0;
 
