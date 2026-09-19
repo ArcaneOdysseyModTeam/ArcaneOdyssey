@@ -521,7 +521,7 @@ namespace ArcaneOdyssey
 
 					if (item.ModItem is not null)
 					{
-						if (AOUtils.ImbueClassCheck(item) || item.ArcaneOdyssey().WeaponsType is WeaponType.Arcanium)
+						if (AOUtils.ImbueClassCheck(item) || item.ArcaneOdyssey()?.WeaponsType is WeaponType.Arcanium)
 						{
 							ExternalModSupport.CheckWeapon(item.ModItem);
 						}

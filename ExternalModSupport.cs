@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey
 {
@@ -174,11 +175,21 @@ namespace ArcaneOdyssey
 
 		public override void PostUpdateEverything()
 		{
-			if (!rectsRegistered)
+			if (!rectsRegistered && Fargos is not null)
 			{
-				Fargos?.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
+				Fargos.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
 				rectsRegistered = true;
 			}
+		}
+
+		public override void SaveWorldData(TagCompound tag)
+		{
+			tag.Add("rectsRegistered", rectsRegistered);
+		}
+
+		public override void LoadWorldData(TagCompound tag)
+		{
+			rectsRegistered = tag.GetBool("rectsRegistered");
 		}
 
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
