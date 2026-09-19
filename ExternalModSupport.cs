@@ -4,17 +4,18 @@ using ArcaneOdyssey.Items.BossRelics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.Items.Equipment.Pets;
+using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.Items.Weapons;
 using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdysseyMusic.MusicBoxes;
-using FargosMod = Fargowiltas.Fargowiltas;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
-using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
+using Terraria.ModLoader.IO;
+using FargosMod = Fargowiltas.Fargowiltas;
 
 namespace ArcaneOdyssey
 {
@@ -174,13 +175,22 @@ namespace ArcaneOdyssey
 
 		public override void PostUpdateEverything()
 		{
-			if (!rectsRegistered)
+			if (!rectsRegistered && Fargos is not null)
 			{
-				Fargos?.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
+				Fargos.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
 				rectsRegistered = true;
 			}
 		}
 
+		public override void SaveWorldData(TagCompound tag)
+		{
+			tag.Add("rectsRegistered", rectsRegistered);
+		}
+
+		public override void LoadWorldData(TagCompound tag)
+		{
+			rectsRegistered = tag.GetBool("rectsRegistered");
+		}
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
 
