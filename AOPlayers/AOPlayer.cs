@@ -6,9 +6,7 @@ using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles;
-using ArcaneOdyssey.Subworlds;
 using ArcaneOdysseyMusic.MusicBoxes;
-using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 

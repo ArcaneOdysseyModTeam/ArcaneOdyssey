@@ -413,7 +413,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							if (NPC.ai[1] < 30f)
 							{
 								NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
-								Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
+								Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, !Main.getGoodWorld ? DustID.WitherLightning : DustID.Firework_Red, 0f, -0.1f).noGravity = true;
 							}
 							if (NPC.ai[1] >= 30f) //Break out of this ai cycle
 							{
@@ -450,7 +450,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						int swordTiming = !secondphase ? 40 : 24;
 						if ((int)NPC.ai[1] % swordTiming == 4 && NPC.ai[1] < 444f)
 						{
-							NPC.NPCDialogue(!secondphase ? this.GetLocalizedValue("FlyingSlashMessage") : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("FlyingSlashMessage"), !secondphase ? Color.Gold : Imbue.Colour, false);
+							NPC.NPCDialogue(Mod.CustomLocalization("ImbueStuff.Exclaim", !secondphase ? this.GetLocalizedValue("FlyingSlashMessage") : Mod.CustomLocalization("ImbueStuff.Space", Imbue.PrettyAttackPrefix.Value, this.GetLocalizedValue("FlyingSlashMessage")).Value).Value, !secondphase ? Color.Gold : Imbue.Colour, false);
 							SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f }, NPC.Center);
 							if (AOUtils.ServerOrSingleplayer)
 							{
@@ -473,21 +473,21 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)
 					{
-						NPC.NPCDialogue(!secondphase ? this.GetLocalizedValue("StormOfArrowsMessage") : this.GetLocalizedValue("MoveElementName") + this.GetLocalizedValue("StormOfArrowsMessage"), Imbue.Colour, false);
+						NPC.NPCDialogue(Mod.CustomLocalization("ImbueStuff.Exclaim", !secondphase ? this.GetLocalizedValue("StormOfArrowsMessage") : Mod.CustomLocalization("ImbueStuff.Space", Imbue.PrettyAttackPrefix.Value, this.GetLocalizedValue("StormOfArrowsMessage")).Value).Value, !secondphase ? Color.MediumPurple : Imbue.Colour, false);
 						SoundEngine.PlaySound(SoundID.Item5, NPC.Center);
 						if (AOUtils.ServerOrSingleplayer)
 						{
 							NPC.netUpdate = true;
 							(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), (int)(NPC.damage * 0.6), 0f, -1, 0, bowAimPosition.X, bowAimPosition.Y).ModProjectile as EliusArrowStorm).secondphase = secondphase;
-							NPC.ai[1] = 22f;
 						}
+						NPC.ai[1] = 22f;
 					}
 					else if (NPC.ai[1] > 50f)
 					{
+						NPC.ai[1] = -1f;
 						if (AOUtils.ServerOrSingleplayer)
 						{
 							NPC.netUpdate = true;
-							NPC.ai[1] = -1f;
 							NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
 						}
 					}

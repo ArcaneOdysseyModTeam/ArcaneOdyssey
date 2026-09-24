@@ -2,6 +2,7 @@
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
@@ -11,7 +12,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.TrailingMode[Type] = 0;
-			ProjectileID.Sets.TrailCacheLength[Type] = 5;
+			ProjectileID.Sets.TrailCacheLength[Type] = 10;
 		}
 		public override void SetDefaults()
 		{
@@ -37,12 +38,27 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			{
 				lightColor = Color.Gold.MultiplyRGB(lightColor);
 			}
-			for (int k = Projectile.oldPos.Length - 1; k > -1; k--)
+			for (int k = (Projectile.oldPos.Length / 2) - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (k * .01f), SpriteEffects.None, 0);
 			}
+
+			List<Vector2> oldPos = [];
+
+			for (int k = Projectile.oldPos.Length - 1; k > (Projectile.oldPos.Length / 2) - 1; k--)
+			{
+				oldPos.Add(Projectile.oldPos[k]);
+			}
+
+			for (int k = 0; k < oldPos.Count; k++)
+			{
+				Vector2 drawPos = oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
+				var colour2 = Projectile.GetAlpha(lightColor) * (1f - ((oldPos.Count - k) / (float)oldPos.Count));
+				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (k * .01f), SpriteEffects.None, 0);
+			}
+
 			return false;
 		}
 

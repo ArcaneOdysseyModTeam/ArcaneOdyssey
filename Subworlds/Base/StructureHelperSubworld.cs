@@ -20,6 +20,7 @@ namespace ArcaneOdyssey.Subworlds.Base
 
 		public override void Load()
 		{
+			base.Load();
 			structure = Generator.GetStructureData($"Structures/{StructureName}", Mod);
 		}
 

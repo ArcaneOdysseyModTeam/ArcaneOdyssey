@@ -406,3 +406,10 @@ DamageClasses: {
 	ArcaniumDamageClass.DisplayName: arcanium damage
 	RangedArcaniumDamageClass.DisplayName: ranged arcanium damage
 }
+
+Subworlds: {
+	DjinSubworld: {
+		Description: Mods.ArcaneOdyssey.Subworlds.DjinSubworld.Description
+		DisplayName: Djin Subworld
+	}
+}

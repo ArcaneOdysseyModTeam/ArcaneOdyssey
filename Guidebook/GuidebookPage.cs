@@ -18,7 +18,7 @@ namespace ArcaneOdyssey.Guidebook
 		/// <summary>
 		/// Whether this page is obtainable from finding Athena pages, rather than any specific condition
 		/// </summary>
-		public virtual bool AthenaPage => false;
+		public ref bool AthenaPage => ref GuidebookSystem.Sets.AthenaPage[PageNum];
 
 		/// <inheritdoc/>
 		protected sealed override void Register()

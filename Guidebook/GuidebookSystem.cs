@@ -2,18 +2,8 @@
 {
 	public class GuidebookSystem : ModSystem
 	{
-		public override void Unload()
-		{
-			PageCount = 0;
-			AllPages = [];
-			GuidebookPage.PagesOrdered = [];
-		}
 
 		public static int PageCount = 0;
-
-
-		public static SetFactory Factory = null;
-
 
 		public static GuidebookPage[] AllPages = [];
 
@@ -27,8 +17,14 @@
 
 		public override void ResizeArrays()
 		{
-			Factory = new(PageCount, nameof(GuidebookSystem), i => GuidebookPage.Get(i).Name);
-			AllPages = Factory.CreateCustomSet<GuidebookPage>(null);
+			AllPages = Sets.Factory.CreateCustomSet<GuidebookPage>(null);
+		}
+
+		[ReinitializeDuringResizeArrays]
+		public static class Sets
+		{
+			public static SetFactory Factory = new(PageCount, nameof(GuidebookSystem), i => GuidebookPage.Get(i).Name);
+			public static bool[] AthenaPage = Factory.CreateBoolSet();
 		}
 	}
 }
