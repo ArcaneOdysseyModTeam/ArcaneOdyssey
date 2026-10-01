@@ -7,7 +7,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class FireMagic : MagicType
+	public sealed class FireMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -16,6 +16,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<ShadowflameMagic>();
 			RegisterMutation<FlareMagic>();
 			RegisterMutation<SunMagic>();
+		}
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Fire;
 		}
 		public override float DashSpeed => 1.2f; // burst
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }

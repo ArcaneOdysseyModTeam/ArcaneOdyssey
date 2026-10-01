@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class CrystalMagic : MagicType
+	public sealed class CrystalMagic : MagicType
 	{
 		public override float Aura => 1.2f;
 		public override void RegisterMutations()
@@ -17,9 +17,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override bool Special => true;
 		public override float? DashResist => 1.3f;
 		public override Color ImbueColour => new(255, 0, 0);
-		
-		
-		
+
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Crystal;
+		}
+
 		public override float ScrollSpeed => 0.9f;
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 1.05f;

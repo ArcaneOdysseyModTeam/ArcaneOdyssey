@@ -7,13 +7,19 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class IceMagic : MagicType
+	public sealed class IceMagic : MagicType
 	{
 		public override float Aura => 1.1f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<BlizzardMagic>();
 			RegisterMutation<FrostmetalMagic>();
+		}
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Ice;
 		}
 		public override bool Special => true;
 		public override float? DashResist => 1.3f;

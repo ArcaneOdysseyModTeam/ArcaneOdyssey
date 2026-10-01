@@ -11,7 +11,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override Color ImbueColour => Color.White;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
 
-
 		public override float ImbueSize => 1.06f;
 		public override float ScrollDamage => .925f;
 		public override float ScrollSize => 1f;
@@ -79,6 +78,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 		public override void Load()
 		{
 			base.Load();
+			ID = ImbueID.BasicCombat;
 			On_Item.GetShimmered += ShimmerSkills;
 		}
 

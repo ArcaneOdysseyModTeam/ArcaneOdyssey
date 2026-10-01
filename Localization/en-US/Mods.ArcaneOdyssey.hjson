@@ -19,6 +19,7 @@ Bestiary: {
 	Dusk: Her true name and history are unknown. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
 	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band. Despite carrying a dagger he also stole, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks.
 	LordElius: Lord Elius is a young man from a noble family in the Ravenna Realm. Despite his young age, he is talented in his usage of magic alongside his weapons.
+	ShipMaster: A master ship builder and pilot, who can create all manner of vessels to take you to faraway lands.
 }
 
 GodSouls: {
@@ -212,6 +213,7 @@ Projectiles: {
 	Circle.DisplayName: Magic Circle
 	ThunderingEffect.DisplayName: Lightning Strike
 	MobilityCircle.DisplayName: Magic Circle
+	TownNPC.DeathBlast.DisplayName: Death Blast
 }
 
 Achievements: {
@@ -308,9 +310,9 @@ MainMenuStyle: {
 	Classic: Classic
 	Pixel: Pixel
 	Mythical: Mythical
-	MenuBack: MenuBack
 	Djin: Djin
 	Dragon: Dragon
+	Argos: Argos
 }
 
 FilteringOption.ImbuesFilter.Tooltip: Filter Imbues & Scrolls
@@ -399,6 +401,11 @@ ImbueGimmicks: {
 	CannonFrenzy: {
 		DisplayName: Cannon Frenzy
 		Description: You throw cannonballs as you attack
+	}
+
+	FantasiaRifts: {
+		DisplayName: Fantasia Rifts
+		Description: Mods.ArcaneOdyssey.ImbueGimmicks.FantasiaRifts.Description
 	}
 }
 

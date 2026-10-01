@@ -1,3 +1,4 @@
+using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Projectiles.Base;
 
 namespace ArcaneOdyssey.Projectiles
@@ -22,16 +23,15 @@ namespace ArcaneOdyssey.Projectiles
 			Projectile.localNPCHitCooldown = -1;
 		}
 
+		public static DeathMagic Imbue => ModContent.GetInstance<DeathMagic>();
+
 		private float? offset = null;
 
 		public override void AI()
 		{
 			if (!Main.dedServ)
 			{
-				Dust spawnedDust = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, Scale: 2f);
-				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X + (Projectile.width / 2f), Projectile.position.Y + (Projectile.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 10f, (Main.rand.NextFloat() - 0.5f) * 10f, Scale: 2.6f);
-				spawnedDust2.noGravity = true;
+				Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
 			}
 			if (Projectile.Bottom.Y < 0 || Projectile.localAI[0] > 1000 || !Projectile.Hitbox.OnScreen())
 			{

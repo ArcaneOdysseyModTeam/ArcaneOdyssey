@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey;
 using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
 
@@ -8,9 +9,9 @@ namespace ArcaneOdyssey.Projectiles.Relics
 	public class Nichtetheis : SpiritProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[SecondImbue?.Type ?? ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[SecondImbue?.Type ?? ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[SecondImbue?.Type ?? ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ImbueID.Sets.Assets.raySprites[SecondImbue?.ID ?? AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ImbueID.Sets.Assets.rayEndSprites[SecondImbue?.ID ?? AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ImbueID.Sets.Assets.rayStartSprites[SecondImbue?.ID ?? AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
 
 		public override Debuff? ProjectileDebuff => Debuff.Create<DrainedEffect>(60 * 5);
 		public const int TravelTime = 75;

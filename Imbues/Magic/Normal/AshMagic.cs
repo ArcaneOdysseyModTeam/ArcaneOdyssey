@@ -8,7 +8,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class AshMagic : MagicType
+	public sealed class AshMagic : MagicType
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<AshClouds>();
 		public override void RegisterMutations()
@@ -19,6 +19,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<SunMagic>();
 			RegisterMutation<CursedAshMagic>();
 		}
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Ash;
+		}
+
 		public override bool Special => true;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;

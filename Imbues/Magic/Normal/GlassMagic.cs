@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class GlassMagic : MagicType
+	public sealed class GlassMagic : MagicType
 	{
 		public override float Aura => .2f;
 		public override void RegisterMutations()
@@ -14,6 +14,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<PrismMagic>();
 			RegisterMutation<SoundMagic>();
 			RegisterMutation<SlashMagic>();
+		}
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Glass;
 		}
 		public override bool Special => true;
 		public override float? DashResist => 1.05f;

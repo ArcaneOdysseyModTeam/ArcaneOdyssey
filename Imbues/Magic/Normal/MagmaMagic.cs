@@ -7,7 +7,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class MagmaMagic : MagicType
+	public sealed class MagmaMagic : MagicType
 	{
 		public override float Aura => 1f;
 		public override void RegisterMutations()
@@ -22,9 +22,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override void SetStaticDefaults() { base.SetStaticDefaults();ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(255, 50, 0);
-		
-		
-		
+
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Magma;
+		}
+
 		public override float ScrollSpeed => 0.7f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 0.9f;

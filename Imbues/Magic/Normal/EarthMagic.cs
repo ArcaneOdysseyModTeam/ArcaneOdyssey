@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class EarthMagic : MagicType
+	public sealed class EarthMagic : MagicType
 	{
 		public override float Aura => 1.3f;
 		public override void RegisterMutations()
@@ -18,9 +18,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		}
 		public override float? DashResist => 1.4f;
 		public override Color ImbueColour => new(69, 42, 1);
-		
-		
-		
+
+
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Earth;
+		}
 		public override float ScrollSpeed => 0.7f;
 		public override float ScrollSize => 1.3f;
 		public override float ScrollDamage => 1f;

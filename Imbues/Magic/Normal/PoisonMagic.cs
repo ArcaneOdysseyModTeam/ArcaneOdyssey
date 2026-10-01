@@ -7,7 +7,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class PoisonMagic : MagicType
+	public sealed class PoisonMagic : MagicType
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<PoisonClouds>();
 		public override void RegisterMutations()
@@ -18,9 +18,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item17;
 		public override Color ImbueColour => new(105, 0, 105, 255);
-		
-		
-		
+
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Poison;
+		}
+
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 0.75f;

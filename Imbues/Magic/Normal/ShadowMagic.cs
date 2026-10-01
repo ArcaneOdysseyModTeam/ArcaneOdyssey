@@ -5,7 +5,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class ShadowMagic : MagicType
+	public sealed class ShadowMagic : MagicType
 	{
 		public override float Aura => 1f;
 		public override void RegisterMutations()
@@ -17,9 +17,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Black;
-		
-		
-		
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Shadow;
+		}
+
+
 		public override float ScrollSpeed => 1.25f;
 		public override float ScrollSize => 1.1f;
 		public override float ScrollDamage => 0.95f;

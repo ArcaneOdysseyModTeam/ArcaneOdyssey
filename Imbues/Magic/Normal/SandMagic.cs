@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class SandMagic : MagicType
+	public sealed class SandMagic : MagicType
 	{
 		public override float Aura => 1f;
 		public override void RegisterMutations()
@@ -19,9 +19,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 60, 255);
 		public override bool CanBeWet => false;
-		
-		
-		
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Sand;
+		}
+
+
 		public override float ScrollSpeed => 0.95f;
 		public override float ScrollSize => 1.1f;
 		public override float ScrollDamage => 0.975f;

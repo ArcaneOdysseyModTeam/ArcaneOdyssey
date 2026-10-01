@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey;
+using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
@@ -147,7 +148,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Annihilation");
 
-		public override Texture2D Sprite => ArcaneOdysseyMod.Sets.Assets.annihilationSprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? base.Sprite;
+		public override Texture2D Sprite => ImbueID.Sets.Assets.annihilationSprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Base;
+﻿using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using System.Collections.Generic;
@@ -116,7 +117,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		TodaysOffers = [];
 		#endregion
 
-		List<int> mutations = ArcaneOdysseyMod.Sets.Mutations[magic.Type];
+		List<int> mutations = ImbueID.Sets.Mutations[magic.ID];
 
 		int total = mutations.Count, totalRows = (total / ProductsPerRow) + (total % ProductsPerRow > 0 ? +1 : 0);
 		AuxPanel.Height.Set(((64 + Separation) * totalRows) + Separation, 0f);

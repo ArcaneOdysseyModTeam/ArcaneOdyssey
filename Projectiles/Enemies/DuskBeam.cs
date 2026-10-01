@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
+using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Imbues.Relics;
@@ -10,9 +11,9 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 	public class DuskBeam : BaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[ModContent.ItemType<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ImbueID.Sets.Assets.raySprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ImbueID.Sets.Assets.rayEndSprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ImbueID.Sets.Assets.rayStartSprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
 
 		public Imbuable Imbue => ModContent.GetInstance<DuskStaff>();
 

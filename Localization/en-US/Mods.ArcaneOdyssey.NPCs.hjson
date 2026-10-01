@@ -42,25 +42,32 @@ Town: {
 
 	ShipMaster: {
 		DisplayName: Shipmaster
-		Census.SpawnCondition: Defeat Lord Elius
+		Census.SpawnCondition: Defeat Lord Elius and unlock a subworld
+
+		Chat: {
+			TravelingMerchant: I very much enjoy the business of {0}, every time one of them travelling merchants comes around they need repairs for their boat, and I'm happy to fill that need.
+			Pirate: At first I was a bit weary of {0}, but he's not so bad, a seafaring fellow such as myself!
+			Hello: Greetings.
+			Nurse: I got a splinter yesterday while working on a boat, luckily {0} was able to get it out.
+		}
 
 		TownNPCMood: {
-			Content: I am content.
-			NoHome: I hate not having a home.
-			FarFromHome: I am too far from home.
-			LoveSpace: I love having so much space.
-			DislikeCrowded: I dislike how crowded I am.
-			HateCrowded: I hate how crowded I am.
-			LoveBiome: I love {BiomeName}.
-			LikeBiome: I like {BiomeName}.
-			DislikeBiome: I dislike {BiomeName}.
-			HateBiome: I hate {BiomeName}.
-			LoveNPC: I love {NPCName}.
-			LikeNPC: I like {NPCName}.
-			DislikeNPC: I dislike {NPCName}.
-			HateNPC: I hate {NPCName}.
-			LikeNPC_Princess: I like {NPCName}.
-			Princess_LovesNPC: I like {NPCName}.
+			Content: Business is booming!
+			NoHome: Give me a home, I can't do anything without space to work!
+			FarFromHome: Seems I've taken quite the odyssey. Maybe it's time to return home.
+			LoveSpace: Not many customers around here, but at least nobody can complain about the noise I make.
+			DislikeCrowded: With how crowded this place is, there's not much room to build even a ship in a bottle!
+			HateCrowded: Get me away from these landlubbers. Always complaining about the noise!
+			LoveBiome: This place is perfect, {BiomeName} is the best place for me!
+			LikeBiome: I have no complaints about {BiomeName}, although hauling the ships to the shore from here might be a chore.
+			DislikeBiome: Although I can make skyships up here in {BiomeName}, they are very difficult to get right.
+			HateBiome: Do you really think {BiomeName} is the kind of place for ships at all?
+			LoveNPC: "{NPCName} makes great sails, a necessity around here."
+			LikeNPC: "{NPCName} sells good quality paint, perfect for making ships shine!"
+			DislikeNPC: "{NPCName} is quite annoying, only good grace is that I get to charge him for boat repairs. He always damages his fishing boat when he goes out."
+			HateNPC: I swear, {NPCName} is always getting on my case about the noise. Have you ever tried being quiet yourself?!
+			LikeNPC_Princess: "{NPCName} sure enjoys travel, which is great business for me!"
+			Princess_LovesNPC: "{NPCName} may have a monopoly on boats around here, but I'll gladly take advantage of the quick repairs!."
 		}
 	}
 }
@@ -100,6 +107,5 @@ Bosses: {
 		Spared: Lord Elius has left!
 		Refight: It's you again!
 		SecondPhaseMessage: ENOUGH! It's time to start trying.
-		MoveElementName: "Electric "
 	}
 }

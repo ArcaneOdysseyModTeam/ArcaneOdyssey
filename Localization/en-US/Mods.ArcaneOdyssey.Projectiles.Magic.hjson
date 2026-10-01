@@ -14,6 +14,7 @@ Effects: {
 	AetherLightningAftershock.DisplayName: Aether Lightning Aftershock
 	LightningBurst.DisplayName: Lightning Burst
 	DeathShockProjectile.DisplayName: Death Shock
+	FantasiaRift.DisplayName: Fantasia Rift
 }
 
 ExplosionSpell.DisplayName: Explosion

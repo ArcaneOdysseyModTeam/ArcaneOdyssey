@@ -414,4 +414,11 @@ Mythical: {
 		DisplayName: Matrix Magic
 		Tooltip: DEBUG - [c/00aaaa:For balance testing]
 	}
+
+	FantasiaMagic: {
+		AttackPrefix: Fantasia
+		SpellPrefix: Fantasia
+		DisplayName: Fantasia Magic
+		Tooltip: ""
+	}
 }

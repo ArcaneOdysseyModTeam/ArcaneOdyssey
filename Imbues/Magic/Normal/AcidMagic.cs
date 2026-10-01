@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class AcidMagic : MagicType
+	public sealed class AcidMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -15,8 +15,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.Purple;
-		
-		
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Acid;
+		}
 		
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.05f;

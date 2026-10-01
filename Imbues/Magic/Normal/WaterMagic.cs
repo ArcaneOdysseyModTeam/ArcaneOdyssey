@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class WaterMagic : MagicType
+	public sealed class WaterMagic : MagicType
 	{
 		public override float Aura => .8f;
 		public override void RegisterMutations()
@@ -20,9 +20,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashSpeed => 1.2f; // burst
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override Color ImbueColour => new(0, 30, 255);
-		
-		
-		
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Water;
+		}
+
+
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.25f;
 		public override float ScrollDamage => 0.9f;

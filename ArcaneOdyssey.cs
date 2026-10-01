@@ -308,24 +308,13 @@ namespace ArcaneOdyssey
 
 
 		[ReinitializeDuringResizeArrays]
-		public class Sets : ModSystem
+		public class Sets
 		{
 			public static bool[] excludedItem = ItemID.Sets.Factory.CreateBoolSet();
 
 			public static bool[] excludedProjectile = ProjectileID.Sets.Factory.CreateBoolSet();
 
 			public static bool[] OldWeapon = ItemID.Sets.Factory.CreateBoolSet();
-
-			public static List<int>[] Mutations = ItemID.Sets.Factory.CreateCustomSet<List<int>>(null);
-
-			public override void ResizeArrays()
-			{
-				// manually change default value
-				for (int i = 0; i < Mutations.Length; i++)
-				{
-					Mutations[i] = [];
-				}
-			}
 
 			public static int[] SizeStats = ItemID.Sets.Factory.CreateIntSet(0,
 				ItemID.MoltenBreastplate, 7,
@@ -411,8 +400,6 @@ namespace ArcaneOdyssey
 
 			public static bool[] phoenixAffected = NPCID.Sets.Factory.CreateBoolSet();
 
-			public static int[] BlastMaxFrames = ItemID.Sets.Factory.CreateIntSet(1);
-
 			public static bool[] staff = ItemID.Sets.Factory.CreateBoolSet(ItemID.MonkStaffT1, ItemID.MonkStaffT3);
 
 			public static bool[] claw = ItemID.Sets.Factory.CreateBoolSet(ItemID.FetidBaghnakhs);
@@ -427,8 +414,7 @@ namespace ArcaneOdyssey
 
 			public static bool[] greataxe = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteGreataxe, ItemID.TitaniumWaraxe, ItemID.WarAxeoftheNight, ItemID.AdamantiteWaraxe);
 
-			public static bool[] rapier = ItemID.Sets.Factory.CreateBoolSet();
-
+			public static bool[] rapier = ItemID.Sets.Factory.CreateBoolSet(ItemID.PiercingStarlight);
 
 			public static bool[] dualbladed = ItemID.Sets.Factory.CreateBoolSet();
 
@@ -439,8 +425,6 @@ namespace ArcaneOdyssey
 			public static bool[] greathammer = ItemID.Sets.Factory.CreateBoolSet(ItemID.ChlorophyteWarhammer, ItemID.PaladinsHammer);
 
 			public static bool[] flail = ItemID.Sets.Factory.CreateBoolSet(ItemID.DripplerFlail, ItemID.Mace, ItemID.FlamingMace, ItemID.Flairon, ItemID.BallOHurt, ItemID.BlueMoon, ItemID.DaoofPow, ItemID.FlowerPow, ItemID.Sunfury, ItemID.TheMeatball); // PORT add other flairon
-
-			public static int?[] baseImbues = ItemID.Sets.Factory.CreateCustomSet<int?>(null);
 
 			public static bool[] atlanteanItem = ItemID.Sets.Factory.CreateBoolSet();
 
@@ -456,17 +440,6 @@ namespace ArcaneOdyssey
 			[ReinitializeDuringResizeArrays]
 			public static class Assets
 			{
-
-				public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-				public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-				public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-				public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
-				public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
-
 				public static Dictionary<string, Asset<Texture2D>> MagicCircles = [];
 			}
 		}

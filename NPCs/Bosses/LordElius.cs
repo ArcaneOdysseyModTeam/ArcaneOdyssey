@@ -39,6 +39,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
+			NPCID.Sets.TakesDamageFromHostilesWithoutBeingFriendly[Type] = true;
+			NPCID.Sets.TeleportationImmune[Type] = true;
+			NPCID.Sets.ReflectStarShotsInForTheWorthy[Type] = true;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

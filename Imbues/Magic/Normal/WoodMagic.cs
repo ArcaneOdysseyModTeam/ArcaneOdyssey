@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class WoodMagic : MagicType
+	public sealed class WoodMagic : MagicType
 	{
 		public override float Aura => 1.2f;
 		public override void RegisterMutations()
@@ -20,9 +20,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float? DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(61, 33, 0, 255);
-		
-		
-		
+
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Wood;
+		}
+
 		public override float ScrollSpeed => 0.8f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 0.95f;

@@ -7,7 +7,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class PlasmaMagic : MagicType
+	public sealed class PlasmaMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -25,9 +25,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(255, 100, 255, 255);
 		public override bool CanBeWet => false;
-		
-		
-		
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Plasma;
+		}
+
+
 		public override float ScrollSpeed => 1.2f;
 		public override float ScrollSize => 1f;
 		public override float ScrollDamage => 0.825f;

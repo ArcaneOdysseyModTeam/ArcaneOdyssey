@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class ExplosionMagic : MagicType
+	public sealed class ExplosionMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -22,9 +22,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override Color ImbueColour => new(235, 146, 52);
 		public override bool CanBeWet => false;
-		
-		
-		
+
+
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Explosion;
+		}
+
 		public override float ScrollSpeed => 0.85f;
 		public override float ScrollSize => 1.3f;
 		public override float ScrollDamage => 0.925f;

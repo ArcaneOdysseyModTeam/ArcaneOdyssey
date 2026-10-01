@@ -4,6 +4,7 @@ using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Projectiles;
+using ArcaneOdyssey.Projectiles.TownNPC;
 using ArcaneOdyssey.UI;
 using System.Collections.Generic;
 using Terraria.Audio;
@@ -47,13 +48,43 @@ namespace ArcaneOdyssey.NPCs.Town
 				SetNPCAffection(NPCID.Pirate, AffectionLevel.Dislike).
 				SetNPCAffection(NPCID.Wizard, AffectionLevel.Like).
 				SetNPCAffection(NPCID.Clothier, AffectionLevel.Love);
-			NPCID.Sets.AttackFrameCount[Type] = 4; // morden doesnt attack but im keeping this
+			NPCID.Sets.AttackFrameCount[Type] = 4;
+			NPCID.Sets.DangerDetectRange[Type] = 700;
+			NPCID.Sets.AttackTime[Type] = 30;
+			NPCID.Sets.AttackAverageChance[Type] = 30;
+			NPCID.Sets.ShimmerTownTransform[Type] = false;
 			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
+			NPCID.Sets.AttackType[Type] = 2;
+			NPCID.Sets.MagicAuraColor[Type] = Imbue.ImbueColour2;
+		}
+
+		public static DeathMagic Imbue => ModContent.GetInstance<DeathMagic>();
+
+		public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
+		{
+			projType = ModContent.ProjectileType<DeathBlast>();
+			attackDelay = 1;
+		}
+
+		public override void TownNPCAttackMagic(ref float auraLightMultiplier)
+		{
+			base.TownNPCAttackMagic(ref auraLightMultiplier);
+		}
+
+		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+		{
+			multiplier = 7f * Imbue.ScrollSpeed;
+		}
+
+		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
+		{
+			damage = 20;
+			knockback = 5f;
 		}
 
 		public override List<string> SetNPCNameList() => ["Morden"];
 
-		public override bool CanBeHitByNPC(NPC attacker) => !attacker.IsDamageDodgeable();
+		public override bool CanBeHitByNPC(NPC attacker) => attacker.Distance(NPC.Center) < 20f || !attacker.IsDamageDodgeable();
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
@@ -61,6 +92,8 @@ namespace ArcaneOdyssey.NPCs.Town
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life = Utils.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
+				modifiers.HideCombatText();
+				modifiers.DisableCrit();
 			}
 		}
 
@@ -70,6 +103,8 @@ namespace ArcaneOdyssey.NPCs.Town
 			{
 				modifiers.FinalDamage *= 0;
 				NPC.life = Utils.Clamp(NPC.life + 5, 0, NPC.lifeMax + 1);
+				modifiers.HideCombatText();
+				modifiers.DisableCrit();
 			}
 		}
 
@@ -88,10 +123,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			{
 				for (int n = 0; n < 10; n++)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(NPC.Center, 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, Scale: 1f)];
-					spawnedDust.noGravity = true;
-					Dust spawnedDust2 = Main.dust[Dust.NewDust(NPC.Center, 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 8f, Scale: 1.6f)];
-					spawnedDust2.noGravity = true;
+					Imbue?.LingeringEffects(NPC.Hitbox, source: NPC);
 				}
 			}
 		}
@@ -101,25 +133,21 @@ namespace ArcaneOdyssey.NPCs.Town
 			// Have death curse shoot out
 			if (!Main.dedServ)
 			{
-				for (int n = 0; n < 20; n++)
+				for (int n = 0; n < 7; n++)
 				{
-					Dust spawnedDust = Main.dust[Dust.NewDust(NPC.Center, 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, Scale: 2f)];
-					spawnedDust.noGravity = true;
-					Dust spawnedDust2 = Main.dust[Dust.NewDust(NPC.Center, 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 3f, (Main.rand.NextFloat() - 0.5f) * 3f, Scale: 2.6f)];
-					spawnedDust2.noGravity = true;
+					Imbue.ExplosionEffects(NPC.Center);
 				}
 				Main.NewText(Mod.CustomLocalization($"{LocalizationCategory}.{Name}.DeathCurse").Value, Color.DarkCyan);
+				if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet)
+				{
+					ExplodeMorden();
+				}
 			}
 			else
 			{
 				ChatHelper.BroadcastChatMessage(Mod.CustomLocalization($"{LocalizationCategory}.{Name}.DeathCurse").ToNetworkText(), Color.DarkCyan);
 			}
-			if (AOUtils.ServerOrSingleplayer)
-				Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);
-			if (NPC.wet && !NPC.honeyWet && !NPC.lavaWet && !NPC.shimmerWet)
-			{
-				ExplodeMorden();
-			}
+			Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, new(0, 10), ModContent.ProjectileType<DeathCurse>(), 700, 0f);
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -188,7 +216,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			AddOption("Water");
 			if (AOUtils.BossesKilled == 0)
 			{
-				options.Add(Language.GetTextValue(this.GetLocalizationKey("Chat.Intro"), Player.name));
+				options.Add(Mod.CustomLocalization(this.GetLocalizationKey("Chat.Intro"), Player.name).Value);
 				AddOption("Grave");
 			}
 			else
@@ -228,12 +256,9 @@ namespace ArcaneOdyssey.NPCs.Town
 		{
 			if (!Main.dedServ)
 			{
-				for (int n = 0; n < 50; n++)
+				for (int n = 0; n < 16; n++)
 				{
-					Dust spawnedDust = Dust.NewDustDirect(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * 50f, (Main.rand.NextFloat() - 0.5f) * 50f, Scale: 2f);
-					spawnedDust.noGravity = true;
-					Dust spawnedDust2 = Dust.NewDustDirect(new Vector2(NPC.position.X + (NPC.width / 2f), NPC.position.Y + (NPC.height / 2f)), 1, 1, DustID.Vortex, (Main.rand.NextFloat() - 0.5f) * 50f, (Main.rand.NextFloat() - 0.5f) * 50f, Scale: 2.6f);
-					spawnedDust2.noGravity = true;
+					Imbue.ExplosionEffects(NPC.Center, 2f);
 				}
 				SoundEngine.PlaySound(SoundID.Item74, NPC.position, null);
 			}

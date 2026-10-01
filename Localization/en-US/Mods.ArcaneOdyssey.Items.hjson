@@ -388,7 +388,7 @@ Debug: {
 
 	TesterGoggles: {
 		DisplayName: Tester Goggles
-		Tooltip: DEBUG - Allows you to see hidden item data
+		Tooltip: DEBUG - Allows you to see hidden item data and hitboxes
 	}
 }
 

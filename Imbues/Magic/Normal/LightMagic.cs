@@ -5,7 +5,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class LightMagic : MagicType
+	public sealed class LightMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -16,6 +16,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<AetherLightningMagic>();
 			RegisterMutation<RegulusMagic>();
 			RegisterMutation<WaveMagic>();
+		}
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Light;
 		}
 
 		public override bool ImmuneDash => true; // instant

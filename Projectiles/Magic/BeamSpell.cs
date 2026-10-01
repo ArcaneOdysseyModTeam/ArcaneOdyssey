@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using System.Collections.Generic;
 using System.IO;
@@ -36,9 +37,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 
 		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
-		public Texture2D MidSprite => ArcaneOdysseyMod.Sets.Assets.raySprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? ArcaneOdysseyMod.Sets.Assets.raySprites[WindMagic.ID]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? ArcaneOdysseyMod.Sets.Assets.rayEndSprites[WindMagic.ID]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Imbue?.Type ?? WindMagic.ID]?.Value ?? ArcaneOdysseyMod.Sets.Assets.rayStartSprites[WindMagic.ID]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ImbueID.Sets.Assets.raySprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
+		public Texture2D EndSprite => ImbueID.Sets.Assets.rayEndSprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
+		public Texture2D StartSprite => ImbueID.Sets.Assets.rayStartSprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
 
 
 		public override float Size => .75f;

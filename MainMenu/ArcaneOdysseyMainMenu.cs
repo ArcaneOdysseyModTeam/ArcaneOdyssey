@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.NPCs.Bosses;
+﻿# if !VSDEBUGMODE
+using ArcaneOdyssey.NPCs.Bosses;
+#endif
 using ArcaneOdysseyMusic;
 using System;
 using System.Collections.Generic;
@@ -85,9 +87,11 @@ namespace ArcaneOdyssey.MainMenu
 
 		public override void SetStaticDefaults()
 		{
-			Raindrop.Texture = Mod.Assets.Request<Texture2D>("Assets/Raindrop");
+#if !VSDEBUGMODE
 			Titles.AddRange(new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"));
 			Titles.Add(new(MusicTrack.Djin, Color.Gray, "Djin", GlobalData.IsDefeated<LordElius>));
+#endif
+			Titles.Add(new(MusicTrack.Argos, Color.Transparent, "Argos")); // finish later, add a condition and change to talos theme
 		}
 
 		public static void DrawAOBackground(SpriteBatch spriteBatch)
@@ -147,6 +151,11 @@ namespace ArcaneOdyssey.MainMenu
 		public override void OnSelected()
 		{
 			RandomSelect();
+		}
+
+		public override void Load()
+		{
+			Raindrop.Texture = Mod.Assets.Request<Texture2D>("Assets/Raindrop");
 		}
 
 		public static void RandomSelect()

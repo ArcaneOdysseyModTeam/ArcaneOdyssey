@@ -9,7 +9,7 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class LightningMagic : MagicType
+	public sealed class LightningMagic : MagicType
 	{
 		public override void RegisterMutations()
 		{
@@ -19,6 +19,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<PoisonLightningMagic>();
 			RegisterMutation<SoundMagic>();
 			RegisterMutation<StormMagic>();
+		}
+
+		public override void Load()
+		{
+			base.Load();
+			ID = ImbueID.Lightning;
 		}
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };

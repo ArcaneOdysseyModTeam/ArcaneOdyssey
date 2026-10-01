@@ -7,9 +7,10 @@ using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
-	public class WindMagic : MagicType
+	public sealed class WindMagic : MagicType
 	{
-		public static int ID => ModContent.ItemType<WindMagic>();
+		public static int StaticType => ModContent.ItemType<WindMagic>();
+		public static int StaticID => AOUtils.ImbuableID<WindMagic>();
 		public override void RegisterMutations()
 		{
 			RegisterMutation<BlizzardMagic>();
@@ -21,6 +22,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<StormMagic>();
 			RegisterMutation<RegulusMagic>();
 		}
+
+		public override void Load()
+		{
+			ID = ImbueID.Wind;
+			base.Load();
+		}
+
 		public override bool ImmuneDash => true; // instant
 		public override float KBMulti => 2f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;

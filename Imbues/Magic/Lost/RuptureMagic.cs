@@ -28,6 +28,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSpeed => 0.9f;
 		public override float ScrollSize => 1.35f;
 		public override float ScrollDamage => 0.925f;
+		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item14;

@@ -16,6 +16,7 @@ using ArcaneOdyssey.Subworlds.Base;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
@@ -43,6 +44,8 @@ namespace ArcaneOdyssey
 			}
 			return null;
 		}
+
+		public static int ImbuableID<T>() where T : Imbuable => ModContent.GetInstance<T>().ID;
 
 		public static bool IsNullOrWhiteSpace(this string text) => string.IsNullOrWhiteSpace(text);
 
@@ -607,11 +610,30 @@ namespace ArcaneOdyssey
 		/// <param name="damageClass"><seealso cref="DamageClass"/> of the AoE</param>
 		/// <param name="updatedamage">Whether to update damage with imbue stats, defaults to true</param>
 		/// <param name="ignoredNPCs">The <seealso cref="Entity.whoAmI"/> of <seealso cref="NPC"/>s you don't want to damage</param>
-		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass, bool updatedamage = true, params int[] ignoredNPCs)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source, DamageClass damageClass = null, bool updatedamage = true, params int[] ignoredNPCs)
 		{
 			if (source is null) return;
 			if (!source.active) return;
 			Imbuable imbue = source.AnyArcaneOdyssey()?.Imbue;
+			if (damageClass is null)
+			{
+				if (source is Projectile proj)
+				{
+					damageClass = proj.DamageType;
+				}
+				else if (source is Item item)
+				{
+					damageClass = item.DamageType;
+				}
+				else if (imbue is not null)
+				{
+					damageClass = imbue.Item.DamageType;
+				}
+				else
+				{
+					damageClass = DamageClass.Default;
+				}
+			}
 			if (imbue is not null)
 			{
 				if (source.AnyArcaneOdyssey()?.BenifitsFromScrollStats.HasValue == true)
@@ -1390,9 +1412,10 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public static LocalizedText CustomLocalization(this Mod mod, string key, params object[] formatting)
 		{
-			if (mod is not ArcaneOdysseyMod)
+			mod ??= ModInstance;
+			if (!key.StartsWith("Mods."))
 			{
-				mod = ModInstance;
+				key = mod.GetLocalizationKey(key);
 			}
 			LocalizedText text = LocalizedText.Empty;
 			string fulllocalstuff = "";
@@ -1400,14 +1423,14 @@ namespace ArcaneOdyssey
 			{
 				fulllocalstuff += " " + format;
 			}
-			if (ArcaneOdysseyMod.staticLocalizer.TryGetValue(mod.GetLocalizationKey(key) + fulllocalstuff, out LocalizedText value))
+			if (ArcaneOdysseyMod.staticLocalizer.TryGetValue(key + fulllocalstuff, out LocalizedText value))
 			{
 				text = value;
 			}
 			else
 			{
-				text = Language.GetOrRegister(mod.GetLocalizationKey(key), () => key.Split('.').LastOrDefault(key)).WithFormatArgs(formatting);
-				ArcaneOdysseyMod.staticLocalizer[mod.GetLocalizationKey(key) + fulllocalstuff] = text;
+				text = Language.GetOrRegister(key, () => key.Split('.').LastOrDefault(key)).WithFormatArgs(formatting);
+				ArcaneOdysseyMod.staticLocalizer[key + fulllocalstuff] = text;
 			}
 			return text;
 		}
@@ -2028,10 +2051,7 @@ namespace ArcaneOdyssey
 			magicBuffMultipliers = [];
 		}
 
-		public static SynergyEffects operator +(SynergyEffects one, SynergyEffects two)
-		{
-			return new([.. one.clearBuffs, .. two.clearBuffs], [.. one.magicBuffMultipliers, .. two.magicBuffMultipliers]);
-		}
+		public static SynergyEffects operator +(SynergyEffects one, SynergyEffects two) => new([.. one.clearBuffs, .. two.clearBuffs], [.. ((List<Synergy>)[.. one.magicBuffMultipliers, .. two.magicBuffMultipliers]).DistinctBy(e => e.buffID)]);
 	}
 
 	public struct ClearBuff(int id, params int[] alternatives)
@@ -2063,9 +2083,9 @@ namespace ArcaneOdyssey
 			return new(ModContent.BuffType<T>(), result, duration, [.. ModContent.GetInstance<T>().Counterparts]);
 		}
 
-		public static Combo Create<T, R>(int duration = 60) where T : BaseBuff where R : BaseBuff
+		public static Combo Create<TRequirement, TResult>(int duration = 60) where TRequirement : BaseBuff where TResult : BaseBuff
 		{
-			return new(ModContent.BuffType<T>(), ModContent.BuffType<R>(), duration, [.. ModContent.GetInstance<T>().Counterparts]);
+			return new(ModContent.BuffType<TRequirement>(), ModContent.BuffType<TResult>(), duration, [.. ModContent.GetInstance<TRequirement>().Counterparts]);
 		}
 	}
 

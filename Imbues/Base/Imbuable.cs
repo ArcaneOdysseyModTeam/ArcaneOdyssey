@@ -2,6 +2,7 @@
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Debug;
 using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
 using ArcaneOdyssey.Items.Scrolls.Passive.Common;
@@ -27,9 +28,61 @@ namespace ArcaneOdyssey.Imbues.Base
 	/// </summary>
 	public abstract class Imbuable : BaseItem, IImbuable
 	{
+		internal Imbuable instance;
+		internal static int count = ImbueID.Count;
 		public override void Load()
 		{
+			if (!(this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal))
+			{
+				ID = count++;
+			}
+
+			instance = this;
+			
 			ModTypeLookup<Imbuable>.Register(this);
+		}
+
+		public static string GetName(int id)
+		{
+			foreach (var item in ModContent.GetContent<Imbuable>())
+			{
+				if (item.ID == id)
+				{
+					return item.FullName;
+				}
+			}
+			return null;
+		}
+
+		public static Imbuable GetImbuable(int id)
+		{
+			foreach (var item in ModContent.GetContent<Imbuable>())
+			{
+				if (item.ID == id)
+				{
+					return item;
+				}
+			}
+			return null;
+		}
+
+		private int _id = -1;
+		public int ID 
+		{ 
+			get 
+			{
+				if (_id > -1)
+				{
+					return _id;
+				}
+				else
+				{
+					var id = (ModContent.GetModItem(Type) as Imbuable).ID;
+					_id = id;
+					return id;
+				}
+			}
+			internal set => _id = value;
 		}
 		public sealed override bool CanStack(Item source) => false;
 
@@ -66,7 +119,6 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual PassiveSkill DefaultPassive => null;
 		public virtual ModSkill DefaultMobility => null;
 		public virtual DashSkill DefaultDash => null;
-
 
 		public (AttackSkill, AttackSkill, AttackSkill) Attacks;
 		public PassiveSkill Passive;
@@ -580,6 +632,13 @@ namespace ArcaneOdyssey.Imbues.Base
 			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
+
+			if (_id < 0)
+			{
+				ArcaneOdysseyMod.NoticeQueue.Add($"{FullName} has an invalid ID!");
+			}
+			else if (!(this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal))
+				ImbueID.Search.Add(FullName, ID);
 		}
 
 		public virtual ImbueGimmick Gimmick => null;
@@ -846,6 +905,10 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			base.ModifyTooltips(tooltips);
+			if (Main.LocalPlayer.HasTypeInInventory<TesterGoggles>())
+			{
+				tooltips.AddTooltip(new(Mod, "DebugImbueID", $"{nameof(ID)} {ID}"));
+			}
 			if (!tooltips.Contains(tooltips.Find(e => e.Name == "Social" && e.Mod == "Terraria")))
 			{
 				TooltipLine drawback = new(Mod, "Drawback", ArcaneOdysseyMod.Instance.CustomLocalization("ImbueStuff.Drawback", Drawback).Value);
@@ -988,7 +1051,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			ExtraTooltips.Clear();
 		}
 
-		private static int SortMultipliers(Synergy x, Synergy y)
+		internal static int SortMultipliers(Synergy x, Synergy y)
 		{
 			if (x.multiplier > y.multiplier)
 			{

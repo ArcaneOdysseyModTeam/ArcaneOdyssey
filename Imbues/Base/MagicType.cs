@@ -64,47 +64,47 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			base.SetStaticDefaults();
 			RegisterMutations();
-			ArcaneOdysseyMod.Sets.Mutations[Type] = [.. ArcaneOdysseyMod.Sets.Mutations[Type].OrderBy(e => ModContent.GetModItem(e).DisplayName.Value)];
+			ImbueID.Sets.Mutations[ID] = [.. ImbueID.Sets.Mutations[ID].OrderBy(e => ImbueID.Search.GetName(e))];
 			ItemID.Sets.ItemNoGravity[Type] = true;
-			ArcaneOdysseyMod.Sets.BlastMaxFrames[Type] = BlastFrames;
+			ImbueID.Sets.BlastMaxFrames[ID] = BlastFrames;
 
 			ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
 			ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out ArcaneOdysseyMod.Sets.Assets.annihilationSprites[Type]) & ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out ImbueID.Sets.Assets.annihilationSprites[ID]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing annihilation sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.Assets.raySprites[Type]) & ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ImbueID.Sets.Assets.raySprites[ID]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Type]) & ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ImbueID.Sets.Assets.rayEndSprites[ID]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray end sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Type]) & ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ImbueID.Sets.Assets.rayStartSprites[ID]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ArcaneOdysseyMod.Sets.Assets.blasts[Type]) & ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ImbueID.Sets.Assets.blasts[ID]) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing blast sprite");
 			}
 		}
 
-		public static int DefaultOriginalImbue => WindMagic.ID;
+		public static int DefaultOriginalImbue => AOUtils.ImbuableID<WindMagic>();
 
 		private Imbuable _og = null;
 		public Imbuable OriginalImbue
 		{
 			get
 			{
-				return _og ?? AOUtils.Safe<Imbuable>(ModContent.GetModItem(ArcaneOdysseyMod.Sets.baseImbues[Type] ?? DefaultOriginalImbue));
+				return _og ?? AOUtils.Safe<Imbuable>(GetImbuable(ImbueID.Sets.baseImbues[ID] ?? DefaultOriginalImbue));
 			}
 
 			set
@@ -154,7 +154,17 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public void RegisterMutation<T>() where T : MagicType
 		{
-			ArcaneOdysseyMod.Sets.Mutations[Type].Add(ModContent.ItemType<T>());
+			ImbueID.Sets.Mutations[ID].Add(AOUtils.ImbuableID<T>());
+		}
+
+		public static void RegisterMutation<TMutate, TResult>() where TMutate: MagicType where TResult : MagicType
+		{
+			ModContent.GetInstance<TMutate>().RegisterMutation<TResult>();
+		}
+
+		public void RegisterMutationFrom<T>() where T : MagicType
+		{
+			ImbueID.Sets.Mutations[AOUtils.ImbuableID<T>()].Add(ID);
 		}
 
 		public override void SetDefaults()
@@ -162,9 +172,10 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Magic;
 		}
+
 		public void RegisterDefaultMagic<T>() where T : MagicType
 		{
-			ArcaneOdysseyMod.Sets.baseImbues[Type] = ModContent.ItemType<T>();
+			ImbueID.Sets.baseImbues[ID] = AOUtils.ImbuableID<T>();
 		}
 
 		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -181,6 +192,11 @@ namespace ArcaneOdyssey.Imbues.Base
 		}
 
 		public abstract int BlastFrames { get; }
+	}
+
+	public abstract class MagicType<T> : MagicType where T : ImbueGimmick
+	{
+		public sealed override ImbueGimmick Gimmick => ModContent.GetInstance<T>();
 	}
 
 	public class MagicBlastSkill : AttackSkill

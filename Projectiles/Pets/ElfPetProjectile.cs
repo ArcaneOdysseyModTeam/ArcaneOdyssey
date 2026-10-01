@@ -1,6 +1,5 @@
 using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Projectiles.Base;
-using System;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Projectiles.Pets
@@ -14,51 +13,57 @@ namespace ArcaneOdyssey.Projectiles.Pets
 		public static readonly SoundStyle ElfYippeeSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/ElfPetYippee");
 		public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 			Main.projFrames[Type] = 13;
 			Main.projPet[Type] = true;
 		}
+
+		public override float Size => .5f;
+
 		public override void SetDefaults()
 		{
-			Projectile.width = 132;
-			Projectile.height = 109;
+			base.SetDefaults();
+			Projectile.width = 132 * 2;
+			Projectile.height = 109 * 2;
 			Projectile.tileCollide = false;
 			Projectile.frame = 12;
 			Projectile.netImportant = true;
 		}
 		public override bool PreAI()
 		{
-			wasThereABoss = isThereABoss;
-			isThereABoss = false;
-			foreach (NPC npc in Main.ActiveNPCs)
+			wasThereABoss = isThereABoss; // set if there was a boss
+			isThereABoss = false; // there is not a boss by default
+			foreach (NPC npc in Main.ActiveNPCs) // check every npc
 			{
-				if (npc.boss)
+				if (npc.boss) // if the npc is a boss
 				{
-					isThereABoss = true;
+					isThereABoss = true; // set that a boss is alive
 				}
 			}
-			if (!isThereABoss && wasThereABoss)
+			if (!isThereABoss && wasThereABoss) // if there was a boss and now there isnt
 			{
-				wasThereABoss = false;
-				isThereABoss = false;
-				Projectile.ai[0] = 300;
-				Projectile.frame = 0;
-				haveICelebrated = false;
+				wasThereABoss = false; // there was not a boss
+				isThereABoss = false; // there is not a boss
+				Projectile.ai[0] = 300; // sets ai 0 to 300
+				Projectile.frame = 0; // sets frame to 1
+				haveICelebrated = false; // has not celebrated
 			}
 			return true;
 		}
 
 		public override void AI()
 		{
-			var modPlayer = Owner.GetModPlayer<ThyPlayer>();
-			if (modPlayer.elfPet)
+			var modPlayer = Owner.GetModPlayer<ThyPlayer>(); // get player
+			if (modPlayer.elfPet) // if the player is supposed to have this pet
 			{
-				Projectile.timeLeft = 2;
+				Projectile.timeLeft = 2; // keep pet alive
 			}
-			if (Projectile.ai[0] > 0)
+			if (Projectile.ai[0] > 0) // if ai 0 is over 0
 			{
-				wasThereABoss = false;
-				targetPosition = Owner.Center + new Vector2(Owner.direction * -38f, -30f);
-				if (Projectile.Center.X > Owner.Center.X)
+				Projectile.ai[0] -= 1f;
+				wasThereABoss = false; // there was not a boss
+				targetPosition = Owner.Center + new Vector2(Owner.direction * -38f, -30f); // sets target position to beside the player
+				if (Projectile.Center.X > Owner.Center.X) // changes direction to face player
 				{
 					Projectile.spriteDirection = -1;
 				}
@@ -67,75 +72,96 @@ namespace ArcaneOdyssey.Projectiles.Pets
 					Projectile.spriteDirection = 1;
 				}
 				//Get frame
-				if (Projectile.frame > 3)
+				if (Projectile.frame > 3) // if the frame is over 4
 				{
-					Projectile.frame = 0;
+					Projectile.frame = 0; // set frame to 1
 				}
-				if (Projectile.frameCounter > 10)
+				if (Projectile.frameCounter > 10) // every 10 ticks
 				{
-					Projectile.frameCounter = 0;
-					Projectile.frame++;
-					if (Projectile.frame > 3)
+					Projectile.frameCounter = 0; // reset frame counter
+					if (++Projectile.frame > 3) // if the frame is over 4
 					{
-						Projectile.frame = 0;
+						Projectile.frame = 0; // set frame to 1
 					}
-					if (Projectile.frame == 3)
+					if (Projectile.frame == 3) // if the frame is 4
 					{
-						if (!haveICelebrated && !Main.dedServ)
+						if (!haveICelebrated && !Main.dedServ) // if not celebrated
 						{
 							// Confetti
 							for (int n = 0; n < 20; n++)
 							{
+								// celebrate
 								int[] confettis = [DustID.Confetti_Blue, DustID.Confetti_Green, DustID.Confetti_Pink, DustID.Confetti_Yellow];
-								Dust.NewDust(Projectile.Center + new Vector2(0f, -25f), 1, 1, confettis[(int)Math.Round(Main.rand.NextFloat() * 3f)], 0, 0);
+								Dust.NewDust(Projectile.Center + new Vector2(0f, -25f), 1, 1, Main.rand.Next(confettis), 0, 0);
 							}
 							//Audio here
-							SoundEngine.PlaySound(ElfYippeeSound, Projectile.Center);
-							haveICelebrated = true;
+							SoundEngine.PlaySound(ElfYippeeSound, Projectile.Center); // play sound
+							haveICelebrated = true; // pet has celebrated
 						}
 					}
 				}
 			}
 			else
 			{
-				targetPosition = Owner.Center + new Vector2(Owner.direction * 60f, 7f);
-				Projectile.spriteDirection = Owner.direction;
-				//Get frame
-				if (Projectile.frame < 4)
+				if (Owner.afkCounter > 60 * 10) // if player afk for 10 seconds
 				{
-					Projectile.frame = 4;
-				}
-				if (Projectile.frameCounter > 10)
-				{
-					Projectile.frameCounter = 0;
-					Projectile.frame++;
+					targetPosition = Owner.Center + new Vector2(Owner.direction * 100f, 7.5f); // move to beside player
+					Projectile.spriteDirection = Owner.direction * -1; // face towards player
 					if (Projectile.frame < 4)
 					{
 						Projectile.frame = 4;
 					}
-					else if (Projectile.frame > 11)
+					if (Projectile.frameCounter > 10)
 					{
-						Projectile.frame = 4;
+						Projectile.frameCounter = 0;
+						Projectile.frame++;
+						if (Projectile.frame < 4)
+						{
+							Projectile.frame = 4;
+						}
+						else if (Projectile.frame > 11)
+						{
+							Projectile.frame = 6;
+						}
 					}
 				}
-			}
-			float targetAngle = Projectile.Center.AngleTo(targetPosition);
-			if (Vector2.Distance(Projectile.Center, targetPosition) >= 5)
-			{
-				Projectile.Center += new Vector2(MathF.Cos(targetAngle), MathF.Sin(targetAngle)) * 5;
+				else
+				{
+					// Get frame
+					targetPosition = Owner.Center + new Vector2(Owner.direction * -38f, -30f); // sets target position to beside the player
+					if (Projectile.Center.X > Owner.Center.X) // changes direction to face player
+					{
+						Projectile.spriteDirection = -1;
+					}
+					else
+					{
+						Projectile.spriteDirection = 1;
+					}
+					if (Projectile.frame > 3) // if the frame is over 4
+					{
+						Projectile.frame = 0; // set frame to 1
+					}
+					if (Projectile.frameCounter > 10) // every 10 ticks
+					{
+						Projectile.frameCounter = 0; // reset frame counter
+						if (++Projectile.frame > 3) // if the frame is over 4
+						{
+							Projectile.frame = 0; // set frame to 1
+						}
+					}
+				}
 			}
 			if (Vector2.Distance(Projectile.Center, targetPosition) > 2500)
 			{
 				Projectile.Center = targetPosition;
-				//idk add like teleport dust here
 			}
-			else if (Vector2.Distance(Projectile.Center, targetPosition) > 500)
+			if (Vector2.Distance(Projectile.Center, targetPosition) > 500)
 			{
-				Projectile.Center += new Vector2(MathF.Cos(targetAngle), MathF.Sin(targetAngle)) * 15;
+				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, 10f);
 			}
-			if (Projectile.ai[0] > -1f)
+			else
 			{
-				Projectile.ai[0] -= 1f;
+				Projectile.Center = Projectile.Center.MoveTowards(targetPosition, 5f);
 			}
 			Projectile.frameCounter++;
 		}

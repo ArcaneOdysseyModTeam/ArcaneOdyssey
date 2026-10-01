@@ -195,17 +195,17 @@ namespace ArcaneOdyssey.Imbues.Relics
 				ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
 				ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
 
-				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ArcaneOdysseyMod.Sets.Assets.raySprites[Type]) & ArcaneOdysseyMod.DevMode)
+				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ImbueID.Sets.Assets.raySprites[ID]) & ArcaneOdysseyMod.DevMode)
 				{
 					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray sprite");
 				}
 
-				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ArcaneOdysseyMod.Sets.Assets.rayEndSprites[Type]) & ArcaneOdysseyMod.DevMode)
+				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ImbueID.Sets.Assets.rayEndSprites[ID]) & ArcaneOdysseyMod.DevMode)
 				{
 					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray end sprite");
 				}
 
-				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ArcaneOdysseyMod.Sets.Assets.rayStartSprites[Type]) & ArcaneOdysseyMod.DevMode)
+				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ImbueID.Sets.Assets.rayStartSprites[ID]) & ArcaneOdysseyMod.DevMode)
 				{
 					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
 				}
