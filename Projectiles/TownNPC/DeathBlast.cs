@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
+using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdyssey.Projectiles.Base;
 
 namespace ArcaneOdyssey.Projectiles.TownNPC
@@ -32,13 +33,32 @@ namespace ArcaneOdyssey.Projectiles.TownNPC
 			return true;
 		}
 
+		public override void OnKill(int timeLeft)
+		{
+			Imbue?.KillEffects(Projectile.Hitbox, Projectile);
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers = AOUtils.CalculateImbueDamage(Imbue, target, modifiers);
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (AOUtils.NPCAlive<Edgelord>(out var morden))
+			{
+				if (target.lifeMax < (morden.lifeMax / 20))
+				{
+					target.StrikeInstantKill();
+				}
+			}
+		}
+
 		public static DeathMagic Imbue => ModContent.GetInstance<DeathMagic>();
 
 		public override void AI()
 		{
-			base.AI();
 			Imbue?.LingeringEffects(Projectile.Hitbox, Projectile.velocity, Projectile);
-
 			Imbue?.UpdateProjectile(Projectile);
 
 			if (Projectile.frameCounter++ > 5)

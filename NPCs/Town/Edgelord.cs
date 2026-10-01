@@ -51,7 +51,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			NPCID.Sets.AttackFrameCount[Type] = 4;
 			NPCID.Sets.DangerDetectRange[Type] = 700;
 			NPCID.Sets.AttackTime[Type] = 30;
-			NPCID.Sets.AttackAverageChance[Type] = 30;
+			NPCID.Sets.AttackAverageChance[Type] = 120;
 			NPCID.Sets.ShimmerTownTransform[Type] = false;
 			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 			NPCID.Sets.AttackType[Type] = 2;
@@ -84,7 +84,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override List<string> SetNPCNameList() => ["Morden"];
 
-		public override bool CanBeHitByNPC(NPC attacker) => attacker.Distance(NPC.Center) < 20f || !attacker.IsDamageDodgeable();
+		public override bool CanBeHitByNPC(NPC attacker) => (attacker.Hitbox.ClosestPointInRect(NPC.Center).Distance(NPC.Center) > 50f) || (!attacker.IsDamageDodgeable());
 
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{

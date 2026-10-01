@@ -50,6 +50,14 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			{
 				if ((!npc.friendly) && npc.WithinRange(Projectile.Center, Projectile.Size.Length() * 3f))
 				{
+					//var enemyY = npc.Center.Y;
+					//var enemyX = npc.Center.X;
+					//var riftY = Projectile.Center.Y;
+					//var riftX = Projectile.Center.X;
+					//var pow = MathF.Pow;
+					//var sqrt = MathF.Sqrt;
+					//npc.velocity.Y -= ((enemyY - riftY) / pow(sqrt(pow(enemyY - riftY, 2) + pow(enemyX - riftX, 2)), 3)) * 5f;
+					//npc.velocity.X -= ((enemyX - riftX) / pow(sqrt(pow(enemyY - riftY, 2) + pow(enemyX - riftX, 2)), 3)) * 5f;
 					npc.velocity = npc.SafeDirectionTo(Projectile.Center) * 2f;
 				}
 			}
