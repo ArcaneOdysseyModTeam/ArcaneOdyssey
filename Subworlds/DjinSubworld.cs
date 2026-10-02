@@ -8,9 +8,6 @@ namespace ArcaneOdyssey.Subworlds
 
 		public override ushort OrderNum => 0;
 
-		public override bool MetConditions()
-		{
-			return true;
-		}
+		public override bool MetConditions() => true;
 	}
 }

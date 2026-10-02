@@ -2,7 +2,11 @@
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class SpiritProjectile : PlayerProjectile, IImbuable
+	public interface ISpiritProjectile : ILocalizedModType
+	{
+		// can be added to projectiles to make them count as spirit projectiles!
+	}
+	public abstract class SpiritProjectile : PlayerProjectile, IImbuable, ISpiritProjectile
 	{
 		public override Debuff? ProjectileDebuff => null;
 

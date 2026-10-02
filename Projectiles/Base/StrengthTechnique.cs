@@ -2,7 +2,11 @@
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class StrengthTechnique : PlayerProjectile
+	public interface IStrengthTechnique : ILocalizedModType
+	{
+		// counts as strnghthroahtuwt or whatever
+	}
+	public abstract class StrengthTechnique : PlayerProjectile, IStrengthTechnique
 	{
 		public override Debuff? ProjectileDebuff => null;
 		public override void SetDefaults()

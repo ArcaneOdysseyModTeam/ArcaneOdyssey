@@ -177,7 +177,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					if (OriginWeaponType == WeaponType.Artisinal)
 						return null;
 					if (thisProjectile.ModProjectile is null or BaseProjectile || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-						return thisProjectile.ModProjectile is StrengthTechnique or MagicSpell or SpiritProjectile or Circle or MobilityCircle || OriginWeaponType != WeaponType.Normal;
+						return thisProjectile.ModProjectile is IStrengthTechnique or IMagicSpell or ISpiritProjectile or Circle or MobilityCircle || OriginWeaponType != WeaponType.Normal;
 				}
 				return null;
 			}
@@ -223,6 +223,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				binaryWriter.Write(projectile.scale);
 				binaryWriter.Write(projectile.Size);
 			}
+			SendEvenMoreAI(projectile, bitWriter, binaryWriter);
 		}
 
 		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
@@ -234,6 +235,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				projectile.scale = binaryReader.ReadSingle();
 				projectile.Size = binaryReader.ReadVector2();
 			}
+			ReceiveEvenMoreAI(projectile, bitReader, binaryReader);
 		}
 
 		public bool? Cold;
@@ -402,7 +404,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisProjectile = projectile;
 			Update(projectile);
-			if (!Main.dedServ && projectile.TryGetOwner(out var player) && player.meleeEnchant == GelBuff.meleeEnchantID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+			if (!Main.dedServ && projectile.TryGetOwner(out var player) && player.meleeEnchant == GelBuff.meleeEnchantID && !(projectile.noEnchantments || projectile.noEnchantmentVisuals) && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
 			{
 				player.ArcaneOdyssey()?.Gel?.Effects(projectile.Hitbox);
 			}
@@ -424,13 +426,13 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (projectile.TryGetOwner(out var player))
 			{
-				if (player.meleeEnchant == GelBuff.meleeEnchantID && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
+				if (player.meleeEnchant == GelBuff.meleeEnchantID && !(projectile.noEnchantments || projectile.noEnchantmentVisuals) && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
 				{
 					if (player.ArcaneOdyssey().GelDebuff != 0)
 						target.AddBuff(player.ArcaneOdyssey().GelDebuff, 60 * Main.rand.Next(5, 10));
 				}
 
-				if (player.ArcaneOdyssey().BloodDisease != 0)
+				if (player.ArcaneOdyssey().BloodDisease != 0 && !projectile.noEnchantments)
 				{
 					target.AddBuff(player.ArcaneOdyssey().BloodDisease, 60 * Main.rand.Next(4, 10));
 				}
@@ -447,7 +449,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				if (Imbue is SpiritEnergy)
 				{
 					if (!target.immortal)
-						owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not SpiritProjectile);
+						owner.ArcaneOdyssey()?.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), projectile.ModProjectile is not ISpiritProjectile);
 				}
 			}
 		}
@@ -455,6 +457,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void Load()
 		{
 			On_Projectile.Damage_GetHitbox += DrawDebugHitboxes;
+			On_Projectile.Kill += DontKillPiercingShot;
 		}
 
 		private static Rectangle DrawDebugHitboxes(On_Projectile.orig_Damage_GetHitbox orig, Projectile self)
@@ -466,9 +469,11 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 			return box;
 		}
+
 		public override void Unload()
 		{
 			On_Projectile.Damage_GetHitbox -= DrawDebugHitboxes;
+			On_Projectile.Kill -= DontKillPiercingShot;
 		}
 	}
 
@@ -481,9 +486,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			On_Player.DropTombstone += EliusArenaNoTombstones;
 		}
 
-		private void EliusArenaNoTombstones(On_Player.orig_DropTombstone orig, Player self, long coinsOwned, Terraria.Localization.NetworkText deathText, int hitDirection)
+		private static void EliusArenaNoTombstones(On_Player.orig_DropTombstone orig, Player self, long coinsOwned, NetworkText deathText, int hitDirection)
 		{
-			if (self.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()))
+			if (self.Hitbox.Intersects(EliusArenaLoader.eliusArena.ToWorldRect()) || AOUtils.InAOSubworld)
 			{
 				return;
 			}
@@ -491,20 +496,20 @@ namespace ArcaneOdyssey.GlobalTypes
 			orig(self, coinsOwned, deathText, hitDirection);
 		}
 
-		private bool EliusWallCheck(On_Projectile.orig_ShouldWallExplode orig, Projectile self, Microsoft.Xna.Framework.Vector2 compareSpot, int radius, int minI, int maxI, int minJ, int maxJ)
+		private static bool EliusWallCheck(On_Projectile.orig_ShouldWallExplode orig, Projectile self, Vector2 compareSpot, int radius, int minI, int maxI, int minJ, int maxJ)
 		{
-			if (orig(self, compareSpot, radius, minI, maxI, minJ, maxJ) && !(EliusArenaLoader.eliusArena.Intersects(Utils.CenteredRectangle(compareSpot.ToTileCoordinates().ToVector2(), new(radius))) || AOUtils.InAOSubworld))
+			if (orig(self, compareSpot, radius, minI, maxI, minJ, maxJ) && !EliusArenaLoader.eliusArena.Intersects(Utils.CenteredRectangle(compareSpot.ToTileCoordinates().ToVector2(), new(radius))))
 			{
-				return true;
+				return !AOUtils.InAOSubworld;
 			}
 			return false;
 		}
 
-		private bool EliusTileCheck(On_Projectile.orig_CanExplodeTile orig, Projectile self, int x, int y)
+		private static bool EliusTileCheck(On_Projectile.orig_CanExplodeTile orig, Projectile self, int x, int y)
 		{
-			if (orig(self, x, y) && !(EliusArenaLoader.eliusArena.Contains(x, y) || AOUtils.InAOSubworld))
+			if (orig(self, x, y) && !EliusArenaLoader.eliusArena.Contains(x, y))
 			{
-				return true;
+				return !AOUtils.InAOSubworld;
 			}
 			return false;
 		}

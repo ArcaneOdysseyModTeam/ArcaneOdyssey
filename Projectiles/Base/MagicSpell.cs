@@ -2,7 +2,11 @@
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
-	public abstract class MagicSpell : PlayerProjectile
+	public interface IMagicSpell : ILocalizedModType
+	{
+		// sets any projectile to count as a magic spell!
+	}
+	public abstract class MagicSpell : PlayerProjectile, IMagicSpell
 	{
 		public override Debuff? ProjectileDebuff => null;
 

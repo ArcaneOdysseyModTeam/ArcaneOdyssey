@@ -52,7 +52,7 @@ namespace ArcaneOdyssey.Subworlds.Base
 
 		public abstract bool MetConditions();
 
-		public static AOSubworld[] UnlockedSubworlds => [.. ModContent.GetContent<AOSubworld>().Where(e => e.MetConditions())];
+		public static AOSubworld[] UnlockedSubworlds => [.. AOSubworldSystem.AllSubworlds.Where(e => e.MetConditions())];
 
 		/// <summary>
 		/// The file name of this type's texture file in the mod loader's file space.
@@ -71,9 +71,9 @@ namespace ArcaneOdyssey.Subworlds.Base
 
 		public override void SetStaticDefaults()
 		{
-			AOSubworldSystem.AllPages[OrderNum] = this;
-			_ = DisplayName;
-			_ = Description; // forces this to generate if they don't exist
+			AOSubworldSystem.AllSubworlds[OrderNum] = this;
+			_ = DisplayName; // forces these to generate if they don't exist
+			_ = Description;
 		}
 
 		public virtual LocalizedText Description => this.GetLocalization("Description");
@@ -167,19 +167,19 @@ namespace ArcaneOdyssey.Subworlds.Base
 	{
 		public static int Count = 0;
 
-		public static AOSubworld[] AllPages = [];
+		public static AOSubworld[] AllSubworlds = [];
 
 		public override void PostSetupContent()
 		{
 			foreach (var page in AOSubworld.Ordered.Keys)
 			{
-				AllPages[AOSubworld.Get(page).OrderNum] = AOSubworld.Get(page);
+				AllSubworlds[AOSubworld.Get(page).OrderNum] = AOSubworld.Get(page);
 			}
 		}
 
 		public override void ResizeArrays()
 		{
-			AllPages = Sets.Factory.CreateCustomSet<AOSubworld>(null);
+			AllSubworlds = Sets.Factory.CreateCustomSet<AOSubworld>(null);
 		}
 
 		[ReinitializeDuringResizeArrays]

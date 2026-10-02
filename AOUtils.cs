@@ -962,7 +962,7 @@ namespace ArcaneOdyssey
 								{
 									target.StrikeInstantKill();
 								}
-								if (projectile.ModProjectile is SpiritProjectile)
+								if (projectile.ModProjectile is ISpiritProjectile)
 								{
 									if (!target.immortal)
 										player2.TrySpiritLifesteal(Math.Min(projectile.originalDamage, projectile.damage), false);
@@ -1039,7 +1039,7 @@ namespace ArcaneOdyssey
 							|| projectile.DamageType.CountsAsClass(DamageClass.Ranged)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Throwing)
 							|| projectile.DamageType.CountsAsClass(DamageClass.Magic)
-							|| projectile.ModProjectile is MagicSpell or SpiritProjectile or StrengthTechnique or Circle or MobilityCircle
+							|| projectile.ModProjectile is IMagicSpell or ISpiritProjectile or IStrengthTechnique or Circle or MobilityCircle
 							|| projectile.ArcaneOdyssey().OriginWeaponType == WeaponType.Savant
 						)
 						&& projectile.owner != 255

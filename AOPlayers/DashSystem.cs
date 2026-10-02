@@ -314,7 +314,8 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void PostUpdateMiscEffects()
 		{
-			SubworldEffects();
+			if (AOUtils.InAOSubworld)
+				SubworldEffects();
 
 			if (CurrentDash is not null)
 			{

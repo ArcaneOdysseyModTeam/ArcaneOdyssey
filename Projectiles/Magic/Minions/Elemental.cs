@@ -12,7 +12,9 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		public bool Stuck => StuckWalkThroughWallsTimer >= 40f || Collision.SolidCollision(Projectile.Center, 2, 2);
 		public ref float StuckWalkThroughWallsTimer => ref Projectile.ai[0];
 		public ref float StuckJumpSpeed => ref Projectile.ai[1];
-		public const float Gravity = 0.35f;
+		public const float Gravity = 0.3f;
+
+		protected virtual int ProjID => ModContent.ProjectileType<MinionMinionBeam>();
 
 		public override void SetStaticDefaults()
 		{
@@ -34,6 +36,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			Projectile.minion = true;
 			Projectile.netImportant = true;
 			Projectile.Opacity = .75f;
+			Projectile.DamageType = DamageClass.MagicSummonHybrid;
 		}
 
 		private NPC potentialTarget;
@@ -108,7 +111,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 					if (Main.myPlayer == Projectile.owner)
 					{
 						Vector2 initialVelocity = Projectile.SafeDirectionTo(potentialTarget.Center + (potentialTarget.velocity * 15f)) * 7f;
-						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, initialVelocity, ModContent.ProjectileType<MinionMinionBeam>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
+						AOUtils.ShootProjectile(Projectile.GetSource_FromThis(), Projectile.Center, initialVelocity, ProjID, Projectile.damage, Projectile.knockBack, Projectile.owner, Imbue, SecondImbue, true);
 						Projectile.netUpdate = true;
 						Projectile.netSpam = 0;
 					}
@@ -125,7 +128,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			}
 		}
 
-		public bool CheckActive()
+		public virtual bool CheckActive()
 		{
 			if (Owner?.active == true)
 			{

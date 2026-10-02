@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			base.SetStaticDefaults();
 			Main.projFrames[Type] = 4;
 			ProjectileID.Sets.MinionShot[Type] = true;
+			ProjectileID.Sets.DrawScreenCheckFluff[Type] = 99999999;
 		}
 
 		public override void SetDefaults()
@@ -40,7 +41,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 
 
 		private Vector2 origin = default;
-		private Vector2? end = null;
 		public override bool CanHaveImbueVFX => !dying;
 
 		public bool dying = false;
@@ -49,14 +49,12 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		{
 			writer.Write(dying);
 			writer.WriteVector2(origin);
-			writer.Write(end);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			dying = reader.ReadBoolean();
 			origin = reader.ReadVector2();
-			end = reader.ReadNullableVector2();
 		}
 
 		public override void AI()
@@ -69,7 +67,6 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 
 			if (Projectile.timeLeft <= LingerTime)
 			{
-				end ??= Projectile.Center;
 				Projectile.Center = origin;
 				Projectile.velocity = Vector2.Zero;
 				dying = true;
@@ -89,9 +86,9 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			if (origin != default)
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+				var info = AOUtils.DrawChain(origin, Projectile.Center, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
 				var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
-				Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(StartSprite, origin - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
 				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
 				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			}

@@ -55,15 +55,15 @@ namespace ArcaneOdyssey.Imbues
 			[ReinitializeDuringResizeArrays]
 			public static class Assets
 			{
-				public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+				public static Asset<Texture2D>[] annihilationSprites = ItemID.Sets.Factory.CreateCustomSet(Asset<Texture2D>.Empty);
 
-				public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+				public static Asset<Texture2D>[] raySprites = ItemID.Sets.Factory.CreateCustomSet(Asset<Texture2D>.Empty);
 
-				public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+				public static Asset<Texture2D>[] rayEndSprites = ItemID.Sets.Factory.CreateCustomSet(Asset<Texture2D>.Empty);
 
-				public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+				public static Asset<Texture2D>[] rayStartSprites = ItemID.Sets.Factory.CreateCustomSet(Asset<Texture2D>.Empty);
 
-				public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet<Asset<Texture2D>>(null);
+				public static Asset<Texture2D>[] blasts = ItemID.Sets.Factory.CreateCustomSet(Asset<Texture2D>.Empty);
 			}
 		}
 	}

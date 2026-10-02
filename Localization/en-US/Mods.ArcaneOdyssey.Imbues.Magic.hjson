@@ -416,9 +416,9 @@ Mythical: {
 	}
 
 	FantasiaMagic: {
-		AttackPrefix: Fantasia
+		AttackPrefix: Unbound
 		SpellPrefix: Fantasia
 		DisplayName: Fantasia Magic
-		Tooltip: ""
+		Tooltip: Dedicated to [c/eaa6ff:elfey1]
 	}
 }

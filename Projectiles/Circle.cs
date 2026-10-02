@@ -334,7 +334,7 @@ namespace ArcaneOdyssey.Projectiles
 					if (ArcaneOdysseyClientConfig.Instance.AbilityText && Owner is not null && Owner?.active == true && !Owner.DeadOrGhost)
 					{
 						var name = Lang.GetProjectileName(ChargingProjectile).Value;
-						if (ModContent.GetModProjectile(ChargingProjectile) is MagicSpell spell)
+						if (ModContent.GetModProjectile(ChargingProjectile) is IMagicSpell)
 						{
 							name = (Imbue.PrettySpellPrefix + " " + name).Trim();
 						}

@@ -405,7 +405,7 @@ ImbueGimmicks: {
 
 	FantasiaRifts: {
 		DisplayName: Fantasia Rifts
-		Description: Mods.ArcaneOdyssey.ImbueGimmicks.FantasiaRifts.Description
+		Description: Summon rifts that suck in foes then slice them
 	}
 }
 
