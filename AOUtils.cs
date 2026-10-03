@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Biomes.Base;
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.GlobalTypes;
@@ -90,6 +91,7 @@ namespace ArcaneOdyssey
 			}
 			return item.type;
 		}
+
 		public static int FindDecraftAmount(this Item item)
 		{
 			int decraftingRecipeIndex = ShimmerTransforms.GetDecraftingRecipeIndex(item.GetShimmerEquivalentType());
@@ -486,6 +488,13 @@ namespace ArcaneOdyssey
 				if (typeof(T).IsSubclassOf(typeof(ModBuff)))
 				{
 					var inst = ModContent.GetInstance<T>() as ModBuff;
+					var tex = inst.Texture;
+					if (ModContent.HasAsset(tex))
+						return tex;
+				}
+				if (typeof(T).IsSubclassOf(typeof(BaseBiome)))
+				{
+					var inst = ModContent.GetInstance<T>() as BaseBiome;
 					var tex = inst.Texture;
 					if (ModContent.HasAsset(tex))
 						return tex;

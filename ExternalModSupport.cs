@@ -11,6 +11,7 @@ using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
 using ArcaneOdysseyMusic.MusicBoxes;
+using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
@@ -200,24 +201,7 @@ namespace ArcaneOdyssey
 		public static bool HasMS => ModLoader.HasMod("MagicStorage");
 		public static Mod MS => HasMS ? ModLoader.GetMod("MagicStorage") : null;
 
-		public static bool NotInSubworld
-		{
-			get
-			{
-				if (!ModLoader.TryGetMod("SubworldLibrary", out Mod subworld))
-				{
-					return true;
-				}
-				else
-				{
-					if ((bool)subworld.Call("AnyActive", null))
-					{
-						return true;
-					}
-				}
-				return false;
-			}
-		}
+		public static bool NotInSubworld => !SubworldSystem.AnyActive();
 
 		private void AddBossChecklist()
 		{

@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Scrolls;
 using System.Collections.Generic;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -99,7 +100,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 							break;
 						}
 						itemCounter++;
-						int tempItemID = Item.NewItem(self.GetItemSource_Misc(8), (int)self.position.X, (int)self.position.Y, self.width, self.height, item.type);
+						int tempItemID = Item.NewItem(self.GetItemSource_Misc(8), (int)self.position.X, (int)self.position.Y, self.width, self.height, item);
 						Item tempItem = Main.item[tempItemID];
 						tempItem.shimmerTime = 1f;
 						tempItem.shimmered = true;
@@ -141,7 +142,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 							break;
 						}
 						itemCounter++;
-						int tempItemID = Item.NewItem(self.GetItemSource_Misc(8), (int)self.position.X, (int)self.position.Y, self.width, self.height, item.type);
+						int tempItemID = Item.NewItem(self.GetItemSource_Misc(8), (int)self.position.X, (int)self.position.Y, self.width, self.height, item);
 						Item tempItem = Main.item[tempItemID];
 						tempItem.shimmerTime = 1f;
 						tempItem.shimmered = true;
@@ -164,8 +165,9 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 
 		private static IEnumerable<Item> AddSkillsToShimmerOutput(Imbuable imbue)
 		{
-			foreach (var skill in imbue.Skills)
+			for (int i = 0; i < imbue.Skills.Length ; i++)
 			{
+				var skill = imbue.Skills[i];
 				if (skill is not null)
 				{
 					if (skill.Scroll != 0)
@@ -173,10 +175,18 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 						yield return new Item(skill.Scroll);
 					}
 				}
+				else
+				{
+					if (!string.IsNullOrWhiteSpace(imbue.cachedSpells[i]))
+					{
+						var item = ModContent.GetModItem(ModContent.ItemType<UnloadedScroll>()) as UnloadedScroll;
+						item.CachedFullName = imbue.cachedSpells[i];
+						yield return item.Item;
+					}
+				}
 			}
 		}
 		
-
 		public override void Unload()
 		{
 			On_Item.GetShimmered -= ShimmerSkills;

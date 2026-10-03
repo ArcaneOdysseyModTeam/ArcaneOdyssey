@@ -129,7 +129,9 @@ namespace ArcaneOdyssey.Imbues.Base
 		public byte selectedIndex;
 		private int actualShoot = 0;
 
-		internal string[] cachedSpells = new string[6];
+		public const int MaxSkills = 6;
+
+		internal string[] cachedSpells = new string[MaxSkills];
 
 		public void CycleAttack()
 		{
@@ -635,7 +637,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 			if (_id < 0)
 			{
-				ArcaneOdysseyMod.NoticeQueue.Add($"{FullName} has an invalid ID!");
+				throw new Exception("Imbue had an invalid ID, perhaps you tried to register a new Normal tier magic?");
 			}
 			else if (!(this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal))
 				ImbueID.Search.Add(FullName, ID);

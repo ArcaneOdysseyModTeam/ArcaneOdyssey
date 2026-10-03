@@ -24,8 +24,6 @@ namespace ArcaneOdyssey.Biomes
 		public override int Music => MusicTrack.Djin.MusicSlot;
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
-
-		public override string MapBackground => BackgroundPath;
 	}
 
 	public class EliusArenaLoader : ModSystem

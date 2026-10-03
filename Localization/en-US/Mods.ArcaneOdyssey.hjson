@@ -291,6 +291,11 @@ Biomes: {
 		TownNPCDialogueName: the Djin Ruins
 	}
 
+	TalosBiome: {
+		DisplayName: Fort Talos
+		TownNPCDialogueName: Fort Talos
+	}
+
 	Sky: Sky
 }
 
@@ -312,7 +317,7 @@ MainMenuStyle: {
 	Mythical: Mythical
 	Djin: Djin
 	Dragon: Dragon
-	Argos: Argos
+	Argos: Talos
 }
 
 FilteringOption.ImbuesFilter.Tooltip: Filter Imbues & Scrolls
@@ -415,8 +420,13 @@ DamageClasses: {
 }
 
 Subworlds: {
-	DjinSubworld: {
-		Description: Mods.ArcaneOdyssey.Subworlds.DjinSubworld.Description
-		DisplayName: Djin Subworld
+	TaloSubworld: {
+		Description: Fort Talos is a fort.
+		DisplayName: Fort Talos
+	}
+
+	TalosSubworld: {
+		DisplayName: Talos Subworld
+		Description: Mods.ArcaneOdyssey.Subworlds.TalosSubworld.Description
 	}
 }

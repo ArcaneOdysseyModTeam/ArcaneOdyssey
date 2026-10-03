@@ -9,10 +9,6 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdysseyMusic.MusicBoxes;
 using System;
 using System.Collections.Generic;
-using Terraria.Chat;
-using Terraria.DataStructures;
-using Terraria.GameContent.NetModules;
-using Terraria.GameContent.UI.ResourceSets;
 
 namespace ArcaneOdyssey.AOPlayers
 {

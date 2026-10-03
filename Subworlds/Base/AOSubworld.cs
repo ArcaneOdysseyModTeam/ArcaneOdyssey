@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.MainMenu;
+﻿using ArcaneOdyssey.Biomes.Base;
+using ArcaneOdyssey.MainMenu;
 using ReLogic.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace ArcaneOdyssey.Subworlds.Base
 			Main.spriteBatch.DrawString(FontAssets.DeathText.Value, message, new Vector2(Main.screenWidth, Main.screenHeight) / 2f - FontAssets.DeathText.Value.MeasureString(message) / 2f, Color.Black, 0, default, 1f, SpriteEffects.None, 0);
 			Main.spriteBatch.DrawString(FontAssets.DeathText.Value, message, new Vector2(Main.screenWidth, Main.screenHeight) / 2f - FontAssets.DeathText.Value.MeasureString(message) / 2f, Color.White, 0, default, 1f, SpriteEffects.None, 0);
 		}
+
+		public abstract ModBiome Biome { get; }
 
 		public override void DrawSetup(GameTime gameTime)
 		{
@@ -50,9 +53,9 @@ namespace ArcaneOdyssey.Subworlds.Base
 			ModContent.RequestIfExists(Texture, out Image);
 		}
 
-		public abstract bool MetConditions();
+		public abstract bool MetConditions { get; }
 
-		public static AOSubworld[] UnlockedSubworlds => [.. AOSubworldSystem.AllSubworlds.Where(e => e.MetConditions())];
+		public static AOSubworld[] UnlockedSubworlds => [.. AOSubworldSystem.AllSubworlds.Where(e => e.MetConditions)];
 
 		/// <summary>
 		/// The file name of this type's texture file in the mod loader's file space.
@@ -167,7 +170,7 @@ namespace ArcaneOdyssey.Subworlds.Base
 	{
 		public static int Count = 0;
 
-		public static AOSubworld[] AllSubworlds = [];
+		internal static AOSubworld[] AllSubworlds = [];
 
 		public override void PostSetupContent()
 		{
