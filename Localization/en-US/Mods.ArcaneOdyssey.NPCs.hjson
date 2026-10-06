@@ -109,3 +109,9 @@ Bosses: {
 		SecondPhaseMessage: ENOUGH! It's time to start trying.
 	}
 }
+
+RowboatNPC: {
+	DisplayName: Rowboat
+	BetterName: "{0}'s Rowboat"
+	AskToLeave: "Using a boat is the only way to leave this place. Would you like to leave?"
+}

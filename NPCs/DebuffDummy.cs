@@ -7,8 +7,10 @@ namespace ArcaneOdyssey.NPCs
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 1;
+			Main.npcFrameCount[Type] = 1;
 		}
+
+		public override string Texture => ArcaneOdysseyMod.InternalName + "/Assets/placeholder";
 
 
 		public override void SetDefaults()
