@@ -30,6 +30,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			base.SetStaticDefaults();
 			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.Special[ID] = true;
+			ImbueID.Sets.Bright[ID] = true;
 		}
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Imperial;
@@ -40,13 +42,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public static float MaxAscentMultiplier => 1.805f;
 		public static float ConstantAscend => 0.125f;
 
-		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(0, 115, 255);
-		public override Color ImbueColour2 => Color.Yellow;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.Yellow;
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float ScrollDamage => .95f;
 		public override float ScrollSpeed => 1.2f;
@@ -82,7 +83,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 4;
+		
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

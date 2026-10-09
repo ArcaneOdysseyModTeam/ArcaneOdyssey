@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class GlassMagic : MagicType
 	{
-		public override float Aura => .2f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<PrismMagic>();
@@ -21,8 +20,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			base.Load();
 			ID = ImbueID.Glass;
 		}
-		public override bool Special => true;
-		public override float? DashResist => 1.05f;
+		public override float DashResist => 1.05f;
+
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override Color ImbueColour => new(255, 255, 255);
 		public override float ScrollSpeed => 1f;
@@ -43,8 +42,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Melting>(1.05f),
 			]
 			);
-
-		public override int BlastFrames => 8;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Penta;
 

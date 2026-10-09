@@ -11,7 +11,12 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	public class CannonFist : FightingStyle
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<CannonFrenzy>();
-		public override float Aura => .875f;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = .875f;
+		}
 		public override Color ImbueColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 

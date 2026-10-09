@@ -30,7 +30,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		}
 
 		public override bool ImmuneDash => true; // instant
-		public override float KBMulti => 2f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(232, 232, 232);
 		
@@ -69,7 +68,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 			);
 
-		public override int BlastFrames => 7;
+		
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 

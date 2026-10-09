@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class EarthMagic : MagicType
 	{
-		public override float Aura => 1.3f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DiamondMagic>();
@@ -16,7 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<OilMagic>();
 			RegisterMutation<PlantMagic>();
 		}
-		public override float? DashResist => 1.4f;
+		public override float DashResist => 1.4f;
 		public override Color ImbueColour => new(69, 42, 1);
 
 
@@ -47,8 +46,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SandyEffect>(1.1f)
 			]
 			);
-
-		public override int BlastFrames => 1;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Monolith;
 

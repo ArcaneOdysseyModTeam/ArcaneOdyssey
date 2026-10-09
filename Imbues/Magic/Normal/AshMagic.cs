@@ -26,7 +26,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			ID = ImbueID.Ash;
 		}
 
-		public override bool Special => true;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(235, 40, 0);
@@ -73,8 +72,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
-
-		public override int BlastFrames => 7;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Malignant;
 

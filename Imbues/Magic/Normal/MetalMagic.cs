@@ -8,15 +8,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class MetalMagic : MagicType
 	{
-		public override float Aura => 1.4f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DiamondMagic>();
 			RegisterMutation<FrostmetalMagic>();
 			RegisterMutation<SlashMagic>();
 		}
-		public override bool Special => true;
-		public override float? DashResist => 1.5f;
+		public override float DashResist => 1.5f;
+
 		public override SoundStyle? ImbueSound => SoundID.Item99;
 		public override Color ImbueColour => new(100, 100, 100);
 
@@ -47,8 +46,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 			]
 			);
-
-		public override int BlastFrames => 4;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Collision;
 

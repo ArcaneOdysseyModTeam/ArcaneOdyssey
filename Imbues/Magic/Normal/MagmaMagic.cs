@@ -9,7 +9,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class MagmaMagic : MagicType
 	{
-		public override float Aura => 1f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<GravityMagic>();
@@ -17,8 +16,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<SunMagic>();
 			RegisterMutation<PhoenixMagic>();
 		}
-		public override bool Special => true;
-		public override float? DashResist => 1.2f;
+		public override float DashResist => 1.2f;
 		public override void SetStaticDefaults() { base.SetStaticDefaults();ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(255, 50, 0);
@@ -71,8 +69,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
-
-		public override int BlastFrames => 4;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;
 

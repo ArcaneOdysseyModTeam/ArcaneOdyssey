@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Mythical
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			if (Bar is not null)
-				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position, Color.Lerp(ImbueColour2, ImbueColour, LerpValue), 0f, FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%") / 2f, Main.inventoryScale, SpriteEffects.None, 1f);
+				spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{BarValue.Round()}%", position, Colour, 0f, FontAssets.ItemStack.Value.MeasureString($"{BarValue.Round()}%") / 2f, Main.inventoryScale, SpriteEffects.None, 1f);
 		}
 	}
 }

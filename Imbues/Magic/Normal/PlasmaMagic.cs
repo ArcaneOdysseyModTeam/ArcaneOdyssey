@@ -19,8 +19,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<AetherLightningMagic>();
 			RegisterMutation<WaveMagic>();
 		}
-		public override bool Special => true;
 		public override bool ImmuneDash => true; // instant
+
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new Color(255, 100, 255, 255);
@@ -70,8 +70,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
-
-		public override int BlastFrames => 4;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
 

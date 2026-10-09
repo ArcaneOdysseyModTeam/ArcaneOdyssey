@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			NPCID.Sets.ShimmerTownTransform[Type] = false;
 			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 			NPCID.Sets.AttackType[Type] = 2;
-			NPCID.Sets.MagicAuraColor[Type] = Imbue.ImbueColour2;
+			NPCID.Sets.MagicAuraColor[Type] = Imbue.ImbueColour;
 		}
 
 		public static DeathMagic Imbue => ModContent.GetInstance<DeathMagic>();

@@ -19,10 +19,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		}
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.OrangeRed;
-		public override Color ImbueColour2 => Color.Orange;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.Orange;
+		
 		public override SoundStyle? ImbueSound => SoundID.Item20;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+		}
 		public override bool CanBeWet => false;
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.1f;
@@ -63,7 +69,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 3;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

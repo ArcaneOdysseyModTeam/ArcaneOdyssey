@@ -12,11 +12,18 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.Violet;
-		public override Color ImbueColour2 => Color.PaleVioletRed;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.PaleVioletRed;
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<AshClouds>();
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+		}
+
 		public override float ScrollDamage => 0.9f;
 
 		public override float ScrollSpeed => 1f;
@@ -29,7 +36,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override Combo[] CombinedDebuffs => AOUtils.CopyCombosFromImbue<AshMagic>();
 
-		public override int BlastFrames => 7;
+		
 
 		public override void RegisterMutations()
 		{

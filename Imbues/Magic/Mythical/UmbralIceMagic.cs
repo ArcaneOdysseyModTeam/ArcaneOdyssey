@@ -12,19 +12,24 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<FrostShards>();
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Collision;
 
-		public override int BlastFrames => 4;
+
 
 		public override Color ImbueColour => new(30, 200, 255);
-		public override Color ImbueColour2 => Color.Black;
+		public override Color? DefaultAnimatedColour => Color.Black;
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 
 
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 
-		public override bool AnimatedColours => true;
-		public override float? DashResist => 1.3f;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
-		public override float Aura => 1.1f;
+
+		public override float DashResist => 1.3f;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
+			ImbueID.Sets.Solid[ID] = true;
+			ImbueID.Sets.AuraPower[ID] = 1f;
+		}
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 3f;
 		public override float ScrollSpeed => 2f;

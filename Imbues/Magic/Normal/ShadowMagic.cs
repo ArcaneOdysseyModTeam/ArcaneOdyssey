@@ -7,7 +7,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class ShadowMagic : MagicType
 	{
-		public override float Aura => 1f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<CursedAshMagic>();
@@ -39,8 +38,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<BlindedEffect>(0.7f),
 			]
 			);
-
-		public override int BlastFrames => 7;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 

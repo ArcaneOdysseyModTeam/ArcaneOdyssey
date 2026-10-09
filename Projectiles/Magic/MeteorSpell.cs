@@ -93,6 +93,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			GetDrawColour(ref lightColor);
 			if (Imbue is BlizzardMagic)
 			{
 				var texture = BlizzardMagic.trail;

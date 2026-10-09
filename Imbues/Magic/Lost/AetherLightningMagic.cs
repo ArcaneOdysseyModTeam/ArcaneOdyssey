@@ -16,8 +16,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Turquoise;
-		public override Color ImbueColour2 => Color.White;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.White;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+		}
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float ScrollSpeed => 1.3f;
 		public override float ScrollSize => 1.2f;
@@ -25,7 +31,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Paralyzed>(60, 15), Debuff.Create<CharredEffect>()];
 		public override Combo[] CombinedDebuffs => [Combo.Create<Soaked, Paralyzed>(), Combo.Create<Bleeding, HeavyBleed>()];
 
-		public override int BlastFrames => 6;
+		
 
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit

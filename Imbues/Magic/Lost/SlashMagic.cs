@@ -9,18 +9,22 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class SlashMagic : MagicType
 	{
-		public override float Aura => .5f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float ScrollDamage => .9f;
 		public override float ScrollSpeed => 1.25f;
 		public override float ScrollSize => 1.2f;
-
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = .5f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override float DashSpeed => 1.2f;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
 		public override Color ImbueColour => new(0, 255, 0);
-		public override Color ImbueColour2 => new(0, 120, 0);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(0, 120, 0);
+		
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<HeavyBleed>()];
 		public override SoundStyle? ImbueSound => SoundID.Item71;
 		public override SynergyEffects Effects => new(
@@ -38,7 +42,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 7;
+		
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{

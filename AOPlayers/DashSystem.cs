@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using System;
 
@@ -385,7 +386,7 @@ namespace ArcaneOdyssey.AOPlayers
 			var knockback = Player.GetKnockback(CurrentDash.DamageType);
 			if (Imbue is not null)
 			{
-				knockback *= Imbue.KBMulti;
+				knockback *= ImbueID.Sets.KBMulti[Imbue.ID];
 				if (CurrentDash.UseScrollImbueStats.HasValue)
 				{
 					if (CurrentDash.UseScrollImbueStats.Value)

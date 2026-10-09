@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public sealed class BasicCombat : FightingStyle
 	{
-		public override float Aura => 1f;
 		public override Color ImbueColour => Color.White;
 		public override SoundStyle? ImbueSound => SoundID.Item39;
 

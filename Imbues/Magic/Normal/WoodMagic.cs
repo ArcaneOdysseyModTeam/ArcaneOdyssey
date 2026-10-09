@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class WoodMagic : MagicType
 	{
-		public override float Aura => 1.2f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<OilMagic>();
@@ -16,8 +15,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<SlashMagic>();
 			RegisterMutation<ThreadMagic>();
 		}
-		public override bool Special => true;
-		public override float? DashResist => 1.3f;
+		public override float DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(61, 33, 0, 255);
 
@@ -50,7 +48,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 			);
 
-		public override int BlastFrames => 4;
+		
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Imperial;
 

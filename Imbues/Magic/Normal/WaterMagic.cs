@@ -8,7 +8,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class WaterMagic : MagicType
 	{
-		public override float Aura => .8f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<CloudMagic>();
@@ -65,7 +64,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 		);
 
-		public override int BlastFrames => 5;
+		
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Tidal;
 

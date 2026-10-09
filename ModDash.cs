@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 
 namespace ArcaneOdyssey
@@ -272,18 +273,18 @@ namespace ArcaneOdyssey
 				{
 					if (Imbue is not null)
 					{
-						value *= Imbue.KBMulti;
+						value *= ImbueID.Sets.KBMulti[Imbue.ID];
 						if (SecondImbue is not null)
-							value *= SecondImbue.KBMulti;
+							value *= ImbueID.Sets.KBMulti[SecondImbue.ID];
 					}
 				}
 				else
 				{
 					if (Imbue is not null)
 					{
-						value *= 1f / Imbue.KBMulti;
+						value *= 1f / ImbueID.Sets.KBMulti[Imbue.ID];
 						if (SecondImbue is not null)
-							value *= 1f / SecondImbue.KBMulti;
+							value *= 1f / ImbueID.Sets.KBMulti[SecondImbue.ID];
 					}
 				}
 				if (UseScrollImbueStats.Value)

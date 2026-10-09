@@ -10,21 +10,22 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 	public class NecroBlazeMagic : MagicType
 	{
 		public override float DashSpeed => 1.2f; // burst
-		public override void SetStaticDefaults() 
-		{ 
-			base.SetStaticDefaults(); 
-			ArcaneOdysseyMod.Sets.cold[Type] = false; 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.Special[ID] = true;
+			ImbueID.Sets.Bright[ID] = true;
 		}
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
 		public override Color ImbueColour => Color.Black;
-		public override Color ImbueColour2 => new(0, 200, 150);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(0, 200, 150);
+
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override bool CanBeWet => false;
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.15f;
-		public override bool Special => true;
 		public override float ScrollDamage => .85f;
 
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<NecroFlame>()];
@@ -61,7 +62,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			]
 			);
 
-		public override int BlastFrames => 3;
+
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
@@ -109,5 +110,5 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		{
 
 		}
-}
+	}
 }

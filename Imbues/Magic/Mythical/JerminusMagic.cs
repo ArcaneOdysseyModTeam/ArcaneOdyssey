@@ -15,7 +15,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Trauma>()];
 
-		public override int BlastFrames => 3;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+		}
 
 		public override void RegisterMutations()
 		{

@@ -27,7 +27,8 @@ namespace ArcaneOdyssey.Imbues
 		public const byte Water = 18;
 		public const byte Wind = 19;
 		public const byte Wood = 20;
-		public static readonly byte Count = 21;
+		public const byte Spirit = 21;
+		public static readonly byte Count = 22;
 		public static readonly IdDictionary Search = IdDictionary.Create<ImbueID, byte>();
 
 		[ReinitializeDuringResizeArrays]
@@ -40,8 +41,43 @@ namespace ArcaneOdyssey.Imbues
 			public static int?[] baseImbues = ItemID.Sets.Factory.CreateCustomSet<int?>(null);
 
 			public static bool[] Solid = Factory.CreateBoolSet(Crystal, Earth, Glass, Ice, Metal, Wood);
+			public static bool[] Bright = Factory.CreateBoolSet(Ash, Fire, Light, Lightning, Magma, Plasma, Spirit);
 
-			public static int[] BlastMaxFrames = Factory.CreateIntSet(1);
+			public static int[] DefaultVariant = Factory.CreateIntSet();
+
+			public static int[] BlastFrames = Factory.CreateIntSet(1);
+
+			public static float[] AuraPower = Factory.CreateFloatSet(.7f,
+					Acid, .8f,
+					BasicCombat, 1f,
+					Crystal, 1.2f,
+					Earth, 1.3f,
+					Glass, .2f,
+					Ice, 1.1f,
+					Magma, 1f,
+					Metal, 1.4f,
+					Sand, 1f,
+					Shadow, 1f,
+					Snow, .9f,
+					Water, .8f,
+					Wood, 1.2f,
+					BasicCombat, 1f
+				);
+
+			public static float[] KBMulti = Factory.CreateFloatSet(1f,
+					Wind, 2f
+				);
+
+			/// <summary>
+			/// Whether this magic is a:
+			/// <list>Lesser Lost Magic</list>
+			/// <list>Lost Spirit Mutation</list>
+			/// <list>Ancient Spirit Mutation</list>
+			/// <list>Mythical Spirit Mutation</list>
+			/// </summary>
+			public static bool[] Special = Factory.CreateBoolSet(Acid, Ash, Crystal, Explosion, Glass, Ice, Magma, Metal, Plasma, Poison, Sand, Snow, Wood);
+
+			public static Color?[] DefaultAnimatedColours = Factory.CreateCustomSet<Color?>(null);
 
 			public override void ResizeArrays()
 			{

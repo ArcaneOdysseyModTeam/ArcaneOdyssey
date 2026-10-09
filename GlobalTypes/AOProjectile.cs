@@ -114,18 +114,18 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					if (Imbue is not null)
 					{
-						value *= Imbue.KBMulti;
+						value *= ImbueID.Sets.KBMulti[Imbue.ID];
 						if (SecondImbue is not null)
-							value *= SecondImbue.KBMulti;
+							value *= ImbueID.Sets.KBMulti[SecondImbue.ID];
 					}
 				}
 				else
 				{
 					if (Imbue is not null)
 					{
-						value *= 1f / Imbue.KBMulti;
+						value *= 1f / ImbueID.Sets.KBMulti[Imbue.ID];
 						if (SecondImbue is not null)
-							value *= 1f / SecondImbue.KBMulti;
+							value *= 1f / ImbueID.Sets.KBMulti[SecondImbue.ID];
 					}
 				}
 				if (BenifitsFromScrollStats.Value)
@@ -217,7 +217,9 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
 		{
 			binaryWriter.Write(Imbue?.Type ?? ItemID.None);
+			Imbue?.NetSend(binaryWriter);
 			binaryWriter.Write(SecondImbue?.Type ?? ItemID.None);
+			SecondImbue?.NetSend(binaryWriter);
 			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
 			{
 				binaryWriter.Write(projectile.scale);
@@ -229,7 +231,9 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
 		{
 			Imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(binaryReader.ReadInt32()));
+			Imbue?.NetReceive(binaryReader);
 			SecondImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(binaryReader.ReadInt32()));
+			SecondImbue?.NetReceive(binaryReader);
 			if (ArcaneOdysseyConfig.Instance.SyncProjectileSizes)
 			{
 				projectile.scale = binaryReader.ReadSingle();
@@ -332,7 +336,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						Imbue ??= relic;
 						SecondImbue ??= relic.Imbue;
-						Cold = relic.Cold;
+						Cold = ArcaneOdysseyMod.Sets.cold[relic.Type];
 					}
 					else if (item1.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
@@ -347,7 +351,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					{
 						Imbue ??= relic;
 						SecondImbue ??= relic.Imbue;
-						Cold = relic.Cold;
+						Cold = ArcaneOdysseyMod.Sets.cold[relic.Type];
 					}
 					else if (item.TryGetGlobalItem<AOItem>(out var aOItem))
 					{
@@ -363,12 +367,12 @@ namespace ArcaneOdyssey.GlobalTypes
 						SecondImbue ??= second;
 				}
 
-				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
+				if (Imbue is not null && Cold.HasValue && ArcaneOdysseyMod.Sets.cold[Imbue.Type].HasValue && (Cold.Value != ArcaneOdysseyMod.Sets.cold[Imbue.Type].Value))
 				{
 					Imbue = SteamImbue.Create(Imbue);
 				}
 
-				if (Imbue is not null && Imbue.Imbue is not null && Imbue.Cold.HasValue && Imbue.Imbue.Cold.HasValue && (Imbue.Cold.Value != Imbue.Imbue.Cold.Value))
+				if (Imbue is not null && Imbue.Imbue is not null && ArcaneOdysseyMod.Sets.cold[Imbue.Type].HasValue && ArcaneOdysseyMod.Sets.cold[Imbue.Type].HasValue && (ArcaneOdysseyMod.Sets.cold[Imbue.Type].Value != ArcaneOdysseyMod.Sets.cold[Imbue.Type].Value))
 				{
 					Imbue.Imbue = SteamImbue.Create(Imbue);
 				}

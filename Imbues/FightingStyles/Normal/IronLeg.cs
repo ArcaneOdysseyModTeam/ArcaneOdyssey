@@ -9,8 +9,13 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public class IronLeg : FightingStyle
 	{
-		public override float Aura => 1.5f;
-		public override float? DashResist => 1.35f;
+		public override float DashResist => 1.35f;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = 1.5f;
+		}
 
 		public override Color ImbueColour => Color.LightGray;
 		public override SoundStyle? ImbueSound => SoundID.Item99;

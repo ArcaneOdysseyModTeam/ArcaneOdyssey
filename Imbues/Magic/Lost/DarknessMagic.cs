@@ -8,18 +8,25 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class DarknessMagic : MagicType
 	{
-		public override float Aura => 1f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DeathMagic>();
 			RegisterDefaultMagic<ShadowMagic>();
 		}
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = 1f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
+
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
 		public override SoundStyle? ImbueSound => SoundID.Item8;
 		public override Color ImbueColour => Color.Black;
-		public override Color ImbueColour2 => Color.DarkRed;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.DarkRed;
+		
 		public override float ScrollSpeed => 1.2f;
 		public override float ScrollSize => 1.3f;
 		public override float ScrollDamage => .85f;
@@ -36,7 +43,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 
-		public override int BlastFrames => 7;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

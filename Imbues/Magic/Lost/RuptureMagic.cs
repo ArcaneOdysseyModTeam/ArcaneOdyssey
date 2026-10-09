@@ -8,13 +8,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class RuptureMagic : MagicType
 	{
-		public override int BlastFrames => 7;
+
 
 		public override Color ImbueColour => Color.Lime;
 
-		public override Color ImbueColour2 => Color.Black;
+		public override Color? DefaultAnimatedColour => Color.Black;
 
-		public override bool AnimatedColours => true;
 
 		public override void RegisterMutations()
 		{
@@ -29,7 +28,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.35f;
 		public override float ScrollDamage => 0.925f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override bool CanBeWet => false;
 		public override SoundStyle? ImbueSound => SoundID.Item14;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<CharredEffect>()];

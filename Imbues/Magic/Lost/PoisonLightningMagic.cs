@@ -14,12 +14,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class PoisonLightningMagic : MagicType
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<PoisonClouds>();
-		public override float Aura => .8f;
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Purple;
-		public override Color ImbueColour2 => new(105, 0, 105, 255);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(105, 0, 105, 255);
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = .8f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 0.9f;
 		public override float ScrollSpeed => 1.35f;
@@ -56,7 +60,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Draconic;
 
-		public override int BlastFrames => 6;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

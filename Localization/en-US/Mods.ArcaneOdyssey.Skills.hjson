@@ -240,9 +240,9 @@ Dash: {
 
 Passive: {
 	AuraSkill: {
-		DisplayName: Aura
+		DisplayName: ImbueID.Sets.AuraPower[ID]
 		Description: Mods.ArcaneOdyssey.Skills.Passive.AuraSkill.Description
-		Popup: Aura
+		Popup: ImbueID.Sets.AuraPower[ID]
 	}
 
 	EnchantmentSkill: {

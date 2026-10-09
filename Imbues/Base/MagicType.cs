@@ -1,7 +1,9 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.MagicVariants.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Skills.Base;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
@@ -16,6 +18,60 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.Load();
 			ModTypeLookup<MagicType>.Register(this);
 		}
+
+		public static MagicType GenerateMagicType(int id, MagicVariant variant)
+		{
+			var imbue = AOUtils.Safe<MagicType>(GetImbuable(id));
+			if (imbue is not null)
+			{
+				imbue.magicVariant = variant;
+				imbue.VariantColour = variant.Colour;
+			}
+			return imbue;
+		}
+
+		public IEnumerable<MagicVariant> Variants => ModContent.GetContent<MagicVariant>().Where(e => e.Imbue == ID);
+
+		public static T GenerateMagicType<T>(MagicVariant variant) where T : MagicType
+		{
+			var imbue = ModContent.GetInstance<T>();
+			imbue.magicVariant = variant;
+			imbue._colour = variant?.Colour;
+			return imbue;
+		}
+
+		public static MagicType GenerateMagicType(int id, Color variant, string name)
+		{
+			var imbue = AOUtils.Safe<MagicType>(GetImbuable(id));
+			if (imbue is not null)
+			{
+				imbue.VariantColour = variant;
+				imbue.magicVariant = null;
+				imbue.unloadedMagicVariant = name;
+			}
+			return imbue;
+		}
+
+		public void SetMagicVariant(MagicVariant variant = null)
+		{
+			if (variant is not null)
+			{
+				VariantColour = variant.Colour;
+				magicVariant = variant;
+				unloadedMagicVariant = "";
+			}
+			else
+			{
+				_colour = null;
+				magicVariant = null;
+				unloadedMagicVariant = "";
+			}
+		}
+
+		public Color VariantColour { get => _colour ?? ImbueColour; private set => _colour = value; }
+		private Color? _colour;
+		public MagicVariant magicVariant = null;
+		public string unloadedMagicVariant = "";
 
 		public override AttackSkill DefaultAttack => ModContent.GetInstance<MagicBlastSkill>();
 
@@ -66,7 +122,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			RegisterMutations();
 			ImbueID.Sets.Mutations[ID] = [.. ImbueID.Sets.Mutations[ID].OrderBy(e => ImbueID.Search.GetName(e))];
 			ItemID.Sets.ItemNoGravity[Type] = true;
-			ImbueID.Sets.BlastMaxFrames[ID] = BlastFrames;
 
 			ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
 			ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
@@ -91,9 +146,13 @@ namespace ArcaneOdyssey.Imbues.Base
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
 			}
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ImbueID.Sets.Assets.blasts[ID]) & ArcaneOdysseyMod.DevMode)
+			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ImbueID.Sets.Assets.blasts[ID], AssetRequestMode.ImmediateLoad) & ArcaneOdysseyMod.DevMode)
 			{
 				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing blast sprite");
+			}
+			else
+			{
+				ImbueID.Sets.BlastFrames[ID] = (ImbueID.Sets.Assets.blasts[ID].Height() / ((float)ImbueID.Sets.Assets.blasts[ID].Width())).Round();
 			}
 		}
 
@@ -112,6 +171,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				_og = AOUtils.Safe<Imbuable>(ModContent.Find<Imbuable>(value.FullName));
 			}
 		}
+
 		private string cachedUnloadedBase = null;
 
 		public override void SaveData(TagCompound tag)
@@ -119,6 +179,18 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.SaveData(tag);
 			if (_og is not null || cachedUnloadedBase is not null)
 				tag.Add("baseimbue", _og?.FullName ?? cachedUnloadedBase);
+
+			if (!unloadedMagicVariant.IsNullOrWhiteSpace())
+			{
+				tag.Add("variantname", unloadedMagicVariant);
+				tag.Add("variantcolourr", VariantColour.R);
+				tag.Add("variantcolourg", VariantColour.G);
+				tag.Add("variantcolourb", VariantColour.B);
+			}
+			else if (magicVariant is not null)
+			{
+				tag.Add("variantname", magicVariant.FullName);
+			}
 		}
 
 		public override void LoadData(TagCompound tag)
@@ -134,6 +206,32 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				cachedUnloadedBase = imbuename;
 			}
+
+			var variantname = tag.GetString("variantname");
+			if (variantname.IsNullOrWhiteSpace())
+			{
+				if (ImbueID.Sets.DefaultVariant[ID] >= 0)
+				{
+					SetMagicVariant(MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[ID]));
+				}
+				else
+				{
+					SetMagicVariant();
+				}
+			}
+			else
+			{
+				if (ModContent.TryFind<MagicVariant>(variantname, out var variant))
+				{
+					SetMagicVariant(variant);
+				}
+				else
+				{
+					SetMagicVariant();
+					unloadedMagicVariant = variantname;
+					VariantColour = new(tag.GetByte("variantcolourr"), tag.GetByte("variantcolourg"), tag.GetByte("variantcolourb"));
+				}
+			}
 		}
 
 		public override void NetSend(BinaryWriter writer)
@@ -141,6 +239,12 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.NetSend(writer);
 			writer.Write(OriginalImbue.Type);
 			writer.Write(cachedUnloadedBase ?? "");
+			writer.Write(unloadedMagicVariant);
+			if (!unloadedMagicVariant.IsNullOrWhiteSpace())
+			{
+				writer.WriteRGB(VariantColour);
+			}
+			writer.Write(magicVariant?.Type);
 		}
 
 		public override void NetReceive(BinaryReader reader)
@@ -148,6 +252,12 @@ namespace ArcaneOdyssey.Imbues.Base
 			base.NetReceive(reader);
 			OriginalImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
 			cachedUnloadedBase = reader.ReadString();
+			unloadedMagicVariant = reader.ReadString();
+			if (!unloadedMagicVariant.IsNullOrWhiteSpace())
+			{
+				VariantColour = reader.ReadRGB();
+			}
+			magicVariant = MagicVariant.GetFromID(reader.ReadNullableInt32().GetValueOrDefault(-1));
 		}
 
 		public abstract void RegisterMutations();
@@ -157,7 +267,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			ImbueID.Sets.Mutations[ID].Add(AOUtils.ImbuableID<T>());
 		}
 
-		public static void RegisterMutation<TMutate, TResult>() where TMutate: MagicType where TResult : MagicType
+		public static void RegisterMutation<TMutate, TResult>() where TMutate : MagicType where TResult : MagicType
 		{
 			ModContent.GetInstance<TMutate>().RegisterMutation<TResult>();
 		}
@@ -191,7 +301,41 @@ namespace ArcaneOdyssey.Imbues.Base
 			return false;
 		}
 
-		public abstract int BlastFrames { get; }
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			base.ModifyTooltips(tooltips);
+
+			if (magicVariant is not null)
+			{
+				var line = new TooltipLine(Mod, "MagicVariant", magicVariant.DisplayName.Value)
+				{
+					OverrideColor = Colour
+				};
+				tooltips.Insert(1, line);
+			}
+			else if (!unloadedMagicVariant.IsNullOrWhiteSpace())
+			{
+				var line = new TooltipLine(Mod, "MagicVariant", VariantColour.Hex3())
+				{
+					OverrideColor = Colour
+				};
+				tooltips.Insert(1, line);
+			}
+		}
+
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			base.Update(ref gravity, ref maxFallSpeed);
+			if (Variants.Any())
+				Item.color = Colour;
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			base.UpdateInventory(player);
+			if (Variants.Any())
+				Item.color = Colour;
+		}
 	}
 
 	public abstract class MagicType<T> : MagicType where T : ImbueGimmick

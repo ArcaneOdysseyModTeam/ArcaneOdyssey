@@ -195,7 +195,7 @@ Mobility: {
 Passive: {
 	Common: {
 		AuraScroll: {
-			DisplayName: Aura Scroll
+			DisplayName: ImbueID.Sets.AuraPower[ID] Scroll
 			Tooltip: ""
 		}
 	}

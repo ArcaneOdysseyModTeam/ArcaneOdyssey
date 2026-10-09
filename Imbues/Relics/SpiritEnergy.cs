@@ -13,6 +13,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override void Load()
 		{
 			base.Load();
+			if (!GetType().IsSubclassOf(typeof(SpiritEnergy)))
+				ID = ImbueID.Spirit;
 			ModTypeLookup<SpiritEnergy>.Register(this);
 		}
 
@@ -103,7 +105,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.Update(ref gravity, ref maxFallSpeed);
 			Soul = GodSoul.None;
-			if (Type == ModContent.ItemType<SpiritEnergy>())
+			if (IsSpiritEnergy)
 			{
 				Item.color = SpiritColour;
 			}
@@ -131,7 +133,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 				spriteBatch.Draw(image.Value, position, null, Item.GetAlpha(Color.White * Main.inventoryScale), 0f, image.Size() / 2f, Main.inventoryScale * imgscale, SpriteEffects.None, 1f);
 			}
 
-			if (Type == ModContent.ItemType<SpiritEnergy>())
+			if (IsSpiritEnergy)
 			{
 				spriteBatch.Draw(Sprite, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 1f);
 				return false;
@@ -140,21 +142,14 @@ namespace ArcaneOdyssey.Imbues.Relics
 			return true;
 		}
 
-		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-		{
-			if (Type == ModContent.ItemType<SpiritEnergy>())
-			{
-				spriteBatch.Draw(Sprite, Item.Center - Main.screenPosition, null, Item.GetAlpha(Color.White), 0f, Sprite.Size() / 2f, scale, SpriteEffects.None, 1f);
-				return false;
-			}
-			return base.PreDrawInWorld(spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
-		}
+
+		public bool IsSpiritEnergy => !GetType().IsSubclassOf(typeof(SpiritEnergy));
 
 		public override void UpdateInventory(Player player)
 		{
 			base.UpdateInventory(player);
 
-			if (Type == ModContent.ItemType<SpiritEnergy>())
+			if (IsSpiritEnergy)
 			{
 				Item.color = SpiritColour;
 			}
@@ -188,7 +183,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			if (Type == ModContent.ItemType<SpiritEnergy>())
+			ImbueID.Sets.Bright[ID] = true; 
+			if (IsSpiritEnergy)
 			{
 				ItemID.Sets.ItemNoGravity[Type] = true;
 
@@ -243,38 +239,8 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		protected virtual Color? SpiritColourOverride => null;
 
-		public static Color GoodColour => new(0, 183, 255);
-		public static Color EvilColour => Color.Purple;
-
-		public override string Texture
-		{
-			get
-			{
-				if (Type == ModContent.ItemType<SpiritEnergy>() && !Main.gameMenu)
-				{
-					var tex = base.Texture;
-					if (!EliusSpareSystem.spared)
-					{
-						tex += "_Evil";
-					}
-					else
-					{
-						tex += "_Good";
-					}
-
-					if (Imbue is MagicType)
-					{
-						tex += "_Magic";
-					}
-					else
-					{
-						tex += "_Normal";
-					}
-					return tex;
-				}
-				return base.Texture;
-			}
-		}
+		public static Color GoodColour = new(0, 183, 255);
+		public static Color EvilColour = Color.Purple;
 
 		public static SpiritEnergy Instance => ModContent.GetInstance<SpiritEnergy>();
 
@@ -372,7 +338,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		public virtual float UnstableSize => 1f;
 		public virtual int UnstableDrawback => 0;
 
-		public sealed override float? DashResist => 1.2f;
+		public sealed override float DashResist => 1.2f;
 
 		public sealed override string AttackPrefix => "Spirit";
 
@@ -380,7 +346,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Summon;
-			if (Type == ModContent.ItemType<SpiritEnergy>())
+			if (IsSpiritEnergy)
 			{
 				Item.color = SpiritColour;
 			}

@@ -155,10 +155,11 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			GetDrawColour(ref lightColor);
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			var info = AOUtils.DrawChain(Projectile.Center, End, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+			var info = AOUtils.DrawChain(Projectile.Center, End, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(lightColor), mode);
 			var end = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
-			Main.EntitySpriteDraw(EndSprite, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(EndSprite, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(lightColor), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			Projectile.rotation = info.Rotation;
 			return false;
 		}

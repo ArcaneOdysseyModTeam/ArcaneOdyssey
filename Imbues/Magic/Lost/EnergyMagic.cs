@@ -23,8 +23,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Yellow;
-		public override Color ImbueColour2 => Color.LightYellow;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.LightYellow;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+		}
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float ScrollSpeed => 1.275f;
 		public override float ScrollSize => 1.15f;
@@ -55,7 +61,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 3;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

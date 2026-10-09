@@ -14,8 +14,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			RegisterMutation<PoisonLightningMagic>();
 		}
-		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
+
 		public override SoundStyle? ImbueSound => SoundID.Item17;
 		public override Color ImbueColour => new(105, 0, 105, 255);
 
@@ -43,8 +43,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Scalding>(0.9f)
 			]
 			);
-
-		public override int BlastFrames => 7;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Draconic;
 

@@ -92,6 +92,8 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override string Texture => AOUtils.BlankTexture;
 
+		public override bool PreDraw(ref Color lightColor) => false;
+
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			if (Opacity == 1f)

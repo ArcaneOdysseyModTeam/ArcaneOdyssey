@@ -44,20 +44,26 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		public void SendEvenMoreAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
+		public void SendEvenMoreAI(Projectile projectile, BitWriter bit, BinaryWriter writer)
 		{
-			binaryWriter.Write(isPiercingShot);
-			binaryWriter.Write(isStormOfArrows);
-			binaryWriter.Write(origin);
-			binaryWriter.Write(piercingShotHit);
+			bit.WriteBit(isPiercingShot);
+			if (isPiercingShot)
+			{
+				bit.WriteBit(piercingShotHit);
+				writer.Write(origin);
+			}
+			bit.WriteBit(isStormOfArrows);
 		}
 
-		public void ReceiveEvenMoreAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)
+		public void ReceiveEvenMoreAI(Projectile projectile, BitReader bit, BinaryReader reader)
 		{
-			isPiercingShot = binaryReader.ReadBoolean();
-			isStormOfArrows = binaryReader.ReadBoolean();
-			origin = binaryReader.ReadVector2();
-			piercingShotHit = binaryReader.ReadBoolean();
+			isPiercingShot = bit.ReadBit();
+			if (isPiercingShot)
+			{
+				piercingShotHit = bit.ReadBit();
+				origin = reader.ReadVector2();
+			}
+			isStormOfArrows = bit.ReadBit();
 		}
 
 		private int shotFrame;

@@ -8,13 +8,18 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class LunarMagic : MagicType
 	{
-		public override float Aura => .8f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
+			ImbueID.Sets.AuraPower[ID] = .8f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override Color ImbueColour => new(0, 10, 87);
-		public override Color ImbueColour2 => new(137, 64, 255);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(137, 64, 255);
+
 		public override float ScrollSpeed => 1.1f;
 		public override float ScrollSize => 1.25f;
 		public override float ScrollDamage => 0.95f;
@@ -49,7 +54,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 		);
 
-		public override int BlastFrames => 5;
+
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

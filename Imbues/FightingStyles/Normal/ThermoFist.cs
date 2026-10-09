@@ -11,8 +11,12 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public class ThermoFist : FightingStyleBarred
 	{
-		public override float Aura => .75f;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.AuraPower[ID] = .75f;
+		}
 		public override Color ImbueColour => Color.Orange;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override BarGimmick Bar => ModContent.GetInstance<ThermoBar>();

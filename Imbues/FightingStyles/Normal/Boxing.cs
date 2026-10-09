@@ -6,12 +6,12 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public class Boxing : FightingStyle
 	{
-		public override float Aura => 1.25f;
 		public override bool ImmuneDash => true; // instant
-		public override float KBMulti => 2f;
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = 1.25f; 
+			ImbueID.Sets.KBMulti[ID] = 2f;
 			if (Main.netMode != NetmodeID.Server)
 			{
 				EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);

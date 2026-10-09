@@ -9,7 +9,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class IceMagic : MagicType
 	{
-		public override float Aura => 1.1f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<BlizzardMagic>();
@@ -21,8 +20,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			base.Load();
 			ID = ImbueID.Ice;
 		}
-		public override bool Special => true;
-		public override float? DashResist => 1.3f;
+		public override float DashResist => 1.3f;
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 		public override Color ImbueColour => new(30, 200, 255);
@@ -66,8 +64,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Singed>(0.85f)
 			]
 			);
-
-		public override int BlastFrames => 4;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Collision;
 

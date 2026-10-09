@@ -83,14 +83,15 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			GetDrawColour(ref lightColor);
 			if (origin != default)
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				var info = AOUtils.DrawChain(origin, Projectile.Center, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+				var info = AOUtils.DrawChain(origin, Projectile.Center, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(lightColor), mode);
 				var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
-				Main.EntitySpriteDraw(StartSprite, origin - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(StartSprite, origin - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
 				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
-				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(lightColor), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			}
 			return false;
 		}

@@ -62,8 +62,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 			);
 
-		public override int BlastFrames => 6;
-
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Tesla;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)

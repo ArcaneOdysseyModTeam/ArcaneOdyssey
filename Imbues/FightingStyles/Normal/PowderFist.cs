@@ -10,10 +10,14 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 	public class PowderFist : FightingStyle
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<PowderBurst>();
-		public override float Aura => .875f;
 		public override float DashSpeed => 1.2f;
 
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.AuraPower[ID] = .875f;
+		}
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => Color.DarkGray;
 		public override SoundStyle? ImbueSound => SoundID.Item14;

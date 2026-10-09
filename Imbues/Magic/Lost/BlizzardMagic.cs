@@ -9,13 +9,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class BlizzardMagic : MagicType
 	{
-		public override float Aura => .9f;
-		public override float? DashResist => 1.075f;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
+		public override float DashResist => 1.075f;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
+			ImbueID.Sets.AuraPower[ID] = .9f;
+		}
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => Color.DarkGray;
-		public override Color ImbueColour2 => Color.White;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.White;
+
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float ScrollSpeed => .925f;
 		public override float ScrollSize => 1.15f;
@@ -49,7 +53,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 4;
+
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

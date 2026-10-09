@@ -55,11 +55,14 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 		{
 			Imbuable.RequestMobilityCircle(Source as Item, player, Projectiles.MobilityCircleMode.Dash, false);
 
-			if (Imbue?.DashResist.HasValue == true)
-				player.statDefense *= Imbue.DashResist.Value;
+			if (Imbue is not null)
+			{
+				if (Imbue.DashResist != 1f)
+					player.statDefense *= Imbue.DashResist;
 
-			if (Imbue is VanishingStyle)
-				player.opacityForAnimation = MathHelper.Lerp(invisbase, 0f, player.ArcaneOdyssey().DashLerp);
+				if (Imbue is VanishingStyle)
+					player.opacityForAnimation = MathHelper.Lerp(invisbase, 0f, player.ArcaneOdyssey().DashLerp);
+			}
 		}
 
 		public override void OnEnd(Player player)

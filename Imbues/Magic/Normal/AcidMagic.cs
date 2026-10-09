@@ -12,8 +12,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			RegisterMutation<OilMagic>();
 		}
-		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
+
 		public override Color ImbueColour => Color.Purple;
 
 		public override void Load()
@@ -53,10 +53,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.1f)
 			]
 			);
-
-		public override float Aura => .8f;
-
-		public override int BlastFrames => 5;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Tidal;
 

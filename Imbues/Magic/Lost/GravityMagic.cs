@@ -11,13 +11,19 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class GravityMagic : MagicType
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<ReverseGravity>();
-		public override float Aura => 1f;
 		public override float DashSpeed => 1.2f; // burst
-		public override float KBMulti => 3f;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit52;
 		public override Color ImbueColour => new(31, 0, 48);
-		public override Color ImbueColour2 => new(140, 0, 217);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(140, 0, 217);
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.KBMulti[ID] = 3f;
+			ImbueID.Sets.AuraPower[ID] = 1f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
+		
 		public override float ScrollSpeed => 1.1f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1f;
@@ -44,7 +50,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 4;
+		
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 

@@ -10,7 +10,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 	public class IonMagic : MagicType
 	{
 		public override bool ImmuneDash => true; // instant
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 		public override Color ImbueColour => new(0, 255, 0);
@@ -48,7 +53,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 			]
 			);
 
-		public override int BlastFrames => 4;
+
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

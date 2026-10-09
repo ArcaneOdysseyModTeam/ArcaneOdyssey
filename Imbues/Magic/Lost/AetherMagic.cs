@@ -18,12 +18,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			RegisterDefaultMagic<LightMagic>();
 		}
 
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+		}
+
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
 		public override Color ImbueColour => Color.Yellow;
-		public override Color ImbueColour2 => Color.LightYellow;
-		public override bool AnimatedColours => true;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override Color? DefaultAnimatedColour => Color.LightYellow;
 		public override bool CanBeWet => false;
 		public override float ScrollSpeed => 1.25f;
 		public override float ScrollSize => 1.2f;
@@ -54,7 +59,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 6;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

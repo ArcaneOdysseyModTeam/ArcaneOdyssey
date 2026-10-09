@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Projectiles.TownNPC
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Main.projFrames[Type] = Imbue.BlastFrames;
+			Main.projFrames[Type] = ImbueID.Sets.BlastFrames[Imbue.ID];
 		}
 
 		public override void SetDefaults()

@@ -13,10 +13,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override bool ImmuneDash => true;
 
 		public override Color ImbueColour => Color.Gold;
-		public override Color ImbueColour2 => Color.Yellow;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.Yellow;
 
-		public override int BlastFrames => 7;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+		}
 
 		public override void RegisterMutations()
 		{

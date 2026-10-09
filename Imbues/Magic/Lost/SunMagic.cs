@@ -12,11 +12,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	{
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f; // burst
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(255, 124, 43);
-		public override Color ImbueColour2 => new(227, 73, 52);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(227, 73, 52);
+
 		public override bool CanBeWet => false;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Solar;
@@ -56,7 +61,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 4;
+
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

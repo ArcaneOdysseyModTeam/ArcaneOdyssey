@@ -10,12 +10,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class ThreadMagic : MagicType
 	{
 		public override Color ImbueColour => Color.DarkGray;
-		public override Color ImbueColour2 => Color.LightGray;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.LightGray;
+		
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 
-
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Solid[ID] = true;
+		}
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Collision;
 		public override float ScrollDamage => .7f;
 		public override float ScrollSize => 1.15f;
@@ -34,7 +38,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Scorched>( 0.8f),
 			]);
 
-		public override int BlastFrames => 1;
+		
 
 		public override void UpdateProjectile(Projectile Projectile)
 		{

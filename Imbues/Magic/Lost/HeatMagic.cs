@@ -11,17 +11,23 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class HeatMagic : MagicType
 	{
-		public override float Aura => .6f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<IonMagic>();
 			RegisterDefaultMagic<FireMagic>();
 		}
+
 		public override float DashSpeed => 1.2f; // burst
 		public override Color ImbueColour => Color.OrangeRed;
-		public override Color ImbueColour2 => Color.Orange;
-		public override bool AnimatedColours => true;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+		public override Color? DefaultAnimatedColour => Color.Orange;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.AuraPower[ID] = .6f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override bool CanBeWet => false;
 		public override float ScrollSpeed => 1.3f;
 		public override float ScrollSize => 1.2f;
@@ -56,7 +62,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 3;
+
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

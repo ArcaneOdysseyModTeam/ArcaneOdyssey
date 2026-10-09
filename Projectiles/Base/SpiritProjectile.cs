@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			lightColor = Imbue?.Colour ?? Color.White;
+			lightColor = Imbue?.Colour ?? SpiritEnergy.Instance.SpiritColour;
 			return base.PreDraw(ref lightColor);
 		}
 

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 
 namespace ArcaneOdyssey.Projectiles.Base
 {
@@ -18,6 +19,10 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			if (Imbue is not null && ImbueID.Sets.Bright[Imbue.ID])
+			{
+				lightColor = Color.White;
+			}
 			var oglight = lightColor;
 			lightColor = Imbue?.Colour.MultiplyRGB(lightColor) ?? lightColor;
 			lightColor = SecondImbue?.Colour.MultiplyRGB(oglight) ?? lightColor;

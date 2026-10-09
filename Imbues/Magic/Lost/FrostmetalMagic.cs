@@ -11,14 +11,19 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class FrostmetalMagic : MagicType
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<FrostShards>();
-		public override float Aura => 1.3f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
-		public override float? DashResist => 1.45f;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
+			ImbueID.Sets.Solid[ID] = true;
+			ImbueID.Sets.AuraPower[ID] = 1.3f;
+		}
+		public override float DashResist => 1.45f;
 		public override SoundStyle? ImbueSound => SoundID.Item27;
 		public override Color ImbueColour => new(65, 150, 177);
-		public override Color ImbueColour2 => new(100, 100, 100);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(100, 100, 100);
+
 		public override float ScrollSpeed => 0.65f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.2f;
@@ -52,7 +57,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Malignant;
 
-		public override int BlastFrames => 8;
+
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

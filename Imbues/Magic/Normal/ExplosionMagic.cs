@@ -17,9 +17,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<AetherLightningMagic>();
 			RegisterMutation<RuptureMagic>();
 		}
-		public override bool Special => true;
 		public override float DashSpeed => 1.2f; // burst
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
+
+		public override void SetStaticDefaults()
+		{ 
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false; 
+		}
+
 		public override Color ImbueColour => new(235, 146, 52);
 		public override bool CanBeWet => false;
 
@@ -62,8 +67,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SearedEffect>(1.15f)
 			]
 			);
-
-		public override int BlastFrames => 7;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
 

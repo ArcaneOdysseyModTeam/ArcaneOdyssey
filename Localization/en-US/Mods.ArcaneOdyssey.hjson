@@ -241,7 +241,7 @@ Achievements: {
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Special Dash Bind
-	CycleAuraMode.DisplayName: Cycle Aura Mode
+	CycleAuraMode.DisplayName: Cycle ImbueID.Sets.AuraPower[ID] Mode
 	CycleGodSoul.DisplayName: Cycle God Soul
 	CycleImbueAttack.DisplayName: Cycle Imbue Attack
 	AltSkillUse.DisplayName: Alt Skill Use
@@ -420,13 +420,13 @@ DamageClasses: {
 }
 
 Subworlds: {
-	TaloSubworld: {
+	TalosSubworld: {
 		Description: Fort Talos is a fort.
 		DisplayName: Fort Talos
 	}
+}
 
-	TalosSubworld: {
-		DisplayName: Talos Subworld
-		Description: Mods.ArcaneOdyssey.Subworlds.TalosSubworld.Description
-	}
+MagicVariants: {
+	RubyVariant.DisplayName: Ruby Variant
+	SapphireVariant.DisplayName: Sapphire Variant
 }

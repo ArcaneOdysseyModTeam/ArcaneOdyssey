@@ -8,10 +8,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class SoundMagic : MagicType
 	{
-		public override float Aura => .4f;
 		public override Color ImbueColour => new(94, 236, 255);
-		public override Color ImbueColour2 => Color.White;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.White;
+		
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.Roar;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
@@ -19,7 +18,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSpeed => 1.4f;
 		public override float ScrollSize => 1.25f;
 		public override float ScrollDamage => .9f;
-		public override float KBMulti => 1.5f;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.KBMulti[ID] = 1.5f;
+			ImbueID.Sets.AuraPower[ID] = .4f;
+		}
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Monolith;
 
@@ -33,7 +38,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Frozen>(1.2f),
 			]);
 
-		public override int BlastFrames => 3;
+		
 
 		public const int DustCount = 30;
 		public override void KillEffects(Rectangle area, Entity source = null)

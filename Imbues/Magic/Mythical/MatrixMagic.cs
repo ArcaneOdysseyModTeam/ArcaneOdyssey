@@ -10,8 +10,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Turquoise;
-		public override Color ImbueColour2 => Color.White;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.White;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Bright[ID] = true;
+		}
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override float ScrollSpeed => MatrixSpeed;
 		public override float ScrollSize => MatrixSize;
@@ -23,7 +29,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public static SynergyEffects MatrixEffects = new();
 		public static ImbueGimmick MatrixGimmick = null;
 		public override ImbueGimmick Gimmick => MatrixGimmick is not BarGimmick ? MatrixGimmick : null;
-		public override int BlastFrames => 6;
+		
 
 		public override SynergyEffects Effects => MatrixEffects;
 

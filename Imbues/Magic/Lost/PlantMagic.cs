@@ -10,12 +10,18 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class PlantMagic : MagicType
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<InfiniteWoodWands>();
-		public override float Aura => .8f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
-		public override float? DashResist => 1.05f;
+		public override float DashResist => 1.05f;
 		public override Color ImbueColour => Color.ForestGreen;
-		public override Color ImbueColour2 => Color.PaleGreen;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.PaleGreen;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = .8f;
+			ImbueID.Sets.Solid[ID] = true;
+		}
+		
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Poisoned>(60 * 10),];
 		public override SoundStyle? ImbueSound => SoundID.Grass;
 		public override float ScrollSpeed => 1.05f;
@@ -33,7 +39,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				Synergy.Create<Tangled>(.9f),
 			]);
 
-		public override int BlastFrames => 2;
+		
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;
 

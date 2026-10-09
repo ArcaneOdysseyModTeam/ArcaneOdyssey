@@ -8,14 +8,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class SandMagic : MagicType
 	{
-		public override float Aura => 1f;
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DiamondMagic>();
 			RegisterMutation<GravityMagic>();
 		}
-		public override bool Special => true;
-		public override float? DashResist => 1.1f;
+		public override float DashResist => 1.1f;
+
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(255, 255, 60, 255);
 		public override bool CanBeWet => false;
@@ -53,8 +52,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<Scalding>(1.125f)
 			]
 			);
-
-		public override int BlastFrames => 7;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
 

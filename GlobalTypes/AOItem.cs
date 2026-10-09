@@ -200,7 +200,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			writer.Write(scale);
 			writer.Write(Imbue?.Type ?? ItemID.None);
+			Imbue?.NetSend(writer);
 			writer.Write(SecondImbue?.Type ?? ItemID.None);
+			SecondImbue?.NetSend(writer);
 			if (Boost.HasValue)
 			{
 				writer.Write((sbyte)Boost);
@@ -216,7 +218,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			thisItem = item;
 			scale = reader.ReadNullableSingle();
 			Imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+			Imbue?.NetReceive(reader);
 			SecondImbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(reader.ReadInt32()));
+			SecondImbue?.NetReceive(reader);
 			var boost = reader.ReadSByte();
 			Boost = boost == -1 ? null : (RandomBoostType)boost;
 		}
@@ -284,9 +288,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (Imbue is not null)
 				{
-					value *= Imbue.KBMulti;
+					value *= ImbueID.Sets.KBMulti[Imbue.ID];
 					if (SecondImbue is not null)
-						value *= SecondImbue.KBMulti;
+						value *= ImbueID.Sets.KBMulti[SecondImbue.ID];
 				}
 				if (BenifitsFromScrollStats.Value)
 				{
@@ -355,7 +359,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				return Imbue is SpiritEnergy;
 			}
-
+			
 			return true;
 		}
 
@@ -436,8 +440,9 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (Imbue is null || CannotBeAffected)
 				return;
 
-			if (ModContent.RequestIfExists<Texture2D>(Imbue.ImbueUISprite, out var texture) && Imbue.Type != item.type)
+			if (Imbue.Type != item.type)
 			{
+				Main.GetItemDrawFrame(Imbue.Type, out var texture, out var frame2);
 				if (ItemID.Sets.ItemIconPulse[item.type])
 				{
 					scale = frame.Width > 32 || frame.Height > 32 ? 32f / Math.Max(frame.Width, frame.Height) : Math.Max(frame.Width, frame.Height) / 32f;
@@ -447,26 +452,39 @@ namespace ArcaneOdyssey.GlobalTypes
 				{ 
 					scale = 32f / Math.Max(frame.Width, frame.Height) * Main.inventoryScale;
 				}
-				
-				var imbueScale = 52f / Math.Max(texture.Width(), texture.Height());
+
+				Color colour;
+				var imbueScale = 52f / Math.Max(frame2.Width, frame2.Height);
 				Vector2 dimensions = new(Math.Max(frame.Width, frame.Height));
 				Vector2 location = position + (dimensions * .5f * scale);
 
-				spriteBatch.Draw(texture.Value, location, null, Color.White, 0, texture.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
+				colour = Color.White;
+				if ((Imbue is MagicType magic && magic.Variants.Any()) || Imbue.ID == ImbueID.Spirit)
+				{
+					colour = Imbue.Colour;
+				}
+				spriteBatch.Draw(texture, location, frame2, colour, 0, frame2.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
 
-				if (Imbue is FightingStyleBarred fs) // dont bother with others for now
+				if (Imbue is IBarrableImbue fs)
 				{
 					var textScale = Main.inventoryScale * .75f;
-					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location, Color.Lerp(fs.DisplayColor, fs.ImbueColour, fs.LerpValue), 0f, FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2f, textScale, SpriteEffects.None, 0f);
+					colour = Imbue.Colour;
+					spriteBatch.DrawString(FontAssets.ItemStack.Value, $"{fs.BarValue.Round()}%", location, colour, 0f, FontAssets.ItemStack.Value.MeasureString($"{fs.BarValue.Round()}%") / 2f, textScale, SpriteEffects.None, 0f);
 				}
 
-				if (SecondImbue is not null && ModContent.RequestIfExists<Texture2D>(SecondImbue.ImbueUISprite, out var texture2))
+				if (SecondImbue is not null)
 				{
-					imbueScale = 52f / Math.Max(texture2.Width(), texture2.Height());
+					Main.GetItemDrawFrame(SecondImbue.Type, out var texture2, out var frame3);
+					colour = Color.White;
+					if ((SecondImbue is MagicType magical && magical.Variants.Any()) || SecondImbue.ID == ImbueID.Spirit)
+					{
+						colour = SecondImbue.Colour;
+					}
+					imbueScale = 52f / Math.Max(frame3.Width, frame3.Height);
 					dimensions.X *= -1f;
 					location = position + (dimensions * .5f * scale);
 
-					spriteBatch.Draw(texture2.Value, location, null, Color.White, 0, texture2.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
+					spriteBatch.Draw(texture2, location, frame3, colour, 0, frame3.Size() / 2f, Main.inventoryScale * .5f * imbueScale, SpriteEffects.None, 1f);
 				}
 			}
 		}
@@ -551,9 +569,9 @@ namespace ArcaneOdyssey.GlobalTypes
 				knockback *= imbue.ScrollSize.Pow();
 				if (imbue.Imbue is not null)
 					knockback *= imbue.Imbue.ScrollSize.Pow();
-				knockback *= imbue.KBMulti;
+				knockback *= ImbueID.Sets.KBMulti[imbue.ID];
 				if (imbue.Imbue is not null)
-					knockback *= imbue.Imbue.KBMulti;
+					knockback *= ImbueID.Sets.KBMulti[imbue.ID];
 			}
 			else if (Imbue is not null)
 			{
@@ -569,9 +587,9 @@ namespace ArcaneOdyssey.GlobalTypes
 					if (SecondImbue is not null)
 						knockback *= SecondImbue.ImbueSize.Pow();
 				}
-				knockback *= Imbue.KBMulti;
+				knockback *= ImbueID.Sets.KBMulti[Imbue.ID];
 				if (SecondImbue is not null)
-					knockback *= SecondImbue.KBMulti;
+					knockback *= ImbueID.Sets.KBMulti[SecondImbue.ID];
 			}
 		}
 
@@ -844,7 +862,7 @@ namespace ArcaneOdyssey.GlobalTypes
 					}
 				}
 
-				if (Imbue is not null && Cold.HasValue && Imbue.Cold.HasValue && (Cold.Value != Imbue.Cold.Value))
+				if (Imbue is not null && Cold.HasValue && ArcaneOdysseyMod.Sets.cold[Imbue.Type].HasValue && (Cold.Value != ArcaneOdysseyMod.Sets.cold[Imbue.Type].Value))
 				{
 					Imbue = SteamImbue.Create(Imbue);
 				}
@@ -1191,6 +1209,19 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				tooltips.AddTooltip(new TooltipLine(Mod, "WeaponTypeIndicator", Mod.CustomLocalization($"WeaponTypeIndicators.{item.ArcaneOdyssey().WeaponsType}").Value));
 			}
+		}
+
+		public override bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+		{
+			if (item.ModItem is Imbuable imbue && ImbueID.Sets.Bright[imbue.ID])
+			{
+				Main.GetItemDrawFrame(item.type, out var itemTexture, out var itemFrame);
+				Vector2 drawOrigin = itemFrame.Size() / 2f;
+				Vector2 drawPosition = item.Bottom - Main.screenPosition - new Vector2(0, drawOrigin.Y);
+				spriteBatch.Draw(itemTexture, drawPosition, itemFrame, item.GetAlpha(Color.White), rotation, drawOrigin, scale, SpriteEffects.None, 0f);
+				return false;
+			}
+			return base.PreDrawInWorld(item, spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
 		}
 	}
 

@@ -11,16 +11,23 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 	public class PrismMagic : MagicType
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<ShardCloud>();
-		public override float Aura => .3f;
-		public override float? DashResist => 1.15f;
+		public override float DashResist => 1.15f;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = .3f;
+			ImbueID.Sets.Solid[ID] = true;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 
 		internal static readonly Color[] rainbowColors = [new Color(255, 71, 124), new Color(94, 61, 255), new Color(87, 219, 255), new Color(100, 255, 93)];
 
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 
 		public override Color ImbueColour => new(217, 0, 255);
-		public override Color ImbueColour2 => new(0, 196, 52);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(0, 196, 52);
+		
 
 		public override float ScrollSpeed => 1.1f;
 		public override float ScrollDamage => 1.125f;
@@ -47,7 +54,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Penta;
 
-		public override int BlastFrames => 7;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

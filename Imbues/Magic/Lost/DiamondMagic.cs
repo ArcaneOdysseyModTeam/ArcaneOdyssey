@@ -8,14 +8,20 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class DiamondMagic : MagicType
 	{
-		public override float Aura => 1.5f;
-		public override float? DashResist => 1.6f;
+		public override float DashResist => 1.6f;
 		public override float ScrollSpeed => .65f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.1f;
 		public override Color ImbueColour => new(0, 210, 217);
-		public override Color ImbueColour2 => new(158, 252, 255);
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => new(158, 252, 255);
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = 1.5f;
+			ImbueID.Sets.Solid[ID] = true;
+		}
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override SoundStyle? ImbueSound => SoundID.Shatter;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<Bleeding>()];
@@ -35,7 +41,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Collision;
 
-		public override int BlastFrames => 4;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

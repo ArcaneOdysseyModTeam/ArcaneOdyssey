@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.Biomes.Base;
 using ArcaneOdyssey.Subworlds.Base;
 
 namespace ArcaneOdyssey.Subworlds

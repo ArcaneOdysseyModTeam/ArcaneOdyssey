@@ -28,19 +28,7 @@ namespace ArcaneOdyssey.Imbues.Base
 	/// </summary>
 	public abstract class Imbuable : BaseItem, IImbuable
 	{
-		internal Imbuable instance;
 		internal static int count = ImbueID.Count;
-		public override void Load()
-		{
-			if (!(this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal))
-			{
-				ID = count++;
-			}
-
-			instance = this;
-			
-			ModTypeLookup<Imbuable>.Register(this);
-		}
 
 		public static string GetName(int id)
 		{
@@ -67,9 +55,9 @@ namespace ArcaneOdyssey.Imbues.Base
 		}
 
 		private int _id = -1;
-		public int ID 
-		{ 
-			get 
+		public int ID
+		{
+			get
 			{
 				if (_id > -1)
 				{
@@ -88,11 +76,6 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public sealed override bool CanStackInWorld(Item source) => false;
 
-		/// <summary>
-		/// Aura spell coefficient
-		/// </summary>
-		public virtual float Aura => .7f;
-
 		public virtual int Drawback => 0;
 
 		public ModSkill[] Skills
@@ -106,7 +89,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				Attacks.Item1 = value[0] as AttackSkill;
 				Attacks.Item2 = value[1] as AttackSkill;
 				Attacks.Item3 = value[2] as AttackSkill;
-				Passive =  value[3] as PassiveSkill;
+				Passive = value[3] as PassiveSkill;
 				Mobility = value[4];
 				Dash = value[5] as DashSkill;
 			}
@@ -135,7 +118,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public void CycleAttack()
 		{
-			
+
 			switch (selectedIndex)
 			{
 				case 0:
@@ -156,7 +139,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				RemoveSkill(selectedIndex);
 			}
-			
+
 			if (selectedAttack is not null)
 			{
 				if (selectedAttack.DamageTypeOverride is not null && Item.DamageType != selectedAttack.DamageTypeOverride)
@@ -174,7 +157,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				Item.useStyle = selectedAttack.UseStyleID;
 			}
 		}
-		
+
 		public override bool CanUseItem(Player player)
 		{
 			if (player.AltUse())
@@ -195,7 +178,7 @@ namespace ArcaneOdyssey.Imbues.Base
 				}
 
 				var attack = selectedAttack.UseStyleID;
-				
+
 				if (Item.staff[Type] && attack == ItemUseStyleID.Rapier)
 				{
 					attack = ItemUseStyleID.Shoot;
@@ -241,7 +224,7 @@ namespace ArcaneOdyssey.Imbues.Base
 					}
 				}
 				else
-				{ 
+				{
 					if (skill.Scroll != 0)
 						Main.LocalPlayer.QuickSpawnItem(Item.GetSource_FromThis(), skill.Scroll);
 				}
@@ -313,7 +296,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				attackSpells[0] = Attacks.Item1.FullName;
 			}
-			else if (cachedSpells[0] != null) 
+			else if (cachedSpells[0] != null)
 			{
 				attackSpells[0] = cachedSpells[0];
 			}
@@ -476,11 +459,11 @@ namespace ArcaneOdyssey.Imbues.Base
 			float aura;
 			if (this is not FightingStyle || player.ArcaneOdyssey().acumen)
 			{
-				aura = player.statLifeMax * (.225f * Aura);
+				aura = player.statLifeMax * (.225f * ImbueID.Sets.AuraPower[ID]);
 			}
 			else
 			{
-				aura = player.statLifeMax * (.18f * Aura);
+				aura = player.statLifeMax * (.18f * ImbueID.Sets.AuraPower[ID]);
 			}
 			return (int)Math.Round(aura / 5f, MidpointRounding.AwayFromZero) * 5;
 		}
@@ -559,7 +542,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			{
 				if (NPC.downedMoonlord || DownedBosses.downedEnragedEmpress)
 				{
-					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (!imbue.Special)) || ((imbue.ImbuableTier == ImbuableTiers.Ancient) && (imbue is MagicType) && (!imbue.Special)))
+					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (!ImbueID.Sets.Special[imbue.ID])) || ((imbue.ImbuableTier == ImbuableTiers.Ancient) && (imbue is MagicType) && (!ImbueID.Sets.Special[imbue.ID])))
 					{
 						return true;
 					}
@@ -567,7 +550,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				else if (NPC.downedMechBossAny)
 				{
-					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (imbue is MagicType) && (!imbue.Special)))
+					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (imbue is MagicType) && (!ImbueID.Sets.Special[imbue.ID])))
 					{
 						return true;
 					}
@@ -623,8 +606,6 @@ namespace ArcaneOdyssey.Imbues.Base
 		/// </summary>
 		public virtual Imbuable Imbue { get => Item.ArcaneOdyssey()?.Imbue; set => Item.ArcaneOdyssey().Imbue = value; }
 
-		public virtual string ImbueUISprite => ModContent.HasAsset(Texture + "_Imbue") ? (Texture + "_Imbue") : Texture;
-
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.CanGetPrefixes[Type] = false;
@@ -632,14 +613,17 @@ namespace ArcaneOdyssey.Imbues.Base
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;
 			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
+
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
+
+			ImbueID.Sets.DefaultAnimatedColours[ID] = DefaultAnimatedColour;
 
 			if (_id < 0)
 			{
 				throw new Exception("Imbue had an invalid ID, perhaps you tried to register a new Normal tier magic?");
 			}
-			else if (!(this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal))
+			else if (!((this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal) || (this is SpiritEnergy spirit && spirit.IsSpiritEnergy)))
 				ImbueID.Search.Add(FullName, ID);
 		}
 
@@ -659,9 +643,8 @@ namespace ArcaneOdyssey.Imbues.Base
 			_ => ItemRarities.Special,
 		};
 
-		public virtual float? DashResist => null;
+		public virtual float DashResist => 1f;
 		public virtual float DashSpeed => 1f;
-
 		public virtual bool ImmuneDash => false;
 
 		public virtual float ImbueSpeed => ((ScrollSpeed * .5f) + .5f).CleanRound();
@@ -678,22 +661,14 @@ namespace ArcaneOdyssey.Imbues.Base
 		public virtual Debuff[] ImbueDebuffs => [];
 		public virtual SynergyEffects Effects => new();
 		public abstract Color ImbueColour { get; }
-		public virtual Color ImbueColour2 => Color.White;
-		public virtual bool AnimatedColours => false;
+		public virtual Color? DefaultAnimatedColour => null;
 		public virtual Combo[] CombinedDebuffs => [];
 		public virtual SoundStyle? ImbueSound => null;
-
-		/// <summary>
-		/// Leave null for neutral, true for cold, false for hot
-		/// </summary>
-		public ref bool? Cold => ref ArcaneOdysseyMod.Sets.cold[Type];
 
 		/// <summary>
 		/// magic/fs works underwater
 		/// </summary>
 		public virtual bool CanBeWet => true;
-
-		public virtual float KBMulti => 1f;
 
 		public virtual string AttackPrefix => Name.Replace("Magic");
 
@@ -789,7 +764,7 @@ namespace ArcaneOdyssey.Imbues.Base
 
 				}
 			}
-			else 
+			else
 			{
 				if (!Main.dedServ)
 				{
@@ -805,24 +780,33 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		public Color Colour
+		public virtual Color Colour
 		{
 			get
 			{
-				var colour = ImbueColour2;
+				var colour = ImbueColour;
 				if (this is IBarrableImbue bar)
 				{
+					colour = Color.White;
 					if (Imbue is not null)
 					{
 						colour = Imbue.ImbueColour;
 					}
 					return Color.Lerp(colour, ImbueColour, bar.LerpValue);
 				}
-				if (AnimatedColours)
+				if (this is MagicType magic)
 				{
-					return Color.Lerp(ImbueColour, colour, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
+					colour = magic.VariantColour;
+					if (magic.magicVariant?.Colour2 is not null)
+					{
+						return Color.Lerp(ImbueColour, magic.magicVariant.Colour2.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
+					}
 				}
-				return ImbueColour;
+				if (ImbueID.Sets.DefaultAnimatedColours[ID].HasValue)
+				{
+					return Color.Lerp(colour, ImbueID.Sets.DefaultAnimatedColours[ID].Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
+				}
+				return colour;
 			}
 		}
 
@@ -868,22 +852,13 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public sealed override bool AltFunctionUse(Player player) => true;
 
-		/// <summary>
-		/// Whether this imbue is a:
-		/// <list>Lesser Lost Magic</list>
-		/// <list>Lost Spirit Mutation</list>
-		/// <list>Ancient Spirit Mutation</list>
-		/// <list>Dev Spirit Mutation</list>
-		/// </summary>
-		public virtual bool Special => false;
-
 		public string TooltipsPrefix
 		{
 			get
 			{
 				if (this is MagicType)
 				{
-					if (Special && ArcaneOdysseyMod.DevMode) // eventually i want to add some way to get lore, like athenas wisdom. if we have the knowledge it will be added here...
+					if (ImbueID.Sets.Special[ID] && ArcaneOdysseyMod.DevMode) // eventually i want to add some way to get lore, like athenas wisdom. if we have the knowledge it will be added here...
 					{
 						return "Special";
 					}
@@ -991,66 +966,74 @@ namespace ArcaneOdyssey.Imbues.Base
 					tooltips.AddTooltip(new TooltipLine(Mod, "Gimmick", text), Colour);
 				}
 
-				if (Passive is AuraSkill aura)
-				{
-					tooltips.AddTooltip(new(Mod, "CycleKeybind", ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.AuraMode", aura.Mode, AOKeybinds.CycleAuraMode.GetAssignedKeys().FirstOrDefault(ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.Unbound").Value)).Value));
-				}
-
-				if (Dash is ReflexSkill reflex)
-				{
-					var scroll = ModContent.GetModItem(reflex.Scroll);
-
-					var tool = new TooltipLine(Mod, "ReflexInfo", scroll.GetLocalizedValue("Special.Generic")); // second line of tooltip
-
-					if (DashSpeed > 1f)
-					{
-						tool.Text = scroll.GetLocalizedValue("Special.Fast");
-					}
-
-					if (DashResist.HasValue)
-					{
-						tool.Text = scroll.GetLocalizedValue("Special.Resist");
-					}
-
-					if (ImmuneDash)
-					{
-						tool.Text = scroll.GetLocalizedValue("Special.Instant");
-					}
-
-					if (this is VanishingStyle)
-					{
-						tool.Text = scroll.GetLocalizedValue("Special.Vanish");
-					}
-
-					if (this is ThermoFist)
-					{
-						tool.Text = scroll.GetLocalizedValue("Special.Thermo");
-					}
-
-					if (this is SailorStyle)
-					{
-						tool.Text = scroll.GetLocalizedValue("Special.Sailor");
-					}
-					tooltips.AddTooltip(tool, Colour);
-				}
-
-				foreach (var action in ExtraTooltips)
-				{
-					var tip = action(this);
-					if (tip is not null)
-						tooltips.AddTooltip(tip);
-				}
+				ExtraImbueTooltips(tooltips, this);
 			}
 
 			if (TooltipsPrefix is not null)
 				tooltips.AddTooltip(new TooltipLine(Mod, "ImbuableTier", ArcaneOdysseyMod.Instance.CustomLocalization($"{TooltipsPrefix}TierLines.{ImbuableTier}").Value));
 		}
 
-		public static List<Func<Imbuable, TooltipLine>> ExtraTooltips = [];
-
-		public override void Unload()
+		internal static void DoImbueSkills(List<TooltipLine> tooltips, Imbuable imbue)
 		{
-			ExtraTooltips.Clear();
+			if (imbue.Passive is AuraSkill aura)
+			{
+				tooltips.AddTooltip(new(imbue.Mod, "CycleKeybind", ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.AuraMode", aura.Mode, AOKeybinds.CycleAuraMode.GetAssignedKeys().FirstOrDefault(ArcaneOdysseyMod.Instance.CustomLocalization("RandomWords.Unbound").Value)).Value));
+			}
+
+			if (imbue.Dash is ReflexSkill reflex)
+			{
+				var scroll = ModContent.GetModItem(reflex.Scroll);
+
+				var tool = new TooltipLine(imbue.Mod, "ReflexInfo", scroll.GetLocalizedValue("ImbueID.Sets.Special[ID].Generic")); // second line of tooltip
+
+				if (imbue.DashSpeed > 1f)
+				{
+					tool.Text = scroll.GetLocalizedValue("ImbueID.Sets.Special[ID].Fast");
+				}
+
+				if (imbue.DashResist != 1f)
+				{
+					tool.Text = scroll.GetLocalizedValue("ImbueID.Sets.Special[ID].Resist");
+				}
+
+				if (imbue.ImmuneDash)
+				{
+					tool.Text = scroll.GetLocalizedValue("ImbueID.Sets.Special[ID].Instant");
+				}
+
+				if (imbue is VanishingStyle)
+				{
+					tool.Text = scroll.GetLocalizedValue("ImbueID.Sets.Special[ID].Vanish");
+				}
+
+				if (imbue is ThermoFist)
+				{
+					tool.Text = scroll.GetLocalizedValue("ImbueID.Sets.Special[ID].Thermo");
+				}
+
+				if (imbue is SailorStyle)
+				{
+					tool.Text = scroll.GetLocalizedValue("ImbueID.Sets.Special[ID].Sailor");
+				}
+				tooltips.AddTooltip(tool, imbue.Colour);
+			}
+		}
+
+		public delegate void hook_ExtraImbueTooltips(List<TooltipLine> tooltips, Imbuable imbue);
+
+		public static event hook_ExtraImbueTooltips ExtraImbueTooltips;
+
+		public override void Load()
+		{
+			base.Load();
+			if (!((this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal) || (this is SpiritEnergy && !GetType().IsSubclassOf(typeof(SpiritEnergy)))))
+			{
+				ID = count++;
+			}
+
+			ExtraImbueTooltips += DoImbueSkills;
+
+			ModTypeLookup<Imbuable>.Register(this);
 		}
 
 		internal static int SortMultipliers(Synergy x, Synergy y)
@@ -1256,18 +1239,18 @@ namespace ArcaneOdyssey.Imbues.Base
 				value *= ScrollSize.Pow();
 				if (Imbue is not null)
 					value *= Imbue.ImbueSize.Pow();
-				value *= KBMulti;
+				value *= ImbueID.Sets.KBMulti[ID];
 				if (Imbue is not null)
-					value *= Imbue.KBMulti;
+					value *= ImbueID.Sets.KBMulti[Imbue.ID];
 			}
 			else
 			{
 				value *= ScrollSize.FlipFloat().Pow();
 				if (Imbue is not null)
 					value *= Imbue.ImbueSize.FlipFloat().Pow();
-				value *= KBMulti.FlipFloat();
+				value *= ImbueID.Sets.KBMulti[ID].FlipFloat();
 				if (Imbue is not null)
-					value *= Imbue.KBMulti.FlipFloat();
+					value *= ImbueID.Sets.KBMulti[Imbue.ID].FlipFloat();
 			}
 			return value;
 		}

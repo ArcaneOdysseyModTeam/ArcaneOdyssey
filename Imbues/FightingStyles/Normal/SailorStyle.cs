@@ -10,12 +10,12 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 {
 	public class SailorStyle : FightingStyleBarred
 	{
-		public override float Aura => .875f;
 		public override float DashSpeed => BarValue > (BarMax / 2) ? 1.2f : 1f; // burst?
 		public override void SetStaticDefaults() 
 		{ 
 			base.SetStaticDefaults(); 
-			ArcaneOdysseyMod.Sets.cold[Type] = true; 
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
+			ImbueID.Sets.AuraPower[ID] = .875f;
 		}
 		public override Color ImbueColour => Color.CornflowerBlue;
 		public override SoundStyle? ImbueSound => SoundID.Splash;

@@ -8,12 +8,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
 	public class OilMagic : MagicType
 	{
-		public override float Aura => .8f;
 		public override float DashSpeed => 1.2f; // burst
 		public override bool CanBeWet => false;
 		public override Color ImbueColour => new(20, 20, 20); // lerp between purple and gray quickly, more commonly gray
-		public override Color ImbueColour2 => Color.Black;
-		public override bool AnimatedColours => true;
+		public override Color? DefaultAnimatedColour => Color.Black;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = .8f;
+		}
+
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => .9f;
@@ -39,7 +43,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		public override int BlastFrames => 5;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

@@ -13,9 +13,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 		public override float ScrollSize => 3f;
 		public override float ScrollDamage => 2f;
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
-		public override float? DashResist => 1.3f;
+		public override float DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<VesuvianBurn>()];
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.Bright[ID] = true;
+		}
+
 		public override SynergyEffects Effects => new(
 			[ // these are debuffs cleared on hit
 				ClearBuff.Create<FreezingEffect>(), // freezing
@@ -44,7 +52,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			]
 			);
 
-		public override int BlastFrames => 4;
+		
 		public override void UpdateProjectile(Projectile Projectile)
 		{
 			Projectile.rotation += 0.1f * Projectile.direction;

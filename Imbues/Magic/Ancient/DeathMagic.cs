@@ -9,12 +9,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 	{
 		public override ImbueGimmick Gimmick => ModContent.GetInstance<InstantDeath>();
 		public override float DashSpeed => 1.2f; // burst
-		public override bool Special => true;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.Special[ID] = true;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Ancient;
 		public override SoundStyle? ImbueSound => SoundID.NPCHit54;
-		public override Color ImbueColour => Color.Black;
-		public override Color ImbueColour2 => new(0, 200, 150);
-		public override bool AnimatedColours => true;
+		public override Color ImbueColour => new(0, 200, 150);
+		public override Color? DefaultAnimatedColour => Color.Black;
+		
 		public override float ScrollSpeed => 1f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1.5f;
@@ -22,7 +27,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Ancient
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Ancient;
 
-		public override int BlastFrames => 4;
+		
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{

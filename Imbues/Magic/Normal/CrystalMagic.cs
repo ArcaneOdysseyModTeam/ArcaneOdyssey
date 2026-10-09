@@ -2,23 +2,28 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.MagicVariants.Base;
+using ArcaneOdyssey.MagicVariants.Crystal;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class CrystalMagic : MagicType
 	{
-		public override float Aura => 1.2f;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.DefaultVariant[ID] = MagicVariant.GetID<RubyVariant>();
+		}
+
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DiamondMagic>();
 			RegisterMutation<PrismMagic>();
 		}
-		public override bool Special => true;
-		public override float? DashResist => 1.3f;
+		public override float DashResist => 1.3f;
+
 		public override Color ImbueColour => new(255, 0, 0);
-
-
 
 		public override void Load()
 		{
@@ -46,8 +51,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 				Synergy.Create<SandyEffect>(1.125f)
 			]
 			);
-
-		public override int BlastFrames => 8;
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Ornamental;
 

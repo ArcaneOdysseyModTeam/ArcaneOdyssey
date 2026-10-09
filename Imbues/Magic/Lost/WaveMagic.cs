@@ -21,15 +21,21 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override Color ImbueColour => Color.AliceBlue;
 
-		public override Color ImbueColour2 => Color.DarkBlue;
+		public override Color? DefaultAnimatedColour => Color.DarkBlue;
 
 		public override SoundStyle? ImbueSound => SoundID.Item91;
 
-		public override bool AnimatedColours => true;
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;
 		public override float DashSpeed => 1.2f;
-		public override float Aura => .4f;
-		public override int BlastFrames => 6;
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = .4f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
+		
 
 		public override void RegisterMutations()
 		{

@@ -9,16 +9,21 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 {
 	public class FantasiaMagic : MagicType<FantasiaRifts>
 	{
-		public override int BlastFrames => 5;
+		
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Mythical;
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Singularity;
 		public override float DashSpeed => 1.2f; // burst
-		public override float Aura => 1f;
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ImbueID.Sets.AuraPower[ID] = 1f;
+			ImbueID.Sets.Bright[ID] = true;
+		}
 		public override SoundStyle? ImbueSound => SoundID.NPCHit52;
 		public override Debuff[] ImbueDebuffs => [Debuff.Create<HeavyBleed>()];
-		public override bool AnimatedColours => true;
+		
 		public override Color ImbueColour => Color.Teal;
-		public override Color ImbueColour2 => Color.PaleVioletRed;
+		public override Color? DefaultAnimatedColour => Color.PaleVioletRed;
 		public override float ScrollSpeed => 1.25f;
 		public override float ScrollSize => 1.2f;
 		public override float ScrollDamage => 1f;
