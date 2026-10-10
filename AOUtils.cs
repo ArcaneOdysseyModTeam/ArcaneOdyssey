@@ -499,6 +499,10 @@ namespace ArcaneOdyssey
 					if (ModContent.HasAsset(tex))
 						return tex;
 				}
+				if (ModContent.GetInstance<T>() is ModTexturedType texed)
+				{
+					return texed.Texture;
+				}
 			}
 			return typeof(T).FullName.Replace('.', '/');
 		}

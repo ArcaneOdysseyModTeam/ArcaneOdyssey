@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.MagicVariants.Base;
 using ReLogic.Reflection;
 using System.Collections.Generic;
+using Terraria.GameContent;
 
 namespace ArcaneOdyssey.Imbues
 {
@@ -45,6 +47,10 @@ namespace ArcaneOdyssey.Imbues
 
 			public static int[] DefaultVariant = Factory.CreateIntSet();
 
+			public static bool[] HasVariants = Factory.CreateBoolSet();
+
+			public static bool[] VariantsUseSprites = Factory.CreateBoolSet();
+
 			public static int[] BlastFrames = Factory.CreateIntSet(1);
 
 			public static float[] AuraPower = Factory.CreateFloatSet(.7f,
@@ -85,6 +91,83 @@ namespace ArcaneOdyssey.Imbues
 				for (int i = 0; i < Mutations.Length; i++)
 				{
 					Mutations[i] = [];
+				}
+			}
+
+			public override void PostSetupContent()
+			{
+				foreach (var imbue in ModContent.GetContent<MagicType>())
+				{
+					var ID = imbue.ID;
+					if (TextureAssets.Item[imbue.Type].Name == "Assets\\Blank")
+					{
+						if (HasVariants[ID] && VariantsUseSprites[ID])
+						{
+							TextureAssets.Item[imbue.Type] = MagicVariant.GetFromID(DefaultVariant[ID]).Icon;
+						}
+						else
+						{
+							ArcaneOdysseyMod.NoticeQueue.Add(imbue.FullName + " is missing sprite");
+						}
+					}
+					if (Assets.blasts[ID] is null)
+					{
+						if (HasVariants[ID] && VariantsUseSprites[ID])
+						{
+							var Blast = MagicVariant.GetFromID(DefaultVariant[ID]).Blast;
+							Assets.blasts[ID] = Blast;
+							BlastFrames[ID] = (Blast.Height() / ((float)Blast.Width())).Round();
+						}
+						else
+						{
+							ArcaneOdysseyMod.NoticeQueue.Add(imbue.FullName + " is missing blast sprite");
+						}
+					}
+					if (Assets.annihilationSprites[ID] is null)
+					{
+						if (HasVariants[ID] && VariantsUseSprites[ID])
+						{
+							Assets.annihilationSprites[ID] = MagicVariant.GetFromID(DefaultVariant[ID]).Annihilation;
+						}
+						else if(ArcaneOdysseyMod.DevMode)
+						{
+							ArcaneOdysseyMod.NoticeQueue.Add(imbue.FullName + " is missing annihilation sprite");
+						}
+					}
+					if (Assets.raySprites[ID] is null)
+					{
+						if (HasVariants[ID] && VariantsUseSprites[ID])
+						{
+							Assets.raySprites[ID] = MagicVariant.GetFromID(DefaultVariant[ID]).Ray;
+						}
+						else
+						{
+							ArcaneOdysseyMod.NoticeQueue.Add(imbue.FullName + " is missing ray sprite");
+						}
+					}
+					if (Assets.rayEndSprites[ID] is null)
+					{
+						if (HasVariants[ID] && VariantsUseSprites[ID])
+						{
+							Assets.rayEndSprites[ID] = MagicVariant.GetFromID(DefaultVariant[ID]).RayEnd;
+						}
+						else
+						{
+							ArcaneOdysseyMod.NoticeQueue.Add(imbue.FullName + " is missing ray end sprite");
+						}
+					}
+					if (Assets.rayStartSprites[ID] is null)
+					{
+						if (HasVariants[ID] && VariantsUseSprites[ID])
+						{
+							Assets.rayStartSprites[ID] = MagicVariant.GetFromID(DefaultVariant[ID]).RayStart;
+						}
+						else
+						{
+							ArcaneOdysseyMod.NoticeQueue.Add(imbue.FullName + " is missing ray start sprite");
+						}
+
+					}
 				}
 			}
 

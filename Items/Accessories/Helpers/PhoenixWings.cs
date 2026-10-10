@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Items.Base;
+using ArcaneOdyssey.MagicVariants.Base;
+using ArcaneOdyssey.MagicVariants.Phoenix;
 using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Items.Accessories.Helpers
@@ -31,14 +33,16 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 
 		public override bool WingUpdate(Player player, bool inUse)
 		{
-			Vector2 spawnPos = player.MountedCenter + new Vector2(-25 * player.direction, 0);
-			Lighting.AddLight(spawnPos, PhoenixMagic.Instance.Colour.ToVector3() * 1.5f);
+			Item.color = Variant.AnimatedColour;
+			Vector2 spawnPos = player.RotatedRelativePoint(player.MountedCenter + new Vector2(-25 * player.direction, 0));
+			Lighting.AddLight(spawnPos, Variant.AnimatedColour.ToVector3() * 1.5f);
 			return base.WingUpdate(player, inUse);
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
+			Item.color = Variant.AnimatedColour;
 			if (Item.active)
 			{
 				player.wingsLogic = 0;
@@ -49,9 +53,22 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
+		public MagicVariant Variant { get => _variant ?? ModContent.GetInstance<WarPhoenixVariant>(); set => _variant = value; }
+		private MagicVariant _variant;
+
+		public override void UpdateInventory(Player player)
+		{
+			base.UpdateInventory(player);
+			if (player.HasTypeInInventory<PhoenixMagic>(out var imbue))
+			{
+				Variant = imbue.magicVariant;
+			}
+			Item.color = Variant.AnimatedColour;
+		}
+
 		public override bool ModifyEquipTextureDraw(ref PlayerDrawSet drawInfo, ref DrawData drawData, EquipTexture equipTexture, string methodName)
 		{
-			drawData.color = Color.White * (1f - drawInfo.shadow);
+			drawData.color = Variant.AnimatedColour * (1f - drawInfo.shadow);
 			return true;
 		}
 

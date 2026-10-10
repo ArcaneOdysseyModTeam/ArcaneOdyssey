@@ -6,6 +6,7 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Magic;
 using System.IO;
+using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.CameraModifiers;
@@ -79,15 +80,30 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (origin != default)
 				{
-					var colour = Imbue is MagicType ? Color.White : Imbue.Colour;
+					if (Imbue is not null)
+					{
+						if (ImbueID.Sets.Bright[Imbue.ID])
+						{
+							lightColor = Color.White;
+							if (Imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID])
+							{
+								lightColor = magic.Colour;
+							}
+						}
+						else if (Imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID])
+						{
+							lightColor = lightColor.MultiplyRGB(magic.Colour);
+						}
+					}
+
 					var scale = projectile.scale / 2f;
 					var maxFrames = Main.projFrames[ModContent.ProjectileType<BeamSpell>()];
 					SpriteEffects mode = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-					var info = AOUtils.DrawChain(origin, projectile.Center, MidSprite, scale, maxFrames, shotFrame, colour * projectile.Opacity, mode);
+					var info = AOUtils.DrawChain(origin, projectile.Center, MidSprite, scale, maxFrames, shotFrame, lightColor * projectile.Opacity, mode);
 					var frame = StartSprite.Frame(1, maxFrames, 0, shotFrame);
-					Main.EntitySpriteDraw(StartSprite, origin - Main.screenPosition, frame, colour * projectile.Opacity, info.Rotation, frame.Size() / 2f, scale, mode);
+					Main.EntitySpriteDraw(StartSprite, origin - Main.screenPosition, frame, lightColor * projectile.Opacity, info.Rotation, frame.Size() / 2f, scale, mode);
 					var ending = info.Ending + new Vector2(EndSprite.Width * scale, 0).RotatedBy(info.Rotation);
-					Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, maxFrames, 0, info.FinalFrame), colour * projectile.Opacity, info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / maxFrames) / 2f, scale, mode);
+					Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, maxFrames, 0, info.FinalFrame), lightColor * projectile.Opacity, info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / maxFrames) / 2f, scale, mode);
 					return false;
 				}
 			}
@@ -149,7 +165,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private static void DontKillPiercingShot(On_Projectile.orig_Kill orig, Projectile projectile)
 		{
-			if (projectile.ArcaneOdyssey().isPiercingShot)
+			if (projectile.ArcaneOdyssey()?.isPiercingShot == true)
 			{
 				if (!projectile.ArcaneOdyssey().piercingShotHit)
 				{

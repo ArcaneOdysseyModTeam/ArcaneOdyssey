@@ -42,6 +42,66 @@ namespace ArcaneOdyssey.Imbues.Base
 			return null;
 		}
 
+		public virtual Asset<Texture2D> Annihilation
+		{
+			get
+			{
+				return ImbueID.Sets.Assets.annihilationSprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.annihilationSprites[ID] = value;
+			}
+		}
+
+		public virtual Asset<Texture2D> Ray
+		{
+			get
+			{
+				return ImbueID.Sets.Assets.raySprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.raySprites[ID] = value;
+			}
+		}
+
+		public virtual Asset<Texture2D> RayEnd
+		{
+			get
+			{
+				return ImbueID.Sets.Assets.rayEndSprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.rayEndSprites[ID] = value;
+			}
+		}
+
+		public virtual Asset<Texture2D> RayStart
+		{
+			get
+			{
+				return ImbueID.Sets.Assets.rayStartSprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.rayStartSprites[ID] = value;
+			}
+		}
+
+		public virtual Asset<Texture2D> Blast
+		{
+			get
+			{
+				return ImbueID.Sets.Assets.blasts[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.blasts[ID] = value;
+			}
+		}
+
 		public static Imbuable GetImbuable(int id)
 		{
 			foreach (var item in ModContent.GetContent<Imbuable>())

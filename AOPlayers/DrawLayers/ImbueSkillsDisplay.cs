@@ -216,7 +216,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 					{
 						Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
-						if ((imbue is MagicType magic && magic.Variants.Any()) || imbue.ID == ImbueID.Spirit)
+						if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 							colour = colour.MultiplyRGBA(imbue.Colour);
 					}
 
@@ -258,7 +258,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 					{
 						Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
-						if ((imbue is MagicType magic && magic.Variants.Any()) || imbue.ID == ImbueID.Spirit)
+						if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 							colour = colour.MultiplyRGBA(imbue.Colour);
 					}
 
@@ -299,7 +299,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					else
 					{
 						Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
-						if ((imbue is MagicType magic && magic.Variants.Any()) || imbue.ID == ImbueID.Spirit)
+						if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 							colour = colour.MultiplyRGBA(imbue.Colour);
 					}
 
@@ -357,7 +357,7 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 						else
 						{
 							Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
-							if ((imbue is MagicType magic && magic.Variants.Any()) || imbue.ID == ImbueID.Spirit)
+							if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 								colour = colour.MultiplyRGBA(imbue.Colour);
 						}
 

@@ -459,7 +459,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				Vector2 location = position + (dimensions * .5f * scale);
 
 				colour = Color.White;
-				if ((Imbue is MagicType magic && magic.Variants.Any()) || Imbue.ID == ImbueID.Spirit)
+				if ((Imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || Imbue.ID == ImbueID.Spirit)
 				{
 					colour = Imbue.Colour;
 				}
@@ -476,7 +476,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				{
 					Main.GetItemDrawFrame(SecondImbue.Type, out var texture2, out var frame3);
 					colour = Color.White;
-					if ((SecondImbue is MagicType magical && magical.Variants.Any()) || SecondImbue.ID == ImbueID.Spirit)
+					if ((SecondImbue is MagicType magical && ImbueID.Sets.HasVariants[magical.ID] && !ImbueID.Sets.VariantsUseSprites[magical.ID]) || SecondImbue.ID == ImbueID.Spirit)
 					{
 						colour = SecondImbue.Colour;
 					}

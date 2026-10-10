@@ -12,9 +12,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 	{
 		public short TileTimer = 0;
 
-		public override string Texture => (Mod.Name + "/" + ImbueID.Sets.Assets.blasts[Imbue?.ID ?? WindMagic.StaticID]?.Name ?? typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Blast")).Replace("\\", "/");
+		public override string Texture => AOUtils.BlankTexture;
 
-		public override Texture2D Sprite => ImbueID.Sets.Assets.blasts[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
+		public override Texture2D Sprite => Imbue?.Blast?.Value ?? base.Sprite;
 
 		public override float Size => 2f;
 

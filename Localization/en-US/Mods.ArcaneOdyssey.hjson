@@ -429,4 +429,9 @@ Subworlds: {
 MagicVariants: {
 	RubyVariant.DisplayName: Ruby Variant
 	SapphireVariant.DisplayName: Sapphire Variant
+	AmethystVariant.DisplayName: Amethyst Variant
+	EmeraldVariant.DisplayName: Emerald Variant
+	ResplendentVariant.DisplayName: Resplendent Variant
+	SkyLordVariant.DisplayName: Sky Lord Variant
+	WarPhoenixVariant.DisplayName: War Phoenix Variant
 }

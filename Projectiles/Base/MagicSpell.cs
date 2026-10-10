@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 				{
 					lightColor = Color.White;
 				}
-				if (DrawWithImbueColours || (Imbue is MagicType magic && magic.Variants.Any()))
+				if (DrawWithImbueColours || (Imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]))
 				{
 					lightColor = Imbue.Colour.MultiplyRGB(lightColor);
 				}

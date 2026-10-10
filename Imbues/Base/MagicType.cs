@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Imbues.Base
@@ -22,11 +23,22 @@ namespace ArcaneOdyssey.Imbues.Base
 		public static MagicType GenerateMagicType(int id, MagicVariant variant)
 		{
 			var imbue = AOUtils.Safe<MagicType>(GetImbuable(id));
-			if (imbue is not null)
+			if (imbue is not null && variant is not null)
 			{
 				imbue.magicVariant = variant;
 				imbue.VariantColour = variant.Colour;
 			}
+			return imbue;
+		}
+		public static MagicType GenerateMagicType(int id, int variant)
+		{
+			var imbue = AOUtils.Safe<MagicType>(GetImbuable(id));
+			if (variant >= 0)
+				if (imbue is not null)
+				{
+					imbue.magicVariant = MagicVariant.GetFromID(variant);
+					imbue.VariantColour = MagicVariant.GetFromID(variant).Colour;
+				}
 			return imbue;
 		}
 
@@ -126,48 +138,101 @@ namespace ArcaneOdyssey.Imbues.Base
 			ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
 			ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out ImbueID.Sets.Assets.annihilationSprites[ID]) & ArcaneOdysseyMod.DevMode)
-			{
-				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing annihilation sprite");
-			}
+			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Annihilation"), out ImbueID.Sets.Assets.annihilationSprites[ID], AssetRequestMode.ImmediateLoad);
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ImbueID.Sets.Assets.raySprites[ID]) & ArcaneOdysseyMod.DevMode)
-			{
-				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray sprite");
-			}
+			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ImbueID.Sets.Assets.raySprites[ID], AssetRequestMode.ImmediateLoad);
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ImbueID.Sets.Assets.rayEndSprites[ID]) & ArcaneOdysseyMod.DevMode)
-			{
-				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray end sprite");
-			}
+			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ImbueID.Sets.Assets.rayEndSprites[ID], AssetRequestMode.ImmediateLoad);
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ImbueID.Sets.Assets.rayStartSprites[ID]) & ArcaneOdysseyMod.DevMode)
-			{
-				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
-			}
+			ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ImbueID.Sets.Assets.rayStartSprites[ID], AssetRequestMode.ImmediateLoad);
 
-			if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ImbueID.Sets.Assets.blasts[ID], AssetRequestMode.ImmediateLoad) & ArcaneOdysseyMod.DevMode)
+			if (ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Blast"), out ImbueID.Sets.Assets.blasts[ID], AssetRequestMode.ImmediateLoad))
 			{
-				ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing blast sprite");
-			}
-			else
-			{
-				ImbueID.Sets.BlastFrames[ID] = (ImbueID.Sets.Assets.blasts[ID].Height() / ((float)ImbueID.Sets.Assets.blasts[ID].Width())).Round();
+				if (ImbueID.Sets.Assets.blasts[ID].IsLoaded)
+					ImbueID.Sets.BlastFrames[ID] = (ImbueID.Sets.Assets.blasts[ID].Height() / ((float)ImbueID.Sets.Assets.blasts[ID].Width())).Round();
 			}
 		}
+
+		public override Asset<Texture2D> Annihilation
+		{
+			get
+			{
+				return magicVariant?.Annihilation ?? ImbueID.Sets.Assets.annihilationSprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.annihilationSprites[ID] = value;
+			}
+		}
+
+		public override Asset<Texture2D> Ray
+		{
+			get
+			{
+				return magicVariant?.Ray ?? ImbueID.Sets.Assets.raySprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.raySprites[ID] = value;
+			}
+		}
+
+		public override Asset<Texture2D> RayEnd
+		{
+			get
+			{
+				return magicVariant?.RayEnd ?? ImbueID.Sets.Assets.rayEndSprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.rayEndSprites[ID] = value;
+			}
+		}
+
+		public override Asset<Texture2D> RayStart
+		{
+			get
+			{
+				return magicVariant?.RayStart ?? ImbueID.Sets.Assets.rayStartSprites[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.rayStartSprites[ID] = value;
+			}
+		}
+
+		public override Asset<Texture2D> Blast
+		{
+			get
+			{
+				return magicVariant?.Blast ?? ImbueID.Sets.Assets.blasts[ID];
+			}
+			set
+			{
+				ImbueID.Sets.Assets.blasts[ID] = value;
+			}
+		}
+
+		public override string Texture => ModContent.HasAsset(base.Texture) ? base.Texture : (ImbueID.Sets.DefaultVariant[ID] >= 0 ? MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[ID]).Texture : AOUtils.BlankTexture);
+
+		public override Texture2D Sprite => magicVariant?.Icon?.Value ?? ((Texture != $"{Mod.Name}/{TextureAssets.Item[Type]?.Name.Replace("\\", "/") ?? Texture}" ? AOUtils.Request(Texture, ref TextureAssets.Item[Type]) : TextureAssets.Item[Type])?.Value);
 
 		public static int DefaultOriginalImbue => AOUtils.ImbuableID<WindMagic>();
 
 		private Imbuable _og = null;
-		public Imbuable OriginalImbue
+		public virtual Imbuable OriginalImbue
 		{
 			get
 			{
-				return _og ?? AOUtils.Safe<Imbuable>(GetImbuable(ImbueID.Sets.baseImbues[ID] ?? DefaultOriginalImbue));
+				return _og ?? GenerateMagicType(ImbueID.Sets.baseImbues[ID] ?? DefaultOriginalImbue, ImbueID.Sets.DefaultVariant[ImbueID.Sets.baseImbues[ID] ?? DefaultOriginalImbue]);
 			}
 
 			set
 			{
+				if (value is MagicType magic)
+				{
+					_og = GenerateMagicType(value.ID, magic.magicVariant);
+				}
 				_og = AOUtils.Safe<Imbuable>(ModContent.Find<Imbuable>(value.FullName));
 			}
 		}
@@ -326,14 +391,14 @@ namespace ArcaneOdyssey.Imbues.Base
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
 			base.Update(ref gravity, ref maxFallSpeed);
-			if (Variants.Any())
+			if (ImbueID.Sets.HasVariants[ID] && !ImbueID.Sets.VariantsUseSprites[ID])
 				Item.color = Colour;
 		}
 
 		public override void UpdateInventory(Player player)
 		{
 			base.UpdateInventory(player);
-			if (Variants.Any())
+			if (ImbueID.Sets.HasVariants[ID] && !ImbueID.Sets.VariantsUseSprites[ID])
 				Item.color = Colour;
 		}
 	}

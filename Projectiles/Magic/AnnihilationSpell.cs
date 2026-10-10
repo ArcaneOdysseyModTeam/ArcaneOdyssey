@@ -1,7 +1,5 @@
 ﻿using ArcaneOdyssey;
-using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
 using Terraria.Audio;
@@ -146,9 +144,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			return false;
 		}
 
-		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Annihilation");
+		public override string Texture => AOUtils.BlankTexture;
 
-		public override Texture2D Sprite => ImbueID.Sets.Assets.annihilationSprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
+		public override Texture2D Sprite => Imbue?.Annihilation?.Value ?? base.Sprite;
 
 		public override bool PreDraw(ref Color lightColor)
 		{
