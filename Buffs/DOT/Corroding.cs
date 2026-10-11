@@ -1,5 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Collections.Generic;
+using System.Linq;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
@@ -7,14 +10,52 @@ namespace ArcaneOdyssey.Buffs.DOT
 	{
 		public override List<int> Counterparts => [BuffID.Venom];
 
+		public int dust = DustID.Water_Corruption;
+		public Color dustColour = default;
+		public Color drawColour = Color.Red;
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			npc.ArcaneOdyssey().corroding = true;
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Water_Corruption);
-				dust.velocity *= 0.4f;
+				if (!vfxSet)
+				{
+					dustColour = default;
+					dust = DustID.Water_Corruption;
+					if (Main.netMode == NetmodeID.SinglePlayer)
+					{
+						if (Main.LocalPlayer.HasTypeInInventory<AcidMagic>(out var imbue))
+						{
+							AcidMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
+							vfxSet = true;
+						}
+					}
+					else
+					{
+						var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
+						foreach (var player in players)
+						{
+							if (player is not null && player.HasTypeInInventory<AcidMagic>(out var imbue))
+							{
+								AcidMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
+								vfxSet = true;
+								break;
+							}
+						}
+					}
+				}
+				var spawned = Dust.NewDustDirect(npc.position, npc.width, npc.height, dust);
+				spawned.velocity *= 0.4f;
 			}
+		}
+
+		public bool vfxSet = false;
+
+		public override bool ReApply(NPC npc, int time, int buffIndex)
+		{
+			vfxSet = false;
+			return false;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,6 +67,21 @@ namespace ArcaneOdyssey.Buffs.DOT
 		public override void Update(Player player, ref int buffIndex)
 		{
 			player.venom = true;
+		}
+
+		public static Asset<Texture2D> GlowTexture;
+
+		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
+		{
+			if (AOUtils.RequestIfExists(Texture + "_Glow", ref GlowTexture))
+			{
+				if (GlowTexture.IsLoaded)
+				{
+					drawParams.DrawColor = drawParams.DrawColor.MultiplyRGBA(drawColour);
+					drawParams.Texture = GlowTexture.Value;
+				}
+			}
+			spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
 		}
 	}
 }

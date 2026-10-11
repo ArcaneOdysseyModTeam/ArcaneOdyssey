@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.MagicVariants.Acid;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
@@ -12,6 +13,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			RegisterMutation<OilMagic>();
 		}
+
 		public override float DashSpeed => 1.2f; // burst
 
 		public override Color ImbueColour => Color.Purple;
@@ -20,6 +22,26 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			base.Load();
 			ID = ImbueID.Acid;
+		}
+
+		public static void GetVFX(AcidMagic imbue, out Color dustColour, out Color drawColour, out int dust)
+		{
+			dustColour = default;
+			drawColour = imbue.Colour;
+			if (imbue.magicVariant is MeltingVariant || (imbue.unloadedMagicVariant.IsNullOrWhiteSpace() && imbue.magicVariant is null))
+			{
+				dust = DustID.Water_Corruption;
+			}
+			else if (imbue.magicVariant is CorrosiveVariant)
+			{
+				dust = DustID.Water_Jungle;
+				dustColour = imbue.Colour;
+			}
+			else
+			{
+				dust = DustID.Water_Desert;
+				dustColour = imbue.Colour;
+			}
 		}
 		
 		public override float ScrollSpeed => 1f;
@@ -58,33 +80,35 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
+			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UnholyWater, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, direction.X * 2f, direction.Y * 2f, newColor: colour, Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Venom, Scale: area.RelativeScale());
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UnholyWater, Scale: 1.6f * area.RelativeScale());
+			GetVFX(this, out var colour, out _, out var dust);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, newColor: colour, Scale: 1.6f * area.RelativeScale());
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			for (int n = 0; n < 3; n++)
+			GetVFX(this, out var colour, out _, out var dust);
+			for (int n = 0; n < 6; n++)
 			{
-				Dust.NewDustDirect(position, 0, 0, DustID.Venom, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2f * intensity).noGravity = true;
-				Dust.NewDustDirect(position, 0, 0, DustID.UnholyWater, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * intensity), Scale: 3f * intensity).noGravity = true;
+				Dust.NewDustDirect(position, 0, 0, dust, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * intensity), newColor: colour, Scale: 3f * intensity).noGravity = true;
 			}
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
+			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UnholyWater, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: colour, Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

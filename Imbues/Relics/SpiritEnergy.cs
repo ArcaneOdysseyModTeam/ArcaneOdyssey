@@ -133,12 +133,6 @@ namespace ArcaneOdyssey.Imbues.Relics
 				spriteBatch.Draw(image.Value, position, null, Item.GetAlpha(Color.White * Main.inventoryScale), 0f, image.Size() / 2f, Main.inventoryScale * imgscale, SpriteEffects.None, 1f);
 			}
 
-			if (IsSpiritEnergy)
-			{
-				spriteBatch.Draw(Sprite, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 1f);
-				return false;
-			}
-
 			return true;
 		}
 

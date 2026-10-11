@@ -9,6 +9,7 @@ using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader.IO;
+using static Terraria.GameContent.Animations.IL_Actions.NPCs;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
@@ -18,6 +19,23 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			base.Load();
 			ModTypeLookup<MagicType>.Register(this);
+		}
+
+		public override void OnCreated(ItemCreationContext context)
+		{
+			base.OnCreated(context);
+			if (ArcaneOdysseyMod.finishedLoading)
+			{
+				if (ImbueID.Sets.DefaultVariant[ID] >= 0 && magicVariant is null)
+				{
+					SetMagicVariant(MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[ID]));
+				}
+			}
+		}
+
+		protected override Item CreateTemplateEntity()
+		{
+			return base.CreateTemplateEntity();
 		}
 
 		public static MagicType GenerateMagicType(int id, MagicVariant variant)
@@ -346,6 +364,32 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			base.SetDefaults();
 			Item.DamageType = DamageClass.Magic;
+			MagicVariant variant;
+			if (!ArcaneOdysseyMod.finishedLoading)
+			{
+				if (Variants.Any())
+				{
+					variant = Variants.LastOrDefault();
+					SetMagicVariant(variant);
+					if (!Variants.Any(e => e.Icon is not null))
+						Item.color = variant.Colour;
+				}
+			}
+			else
+			{
+				if (magicVariant is null && unloadedMagicVariant.IsNullOrWhiteSpace())
+				{
+					if (ImbueID.Sets.HasVariants[ID])
+					{
+						variant = MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[ID]);
+						SetMagicVariant(variant);
+						if (!ImbueID.Sets.VariantsUseSprites[ID])
+						{
+							Item.color = variant.Colour;
+						}
+					}
+				}
+			}
 		}
 
 		public void RegisterDefaultMagic<T>() where T : MagicType

@@ -1,6 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
@@ -62,13 +63,15 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 			);
 
+		// PORT: replace ModContent.DustType<TintableElectric>() with DustID.TintableElectric
+
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Tesla;
 
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, direction.X * 0.2f, direction.Y * 0.2f, Scale: 1.2f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<TintableElectric>(), direction.X * 0.2f, direction.Y * 0.2f, newColor: Colour, Scale: 1.2f * area.RelativeScale());
 			}
 		}
 
@@ -81,18 +84,18 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			}
 			float waveVal = 10f * MathF.Abs(updates % 5f % 10f - 2.5f) - 12.5f;
 			Vector2 baseVec = new(0f, waveVal);
-			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
+			Dust spawnedDust = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.BubbleBurst_White, Vector2.Zero, newColor: Colour, Scale: 1.2f);
 			spawnedDust.noGravity = true;
 
 			Lighting.AddLight(area.Center(), 2, 1, 2);
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, Scale: 0.4f * area.RelativeScale());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<TintableElectric>(), newColor: Colour, Scale: 0.4f * area.RelativeScale());
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDustDirect(position, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.2f * intensity).noGravity = true;
+				Dust.NewDustDirect(position, 0, 0, ModContent.DustType<TintableElectric>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.2f * intensity).noGravity = true;
 			}
 		}
 
@@ -100,7 +103,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 5; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 1.2f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<TintableElectric>(), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: Colour, Scale: 1.2f * area.RelativeScale());
 			}
 			if (source is Projectile proj && Main.myPlayer == proj.owner)
 				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);

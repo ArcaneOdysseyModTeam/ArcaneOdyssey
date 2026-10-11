@@ -117,10 +117,10 @@ namespace ArcaneOdyssey
 
 		public static void AddShieldSlots()
 		{
-			if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
-			{
-				//shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
-			}
+			//if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
+			//{
+			//	shieldSlot.Call(ModContent.ItemType<ReflexScroll>());
+			//}
 		}
 
 		public static bool CanDoubleTapDash()

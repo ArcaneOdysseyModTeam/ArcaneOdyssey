@@ -1,5 +1,10 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.MagicVariants.Acid;
 using ArcaneOdyssey.MagicVariants.Base;
+using ArcaneOdyssey.MagicVariants.Crystal;
+using ArcaneOdyssey.MagicVariants.Light;
+using ArcaneOdyssey.MagicVariants.Lightning;
+using ArcaneOdyssey.MagicVariants.Metal;
 using ReLogic.Reflection;
 using System.Collections.Generic;
 using Terraria.GameContent;
@@ -45,7 +50,13 @@ namespace ArcaneOdyssey.Imbues
 			public static bool[] Solid = Factory.CreateBoolSet(Crystal, Earth, Glass, Ice, Metal, Wood);
 			public static bool[] Bright = Factory.CreateBoolSet(Ash, Fire, Light, Lightning, Magma, Plasma, Spirit);
 
-			public static int[] DefaultVariant = Factory.CreateIntSet();
+			public static int[] DefaultVariant = Factory.CreateIntSet(-1, 
+					Acid, MagicVariant.GetID<MeltingVariant>(),
+					Crystal, MagicVariant.GetID<RubyVariant>(),
+					Light, MagicVariant.GetID<StarlightVariant>(),
+					Lightning, MagicVariant.GetID<NobleVariant>(),
+					Metal, MagicVariant.GetID<SilverVariant>()
+				);
 
 			public static bool[] HasVariants = Factory.CreateBoolSet();
 

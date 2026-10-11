@@ -148,7 +148,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				active = false,
 			};
-			(item.ModItem as PhoenixWings).Variant = (imbue as PhoenixMagic).magicVariant;
+			(item.ModItem as PhoenixWings).Variant = AOUtils.Safe<BasePhoenixVariant>((imbue as PhoenixMagic).magicVariant);
 			player.ApplyEquipFunctional(item, false);
 		}
 	}

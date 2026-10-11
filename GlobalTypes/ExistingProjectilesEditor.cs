@@ -6,7 +6,6 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Magic;
 using System.IO;
-using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.CameraModifiers;
@@ -87,12 +86,20 @@ namespace ArcaneOdyssey.GlobalTypes
 							lightColor = Color.White;
 							if (Imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID])
 							{
-								lightColor = magic.Colour;
+								lightColor = Imbue.Colour;
+							}
+							if (Imbue is SpiritEnergy)
+							{
+								lightColor = Imbue.Colour;
 							}
 						}
 						else if (Imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID])
 						{
-							lightColor = lightColor.MultiplyRGB(magic.Colour);
+							lightColor = lightColor.MultiplyRGB(Imbue.Colour);
+						}
+						else if (Imbue is SpiritEnergy)
+						{
+							lightColor = lightColor.MultiplyRGB(Imbue.Colour);
 						}
 					}
 

@@ -2,7 +2,6 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.MagicVariants.Base;
 using ArcaneOdyssey.MagicVariants.Crystal;
 using Terraria.Audio;
 
@@ -10,12 +9,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 {
 	public sealed class CrystalMagic : MagicType
 	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			ImbueID.Sets.DefaultVariant[ID] = MagicVariant.GetID<RubyVariant>();
-		}
-
 		public override void RegisterMutations()
 		{
 			RegisterMutation<DiamondMagic>();

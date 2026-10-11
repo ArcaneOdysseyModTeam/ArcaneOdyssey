@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.MagicVariants.Base
 			ModContent.RequestIfExists(RayTexture, out Ray);
 			ModContent.RequestIfExists(RayEndTexture, out RayEnd);
 			ModContent.RequestIfExists(RayStartTexture, out RayStart);
-			ModContent.RequestIfExists(BlastTexture, out Blast); // load instantly for blasts specifically!
+			ModContent.RequestIfExists(BlastTexture, out Blast);
 
 			ModTypeLookup<MagicVariant>.Register(this);
 		}

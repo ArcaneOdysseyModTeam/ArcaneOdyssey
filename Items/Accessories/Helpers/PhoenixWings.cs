@@ -6,7 +6,6 @@ using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Items.Accessories.Helpers
 {
-	[AutoloadEquip(EquipType.Wings)]
 	public class PhoenixWings : BaseItem
 	{
 		public override ItemRarities Rarity => ItemRarities.Legendary;
@@ -31,9 +30,20 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
+		public override void Load()
+		{
+			base.Load();
+			if (Main.dedServ)
+				return;
+			EquipLoader.AddEquipTexture(Mod, Mod.Name + "/MagicVariants/Phoenix/WarPhoenixWings", EquipType.Wings, this);
+		}
+
 		public override bool WingUpdate(Player player, bool inUse)
 		{
-			Item.color = Variant.AnimatedColour;
+			if (player.HasTypeInInventory<PhoenixMagic>(out var imbue, e => e.magicVariant is BasePhoenixVariant))
+			{
+				Variant = imbue.magicVariant as BasePhoenixVariant;
+			}
 			Vector2 spawnPos = player.RotatedRelativePoint(player.MountedCenter + new Vector2(-25 * player.direction, 0));
 			Lighting.AddLight(spawnPos, Variant.AnimatedColour.ToVector3() * 1.5f);
 			return base.WingUpdate(player, inUse);
@@ -42,7 +52,10 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			base.UpdateAccessory(player, hideVisual);
-			Item.color = Variant.AnimatedColour;
+			if (player.HasTypeInInventory<PhoenixMagic>(out var imbue, e => e.magicVariant is BasePhoenixVariant))
+			{
+				Variant = imbue.magicVariant as BasePhoenixVariant;
+			}
 			if (Item.active)
 			{
 				player.wingsLogic = 0;
@@ -53,22 +66,22 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
-		public MagicVariant Variant { get => _variant ?? ModContent.GetInstance<WarPhoenixVariant>(); set => _variant = value; }
-		private MagicVariant _variant;
+		public BasePhoenixVariant Variant { get => _variant ?? ModContent.GetInstance<WarPhoenixVariant>(); set => _variant = value; }
+		private BasePhoenixVariant _variant;
 
 		public override void UpdateInventory(Player player)
 		{
 			base.UpdateInventory(player);
-			if (player.HasTypeInInventory<PhoenixMagic>(out var imbue))
+			if (player.HasTypeInInventory<PhoenixMagic>(out var imbue, e => e.magicVariant is BasePhoenixVariant))
 			{
-				Variant = imbue.magicVariant;
+				Variant = imbue.magicVariant as BasePhoenixVariant;
 			}
-			Item.color = Variant.AnimatedColour;
 		}
 
 		public override bool ModifyEquipTextureDraw(ref PlayerDrawSet drawInfo, ref DrawData drawData, EquipTexture equipTexture, string methodName)
 		{
-			drawData.color = Variant.AnimatedColour * (1f - drawInfo.shadow);
+			drawData.color = Color.White * (1f - drawInfo.shadow);
+			drawData.texture = Variant?.Wings?.Value ?? drawData.texture;
 			return true;
 		}
 
@@ -86,6 +99,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			Item.vanity = true;
 			Item.width = Item.height = 40;
 			Item.master = true;
+			Item.wingSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Wings);
 		}
 	}
 }
