@@ -19,6 +19,7 @@ namespace ArcaneOdyssey.Projectiles.Relics
 		{
 			base.SetStaticDefaults();
 			Main.projFrames[Type] = 4;
+			ProjectileID.Sets.DrawScreenCheckFluff[Type] = 99999999;
 		}
 
 		public override void SetDefaults()
@@ -35,7 +36,6 @@ namespace ArcaneOdyssey.Projectiles.Relics
 
 
 		private Vector2 origin = default;
-		private Vector2? end = null;
 		public override bool CanHaveImbueVFX => !dying;
 
 		public bool dying = false;
@@ -50,8 +50,6 @@ namespace ArcaneOdyssey.Projectiles.Relics
 
 			if (Projectile.timeLeft <= LingerTime)
 			{
-				end ??= Projectile.Center;
-				Projectile.Center = origin;
 				Projectile.velocity = Vector2.Zero;
 				dying = true;
 
@@ -70,13 +68,14 @@ namespace ArcaneOdyssey.Projectiles.Relics
 			if (origin != default)
 			{
 				Projectile.scale *= 1.25f;
+				lightColor = Imbue.Colour;
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				var col = SecondImbue is null ? Imbue.Colour : Color.White;
-				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(col), mode);
+				var info = AOUtils.DrawChain(origin, Projectile.Center, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(lightColor), mode);
 				var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
-				Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(col), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(StartSprite, origin - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
 				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
-				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(col), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				frame = EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame);
+				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), info.Rotation, frame.Size()/2f, Projectile.scale, mode);
 				Projectile.scale /= 1.25f;
 			}
 			return false;

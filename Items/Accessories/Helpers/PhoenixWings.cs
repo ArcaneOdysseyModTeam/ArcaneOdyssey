@@ -1,7 +1,7 @@
 ﻿using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.MagicVariants.Base;
-using ArcaneOdyssey.MagicVariants.Phoenix;
+using ArcaneOdyssey.MagicVariants.Lost.Phoenix;
 using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Items.Accessories.Helpers
@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			base.Load();
 			if (Main.dedServ)
 				return;
-			EquipLoader.AddEquipTexture(Mod, Mod.Name + "/MagicVariants/Phoenix/WarPhoenixWings", EquipType.Wings, this);
+			EquipLoader.AddEquipTexture(Mod, Mod.Name + "/MagicVariants/Lost/Phoenix/WarPhoenixWings", EquipType.Wings, this);
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)

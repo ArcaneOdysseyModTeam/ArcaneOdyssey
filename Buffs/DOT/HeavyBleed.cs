@@ -25,9 +25,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 					Dust.NewDust(npc.Center, 0, 0, DustID.Blood);
 				}
 				totalTicks = 0;
-				npc.DelBuff(buffIndex);
-				SoundEngine.PlaySound(SoundID.NPCDeath21, npc.Center);
-				buffIndex--;
+				if (AOUtils.ServerOrSingleplayer)
+				{
+					npc.DelBuff(buffIndex);
+					buffIndex--;
+				}
+					SoundEngine.PlaySound(SoundID.NPCDeath21, npc.Center);
 			}
 		}
 

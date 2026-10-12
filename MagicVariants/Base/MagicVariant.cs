@@ -83,9 +83,9 @@ namespace ArcaneOdyssey.MagicVariants.Base
 				{
 					return Color.Lerp(Colour, Colour2.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
 				}
-				else if (ImbueID.Sets.DefaultAnimatedColours[Imbue].HasValue)
+				else if (Imbuable.GetImbuable(Imbue).DefaultAnimatedColour.HasValue)
 				{
-					return Color.Lerp(Colour, ImbueID.Sets.DefaultAnimatedColours[Imbue].Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
+					return Color.Lerp(Colour, Imbuable.GetImbuable(Imbue).DefaultAnimatedColour.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
 				}
 				return Colour;
 			}
@@ -110,5 +110,7 @@ namespace ArcaneOdyssey.MagicVariants.Base
 	public abstract class MagicVariant<T> : MagicVariant where T : MagicType
 	{
 		public sealed override int Imbue => AOUtils.ImbuableID<T>();
+		public override Color Colour => ModContent.GetInstance<T>().ImbueColour;
+		public override Color? Colour2 => ModContent.GetInstance<T>().DefaultAnimatedColour;
 	}
 }

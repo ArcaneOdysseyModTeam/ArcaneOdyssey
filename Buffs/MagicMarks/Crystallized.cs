@@ -24,11 +24,11 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			switch (stack)
 			{
 				case 1:
-					return;
+					break;
 				case 2:
-					return;
+					break;
 				case 3:
-					return;
+					break;
 				case 4:
 					if (!Main.dedServ)
 					{
@@ -36,9 +36,12 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 					}
 					break;
 				default: // if the stack number isnt valid or over 4, just delete the buff
-					npc.DelBuff(buffIndex);
+					if (AOUtils.ServerOrSingleplayer)
+					{
+						npc.DelBuff(buffIndex);
+						buffIndex--;
+					}
 					SoundEngine.PlaySound(SoundID.DeerclopsIceAttack, npc.Center);
-					buffIndex--;
 					break;
 			}
 		}
@@ -70,29 +73,32 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 
 		public int dust = DustID.GemRuby;
 		public Color dustColour = default;
-		public Color drawColour = Color.Red;
+		public Color drawColour = default;
 
 		public override bool ReApply(NPC npc, int time, int buffIndex)
 		{
 			npc.buffTime[buffIndex] += time;
-			dustColour = default;
-			dust = DustID.GemRuby;
-			if (Main.netMode == NetmodeID.SinglePlayer)
+			if (!Main.dedServ)
 			{
-				if (Main.LocalPlayer.HasTypeInInventory<CrystalMagic>(out var imbue))
+				dustColour = default;
+				dust = DustID.GemRuby;
+				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
-					CrystalMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
-				}
-			}
-			else
-			{
-				var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
-				foreach (var player in players)
-				{
-					if (player is not null && player.HasTypeInInventory<CrystalMagic>(out var imbue))
+					if (Main.LocalPlayer.HasTypeInInventory<CrystalMagic>(out var imbue))
 					{
 						CrystalMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
-						break;
+					}
+				}
+				else
+				{
+					var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
+					foreach (var player in players)
+					{
+						if (player is not null && player.HasTypeInInventory<CrystalMagic>(out var imbue))
+						{
+							CrystalMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
+							break;
+						}
 					}
 				}
 			}
@@ -109,15 +115,15 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 
 		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
 		{
-			if (AOUtils.RequestIfExists(Texture + "_Glow", ref GlowTexture))
+			if (drawColour != default && AOUtils.RequestIfExists(Texture + "_Glow", ref GlowTexture))
 			{
 				if (GlowTexture.IsLoaded)
 				{
 					drawParams.DrawColor = drawParams.DrawColor.MultiplyRGBA(drawColour);
 					drawParams.Texture = GlowTexture.Value;
+					spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
 				}
 			}
-			spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
 		}
 	}
 }

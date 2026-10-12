@@ -31,7 +31,8 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 					break;
 			}
 
-			if (npc.HasBuff(BuffID.Confused))
+			if (AOUtils.ServerOrSingleplayer)
+				if (npc.HasBuff(BuffID.Confused))
 			{
 				npc.DelBuff(buffIndex);
 				buffIndex--;

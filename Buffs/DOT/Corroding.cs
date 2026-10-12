@@ -12,7 +12,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public int dust = DustID.Water_Corruption;
 		public Color dustColour = default;
-		public Color drawColour = Color.Red;
+		public Color drawColour = default;
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
@@ -28,7 +28,6 @@ namespace ArcaneOdyssey.Buffs.DOT
 						if (Main.LocalPlayer.HasTypeInInventory<AcidMagic>(out var imbue))
 						{
 							AcidMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
-							vfxSet = true;
 						}
 					}
 					else
@@ -39,11 +38,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 							if (player is not null && player.HasTypeInInventory<AcidMagic>(out var imbue))
 							{
 								AcidMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
-								vfxSet = true;
 								break;
 							}
 						}
 					}
+					vfxSet = true;
 				}
 				var spawned = Dust.NewDustDirect(npc.position, npc.width, npc.height, dust);
 				spawned.velocity *= 0.4f;
@@ -73,15 +72,15 @@ namespace ArcaneOdyssey.Buffs.DOT
 
 		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
 		{
-			if (AOUtils.RequestIfExists(Texture + "_Glow", ref GlowTexture))
+			if (drawColour != default && AOUtils.RequestIfExists(Texture + "_Glow", ref GlowTexture))
 			{
 				if (GlowTexture.IsLoaded)
 				{
 					drawParams.DrawColor = drawParams.DrawColor.MultiplyRGBA(drawColour);
 					drawParams.Texture = GlowTexture.Value;
+					spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
 				}
 			}
-			spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
 		}
 	}
 }

@@ -4,14 +4,15 @@ using ArcaneOdyssey.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.MagicVariants.Base;
+using ArcaneOdyssey.MagicVariants.Lost.Aether;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
 {
-	public class AetherMagic : MagicType
+	public class AetherMagic : MagicType<AetherShocks>
 	{
-		public override ImbueGimmick Gimmick => ModContent.GetInstance<AetherShocks>();
 		public override void RegisterMutations()
 		{
 			RegisterMutation<IonMagic>();
@@ -23,6 +24,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			base.SetStaticDefaults();
 			ImbueID.Sets.Bright[ID] = true;
 			ArcaneOdysseyMod.Sets.cold[Type] = false;
+			ImbueID.Sets.DefaultVariant[ID] = MagicVariant.GetID<UnstableVariant>();
 		}
 
 		public override bool ImmuneDash => true; // instant

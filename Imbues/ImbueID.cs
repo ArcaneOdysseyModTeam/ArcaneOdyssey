@@ -1,10 +1,14 @@
 ﻿using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.MagicVariants.Acid;
 using ArcaneOdyssey.MagicVariants.Base;
-using ArcaneOdyssey.MagicVariants.Crystal;
-using ArcaneOdyssey.MagicVariants.Light;
-using ArcaneOdyssey.MagicVariants.Lightning;
-using ArcaneOdyssey.MagicVariants.Metal;
+using ArcaneOdyssey.MagicVariants.Normal.Acid;
+using ArcaneOdyssey.MagicVariants.Normal.Crystal;
+using ArcaneOdyssey.MagicVariants.Normal.Light;
+using ArcaneOdyssey.MagicVariants.Normal.Lightning;
+using ArcaneOdyssey.MagicVariants.Normal.Metal;
+using ArcaneOdyssey.MagicVariants.Normal.Poison;
+using ArcaneOdyssey.MagicVariants.Normal.Sand;
+using ArcaneOdyssey.MagicVariants.Normal.Water;
+using ArcaneOdyssey.MagicVariants.Normal.Wood;
 using ReLogic.Reflection;
 using System.Collections.Generic;
 using Terraria.GameContent;
@@ -55,7 +59,11 @@ namespace ArcaneOdyssey.Imbues
 					Crystal, MagicVariant.GetID<RubyVariant>(),
 					Light, MagicVariant.GetID<StarlightVariant>(),
 					Lightning, MagicVariant.GetID<NobleVariant>(),
-					Metal, MagicVariant.GetID<SilverVariant>()
+					Metal, MagicVariant.GetID<SilverVariant>(),
+					Poison, MagicVariant.GetID<ToxinVariant>(),
+					Sand, MagicVariant.GetID<PureVariant>(),
+					Water, MagicVariant.GetID<LakeVariant>(),
+					Wood, MagicVariant.GetID<ForestVariant>()
 				);
 
 			public static bool[] HasVariants = Factory.CreateBoolSet();

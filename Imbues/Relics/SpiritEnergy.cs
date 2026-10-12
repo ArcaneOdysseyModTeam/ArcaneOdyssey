@@ -184,22 +184,15 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 				ItemID.Sets.ItemIconPulse[Type] = ArcaneOdysseyClientConfig.Instance.PulsingImbueIcons;
 				ArcaneOdysseyMod.Sets.toggleablePulse[Type] = true;
-
-				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "Ray"), out ImbueID.Sets.Assets.raySprites[ID]) & ArcaneOdysseyMod.DevMode)
-				{
-					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray sprite");
-				}
-
-				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayEnd"), out ImbueID.Sets.Assets.rayEndSprites[ID]) & ArcaneOdysseyMod.DevMode)
-				{
-					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray end sprite");
-				}
-
-				if (!ModContent.RequestIfExists(GetType().FullName.Replace('.', '/').Replace(Name, AttackPrefix + "RayStart"), out ImbueID.Sets.Assets.rayStartSprites[ID]) & ArcaneOdysseyMod.DevMode)
-				{
-					ArcaneOdysseyMod.NoticeQueue.Add(Name + " is missing ray start sprite");
-				}
 			}
+
+			var inst = ModContent.GetInstance<SpiritEnergy>();
+
+			ModContent.RequestIfExists(inst.Texture.Replace(inst.Name, AttackPrefix + "Ray"), out ImbueID.Sets.Assets.raySprites[ID], AssetRequestMode.ImmediateLoad);
+
+			ModContent.RequestIfExists(inst.Texture.Replace(inst.Name, AttackPrefix + "RayEnd"), out ImbueID.Sets.Assets.rayEndSprites[ID], AssetRequestMode.ImmediateLoad);
+
+			ModContent.RequestIfExists(inst.Texture.Replace(inst.Name, AttackPrefix + "RayStart"), out ImbueID.Sets.Assets.rayStartSprites[ID], AssetRequestMode.ImmediateLoad);
 		}
 
 		public override Color ImbueColour => SpiritColour;

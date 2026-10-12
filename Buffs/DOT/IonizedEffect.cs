@@ -9,8 +9,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 		{
 			if (npc.wet && !npc.lavaWet)
 			{
-				npc.DelBuff(buffIndex);
-				buffIndex--;
+				if (AOUtils.ServerOrSingleplayer)
+				{
+					npc.DelBuff(buffIndex);
+					buffIndex--;
+				}
 				return;
 			}
 			if (!Main.dedServ)

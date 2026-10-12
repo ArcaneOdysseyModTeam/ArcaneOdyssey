@@ -4,6 +4,8 @@ using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.MagicVariants.Base;
+using ArcaneOdyssey.MagicVariants.Lost.PoisonLightning;
 using ArcaneOdyssey.Projectiles.Magic.Effects;
 using System;
 using Terraria.Audio;
@@ -17,12 +19,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.DD2_LightningBugZap with { Volume = 2.25f };
 		public override Color ImbueColour => Color.Purple;
-		public override Color? DefaultAnimatedColour => new(105, 0, 105, 255);
+		public override Color? DefaultAnimatedColour => new(105, 0, 105);
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			ImbueID.Sets.AuraPower[ID] = .8f;
 			ImbueID.Sets.Bright[ID] = true;
+			ImbueID.Sets.DefaultVariant[ID] = MagicVariant.GetID<NeurotoxinVariant>();
 		}
 		public override float ScrollSize => 1.15f;
 		public override float ScrollDamage => 0.9f;

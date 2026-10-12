@@ -1,5 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.Magic.Lost;
 using System.Collections.Generic;
+using System.Linq;
+using Terraria.DataStructures;
 
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
@@ -11,9 +14,9 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.BubbleBurst_White, Scale: 2f);
-				dust.velocity *= 0.1f;
-				dust.noGravity = true;
+				var spawned = Dust.NewDustDirect(npc.position, npc.width, npc.height, dust, newColor: dustColour, Scale: 2f);
+				spawned.velocity *= 0.1f;
+				spawned.noGravity = true;
 			}
 
 			var stack = AOUtils.GetAOBuffStack(npc, buffIndex); // stacks disappear over time
@@ -32,10 +35,13 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 					break;
 			}
 
-			if (npc.HasBuff(BuffID.Confused))
+			if (AOUtils.ServerOrSingleplayer)
 			{
-				npc.DelBuff(buffIndex);
-				buffIndex--;
+				if (npc.HasBuff(BuffID.Confused))
+				{
+					npc.DelBuff(buffIndex);
+					buffIndex--;
+				}
 			}
 		}
 
@@ -71,9 +77,37 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			}
 		}
 
+		public int dust = DustID.Cloud;
+		public Color dustColour = default;
+		public Color drawColour = default;
+
 		public override bool ReApply(NPC npc, int time, int buffIndex)
 		{
 			npc.buffTime[buffIndex] += time;
+			if (!Main.dedServ)
+			{
+				dustColour = default;
+				dust = DustID.Cloud;
+				if (Main.netMode == NetmodeID.SinglePlayer)
+				{
+					if (Main.LocalPlayer.HasTypeInInventory<CloudMagic>(out var imbue))
+					{
+						CloudMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
+					}
+				}
+				else
+				{
+					var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
+					foreach (var player in players)
+					{
+						if (player is not null && player.HasTypeInInventory<CloudMagic>(out var imbue))
+						{
+							CloudMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
+							break;
+						}
+					}
+				}
+			}
 			return true;
 		}
 
@@ -81,6 +115,21 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			player.buffTime[buffIndex] += time;
 			return true;
+		}
+
+		public static Asset<Texture2D> GlowTexture;
+
+		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
+		{
+			if (drawColour != default && AOUtils.RequestIfExists(Texture + "_Glow", ref GlowTexture))
+			{
+				if (GlowTexture.IsLoaded)
+				{
+					drawParams.DrawColor = drawParams.DrawColor.MultiplyRGBA(drawColour);
+					drawParams.Texture = GlowTexture.Value;
+					spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
+				}
+			}
 		}
 	}
 }

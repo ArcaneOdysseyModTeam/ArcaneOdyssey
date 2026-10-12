@@ -2,6 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.MagicVariants.Normal.Wood;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
@@ -18,8 +19,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		public override float DashResist => 1.3f;
 		public override SoundStyle? ImbueSound => SoundID.Dig;
 		public override Color ImbueColour => new(61, 33, 0, 255);
-
-
 
 		public override void Load()
 		{
@@ -57,33 +56,49 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			Projectile.rotation += 0.1f * Projectile.direction;
 		}
 
+		public static void GetVFX(WoodMagic imbue, out int dust)
+		{
+			if (imbue.magicVariant is ForestVariant || (imbue.unloadedMagicVariant.IsNullOrWhiteSpace() && imbue.magicVariant is null))
+			{
+				dust = DustID.t_LivingWood;
+			}
+			else
+			{
+				dust = DustID.t_LivingWood;
+			}
+		}
+
 		public override void SpawningEffects(Rectangle area, Vector2 direction)
 		{
+			GetVFX(this, out var dust);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Pearlwood, direction.X * 0.2f, direction.Y * 0.2f, Scale: 1.5f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, direction.X * 0.2f, direction.Y * 0.2f, Scale: 1.5f * area.RelativeScale());
 			}
 		}
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Pearlwood, direction.GetValueOrDefault().X * 0.2f, direction.GetValueOrDefault().Y * 0.2f, Scale: 1f * area.RelativeScale());
+			GetVFX(this, out var dust);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, direction.GetValueOrDefault().X * 0.2f, direction.GetValueOrDefault().Y * 0.2f, Scale: 1f * area.RelativeScale());
 		}
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
+			GetVFX(this, out var dust);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Pearlwood, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2.5f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, dust, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2.5f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
+			GetVFX(this, out var dust);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Pearlwood, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

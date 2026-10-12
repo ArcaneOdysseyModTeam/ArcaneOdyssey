@@ -1,5 +1,10 @@
-﻿using ArcaneOdyssey.Buffs.Base;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.MagicVariants.Base;
 using System;
+using System.Linq;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
@@ -18,12 +23,54 @@ namespace ArcaneOdyssey.Buffs.DOT
 			player.onFire2 = true;
 		}
 
+		private bool vfxSet = false;
+
+		public Asset<Texture2D> wingsSprite = null;
+		public Color[] dustColour = [Color.Yellow, Color.LightBlue];
+
+		public override bool ReApply(NPC npc, int time, int buffIndex)
+		{
+			vfxSet = false;
+			return base.ReApply(npc, time, buffIndex);
+		}
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			if (!Main.dedServ)
+			{
+				if (!vfxSet)
+				{
+					if (Main.netMode == NetmodeID.SinglePlayer)
+					{
+						if (Main.LocalPlayer.HasTypeInInventory<PhoenixMagic>(out var imbue))
+						{
+							wingsSprite = AOUtils.Safe<BasePhoenixVariant>(imbue.magicVariant)?.Wings;
+							dustColour = [imbue.VariantColour, imbue.VariantColour2.GetValueOrDefault()];
+						}
+					}
+					else
+					{
+						var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
+						foreach (var player in players)
+						{
+							if (player is not null && player.HasTypeInInventory<PhoenixMagic>(out var imbue))
+							{
+								wingsSprite = AOUtils.Safe<BasePhoenixVariant>(imbue.magicVariant)?.Wings;
+								dustColour = [imbue.VariantColour, imbue.VariantColour2.GetValueOrDefault()];
+								break;
+							}
+						}
+					}
+					vfxSet = true;
+				}
+			}
 			if (npc.wet && !npc.lavaWet)
 			{
-				npc.DelBuff(buffIndex);
-				buffIndex--;
+				if (AOUtils.ServerOrSingleplayer)
+				{
+					npc.DelBuff(buffIndex);
+					buffIndex--;
+				}
 				return;
 			}
 			bool noPlayerFound = true;
@@ -44,8 +91,8 @@ namespace ArcaneOdyssey.Buffs.DOT
 			{
 				if (!Main.dedServ && Main.GameUpdateCount % 4 == 0)
 				{
-					Dust.NewDust(npc.position, npc.width, npc.height, DustID.BlueTorch, Scale: 1.4f);
-					Dust.NewDust(npc.position, npc.width, npc.height, DustID.YellowTorch, Scale: 1.4f);
+					Dust.NewDust(npc.position, npc.width, npc.height, DustID.WhiteTorch, newColor: dustColour[0], Scale: 1.4f);
+					Dust.NewDust(npc.position, npc.width, npc.height, DustID.WhiteTorch, newColor: dustColour[1], Scale: 1.4f);
 				}
 			}
 			else
@@ -54,12 +101,12 @@ namespace ArcaneOdyssey.Buffs.DOT
 			}
 		}
 
-		public static void HealEffect(Player player, NPC npc)
+		public void HealEffect(Player player, NPC npc)
 		{
 			if (Main.GameUpdateCount % 2 == 0 && player.ArcaneOdyssey().pheonixHealing < 3)
 			{
-				Dust.NewDust(player.position, player.width, player.height, DustID.BlueTorch, Scale: 1.4f);
-				Dust.NewDust(player.position, player.width, player.height, DustID.YellowTorch, Scale: 1.4f);
+				Dust.NewDust(player.position, player.width, player.height, DustID.WhiteTorch, newColor: dustColour[0], Scale: 1.4f);
+				Dust.NewDust(player.position, player.width, player.height, DustID.WhiteTorch, newColor: dustColour[1], Scale: 1.4f);
 			}
 
 			var length = player.MountedCenter.Distance(npc.Center);
@@ -70,7 +117,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 				var posy = (length / 10f) * MathF.Sin((i / length) * MathF.PI) * MathF.Cos(((2 * (Main.GameUpdateCount % 400f)) / 400f) * MathF.PI);
 				Vector2 dustpos = player.MountedCenter + new Vector2(i, posy + Main.rand.NextFloat(length/-50f, length/50f)).RotatedBy(player.MountedCenter.AngleTo(npc.Center));
 
-				var dust = Dust.NewDustPerfect(dustpos, Main.rand.Next(new int[2] { DustID.BlueTorch, DustID.YellowTorch }));
+				var dust = Dust.NewDustPerfect(dustpos, DustID.WhiteTorch, newColor: Main.rand.Next(dustColour));
 				dust.noGravity = true;
 			}
 		}

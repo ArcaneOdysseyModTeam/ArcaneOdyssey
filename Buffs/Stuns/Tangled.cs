@@ -37,8 +37,11 @@ namespace ArcaneOdyssey.Buffs.Stuns
 						}
 						break;
 					default: // if the stack number isnt valid or over 4, just delete the buff
-						npc.DelBuff(buffIndex);
-						buffIndex--;
+						if (AOUtils.ServerOrSingleplayer)
+						{
+							npc.DelBuff(buffIndex);
+							buffIndex--;
+						}
 						break;
 				}
 			}

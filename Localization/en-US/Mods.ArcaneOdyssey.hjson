@@ -444,4 +444,16 @@ MagicVariants: {
 	BronzeVariant.DisplayName: Bronze Variant
 	SilverVariant.DisplayName: Silver Variant
 	LeadVariant.DisplayName: Lead Variant
+	CirrusVariant.DisplayName: Cirrus Variant
+	StratusVariant.DisplayName: Stratus Variant
+	GoldVariant.DisplayName: Gold Variant
+	ToxinVariant.DisplayName: Toxin Variant
+	VenomVariant.DisplayName: Venom Variant
+	CorruptVariant.DisplayName: Corrupt Variant
+	CrimsonVariant.DisplayName: Crimson Variant
+	PureVariant.DisplayName: Pure Variant
+	DesertVariant.DisplayName: Desert Variant
+	LakeVariant.DisplayName: Lake Variant
+	OasisVariant.DisplayName: Oasis Variant
+	ForestVariant.DisplayName: Forest Variant
 }

@@ -6,7 +6,7 @@ using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Items.Accessories.Helpers;
 using ArcaneOdyssey.MagicVariants.Base;
-using ArcaneOdyssey.MagicVariants.Phoenix;
+using ArcaneOdyssey.MagicVariants.Lost.Phoenix;
 using ArcaneOdyssey.Skills.Base;
 using Terraria.Audio;
 

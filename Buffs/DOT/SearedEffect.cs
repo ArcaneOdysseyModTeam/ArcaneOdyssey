@@ -8,8 +8,11 @@ namespace ArcaneOdyssey.Buffs.DOT
 		{
 			if (npc.wet && !npc.lavaWet)
 			{
-				npc.DelBuff(buffIndex);
-				buffIndex--;
+				if (AOUtils.ServerOrSingleplayer)
+				{
+					npc.DelBuff(buffIndex);
+					buffIndex--;
+				}
 				return;
 			}
 			Dust newDust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.CrimsonTorch, (0.5f - Main.rand.NextFloat()) * 2f, (0.5f - Main.rand.NextFloat()) * 2f, 1, default, 3f);

@@ -677,8 +677,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 
-			ImbueID.Sets.DefaultAnimatedColours[ID] = DefaultAnimatedColour;
-
 			if (_id < 0)
 			{
 				throw new Exception("Imbue had an invalid ID, perhaps you tried to register a new Normal tier magic?");
@@ -845,26 +843,24 @@ namespace ArcaneOdyssey.Imbues.Base
 			get
 			{
 				var colour = ImbueColour;
+				var colour2 = DefaultAnimatedColour;
 				if (this is IBarrableImbue bar)
 				{
-					colour = Color.White;
+					colour2 ??= Color.White;
 					if (Imbue is not null)
 					{
-						colour = Imbue.ImbueColour;
+						colour2 = Imbue.ImbueColour;
 					}
-					return Color.Lerp(colour, ImbueColour, bar.LerpValue);
+					return Color.Lerp(colour2.Value, colour, bar.LerpValue);
 				}
 				if (this is MagicType magic)
 				{
 					colour = magic.VariantColour;
-					if (magic.magicVariant?.Colour2 is not null)
-					{
-						return Color.Lerp(ImbueColour, magic.magicVariant.Colour2.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
-					}
+					colour2 = magic.VariantColour2;
 				}
-				if (ImbueID.Sets.DefaultAnimatedColours[ID].HasValue)
+				if (colour2.HasValue)
 				{
-					return Color.Lerp(colour, ImbueID.Sets.DefaultAnimatedColours[ID].Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
+					return Color.Lerp(colour, colour2.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
 				}
 				return colour;
 			}

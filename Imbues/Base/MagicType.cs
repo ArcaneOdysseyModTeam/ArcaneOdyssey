@@ -9,7 +9,6 @@ using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader.IO;
-using static Terraria.GameContent.Animations.IL_Actions.NPCs;
 
 namespace ArcaneOdyssey.Imbues.Base
 {
@@ -87,12 +86,14 @@ namespace ArcaneOdyssey.Imbues.Base
 			if (variant is not null)
 			{
 				VariantColour = variant.Colour;
+				VariantColour2 = variant.Colour2;
 				magicVariant = variant;
 				unloadedMagicVariant = "";
 			}
 			else
 			{
 				_colour = null;
+				_colour2 = null;
 				magicVariant = null;
 				unloadedMagicVariant = "";
 			}
@@ -100,6 +101,8 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public Color VariantColour { get => _colour ?? ImbueColour; private set => _colour = value; }
 		private Color? _colour;
+		public Color? VariantColour2 { get => _colour2 ?? DefaultAnimatedColour; private set => _colour2 = value; }
+		private Color? _colour2;
 		public MagicVariant magicVariant = null;
 		public string unloadedMagicVariant = "";
 

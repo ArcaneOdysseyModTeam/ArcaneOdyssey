@@ -28,8 +28,11 @@ namespace ArcaneOdyssey.Buffs.Helpers
 				if (AOUtils.ServerOrSingleplayer)
 					npc.HitNPC(npc.buffTime[buffIndex], Main.rand.NextBool().ToDirectionInt(), ModContent.GetInstance<AncientLightningMagic>(), damageType: DamageClass.Magic, damageVariation: true);
 			}
-			npc.DelBuff(buffIndex);
-			buffIndex--;
+			if (AOUtils.ServerOrSingleplayer)
+			{
+				npc.DelBuff(buffIndex);
+				buffIndex--;
+			}
 		}
 
 		public static void ChainVFX(Vector2 start, Vector2 end)

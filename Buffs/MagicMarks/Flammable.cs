@@ -15,8 +15,9 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (npc.wet && !npc.lavaWet)
 			{
-				npc.DelBuff(buffIndex);
-				buffIndex--;
+				if (AOUtils.ServerOrSingleplayer) {
+					npc.DelBuff(buffIndex);
+					buffIndex--;}
 				return;
 			}
 			npc.oiled = true;

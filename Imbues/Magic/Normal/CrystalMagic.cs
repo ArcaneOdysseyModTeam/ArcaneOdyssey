@@ -2,7 +2,7 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.MagicVariants.Crystal;
+using ArcaneOdyssey.MagicVariants.Normal.Crystal;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
@@ -90,6 +90,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			if (imbue.magicVariant is RubyVariant || (imbue.unloadedMagicVariant.IsNullOrWhiteSpace() && imbue.magicVariant is null))
 			{
 				dust = DustID.GemRuby;
+				drawColour = default;
 			}
 			else if (imbue.magicVariant is SapphireVariant)
 			{
