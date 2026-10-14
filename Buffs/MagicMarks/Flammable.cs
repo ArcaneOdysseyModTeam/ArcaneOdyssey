@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			player.ArcaneOdyssey().oiled = true;
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Water_Cavern);
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Water_Cavern, newColor: Color.Black);
 				dust.velocity *= 0.4f;
 			}
 		}

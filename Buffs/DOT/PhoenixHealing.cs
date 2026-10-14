@@ -1,10 +1,8 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Buffs.Base;
+﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.MagicVariants.Base;
 using System;
 using System.Linq;
-using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {

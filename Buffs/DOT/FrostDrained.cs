@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Buffs.MagicMarks;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Buffs.DOT
 {
@@ -21,6 +23,6 @@ namespace ArcaneOdyssey.Buffs.DOT
 		}
 
 
-		
+		public override List<int> Counterparts => [ModContent.BuffType<DrainedEffect>(), ModContent.BuffType<FreezingEffect>()];
 	}
 }

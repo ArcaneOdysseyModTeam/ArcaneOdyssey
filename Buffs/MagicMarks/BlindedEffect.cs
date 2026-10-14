@@ -1,5 +1,8 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Collections.Generic;
+using System.Linq;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks
 {
@@ -10,7 +13,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.YellowStarDust);
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.GolfPaticle, newColor: dustColour);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}
@@ -41,6 +44,29 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 
 		public override bool ReApply(NPC npc, int time, int buffIndex)
 		{
+			if (!Main.dedServ)
+			{
+				dustColour = default;
+				if (Main.netMode == NetmodeID.SinglePlayer)
+				{
+					if (Main.LocalPlayer.HasTypeInInventory<LightMagic>(out var imbue))
+					{
+						dustColour = imbue.Colour;
+					}
+				}
+				else
+				{
+					var players = Main.player.Where(e => e is not null && e.active).OrderBy(e => e.Distance(npc.Center));
+					foreach (var player in players)
+					{
+						if (player.HasTypeInInventory<LightMagic>(out var imbue))
+						{
+							dustColour = imbue.Colour;
+							break;
+						}
+					}
+				}
+			}
 			npc.buffTime[buffIndex] += time;
 			return true;
 		}
@@ -55,7 +81,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.YellowStarDust);
+				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.GolfPaticle, newColor: dustColour);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}
@@ -81,6 +107,23 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			{
 				player.DelBuff(buffIndex);
 				buffIndex--;
+			}
+		}
+
+		public Color dustColour = new(255, 255, 0);
+
+		public static Asset<Texture2D> GlowTexture;
+
+		public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
+		{
+			if (dustColour != new Color(255, 255, 0) && AOUtils.RequestIfExists(Texture + "_Glow", ref GlowTexture)) 
+			{
+				if (GlowTexture.IsLoaded)
+				{
+					drawParams.DrawColor = drawParams.DrawColor.MultiplyRGBA(dustColour);
+					drawParams.Texture = GlowTexture.Value;
+					spriteBatch.Draw(drawParams.Texture, drawParams.MouseRectangle, drawParams.SourceRectangle, drawParams.DrawColor);
+				}
 			}
 		}
 	}

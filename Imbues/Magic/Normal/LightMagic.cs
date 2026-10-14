@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 		public override bool ImmuneDash => true; // instant
 		public override SoundStyle? ImbueSound => SoundID.Item9;
-		public override Color ImbueColour => new(255, 255, 0, 255);
+		public override Color ImbueColour => new(255, 255, 0);
 		
 		
 		
