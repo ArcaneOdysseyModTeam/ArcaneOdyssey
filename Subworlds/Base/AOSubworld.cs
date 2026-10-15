@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.Biomes.Base;
-using ArcaneOdyssey.MainMenu;
+﻿using ArcaneOdyssey.MainMenu;
 using ReLogic.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;

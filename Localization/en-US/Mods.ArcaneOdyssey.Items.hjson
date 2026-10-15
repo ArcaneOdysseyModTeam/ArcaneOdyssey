@@ -390,6 +390,28 @@ Debug: {
 		DisplayName: Tester Goggles
 		Tooltip: DEBUG - Allows you to see hidden item data and hitboxes
 	}
+
+	TilePlacer: {
+		TalosBarrierPlacer: {
+			DisplayName: Talos Barrier Placer
+			Tooltip: ""
+		}
+
+		TalosCaughtPlacer: {
+			DisplayName: Talos Caught Placer
+			Tooltip: ""
+		}
+
+		RowboatSpawnerPlacer: {
+			DisplayName: Rowboat Spawner Placer
+			Tooltip: ""
+		}
+
+		SpawnSetterPlacer: {
+			DisplayName: Spawn Setter Placer
+			Tooltip: ""
+		}
+	}
 }
 
 EmptyScrolls: {

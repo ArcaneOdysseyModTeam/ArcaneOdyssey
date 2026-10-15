@@ -32,6 +32,7 @@ namespace ArcaneOdyssey
 		public static float UpdateCount => Main.GameUpdateCount / 100f;
 
 		public const string BlankTexture = ArcaneOdysseyMod.InternalName + "/Assets/Blank";
+		public const string BlankTileTexture = ArcaneOdysseyMod.InternalName + "/Assets/BlankTile";
 		public const string SlashTexture = ArcaneOdysseyMod.InternalName + "/Assets/BasicSlash";
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
@@ -117,6 +118,33 @@ namespace ArcaneOdyssey
 			_ => "",
 		};
 
+		public static Point16 Point16(this Point pos) => new(pos);
+
+		public static Point SpawnPos(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);
+		public static Point16 SpawnPos16(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);
+
+		public static Point SpawnPos() => new(Main.spawnTileX, Main.spawnTileY);
+		public static Point16 SpawnPos16() => new(Main.spawnTileX, Main.spawnTileY);
+
+		public static void SetWorldSpawn(Point pos)
+		{
+			Main.spawnTileX = pos.X;
+			Main.spawnTileY = pos.Y;
+		}
+
+		public static void SetWorldSpawn(Point16 pos)
+		{
+			Main.spawnTileX = pos.X;
+			Main.spawnTileY = pos.Y;
+		}
+
+		public static void SetToSpawnPosition(this Player player)
+		{
+			var floorX = SpawnPos(player).X;
+			var floorY = SpawnPos(player).Y;
+			player.position.X = floorX * 16 + 8 - player.width / 2;
+			player.position.Y = floorY * 16 - player.height;
+		}
 
 		public static Vector2 Add(this Vector2 vec, float add) => vec.SafeNormalize() * (vec.Length() + add);
 
@@ -1420,7 +1448,6 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public static LocalizedText CustomLocalization(this Mod mod, string key, params object[] formatting)
 		{
-			mod ??= ModInstance;
 			if (!key.StartsWith("Mods."))
 			{
 				key = mod.GetLocalizationKey(key);
@@ -1443,8 +1470,23 @@ namespace ArcaneOdyssey
 			return text;
 		}
 
-		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback) => Language.GetOrRegister(mod.GetLocalizationKey(key), () => fallback ?? mod.CustomLocalization(key).Value);
-		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, Func<string> fallback = null) => Language.GetOrRegister(mod.GetLocalizationKey(key), fallback ?? (() => mod.CustomLocalization(key).Value));
+		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback)
+		{
+			if (!key.StartsWith("Mods."))
+			{
+				key = mod.GetLocalizationKey(key);
+			}
+			return Language.GetOrRegister(key, () => fallback ?? mod.CustomLocalization(key).Value);
+		}
+
+		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, Func<string> fallback = null)
+		{
+			if (!key.StartsWith("Mods."))
+			{
+				key = mod.GetLocalizationKey(key);
+			}
+			return Language.GetOrRegister(key, fallback ?? (() => mod.CustomLocalization(key).Value));
+		}
 
 		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
 

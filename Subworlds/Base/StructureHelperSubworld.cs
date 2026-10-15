@@ -1,6 +1,7 @@
 ﻿using StructureHelper.API;
 using StructureHelper.Models;
 using System.Collections.Generic;
+using Terraria.DataStructures;
 using Terraria.IO;
 using Terraria.WorldBuilding;
 
@@ -8,9 +9,11 @@ namespace ArcaneOdyssey.Subworlds.Base
 {
 	public abstract class StructureHelperSubworld : AOSubworld
 	{
-		public override int Width => structure.width + 80;
+		public const int WorldBorderOutbounds = 40;
+		public const int WorldBorderOutboundsTotal = 80;
+		public override int Width => structure.width + WorldBorderOutboundsTotal;
 
-		public override int Height => structure.height + 80;
+		public override int Height => structure.height + WorldBorderOutboundsTotal;
 
 		public override List<GenPass> Tasks => [new LoadStructurePass(this)];
 
@@ -25,18 +28,17 @@ namespace ArcaneOdyssey.Subworlds.Base
 		}
 
 		public abstract string StructureName { get; }
-	}
 
-	public class LoadStructurePass(StructureHelperSubworld structure) : GenPass($"Generating Structure {structure.Name}", 0)
-	{
-		private StructureHelperSubworld subworld = structure;
-		protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+		public class LoadStructurePass(StructureHelperSubworld structure) : GenPass($"Generating Structure {structure.Name}", 0)
 		{
-			Generator.GenerateFromData(subworld.structure, new(40, 40));
-			if (subworld.SpawnLocation != default)
+			private StructureHelperSubworld subworld = structure;
+			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
 			{
-				Main.spawnTileX = subworld.SpawnLocation.X;
-				Main.spawnTileY = subworld.SpawnLocation.Y;
+				Generator.GenerateFromData(subworld.structure, new(WorldBorderOutbounds));
+				if (subworld.SpawnLocation != default)
+				{
+					AOUtils.SetWorldSpawn(subworld.SpawnLocation.Point16() + new Point16(WorldBorderOutbounds));
+				}
 			}
 		}
 	}

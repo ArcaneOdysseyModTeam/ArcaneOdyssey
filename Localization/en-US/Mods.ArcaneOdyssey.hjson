@@ -420,13 +420,10 @@ DamageClasses: {
 }
 
 Subworlds: {
-	TaloSubworld: {
-		Description: Fort Talos is a fort.
-		DisplayName: Fort Talos
-	}
-
 	TalosSubworld: {
 		DisplayName: Talos Subworld
 		Description: Mods.ArcaneOdyssey.Subworlds.TalosSubworld.Description
 	}
 }
+
+Tiles.TalosCaughtTile.Death: "{0} was caught by the guards."

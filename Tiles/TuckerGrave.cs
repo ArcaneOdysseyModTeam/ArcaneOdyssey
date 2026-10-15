@@ -17,7 +17,7 @@ namespace ArcaneOdyssey.Tiles
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
 
-			AddMapEntry(Color.SaddleBrown, Lang.GetItemName(TileLoader.GetItemDropFromTypeAndStyle(Type)));
+			AddMapEntry(Color.DarkGray, Lang.GetItemName(TileLoader.GetItemDropFromTypeAndStyle(Type)));
 		}
 
 		public override void MouseOver(int i, int j)
