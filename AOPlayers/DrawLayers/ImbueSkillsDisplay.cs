@@ -215,9 +215,12 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					}
 					else
 					{
+						var ogtex = TextureAssets.Item[imbue.Type];
+						TextureAssets.Item[imbue.Type] = imbue.Sprite;
 						Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
 						if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 							colour = colour.MultiplyRGBA(imbue.Colour);
+						TextureAssets.Item[imbue.Type] = ogtex;
 					}
 
 					DrawData d = new(tex, secondaryItemPos - Main.screenPosition + (Main.ScreenSize.ToVector2() * ArcaneOdysseyClientConfig.Instance.ImbueSkillsDisplayLocationOffset), frame, colour, rotation, frame.Size() / 2f, spriteSize / MathHelper.Max(frame.Width, frame.Height), effects, 0);
@@ -257,9 +260,12 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					}
 					else
 					{
+						var ogtex = TextureAssets.Item[imbue.Type];
+						TextureAssets.Item[imbue.Type] = imbue.Sprite;
 						Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
 						if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 							colour = colour.MultiplyRGBA(imbue.Colour);
+						TextureAssets.Item[imbue.Type] = ogtex;
 					}
 
 					DrawData d = new(tex, secondaryItemPos - Main.screenPosition + (Main.ScreenSize.ToVector2() * ArcaneOdysseyClientConfig.Instance.ImbueSkillsDisplayLocationOffset), frame, colour, rotation, frame.Size() / 2f, spriteSize / MathHelper.Max(frame.Width, frame.Height), effects, 0);
@@ -298,9 +304,12 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 					}
 					else
 					{
+						var ogtex = TextureAssets.Item[imbue.Type];
+						TextureAssets.Item[imbue.Type] = imbue.Sprite;
 						Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
 						if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 							colour = colour.MultiplyRGBA(imbue.Colour);
+						TextureAssets.Item[imbue.Type] = ogtex;
 					}
 
 					DrawData d = new(tex, secondaryItemPos - Main.screenPosition + (Main.ScreenSize.ToVector2() * ArcaneOdysseyClientConfig.Instance.ImbueSkillsDisplayLocationOffset), frame, colour, rotation, frame.Size() / 2f, spriteSize / MathHelper.Max(frame.Width, frame.Height), effects, 0);
@@ -356,9 +365,12 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 						}
 						else
 						{
+							var ogtex = TextureAssets.Item[imbue.Type];
+							TextureAssets.Item[imbue.Type] = imbue.Sprite;
 							Main.GetItemDrawFrame(imbue.Type, out tex, out frame);
 							if ((imbue is MagicType magic && ImbueID.Sets.HasVariants[magic.ID] && !ImbueID.Sets.VariantsUseSprites[magic.ID]) || imbue.ID == ImbueID.Spirit)
 								colour = colour.MultiplyRGBA(imbue.Colour);
+							TextureAssets.Item[imbue.Type] = ogtex;
 						}
 
 						DrawData d = new(tex, pos - Main.screenPosition + (Main.ScreenSize.ToVector2() * ArcaneOdysseyClientConfig.Instance.ImbueSkillsDisplayLocationOffset), frame, colour, rotation, frame.Size() / 2f, spriteSize / MathHelper.Max(frame.Width, frame.Height), effects, 0);

@@ -6,9 +6,12 @@ namespace ArcaneOdyssey.MagicVariants.Base
 	{
 		public string WingsTexture => Texture + "Wings";
 		public Asset<Texture2D> Wings = null;
+		public string WingsItemTexture => Texture + "WingsItem";
+		public Asset<Texture2D> WingsItem = null;
 		public override void Load()
 		{
 			ModContent.RequestIfExists(WingsTexture, out Wings);
+			ModContent.RequestIfExists(WingsItemTexture, out WingsItem);
 		}
 	}
 }

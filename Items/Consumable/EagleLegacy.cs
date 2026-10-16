@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Items.Consumable
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
-			spriteBatch.Draw(Sprite, Item.Center - Main.screenPosition, null, Item.GetAlpha(Color.White), rotation, Sprite.Size() / 2f, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(Sprite.Value, Item.Center - Main.screenPosition, null, Item.GetAlpha(Color.White), rotation, Sprite.Size() / 2f, scale, SpriteEffects.None, 0f);
 			return false;
 		}
 

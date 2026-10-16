@@ -13,7 +13,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		{
 			if (!Main.dedServ)
 			{
-				var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.GolfPaticle, newColor: dustColour);
+				var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.GolfPaticle, newColor: dustColour);
 				dust.velocity *= 0.1f;
 				dust.noGravity = true;
 			}

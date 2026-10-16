@@ -11,7 +11,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override string Texture => AOUtils.BlankTexture;
 
-		public override Texture2D Sprite => Imbue?.Blast?.Value ?? base.Sprite;
+		public override Asset<Texture2D> Sprite => Imbue?.Blast?.Value ?? base.Sprite;
 
 		public int Target { get => (int)Projectile.ai[0]; set => Projectile.ai[0] = value; }
 		public int oldTarget;
@@ -71,26 +71,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			height = 1;
 			fallThrough = true;
 			return true;
-		}
-
-		public Asset<Texture2D> Glow;
-
-		public override void PostDraw(Color lightColor)
-		{
-			if (AOUtils.RequestIfExists(GlowTexture, ref Glow))
-			{
-				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				if (Glow.Height() == Sprite.Height)
-				{
-					var Sprite = Glow.Value;
-					Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width, Sprite.Height / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
-				}
-				else
-				{
-					var Sprite = Glow.Value;
-					Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(Color.White), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, mode);
-				}
-			}
 		}
 	}
 }

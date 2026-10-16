@@ -15,7 +15,7 @@ namespace ArcaneOdyssey.Items.Base
 
 		public Player Owner => Item.ArcaneOdyssey()?.owner;
 
-		public virtual Texture2D Sprite => (Texture != $"{Mod.Name}/{TextureAssets.Item[Type]?.Name.Replace("\\", "/") ?? Texture}" ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Item[Type])?.Value;
+		public virtual Asset<Texture2D> Sprite => Texture != $"{Mod.Name}/{TextureAssets.Item[Type]?.Name.Replace("\\", "/") ?? Texture}" ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Item[Type];
 
 		public override void SetDefaults()
 		{

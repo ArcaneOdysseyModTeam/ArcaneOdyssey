@@ -87,7 +87,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override string Texture => AOUtils.BlankTexture;
 
-		public override Texture2D Sprite => Imbue?.Annihilation?.Value ?? base.Sprite;
+		public override Asset<Texture2D> Sprite => Imbue?.Annihilation?.Value ?? base.Sprite;
 
 		public override bool PreDraw(ref Color lightColor)
 		{

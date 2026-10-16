@@ -419,7 +419,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		public Texture2D Sprite => TextureAssets.Item[thisItem?.type ?? ItemID.None]?.Value;
+		public Asset<Texture2D> Sprite => TextureAssets.Item[thisItem?.type ?? ItemID.None]?.Value;
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{

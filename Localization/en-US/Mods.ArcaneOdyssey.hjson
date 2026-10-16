@@ -456,4 +456,13 @@ MagicVariants: {
 	LakeVariant.DisplayName: Lake Variant
 	OasisVariant.DisplayName: Oasis Variant
 	ForestVariant.DisplayName: Forest Variant
+	BeholdingVariant.DisplayName: Beholding Variant
+	UnstableVariant.DisplayName: Unstable Variant
+	AbyssalVariant.DisplayName: Abyssal Variant
+	DevouringVariant.DisplayName: Devouring Variant
+	HemolysisVariant.DisplayName: Hemolysis Variant
+	NeurotoxinVariant.DisplayName: Neurotoxin Variant
+	EclipsedVariant.DisplayName: Eclipsed Variant
+	ProminentVariant.DisplayName: Prominent Variant
+	GammaVariant.DisplayName: Gamma Variant
 }

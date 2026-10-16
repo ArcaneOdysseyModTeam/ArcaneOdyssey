@@ -673,7 +673,7 @@ namespace ArcaneOdyssey.Imbues.Base
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;
 			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
-
+			
 			_ = PrettyAttackPrefix;
 			_ = PrettySpellPrefix;
 

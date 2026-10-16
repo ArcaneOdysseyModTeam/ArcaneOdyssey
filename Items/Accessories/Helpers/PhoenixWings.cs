@@ -30,12 +30,16 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			}
 		}
 
+		public const string TexturePath = ArcaneOdysseyMod.InternalName + "/MagicVariants/Lost/Phoenix/WarPhoenixWings";
+
+		public override string Texture => TexturePath + "Item";
+
 		public override void Load()
 		{
 			base.Load();
 			if (Main.dedServ)
 				return;
-			EquipLoader.AddEquipTexture(Mod, Mod.Name + "/MagicVariants/Lost/Phoenix/WarPhoenixWings", EquipType.Wings, this);
+			EquipLoader.AddEquipTexture(Mod, TexturePath, EquipType.Wings, this);
 		}
 
 		public override bool WingUpdate(Player player, bool inUse)
@@ -67,7 +71,7 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		}
 
 		public BasePhoenixVariant Variant { get => _variant ?? ModContent.GetInstance<WarPhoenixVariant>(); set => _variant = value; }
-		private BasePhoenixVariant _variant;
+		private BasePhoenixVariant _variant = null;
 
 		public override void UpdateInventory(Player player)
 		{
@@ -100,6 +104,15 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 			Item.width = Item.height = 40;
 			Item.master = true;
 			Item.wingSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Wings);
+		}
+
+		public override Asset<Texture2D> Sprite => Variant.WingsItem;
+
+		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			drawColor = Item.GetAlpha(Color.White);
+			spriteBatch.Draw(Sprite.Value, position, frame, drawColor, 0, origin, scale, SpriteEffects.None, 0);
+			return false;
 		}
 	}
 }

@@ -5,6 +5,7 @@ using ArcaneOdyssey.MagicVariants.Normal.Crystal;
 using ArcaneOdyssey.MagicVariants.Normal.Light;
 using ArcaneOdyssey.MagicVariants.Normal.Lightning;
 using ArcaneOdyssey.MagicVariants.Normal.Metal;
+using ArcaneOdyssey.MagicVariants.Normal.Plasma;
 using ArcaneOdyssey.MagicVariants.Normal.Poison;
 using ArcaneOdyssey.MagicVariants.Normal.Sand;
 using ArcaneOdyssey.MagicVariants.Normal.Water;
@@ -61,6 +62,7 @@ namespace ArcaneOdyssey.Imbues
 					Lightning, MagicVariant.GetID<NobleVariant>(),
 					Metal, MagicVariant.GetID<SilverVariant>(),
 					Poison, MagicVariant.GetID<ToxinVariant>(),
+					Plasma, MagicVariant.GetID<GammaVariant>(),
 					Sand, MagicVariant.GetID<PureVariant>(),
 					Water, MagicVariant.GetID<LakeVariant>(),
 					Wood, MagicVariant.GetID<ForestVariant>()
@@ -101,8 +103,6 @@ namespace ArcaneOdyssey.Imbues
 			/// <list>Mythical Spirit Mutation</list>
 			/// </summary>
 			public static bool[] Special = Factory.CreateBoolSet(Acid, Ash, Crystal, Explosion, Glass, Ice, Magma, Metal, Plasma, Poison, Sand, Snow, Wood);
-
-			public static Color?[] DefaultAnimatedColours = Factory.CreateCustomSet<Color?>(null);
 
 			public override void ResizeArrays()
 			{

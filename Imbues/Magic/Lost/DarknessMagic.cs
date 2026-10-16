@@ -2,6 +2,8 @@
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.MagicVariants.Base;
+using ArcaneOdyssey.MagicVariants.Lost.Darkness;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
@@ -18,7 +20,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			base.SetStaticDefaults();
 			ImbueID.Sets.AuraPower[ID] = 1f;
-			ImbueID.Sets.Bright[ID] = true;
+			ImbueID.Sets.Bright[ID] = true; // how ironic
+			ImbueID.Sets.DefaultVariant[ID] = MagicVariant.GetID<DevouringVariant>();
 		}
 
 		public override ImbuableTiers ImbuableTier => ImbuableTiers.Lost;

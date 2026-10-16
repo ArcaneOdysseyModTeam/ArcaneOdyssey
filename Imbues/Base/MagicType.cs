@@ -32,11 +32,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 
-		protected override Item CreateTemplateEntity()
-		{
-			return base.CreateTemplateEntity();
-		}
-
 		public static MagicType GenerateMagicType(int id, MagicVariant variant)
 		{
 			var imbue = AOUtils.Safe<MagicType>(GetImbuable(id));
@@ -236,7 +231,18 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public override string Texture => ModContent.HasAsset(base.Texture) ? base.Texture : (ImbueID.Sets.DefaultVariant[ID] >= 0 ? MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[ID]).Texture : AOUtils.BlankTexture);
 
-		public override Texture2D Sprite => magicVariant?.Icon?.Value ?? ((Texture != $"{Mod.Name}/{TextureAssets.Item[Type]?.Name.Replace("\\", "/") ?? Texture}" ? AOUtils.Request(Texture, ref TextureAssets.Item[Type]) : TextureAssets.Item[Type])?.Value);
+		public override Asset<Texture2D> Sprite => magicVariant?.Icon ?? (Texture != $"{Mod.Name}/{TextureAssets.Item[Type]?.Name.Replace("\\", "/") ?? Texture}" ? AOUtils.Request(Texture, ref TextureAssets.Item[Type]) : TextureAssets.Item[Type]);
+
+
+		public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			if (ImbueID.Sets.HasVariants[ID] && ImbueID.Sets.VariantsUseSprites[ID])
+			{
+				spriteBatch.Draw(Sprite.Value, position, frame, drawColor, 0, origin, scale, SpriteEffects.None, 0);
+				return false;
+			}
+			return true;
+		}
 
 		public static int DefaultOriginalImbue => AOUtils.ImbuableID<WindMagic>();
 

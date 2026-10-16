@@ -4,6 +4,8 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
+using ArcaneOdyssey.MagicVariants.Base;
+using ArcaneOdyssey.MagicVariants.Lost.Sun;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Lost
@@ -17,6 +19,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			base.SetStaticDefaults();
 			ArcaneOdysseyMod.Sets.cold[Type] = false;
 			ImbueID.Sets.Bright[ID] = true;
+			ImbueID.Sets.DefaultVariant[ID] = MagicVariant.GetID<ProminentVariant>();
 		}
 		public override SoundStyle? ImbueSound => SoundID.Item20;
 		public override Color ImbueColour => new(255, 124, 43);

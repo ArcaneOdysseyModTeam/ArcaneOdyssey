@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	{
 		public override string Texture => AOUtils.BlankTexture;
 
-		public override Texture2D Sprite => ThisProjectileType != 0 ? TextureAssets.Projectile[ThisProjectileType].Value : base.Sprite;
+		public override Asset<Texture2D> Sprite => ThisProjectileType != 0 ? TextureAssets.Projectile[ThisProjectileType].Value : base.Sprite;
 
 		public override void SetStaticDefaults()
 		{

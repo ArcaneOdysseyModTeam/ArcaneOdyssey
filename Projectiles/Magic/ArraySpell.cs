@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		// ai 2 is first frame bool
 		public override string Texture => AOUtils.BlankTexture;
 
-		public override Texture2D Sprite => Imbue?.Blast?.Value ?? base.Sprite;
+		public override Asset<Texture2D> Sprite => Imbue?.Blast?.Value ?? base.Sprite;
 
 		public override float Size => .75f;
 
@@ -136,21 +136,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 					Projectile.rotation = Proj4.Center().DirectionTo(targetnpc.Center).ToRotation();
 				}
 				AOUtils.ShootProjectile(Projectile.GetSource_Death(), Proj4.Center(), Projectile.rotation.ToRotationVector2() * 12f, ModContent.ProjectileType<HomingArray>(), Projectile.damage / 4, Projectile.knockBack / 4f, Projectile.owner, Imbue, SecondImbue, true, Target);
-			}
-		}
-
-		public override void PostDraw(Color lightColor)
-		{
-			if (ModContent.RequestIfExists<Texture2D>(GlowTexture, out var tex))
-			{
-				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-				Main.EntitySpriteDraw(tex.Value, Proj1.Center() - Main.screenPosition, new(0, tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
-
-				Main.EntitySpriteDraw(tex.Value, Proj2.Center() - Main.screenPosition, new(0, tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
-
-				Main.EntitySpriteDraw(tex.Value, Proj3.Center() - Main.screenPosition, new(0, tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
-
-				Main.EntitySpriteDraw(tex.Value, Proj4.Center() - Main.screenPosition, new(0, tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
 			}
 		}
 

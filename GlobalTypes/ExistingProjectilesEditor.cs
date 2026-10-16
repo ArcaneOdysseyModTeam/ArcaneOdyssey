@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		private int shotFrame;
 
-		public Texture2D Sprite => TextureAssets.Projectile[thisProjectile?.type ?? 0]?.Value ?? Asset<Texture2D>.DefaultValue;
+		public Asset<Texture2D> Sprite => TextureAssets.Projectile[thisProjectile?.type ?? 0]?.Value ?? Asset<Texture2D>.DefaultValue;
 		public Texture2D MidSprite => ImbueID.Sets.Assets.raySprites[Imbue.ID].Value;
 		public Texture2D EndSprite => ImbueID.Sets.Assets.rayEndSprites[Imbue.ID].Value;
 		public Texture2D StartSprite => ImbueID.Sets.Assets.rayStartSprites[Imbue.ID].Value;
