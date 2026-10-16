@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			}
 		}
 
-		public Imbuable Imbue => LordElius.Imbue;
+		public Imbuable Imbue => LordElius.Instance.Imbue;
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{

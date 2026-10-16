@@ -28,8 +28,6 @@ namespace ArcaneOdyssey.NPCs.Base
 			NPCID.Sets.ReflectStarShotsInForTheWorthy[Type] = true;
 		}
 
-		public Asset<Texture2D> Sprite => ModContent.Request<Texture2D>(Texture).Value;
-
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public abstract List<int> RangedProjectiles { get; }

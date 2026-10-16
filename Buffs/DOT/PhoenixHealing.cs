@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.MagicVariants.Base;
 using System;
 using System.Linq;
 
@@ -22,8 +21,6 @@ namespace ArcaneOdyssey.Buffs.DOT
 		}
 
 		private bool vfxSet = false;
-
-		public Asset<Texture2D> wingsSprite = null;
 		public Color[] dustColour = [Color.Yellow, Color.LightBlue];
 
 		public override bool ReApply(NPC npc, int time, int buffIndex)
@@ -42,8 +39,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 					{
 						if (Main.LocalPlayer.HasTypeInInventory<PhoenixMagic>(out var imbue))
 						{
-							wingsSprite = AOUtils.Safe<BasePhoenixVariant>(imbue.magicVariant)?.Wings;
-							dustColour = [imbue.VariantColour, imbue.VariantColour2.GetValueOrDefault()];
+							dustColour = [imbue.VariantColour, imbue.VariantColour2.GetValueOrDefault(imbue.VariantColour)];
 						}
 					}
 					else
@@ -53,8 +49,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 						{
 							if (player is not null && player.HasTypeInInventory<PhoenixMagic>(out var imbue))
 							{
-								wingsSprite = AOUtils.Safe<BasePhoenixVariant>(imbue.magicVariant)?.Wings;
-								dustColour = [imbue.VariantColour, imbue.VariantColour2.GetValueOrDefault()];
+								dustColour = [imbue.VariantColour, imbue.VariantColour2.GetValueOrDefault(imbue.VariantColour)];
 								break;
 							}
 						}
@@ -113,7 +108,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			{
 
 				var posy = (length / 10f) * MathF.Sin((i / length) * MathF.PI) * MathF.Cos(((2 * (Main.GameUpdateCount % 400f)) / 400f) * MathF.PI);
-				Vector2 dustpos = player.MountedCenter + new Vector2(i, posy + Main.rand.NextFloat(length/-50f, length/50f)).RotatedBy(player.MountedCenter.AngleTo(npc.Center));
+				Vector2 dustpos = player.MountedCenter + new Vector2(i, posy + Main.rand.NextFloat(length / -50f, length / 50f)).RotatedBy(player.MountedCenter.AngleTo(npc.Center));
 
 				var dust = Dust.NewDustPerfect(dustpos, DustID.WhiteTorch, newColor: Main.rand.Next(dustColour));
 				dust.noGravity = true;

@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			Projectile.scale = 100 / 2000f;
 		}
 
-		public MagicType Imbue => LordElius.Imbue;
+		public Imbuable Imbue => LordElius.Instance.Imbue;
 		public override bool CanHitPlayer(Player target) => false;
 		public override void AI()
 		{
@@ -75,6 +75,6 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			return base.PreDraw(ref lightColor);
 		}
 
-		public override Asset<Texture2D> Sprite => Imbue.Circle.Texture.Value;
+		public override Asset<Texture2D> Sprite => AOUtils.Safe<MagicType>(Imbue).Circle.Texture;
 	}
 }

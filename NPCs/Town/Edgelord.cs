@@ -16,7 +16,7 @@ using Terraria.GameContent.Personalities;
 namespace ArcaneOdyssey.NPCs.Town
 {
 	[AutoloadHead]
-	public class Edgelord : BaseNPC
+	public class Edgelord : BaseNPC, IImbueNPC
 	{
 		public override void SetDefaults()
 		{
@@ -58,7 +58,7 @@ namespace ArcaneOdyssey.NPCs.Town
 			NPCID.Sets.MagicAuraColor[Type] = Imbue.ImbueColour;
 		}
 
-		public static DeathMagic Imbue => ModContent.GetInstance<DeathMagic>();
+		public Imbuable Imbue => ModContent.GetInstance<DeathMagic>();
 
 		public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
 		{

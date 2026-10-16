@@ -11,9 +11,9 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 	public class DuskBeam : BaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => ImbueID.Sets.Assets.raySprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ImbueID.Sets.Assets.rayEndSprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ImbueID.Sets.Assets.rayStartSprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite;
+		public Texture2D MidSprite => ImbueID.Sets.Assets.raySprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite.Value;
+		public Texture2D EndSprite => ImbueID.Sets.Assets.rayEndSprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite.Value;
+		public Texture2D StartSprite => ImbueID.Sets.Assets.rayStartSprites[AOUtils.ImbuableID<SpiritEnergy>()]?.Value ?? base.Sprite.Value;
 
 		public Imbuable Imbue => ModContent.GetInstance<DuskStaff>();
 

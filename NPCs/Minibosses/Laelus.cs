@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Gores.Laelus;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.BossTrophies;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
@@ -11,8 +13,10 @@ using Terraria.GameContent.ItemDropRules;
 namespace ArcaneOdyssey.NPCs.Minibosses
 {
 	[AutoloadBossHead]
-	public class Laelus : Miniboss
+	public class Laelus : Miniboss,IImbueNPC
 	{
+
+		public Imbuable Imbue => ModContent.GetInstance<LaelusBand>();
 		public override int AOHealth => 650;
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<LaelusExplosion>()];
 		public override List<int> RangedProjectiles => [ModContent.ProjectileType<LaelusBlast>()];

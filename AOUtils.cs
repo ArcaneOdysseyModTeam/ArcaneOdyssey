@@ -158,12 +158,12 @@ namespace ArcaneOdyssey
 
 		public static bool RequestIfExists<T>(string name, ref Asset<T> texture, AssetRequestMode mode = AssetRequestMode.AsyncLoad) where T : class
 		{
-			if (ModContent.HasAsset(name))
+			if (texture is null || ("/" + texture.Name.Replace('\\', '/')) != name.Replace(name.Split('/')[0]))
 			{
-				texture ??= ModContent.Request<T>(name, mode);
-				return true;
+				if (ModContent.HasAsset(name))
+					texture = ModContent.Request<T>(name, mode);
 			}
-			return false;
+			return texture is not null && ("/" + texture.Name.Replace('\\', '/')) == name.Replace(name.Split('/')[0]);
 		}
 
 		public static bool TryGetConfig(this Mod mod, string name, out ModConfig config)

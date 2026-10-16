@@ -24,7 +24,7 @@ using Terraria.GameContent.ItemDropRules;
 namespace ArcaneOdyssey.NPCs.Bosses
 {
 	[AutoloadBossHead]
-	public class LordElius : BaseNPC
+	public class LordElius : BaseNPC, IImbueNPC
 	{
 		private int hptoheal, despawnTimer;
 		private float tempPodiumID;
@@ -51,7 +51,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		private bool secondphase = false;
 
-		public static MagicType Imbue => Main.getGoodWorld ? ModContent.GetInstance<AncientLightningMagic>() : ModContent.GetInstance<LightningMagic>();
+		public Imbuable Imbue => Main.getGoodWorld ? ModContent.GetInstance<AncientLightningMagic>() : ModContent.GetInstance<LightningMagic>();
+
+		public static LordElius Instance => ModContent.GetInstance<LordElius>();
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -864,8 +866,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 
 		private Vector2 bowAimPosition => new(Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y - 600f);
+
 		private static Asset<Texture2D> backBowArmTexture, spearArmTexture, frontBowArmTexture, bowTexture;
-		private static Texture2D SpearTexture => ModContent.GetInstance<EliusSpear>().Sprite;
+		private static Asset<Texture2D> SpearTexture => ModContent.GetInstance<EliusSpear>().Sprite;
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
@@ -895,7 +898,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (NPC.ai[1] < 40)
 				{
-					spriteBatch.Draw(SpearTexture, NPC.Center - screenPos - (new Vector2(0, 12) * NPC.scale), null, drawColor, NPC.Center.AngleTo(Main.player[NPC.target].Center) + (MathHelper.PiOver4 * -NPC.spriteDirection) + (NPC.spriteDirection == 1 ? MathF.PI : 0), SpearTexture.Size() / 2f, NPC.scale, dir, 0f);
+					spriteBatch.Draw(SpearTexture.Value, NPC.Center - screenPos - (new Vector2(0, 12) * NPC.scale), null, drawColor, NPC.Center.AngleTo(Main.player[NPC.target].Center) + (MathHelper.PiOver4 * -NPC.spriteDirection) + (NPC.spriteDirection == 1 ? MathF.PI : 0), SpearTexture.Size() / 2f, NPC.scale, dir, 0f);
 				}
 				var spearframe = spearArmTexture.Frame(1, 7, 0, spearArmFrame);
 				spriteBatch.Draw(spearArmTexture.Value, NPC.Center - screenPos, spearframe, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(Main.player[NPC.target].Center) + (NPC.spriteDirection == -1 ? MathF.PI : 0), spearframe.Size() / 2f, NPC.scale, dir, 1f);

@@ -50,20 +50,25 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override string Texture => AOUtils.BlankTexture;
 
-		public override Asset<Texture2D> Sprite => Imbue?.Blast?.Value ?? base.Sprite;
+		public override Asset<Texture2D> Sprite => Imbue?.Blast ?? base.Sprite;
 
 		public static int TrailFrame => (int)(Main.GameUpdateCount / 15 % 7);
 
 		public override bool PreDraw(ref Color lightColor)
 		{
+			Rectangle frame;
 			GetDrawColour(ref lightColor);
 			if (Imbue is BlizzardMagic)
 			{
 				var texture = BlizzardMagic.trail;
-				Main.EntitySpriteDraw(texture.Value, Projectile.Center - (Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()) * (Projectile.width / 2f)) - Main.screenPosition, new(0, texture.Height() / 7 * TrailFrame, texture.Width(), texture.Height() / 7), Projectile.GetAlpha(lightColor), Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()).ToRotation(), new Vector2(texture.Width(), texture.Height() / 7) / 2f, Projectile.scale * .9f, SpriteEffects.None);
+				frame = texture.Frame(1, 7, 0, TrailFrame);
+				Main.EntitySpriteDraw(texture.Value, Projectile.Center - (Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()) * (Projectile.width / 2f)) - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.velocity.SafeNormalize(Projectile.rotation.ToRotationVector2()).ToRotation(), frame.Size() / 2f, Projectile.scale * .9f, SpriteEffects.None);
 			}
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, new(0, Sprite.Height / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width, Sprite.Height / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
+
+			frame = Sprite.Frame(1, ImbueID.Sets.BlastFrames[Imbue?.ID ?? WindMagic.StaticID], 0, Projectile.frame);
+
+			Main.EntitySpriteDraw(Sprite.Value, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, frame.Size() / 2f, Projectile.scale, mode);
 			return false;
 		}
 	}

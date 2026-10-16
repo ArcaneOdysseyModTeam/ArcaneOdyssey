@@ -35,9 +35,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		}
 
 		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => Imbue?.Ray?.Value ?? Sprite;
-		public Texture2D EndSprite => Imbue?.RayEnd?.Value ?? Sprite;
-		public Texture2D StartSprite => Imbue?.RayStart?.Value ?? Sprite;
+		public Texture2D MidSprite => Imbue?.Ray?.Value ?? Sprite.Value;
+		public Texture2D EndSprite => Imbue?.RayEnd?.Value ?? Sprite.Value;
+		public Texture2D StartSprite => Imbue?.RayStart?.Value ?? Sprite.Value;
 
 
 		public override float Size => .75f;

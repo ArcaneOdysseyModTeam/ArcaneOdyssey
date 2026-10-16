@@ -100,10 +100,10 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			Vector2 lastpoint = Projectile.Center;
 			foreach (var point in spots)
 			{
-				AOUtils.DrawChain(lastpoint, point, Sprite, Projectile.scale, colour: colour);
+				AOUtils.DrawChain(lastpoint, point, Sprite.Value, Projectile.scale, colour: colour);
 				lastpoint = point;
 			}
-			AOUtils.DrawChain(lastpoint, Projectile.Center, Sprite, Projectile.scale, colour: colour);
+			AOUtils.DrawChain(lastpoint, Projectile.Center, Sprite.Value, Projectile.scale, colour: colour);
 			return false;
 		}
 	}

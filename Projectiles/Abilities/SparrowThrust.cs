@@ -79,7 +79,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			{
 				Vector2 drawPos = Projectile.Center - (oldvelo * k * (7f / (realkmax / 9f))) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(lightColor * (1f - ((realkmax - k) / (float)realkmax)));
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, Sprite.Height / Main.projFrames[Type] * Projectile.frame, Sprite.Width, Sprite.Height / Main.projFrames[Type]), colour2, Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale - (Projectile.scale * .075f * k), SpriteEffects.None, 0);
+				var frame = Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
+				Main.EntitySpriteDraw(Sprite.Value, drawPos - Main.screenPosition, frame, colour2, Projectile.rotation, frame.Size() / 2f, Projectile.scale - (Projectile.scale * .075f * k), SpriteEffects.None, 0);
 			}
 			return false;
 		}

@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Gores.Dusk;
+using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Imbues.Enemies;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Armour.Vanity.Masks;
 using ArcaneOdyssey.Items.BossTrophies;
@@ -10,7 +12,7 @@ using System.Collections.Generic;
 namespace ArcaneOdyssey.NPCs.Minibosses
 {
 	[AutoloadBossHead]
-	public class Dusk : Miniboss
+	public class Dusk : Miniboss, IImbueNPC
 	{
 		public override List<int> MeleeProjectiles => [ModContent.ProjectileType<DuskRaincloud>(), ModContent.ProjectileType<DuskBeam>()];
 		public override List<int> RangedProjectiles => [ModContent.ProjectileType<DuskHound>(), ModContent.ProjectileType<DuskBeam>()];
@@ -45,6 +47,8 @@ namespace ArcaneOdyssey.NPCs.Minibosses
 		public override bool ExtraConditions => NPC.downedBoss2 && !Main.IsItDay();
 
 		public override int AOHealth => 1700;
+
+		public Imbuable Imbue => ModContent.GetInstance<DuskStaff>();
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{

@@ -51,8 +51,9 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				{
 					Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
 					var colour2 = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-					var frame = Projectile.frame - (k / 5);
-					Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type], 0, frame), colour2, Projectile.oldRot[k], new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale + (k * .05f), SpriteEffects.None);
+					var framenum = Projectile.frame - (k / 5);
+					var frame = Sprite.Frame(1, Main.projFrames[Type], 0, framenum);
+					Main.EntitySpriteDraw(Sprite.Value, drawPos - Main.screenPosition, frame, colour2, Projectile.oldRot[k], frame.Size() / 2f, Projectile.scale + (k * .05f), SpriteEffects.None);
 				}
 			}
 			return false;

@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 	{
 		public override string Texture => AOUtils.BlankTexture;
 
-		public override Asset<Texture2D> Sprite => ThisProjectileType != 0 ? TextureAssets.Projectile[ThisProjectileType].Value : base.Sprite;
+		public override Asset<Texture2D> Sprite => ThisProjectileType != 0 ? TextureAssets.Projectile[ThisProjectileType] : base.Sprite;
 
 		public override void SetStaticDefaults()
 		{
@@ -49,7 +49,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(lightColor * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length));
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, new(0, 0, Sprite.Width, Sprite.Height / Main.projFrames[ThisProjectileType]), colour2, Projectile.oldRot[k], new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[ThisProjectileType]) / 2f, Projectile.scale, SpriteEffects.None, 0);
+				var frame = Sprite.Frame(1, Main.projFrames[ThisProjectileType]);
+				Main.EntitySpriteDraw(Sprite.Value, drawPos - Main.screenPosition, frame, colour2, Projectile.oldRot[k], frame.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
 			}
 			return false;
 		}

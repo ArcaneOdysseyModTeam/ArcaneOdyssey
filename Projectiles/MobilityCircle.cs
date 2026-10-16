@@ -56,11 +56,11 @@ namespace ArcaneOdyssey.Projectiles
 				GameShaders.Misc[Mod.Name + ":MagicCircleBase"].Apply();
 
 
-				Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.FlipVertically);
+				Main.EntitySpriteDraw(Sprite.Value, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Sprite.Size() / 2f, Projectile.scale, SpriteEffects.FlipVertically);
 			}
 			else
 			{
-				Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale * (100 / 2000f), SpriteEffects.None);
+				Main.EntitySpriteDraw(Sprite.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation, Sprite.Size() / 2f, Projectile.scale * (100 / 2000f), SpriteEffects.None);
 			}
 			return false;
 		}
@@ -198,7 +198,7 @@ namespace ArcaneOdyssey.Projectiles
 			}
 		}
 
-		public override Texture2D Sprite
+		public override Asset<Texture2D> Sprite
 		{
 			get
 			{
@@ -206,10 +206,10 @@ namespace ArcaneOdyssey.Projectiles
 				{
 					if (Imbue is MagicType magic)
 					{
-						return magic.Circle.Texture.Value;
+						return magic.Circle.Texture;
 					}
 				}
-				return TextureAssets.Projectile[Type].Value;
+				return TextureAssets.Projectile[Type];
 			}
 		}
 

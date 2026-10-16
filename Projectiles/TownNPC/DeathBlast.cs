@@ -8,7 +8,7 @@ namespace ArcaneOdyssey.Projectiles.TownNPC
 	public class DeathBlast : BaseProjectile
 	{
 		public override string Texture => AOUtils.BlankTexture;
-		public override Asset<Texture2D> Sprite => ImbueID.Sets.Assets.blasts[AOUtils.ImbuableID<DeathMagic>()].Value;
+		public override Asset<Texture2D> Sprite => ImbueID.Sets.Assets.blasts[AOUtils.ImbuableID<DeathMagic>()];
 
 		public override void SetStaticDefaults()
 		{

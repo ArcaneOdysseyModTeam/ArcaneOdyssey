@@ -419,7 +419,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		public Asset<Texture2D> Sprite => TextureAssets.Item[thisItem?.type ?? ItemID.None]?.Value;
+		public Asset<Texture2D> Sprite => TextureAssets.Item[thisItem?.type ?? ItemID.None];
 
 		public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
@@ -442,7 +442,10 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			if (Imbue.Type != item.type)
 			{
+				var ogtex = TextureAssets.Item[Imbue.Type];
+				TextureAssets.Item[Imbue.Type] = Imbue.Sprite;
 				Main.GetItemDrawFrame(Imbue.Type, out var texture, out var frame2);
+				TextureAssets.Item[Imbue.Type] = ogtex;
 				if (ItemID.Sets.ItemIconPulse[item.type])
 				{
 					scale = frame.Width > 32 || frame.Height > 32 ? 32f / Math.Max(frame.Width, frame.Height) : Math.Max(frame.Width, frame.Height) / 32f;
