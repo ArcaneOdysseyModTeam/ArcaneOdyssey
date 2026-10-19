@@ -9,17 +9,18 @@ namespace ArcaneOdyssey.Tiles.SubworldHelpers
 		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
+			TileID.Sets.IsValidSpawnPoint[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileID.Sets.InteractibleByNPCs[Type] = true;
 			TileID.Sets.HasOutlines[Type] = true;
 			MinPick = 100000;
 			MineResist = 1000f;
+			VanillaFallbackOnModDeletion = TileID.Tombstones;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.newTile.Origin = new(0, 1);
 			TileObjectData.newTile.StyleLineSkip = 2;
-			TileObjectData.newTile.HookPostPlaceMyPlayer = ModContent.GetInstance<SpawnSetterTileEntity>().Generic_HookPostPlaceMyPlayer;
 			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
 			TileObjectData.addAlternate(1);
@@ -30,7 +31,7 @@ namespace ArcaneOdyssey.Tiles.SubworldHelpers
 
 		public override bool RightClick(int i, int j)
 		{
-			if (Main.LocalPlayer.SpawnPos().ToWorldCoordinates().Distance(new Point(i, j).ToWorldCoordinates()) < 16 * 4)
+			if (Main.LocalPlayer.SpawnPos().ToVector2().Distance(new Vector2(i, j)) < 2)
 			{
 				Main.LocalPlayer.RemoveSpawn();
 			}
@@ -55,7 +56,7 @@ namespace ArcaneOdyssey.Tiles.SubworldHelpers
 			{
 				var player = Main.LocalPlayer;
 				var tile = AOUtils.GetTile(new Point(i, j));
-				if (player.SpawnPos().ToWorldCoordinates().Distance(new Point(i, j).ToWorldCoordinates()) < 16 * 4)
+				if (player.SpawnPos().ToVector2().Distance(new Vector2(i, j)) < 2)
 				{
 					if (tile.TileFrameX < 18 * 2)
 						tile.TileFrameX += 18 * 2;
@@ -80,24 +81,5 @@ namespace ArcaneOdyssey.Tiles.SubworldHelpers
 			player.cursorItemIconEnabled = true;
 		}
 #endif
-	}
-
-	public class SpawnSetterTileEntity : ModTileEntity
-	{
-		public override bool IsTileValidForEntity(int x, int y)
-		{
-			var tile = AOUtils.GetTile(x, y);
-			return tile.HasTile && tile.TileType == ModContent.TileType<SpawnSetter>();
-		}
-
-		public override void Update()
-		{
-
-		}
-
-		public override void OnPlayerUpdate(Player player)
-		{
-
-		}
 	}
 }

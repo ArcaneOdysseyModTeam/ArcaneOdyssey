@@ -16,6 +16,7 @@ namespace ArcaneOdyssey.Tiles.SubworldHelpers
 			TileID.Sets.AvoidedByMeteorLanding[Type] = true;
 			MinPick = 100000;
 			MineResist = 1000f;
+			VanillaFallbackOnModDeletion = TileID.LihzahrdBrick;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
@@ -54,15 +55,14 @@ namespace ArcaneOdyssey.Tiles.SubworldHelpers
 			return tile.HasTile && tile.TileType == ModContent.TileType<RowboatSpawnerTile>();
 		}
 
-		public bool spawnedRowboat = false;
-
 		public override void Update()
 		{
-			if (!spawnedRowboat)
+			if (myRowboat < 0 || !Main.npc[myRowboat].active || Main.npc[myRowboat].type != ModContent.NPCType<RowboatNPC>())
 			{
-				NPC.NewNPC(new EntitySource_TileEntity(this), Position.ToWorldCoordinates().X.Round(), Position.ToWorldCoordinates().Y.Round(), ModContent.NPCType<RowboatNPC>());
-				spawnedRowboat = true;
+				myRowboat = NPC.NewNPC(new EntitySource_TileEntity(this), Position.ToWorldCoordinates().X.Round(), Position.ToWorldCoordinates().Y.Round(), ModContent.NPCType<RowboatNPC>());
 			}
 		}
+
+		public int myRowboat = -1;
 	}
 }

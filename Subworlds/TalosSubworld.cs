@@ -5,7 +5,7 @@ namespace ArcaneOdyssey.Subworlds
 {
 	public class TalosSubworld : StructureHelperSubworld
 	{
-		public override string StructureName => "EliusRuins"; // placeholder
+		public override string StructureName => "TalosTest2"; // placeholder
 
 		public override ushort OrderNum => 0; // may change later
 

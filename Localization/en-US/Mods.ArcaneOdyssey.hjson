@@ -421,7 +421,7 @@ DamageClasses: {
 
 Subworlds: {
 	TalosSubworld: {
-		DisplayName: Talos Subworld
+		DisplayName: Fort Talos
 		Description: Mods.ArcaneOdyssey.Subworlds.TalosSubworld.Description
 	}
 }

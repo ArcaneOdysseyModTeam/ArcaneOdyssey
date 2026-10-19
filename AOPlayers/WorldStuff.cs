@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs;
 using System;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.AOPlayers
 {
@@ -90,6 +91,33 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (!AOUtils.InAOSubworld)
 				orig.Invoke(self, sItem);
+		}
+	}
+
+	public class UpdateSubworldSystem : ModSystem
+	{
+		public override void PreUpdateWorld()
+		{
+			if (AOUtils.InAOSubworld)
+			{
+				// Update mechanisms
+				Wiring.UpdateMech();
+
+				// Update tile entities
+				TileEntity.UpdateStart();
+				foreach (TileEntity te in TileEntity.ByID.Values)
+				{
+					te.Update();
+				}
+				TileEntity.UpdateEnd();
+
+				// do NOT update liquid
+				//if (++Liquid.skipCount > 1)
+				//{
+				//	Liquid.UpdateLiquid();
+				//	Liquid.skipCount = 0;
+				//}
+			}
 		}
 	}
 }

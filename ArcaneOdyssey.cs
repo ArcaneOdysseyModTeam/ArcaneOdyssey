@@ -112,6 +112,9 @@ namespace ArcaneOdyssey
 			if (player.InModBiome<EliusArena>())
 				return "EliusArena";
 
+			if (player.InModBiome<TalosBiome>())
+				return "TalosBiome";
+
 			return "";
 		}
 
@@ -125,6 +128,16 @@ namespace ArcaneOdyssey
 				SubTitle = DisplayNameClean,
 				TitleColor = Color.LightGray,
 				TitleStroke = Color.MediumPurple,
+				Icon = icon.Value,
+			};
+			// talos icon later
+			yield return new
+			{
+				Key = "TalosBiome",
+				Title = "Fort Talos",
+				SubTitle = DisplayNameClean,
+				TitleColor = Color.LightGray,
+				TitleStroke = Color.OrangeRed,
 				Icon = icon.Value,
 			};
 		}
