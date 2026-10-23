@@ -1,4 +1,5 @@
-﻿using Terraria.DataStructures;
+﻿using ArcaneOdyssey.Items.Blocks;
+using Terraria.DataStructures;
 using Terraria.ObjectData;
 
 namespace ArcaneOdyssey.Tiles
@@ -16,8 +17,9 @@ namespace ArcaneOdyssey.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
+			RegisterItemDrop(ModContent.ItemType<TuckerGraveItem>());
 
-			AddMapEntry(Color.DarkGray, Lang.GetItemName(TileLoader.GetItemDropFromTypeAndStyle(Type)));
+			AddMapEntry(Color.DarkGray, ModContent.GetInstance<TuckerGraveItem>().DisplayName);
 		}
 
 		public override void MouseOver(int i, int j)

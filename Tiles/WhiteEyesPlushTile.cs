@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.Tiles
 			TileObjectData.addTile(Type);
 			RegisterItemDrop(ModContent.ItemType<WhiteEyesPlush>());
 
-			AddMapEntry(Color.IndianRed, Lang.GetItemName(ModContent.ItemType<WhiteEyesPlush>()));
+			AddMapEntry(Color.IndianRed, ModContent.GetInstance<WhiteEyesPlush>().DisplayName);
 		}
 
 		public static readonly SoundStyle YippeeSound = new(ArcaneOdysseyMod.InternalName + "/Sounds/ElfPetYippee") { MaxInstances = 0 };

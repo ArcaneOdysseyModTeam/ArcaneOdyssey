@@ -1,5 +1,5 @@
-﻿using Terraria.DataStructures;
-using Terraria.GameContent;
+﻿using ArcaneOdyssey.Items.Blocks.Tiles.Bronze;
+using Terraria.DataStructures;
 using Terraria.ObjectData;
 
 namespace ArcaneOdyssey.Tiles.Bronze
@@ -16,19 +16,12 @@ namespace ArcaneOdyssey.Tiles.Bronze
 			TileObjectData.newTile.LavaDeath = false;
 			AnimationFrameHeight = TileObjectData.newTile.CoordinateFullHeight;
 			TileObjectData.addTile(Type);
+			RegisterItemDrop(ModContent.ItemType<BronzeBrazier>());
 
-			AddMapEntry(Color.Brown, Lang.GetItemName(TileLoader.GetItemDropFromTypeAndStyle(Type)));
+			AddMapEntry(Color.Brown, ModContent.GetInstance<BronzeBrazier>().DisplayName);
 		}
 
 		public const int YFrames = 4;
-
-		public override void EmitParticles(int i, int j, Tile tile, short tileFrameX, short tileFrameY, Color tileLight, bool visible)
-		{
-			//if (Main.rand.NextBool())
-			//{
-			//	Dust.NewDust(new Vector2(i, j) * 16f, 16, 16, DustID.Torch);
-			//}
-		}
 
 		public static Asset<Texture2D> GlowMask;
 		public string GlowTexture => Texture + "_Glow";
