@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs;
+using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Subworlds;
 using SubworldLibrary;
@@ -71,6 +72,11 @@ namespace ArcaneOdyssey.AOPlayers
 					Player.AddBuff(ModContent.BuffType<InsanityFive>(), 2);
 					break;
 			}
+		}
+
+		public override void OnEnterWorld()
+		{
+			Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<VariantSwapper>());
 		}
 
 		public void SubworldEffects()
