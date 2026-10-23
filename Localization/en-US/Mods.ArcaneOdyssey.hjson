@@ -241,7 +241,7 @@ Achievements: {
 Keybinds: {
 	CycleItemImbue.DisplayName: Cycle Item Imbue
 	DashBind.DisplayName: Special Dash Bind
-	CycleAuraMode.DisplayName: Cycle ImbueID.Sets.AuraPower[ID] Mode
+	CycleAuraMode.DisplayName: Cycle Aura Mode
 	CycleGodSoul.DisplayName: Cycle God Soul
 	CycleImbueAttack.DisplayName: Cycle Imbue Attack
 	AltSkillUse.DisplayName: Alt Skill Use
@@ -421,48 +421,9 @@ DamageClasses: {
 
 Subworlds: {
 	TalosSubworld: {
-		Description: Fort Talos is a fort.
 		DisplayName: Fort Talos
+		Description: Mods.ArcaneOdyssey.Subworlds.TalosSubworld.Description
 	}
 }
 
-MagicVariants: {
-	RubyVariant.DisplayName: Ruby Variant
-	SapphireVariant.DisplayName: Sapphire Variant
-	AmethystVariant.DisplayName: Amethyst Variant
-	EmeraldVariant.DisplayName: Emerald Variant
-	ResplendentVariant.DisplayName: Resplendent Variant
-	SkyLordVariant.DisplayName: Sky Lord Variant
-	WarPhoenixVariant.DisplayName: War Phoenix Variant
-	CorrosiveVariant.DisplayName: Corrosive Variant
-	MeltingVariant.DisplayName: Melting Variant
-	MoonlightVariant.DisplayName: Moonlight Variant
-	StarlightVariant.DisplayName: Starlight Variant
-	BlindingVariant.DisplayName: Blinding Variant
-	EnergeticVariant.DisplayName: Energetic Variant
-	NobleVariant.DisplayName: Noble Variant
-	BronzeVariant.DisplayName: Bronze Variant
-	SilverVariant.DisplayName: Silver Variant
-	LeadVariant.DisplayName: Lead Variant
-	CirrusVariant.DisplayName: Cirrus Variant
-	StratusVariant.DisplayName: Stratus Variant
-	GoldVariant.DisplayName: Gold Variant
-	ToxinVariant.DisplayName: Toxin Variant
-	VenomVariant.DisplayName: Venom Variant
-	CorruptVariant.DisplayName: Corrupt Variant
-	CrimsonVariant.DisplayName: Crimson Variant
-	PureVariant.DisplayName: Pure Variant
-	DesertVariant.DisplayName: Desert Variant
-	LakeVariant.DisplayName: Lake Variant
-	OasisVariant.DisplayName: Oasis Variant
-	ForestVariant.DisplayName: Forest Variant
-	BeholdingVariant.DisplayName: Beholding Variant
-	UnstableVariant.DisplayName: Unstable Variant
-	AbyssalVariant.DisplayName: Abyssal Variant
-	DevouringVariant.DisplayName: Devouring Variant
-	HemolysisVariant.DisplayName: Hemolysis Variant
-	NeurotoxinVariant.DisplayName: Neurotoxin Variant
-	EclipsedVariant.DisplayName: Eclipsed Variant
-	ProminentVariant.DisplayName: Prominent Variant
-	GammaVariant.DisplayName: Gamma Variant
-}
+Tiles.TalosCaughtTile.Death: "{0} was caught by the guards."

@@ -28,7 +28,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			{
 				if (Player.GetClosestRollLuck(i, j, 50 - (ScrollPitySystem.pity++ / 2)) == 0)
 				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j).ToWorldCoordinates(), Main.rand.Next(GetAllLostScrollDrops())); // will output the highest tier you can obtain
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Point(i, j).ToWorldCoordinates(), Main.rand.Next(GetAllLostScrollDrops())); // will output the highest tier you can obtain
 					ScrollPitySystem.pity = 0;
 				}
 			}

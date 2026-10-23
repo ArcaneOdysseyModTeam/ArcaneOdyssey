@@ -1,5 +1,9 @@
 ﻿using ArcaneOdyssey.Buffs;
+using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.Subworlds;
+using SubworldLibrary;
 using System;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.AOPlayers
 {
@@ -84,12 +88,52 @@ namespace ArcaneOdyssey.AOPlayers
 			Player.canFloatInWater = false;
 			Player.wingsLogic = 0;
 			Player.wings = 0;
+			Player.mount.Dismount(Player);
+			Player.RemoveAllGrapplingHooks();
+
+			if (SubworldSystem.Current is TalosSubworld && Main.myPlayer == Player.whoAmI)
+			{
+				if (ArgoSpawningAnimation.argosArena.Bottom().Distance(Player.Bottom) < 16f)
+				{
+					if (!ArgoSpawningAnimation.InProgress && !AOUtils.BossAlive)
+					{
+						ArgoSpawningAnimation.StartAnimation(Main.myPlayer);
+					}
+				}
+			}
 		}
 
 		private static void DarkSeaNoTeleport(On_Player.orig_ItemCheck_UseTeleportRod orig, Player self, Item sItem)
 		{
 			if (!AOUtils.InAOSubworld)
 				orig.Invoke(self, sItem);
+		}
+	}
+
+	public class UpdateSubworldSystem : ModSystem
+	{
+		public override void PreUpdateWorld()
+		{
+			if (AOUtils.InAOSubworld)
+			{
+				// Update mechanisms
+				Wiring.UpdateMech();
+
+				// Update tile entities
+				TileEntity.UpdateStart();
+				foreach (TileEntity te in TileEntity.ByID.Values)
+				{
+					te.Update();
+				}
+				TileEntity.UpdateEnd();
+
+				// do NOT update liquid
+				//if (++Liquid.skipCount > 1)
+				//{
+				//	Liquid.UpdateLiquid();
+				//	Liquid.skipCount = 0;
+				//}
+			}
 		}
 	}
 }

@@ -7,11 +7,12 @@
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
+			Main.tileBlendAll[Type] = true;
 
 			DustType = DustID.Copper;
 			VanillaFallbackOnModDeletion = TileID.GoldBrick;
 
-			AddMapEntry(Color.OrangeRed);
+			AddMapEntry(Color.Orange);
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)

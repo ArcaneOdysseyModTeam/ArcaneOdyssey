@@ -500,6 +500,16 @@ namespace ArcaneOdyssey.GlobalTypes
 			orig(self, coinsOwned, deathText, hitDirection);
 		}
 
+		public override bool? CanCutTiles(Projectile projectile)
+		{
+			if (AOUtils.InAOSubworld)
+			{
+				// maybe add pots exception here later?
+				return false;
+			}
+			return base.CanCutTiles(projectile);
+		}
+
 		private static bool EliusWallCheck(On_Projectile.orig_ShouldWallExplode orig, Projectile self, Vector2 compareSpot, int radius, int minI, int maxI, int minJ, int maxJ)
 		{
 			if (orig(self, compareSpot, radius, minI, maxI, minJ, maxJ) && !EliusArenaLoader.eliusArena.Intersects(Utils.CenteredRectangle(compareSpot.ToTileCoordinates().ToVector2(), new(radius))))

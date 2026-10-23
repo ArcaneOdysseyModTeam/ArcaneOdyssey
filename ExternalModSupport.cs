@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader.IO;
 using FargosMod = Fargowiltas.Fargowiltas;
+using StructureHelperMod = StructureHelper.StructureHelper;
+using SubworldMod = SubworldLibrary.SubworldLibrary;
 
 namespace ArcaneOdyssey
 {
@@ -37,7 +39,7 @@ namespace ArcaneOdyssey
 
 		public static void MagicStorageSupport()
 		{
-			if (!HasMS)
+			if (!HasMagicStorage)
 				return;
 
 			RegisterShadowDiamondDrop(ModContent.NPCType<LordElius>());
@@ -45,7 +47,7 @@ namespace ArcaneOdyssey
 
 		private static IItemDropRule GetShadowDiamondDropRule(int normal = 1, int expert = -1)
 		{
-			return (IItemDropRule)MS.Call(
+			return (IItemDropRule)MagicStorage.Call(
 
 				"Get Shadow Diamond Drop Rule",
 				normal,
@@ -55,7 +57,7 @@ namespace ArcaneOdyssey
 
 		private static void SetShadowDiamondDropRule(int npcType, IItemDropRule rule)
 		{
-			MS.Call(
+			MagicStorage.Call(
 				"Set Shadow Diamond Drop Rule",
 				npcType,
 				rule
@@ -176,7 +178,7 @@ namespace ArcaneOdyssey
 
 		public override void PostUpdateEverything()
 		{
-			if (!rectsRegistered && Fargos is not null)
+			if (!rectsRegistered && HasFargos)
 			{
 				Fargos.Call("AddIndestructibleRectangle", EliusArenaLoader.eliusArena.ToWorldRect());
 				rectsRegistered = true;
@@ -192,14 +194,18 @@ namespace ArcaneOdyssey
 		{
 			rectsRegistered = tag.GetBool("rectsRegistered");
 		}
+
 		public static bool HasFargos => ModLoader.HasMod("Fargowiltas");
 		public static Mod Fargos => HasFargos ? ModLoader.GetMod("Fargowiltas") : null;
 
 		public static bool HasThorium => ModLoader.HasMod("ThoriumMod");
 		public static Mod Thorium => HasThorium ? ModLoader.GetMod("ThoriumMod") : null;
 
-		public static bool HasMS => ModLoader.HasMod("MagicStorage");
-		public static Mod MS => HasMS ? ModLoader.GetMod("MagicStorage") : null;
+		public static bool HasMagicStorage => ModLoader.HasMod("MagicStorage");
+		public static Mod MagicStorage => HasMagicStorage ? ModLoader.GetMod("MagicStorage") : null;
+
+		public static StructureHelperMod StructureHelper => StructureHelperMod.Instance;
+		public static SubworldMod SubworldLibrary => (SubworldMod)ModLoader.GetMod("SubworldLibrary");
 
 		public static bool NotInSubworld => !SubworldSystem.AnyActive();
 

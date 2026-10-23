@@ -20,5 +20,19 @@ namespace ArcaneOdyssey.Biomes
 			}
 			return false;
 		}
+
+		public override void Load()
+		{
+			On_Main.RenderBackground += SubworldDisableBackground;
+		}
+
+		private static void SubworldDisableBackground(On_Main.orig_RenderBackground orig, Main self)
+		{
+			if (AOUtils.InAOSubworld)
+			{
+				return;
+			}
+			orig(self);
+		}
 	}
 }

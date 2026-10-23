@@ -112,6 +112,9 @@ namespace ArcaneOdyssey
 			if (player.InModBiome<EliusArena>())
 				return "EliusArena";
 
+			if (player.InModBiome<TalosBiome>())
+				return "TalosBiome";
+
 			return "";
 		}
 
@@ -125,6 +128,16 @@ namespace ArcaneOdyssey
 				SubTitle = DisplayNameClean,
 				TitleColor = Color.LightGray,
 				TitleStroke = Color.MediumPurple,
+				Icon = icon.Value,
+			};
+			// talos icon later
+			yield return new
+			{
+				Key = "TalosBiome",
+				Title = "Fort Talos",
+				SubTitle = DisplayNameClean,
+				TitleColor = Color.LightGray,
+				TitleStroke = Color.OrangeRed,
 				Icon = icon.Value,
 			};
 		}
@@ -163,7 +176,13 @@ namespace ArcaneOdyssey
 			/// <para/> Requires an npc ID, which should be consistant between all clients
 			/// </summary>
 			public const byte MarkGlobalDowned = 5;
+
+			public static byte ExtraHandle = 6;
 		}
+
+		public delegate void hook_HandleExtraPacket(BinaryReader reader, int whoAmI, byte command);
+
+		public static event hook_HandleExtraPacket HandleExtraPacket;
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
@@ -303,6 +322,10 @@ namespace ArcaneOdyssey
 					else
 						GlobalData.MarkDefeated(npc);
 				}
+			}
+			else
+			{
+				HandleExtraPacket(reader, whoAmI, command);
 			}
 		}
 

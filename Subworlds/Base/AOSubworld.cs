@@ -3,8 +3,10 @@ using ReLogic.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria.GameContent;
 using Terraria.GameInput;
+using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Subworlds.Base
 {
@@ -45,11 +47,48 @@ namespace ArcaneOdyssey.Subworlds.Base
 			message = "Returning...";
 		}
 
+		public override void CopyMainWorldData()
+		{
+			TagCompound downed = [];
+			if (DownedBossesInfo is not null)
+			{
+				for (int i = 0; i < DownedBossesInfo.Length; i++)
+				{
+					downed.Add(DownedBossesInfo[i].Name, DownedBossesInfo[i].GetGetMethod()?.Invoke(null, []) is bool down && down);
+				}
+				SubworldSystem.CopyWorldData("DownedAOBosses", downed);
+			}
+		}
+
+		public override void ReadCopiedMainWorldData()
+		{
+			if (DownedBossesInfo is not null)
+			{
+				var downed = SubworldSystem.ReadCopiedWorldData<TagCompound>("DownedAOBosses");
+				if (downed != null && downed.Count != 0)
+				{
+					for (int i = 0; i < DownedBossesInfo.Length; i++)
+					{
+						string Key = DownedBossesInfo[i].Name;
+						if (downed.TryGet(Key, out bool down))
+						{
+							DownedBossesInfo[i].GetSetMethod()?.Invoke(null, [down]);
+						}
+					}
+				}
+			}
+		}
+
 		public override void Load()
 		{
 			ModTypeLookup<AOSubworld>.Register(this);
 			AOSubworldSystem.Count++;
 			ModContent.RequestIfExists(Texture, out Image);
+		}
+
+		public override void Unload()
+		{
+			DownedBossesInfo = null;
 		}
 
 		public abstract bool MetConditions { get; }
@@ -71,9 +110,12 @@ namespace ArcaneOdyssey.Subworlds.Base
 		/// </summary>
 		public abstract ushort OrderNum { get; }
 
+		public static PropertyInfo[] DownedBossesInfo;
+
 		public override void SetStaticDefaults()
 		{
 			AOSubworldSystem.AllSubworlds[OrderNum] = this;
+			DownedBossesInfo = typeof(DownedBosses).GetProperties(BindingFlags.Public | BindingFlags.Static).Where(e => e.GetValue(null) is bool).ToArray();
 			_ = DisplayName; // forces these to generate if they don't exist
 			_ = Description;
 		}

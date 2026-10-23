@@ -9,10 +9,5 @@
 		public override string BestiaryIcon => Texture + "_Icon";
 		public override string BackgroundPath => Texture + "_Background";
 		public override string MapBackground => BackgroundPath;
-
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-		}
 	}
 }

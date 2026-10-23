@@ -17,9 +17,13 @@ namespace ArcaneOdyssey
 		private static bool _downedArgos;
 		private static bool _downedCalvus;
 
-		public static bool downedBrain;
-		public static bool downedWorldEater;
-		public static bool downedEnragedEmpress;
+		private static bool _downedBrain;
+		private static bool _downedWorldEater;
+		private static bool _downedEnragedEmpress;
+
+		public static bool DownedBrain { get => _downedBrain; set => _downedBrain = value; }
+		public static bool DownedWorldEater { get => _downedWorldEater; set => _downedWorldEater = value; }
+		public static bool DownedEnragedEmpress { get => _downedEnragedEmpress; set => _downedEnragedEmpress = value; }
 
 		public static bool DownedCalvus
 		{
@@ -204,9 +208,9 @@ namespace ArcaneOdyssey
 			_downedArgos = false;
 			_downedCalvus = false;
 
-			downedBrain = false;
-			downedWorldEater = false;
-			downedEnragedEmpress = false;
+			DownedBrain = false;
+			DownedWorldEater = false;
+			DownedEnragedEmpress = false;
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();
@@ -218,7 +222,7 @@ namespace ArcaneOdyssey
 			List<string> downed = [];
 			if (DownedEvander)
 				downed.Add(DownedFlagID.Evander);
-			if (downedEnragedEmpress)
+			if (DownedEnragedEmpress)
 				downed.Add(DownedFlagID.DaytimeEmpress);
 			if (DownedDelamere)
 				downed.Add(DownedFlagID.Delamere);
@@ -236,9 +240,9 @@ namespace ArcaneOdyssey
 				downed.Add(DownedFlagID.Argos);
 			if (DownedCalvus)
 				downed.Add(DownedFlagID.Calvus);
-			if (downedWorldEater)
+			if (DownedWorldEater)
 				downed.Add(DownedFlagID.EaterofWorlds);
-			if (downedBrain)
+			if (DownedBrain)
 				downed.Add(DownedFlagID.CrimsonBrain);
 			tag["downed"] = downed;
 		}
@@ -251,25 +255,25 @@ namespace ArcaneOdyssey
 			_downedCrone = downed.Contains(DownedFlagID.TheCrone);
 			_downedLaelus = downed.Contains(DownedFlagID.Laelus);
 			_downedDelamere = downed.Contains(DownedFlagID.Delamere);
-			downedEnragedEmpress = downed.Contains(DownedFlagID.DaytimeEmpress);
+			DownedEnragedEmpress = downed.Contains(DownedFlagID.DaytimeEmpress);
 			_downedElius = downed.Contains(DownedFlagID.LordElius);
 			_downedAllanon = downed.Contains(DownedFlagID.Allanon);
 			_downedArgos = downed.Contains(DownedFlagID.Argos);
 			_downedCalvus = downed.Contains(DownedFlagID.Calvus);
-			downedWorldEater = downed.Contains(DownedFlagID.EaterofWorlds);
-			downedBrain = downed.Contains(DownedFlagID.CrimsonBrain);
+			DownedWorldEater = downed.Contains(DownedFlagID.EaterofWorlds);
+			DownedBrain = downed.Contains(DownedFlagID.CrimsonBrain);
 		}
 
 		public override void NetSend(BinaryWriter writer)
 		{
 			writer.WriteFlags(_downedEvander, _downedDusk, _downedCrone, _downedLaelus, _downedDelamere, _downedElius, _downedAllanon, _downedArgos);
-			writer.WriteFlags(_downedCalvus, downedEnragedEmpress, downedWorldEater, downedBrain);
+			writer.WriteFlags(_downedCalvus, _downedEnragedEmpress, _downedWorldEater, _downedBrain);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			reader.ReadFlags(out _downedEvander, out _downedDusk, out _downedCrone, out _downedLaelus, out _downedDelamere, out _downedElius, out _downedAllanon, out _downedArgos);
-			reader.ReadFlags(out _downedCalvus, out downedEnragedEmpress, out downedWorldEater, out downedBrain);
+			reader.ReadFlags(out _downedCalvus, out _downedEnragedEmpress, out _downedWorldEater, out _downedBrain);
 		}
 
 		public class DownedFlagID

@@ -32,6 +32,7 @@ namespace ArcaneOdyssey
 		public static float UpdateCount => Main.GameUpdateCount / 100f;
 
 		public const string BlankTexture = ArcaneOdysseyMod.InternalName + "/Assets/Blank";
+		public const string BlankTileTexture = ArcaneOdysseyMod.InternalName + "/Assets/BlankTile";
 		public const string SlashTexture = ArcaneOdysseyMod.InternalName + "/Assets/BasicSlash";
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
@@ -117,6 +118,74 @@ namespace ArcaneOdyssey
 			_ => "",
 		};
 
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0);
+		}
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0, ref bool b1)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0, ref b1);
+		}
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0, ref bool b1, ref bool b2)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0, ref b1, ref b2);
+		}
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0, ref bool b1, ref bool b2, ref bool b3)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0, ref b1, ref b2, ref b3);
+		}
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0, ref bool b1, ref bool b2, ref bool b3, ref bool b4)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0, ref b1, ref b2, ref b3, ref b4);
+		}
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0, ref bool b1, ref bool b2, ref bool b3, ref bool b4, ref bool b5)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0, ref b1, ref b2, ref b3, ref b4, ref b5);
+		}
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0, ref bool b1, ref bool b2, ref bool b3, ref bool b4, ref bool b5, ref bool b6)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0, ref b1, ref b2, ref b3, ref b4, ref b5, ref b6);
+		}
+
+		public static void ReadFlagsRef(this BinaryReader reader, ref bool b0, ref bool b1, ref bool b2, ref bool b3, ref bool b4, ref bool b5, ref bool b6, ref bool b7)
+		{
+			((BitsByte)reader.ReadByte()).Retrieve(ref b0, ref b1, ref b2, ref b3, ref b4, ref b5, ref b6, ref b7);
+		}
+
+		public static Point16 Point16(this Point pos) => new(pos);
+
+		public static Point SpawnPos(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);
+		public static Point16 SpawnPos16(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);
+
+		public static Point SpawnPos() => new(Main.spawnTileX, Main.spawnTileY);
+		public static Point16 SpawnPos16() => new(Main.spawnTileX, Main.spawnTileY);
+
+		public static void SetWorldSpawn(Point pos)
+		{
+			Main.spawnTileX = pos.X;
+			Main.spawnTileY = pos.Y;
+		}
+
+		public static void SetWorldSpawn(Point16 pos)
+		{
+			Main.spawnTileX = pos.X;
+			Main.spawnTileY = pos.Y;
+		}
+
+		public static void SetToSpawnPosition(this Player player)
+		{
+			var floorX = SpawnPos(player).X;
+			var floorY = SpawnPos(player).Y;
+			player.position.X = floorX * 16 + 8 - player.width / 2;
+			player.position.Y = floorY * 16 - player.height;
+		}
 
 		public static Vector2 Add(this Vector2 vec, float add) => vec.SafeNormalize() * (vec.Length() + add);
 
@@ -1424,7 +1493,6 @@ namespace ArcaneOdyssey
 		/// <returns></returns>
 		public static LocalizedText CustomLocalization(this Mod mod, string key, params object[] formatting)
 		{
-			mod ??= ModInstance;
 			if (!key.StartsWith("Mods."))
 			{
 				key = mod.GetLocalizationKey(key);
@@ -1447,8 +1515,23 @@ namespace ArcaneOdyssey
 			return text;
 		}
 
-		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback) => Language.GetOrRegister(mod.GetLocalizationKey(key), () => fallback ?? mod.CustomLocalization(key).Value);
-		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, Func<string> fallback = null) => Language.GetOrRegister(mod.GetLocalizationKey(key), fallback ?? (() => mod.CustomLocalization(key).Value));
+		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, string fallback)
+		{
+			if (!key.StartsWith("Mods."))
+			{
+				key = mod.GetLocalizationKey(key);
+			}
+			return Language.GetOrRegister(key, () => fallback ?? mod.CustomLocalization(key).Value);
+		}
+
+		public static LocalizedText CoolCustomLocalization(this Mod mod, string key, Func<string> fallback = null)
+		{
+			if (!key.StartsWith("Mods."))
+			{
+				key = mod.GetLocalizationKey(key);
+			}
+			return Language.GetOrRegister(key, fallback ?? (() => mod.CustomLocalization(key).Value));
+		}
 
 		public static ArcaneOdysseyMod ModInstance => ArcaneOdysseyMod.Instance;
 
@@ -1461,7 +1544,7 @@ namespace ArcaneOdyssey
 			{
 				int count = 0;
 				List<bool> conditions = [];
-				conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.downedWorldEater, DownedBosses.downedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
+				conditions.AddRange([DownedBosses.DownedEvander, DownedBosses.DownedElius, DownedBosses.DownedCalvus, DownedBosses.DownedAllanon, DownedBosses.DownedArgos, DownedBosses.DownedLaelus, DownedBosses.DownedCrone, DownedBosses.DownedDelamere, DownedBosses.DownedDusk, NPC.downedBoss1, DownedBosses.DownedWorldEater, DownedBosses.DownedBrain, NPC.downedBoss3, NPC.downedQueenBee, NPC.downedSlimeKing, NPC.downedDeerclops, NPC.downedAncientCultist, NPC.downedChristmasIceQueen, NPC.downedChristmasSantank, NPC.downedClown, NPC.downedChristmasTree, NPC.downedEmpressOfLight, NPC.downedFishron, NPC.downedFrost, NPC.downedGoblins, NPC.downedGolemBoss, NPC.downedHalloweenKing, NPC.downedHalloweenTree, NPC.downedMartians, NPC.downedMechBoss1, NPC.downedMechBoss2, NPC.downedMechBoss3, NPC.downedMechBossAny, NPC.downedMoonlord, NPC.downedPlantBoss, NPC.downedPirates]);
 				if (ExternalModSupport.HasThorium)
 				{
 					string[] extrBosses = "Lich Viscount PatchWerk StarScouter Illusionist CorpseBloom ForgottenOne BoreanStrider FallenBeholder BuriedChampion ThePrimordials QueenJellyfish GraniteEnergyStorm TheGrandThunderBird".Split(' ');

@@ -600,7 +600,7 @@ namespace ArcaneOdyssey.Imbues.Base
 		{
 			if (imbue is MagicType or FightingStyle)
 			{
-				if (NPC.downedMoonlord || DownedBosses.downedEnragedEmpress)
+				if (NPC.downedMoonlord || DownedBosses.DownedEnragedEmpress)
 				{
 					if ((imbue.ImbuableTier == ImbuableTiers.Normal) || ((imbue.ImbuableTier == ImbuableTiers.Lost) && (!ImbueID.Sets.Special[imbue.ID])) || ((imbue.ImbuableTier == ImbuableTiers.Ancient) && (imbue is MagicType) && (!ImbueID.Sets.Special[imbue.ID])))
 					{
