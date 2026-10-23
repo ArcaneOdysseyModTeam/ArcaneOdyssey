@@ -108,6 +108,8 @@ Bosses: {
 		Refight: It's you again!
 		SecondPhaseMessage: ENOUGH! It's time to start trying.
 	}
+
+	GeneralArgos.DisplayName: General Argos
 }
 
 RowboatNPC: {

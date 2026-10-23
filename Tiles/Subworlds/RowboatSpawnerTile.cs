@@ -4,18 +4,22 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ObjectData;
 
-namespace ArcaneOdyssey.Tiles.SubworldHelpers
+namespace ArcaneOdyssey.Tiles.Subworlds
 {
 	public class RowboatSpawnerTile : ModTile
 	{
 		public override string Texture => ArcaneOdysseyMod.DevMode ? AOUtils.GetTexture<BronzeBarTile>() : AOUtils.BlankTileTexture;
 		public override void SetStaticDefaults()
 		{
+			TileID.Sets.BlockMergesWithMergeAllBlockOverride[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			TileID.Sets.AvoidedByMeteorLanding[Type] = true;
-			MinPick = 100000;
-			MineResist = 1000f;
+			if (!ArcaneOdysseyMod.DevMode)
+			{
+				MinPick = 100000;
+				MineResist = 1000f;
+			}
 			VanillaFallbackOnModDeletion = TileID.LihzahrdBrick;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.StyleHorizontal = true;
@@ -31,7 +35,7 @@ namespace ArcaneOdyssey.Tiles.SubworldHelpers
 
 		public override bool CanExplode(int i, int j) => false;
 
-		public override bool CanKillTile(int i, int j, ref bool blockDamaged) => false;
+		public override bool CanKillTile(int i, int j, ref bool blockDamaged) => ArcaneOdysseyMod.DevMode;
 
 		public override bool CreateDust(int i, int j, ref int type) => false;
 

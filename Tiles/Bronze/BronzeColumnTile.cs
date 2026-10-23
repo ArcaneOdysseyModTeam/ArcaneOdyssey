@@ -7,6 +7,7 @@
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
+			Main.tileBlendAll[Type] = true;
 
 			DustType = DustID.Copper;
 			VanillaFallbackOnModDeletion = TileID.GoldBrick;

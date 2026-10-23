@@ -223,6 +223,11 @@ Blocks: {
 				DisplayName: Bronze Slab
 				Tooltip: ""
 			}
+
+			BronzeBrazier: {
+				DisplayName: Bronze Brazier
+				Tooltip: ""
+			}
 		}
 	}
 

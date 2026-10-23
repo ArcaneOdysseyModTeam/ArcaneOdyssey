@@ -176,7 +176,13 @@ namespace ArcaneOdyssey
 			/// <para/> Requires an npc ID, which should be consistant between all clients
 			/// </summary>
 			public const byte MarkGlobalDowned = 5;
+
+			public static byte ExtraHandle = 6;
 		}
+
+		public delegate void hook_HandleExtraPacket(BinaryReader reader, int whoAmI, byte command);
+
+		public static event hook_HandleExtraPacket HandleExtraPacket;
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
@@ -316,6 +322,10 @@ namespace ArcaneOdyssey
 					else
 						GlobalData.MarkDefeated(npc);
 				}
+			}
+			else
+			{
+				HandleExtraPacket(reader, whoAmI, command);
 			}
 		}
 

@@ -1,4 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs;
+using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.Subworlds;
+using SubworldLibrary;
 using System;
 using Terraria.DataStructures;
 
@@ -85,6 +88,19 @@ namespace ArcaneOdyssey.AOPlayers
 			Player.canFloatInWater = false;
 			Player.wingsLogic = 0;
 			Player.wings = 0;
+			Player.mount.Dismount(Player);
+			Player.RemoveAllGrapplingHooks();
+
+			if (SubworldSystem.Current is TalosSubworld && Main.myPlayer == Player.whoAmI)
+			{
+				if (ArgoSpawningAnimation.argosArena.Bottom().Distance(Player.Bottom) < 16f)
+				{
+					if (!ArgoSpawningAnimation.InProgress && !AOUtils.BossAlive)
+					{
+						ArgoSpawningAnimation.StartAnimation(Main.myPlayer);
+					}
+				}
+			}
 		}
 
 		private static void DarkSeaNoTeleport(On_Player.orig_ItemCheck_UseTeleportRod orig, Player self, Item sItem)

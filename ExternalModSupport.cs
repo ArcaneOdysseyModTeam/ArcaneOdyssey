@@ -10,7 +10,6 @@ using ArcaneOdyssey.Items.Weapons.Sunken;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.NPCs.Minibosses;
 using ArcaneOdyssey.NPCs.Town;
-using ArcaneOdyssey.Tiles.Base;
 using ArcaneOdysseyMusic.MusicBoxes;
 using SubworldLibrary;
 using System;
@@ -36,7 +35,6 @@ namespace ArcaneOdyssey
 		public override void OnModLoad()
 		{
 			Fargos?.Call("AddCaughtNPC", nameof(Edgelord), ModContent.NPCType<Edgelord>(), Mod.Name);
-			StructureHelperMod.Instance.Call("RegisterCustomData", typeof(ITileExists), Mod);
 		}
 
 		public static void MagicStorageSupport()
