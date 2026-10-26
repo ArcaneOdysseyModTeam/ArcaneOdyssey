@@ -427,3 +427,12 @@ Subworlds: {
 }
 
 Tiles.TalosCaughtTile.Death: "{0} was caught by the guards."
+
+UI: {
+	_DebugUIItems: {
+		JohnBowMan: {
+			DisplayName: John Bow Man
+			Tooltip: ""
+		}
+	}
+}

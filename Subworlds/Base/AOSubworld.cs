@@ -1,4 +1,6 @@
-﻿using ArcaneOdyssey.MainMenu;
+using ArcaneOdyssey.MainMenu;
+﻿using ArcaneOdyssey.Biomes.Base;
+using ArcaneOdyssey.UI.SubWorld;
 using ReLogic.Graphics;
 using SubworldLibrary;
 using System.Collections.Generic;
@@ -94,6 +96,11 @@ namespace ArcaneOdyssey.Subworlds.Base
 		public abstract bool MetConditions { get; }
 
 		public static AOSubworld[] UnlockedSubworlds => [.. AOSubworldSystem.AllSubworlds.Where(e => e.MetConditions)];
+
+		/// <summary>
+		/// Small thingy, mainly used by <see cref="SubWorldUI"/>
+		/// </summary>
+		public static AOSubworld[] ALLSUBWORLDS => AOSubworldSystem.AllSubworlds;
 
 		/// <summary>
 		/// The file name of this type's texture file in the mod loader's file space.

@@ -184,6 +184,7 @@ public abstract partial class BaseImbueUI : UIState
 	public static class ButtonTextures
 	{
 		public static readonly Asset<Texture2D> Neutral = ArcaneOdysseyMod.Instance.Assets.Request<Texture2D>("UI/_BaseImbueUI/Textures/Button/Neutral", AssetRequestMode.ImmediateLoad);
+		public static readonly Asset<Texture2D> Evil = ArcaneOdysseyMod.Instance.Assets.Request<Texture2D>("UI/_BaseImbueUI/Textures/Button/Evil", AssetRequestMode.ImmediateLoad);
 	}
 
 	protected List<MagicProduct> TheShop = [];
