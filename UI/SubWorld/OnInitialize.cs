@@ -36,7 +36,7 @@ public partial class SubWorldUI : UIState
 	/// <summary>
 	/// The image of the selected <see cref="AOSubworld"/>
 	/// </summary>
-	protected UIImage TitleImage = new(
+	public UIImage TitleImage { get; protected set; } = new(
 		ArcaneOdysseyMod.Instance.Assets.Request<Texture2D>("MainMenu/Images/Djin", AssetRequestMode.ImmediateLoad)
 	);
 	/// <summary>
@@ -92,15 +92,12 @@ public partial class SubWorldUI : UIState
 		SubworldOptions.Top.Set(top, 0f);
 		#endregion
 
-		for (int i = 0; i < AOSubworld.UnlockedSubworlds.Length; i++)
+		for (int i = 0; i < AOSubworld.ALLSUBWORLDS.Length; i++)
 		{
-			var world = AOSubworld.UnlockedSubworlds[i];
+			var world = AOSubworld.ALLSUBWORLDS[i];
 
-			for (int j = 0; j <= 7; j++)
-			{
-				var choice = new SubworldPicker(this, world, new(SubworldOptions.Width.Pixels - SubworldScroller.Width.Pixels, 32), top, i);
-				SubworldOptions.Add(choice);
-			}
+			var choice = new SubworldPicker(this, world, new(SubworldOptions.Width.Pixels - SubworldScroller.Width.Pixels, 32), top, i);
+			SubworldOptions.Add(choice);
 		}
 
 		main.Append(SubworldOptions);
@@ -136,14 +133,8 @@ public partial class SubWorldUI : UIState
 		#endregion
 
 		#region Subworld Image
-		TitleImage.ScaleToFit = true;
-
-		TitleImage.Width.Set(DefaultImageSize.X, 0f);
-		TitleImage.Height.Set(DefaultImageSize.Y, 0f);
-
-		TitleImage.Left.Set(TitleSelection.Left.Pixels, 0f);
-		TitleImage.Top.Set(TitleSelection.Top.Pixels + TitleSelection.Height.Pixels + (separation * 2), 0f);
-
+		ReSetTitleImageSize();
+		TitleImage.Color = new Color(0, 0, 0, 0);
 		SelectionPanel.Append(TitleImage);
 		#endregion
 
@@ -203,5 +194,15 @@ public partial class SubWorldUI : UIState
 		#endregion
 
 		#endregion
+	}
+	protected void ReSetTitleImageSize()
+	{
+		TitleImage.ScaleToFit = true;
+
+		TitleImage.Width.Set(DefaultImageSize.X, 0f);
+		TitleImage.Height.Set(DefaultImageSize.Y, 0f);
+
+		TitleImage.Left.Set(TitleSelection.Left.Pixels, 0f);
+		TitleImage.Top.Set(TitleSelection.Top.Pixels + TitleSelection.Height.Pixels + (separation * 2), 0f);
 	}
 }

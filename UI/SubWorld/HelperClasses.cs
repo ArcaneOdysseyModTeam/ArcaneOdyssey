@@ -21,7 +21,7 @@ public partial class SubWorldUI : UIState
 				return;
 			}
 
-			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, ModContent.Request<Texture2D>($"{Subworld.Texture}"), Subworld.Description.Value);
+			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, ModContent.Request<Texture2D>($"{Subworld.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad), Subworld.Description.Value);
 		}
 
 		public SubWorldUI main { get; protected set; }
