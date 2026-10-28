@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.GlobalTypes
 
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
-			if (player.InModBiome<EliusArena>())
+			if (player.InModBiome<EliusArena>() || AOUtils.InAOSubworld)
 			{
 				maxSpawns = 0;
 			}

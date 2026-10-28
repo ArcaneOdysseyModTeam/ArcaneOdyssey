@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.AOPlayers
 			Player.mount.Dismount(Player);
 			Player.RemoveAllGrapplingHooks();
 
-			if (SubworldSystem.Current is TalosSubworld && Main.myPlayer == Player.whoAmI)
+			if (SubworldSystem.Current is TalosSubworld && ArgoSpawningAnimation.hasArgosKey && Main.myPlayer == Player.whoAmI)
 			{
 				if (ArgoSpawningAnimation.argosArena.Bottom().Distance(Player.Bottom) < 16f)
 				{

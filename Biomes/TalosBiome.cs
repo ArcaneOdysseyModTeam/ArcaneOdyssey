@@ -20,6 +20,8 @@ namespace ArcaneOdyssey.Biomes
 			return false;
 		}
 
+		public override bool MapBackgroundFullbright => true;
+
 		public override void Load()
 		{
 			On_Main.RenderBackground += SubworldDisableBackground;

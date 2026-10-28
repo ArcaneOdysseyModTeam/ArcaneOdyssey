@@ -18,6 +18,8 @@ namespace ArcaneOdyssey.Subworlds
 
 		public override Point SpawnLocation => new(114, 74);
 
+		public static Rectangle[] openRooms = [new(356,132,66,20), new(514,132,80,20), new(688,132,849-668, 20)];
+
 		public override ArcaneOdysseyMainMenu.MainMenuStyle? MenuStyle => new(MusicTrack.Argos, Color.Transparent, "Argos", GlobalData.IsDefeated<GeneralArgos>); // change to talos theme
 	}
 }

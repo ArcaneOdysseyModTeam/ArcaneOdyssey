@@ -245,6 +245,7 @@ Keybinds: {
 	CycleGodSoul.DisplayName: Cycle God Soul
 	CycleImbueAttack.DisplayName: Cycle Imbue Attack
 	AltSkillUse.DisplayName: Alt Skill Use
+	GetTileCoordinate.DisplayName: Get Tile Coordinate
 }
 
 RandomWords: {

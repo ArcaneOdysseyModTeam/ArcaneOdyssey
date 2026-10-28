@@ -12,6 +12,10 @@ namespace ArcaneOdyssey
 		public static ModKeybind CycleImbueAttack { get; set; }
 		public static ModKeybind AltSkillUse { get; set; }
 
+#if VSDEBUGMODE
+		public static ModKeybind GetTileCoordinate { get; set; }
+#endif
+
 		public override void Load()
 		{
 			CycleItemImbue = KeybindLoader.RegisterKeybind(Mod, nameof(CycleItemImbue), "G");
@@ -20,6 +24,10 @@ namespace ArcaneOdyssey
 			CycleGodSoul = KeybindLoader.RegisterKeybind(Mod, nameof(CycleGodSoul), "K");
 			CycleImbueAttack = KeybindLoader.RegisterKeybind(Mod, nameof(CycleImbueAttack), "Q");
 			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.LeftAlt);
+
+#if VSDEBUGMODE
+			GetTileCoordinate = KeybindLoader.RegisterKeybind(Mod, nameof(GetTileCoordinate), Keys.RightAlt);
+#endif
 		}
 
 		public override void Unload()
@@ -30,6 +38,23 @@ namespace ArcaneOdyssey
 			CycleGodSoul = null;
 			CycleImbueAttack = null;
 			AltSkillUse = null;
+
+#if VSDEBUGMODE
+			GetTileCoordinate = null;
+#endif
+		}
+
+		public override void PostUpdateEverything()
+		{
+			if (GetTileCoordinate.Current)
+			{
+				Player player = Main.LocalPlayer;
+				player.noThrow = 2;
+				player.cursorItemIconText = Main.MouseWorld.ToTileCoordinates().ToString();
+				player.cursorItemIconID = -1;
+				player.cursorItemIconEnabled = true;
+				Dust.DrawDebugBox(new(Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).X.Round(), Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).Y.Round(), 16, 16));
+			}
 		}
 	}
 }
