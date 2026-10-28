@@ -423,16 +423,13 @@ Subworlds: {
 	TalosSubworld: {
 		DisplayName: Fort Talos
 		Description: Mods.ArcaneOdyssey.Subworlds.TalosSubworld.Description
+		UnlockCondition: No Conditions.
 	}
 }
 
 Tiles.TalosCaughtTile.Death: "{0} was caught by the guards."
 
-UI: {
-	_DebugUIItems: {
-		JohnBowMan: {
-			DisplayName: John Bow Man
-			Tooltip: ""
-		}
-	}
+AOSubworld: {
+	EnterMessage: Traveling to {0}...
+	ExitMessage: Returning...
 }

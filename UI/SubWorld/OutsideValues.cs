@@ -15,5 +15,5 @@ public partial class SubWorldUI : UIState
 	/// <summary>
 	/// The chosen <see cref="AOSubworld"/>
 	/// </summary>
-	public AOSubworld? ChosenSubworld { get; protected set; }
+	public AOSubworld ChosenSubworld { get; protected set; }
 }

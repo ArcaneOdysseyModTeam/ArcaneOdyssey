@@ -1,7 +1,12 @@
-﻿using ArcaneOdyssey.NPCs.Base;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Items.Weapons.RavennaLion;
+using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdysseyMusic;
 using System.IO;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -25,6 +30,12 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
 			NPC.boss = true;
+			SpawnModBiomes = [AOUtils.BiomeType<TalosBiome>()];
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}"));
 		}
 
 		public override MusicTrack Theme => MusicTrack.Argos;
@@ -50,7 +61,31 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void OnKill()
 		{
+			DownedBosses.DownedArgos = true;
+			ArgoSpawningAnimation.hasArgosKey = false;
+			if (Main.dedServ)
+			{
+				var packet = Mod.GetPacket();
+				packet.Write(ArcaneOdysseyMod.PacketID.MarkGlobalDowned);
+				packet.Write(Type);
+				packet.Send();
+			}
+			else
+			{
+				GlobalData.MarkDefeated(this);
+			}
+		}
 
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			LeadingConditionRule leadingConditionRule1 = new(new Conditions.NotExpert());
+			leadingConditionRule1.OnSuccess(new AnyDropHelper([
+					ModContent.ItemType<LanceofLoyalty>(),
+					ModContent.ItemType<LionsHalberd>(),
+					], 4));
+			leadingConditionRule1.OnSuccess(new CommonDrop(ModContent.ItemType<BronzeBar>(), 1, 30, 45));
+			npcLoot.Add(leadingConditionRule1);
+			// add boss bag later
 		}
 	}
 
@@ -58,10 +93,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 	{
 		public static bool justStarted, hasArgosKey;
 		public static bool InProgress => timeLeft > 0;
-		public static int playerInAnimation;
+		public static int playerInAnimation, timeLeft;
 		public static Rectangle argosArena => new Rectangle(855, 119, 148, 34).ToWorldRect();
-
-		public static float timeLeft;
 
 		public override void NetSend(BinaryWriter writer)
 		{
@@ -136,7 +169,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			ArcaneOdysseyMod.PacketID.ExtraHandle--;
 		}
 
-		private static float ogZoom;
+		private static float ogZoom = 1f;
 
 		public override void PreUpdatePlayers()
 		{
@@ -144,6 +177,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!Main.dedServ)
 				{
+					Main.CloseNPCChatOrSign();
+					Main.ClosePlayerChat();
 					for (int i = 0; i < Main.musicFade.Length; i++)
 					{
 						Main.musicFade[i] = 0;

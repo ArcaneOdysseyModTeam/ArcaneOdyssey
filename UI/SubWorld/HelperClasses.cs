@@ -2,8 +2,6 @@
 using System;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using static ArcaneOdyssey.UI.ReadingSimulator.ReadingSimulatorUI.ButtonTextures;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ArcaneOdyssey.UI.SubWorld;
 
@@ -21,7 +19,7 @@ public partial class SubWorldUI : UIState
 				return;
 			}
 
-			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, ModContent.Request<Texture2D>($"{Subworld.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad), Subworld.Description.Value);
+			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, Subworld.MenuStyle?.BackgroundTexture ?? ModContent.Request<Texture2D>($"{Subworld.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad), Subworld.Description.Value);
 		}
 
 		public SubWorldUI main { get; protected set; }

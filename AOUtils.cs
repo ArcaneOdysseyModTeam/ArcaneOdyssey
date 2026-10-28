@@ -82,6 +82,13 @@ namespace ArcaneOdyssey
 			"Terraria/Tooltip",
 		];
 
+		public static ModPacket NewPacket(this Mod mod, byte command)
+		{
+			var packet = mod.GetPacket();
+			packet.Write(command);
+			return packet;
+		}
+
 		public static bool InAOSubworld => SubworldSystem.Current is AOSubworld;
 
 		public static int GetShimmerEquivalentType(this Item item)
@@ -1432,6 +1439,7 @@ namespace ArcaneOdyssey
 		}
 
 		public static bool ServerOrSingleplayer => Main.netMode != NetmodeID.MultiplayerClient;
+		public static bool Singleplayer => Main.netMode == NetmodeID.SinglePlayer;
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 

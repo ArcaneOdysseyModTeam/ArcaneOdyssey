@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.NPCs.Base;
+using ArcaneOdyssey.UI.SubWorld;
 using SubworldLibrary;
 using System.Collections.Generic;
 
@@ -33,8 +34,8 @@ namespace ArcaneOdyssey.NPCs
 			NPC.immortal = true;
 			NPC.friendly = true;
 			NPC.dontTakeDamageFromHostiles = true;
-			NPC.trapImmune = false;
-			NPC.lavaImmune = false;
+			NPC.trapImmune = true;
+			NPC.lavaImmune = true;
 		}
 
 		public override bool CanChat() => true;
@@ -49,7 +50,22 @@ namespace ArcaneOdyssey.NPCs
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
-			SubworldSystem.Exit();
+			if (firstButton)
+			{
+				if (SubworldSystem.AnyActive())
+				{
+					if (AOUtils.Singleplayer)
+					{
+						SubworldSystem.Exit();
+					}
+					else
+					{
+						var packet = Mod.NewPacket(PlayersSyncSubworld.Packet);
+						packet.Write(byte.MaxValue);
+						packet.Send();
+					}
+				}
+			}
 		}
 
 		private bool settled = false;

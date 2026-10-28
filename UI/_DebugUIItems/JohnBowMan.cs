@@ -1,10 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.UI.SubWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.GameContent.Creative;
 
 namespace ArcaneOdyssey.UI._DebugUIItems;
@@ -24,6 +20,7 @@ public class JohnBowMan : BaseItem
 
 	public override void SetDefaults()
 	{
+		base.SetDefaults();
 		Item.useStyle = ItemUseStyleID.HoldUp;
 		Item.width = 26;
 		Item.height = 38;

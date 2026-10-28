@@ -1,5 +1,4 @@
 ﻿using System;
-using Terraria.Chat;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.SubWorld;

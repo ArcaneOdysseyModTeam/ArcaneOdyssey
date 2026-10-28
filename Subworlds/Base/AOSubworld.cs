@@ -1,5 +1,4 @@
 using ArcaneOdyssey.MainMenu;
-﻿using ArcaneOdyssey.Biomes.Base;
 using ArcaneOdyssey.UI.SubWorld;
 using ReLogic.Graphics;
 using SubworldLibrary;
@@ -34,6 +33,8 @@ namespace ArcaneOdyssey.Subworlds.Base
 			Main.spriteBatch.End();
 		}
 
+		public virtual ArcaneOdysseyMainMenu.MainMenuStyle? MenuStyle => null;
+
 		public static string message = string.Empty;
 
 		public override void OnEnter()
@@ -41,12 +42,12 @@ namespace ArcaneOdyssey.Subworlds.Base
 			ArcaneOdysseyMainMenu.RandomSelect();
 			SubworldSystem.noReturn = true;
 			SubworldSystem.hideUnderworld = true;
-			message = $"Traveling to {DisplayName}...";
+			message = ArcaneOdysseyMod.Instance.CustomLocalization($"{nameof(AOSubworld)}.EnterMessage", DisplayName.Value).Value;
 		}
 
 		public override void OnExit()
 		{
-			message = "Returning...";
+			message = ArcaneOdysseyMod.Instance.CustomLocalization($"{nameof(AOSubworld)}.ExitMessage").Value;
 		}
 
 		public override void CopyMainWorldData()
@@ -85,7 +86,6 @@ namespace ArcaneOdyssey.Subworlds.Base
 		{
 			ModTypeLookup<AOSubworld>.Register(this);
 			AOSubworldSystem.Count++;
-			ModContent.RequestIfExists(Texture, out Image);
 		}
 
 		public override void Unload()
@@ -103,62 +103,56 @@ namespace ArcaneOdyssey.Subworlds.Base
 		public static AOSubworld[] ALLSUBWORLDS => AOSubworldSystem.AllSubworlds;
 
 		/// <summary>
-		/// The file name of this type's texture file in the mod loader's file space.
-		/// </summary>
-		public virtual string Texture => (GetType().Namespace + "." + Name).Replace('.', '/');
-
-		/// <summary>
-		/// The icon of this subworld
-		/// </summary>
-		public Asset<Texture2D> Image;
-
-		/// <summary>
 		/// use <seealso cref="Before{T}"/> or <seealso cref="After{T}"/>
 		/// </summary>
-		public abstract ushort OrderNum { get; }
+		public abstract byte OrderNum { get; }
 
 		public static PropertyInfo[] DownedBossesInfo;
 
 		public override void SetStaticDefaults()
 		{
 			AOSubworldSystem.AllSubworlds[OrderNum] = this;
-			DownedBossesInfo = typeof(DownedBosses).GetProperties(BindingFlags.Public | BindingFlags.Static).Where(e => e.GetValue(null) is bool).ToArray();
+			DownedBossesInfo = typeof(DownedBosses).GetProperties(BindingFlags.Static | BindingFlags.Public).Where(e => e.GetValue(null) is bool).ToArray();
 			_ = DisplayName; // forces these to generate if they don't exist
 			_ = Description;
+			_ = UnlockCondition;
+			ArcaneOdysseyMod.Instance.CoolCustomLocalization($"{nameof(AOSubworld)}.EnterMessage", "Traveling to {0}...");
+			ArcaneOdysseyMod.Instance.CoolCustomLocalization($"{nameof(AOSubworld)}.ExitMessage", "Returning...");
 		}
 
 		public virtual LocalizedText Description => this.GetLocalization("Description");
+		public virtual LocalizedText UnlockCondition => this.GetLocalization("UnlockCondition", () => "No Conditions.");
 
 		/// <summary>
-		/// Gets a guidebook page by page number
+		/// Gets a subworld by number
 		/// </summary>
 		/// <param name="page"></param>
 		/// <returns></returns>
-		public static AOSubworld Get(int page)
+		public static AOSubworld Get(byte page)
 		{
 			var pages = ModContent.GetContent<AOSubworld>();
 			return pages.ToList().Find(e => e.OrderNum == page);
 		}
 
 		/// <summary>
-		/// Gets a guidebook page by internal name
+		/// Gets a subworld by internal name
 		/// </summary>
 		/// <param name="page"></param>
 		/// <returns></returns>
 		public static AOSubworld Get(string page)
 		{
 			var pages = ModContent.GetContent<AOSubworld>();
-			return pages.ToList().Find(e => e.Name == page);
+			return pages.ToList().Find(e => e.FullName == page);
 		}
 
-		internal static Dictionary<string, ushort> Ordered = [];
+		internal static Dictionary<string, byte> Ordered = [];
 
 		/// <summary>
 		/// Gets the page number before the provided page
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public ushort Before<T>() where T : AOSubworld
+		public byte Before<T>() where T : AOSubworld
 		{
 			var inst = ModContent.GetInstance<T>();
 			if (!Ordered.ContainsKey(Name))
@@ -188,18 +182,18 @@ namespace ArcaneOdyssey.Subworlds.Base
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public ushort After<T>() where T : AOSubworld
+		public byte After<T>() where T : AOSubworld
 		{
 			if (!Ordered.ContainsKey(Name))
 			{
 				var inst = ModContent.GetInstance<T>();
 				if (Ordered.TryGetValue(inst.Name, out var value))
 				{
-					Ordered[Name] = (ushort)(value + 1);
+					Ordered[Name] = (byte)(value + 1);
 				}
 				else
 				{
-					Ordered[Name] = (ushort)(inst.OrderNum + 1);
+					Ordered[Name] = (byte)(inst.OrderNum + 1);
 				}
 				var keys = Ordered.Keys;
 				foreach (var val in keys)
@@ -226,6 +220,14 @@ namespace ArcaneOdyssey.Subworlds.Base
 			{
 				AllSubworlds[AOSubworld.Get(page).OrderNum] = AOSubworld.Get(page);
 			}
+
+			foreach (var subworld in AllSubworlds)
+			{
+				if (subworld.MenuStyle.HasValue)
+				{
+					ArcaneOdysseyMainMenu.Titles.Add(subworld.MenuStyle.Value);
+				}
+			}
 		}
 
 		public override void ResizeArrays()
@@ -236,7 +238,7 @@ namespace ArcaneOdyssey.Subworlds.Base
 		[ReinitializeDuringResizeArrays]
 		public static class Sets
 		{
-			public static SetFactory Factory = new (Count, nameof(AOSubworld), i => AOSubworld.Get(i).Name);
+			public static SetFactory Factory = new(Count, nameof(AOSubworld), i => AOSubworld.Get((byte)i).Name);
 		}
 	}
 }

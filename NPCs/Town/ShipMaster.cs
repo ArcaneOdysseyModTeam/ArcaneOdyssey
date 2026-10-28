@@ -1,8 +1,8 @@
 ﻿using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.NPCs.Base;
-using ArcaneOdyssey.Subworlds;
 using ArcaneOdyssey.Subworlds.Base;
-using SubworldLibrary;
+using ArcaneOdyssey.UI;
+using System;
 using System.Collections.Generic;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
@@ -95,7 +95,15 @@ namespace ArcaneOdyssey.NPCs.Town
 			if (firstButton)
 			{
 				Main.CloseNPCChatOrSign();
-				SubworldSystem.Enter<TalosSubworld>();
+				try
+				{
+					ModUISystem instance = ModContent.GetInstance<ModUISystem>();
+					instance.ShowSubWorlds();
+				}
+				catch (Exception ex)
+				{
+					Main.NewText($"Error, please tell Spoky \n{ex}", new Color(255, 0, 255));
+				}
 				ArcaneOdysseyMod.NoticeQueue.Add("System not complete!");
 				// open odyssey system and ship shop
 			}

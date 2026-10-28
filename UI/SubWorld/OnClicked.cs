@@ -1,6 +1,8 @@
 ﻿using ArcaneOdyssey.Subworlds.Base;
-using System;
+using SubworldLibrary;
+using System.IO;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.UI;
 
 namespace ArcaneOdyssey.UI.SubWorld;
@@ -10,6 +12,17 @@ public partial class SubWorldUI : UIState
 	private void EnterButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
 	{
 		if (ChosenSubworld is null) return;
+
+		if (AOUtils.Singleplayer)
+		{
+			SubworldSystem.Enter(ChosenSubworld.FullName);
+		}
+		else
+		{
+			var packet = ArcaneOdysseyMod.Instance.NewPacket(PlayersSyncSubworld.Packet);
+			packet.Write(ChosenSubworld.OrderNum);
+			packet.Send();
+		}
 	}
 
 	#region Close button and Close method
@@ -63,4 +76,84 @@ public partial class SubWorldUI : UIState
 		}
 	}
 	#endregion
+}
+
+public class PlayersSyncSubworld : ModSystem
+{
+	public static byte Packet;
+	public static string current;
+	public override void Load()
+	{
+		ArcaneOdysseyMod.HandleExtraPacket += AllPlayersLeaveOrExit;
+		Packet = ArcaneOdysseyMod.PacketID.ExtraHandle++;
+	}
+
+	public override void NetSend(BinaryWriter writer)
+	{
+		writer.Write(current);
+	}
+
+	public override void NetReceive(BinaryReader reader)
+	{
+		current = reader.ReadString();
+	}
+
+	private static void AllPlayersLeaveOrExit(BinaryReader reader, int whoAmI, byte command)
+	{
+		if (command == Packet)
+		{
+			if (Main.dedServ)
+			{
+				var subworld = reader.ReadByte();
+				if (NetMessage.DoesPlayerSlotCountAsAHost(whoAmI))
+				{
+					current = AOSubworld.Get(subworld).FullName;
+					var packet = ArcaneOdysseyMod.Instance.NewPacket(Packet);
+					packet.Write(subworld);
+					packet.Send();
+				}
+				else
+				{
+					ChatHelper.SendChatMessageToClient(ArcaneOdysseyMod.Instance.CustomLocalization("UI.Subworld.AdminOnly").ToNetworkText(), Color.Red, whoAmI);
+				}
+			}
+			else
+			{
+				var subworld = reader.ReadByte();
+				if (subworld < byte.MaxValue)
+				{
+					current = AOSubworld.Get(subworld).FullName;
+					SubworldSystem.Enter(current);
+				}
+				else
+				{
+					SubworldSystem.Exit();
+				}
+			}
+		}
+	}
+
+	public override void PostUpdateEverything()
+	{
+		if (!AOUtils.ServerOrSingleplayer)
+		{
+			if (SubworldSystem.AnyActive() && SubworldSystem.Current is AOSubworld)
+			{
+				if (!current.IsNullOrWhiteSpace())
+				{
+					SubworldSystem.Enter(current);
+				}
+				else
+				{
+					SubworldSystem.Exit();
+				}
+			}
+		}
+	}
+
+	public override void Unload()
+	{
+		ArcaneOdysseyMod.HandleExtraPacket -= AllPlayersLeaveOrExit;
+		ArcaneOdysseyMod.PacketID.ExtraHandle--;
+	}
 }
