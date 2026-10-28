@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Projectiles.Base;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
 

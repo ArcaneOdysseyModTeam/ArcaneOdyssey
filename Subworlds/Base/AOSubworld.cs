@@ -120,8 +120,15 @@ namespace ArcaneOdyssey.Subworlds.Base
 			ArcaneOdysseyMod.Instance.CoolCustomLocalization($"{nameof(AOSubworld)}.ExitMessage", "Returning...");
 		}
 
-		public virtual LocalizedText Description => this.GetLocalization("Description");
+		public virtual LocalizedText Description => this.GetLocalization("Description", ToString);
 		public virtual LocalizedText UnlockCondition => this.GetLocalization("UnlockCondition", () => "No Conditions.");
+
+		public virtual bool ShowInUI => true;
+
+		public override string ToString()
+		{
+			return $"{{ {nameof(Name)}: {Name}, {nameof(Mod)}: {Mod.Name}, {nameof(Biome)}: {Biome.Name}, {nameof(ShowInUI)}: {ShowInUI}, {nameof(MenuStyle)}: {MenuStyle?.Name} }}";
+		}
 
 		/// <summary>
 		/// Gets a subworld by number

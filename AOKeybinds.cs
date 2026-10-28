@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using ArcaneOdyssey.Subworlds;
+using Microsoft.Xna.Framework.Input;
+using SubworldLibrary;
 
 namespace ArcaneOdyssey
 {
@@ -24,7 +26,6 @@ namespace ArcaneOdyssey
 			CycleGodSoul = KeybindLoader.RegisterKeybind(Mod, nameof(CycleGodSoul), "K");
 			CycleImbueAttack = KeybindLoader.RegisterKeybind(Mod, nameof(CycleImbueAttack), "Q");
 			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.LeftAlt);
-
 #if VSDEBUGMODE
 			GetTileCoordinate = KeybindLoader.RegisterKeybind(Mod, nameof(GetTileCoordinate), Keys.RightAlt);
 #endif
@@ -38,12 +39,9 @@ namespace ArcaneOdyssey
 			CycleGodSoul = null;
 			CycleImbueAttack = null;
 			AltSkillUse = null;
-
 #if VSDEBUGMODE
 			GetTileCoordinate = null;
-#endif
 		}
-
 		public override void PostUpdateEverything()
 		{
 			if (GetTileCoordinate.Current)
@@ -54,7 +52,16 @@ namespace ArcaneOdyssey
 				player.cursorItemIconID = -1;
 				player.cursorItemIconEnabled = true;
 				Dust.DrawDebugBox(new(Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).X.Round(), Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).Y.Round(), 16, 16));
+				if (SubworldSystem.IsActive<TalosSubworld>())
+					foreach (var rect in TalosSubworld.openRooms)
+					{
+						if (rect.Contains(Main.MouseWorld.ToTileCoordinates()))
+						{
+							player.cursorItemIconText += ", in spawning room";
+						}
+					}
 			}
+#endif
 		}
 	}
 }

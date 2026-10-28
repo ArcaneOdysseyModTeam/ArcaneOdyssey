@@ -18,7 +18,6 @@ using ArcaneOdyssey.Projectiles;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Terraria.Audio;
 using Terraria.GameContent;

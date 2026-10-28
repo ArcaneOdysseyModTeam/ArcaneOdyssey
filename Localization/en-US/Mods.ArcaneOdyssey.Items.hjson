@@ -457,7 +457,14 @@ Edgelord: {
 
 SealedChests: {
 	DarkSealedChest: {
-		DisplayName: Dark unsealed chest
+		DisplayName: Dark Unsealed Chest
 		Tooltip: ""
+	}
+}
+
+Pickups: {
+	ArgosKey: {
+		DisplayName: General's Key
+		Tooltip: A door opens somewhere inside the fortress...
 	}
 }

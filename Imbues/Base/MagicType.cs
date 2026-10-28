@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Skills.Base;
-using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;

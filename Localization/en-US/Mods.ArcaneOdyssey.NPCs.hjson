@@ -109,7 +109,10 @@ Bosses: {
 		SecondPhaseMessage: ENOUGH! It's time to start trying.
 	}
 
-	GeneralArgos.DisplayName: General Argos
+	GeneralArgos: {
+		DisplayName: General Argos
+		SpawnInfo: Find him inside his fortress, far out at sea...
+	}
 }
 
 RowboatNPC: {

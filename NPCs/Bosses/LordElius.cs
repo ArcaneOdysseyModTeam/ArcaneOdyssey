@@ -15,7 +15,6 @@ using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Projectiles.Enemies.Elius;
 using ArcaneOdysseyMusic;
 using System;
-using System.IO;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;

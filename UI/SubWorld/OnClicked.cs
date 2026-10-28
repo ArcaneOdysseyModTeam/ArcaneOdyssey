@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Subworlds.Base;
 using SubworldLibrary;
-using System.IO;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.UI;

@@ -1,6 +1,5 @@
 using SubworldLibrary;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey

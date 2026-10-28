@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
-using System.IO;
 
 namespace ArcaneOdyssey.Projectiles.Magic.Minions
 {

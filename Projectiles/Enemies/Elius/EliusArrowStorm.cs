@@ -2,7 +2,6 @@
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
-using System.IO;
 
 namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {

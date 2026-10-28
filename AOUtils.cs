@@ -17,7 +17,6 @@ using ArcaneOdyssey.Subworlds.Base;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -167,6 +166,8 @@ namespace ArcaneOdyssey
 		}
 
 		public static Point16 Point16(this Point pos) => new(pos);
+		public static Point OnePoint => new(1, 1);
+		public static Point16 OnePoint16 => new(1);
 
 		public static Point SpawnPos(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);
 		public static Point16 SpawnPos16(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);

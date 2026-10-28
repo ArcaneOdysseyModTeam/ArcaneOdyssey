@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.DamageClasses;
 using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.Skills.Base;
-using System.IO;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 

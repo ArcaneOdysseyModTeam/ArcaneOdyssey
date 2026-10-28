@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Scrolls

@@ -37,7 +37,7 @@ namespace ArcaneOdyssey.Tiles.Subworlds
 
 		public override bool CreateDust(int i, int j, ref int type) => false;
 
-		public static bool Open => ArgoSpawningAnimation.hasArgosKey && !AOUtils.BossAlive;
+		public static bool Open => ArgoSpawningSystem.hasArgosKey && !AOUtils.BossAlive;
 
 		public override void NearbyEffects(int i, int j, bool closer)
 		{

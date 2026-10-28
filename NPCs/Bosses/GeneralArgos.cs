@@ -3,7 +3,6 @@ using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Items.Weapons.RavennaLion;
 using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdysseyMusic;
-using System.IO;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -24,8 +23,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.damage = 0;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 25;
-			NPC.width = Player.defaultWidth;
-			NPC.height = Player.defaultHeight;
+			NPC.width = 26;
+			NPC.height = 50;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
@@ -43,13 +42,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private bool playedSound = false;
 		public override void AI()
 		{
-			if (ArgoSpawningAnimation.InProgress)
+			if (ArgoSpawningSystem.InProgress)
 			{
 				NPC.velocity.X = 0;
 				NPC.GravityMultiplier *= 5;
-				if (!playedSound && NPC.Distance(ArgoSpawningAnimation.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
+				if (!playedSound && NPC.Distance(ArgoSpawningSystem.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
 				{
-					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Bottom);
+					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
 					playedSound = true;
 				}
 			}
@@ -62,7 +61,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void OnKill()
 		{
 			DownedBosses.DownedArgos = true;
-			ArgoSpawningAnimation.hasArgosKey = false;
+			ArgoSpawningSystem.hasArgosKey = false;
 			if (Main.dedServ)
 			{
 				var packet = Mod.GetPacket();
@@ -89,7 +88,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 	}
 
-	public class ArgoSpawningAnimation : ModSystem
+	public class ArgoSpawningSystem : ModSystem
 	{
 		public static bool justStarted, hasArgosKey;
 		public static bool InProgress => timeLeft > 0;
@@ -160,6 +159,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 					NPC.SpawnBoss(argosArena.Center.X, argosArena.Center.Y, ModContent.NPCType<GeneralArgos>(), playerInAnimation);
 				}
+				else
+				{
+					Main.LocalPlayer.ChangeSpawn(argosArena.Left + (2 * Main.myPlayer), argosArena.Bottom - 2);
+					if (Main.myPlayer != playerInAnimation)
+					{
+						Main.LocalPlayer.SetToSpawnPosition();
+					}
+				}	
 			}
 		}
 

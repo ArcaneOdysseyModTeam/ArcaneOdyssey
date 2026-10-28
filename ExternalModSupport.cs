@@ -312,10 +312,33 @@ namespace ArcaneOdyssey
 				});
 			}
 
+			void ArgoStuff()
+			{
+				string internalName = nameof(GeneralArgos);
+				float weight = 3.5f; // before queen bee
+				Func<bool> downed = () => DownedBosses.DownedArgos;
+				int bossType = ModContent.NPCType<GeneralArgos>();
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Bosses.{internalName}.SpawnInfo"); 
+				
+				bossChecklist.Call(
+				"LogBoss",
+				Mod,
+				internalName,
+				weight,
+				downed,
+				bossType,
+				new Dictionary<string, object>()
+				{
+					["collectibles"] = new List<int> {  },
+					["spawnInfo"] = spawnInfo
+				});
+			}
+
 			EvanderStuff();
 			DuskStuff();
 			LaelusStuff();
 			EliusStuff();
+			ArgoStuff();
 
 			bossChecklist.Call("SubmitEntryCollectibles", Mod, new Dictionary<string, object>()
 			{

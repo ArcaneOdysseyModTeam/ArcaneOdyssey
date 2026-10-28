@@ -19,7 +19,8 @@ Bestiary: {
 	Dusk: Her true name and history are unknown. She wields a relic named the Staff of Night, which she presumably stole from one of her victims, allowing her to control her spirit energy and use it to attack and kill others.
 	Laelus: Laelus is a young thief from Ravenna who travels the lands. Somehow, he chanced upon a relic known as the Tidestone Band. Despite carrying a dagger he also stole, he refuses to use it out of foolishness, instead preferring to use weak spirit energy attacks.
 	LordElius: Lord Elius is a young man from a noble family in the Ravenna Realm. Despite his young age, he is talented in his usage of magic alongside his weapons.
-	ShipMaster: A master ship builder and pilot, who can create all manner of vessels to take you to faraway lands.
+	ShipMaster: A master ship builder and helmsman, who can create all manner of vessels to take you to faraway lands.
+	GeneralArgos: An old and powerful man, who in the past could rival some of the strongest beings from your land.
 }
 
 GodSouls: {
@@ -423,7 +424,7 @@ DamageClasses: {
 Subworlds: {
 	TalosSubworld: {
 		DisplayName: Fort Talos
-		Description: Mods.ArcaneOdyssey.Subworlds.TalosSubworld.Description
+		Description: The fortress of General Argos, an impregnable island far out at sea. You learned from Lord Elius of a way in, a secret passage into the dungeons below. But be careful, or you may face the army within...
 		UnlockCondition: No Conditions.
 	}
 }
