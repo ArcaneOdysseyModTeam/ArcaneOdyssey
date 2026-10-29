@@ -3,7 +3,6 @@ using SubworldLibrary;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ArcaneOdyssey.UI.SubWorld;
 

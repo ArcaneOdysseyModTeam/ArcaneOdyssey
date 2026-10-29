@@ -19,8 +19,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void SetDefaults()
 		{
+			// do not call base, music is applied later in ai
 			NPC.lifeMax = 3000;
-			NPC.damage = 0;
+			NPC.damage = 30;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 25;
 			NPC.width = 26;
@@ -31,6 +32,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.boss = true;
 			SpawnModBiomes = [AOUtils.BiomeType<TalosBiome>()];
 		}
+
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{

@@ -360,12 +360,23 @@ namespace ArcaneOdyssey
 		}
 
 		public static void Write(this BinaryWriter writer, float? num) => writer.Write(num.GetValueOrDefault(0f));
+		public static void Write(this BinaryWriter writer, byte? num) => writer.Write(num.GetValueOrDefault(byte.MaxValue));
 		public static void Write(this BinaryWriter writer, int? num) => writer.Write(num.GetValueOrDefault(0));
 		public static void Write(this BinaryWriter writer, uint? num) => writer.Write(num.GetValueOrDefault(0));
 		public static float? ReadNullableSingle(this BinaryReader reader)
 		{
 			var val = reader.ReadSingle();
 			if (val == 0f)
+			{
+				return null;
+			}
+			return val;
+		}
+
+		public static byte? ReadNullableByte(this BinaryReader reader)
+		{
+			var val = reader.ReadByte();
+			if (val == byte.MaxValue)
 			{
 				return null;
 			}
@@ -399,6 +410,23 @@ namespace ArcaneOdyssey
 			{
 				return vec;
 			}
+		}
+
+		public static int Normalize(this int i)
+		{
+			if (i > 0)
+				return 1;
+			if (i < 0)
+				return -1;
+			return 0;
+		}
+		public static float Normalize(this float i)
+		{
+			if (i > 0)
+				return 1;
+			if (i < 0)
+				return -1;
+			return 0;
 		}
 
 		public static byte GodSoulType<T>() where T : GodSoul => ModContent.GetInstance<T>().Type;

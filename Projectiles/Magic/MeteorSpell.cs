@@ -49,7 +49,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			{
 				if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
 				{
-					sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f, IsLooped = true }, Projectile.Center);
+					sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Projectile.Center);
 				}
 				else
 				{
