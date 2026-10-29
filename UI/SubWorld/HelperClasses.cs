@@ -19,12 +19,12 @@ public partial class SubWorldUI : UIState
 				return;
 			}
 
-			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, Subworld.MenuStyle?.BackgroundTexture ?? ModContent.Request<Texture2D>($"{Subworld.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad), Subworld.Description.Value);
+			main.AtEaseWithTheHarmonyIAm(this);
 		}
 
 		public SubWorldUI main { get; protected set; }
 
-		protected AOSubworld Subworld;
+		public AOSubworld Subworld { get; protected set; }
 
 		protected UIText Label = new("") { IgnoresMouseInteraction = true };
 

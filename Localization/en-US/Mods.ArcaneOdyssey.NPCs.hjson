@@ -120,3 +120,5 @@ RowboatNPC: {
 	BetterName: "{0}'s Rowboat"
 	AskToLeave: Using a boat is the only way to leave this place. Would you like to leave?
 }
+
+Enemy.TalosGuard.DisplayName: Talos Guard
