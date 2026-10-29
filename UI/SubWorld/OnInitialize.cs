@@ -15,6 +15,8 @@ public partial class SubWorldUI : UIState
 	/// </summary>
 	public UIPanel main = new();
 
+	protected UIText UnlockHint = new("") { IgnoresMouseInteraction = true };
+
 	#region Subworld options
 	public UIList SubworldOptions = [];
 	public UIScrollbar SubworldScroller = new();
@@ -190,6 +192,13 @@ public partial class SubWorldUI : UIState
 		EnterButton.Append(EnterText);
 		#endregion
 
+		#endregion
+
+		#region Others
+		UnlockHint.Width.Set(32, 0);
+		UnlockHint.Height.Set(32, 0);
+
+		Append(UnlockHint);
 		#endregion
 	}
 	protected void ReSetTitleImageSize()

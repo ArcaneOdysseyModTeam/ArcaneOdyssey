@@ -67,7 +67,6 @@ public partial class SubWorldUI : UIState
 			TitleImage.Color = new Color(60, 60, 60);
 			SetImage();
 
-			Main.NewText($"Condition: {harmony.UnlockCondition}");
 			TitleDescription.SetText(harmony.UnlockCondition);
 
 			DisableButton();

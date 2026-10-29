@@ -19,14 +19,15 @@ public partial class SubWorldUI : UIState
 				return;
 			}
 
-			main.AtEaseWithTheHarmonyIAm(this);
-		}
+			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, ModContent.Request<Texture2D>($"{Subworld.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad), Subworld.Description.Value);
+	}
 
 		public SubWorldUI main { get; protected set; }
 
 		public AOSubworld Subworld { get; protected set; }
 
-		protected UIText Label = new("") { IgnoresMouseInteraction = true };
+		protected UIText Label = new("") { IgnoresMouseInteraction = true },
+			UnlockHint;
 
 		public SubworldPicker(SubWorldUI main, AOSubworld subworld, Vector2 size, float top, int number) : base()
 		{
@@ -80,7 +81,37 @@ public partial class SubWorldUI : UIState
 			Label.Width.Set(Width.Pixels - (separation * 4f), 0f);
 			Label.Height.Set(Height.Pixels - (separation * 2), 0f);
 
+			if (!Subworld.MetConditions)
+			{
+				UnlockHint = new("") { IgnoresMouseInteraction = true };
+				UnlockHint.Width.Set(32, 0f);
+				UnlockHint.Height.Set(32, 0f);
+
+				Append(UnlockHint);
+			}
+
 			Recalculate();
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			if (!Subworld.MetConditions)
+			{
+				Main.NewText($"Didn't met conditions");
+				if (!IsMouseHovering)
+				{
+					Main.NewText($"Not hovering");
+					UnlockHint.SetText($"");
+				}
+				else
+				{
+					UnlockHint.SetText($"{Subworld.UnlockCondition}");
+					UnlockHint.Left.Set(Main.mouseX - 32, 0);
+					UnlockHint.Top.Set(Main.mouseY + 32, 0);
+					Recalculate();
+				}
+			}
+			else Main.NewText($"Met conditions");
 		}
 	}
 }

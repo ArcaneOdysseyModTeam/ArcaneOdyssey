@@ -33,6 +33,24 @@ public partial class SubWorldUI : UIState
 			#region Quality of Life thingies
 			if (main.IsMouseHovering) Player.mouseInterface = true;
 			#endregion
+
+			#region Handling Unlock Hint
+			bool found = false;
+			foreach (UIElement e in SubworldOptions)
+			{
+				if (e is SubworldPicker picker)
+				{
+					if (picker.Subworld.MetConditions || !picker.IsMouseHovering) continue;
+
+					if (!UnlockHint.Text.Equals(picker.Subworld.UnlockCondition)) UnlockHint.SetText($"{picker.Subworld.UnlockCondition}");
+					UnlockHint.Left.Set(Main.mouseX - 32, 0);
+					UnlockHint.Top.Set(Main.mouseY + 32, 0);
+					found = true;
+				}
+				else Main.NewText($"e is not subworldPicker, is {e.GetType()}");
+			}
+			if (!found) UnlockHint.SetText($"");
+			#endregion
 		}
 		catch (Exception ex)
 		{
