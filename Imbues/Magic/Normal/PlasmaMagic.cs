@@ -3,6 +3,7 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
+using ArcaneOdyssey.MagicVariants.Normal.Plasma;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
@@ -23,7 +24,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = false; }
 		public override SoundStyle? ImbueSound => SoundID.Item91;
-		public override Color ImbueColour => new Color(255, 100, 255, 255);
+		public override Color ImbueColour => new(255, 100, 255);
 		public override bool CanBeWet => false;
 
 
@@ -32,7 +33,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			base.Load();
 			ID = ImbueID.Plasma;
 		}
-
 
 		public override float ScrollSpeed => 1.2f;
 		public override float ScrollSize => 1f;
@@ -77,29 +77,29 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.PinkTorch, direction.X * 0.4f, direction.Y * 0.4f, Scale: area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, direction.X * 0.4f, direction.Y * 0.4f, Scale: area.RelativeScale(), newColor: Colour);
 			}
 		}
 
 		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.PinkTorch, Scale: 2f * area.RelativeScale())];
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, Scale: 2f * area.RelativeScale(), newColor: Colour)];
 			spawnedDust.noGravity = true;
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.ShadowbeamStaff, Scale: 2f * area.RelativeScale())];
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, magicVariant is NovaVariant ? DustID.TeleportationPotion : DustID.ShadowbeamStaff, Scale: 2f * area.RelativeScale())];
 			spawnedDust2.noGravity = true;
 		}
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDustDirect(position, 0, 0, DustID.Firework_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity).noGravity = true;
+				Dust.NewDustDirect(position, 0, 0, magicVariant is NovaVariant ? DustID.Firework_Red : DustID.Firework_Pink, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity).noGravity = true;
 			}
 		}
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.ShadowbeamStaff, 5f * (Main.rand.NextFloat() - 0.5f), 5f * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, magicVariant is NovaVariant ? DustID.TeleportationPotion : DustID.ShadowbeamStaff, 5f * (Main.rand.NextFloat() - 0.5f), 5f * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}

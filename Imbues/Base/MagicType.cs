@@ -4,7 +4,6 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Skills.Base;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
