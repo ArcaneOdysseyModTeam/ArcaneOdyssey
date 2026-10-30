@@ -63,8 +63,6 @@ public partial class SubWorldUI : UIState
 			SoundEngine.PlaySound(SoundID.MenuOpen);
 			if (!ChosenSubworld.MetConditions)
 			{
-				SoundEngine.PlaySound(SoundID.MenuOpen, Player.position);
-
 				TitleSelection.SetText("? ? ?");
 
 				TitleImage.Color = new Color(60, 60, 60);
