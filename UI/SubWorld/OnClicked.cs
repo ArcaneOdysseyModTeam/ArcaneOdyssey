@@ -48,7 +48,7 @@ public partial class SubWorldUI : UIState
 
 		if (ChosenSubworld == null)
 		{
-			SoundEngine.PlaySound(SoundID.MenuClose, Player.position);
+			SoundEngine.PlaySound(SoundID.MenuClose);
 
 			TitleSelection.SetText($"");
 			TitleImage.Color = new Color(0, 0, 0, 0);
@@ -58,38 +58,41 @@ public partial class SubWorldUI : UIState
 			EnterButton.IgnoresMouseInteraction = true;
 			EnterButton.BackgroundColor = new(50, 70, 130);
 		}
-		else if (!ChosenSubworld.MetConditions)
-		{
-			SoundEngine.PlaySound(SoundID.MenuOpen, Player.position);
-
-			TitleSelection.SetText("? ? ?");
-
-			TitleImage.Color = new Color(60, 60, 60);
-			SetImage();
-
-			TitleDescription.SetText(harmony.UnlockCondition);
-
-			DisableButton();
-		}
 		else
 		{
-			SoundEngine.PlaySound(SoundID.MenuOpen, Player.position);
+			SoundEngine.PlaySound(SoundID.MenuOpen);
+			if (!ChosenSubworld.MetConditions)
+			{
+				SoundEngine.PlaySound(SoundID.MenuOpen, Player.position);
 
-			TitleSelection.SetText(harmony.DisplayName);
+				TitleSelection.SetText("? ? ?");
 
-			TitleImage.Color = Color.White;
-			SetImage();
+				TitleImage.Color = new Color(60, 60, 60);
+				SetImage();
 
-			TitleDescription.SetText(harmony.Description);
+				TitleDescription.SetText(harmony.UnlockCondition);
 
-			EnterText.SetText(Language.GetText("Mods.ArcaneOdyssey.UI.Subworld.Enter"));
-			EnterButton.IgnoresMouseInteraction = false;
-			EnterButton.BackgroundColor = new(73, 94, 171);
+				DisableButton();
+			}
+			else
+			{
+
+				TitleSelection.SetText(harmony.DisplayName);
+
+				TitleImage.Color = Color.White;
+				SetImage();
+
+				TitleDescription.SetText(harmony.Description);
+
+				EnterText.SetText(Language.GetText("Mods.ArcaneOdyssey.UI.Subworld.Enter"));
+				EnterButton.IgnoresMouseInteraction = false;
+				EnterButton.BackgroundColor = new(73, 94, 171);
+			}
 		}
 
 		void SetImage()
 		{
-			TitleImage.SetImage(ModContent.Request<Texture2D>($"{harmony.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad));
+			TitleImage.SetImage(harmony.MenuStyle?.BackgroundTexture ?? ModContent.Request<Texture2D>($"{harmony.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad));
 			ReSetTitleImageSize();
 		}
 
