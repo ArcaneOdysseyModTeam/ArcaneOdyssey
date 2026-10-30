@@ -2,7 +2,7 @@
 {
 	public abstract class GelBuff : BaseBuff
 	{
-		public const int meleeEnchantID = 99;
+		public const int meleeEnchantID = 167;
 
 		public override void SetStaticDefaults()
 		{

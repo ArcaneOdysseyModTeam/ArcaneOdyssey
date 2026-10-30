@@ -1491,12 +1491,15 @@ namespace ArcaneOdyssey
 		public static Rectangle ToRectangle(this Vector2 vec, Vector2 size) => new(vec.X.Round(), vec.Y.Round(), size.X.Round(), size.Y.Round());
 		public static Rectangle ToRectangle(this Vector2 vec, Point size) => new(vec.X.Round(), vec.Y.Round(), size.X, size.Y);
 		public static Rectangle ToRectangle(this Vector2 vec, Point16 size) => new(vec.X.Round(), vec.Y.Round(), size.X, size.Y);
+		public static Rectangle ToRectangle(this Vector2 vec, int x, int y) => new(vec.X.Round(), vec.Y.Round(), x, y);
 		public static Rectangle ToRectangle(this Point vec, Vector2 size) => new(vec.X, vec.Y, size.X.Round(), size.Y.Round());
 		public static Rectangle ToRectangle(this Point vec, Point size) => new(vec.X, vec.Y, size.X, size.Y);
 		public static Rectangle ToRectangle(this Point vec, Point16 size) => new(vec.X, vec.Y, size.X, size.Y);
+		public static Rectangle ToRectangle(this Point vec, int x, int y) => new(vec.X, vec.Y, x, y);
 		public static Rectangle ToRectangle(this Point16 vec, Vector2 size) => new(vec.X, vec.Y, size.X.Round(), size.Y.Round());
 		public static Rectangle ToRectangle(this Point16 vec, Point size) => new(vec.X, vec.Y, size.X, size.Y);
 		public static Rectangle ToRectangle(this Point16 vec, Point16 size) => new(vec.X, vec.Y, size.X, size.Y);
+		public static Rectangle ToRectangle(this Point16 vec, int x, int y) => new(vec.X, vec.Y, x, y);
 
 		public static bool OnScreen(this Rectangle Hitbox) => Hitbox.Intersects(ScreenRect);
 

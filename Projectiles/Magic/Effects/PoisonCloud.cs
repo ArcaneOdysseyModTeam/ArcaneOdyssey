@@ -35,7 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 120;
-			Projectile.DamageType = DamageClass.Generic;
+			Projectile.DamageType = DamageClass.Magic;
 			Projectile.rotation = Main.rand.NextFloat(-MathHelper.TwoPi, MathHelper.TwoPi);
 			Projectile.noEnchantmentVisuals = true;
 		}
@@ -45,6 +45,17 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Projectile.Opacity = .5f * ((Projectile.timeLeft + 1) / 120f);
 			Projectile.rotation += MathHelper.PiOver4 / 60f * Math.Sign(Projectile.rotation);
 			Projectile.velocity = Projectile.rotation.ToRotationVector2() * .75f;
+		}
+
+		public override bool CanHaveImbueVFX => false;
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			if (Imbue is not null)
+			{
+				lightColor = lightColor.MultiplyRGB(Imbue.Colour);
+			}
+			return base.PreDraw(ref lightColor);
 		}
 	}
 }

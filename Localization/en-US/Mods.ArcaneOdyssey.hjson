@@ -435,3 +435,45 @@ AOSubworld: {
 	EnterMessage: Traveling to {0}...
 	ExitMessage: Returning...
 }
+
+MagicVariants: {
+	BeholdingVariant.DisplayName: Beholding Variant
+	UnstableVariant.DisplayName: Unstable Variant
+	CirrusVariant.DisplayName: Cirrus Variant
+	StratusVariant.DisplayName: Stratus Variant
+	AbyssalVariant.DisplayName: Abyssal Variant
+	DevouringVariant.DisplayName: Devouring Variant
+	ResplendentVariant.DisplayName: Resplendent Variant
+	SkyLordVariant.DisplayName: Sky Lord Variant
+	WarPhoenixVariant.DisplayName: War Phoenix Variant
+	HemolysisVariant.DisplayName: Hemolysis Variant
+	NeurotoxinVariant.DisplayName: Neurotoxin Variant
+	EclipsedVariant.DisplayName: Eclipsed Variant
+	ProminentVariant.DisplayName: Prominent Variant
+	CorrosiveVariant.DisplayName: Corrosive Variant
+	MeltingVariant.DisplayName: Melting Variant
+	AmethystVariant.DisplayName: Amethyst Variant
+	EmeraldVariant.DisplayName: Emerald Variant
+	RubyVariant.DisplayName: Ruby Variant
+	SapphireVariant.DisplayName: Sapphire Variant
+	MoonlightVariant.DisplayName: Moonlight Variant
+	StarlightVariant.DisplayName: Starlight Variant
+	BlindingVariant.DisplayName: Blinding Variant
+	EnergeticVariant.DisplayName: Energetic Variant
+	NobleVariant.DisplayName: Noble Variant
+	BronzeVariant.DisplayName: Bronze Variant
+	GoldVariant.DisplayName: Gold Variant
+	LeadVariant.DisplayName: Lead Variant
+	SilverVariant.DisplayName: Silver Variant
+	GammaVariant.DisplayName: Gamma Variant
+	NovaVariant.DisplayName: Nova Variant
+	ToxinVariant.DisplayName: Toxin Variant
+	VenomVariant.DisplayName: Venom Variant
+	CorruptVariant.DisplayName: Corrupt Variant
+	CrimsonVariant.DisplayName: Crimson Variant
+	PureVariant.DisplayName: Pure Variant
+	DesertVariant.DisplayName: Desert Variant
+	LakeVariant.DisplayName: Lake Variant
+	OasisVariant.DisplayName: Oasis Variant
+	ForestVariant.DisplayName: Forest Variant
+}

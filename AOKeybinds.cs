@@ -1,4 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Input;
+#if VSDEBUGMODE
+using ArcaneOdyssey.Subworlds;
+using SubworldLibrary;
+#endif
 
 namespace ArcaneOdyssey
 {

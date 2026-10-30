@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Biomes;
+﻿using ArcaneOdyssey.AOPlayers;
+using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
@@ -407,10 +408,6 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			thisProjectile = projectile;
 			Update(projectile);
-			if (!Main.dedServ && projectile.TryGetOwner(out var player) && player.meleeEnchant == GelBuff.meleeEnchantID && !(projectile.noEnchantments || projectile.noEnchantmentVisuals) && (projectile.DamageType.CountsAsClass(DamageClass.Melee) || projectile.DamageType == DamageClass.SummonMeleeSpeed))
-			{
-				player.ArcaneOdyssey()?.Gel?.Effects(projectile.Hitbox);
-			}
 			if (!CanBeAffected)
 				return;
 			if (Imbue is not null && Imbuable.PreEffects(projectile))
@@ -461,6 +458,19 @@ namespace ArcaneOdyssey.GlobalTypes
 		{
 			On_Projectile.Damage_GetHitbox += DrawDebugHitboxes;
 			On_Projectile.Kill += DontKillPiercingShot;
+			On_Projectile.EmitEnchantmentVisualsAt += GelEffects;
+		}
+
+		private static void GelEffects(On_Projectile.orig_EmitEnchantmentVisualsAt orig, Projectile self, Vector2 boxPosition, int boxWidth, int boxHeight)
+		{
+			if (!Main.dedServ && self.TryGetOwner(out var player) && player.meleeEnchant == GelBuff.meleeEnchantID)
+			{
+				if (!self.noEnchantments && (self.DamageType.CountsAsClass(DamageClass.Melee) || ProjectileID.Sets.IsAWhip[self.type]))
+				{
+					player.ArcaneOdyssey()?.Gel?.Effects(boxPosition.ToRectangle(boxWidth, boxHeight));
+				}
+			}
+			orig(self, boxPosition, boxWidth, boxHeight);
 		}
 
 		private static Rectangle DrawDebugHitboxes(On_Projectile.orig_Damage_GetHitbox orig, Projectile self)
@@ -471,12 +481,6 @@ namespace ArcaneOdyssey.GlobalTypes
 				Dust.DrawDebugBox(box);
 			}
 			return box;
-		}
-
-		public override void Unload()
-		{
-			On_Projectile.Damage_GetHitbox -= DrawDebugHitboxes;
-			On_Projectile.Kill -= DontKillPiercingShot;
 		}
 	}
 

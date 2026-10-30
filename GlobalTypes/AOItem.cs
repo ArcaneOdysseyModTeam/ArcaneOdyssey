@@ -650,11 +650,6 @@ namespace ArcaneOdyssey.GlobalTypes
 			On_Item.RebuildTooltip += SetWoodWandDefault;
 		}
 
-		public override void Unload()
-		{
-			On_Item.RebuildTooltip -= SetWoodWandDefault;
-		}
-
 		private float? scale = null;
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
@@ -941,7 +936,7 @@ namespace ArcaneOdyssey.GlobalTypes
 				SecondImbue.LingeringEffects(hitbox, Vector2.Zero, item);
 			}
 
-			if (Main.netMode == NetmodeID.MultiplayerClient)
+			if (!AOUtils.ServerOrSingleplayer)
 			{
 				var packet = Mod.GetPacket();
 				packet.Write(ArcaneOdysseyMod.PacketID.LingeringVisuals);
