@@ -94,9 +94,11 @@ public partial class SubWorldUI : UIState
 		for (int i = 0; i < AOSubworld.ALLSUBWORLDS.Length; i++)
 		{
 			var world = AOSubworld.ALLSUBWORLDS[i];
-
-			var choice = new SubworldPicker(this, world, new(SubworldOptions.Width.Pixels - SubworldScroller.Width.Pixels, 32), top, i);
-			SubworldOptions.Add(choice);
+			if (world.ShowInUI)
+			{
+				var choice = new SubworldPicker(this, world, new(SubworldOptions.Width.Pixels - SubworldScroller.Width.Pixels, 32), top, i);
+				SubworldOptions.Add(choice);
+			}
 		}
 
 		main.Append(SubworldOptions);

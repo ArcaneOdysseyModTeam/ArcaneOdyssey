@@ -11,6 +11,7 @@ namespace ArcaneOdyssey.Tiles.Bronze
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileObsidianKill[Type] = true;
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.newTile.LavaDeath = false;
