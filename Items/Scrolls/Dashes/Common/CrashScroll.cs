@@ -114,7 +114,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Dashes.Common
 				{
 					if (!sound.HasValue || !SoundEngine.TryGetActiveSound(sound.Value, out var activeSound))
 					{
-						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f, IsLooped = true }, player.Center);
+						sound = SoundEngine.PlaySound(SoundID.DD2_BookStaffTwisterLoop with { Pitch = .25f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
 					}
 					else
 					{

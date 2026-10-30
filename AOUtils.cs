@@ -17,7 +17,6 @@ using ArcaneOdyssey.Subworlds.Base;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -81,6 +80,13 @@ namespace ArcaneOdyssey
 			"Terraria/Material",
 			"Terraria/Tooltip",
 		];
+
+		public static ModPacket NewPacket(this Mod mod, byte command)
+		{
+			var packet = mod.GetPacket();
+			packet.Write(command);
+			return packet;
+		}
 
 		public static bool InAOSubworld => SubworldSystem.Current is AOSubworld;
 
@@ -160,6 +166,8 @@ namespace ArcaneOdyssey
 		}
 
 		public static Point16 Point16(this Point pos) => new(pos);
+		public static Point OnePoint => new(1, 1);
+		public static Point16 OnePoint16 => new(1);
 
 		public static Point SpawnPos(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);
 		public static Point16 SpawnPos16(this Player player) => new(player.SpawnX != -1 ? player.SpawnX : Main.spawnTileX, player.SpawnY != -1 ? player.SpawnY : Main.spawnTileY);
@@ -352,12 +360,23 @@ namespace ArcaneOdyssey
 		}
 
 		public static void Write(this BinaryWriter writer, float? num) => writer.Write(num.GetValueOrDefault(0f));
+		public static void Write(this BinaryWriter writer, byte? num) => writer.Write(num.GetValueOrDefault(byte.MaxValue));
 		public static void Write(this BinaryWriter writer, int? num) => writer.Write(num.GetValueOrDefault(0));
 		public static void Write(this BinaryWriter writer, uint? num) => writer.Write(num.GetValueOrDefault(0));
 		public static float? ReadNullableSingle(this BinaryReader reader)
 		{
 			var val = reader.ReadSingle();
 			if (val == 0f)
+			{
+				return null;
+			}
+			return val;
+		}
+
+		public static byte? ReadNullableByte(this BinaryReader reader)
+		{
+			var val = reader.ReadByte();
+			if (val == byte.MaxValue)
 			{
 				return null;
 			}
@@ -391,6 +410,23 @@ namespace ArcaneOdyssey
 			{
 				return vec;
 			}
+		}
+
+		public static int Normalize(this int i)
+		{
+			if (i > 0)
+				return 1;
+			if (i < 0)
+				return -1;
+			return 0;
+		}
+		public static float Normalize(this float i)
+		{
+			if (i > 0)
+				return 1;
+			if (i < 0)
+				return -1;
+			return 0;
 		}
 
 		public static byte GodSoulType<T>() where T : GodSoul => ModContent.GetInstance<T>().Type;
@@ -1436,6 +1472,7 @@ namespace ArcaneOdyssey
 		}
 
 		public static bool ServerOrSingleplayer => Main.netMode != NetmodeID.MultiplayerClient;
+		public static bool Singleplayer => Main.netMode == NetmodeID.SinglePlayer;
 
 		public static bool AltUse(this Player player) => player.altFunctionUse == 2;
 

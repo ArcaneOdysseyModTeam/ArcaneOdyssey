@@ -5,7 +5,6 @@ using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ArcaneOdyssey.Projectiles.Magic;
-using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.CameraModifiers;

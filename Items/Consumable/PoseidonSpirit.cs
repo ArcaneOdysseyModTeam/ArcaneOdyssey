@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.UI;
 using System;
-using System.IO;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey.Items.Consumable;

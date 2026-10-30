@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Items.Scrolls.Attacks.Common;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 

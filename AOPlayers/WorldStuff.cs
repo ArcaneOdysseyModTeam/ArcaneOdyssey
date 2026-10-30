@@ -94,16 +94,16 @@ namespace ArcaneOdyssey.AOPlayers
 			Player.canFloatInWater = false;
 			Player.wingsLogic = 0;
 			Player.wings = 0;
-			Player.mount.Dismount(Player);
+			Player.mount?.Dismount(Player);
 			Player.RemoveAllGrapplingHooks();
 
-			if (SubworldSystem.Current is TalosSubworld && Main.myPlayer == Player.whoAmI)
+			if (SubworldSystem.Current is TalosSubworld && ArgoSpawningSystem.hasArgosKey && Main.myPlayer == Player.whoAmI)
 			{
-				if (ArgoSpawningAnimation.argosArena.Bottom().Distance(Player.Bottom) < 16f)
+				if (ArgoSpawningSystem.argosArena.Bottom().Distance(Player.Bottom) < 16f)
 				{
-					if (!ArgoSpawningAnimation.InProgress && !AOUtils.BossAlive)
+					if (!ArgoSpawningSystem.InProgress && !AOUtils.BossAlive)
 					{
-						ArgoSpawningAnimation.StartAnimation(Main.myPlayer);
+						ArgoSpawningSystem.StartAnimation(Main.myPlayer);
 					}
 				}
 			}
@@ -122,6 +122,23 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (AOUtils.InAOSubworld)
 			{
+				if (Main.dayTime)
+				{
+					Main.time += Main.dayRate;
+					if (Main.time > Main.dayLength)
+					{
+						Main.dayTime = false;
+					}
+				}
+				else
+				{
+					Main.time += Main.dayRate;
+					if (Main.time > Main.nightLength)
+					{
+						Main.dayTime = true;
+					}
+				}
+
 				// Update mechanisms
 				Wiring.UpdateMech();
 

@@ -1,5 +1,5 @@
+using SubworldLibrary;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.ModLoader.IO;
 
 namespace ArcaneOdyssey
@@ -198,19 +198,21 @@ namespace ArcaneOdyssey
 
 		public static void ResetDefaults()
 		{
-			_downedEvander = false;
-			_downedDusk = false;
-			_downedLaelus = false;
-			_downedCrone = false;
-			_downedDelamere = false;
-			_downedElius = false;
-			_downedAllanon = false;
-			_downedArgos = false;
-			_downedCalvus = false;
-
-			DownedBrain = false;
-			DownedWorldEater = false;
-			DownedEnragedEmpress = false;
+			if (!SubworldSystem.AnyActive())
+			{
+				_downedEvander = false;
+				_downedDusk = false;
+				_downedLaelus = false;
+				_downedCrone = false;
+				_downedDelamere = false;
+				_downedElius = false;
+				_downedAllanon = false;
+				_downedArgos = false;
+				_downedCalvus = false;
+				_downedBrain = false;
+				_downedWorldEater = false;
+				_downedEnragedEmpress = false;
+			}
 		}
 
 		public override void OnWorldLoad() => ResetDefaults();

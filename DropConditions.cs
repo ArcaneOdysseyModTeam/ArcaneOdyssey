@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.NPCs.Bosses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,6 +116,15 @@ namespace ArcaneOdyssey
 		public bool CanShowItemDropInUI() => true;
 
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.KilledABossDescription", () => "Defeated at least one strong foe").Value;
+	}
+
+	public class ArgosKeyDrop : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => !ArgoSpawningSystem.hasArgosKey;
+
+		public bool CanShowItemDropInUI() => true;
+
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.ArgosKeyDropDescription", () => "Does not already have a key").Value;
 	}
 
 	public class MultiDropHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)

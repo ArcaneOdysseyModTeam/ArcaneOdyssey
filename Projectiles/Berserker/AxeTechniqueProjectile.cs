@@ -1,6 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Projectiles.Base;
-using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
 

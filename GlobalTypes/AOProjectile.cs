@@ -7,7 +7,6 @@ using ArcaneOdyssey.Items.Debug;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
-using System.IO;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;

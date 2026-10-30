@@ -5,7 +5,6 @@ using ArcaneOdyssey.Projectiles.Magic;
 using ArcaneOdyssey.Projectiles.Relics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;

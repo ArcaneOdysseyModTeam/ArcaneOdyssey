@@ -1,7 +1,11 @@
-﻿using ArcaneOdyssey.NPCs.Base;
+﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Items.Materials;
+using ArcaneOdyssey.Items.Weapons.RavennaLion;
+using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdysseyMusic;
-using System.IO;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 
 namespace ArcaneOdyssey.NPCs.Bosses
 {
@@ -15,16 +19,25 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void SetDefaults()
 		{
+			// do not call base, music is applied later in ai
 			NPC.lifeMax = 3000;
-			NPC.damage = 0;
+			NPC.damage = 30;
 			NPC.knockBackResist = 0f;
 			NPC.defense = 25;
-			NPC.width = Player.defaultWidth;
-			NPC.height = Player.defaultHeight;
+			NPC.width = 26;
+			NPC.height = 50;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
 			NPC.boss = true;
+			SpawnModBiomes = [AOUtils.BiomeType<TalosBiome>()];
+		}
+
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}"));
 		}
 
 		public override MusicTrack Theme => MusicTrack.Argos;
@@ -32,13 +45,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private bool playedSound = false;
 		public override void AI()
 		{
-			if (ArgoSpawningAnimation.InProgress)
+			if (ArgoSpawningSystem.InProgress)
 			{
 				NPC.velocity.X = 0;
 				NPC.GravityMultiplier *= 5;
-				if (!playedSound && NPC.Distance(ArgoSpawningAnimation.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
+				if (!playedSound && NPC.Distance(ArgoSpawningSystem.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
 				{
-					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Bottom);
+					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
 					playedSound = true;
 				}
 			}
@@ -50,18 +63,40 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override void OnKill()
 		{
+			DownedBosses.DownedArgos = true;
+			ArgoSpawningSystem.hasArgosKey = false;
+			if (Main.dedServ)
+			{
+				var packet = Mod.GetPacket();
+				packet.Write(ArcaneOdysseyMod.PacketID.MarkGlobalDowned);
+				packet.Write(Type);
+				packet.Send();
+			}
+			else
+			{
+				GlobalData.MarkDefeated(this);
+			}
+		}
 
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			LeadingConditionRule leadingConditionRule1 = new(new Conditions.NotExpert());
+			leadingConditionRule1.OnSuccess(new AnyDropHelper([
+					ModContent.ItemType<LanceofLoyalty>(),
+					ModContent.ItemType<LionsHalberd>(),
+					], 4));
+			leadingConditionRule1.OnSuccess(new CommonDrop(ModContent.ItemType<BronzeBar>(), 1, 30, 45));
+			npcLoot.Add(leadingConditionRule1);
+			// add boss bag later
 		}
 	}
 
-	public class ArgoSpawningAnimation : ModSystem
+	public class ArgoSpawningSystem : ModSystem
 	{
 		public static bool justStarted, hasArgosKey;
 		public static bool InProgress => timeLeft > 0;
-		public static int playerInAnimation;
+		public static int playerInAnimation, timeLeft;
 		public static Rectangle argosArena => new Rectangle(855, 119, 148, 34).ToWorldRect();
-
-		public static float timeLeft;
 
 		public override void NetSend(BinaryWriter writer)
 		{
@@ -127,6 +162,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 					NPC.SpawnBoss(argosArena.Center.X, argosArena.Center.Y, ModContent.NPCType<GeneralArgos>(), playerInAnimation);
 				}
+				else
+				{
+					Main.LocalPlayer.ChangeSpawn(argosArena.Left + (2 * Main.myPlayer), argosArena.Bottom - 2);
+					if (Main.myPlayer != playerInAnimation)
+					{
+						Main.LocalPlayer.SetToSpawnPosition();
+					}
+				}	
 			}
 		}
 
@@ -136,7 +179,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			ArcaneOdysseyMod.PacketID.ExtraHandle--;
 		}
 
-		private static float ogZoom;
+		private static float ogZoom = 1f;
 
 		public override void PreUpdatePlayers()
 		{
@@ -144,6 +187,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!Main.dedServ)
 				{
+					Main.CloseNPCChatOrSign();
+					Main.ClosePlayerChat();
 					for (int i = 0; i < Main.musicFade.Length; i++)
 					{
 						Main.musicFade[i] = 0;

@@ -3,7 +3,6 @@ using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 

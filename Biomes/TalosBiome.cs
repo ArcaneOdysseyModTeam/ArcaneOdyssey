@@ -7,7 +7,6 @@ namespace ArcaneOdyssey.Biomes
 {
 	public class TalosBiome : BaseBiome
 	{
-		public override string Texture => AOUtils.GetTexture<EliusArena>();
 		public override int Music => MusicTrack.Argos.MusicSlot; // change to talos theme
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
@@ -21,18 +20,6 @@ namespace ArcaneOdyssey.Biomes
 			return false;
 		}
 
-		public override void Load()
-		{
-			On_Main.RenderBackground += SubworldDisableBackground;
-		}
-
-		private static void SubworldDisableBackground(On_Main.orig_RenderBackground orig, Main self)
-		{
-			if (AOUtils.InAOSubworld)
-			{
-				return;
-			}
-			orig(self);
-		}
+		public override bool MapBackgroundFullbright => true;
 	}
 }

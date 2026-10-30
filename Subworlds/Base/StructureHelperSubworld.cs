@@ -36,6 +36,21 @@ namespace ArcaneOdyssey.Subworlds.Base
 				{
 					AOUtils.SetWorldSpawn(subworld.SpawnLocation.Point16() + new Point16(WorldBorderOutbounds));
 				}
+
+				for (int x = 0; x < Main.maxTilesX; x++)
+				{
+					for (int y = 0; y < Main.maxTilesY; y++)
+					{
+						if (WorldGen.InWorld(x, y) && !WorldGen.InWorld(x, y, WorldBorderOutbounds))
+						{
+							var tile = AOUtils.GetTile(x, y);
+							if (!tile.HasTile)
+							{
+								WorldGen.PlaceTile(x, y, TileID.Stone);
+							}
+						}
+					}
+				}
 			}
 		}
 	}

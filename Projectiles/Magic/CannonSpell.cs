@@ -3,7 +3,6 @@ using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.Graphics.CameraModifiers;
 
 namespace ArcaneOdyssey.Projectiles.Magic

@@ -3,6 +3,7 @@ using ArcaneOdyssey.UI.ImbueAcquiringSequel;
 using ArcaneOdyssey.UI.ImbueChange;
 using ArcaneOdyssey.UI.MutateThyMagic;
 using ArcaneOdyssey.UI.ReadingSimulator;
+using ArcaneOdyssey.UI.SubWorld;
 using System.Collections.Generic;
 using Terraria.UI;
 
@@ -14,6 +15,7 @@ namespace ArcaneOdyssey.UI;
 [Autoload(Side = ModSide.Client)]
 public class ModUISystem : ModSystem
 {
+	#region Imbue things
 	private UserInterface _ImbueAcquire;
 	internal ImbueAcquireUI imbueAcquireUI;
 
@@ -25,9 +27,17 @@ public class ModUISystem : ModSystem
 
 	private UserInterface _MutateThyMagic;
 	internal MutateThyMagicUI mutateThyMagicUI;
+	#endregion
 
+	#region Guide Book
 	private UserInterface _ReadingSimulator;
 	internal ReadingSimulatorUI readingSimulatorUI;
+	#endregion
+
+	#region SubWorld
+	private UserInterface _SubWorld;
+	internal SubWorldUI subWorldUI;
+	#endregion
 
 	private GameTime _prevTime;
 
@@ -82,6 +92,17 @@ public class ModUISystem : ModSystem
 	}
 	#endregion
 
+	#region SubWorld
+	public void ShowSubWorlds()
+	{
+		subWorldUI = new();
+		subWorldUI.Initialize();
+		_SubWorld = new();
+		_SubWorld?.SetState(subWorldUI);
+		subWorldUI.Activate();
+	}
+	#endregion
+
 	#endregion
 
 	#region Hide
@@ -117,6 +138,14 @@ public class ModUISystem : ModSystem
 	}
 	#endregion
 
+	#region SubWorld
+	public void HideSubWorld()
+	{
+		_SubWorld?.SetState(null);
+		subWorldUI.Deactivate();
+	}
+	#endregion
+
 	#endregion
 
 	// Spoky (2026 February 20): Turns out load method is unnecessary, cool? If something breaks maybe load method was needed
@@ -145,8 +174,7 @@ public class ModUISystem : ModSystem
 	{
 		_prevTime = gameTime;
 
-		List<UserInterface> interfaces = [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange, _MutateThyMagic, _ReadingSimulator];
-		foreach (var i in interfaces) i?.Update(gameTime);
+		foreach (var i in GetUIs()) i?.Update(gameTime);
 	}
 
 
@@ -169,21 +197,27 @@ public class ModUISystem : ModSystem
 	public bool CanShowReadingSimulator() => _prevTime is not null && _ReadingSimulator?.CurrentState is not null;
 	#endregion
 
+	#region Subworlds
+	public bool CanShowSubWorlds() => _prevTime is not null && _SubWorld?.CurrentState is not null;
 	#endregion
 
+	#endregion
+
+	// Spoky 2026 Oct 25: Reason I changed this to a method instead of creating variables inside the methods was because I lost half an hour figuring out why Subworld wasn't running update, only to realize that I forgot to add it to update aswell when I added it to ModifyInterfaceLayers; fun
+	protected UserInterface[] GetUIs() => [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange, _MutateThyMagic, _ReadingSimulator, _SubWorld];
 	public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 	{
 		int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
 
 		if (index is -1) return;
 
-		string[] names = ["ImbueAcquireUI", "ImbueAcquireSequelUI", "ImbueChangeUI", "MutateThyFleshUI", "ReadingSimulatorUI"];
-		bool[] canShows = [CanShowImbueAcquire(), CanShowImbueSequelAcquire(), CanShowImbueChange(), CanShowMutations(), CanShowReadingSimulator()];
-		UserInterface[] uis = [_ImbueAcquire, _ImbueAcquireSequel, _ImbueChange, _MutateThyMagic, _ReadingSimulator];
+		string[] names = ["ImbueAcquireUI", "ImbueAcquireSequelUI", "ImbueChangeUI", "MutateThyFleshUI", "ReadingSimulatorUI", "SubWorldUI"];
+		bool[] canShows = [CanShowImbueAcquire(), CanShowImbueSequelAcquire(), CanShowImbueChange(), CanShowMutations(), CanShowReadingSimulator(), CanShowSubWorlds()];
+		
 
-		if (names.Length != canShows.Length || canShows.Length != uis.Length)
+		if (names.Length != canShows.Length || canShows.Length != GetUIs().Length)
 		{
-			Main.NewText($"Lengh of {nameof(names)}, {nameof(canShows)} and/or {nameof(uis)} is inconsistent!", new Color(255, 0, 255));
+			Main.NewText($"Lengh of {nameof(names)}, {nameof(canShows)} and/or {nameof(GetUIs)} is inconsistent! This is bad!", new Color(255, 0, 255));
 			return;
 		}
 
@@ -192,7 +226,7 @@ public class ModUISystem : ModSystem
 		{
 			string name = names[i];
 			bool canShow = canShows[i];
-			UserInterface ui = uis[i];
+			UserInterface ui = GetUIs()[i];
 
 			layers.Insert(index, new LegacyGameInterfaceLayer(
 				$"ArcaneOdysseyMod: {name}",

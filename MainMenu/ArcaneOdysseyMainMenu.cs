@@ -1,9 +1,8 @@
-﻿# if !VSDEBUGMODE
-using ArcaneOdyssey.NPCs.Bosses;
-#endif
+﻿using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdysseyMusic;
 using System;
 using System.Collections.Generic;
+using Terraria.GameContent.Events;
 
 namespace ArcaneOdyssey.MainMenu
 {
@@ -87,32 +86,36 @@ namespace ArcaneOdyssey.MainMenu
 
 		public override void SetStaticDefaults()
 		{
-#if !VSDEBUGMODE
 			Titles.AddRange(new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"));
 			Titles.Add(new(MusicTrack.Djin, Color.Gray, "Djin", GlobalData.IsDefeated<LordElius>));
-#endif
-			Titles.Add(new(MusicTrack.Argos, Color.Transparent, "Argos")); // finish later, add a condition and change to talos theme
 		}
 
 		public static void DrawAOBackground(SpriteBatch spriteBatch)
 		{
-			Vector2 drawOffset = Vector2.Zero;
-			float xScale = (float)Main.screenWidth / SelectedTitle.BackgroundTexture.Width();
-			float yScale = (float)Main.screenHeight / SelectedTitle.BackgroundTexture.Height();
-			float scale = xScale;
-
-			if (xScale != yScale)
+			if (SelectedTitle.Name.IsNullOrWhiteSpace())
 			{
-				if (yScale > xScale)
-				{
-					scale = yScale;
-					drawOffset.X -= (SelectedTitle.BackgroundTexture.Width() * scale - Main.screenWidth) * 0.5f;
-				}
-				else
-					drawOffset.Y -= (SelectedTitle.BackgroundTexture.Height() * scale - Main.screenHeight) * 0.5f;
+				RandomSelect();
 			}
+			if (!CreditsRollEvent.IsEventOngoing)
+			{
+				Vector2 drawOffset = Vector2.Zero;
+				float xScale = (float)Main.screenWidth / SelectedTitle.BackgroundTexture.Width();
+				float yScale = (float)Main.screenHeight / SelectedTitle.BackgroundTexture.Height();
+				float scale = xScale;
 
-			spriteBatch.Draw(SelectedTitle.BackgroundTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+				if (xScale != yScale)
+				{
+					if (yScale > xScale)
+					{
+						scale = yScale;
+						drawOffset.X -= (SelectedTitle.BackgroundTexture.Width() * scale - Main.screenWidth) * 0.5f;
+					}
+					else
+						drawOffset.Y -= (SelectedTitle.BackgroundTexture.Height() * scale - Main.screenHeight) * 0.5f;
+				}
+
+				spriteBatch.Draw(SelectedTitle.BackgroundTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+			}
 
 			spriteBatch.End();
 

@@ -5,6 +5,7 @@ global using Terraria;
 global using Terraria.ID;
 global using Terraria.Localization;
 global using Terraria.ModLoader;
+global using System.IO;
 
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Buffs;
@@ -15,7 +16,6 @@ using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
 using ArcaneOdyssey.NPCs.Bosses;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria.Chat;
 using Terraria.Graphics.Shaders;
 
@@ -130,7 +130,7 @@ namespace ArcaneOdyssey
 				TitleStroke = Color.MediumPurple,
 				Icon = icon.Value,
 			};
-			// talos icon later
+			icon = ModContent.Request<Texture2D>(AOUtils.GetTexture<TalosBiome>() + "_Icon", AssetRequestMode.ImmediateLoad);
 			yield return new
 			{
 				Key = "TalosBiome",
