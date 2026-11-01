@@ -1,4 +1,4 @@
-﻿using ArcaneOdyssey.NPCs;
+﻿using ArcaneOdyssey.NPCs.Idle;
 using ArcaneOdyssey.Tiles.Bronze;
 using Terraria.DataStructures;
 using Terraria.Enums;

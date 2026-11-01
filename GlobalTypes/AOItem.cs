@@ -629,11 +629,6 @@ namespace ArcaneOdyssey.GlobalTypes
 			On_Item.RebuildTooltip += SetWoodWandDefault;
 		}
 
-		public override void Unload()
-		{
-			On_Item.RebuildTooltip -= SetWoodWandDefault;
-		}
-
 		private float? scale = null;
 
 		public override void ModifyItemScale(Item item, Player player, ref float scale)
@@ -1198,7 +1193,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override bool CanUseItem(Item item, Player player)
 		{
 			bool inArena = player.InModBiome<EliusArena>() || AOUtils.InAOSubworld;
-			bool illegalItemForArena = item.type is ItemID.Sandgun or ItemID.DirtBomb or ItemID.DirtStickyBomb or ItemID.DryBomb or ItemID.BottomlessShimmerBucket or ItemID.WaterBucket or ItemID.BottomlessBucket or ItemID.BottomlessHoneyBucket or ItemID.BottomlessLavaBucket || ItemID.Sets.AlsoABuildingItem[item.type] || ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[item.type];
+			bool illegalItemForArena = item.type is ItemID.PortalGun or ItemID.Sandgun or ItemID.IceRod or ItemID.DirtBomb or ItemID.DirtStickyBomb or ItemID.DryBomb or ItemID.BottomlessShimmerBucket or ItemID.WaterBucket or ItemID.BottomlessBucket or ItemID.BottomlessHoneyBucket or ItemID.BottomlessLavaBucket || ItemID.Sets.AlsoABuildingItem[item.type] || ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[item.type];
 			if (illegalItemForArena && inArena)
 				return false;
 

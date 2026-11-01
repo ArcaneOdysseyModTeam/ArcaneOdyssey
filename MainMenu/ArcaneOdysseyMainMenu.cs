@@ -165,5 +165,7 @@ namespace ArcaneOdyssey.MainMenu
 		{
 			SelectedTitle = Main.rand.Next(Titles.FindAll(e => e.Requirement is null || e.Requirement()));
 		}
+
+		public override bool IsLoadingEnabled(Mod mod) => !Main.dedServ;
 	}
 }

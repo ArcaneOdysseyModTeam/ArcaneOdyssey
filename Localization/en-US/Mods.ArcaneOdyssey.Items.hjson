@@ -416,6 +416,11 @@ Debug: {
 			DisplayName: Spawn Setter Placer
 			Tooltip: ""
 		}
+
+		GuardSpawnerPlacer: {
+			DisplayName: Guard Spawner Placer
+			Tooltip: ""
+		}
 	}
 }
 

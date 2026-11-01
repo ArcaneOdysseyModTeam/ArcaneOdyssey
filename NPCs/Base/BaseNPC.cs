@@ -1,4 +1,5 @@
 ﻿using ArcaneOdysseyMusic;
+using Terraria.GameContent;
 
 namespace ArcaneOdyssey.NPCs.Base
 {
@@ -13,5 +14,7 @@ namespace ArcaneOdyssey.NPCs.Base
 			if (Theme is not null && !Main.dedServ)
 				Music = Theme.MusicSlot;
 		}
+
+		public Asset<Texture2D> Sprite => Texture != $"{Mod.Name}/{TextureAssets.Npc[Type]?.Name.Replace("\\", "/") ?? Texture}" ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Npc[Type];
 	}
 }

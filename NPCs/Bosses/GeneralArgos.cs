@@ -40,6 +40,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}"));
 		}
 
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			// for some reason guards are 4 pixels in the ground instead of 2
+			spriteBatch.Draw(Sprite.Value, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+			return false;
+		}
+
 		public override MusicTrack Theme => MusicTrack.Argos;
 
 		private bool playedSound = false;

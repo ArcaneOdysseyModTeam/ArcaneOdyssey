@@ -10,6 +10,9 @@ namespace ArcaneOdyssey.Guidebook
 		/// </summary>
 		public abstract ushort PageNum { get; }
 
+		public sealed override bool IsLoadingEnabled(Mod mod) => !Main.dedServ;
+
+
 		/// <summary>
 		/// The optional image that comes with this page
 		/// </summary>

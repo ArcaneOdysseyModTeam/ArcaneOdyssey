@@ -122,6 +122,7 @@ namespace ArcaneOdyssey.AOPlayers
 					if (Main.time > Main.dayLength)
 					{
 						Main.dayTime = false;
+						Main.time = 0;
 					}
 				}
 				else
@@ -130,6 +131,7 @@ namespace ArcaneOdyssey.AOPlayers
 					if (Main.time > Main.nightLength)
 					{
 						Main.dayTime = true;
+						Main.time = 0;
 					}
 				}
 

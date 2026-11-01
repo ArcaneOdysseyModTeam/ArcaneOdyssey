@@ -21,5 +21,17 @@ namespace ArcaneOdyssey.Biomes
 		}
 
 		public override bool MapBackgroundFullbright => true;
+
+		public override void Load()
+		{
+			On_Main.UpdateAtmosphereTransparencyToSkyColor += DisableSpaceRendering;
+		}
+
+		private static void DisableSpaceRendering(On_Main.orig_UpdateAtmosphereTransparencyToSkyColor orig)
+		{
+			if (!Main.gameMenu && AOUtils.InAOSubworld)
+				return;
+			orig();
+		}
 	}
 }
