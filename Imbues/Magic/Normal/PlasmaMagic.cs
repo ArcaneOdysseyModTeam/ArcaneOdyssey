@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, Scale: 2f * area.RelativeScale(), newColor: Colour)];
 			spawnedDust.noGravity = true;
-			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, magicVariant is NovaVariant ? DustID.TeleportationPotion : DustID.ShadowbeamStaff, Scale: 2f * area.RelativeScale())];
+			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, magicVariant is NovaVariant ? DustID.ViciousPowder : DustID.ShadowbeamStaff, Scale: 2f * area.RelativeScale())];
 			spawnedDust2.noGravity = true;
 		}
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
@@ -99,7 +99,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 		{
 			for (int n = 0; n < 30; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, magicVariant is NovaVariant ? DustID.TeleportationPotion : DustID.ShadowbeamStaff, 5f * (Main.rand.NextFloat() - 0.5f), 5f * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale());
+				Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, magicVariant is NovaVariant ? DustID.ViciousPowder : DustID.ShadowbeamStaff, 5f * (Main.rand.NextFloat() - 0.5f), 5f * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale()).noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
