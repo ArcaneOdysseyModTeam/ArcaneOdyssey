@@ -238,10 +238,16 @@ namespace ArcaneOdyssey.NPCs.Enemy
 						{
 							if (player.Hitbox.ToTileRect().Intersects(TalosSubworld.openRooms[i]))
 							{
-								if (spawncd <= 0 && Main.rand.NextBool(60)) // every 15 seconds about
+								if (spawncd <= 0 && Main.rand.NextBool(60)) // every 12 seconds about
 								{
-									spawncd = 60 * 15;
-									var guard = NPC.NewNPCDirect(new EntitySource_SpawnNPC(), Main.rand.Next(TalosSubworld.openRooms[i].Left, TalosSubworld.openRooms[i].Right) * 16, TalosSubworld.openRooms[i].Bottom * 16, ModContent.NPCType<TalosGuard>(), target: player.whoAmI).ModNPC as TalosGuard;
+									int x;
+									do
+									{
+										x = Main.rand.Next(TalosSubworld.openRooms[i].Left, TalosSubworld.openRooms[i].Right) * 16;
+									}
+									while (player.Center.Distance(new Vector2(x, TalosSubworld.openRooms[i].Bottom * 16)) < (4 * 16));
+									spawncd = 60 * 12;
+									var guard = NPC.NewNPCDirect(new EntitySource_SpawnNPC(), x, TalosSubworld.openRooms[i].Bottom * 16, ModContent.NPCType<TalosGuard>(), target: player.whoAmI).ModNPC as TalosGuard;
 									guard.roomIndex = i;
 									return;
 								}

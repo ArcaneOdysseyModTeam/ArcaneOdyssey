@@ -18,10 +18,13 @@ namespace ArcaneOdyssey.Items.Pickups
 
 		public override bool OnPickup(Player player)
 		{
-			ArgoSpawningSystem.hasArgosKey = true;
-			Main.NewText(Tooltip);
-			if (!AOUtils.Singleplayer)
-				Mod.NewPacket(ArgosKeyPickupSystem.Packet).Send();
+			if (!ArgoSpawningSystem.hasArgosKey)
+			{
+				ArgoSpawningSystem.hasArgosKey = true;
+				Main.NewText(Tooltip);
+				if (!AOUtils.Singleplayer)
+					Mod.NewPacket(ArgosKeyPickupSystem.Packet).Send();
+			}
 			return false;
 		}
 	}

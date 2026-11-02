@@ -203,15 +203,15 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				{
 					Main.CloseNPCChatOrSign();
 					Main.ClosePlayerChat();
-					for (int i = 0; i < Main.musicFade.Length; i++)
-					{
-						Main.musicFade[i] = 0;
-					}
 					var player = Main.player[playerInAnimation];
 					if (justStarted)
 					{
 						ogZoom = Main.GameZoomTarget;
 						justStarted = false;
+						for (int i = 0; i < Main.musicFade.Length; i++)
+						{
+							Main.musicFade[i] = 0;
+						}
 					}
 					Main.GameZoomTarget = 1.5f;
 				}
