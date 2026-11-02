@@ -91,13 +91,13 @@ namespace ArcaneOdyssey.AOPlayers
 			Player.mount?.Dismount(Player);
 			Player.RemoveAllGrapplingHooks();
 
-			if (SubworldSystem.Current is TalosSubworld && ArgoSpawningSystem.hasArgosKey && Main.myPlayer == Player.whoAmI)
+			if (SubworldSystem.Current is TalosSubworld && ArgosSpawningSystem.hasArgosKey && Main.myPlayer == Player.whoAmI)
 			{
-				if (ArgoSpawningSystem.argosArena.Bottom().Distance(Player.Bottom) < 16f)
+				if (ArgosSpawningSystem.argosArena.Bottom().Distance(Player.Bottom) < 16f)
 				{
-					if (!ArgoSpawningSystem.InProgress && !AOUtils.BossAlive)
+					if (!ArgosSpawningSystem.InProgress && !AOUtils.BossAlive)
 					{
-						ArgoSpawningSystem.StartAnimation(Main.myPlayer);
+						ArgosSpawningSystem.StartAnimation(Main.myPlayer);
 					}
 				}
 			}

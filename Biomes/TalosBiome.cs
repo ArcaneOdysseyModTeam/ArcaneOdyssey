@@ -7,20 +7,7 @@ namespace ArcaneOdyssey.Biomes
 {
 	public class TalosBiome : BaseBiome
 	{
-		public override int Music
-		{
-			get
-			{
-				if (AOUtils.BossAlive)
-				{
-					return 0;
-				}
-				else
-				{
-					return MusicTrack.Talos.MusicSlot;
-				}
-			}
-		}
+		public override int Music => MusicTrack.Talos.MusicSlot;
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 

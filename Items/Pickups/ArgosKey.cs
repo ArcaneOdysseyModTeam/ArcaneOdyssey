@@ -18,9 +18,9 @@ namespace ArcaneOdyssey.Items.Pickups
 
 		public override bool OnPickup(Player player)
 		{
-			if (!ArgoSpawningSystem.hasArgosKey)
+			if (!ArgosSpawningSystem.hasArgosKey)
 			{
-				ArgoSpawningSystem.hasArgosKey = true;
+				ArgosSpawningSystem.hasArgosKey = true;
 				Main.NewText(Tooltip);
 				if (!AOUtils.Singleplayer)
 					Mod.NewPacket(ArgosKeyPickupSystem.Packet).Send();
@@ -42,7 +42,7 @@ namespace ArcaneOdyssey.Items.Pickups
 		{
 			if (command == Packet)
 			{
-				ArgoSpawningSystem.hasArgosKey = true;
+				ArgosSpawningSystem.hasArgosKey = true;
 				if (Main.dedServ)
 					ArcaneOdysseyMod.Instance.NewPacket(Packet).Send(ignoreClient: whoAmI);
 				else

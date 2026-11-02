@@ -120,7 +120,7 @@ namespace ArcaneOdyssey
 
 	public class ArgosKeyDrop : IItemDropRuleCondition
 	{
-		public bool CanDrop(DropAttemptInfo info) => !ArgoSpawningSystem.hasArgosKey;
+		public bool CanDrop(DropAttemptInfo info) => !ArgosSpawningSystem.hasArgosKey;
 
 		public bool CanShowItemDropInUI() => true;
 
