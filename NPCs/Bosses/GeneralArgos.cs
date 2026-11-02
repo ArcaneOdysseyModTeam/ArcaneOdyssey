@@ -30,20 +30,27 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
 			NPC.boss = true;
+			NPC.aiStyle = NPCAIStyleID.BrainOfCthulhu; // placeholder
 			SpawnModBiomes = [AOUtils.BiomeType<TalosBiome>()];
 		}
-
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}"));
 		}
 
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			// for some reason guards are 4 pixels in the ground instead of 2
+			spriteBatch.Draw(Sprite.Value, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+			return false;
+		}
+
 		public override MusicTrack Theme => MusicTrack.Argos;
 
 		private bool playedSound = false;
-		public override void AI()
+
+		public override bool PreAI()
 		{
 			if (ArgoSpawningSystem.InProgress)
 			{
@@ -54,11 +61,18 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
 					playedSound = true;
 				}
+				return false;
 			}
 			else
 			{
 				Music = Theme.MusicSlot;
+				return true;
 			}
+		}
+
+		public override void AI()
+		{
+
 		}
 
 		public override void OnKill()

@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Biomes;
-using ArcaneOdyssey.Items.Armour.Centurion;
 using ArcaneOdyssey.Items.Pickups;
 using ArcaneOdyssey.NPCs.Base;
-using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Subworlds;
 using ArcaneOdyssey.UI.SubWorld;
 using SubworldLibrary;
@@ -10,16 +8,18 @@ using System;
 using System.Linq;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 
 namespace ArcaneOdyssey.NPCs.Enemy
 {
 	public class TalosGuard : BaseNPC
 	{
-		public override string Texture => AOUtils.GetTexture<GeneralArgos>();
+		public const int Frames = 14;
+
 		public override void SetStaticDefaults()
 		{
-			base.SetStaticDefaults();
+			Main.npcFrameCount[Type] = Frames;
 		}
 
 		public override void SetDefaults()
@@ -28,18 +28,23 @@ namespace ArcaneOdyssey.NPCs.Enemy
 			NPC.defense = 8;
 			NPC.lifeMax = 75;
 			NPC.width = 26;
-			NPC.height = 50;
+			NPC.height = 58;
 			NPC.damage = 25;
-			NPC.knockBackResist = .5f;
+			NPC.knockBackResist = .25f;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
 			SpawnModBiomes = [AOUtils.BiomeType<TalosBiome>()];
 		}
 
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement($"Mods.{Mod.Name}.Bestiary.{Name}"));
+		}
+
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(new AnyDropHelper([ModContent.ItemType<RavennaBoots>()], 5));
+			npcLoot.Add(new AnyDropHelper([ItemID.GladiatorHelmet, ItemID.GladiatorBreastplate, ItemID.GladiatorLeggings], 5));
 			LeadingConditionRule keycondition = new(new ArgosKeyDrop());
 			keycondition.OnSuccess(AOUtils.Common<ArgosKey>(6));
 			npcLoot.Add(keycondition);
@@ -80,7 +85,17 @@ namespace ArcaneOdyssey.NPCs.Enemy
 			if (roomIndex == byte.MaxValue)
 			{
 				if (!NPC.HasValidTarget)
+				{
 					NPC.TargetClosest();
+				}
+				else
+				{
+					if (NPC.position == NPC.oldPosition)
+					{
+						NPC.velocity.Y -= 6;
+					}
+				}
+
 				return;
 			}
 
@@ -93,12 +108,17 @@ namespace ArcaneOdyssey.NPCs.Enemy
 			{
 				justSpawned = false;
 				if (!Main.dedServ)
-					for (int n = 0; n < 3; n++)
+				{
+					if (AOUtils.OnScreen(NPC.Hitbox))
 					{
-						Dust spawnedDust = Main.dust[Dust.NewDust(NPC.Hitbox.TopLeft(), NPC.Hitbox.Width, NPC.Hitbox.Height, DustID.BubbleBurst_White, Scale: 3f * NPC.Hitbox.RelativeScale())];
-						spawnedDust.noGravity = true;
+						for (int n = 0; n < 3; n++)
+						{
+							Dust spawnedDust = Main.dust[Dust.NewDust(NPC.Hitbox.TopLeft(), NPC.Hitbox.Width, NPC.Hitbox.Height, DustID.BubbleBurst_White, Scale: 3f * NPC.Hitbox.RelativeScale())];
+							spawnedDust.noGravity = true;
+						}
 						SoundEngine.PlaySound(SoundID.AbigailSummon with { Volume = .5f }, NPC.Center);
 					}
+				}
 			}
 
 			if (NPC.HasValidTarget)
@@ -136,6 +156,20 @@ namespace ArcaneOdyssey.NPCs.Enemy
 			}
 		}
 
+		public override void FindFrame(int frameHeight)
+		{
+			NPC.frameCounter += MathF.Abs(NPC.velocity.X);
+			if (NPC.frameCounter >= 8)
+			{
+				NPC.frameCounter = 0;
+				NPC.frame.Y += frameHeight;
+				if (NPC.frame.Y >= frameHeight * Frames)
+				{
+					NPC.frame.Y = 0;
+				}
+			}
+		}
+
 		public bool TalosGuardTarget()
 		{
 			if (roomIndex == byte.MaxValue)
@@ -166,6 +200,13 @@ namespace ArcaneOdyssey.NPCs.Enemy
 		public override void Load()
 		{
 			On_NPC.TargetClosest += On_NPC_TargetClosest;
+		}
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			// for some reason guards are 4 pixels in the ground instead of 2
+			spriteBatch.Draw(Sprite.Value, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+			return false;
 		}
 
 		private static void On_NPC_TargetClosest(On_NPC.orig_TargetClosest orig, NPC self, bool faceTarget)

@@ -50,11 +50,6 @@ namespace ArcaneOdyssey.Tiles.Subworlds
 
 		public override bool CreateDust(int i, int j, ref int type) => false;
 
-		public override void NearbyEffects(int i, int j, bool closer)
-		{
-			Main.tileSolid[Type] = !DownedBosses.DownedArgos;
-		}
-
 		public override void FloorVisuals(Player player)
 		{
 			if (!DownedBosses.DownedArgos)

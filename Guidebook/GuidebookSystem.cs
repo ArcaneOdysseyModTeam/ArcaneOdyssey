@@ -2,6 +2,7 @@
 {
 	public class GuidebookSystem : ModSystem
 	{
+		public override bool IsLoadingEnabled(Mod mod) => !Main.dedServ;
 
 		public static int PageCount = 0;
 

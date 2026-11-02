@@ -20,6 +20,8 @@ namespace ArcaneOdyssey.Subworlds.Base
 			Main.spriteBatch.DrawString(FontAssets.DeathText.Value, message, new Vector2(Main.screenWidth, Main.screenHeight) / 2f - FontAssets.DeathText.Value.MeasureString(message) / 2f, Color.White, 0, default, 1f, SpriteEffects.None, 0);
 		}
 
+		public sealed override bool IsLoadingEnabled(Mod mod) => !Main.dedServ;
+
 		public abstract ModBiome Biome { get; }
 
 		public override void DrawSetup(GameTime gameTime)
@@ -236,6 +238,8 @@ namespace ArcaneOdyssey.Subworlds.Base
 				}
 			}
 		}
+
+		public override bool IsLoadingEnabled(Mod mod) => !Main.dedServ;
 
 		public override void ResizeArrays()
 		{

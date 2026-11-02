@@ -658,16 +658,6 @@ namespace ArcaneOdyssey
 		{
 			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
 		}
-
-		public override void Unload()
-		{
-			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods)
-			{
-				On_Dust.NewDust -= DustScaleFixer;
-				On_Dust.NewDustDirect -= DirectDustScaleFixer;
-				On_Dust.NewDustPerfect -= PerfectDustScaleFixer;
-			}
-		}
 	}
 
 	//[ExtendsFromMod("MagicStorage")]

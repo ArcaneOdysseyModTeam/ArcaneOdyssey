@@ -12,14 +12,13 @@ public partial class SubWorldUI : UIState
 
 		public override void LeftClick(UIMouseEvent evt)
 		{
-			Main.NewText($"Testing. . .");
 			if (main is null)
 			{
 				Main.NewText($"{nameof(main)} is somehow null for ${Subworld.DisplayName}!?");
 				return;
 			}
 
-			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, ModContent.Request<Texture2D>($"{Subworld.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad), Subworld.Description.Value);
+			main.AtEaseWithTheHarmonyIAm(Subworld, Subworld.DisplayName, Subworld.MenuStyle?.BackgroundTexture ?? ModContent.Request<Texture2D>($"{Subworld.Biome.BackgroundPath}", AssetRequestMode.ImmediateLoad), Subworld.Description.Value);
 	}
 
 		public SubWorldUI main { get; protected set; }

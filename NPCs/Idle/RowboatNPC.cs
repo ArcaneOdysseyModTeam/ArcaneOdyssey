@@ -3,7 +3,7 @@ using ArcaneOdyssey.UI.SubWorld;
 using SubworldLibrary;
 using System.Collections.Generic;
 
-namespace ArcaneOdyssey.NPCs
+namespace ArcaneOdyssey.NPCs.Idle
 {
 	public class RowboatNPC : BaseNPC
 	{
