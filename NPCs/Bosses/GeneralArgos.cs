@@ -30,10 +30,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
 			NPC.boss = true;
+			NPC.aiStyle = NPCAIStyleID.BrainOfCthulhu; // placeholder
 			SpawnModBiomes = [AOUtils.BiomeType<TalosBiome>()];
 		}
-
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot) => false;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
@@ -50,7 +49,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override MusicTrack Theme => MusicTrack.Argos;
 
 		private bool playedSound = false;
-		public override void AI()
+
+		public override bool PreAI()
 		{
 			if (ArgoSpawningSystem.InProgress)
 			{
@@ -61,11 +61,18 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
 					playedSound = true;
 				}
+				return false;
 			}
 			else
 			{
 				Music = Theme.MusicSlot;
+				return true;
 			}
+		}
+
+		public override void AI()
+		{
+
 		}
 
 		public override void OnKill()

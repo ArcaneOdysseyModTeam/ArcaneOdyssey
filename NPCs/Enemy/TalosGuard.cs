@@ -108,12 +108,17 @@ namespace ArcaneOdyssey.NPCs.Enemy
 			{
 				justSpawned = false;
 				if (!Main.dedServ)
-					for (int n = 0; n < 3; n++)
+				{
+					if (AOUtils.OnScreen(NPC.Hitbox))
 					{
-						Dust spawnedDust = Main.dust[Dust.NewDust(NPC.Hitbox.TopLeft(), NPC.Hitbox.Width, NPC.Hitbox.Height, DustID.BubbleBurst_White, Scale: 3f * NPC.Hitbox.RelativeScale())];
-						spawnedDust.noGravity = true;
+						for (int n = 0; n < 3; n++)
+						{
+							Dust spawnedDust = Main.dust[Dust.NewDust(NPC.Hitbox.TopLeft(), NPC.Hitbox.Width, NPC.Hitbox.Height, DustID.BubbleBurst_White, Scale: 3f * NPC.Hitbox.RelativeScale())];
+							spawnedDust.noGravity = true;
+						}
 						SoundEngine.PlaySound(SoundID.AbigailSummon with { Volume = .5f }, NPC.Center);
 					}
+				}
 			}
 
 			if (NPC.HasValidTarget)

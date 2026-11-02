@@ -7,7 +7,7 @@ namespace ArcaneOdyssey.Biomes
 {
 	public class TalosBiome : BaseBiome
 	{
-		public override int Music => MusicTrack.Argos.MusicSlot; // change to talos theme
+		public override int Music => MusicTrack.Talos.MusicSlot;
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 

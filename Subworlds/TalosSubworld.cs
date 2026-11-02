@@ -31,6 +31,6 @@ namespace ArcaneOdyssey.Subworlds
 
 		public readonly static Rectangle[] openRooms = [Utils.CornerRectangle(new Point(356, 132), new Point(421, 152) + AOUtils.OnePoint), Utils.CornerRectangle(new Point(514, 132), new Point(595, 152) + AOUtils.OnePoint), Utils.CornerRectangle(new Point(688, 132), new Point(849, 152) + AOUtils.OnePoint)];
 
-		public override ArcaneOdysseyMainMenu.MainMenuStyle? MenuStyle => new(MusicTrack.Argos, Color.Transparent, "Argos", GlobalData.IsDefeated<GeneralArgos>); // change to talos theme
+		public override ArcaneOdysseyMainMenu.MainMenuStyle? MenuStyle => new(MusicTrack.Talos, Color.Transparent, "Argos", GlobalData.IsDefeated<GeneralArgos>);
 	}
 }
