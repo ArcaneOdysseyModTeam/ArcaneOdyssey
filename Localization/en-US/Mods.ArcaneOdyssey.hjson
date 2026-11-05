@@ -477,4 +477,6 @@ MagicVariants: {
 	LakeVariant.DisplayName: Lake Variant
 	OasisVariant.DisplayName: Oasis Variant
 	ForestVariant.DisplayName: Forest Variant
+	BloodVariant.DisplayName: Blood Variant
+	MidnightVariant.DisplayName: Midnight Variant
 }

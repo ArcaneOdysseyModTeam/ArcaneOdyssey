@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,10 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 					{
 						dustColour = imbue.Colour;
 					}
+					else if (Main.LocalPlayer.HasTypeInInventory<LunarMagic>(out var imbue2))
+					{
+						dustColour = imbue2.Colour;
+					}
 				}
 				else
 				{
@@ -62,6 +67,11 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 						if (player.HasTypeInInventory<LightMagic>(out var imbue))
 						{
 							dustColour = imbue.Colour;
+							break;
+						}
+						if (player.HasTypeInInventory<LunarMagic>(out var imbue2))
+						{
+							dustColour = imbue2.Colour;
 							break;
 						}
 					}

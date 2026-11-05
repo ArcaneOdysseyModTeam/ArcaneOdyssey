@@ -1920,6 +1920,8 @@ namespace ArcaneOdyssey
 		public static bool HasTypeInInventory<T>(this Player player, out T item, Predicate<T> check = null) where T : ModItem
 		{
 			item = null;
+			if (player is null)
+				return false;
 			List<Item> no = [.. player.inventory, player.trashItem];
 			no.RemoveAll(e => e.ModItem is null);
 			foreach (var items in no)

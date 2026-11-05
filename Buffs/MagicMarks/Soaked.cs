@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Linq;
 
@@ -23,6 +24,11 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 						{
 							WaterMagic.GetVFX(imbue, out dust);
 						}
+						else if (Main.LocalPlayer.HasTypeInInventory<LunarMagic>(out var imbue2))
+						{
+							LunarMagic.GetVFX(imbue2, out var dust2);
+							dust = dust2[0];
+						}
 					}
 					else
 					{
@@ -32,6 +38,12 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 							if (player is not null && player.HasTypeInInventory<WaterMagic>(out var imbue))
 							{
 								WaterMagic.GetVFX(imbue, out dust);
+								break;
+							}
+							if (player is not null && player.HasTypeInInventory<LunarMagic>(out var imbue2))
+							{
+								LunarMagic.GetVFX(imbue2, out var dust2);
+								dust = dust2[0];
 								break;
 							}
 						}
