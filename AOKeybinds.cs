@@ -14,6 +14,8 @@ namespace ArcaneOdyssey
 		public static ModKeybind CycleImbueAttack { get; set; }
 		public static ModKeybind AltSkillUse { get; set; }
 
+		public static ModKeybind BlockAoEAttack { get; set; }
+
 #if VSDEBUGMODE
 		public static ModKeybind GetTileCoordinate { get; set; }
 #endif
@@ -26,6 +28,7 @@ namespace ArcaneOdyssey
 			CycleGodSoul = KeybindLoader.RegisterKeybind(Mod, nameof(CycleGodSoul), "K");
 			CycleImbueAttack = KeybindLoader.RegisterKeybind(Mod, nameof(CycleImbueAttack), "Q");
 			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.LeftAlt);
+			BlockAoEAttack = KeybindLoader.RegisterKeybind(Mod, nameof(BlockAoEAttack), Keys.None);
 #if VSDEBUGMODE
 			GetTileCoordinate = KeybindLoader.RegisterKeybind(Mod, nameof(GetTileCoordinate), Keys.RightAlt);
 #endif
@@ -39,6 +42,7 @@ namespace ArcaneOdyssey
 			CycleGodSoul = null;
 			CycleImbueAttack = null;
 			AltSkillUse = null;
+			BlockAoEAttack = null;
 #if VSDEBUGMODE
 			GetTileCoordinate = null;
 		}

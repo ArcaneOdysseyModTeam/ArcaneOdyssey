@@ -47,6 +47,7 @@ namespace ArcaneOdyssey.AOPlayers
 			BronzeSealed = 0;
 			DarkSealed = 0;
 			NimbusSealed = 0;
+			Blocking = false;
 		}
 
 		public ushort eliusArenaCounter = 0;

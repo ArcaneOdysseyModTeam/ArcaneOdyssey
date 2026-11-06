@@ -22,6 +22,10 @@ namespace ArcaneOdyssey.Items.Pickups
 			{
 				ArgosSpawningSystem.hasArgosKey = true;
 				Main.NewText(Tooltip);
+				if (AOKeybinds.BlockAoEAttack.GetAssignedKeys().Count == 0)
+				{
+					Main.NewText(Mod.CustomLocalization(this.GetLocalizationKey("NoBlock")), Color.Red);
+				}
 				if (!AOUtils.Singleplayer)
 					Mod.NewPacket(ArgosKeyPickupSystem.Packet).Send();
 			}
@@ -46,7 +50,13 @@ namespace ArcaneOdyssey.Items.Pickups
 				if (Main.dedServ)
 					ArcaneOdysseyMod.Instance.NewPacket(Packet).Send(ignoreClient: whoAmI);
 				else
+				{
+					if (AOKeybinds.BlockAoEAttack.GetAssignedKeys().Count == 0)
+					{
+						Main.NewText(ArcaneOdysseyMod.Instance.CustomLocalization(ModContent.GetInstance<GeneralArgos>().GetLocalizationKey("NoBlock")), Color.Red);
+					}
 					Main.NewText(ModContent.GetInstance<ArgosKey>().Tooltip);
+				}
 			}
 		}
 

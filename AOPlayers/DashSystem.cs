@@ -210,7 +210,8 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			FreezeMovement();
 			dashing |= Player.solarDashing || Player.eocDash > 0;
-			dashing &= !(Immobile || HeavySkillActive || Player.CCed);
+			HandleBlocking();
+			dashing &= !(Immobile || HeavySkillActive || Player.CCed || Blocking);
 
 			if (OmniDash is not null)
 			{

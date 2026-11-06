@@ -57,12 +57,20 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				NPC.velocity.X = 0;
 				NPC.GravityMultiplier *= 5;
-				if (!playedSound && NPC.Distance(ArgosSpawningSystem.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
+				if (!Main.dedServ)
 				{
-					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
-					Main.musicFade[Music] = 1f;
-					playedSound = true;
-					ArgosSpawningSystem.musicStopped = false;
+					if (!playedSound && NPC.Distance(ArgosSpawningSystem.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
+					{
+						SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
+						Main.musicFade[Music] = 1f;
+						playedSound = true;
+						ArgosSpawningSystem.musicStopped = false;
+
+						if (AOKeybinds.BlockAoEAttack.GetAssignedKeys().Count == 0)
+						{
+							Main.NewText(Mod.CustomLocalization(this.GetLocalizationKey("NoBlock")), Color.Red);
+						}
+					}
 				}
 				return false;
 			}
@@ -160,6 +168,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else
 			{
+				Main.hideUI = true;
 				NPC.SpawnBoss(argosArena.Center.X, argosArena.Center.Y, ModContent.NPCType<GeneralArgos>(), playerInAnimation);
 			}
 		}
@@ -184,6 +193,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				else
 				{
+					Main.hideUI = false;
 					Main.LocalPlayer.ChangeSpawn(argosArena.Left + (2 * Main.myPlayer), argosArena.Bottom - 2);
 					if (Main.myPlayer != playerInAnimation)
 					{

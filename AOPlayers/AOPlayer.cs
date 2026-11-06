@@ -80,6 +80,7 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			On_Player.ApplyDamageToNPC += AoEHelper;
 			On_Player.ItemCheck_UseTeleportRod += DarkSeaNoTeleport;
+			RegisterPacket();
 		}
 
 		public int jumpCount;
@@ -106,12 +107,6 @@ namespace ArcaneOdyssey.AOPlayers
 					self.ArcaneOdyssey()?.TrySpiritLifesteal(damage);
 			self.ArcaneOdyssey()?.UpdateDebuffHelpers(damage, npc, imbue, false);
 			orig(self, npc, damage, knockback, direction, crit, damageType, damageVariation);
-		}
-
-		public override void Unload()
-		{
-			On_Player.ApplyDamageToNPC -= AoEHelper;
-			On_Player.ItemCheck_UseTeleportRod -= DarkSeaNoTeleport;
 		}
 
 		public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)

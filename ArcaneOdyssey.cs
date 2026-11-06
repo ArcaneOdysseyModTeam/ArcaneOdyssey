@@ -80,6 +80,8 @@ namespace ArcaneOdyssey
 			return null;
 		}
 
+		public static ModPacket NewPacket(byte command) => Instance.NewPacket(command);
+
 		public override void Load()
 		{
 			Instance = this;

@@ -726,6 +726,29 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, NPC source)
+		{
+			foreach (var player in Main.ActivePlayers)
+			{
+				if (player.Hitbox.ClosestPointInRect(origin).Distance(origin) <= range)
+				{
+					if (player.ArcaneOdyssey().Blocking)
+					{
+						if (player.ArcaneOdyssey().Parrying)
+						{
+							damage /= 10f;
+						}
+						else
+						{
+							damage *= 0.45f;
+						}
+						knockback = 0f;
+					}
+					player.Hurt(PlayerDeathReason.ByNPC(source.whoAmI), damage.Round(), (player.Center.X > origin.X).ToDirectionInt(), dodgeable: false, knockback: knockback);
+				}
+			}
+		}
+
 		/// <summary>
 		/// Simulates AoE
 		/// </summary>
