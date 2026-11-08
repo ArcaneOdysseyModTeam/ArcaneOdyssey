@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArcaneOdyssey.Items.Armour.Centurion;
+using System;
 
 namespace ArcaneOdyssey.AOPlayers
 {
@@ -16,15 +17,18 @@ namespace ArcaneOdyssey.AOPlayers
 		public void HandleBlocking()
 		{
 			CheckBlocking();
-			if (Main.myPlayer == Player.whoAmI && !AOUtils.Singleplayer)
+			if (Main.myPlayer == Player.whoAmI)
 			{
 				if (Blocking != wasBlocking)
 				{
 					wasBlocking = Blocking;
-					var packet = ArcaneOdysseyMod.NewPacket(Packet);
-					packet.Write(Blocking);
-					packet.Write(blockingTime);
-					packet.Send();
+					if (!AOUtils.Singleplayer)
+					{
+						var packet = ArcaneOdysseyMod.NewPacket(Packet);
+						packet.Write(Blocking);
+						packet.Write(blockingTime);
+						packet.Send();
+					}
 				}
 			}
 		}
@@ -41,6 +45,24 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			ArcaneOdysseyMod.HandleExtraPacket -= SetBlockState;
 			ArcaneOdysseyMod.PacketID.ExtraHandle--;
+		}
+
+		public override void FrameEffects()
+		{
+			if (!Main.dedServ)
+			{
+				if (Blocking)
+				{
+					if (Player.shield == -1)
+					{
+						Player.shield = EquipLoader.GetEquipSlot(Mod, typeof(RavennaBoots).Name, EquipType.Shield);
+					}
+				}
+				if (Parrying)
+				{
+					Player.shieldRaised = true;
+				}
+			}
 		}
 
 		private static void SetBlockState(BinaryReader reader, int whoAmI, byte command)
@@ -88,7 +110,7 @@ namespace ArcaneOdyssey.AOPlayers
 			Blocking = false;
 		}
 
-		public void CheckBlocking()
+		private void CheckBlocking()
 		{
 			if (Main.myPlayer == Player.whoAmI)
 			{
@@ -110,7 +132,7 @@ namespace ArcaneOdyssey.AOPlayers
 				}
 				if (wasBlocking)
 				{
-					blockingTime -= 50;
+					blockingTime = (byte)Math.Clamp(blockingTime - 50, 0, MaxBlock);
 				}
 				Blocking = false;
 			}

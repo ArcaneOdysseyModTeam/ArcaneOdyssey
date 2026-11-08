@@ -1,6 +1,6 @@
 ﻿namespace ArcaneOdyssey.Projectiles.Base
 {
-	public class BlockableProjectile : BaseProjectile
+	public abstract class BlockableProjectile : BaseProjectile
 	{
 		public override void ModifyHitPlayer(Player player, ref Player.HurtModifiers modifiers)
 		{

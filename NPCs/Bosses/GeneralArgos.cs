@@ -16,6 +16,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 1;
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = -1f };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 
 		public override void SetDefaults()

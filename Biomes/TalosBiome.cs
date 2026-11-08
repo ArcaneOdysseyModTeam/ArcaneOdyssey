@@ -29,8 +29,11 @@ namespace ArcaneOdyssey.Biomes
 
 		private static void DisableSpaceRendering(On_Main.orig_UpdateAtmosphereTransparencyToSkyColor orig)
 		{
-			if (!Main.gameMenu && AOUtils.InAOSubworld)
+			if (!Main.gameMenu && (AOUtils.InAOSubworld || Main.LocalPlayer.InModBiome<EliusArena>()))
+			{
+				Main.atmo = 1f;
 				return;
+			}
 			orig();
 		}
 	}
