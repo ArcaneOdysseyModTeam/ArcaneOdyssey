@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 2; n++)
 			{
@@ -73,7 +73,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (int n = 0; n < 2; n++)
 			{
@@ -82,7 +82,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 6; n++)
 			{
@@ -91,7 +91,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 20; n++)
 			{

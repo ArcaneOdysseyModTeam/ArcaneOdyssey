@@ -43,19 +43,19 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Demonic;
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Pearlwood, direction.X * 0.2f, direction.Y * 0.2f, Scale: 1.5f * area.RelativeScale());
 			}
 		}
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Pearlwood, direction.GetValueOrDefault().X * 0.2f, direction.GetValueOrDefault().Y * 0.2f, Scale: 1f * area.RelativeScale());
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.GrassBlades, direction.GetValueOrDefault().X * 0.2f, direction.GetValueOrDefault().Y * 0.2f, Scale: 1.5f * area.RelativeScale());
 		}
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -66,7 +66,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{

@@ -95,6 +95,8 @@ namespace ArcaneOdyssey.Imbues
 					Wind, 2f
 				);
 
+			public static List<int>[] ImbuesThatCreateBuff = BuffID.Sets.Factory.CreateCustomSet<List<int>>(null);
+
 			/// <summary>
 			/// Whether this magic is a:
 			/// <list>Lesser Lost Magic</list>
@@ -106,10 +108,14 @@ namespace ArcaneOdyssey.Imbues
 
 			public override void ResizeArrays()
 			{
-				// manually change default value
+				// manually change default values for lists
 				for (int i = 0; i < Mutations.Length; i++)
 				{
 					Mutations[i] = [];
+				}
+				for (int i = 0; i < ImbuesThatCreateBuff.Length; i++)
+				{
+					ImbuesThatCreateBuff[i] = [];
 				}
 			}
 

@@ -53,6 +53,24 @@ namespace ArcaneOdyssey.MagicVariants.Base
 			SetStaticDefaults();
 		}
 
+		/// <returns>Whether or not to call the imbue's original effect</returns>
+		public virtual bool LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) => true;
+		/// <returns>Whether or not to call the imbue's original effect</returns>
+		public virtual bool SpawningEffects(Rectangle area, Vector2 direction) => true;
+		/// <returns>Whether or not to call the imbue's original effect</returns>
+		public virtual bool KillEffects(Rectangle area, Entity source = null) => true;
+		/// <returns>Whether or not to call the imbue's original effect</returns>
+		public virtual bool ExplosionEffects(Vector2 position, float intensity = 1f) => true;
+		/// <returns>Whether or not to call the imbue's original effect</returns>
+		public virtual bool BoxEffects(Rectangle area) => true;
+		/// <returns>Whether or not to call the imbue's original effect</returns>
+		public virtual bool ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0f) => true;
+
+		public virtual void BuffVisuals(ref int[] dust, ref Color drawColour, ref Color dustColour)
+		{
+
+		}
+
 		protected sealed override void Register()
 		{
 			Type = count++;
@@ -72,6 +90,7 @@ namespace ArcaneOdyssey.MagicVariants.Base
 		/// <seealso cref="AOUtils.ImbuableID{T}"/>
 		/// </summary>
 		public abstract int Imbue { get; }
+		protected virtual MagicType ImbueInstance => Imbuable.GetImbuable(Imbue) as MagicType;
 		public abstract Color Colour { get; }
 		public virtual Color? Colour2 => null;
 
@@ -110,6 +129,7 @@ namespace ArcaneOdyssey.MagicVariants.Base
 	public abstract class MagicVariant<T> : MagicVariant where T : MagicType
 	{
 		public sealed override int Imbue => AOUtils.ImbuableID<T>();
+		protected override MagicType ImbueInstance => ModContent.GetInstance<T>();
 		public override Color Colour => ModContent.GetInstance<T>().ImbueColour;
 		public override Color? Colour2 => ModContent.GetInstance<T>().DefaultAnimatedColour;
 	}

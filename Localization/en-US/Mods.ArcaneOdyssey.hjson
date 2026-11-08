@@ -479,4 +479,5 @@ MagicVariants: {
 	ForestVariant.DisplayName: Forest Variant
 	BloodVariant.DisplayName: Blood Variant
 	MidnightVariant.DisplayName: Midnight Variant
+	BorealVariant.DisplayName: Boreal Variant
 }

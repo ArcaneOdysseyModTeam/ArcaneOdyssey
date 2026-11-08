@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
@@ -682,6 +683,19 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 			else if (!((this is MagicType or BasicCombat && ImbuableTier is ImbuableTiers.Normal) || (this is SpiritEnergy spirit && spirit.IsSpiritEnergy)))
 				ImbueID.Search.Add(FullName, ID);
+
+			foreach (var debuff in ImbueDebuffs)
+			{
+				ImbueID.Sets.ImbuesThatCreateBuff[debuff.debuffID].AddNoDupes(ID);
+				var buff = ModContent.GetModBuff(debuff.debuffID);
+				if (buff is BaseBuff baseBuff)
+				{
+					foreach (var alt in baseBuff.Counterparts)
+					{
+						ImbueID.Sets.ImbuesThatCreateBuff[alt].AddNoDupes(ID);
+					}
+				}
+			}
 		}
 
 		public virtual ImbueGimmick Gimmick => null;
@@ -733,9 +747,54 @@ namespace ArcaneOdyssey.Imbues.Base
 
 		public LocalizedText PrettySpellPrefix => Language.GetOrRegister(this.GetLocalizationKey("SpellPrefix"), () => Regex.Replace(AttackPrefix, "([A-Z])", " $1").Trim());
 
-		public virtual void SpawningEffects(Rectangle area, Vector2 direction) { }
+		public virtual void SpawningEffects(Rectangle area, Vector2 direction) => BaseSpawningEffects(area, direction);
+		protected virtual void BaseSpawningEffects(Rectangle area, Vector2 direction) { }
 
-		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
+		public virtual void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) => BaseLingeringEffects(area, direction, source);
+		protected virtual void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null) { }
+
+		/// <summary>
+		/// Called after a projectile is killed usually
+		/// </summary>
+		/// <param name="area">The area the dust spawns in</param>
+		public virtual void KillEffects(Rectangle area, Entity source = null) => BaseKillEffects(area, source);
+		protected virtual void BaseKillEffects(Rectangle area, Entity source = null) { }
+
+		/// <summary>
+		/// Used for explosions and pulsar stuff ect
+		/// </summary>
+		/// <param name="position">The centre of the explosion</param>
+		/// <param name="intensity">The multiplier on the explosion size</param>
+		public virtual void ExplosionEffects(Vector2 position, float intensity = 1f) => BaseExplosionEffects(position, intensity);
+		protected virtual void BaseExplosionEffects(Vector2 position, float intensity = 1f) { }
+
+		public virtual void BoxEffects(Rectangle area) => BaseBoxEffects(area);
+		/// <summary>
+		/// Draws a solid box out of dust for walls ect
+		/// </summary>
+		/// <param name="area">The box</param>
+		protected virtual void BaseBoxEffects(Rectangle area)
+		{
+			for (int i = 0; i <= area.Length(); i++)
+			{
+				Dust.NewDustPerfect(area.RandomBorder(), Main.rand.Next(Dusts), Vector2.Zero, newColor: Colour);
+				Dust.NewDustPerfect(area.RandomBorder(), Main.rand.Next(Dusts), Vector2.Zero, newColor: Colour);
+			}
+
+			LingeringEffects(area);
+		}
+
+		public virtual void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0f) => BaseConeEffects(coneCenter, coneLength, coneRotation, maximumAngle);
+		/// <summary>
+		/// For surge, ect
+		/// </summary>
+		protected virtual void BaseConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0f)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				AOUtils.NewDustImperfect(coneCenter, Main.rand.Next(Dusts), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: Colour, Scale: .2f * (coneLength / 25f));
+			}
+		}
 
 		public virtual int[] Dusts => [DustID.ShimmerSpark];
 
@@ -749,46 +808,6 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 			Gimmick?.ModifyManaCost(player, ref reduce, ref mult);
 			selectedAttack?.ModifyManaCost(player, ref reduce, ref mult);
-		}
-
-		/// <summary>
-		/// Called after a projectile is killed usually
-		/// </summary>
-		/// <param name="area">The area the dust spawns in</param>
-		public virtual void KillEffects(Rectangle area, Entity source = null) { }
-
-		/// <summary>
-		/// Used for explosions and pulsar stuff ect
-		/// </summary>
-		/// <param name="position">The centre of the explosion</param>
-		/// <param name="intensity">The multiplier on the explosion size</param>
-		public virtual void ExplosionEffects(Vector2 position, float intensity = 1f) { }
-
-		/// <summary>
-		/// Draws a solid box out of dust for walls ect
-		/// </summary>
-		/// <param name="area">The box</param>
-		public virtual void BoxEffects(Rectangle area)
-		{
-			for (int i = 0; i <= area.Length(); i++)
-			{
-				Dust.NewDustPerfect(area.RandomBorder(), Main.rand.Next(Dusts), Vector2.Zero, newColor: Colour);
-				Dust.NewDustPerfect(area.RandomBorder(), Main.rand.Next(Dusts), Vector2.Zero, newColor: Colour);
-			}
-
-			LingeringEffects(area);
-		}
-
-
-		/// <summary>
-		/// For surge, ect
-		/// </summary>
-		public virtual void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0f)
-		{
-			for (int i = 0; i < 2; i++)
-			{
-				AOUtils.NewDustImperfect(coneCenter, Main.rand.Next(Dusts), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 45f), newColor: Colour, Scale: .2f * (coneLength / 25f));
-			}
 		}
 
 		public override void UseAnimation(Player player)

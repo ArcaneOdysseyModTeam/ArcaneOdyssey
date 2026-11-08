@@ -72,7 +72,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			if (Main.dedServ)
 				return;
@@ -85,7 +85,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			if (Main.dedServ)
 				return;
@@ -93,7 +93,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			Dust spawnedDust = Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.FireworkFountain_Pink, Scale: 0.8f * area.RelativeScale());
 			spawnedDust.noGravity = true;
 		}
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			if (Main.dedServ)
 				return;
@@ -105,7 +105,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust2.noGravity = true;
 			}
 		}
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			if (Main.dedServ)
 				return;

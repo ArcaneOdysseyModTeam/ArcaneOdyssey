@@ -340,7 +340,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 
 		public virtual int DustType => ModContent.DustType<SpiritDust>();
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (float i = 0; i < 5; i++)
 			{
@@ -349,7 +349,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustType, direction.GetValueOrDefault().X / 2, direction.GetValueOrDefault().Y / 2, Alpha: 255 / 4, newColor: ImbueColour, Scale: area.RelativeScale()).noGravity = true;
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			int amount = 25 * 3;
 			for (float i = 0; i < amount; i++)
@@ -366,7 +366,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -380,7 +380,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -394,7 +394,7 @@ namespace ArcaneOdyssey.Imbues.Relics
 			}
 		}
 
-		public override void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0)
+		protected override void BaseConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0)
 		{
 			AOUtils.NewDustImperfect(coneCenter, ModContent.DustType<SpiritDust>(), (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: SpiritColour, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);
 			AOUtils.NewDustImperfect(coneCenter, DustType, (coneRotation + Main.rand.NextFloat(-maximumAngle, maximumAngle)).ToRotationVector2() * (coneLength / 15f), newColor: ImbueColour, Scale: .1f * (coneLength / 25f), Alpha: 255 / 4);

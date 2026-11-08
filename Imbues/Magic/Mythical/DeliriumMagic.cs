@@ -18,13 +18,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 
 		
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.ShimmerSpark, newColor: Colour, Scale: area.RelativeScale());
 			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.ShimmerSpark, newColor: Colour, Scale: area.RelativeScale());
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -33,14 +33,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			}
 		}
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.ShimmerSpark, direction.X * 2f, direction.Y * 2f, 0, Colour, 2f * area.RelativeScale()).noGravity = true;
 			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.ShimmerSpark, direction.X * 2f, direction.Y * 2f, 0, Colour, 2f * area.RelativeScale()).noGravity = true;
 			Dust.NewDustDirect(area.TopLeft(), area.Width, area.Height, DustID.ShimmerSpark, direction.X * 2f, direction.Y * 2f, 0, Colour, 2f * area.RelativeScale()).noGravity = true;
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 5; n++)
 			{

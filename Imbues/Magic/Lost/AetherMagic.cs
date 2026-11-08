@@ -63,7 +63,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			if (Main.dedServ)
 				return;
@@ -76,7 +76,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowStarDust, Scale: area.RelativeScale());
 			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowTorch, Scale: 2f * area.RelativeScale())];
@@ -84,13 +84,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			Lighting.AddLight(area.Center(), 2, 2, 0);
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			if (Main.projectile.Find(e => e.active && (e.type == ModContent.ProjectileType<AetherExplosion>()) && (e.Center.ToTileCoordinates16() == position.ToTileCoordinates16()) && (e.ai[0] != 0)) is null)
 				Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<AetherExplosion>(), 0, 0, ai0: 1.6f * intensity);
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{

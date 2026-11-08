@@ -33,7 +33,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 
 		public override SynergyEffects Effects => MatrixEffects;
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -41,7 +41,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{// WAHT IS  THIS IM SO CONFUSED
 			float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
 			if (source is Projectile projectile && projectile.extraUpdates > 0)
@@ -55,7 +55,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.UltraBrightTorch, Scale: .4f * area.RelativeScale());
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			}
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{

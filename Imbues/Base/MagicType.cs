@@ -453,6 +453,60 @@ namespace ArcaneOdyssey.Imbues.Base
 			if (ImbueID.Sets.HasVariants[ID] && !ImbueID.Sets.VariantsUseSprites[ID])
 				Item.color = Colour;
 		}
+
+		public sealed override void SpawningEffects(Rectangle area, Vector2 direction)
+		{
+			if (magicVariant is not null && !magicVariant.SpawningEffects(area, direction))
+			{
+				return;
+			}
+			BaseSpawningEffects(area, direction);
+		}
+
+		public sealed override void BoxEffects(Rectangle area)
+		{
+			if (magicVariant is not null && !magicVariant.BoxEffects(area))
+			{
+				return;
+			}
+			BaseBoxEffects(area);
+		}
+
+		public sealed override void ConeEffects(Vector2 coneCenter, float coneLength, float coneRotation, float maximumAngle = 0)
+		{
+			if (magicVariant is not null && !magicVariant.ConeEffects(coneCenter, coneLength, coneRotation, maximumAngle))
+			{
+				return;
+			}
+			BaseConeEffects(coneCenter, coneLength, coneRotation, maximumAngle);
+		}
+
+		public sealed override void ExplosionEffects(Vector2 position, float intensity = 1)
+		{
+			if (magicVariant is not null && !magicVariant.ExplosionEffects(position, intensity))
+			{
+				return;
+			}
+			BaseExplosionEffects(position, intensity);
+		}
+
+		public sealed override void KillEffects(Rectangle area, Entity source = null)
+		{
+			if (magicVariant is not null && !magicVariant.KillEffects(area, source))
+			{
+				return;
+			}
+			BaseKillEffects(area, source);
+		}
+
+		public sealed override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		{
+			if (magicVariant is not null && !magicVariant.LingeringEffects(area, direction, source))
+			{
+				return;
+			}
+			BaseLingeringEffects(area, direction, source);
+		}
 	}
 
 	public abstract class MagicType<T> : MagicType where T : ImbueGimmick

@@ -50,7 +50,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			]
 		);
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			BarValue -= BarMax / 100f;
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
@@ -60,13 +60,13 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3 * 2)), 1); n++)
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Water, Scale: LerpValue * 2.2f * area.RelativeScale());
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < (int)Math.Max(Math.Round((float)BarValue / (BarMax / 3)), 1); n++)
 			{
@@ -74,7 +74,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 				spawnedDust.noGravity = true;
 			}
 		}
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 10; n++)
 			{

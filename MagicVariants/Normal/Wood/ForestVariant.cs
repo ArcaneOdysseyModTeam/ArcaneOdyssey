@@ -5,6 +5,6 @@ namespace ArcaneOdyssey.MagicVariants.Normal.Wood
 {
 	public class ForestVariant : MagicVariant<WoodMagic>
 	{
-		public override Color Colour => ModContent.GetInstance<WoodMagic>().ImbueColour;
+
 	}
 }

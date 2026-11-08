@@ -31,7 +31,7 @@ namespace ArcaneOdyssey.Buffs.Stuns
 					case 3:
 						return;
 					case 4:
-						if (!npc.boss && npc.ArcaneOdyssey().StunCD <= 0 || LiterallyCheating)
+						if ((!npc.boss && npc.ArcaneOdyssey().StunCD <= 0) || LiterallyCheating)
 						{
 							npc.ArcaneOdyssey().AOStunned = true;
 						}

@@ -22,7 +22,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 
 		
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			base.LingeringEffects(area, direction, source);
 
@@ -36,7 +36,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			spawnedDust.noGravity = true;
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			if (source is Projectile proj && Main.myPlayer == proj.owner)
 				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);

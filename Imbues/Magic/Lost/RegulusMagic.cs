@@ -39,12 +39,12 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		public override float ScrollSize => 1.2f;
 		public override float ScrollSpeed => 1.5f;
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<RegulusDust>(), Alpha: 60, Scale: area.RelativeScale());
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (int n = 0; n < 3; n++)
 			{
@@ -53,7 +53,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (float i = 0; i < 70; i++)
 			{
@@ -64,7 +64,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (float i = 0; i < 5; i++)
 			{

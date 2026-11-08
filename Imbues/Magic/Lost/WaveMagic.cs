@@ -43,7 +43,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		}
 
 		public const int DustCount = 15;
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			if (!Main.dedServ)
 			{
@@ -57,7 +57,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			for (float i = 0; i < DustCount; i++)
 			{
@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			if (!Main.dedServ)
 			{

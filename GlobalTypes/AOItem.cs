@@ -629,14 +629,6 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		public override void SetDefaults(Item item)
-		{
-			if (!item.active || item.IsAir || string.IsNullOrWhiteSpace(item.Name))
-				return;
-			thisItem = item;
-			owner = null;
-		}
-
 		private static void SetWoodWandDefault(On_Item.orig_RebuildTooltip orig, Item item)
 		{
 			orig(item);
@@ -909,7 +901,7 @@ namespace ArcaneOdyssey.GlobalTypes
 			}
 		}
 
-		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override void MeleeEffects(Item item, Player player, Rectangle hitbox)
 		{
 			if (player.meleeEnchant == GelBuff.meleeEnchantID && (item.DamageType.CountsAsClass(DamageClass.Melee) || item.DamageType == DamageClass.SummonMeleeSpeed))
 			{

@@ -78,7 +78,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		}
 
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 3; n++)
@@ -88,14 +88,14 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			GetVFX(this, out var colour, out _, out var dust);
 			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, newColor: colour, Scale: 2f * area.RelativeScale())];
 			spawnedDust.noGravity = true;
 		}
 
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 3; n++)
@@ -105,7 +105,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 10; n++)

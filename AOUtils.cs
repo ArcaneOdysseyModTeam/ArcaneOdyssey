@@ -971,6 +971,14 @@ namespace ArcaneOdyssey
 			CombatText.NewText(npc.Hitbox, colour.GetValueOrDefault(Color.White), message, true);
 		}
 
+		public static void AddNoDupes<T>(this List<T> list, T item)
+		{
+			if (!list.Contains(item))
+			{
+				list.Add(item);
+			}
+		}
+
 
 		/// <summary>
 		/// Simulates AoE

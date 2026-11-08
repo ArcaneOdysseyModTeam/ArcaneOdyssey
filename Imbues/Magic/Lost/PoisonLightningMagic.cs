@@ -65,7 +65,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		
 
-		public override void SpawningEffects(Rectangle area, Vector2 direction)
+		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 10; n++)
 			{
@@ -75,7 +75,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			}
 		}
 
-		public override void LingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
+		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
 			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 0f, 0f, 0, Color.Purple, 2f * area.RelativeScale())];
 			spawnedDust.noGravity = true;
@@ -89,11 +89,11 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			spawnedDust2.noGravity = true;
 			Lighting.AddLight(area.Center(), 2, 1, 2);
 		}
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
 			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, ai0: intensity * 1.6f);
 		}
-		public override void KillEffects(Rectangle area, Entity source = null)
+		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
 			for (int n = 0; n < 15; n++)
 			{
