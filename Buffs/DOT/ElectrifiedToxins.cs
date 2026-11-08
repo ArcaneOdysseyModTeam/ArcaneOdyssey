@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Dusts;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using System.Linq;
 using Terraria.DataStructures;
@@ -15,25 +17,7 @@ namespace ArcaneOdyssey.Buffs.DOT
 			{
 				if (!vfxSet)
 				{
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						if (Main.LocalPlayer.HasTypeInInventory<PoisonLightningMagic>(out var imbue))
-						{
-							dustColour = imbue.Colour;
-						}
-					}
-					else
-					{
-						var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
-						foreach (var player in players)
-						{
-							if (player is not null && player.HasTypeInInventory<PoisonLightningMagic>(out var imbue))
-							{
-								dustColour = imbue.Colour;
-								break;
-							}
-						}
-					}
+					GetVFXInfo(npc);
 					vfxSet = true;
 				}
 				var spawnedDust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.SteampunkSteam, newColor: dustColour);
@@ -49,6 +33,34 @@ namespace ArcaneOdyssey.Buffs.DOT
 		}
 		private bool vfxSet = false;
 		public Color dustColour = Color.Purple;
+
+		public void GetVFXInfo(NPC npc)
+		{
+			foreach (var imbueID in ImbueID.Sets.ImbuesThatCreateBuff[Type])
+			{
+				var _ = 0;
+				var _1 = Color.White;
+				if (AOUtils.Singleplayer)
+				{
+					if (Main.LocalPlayer.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+					{
+						imbue.magicVariant.BuffVisuals(ref _, ref _1, ref dustColour);
+					}
+				}
+				else
+				{
+					var players = Main.player.Where(e => e is not null && e.active).OrderBy(e => e.Distance(npc.Center));
+					foreach (var player in players)
+					{
+						if (player.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+						{
+							imbue.magicVariant.BuffVisuals(ref _, ref _1, ref dustColour);
+							break;
+						}
+					}
+				}
+			}
+		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{

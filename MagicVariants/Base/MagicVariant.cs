@@ -70,6 +70,10 @@ namespace ArcaneOdyssey.MagicVariants.Base
 		{
 
 		}
+		public virtual void BuffVisuals(ref int dust, ref Color drawColour, ref Color dustColour)
+		{
+
+		}
 
 		protected sealed override void Register()
 		{

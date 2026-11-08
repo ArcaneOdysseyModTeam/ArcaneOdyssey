@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Collections.Generic;
@@ -43,20 +45,17 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			}
 		}
 
-		public override bool ReApply(NPC npc, int time, int buffIndex)
+		public void GetVFXInfo(NPC npc)
 		{
-			if (!Main.dedServ)
+			foreach (var imbueID in ImbueID.Sets.ImbuesThatCreateBuff[Type])
 			{
-				dustColour = default;
-				if (Main.netMode == NetmodeID.SinglePlayer)
+				var _ = 0;
+				var _1 = Color.White;
+				if (AOUtils.Singleplayer)
 				{
-					if (Main.LocalPlayer.HasTypeInInventory<LightMagic>(out var imbue))
+					if (Main.LocalPlayer.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
 					{
-						dustColour = imbue.Colour;
-					}
-					else if (Main.LocalPlayer.HasTypeInInventory<LunarMagic>(out var imbue2))
-					{
-						dustColour = imbue2.Colour;
+						imbue.magicVariant.BuffVisuals(ref _, ref _1, ref dustColour);
 					}
 				}
 				else
@@ -64,18 +63,22 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 					var players = Main.player.Where(e => e is not null && e.active).OrderBy(e => e.Distance(npc.Center));
 					foreach (var player in players)
 					{
-						if (player.HasTypeInInventory<LightMagic>(out var imbue))
+						if (player.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
 						{
-							dustColour = imbue.Colour;
-							break;
-						}
-						if (player.HasTypeInInventory<LunarMagic>(out var imbue2))
-						{
-							dustColour = imbue2.Colour;
+							imbue.magicVariant.BuffVisuals(ref _, ref _1, ref dustColour);
 							break;
 						}
 					}
 				}
+			}
+		}
+
+		public override bool ReApply(NPC npc, int time, int buffIndex)
+		{
+			if (!Main.dedServ)
+			{
+				dustColour = new(255, 255, 0);
+				GetVFXInfo(npc);
 			}
 			npc.buffTime[buffIndex] += time;
 			return true;
