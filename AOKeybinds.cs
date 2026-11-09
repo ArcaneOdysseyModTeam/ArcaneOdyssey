@@ -48,22 +48,25 @@ namespace ArcaneOdyssey
 		}
 		public override void PostUpdateEverything()
 		{
-			if (GetTileCoordinate.Current)
+			if (!Main.dedServ)
 			{
-				Player player = Main.LocalPlayer;
-				player.noThrow = 2;
-				player.cursorItemIconText = Main.MouseWorld.ToTileCoordinates().ToString();
-				player.cursorItemIconID = -1;
-				player.cursorItemIconEnabled = true;
-				Dust.DrawDebugBox(new(Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).X.Round(), Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).Y.Round(), 16, 16));
-				if (SubworldSystem.IsActive<TalosSubworld>())
-					foreach (var rect in TalosSubworld.openRooms)
-					{
-						if (rect.Contains(Main.MouseWorld.ToTileCoordinates()))
+				if (GetTileCoordinate.Current)
+				{
+					Player player = Main.LocalPlayer;
+					player.noThrow = 2;
+					player.cursorItemIconText = Main.MouseWorld.ToTileCoordinates().ToString();
+					player.cursorItemIconID = -1;
+					player.cursorItemIconEnabled = true;
+					Dust.DrawDebugBox(new(Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).X.Round(), Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).Y.Round(), 16, 16));
+					if (SubworldSystem.IsActive<TalosSubworld>())
+						foreach (var rect in TalosSubworld.openRooms)
 						{
-							player.cursorItemIconText += ", in spawning room";
+							if (rect.Contains(Main.MouseWorld.ToTileCoordinates()))
+							{
+								player.cursorItemIconText += ", in spawning room";
+							}
 						}
-					}
+				}
 			}
 #endif
 		}
