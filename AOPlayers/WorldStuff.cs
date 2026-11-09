@@ -48,6 +48,7 @@ namespace ArcaneOdyssey.AOPlayers
 			BronzeSealed = 0;
 			DarkSealed = 0;
 			NimbusSealed = 0;
+			Blocking = false;
 		}
 
 		public ushort eliusArenaCounter = 0;
@@ -97,13 +98,13 @@ namespace ArcaneOdyssey.AOPlayers
 			Player.mount?.Dismount(Player);
 			Player.RemoveAllGrapplingHooks();
 
-			if (SubworldSystem.Current is TalosSubworld && ArgoSpawningSystem.hasArgosKey && Main.myPlayer == Player.whoAmI)
+			if (Main.myPlayer == Player.whoAmI && SubworldSystem.Current is TalosSubworld && ArgosSpawningSystem.hasArgosKey)
 			{
-				if (ArgoSpawningSystem.argosArena.Bottom().Distance(Player.Bottom) < 16f)
+				if (ArgosSpawningSystem.argosArena.Bottom().Distance(Player.Bottom) < 16f)
 				{
-					if (!ArgoSpawningSystem.InProgress && !AOUtils.BossAlive)
+					if (!ArgosSpawningSystem.InProgress && !AOUtils.BossAlive)
 					{
-						ArgoSpawningSystem.StartAnimation(Main.myPlayer);
+						ArgosSpawningSystem.StartAnimation(Main.myPlayer);
 					}
 				}
 			}

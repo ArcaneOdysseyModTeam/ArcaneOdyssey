@@ -74,6 +74,8 @@ namespace ArcaneOdyssey.NPCs.Idle
 			}
 		}
 
+		public override bool CheckActive() => false;
+
 		public override void AI()
 		{
 			if (DownedBosses.DownedArgos)

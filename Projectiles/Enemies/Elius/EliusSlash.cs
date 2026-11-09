@@ -32,12 +32,13 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 		{
 			if (Projectile.ai[0] > 0f)
 			{
-				lightColor = Imbue.Colour.MultiplyRGB(lightColor);
+				lightColor = Imbue.Colour;
 			}
 			else
 			{
 				lightColor = Color.Gold.MultiplyRGB(lightColor);
 			}
+
 			for (int k = (Projectile.oldPos.Length / 2) - 1; k > -1; k--)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
@@ -56,7 +57,7 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			{
 				Vector2 drawPos = oldPos[k] + (Projectile.Size / 2f) + new Vector2(0f, Projectile.gfxOffY);
 				var colour2 = Projectile.GetAlpha(lightColor) * (1f - ((oldPos.Count - k) / (float)oldPos.Count));
-				Main.EntitySpriteDraw(Sprite.Value, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - (k * .01f), SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(Sprite.Value, drawPos - Main.screenPosition, null, colour2, Projectile.rotation, Sprite.Size() / 2, Projectile.scale - ((oldPos.Count - k) * .01f), SpriteEffects.None, 0);
 			}
 
 			return false;

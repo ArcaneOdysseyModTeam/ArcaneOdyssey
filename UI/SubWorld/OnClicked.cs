@@ -22,6 +22,8 @@ public partial class SubWorldUI : UIState
 			packet.Write(ChosenSubworld.OrderNum);
 			packet.Send();
 		}
+
+		ModContent.GetInstance<ModUISystem>().HideSubWorld();
 	}
 
 	#region Close button and Close method
@@ -153,7 +155,7 @@ public class PlayersSyncSubworld : ModSystem
 
 	public override void NetSend(BinaryWriter writer)
 	{
-		writer.Write(current);
+		writer.Write(current ?? "");
 	}
 
 	public override void NetReceive(BinaryReader reader)
@@ -170,27 +172,22 @@ public class PlayersSyncSubworld : ModSystem
 				var subworld = reader.ReadByte();
 				if (NetMessage.DoesPlayerSlotCountAsAHost(whoAmI))
 				{
-					current = AOSubworld.Get(subworld).FullName;
-					var packet = ArcaneOdysseyMod.Instance.NewPacket(Packet);
-					packet.Write(subworld);
-					packet.Send();
+					if (subworld < byte.MaxValue)
+					{
+						current = AOSubworld.Get(subworld).FullName;
+						foreach (var player in Main.ActivePlayers)
+							SubworldSystem.MovePlayerToSubworld(current, player.whoAmI);
+					}
+					else
+					{
+						current = null;
+						foreach (var player in Main.ActivePlayers)
+							SubworldSystem.MovePlayerToMainWorld(player.whoAmI);
+					}
 				}
 				else
 				{
 					ChatHelper.SendChatMessageToClient(ArcaneOdysseyMod.Instance.CustomLocalization("UI.Subworld.AdminOnly").ToNetworkText(), Color.Red, whoAmI);
-				}
-			}
-			else
-			{
-				var subworld = reader.ReadByte();
-				if (subworld < byte.MaxValue)
-				{
-					current = AOSubworld.Get(subworld).FullName;
-					SubworldSystem.Enter(current);
-				}
-				else
-				{
-					SubworldSystem.Exit();
 				}
 			}
 		}
@@ -200,15 +197,18 @@ public class PlayersSyncSubworld : ModSystem
 	{
 		if (!AOUtils.ServerOrSingleplayer)
 		{
-			if (SubworldSystem.AnyActive() && SubworldSystem.Current is AOSubworld)
+			if (!current.IsNullOrWhiteSpace())
 			{
-				if (!current.IsNullOrWhiteSpace())
+				if (!SubworldSystem.IsActive(current))
 				{
-					SubworldSystem.Enter(current);
+					Mod.NewPacket(SendMeToSubworldPlsSystem.Packet).Send();
 				}
-				else
+			}
+			else
+			{
+				if (SubworldSystem.AnyActive() && SubworldSystem.Current is AOSubworld)
 				{
-					SubworldSystem.Exit();
+					Mod.NewPacket(SendMeToSubworldPlsSystem.Packet).Send();
 				}
 			}
 		}
@@ -218,5 +218,35 @@ public class PlayersSyncSubworld : ModSystem
 	{
 		ArcaneOdysseyMod.HandleExtraPacket -= AllPlayersLeaveOrExit;
 		ArcaneOdysseyMod.PacketID.ExtraHandle--;
+	}
+}
+
+public class SendMeToSubworldPlsSystem : ModSystem
+{
+	public static byte Packet;
+
+	public override void Load()
+	{
+		ArcaneOdysseyMod.HandleExtraPacket += SendPlayerToSubworld;
+		Packet = ArcaneOdysseyMod.PacketID.ExtraHandle++;
+	}
+	public override void Unload()
+	{
+		ArcaneOdysseyMod.HandleExtraPacket -= SendPlayerToSubworld; ;
+		ArcaneOdysseyMod.PacketID.ExtraHandle--;
+	}
+
+	private static void SendPlayerToSubworld(BinaryReader reader, int whoAmI, byte command)
+	{
+		if (command == Packet)
+		{
+			if (Main.dedServ)
+			{
+				if (PlayersSyncSubworld.current.IsNullOrWhiteSpace())
+					SubworldSystem.MovePlayerToMainWorld(whoAmI);
+				else
+					SubworldSystem.MovePlayerToSubworld(PlayersSyncSubworld.current, whoAmI);
+			}
+		}
 	}
 }

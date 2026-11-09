@@ -4,6 +4,7 @@ using ArcaneOdyssey.Items.Weapons.RavennaLion;
 using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdysseyMusic;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 
@@ -15,11 +16,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 1;
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = -1f };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 
 		public override void SetDefaults()
 		{
-			// do not call base, music is applied later in ai
+			base.SetDefaults();
 			NPC.lifeMax = 3000;
 			NPC.damage = 30;
 			NPC.knockBackResist = 0f;
@@ -52,20 +55,29 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		public override bool PreAI()
 		{
-			if (ArgoSpawningSystem.InProgress)
+			if (ArgosSpawningSystem.InProgress)
 			{
 				NPC.velocity.X = 0;
 				NPC.GravityMultiplier *= 5;
-				if (!playedSound && NPC.Distance(ArgoSpawningSystem.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
+				if (!Main.dedServ)
 				{
-					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
-					playedSound = true;
+					if (!playedSound && NPC.Distance(ArgosSpawningSystem.argosArena.Center()) > 16 * 3f && NPC.velocity.Y <= 0.1f)
+					{
+						SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 2f }, NPC.Bottom);
+						Main.musicFade[Music] = 1f;
+						playedSound = true;
+						ArgosSpawningSystem.musicStopped = false;
+
+						if (AOKeybinds.BlockAoEAttack.GetAssignedKeys().Count == 0)
+						{
+							Main.NewText(Mod.CustomLocalization(this.GetLocalizationKey("NoBlock")), Color.Red);
+						}
+					}
 				}
 				return false;
 			}
 			else
 			{
-				Music = Theme.MusicSlot;
 				return true;
 			}
 		}
@@ -78,9 +90,10 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void OnKill()
 		{
 			DownedBosses.DownedArgos = true;
-			ArgoSpawningSystem.hasArgosKey = false;
+			ArgosSpawningSystem.hasArgosKey = false;
 			if (Main.dedServ)
 			{
+				ChatHelper.BroadcastChatMessage(ArcaneOdysseyMod.Instance.CustomLocalization($"RandomWords.Downed", DisplayName.Value).ToNetworkText(), new Color(175, 75, 255));
 				var packet = Mod.GetPacket();
 				packet.Write(ArcaneOdysseyMod.PacketID.MarkGlobalDowned);
 				packet.Write(Type);
@@ -89,6 +102,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			else
 			{
 				GlobalData.MarkDefeated(this);
+				Main.NewText(ArcaneOdysseyMod.Instance.CustomLocalization($"RandomWords.Downed", DisplayName.Value).Value, new Color(175, 75, 255));
 			}
 		}
 
@@ -105,9 +119,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		}
 	}
 
-	public class ArgoSpawningSystem : ModSystem
+	public class ArgosSpawningSystem : ModSystem
 	{
-		public static bool justStarted, hasArgosKey;
+		public static bool justStarted, hasArgosKey, musicStopped;
 		public static bool InProgress => timeLeft > 0;
 		public static int playerInAnimation, timeLeft;
 		public static Rectangle argosArena => new Rectangle(855, 119, 148, 34).ToWorldRect();
@@ -144,6 +158,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			hasArgosKey = true;
 			timeLeft = 40;
+			musicStopped = true;
 			justStarted = true;
 			playerInAnimation = player;
 			if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -155,6 +170,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			}
 			else
 			{
+				Main.hideUI = true;
 				NPC.SpawnBoss(argosArena.Center.X, argosArena.Center.Y, ModContent.NPCType<GeneralArgos>(), playerInAnimation);
 			}
 		}
@@ -165,6 +181,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				timeLeft = 40;
 				justStarted = true;
+				musicStopped = true;
 				playerInAnimation = reader.ReadByte();
 
 				if (Main.dedServ)
@@ -178,12 +195,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				else
 				{
+					Main.hideUI = false;
 					Main.LocalPlayer.ChangeSpawn(argosArena.Left + (2 * Main.myPlayer), argosArena.Bottom - 2);
 					if (Main.myPlayer != playerInAnimation)
 					{
 						Main.LocalPlayer.SetToSpawnPosition();
 					}
-				}	
+				}
 			}
 		}
 
@@ -201,13 +219,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!Main.dedServ)
 				{
-					Main.CloseNPCChatOrSign();
 					Main.ClosePlayerChat();
-					for (int i = 0; i < Main.musicFade.Length; i++)
+					if (musicStopped)
 					{
-						Main.musicFade[i] = 0;
+						for (int i = 0; i < Main.musicFade.Length; i++)
+						{
+							Main.musicFade[i] = 0;
+						}
 					}
-					var player = Main.player[playerInAnimation];
 					if (justStarted)
 					{
 						ogZoom = Main.GameZoomTarget;

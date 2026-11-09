@@ -176,6 +176,27 @@ namespace ArcaneOdyssey.GlobalTypes
 
 			return [.. options];
 		}
+
+		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
+		{
+			if (AOUtils.InAOSubworld)
+			{
+
+			}
+			return base.CanKillTile(i, j, type, ref blockDamaged);
+		}
+
+		public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (AOUtils.InAOSubworld)
+			{
+				if (TileID.Sets.Torch[type])
+				{
+					fail = true;
+				}
+			}
+			base.KillTile(i, j, type, ref fail, ref effectOnly, ref noItem);
+		}
 	}
 
 	public class ScrollPitySystem : ModSystem

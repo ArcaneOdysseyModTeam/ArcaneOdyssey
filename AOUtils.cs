@@ -14,6 +14,7 @@ using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Rarities;
 using ArcaneOdyssey.Subworlds.Base;
+using ArcaneOdyssey.UI.SubWorld;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
@@ -88,7 +89,20 @@ namespace ArcaneOdyssey
 			return packet;
 		}
 
-		public static bool InAOSubworld => SubworldSystem.Current is AOSubworld;
+		public static bool InAOSubworld
+		{
+			get
+			{
+				if (!Main.dedServ)
+				{
+					return SubworldSystem.Current is AOSubworld;
+				}
+				else
+				{
+					return !PlayersSyncSubworld.current.IsNullOrWhiteSpace();
+				}
+			}
+		}
 
 		public static int GetShimmerEquivalentType(this Item item)
 		{
@@ -714,6 +728,29 @@ namespace ArcaneOdyssey
 				}
 			}
 			return imbues;
+		}
+
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, NPC source)
+		{
+			foreach (var player in Main.ActivePlayers)
+			{
+				if (player.Hitbox.ClosestPointInRect(origin).Distance(origin) <= range)
+				{
+					if (player.ArcaneOdyssey().Blocking)
+					{
+						if (player.ArcaneOdyssey().Parrying)
+						{
+							damage /= 10f;
+						}
+						else
+						{
+							damage *= 0.45f;
+						}
+						knockback = 0f;
+					}
+					player.Hurt(PlayerDeathReason.ByNPC(source.whoAmI), damage.Round(), (player.Center.X > origin.X).ToDirectionInt(), dodgeable: false, knockback: knockback);
+				}
+			}
 		}
 
 		/// <summary>

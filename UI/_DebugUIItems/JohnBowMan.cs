@@ -30,14 +30,17 @@ public class JohnBowMan : BaseItem
 
 	public override bool? UseItem(Player player)
 	{
-		try
+		if (Main.myPlayer == player.whoAmI)
 		{
-			ModUISystem instance = ModContent.GetInstance<ModUISystem>();
-			instance.ShowSubWorlds();
-		}
-		catch (Exception ex)
-		{
-			Main.NewText($"Error, please tell Spoky \n{ex}", new Color(255, 0, 255));
+			try
+			{
+				ModUISystem instance = ModContent.GetInstance<ModUISystem>();
+				instance.ShowSubWorlds();
+			}
+			catch (Exception ex)
+			{
+				Main.NewText($"Error, please tell Spoky \n{ex}", new Color(255, 0, 255));
+			}
 		}
 		return true;
 	}

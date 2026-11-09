@@ -112,6 +112,7 @@ Bosses: {
 	GeneralArgos: {
 		DisplayName: General Argos
 		SpawnInfo: Find him inside his fortress, far out at sea...
+		NoBlock: You have not set your Block AoE Attack keybind yet! You will need this soon!
 	}
 }
 

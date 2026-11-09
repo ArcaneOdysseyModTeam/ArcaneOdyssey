@@ -2,7 +2,6 @@
 using ArcaneOdyssey.Items.Pickups;
 using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Subworlds;
-using ArcaneOdyssey.UI.SubWorld;
 using SubworldLibrary;
 using System;
 using System.Linq;
@@ -222,32 +221,73 @@ namespace ArcaneOdyssey.NPCs.Enemy
 		}
 	}
 
-	public class TalosGuardSpawningSystem : ModSystem
+	public class TalosGuardSpawningSystem : ModPlayer
 	{
 		private static int spawncd = 0;
-		public override void PreUpdateWorld()
+		public override void PreUpdate()
 		{
 			if (!AOUtils.BossAlive)
 			{
-				if ((AOUtils.Singleplayer && SubworldSystem.IsActive<TalosSubworld>()) || (!AOUtils.Singleplayer && PlayersSyncSubworld.current == ModContent.GetInstance<TalosSubworld>().FullName))
+				if (!Main.dedServ && SubworldSystem.IsActive<TalosSubworld>())
 				{
 					spawncd--;
-					foreach (var player in Main.player.Where(e => e.active && !e.DeadOrGhost).OrderBy(e => e.aggro))
+					for (byte i = 0; i < TalosSubworld.openRooms.Length; i++)
 					{
-						for (byte i = 0; i < TalosSubworld.openRooms.Length; i++)
+						if (Player.Hitbox.ToTileRect().Intersects(TalosSubworld.openRooms[i]))
 						{
-							if (player.Hitbox.ToTileRect().Intersects(TalosSubworld.openRooms[i]))
+							if (spawncd <= 0 && Main.rand.NextBool(60)) // every 12 seconds about
 							{
-								if (spawncd <= 0 && Main.rand.NextBool(60)) // every 15 seconds about
+								int x;
+								do
 								{
-									spawncd = 60 * 15;
-									var guard = NPC.NewNPCDirect(new EntitySource_SpawnNPC(), Main.rand.Next(TalosSubworld.openRooms[i].Left, TalosSubworld.openRooms[i].Right) * 16, TalosSubworld.openRooms[i].Bottom * 16, ModContent.NPCType<TalosGuard>(), target: player.whoAmI).ModNPC as TalosGuard;
-									guard.roomIndex = i;
-									return;
+									x = Main.rand.Next(TalosSubworld.openRooms[i].Left, TalosSubworld.openRooms[i].Right) * 16;
 								}
+								while (Player.Center.Distance(new Vector2(x, TalosSubworld.openRooms[i].Bottom * 16)) < (4 * 16));
+								spawncd = 60 * 12;
+								if (AOUtils.Singleplayer)
+								{
+									var guard = NPC.NewNPCDirect(new EntitySource_SpawnNPC(), x, TalosSubworld.openRooms[i].Bottom * 16, ModContent.NPCType<TalosGuard>(), target: Player.whoAmI).ModNPC as TalosGuard;
+									guard.roomIndex = i;
+								}
+								else
+								{
+									var packet = Mod.NewPacket(Packet);
+									packet.Write(i);
+									packet.Write(x);
+									packet.Send();
+								}
+								return;
 							}
+
 						}
 					}
+				}
+			}
+		}
+
+		public static byte Packet;
+		public override void Load()
+		{
+			ArcaneOdysseyMod.HandleExtraPacket += ArcaneOdysseyMod_HandleExtraPacket;
+			Packet = ArcaneOdysseyMod.PacketID.ExtraHandle++;
+		}
+		public override void Unload()
+		{
+			ArcaneOdysseyMod.HandleExtraPacket -= ArcaneOdysseyMod_HandleExtraPacket;
+			ArcaneOdysseyMod.PacketID.ExtraHandle--;
+		}
+
+		private static void ArcaneOdysseyMod_HandleExtraPacket(BinaryReader reader, int whoAmI, byte command)
+		{
+			if (command == Packet)
+			{
+				if (Main.dedServ)
+				{
+					var i = reader.ReadByte();
+					var x = reader.ReadInt32();
+
+					var guard = NPC.NewNPCDirect(new EntitySource_SpawnNPC(), x, TalosSubworld.openRooms[i].Bottom * 16, ModContent.NPCType<TalosGuard>(), target: whoAmI).ModNPC as TalosGuard;
+					guard.roomIndex = i;
 				}
 			}
 		}

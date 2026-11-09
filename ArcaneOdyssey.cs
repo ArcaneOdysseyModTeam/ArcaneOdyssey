@@ -80,6 +80,8 @@ namespace ArcaneOdyssey
 			return null;
 		}
 
+		public static ModPacket NewPacket(byte command) => Instance.NewPacket(command);
+
 		public override void Load()
 		{
 			Instance = this;
@@ -268,14 +270,13 @@ namespace ArcaneOdyssey
 					{
 						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Kill").Value.ToLower()).ToNetworkText(), Color.Purple);
 						ChatHelper.BroadcastChatMessage(elius.GetLocalization("Killed").ToNetworkText(), Color.Purple);
-
-						npc.NPCLoot();
 					}
 					else
 					{
 						npc.ai[0] = -3;
 						ChatHelper.BroadcastChatMessage(this.CustomLocalization($"{elius.LocalizationCategory}.{elius.Name}.MPMessage", player.name, this.CustomLocalization("RandomWords.Spare").Value.ToLower()).ToNetworkText(), new(0, 183, 255));
 					}
+					npc.NPCLoot();
 
 					var packet = GetPacket();
 					packet.Write(PacketID.EliusSpare);

@@ -18,10 +18,17 @@ namespace ArcaneOdyssey.Items.Pickups
 
 		public override bool OnPickup(Player player)
 		{
-			ArgoSpawningSystem.hasArgosKey = true;
-			Main.NewText(Tooltip);
-			if (!AOUtils.Singleplayer)
-				Mod.NewPacket(ArgosKeyPickupSystem.Packet).Send();
+			if (!ArgosSpawningSystem.hasArgosKey)
+			{
+				ArgosSpawningSystem.hasArgosKey = true;
+				Main.NewText(Tooltip);
+				if (AOKeybinds.BlockAoEAttack.GetAssignedKeys().Count == 0)
+				{
+					Main.NewText(Mod.CustomLocalization(this.GetLocalizationKey("NoBlock")), Color.Red);
+				}
+				if (!AOUtils.Singleplayer)
+					Mod.NewPacket(ArgosKeyPickupSystem.Packet).Send();
+			}
 			return false;
 		}
 	}
@@ -39,11 +46,17 @@ namespace ArcaneOdyssey.Items.Pickups
 		{
 			if (command == Packet)
 			{
-				ArgoSpawningSystem.hasArgosKey = true;
+				ArgosSpawningSystem.hasArgosKey = true;
 				if (Main.dedServ)
 					ArcaneOdysseyMod.Instance.NewPacket(Packet).Send(ignoreClient: whoAmI);
 				else
+				{
+					if (AOKeybinds.BlockAoEAttack.GetAssignedKeys().Count == 0)
+					{
+						Main.NewText(ArcaneOdysseyMod.Instance.CustomLocalization(ModContent.GetInstance<GeneralArgos>().GetLocalizationKey("NoBlock")), Color.Red);
+					}
 					Main.NewText(ModContent.GetInstance<ArgosKey>().Tooltip);
+				}
 			}
 		}
 

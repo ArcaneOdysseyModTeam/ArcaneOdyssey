@@ -183,10 +183,5 @@ namespace ArcaneOdyssey.NPCs.Town
 			Main.GetItemDrawFrame(itemType, out item, out itemFrame);
 			horizontalHoldoutOffset = (int)Main.DrawPlayerItemPos(1f, itemType).X;
 		}
-
-		public override void TownNPCAttackShoot(ref bool inBetweenShots)
-		{
-			//inBetweenShots = true;
-		}
 	}
 }

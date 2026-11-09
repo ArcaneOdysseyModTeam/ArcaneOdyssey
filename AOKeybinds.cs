@@ -16,6 +16,8 @@ namespace ArcaneOdyssey
 		public static ModKeybind CycleImbueAttack { get; set; }
 		public static ModKeybind AltSkillUse { get; set; }
 
+		public static ModKeybind BlockAoEAttack { get; set; }
+
 #if VSDEBUGMODE
 		public static ModKeybind GetTileCoordinate { get; set; }
 #endif
@@ -28,6 +30,7 @@ namespace ArcaneOdyssey
 			CycleGodSoul = KeybindLoader.RegisterKeybind(Mod, nameof(CycleGodSoul), "K");
 			CycleImbueAttack = KeybindLoader.RegisterKeybind(Mod, nameof(CycleImbueAttack), "Q");
 			AltSkillUse = KeybindLoader.RegisterKeybind(Mod, nameof(AltSkillUse), Keys.LeftAlt);
+			BlockAoEAttack = KeybindLoader.RegisterKeybind(Mod, nameof(BlockAoEAttack), Keys.None);
 #if VSDEBUGMODE
 			GetTileCoordinate = KeybindLoader.RegisterKeybind(Mod, nameof(GetTileCoordinate), Keys.RightAlt);
 #endif
@@ -41,27 +44,31 @@ namespace ArcaneOdyssey
 			CycleGodSoul = null;
 			CycleImbueAttack = null;
 			AltSkillUse = null;
+			BlockAoEAttack = null;
 #if VSDEBUGMODE
 			GetTileCoordinate = null;
 		}
 		public override void PostUpdateEverything()
 		{
-			if (GetTileCoordinate.Current)
+			if (!Main.dedServ)
 			{
-				Player player = Main.LocalPlayer;
-				player.noThrow = 2;
-				player.cursorItemIconText = Main.MouseWorld.ToTileCoordinates().ToString();
-				player.cursorItemIconID = -1;
-				player.cursorItemIconEnabled = true;
-				Dust.DrawDebugBox(new(Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).X.Round(), Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).Y.Round(), 16, 16));
-				if (SubworldSystem.IsActive<TalosSubworld>())
-					foreach (var rect in TalosSubworld.openRooms)
-					{
-						if (rect.Contains(Main.MouseWorld.ToTileCoordinates()))
+				if (GetTileCoordinate.Current)
+				{
+					Player player = Main.LocalPlayer;
+					player.noThrow = 2;
+					player.cursorItemIconText = Main.MouseWorld.ToTileCoordinates().ToString();
+					player.cursorItemIconID = -1;
+					player.cursorItemIconEnabled = true;
+					Dust.DrawDebugBox(new(Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).X.Round(), Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates(Vector2.Zero).Y.Round(), 16, 16));
+					if (SubworldSystem.IsActive<TalosSubworld>())
+						foreach (var rect in TalosSubworld.openRooms)
 						{
-							player.cursorItemIconText += ", in spawning room";
+							if (rect.Contains(Main.MouseWorld.ToTileCoordinates()))
+							{
+								player.cursorItemIconText += ", in spawning room";
+							}
 						}
-					}
+				}
 			}
 #endif
 		}
