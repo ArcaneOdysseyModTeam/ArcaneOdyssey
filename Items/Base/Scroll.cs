@@ -61,6 +61,7 @@ namespace ArcaneOdyssey.Items.Base
 		{
 			base.SetDefaults();
 			Item.width = Item.height = 32;
+			Item.maxStack = Item.CommonMaxStack;
 		}
 
 		public string ReqFormatting
