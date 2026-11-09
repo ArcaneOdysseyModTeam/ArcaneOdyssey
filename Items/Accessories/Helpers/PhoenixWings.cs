@@ -37,8 +37,6 @@ namespace ArcaneOdyssey.Items.Accessories.Helpers
 		public override void Load()
 		{
 			base.Load();
-			if (Main.dedServ)
-				return;
 			EquipLoader.AddEquipTexture(Mod, TexturePath, EquipType.Wings, this);
 		}
 
