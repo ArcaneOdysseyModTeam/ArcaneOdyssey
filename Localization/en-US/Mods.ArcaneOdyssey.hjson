@@ -481,4 +481,6 @@ MagicVariants: {
 	BloodVariant.DisplayName: Blood Variant
 	MidnightVariant.DisplayName: Midnight Variant
 	BorealVariant.DisplayName: Boreal Variant
+	EbonVariant.DisplayName: Ebon Variant
+	ShadeVariant.DisplayName: Shade Variant
 }

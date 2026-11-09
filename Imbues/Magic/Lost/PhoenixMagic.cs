@@ -91,17 +91,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			if (!Main.dedServ)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, newColor: Colour, Scale: 1.5f * area.RelativeScale());
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, newColor: Colour, Scale: 1.5f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, newColor: VariantColour, Scale: 1.5f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, newColor: VariantColour2.GetValueOrDefault(Colour), Scale: 1.5f * area.RelativeScale());
 			}
 		}
 		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, direction.X * 2f, direction.Y * 2f, newColor: Colour, Scale: 4f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, direction.X * 2f, direction.Y * 2f, newColor: VariantColour, Scale: 4f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: Colour, Scale: 4f * area.RelativeScale())];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: VariantColour2.GetValueOrDefault(Colour), Scale: 4f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 		}
@@ -109,9 +109,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Snow, (Main.rand.NextFloat() - 0.5f) * (20f * intensity), (Main.rand.NextFloat() - 0.5f) * (20f * intensity), newColor: Colour, Scale: 2f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Snow, (Main.rand.NextFloat() - 0.5f) * (20f * intensity), (Main.rand.NextFloat() - 0.5f) * (20f * intensity), newColor: VariantColour, Scale: 2f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.SilverFlame, (Main.rand.NextFloat() - 0.5f) * (20f * intensity), (Main.rand.NextFloat() - 0.5f) * (20f * intensity), newColor: Colour, Scale: 2f * intensity)];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.SilverFlame, (Main.rand.NextFloat() - 0.5f) * (20f * intensity), (Main.rand.NextFloat() - 0.5f) * (20f * intensity), newColor: VariantColour2.GetValueOrDefault(Colour), Scale: 2f * intensity)];
 				spawnedDust2.noGravity = true;
 			}
 		}
@@ -119,9 +119,9 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: Colour, Scale: 5.5f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: VariantColour, Scale: 5.5f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: Colour, Scale: 5.5f * area.RelativeScale())];
+				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WhiteTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: VariantColour2.GetValueOrDefault(Colour), Scale: 5.5f * area.RelativeScale())];
 				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

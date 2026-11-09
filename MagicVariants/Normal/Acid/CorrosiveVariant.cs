@@ -8,6 +8,12 @@ namespace ArcaneOdyssey.MagicVariants.Normal.Acid
 	{
 		public override Color Colour => Color.LimeGreen;
 
+		public override void BuffVisuals(ref int dust, ref Color drawColour, ref Color dustColour)
+		{
+			dust = DustID.Water_Jungle;
+			drawColour = ImbueInstance.Colour;
+		}
+
 		public override bool SpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 3; n++)

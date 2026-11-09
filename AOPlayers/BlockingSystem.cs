@@ -1,4 +1,5 @@
 ﻿using ArcaneOdyssey.Items.Armour.Centurion;
+using ArcaneOdyssey.Items.Scrolls;
 using System;
 
 namespace ArcaneOdyssey.AOPlayers
@@ -106,6 +107,7 @@ namespace ArcaneOdyssey.AOPlayers
 
 		public override void OnEnterWorld()
 		{
+			Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<VariantSwapper>()); // remove later
 			blockingTime = MaxBlock;
 			Blocking = false;
 		}

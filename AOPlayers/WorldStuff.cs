@@ -75,11 +75,6 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
-		public override void OnEnterWorld()
-		{
-			Player.QuickSpawnItem(Player.GetSource_FromThis(), ModContent.ItemType<VariantSwapper>());
-		}
-
 		public void SubworldEffects()
 		{
 			Player.noBuilding = true;
