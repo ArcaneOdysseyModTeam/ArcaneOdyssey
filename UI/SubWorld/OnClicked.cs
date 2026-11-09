@@ -22,6 +22,8 @@ public partial class SubWorldUI : UIState
 			packet.Write(ChosenSubworld.OrderNum);
 			packet.Send();
 		}
+
+		ModContent.GetInstance<ModUISystem>().HideSubWorld();
 	}
 
 	#region Close button and Close method
