@@ -2,7 +2,6 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.MagicVariants.Normal.Crystal;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
@@ -49,66 +48,34 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
-			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, direction.X * 0.4f, direction.Y * 0.4f, newColor: colour, Scale: area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.GemRuby, direction.X * 0.4f, direction.Y * 0.4f, Scale: area.RelativeScale());
 			}
 		}
 
 		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			GetVFX(this, out var colour, out _, out var dust);
-			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, newColor: colour, Scale: area.RelativeScale())];
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.GemRuby, Scale: area.RelativeScale())];
 			spawnedDust.noGravity = true;
 			spawnedDust.noLight = true;
 		}
 
 		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust.NewDustDirect(position, 0, 0, dust, (Main.rand.NextFloat() - 0.5f) * (18f * intensity), (Main.rand.NextFloat() - 0.5f) * (18f * intensity), newColor: colour, Scale: 2f * intensity).noGravity = true;
+				Dust.NewDustDirect(position, 0, 0, DustID.GemRuby, (Main.rand.NextFloat() - 0.5f) * (18f * intensity), (Main.rand.NextFloat() - 0.5f) * (18f * intensity), Scale: 2f * intensity).noGravity = true;
 			}
 		}
 
 		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
-			GetVFX(this, out var colour, out _, out var dust);
 			for (int n = 0; n < 30; n++)
 			{
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), newColor: colour, Scale: area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.GemRuby, 2f * (Main.rand.NextFloat() - 0.5f), 2f * (Main.rand.NextFloat() - 0.5f), Scale: area.RelativeScale());
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
-		}
-
-		public static void GetVFX(CrystalMagic imbue, out Color dustColour, out Color drawColour, out int dust)
-		{
-			dustColour = default;
-			drawColour = imbue.Colour;
-			if (imbue.magicVariant is RubyVariant || (imbue.unloadedMagicVariant.IsNullOrWhiteSpace() && imbue.magicVariant is null))
-			{
-				dust = DustID.GemRuby;
-				drawColour = default;
-			}
-			else if (imbue.magicVariant is SapphireVariant)
-			{
-				dust = DustID.GemSapphire;
-			}
-			else if (imbue.magicVariant is EmeraldVariant)
-			{
-				dust = DustID.GemEmerald;
-			}
-			else if (imbue.magicVariant is AmethystVariant)
-			{
-				dust = DustID.GemAmethyst;
-			}
-			else
-			{
-				dust = DustID.GemDiamond;
-				dustColour = imbue.Colour;
-			}
 		}
 	}
 }

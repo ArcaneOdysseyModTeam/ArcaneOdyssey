@@ -1,6 +1,7 @@
 using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
@@ -63,43 +64,54 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Draconic;
 
-		
+
 
 		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, direction.X * 0.4f, direction.Y * 0.4f, 0, Color.Purple, 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, direction.X * 0.4f, direction.Y * 0.4f, 0, ImbueColour, 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, direction.X * 0.2f, direction.Y * 0.2f, Scale: 1.2f * area.RelativeScale());
+			}
+			for (int n = 0; n < 3; n++)
+			{
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<TintableElectric>(), direction.X * 0.2f, direction.Y * 0.2f, newColor: Colour, Scale: 1.2f * area.RelativeScale());
 			}
 		}
 
 		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 0f, 0f, 0, Color.Purple, 2f * area.RelativeScale())];
+			Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 0f, 0f, 0, ImbueColour, 2f * area.RelativeScale())];
 			spawnedDust.noGravity = true;
-			float waveVal = 10f * MathF.Abs((float)Main.GameUpdateCount % 5 % 10f - 2.5f) - 12.5f;
+			var updates = (float)Main.GameUpdateCount;
 			if (source is Projectile projectile && projectile.extraUpdates > 0)
 			{
-				waveVal = 10f * MathF.Abs(((float)Main.GameUpdateCount + (float)projectile.numUpdates) % 5 % 10f - 2.5f) - 12.5f;
+				updates += projectile.numUpdates;
 			}
+			float waveVal = 10f * MathF.Abs(updates % 5f % 10f - 2.5f) - 12.5f;
 			Vector2 baseVec = new(0f, waveVal);
-			Dust spawnedDust2 = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.CrystalPulse, Vector2.Zero, Scale: 1.2f);
+			Dust spawnedDust2 = Dust.NewDustPerfect(area.Center() + baseVec.RotatedBy(direction.GetValueOrDefault(Vector2.One).ToRotation()), DustID.BubbleBurst_White, Vector2.Zero, newColor: Colour, Scale: 1.2f);
 			spawnedDust2.noGravity = true;
-			Lighting.AddLight(area.Center(), 2, 1, 2);
+
+			Lighting.AddLight(area.Center(), Colour.ToVector3() * 2f);
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<TintableElectric>(), newColor: Colour, Scale: 0.4f * area.RelativeScale());
 		}
+
 		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, ai0: intensity * 1.6f);
+			for (int n = 0; n < 3; n++)
+			{
+				Dust.NewDustDirect(position, 0, 0, ModContent.DustType<TintableElectric>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.2f * intensity).noGravity = true;
+			}
 		}
+
 		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
-			for (int n = 0; n < 15; n++)
+			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, Color.Purple, 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Cloud, 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 5f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 0, ImbueColour, 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.WitherLightning, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 1.2f * area.RelativeScale());
+				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<TintableElectric>(), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: Colour, Scale: 1.2f * area.RelativeScale());
 			}
 			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
 			{

@@ -56,58 +56,36 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Reminiscent;
 
-		public static void GetVFX(SandMagic imbue, out int dust)
-		{
-			if (imbue.magicVariant is PureVariant || (imbue.unloadedMagicVariant.IsNullOrWhiteSpace() && imbue.magicVariant is null))
-			{
-				dust = DustID.Sand;
-			}
-			else if (imbue.magicVariant is CrimsonVariant)
-			{
-				dust = DustID.Ash;
-			}
-			else if (imbue.magicVariant is CorruptVariant)
-			{
-				dust = DustID.Obsidian;
-			}
-			else
-			{
-				dust = DustID.Sand;
-			}
-		}
-
 		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
-		{
-			GetVFX(this, out var dust);
+		{	
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Sand, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			GetVFX(this, out var dust);
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, Scale: 1f * area.RelativeScale());
+			
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Sand, Scale: 1f * area.RelativeScale());
 		}
 
 		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			GetVFX(this, out var dust);
+			
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, dust, (Main.rand.NextFloat() - 0.5f) * (20f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Sand, (Main.rand.NextFloat() - 0.5f) * (20f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
-			GetVFX(this, out var dust);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Sand, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Linq;
@@ -12,42 +14,40 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		public bool vfxSet = false;
 		public int dust = DustID.Water;
 
+		public void GetVFXInfo(NPC npc)
+		{
+			foreach (var imbueID in ImbueID.Sets.ImbuesThatCreateBuff[Type])
+			{
+				var _ = Color.White;
+				if (AOUtils.Singleplayer)
+				{
+					if (Main.LocalPlayer.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+					{
+						imbue.magicVariant.BuffVisuals(ref dust, ref _, ref _);
+					}
+				}
+				else
+				{
+					var players = Main.player.Where(e => e is not null && e.active).OrderBy(e => e.Distance(npc.Center));
+					foreach (var player in players)
+					{
+						if (player.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+						{
+							imbue.magicVariant.BuffVisuals(ref dust, ref _, ref _);
+							break;
+						}
+					}
+				}
+			}
+		}
+
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			if (!Main.dedServ)
 			{
 				if (!vfxSet)
 				{
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						if (Main.LocalPlayer.HasTypeInInventory<WaterMagic>(out var imbue))
-						{
-							WaterMagic.GetVFX(imbue, out dust);
-						}
-						else if (Main.LocalPlayer.HasTypeInInventory<LunarMagic>(out var imbue2))
-						{
-							LunarMagic.GetVFX(imbue2, out var dust2);
-							dust = dust2[0];
-						}
-					}
-					else
-					{
-						var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
-						foreach (var player in players)
-						{
-							if (player is not null && player.HasTypeInInventory<WaterMagic>(out var imbue))
-							{
-								WaterMagic.GetVFX(imbue, out dust);
-								break;
-							}
-							if (player is not null && player.HasTypeInInventory<LunarMagic>(out var imbue2))
-							{
-								LunarMagic.GetVFX(imbue2, out var dust2);
-								dust = dust2[0];
-								break;
-							}
-						}
-					}
+					GetVFXInfo(npc);
 					vfxSet = true;
 				}
 				var spawnedDust = Dust.NewDustDirect(npc.position, npc.width, npc.height, dust);

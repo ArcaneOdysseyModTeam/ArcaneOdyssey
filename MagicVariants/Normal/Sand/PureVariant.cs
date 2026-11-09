@@ -5,6 +5,9 @@ namespace ArcaneOdyssey.MagicVariants.Normal.Sand
 {
 	public class PureVariant : MagicVariant<SandMagic>
 	{
-
+		public override void BuffVisuals(ref int dust, ref Color drawColour, ref Color dustColour)
+		{
+			dust = DustID.Sand;
+		}
 	}
 }

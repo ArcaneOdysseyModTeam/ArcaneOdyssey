@@ -61,12 +61,8 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 			);
 
-		
-
 		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
-			if (Main.dedServ)
-				return;
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.YellowStarDust, direction.X * 0.2f, direction.Y * 0.2f, Scale: 3f * area.RelativeScale())];

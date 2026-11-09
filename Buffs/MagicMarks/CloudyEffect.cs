@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +83,32 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 		public Color dustColour = default;
 		public Color drawColour = default;
 
+		public void GetVFXInfo(NPC npc)
+		{
+			foreach (var imbueID in ImbueID.Sets.ImbuesThatCreateBuff[Type])
+			{
+				if (AOUtils.Singleplayer)
+				{
+					if (Main.LocalPlayer.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+					{
+						imbue.magicVariant.BuffVisuals(ref dust, ref drawColour, ref dustColour);
+					}
+				}
+				else
+				{
+					var players = Main.player.Where(e => e is not null && e.active).OrderBy(e => e.Distance(npc.Center));
+					foreach (var player in players)
+					{
+						if (player.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+						{
+							imbue.magicVariant.BuffVisuals(ref dust, ref drawColour, ref dustColour);
+							break;
+						}
+					}
+				}
+			}
+		}
+
 		public override bool ReApply(NPC npc, int time, int buffIndex)
 		{
 			npc.buffTime[buffIndex] += time;
@@ -88,25 +116,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			{
 				dustColour = default;
 				dust = DustID.Cloud;
-				if (Main.netMode == NetmodeID.SinglePlayer)
-				{
-					if (Main.LocalPlayer.HasTypeInInventory<CloudMagic>(out var imbue))
-					{
-						CloudMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
-					}
-				}
-				else
-				{
-					var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
-					foreach (var player in players)
-					{
-						if (player is not null && player.HasTypeInInventory<CloudMagic>(out var imbue))
-						{
-							CloudMagic.GetVFX(imbue, out dustColour, out drawColour, out dust);
-							break;
-						}
-					}
-				}
+				GetVFXInfo(npc);
 			}
 			return true;
 		}

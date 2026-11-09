@@ -1,4 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
+using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,33 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 	public class SandyEffect : MagicMark
 	{
 		public override List<int> Counterparts => [BuffID.WindPushed];
+
+		public void GetVFXInfo(NPC npc)
+		{
+			foreach (var imbueID in ImbueID.Sets.ImbuesThatCreateBuff[Type])
+			{
+				var _ = Color.White;
+				if (AOUtils.Singleplayer)
+				{
+					if (Main.LocalPlayer.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+					{
+						imbue.magicVariant.BuffVisuals(ref dust, ref _, ref _);
+					}
+				}
+				else
+				{
+					var players = Main.player.Where(e => e is not null && e.active).OrderBy(e => e.Distance(npc.Center));
+					foreach (var player in players)
+					{
+						if (player.HasTypeInInventory<MagicType>(out var imbue, e => e.ID == imbueID && e.magicVariant is not null))
+						{
+							imbue.magicVariant.BuffVisuals(ref dust, ref _, ref _);
+							break;
+						}
+					}
+				}
+			}
+		}
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
@@ -24,26 +53,7 @@ namespace ArcaneOdyssey.Buffs.MagicMarks
 			{
 				if (!vfxSet)
 				{
-					if (Main.netMode == NetmodeID.SinglePlayer)
-					{
-						if (Main.LocalPlayer.HasTypeInInventory<SandMagic>(out var imbue))
-						{
-							SandMagic.GetVFX(imbue, out dust);
-						}
-					}
-					else
-					{
-						var players = Main.player.Where(e => e.active).OrderBy(e => e.Distance(npc.Center));
-						foreach (var player in players)
-						{
-							if (player is not null && player.HasTypeInInventory<SandMagic>(out var imbue))
-							{
-								SandMagic.GetVFX(imbue, out dust);
-								break;
-							}
-						}
-					}
-					vfxSet = true;
+					GetVFXInfo(npc);
 				}
 				var spawnedDust = Dust.NewDustDirect(npc.position, npc.width, npc.height, dust);
 				spawnedDust.velocity *= 0.1f;

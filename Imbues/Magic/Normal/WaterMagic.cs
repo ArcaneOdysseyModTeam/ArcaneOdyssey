@@ -65,58 +65,36 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			]
 		);
 
-		public static void GetVFX(WaterMagic imbue, out int dust)
-		{
-			if (imbue.magicVariant is LakeVariant || (imbue.unloadedMagicVariant.IsNullOrWhiteSpace() && imbue.magicVariant is null))
-			{
-				dust = DustID.Water;
-			}
-			else if (imbue.magicVariant is OasisVariant)
-			{
-				dust = DustID.Water_Desert;
-			}
-			else if (imbue.magicVariant is DesertVariant)
-			{
-				dust = DustID.DesertWater2;
-			}
-			else
-			{
-				dust = DustID.Water;
-			}
-		}
-
 		public override MagicCircleTypes CircleType => MagicCircleTypes.Tidal;
 
 		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
-			GetVFX(this, out var dust);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Water, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 		}
 
 		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
-			GetVFX(this, out var dust);
-			Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, Scale: 1.2f * area.RelativeScale());
+			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Water, Scale: 1.2f * area.RelativeScale());
 		}
+
 		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
-			GetVFX(this, out var dust);
 			for (int n = 0; n < 3; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, dust, (Main.rand.NextFloat() - 0.5f) * (25f * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * intensity), Scale: 3f * intensity)];
+				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Water, (Main.rand.NextFloat() - 0.5f) * (25f * intensity), (Main.rand.NextFloat() - 0.5f) * (35f * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
 			}
 		}
+
 		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
-			GetVFX(this, out var dust);
 			for (int n = 0; n < 10; n++)
 			{
-				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, dust, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
+				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Water, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());

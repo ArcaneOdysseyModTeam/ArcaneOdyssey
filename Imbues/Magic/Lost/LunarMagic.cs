@@ -58,29 +58,17 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			]
 		);
 
-		public int[] DustIDs
-		{
-			get
-			{
-				if (magicVariant is BloodVariant)
-				{
-					return [DustID.Water_BloodMoon, DustID.VampireHeal, DustID.CrimsonTorch];
-				}
-				return [DustID.Water_GlowingMushroom, DustID.RedsWingsRun, DustID.MushroomTorch];
-			}
-		}
+		public int[] DustIDs = [DustID.Water_GlowingMushroom, DustID.RedsWingsRun, DustID.MushroomTorch];
 
-		public static void GetVFX(LunarMagic imbue, out int[] dust)
+		public void GetVFX()
 		{
-			dust = [DustID.Water_GlowingMushroom, DustID.RedsWingsRun, DustID.MushroomTorch];
-			if (imbue.magicVariant is BloodVariant)
-			{
-				dust = [DustID.Water_BloodMoon, DustID.VampireHeal, DustID.CrimsonTorch];
-			}
+			var _ = Color.White;
+			magicVariant?.BuffVisuals(ref DustIDs, ref _, ref _);
 		}
 
 		protected override void BaseSpawningEffects(Rectangle area, Vector2 direction)
 		{
+			GetVFX();
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustIDs[0], direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
@@ -94,13 +82,16 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		protected override void BaseLingeringEffects(Rectangle area, Vector2? direction = null, Entity source = null)
 		{
+			GetVFX();
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustIDs[0], Scale: 1.2f * area.RelativeScale());
 			Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustIDs[1], Scale: area.RelativeScale());
 			Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustIDs[2], Scale: 2f * area.RelativeScale())];
 			spawnedDust2.noGravity = true;
 		}
+
 		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1f)
 		{
+			GetVFX();
 			for (int n = 0; n < 3; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustIDs[1], (Main.rand.NextFloat() - 0.5f) * (25f * ScrollSize), (Main.rand.NextFloat() - 0.5f) * (25f * ScrollSize), Scale: 3f * intensity)];
@@ -109,8 +100,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust1.noGravity = true;
 			}
 		}
+
 		protected override void BaseKillEffects(Rectangle area, Entity source = null)
 		{
+			GetVFX();
 			for (int n = 0; n < 10; n++)
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustIDs[1], 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];

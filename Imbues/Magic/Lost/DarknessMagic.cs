@@ -54,8 +54,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Wraith, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.VampireHeal, direction.X * 2f, direction.Y * 2f, Scale: 3f * area.RelativeScale())];
-				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -65,8 +63,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Wraith, Scale: 2f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.VampireHeal, Scale: 3f * area.RelativeScale())];
-				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -76,8 +72,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(position, 0, 0, DustID.Wraith, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(position, 0, 0, DustID.VampireHeal, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 3f * intensity)];
-				spawnedDust2.noGravity = true;
 			}
 		}
 
@@ -87,8 +81,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust spawnedDust = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.Wraith, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
 				spawnedDust.noGravity = true;
-				Dust spawnedDust2 = Main.dust[Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.VampireHeal, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 3f * area.RelativeScale())];
-				spawnedDust2.noGravity = true;
 			}
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
