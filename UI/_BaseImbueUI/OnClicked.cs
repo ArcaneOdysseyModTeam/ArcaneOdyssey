@@ -8,14 +8,14 @@ public abstract partial class BaseImbueUI : UIState
 {
 	protected virtual void CloseButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
 	{
-		SoundEngine.PlaySound(SoundID.MenuClose, Main.LocalPlayer.position);
+		SoundEngine.PlaySound(SoundID.MenuClose);
 		YoungMan_KillYourself();
 	}
 	protected abstract void ChosenButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement);
 
 	protected virtual void OptionChosen(MagicProduct p)
 	{
-		SoundEngine.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
+		SoundEngine.PlaySound(SoundID.MenuOpen);
 
 		ProductSpotLight.ChangeType(p.CurrentType);
 		var item = MagicTypeToItem(p.CurrentType).Clone();

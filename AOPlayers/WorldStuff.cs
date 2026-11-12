@@ -1,5 +1,4 @@
 ﻿using ArcaneOdyssey.Buffs;
-using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Subworlds;
 using SubworldLibrary;

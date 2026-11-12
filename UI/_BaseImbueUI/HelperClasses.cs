@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.Relics;
+﻿using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.UI.MutateThyMagic;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -128,8 +129,11 @@ public abstract partial class BaseImbueUI : UIState
 
 			void EdgeCase()
 			{
-				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
-				Icon.Color = SpiritEnergy.Instance.SpiritColour;
+				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
+				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+				{
+					Icon.Color = imbue.Colour;
+				}
 			}
 			#endregion
 		}
@@ -242,8 +246,15 @@ public abstract partial class BaseImbueUI : UIState
 
 			Icon = new(texture)
 			{
-				ScaleToFit = true
+				ScaleToFit = true,
 			};
+
+			var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
+			if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+			{
+				Icon.Color = imbue.Colour;
+			}
+
 			SetIconSizes();
 			ChangeType(type);
 		}
@@ -254,7 +265,14 @@ public abstract partial class BaseImbueUI : UIState
 			CurrentType = type;
 			Icon.SetImage(MagicTypeToMagicTexture(type));
 			if (CurrentType is MagicTypes.None) Icon.Color = Color.Transparent;
-			else Icon.Color = Color.White;
+			else
+			{
+				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
+				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+				{
+					Icon.Color = imbue.Colour;
+				}
+			}
 			SetIconSizes();
 			Mutation = null;
 		}
@@ -267,6 +285,13 @@ public abstract partial class BaseImbueUI : UIState
 			{
 				Icon.Remove();
 				Icon = new(TextureAssets.Item[item.Type]) { ScaleToFit = true };
+
+				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
+				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+				{
+					Icon.Color = imbue.Colour;
+				}
+
 				MainUI.Append(Icon);
 			}
 			else ChangeType(MagicTypes.None);
@@ -287,8 +312,11 @@ public abstract partial class BaseImbueUI : UIState
 
 			void EdgeCase()
 			{
-				if (CurrentType is not MagicTypes.HeHasAcceptedChristInHisHeart) return;
-				Icon.Color = SpiritEnergy.Instance.SpiritColour;
+				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
+				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+				{
+					Icon.Color = imbue.Colour;
+				}
 			}
 			#endregion
 		}

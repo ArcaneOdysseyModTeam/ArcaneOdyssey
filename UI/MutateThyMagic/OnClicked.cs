@@ -15,7 +15,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		if (WhoWeMutating is not MagicTypes.None)
 		{
 			Player player = Main.LocalPlayer;
-			int normieIndex = player.FindItem((int)MagicTypeToID(WhoWeMutating)), hecateIndex = player.FindItem(ModContent.ItemType<HecateShard>());
+			int normieIndex = player.FindItem((int)MagicTypesToItemType(WhoWeMutating)), hecateIndex = player.FindItem(ModContent.ItemType<HecateShard>());
 
 			if (normieIndex >= 0 && hecateIndex >= 0 && ProductSpotLight.Mutation is not null)
 			{
@@ -49,7 +49,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 			else if (normieIndex < 0)
 			{
 				SoundEngine.PlaySound(SoundID.Tink);
-				Main.NewText($"Have you managed to lose your [i:{(int)MagicTypeToID(WhoWeMutating)}]? What a fool.");
+				Main.NewText($"Have you managed to lose your [i:{(int)MagicTypesToItemType(WhoWeMutating)}]? What a fool.");
 			}
 			else if (hecateIndex < 0)
 			{

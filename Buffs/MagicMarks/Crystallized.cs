@@ -1,7 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria.Audio;

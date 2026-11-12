@@ -23,7 +23,7 @@ public partial class ImbueAcquireSequelUI : BaseImbueUI
 
 			foreach (var m in list)
 			{
-				int? id = MagicTypeToID(m);
+				int? id = MagicTypesToItemType(m);
 				if (id is null)
 				{
 					Main.NewText($"Trying to get id for {m} had an error", new Color(255, 0, 255));

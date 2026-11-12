@@ -73,7 +73,7 @@ public abstract partial class BaseImbueUI : UIState
 		Wood,
 	}
 
-	public static int? MagicTypeToID(MagicTypes type) => type switch
+	public static int? MagicTypesToItemType(MagicTypes type) => type switch
 	{
 		MagicTypes.ReturnToMonke => ModContent.ItemType<BasicCombat>(),
 
@@ -156,7 +156,7 @@ public abstract partial class BaseImbueUI : UIState
 	public static Asset<Texture2D> MagicTypeToMagicTexture(MagicTypes type)
 	{
 		if (type is MagicTypes.None) return TextureAssets.MagicPixel;
-		int? id = MagicTypeToID(type);
+		int? id = MagicTypesToItemType(type);
 		if (id is not null) return TextureAssets.Item[(int)id];
 
 		Main.NewText($"{nameof(MagicTypes)} {type} is not supported in {nameof(MagicTypeToMagicTexture)}", new Color(255, 0, 255));
@@ -164,7 +164,7 @@ public abstract partial class BaseImbueUI : UIState
 	}
 	public static Item MagicTypeToItem(MagicTypes type)
 	{
-		int? id = MagicTypeToID(type);
+		int? id = MagicTypesToItemType(type);
 		if (id is not null) return ContentSamples.ItemsByType[(int)id].Clone();
 
 		Main.NewText($"{nameof(MagicTypes)} {type} is not supported in {nameof(MagicTypeToItem)}", new Color(255, 0, 255));

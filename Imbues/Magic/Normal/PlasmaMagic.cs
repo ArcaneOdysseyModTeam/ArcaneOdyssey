@@ -3,7 +3,6 @@ using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.MagicVariants.Normal.Plasma;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal

@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.Base;
 using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
-using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Imbues.Magic.Normal;
 using System.Linq;
 
 namespace ArcaneOdyssey.Buffs.MagicMarks

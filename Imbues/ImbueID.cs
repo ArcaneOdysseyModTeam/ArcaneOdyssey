@@ -68,7 +68,7 @@ namespace ArcaneOdyssey.Imbues
 					Wood, MagicVariant.GetID<ForestVariant>()
 				);
 
-			public static bool[] HasVariants = Factory.CreateBoolSet();
+			public static bool[] HasVariants = Factory.CreateBoolSet(Spirit); // rest are auto generated
 
 			public static bool[] VariantsUseSprites = Factory.CreateBoolSet();
 

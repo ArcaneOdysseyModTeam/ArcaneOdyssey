@@ -2,7 +2,6 @@ using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.MagicVariants.Normal.Acid;
 using Terraria.Audio;
 
 namespace ArcaneOdyssey.Imbues.Magic.Normal
