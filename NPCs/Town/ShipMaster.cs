@@ -156,7 +156,7 @@ namespace ArcaneOdyssey.NPCs.Town
 
 		public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
 		{
-			projType = ProjectileID.BulletDeadeye;
+			projType = ProjectileID.Bullet;
 			attackDelay = 1;
 		}
 

@@ -1,5 +1,7 @@
 ﻿using ArcaneOdyssey.Biomes;
+using ArcaneOdyssey.Gores.TalosGuard;
 using ArcaneOdyssey.Items.Pickups;
+using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Subworlds;
 using SubworldLibrary;
@@ -19,6 +21,7 @@ namespace ArcaneOdyssey.NPCs.Enemy
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = Frames;
+			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 		}
 
 		public override void SetDefaults()
@@ -33,6 +36,7 @@ namespace ArcaneOdyssey.NPCs.Enemy
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.friendly = false;
+			DrawOffsetY = -2;
 			SpawnModBiomes = [AOUtils.BiomeType<TalosBiome>()];
 		}
 
@@ -43,13 +47,26 @@ namespace ArcaneOdyssey.NPCs.Enemy
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(new AnyDropHelper([ItemID.GladiatorHelmet, ItemID.GladiatorBreastplate, ItemID.GladiatorLeggings], 5));
-			LeadingConditionRule keycondition = new(new ArgosKeyDrop());
-			keycondition.OnSuccess(AOUtils.Common<ArgosKey>(6));
-			npcLoot.Add(keycondition);
+			npcLoot.Add(new AnyDropHelper([ItemID.GladiatorHelmet, ItemID.GladiatorBreastplate, ItemID.GladiatorLeggings], 4));
+
+			LeadingConditionRule condition = new(new ArgosKeyDrop());
+			condition.OnSuccess(AOUtils.Common<ArgosKey>(6));
+			npcLoot.Add(condition);
+
+			condition = new(new ArgosDownedCondition());
+			condition.OnSuccess(AOUtils.Common<RavennaSword>(10));
+			npcLoot.Add(condition);
 		}
 
 		public byte roomIndex = byte.MaxValue;
+
+		public override void HitEffect(NPC.HitInfo hit)
+		{
+			if (NPC.life <= 0)
+			{
+				Gore.NewGore(NPC.GetSource_Death(), NPC.Top, NPC.velocity, ModContent.GoreType<TalosGuardHead>());
+			}
+		}
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -65,6 +82,8 @@ namespace ArcaneOdyssey.NPCs.Enemy
 
 		public override bool CheckActive() => roomIndex == byte.MaxValue;
 
+		private Vector2 targetVelo = default;
+
 		public override void AI()
 		{
 			if (NPC.HasValidTarget)
@@ -75,10 +94,15 @@ namespace ArcaneOdyssey.NPCs.Enemy
 				{
 					NPC.velocity.Y -= 6;
 				}
-				NPC.velocity = NPC.velocity.MoveTowards(new(targetX, NPC.velocity.Y), .2f);
+				targetVelo = new(targetX, NPC.velocity.Y);
+				if (NPC.confused)
+				{
+					targetVelo.X *= -1;
+				}
+				NPC.velocity = NPC.velocity.MoveTowards(targetVelo, .2f);
 			}
 
-			NPC.direction = (NPC.velocity.X > 0).ToDirectionInt();
+			NPC.direction = (targetVelo.X > 0).ToDirectionInt();
 			NPC.spriteDirection = NPC.direction;
 
 			if (roomIndex == byte.MaxValue)
@@ -198,17 +222,10 @@ namespace ArcaneOdyssey.NPCs.Enemy
 
 		public override void Load()
 		{
-			On_NPC.TargetClosest += On_NPC_TargetClosest;
+			On_NPC.TargetClosest += TalosGuardTargettingOverride;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-		{
-			// for some reason guards are 4 pixels in the ground instead of 2
-			spriteBatch.Draw(Sprite.Value, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
-			return false;
-		}
-
-		private static void On_NPC_TargetClosest(On_NPC.orig_TargetClosest orig, NPC self, bool faceTarget)
+		private static void TalosGuardTargettingOverride(On_NPC.orig_TargetClosest orig, NPC self, bool faceTarget)
 		{
 			if (self.ModNPC is TalosGuard guard)
 			{
