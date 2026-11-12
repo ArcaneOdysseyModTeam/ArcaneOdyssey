@@ -18,6 +18,7 @@ namespace ArcaneOdyssey.NPCs.Idle
 			NPC.width = 26;
 			NPC.height = 58;
 			NPC.damage = 25;
+			DrawOffsetY = -2;
 			NPC.knockBackResist = 0f;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -51,13 +52,6 @@ namespace ArcaneOdyssey.NPCs.Idle
 			{
 				target.KillMe(PlayerDeathReason.ByCustomReason(Mod.CustomLocalization(ModContent.GetInstance<TalosCaughtTile>().GetLocalizationKey("Death"), target.name).ToNetworkText()), target.statLifeMax2 * 2, 0);
 			}
-		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-		{
-			// for some reason guards are 4 pixels in the ground instead of 2
-			spriteBatch.Draw(Sprite.Value, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
-			return false;
 		}
 
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)

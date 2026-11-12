@@ -28,13 +28,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		private int hptoheal, despawnTimer;
 		private float tempPodiumID;
 		private Vector2 previousPodiumLocation, nextPodiumLocation;
-		private readonly float[] dashSelectArray = { 0f, 4f };
-		private readonly float[] moveSelectArrayOne = { 1f, 4f, 1f, 1f };
-		private readonly float[] moveSelectArrayTwo = { 2f, 2f, 6f };
+		private readonly int[] dashSelectArray = { 0, 4 };
+		private readonly int[] moveSelectArrayOne = { 1, 4, 1, 1 };
+		private readonly int[] moveSelectArrayTwo = { 2, 2, 6 };
 		private readonly Vector2[] podiumPos = [new(-655f, 12f), new(-320f, -4f), new(0f, -4f), new(370f, -4f), new(690f, 12f)];
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 89;
+			NPCID.Sets.NoMultiplayerSmoothingByType[Type] = true;
+			Main.npcFrameCount[Type] = 89;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Direction = 1 };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 			NPCID.Sets.NoTownNPCHappiness[Type] = true;
@@ -98,6 +99,30 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public Vector2 spawnLocation;
 
 		private int spareTimer = 60 * 60; // 1 minute
+
+		public int FrameTimer
+		{
+			get
+			{
+				return (int)NPC.ai[1];
+			}
+			set
+			{
+				NPC.ai[1] = value;
+			}
+		}
+
+		public int CurrentState
+		{
+			get
+			{
+				return (int)NPC.ai[0];
+			}
+			set
+			{
+				NPC.ai[0] = value;
+			}
+		}
 
 		public override void AI()
 		{
@@ -186,8 +211,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				hasSetSpawnLocation = true;
 				NPC.position = spawnLocation + podiumPos[2];
 				tempPodiumID = 2;
-				NPC.ai[0] = -1f;
-				NPC.ai[1] = 0f;
+				CurrentState = -1;
+				FrameTimer = 0;
 				NPC.ai[2] = 0f;
 				NPC.ai[3] = 2f;
 				secondphase = false;
@@ -205,30 +230,30 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			// ai[1] is the state frame, ai[0] is the state ID, ai[2] is the healing timer, and should not bee touched, ai[3] is extra numerical data
 			if (NPC.HasValidTarget)
 			{
-				if (NPC.ai[0] == -1) //Spawn In
+				if (CurrentState == -1) //Spawn In
 				{
-					if (NPC.ai[1] > 120f)
+					if (FrameTimer > 120f)
 					{
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 1;
+						FrameTimer = -1;
+						CurrentState = 1;
 						NPC.ai[3] = 2;
 					}
 				}
-				else if (NPC.ai[0] == 0)
+				else if (CurrentState == 0)
 				{
-					if (NPC.ai[1] == 4f)
+					if (FrameTimer == 4f)
 					{
 						Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(NPC.spriteDirection * 20f, -3f), new Vector2(NPC.spriteDirection * 5f, -1f), ModContent.GoreType<EmptyHealthPotion>(), 0.8f);
 					}
-					if (NPC.ai[1] > 120f)
+					if (FrameTimer > 120f)
 					{
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 1;
+						FrameTimer = -1;
+						CurrentState = 1;
 					}
 				}
-				else if (NPC.ai[0] == 1) //Hop move
+				else if (CurrentState == 1) //Hop move
 				{
-					if (NPC.ai[1] < 2f) //Choose the podium
+					if (FrameTimer < 2f) //Choose the podium
 					{
 						if (AOUtils.ServerOrSingleplayer)
 						{
@@ -236,9 +261,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							tempPodiumID = NPC.ai[3];
 							while (tempPodiumID == NPC.ai[3])
 							{
-								NPC.ai[3] = (float)Main.rand.Next(5);
+								NPC.ai[3] = Main.rand.Next(5);
 							}
-							NPC.ai[1] = 2f;
+							FrameTimer = 2;
 							previousPodiumLocation = NPC.position;
 							nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
 						}
@@ -250,33 +275,32 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 
 							// newer dash code
-							if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
+							if (FrameTimer < 70f && FrameTimer > 30f)
 							{
 								NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
 								NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
 							}
 
 
-							if (NPC.ai[1] >= 100f) //Break out of this ai cycle
+							if (FrameTimer >= 100f) //Break out of this ai cycle
 							{
 								if (AOUtils.ServerOrSingleplayer)
 								{
 									NPC.netUpdate = true;
 									NPC.position = nextPodiumLocation;
-									NPC.ai[1] = -1f;
-									NPC.ai[1] = -1f;
-									NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
+									FrameTimer = -1;
+									CurrentState = moveSelectArrayTwo[Main.rand.Next(3)];
 									NPC.ai[2] += 1f; //increment heal cooldown
 									if (NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax - 100) //override to heal if cooldown is expended and hp is low enough
 									{
-										NPC.ai[0] = 3f;
+										CurrentState = 3;
 									}
 								}
 							}
 						}
 						else //phase 2
 						{
-							if (NPC.ai[1] < 30f)
+							if (FrameTimer < 30f)
 							{
 								NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 								if (Main.getGoodWorld)
@@ -284,9 +308,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 								else
 									Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, DustID.WitherLightning, 0f, -0.1f).noGravity = true;
 							}
-							if (NPC.ai[1] >= 30f) //Break out of this ai cycle
+							if (FrameTimer >= 30f) //Break out of this ai cycle
 							{
-								if (NPC.ai[1] == 30f)
+								if (FrameTimer == 30f)
 								{
 									if (AOUtils.ServerOrSingleplayer)
 									{
@@ -295,21 +319,21 @@ namespace ArcaneOdyssey.NPCs.Bosses
 									}
 									SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 								}
-								if (NPC.ai[1] > 35)
+								if (FrameTimer > 35)
 								{
 									NPC.position = nextPodiumLocation;
 								}
-								if (NPC.ai[1] > 105f)
+								if (FrameTimer > 105f)
 								{
 									if (AOUtils.ServerOrSingleplayer)
 									{
 										NPC.netUpdate = true;
-										NPC.ai[1] = -1f;
-										NPC.ai[0] = moveSelectArrayTwo[Main.rand.Next(3)];
+										FrameTimer = -1;
+										CurrentState = moveSelectArrayTwo[Main.rand.Next(3)];
 										NPC.ai[2] += 1f; //increment heal cooldown
 										if (NPC.ai[2] >= 6f && NPC.life < NPC.lifeMax - 100) //override to heal if cooldown is expended and hp is low enough
 										{
-											NPC.ai[0] = 3f;
+											CurrentState = 3;
 										}
 									}
 								}
@@ -317,11 +341,11 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						}
 					}
 				}
-				else if (NPC.ai[0] == 2) //spear throw
+				else if (CurrentState == 2) //spear throw
 				{
-					if (NPC.ai[1] >= 40f && NPC.ai[1] < 42f)
+					if (FrameTimer >= 40f && FrameTimer < 42f)
 					{
-						NPC.ai[1] = 42f;
+						FrameTimer = 42;
 						SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
 						if (AOUtils.ServerOrSingleplayer)
 						{
@@ -329,24 +353,24 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - (new Vector2(0, 12) * NPC.scale), NPC.SafeDirectionTo(Main.player[NPC.target].Center) * 15f, ModContent.ProjectileType<EliusSpear>(), (int)(NPC.damage * 0.5), 1f, -1, secondphase.ToInt());
 						}
 					}
-					else if (NPC.ai[1] > 70f)
+					else if (FrameTimer > 70f)
 					{
 						if (AOUtils.ServerOrSingleplayer)
 						{
 							NPC.netUpdate = true;
-							NPC.ai[1] = -1f;
-							NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
+							FrameTimer = -1;
+							CurrentState = moveSelectArrayOne[Main.rand.Next(4)];
 						}
 					}
 				}
-				else if (NPC.ai[0] == 3) //healing
+				else if (CurrentState == 3) //healing
 				{
-					if (NPC.ai[1] == 0 && (!(NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)))
+					if (FrameTimer == 0 && (!(NPC.ai[2] > 7f || Main.player[NPC.target].Center.Distance(NPC.Center) > 300f || secondphase)))
 					{
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 1;
+						FrameTimer = -1;
+						CurrentState = 1;
 					}
-					if (NPC.ai[1] > 30f)
+					if (FrameTimer > 30f)
 					{
 						NPC.ai[2] = 0f;
 						if (AOUtils.ServerOrSingleplayer)
@@ -365,17 +389,17 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
 						}
 						SoundEngine.PlaySound(SoundID.Item3, NPC.Center);
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 0;
+						FrameTimer = -1;
+						CurrentState = 0;
 						if (NPC.life > NPC.lifeMax)
 						{
 							NPC.life = NPC.lifeMax;
 						}
 					}
 				}
-				else if (NPC.ai[0] == 4) //Hop move into sword move
+				else if (CurrentState == 4) //Hop move into sword move
 				{
-					if (NPC.ai[1] < 2f) //Choose the podium
+					if (FrameTimer < 2f) //Choose the podium
 					{
 						if (AOUtils.ServerOrSingleplayer)
 						{
@@ -385,7 +409,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							{
 								NPC.ai[3] = dashSelectArray[Main.rand.Next(2)];
 							}
-							NPC.ai[1] = 2f;
+							FrameTimer = 2;
 							previousPodiumLocation = NPC.position;
 							nextPodiumLocation = spawnLocation + podiumPos[(int)NPC.ai[3]];
 						}
@@ -397,29 +421,29 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 
 							// newer dash code
-							if (NPC.ai[1] < 70f && NPC.ai[1] > 30f)
+							if (FrameTimer < 70f && FrameTimer > 30f)
 							{
 								NPC.position.X += (nextPodiumLocation.X - previousPodiumLocation.X) / 39f;
 								NPC.position = FindPointInCurve(previousPodiumLocation, nextPodiumLocation, new Vector2((nextPodiumLocation.X + previousPodiumLocation.X) / 2f, (nextPodiumLocation.Y < previousPodiumLocation.Y ? nextPodiumLocation.Y : previousPodiumLocation.Y) - 30), NPC.position.X);
 							}
 
-							if (NPC.ai[1] >= 100f) //Break out of this ai cycle
+							if (FrameTimer >= 100f) //Break out of this ai cycle
 							{
 								NPC.position = nextPodiumLocation;
-								NPC.ai[1] = -1f;
-								NPC.ai[0] = 5;
+								FrameTimer = -1;
+								CurrentState = 5;
 							}
 						}
 						else // Second Phase
 						{
-							if (NPC.ai[1] < 30f)
+							if (FrameTimer < 30f)
 							{
 								NPC.spriteDirection = nextPodiumLocation.X > previousPodiumLocation.X ? 1 : -1;
 								Dust.NewDustDirect(nextPodiumLocation + new Vector2(-10f, 35f), 50, 3, !Main.getGoodWorld ? DustID.WitherLightning : DustID.Firework_Red, 0f, -0.1f).noGravity = true;
 							}
-							if (NPC.ai[1] >= 30f) //Break out of this ai cycle
+							if (FrameTimer >= 30f) //Break out of this ai cycle
 							{
-								if (NPC.ai[1] == 30f)
+								if (FrameTimer == 30f)
 								{
 									if (AOUtils.ServerOrSingleplayer)
 									{
@@ -428,29 +452,29 @@ namespace ArcaneOdyssey.NPCs.Bosses
 									}
 									SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, NPC.Center);
 								}
-								if (NPC.ai[1] > 35f)
+								if (FrameTimer > 35f)
 								{
 									NPC.position = nextPodiumLocation;
 								}
-								if (NPC.ai[1] > 105f)
+								if (FrameTimer > 105f)
 								{
-									NPC.ai[1] = -1f;
-									NPC.ai[0] = 5;
+									FrameTimer = -1;
+									CurrentState = 5;
 								}
 							}
 						}
 					}
 				}
-				else if (NPC.ai[0] == 5) //sword move
+				else if (CurrentState == 5) //sword move
 				{
-					if (NPC.ai[1] < 61f && NPC.ai[1] >= 45f)
+					if (FrameTimer < 61f && FrameTimer >= 45f)
 					{
 						NPC.position.Y += 145f / 16f;
 					}
-					else if (NPC.ai[1] < 446f && NPC.ai[1] >= 122f)
+					else if (FrameTimer < 446f && FrameTimer >= 122f)
 					{
 						int swordTiming = !secondphase ? 40 : 24;
-						if ((int)NPC.ai[1] % swordTiming == 4 && NPC.ai[1] < 444f)
+						if ((int)FrameTimer % swordTiming == 4 && FrameTimer < 444f)
 						{
 							NPC.NPCDialogue(Mod.CustomLocalization("ImbueStuff.Exclaim", !secondphase ? this.GetLocalizedValue("FlyingSlashMessage") : Mod.CustomLocalization("ImbueStuff.Space", Imbue.PrettyAttackPrefix.Value, this.GetLocalizedValue("FlyingSlashMessage")).Value).Value, !secondphase ? Color.Gold : Imbue.Colour, false);
 							SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f }, NPC.Center);
@@ -461,19 +485,19 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							}
 						}
 					}
-					else if (NPC.ai[1] < 532f && NPC.ai[1] >= 516f)
+					else if (FrameTimer < 532f && FrameTimer >= 516f)
 					{
 						NPC.position.Y -= 145f / 16f;
 					}
-					else if (NPC.ai[1] > 593f)
+					else if (FrameTimer > 593f)
 					{
-						NPC.ai[1] = -1f;
-						NPC.ai[0] = 1;
+						FrameTimer = -1;
+						CurrentState = 1;
 					}
 				}
-				else if (NPC.ai[0] == 6)  //storm of arrows
+				else if (CurrentState == 6)  //storm of arrows
 				{
-					if (NPC.ai[1] > 20f && NPC.ai[1] < 22f)
+					if (FrameTimer > 20f && FrameTimer < 22f)
 					{
 						NPC.NPCDialogue(Mod.CustomLocalization("ImbueStuff.Exclaim", !secondphase ? this.GetLocalizedValue("StormOfArrowsMessage") : Mod.CustomLocalization("ImbueStuff.Space", Imbue.PrettyAttackPrefix.Value, this.GetLocalizedValue("StormOfArrowsMessage")).Value).Value, !secondphase ? Color.MediumPurple : Imbue.Colour, false);
 						SoundEngine.PlaySound(SoundID.Item5, NPC.Center);
@@ -482,19 +506,19 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.netUpdate = true;
 							(Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusArrowStorm>(), (int)(NPC.damage * 0.6), 0f, -1, 0, bowAimPosition.X, bowAimPosition.Y).ModProjectile as EliusArrowStorm).secondphase = secondphase;
 						}
-						NPC.ai[1] = 22f;
+						FrameTimer = 22;
 					}
-					else if (NPC.ai[1] > 50f)
+					else if (FrameTimer > 50f)
 					{
-						NPC.ai[1] = -1f;
+						FrameTimer = -1;
 						if (AOUtils.ServerOrSingleplayer)
 						{
 							NPC.netUpdate = true;
-							NPC.ai[0] = moveSelectArrayOne[Main.rand.Next(4)];
+							CurrentState = moveSelectArrayOne[Main.rand.Next(4)];
 						}
 					}
 				}
-				NPC.ai[1] += 1f; //increment frame
+				FrameTimer++; //increment frame
 			}
 		}
 
@@ -502,13 +526,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			if (NPC.HasValidTarget)
 			{
-				if (NPC.ai[0] == 3) //healing
+				if (CurrentState == 3) //healing
 				{
-					if (NPC.ai[1] == 0)
+					if (FrameTimer == 0)
 					{
 						NPC.frame.Y = 0;
 					}
-					if (NPC.ai[1] == 1)
+					if (FrameTimer == 1)
 					{
 						NPC.frame.Y = frameHeight * 1;
 						NPC.frameCounter = 0;
@@ -519,9 +543,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frameCounter = 0;
 					}
 				}
-				else if (NPC.ai[0] == 0) //healing end
+				else if (CurrentState == 0) //healing end
 				{
-					if (NPC.ai[1] == 0)
+					if (FrameTimer == 0)
 					{
 						NPC.frame.Y = frameHeight * 7;
 						NPC.frameCounter = 0;
@@ -531,31 +555,31 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 15)
+					if (FrameTimer > 15)
 					{
 						NPC.frame.Y = 0;
 					}
 				}
-				else if (NPC.ai[0] == 1 || NPC.ai[0] == 4) // dashes
+				else if (CurrentState == 1 || CurrentState == 4) // dashes
 				{
 					if (secondphase)
 					{
-						if (NPC.ai[1] < 16)
+						if (FrameTimer < 16)
 						{
 							NPC.frame.Y = frameHeight * 10;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] < 35 && NPC.frameCounter > 5)
+						if (FrameTimer < 35 && NPC.frameCounter > 5)
 						{
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] == 35)
+						if (FrameTimer == 35)
 						{
 							NPC.frame.Y = frameHeight * 17;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] > 35 && NPC.frameCounter >= 13)
+						if (FrameTimer > 35 && NPC.frameCounter >= 13)
 						{
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
@@ -568,85 +592,85 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					else
 					{
 						//first phase dash stuff
-						if (NPC.ai[1] == 0)
+						if (FrameTimer == 0)
 						{
 							NPC.frame.Y = frameHeight * 10;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] < 30f && NPC.ai[1] > 15 && NPC.frameCounter >= 5f)
+						if (FrameTimer < 30f && FrameTimer > 15 && NPC.frameCounter >= 5f)
 						{
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] < 40 && NPC.ai[1] > 30)
+						if (FrameTimer < 40 && FrameTimer > 30)
 						{
 							NPC.frame.Y = frameHeight * 14;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] < 60 && NPC.ai[1] > 40)
+						if (FrameTimer < 60 && FrameTimer > 40)
 						{
 							NPC.frame.Y = frameHeight * 15;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] < 70 && NPC.ai[1] > 60)
+						if (FrameTimer < 70 && FrameTimer > 60)
 						{
 							NPC.frame.Y = frameHeight * 16;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] == 70)
+						if (FrameTimer == 70)
 						{
 							NPC.frame.Y = frameHeight * 17;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] < 85 && NPC.ai[1] > 70 && NPC.frameCounter >= 5f)
+						if (FrameTimer < 85 && FrameTimer > 70 && NPC.frameCounter >= 5f)
 						{
 							NPC.frame.Y += frameHeight;
 							NPC.frameCounter = 0;
 						}
-						if (NPC.ai[1] > 85)
+						if (FrameTimer > 85)
 						{
 							NPC.frame.Y = 0;
 							NPC.frameCounter = 0;
 						}
 					}
 				}
-				else if (NPC.ai[0] == 5) // flying slashes
+				else if (CurrentState == 5) // flying slashes
 				{
-					if (NPC.ai[1] == 0)
+					if (FrameTimer == 0)
 					{
 						NPC.frame.Y = 0;
 					}
-					if (NPC.ai[1] == 44)
+					if (FrameTimer == 44)
 					{
 						NPC.frame.Y = 20 * frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] >= 45 && NPC.ai[1] < 61 && NPC.frameCounter >= 8)
+					if (FrameTimer >= 45 && FrameTimer < 61 && NPC.frameCounter >= 8)
 					{
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] == 61)
+					if (FrameTimer == 61)
 					{
 						NPC.frame.Y = frameHeight * 22;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] < 92 && NPC.ai[1] > 61 && NPC.frameCounter >= 5)
+					if (FrameTimer < 92 && FrameTimer > 61 && NPC.frameCounter >= 5)
 					{
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] == 92)
+					if (FrameTimer == 92)
 					{
 						NPC.frame.Y = frameHeight * 28;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 92 && NPC.ai[1] < 122 && NPC.frameCounter >= 5)
+					if (FrameTimer > 92 && FrameTimer < 122 && NPC.frameCounter >= 5)
 					{
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 122 && NPC.ai[1] < 446)
+					if (FrameTimer > 122 && FrameTimer < 446)
 					{
 						if (secondphase)
 						{
@@ -669,39 +693,39 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.frame.Y = frameHeight * 34;
 						}
 					}
-					if (NPC.ai[1] == 446) //putting weapons away
+					if (FrameTimer == 446) //putting weapons away
 					{
 						NPC.frame.Y = frameHeight * 33;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 448 && NPC.ai[1] < 466 && NPC.frameCounter >= 3)
+					if (FrameTimer > 448 && FrameTimer < 466 && NPC.frameCounter >= 3)
 					{
 						NPC.frame.Y -= frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] == 495) // starting to rise up prep
+					if (FrameTimer == 495) // starting to rise up prep
 					{
 						NPC.frame.Y = frameHeight * 42;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 495 && NPC.ai[1] < 516 && NPC.frameCounter >= 5) //rising up prep
+					if (FrameTimer > 495 && FrameTimer < 516 && NPC.frameCounter >= 5) //rising up prep
 					{
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] == 516) //starting rise up
+					if (FrameTimer == 516) //starting rise up
 					{
 						NPC.frame.Y = frameHeight * 46;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 516 && NPC.ai[1] < 532) //rising up
+					if (FrameTimer > 516 && FrameTimer < 532) //rising up
 					{
-						if (NPC.ai[1] < 520)
+						if (FrameTimer < 520)
 						{
 							NPC.frame.Y = frameHeight * 46;
 							NPC.frameCounter = 0;
 						}
-						else if (NPC.ai[1] < 528)
+						else if (FrameTimer < 528)
 						{
 							NPC.frame.Y = frameHeight * 47;
 							NPC.frameCounter = 0;
@@ -712,26 +736,26 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.frameCounter = 0;
 						}
 					}
-					if (NPC.ai[1] == 532)
+					if (FrameTimer == 532)
 					{
 						NPC.frame.Y = frameHeight * 49;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 532 && NPC.ai[1] < 552 && NPC.frameCounter >= 5)
+					if (FrameTimer > 532 && FrameTimer < 552 && NPC.frameCounter >= 5)
 					{
 						NPC.frame.Y += frameHeight;
 						NPC.frameCounter = 0;
 					}
-					if (NPC.ai[1] > 557) //completing
+					if (FrameTimer > 557) //completing
 					{
 						NPC.frame.Y = 0;
 						NPC.frameCounter = 0;
 					}
 				}
-				else if (NPC.ai[0] == 6) //storm of arrows
+				else if (CurrentState == 6) //storm of arrows
 				{
 					NPC.frame.Y = 64 * frameHeight;
-					if (NPC.ai[1] < 22f)
+					if (FrameTimer < 22f)
 					{
 						if (NPC.frameCounter >= 5)
 						{
@@ -751,14 +775,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						bowFrame = 2;
 					}
 				}
-				else if (NPC.ai[0] == 2) //spear throw
+				else if (CurrentState == 2) //spear throw
 				{
 					NPC.frame.Y = 59 * frameHeight;
 
 					if (NPC.frameCounter >= 5)
 					{
 						NPC.frameCounter = 0;
-						if (NPC.ai[1] < 40)
+						if (FrameTimer < 40)
 						{
 							if (spearArmFrame < 3)
 							{
@@ -789,7 +813,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				NPC.frame.Y = 0;
 			}
 			NPC.frameCounter++;
-			if (NPC.ai[0] != 2 && NPC.ai[0] != 6)
+			if (CurrentState != 2 && CurrentState != 6)
 			{
 				spearArmFrame = 0;
 				bowArmFrame = 0;
@@ -808,7 +832,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						if (NPC.frameCounter >= 5)
 						{
 							NPC.frameCounter = 0;
-							if (NPC.ai[0] != -3)
+							if (CurrentState != -3)
 							{
 								if (NPC.frame.Y < frameHeight * 74)
 								{
@@ -834,7 +858,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 						if (NPC.frameCounter >= 5)
 						{
 							NPC.frameCounter = 0;
-							if (NPC.ai[0] != -3)
+							if (CurrentState != -3)
 							{
 								if (NPC.frame.Y < frameHeight * 86)
 								{
@@ -869,7 +893,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			var dir = NPC.spriteDirection != 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
+			if (CurrentState == 6 && NPC.HasValidTarget) //bow rendering
 			{
 				var frame = backBowArmTexture.Frame(1, 3, 0, bowArmFrame);
 				spriteBatch.Draw(backBowArmTexture.Value, NPC.Center - screenPos, frame, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(bowAimPosition), frame.Size() / 2f, NPC.scale, dir, 0f);
@@ -890,9 +914,9 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			var dir = NPC.spriteDirection != 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-			if (NPC.ai[0] == 2 && NPC.HasValidTarget) //spear rendering and spear arm rendering
+			if (CurrentState == 2 && NPC.HasValidTarget) //spear rendering and spear arm rendering
 			{
-				if (NPC.ai[1] < 40)
+				if (FrameTimer < 40)
 				{
 					spriteBatch.Draw(SpearTexture, NPC.Center - screenPos - (new Vector2(0, 12) * NPC.scale), null, drawColor, NPC.Center.AngleTo(Main.player[NPC.target].Center) + (MathHelper.PiOver4 * -NPC.spriteDirection) + (NPC.spriteDirection == 1 ? MathF.PI : 0), SpearTexture.Size() / 2f, NPC.scale, dir, 0f);
 				}
@@ -900,7 +924,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				spriteBatch.Draw(spearArmTexture.Value, NPC.Center - screenPos, spearframe, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(Main.player[NPC.target].Center) + (NPC.spriteDirection == -1 ? MathF.PI : 0), spearframe.Size() / 2f, NPC.scale, dir, 1f);
 
 			}
-			if (NPC.ai[0] == 6 && NPC.HasValidTarget) //bow rendering
+			if (CurrentState == 6 && NPC.HasValidTarget) //bow rendering
 			{
 				var bowframe = bowTexture.Frame(1, 4, 0, bowFrame);
 				spriteBatch.Draw(bowTexture.Value, NPC.Center - screenPos, bowframe, NPC.GetAlpha(drawColor), NPC.Center.AngleTo(bowAimPosition) + (NPC.spriteDirection == -1 ? MathF.PI : 0), bowframe.Size() / 2f, NPC.scale, dir, 0f);
@@ -968,14 +992,14 @@ namespace ArcaneOdyssey.NPCs.Bosses
 		{
 			get
 			{
-				return NPC.ai[0] == -2 || NPC.ai[0] == -3;
+				return CurrentState == -2 || CurrentState == -3;
 			}
 			set
 			{
 				if (value)
-					NPC.ai[0] = -2;
+					CurrentState = -2;
 				else
-					NPC.ai[0] = -1;
+					CurrentState = -1;
 			}
 		}
 
@@ -998,7 +1022,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			return false;
 		}
 
-		public override bool CanChat() => Sparing && NPC.ai[1] != -3;
+		public override bool CanChat() => Sparing && FrameTimer != -3;
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
@@ -1035,7 +1059,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 				else
 				{
-					NPC.ai[0] = -3;
+					CurrentState = -3;
 				}
 			}
 		}

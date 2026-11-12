@@ -127,6 +127,15 @@ namespace ArcaneOdyssey
 		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.ArgosKeyDropDescription", () => "Does not already have a key").Value;
 	}
 
+	public class ArgosDownedCondition : IItemDropRuleCondition
+	{
+		public bool CanDrop(DropAttemptInfo info) => DownedBosses.DownedArgos;
+
+		public bool CanShowItemDropInUI() => true;
+
+		public string GetConditionDescription() => Language.GetOrRegister($"Mods.{ArcaneOdysseyMod.InternalName}.DropConditions.ArgosDownedCondition", () => "Argos is downed").Value;
+	}
+
 	public class MultiDropHelper(int itemID, int denominator = 1, int minQuantity = 1, int maxQuantity = 1, int numerator = 1) : CommonDrop(itemID, denominator, minQuantity, maxQuantity, numerator)
 	{
 		public override ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
